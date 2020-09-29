@@ -30925,7 +30925,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -30939,7 +30938,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -30953,7 +30951,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -30967,7 +30964,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -30981,7 +30977,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -30995,7 +30990,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31009,7 +31003,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31041,7 +31034,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31055,7 +31047,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31069,7 +31060,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31083,7 +31073,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31097,7 +31086,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31111,7 +31099,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31125,7 +31112,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31139,7 +31125,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31153,7 +31138,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31167,7 +31151,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31197,7 +31180,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31211,7 +31193,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31225,7 +31206,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31239,7 +31219,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31253,7 +31232,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31267,7 +31245,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31281,7 +31258,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31295,7 +31271,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31309,7 +31284,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31323,7 +31297,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31337,7 +31310,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31351,7 +31323,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31383,7 +31354,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31397,7 +31367,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31411,7 +31380,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31425,7 +31393,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31439,7 +31406,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31453,7 +31419,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31467,7 +31432,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31481,7 +31445,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31495,7 +31458,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31509,7 +31471,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31523,7 +31484,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31537,7 +31497,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31551,7 +31510,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31565,7 +31523,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31579,7 +31536,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31593,7 +31549,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31607,7 +31562,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31621,7 +31575,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31635,7 +31588,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31649,7 +31601,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31681,7 +31632,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31695,7 +31645,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31709,7 +31658,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31723,7 +31671,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31737,7 +31684,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31751,7 +31697,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31765,7 +31710,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31779,7 +31723,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31793,7 +31736,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31807,7 +31749,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31821,7 +31762,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31835,7 +31775,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31856,7 +31795,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31870,7 +31808,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31884,7 +31821,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31904,7 +31840,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -31917,7 +31852,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31931,7 +31865,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31945,7 +31878,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31977,7 +31909,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -31991,7 +31922,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32005,7 +31935,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32019,7 +31948,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32033,7 +31961,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32047,7 +31974,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32061,7 +31987,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32075,7 +32000,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32089,7 +32013,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32103,7 +32026,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32133,7 +32055,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32147,7 +32068,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32161,7 +32081,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32175,7 +32094,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32189,7 +32107,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32203,7 +32120,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32217,7 +32133,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32231,7 +32146,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32245,7 +32159,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32259,7 +32172,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32273,7 +32185,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32287,7 +32198,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32319,7 +32229,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32333,7 +32242,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32347,7 +32255,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32361,7 +32268,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32375,7 +32281,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32389,7 +32294,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32403,7 +32307,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32417,7 +32320,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32431,7 +32333,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32445,7 +32346,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32459,7 +32359,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32479,7 +32378,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -32492,7 +32390,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32512,7 +32409,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -32525,7 +32421,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32539,7 +32434,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32553,7 +32447,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32567,7 +32460,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32581,7 +32473,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32595,7 +32486,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32627,7 +32517,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32647,7 +32536,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -32666,7 +32554,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -32685,7 +32572,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -32704,7 +32590,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -32717,7 +32602,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32737,7 +32621,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -32750,7 +32633,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32770,7 +32652,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -32783,7 +32664,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32797,7 +32677,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32811,7 +32690,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32832,7 +32710,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32846,7 +32723,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32860,7 +32736,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32880,7 +32755,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -32893,7 +32767,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32907,7 +32780,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32921,7 +32793,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32953,7 +32824,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32967,7 +32837,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32981,7 +32850,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -32995,7 +32863,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33009,7 +32876,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33023,7 +32889,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33037,7 +32902,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33051,7 +32915,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33065,7 +32928,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33079,7 +32941,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33109,7 +32970,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33123,7 +32983,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33137,7 +32996,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33151,7 +33009,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33165,7 +33022,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33179,7 +33035,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33193,7 +33048,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33207,7 +33061,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33221,7 +33074,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33235,7 +33087,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33249,7 +33100,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33263,7 +33113,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33295,7 +33144,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33309,7 +33157,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33323,7 +33170,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33337,7 +33183,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33351,7 +33196,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33365,7 +33209,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33379,7 +33222,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33393,7 +33235,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33407,7 +33248,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33421,7 +33261,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33435,7 +33274,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33455,7 +33293,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -33468,7 +33305,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33488,7 +33324,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -33501,7 +33336,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33515,7 +33349,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33529,7 +33362,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33543,7 +33375,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33557,7 +33388,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33571,7 +33401,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33603,7 +33432,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33623,7 +33451,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -33642,7 +33469,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -33661,7 +33487,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -33680,7 +33505,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -33693,7 +33517,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33713,7 +33536,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -33726,7 +33548,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33746,7 +33567,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -33759,7 +33579,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33773,7 +33592,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33787,7 +33605,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33808,7 +33625,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33822,7 +33638,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33836,7 +33651,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33856,7 +33670,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -33869,7 +33682,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33883,7 +33695,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33897,7 +33708,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33929,7 +33739,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33943,7 +33752,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33957,7 +33765,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33971,7 +33778,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33985,7 +33791,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -33999,7 +33804,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34013,7 +33817,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34027,7 +33830,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34041,7 +33843,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34055,7 +33856,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34084,7 +33884,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34098,7 +33897,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34112,7 +33910,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34126,7 +33923,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34140,7 +33936,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34154,7 +33949,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34168,7 +33962,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34182,7 +33975,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34196,7 +33988,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34210,7 +34001,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34224,7 +34014,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34238,7 +34027,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34270,7 +34058,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34284,7 +34071,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34298,7 +34084,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34312,7 +34097,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34326,7 +34110,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34340,7 +34123,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34354,7 +34136,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34368,7 +34149,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34382,7 +34162,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34396,7 +34175,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34410,7 +34188,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34430,7 +34207,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -34443,7 +34219,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34463,7 +34238,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -34476,7 +34250,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34490,7 +34263,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34504,7 +34276,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34518,7 +34289,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34532,7 +34302,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34546,7 +34315,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34578,7 +34346,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34598,7 +34365,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -34617,7 +34383,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -34636,7 +34401,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -34655,7 +34419,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -34668,7 +34431,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34688,7 +34450,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -34701,7 +34462,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34721,7 +34481,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -34734,7 +34493,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34748,7 +34506,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34762,7 +34519,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34783,7 +34539,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34797,7 +34552,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34811,7 +34565,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34831,7 +34584,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B170;50,00',
@@ -34844,7 +34596,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34858,7 +34609,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34872,7 +34622,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34904,7 +34653,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34918,7 +34666,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34932,7 +34679,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34946,7 +34692,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34960,7 +34705,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -34980,7 +34724,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -34993,7 +34736,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35007,7 +34749,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35021,7 +34762,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35035,7 +34775,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35071,7 +34810,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -35090,7 +34828,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -35103,7 +34840,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35123,7 +34859,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -35136,7 +34871,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35150,7 +34884,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35164,7 +34897,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35178,7 +34910,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35192,7 +34923,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35212,7 +34942,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -35225,7 +34954,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35239,7 +34967,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35271,7 +34998,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35285,7 +35011,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35299,7 +35024,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35313,7 +35037,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35327,7 +35050,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35341,7 +35063,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35355,7 +35076,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35375,7 +35095,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -35388,7 +35107,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35402,7 +35120,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35416,7 +35133,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35436,7 +35152,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -35449,7 +35164,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35469,7 +35183,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -35482,7 +35195,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35496,7 +35208,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35510,7 +35221,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35524,7 +35234,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35538,7 +35247,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35552,7 +35260,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35584,7 +35291,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35598,7 +35304,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35612,7 +35317,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35626,7 +35330,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35640,7 +35343,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35654,7 +35356,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35668,7 +35369,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35682,7 +35382,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35702,7 +35401,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;50,00',
@@ -35715,7 +35413,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35729,7 +35426,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35743,7 +35439,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35764,7 +35459,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35778,7 +35472,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35792,7 +35485,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35812,7 +35504,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;75,00',
@@ -35825,7 +35516,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35839,7 +35529,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35853,7 +35542,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35885,7 +35573,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35899,7 +35586,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35913,7 +35599,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35927,7 +35612,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35941,7 +35625,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35961,7 +35644,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -35974,7 +35656,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -35988,7 +35669,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36002,7 +35682,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36022,7 +35701,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36057,7 +35735,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36076,7 +35753,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36089,7 +35765,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36109,7 +35784,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36122,7 +35796,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36136,7 +35809,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36150,7 +35822,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36170,7 +35841,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36189,7 +35859,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36208,7 +35877,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36221,7 +35889,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36235,7 +35902,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36273,7 +35939,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36292,7 +35957,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36305,7 +35969,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36319,7 +35982,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36333,7 +35995,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36353,7 +36014,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36366,7 +36026,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36386,7 +36045,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36399,7 +36057,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36419,7 +36076,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36432,7 +36088,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36452,7 +36107,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36465,7 +36119,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36485,7 +36138,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36498,7 +36150,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36512,7 +36163,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36526,7 +36176,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36540,7 +36189,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36554,7 +36202,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36568,7 +36215,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36600,7 +36246,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36620,7 +36265,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36639,7 +36283,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36658,7 +36301,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36677,7 +36319,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;87,50',
@@ -36690,7 +36331,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36710,7 +36350,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36723,7 +36362,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36743,7 +36381,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -36756,7 +36393,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36770,7 +36406,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36784,7 +36419,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36805,7 +36439,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36819,7 +36452,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36833,7 +36465,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36853,7 +36484,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;75,00',
@@ -36866,7 +36496,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36880,7 +36509,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36894,7 +36522,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36926,7 +36553,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36940,7 +36566,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36954,7 +36579,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36968,7 +36592,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -36982,7 +36605,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37002,7 +36624,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37021,7 +36642,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R255G050B052;100,00',
@@ -37034,7 +36654,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37048,7 +36667,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37068,7 +36686,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37103,7 +36720,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37122,7 +36738,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37135,7 +36750,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37155,7 +36769,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37168,7 +36781,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37182,7 +36794,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37196,7 +36807,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37216,7 +36826,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37235,7 +36844,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -37254,7 +36862,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37267,7 +36874,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37281,7 +36887,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37319,7 +36924,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -37338,7 +36942,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37351,7 +36954,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37365,7 +36967,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37379,7 +36980,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37399,7 +36999,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37412,7 +37011,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37432,7 +37030,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -37445,7 +37042,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37465,7 +37061,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37478,7 +37073,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37498,7 +37092,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37511,7 +37104,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37531,7 +37123,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37544,7 +37135,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37558,7 +37148,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37572,7 +37161,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37586,7 +37174,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37600,7 +37187,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37614,7 +37200,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37646,7 +37231,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37666,7 +37250,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37685,7 +37268,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37704,7 +37286,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37729,7 +37310,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;50,00\\\\R051G092B103;87,50',
@@ -37742,7 +37322,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37762,7 +37341,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37775,7 +37353,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37795,7 +37372,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -37808,7 +37384,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37822,7 +37397,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37836,7 +37410,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37857,7 +37430,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37871,7 +37443,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37885,7 +37456,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37911,7 +37481,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R051G243B006;75,00',
@@ -37924,7 +37493,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37938,7 +37506,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37952,7 +37519,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37984,7 +37550,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -37998,7 +37563,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38012,7 +37576,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38026,7 +37589,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38040,7 +37602,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38060,7 +37621,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -38079,7 +37639,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R255G050B052;100,00',
@@ -38092,7 +37651,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38106,7 +37664,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38126,7 +37683,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -38160,7 +37716,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -38179,7 +37734,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -38192,7 +37746,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38212,7 +37765,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -38225,7 +37777,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38239,7 +37790,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38253,7 +37803,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38273,7 +37822,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -38292,7 +37840,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -38311,7 +37858,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -38324,7 +37870,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38338,7 +37883,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38376,7 +37920,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -38395,7 +37938,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -38408,7 +37950,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38422,7 +37963,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38436,7 +37976,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38456,7 +37995,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -38469,7 +38007,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38489,7 +38026,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -38502,7 +38038,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38522,7 +38057,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -38535,7 +38069,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38555,7 +38088,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -38568,7 +38100,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38588,7 +38119,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -38601,7 +38131,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38615,7 +38144,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38629,7 +38157,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38643,7 +38170,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38657,7 +38183,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38671,7 +38196,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38703,7 +38227,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38723,7 +38246,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -38742,7 +38264,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -38761,7 +38282,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -38780,7 +38300,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;87,50',
@@ -38793,7 +38312,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38813,7 +38331,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -38826,7 +38343,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38852,7 +38368,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;50,00\\\\R204G000B204;100,00',
@@ -38865,7 +38380,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38879,7 +38393,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38893,7 +38406,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38914,7 +38426,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38928,7 +38439,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38942,7 +38452,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38956,7 +38465,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38970,7 +38478,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38984,7 +38491,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -38998,7 +38504,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39030,7 +38535,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39044,7 +38548,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39058,7 +38561,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39072,7 +38574,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39086,7 +38587,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39106,7 +38606,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -39119,7 +38618,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39133,7 +38631,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39147,7 +38644,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39161,7 +38657,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39197,7 +38692,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -39216,7 +38710,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -39229,7 +38722,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39249,7 +38741,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -39262,7 +38753,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39276,7 +38766,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39290,7 +38779,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39304,7 +38792,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39318,7 +38805,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39338,7 +38824,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -39351,7 +38836,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39365,7 +38849,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39397,7 +38880,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39411,7 +38893,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39425,7 +38906,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39439,7 +38919,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39453,7 +38932,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39467,7 +38945,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39481,7 +38958,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39501,7 +38977,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -39514,7 +38989,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39528,7 +39002,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39542,7 +39015,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39562,7 +39034,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -39575,7 +39046,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39595,7 +39065,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -39608,7 +39077,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39622,7 +39090,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39636,7 +39103,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39650,7 +39116,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39664,7 +39129,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39678,7 +39142,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39710,7 +39173,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39724,7 +39186,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39738,7 +39199,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39752,7 +39212,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39766,7 +39225,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39780,7 +39238,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39794,7 +39251,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39808,7 +39264,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39828,7 +39283,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;50,00',
@@ -39841,7 +39295,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39855,7 +39308,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39869,7 +39321,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39890,7 +39341,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39904,7 +39354,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39918,7 +39367,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39932,7 +39380,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39946,7 +39393,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39960,7 +39406,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -39974,7 +39419,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40006,7 +39450,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40020,7 +39463,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40034,7 +39476,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40048,7 +39489,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40062,7 +39502,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40076,7 +39515,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40090,7 +39528,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40104,7 +39541,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40118,7 +39554,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40132,7 +39567,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40162,7 +39596,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40176,7 +39609,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40190,7 +39622,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40204,7 +39635,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40218,7 +39648,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40232,7 +39661,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40246,7 +39674,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40260,7 +39687,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40274,7 +39700,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40288,7 +39713,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40302,7 +39726,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40316,7 +39739,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40348,7 +39770,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40362,7 +39783,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40376,7 +39796,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40390,7 +39809,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40404,7 +39822,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40418,7 +39835,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40432,7 +39848,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40446,7 +39861,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40460,7 +39874,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40474,7 +39887,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40488,7 +39900,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40502,7 +39913,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40516,7 +39926,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40536,7 +39945,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -40549,7 +39957,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40563,7 +39970,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40577,7 +39983,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40591,7 +39996,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40605,7 +40009,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40619,7 +40022,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40651,7 +40053,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40665,7 +40066,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40679,7 +40079,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40693,7 +40092,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40707,7 +40105,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40721,7 +40118,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40741,7 +40137,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -40754,7 +40149,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40768,7 +40162,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40782,7 +40175,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40796,7 +40188,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40810,7 +40201,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40831,7 +40221,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40845,7 +40234,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40859,7 +40247,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40879,7 +40266,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -40892,7 +40278,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40906,7 +40291,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40920,7 +40304,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40952,7 +40335,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40966,7 +40348,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40980,7 +40361,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -40994,7 +40374,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41008,7 +40387,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41022,7 +40400,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41036,7 +40413,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41050,7 +40426,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41064,7 +40439,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41078,7 +40452,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41108,7 +40481,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41122,7 +40494,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41136,7 +40507,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41150,7 +40520,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41164,7 +40533,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41178,7 +40546,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41192,7 +40559,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41206,7 +40572,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41220,7 +40585,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41234,7 +40598,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41248,7 +40611,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41262,7 +40624,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41294,7 +40655,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41308,7 +40668,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41322,7 +40681,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41336,7 +40694,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41350,7 +40707,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41370,7 +40726,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -41383,7 +40738,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41397,7 +40751,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41411,7 +40764,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41425,7 +40777,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41439,7 +40790,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41459,7 +40809,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -41472,7 +40821,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41492,7 +40840,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G100B013;100,00',
@@ -41505,7 +40852,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41519,7 +40865,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41533,7 +40878,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41547,7 +40891,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41561,7 +40904,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41575,7 +40917,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41607,7 +40948,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41627,7 +40967,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -41646,7 +40985,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -41665,7 +41003,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -41684,7 +41021,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -41697,7 +41033,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41717,7 +41052,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -41730,7 +41064,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41750,7 +41083,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -41763,7 +41095,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41777,7 +41108,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41791,7 +41121,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41812,7 +41141,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41826,7 +41154,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41840,7 +41167,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41860,7 +41186,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -41873,7 +41198,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41887,7 +41211,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41901,7 +41224,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41933,7 +41255,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41947,7 +41268,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41961,7 +41281,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41975,7 +41294,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -41989,7 +41307,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42003,7 +41320,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42017,7 +41333,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42031,7 +41346,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42045,7 +41359,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42059,7 +41372,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42089,7 +41401,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42103,7 +41414,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42117,7 +41427,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42131,7 +41440,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42145,7 +41453,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42159,7 +41466,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42173,7 +41479,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42187,7 +41492,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42201,7 +41505,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42215,7 +41518,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42229,7 +41531,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42243,7 +41544,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42275,7 +41575,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42289,7 +41588,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42303,7 +41601,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42317,7 +41614,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42331,7 +41627,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42351,7 +41646,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -42364,7 +41658,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42378,7 +41671,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42392,7 +41684,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42406,7 +41697,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42420,7 +41710,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42440,7 +41729,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -42453,7 +41741,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42473,7 +41760,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -42486,7 +41772,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42500,7 +41785,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42514,7 +41798,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42528,7 +41811,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42542,7 +41824,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42556,7 +41837,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42588,7 +41868,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42608,7 +41887,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -42627,7 +41905,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -42646,7 +41923,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -42665,7 +41941,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -42678,7 +41953,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42698,7 +41972,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -42711,7 +41984,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42731,7 +42003,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -42744,7 +42015,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42758,7 +42028,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42772,7 +42041,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42793,7 +42061,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42807,7 +42074,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42821,7 +42087,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42841,7 +42106,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -42854,7 +42118,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42868,7 +42131,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42882,7 +42144,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42914,7 +42175,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42928,7 +42188,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42942,7 +42201,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42956,7 +42214,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42970,7 +42227,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42984,7 +42240,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -42998,7 +42253,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43012,7 +42266,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43026,7 +42279,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43040,7 +42292,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43069,7 +42320,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43083,7 +42333,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43097,7 +42346,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43111,7 +42359,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43125,7 +42372,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43139,7 +42385,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43153,7 +42398,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43167,7 +42411,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43181,7 +42424,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43195,7 +42437,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43209,7 +42450,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43223,7 +42463,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43255,7 +42494,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43269,7 +42507,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43283,7 +42520,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43297,7 +42533,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43311,7 +42546,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43331,7 +42565,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -43344,7 +42577,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43358,7 +42590,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43372,7 +42603,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43386,7 +42616,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43400,7 +42629,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43420,7 +42648,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -43433,7 +42660,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43453,7 +42679,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -43466,7 +42691,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43480,7 +42704,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43494,7 +42717,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43508,7 +42730,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43522,7 +42743,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43536,7 +42756,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43568,7 +42787,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43588,7 +42806,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -43607,7 +42824,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -43626,7 +42842,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -43645,7 +42860,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -43658,7 +42872,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43678,7 +42891,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -43691,7 +42903,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43711,7 +42922,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -43724,7 +42934,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43738,7 +42947,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43752,7 +42960,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43773,7 +42980,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43787,7 +42993,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43801,7 +43006,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43815,7 +43019,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43829,7 +43032,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43843,7 +43045,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43857,7 +43058,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43889,7 +43089,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43903,7 +43102,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43917,7 +43115,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43931,7 +43128,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43945,7 +43141,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43959,7 +43154,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43973,7 +43167,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -43987,7 +43180,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44001,7 +43193,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44015,7 +43206,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44045,7 +43235,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44059,7 +43248,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44073,7 +43261,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44087,7 +43274,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44101,7 +43287,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44115,7 +43300,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44129,7 +43313,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44143,7 +43326,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44157,7 +43339,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44171,7 +43352,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44185,7 +43365,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44199,7 +43378,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44231,7 +43409,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44245,7 +43422,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44259,7 +43435,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44273,7 +43448,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44287,7 +43461,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44301,7 +43474,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44315,7 +43487,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44329,7 +43500,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44343,7 +43513,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44357,7 +43526,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44371,7 +43539,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44385,7 +43552,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44399,7 +43565,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44419,7 +43584,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -44432,7 +43596,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44446,7 +43609,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44460,7 +43622,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44474,7 +43635,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44488,7 +43648,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44502,7 +43661,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44534,7 +43692,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44548,7 +43705,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44562,7 +43718,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44576,7 +43731,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44590,7 +43744,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44604,7 +43757,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44624,7 +43776,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -44637,7 +43788,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44651,7 +43801,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44665,7 +43814,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44679,7 +43827,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44693,7 +43840,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44714,7 +43860,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44728,7 +43873,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44742,7 +43886,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44756,7 +43899,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44770,7 +43912,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44784,7 +43925,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44798,7 +43938,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44830,7 +43969,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44844,7 +43982,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44858,7 +43995,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44872,7 +44008,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44886,7 +44021,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44900,7 +44034,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44914,7 +44047,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44928,7 +44060,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44942,7 +44073,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44956,7 +44086,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -44986,7 +44115,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45000,7 +44128,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45014,7 +44141,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45028,7 +44154,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45042,7 +44167,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45056,7 +44180,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45070,7 +44193,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45084,7 +44206,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45098,7 +44219,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45112,7 +44232,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45126,7 +44245,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45140,7 +44258,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45172,7 +44289,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45186,7 +44302,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45200,7 +44315,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45214,7 +44328,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45228,7 +44341,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45242,7 +44354,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45256,7 +44367,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45270,7 +44380,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45284,7 +44393,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45298,7 +44406,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45312,7 +44419,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45326,7 +44432,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45340,7 +44445,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45354,7 +44458,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45368,7 +44471,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45382,7 +44484,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45396,7 +44497,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45410,7 +44510,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45424,7 +44523,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45438,7 +44536,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45470,7 +44567,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45484,7 +44580,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45498,7 +44593,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45512,7 +44606,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45526,7 +44619,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45540,7 +44632,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45554,7 +44645,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45568,7 +44658,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45582,7 +44671,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45596,7 +44684,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45610,7 +44697,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45624,7 +44710,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45645,7 +44730,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45659,7 +44743,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45673,7 +44756,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45693,7 +44775,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -45706,7 +44787,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45720,7 +44800,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45734,7 +44813,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45766,7 +44844,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45780,7 +44857,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45794,7 +44870,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45808,7 +44883,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45822,7 +44896,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45842,7 +44915,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -45855,7 +44927,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45869,7 +44940,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45883,7 +44953,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45903,7 +44972,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -45932,7 +45000,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45946,7 +45013,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -45966,7 +45032,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -45985,7 +45050,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -45998,7 +45062,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46012,7 +45075,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46026,7 +45088,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46040,7 +45101,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46054,7 +45114,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46074,7 +45133,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -46087,7 +45145,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46101,7 +45158,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46139,7 +45195,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -46158,7 +45213,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -46171,7 +45225,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46185,7 +45238,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46199,7 +45251,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46219,7 +45270,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -46232,7 +45282,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46252,7 +45301,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -46265,7 +45313,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46285,7 +45332,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -46298,7 +45344,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46318,7 +45363,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -46331,7 +45375,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46351,7 +45394,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -46364,7 +45406,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46378,7 +45419,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46392,7 +45432,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46406,7 +45445,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46420,7 +45458,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46434,7 +45471,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46466,7 +45502,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46486,7 +45521,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -46505,7 +45539,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -46524,7 +45557,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -46543,7 +45575,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -46556,7 +45587,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46576,7 +45606,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -46589,7 +45618,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46609,7 +45637,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -46622,7 +45649,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46636,7 +45662,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46650,7 +45675,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46671,7 +45695,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46685,7 +45708,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46699,7 +45721,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46719,7 +45740,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -46732,7 +45752,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46746,7 +45765,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46760,7 +45778,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46792,7 +45809,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46806,7 +45822,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46820,7 +45835,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46834,7 +45848,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46848,7 +45861,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46868,7 +45880,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -46881,7 +45892,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46895,7 +45905,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46909,7 +45918,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46929,7 +45937,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -46958,7 +45965,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46972,7 +45978,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -46992,7 +45997,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47011,7 +46015,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47024,7 +46027,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47038,7 +46040,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47052,7 +46053,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47066,7 +46066,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47080,7 +46079,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47100,7 +46098,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47113,7 +46110,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47127,7 +46123,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47165,7 +46160,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47184,7 +46178,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47197,7 +46190,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47211,7 +46203,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47225,7 +46216,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47245,7 +46235,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47258,7 +46247,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47278,7 +46266,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47291,7 +46278,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47311,7 +46297,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47324,7 +46309,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47344,7 +46328,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47357,7 +46340,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47377,7 +46359,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47390,7 +46371,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47404,7 +46384,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47418,7 +46397,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47432,7 +46410,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47446,7 +46423,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47460,7 +46436,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47492,7 +46467,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47512,7 +46486,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47531,7 +46504,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47550,7 +46522,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47569,7 +46540,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47582,7 +46552,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47602,7 +46571,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47615,7 +46583,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47635,7 +46602,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -47648,7 +46614,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47662,7 +46627,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47676,7 +46640,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47697,7 +46660,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47711,7 +46673,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47725,7 +46686,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47745,7 +46705,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -47758,7 +46717,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47772,7 +46730,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47786,7 +46743,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47818,7 +46774,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47832,7 +46787,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47846,7 +46800,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47860,7 +46813,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47874,7 +46826,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47894,7 +46845,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -47907,7 +46857,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47921,7 +46870,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47935,7 +46883,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47955,7 +46902,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -47983,7 +46929,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -47997,7 +46942,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48017,7 +46961,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48036,7 +46979,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48049,7 +46991,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48063,7 +47004,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48077,7 +47017,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48091,7 +47030,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48105,7 +47043,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48125,7 +47062,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48138,7 +47074,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48152,7 +47087,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48190,7 +47124,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48209,7 +47142,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48222,7 +47154,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48236,7 +47167,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48250,7 +47180,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48270,7 +47199,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48283,7 +47211,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48303,7 +47230,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48316,7 +47242,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48336,7 +47261,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48349,7 +47273,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48369,7 +47292,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48382,7 +47304,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48402,7 +47323,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48415,7 +47335,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48429,7 +47348,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48443,7 +47361,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48457,7 +47374,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48471,7 +47387,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48485,7 +47400,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48517,7 +47431,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48537,7 +47450,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48556,7 +47468,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48575,7 +47486,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48594,7 +47504,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48607,7 +47516,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48627,7 +47535,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48640,7 +47547,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48660,7 +47566,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -48673,7 +47578,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48687,7 +47591,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48701,7 +47604,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48722,7 +47624,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48736,7 +47637,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48750,7 +47650,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48770,7 +47669,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;75,00',
@@ -48783,7 +47681,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48797,7 +47694,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48811,7 +47707,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48843,7 +47738,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48857,7 +47751,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48871,7 +47764,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48885,7 +47777,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48899,7 +47790,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48919,7 +47809,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -48938,7 +47827,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -48951,7 +47839,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48965,7 +47852,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -48985,7 +47871,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49020,7 +47905,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49039,7 +47923,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49058,7 +47941,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49077,7 +47959,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49090,7 +47971,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49104,7 +47984,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49118,7 +47997,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49138,7 +48016,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49157,7 +48034,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49176,7 +48052,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49189,7 +48064,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49203,7 +48077,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49241,7 +48114,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49260,7 +48132,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49273,7 +48144,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49287,7 +48157,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49301,7 +48170,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49321,7 +48189,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49334,7 +48201,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49354,7 +48220,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49367,7 +48232,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49387,7 +48251,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49400,7 +48263,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49420,7 +48282,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49433,7 +48294,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49453,7 +48313,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49466,7 +48325,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49480,7 +48338,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49494,7 +48351,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49508,7 +48364,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49522,7 +48377,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49536,7 +48390,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49568,7 +48421,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49588,7 +48440,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49607,7 +48458,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49626,7 +48476,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49639,7 +48488,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49653,7 +48501,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49667,7 +48514,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49681,7 +48527,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49701,7 +48546,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;100,00',
@@ -49714,7 +48558,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49728,7 +48571,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49742,7 +48584,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49763,7 +48604,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49777,7 +48617,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49791,7 +48630,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49811,7 +48649,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -49824,7 +48661,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49838,7 +48674,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49852,7 +48687,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49884,7 +48718,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49898,7 +48731,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49912,7 +48744,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49926,7 +48757,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49940,7 +48770,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -49960,7 +48789,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -49979,7 +48807,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -49992,7 +48819,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50006,7 +48832,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50026,7 +48851,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50061,7 +48885,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50080,7 +48903,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50099,7 +48921,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50118,7 +48939,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50131,7 +48951,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50145,7 +48964,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50159,7 +48977,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50179,7 +48996,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50198,7 +49014,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50217,7 +49032,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50230,7 +49044,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50244,7 +49057,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50282,7 +49094,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50301,7 +49112,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50314,7 +49124,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50328,7 +49137,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50342,7 +49150,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50362,7 +49169,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50375,7 +49181,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50395,7 +49200,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50408,7 +49212,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50428,7 +49231,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50441,7 +49243,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50461,7 +49262,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50474,7 +49274,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50494,7 +49293,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50507,7 +49305,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50521,7 +49318,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50535,7 +49331,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50549,7 +49344,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50563,7 +49357,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50577,7 +49370,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50609,7 +49401,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50629,7 +49420,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50648,7 +49438,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50667,7 +49456,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50686,7 +49474,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R135G205B222;100,00',
@@ -50699,7 +49486,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50719,7 +49505,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R135G205B222;100,00',
@@ -50732,7 +49517,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50752,7 +49536,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -50765,7 +49548,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50779,7 +49561,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50793,7 +49574,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50814,7 +49594,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50828,7 +49607,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50842,7 +49620,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50862,7 +49639,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -50875,7 +49651,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50889,7 +49664,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50903,7 +49677,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50935,7 +49708,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50949,7 +49721,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50963,7 +49734,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50977,7 +49747,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -50991,7 +49760,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51011,7 +49779,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51030,7 +49797,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51043,7 +49809,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51057,7 +49822,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51077,7 +49841,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51112,7 +49875,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51131,7 +49893,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51150,7 +49911,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51169,7 +49929,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51182,7 +49941,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51196,7 +49954,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51210,7 +49967,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51230,7 +49986,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51249,7 +50004,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51268,7 +50022,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51281,7 +50034,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51295,7 +50047,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51333,7 +50084,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51352,7 +50102,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51365,7 +50114,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51379,7 +50127,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51393,7 +50140,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51413,7 +50159,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51426,7 +50171,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51446,7 +50190,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51459,7 +50202,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51479,7 +50221,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51492,7 +50233,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51512,7 +50252,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51525,7 +50264,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51545,7 +50283,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51558,7 +50295,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51572,7 +50308,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51586,7 +50321,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51600,7 +50334,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51614,7 +50347,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51628,7 +50360,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51660,7 +50391,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51680,7 +50410,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51699,7 +50428,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51718,7 +50446,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51737,7 +50464,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -51750,7 +50476,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51770,7 +50495,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -51783,7 +50507,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51803,7 +50526,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -51816,7 +50538,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51830,7 +50551,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51844,7 +50564,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51865,7 +50584,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51879,7 +50597,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51893,7 +50610,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51919,7 +50635,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;75,00\\\\R051G243B006;100,00',
@@ -51932,7 +50647,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51946,7 +50660,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51960,7 +50673,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -51992,7 +50704,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52006,7 +50717,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52020,7 +50730,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52034,7 +50743,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52048,7 +50756,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52068,7 +50775,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52087,7 +50793,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52100,7 +50805,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52114,7 +50818,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52134,7 +50837,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52168,7 +50870,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52187,7 +50888,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52206,7 +50906,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52225,7 +50924,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52238,7 +50936,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52252,7 +50949,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52266,7 +50962,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52286,7 +50981,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52305,7 +50999,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52324,7 +51017,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52337,7 +51029,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52351,7 +51042,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52389,7 +51079,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52408,7 +51097,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52421,7 +51109,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52435,7 +51122,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52449,7 +51135,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52469,7 +51154,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52482,7 +51166,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52502,7 +51185,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52515,7 +51197,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52535,7 +51216,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52548,7 +51228,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52568,7 +51247,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52581,7 +51259,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52601,7 +51278,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52614,7 +51290,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52628,7 +51303,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52642,7 +51316,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52656,7 +51329,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52670,7 +51342,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52684,7 +51355,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52716,7 +51386,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52736,7 +51405,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52755,7 +51423,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52774,7 +51441,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52793,7 +51459,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -52806,7 +51471,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52826,7 +51490,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -52839,7 +51502,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52859,7 +51521,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;100,00',
@@ -52872,7 +51533,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52886,7 +51546,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52900,7 +51559,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52921,7 +51579,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52935,7 +51592,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52949,7 +51605,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52963,7 +51618,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52977,7 +51631,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -52991,7 +51644,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53005,7 +51657,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53037,7 +51688,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53051,7 +51701,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53065,7 +51714,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53079,7 +51727,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53093,7 +51740,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53107,7 +51753,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53121,7 +51766,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53135,7 +51779,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53149,7 +51792,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53163,7 +51805,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53193,7 +51834,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53207,7 +51847,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53221,7 +51860,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53235,7 +51873,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53249,7 +51886,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53263,7 +51899,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53277,7 +51912,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53291,7 +51925,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53305,7 +51938,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53319,7 +51951,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53333,7 +51964,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53347,7 +51977,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53379,7 +52008,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53393,7 +52021,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53407,7 +52034,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53421,7 +52047,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53435,7 +52060,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53449,7 +52073,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53463,7 +52086,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53477,7 +52099,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53491,7 +52112,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53505,7 +52125,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53519,7 +52138,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53533,7 +52151,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53547,7 +52164,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53567,7 +52183,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -53580,7 +52195,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53594,7 +52208,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53608,7 +52221,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53622,7 +52234,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53636,7 +52247,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53650,7 +52260,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53682,7 +52291,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53696,7 +52304,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53710,7 +52317,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53724,7 +52330,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53738,7 +52343,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53752,7 +52356,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53766,7 +52369,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53780,7 +52382,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53794,7 +52395,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53808,7 +52408,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53822,7 +52421,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53836,7 +52434,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53857,7 +52454,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53871,7 +52467,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53885,7 +52480,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53905,7 +52499,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -53918,7 +52511,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53932,7 +52524,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53946,7 +52537,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53978,7 +52568,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -53992,7 +52581,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54006,7 +52594,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54020,7 +52607,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54034,7 +52620,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54048,7 +52633,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54062,7 +52646,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54076,7 +52659,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54090,7 +52672,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54104,7 +52685,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54134,7 +52714,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54148,7 +52727,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54162,7 +52740,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54176,7 +52753,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54190,7 +52766,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54204,7 +52779,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54218,7 +52792,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54232,7 +52805,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54246,7 +52818,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54260,7 +52831,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54274,7 +52844,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54288,7 +52857,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54320,7 +52888,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54334,7 +52901,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54348,7 +52914,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54362,7 +52927,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54376,7 +52940,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54390,7 +52953,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54404,7 +52966,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54418,7 +52979,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54432,7 +52992,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54446,7 +53005,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54460,7 +53018,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54480,7 +53037,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -54493,7 +53049,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54513,7 +53068,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -54526,7 +53080,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54540,7 +53093,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54554,7 +53106,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54568,7 +53119,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54582,7 +53132,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54596,7 +53145,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54628,7 +53176,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54648,7 +53195,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -54667,7 +53213,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -54686,7 +53231,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -54705,7 +53249,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -54718,7 +53261,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54738,7 +53280,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -54751,7 +53292,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54771,7 +53311,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -54784,7 +53323,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54798,7 +53336,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54812,7 +53349,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54833,7 +53369,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54847,7 +53382,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54861,7 +53395,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54881,7 +53414,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -54894,7 +53426,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54908,7 +53439,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54922,7 +53452,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54954,7 +53483,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54968,7 +53496,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54982,7 +53509,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -54996,7 +53522,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55010,7 +53535,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55024,7 +53548,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55038,7 +53561,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55052,7 +53574,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55066,7 +53587,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55080,7 +53600,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55110,7 +53629,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55124,7 +53642,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55138,7 +53655,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55152,7 +53668,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55166,7 +53681,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55180,7 +53694,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55194,7 +53707,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55208,7 +53720,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55222,7 +53733,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55236,7 +53746,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55250,7 +53759,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55264,7 +53772,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55296,7 +53803,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55310,7 +53816,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55324,7 +53829,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55338,7 +53842,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55352,7 +53855,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55366,7 +53868,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55380,7 +53881,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55394,7 +53894,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55408,7 +53907,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55422,7 +53920,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55436,7 +53933,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55456,7 +53952,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -55469,7 +53964,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55489,7 +53983,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -55502,7 +53995,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55516,7 +54008,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55530,7 +54021,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55544,7 +54034,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55558,7 +54047,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55572,7 +54060,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55604,7 +54091,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55624,7 +54110,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -55643,7 +54128,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -55662,7 +54146,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -55681,7 +54164,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -55694,7 +54176,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55714,7 +54195,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -55727,7 +54207,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55747,7 +54226,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -55760,7 +54238,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55774,7 +54251,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55788,7 +54264,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55809,7 +54284,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55823,7 +54297,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55837,7 +54310,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55857,7 +54329,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -55870,7 +54341,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55884,7 +54354,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55898,7 +54367,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55930,7 +54398,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55944,7 +54411,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55958,7 +54424,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55972,7 +54437,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -55986,7 +54450,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56000,7 +54463,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56014,7 +54476,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56028,7 +54489,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56042,7 +54502,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56056,7 +54515,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56085,7 +54543,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56099,7 +54556,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56113,7 +54569,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56127,7 +54582,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56141,7 +54595,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56155,7 +54608,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56169,7 +54621,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56183,7 +54634,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56197,7 +54647,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56211,7 +54660,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56225,7 +54673,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56239,7 +54686,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56271,7 +54717,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56285,7 +54730,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56299,7 +54743,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56313,7 +54756,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56327,7 +54769,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56341,7 +54782,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56355,7 +54795,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56369,7 +54808,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56383,7 +54821,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56397,7 +54834,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56411,7 +54847,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56431,7 +54866,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -56444,7 +54878,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56464,7 +54897,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -56477,7 +54909,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56491,7 +54922,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56505,7 +54935,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56519,7 +54948,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56533,7 +54961,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56547,7 +54974,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56579,7 +55005,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56599,7 +55024,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -56618,7 +55042,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -56637,7 +55060,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -56656,7 +55078,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -56669,7 +55090,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56689,7 +55109,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -56702,7 +55121,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56722,7 +55140,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -56735,7 +55152,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56749,7 +55165,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56763,7 +55178,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56784,7 +55198,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56798,7 +55211,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56812,7 +55224,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56826,7 +55237,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56840,7 +55250,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56854,7 +55263,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56868,7 +55276,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56900,7 +55307,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56914,7 +55320,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56928,7 +55333,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56942,7 +55346,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56956,7 +55359,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56970,7 +55372,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56984,7 +55385,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -56998,7 +55398,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57012,7 +55411,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57026,7 +55424,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57056,7 +55453,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57070,7 +55466,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57084,7 +55479,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57098,7 +55492,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57112,7 +55505,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57126,7 +55518,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57140,7 +55531,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57154,7 +55544,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57168,7 +55557,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57182,7 +55570,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57196,7 +55583,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57210,7 +55596,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57242,7 +55627,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57256,7 +55640,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57270,7 +55653,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57284,7 +55666,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57298,7 +55679,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57312,7 +55692,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57326,7 +55705,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57340,7 +55718,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57354,7 +55731,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57368,7 +55744,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57382,7 +55757,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57396,7 +55770,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57410,7 +55783,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57430,7 +55802,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -57443,7 +55814,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57457,7 +55827,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57471,7 +55840,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57485,7 +55853,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57499,7 +55866,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57513,7 +55879,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57545,7 +55910,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57559,7 +55923,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57573,7 +55936,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57587,7 +55949,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57601,7 +55962,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57615,7 +55975,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57629,7 +55988,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57643,7 +56001,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57657,7 +56014,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57671,7 +56027,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57685,7 +56040,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57699,7 +56053,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57720,7 +56073,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57734,7 +56086,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57748,7 +56099,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57762,7 +56112,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57776,7 +56125,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57790,7 +56138,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57804,7 +56151,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57836,7 +56182,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57850,7 +56195,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57864,7 +56208,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57878,7 +56221,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57892,7 +56234,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57906,7 +56247,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57920,7 +56260,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57934,7 +56273,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57948,7 +56286,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57962,7 +56299,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -57992,7 +56328,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58006,7 +56341,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58020,7 +56354,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58034,7 +56367,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58048,7 +56380,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58062,7 +56393,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58076,7 +56406,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58090,7 +56419,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58104,7 +56432,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58118,7 +56445,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58132,7 +56458,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58146,7 +56471,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58178,7 +56502,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58192,7 +56515,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58206,7 +56528,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58220,7 +56541,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58234,7 +56554,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58248,7 +56567,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58262,7 +56580,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58276,7 +56593,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58290,7 +56606,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58304,7 +56619,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58318,7 +56632,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58332,7 +56645,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58346,7 +56658,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58360,7 +56671,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58374,7 +56684,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58388,7 +56697,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58402,7 +56710,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58416,7 +56723,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58430,7 +56736,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58444,7 +56749,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58476,7 +56780,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58490,7 +56793,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58504,7 +56806,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58518,7 +56819,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58532,7 +56832,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58546,7 +56845,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58560,7 +56858,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58574,7 +56871,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58588,7 +56884,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58602,7 +56897,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58616,7 +56910,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58630,7 +56923,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58651,7 +56943,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58665,7 +56956,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58679,7 +56969,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58699,7 +56988,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -58712,7 +57000,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58726,7 +57013,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58740,7 +57026,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58772,7 +57057,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58786,7 +57070,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58800,7 +57083,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58814,7 +57096,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58828,7 +57109,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58842,7 +57122,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58856,7 +57135,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58870,7 +57148,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58884,7 +57161,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58898,7 +57174,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58934,7 +57209,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -58947,7 +57221,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58961,7 +57234,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -58981,7 +57253,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -58994,7 +57265,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59008,7 +57278,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59022,7 +57291,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59042,7 +57310,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -59055,7 +57322,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59069,7 +57335,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59083,7 +57348,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59097,7 +57361,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59135,7 +57398,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -59154,7 +57416,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -59167,7 +57428,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59181,7 +57441,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59195,7 +57454,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59215,7 +57473,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -59228,7 +57485,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59248,7 +57504,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -59261,7 +57516,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59281,7 +57535,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -59294,7 +57547,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59314,7 +57566,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -59327,7 +57578,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59347,7 +57597,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -59360,7 +57609,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59374,7 +57622,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59388,7 +57635,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59402,7 +57648,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59416,7 +57661,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59430,7 +57674,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59462,7 +57705,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59482,7 +57724,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -59501,7 +57742,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -59520,7 +57760,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -59539,7 +57778,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -59552,7 +57790,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59572,7 +57809,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -59585,7 +57821,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59605,7 +57840,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -59618,7 +57852,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59632,7 +57865,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59646,7 +57878,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59667,7 +57898,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59681,7 +57911,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59695,7 +57924,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59715,7 +57943,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -59728,7 +57955,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59742,7 +57968,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59756,7 +57981,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59788,7 +58012,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59802,7 +58025,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59816,7 +58038,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59830,7 +58051,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59844,7 +58064,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59858,7 +58077,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59872,7 +58090,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59886,7 +58103,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59900,7 +58116,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59914,7 +58129,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59950,7 +58164,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -59963,7 +58176,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59977,7 +58189,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -59997,7 +58208,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -60010,7 +58220,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60024,7 +58233,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60038,7 +58246,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60058,7 +58265,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -60071,7 +58277,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60085,7 +58290,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60099,7 +58303,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60113,7 +58316,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60151,7 +58353,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -60170,7 +58371,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -60183,7 +58383,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60197,7 +58396,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60211,7 +58409,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60231,7 +58428,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -60244,7 +58440,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60264,7 +58459,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -60277,7 +58471,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60297,7 +58490,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -60310,7 +58502,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60330,7 +58521,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -60343,7 +58533,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60363,7 +58552,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -60376,7 +58564,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60390,7 +58577,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60404,7 +58590,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60418,7 +58603,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60432,7 +58616,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60446,7 +58629,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60478,7 +58660,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60498,7 +58679,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -60517,7 +58697,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -60536,7 +58715,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -60555,7 +58733,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -60568,7 +58745,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60588,7 +58764,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -60601,7 +58776,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60621,7 +58795,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -60634,7 +58807,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60648,7 +58820,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60662,7 +58833,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60683,7 +58853,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60697,7 +58866,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60711,7 +58879,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60731,7 +58898,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -60744,7 +58910,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60758,7 +58923,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60772,7 +58936,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60804,7 +58967,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60818,7 +58980,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60832,7 +58993,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60846,7 +59006,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60860,7 +59019,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60874,7 +59032,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60888,7 +59045,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60902,7 +59058,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60916,7 +59071,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60930,7 +59084,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60965,7 +59118,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -60978,7 +59130,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -60992,7 +59143,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61012,7 +59162,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61025,7 +59174,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61039,7 +59187,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61053,7 +59200,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61073,7 +59219,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61086,7 +59231,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61100,7 +59244,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61114,7 +59257,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61128,7 +59270,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61166,7 +59307,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61185,7 +59325,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61198,7 +59337,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61212,7 +59350,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61226,7 +59363,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61246,7 +59382,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61259,7 +59394,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61279,7 +59413,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61292,7 +59425,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61312,7 +59444,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61325,7 +59456,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61345,7 +59475,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61358,7 +59487,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61378,7 +59506,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61391,7 +59518,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61405,7 +59531,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61419,7 +59544,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61433,7 +59557,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61447,7 +59570,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61461,7 +59583,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61493,7 +59614,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61513,7 +59633,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61532,7 +59651,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61551,7 +59669,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61570,7 +59687,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61583,7 +59699,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61603,7 +59718,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61616,7 +59730,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61636,7 +59749,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -61649,7 +59761,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61663,7 +59774,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61677,7 +59787,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61698,7 +59807,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61712,7 +59820,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61726,7 +59833,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61740,7 +59846,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61754,7 +59859,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61768,7 +59872,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61782,7 +59885,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61814,7 +59916,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61828,7 +59929,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61842,7 +59942,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61856,7 +59955,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61870,7 +59968,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61884,7 +59981,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61898,7 +59994,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61912,7 +60007,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61926,7 +60020,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61940,7 +60033,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61970,7 +60062,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61984,7 +60075,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -61998,7 +60088,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62012,7 +60101,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62026,7 +60114,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62040,7 +60127,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62054,7 +60140,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62068,7 +60153,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62082,7 +60166,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62096,7 +60179,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62110,7 +60192,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62124,7 +60205,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62156,7 +60236,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62170,7 +60249,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62184,7 +60262,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62198,7 +60275,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62212,7 +60288,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62226,7 +60301,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62240,7 +60314,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62254,7 +60327,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62268,7 +60340,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62282,7 +60353,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62296,7 +60366,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62310,7 +60379,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62324,7 +60392,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62338,7 +60405,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62352,7 +60418,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62366,7 +60431,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62380,7 +60444,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62394,7 +60457,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62408,7 +60470,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62422,7 +60483,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62454,7 +60514,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62468,7 +60527,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62482,7 +60540,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62496,7 +60553,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62510,7 +60566,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62524,7 +60579,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62538,7 +60592,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62552,7 +60605,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62566,7 +60618,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62580,7 +60631,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62594,7 +60644,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62608,7 +60657,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62635,7 +60683,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -62654,7 +60701,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -62673,7 +60719,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -62692,7 +60737,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -62711,7 +60755,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -62724,7 +60767,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62738,7 +60780,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62776,7 +60817,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -62795,7 +60835,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -62814,7 +60853,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -62833,7 +60871,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -62852,7 +60889,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -62871,7 +60907,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -62890,7 +60925,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -62903,7 +60937,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62917,7 +60950,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -62937,7 +60969,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -62972,7 +61003,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -62991,7 +61021,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63010,7 +61039,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63029,7 +61057,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63042,7 +61069,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -63056,7 +61082,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -63070,7 +61095,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -63090,7 +61114,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63109,7 +61132,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63128,7 +61150,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63147,7 +61168,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63166,7 +61186,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63203,7 +61222,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63222,7 +61240,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63235,7 +61252,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -63249,7 +61265,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -63269,7 +61284,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63288,7 +61302,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63307,7 +61320,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63326,7 +61338,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63345,7 +61356,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63364,7 +61374,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63383,7 +61392,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63402,7 +61410,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63415,7 +61422,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -63435,7 +61441,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63448,7 +61453,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -63462,7 +61466,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -63482,7 +61485,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63501,7 +61503,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63520,7 +61521,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63539,7 +61539,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63570,7 +61569,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -63590,7 +61588,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63609,7 +61606,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63628,7 +61624,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63647,7 +61642,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G238B244;100,00',
@@ -63666,7 +61660,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63685,7 +61678,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63698,7 +61690,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -63718,7 +61709,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63731,7 +61721,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -63745,7 +61734,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -63765,7 +61753,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -63791,7 +61778,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -63810,7 +61796,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -63829,7 +61814,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -63848,7 +61832,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -63867,7 +61850,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -63880,7 +61862,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -63894,7 +61875,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -63932,7 +61912,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -63951,7 +61930,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -63970,7 +61948,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -63989,7 +61966,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64008,7 +61984,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64027,7 +62002,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64046,7 +62020,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64059,7 +62032,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -64073,7 +62045,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -64093,7 +62064,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64128,7 +62098,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64147,7 +62116,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64166,7 +62134,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64185,7 +62152,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64198,7 +62164,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -64212,7 +62177,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -64226,7 +62190,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -64246,7 +62209,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64265,7 +62227,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64284,7 +62245,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64303,7 +62263,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64322,7 +62281,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64359,7 +62317,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64378,7 +62335,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64391,7 +62347,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -64405,7 +62360,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -64425,7 +62379,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64444,7 +62397,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64463,7 +62415,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64482,7 +62433,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64501,7 +62451,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64520,7 +62469,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64539,7 +62487,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64558,7 +62505,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64571,7 +62517,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -64591,7 +62536,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64604,7 +62548,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -64618,7 +62561,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -64638,7 +62580,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64657,7 +62598,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64676,7 +62616,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64695,7 +62634,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64726,7 +62664,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -64746,7 +62683,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64765,7 +62701,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64784,7 +62719,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64803,7 +62737,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64822,7 +62755,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64841,7 +62773,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64854,7 +62785,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -64874,7 +62804,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64887,7 +62816,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -64901,7 +62829,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -64921,7 +62848,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -64947,7 +62873,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -64966,7 +62891,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -64985,7 +62909,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65004,7 +62927,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65023,7 +62945,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65036,7 +62957,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -65050,7 +62970,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -65088,7 +63007,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65107,7 +63025,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65126,7 +63043,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65145,7 +63061,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65164,7 +63079,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65183,7 +63097,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65202,7 +63115,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65215,7 +63127,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -65229,7 +63140,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -65249,7 +63159,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65283,7 +63192,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65302,7 +63210,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65321,7 +63228,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65340,7 +63246,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65353,7 +63258,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -65367,7 +63271,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -65381,7 +63284,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -65401,7 +63303,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65420,7 +63321,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65439,7 +63339,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65458,7 +63357,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65477,7 +63375,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65514,7 +63411,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65533,7 +63429,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65546,7 +63441,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -65560,7 +63454,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -65580,7 +63473,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65599,7 +63491,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65618,7 +63509,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65637,7 +63527,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65656,7 +63545,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65675,7 +63563,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65694,7 +63581,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65713,7 +63599,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65726,7 +63611,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -65746,7 +63630,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65759,7 +63642,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -65773,7 +63655,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -65793,7 +63674,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65812,7 +63692,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65831,7 +63710,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65850,7 +63728,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65881,7 +63758,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -65901,7 +63777,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65920,7 +63795,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65939,7 +63813,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65958,7 +63831,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65977,7 +63849,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -65996,7 +63867,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -66009,7 +63879,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66029,7 +63898,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -66042,7 +63910,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66056,7 +63923,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66076,7 +63942,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -66096,7 +63961,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66110,7 +63974,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66124,7 +63987,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66150,7 +64012,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66163,7 +64024,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66177,7 +64037,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66191,7 +64050,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66223,7 +64081,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66237,7 +64094,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66251,7 +64107,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66265,7 +64120,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66279,7 +64133,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66305,7 +64158,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66330,7 +64182,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66343,7 +64194,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66357,7 +64207,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66383,7 +64232,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66424,7 +64272,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66449,7 +64296,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66474,7 +64320,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66499,7 +64344,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66512,7 +64356,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66526,7 +64369,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66540,7 +64382,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66566,7 +64407,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66591,7 +64431,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66616,7 +64455,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66629,7 +64467,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66643,7 +64480,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66687,7 +64523,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66712,7 +64547,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66725,7 +64559,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66739,7 +64572,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66753,7 +64585,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66779,7 +64610,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66792,7 +64622,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66818,7 +64647,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66831,7 +64659,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66857,7 +64684,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66870,7 +64696,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66896,7 +64721,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66909,7 +64733,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66935,7 +64758,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -66948,7 +64770,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66962,7 +64783,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66976,7 +64796,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -66990,7 +64809,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67004,7 +64822,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67018,7 +64835,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67050,7 +64866,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67076,7 +64891,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -67101,7 +64915,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -67126,7 +64939,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -67151,7 +64963,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -67164,7 +64975,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67190,7 +65000,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -67203,7 +65012,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67229,7 +65037,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R219G213B111;50,00\\\\R045G147B176;100,00',
@@ -67242,7 +65049,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67256,7 +65062,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67270,7 +65075,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67291,7 +65095,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67305,7 +65108,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67319,7 +65121,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67339,7 +65140,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R135G205B222;100,00',
@@ -67352,7 +65152,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67366,7 +65165,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67380,7 +65178,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67412,7 +65209,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67426,7 +65222,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67440,7 +65235,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67454,7 +65248,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67468,7 +65261,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67488,7 +65280,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67507,7 +65298,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67520,7 +65310,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67534,7 +65323,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67554,7 +65342,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67589,7 +65376,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67608,7 +65394,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67627,7 +65412,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67646,7 +65430,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67659,7 +65442,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67673,7 +65455,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67687,7 +65468,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67707,7 +65487,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67726,7 +65505,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67745,7 +65523,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67758,7 +65535,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67772,7 +65548,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67810,7 +65585,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67829,7 +65603,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67842,7 +65615,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67856,7 +65628,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67870,7 +65641,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67890,7 +65660,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67903,7 +65672,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67923,7 +65691,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67936,7 +65703,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67956,7 +65722,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -67969,7 +65734,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -67989,7 +65753,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -68002,7 +65765,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68022,7 +65784,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -68035,7 +65796,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68049,7 +65809,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68063,7 +65822,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68077,7 +65835,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68091,7 +65848,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68105,7 +65861,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68137,7 +65892,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68157,7 +65911,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -68176,7 +65929,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -68195,7 +65947,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -68214,7 +65965,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R135G205B222;100,00',
@@ -68227,7 +65977,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68247,7 +65996,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -68260,7 +66008,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68280,7 +66027,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -68293,7 +66039,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68307,7 +66052,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68321,7 +66065,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68342,7 +66085,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68356,7 +66098,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68370,7 +66111,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68390,7 +66130,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R224G159B062;100,00',
@@ -68403,7 +66142,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68417,7 +66155,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68431,7 +66168,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68463,7 +66199,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68477,7 +66212,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68491,7 +66225,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68505,7 +66238,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68519,7 +66251,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68539,7 +66270,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -68558,7 +66288,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -68571,7 +66300,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68585,7 +66313,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68605,7 +66332,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -68640,7 +66366,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -68659,7 +66384,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -68678,7 +66402,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -68697,7 +66420,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -68710,7 +66432,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68724,7 +66445,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68738,7 +66458,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68758,7 +66477,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -68777,7 +66495,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -68796,7 +66513,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -68809,7 +66525,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68823,7 +66538,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68861,7 +66575,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -68880,7 +66593,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -68893,7 +66605,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68907,7 +66618,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68921,7 +66631,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68941,7 +66650,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -68954,7 +66662,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -68974,7 +66681,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -68987,7 +66693,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69007,7 +66712,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -69020,7 +66724,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69040,7 +66743,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -69053,7 +66755,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69073,7 +66774,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -69086,7 +66786,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69100,7 +66799,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69114,7 +66812,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69128,7 +66825,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69142,7 +66838,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69156,7 +66851,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69188,7 +66882,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69208,7 +66901,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -69227,7 +66919,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -69246,7 +66937,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -69265,7 +66955,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -69278,7 +66967,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69298,7 +66986,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -69311,7 +66998,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69331,7 +67017,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -69344,7 +67029,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69358,7 +67042,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69372,7 +67055,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69393,7 +67075,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69407,7 +67088,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69421,7 +67101,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69447,7 +67126,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -69460,7 +67138,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69474,7 +67151,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69488,7 +67164,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69520,7 +67195,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69534,7 +67208,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69548,7 +67221,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69562,7 +67234,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69576,7 +67247,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69602,7 +67272,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -69627,7 +67296,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -69640,7 +67308,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69654,7 +67321,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69680,7 +67346,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -69720,7 +67385,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -69745,7 +67409,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -69770,7 +67433,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -69795,7 +67457,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -69808,7 +67469,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69822,7 +67482,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69836,7 +67495,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69862,7 +67520,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -69887,7 +67544,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -69912,7 +67568,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -69925,7 +67580,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69939,7 +67593,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -69983,7 +67636,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -70008,7 +67660,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -70021,7 +67672,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70035,7 +67685,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70049,7 +67698,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70075,7 +67723,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -70088,7 +67735,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70114,7 +67760,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -70127,7 +67772,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70153,7 +67797,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -70166,7 +67809,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70192,7 +67834,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -70205,7 +67846,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70231,7 +67871,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -70244,7 +67883,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70258,7 +67896,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70272,7 +67909,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70286,7 +67922,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70300,7 +67935,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70314,7 +67948,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70346,7 +67979,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70372,7 +68004,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -70397,7 +68028,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -70422,7 +68052,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -70447,7 +68076,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -70460,7 +68088,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70486,7 +68113,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -70499,7 +68125,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70525,7 +68150,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R093G150B232;50,00\\\\R255G238B089;100,00',
@@ -70538,7 +68162,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70552,7 +68175,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70566,7 +68188,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70587,7 +68208,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70601,7 +68221,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70615,7 +68234,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70629,7 +68247,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70643,7 +68260,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70657,7 +68273,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70671,7 +68286,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70703,7 +68317,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70717,7 +68330,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70731,7 +68343,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70745,7 +68356,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70759,7 +68369,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70779,7 +68388,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -70792,7 +68400,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70806,7 +68413,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70820,7 +68426,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70834,7 +68439,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70870,7 +68474,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -70883,7 +68486,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70903,7 +68505,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -70916,7 +68517,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70930,7 +68530,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70944,7 +68543,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70958,7 +68556,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70972,7 +68569,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -70986,7 +68582,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71000,7 +68595,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71014,7 +68608,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71028,7 +68621,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71060,7 +68652,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71074,7 +68665,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71088,7 +68678,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71102,7 +68691,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71116,7 +68704,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71130,7 +68717,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71144,7 +68730,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71158,7 +68743,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71172,7 +68756,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71186,7 +68769,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71200,7 +68782,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71220,7 +68801,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -71233,7 +68813,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71247,7 +68826,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71261,7 +68839,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71275,7 +68852,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71289,7 +68865,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71303,7 +68878,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71317,7 +68891,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71331,7 +68904,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71363,7 +68935,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71377,7 +68948,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71391,7 +68961,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71405,7 +68974,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71419,7 +68987,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71433,7 +69000,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71453,7 +69019,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -71466,7 +69031,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71480,7 +69044,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71494,7 +69057,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71508,7 +69070,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71522,7 +69083,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71543,7 +69103,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71557,7 +69116,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71571,7 +69129,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71591,7 +69148,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -71604,7 +69160,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71618,7 +69173,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71632,7 +69186,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71664,7 +69217,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71678,7 +69230,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71692,7 +69243,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71706,7 +69256,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71720,7 +69269,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71740,7 +69288,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -71759,7 +69306,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -71772,7 +69318,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71786,7 +69331,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71806,7 +69350,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -71841,7 +69384,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -71860,7 +69402,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -71879,7 +69420,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -71898,7 +69438,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -71911,7 +69450,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71925,7 +69463,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71939,7 +69476,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71953,7 +69489,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -71973,7 +69508,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -71992,7 +69526,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -72005,7 +69538,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72019,7 +69551,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72057,7 +69588,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -72070,7 +69600,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72084,7 +69613,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72098,7 +69626,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72112,7 +69639,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72132,7 +69658,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -72145,7 +69670,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72165,7 +69689,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -72178,7 +69701,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72198,7 +69720,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -72211,7 +69732,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72231,7 +69751,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -72244,7 +69763,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72264,7 +69782,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -72277,7 +69794,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72291,7 +69807,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72305,7 +69820,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72319,7 +69833,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72333,7 +69846,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72347,7 +69859,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72379,7 +69890,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72399,7 +69909,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -72418,7 +69927,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -72437,7 +69945,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -72456,7 +69963,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -72469,7 +69975,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72489,7 +69994,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -72502,7 +70006,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72522,7 +70025,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -72535,7 +70037,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72549,7 +70050,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72563,7 +70063,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72584,7 +70083,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72598,7 +70096,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72612,7 +70109,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72632,7 +70128,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -72645,7 +70140,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72659,7 +70153,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72673,7 +70166,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72705,7 +70197,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72719,7 +70210,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72733,7 +70223,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72747,7 +70236,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72761,7 +70249,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72781,7 +70268,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -72800,7 +70286,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -72813,7 +70298,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72827,7 +70311,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72847,7 +70330,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -72882,7 +70364,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -72901,7 +70382,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -72920,7 +70400,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -72939,7 +70418,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -72952,7 +70430,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72966,7 +70443,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -72980,7 +70456,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73000,7 +70475,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R255G050B052;100,00',
@@ -73019,7 +70493,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -73038,7 +70511,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -73051,7 +70523,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73065,7 +70536,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73103,7 +70573,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -73122,7 +70591,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R255G050B052;100,00',
@@ -73135,7 +70603,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73149,7 +70616,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73163,7 +70629,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73183,7 +70648,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -73196,7 +70660,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73216,7 +70679,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -73229,7 +70691,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73249,7 +70710,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -73262,7 +70722,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73282,7 +70741,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -73295,7 +70753,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73315,7 +70772,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -73328,7 +70784,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73342,7 +70797,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73356,7 +70810,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73370,7 +70823,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73384,7 +70836,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73398,7 +70849,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73430,7 +70880,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73450,7 +70899,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -73469,7 +70917,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -73488,7 +70935,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -73507,7 +70953,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -73520,7 +70965,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73540,7 +70984,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -73553,7 +70996,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73573,7 +71015,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -73586,7 +71027,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73600,7 +71040,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73614,7 +71053,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73635,7 +71073,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73649,7 +71086,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73663,7 +71099,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73683,7 +71118,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -73696,7 +71130,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73710,7 +71143,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73724,7 +71156,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73756,7 +71187,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73770,7 +71200,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73784,7 +71213,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73798,7 +71226,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73812,7 +71239,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73832,7 +71258,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -73851,7 +71276,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -73864,7 +71288,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73878,7 +71301,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -73898,7 +71320,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -73932,7 +71353,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -73951,7 +71371,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -73970,7 +71389,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -73989,7 +71407,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -74002,7 +71419,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74016,7 +71432,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74030,7 +71445,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74050,7 +71464,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R255G050B052;100,00',
@@ -74069,7 +71482,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -74088,7 +71500,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -74101,7 +71512,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74115,7 +71525,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74153,7 +71562,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -74172,7 +71580,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R255G050B052;100,00',
@@ -74185,7 +71592,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74199,7 +71605,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74213,7 +71618,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74233,7 +71637,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -74246,7 +71649,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74266,7 +71668,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -74279,7 +71680,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74299,7 +71699,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -74312,7 +71711,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74332,7 +71730,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -74345,7 +71742,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74365,7 +71761,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -74378,7 +71773,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74392,7 +71786,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74406,7 +71799,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74420,7 +71812,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74434,7 +71825,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74448,7 +71838,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74480,7 +71869,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74500,7 +71888,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -74519,7 +71906,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -74538,7 +71924,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -74557,7 +71942,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -74570,7 +71954,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74590,7 +71973,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -74603,7 +71985,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74623,7 +72004,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -74636,7 +72016,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74650,7 +72029,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74664,7 +72042,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74685,7 +72062,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74699,7 +72075,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74713,7 +72088,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74727,7 +72101,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74741,7 +72114,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74755,7 +72127,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74769,7 +72140,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74801,7 +72171,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74815,7 +72184,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74829,7 +72197,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74843,7 +72210,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74857,7 +72223,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74877,7 +72242,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -74890,7 +72254,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74904,7 +72267,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74918,7 +72280,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74932,7 +72293,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -74968,7 +72328,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -74981,7 +72340,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75001,7 +72359,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -75014,7 +72371,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75028,7 +72384,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75042,7 +72397,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75056,7 +72410,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75070,7 +72423,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75084,7 +72436,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75098,7 +72449,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75112,7 +72462,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75126,7 +72475,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75158,7 +72506,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75172,7 +72519,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75186,7 +72532,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75200,7 +72545,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75214,7 +72558,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75228,7 +72571,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75242,7 +72584,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75256,7 +72597,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75270,7 +72610,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75284,7 +72623,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75298,7 +72636,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75318,7 +72655,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -75331,7 +72667,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75345,7 +72680,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75359,7 +72693,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75373,7 +72706,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75387,7 +72719,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75401,7 +72732,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75415,7 +72745,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75429,7 +72758,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75461,7 +72789,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75475,7 +72802,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75489,7 +72815,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75503,7 +72828,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75517,7 +72841,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75531,7 +72854,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75551,7 +72873,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;100,00',
@@ -75564,7 +72885,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75578,7 +72898,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75592,7 +72911,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75606,7 +72924,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75620,7 +72937,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75641,7 +72957,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75655,7 +72970,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75669,7 +72983,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75695,7 +73008,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B176;12,50\\\\R045G147B172;62,50',
@@ -75708,7 +73020,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75722,7 +73033,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75736,7 +73046,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75768,7 +73077,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75782,7 +73090,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75796,7 +73103,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75810,7 +73116,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75824,7 +73129,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75838,7 +73142,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75852,7 +73155,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75866,7 +73168,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75880,7 +73181,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75894,7 +73194,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75924,7 +73223,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75938,7 +73236,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75952,7 +73249,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75966,7 +73262,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75980,7 +73275,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -75994,7 +73288,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76008,7 +73301,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76022,7 +73314,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76036,7 +73327,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76050,7 +73340,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76064,7 +73353,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76078,7 +73366,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76110,7 +73397,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76124,7 +73410,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76138,7 +73423,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76152,7 +73436,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76166,7 +73449,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76180,7 +73462,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76194,7 +73475,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76208,7 +73488,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76222,7 +73501,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76236,7 +73514,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76250,7 +73527,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76264,7 +73540,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76278,7 +73553,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76292,7 +73566,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76306,7 +73579,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76320,7 +73592,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76334,7 +73605,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76348,7 +73618,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76362,7 +73631,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76376,7 +73644,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76408,7 +73675,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76422,7 +73688,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76436,7 +73701,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76450,7 +73714,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76464,7 +73727,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76478,7 +73740,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76492,7 +73753,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76506,7 +73766,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76520,7 +73779,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76534,7 +73792,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76548,7 +73805,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76562,7 +73818,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76583,7 +73838,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76597,7 +73851,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76611,7 +73864,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76631,7 +73883,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -76644,7 +73895,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76658,7 +73908,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76672,7 +73921,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76704,7 +73952,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76718,7 +73965,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76732,7 +73978,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76746,7 +73991,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76760,7 +74004,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76774,7 +74017,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76788,7 +74030,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76802,7 +74043,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76816,7 +74056,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76830,7 +74069,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76860,7 +74098,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76874,7 +74111,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76888,7 +74124,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76902,7 +74137,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76916,7 +74150,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76930,7 +74163,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76944,7 +74176,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76958,7 +74189,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -76978,7 +74208,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R215G100B013;100,00',
@@ -76991,7 +74220,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77005,7 +74233,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77019,7 +74246,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77051,7 +74277,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77065,7 +74290,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77079,7 +74303,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77093,7 +74316,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77107,7 +74329,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77127,7 +74348,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;50,00',
@@ -77140,7 +74360,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77160,7 +74379,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -77173,7 +74391,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77187,7 +74404,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77201,7 +74417,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77221,7 +74436,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -77234,7 +74448,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77248,7 +74461,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77262,7 +74474,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77276,7 +74487,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77290,7 +74500,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77304,7 +74513,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77318,7 +74526,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77332,7 +74539,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77364,7 +74570,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77384,7 +74589,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -77403,7 +74607,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -77422,7 +74625,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -77447,7 +74649,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;50,00\\\\R215G100B013;50,00',
@@ -77460,7 +74661,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77480,7 +74680,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R013G203B215;100,00',
@@ -77493,7 +74692,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77507,7 +74705,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77521,7 +74718,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77535,7 +74731,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77549,7 +74744,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77570,7 +74764,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77584,7 +74777,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77598,7 +74790,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77618,7 +74809,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -77631,7 +74821,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77645,7 +74834,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77659,7 +74847,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77691,7 +74878,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77705,7 +74891,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77719,7 +74904,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77733,7 +74917,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77747,7 +74930,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77761,7 +74943,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77775,7 +74956,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77789,7 +74969,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77803,7 +74982,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77817,7 +74995,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77847,7 +75024,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77861,7 +75037,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77875,7 +75050,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77889,7 +75063,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77903,7 +75076,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77917,7 +75089,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77931,7 +75102,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77945,7 +75115,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77965,7 +75134,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -77978,7 +75146,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -77992,7 +75159,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78006,7 +75172,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78038,7 +75203,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78052,7 +75216,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78066,7 +75229,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78080,7 +75242,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78094,7 +75255,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78114,7 +75274,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;50,00',
@@ -78127,7 +75286,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78147,7 +75305,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;100,00',
@@ -78160,7 +75317,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78174,7 +75330,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78188,7 +75343,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78208,7 +75362,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -78221,7 +75374,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78235,7 +75387,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78249,7 +75400,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78263,7 +75413,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78277,7 +75426,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78291,7 +75439,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78305,7 +75452,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78319,7 +75465,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78351,7 +75496,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78377,7 +75521,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;50,00\\\\R131G234B141;100,00',
@@ -78396,7 +75539,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -78421,7 +75563,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G092B103;50,00\\\\R131G234B141;100,00',
@@ -78440,7 +75581,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;50,00',
@@ -78453,7 +75593,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78473,7 +75612,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R131G234B141;100,00',
@@ -78486,7 +75624,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78500,7 +75637,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78514,7 +75650,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78528,7 +75663,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78542,7 +75676,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78563,7 +75696,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78577,7 +75709,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78591,7 +75722,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78623,7 +75753,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k:
@@ -78637,7 +75766,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78651,7 +75779,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78665,7 +75792,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78697,7 +75823,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78711,7 +75836,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78725,7 +75849,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78739,7 +75862,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78753,7 +75875,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78767,7 +75888,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78781,7 +75901,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78795,7 +75914,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78809,7 +75927,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78823,7 +75940,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78852,7 +75968,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78866,7 +75981,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78880,7 +75994,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78894,7 +76007,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78908,7 +76020,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78922,7 +76033,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78936,7 +76046,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78950,7 +76059,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78970,7 +76078,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -78983,7 +76090,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -78997,7 +76103,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79011,7 +76116,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79043,7 +76147,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79057,7 +76160,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79071,7 +76173,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79085,7 +76186,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79099,7 +76199,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79119,7 +76218,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;50,00',
@@ -79132,7 +76230,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79152,7 +76249,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -79165,7 +76261,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79179,7 +76274,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79193,7 +76287,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79213,7 +76306,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -79226,7 +76318,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79240,7 +76331,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79254,7 +76344,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79268,7 +76357,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79282,7 +76370,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79296,7 +76383,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79310,7 +76396,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79324,7 +76409,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79356,7 +76440,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79376,7 +76459,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -79395,7 +76477,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -79414,7 +76495,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -79433,7 +76513,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;50,00',
@@ -79446,7 +76525,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79466,7 +76544,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R051G243B006;100,00',
@@ -79479,7 +76556,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79493,7 +76569,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79507,7 +76582,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79521,7 +76595,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79535,7 +76608,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79556,7 +76628,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79570,7 +76641,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79584,7 +76654,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79604,7 +76673,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R204G000B204;50,00',
@@ -79617,7 +76685,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79631,7 +76698,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79645,7 +76711,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79677,7 +76742,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79691,7 +76755,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79705,7 +76768,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79719,7 +76781,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79733,7 +76794,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79747,7 +76807,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79761,7 +76820,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79775,7 +76833,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79789,7 +76846,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79803,7 +76859,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79833,7 +76888,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79847,7 +76901,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79861,7 +76914,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79875,7 +76927,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79889,7 +76940,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79903,7 +76953,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79917,7 +76966,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79931,7 +76979,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79945,7 +76992,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79959,7 +77005,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79973,7 +77018,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -79987,7 +77031,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80019,7 +77062,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80033,7 +77075,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80047,7 +77088,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80061,7 +77101,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80075,7 +77114,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80089,7 +77127,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80103,7 +77140,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80117,7 +77153,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80131,7 +77166,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80145,7 +77179,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80159,7 +77192,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80173,7 +77205,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80187,7 +77218,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80201,7 +77231,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80215,7 +77244,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80229,7 +77257,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80243,7 +77270,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80257,7 +77283,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80271,7 +77296,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80285,7 +77309,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80317,7 +77340,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80331,7 +77353,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80345,7 +77366,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80359,7 +77379,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80373,7 +77392,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80387,7 +77405,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80401,7 +77418,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80415,7 +77431,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80429,7 +77444,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80443,7 +77457,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80457,7 +77470,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80471,7 +77483,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80492,7 +77503,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80506,7 +77516,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80520,7 +77529,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80534,7 +77542,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80548,7 +77555,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80562,7 +77568,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80576,7 +77581,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80608,7 +77612,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80622,7 +77625,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80636,7 +77638,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80650,7 +77651,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80664,7 +77664,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80678,7 +77677,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80692,7 +77690,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80706,7 +77703,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80720,7 +77716,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80734,7 +77729,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80764,7 +77758,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80778,7 +77771,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80792,7 +77784,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80806,7 +77797,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80820,7 +77810,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80834,7 +77823,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80848,7 +77836,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80862,7 +77849,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80876,7 +77862,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80890,7 +77875,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80904,7 +77888,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80918,7 +77901,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80950,7 +77932,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80964,7 +77945,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80978,7 +77958,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -80992,7 +77971,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81006,7 +77984,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81020,7 +77997,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81034,7 +78010,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81048,7 +78023,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81062,7 +78036,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81076,7 +78049,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81090,7 +78062,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81104,7 +78075,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81118,7 +78088,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81132,7 +78101,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81146,7 +78114,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81160,7 +78127,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81174,7 +78140,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81188,7 +78153,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81202,7 +78166,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81216,7 +78179,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81248,7 +78210,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81262,7 +78223,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81282,7 +78242,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -81301,7 +78260,6 @@ export const graphicCellsDataTable = {
                 height: '100%',
               },
             ],
-            sizeY: '26px',
           },
           obj: {
             k: 'R045G147B172;100,00',
@@ -81314,7 +78272,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81328,7 +78285,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81342,7 +78298,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81356,7 +78311,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81370,7 +78324,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81384,7 +78337,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81398,7 +78350,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',
@@ -81412,7 +78363,6 @@ export const graphicCellsDataTable = {
           data: {
             resource: '',
             isCanvas: true,
-            sizeY: '26px',
           },
           obj: {
             k: '',

@@ -2894,16 +2894,18 @@ export class KupDataTable {
         // Sets the default value
         let content: any = valueToDisplay;
         let cellType: string = this.getCellType(cell.obj);
+        let props: any = { ...cell.data };
         classObj[cellType + '-cell'] = true;
 
         if (cell.data) {
+            this.setCellSize(cellType, props, cell);
             if (!this.lazyLoadCells) {
-                content = this.setLazyKupCell(cellType, cell.data, cell);
+                content = this.setLazyKupCell(cellType, props);
             } else {
                 content = this.setKupCell(
                     cellType,
                     classObj,
-                    cell.data,
+                    props,
                     cell,
                     row,
                     column
@@ -2963,8 +2965,7 @@ export class KupDataTable {
         }
     }
 
-    private setLazyKupCell(cellType: string, props: any, cell: Cell) {
-        this.setCellSize(cellType, props, cell);
+    private setLazyKupCell(cellType: string, props: any) {
         let lazyClass = 'cell-' + cellType + ' placeholder';
         let style = { minHeight: props.sizeY };
         return <span style={style} class={lazyClass}></span>;
@@ -3063,11 +3064,7 @@ export class KupDataTable {
     ) {
         switch (cellType) {
             case 'bar':
-                if (props.resource === '') {
-                    return undefined;
-                } else {
-                    return <kup-image {...props} />;
-                }
+                return <kup-image {...props} />;
 
             case 'button':
                 classObj['is-centered'] = true;
@@ -3094,12 +3091,6 @@ export class KupDataTable {
                 return <kup-checkbox {...props}></kup-checkbox>;
 
             case 'icon':
-                classObj['is-centered'] = true;
-                if (props.badgeData) {
-                    classObj['has-padding'] = true;
-                }
-                return <kup-image {...props}></kup-image>;
-
             case 'image':
                 classObj['is-centered'] = true;
                 if (props.badgeData) {
