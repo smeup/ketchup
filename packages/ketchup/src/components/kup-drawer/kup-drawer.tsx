@@ -46,8 +46,8 @@ export class KupDrawer {
             else{
             
                 this.permanent=true;
-                this.permanent=false;              //select lo ho usato per riuscire a far tornare false la propietà right per attiavre il meccanismo
-                                                   //le altre prop che vanno da true a false servono per far attivare la reflect .
+                this.permanent=false;        
+                                                   
             }
                 
        }
@@ -74,11 +74,11 @@ export class KupDrawer {
    {  let c:string;
        if(this.select==true&&this.permanent==false)
        {
-           c='destra'
+           c='rightpos'
        }
        else if(this.select==false&&this.permanent==false)
        {
-           c='sinistra'
+           c='leftpos'
        }
        
        else if(this.select==true&&this.permanent==true)
@@ -112,7 +112,7 @@ export class KupDrawer {
                <div class='subtitle'>
                    <slot name='subtitle'/>
                </div>
-               <kup-button class='header-button' onKupButtonClick={() => this.onCloseDrawer()} icon="close" ></kup-button>
+              
                
                 </div>
 

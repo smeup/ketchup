@@ -3,15 +3,15 @@
 }
 
 
-:host([opened]) .sinistra {
+:host([opened]) .leftpos {
   left:0%;
 }
 
-:host([right]) .destra {
+:host([right]) .rightpos {
   right:0%;
 }
 
-.sinistra {
+.leftpos {
   position: fixed;
   top: 0;
   left: -100%;
@@ -24,7 +24,7 @@
   z-index: 100;
 }
 
-.destra{
+.rightpos{
   position: fixed;
   top: 0;
   right: -100%;
@@ -80,20 +80,7 @@
   margin: 0;
 }
 
-.header-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1rem;
-  color: white;
-  background: transparent;
-  font-size: 1.3rem;
-  border: none;
-}
 
-.header-button:focus {
-  outline: none;
-}
 
 
 .backdrop {
