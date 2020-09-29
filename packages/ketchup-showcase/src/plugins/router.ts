@@ -218,6 +218,11 @@ let testRoutes = [
     name: 'testPerformance',
     component: () => import(`@/views/test/Performance.vue`),
   },
+  {
+    path: `/test/graphic-cells`,
+    name: 'testGraphicCells',
+    component: () => import(`@/views/test/GraphicCells.vue`),
+  },
 ];
 
 const routes = [
