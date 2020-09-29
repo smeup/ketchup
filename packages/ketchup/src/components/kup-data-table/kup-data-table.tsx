@@ -3064,20 +3064,13 @@ export class KupDataTable {
         row: Row,
         column: Column
     ) {
-        let lazyStyle = {
-            minHeight: props.sizeY,
-            minWidth: props.sizeX,
-        };
         switch (cellType) {
             case 'bar':
-                return (
-                    <kup-lazy
-                        style={lazyStyle}
-                        class="cell-bar"
-                        componentName="kup-image"
-                        data={...props}
-                    />
-                );
+                if (props.resource === '') {
+                    return undefined;
+                } else {
+                    return <kup-image class="cell-bar" {...props} />;
+                }
 
             case 'button':
                 classObj['is-centered'] = true;
@@ -3092,14 +3085,7 @@ export class KupDataTable {
 
             case 'chart':
                 classObj['is-centered'] = true;
-                return (
-                    <kup-lazy
-                        style={lazyStyle}
-                        class="cell-chart"
-                        componentName="kup-chart"
-                        data={...props}
-                    />
-                );
+                return <kup-chart class="cell-chart" {...props} />;
 
             case 'checkbox':
                 classObj['is-centered'] = true;
@@ -3127,14 +3113,7 @@ export class KupDataTable {
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                return (
-                    <kup-lazy
-                        style={lazyStyle}
-                        class="cell-image"
-                        componentName="kup-image"
-                        data={...props}
-                    />
-                );
+                return <kup-image class="cell-image" {...props} />;
 
             case 'progress-bar':
                 return (

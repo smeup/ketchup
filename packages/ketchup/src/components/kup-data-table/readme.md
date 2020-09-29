@@ -128,8 +128,8 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 - [kup-button](../kup-button)
 - [kup-text-field](../kup-text-field)
 - [kup-tooltip](../kup-tooltip)
-- [kup-lazy](../kup-lazy)
 - [kup-image](../kup-image)
+- [kup-chart](../kup-chart)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
 - [kup-paginator](../kup-paginator)
@@ -143,8 +143,8 @@ graph TD;
   kup-data-table --> kup-button
   kup-data-table --> kup-text-field
   kup-data-table --> kup-tooltip
-  kup-data-table --> kup-lazy
   kup-data-table --> kup-image
+  kup-data-table --> kup-chart
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator

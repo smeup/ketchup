@@ -451,8 +451,7 @@ tbody {
 tr {
   &:not(:nth-child(1)) {
     kup-button,
-    kup-checkbox,
-    kup-image {
+    kup-checkbox {
       display: none;
       animation: fadeInFromNone 0.25s ease-out;
     }
@@ -460,8 +459,7 @@ tr {
 
   &.in-viewport {
     kup-checkbox,
-    kup-image,
-    kup-lazy {
+    kup-image {
       display: flex;
     }
     kup-button {
