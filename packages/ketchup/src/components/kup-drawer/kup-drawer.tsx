@@ -18,6 +18,8 @@ export class KupDrawer {
     select:boolean;
     
     c:string;
+
+    
     
 
 
@@ -97,12 +99,13 @@ export class KupDrawer {
       
         this.c= this.selectclass();
         console.log(this.select,this.permanent,this.right,this.c);
+
         
        
 
         return [
             <div class="backdrop" onClick={() => this.onCloseDrawer()} />,
-            <aside class={this.c}>
+            <aside class={this.c} >
                 <div class="header">
               
                <div class='title'>
@@ -118,6 +121,7 @@ export class KupDrawer {
                 </div>
 
                 <main>{mainContent}</main>
+                
                 
             </aside>,
         ];

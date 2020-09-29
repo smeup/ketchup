@@ -1,5 +1,5 @@
 :host {
-  display: block;
+  display:var(--kup-display-mode);
 }
 
 
@@ -18,10 +18,11 @@
   width: 30rem;
   max-width: 80%;
   height: 100vh;
-  background-color: #e9e9e9;
+  background-color: var(--kup-drawer-background-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   transition: left 0.3s ease-out;
   z-index: 100;
+
 }
 
 .rightpos{
@@ -31,10 +32,11 @@
   width: 30rem;
   max-width: 80%;
   height: 100vh;
-  background-color: #e9e9e9;
+  background-color: var(--kup-drawer-background-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   transition: left 0.3s ease-out;
   z-index: 100;
+ 
 }
 .permanentright{
   position: fixed;
@@ -43,10 +45,11 @@
   width: 30rem;
   max-width: 80%;
   height: 100vh;
-  background-color: #e9e9e9;
+  background-color: var(--kup-drawer-background-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   transition: left 0.3s ease-out;
   z-index: 100;
+ 
 
 }
 .permanentleft{
@@ -56,27 +59,29 @@
   width: 30rem;
   max-width: 80%;
   height: 100vh;
-  background-color: #e9e9e9;
+  background-color: var(--kup-drawer-background-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   transition: left 0.3s ease-out;
   z-index: 100;
+ 
 
 }
 
 .header {
   padding: 1rem;
-  background-color: black;
+  background-color:var(--kup-main-color);
   position: relative;
+  
 }
 
 .title {
   font-size: 1.5rem;
-  color: white;
+  color:var(--kup-text-on-main-color);
   margin: 0;
 }
 .subtitle {
   font-size: 0.75rem;
-  color: white;
+  color: var(---kup-text-on-main-color);
   margin: 0;
 }
 
