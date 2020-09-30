@@ -128,6 +128,16 @@ export class KupTooltip {
     }>;
 
     @Event({
+        eventName: 'kupDefaultPreviewClicked',
+        composed: true,
+        cancelable: true,
+        bubbles: true,
+    })
+    kupDefaultPreviewClicked: EventEmitter<{
+        obj: TooltipObject;
+    }>;
+
+    @Event({
         eventName: 'kupDefaultOptionClicked',
         composed: true,
         cancelable: true,
@@ -319,6 +329,13 @@ export class KupTooltip {
                         this.onDefaultActionClicked(event)
                     }
                 ></kup-button>
+                <kup-button
+                    flat={true}
+                    icon="youtube-searched-for"
+                    onKupButtonClick={(event) =>
+                        this.onDefaultPreviewClicked(event)
+                    }
+                ></kup-button>
             </div>
         );
         return title;
@@ -371,6 +388,12 @@ export class KupTooltip {
         //Evento di default al click
         event.stopPropagation();
         this.kupDefaultActionClicked.emit({ obj: this.getObj() });
+    }
+
+    private onDefaultPreviewClicked(event: Event) {
+        //Evento di default al click
+        event.stopPropagation();
+        this.kupDefaultPreviewClicked.emit({ obj: this.getObj() });
     }
 
     private onDefaultOptionClicked(event: Event) {
