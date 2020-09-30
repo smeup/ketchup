@@ -23,6 +23,7 @@ export const defaultData = {
     ],
     rows: [
         {
+            id : '0',
             cells: {
                 FLD1: {
                     obj: {
@@ -59,6 +60,7 @@ export const defaultData = {
             },
         },
         {
+            id : '1',
             cells: {
                 FLD1: {
                     obj: {
@@ -94,7 +96,8 @@ export const defaultData = {
                 },
             },
         },
-        {
+        {   
+            id : '2',
             cells: {
                 FLD1: {
                     obj: {
@@ -131,6 +134,7 @@ export const defaultData = {
             },
         },
         {
+            id : '3',
             cells: {
                 FLD1: {
                     obj: {

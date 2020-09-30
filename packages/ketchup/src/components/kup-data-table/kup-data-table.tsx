@@ -75,7 +75,6 @@ import { GenericObject } from '../../types/GenericTypes';
 
 import {
     stringToNumber,
-    numberToString,
     formattedStringToUnformattedStringNumber,
     unformattedStringToFormattedStringNumber,
     numberToFormattedStringNumber,
@@ -91,6 +90,8 @@ import { unformatDate } from '../../utils/cell-formatter';
 
 import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
+import { KupTooltip } from '../kup-tooltip/kup-tooltip';
+import { setTooltip, unsetTooltip } from '../../utils/helpers';
 
 @Component({
     tag: 'kup-data-table',
@@ -116,6 +117,7 @@ export class KupDataTable {
                 this.filters = state.filters;
                 this.groups = state.groups;
                 this.expandGroups = state.expandGroups;
+                this.groupLabelDisplay = state.groupLabelDisplay;
                 this.density = state.density;
                 this.enableSortableColumns = state.enableSortableColumns;
                 this.forceOneLine = state.forceOneLine;
@@ -135,6 +137,7 @@ export class KupDataTable {
                 this.sortableColumnsMutateData =
                     state.sortableColumnsMutateData;
                 this.selectRow = state.selectRow;
+                this.selectRowsById = state.selectRowsById;
                 //
             }
         }
@@ -146,6 +149,7 @@ export class KupDataTable {
             this.state.filters = this.filters;
             this.state.groups = this.groups;
             this.state.expandGroups = this.expandGroups;
+            this.state.groupLabelDisplay = this.groupLabelDisplay;
             this.state.density = this.density;
             this.state.enableSortableColumns = this.enableSortableColumns;
             this.state.forceOneLine = this.forceOneLine;
@@ -164,10 +168,14 @@ export class KupDataTable {
             this.state.sort = this.sort;
             this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
             this.state.pageSelected = this.currentPage;
-            if (this.selectedRows && this.selectedRows.length > 0) {
-                this.state.selectRow =
-                    this.renderedRows.indexOf(this.selectedRows[0]) + 1;
-            }
+            this.state.selectRowsById = this.selectedRows.reduce(
+                (accumulator, row, currentIndex) => {
+                    const prefix = currentIndex > 0 ? ';' : '';
+                    return accumulator + prefix + row.id;
+                },
+                ''
+            );
+
             logMessage(this, 'Persisting stateId ' + this.stateId);
             this.store.persistState(this.stateId, this.state);
         }
@@ -307,7 +315,12 @@ export class KupDataTable {
     @Prop({ reflect: true }) rowsPerPage = 10;
 
     /**
-     * Selects the specified row.
+     * Semicolon separated rows id to select.
+     */
+    @Prop({ reflect: true }) selectRowsById: string;
+
+    /**
+     * Selects the row at the specified rendered rows prosition (base 1).
      */
     @Prop({ reflect: true }) selectRow: number;
 
@@ -369,12 +382,12 @@ export class KupDataTable {
     @Prop() lineBreakCharacter: string = '|';
 
     /**
-     * Defines the timout for tooltip load
+     * Defines the timeout for tooltip load
      */
     @Prop() tooltipLoadTimeout: number;
 
     /**
-     * Defines the timout for tooltip detail
+     * Defines the timeout for tooltip detail
      */
     @Prop() tooltipDetailTimeout: number;
 
@@ -435,12 +448,17 @@ export class KupDataTable {
     @Watch('filters')
     @Watch('globalFilterValue')
     @Watch('rowsPerPage')
-    @Watch('groups')
     @Watch('totals')
     @Watch('currentPage')
     @Watch('currentRowsPerPage')
     recalculateRows() {
         this.initRows();
+    }
+
+    @Watch('groups')
+    recalculateRowsAndUndoSelections() {
+        this.recalculateRows();
+        this.resetSelectedRows();
     }
 
     @Watch('fixedColumns')
@@ -516,6 +534,9 @@ export class KupDataTable {
      */
     private theadRef: any;
     private tableRef: HTMLTableElement;
+
+    private tooltip: KupTooltip;
+
     /**
      * Reference to the working area of teh table. This is the below-wrapper reference.
      */
@@ -533,6 +554,39 @@ export class KupDataTable {
     private renderEnd: number = 0;
     private intObserver: IntersectionObserver = undefined;
     private observedEl: Element = undefined;
+
+    /**
+     * When component uloade is complete
+     */
+    @Event({
+        eventName: 'kupDidUnload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDidUnload: EventEmitter<{}>;
+
+    /**
+     * When component load is complete
+     */
+    @Event({
+        eventName: 'kupDidLoad',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDidLoad: EventEmitter<{}>;
+
+    /**
+     * When rows selections reset
+     */
+    @Event({
+        eventName: 'kupResetSelectedRows',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupResetSelectedRows: EventEmitter<{}>;
 
     /**
      * When a row is auto selected via selectRow prop
@@ -627,34 +681,6 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
-
-    /**
-     * When a tooltip request initial data
-     */
-    @Event({
-        eventName: 'kupLoadRequest',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupLoadRequest: EventEmitter<{
-        cell: Cell;
-        tooltip: EventTarget;
-    }>;
-
-    /**
-     * When a tooltip request detail data
-     */
-    @Event({
-        eventName: 'kupDetailRequest',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupDetailRequest: EventEmitter<{
-        cell: Cell;
-        tooltip: EventTarget;
-    }>;
 
     onDocumentClick = () => {};
 
@@ -796,6 +822,17 @@ export class KupDataTable {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
+
+        if (root) {
+            let menu: HTMLElement = root.querySelector('.column-menu');
+            if (menu) {
+                let wrapper: HTMLElement = menu.closest('th');
+                positionRecalc(menu, wrapper);
+                menu.classList.add('dynamic-position-active');
+                menu.classList.add('visible');
+            }
+        }
+
         if (
             this.paginatedRows != null &&
             this.paginatedRows.length < this.rows.length &&
@@ -806,6 +843,7 @@ export class KupDataTable {
             this.intObserver.observe(this.observedEl);
         }
         document.addEventListener('click', this.onDocumentClick);
+
         if (
             this.headerIsPersistent &&
             this.tableHeight === undefined &&
@@ -813,28 +851,6 @@ export class KupDataTable {
         ) {
             document.addEventListener('scroll', this.stickyHeaderPosition);
             document.addEventListener('resize', this.stickyHeaderPosition);
-        }
-
-        if (this.customizeTopButtonRef) {
-            positionRecalc(
-                this.customizeTopPanelRef,
-                this.customizeTopButtonRef
-            );
-        }
-        if (this.customizeBottomButtonRef) {
-            positionRecalc(
-                this.customizeBottomPanelRef,
-                this.customizeBottomButtonRef
-            );
-        }
-
-        if (root) {
-            let menu: HTMLElement = root.querySelector('.column-menu');
-            if (menu) {
-                let wrapper: HTMLElement = menu.closest('th');
-                positionRecalc(menu, wrapper);
-                menu.classList.add('dynamic-position-active');
-            }
         }
 
         if (
@@ -853,7 +869,10 @@ export class KupDataTable {
             'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
         // *** Store
-        this.persistState();
+        //Twice execution not useful
+        if (this.lazyLoadCells) {
+            this.persistState();
+        }
         // ***
     }
 
@@ -861,11 +880,37 @@ export class KupDataTable {
         this.scrollOnHoverInstance = new scrollOnHover();
         this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
 
+        if (this.customizeTopButtonRef) {
+            positionRecalc(
+                this.customizeTopPanelRef,
+                this.customizeTopButtonRef
+            );
+        }
+        if (this.customizeBottomButtonRef) {
+            positionRecalc(
+                this.customizeBottomPanelRef,
+                this.customizeBottomButtonRef
+            );
+        }
+
         // observing table
         // this.theadObserver.observe(this.theadRef);
 
         // automatic row selection
-        if (this.selectRow && this.selectRow > 0) {
+        if (this.selectRowsById) {
+            this.selectedRows = [];
+            let selectedIds: Array<string> = this.selectRowsById.split(';');
+            this.selectedRows = this.renderedRows.filter((r) => {
+                return selectedIds.indexOf(r.id) >= 0;
+            });
+
+            if (this.selectedRows && this.selectedRows.length > 0) {
+                this.kupRowSelected.emit({
+                    selectedRows: this.selectedRows,
+                    clickedColumn: null,
+                });
+            }
+        } else if (this.selectRow && this.selectRow > 0) {
             if (this.selectRow <= this.renderedRows.length) {
                 this.selectedRows = [];
                 this.selectedRows.push(this.renderedRows[this.selectRow - 1]);
@@ -881,10 +926,12 @@ export class KupDataTable {
         );
         // We use the click event to avoid a menu closing another one
         document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
+
         this.endTime = performance.now();
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
         this.lazyLoadCells = true;
+        this.kupDidLoad.emit();
     }
 
     componentDidUnload() {
@@ -902,9 +949,26 @@ export class KupDataTable {
                 this.documentHandlerCloseHeaderMenu
             );
         }
+        this.kupDidUnload.emit();
     }
 
     //======== Utility methods ========
+
+    private resetSelectedRows() {
+        this.selectedRows = [];
+        this.kupResetSelectedRows.emit();
+    }
+
+    private resetCurrentPage() {
+        this.currentPage = 1;
+        this.resetSelectedRows();
+    }
+
+    private _setTooltip(event: MouseEvent, cell: Cell) {
+        //unsetTooltip(this.tooltip);
+        setTooltip(event, cell, this.tooltip);
+        this.closeMenu();
+    }
 
     private getColumns(): Array<Column> {
         return this.data && this.data.columns
@@ -1163,7 +1227,7 @@ export class KupDataTable {
         const numberOfPages = Math.ceil(numberOfRows / this.currentRowsPerPage);
         if (this.currentPage > numberOfPages) {
             // reset page
-            this.currentPage = 1;
+            this.resetCurrentPage();
         }
     }
 
@@ -1321,7 +1385,7 @@ export class KupDataTable {
 
     private onRemoveFilter(column: string) {
         // resetting current page
-        this.currentPage = 1;
+        this.resetCurrentPage();
         const newFilters: GenericFilter = { ...this.filters };
         newFilters[column] = { textField: '', checkBoxes: [] };
         this.filters = newFilters;
@@ -1329,7 +1393,7 @@ export class KupDataTable {
 
     private onFilterChange({ detail }, column: Column) {
         // resetting current page
-        this.currentPage = 1;
+        this.resetCurrentPage();
 
         let newFilter = detail.value.trim();
         if (newFilter != '' && isNumber(column.obj)) {
@@ -1346,7 +1410,7 @@ export class KupDataTable {
 
     private onFilterChange2({ detail }, column: Column, filterValue: string) {
         // resetting current page
-        this.currentPage = 1;
+        this.resetCurrentPage();
 
         const newFilters = { ...this.filters };
 
@@ -1392,7 +1456,7 @@ export class KupDataTable {
 
     private onGlobalFilterChange({ detail }) {
         // resetting current page
-        this.currentPage = 1;
+        this.resetCurrentPage();
 
         this.globalFilterValue = detail.value;
     }
@@ -1493,16 +1557,15 @@ export class KupDataTable {
         if (target.checked) {
             // select all rows
             this.selectedRows = this.renderedRows;
+            // triggering event
+            this.kupRowSelected.emit({
+                selectedRows: this.selectedRows,
+                clickedColumn: null,
+            });
         } else {
             // deselect all rows
-            this.selectedRows = [];
+            this.resetSelectedRows();
         }
-
-        // triggering event
-        this.kupRowSelected.emit({
-            selectedRows: this.selectedRows,
-            clickedColumn: null,
-        });
     }
 
     private openMenu(column: string) {
@@ -1511,6 +1574,11 @@ export class KupDataTable {
 
     private closeMenu() {
         this.openedMenu = null;
+    }
+
+    private closeMenuAndTooltip() {
+        this.closeMenu();
+        unsetTooltip(this.tooltip);
     }
 
     private isOpenedMenu(): boolean {
@@ -1522,9 +1590,9 @@ export class KupDataTable {
     }
 
     private onHeaderCellContextMenuOpen(e: MouseEvent, column: string) {
-        if (this.isOpenedMenu()) {
-            this.closeMenu();
-        }
+        //if (this.isOpenedMenu()) {
+        this.closeMenuAndTooltip();
+        //}
         this.openMenu(column);
         // Prevent opening of the default browser menu
         e.preventDefault();
@@ -1567,13 +1635,13 @@ export class KupDataTable {
 
         // When we have an open menu and the event does NOT come from the same table, we close the menu.
         if (this.isOpenedMenu() && !(fromMenu && fromSameTable)) {
-            this.closeMenu();
+            this.closeMenuAndTooltip();
         }
     }
 
     private switchColumnGroup(group: GroupObject, column: string) {
         // resetting opened menu
-        this.closeMenu();
+        this.closeMenuAndTooltip();
 
         // reset group state
         this.groupState = {};
@@ -2087,6 +2155,14 @@ export class KupDataTable {
                                     this.kupAddColumn.emit({
                                         column: column.name,
                                     });
+                                    this.closeMenuAndTooltip();
+                                }}
+                            />
+                            <kup-button
+                                icon="table-column-remove"
+                                tooltip="Hide column"
+                                onKupButtonClick={() => {
+                                    column.visible = false;
                                     this.closeMenu();
                                 }}
                             />
@@ -2113,7 +2189,7 @@ export class KupDataTable {
                                     initialValue={filterInitialValue}
                                     onKupTextFieldSubmit={(e) => {
                                         this.onFilterChange(e, column);
-                                        this.closeMenu();
+                                        this.closeMenuAndTooltip();
                                     }}
                                 ></kup-text-field>
                             </li>
@@ -2417,6 +2493,17 @@ export class KupDataTable {
         return [multiSelectColumn, groupColumn, actionsColumn, ...dataColumns];
     }
 
+    renderTooltip() {
+        return (
+            <kup-tooltip
+                class="datatable-tooltip"
+                loadTimeout={this.tooltipLoadTimeout}
+                detailTimeout={this.tooltipDetailTimeout}
+                ref={(el: any) => (this.tooltip = el as KupTooltip)}
+            ></kup-tooltip>
+        );
+    }
+
     renderFooter() {
         if (!this.hasTotals()) {
             // no footer
@@ -2718,6 +2805,9 @@ export class KupDataTable {
                     'is-graphic': isBar(cell.obj),
                     number: isNumber(cell.obj),
                 };
+                if (cell.cssClass) {
+                    cellClass[cell.cssClass] = true;
+                }
 
                 let cellStyle: GenericObject = null;
                 if (!styleHasBorderRadius(cell)) {
@@ -2781,6 +2871,9 @@ export class KupDataTable {
             const rowClass = {
                 selected: this.selectedRows.includes(row),
             };
+            if (row.cssClass) {
+                rowClass[row.cssClass] = true;
+            }
 
             return (
                 <tr class={rowClass} onClick={(e) => this.onRowClick(e, row)}>
@@ -3005,32 +3098,15 @@ export class KupDataTable {
          * Controls if current cell needs a tooltip and eventually adds it.
          * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
          */
-        if (hasTooltip(cell.obj) && this.lazyLoadCells) {
-            classObj['is-tooltip'] = true;
-            content = [
-                content,
-                <kup-tooltip
-                    class="datatable-tooltip"
-                    loadTimeout={this.tooltipLoadTimeout}
-                    detailTimeout={this.tooltipDetailTimeout}
-                    onKupTooltipLoadData={(ev) =>
-                        this.kupLoadRequest.emit({
-                            cell,
-                            tooltip: ev.srcElement,
-                        })
-                    }
-                    onKupTooltipLoadDetail={(ev) =>
-                        this.kupDetailRequest.emit({
-                            cell,
-                            tooltip: ev.srcElement,
-                        })
-                    }
-                ></kup-tooltip>,
-            ];
-        }
-
+        const _hasTooltip: boolean = hasTooltip(cell.obj);
         return (
-            <span class={classObj} style={style}>
+            <span
+                class={classObj}
+                style={style}
+                onMouseOver={(ev) =>
+                    _hasTooltip ? this._setTooltip(ev, cell) : null
+                }
+            >
                 {indend}
                 {content}
             </span>
@@ -3328,6 +3404,8 @@ export class KupDataTable {
         // footer
         const footer = this.renderFooter();
 
+        const tooltip = this.renderTooltip();
+
         let globalFilter = null;
         if (this.globalFilter) {
             globalFilter = (
@@ -3453,7 +3531,11 @@ export class KupDataTable {
         }
 
         let compCreated = (
-            <div id="data-table-wrapper" style={elStyle}>
+            <div
+                id="data-table-wrapper"
+                style={elStyle}
+                onMouseLeave={(ev) => unsetTooltip(this.tooltip, ev)}
+            >
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}
@@ -3476,6 +3558,7 @@ export class KupDataTable {
                         <tbody>{rows}</tbody>
                         {footer}
                     </table>
+                    {tooltip}
                     {stickyEl}
                 </div>
                 {paginatorBottom}

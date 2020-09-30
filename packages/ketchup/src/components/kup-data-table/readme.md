@@ -58,7 +58,8 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `paginatorPos`              | `paginator-pos`                | Sets the position of the paginator. Available positions: top, bottom or both.                                                                                                                                                  | `PaginatorPos.BOTH \| PaginatorPos.BOTTOM \| PaginatorPos.TOP`                                   | `PaginatorPos.TOP`                   |
 | `rowActions`                | --                             | Sets the actions of the rows.                                                                                                                                                                                                  | `RowAction[]`                                                                                    | `undefined`                          |
 | `rowsPerPage`               | `rows-per-page`                | Sets the number of rows per page to display.                                                                                                                                                                                   | `number`                                                                                         | `10`                                 |
-| `selectRow`                 | `select-row`                   | Selects the specified row.                                                                                                                                                                                                     | `number`                                                                                         | `undefined`                          |
+| `selectRow`                 | `select-row`                   | Selects the row at the specified rendered rows prosition (base 1).                                                                                                                                                             | `number`                                                                                         | `undefined`                          |
+| `selectRowsById`            | `select-rows-by-id`            | Semicolon separated rows id to select.                                                                                                                                                                                         | `string`                                                                                         | `undefined`                          |
 | `showFilters`               | `show-filters`                 | When set to true enables the column filters.                                                                                                                                                                                   | `boolean`                                                                                        | `false`                              |
 | `showGrid`                  | `show-grid`                    | Can be used to customize the grid view of the table.                                                                                                                                                                           | `ShowGrid.COL \| ShowGrid.COMPLETE \| ShowGrid.NONE \| ShowGrid.ROW`                             | `ShowGrid.ROW`                       |
 | `showHeader`                | `show-header`                  | Enables rendering of the table header.                                                                                                                                                                                         | `boolean`                                                                                        | `true`                               |
@@ -70,8 +71,8 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `store`                     | --                             |                                                                                                                                                                                                                                | `KupStore`                                                                                       | `undefined`                          |
 | `tableHeight`               | `table-height`                 | Sets the height of the table.                                                                                                                                                                                                  | `string`                                                                                         | `undefined`                          |
 | `tableWidth`                | `table-width`                  | Sets the width of the table.                                                                                                                                                                                                   | `string`                                                                                         | `undefined`                          |
-| `tooltipDetailTimeout`      | `tooltip-detail-timeout`       | Defines the timout for tooltip detail                                                                                                                                                                                          | `number`                                                                                         | `undefined`                          |
-| `tooltipLoadTimeout`        | `tooltip-load-timeout`         | Defines the timout for tooltip load                                                                                                                                                                                            | `number`                                                                                         | `undefined`                          |
+| `tooltipDetailTimeout`      | `tooltip-detail-timeout`       | Defines the timeout for tooltip detail                                                                                                                                                                                         | `number`                                                                                         | `undefined`                          |
+| `tooltipLoadTimeout`        | `tooltip-load-timeout`         | Defines the timeout for tooltip load                                                                                                                                                                                           | `number`                                                                                         | `undefined`                          |
 | `totals`                    | --                             | Defines the current totals options.                                                                                                                                                                                            | `TotalsMap`                                                                                      | `undefined`                          |
 
 
@@ -83,10 +84,13 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kupAutoRowSelect`         | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
 | `kupCellButtonClicked`     |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
 | `kupDataTableSortedColumn` |                                                | `CustomEvent<KupDataTableSortedColumnIndexes>`                                                                |
-| `kupDetailRequest`         | When a tooltip request detail data             | `CustomEvent<{ cell: Cell; tooltip: EventTarget; }>`                                                          |
+| `kupDetailRequest`         | When a tooltip request detail data             | `CustomEvent<{ cell: Cell; tooltip: KupTooltip; }>`                                                           |
+| `kupDidLoad`               | When component load is complete                | `CustomEvent<{}>`                                                                                             |
+| `kupDidUnload`             | When component uloade is complete              | `CustomEvent<{}>`                                                                                             |
+
 | `kupLoadMoreClicked`       |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
-| `kupLoadRequest`           | When a tooltip request initial data            | `CustomEvent<{ cell: Cell; tooltip: EventTarget; }>`                                                          |
 | `kupOptionClicked`         | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
+| `kupResetSelectedRows`     | When rows selections reset                     | `CustomEvent<{}>`                                                                                             |
 | `kupRowActionClicked`      | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
 | `kupRowSelected`           | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedColumn: string; }>`                                                |
 
@@ -160,10 +164,10 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 - [kup-button](../kup-button)
 - [kup-image](../kup-image)
 - [kup-text-field](../kup-text-field)
+- [kup-tooltip](../kup-tooltip)
 - [kup-lazy](../kup-lazy)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
-- [kup-tooltip](../kup-tooltip)
 - [kup-paginator](../kup-paginator)
 - [kup-combobox](../kup-combobox)
 - [kup-chip](../kup-chip)
@@ -175,10 +179,10 @@ graph TD;
   kup-data-table --> kup-button
   kup-data-table --> kup-image
   kup-data-table --> kup-text-field
+  kup-data-table --> kup-tooltip
   kup-data-table --> kup-lazy
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
-  kup-data-table --> kup-tooltip
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
   kup-data-table --> kup-chip
@@ -187,9 +191,17 @@ graph TD;
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-text-field --> kup-image
-  kup-progress-bar --> kup-image
   kup-tooltip --> kup-button
   kup-tooltip --> kup-image
+  kup-tooltip --> kup-tree
+  kup-tree --> kup-button
+  kup-tree --> kup-lazy
+  kup-tree --> kup-checkbox
+  kup-tree --> kup-image
+  kup-tree --> kup-progress-bar
+  kup-tree --> kup-radio
+  kup-tree --> kup-text-field
+  kup-progress-bar --> kup-image
   kup-paginator --> kup-button
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field

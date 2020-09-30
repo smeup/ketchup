@@ -78,8 +78,11 @@ export class KupChart {
     @Prop()
     hAxis: ChartAxis;
 
+    /**
+     * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+     */
     @Prop({ reflect: true })
-    legend = true;
+    legend: string = 'right';
 
     @Prop()
     series: string[];
@@ -236,14 +239,14 @@ export class KupChart {
             opts.colors = this.themeColors;
         }
 
-        if (!this.legend) {
+        if (this.legend && this.legend !== 'none') {
             opts.legend = {
-                position: 'none',
+                position: this.legend,
+                textStyle: { color: this.themeText },
             };
         } else {
             opts.legend = {
-                position: 'right',
-                textStyle: { color: this.themeText },
+                position: 'none',
             };
         }
 

@@ -16,6 +16,7 @@ import { defaultDataTable } from '@/mock/dataTable';
 
 import {
   bornToDie,
+  cellOptions,
   ultraviolence,
   honeymoon,
   lustForLife,
@@ -23,6 +24,7 @@ import {
 } from '@/mock/tooltip';
 
 import { j4btnData } from '@/mock/box';
+import { TreeFactory } from 'ketchup/src/components/kup-tree/kup-tree-faker';
 
 export default {
   name: 'dataTableBasic',
@@ -31,14 +33,30 @@ export default {
     return {
       data: {
         data: defaultDataTable,
+
         onKupOptionClicked: (e) => {
           this.handleKupOptionClicked(e.detail);
         },
-        onKupLoadRequest: (e) => {
+        onKupTooltipLoadData: (e) => {
           this.onLoadData(e, 1);
         },
-        onKupDetailRequest: (e) => {
+        onKupTooltipLoadDetail: (e) => {
           this.loadBornToDie(e);
+        },
+        onKupTooltipLoadCellOptions: (e) => {
+          this.loadCellOptions(e);
+        },
+        onKupTreeNodeButtonClicked: (e) => {
+          this.treeNodeButtonClicked(e);
+        },
+        onKupTreeNodeSelected: (e) => {
+          this.treeNodeSelected(e);
+        },
+        onKupTreeNodeExpand: (e) => {
+          this.treeNodeExpand(e);
+        },
+        onKupTreeNodeCollapse: (e) => {
+          this.treeNodeCollapse(e);
         },
       },
       images: {
@@ -50,11 +68,30 @@ export default {
 
   methods: {
     handleKupOptionClicked({ detail }) {
-      console.log('detail', detail);
+      console.log('KupOptionClicked detail', detail);
+    },
+
+    treeNodeButtonClicked({ detail }) {
+      console.log('treeNodeButtonClicked detail', detail);
+    },
+
+    treeNodeSelected({ detail }) {
+      console.log('treeNodeSelected detail', detail);
+    },
+
+    treeNodeExpand({ detail }) {
+      console.log('treeNodeExpand detail', detail);
+    },
+
+    treeNodeCollapse({ detail }) {
+      console.log('treeNodeCollapse detail', detail);
     },
 
     loadBornToDie(event) {
       setTimeout(() => (event.detail.tooltip.detailData = bornToDie), 400);
+    },
+    loadCellOptions(event) {
+      setTimeout(() => (event.detail.tooltip.cellOptions = TreeFactory()), 400);
     },
 
     onLoadData(event, index) {

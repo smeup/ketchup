@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
 import { BadgePosition } from "./components/kup-badge/kup-badge-declarations";
+import { KupStore } from "./components/kup-state/kup-store";
 import { ComponentCardElement } from "./components/kup-card/kup-card-declarations";
 import { Cell, Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
@@ -17,7 +18,6 @@ import { ComponentChipElement } from "./components/kup-chip/kup-chip-declaration
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
-import { KupStore } from "./components/kup-state/kup-store";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { ComponentGridElement } from "./components/kup-grid/kup-grid-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
@@ -27,7 +27,7 @@ import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarat
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-import { TooltipAction, TooltipData, TooltipDetailData, TooltipObject } from "./components/kup-tooltip/kup-tooltip-declarations";
+import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
@@ -127,6 +127,10 @@ export namespace Components {
          */
         "filterEnabled": boolean;
         /**
+          * Global filter value state
+         */
+        "globalFilterValueState": string;
+        /**
           * How the field will be displayed. If not present, a default one will be created.
          */
         "layout": Layout;
@@ -144,6 +148,10 @@ export namespace Components {
          */
         "noPadding": boolean;
         /**
+          * current number page
+         */
+        "pageSelected": number;
+        /**
           * Number of boxes per page
          */
         "pageSize": number;
@@ -153,9 +161,17 @@ export namespace Components {
         "pagination": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
+          * current rows per page
+         */
+        "rowsPerPage": number;
+        /**
           * Automatically selects the box at the specified index
          */
         "selectBox": number;
+        /**
+          * Multiple selection
+         */
+        "selectedRowsState": BoxRow[];
         /**
           * If enabled, highlights the selected box/boxes
          */
@@ -168,6 +184,20 @@ export namespace Components {
           * Enable sorting
          */
         "sortEnabled": boolean;
+        "stateId": string;
+        "store": KupStore;
+        /**
+          * Disable swipe
+         */
+        "swipeDisabled": boolean;
+        /**
+          * Defines the timeout for tooltip detail
+         */
+        "tooltipDetailTimeout": number;
+        /**
+          * Defines the timeout for tooltip load
+         */
+        "tooltipLoadTimeout": number;
     }
     interface KupBtn {
         "buttons": any[];
@@ -297,7 +327,10 @@ export namespace Components {
         "graphTitleColor": string;
         "graphTitleSize": number;
         "hAxis": ChartAxis;
-        "legend": boolean;
+        /**
+          * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+         */
+        "legend": string;
         "offlineMode": ChartOfflineMode;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         "series": string[];
@@ -554,9 +587,13 @@ export namespace Components {
          */
         "rowsPerPage": number;
         /**
-          * Selects the specified row.
+          * Selects the row at the specified rendered rows prosition (base 1).
          */
         "selectRow": number;
+        /**
+          * Semicolon separated rows id to select.
+         */
+        "selectRowsById": string;
         /**
           * When set to true enables the column filters.
          */
@@ -597,17 +634,26 @@ export namespace Components {
          */
         "tableWidth": string;
         /**
-          * Defines the timout for tooltip detail
+          * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout": number;
         /**
-          * Defines the timout for tooltip load
+          * Defines the timeout for tooltip load
          */
         "tooltipLoadTimeout": number;
         /**
           * Defines the current totals options.
          */
         "totals": TotalsMap;
+    }
+    interface KupDrawer {
+        "open": () => Promise<void>;
+        /**
+          * opened is used to make our drawer appear and disappear
+         */
+        "opened": boolean;
+        "permanent": boolean;
+        "right": boolean;
     }
     interface KupEditor {
         /**
@@ -1291,6 +1337,10 @@ export namespace Components {
     }
     interface KupTooltip {
         /**
+          * Data for cell options
+         */
+        "cellOptions": TooltipCellOptions;
+        /**
           * Data for top section
          */
         "data": TooltipData;
@@ -1310,6 +1360,10 @@ export namespace Components {
           * Timeout for tooltip
          */
         "loadTimeout": number;
+        /**
+          * Container element for tooltip
+         */
+        "relatedObject": TooltipRelatedObject;
     }
     interface KupTree {
         /**
@@ -1487,6 +1541,12 @@ declare global {
         prototype: HTMLKupDataTableElement;
         new (): HTMLKupDataTableElement;
     };
+    interface HTMLKupDrawerElement extends Components.KupDrawer, HTMLStencilElement {
+    }
+    var HTMLKupDrawerElement: {
+        prototype: HTMLKupDrawerElement;
+        new (): HTMLKupDrawerElement;
+    };
     interface HTMLKupEditorElement extends Components.KupEditor, HTMLStencilElement {
     }
     var HTMLKupEditorElement: {
@@ -1660,6 +1720,7 @@ declare global {
         "kup-dash": HTMLKupDashElement;
         "kup-dash-list": HTMLKupDashListElement;
         "kup-data-table": HTMLKupDataTableElement;
+        "kup-drawer": HTMLKupDrawerElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
@@ -1814,6 +1875,10 @@ declare namespace LocalJSX {
          */
         "filterEnabled"?: boolean;
         /**
+          * Global filter value state
+         */
+        "globalFilterValueState"?: string;
+        /**
           * How the field will be displayed. If not present, a default one will be created.
          */
         "layout"?: Layout;
@@ -1876,6 +1941,18 @@ declare namespace LocalJSX {
         rows: BoxRow[];
     }>) => void;
         /**
+          * Triggered when start propagation event
+         */
+        "onKupDidLoad"?: (event: CustomEvent<{
+        EventEmitter: Boolean;
+    }>) => void;
+        /**
+          * Triggered when stop propagation event
+         */
+        "onKupDidUnload"?: (event: CustomEvent<{
+        EventEmitter: Boolean;
+    }>) => void;
+        /**
           * When the row menu action icon is clicked
          */
         "onKupRowActionClicked"?: (event: CustomEvent<{
@@ -1890,6 +1967,10 @@ declare namespace LocalJSX {
         row: BoxRow;
     }>) => void;
         /**
+          * current number page
+         */
+        "pageSelected"?: number;
+        /**
           * Number of boxes per page
          */
         "pageSize"?: number;
@@ -1898,9 +1979,17 @@ declare namespace LocalJSX {
          */
         "pagination"?: boolean;
         /**
+          * current rows per page
+         */
+        "rowsPerPage"?: number;
+        /**
           * Automatically selects the box at the specified index
          */
         "selectBox"?: number;
+        /**
+          * Multiple selection
+         */
+        "selectedRowsState"?: BoxRow[];
         /**
           * If enabled, highlights the selected box/boxes
          */
@@ -1913,6 +2002,20 @@ declare namespace LocalJSX {
           * Enable sorting
          */
         "sortEnabled"?: boolean;
+        "stateId"?: string;
+        "store"?: KupStore;
+        /**
+          * Disable swipe
+         */
+        "swipeDisabled"?: boolean;
+        /**
+          * Defines the timeout for tooltip detail
+         */
+        "tooltipDetailTimeout"?: number;
+        /**
+          * Defines the timeout for tooltip load
+         */
+        "tooltipLoadTimeout"?: number;
     }
     interface KupBtn {
         "buttons"?: any[];
@@ -2091,7 +2194,10 @@ declare namespace LocalJSX {
         "graphTitleColor"?: string;
         "graphTitleSize"?: number;
         "hAxis"?: ChartAxis;
-        "legend"?: boolean;
+        /**
+          * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+         */
+        "legend"?: string;
         "offlineMode"?: ChartOfflineMode;
         /**
           * Triggered when a chart serie is clicked
@@ -2421,22 +2527,25 @@ declare namespace LocalJSX {
     }>) => void;
         "onKupCellButtonClicked"?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
         "onKupDataTableSortedColumn"?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
+
         /**
           * When a tooltip request detail data
          */
         "onKupDetailRequest"?: (event: CustomEvent<{
         cell: Cell;
-        tooltip: EventTarget;
-    }>) => void;
-        "onKupLoadMoreClicked"?: (event: CustomEvent<{
-        loadItems: number;
+        tooltip: KupTooltip;
     }>) => void;
         /**
-          * When a tooltip request initial data
+          * When component load is complete
          */
-        "onKupLoadRequest"?: (event: CustomEvent<{
-        cell: Cell;
-        tooltip: EventTarget;
+        "onKupDidLoad"?: (event: CustomEvent<{}>) => void;
+        /**
+          * When component uloade is complete
+         */
+        "onKupDidUnload"?: (event: CustomEvent<{}>) => void;
+
+        "onKupLoadMoreClicked"?: (event: CustomEvent<{
+        loadItems: number;
     }>) => void;
         /**
           * When cell option is clicked
@@ -2445,6 +2554,10 @@ declare namespace LocalJSX {
         column: string;
         row: Row;
     }>) => void;
+        /**
+          * When rows selections reset
+         */
+        "onKupResetSelectedRows"?: (event: CustomEvent<{}>) => void;
         /**
           * When a row action is clicked
          */
@@ -2478,9 +2591,13 @@ declare namespace LocalJSX {
          */
         "rowsPerPage"?: number;
         /**
-          * Selects the specified row.
+          * Selects the row at the specified rendered rows prosition (base 1).
          */
         "selectRow"?: number;
+        /**
+          * Semicolon separated rows id to select.
+         */
+        "selectRowsById"?: string;
         /**
           * When set to true enables the column filters.
          */
@@ -2521,17 +2638,25 @@ declare namespace LocalJSX {
          */
         "tableWidth"?: string;
         /**
-          * Defines the timout for tooltip detail
+          * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout"?: number;
         /**
-          * Defines the timout for tooltip load
+          * Defines the timeout for tooltip load
          */
         "tooltipLoadTimeout"?: number;
         /**
           * Defines the current totals options.
          */
         "totals"?: TotalsMap;
+    }
+    interface KupDrawer {
+        /**
+          * opened is used to make our drawer appear and disappear
+         */
+        "opened"?: boolean;
+        "permanent"?: boolean;
+        "right"?: boolean;
     }
     interface KupEditor {
         /**
@@ -3338,6 +3463,10 @@ declare namespace LocalJSX {
     }
     interface KupTooltip {
         /**
+          * Data for cell options
+         */
+        "cellOptions"?: TooltipCellOptions;
+        /**
           * Data for top section
          */
         "data"?: TooltipData;
@@ -3366,8 +3495,22 @@ declare namespace LocalJSX {
         "onKupDefaultOptionClicked"?: (event: CustomEvent<{
         obj: TooltipObject;
     }>) => void;
-        "onKupTooltipLoadData"?: (event: CustomEvent<any>) => void;
-        "onKupTooltipLoadDetail"?: (event: CustomEvent<any>) => void;
+        "onKupTooltipLoadCellOptions"?: (event: CustomEvent<{
+        relatedObject: TooltipRelatedObject;
+        tooltip: KupTooltip;
+    }>) => void;
+        "onKupTooltipLoadData"?: (event: CustomEvent<{
+        relatedObject: TooltipRelatedObject;
+        tooltip: KupTooltip;
+    }>) => void;
+        "onKupTooltipLoadDetail"?: (event: CustomEvent<{
+        relatedObject: TooltipRelatedObject;
+        tooltip: KupTooltip;
+    }>) => void;
+        /**
+          * Container element for tooltip
+         */
+        "relatedObject"?: TooltipRelatedObject;
     }
     interface KupTree {
         /**
@@ -3410,6 +3553,11 @@ declare namespace LocalJSX {
           * Activates the scroll on hover function
          */
         "hoverScroll"?: boolean;
+        "onKupDidLoad"?: (event: CustomEvent<void>) => void;
+        /**
+          * Triggered when stop propagation event
+         */
+        "onKupDidUnload"?: (event: CustomEvent<void>) => void;
         /**
           * When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}.
          */
@@ -3417,6 +3565,7 @@ declare namespace LocalJSX {
         cell: Cell;
         column: Column;
         treeNode: TreeNode;
+        tree: KupTree;
     }>) => void;
         "onKupTreeNodeButtonClicked"?: (event: CustomEvent<{
         treeNodePath: TreeNodePath;
@@ -3424,6 +3573,7 @@ declare namespace LocalJSX {
         column: Column;
         columnName: string;
         auto: boolean;
+        tree: KupTree;
     }>) => void;
         /**
           * Fired when a TreeNode gets collapsed (closed).
@@ -3431,6 +3581,7 @@ declare namespace LocalJSX {
         "onKupTreeNodeCollapse"?: (event: CustomEvent<{
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
+        tree: KupTree;
     }>) => void;
         /**
           * Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.
@@ -3449,6 +3600,7 @@ declare namespace LocalJSX {
         treeNode: TreeNode;
         usesDynamicExpansion?: boolean;
         dynamicExpansionRequireChildren?: boolean;
+        tree: KupTree;
     }>) => void;
         /**
           * Fired when a node of the tree has been selected
@@ -3458,6 +3610,7 @@ declare namespace LocalJSX {
         treeNode: TreeNode;
         columnName: string;
         auto: boolean;
+        tree: KupTree;
     }>) => void;
         /**
           * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
@@ -3517,6 +3670,7 @@ declare namespace LocalJSX {
         "kup-dash": KupDash;
         "kup-dash-list": KupDashList;
         "kup-data-table": KupDataTable;
+        "kup-drawer": KupDrawer;
         "kup-editor": KupEditor;
         "kup-field": KupField;
         "kup-form": KupForm;
@@ -3565,6 +3719,7 @@ declare module "@stencil/core" {
             "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;
             "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
+            "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;

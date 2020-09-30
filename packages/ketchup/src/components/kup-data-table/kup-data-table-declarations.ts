@@ -19,6 +19,7 @@ export interface Cell {
     shape?: string;
     data?: CellData;
     cardID?: string;
+    cssClass?: string;
 }
 
 export interface CellsHolder {
@@ -50,6 +51,8 @@ export interface Row {
     group?: RowGroup;
 
     readOnly?: boolean;
+
+    cssClass?: string;
 }
 
 export interface RowGroup {
@@ -166,9 +169,9 @@ export interface KupDataTableSortedColumnIndexes {
  * @readonly
  */
 export enum GroupLabelDisplayMode {
-    BOTH = 'both',
-    LABEL = 'label',
-    VALUE = 'value',
+    BOTH = 'Both',
+    LABEL = 'Label',
+    VALUE = 'Value',
 }
 
 //---- Fixed rows and cells classes ----

@@ -24,6 +24,12 @@ export const config: Config = {
         {
             src: 'nav-bar.html',
         },
+        {
+            src: 'tooltip.html',
+        },
+        {
+            src: 'drawer.html',
+        },
     ],
 
     namespace: 'ketchup',
