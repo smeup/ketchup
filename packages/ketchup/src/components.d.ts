@@ -1937,6 +1937,18 @@ declare namespace LocalJSX {
         rows: BoxRow[];
     }>) => void;
         /**
+          * Triggered when start propagation event
+         */
+        "onKupDidLoad"?: (event: CustomEvent<{
+        EventEmitter: Boolean;
+    }>) => void;
+        /**
+          * Triggered when stop propagation event
+         */
+        "onKupDidUnload"?: (event: CustomEvent<{
+        EventEmitter: Boolean;
+    }>) => void;
+        /**
           * When the row menu action icon is clicked
          */
         "onKupRowActionClicked"?: (event: CustomEvent<{
@@ -3533,6 +3545,11 @@ declare namespace LocalJSX {
           * Activates the scroll on hover function
          */
         "hoverScroll"?: boolean;
+        "onKupDidLoad"?: (event: CustomEvent<void>) => void;
+        /**
+          * Triggered when stop propagation event
+         */
+        "onKupDidUnload"?: (event: CustomEvent<void>) => void;
         /**
           * When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}.
          */
