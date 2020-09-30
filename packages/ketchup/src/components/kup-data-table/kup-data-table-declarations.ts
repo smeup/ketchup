@@ -169,9 +169,9 @@ export interface KupDataTableSortedColumnIndexes {
  * @readonly
  */
 export enum GroupLabelDisplayMode {
-    BOTH = 'both',
-    LABEL = 'label',
-    VALUE = 'value',
+    BOTH = 'Both',
+    LABEL = 'Label',
+    VALUE = 'Value',
 }
 
 //---- Fixed rows and cells classes ----

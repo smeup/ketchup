@@ -4,11 +4,13 @@ import {
     GenericFilter,
     GroupObject,
     SortObject,
+    GroupLabelDisplayMode,
 } from './kup-data-table-declarations';
 
 export class KupDataTableState implements KupState {
     filters: GenericFilter = {};
     expandGroups = false;
+    groupLabelDisplay = GroupLabelDisplayMode.BOTH;
     density: string = 'small';
     enableSortableColumns: boolean = false;
     forceOneLine: boolean = false;
@@ -28,7 +30,7 @@ export class KupDataTableState implements KupState {
     sortableColumnsMutateData: boolean = true;
     pageSelected: number = 1;
     selectRow: number;
-    selectRowById: string;
+    selectRowsById: string;
 
     public toDebugString() {
         // TODO

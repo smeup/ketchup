@@ -75,7 +75,6 @@ import { GenericObject } from '../../types/GenericTypes';
 
 import {
     stringToNumber,
-    numberToString,
     formattedStringToUnformattedStringNumber,
     unformattedStringToFormattedStringNumber,
     numberToFormattedStringNumber,
@@ -92,10 +91,7 @@ import { unformatDate } from '../../utils/cell-formatter';
 import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
-import {
-    TooltipRelatedObject,
-    ViewMode,
-} from '../kup-tooltip/kup-tooltip-declarations';
+import { setTooltip, unsetTooltip } from '../../utils/helpers';
 
 @Component({
     tag: 'kup-data-table',
@@ -121,6 +117,7 @@ export class KupDataTable {
                 this.filters = state.filters;
                 this.groups = state.groups;
                 this.expandGroups = state.expandGroups;
+                this.groupLabelDisplay = state.groupLabelDisplay;
                 this.density = state.density;
                 this.enableSortableColumns = state.enableSortableColumns;
                 this.forceOneLine = state.forceOneLine;
@@ -152,6 +149,7 @@ export class KupDataTable {
             this.state.filters = this.filters;
             this.state.groups = this.groups;
             this.state.expandGroups = this.expandGroups;
+            this.state.groupLabelDisplay = this.groupLabelDisplay;
             this.state.density = this.density;
             this.state.enableSortableColumns = this.enableSortableColumns;
             this.state.forceOneLine = this.forceOneLine;
@@ -170,6 +168,14 @@ export class KupDataTable {
             this.state.sort = this.sort;
             this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
             this.state.pageSelected = this.currentPage;
+            this.state.selectRowsById = this.selectedRows.reduce(
+                (accumulator, row, currentIndex) => {
+                    const prefix = currentIndex > 0 ? ';' : '';
+                    return accumulator + prefix + row.id;
+                },
+                ''
+            );
+
             logMessage(this, 'Persisting stateId ' + this.stateId);
             this.store.persistState(this.stateId, this.state);
         }
@@ -309,7 +315,7 @@ export class KupDataTable {
     @Prop({ reflect: true }) rowsPerPage = 10;
 
     /**
-     * Semicolon separated rows id to select
+     * Semicolon separated rows id to select.
      */
     @Prop({ reflect: true }) selectRowsById: string;
 
@@ -550,7 +556,29 @@ export class KupDataTable {
     private observedEl: Element = undefined;
 
     /**
-     * When rows selctions reset
+     * When component uloade is complete
+     */
+    @Event({
+        eventName: 'kupDidUnload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDidUnload: EventEmitter<{}>;
+
+    /**
+     * When component load is complete
+     */
+    @Event({
+        eventName: 'kupDidLoad',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDidLoad: EventEmitter<{}>;
+
+    /**
+     * When rows selections reset
      */
     @Event({
         eventName: 'kupResetSelectedRows',
@@ -816,13 +844,6 @@ export class KupDataTable {
         }
         document.addEventListener('click', this.onDocumentClick);
 
-        // Attach function to close header menu onto the document
-        this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
-            this
-        );
-        // We use the click event to avoid a menu closing another one
-        document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
-
         if (
             this.headerIsPersistent &&
             this.tableHeight === undefined &&
@@ -882,6 +903,7 @@ export class KupDataTable {
             this.selectedRows = this.renderedRows.filter((r) => {
                 return selectedIds.indexOf(r.id) >= 0;
             });
+
             if (this.selectedRows && this.selectedRows.length > 0) {
                 this.kupRowSelected.emit({
                     selectedRows: this.selectedRows,
@@ -898,18 +920,18 @@ export class KupDataTable {
             }
         }
 
-        /*
         // Attach function to close header menu onto the document
         this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
             this
         );
         // We use the click event to avoid a menu closing another one
         document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
-        */
+
         this.endTime = performance.now();
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
         this.lazyLoadCells = true;
+        this.kupDidLoad.emit();
     }
 
     componentDidUnload() {
@@ -927,6 +949,7 @@ export class KupDataTable {
                 this.documentHandlerCloseHeaderMenu
             );
         }
+        this.kupDidUnload.emit();
     }
 
     //======== Utility methods ========
@@ -941,29 +964,10 @@ export class KupDataTable {
         this.resetSelectedRows();
     }
 
-    private setTooltip(event: MouseEvent, cell: Cell) {
-        let related: TooltipRelatedObject = null;
-        if (cell != null) {
-            related = {} as TooltipRelatedObject;
-            related.element = event.target as HTMLElement;
-            related.object = cell;
-        }
-
-        let newValue = related;
-        let oldValue = this.tooltip.relatedObject;
-        if (newValue == null && oldValue == null) {
-            return;
-        }
-        if (newValue != null && oldValue != null) {
-            if (
-                newValue.object == oldValue.object &&
-                newValue.element == oldValue.element
-            ) {
-                return;
-            }
-        }
+    private _setTooltip(event: MouseEvent, cell: Cell) {
+        //unsetTooltip(this.tooltip);
+        setTooltip(event, cell, this.tooltip);
         this.closeMenu();
-        this.tooltip.relatedObject = related;
     }
 
     private getColumns(): Array<Column> {
@@ -1574,7 +1578,7 @@ export class KupDataTable {
 
     private closeMenuAndTooltip() {
         this.closeMenu();
-        this.setTooltip(null, null);
+        unsetTooltip(this.tooltip);
     }
 
     private isOpenedMenu(): boolean {
@@ -3100,7 +3104,7 @@ export class KupDataTable {
                 class={classObj}
                 style={style}
                 onMouseOver={(ev) =>
-                    _hasTooltip ? this.setTooltip(ev, cell) : null
+                    _hasTooltip ? this._setTooltip(ev, cell) : null
                 }
             >
                 {indend}
@@ -3527,7 +3531,11 @@ export class KupDataTable {
         }
 
         let compCreated = (
-            <div id="data-table-wrapper" style={elStyle}>
+            <div
+                id="data-table-wrapper"
+                style={elStyle}
+                onMouseLeave={(ev) => unsetTooltip(this.tooltip, ev)}
+            >
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}
