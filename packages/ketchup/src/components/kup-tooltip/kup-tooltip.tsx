@@ -331,7 +331,7 @@ export class KupTooltip {
                 ></kup-button>
                 <kup-button
                     flat={true}
-                    icon="youtube-searched-for"
+                    icon="search"
                     onKupButtonClick={(event) =>
                         this.onDefaultPreviewClicked(event)
                     }
