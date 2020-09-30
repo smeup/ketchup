@@ -16,5 +16,5 @@ module.exports = {
   },
   // Used to configure Vue to enable transpiling node_modules
   // https://cli.vuejs.org/config/#transpiledependencies
-  transpileDependencies: ['ketchup-vue'],
+  transpileDependencies: [],
 };
