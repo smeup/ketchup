@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type      | Default     |
-| -------- | --------- | ----------- | --------- | ----------- |
-| `menu`   | `menu`    |             | `string`  | `undefined` |
-| `opened` | `opened`  |             | `boolean` | `undefined` |
+| Property    | Attribute   | Description                                            | Type      | Default     |
+| ----------- | ----------- | ------------------------------------------------------ | --------- | ----------- |
+| `opened`    | `opened`    | opened is used to make our drawer appear and disappear | `boolean` | `undefined` |
+| `permanent` | `permanent` |                                                        | `boolean` | `undefined` |
+| `right`     | `right`     |                                                        | `boolean` | `undefined` |
 
 
 ## Methods
