@@ -126,7 +126,7 @@
               </td>
               <td>
                 Sets the color of text displayed above the main color, keep
-                in mind accessibility when setting this!
+                in mind readability when setting this!
               </td>
               <td class="prevent-cr">
                 <span class="code-word">color</span>
@@ -141,7 +141,7 @@
               </td>
               <td>
                 Sets the background color of disabled text, keep in mind
-                accessibility when setting its counterpart
+                readability when setting its counterpart
                 "--kup-disabled-color".
               </td>
               <td class="prevent-cr">
@@ -188,8 +188,8 @@
                 <span class="code-word">--kup-hover-color</span>
               </td>
               <td>
-                Sets the color of elements at mouse hover, keep in mind
-                accessibility with its counterpart
+                Sets the color of text at mouse hover, keep in mind
+                readability with its counterpart
                 "--kup-hover-background-color".
               </td>
               <td class="prevent-cr">

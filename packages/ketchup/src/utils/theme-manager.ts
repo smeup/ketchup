@@ -169,6 +169,35 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-4": "#81e447"
         }
     },
+    "teal": {
+        "cssVariables": {
+            "--kup-main-color": "#068A9C",
+            "--kup-background-color": "#ffffff",
+            "--kup-nav-bar-background-color": "#068A9C",
+            "--kup-drawer-background-color": "#ffffff",
+            "--kup-font-family": "Roboto, sans-serif",
+            "--kup-font-size": "13px",
+            "--kup-text-color": "#000000",
+            "--kup-text-on-main-color": "#ffffff",
+            "--kup-disabled-background-color": "#eaeaea",
+            "--kup-disabled-color": "#909090",
+            "--kup-hover-background-color": "#ededed",
+            "--kup-hover-color": "#000000",
+            "--kup-title-background-color": "#f1f3f4",
+            "--kup-title-color": "#2e2e2e",
+            "--kup-icon-color": "#00B2CB",
+            "--kup-border-color": "#ededed",
+            "--kup-box-shadow": "rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px",
+            "--kup-field-background-color": "#fafafa",
+            "--kup-success-color": "#4d9f02",
+            "--kup-warning-color": "#ffc107",
+            "--kup-danger-color": "#A6192E",
+            "--kup-spinner-color": "#eaa710",
+            "--kup-chart-color-1": "#735DED",
+            "--kup-chart-color-2": "#00B2CB",
+            "--kup-chart-color-3": "#EDC900"
+        }
+    },
     "wildlife": {
         "cssVariables": {
             "--kup-main-color": "#0fa918",
