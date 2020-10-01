@@ -31,7 +31,7 @@ export class KupAutocomplete {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Props of the list.
      */
@@ -43,12 +43,11 @@ export class KupAutocomplete {
     /**
      * The minimum number of chars to trigger the autocomplete
      */
-    @Prop({ reflect: true }) minimumChars: number = 1;
+    @Prop() minimumChars: number = 1;
     /**
      * Sets how the return the selected item value
      */
-    @Prop({ reflect: true }) selectMode: ItemsDisplayMode =
-        ItemsDisplayMode.CODE;
+    @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
 
     private textfieldEl: any = undefined;
     private listEl: any = undefined;

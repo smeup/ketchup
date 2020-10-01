@@ -252,7 +252,7 @@
         <span>toggable:</span><kup-button toggable icon="favorite"></kup-button>
         <span>toggable+icon-off:</span><kup-button toggable icon="fullscreen" icon-off="fullscreen_exit"></kup-button>
         <span>toggable+checked:</span><kup-button toggable checked icon="favorite"></kup-button>
-        <span>icon+tooltip:</span><kup-button tooltip="Tooltip" icon="favorite"></kup-button>
+        <span>icon+tooltip:</span><kup-button icon="favorite"></kup-button>
         
         <!-- -->
         <kup-button label="Flat" flat></kup-button>
@@ -278,7 +278,7 @@
         <kup-image resource="favorite"></kup-image>
         
         <kup-button full-width label="Fill space"></kup-button>
-        <kup-button tooltip="Tooltip" label="With tooltip" icon="favorite"></kup-button>
+        <kup-button title="Tooltip" label="With tooltip" icon="favorite"></kup-button>
         <kup-chip type="filter"></kup-chip>
         
         
@@ -327,7 +327,7 @@
         value: '#2d2d2d',
       },
       {
-        name: '--kup-header-background-color',
+        name: '--kup-nav-bar-background-color',
         value: '#2d2d2d',
       },
       {
@@ -337,10 +337,6 @@
       {
         name: '--kup-main-color',
         value: '#82f0e2',
-      },
-      {
-        name: '--kup-display-mode',
-        value: 'block',
       },
       {
         name: '--kup-font-family',
@@ -375,7 +371,7 @@
         value: '#535353',
       },
       {
-        name: '--kup-disabled-text-color',
+        name: '--kup-disabled-color',
         value: '#7e7e7e',
       },
       {
@@ -1236,10 +1232,9 @@ chipList.data = [
         <style>
         :root {    
             --kup-background-color: #ffffff;
-            --kup-header-background-color: #2e2e2e;
+            --kup-nav-bar-background-color: #2e2e2e;
             --kup-drawer-background-color: #ffffff;
             --kup-main-color: #d64325;
-            --kup-display-mode: block;
             --kup-font-family: 'Oswald', sans-serif;
             --kup-font-size: 16px;
             --kup-text-on-main-color: #ffffff;
@@ -1248,7 +1243,7 @@ chipList.data = [
             --kup-hover-background-color: #f0f0f0;
             --kup-hover-color: #545454;
             --kup-border-color: #e0e0e0;
-            --kup-disabled-text-color: #5c5c5c;
+            --kup-disabled-color: #5c5c5c;
             --kup-disabled-background-color: #eaeaea;
             --kup-field-background-color: #fafafa;
             --kup-chip-background-color: #eaeaea;

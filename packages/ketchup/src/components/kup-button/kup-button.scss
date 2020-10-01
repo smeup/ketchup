@@ -2,7 +2,7 @@
 @import '@material/icon-button/mdc-icon-button';
 
 :host {
-  display: var(--kup-display-mode);
+  display: block;
   margin: auto;
 }
 
@@ -15,11 +15,11 @@
   }
 
   &:disabled {
-    color: var(--kup-disabled-text-color);
+    color: var(--kup-disabled-color);
   }
 
   &.mdc-button--outlined:disabled {
-    border-color: var(--kup-disabled-text-color);
+    border-color: var(--kup-disabled-color);
   }
 
   &.mdc-button--raised:disabled {
@@ -42,7 +42,7 @@
   }
 
   &:disabled {
-    color: var(--kup-disabled-text-color);
+    color: var(--kup-disabled-color);
     opacity: 0.75;
   }
 }

@@ -18,17 +18,61 @@
           <tbody>
             <tr>
               <td class="prevent-cr">
-                <span class="code-word">--kup-display-mode</span>
+                <span class="code-word">--kup-main-color</span>
               </td>
               <td>
-                Sets the display property of the components, useful to
-                switch between inline/block.
+                Sets the main color of the app, changing components
+                accordingly.
               </td>
               <td class="prevent-cr">
-                <span class="code-word">display</span>
+                <span class="code-word">color</span>
               </td>
               <td class="text-cell">
-                <kup-text-field full-width id="display-mode" @kupTextFieldInput="updateCSS"></kup-text-field>
+                <kup-text-field full-width id="main-color" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-background-color</span>
+              </td>
+              <td>Sets the color of the background.</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="background-color" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-nav-bar-background-color</span>
+              </td>
+              <td>Sets the background color of the header/nav bar.</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field
+                  full-width
+                  id="header-background-color"
+                  @kupTextFieldInput="updateCSS"
+                ></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-drawer-background-color</span>
+              </td>
+              <td>Sets the color of the drawer/side menu.</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field
+                  full-width
+                  id="drawer-background-color"
+                  @kupTextFieldInput="updateCSS"
+                ></kup-text-field>
               </td>
             </tr>
             <tr>
@@ -66,80 +110,6 @@
             </tr>
             <tr>
               <td class="prevent-cr">
-                <span class="code-word">--kup-background-color</span>
-              </td>
-              <td>Sets the color of the background.</td>
-              <td class="prevent-cr">
-                <span class="code-word">color</span>
-              </td>
-              <td class="text-cell">
-                <kup-text-field full-width id="background-color" @kupTextFieldInput="updateCSS"></kup-text-field>
-              </td>
-            </tr>
-            <tr>
-              <td class="prevent-cr">
-                <span class="code-word">--kup-header-background-color</span>
-              </td>
-              <td>Sets the background color of the header/nav bar.</td>
-              <td class="prevent-cr">
-                <span class="code-word">color</span>
-              </td>
-              <td class="text-cell">
-                <kup-text-field
-                  full-width
-                  id="header-background-color"
-                  @kupTextFieldInput="updateCSS"
-                ></kup-text-field>
-              </td>
-            </tr>
-            <tr>
-              <td class="prevent-cr">
-                <span class="code-word">--kup-drawer-background-color</span>
-              </td>
-              <td>Sets the color of the drawer/side menu.</td>
-              <td class="prevent-cr">
-                <span class="code-word">color</span>
-              </td>
-              <td class="text-cell">
-                <kup-text-field
-                  full-width
-                  id="drawer-background-color"
-                  @kupTextFieldInput="updateCSS"
-                ></kup-text-field>
-              </td>
-            </tr>
-            <tr>
-              <td class="prevent-cr">
-                <span class="code-word">--kup-main-color</span>
-              </td>
-              <td>
-                Sets the main color of the app, changing components
-                accordingly.
-              </td>
-              <td class="prevent-cr">
-                <span class="code-word">color</span>
-              </td>
-              <td class="text-cell">
-                <kup-text-field full-width id="main-color" @kupTextFieldInput="updateCSS"></kup-text-field>
-              </td>
-            </tr>
-            <tr>
-              <td class="prevent-cr">
-                <span class="code-word">--kup-text-on-main-color</span>
-              </td>
-              <td>
-                Sets the color of text displayed above the main color, keep
-                in mind accessibility when setting this!
-              </td>
-              <td class="prevent-cr">
-                <span class="code-word">color</span>
-              </td>
-              <td class="text-cell">
-                <kup-text-field full-width id="text-on-main-color" @kupTextFieldInput="updateCSS"></kup-text-field>
-              </td>
-            </tr>
-            <tr>
-              <td class="prevent-cr">
                 <span class="code-word">--kup-text-color</span>
               </td>
               <td>Sets the color of plain text, such as labels.</td>
@@ -152,17 +122,49 @@
             </tr>
             <tr>
               <td class="prevent-cr">
-                <span class="code-word">--kup-icon-color</span>
+                <span class="code-word">--kup-text-on-main-color</span>
               </td>
               <td>
-                Sets the color of icons, for example leading and trailing
-                icons in text fields.
+                Sets the color of text displayed above the main color, keep
+                in mind readability when setting this!
               </td>
               <td class="prevent-cr">
                 <span class="code-word">color</span>
               </td>
               <td class="text-cell">
-                <kup-text-field full-width id="icon-color" @kupTextFieldInput="updateCSS"></kup-text-field>
+                <kup-text-field full-width id="text-on-main-color" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-disabled-background-color</span>
+              </td>
+              <td>
+                Sets the background color of disabled text, keep in mind
+                readability when setting its counterpart
+                "--kup-disabled-color".
+              </td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field
+                  full-width
+                  id="disabled-background-color"
+                  @kupTextFieldInput="updateCSS"
+                ></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-disabled-color</span>
+              </td>
+              <td>Sets the color of disabled text.</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="disabled-color" @kupTextFieldInput="updateCSS"></kup-text-field>
               </td>
             </tr>
             <tr>
@@ -186,8 +188,8 @@
                 <span class="code-word">--kup-hover-color</span>
               </td>
               <td>
-                Sets the color of elements at mouse hover, keep in mind
-                accessibility with its counterpart
+                Sets the color of text at mouse hover, keep in mind
+                readability with its counterpart
                 "--kup-hover-background-color".
               </td>
               <td class="prevent-cr">
@@ -195,6 +197,49 @@
               </td>
               <td class="text-cell">
                 <kup-text-field full-width id="hover-color" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-title-background-color</span>
+              </td>
+              <td>Sets the background color of titles (trees, data tables, etc.).</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field
+                  full-width
+                  id="title-background-color"
+                  @kupTextFieldInput="updateCSS"
+                ></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-title-color</span>
+              </td>
+              <td>Sets the color of titles (trees, data tables, etc.).</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="title-color" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-icon-color</span>
+              </td>
+              <td>
+                Sets the color of icons, for example leading and trailing
+                icons in text fields.
+              </td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="icon-color" @kupTextFieldInput="updateCSS"></kup-text-field>
               </td>
             </tr>
             <tr>
@@ -211,34 +256,14 @@
             </tr>
             <tr>
               <td class="prevent-cr">
-                <span class="code-word">--kup-disabled-text-color</span>
+                <span class="code-word">--kup-box-shadow</span>
               </td>
-              <td>Sets the color of disabled text.</td>
+              <td>Generic box shadow mostly used for stacked elements (like contextual menus).</td>
               <td class="prevent-cr">
-                <span class="code-word">color</span>
+                <span class="code-word">box-shadow</span>
               </td>
               <td class="text-cell">
-                <kup-text-field full-width id="disabled-text-color" @kupTextFieldInput="updateCSS"></kup-text-field>
-              </td>
-            </tr>
-            <tr>
-              <td class="prevent-cr">
-                <span class="code-word">--kup-disabled-background-color</span>
-              </td>
-              <td>
-                Sets the background color of disabled text, keep in mind
-                accessibility when setting its counterpart
-                "--kup-disabled-text-color".
-              </td>
-              <td class="prevent-cr">
-                <span class="code-word">color</span>
-              </td>
-              <td class="text-cell">
-                <kup-text-field
-                  full-width
-                  id="disabled-background-color"
-                  @kupTextFieldInput="updateCSS"
-                ></kup-text-field>
+                <kup-text-field full-width id="box-shadow" @kupTextFieldInput="updateCSS"></kup-text-field>
               </td>
             </tr>
             <tr>
@@ -259,18 +284,38 @@
             </tr>
             <tr>
               <td class="prevent-cr">
-                <span class="code-word">--kup-chip-background-color</span>
+                <span class="code-word">--kup-success-color</span>
               </td>
-              <td>Sets the background color of chips.</td>
+              <td>Sets the color which defines a success status within the app.</td>
               <td class="prevent-cr">
                 <span class="code-word">color</span>
               </td>
               <td class="text-cell">
-                <kup-text-field
-                  full-width
-                  id="chip-background-color"
-                  @kupTextFieldInput="updateCSS"
-                ></kup-text-field>
+                <kup-text-field full-width id="success-color" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-warning-color</span>
+              </td>
+              <td>Sets the color which defines a warning status within the app.</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="warning-color" @kupTextFieldInput="updateCSS"></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-danger-color</span>
+              </td>
+              <td>Sets the color which defines a danger status within the app.</td>
+              <td class="prevent-cr">
+                <span class="code-word">color</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field full-width id="danger-color" @kupTextFieldInput="updateCSS"></kup-text-field>
               </td>
             </tr>
             <tr>
@@ -283,22 +328,6 @@
               </td>
               <td class="text-cell">
                 <kup-text-field full-width id="spinner-color" @kupTextFieldInput="updateCSS"></kup-text-field>
-              </td>
-            </tr>
-            <tr>
-              <td class="prevent-cr">
-                <span class="code-word">--kup-title-background-color</span>
-              </td>
-              <td>Sets the color of titles (trees, data tables, etc.).</td>
-              <td class="prevent-cr">
-                <span class="code-word">color</span>
-              </td>
-              <td class="text-cell">
-                <kup-text-field
-                  full-width
-                  id="title-background-color"
-                  @kupTextFieldInput="updateCSS"
-                ></kup-text-field>
               </td>
             </tr>
             <tr>

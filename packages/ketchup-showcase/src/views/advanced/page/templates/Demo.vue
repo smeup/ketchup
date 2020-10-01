@@ -242,7 +242,7 @@ export default {
                   propName +
                   '" id="' +
                   newEntryId +
-                  '" style="--kup-display-mode: inline-block;" flat icon="remove" label="' +
+                  '" style="display: inline-block;" flat icon="remove" label="' +
                   arrayList[j] +
                   '"></kup-button>';
                 document
@@ -350,7 +350,7 @@ export default {
         e.target.id +
         '" id="' +
         newEntryId +
-        '" style="--kup-display-mode: inline-block;" flat icon="remove" label="' +
+        '" style="display: inline-block;" flat icon="remove" label="' +
         e.detail.value +
         '"></kup-button>';
       demoComponent[propName] = arrayList;

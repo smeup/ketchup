@@ -12,25 +12,28 @@ const dom = document.documentElement;
 const kupThemes = JSON.parse(`{
     "dark": {
         "cssVariables": {
-            "--kup-background-color": "#2d2d2d",
-            "--kup-header-background-color": "#2d2d2d",
-            "--kup-drawer-background-color": "#1f1f1f",
             "--kup-main-color": "#82f0e2",
-            "--kup-display-mode": "block",
+            "--kup-background-color": "#2d2d2d",
+            "--kup-nav-bar-background-color": "#2d2d2d",
+            "--kup-drawer-background-color": "#1f1f1f",
             "--kup-font-family": "Lato, sans-serif",
             "--kup-font-size": "14px",
-            "--kup-text-on-main-color": "#555555",
             "--kup-text-color": "#f5f5f5",
-            "--kup-icon-color": "#e0e0e0",
+            "--kup-text-on-main-color": "#555555",
+            "--kup-disabled-background-color": "#3c3c3c",
+            "--kup-disabled-color": "#7e7e7e",
             "--kup-hover-background-color": "#3c3c3c",
             "--kup-hover-color": "#dddddd",
-            "--kup-border-color": "#535353",
-            "--kup-disabled-text-color": "#7e7e7e",
-            "--kup-disabled-background-color": "#3c3c3c",
-            "--kup-field-background-color": "#2a2a2a",
-            "--kup-chip-background-color": "#222222",
-            "--kup-spinner-color": "#f2e114",
             "--kup-title-background-color": "#111111",
+            "--kup-title-color": "#f5f5f5",
+            "--kup-icon-color": "#e0e0e0",
+            "--kup-border-color": "#535353",
+            "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
+            "--kup-field-background-color": "#2a2a2a",
+            "--kup-success-color": "#4d9f02",
+            "--kup-warning-color": "#ffc107",
+            "--kup-danger-color": "#d91e18",
+            "--kup-spinner-color": "#f2e114",
             "--kup-chart-color-1": "#60c3fc",
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#860bb5",
@@ -39,25 +42,28 @@ const kupThemes = JSON.parse(`{
     },
     "default": {
         "cssVariables": {
-            "--kup-background-color": "#ffffff",
-            "--kup-header-background-color": "#2e2e2e",
-            "--kup-drawer-background-color": "#ffffff",
             "--kup-main-color": "#d64325",
-            "--kup-display-mode": "block",
+            "--kup-background-color": "#ffffff",
+            "--kup-nav-bar-background-color": "#2e2e2e",
+            "--kup-drawer-background-color": "#ffffff",
             "--kup-font-family": "Roboto, sans-serif",
             "--kup-font-size": "14px",
-            "--kup-text-on-main-color": "#ffffff",
             "--kup-text-color": "#2e2e2e",
-            "--kup-icon-color": "#505050",
+            "--kup-text-on-main-color": "#ffffff",
+            "--kup-disabled-background-color": "#eaeaea",
+            "--kup-disabled-color": "#5c5c5c",
             "--kup-hover-background-color": "#f0f0f0",
             "--kup-hover-color": "#545454",
-            "--kup-border-color": "#e0e0e0",
-            "--kup-disabled-text-color": "#5c5c5c",
-            "--kup-disabled-background-color": "#eaeaea",
-            "--kup-field-background-color": "#fafafa",
-            "--kup-chip-background-color": "#eaeaea",
-            "--kup-spinner-color": "#eaa710",
             "--kup-title-background-color": "#f1f3f4",
+            "--kup-title-color": "#2e2e2e",
+            "--kup-icon-color": "#505050",
+            "--kup-border-color": "#e0e0e0",
+            "--kup-box-shadow": "rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px",
+            "--kup-field-background-color": "#fafafa",
+            "--kup-success-color": "#4d9f02",
+            "--kup-warning-color": "#ffc107",
+            "--kup-danger-color": "#d91e18",
+            "--kup-spinner-color": "#eaa710",
             "--kup-chart-color-1": "#ff5959",
             "--kup-chart-color-2": "#e0a0a0",
             "--kup-chart-color-3": "#8e1010",
@@ -66,25 +72,28 @@ const kupThemes = JSON.parse(`{
     },
     "graphite": {
         "cssVariables": {
-            "--kup-background-color": "#ffffff",
-            "--kup-header-background-color": "#535353",
-            "--kup-drawer-background-color": "#ffffff",
             "--kup-main-color": "#888888",
-            "--kup-display-mode": "block",
+            "--kup-background-color": "#ffffff",
+            "--kup-nav-bar-background-color": "#535353",
+            "--kup-drawer-background-color": "#ffffff",
             "--kup-font-family": "Roboto, sans-serif",
             "--kup-font-size": "13px",
-            "--kup-text-on-main-color": "#ffffff",
             "--kup-text-color": "#545454",
-            "--kup-icon-color": "#808080",
+            "--kup-text-on-main-color": "#ffffff",
+            "--kup-disabled-color": "#5c5c5c",
+            "--kup-disabled-background-color": "#eaeaea",
             "--kup-hover-background-color": "#f0f0f0",
             "--kup-hover-color": "#545454",
-            "--kup-border-color": "#e0e0e0",
-            "--kup-disabled-text-color": "#5c5c5c",
-            "--kup-disabled-background-color": "#eaeaea",
-            "--kup-field-background-color": "#fafafa",
-            "--kup-chip-background-color": "#eaeaea",
-            "--kup-spinner-color": "#eaa710",
             "--kup-title-background-color": "#f0f0f0",
+            "--kup-title-color": "#545454",
+            "--kup-icon-color": "#808080",
+            "--kup-border-color": "#e0e0e0",
+            "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
+            "--kup-field-background-color": "#fafafa",
+            "--kup-success-color": "#4d9f02",
+            "--kup-warning-color": "#ffc107",
+            "--kup-danger-color": "#d91e18",
+            "--kup-spinner-color": "#eaa710",
             "--kup-chart-color-1": "red",
             "--kup-chart-color-2": "blue",
             "--kup-chart-color-3": "orange",
@@ -102,25 +111,28 @@ const kupThemes = JSON.parse(`{
     },
     "IBMh2o": {
         "cssVariables": {
-            "--kup-background-color": "#000000",
-            "--kup-header-background-color": "#000000",
-            "--kup-drawer-background-color": "#000000",
             "--kup-main-color": "rgb(187, 198, 5)",
-            "--kup-display-mode": "block",
+            "--kup-background-color": "#000000",
+            "--kup-nav-bar-background-color": "#000000",
+            "--kup-drawer-background-color": "#000000",
             "--kup-font-family": "'Rajdhani', sans-serif",
             "--kup-font-size": "15px",
-            "--kup-text-on-main-color": "#000000",
             "--kup-text-color": "#ffffff",
-            "--kup-icon-color": "#9d9d9d",
+            "--kup-text-on-main-color": "#000000",
+            "--kup-disabled-background-color": "#151515",
+            "--kup-disabled-color": "#7b7b7b",
             "--kup-hover-background-color": "#404040",
             "--kup-hover-color": "#ffffff",
+            "--kup-title-background-color": "#ffe600",
+            "--kup-title-color": "#000000",
+            "--kup-icon-color": "#9d9d9d",
             "--kup-border-color": "#9d9d9d",
-            "--kup-disabled-text-color": "#7b7b7b",
-            "--kup-disabled-background-color": "#151515",
+            "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
             "--kup-field-background-color": "transparent",
-            "--kup-chip-background-color": "#222222",
+            "--kup-success-color": "#4d9f02",
+            "--kup-warning-color": "#ffc107",
+            "--kup-danger-color": "#d91e18",
             "--kup-spinner-color": "#ffe600",
-            "--kup-title-background-color": "#111111",
             "--kup-chart-color-1": "#ffffff",
             "--kup-chart-color-2": "rgb(187, 198, 5)",
             "--kup-chart-color-3": "#ffe600",
@@ -129,52 +141,87 @@ const kupThemes = JSON.parse(`{
     },
     "ocean": {
         "cssVariables": {
-            "--kup-background-color": "#e9f1ff",
-            "--kup-header-background-color": "#001d3e",
-            "--kup-drawer-background-color": "#e6f1ff",
             "--kup-main-color": "#0081c5",
-            "--kup-display-mode": "block",
+            "--kup-background-color": "#e9f1ff",
+            "--kup-nav-bar-background-color": "#001d3e",
+            "--kup-drawer-background-color": "#e6f1ff",
             "--kup-font-family": "Lato, sans-serif",
             "--kup-font-size": "16px",
-            "--kup-text-on-main-color": "#ffffff",
             "--kup-text-color": "#1b1b1b",
-            "--kup-icon-color": "#505050",
+            "--kup-text-on-main-color": "#ffffff",
+            "--kup-disabled-background-color": "#eaeaea",
+            "--kup-disabled-color": "#5c5c5c",
             "--kup-hover-background-color": "#cfe8ff",
             "--kup-hover-color": "#545454",
-            "--kup-border-color": "#e0e0e0",
-            "--kup-disabled-text-color": "#5c5c5c",
-            "--kup-disabled-background-color": "#eaeaea",
-            "--kup-field-background-color": "#dce9ff",
-            "--kup-chip-background-color": "#eaeaea",
-            "--kup-spinner-color": "#eaa710",
             "--kup-title-background-color": "#f1f3f4",
+            "--kup-title-color": "#1b1b1b",
+            "--kup-icon-color": "#505050",
+            "--kup-border-color": "#e0e0e0",
+            "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
+            "--kup-field-background-color": "#dce9ff",
+            "--kup-success-color": "#4d9f02",
+            "--kup-warning-color": "#ffc107",
+            "--kup-danger-color": "#d91e18",
+            "--kup-spinner-color": "#eaa710",
             "--kup-chart-color-1": "#60c3fc",
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#e48b47",
             "--kup-chart-color-4": "#81e447"
         }
     },
+    "teal": {
+        "cssVariables": {
+            "--kup-main-color": "#068A9C",
+            "--kup-background-color": "#ffffff",
+            "--kup-nav-bar-background-color": "#068A9C",
+            "--kup-drawer-background-color": "#ffffff",
+            "--kup-font-family": "Roboto, sans-serif",
+            "--kup-font-size": "13px",
+            "--kup-text-color": "#000000",
+            "--kup-text-on-main-color": "#ffffff",
+            "--kup-disabled-background-color": "#eaeaea",
+            "--kup-disabled-color": "#909090",
+            "--kup-hover-background-color": "#ededed",
+            "--kup-hover-color": "#000000",
+            "--kup-title-background-color": "#f1f3f4",
+            "--kup-title-color": "#2e2e2e",
+            "--kup-icon-color": "#00B2CB",
+            "--kup-border-color": "#ededed",
+            "--kup-box-shadow": "rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px",
+            "--kup-field-background-color": "#fafafa",
+            "--kup-success-color": "#4d9f02",
+            "--kup-warning-color": "#ffc107",
+            "--kup-danger-color": "#A6192E",
+            "--kup-spinner-color": "#eaa710",
+            "--kup-chart-color-1": "#735DED",
+            "--kup-chart-color-2": "#00B2CB",
+            "--kup-chart-color-3": "#EDC900"
+        }
+    },
     "wildlife": {
         "cssVariables": {
-            "--kup-background-color": "#f7fff6",
-            "--kup-header-background-color": "#095a1f",
-            "--kup-drawer-background-color": "#dbfbd5",
             "--kup-main-color": "#0fa918",
-            "--kup-display-mode": "block",
+            "--kup-background-color": "#f7fff6",
+            "--kup-nav-bar-background-color": "#095a1f",
+            "--kup-drawer-background-color": "#dbfbd5",
             "--kup-font-family": "Roboto, sans-serif",
             "--kup-font-size": "16px",
-            "--kup-text-on-main-color": "#ffffff",
             "--kup-text-color": "#000000",
-            "--kup-icon-color": "#333333",
+            "--kup-text-on-main-color": "#ffffff",
+            "--kup-disabled-background-color": "#eaeaea",
+            "--kup-disabled-color": "#5c5c5c",
             "--kup-hover-background-color": "#63ab46",
             "--kup-hover-color": "#ffffff",
-            "--kup-border-color": "#e0e0e0",
-            "--kup-disabled-text-color": "#5c5c5c",
-            "--kup-disabled-background-color": "#eaeaea",
-            "--kup-field-background-color": "transparent",
-            "--kup-chip-background-color": "#eaeaea",
-            "--kup-spinner-color": "#eaa710",
             "--kup-title-background-color": "#f1f3f4",
+            "--kup-title-color": "#000000",
+            "--kup-icon-color": "#333333",
+            "--kup-border-color": "#e0e0e0",
+            "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
+            "--kup-field-background-color": "transparent",
+            "--kup-success-color": "#4d9f02",
+            "--kup-warning-color": "#ffc107",
+            "--kup-danger-color": "#d91e18",
+            "--kup-spinner-color": "#eaa710",
             "--kup-chart-color-1": "#60c3fc",
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#e48b47",
@@ -183,25 +230,28 @@ const kupThemes = JSON.parse(`{
     },
     "test": {
         "cssVariables": {
-            "--kup-background-color": "#ffffff",
-            "--kup-header-background-color": "#f5f5f5",
-            "--kup-drawer-background-color": "#ffffff",
             "--kup-main-color": "#d64325",
-            "--kup-display-mode": "block",
+            "--kup-background-color": "#ffffff",
+            "--kup-nav-bar-background-color": "#f5f5f5",
+            "--kup-drawer-background-color": "#ffffff",
             "--kup-font-family": "Roboto, sans-serif",
             "--kup-font-size": "14px",
-            "--kup-text-on-main-color": "#ffffff",
             "--kup-text-color": "#2e2e2e",
-            "--kup-icon-color": "#505050",
+            "--kup-text-on-main-color": "#ffffff",
+            "--kup-disabled-background-color": "#eaeaea",
+            "--kup-disabled-color": "#5c5c5c",
             "--kup-hover-background-color": "#f0f0f0",
             "--kup-hover-color": "#545454",
-            "--kup-border-color": "#e0e0e0",
-            "--kup-disabled-text-color": "#5c5c5c",
-            "--kup-disabled-background-color": "#eaeaea",
-            "--kup-field-background-color": "#fafafa",
-            "--kup-chip-background-color": "#eaeaea",
-            "--kup-spinner-color": "#eaa710",
             "--kup-title-background-color": "#f1f3f4",
+            "--kup-title-color": "#2e2e2e",
+            "--kup-icon-color": "#505050",
+            "--kup-border-color": "#e0e0e0",
+            "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
+            "--kup-field-background-color": "#fafafa",
+            "--kup-success-color": "#4d9f02",
+            "--kup-warning-color": "#ffc107",
+            "--kup-danger-color": "#d91e18",
+            "--kup-spinner-color": "#eaa710",
             "--kup-chart-color-1": "#60c3fc",
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#e48b47",
@@ -274,10 +324,28 @@ function setTheme() {
         dom.kupCurrentTheme = dom.kupThemes['default'];
     }
     let variables = dom.kupCurrentTheme.cssVariables;
+    let rgbVariables: [{ rgbKey: string; rgbVal: string }] = undefined;
     for (var key in variables) {
         if (variables.hasOwnProperty(key)) {
             var val = variables[key];
+            if (key.indexOf('color') > -1) {
+                let rgbKey = key + '-rgb';
+                let rgbVal = colorCheck(val).rgbValues;
+                if (rgbVariables) {
+                    rgbVariables.push({ rgbVal: rgbVal, rgbKey: rgbKey });
+                } else {
+                    rgbVariables = [{ rgbKey: rgbKey, rgbVal: rgbVal }];
+                }
+            }
             dom.style.setProperty(key, val);
+        }
+    }
+    if (rgbVariables) {
+        for (let index = 0; index < rgbVariables.length; index++) {
+            dom.style.setProperty(
+                rgbVariables[index].rgbKey,
+                rgbVariables[index].rgbVal
+            );
         }
     }
     var event = new CustomEvent('kupThemeChanged');
@@ -337,7 +405,7 @@ export function setCustomStyle(component: any) {
 }
 
 export function colorContrast(color: string) {
-    color = colorCheck(color);
+    color = colorCheck(color).rgbColor;
     const colorValues = color.replace(/[^\d,.]/g, '').split(',');
     const brightness = Math.round(
         (parseInt(colorValues[0]) * 299 +
@@ -365,6 +433,17 @@ export function randomColor(brightness: number) {
 }
 
 export function colorCheck(color: string) {
+    //Testing whether the color is transparent, if it is a fall back value will be returned matching the background-color
+    if (color === 'transparent') {
+        color = dom.kupCurrentTheme.cssVariables['--kup-background-color'];
+        logMessage(
+            'theme manager',
+            'Received TRANSPARENT color, converted to ' +
+                color +
+                ' (theme background).'
+        );
+    }
+
     //Testing whether the color isn't "rgb" nor "hex" value, supposedly is a code word
     if (color.substr(0, 1) !== '#' && color.substr(0, 3) !== 'rgb') {
         let oldColor = color;
@@ -390,7 +469,13 @@ export function colorCheck(color: string) {
         );
     }
 
-    return color;
+    let rgbValues: string = undefined;
+    var values = color.match(
+        /rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/
+    );
+    rgbValues = values[1] + ',' + values[2] + ',' + values[3];
+
+    return { rgbColor: color, rgbValues: rgbValues };
 }
 
 export function hexToRgb(hex: string) {

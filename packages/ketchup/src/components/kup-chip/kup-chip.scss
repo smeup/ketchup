@@ -1,12 +1,13 @@
 @import '@material/chips/mdc-chips';
 
 :host {
-  display: var(--kup-display-mode);
+  display: block;
+  --mdc-theme-on-surface: var(--kup-title-color);
 }
 
 .mdc-chip {
-  background-color: var(--kup-chip-background-color);
-  color: var(--kup-text-color);
+  background-color: var(--kup-title-background-color);
+  color: var(--kup-title-color);
 }
 
 .mdc-chip-set--choice .mdc-chip--selected {
@@ -23,8 +24,8 @@
 }
 
 svg path {
-  color: var(--kup-text-color);
-  stroke: var(--kup-text-color);
+  color: var(--kup-title-color);
+  stroke: var(--kup-title-color);
 }
 
 .mdc-chip__icon--leading-hidden {
@@ -37,4 +38,8 @@ svg path {
   &:hover {
     opacity: 0.75;
   }
+}
+
+.mdc-chip__text {
+  font-family: var(--kup-font-family);
 }

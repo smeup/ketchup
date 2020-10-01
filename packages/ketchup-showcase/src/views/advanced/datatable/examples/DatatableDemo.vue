@@ -182,6 +182,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showLoadMore',
+          description:
+            'If set to true, displays the button to load more records.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'sort',
           description: 'Defines the current sorting options.',
           type: 'SortObject[]',
@@ -255,6 +263,7 @@ function createComp() {
   comp.groupLabelDisplay = 'both';
   comp.headerIsPersistent = true;
   comp.id = 'demo-component';
+  comp.lazyLoadRows = 'true';
   comp.loadMoreLimit = '1000';
   comp.loadMoreStep = '60';
   comp.paginatorPos = 'Top';

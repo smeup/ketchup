@@ -6,7 +6,7 @@
 @import 'standard/kup-card-standard';
 
 :host {
-  display: var(--kup-display-mode);
+  display: block;
   position: relative;
 
   #kup-component {

@@ -77,10 +77,6 @@ export class KupButton {
      */
     @Prop({ reflect: true }) toggable: boolean = false;
     /**
-     * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
-     */
-    @Prop({ reflect: true }) tooltip: string = undefined;
-    /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
     @Prop({ reflect: true }) trailingIcon: boolean = false;
@@ -226,7 +222,7 @@ export class KupButton {
 
         if (this.disabled) {
             componentClass += ' mdc-button--disabled';
-            iconColor = 'var(--kup-disabled-text-color)';
+            iconColor = 'var(--kup-disabled-color)';
         } else {
             iconColor = this.iconColor;
         }
@@ -293,7 +289,6 @@ export class KupButton {
                             type="button"
                             class={componentClass}
                             disabled={this.disabled}
-                            title={this.tooltip}
                             onBlur={() => this.onKupBlur()}
                             onClick={() => this.onKupClick()}
                             onFocus={() => this.onKupFocus()}
@@ -364,7 +359,6 @@ export class KupButton {
                             checked={this.checked}
                             disabled={this.disabled}
                             value={this.value}
-                            title={this.tooltip}
                             onBlur={() => this.onKupBlur()}
                             onClick={() => this.onKupClick()}
                             onFocus={() => this.onKupFocus()}

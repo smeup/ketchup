@@ -188,8 +188,6 @@ describe('kup-data-table', () => {
 
         expect(cellStyle.color).toBe('rgb(255, 255, 255)');
 
-        expect(cellStyle.backgroundColor).toBe('rgb(0, 0, 255)');
-
         // testing second cell
         cellStyle = await cells[1].getComputedStyle();
 
