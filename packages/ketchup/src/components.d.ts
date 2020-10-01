@@ -1863,18 +1863,11 @@ declare namespace LocalJSX {
         "onKupBoxSelected"?: (event: CustomEvent<{
         rows: BoxRow[];
     }>) => void;
-        /**
-          * Triggered when start propagation event
-         */
-        "onKupDidLoad"?: (event: CustomEvent<{
-        EventEmitter: Boolean;
-    }>) => void;
+        "onKupDidLoad"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when stop propagation event
          */
-        "onKupDidUnload"?: (event: CustomEvent<{
-        EventEmitter: Boolean;
-    }>) => void;
+        "onKupDidUnload"?: (event: CustomEvent<void>) => void;
         /**
           * When the row menu action icon is clicked
          */
@@ -3337,6 +3330,9 @@ declare namespace LocalJSX {
         obj: TooltipObject;
     }>) => void;
         "onKupDefaultOptionClicked"?: (event: CustomEvent<{
+        obj: TooltipObject;
+    }>) => void;
+        "onKupDefaultPreviewClicked"?: (event: CustomEvent<{
         obj: TooltipObject;
     }>) => void;
         "onKupTooltipLoadCellOptions"?: (event: CustomEvent<{

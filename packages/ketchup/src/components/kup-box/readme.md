@@ -50,8 +50,8 @@
 | `kupBoxDragStarted`       | Triggered when a box dragging is started                  | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; }>`                                                         |
 | `kupBoxDropped`           | Triggered when a box is dropped                           | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; toId: string; toRow: BoxRow; toSelectedRows?: BoxRow[]; }>` |
 | `kupBoxSelected`          | Triggered when the multi selection checkbox changes value | `CustomEvent<{ rows: BoxRow[]; }>`                                                                                                       |
-| `kupDidLoad`              | Triggered when start propagation event                    | `CustomEvent<{ EventEmitter: Boolean; }>`                                                                                                |
-| `kupDidUnload`            | Triggered when stop propagation event                     | `CustomEvent<{ EventEmitter: Boolean; }>`                                                                                                |
+| `kupDidLoad`              |                                                           | `CustomEvent<void>`                                                                                                                      |
+| `kupDidUnload`            | Triggered when stop propagation event                     | `CustomEvent<void>`                                                                                                                      |
 | `kupRowActionClicked`     | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; action: RowAction; index: number; }>`                                                                        |
 | `kupRowActionMenuClicked` | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; }>`                                                                                                          |
 
