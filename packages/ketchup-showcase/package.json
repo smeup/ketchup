@@ -29,15 +29,16 @@
     "@vaadin/vaadin-upload": "^4.2.2",
     "element-ui": "^2.4.8",
     "ketchup": "^0.0.5-SNAPSHOT",
-    "ketchup-vue": "^0.0.1",
     "style-loader": "^0.23.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue": "^2.5.17",
     "vue-class-component": "^6.0.0",
     "vue-material-design-icons": "^2.3.0",
+    "material-design-icons-iconfont": "^4.0.5",
     "vue-property-decorator": "^7.0.0",
-    "vue-router": "^3.0.3"
+    "vue-router": "^3.0.3",
+    "vuetify": "^1.5.5"
   },
   "devDependencies": {
     "@types/jest": "^23.1.4",
@@ -61,7 +62,11 @@
     "start-server-and-test": "^1.7.10",
     "ts-jest": "^23.0.0",
     "typescript": "3.9.3",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.17",
+    "vue-cli-plugin-vuetify": "^0.5.0",
+    "vuetify-loader": "^1.0.5"
   },
-  "vaadin": { "disableUsageStatistics": true }
+  "vaadin": {
+    "disableUsageStatistics": true
+  }
 }

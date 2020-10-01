@@ -13,8 +13,9 @@ module.exports = {
   // chainWebpack: config => config.resolve.symlinks(false),
   devServer: {
     port: 4000,
+    progress: false,
   },
   // Used to configure Vue to enable transpiling node_modules
   // https://cli.vuejs.org/config/#transpiledependencies
-  transpileDependencies: ['ketchup-vue'],
+  transpileDependencies: [],
 };
