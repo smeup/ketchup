@@ -20,7 +20,11 @@
 
     <h3>No automatic sorting</h3>
     <h4>With no new object created to hold the result</h4>
-    <kup-lazy ref="noAutomaticMutate" component-name="kup-data-table" :data.prop="data3"></kup-lazy>
+    <kup-lazy
+      ref="noAutomaticMutate"
+      component-name="kup-data-table"
+      :data.prop="data3"
+    ></kup-lazy>
     <code>
       {{ JSON.stringify(noAutomaticMutate.columns) }}
       <br />
@@ -28,7 +32,11 @@
     </code>
 
     <h4>With new object created to hold the result</h4>
-    <kup-lazy ref="noAutomaticNewObject" component-name="kup-data-table" :data.prop="data4"></kup-lazy>
+    <kup-lazy
+      ref="noAutomaticNewObject"
+      component-name="kup-data-table"
+      :data.prop="data4"
+    ></kup-lazy>
     <code>
       {{ JSON.stringify(noAutomaticNewObject.columns) }}
       <br />

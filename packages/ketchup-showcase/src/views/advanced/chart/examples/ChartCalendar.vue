@@ -1,6 +1,11 @@
 <template>
   <div>
-    <kup-chart :data.prop="calendarData" :types.prop="types" axis="Col1" :series.prop="['Col2']" />
+    <kup-chart
+      :data.prop="calendarData"
+      :types.prop="types"
+      axis="Col1"
+      :series.prop="['Col2']"
+    />
     <hr />
   </div>
 </template>

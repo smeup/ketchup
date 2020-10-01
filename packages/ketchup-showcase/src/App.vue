@@ -3,7 +3,11 @@
     <v-navigation-drawer v-model="drawer" fixed app>
       <div class="logo">
         <a target="_blank" href="https://www.smeup.com/">
-          <svg id="smeup-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 117.63 62.88">
+          <svg
+            id="smeup-logo"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 117.63 62.88"
+          >
             <defs />
             <title>Sme.UP Group</title>
             <path
@@ -55,7 +59,11 @@
               </template>
             </v-list-group>
 
-            <v-list-tile v-for="route in group.advancedItems" :key="route.to.name" :to="route.to">
+            <v-list-tile
+              v-for="route in group.advancedItems"
+              :key="route.to.name"
+              :to="route.to"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -73,7 +81,11 @@
               </template>
             </v-list-group>
 
-            <v-list-tile v-for="route in group.cssItems" :key="route.to.name" :to="route.to">
+            <v-list-tile
+              v-for="route in group.cssItems"
+              :key="route.to.name"
+              :to="route.to"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -91,7 +103,11 @@
               </template>
             </v-list-group>
 
-            <v-list-tile v-for="route in group.javascriptItems" :key="route.to.name" :to="route.to">
+            <v-list-tile
+              v-for="route in group.javascriptItems"
+              :key="route.to.name"
+              :to="route.to"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -109,7 +125,11 @@
               </template>
             </v-list-group>
 
-            <v-list-tile v-for="route in group.basicItems" :key="route.to.name" :to="route.to">
+            <v-list-tile
+              v-for="route in group.basicItems"
+              :key="route.to.name"
+              :to="route.to"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>{{ route.title }}</v-list-tile-title>
               </v-list-tile-content>
@@ -122,18 +142,30 @@
     <v-toolbar class="header" fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <div class="logo_header">
-        <img src="ketchup_logo_header.svg" class="light" style="height: 40px;" />
+        <img
+          src="ketchup_logo_header.svg"
+          class="light"
+          style="height: 40px;"
+        />
       </div>
       <v-toolbar-title>Ketch.UP | Showcase</v-toolbar-title>
       <kup-switch
-        @kupSwitchChange="(e)=> {this.changeTheme(e)}"
+        @kupSwitchChange="
+          (e) => {
+            this.changeTheme(e);
+          }
+        "
         style="min-width: 150px; --kup-text-color: #f5f5f5;"
         leading-label
         label="Dark Mode"
         id="theme-switch"
       ></kup-switch>
       <kup-button
-        @kupButtonClick="()=> {this.toggleDebug()}"
+        @kupButtonClick="
+          () => {
+            this.toggleDebug();
+          }
+        "
         id="debug-toggler"
         icon="bug"
         custom-style=":host{--kup-main-color: white}"
@@ -159,7 +191,13 @@
         title="View Ketch.UP on GitHub"
         href="https://github.com/smeup/ketchup"
       >
-        <kup-image class="footer-icon" resource="github" color="white" size-x="24px" size-y="24px"></kup-image>
+        <kup-image
+          class="footer-icon"
+          resource="github"
+          color="white"
+          size-x="24px"
+          size-y="24px"
+        ></kup-image>
       </a>
       <span class="company-text">© Copyright 2020 - Sme.UP Spa</span>
       <a
@@ -169,7 +207,13 @@
         title="View Ketch.UP on npm"
         href="https://www.npmjs.com/package/@sme.up/ketchup"
       >
-        <kup-image class="footer-icon" resource="npm" color="white" size-x="24px" size-y="24px"></kup-image>
+        <kup-image
+          class="footer-icon"
+          resource="npm"
+          color="white"
+          size-x="24px"
+          size-y="24px"
+        ></kup-image>
       </a>
     </v-footer>
   </v-app>

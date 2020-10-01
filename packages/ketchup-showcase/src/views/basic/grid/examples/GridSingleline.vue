@@ -2,10 +2,10 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        It's possible to display the elements in a single line by setting to true the
-        <span
-          class="code-word"
-        >singleLine</span> prop. When single line variant is active, the columns prop will have no effect.
+        It's possible to display the elements in a single line by setting to
+        true the
+        <span class="code-word">singleLine</span> prop. When single line variant
+        is active, the columns prop will have no effect.
       </p>
       <br />
       <div class="demo-container">
@@ -19,10 +19,9 @@
     </div>
     <div class="demo-wrapper">
       <p>
-        The single line layout can also be forced to fit the container for its length by setting to true the
-        <span
-          class="code-word"
-        >fullWidth</span> prop.
+        The single line layout can also be forced to fit the container for its
+        length by setting to true the
+        <span class="code-word">fullWidth</span> prop.
       </p>
       <br />
       <div class="demo-container">

@@ -1,6 +1,11 @@
 <template>
   <div>
-    <kup-chart axis="Col1" :data.prop="comboData" :types.prop="types" :series.prop="series" />
+    <kup-chart
+      axis="Col1"
+      :data.prop="comboData"
+      :types.prop="types"
+      :series.prop="series"
+    />
   </div>
 </template>
 

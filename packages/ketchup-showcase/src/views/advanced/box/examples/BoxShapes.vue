@@ -6,7 +6,6 @@
   </div>
 </template>
 
-
 <script>
 import { shapeData } from '@/mock/box';
 
@@ -55,4 +54,3 @@ kup-box {
   --int_titled-section-bg-color: #fafafa;
 }
 </style>
-

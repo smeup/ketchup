@@ -23,7 +23,11 @@
     <hr />
 
     <h3>Icons</h3>
-    <kup-box :data.prop="iconData" :layout.prop="iconLayout" :columns.prop="3"></kup-box>
+    <kup-box
+      :data.prop="iconData"
+      :layout.prop="iconLayout"
+      :columns.prop="3"
+    ></kup-box>
     <hr />
 
     <h3>With sparkline charts</h3>
@@ -152,4 +156,3 @@ p {
   margin-top: 1rem;
 }
 </style>
-
