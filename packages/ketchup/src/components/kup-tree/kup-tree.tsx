@@ -302,6 +302,25 @@ export class KupTree {
         tree: KupTree;
     }>;
 
+    @Event({
+        eventName: 'kupDidLoad',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDidLoad: EventEmitter<void>;
+
+     /**
+     * Triggered when stop propagation event
+     */
+    @Event({
+        eventName: 'kupDidUnload',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDidUnload: EventEmitter<void>;
+
     //---- Methods ----
 
     @Method()
@@ -351,6 +370,7 @@ export class KupTree {
         this.endTime = performance.now();
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        this.kupDidLoad.emit();
     }
 
     componentWillRender() {
@@ -380,6 +400,11 @@ export class KupTree {
         // *** Store
         this.persistState();
         // ***
+    }
+
+    componentDidUnload() {
+
+        this.kupDidUnload.emit();
     }
 
     //-------- Watchers --------

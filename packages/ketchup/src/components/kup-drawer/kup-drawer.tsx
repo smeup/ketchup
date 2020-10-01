@@ -1,38 +1,129 @@
 import { Component, h, Prop, State, Method } from '@stencil/core';
 
 @Component({
-	tag: 'kup-drawer',
-	styleUrl: 'kup-drawer.css',
-	shadow: true
+    tag: 'kup-drawer',
+    styleUrl: 'kup-drawer.css',
+    shadow: true,
 })
 export class KupDrawer {
-	@State() showContactInfo = false;
-	@Prop() menu: string;
-	@Prop({ reflect: true, mutable: true })
-	opened: boolean;
+   
+      /**
+     * opened is used to make our drawer appear and disappear
+     */
+     @Prop({ reflect: true, mutable: true })opened: boolean;
 
-	onCloseDrawer() {
-		this.opened = false;
-	}
+    @Prop({ reflect: true, mutable: true }) right: boolean;
+    @Prop({ reflect: true, mutable: true }) permanent: boolean;
 
-	@Method()
-	async open() {
-		this.opened = true;
-	}
+    select:boolean;
+    
+    c:string;
 
-	render() {
-		let mainContent = <slot />;
+    
+    
 
-		return [
-			<div class="backdrop" onClick={() => this.onCloseDrawer()} />,
-			<aside>
-				<header>
-					<h1>{this.menu}</h1>
-					<button onClick={() => this.onCloseDrawer()}>X</button>
-				</header>
 
-				<main>{mainContent}</main>
-			</aside>
-		];
-	}
+  //---- Methods ----
+    onCloseDrawer() {
+        this.opened = false;
+        this.right=false;
+    }
+
+    @Method()
+    async open() {
+        this.opened = true;
+        this.right=true;
+    }
+
+    componentWillLoad()
+   { 
+       if(this.right==true)
+       {
+            this.select=true;
+            this.right=false;
+            if(this.permanent==true)
+            {
+
+            }
+            else{
+            
+                this.permanent=true;
+                this.permanent=false;        
+                                                   
+            }
+                
+       }
+       else{
+           this.select=false;
+           this.right=true;
+           this.right=false;
+           if(this.permanent==true)
+           {
+
+           }
+           else{
+               this.permanent=true;
+               this.permanent=false;
+           }
+
+       }
+        
+    }
+    
+   
+    
+   selectclass()
+   {  let c:string;
+       if(this.select==true&&this.permanent==false)
+       {
+           c='rightpos'
+       }
+       else if(this.select==false&&this.permanent==false)
+       {
+           c='leftpos'
+       }
+       
+       else if(this.select==true&&this.permanent==true)
+       {
+           c= 'permanentright'
+       }
+       else{
+           c= 'permanentleft'
+       }
+       
+       return c;
+   }
+
+    render() {
+        let mainContent = <slot name='MainContent'/>;
+      
+        this.c= this.selectclass();
+        console.log(this.select,this.permanent,this.right,this.c);
+
+        
+       
+
+        return [
+            <div class="backdrop" onClick={() => this.onCloseDrawer()} />,
+            <aside class={this.c} >
+                <div class="header">
+              
+               <div class='title'>
+                   <slot name='title'/>
+               </div>
+
+               
+               <div class='subtitle'>
+                   <slot name='subtitle'/>
+               </div>
+              
+               
+                </div>
+
+                <main>{mainContent}</main>
+                
+                
+            </aside>,
+        ];
+    }
 }
