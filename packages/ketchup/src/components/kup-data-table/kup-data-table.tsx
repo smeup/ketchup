@@ -1,6 +1,7 @@
 import {
     Component,
     Event,
+    getAssetPath,
     EventEmitter,
     h,
     JSX,
@@ -850,9 +851,40 @@ export class KupDataTable {
         }
     }
 
+    private setAssetPathVars() {
+        this.rootElement.style.setProperty(
+            '--drop-up-svg',
+            `url('${getAssetPath(
+                `./assets/svg/arrow_drop_up.svg`
+            )}') no-repeat center`
+        );
+
+        this.rootElement.style.setProperty(
+            '--menu-right-svg',
+            `url('${getAssetPath(
+                `./assets/svg/menu-right.svg`
+            )}') no-repeat center`
+        );
+
+        this.rootElement.style.setProperty(
+            '--drop-down-svg',
+            `url('${getAssetPath(
+                `./assets/svg/arrow_drop_down.svg`
+            )}') no-repeat center`
+        );
+
+        this.rootElement.style.setProperty(
+            '--filter-remove-svg',
+            `url('${getAssetPath(
+                `./assets/svg/filter-remove.svg`
+            )}') no-repeat center`
+        );
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        this.startTime = performance.now();
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
                 '.header'
@@ -860,7 +892,7 @@ export class KupDataTable {
         } else {
             this.navBarHeight = 0;
         }
-        this.startTime = performance.now();
+        this.setAssetPathVars();
         this.setObserver();
         // *** Store
         this.initWithPersistedState();

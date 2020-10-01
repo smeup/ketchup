@@ -90,24 +90,21 @@ table {
   }
 
   &.ascending {
-    mask: url(/assets/svg/arrow_drop_up.svg) center center no-repeat;
+    mask: var(--drop-up-svg);
   }
 
   &.collapsed {
-    mask: url(/assets/svg/menu-right.svg) center center no-repeat;
+    mask: var(--menu-right-svg);
   }
 
   &.descending,
   &.expanded {
-    mask: url(/assets/svg/arrow_drop_down.svg) center center no-repeat;
+    mask: var(--drop-down-svg);
   }
 
   &.filter-remove {
     margin: 0 0.25rem;
-    mask: url(/assets/svg/filter-remove.svg) center center no-repeat;
-    &:hover {
-      opacity: 0.75;
-    }
+    mask: var(--filter-remove-svg);
   }
 }
 
