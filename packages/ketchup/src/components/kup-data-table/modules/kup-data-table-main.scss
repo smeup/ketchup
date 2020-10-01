@@ -450,15 +450,9 @@ tbody {
 
 tr {
   &:not(:nth-child(1)) {
-    kup-button,
-    kup-checkbox,
-    kup-image {
+    kup-checkbox {
       display: none;
       animation: fadeInFromNone 0.25s ease-out;
-    }
-    //Canvas need to be always rendered because their render depends on clientWidth and clientHeight
-    kup-image[is-canvas] {
-      display: flex;
     }
   }
 
