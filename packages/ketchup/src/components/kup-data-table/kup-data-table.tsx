@@ -93,6 +93,7 @@ import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
+import { KupButton } from '../kup-button/kup-button';
 
 @Component({
     tag: 'kup-data-table',
@@ -187,6 +188,11 @@ export class KupDataTable {
     //////////////////////////////
 
     @Element() rootElement: HTMLElement;
+
+    /**
+     * If set to true, displays the button to open the customization panel.
+     */
+    @Prop({ mutable: true }) showCustomization: boolean = false;
 
     /**
      * Expands groups when set to true.
@@ -913,6 +919,9 @@ export class KupDataTable {
     }
 
     componentDidRender() {
+        if (this.showCustomization) {
+            this.customizePanelPosition();
+        }
         this.columnMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
@@ -934,7 +943,6 @@ export class KupDataTable {
 
     componentDidLoad() {
         this.setScrollOnHover();
-        this.customizePanelPosition();
         this.didLoadObservers();
         this.didLoadEventHandling();
 
@@ -3228,13 +3236,46 @@ export class KupDataTable {
     }
 
     private renderPaginator(top: boolean) {
-        let density: HTMLElement = undefined;
-        let fontsize: HTMLElement = undefined;
-        let grid: HTMLElement = undefined;
-        if (this.openedCustomSettings) {
-            density = this.renderDensityPanel();
-            fontsize = this.renderFontSizePanel();
-            grid = this.renderGridPanel();
+        let customizePanel: any[] = undefined;
+        let customizeButton: KupButton = undefined;
+        if (this.showCustomization) {
+            let density: HTMLElement = undefined;
+            let fontsize: HTMLElement = undefined;
+            let grid: HTMLElement = undefined;
+            if (this.openedCustomSettings) {
+                density = this.renderDensityPanel();
+                fontsize = this.renderFontSizePanel();
+                grid = this.renderGridPanel();
+            }
+            customizeButton = (
+                <kup-button
+                    class="paginator-button custom-settings"
+                    icon="settings"
+                    title="Show customization options"
+                    onKupButtonClick={() => {
+                        this.onCustomSettingsClick(top);
+                    }}
+                    ref={(el) => {
+                        top
+                            ? (this.customizeTopButtonRef = el as any)
+                            : (this.customizeBottomButtonRef = el as any);
+                    }}
+                />
+            );
+            customizePanel = (
+                <div
+                    class="kup-menu customize-panel"
+                    ref={(el) => {
+                        top
+                            ? (this.customizeTopPanelRef = el as any)
+                            : (this.customizeBottomPanelRef = el as any);
+                    }}
+                >
+                    {density}
+                    {grid}
+                    {fontsize}
+                </div>
+            );
         }
         return (
             <div class="paginator-wrapper">
@@ -3253,32 +3294,8 @@ export class KupDataTable {
                             }
                         />
                     ) : null}
-
-                    <kup-button
-                        class="paginator-button custom-settings"
-                        icon="settings"
-                        title="Show customization options"
-                        onKupButtonClick={() => {
-                            this.onCustomSettingsClick(top);
-                        }}
-                        ref={(el) => {
-                            top
-                                ? (this.customizeTopButtonRef = el as any)
-                                : (this.customizeBottomButtonRef = el as any);
-                        }}
-                    />
-                    <div
-                        class="kup-menu customize-panel"
-                        ref={(el) => {
-                            top
-                                ? (this.customizeTopPanelRef = el as any)
-                                : (this.customizeBottomPanelRef = el as any);
-                        }}
-                    >
-                        {density}
-                        {grid}
-                        {fontsize}
-                    </div>
+                    {customizeButton}
+                    {customizePanel}
                     {this.showLoadMore ? this.renderLoadMoreButton() : null}
                 </div>
             </div>
@@ -3549,17 +3566,23 @@ export class KupDataTable {
         let paginatorTop = undefined;
         let paginatorBottom = undefined;
         if (
-            PaginatorPos.TOP === this.paginatorPos ||
-            PaginatorPos.BOTH === this.paginatorPos
+            (!this.lazyLoadRows && this.rows.length >= this.rowsPerPage) ||
+            this.showCustomization ||
+            this.showLoadMore
         ) {
-            paginatorTop = this.renderPaginator(true);
-        }
+            if (
+                PaginatorPos.TOP === this.paginatorPos ||
+                PaginatorPos.BOTH === this.paginatorPos
+            ) {
+                paginatorTop = this.renderPaginator(true);
+            }
 
-        if (
-            PaginatorPos.BOTTOM === this.paginatorPos ||
-            PaginatorPos.BOTH === this.paginatorPos
-        ) {
-            paginatorBottom = this.renderPaginator(false);
+            if (
+                PaginatorPos.BOTTOM === this.paginatorPos ||
+                PaginatorPos.BOTH === this.paginatorPos
+            ) {
+                paginatorBottom = this.renderPaginator(false);
+            }
         }
 
         let groupChips = null;
