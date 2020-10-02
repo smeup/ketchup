@@ -18,11 +18,8 @@ $sticky-cell--row-z-index: 4;
 %fixedCellsBase {
   background-color: var(--kup-background-color);
   color: var(--kup-text-color);
+  transition: background-color 0.25s;
   position: sticky;
-
-  &:hover {
-    background-color: var(--kup-hover-background-color);
-  }
 
   // For fixed headers, we must set a different background and place the correct z-index to prevent overlapping.
   thead & {
@@ -54,6 +51,12 @@ $sticky-cell--row-z-index: 4;
   top: 0;
   width: 0;
   z-index: 1;
+}
+
+tr:hover .fixed-row,
+tr:hover .fixed-column {
+  color: var(--kup-hover-color);
+  background-color: var(--kup-hover-background-color);
 }
 
 // For a fixed row

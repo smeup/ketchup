@@ -62,18 +62,23 @@ export default {
         data: groupDataTable,
         showFilters: true,
         fixedColumns: '2',
+        tableHeight: '200px',
+        tableWidth: '400px',
       },
       fixedData2: {
         data: groupDataTable,
         showFilters: true,
         fixedColumns: '2',
         showGrid: 'Col',
+        tableHeight: '200px',
+        tableWidth: '400px',
       },
       fixedData3: {
         data: groupDataTable,
         showFilters: true,
         fixedRows: '3',
-        style: { '--dtt_table-wrapper-height': '250px' },
+        tableHeight: '200px',
+        tableWidth: '400px',
       },
       fixedData4: {
         data: groupDataTable,
@@ -81,7 +86,8 @@ export default {
         fixedColumns: '2',
         fixedRows: '4',
         showGrid: 'Complete',
-        style: { '--dtt_table-wrapper-height': '250px' },
+        tableHeight: '200px',
+        tableWidth: '400px',
       },
       fixedData5: {
         data: groupDataTable,
@@ -89,7 +95,8 @@ export default {
         fixedColumns: '2',
         fixedRows: '3',
         showGrid: 'Complete',
-        style: { '--dtt_table-wrapper-height': '250px' },
+        tableHeight: '200px',
+        tableWidth: '400px',
         rowActions: [
           {
             text: 'Action #1',
@@ -106,7 +113,8 @@ export default {
         data: groupDataTable,
         fixedColumns: '2',
         fixedRows: '3',
-        style: { '--dtt_table-wrapper-height': '250px' },
+        tableHeight: '200px',
+        tableWidth: '400px',
         groups: [
           {
             column: 'FLD0',
@@ -120,7 +128,8 @@ export default {
         data: groupDataTable,
         fixedColumns: '2',
         fixedRows: '3',
-        style: { '--dtt_table-wrapper-height': '250px' },
+        tableHeight: '200px',
+        tableWidth: '400px',
         groups: [
           {
             column: 'FLD0',
