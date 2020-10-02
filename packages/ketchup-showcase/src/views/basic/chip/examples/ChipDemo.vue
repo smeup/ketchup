@@ -1,6 +1,11 @@
 <template>
   <div>
-    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
+    <demo
+      :demoComp="demoComp"
+      :demoEvents="demoEvents"
+      :demoProps="demoProps"
+      :demoTabs="demoTabs"
+    ></demo>
   </div>
 </template>
 

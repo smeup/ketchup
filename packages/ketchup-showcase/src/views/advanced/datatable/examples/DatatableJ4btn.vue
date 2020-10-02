@@ -1,11 +1,17 @@
 <template>
   <div>
     <h3>Small obj dataset - box form</h3>
-    <kup-lazy component-name="kup-data-table" :data.prop="buttonData"></kup-lazy>
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="buttonData"
+    ></kup-lazy>
     <code id="button-small" />
 
     <h3>Larger dataset - With and without buttons</h3>
-    <kup-lazy component-name="kup-data-table" :data.prop="buttonData2"></kup-lazy>
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="buttonData2"
+    ></kup-lazy>
     <code id="button-large" />
   </div>
 </template>
@@ -57,5 +63,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

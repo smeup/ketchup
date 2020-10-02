@@ -2,19 +2,17 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        The are different layouts in which the list component can be displayed. These layouts can be set through the
-        <span
-          class="code-word"
-        >roleType</span> prop. To enable the selection, the
-        <span class="code-word">selectable</span> prop must be set to true.
+        The are different layouts in which the list component can be displayed.
+        These layouts can be set through the
+        <span class="code-word">roleType</span> prop. To enable the selection,
+        the <span class="code-word">selectable</span> prop must be set to true.
       </p>
       <br />
       <p>
-        The basic display layout is a simple list, the value in this case has to be set to
-        <span
-          class="code-word"
-        >listbox</span> , which is also the default of the
-        <span class="code-word">roleType</span> prop.
+        The basic display layout is a simple list, the value in this case has to
+        be set to
+        <span class="code-word">listbox</span> , which is also the default of
+        the <span class="code-word">roleType</span> prop.
       </p>
       <br />
       <div class="demo-container">
@@ -29,9 +27,7 @@
     <div class="demo-wrapper">
       <p>
         The second layout is a list of radio buttons. To activate it the
-        <span
-          class="code-word"
-        >roleType</span> prop must be set to
+        <span class="code-word">roleType</span> prop must be set to
         <span class="code-word">radiogroup</span>.
       </p>
       <br />
@@ -46,11 +42,9 @@
 
     <div class="demo-wrapper">
       <p>
-        The last layout is a list of checkboxes, which behaves as a multi selection list.
-        The value of
-        <span
-          class="code-word"
-        >roleType</span> to activate this layout is
+        The last layout is a list of checkboxes, which behaves as a multi
+        selection list. The value of
+        <span class="code-word">roleType</span> to activate this layout is
         <span class="code-word">group</span>.
       </p>
       <br />

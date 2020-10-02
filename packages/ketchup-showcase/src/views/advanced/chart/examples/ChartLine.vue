@@ -1,11 +1,21 @@
 <template>
   <div>
     <h3>Single serie</h3>
-    <kup-chart :data.prop="baseData" :types.prop="types" axis="Col1" :series.prop="['Col2']" />
+    <kup-chart
+      :data.prop="baseData"
+      :types.prop="types"
+      axis="Col1"
+      :series.prop="['Col2']"
+    />
     <hr />
 
     <h3>Multiple series</h3>
-    <kup-chart :data.prop="baseData" :types.prop="types" axis="Col1" :series.prop="series" />
+    <kup-chart
+      :data.prop="baseData"
+      :types.prop="types"
+      axis="Col1"
+      :series.prop="series"
+    />
     <hr />
   </div>
 </template>

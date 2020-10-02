@@ -2,9 +2,16 @@
   <div id="sample-wrapper" class="detached">
     <div id="sample-modal"></div>
     <div id="sample-specs">
-      <kup-tab-bar @kupTabBarClick="tabSelection" :data.prop="demoTabs"></kup-tab-bar>
+      <kup-tab-bar
+        @kupTabBarClick="tabSelection"
+        :data.prop="demoTabs"
+      ></kup-tab-bar>
       <div id="sample-specs-container">
-        <table id="props-tab" v-if="demoProps !== null" class="instruction-table sample-section">
+        <table
+          id="props-tab"
+          v-if="demoProps !== null"
+          class="instruction-table sample-section"
+        >
           <thead>
             <tr>
               <th>Prop</th>
@@ -26,10 +33,17 @@
               <td class="prevent-cr">
                 <span class="code-word">{{ propList.default }}</span>
               </td>
-              <td v-if="propList.try === 'json'">Use the JSON tab to view/change this prop.</td>
-              <td v-if="propList.try === 'css'">Use the CSS tab to view/change this prop.</td>
+              <td v-if="propList.try === 'json'"
+                >Use the JSON tab to view/change this prop.</td
+              >
+              <td v-if="propList.try === 'css'"
+                >Use the CSS tab to view/change this prop.</td
+              >
               <td class="switch-cell" v-if="propList.try === 'switch'">
-                <kup-switch v-bind:id="propList.prop" @kupSwitchChange="updateDemoSwitch"></kup-switch>
+                <kup-switch
+                  v-bind:id="propList.prop"
+                  @kupSwitchChange="updateDemoSwitch"
+                ></kup-switch>
               </td>
               <td class="text-cell" v-if="propList.try === 'field'">
                 <kup-text-field
@@ -476,7 +490,7 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function (cm) {
+      }).on('change', function(cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
         let prop = demoComponent.currentJSONprop;
@@ -508,7 +522,7 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function (cm) {
+      }).on('change', function(cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
         let prop = demoComponent.currentCSSprop;

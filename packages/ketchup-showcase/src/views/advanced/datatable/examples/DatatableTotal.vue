@@ -16,8 +16,7 @@ h3 {
     <kup-lazy component-name="kup-data-table" :data.prop="data2"></kup-lazy>
 
     <h3>
-      Count on Column A, Sum on column B, Avg on Column C and count on Column
-      d
+      Count on Column A, Sum on column B, Avg on Column C and count on Column d
     </h3>
     <kup-lazy component-name="kup-data-table" :data.prop="data3"></kup-lazy>
   </div>

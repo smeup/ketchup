@@ -3,8 +3,8 @@
     <div class="demo-wrapper">
       <p>
         The content of the
-        <span class="code-word">position</span> prop will decide where to anchor the badge.
-        <br />Supported values are:
+        <span class="code-word">position</span> prop will decide where to anchor
+        the badge. <br />Supported values are:
         <span class="code-word">BR</span> (bottom right),
         <span class="code-word">BL</span> (bottom left),
         <span class="code-word">TR</span> (top right),
@@ -27,13 +27,13 @@
 
     <div class="demo-wrapper">
       <p>
-        As mentioned earlier, it is possible to use icons instead of text through the
-        <span
-          class="code-word"
-        >imageData</span> prop.
-        <br />Considering the nature of the Image component,
-        it is also possible to use images that aren't strictly SVGs, but in this case you
-        have to keep in mind sizes. A wider than taller image will most likely render outside the badge's background.
+        As mentioned earlier, it is possible to use icons instead of text
+        through the
+        <span class="code-word">imageData</span> prop. <br />Considering the
+        nature of the Image component, it is also possible to use images that
+        aren't strictly SVGs, but in this case you have to keep in mind sizes. A
+        wider than taller image will most likely render outside the badge's
+        background.
       </p>
       <div class="demo-container">
         <div class="kup-container">

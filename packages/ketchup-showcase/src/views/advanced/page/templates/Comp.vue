@@ -10,9 +10,19 @@
         title="Open GitHub documentation"
         v-if="giturl !== undefined"
       >
-        <kup-image color="var(--kup-main-color)" size-x="32px" size-y="32px" resource="github"></kup-image>
+        <kup-image
+          color="var(--kup-main-color)"
+          size-x="32px"
+          size-y="32px"
+          resource="github"
+        ></kup-image>
         <span class="github-text">View on GitHub</span>
-        <kup-image color="var(--kup-main-color)" size-x="16px" size-y="16px" resource="open-in-new"></kup-image>
+        <kup-image
+          color="var(--kup-main-color)"
+          size-x="16px"
+          size-y="16px"
+          resource="open-in-new"
+        ></kup-image>
       </a>
       <div v-for="(item, index) in titles" :key="item" class="section">
         <h3 class="nav-title">{{ item }}</h3>
@@ -26,7 +36,8 @@
           :key="item"
           onclick="scrollToSmoothly();"
           class="page-nav-element"
-        >{{ item }}</a>
+          >{{ item }}</a
+        >
       </div>
     </div>
   </div>

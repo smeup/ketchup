@@ -2,11 +2,9 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        Chips are commonly used when there is a list of labels or tags. The
-        chip data must be set inside the
-        <span
-          class="code-word"
-        >data</span> prop, which is structured like this:
+        Chips are commonly used when there is a list of labels or tags. The chip
+        data must be set inside the
+        <span class="code-word">data</span> prop, which is structured like this:
         <br />
         <br />
         <span class="code-word">value</span> is mandatory and defines the value
@@ -20,9 +18,7 @@
         <br />
         <span class="code-word">checked</span> defines whether the chip is
         selected or not, this is true for chip set defined as
-        <span
-          class="code-word"
-        >choice</span> or
+        <span class="code-word">choice</span> or
         <span class="code-word">filter</span>.
       </p>
       <br />

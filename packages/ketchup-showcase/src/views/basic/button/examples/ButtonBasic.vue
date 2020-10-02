@@ -12,9 +12,7 @@
       <p>
         The most basic button is a plain text one. In order to render it, you
         need to use the
-        <span
-          class="code-word"
-        >label</span> prop.
+        <span class="code-word">label</span> prop.
       </p>
     </div>
   </div>

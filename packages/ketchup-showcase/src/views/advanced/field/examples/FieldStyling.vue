@@ -2,15 +2,17 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        It's possible to display a label along with the component, the content of the label must be set inside the
-        <span
-          class="code-word"
-        >label</span> prop.
-        ).
+        It's possible to display a label along with the component, the content
+        of the label must be set inside the
+        <span class="code-word">label</span> prop. ).
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <kup-field label="I'm a label" type="itx" :data.prop="dataITX"></kup-field>
+          <kup-field
+            label="I'm a label"
+            type="itx"
+            :data.prop="dataITX"
+          ></kup-field>
         </div>
         <p class="centered">Label sample markup</p>
         <code class="flat">{{ markupLabel }}</code>
@@ -19,21 +21,31 @@
 
     <div class="demo-wrapper">
       <p>
-        By default, the label is displayed on the left. It's possible to change this default through the
-        <span
-          class="code-word"
-        >labelPos</span> prop. Supported values: "left" (default), "top", "right".
+        By default, the label is displayed on the left. It's possible to change
+        this default through the
+        <span class="code-word">labelPos</span> prop. Supported values: "left"
+        (default), "top", "right".
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <kup-field label-pos="top" label="I'm a label" type="itx" :data.prop="dataITX"></kup-field>
+          <kup-field
+            label-pos="top"
+            label="I'm a label"
+            type="itx"
+            :data.prop="dataITX"
+          ></kup-field>
         </div>
         <p class="centered">Top label sample markup</p>
         <code class="flat">{{ markupTopLabel }}</code>
       </div>
       <div class="demo-container">
         <div class="kup-container">
-          <kup-field label-pos="right" label="I'm a label" type="itx" :data.prop="dataITX"></kup-field>
+          <kup-field
+            label-pos="right"
+            label="I'm a label"
+            type="itx"
+            :data.prop="dataITX"
+          ></kup-field>
         </div>
         <p class="centered">Right label sample markup</p>
         <code class="flat">{{ markupRightLabel }}</code>
@@ -42,15 +54,19 @@
 
     <div class="demo-wrapper">
       <p>
-        Another feature of the field component is the displaying of a submit button, it can be done by setting to true the
-        <span
-          class="code-word"
-        >showSubmit</span> prop and by setting a content to the
-        <span class="code-word">submitLabel</span> prop.
+        Another feature of the field component is the displaying of a submit
+        button, it can be done by setting to true the
+        <span class="code-word">showSubmit</span> prop and by setting a content
+        to the <span class="code-word">submitLabel</span> prop.
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <kup-field show-submit submit-label="SUBMIT" type="itx" :data.prop="dataITX"></kup-field>
+          <kup-field
+            show-submit
+            submit-label="SUBMIT"
+            type="itx"
+            :data.prop="dataITX"
+          ></kup-field>
         </div>
         <p class="centered">Submit sample markup</p>
         <code class="flat">{{ markupSubmit }}</code>
@@ -59,10 +75,10 @@
 
     <div class="demo-wrapper">
       <p>
-        By default, the label is displayed on the right. It's possible to change this default through the
-        <span
-          class="code-word"
-        >submitPos</span> prop. Supported values: "right" (default), "bottom", "top", "left".
+        By default, the label is displayed on the right. It's possible to change
+        this default through the
+        <span class="code-word">submitPos</span> prop. Supported values: "right"
+        (default), "bottom", "top", "left".
       </p>
       <div class="demo-container">
         <div class="kup-container">
