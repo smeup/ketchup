@@ -560,6 +560,10 @@ export namespace Components {
          */
         "selectRowsById": string;
         /**
+          * If set to true, displays the button to open the customization panel.
+         */
+        "showCustomization": boolean;
+        /**
           * When set to true enables the column filters.
          */
         "showFilters": boolean;
@@ -2467,6 +2471,10 @@ declare namespace LocalJSX {
           * Semicolon separated rows id to select.
          */
         "selectRowsById"?: string;
+        /**
+          * If set to true, displays the button to open the customization panel.
+         */
+        "showCustomization"?: boolean;
         /**
           * When set to true enables the column filters.
          */

@@ -160,6 +160,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'showCustomization',
+          description:
+            'If set to true, displays the button to open the customization panel.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'showFilters',
           description: 'When set to true enables the column filters.',
           type: 'boolean',

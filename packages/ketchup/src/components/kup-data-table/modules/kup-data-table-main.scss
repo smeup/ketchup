@@ -182,11 +182,11 @@ table {
 }
 
 thead {
-  background-color: var(--kup-title-background-color);
   border: 1px solid var(--kup-border-color);
-  color: var(--kup-title-color);
 
   th {
+    background-color: var(--kup-title-background-color);
+    color: var(--kup-title-color);
     border-bottom: 2px solid var(--kup-border-color);
     border-right: 1px solid var(--kup-border-color);
     box-sizing: border-box;
