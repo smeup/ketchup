@@ -310,7 +310,7 @@ export class KupTree {
     })
     kupDidLoad: EventEmitter<void>;
 
-     /**
+    /**
      * Triggered when stop propagation event
      */
     @Event({
@@ -403,7 +403,6 @@ export class KupTree {
     }
 
     componentDidUnload() {
-
         this.kupDidUnload.emit();
     }
 
@@ -1238,7 +1237,9 @@ export class KupTree {
             filterField = (
                 <kup-text-field
                     class="filter"
-                    label="Filter"
+                    fullWidth={true}
+                    icon="magnify"
+                    label="Search..."
                     outlined={false}
                     initialValue={this.filterValue}
                     onKupTextFieldSubmit={(e) => {
