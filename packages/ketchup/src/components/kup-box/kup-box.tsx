@@ -744,13 +744,12 @@ export class KupBox {
 
     private onSelectionCheckChange(row: BoxRow) {
         var index = -1;
-        var i = 0;
-        for (let select of this.selectedRows) {
+        for (let i = 0; i < this.selectedRows.length; i++) {
+            const select = this.selectedRows[i];
             if (select.id === row.id) {
                 index = i;
                 break;
             }
-            i++;
         }
 
         if (index >= 0) {
