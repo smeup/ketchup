@@ -22,7 +22,7 @@
       
      
       <nav class="side-nav" slot="MainContent">
-              <kup-list show-icons class="handles-custom-style hydrated" v-bind:data="listdate"  display-mode="description" filter role-type="listbox" selectable ></kup-list>
+              <kup-list show-icons class="handles-custom-style hydrated" :data.prop="listdate"  display-mode="description" filter role-type="listbox" selectable ></kup-list>
       
       </nav>
     </kup-drawer>
@@ -57,35 +57,29 @@ export default {
       markupBasic8:'<kup-drawer permanent></kup-drawer>',
       markupBasic9:'<kup-drawer right permanent></kup-drawer>',
 
-   listdata:[
-      {
-    "text": "slot with name tag='title' to set the title of drawer",
+     listdate:[
+       {
+    "text": "First choice",
     "value": "1",
     "icon": "add_alert",
     "trailingIcon": true,
     "selected": false
   },
   {
-    "text": "slot with name tag='subtitle' to set the subtitle of drawer",
+    "text": "Selected choice",
     "value": "2",
     "selected": false,
     "icon": "ac_unit"
   },
   
   {
-    "text": "a section nav with slot with tag name='maincontent' which contains the main content of the drawer, a kup-list with all the sections of the page",
+    "text": "Third choice",
     "value": "3",
     "icon": "3d_rotation",
     "selected": true
-  },
-  {
-    "text":'kup-list with data which represent the list of sections of reachable pages, see the kup-list documentation at: <a href="https://ketchup.smeup.com/ketchup-showcase/#/list">List</a>',
-    "value": "4",
-    "selected": false,
-    "icon": "ac_unit"
-  },
+  }
+],
 
-   ],
      
     
 

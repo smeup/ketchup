@@ -28,7 +28,7 @@
       
      
       <nav class="side-nav" slot="MainContent">
-              <kup-list show-icons class="handles-custom-style hydrated" v-bind:data="listdate"  display-mode="description" filter role-type="listbox" selectable ></kup-list>
+              <kup-list show-icons class="handles-custom-style hydrated" :data.prop="listdate"  display-mode="description" filter role-type="listbox" selectable ></kup-list>
       
       </nav>
     </kup-drawer>

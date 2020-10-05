@@ -13,21 +13,17 @@
       The drawer component that we have created works through the slots, so the component itself contains only the structure in which to insert
        the various parts of the drawer through the slot, such as the title, subtile, page section list.
       </p>
+      <br>
+      <br>
      <p class="centered">Sample markup</p>
       <code align=center class="flat">{{ markupBasic }}<br>{{markupBasic2}}<br>{{markupBasic3}}<br>{{markupBasic4}}<br>{{markupBasic5}}<br>{{markupBasic6}}<br>{{markupBasic7}}</code>
       <br>
       <br>
+      <br>
       <div>
        Passable slots to compose our drawer component are:
-         <ul>
-           <li>slot with name tag="title" to set the title of drawer</li>
-            <li>slot with name tag="subtitle" to set the subtitle of drawer</li>
-            <li>a section nav with slot with tag name='maincontent' which contains 
-              the main content of the drawer, a kup-list with all the sections of the page</li>
-            <li>kup-list with data which represent the list of sections of reachable pages, see the 
-              kup-list documentation at: <a href="https://ketchup.smeup.com/ketchup-showcase/#/list">List</a></li>
-         </ul>
-            <kup-list show-icons class="handles-custom-style hydrated" :data="listdata"   display-mode="description" filter role-type="listbox" selectable ></kup-list>
+            <kup-list show-icons class="handles-custom-style hydrated" :data.prop="listdata"   display-mode="description" filter role-type="listbox" selectable ></kup-list>
+            <div>see the kup-list documentation at: <a href="https://ketchup.smeup.com/ketchup-showcase/#/list">List</a></div>
        </div>
        
     </div>
@@ -49,30 +45,30 @@ export default {
 
    listdata:[
       {
-    "text": "slot with name tag='title' to set the title of drawer",
+    "text": "slot with name tag='title' to set the title of drawer.",
     "value": "1",
-    "icon": "add_alert",
+    "icon": "trending_flat",
     "trailingIcon": true,
-    "selected": false
+    
   },
   {
-    "text": "slot with name tag='subtitle' to set the subtitle of drawer",
+    "text": "slot with name tag='subtitle' to set the subtitle of drawer.",
     "value": "2",
-    "selected": false,
-    "icon": "ac_unit"
+    
+    "icon": "trending_flat"
   },
   
   {
-    "text": "a section nav with slot with tag name='maincontent' which contains the main content of the drawer, a kup-list with all the sections of the page",
+    "text": "a section nav with slot with tag name='maincontent' which contains the main content of the drawer.",
     "value": "3",
-    "icon": "3d_rotation",
-    "selected": true
+    "icon": "trending_flat",
+    
   },
   {
-    "text":'kup-list with data which represent the list of sections of reachable pages, see the kup-list documentation at: <a href="https://ketchup.smeup.com/ketchup-showcase/#/list">List</a>',
+    "text":'kup-list with data which represent the list of sections of reachable pages.',
     "value": "4",
-    "selected": false,
-    "icon": "ac_unit"
+    
+    "icon": "trending_flat"
   },
 
    ],
