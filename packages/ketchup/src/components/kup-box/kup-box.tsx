@@ -743,7 +743,15 @@ export class KupBox {
     }
 
     private onSelectionCheckChange(row: BoxRow) {
-        const index = this.selectedRows.indexOf(row);
+        var index = -1;
+        var i = 0;
+        for (let select of this.selectedRows) {
+            if (select.id === row.id) {
+                index = i;
+                break;
+            }
+            i++;
+        }
 
         if (index >= 0) {
             // remove row
