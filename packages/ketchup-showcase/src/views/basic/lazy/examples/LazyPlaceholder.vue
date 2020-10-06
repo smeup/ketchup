@@ -2,9 +2,12 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        Displayed below, a series of 100 kup-card components handled with kup-lazy.
-        <br />You can check how they will be rendered when they enter the viewport, replacing the existing SVG placeholder.
-        <br />Why so many cards? Well, so you can test it extensively and see how performance-friendly it is. :)
+        Displayed below, a series of 100 kup-card components handled with
+        kup-lazy.
+        <br />You can check how they will be rendered when they enter the
+        viewport, replacing the existing SVG placeholder. <br />Why so many
+        cards? Well, so you can test it extensively and see how
+        performance-friendly it is. :)
       </p>
       <div class="demo-container">
         <div class="kup-container" v-for="n in 100" :key="n">

@@ -1,6 +1,6 @@
 # Ketch.UP: components for web applications
 
-![Ketch.UP Logo](docs/images/ketchup_small.png)
+![Ketch.UP Logo](https://raw.githubusercontent.com/smeup/ketchup/develop/docs/images/ketchup_small.png))
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -42,7 +42,14 @@ Yes, of course: see the [presentation list](docs/presentations.md)
 npm install @sme.up/ketchup --save
 ```
 
--   Import components in your html pages. About components and their props and events see [Ketch.UP Showcase](https://ketchup.smeup.com/). A simple sample for a Ketch.UP button can be:
+-   Define Ketch.UP custom elements in your pages:
+
+```
+import { defineCustomElements } from 'ketchup/dist/loader';
+defineCustomElements(window);
+```
+
+-   Use Ketch.UP components in your pages. About components and their props and events see [Ketch.UP Showcase](https://ketchup.smeup.com/). A simple sample for a Ketch.UP button can be:
 
 ```
 <kup-btn :buttons.prop="btnlist" @kupBtnClick="onKupBtnClicked" />
