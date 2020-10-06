@@ -611,7 +611,12 @@ export class KupTooltip {
             }
         }
         if (this.hasCellOptionsData()) {
-            detailContent = [<kup-tree {...this.cellOptions}></kup-tree>];
+            detailContent = [
+                <kup-tree
+                    {...this.cellOptions.config}
+                    {...this.cellOptions}
+                ></kup-tree>,
+            ];
         }
         if (this.hasDetailData() || this.hasCellOptionsData()) {
             detailActions = [
