@@ -600,7 +600,7 @@ export class KupTooltip {
                         <div class="detail-actions__box">
                             <kup-button
                                 flat={true}
-                                tooltip={action.text}
+                                title={action.text}
                                 icon={action.icon}
                                 onKupButtonClick={(event) =>
                                     this.onActionCommandClicked(event, action)
@@ -624,7 +624,7 @@ export class KupTooltip {
                 <div class="detail-actions__box">
                     <kup-button
                         flat={true}
-                        tooltip={this.getTooltipForShowOptionsButton()}
+                        title={this.getTooltipForShowOptionsButton()}
                         icon={this.getIconForShowOptionsButton()}
                         onKupButtonClick={() => this.onShowRightClickOptions()}
                         onClick={(e) => e.stopPropagation()}

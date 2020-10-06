@@ -1,6 +1,10 @@
 <template>
   <div>
-    <demo :demoComp="demoComp" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
+    <demo
+      :demoComp="demoComp"
+      :demoProps="demoProps"
+      :demoTabs="demoTabs"
+    ></demo>
   </div>
 </template>
 
@@ -104,7 +108,7 @@ export default {
           description:
             'When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content.',
           type: 'boolean',
-          default: 'true',
+          default: 'false',
           try: 'switch',
         },
         {
@@ -160,6 +164,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'showCustomization',
+          description:
+            'If set to true, displays the button to open the customization panel.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'showFilters',
           description: 'When set to true enables the column filters.',
           type: 'boolean',
@@ -179,6 +191,14 @@ export default {
           description: 'Enables rendering of the table header.',
           type: 'boolean',
           default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'showLoadMore',
+          description:
+            'If set to true, displays the button to load more records.',
+          type: 'boolean',
+          default: 'false',
           try: 'switch',
         },
         {

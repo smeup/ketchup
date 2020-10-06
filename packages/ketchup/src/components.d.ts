@@ -13,7 +13,6 @@ import { Cell, Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObj
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartType } from "./components/kup-chart/kup-chart-declarations";
-import { KupCheckboxMenuItem } from "./components/kup-checkbox-menu/kup-checkbox-menu-declarations";
 import { ComponentChipElement } from "./components/kup-chip/kup-chip-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
@@ -258,10 +257,6 @@ export namespace Components {
          */
         "toggable": boolean;
         /**
-          * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
-         */
-        "tooltip": string;
-        /**
           * Defaults at null. When set, the icon will be shown after the text.
          */
         "trailingIcon": boolean;
@@ -371,36 +366,6 @@ export namespace Components {
          */
         "leadingLabel": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-    }
-    interface KupCheckboxMenu {
-        /**
-          * Sets if the checkbox menu should be disabled
-         */
-        "disabled": boolean;
-        /**
-          * Chooses which field of an item object should be used to create the list and be filtered.
-         */
-        "displayedField": string;
-        /**
-          * The label to show as a placeholder inside the filter input
-         */
-        "filterLabel": string;
-        /**
-          * Marks the field as filterable, allowing an input text to filter the options
-         */
-        "isFilterable": boolean;
-        /**
-          * Sets the checkbox to be disabled  Must have reflect into the attribute
-         */
-        "items": KupCheckboxMenuItem[];
-        /**
-          * The label to set to the component
-         */
-        "label": string;
-        /**
-          * Chooses which field of an item object should be used to create the list and be filtered.
-         */
-        "valueField": string;
     }
     interface KupChip {
         /**
@@ -594,6 +559,10 @@ export namespace Components {
           * Semicolon separated rows id to select.
          */
         "selectRowsById": string;
+        /**
+          * If set to true, displays the button to open the customization panel.
+         */
+        "showCustomization": boolean;
         /**
           * When set to true enables the column filters.
          */
@@ -989,34 +958,6 @@ export namespace Components {
           * The list elements descriptions will be arranged in two lines.
          */
         "twoLine": boolean;
-    }
-    interface KupMenu {
-        /**
-          * When set to true, the menu will automatically close when the user clicks outside of its deactivationRelativeTo prop.
-          * @see deactivationRelativeTo
-         */
-        "closeOnOuterClick": boolean;
-        /**
-          * When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. Therefore, if the menu closing event comes from this element or one of its descendants, the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop. If positionRelativeTo is not defined, it will default to the menu parent element.
-          * @see closeOnOuterClick
-          * @see positionRelativeTo
-         */
-        "deactivationRelativeTo": HTMLElement;
-        /**
-          * Open or closes the menu. The menu itself can edit this prop.
-          * @see closeOnOuterClick
-          * @see deactivationRelativeTo
-         */
-        "isActive": boolean;
-        /**
-          * Specifies how many pixels will be use to separate the menu from its positionRelativeTo element.
-         */
-        "margin": number;
-        /**
-          * The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
-          * @see position
-         */
-        "positionRelativeTo": HTMLElement;
     }
     interface KupModal {
         "header": string;
@@ -1499,12 +1440,6 @@ declare global {
         prototype: HTMLKupCheckboxElement;
         new (): HTMLKupCheckboxElement;
     };
-    interface HTMLKupCheckboxMenuElement extends Components.KupCheckboxMenu, HTMLStencilElement {
-    }
-    var HTMLKupCheckboxMenuElement: {
-        prototype: HTMLKupCheckboxMenuElement;
-        new (): HTMLKupCheckboxMenuElement;
-    };
     interface HTMLKupChipElement extends Components.KupChip, HTMLStencilElement {
     }
     var HTMLKupChipElement: {
@@ -1613,12 +1548,6 @@ declare global {
         prototype: HTMLKupListElement;
         new (): HTMLKupListElement;
     };
-    interface HTMLKupMenuElement extends Components.KupMenu, HTMLStencilElement {
-    }
-    var HTMLKupMenuElement: {
-        prototype: HTMLKupMenuElement;
-        new (): HTMLKupMenuElement;
-    };
     interface HTMLKupModalElement extends Components.KupModal, HTMLStencilElement {
     }
     var HTMLKupModalElement: {
@@ -1713,7 +1642,6 @@ declare global {
         "kup-card": HTMLKupCardElement;
         "kup-chart": HTMLKupChartElement;
         "kup-checkbox": HTMLKupCheckboxElement;
-        "kup-checkbox-menu": HTMLKupCheckboxMenuElement;
         "kup-chip": HTMLKupChipElement;
         "kup-combobox": HTMLKupComboboxElement;
         "kup-crud": HTMLKupCrudElement;
@@ -1732,7 +1660,6 @@ declare global {
         "kup-layout": HTMLKupLayoutElement;
         "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
-        "kup-menu": HTMLKupMenuElement;
         "kup-modal": HTMLKupModalElement;
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-paginator": HTMLKupPaginatorElement;
@@ -1940,18 +1867,11 @@ declare namespace LocalJSX {
         "onKupBoxSelected"?: (event: CustomEvent<{
         rows: BoxRow[];
     }>) => void;
-        /**
-          * Triggered when start propagation event
-         */
-        "onKupDidLoad"?: (event: CustomEvent<{
-        EventEmitter: Boolean;
-    }>) => void;
+        "onKupDidLoad"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when stop propagation event
          */
-        "onKupDidUnload"?: (event: CustomEvent<{
-        EventEmitter: Boolean;
-    }>) => void;
+        "onKupDidUnload"?: (event: CustomEvent<void>) => void;
         /**
           * When the row menu action icon is clicked
          */
@@ -2089,10 +2009,6 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the icon button will be toggable on/off.
          */
         "toggable"?: boolean;
-        /**
-          * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
-         */
-        "tooltip"?: string;
         /**
           * Defaults at null. When set, the icon will be shown after the text.
          */
@@ -2260,40 +2176,6 @@ declare namespace LocalJSX {
         value: string;
         checked: boolean;
     }>) => void;
-    }
-    interface KupCheckboxMenu {
-        /**
-          * Sets if the checkbox menu should be disabled
-         */
-        "disabled"?: boolean;
-        /**
-          * Chooses which field of an item object should be used to create the list and be filtered.
-         */
-        "displayedField"?: string;
-        /**
-          * The label to show as a placeholder inside the filter input
-         */
-        "filterLabel"?: string;
-        /**
-          * Marks the field as filterable, allowing an input text to filter the options
-         */
-        "isFilterable"?: boolean;
-        /**
-          * Sets the checkbox to be disabled  Must have reflect into the attribute
-         */
-        "items"?: KupCheckboxMenuItem[];
-        /**
-          * The label to set to the component
-         */
-        "label"?: string;
-        /**
-          * Fired when the checkbox input changes its value
-         */
-        "onKupCheckboxMenuSelected"?: (event: CustomEvent<KupCheckboxMenuItem[]>) => void;
-        /**
-          * Chooses which field of an item object should be used to create the list and be filtered.
-         */
-        "valueField"?: string;
     }
     interface KupChip {
         /**
@@ -2589,6 +2471,10 @@ declare namespace LocalJSX {
           * Semicolon separated rows id to select.
          */
         "selectRowsById"?: string;
+        /**
+          * If set to true, displays the button to open the customization panel.
+         */
+        "showCustomization"?: boolean;
         /**
           * When set to true enables the column filters.
          */
@@ -3015,38 +2901,6 @@ declare namespace LocalJSX {
           * The list elements descriptions will be arranged in two lines.
          */
         "twoLine"?: boolean;
-    }
-    interface KupMenu {
-        /**
-          * When set to true, the menu will automatically close when the user clicks outside of its deactivationRelativeTo prop.
-          * @see deactivationRelativeTo
-         */
-        "closeOnOuterClick"?: boolean;
-        /**
-          * When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. Therefore, if the menu closing event comes from this element or one of its descendants, the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop. If positionRelativeTo is not defined, it will default to the menu parent element.
-          * @see closeOnOuterClick
-          * @see positionRelativeTo
-         */
-        "deactivationRelativeTo"?: HTMLElement;
-        /**
-          * Open or closes the menu. The menu itself can edit this prop.
-          * @see closeOnOuterClick
-          * @see deactivationRelativeTo
-         */
-        "isActive"?: boolean;
-        /**
-          * Specifies how many pixels will be use to separate the menu from its positionRelativeTo element.
-         */
-        "margin"?: number;
-        /**
-          * When the menu gets closed.
-         */
-        "onKupMenuClose"?: (event: CustomEvent<void>) => void;
-        /**
-          * The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
-          * @see position
-         */
-        "positionRelativeTo"?: HTMLElement;
     }
     interface KupModal {
         "header"?: string;
@@ -3486,6 +3340,9 @@ declare namespace LocalJSX {
         "onKupDefaultOptionClicked"?: (event: CustomEvent<{
         obj: TooltipObject;
     }>) => void;
+        "onKupDefaultPreviewClicked"?: (event: CustomEvent<{
+        obj: TooltipObject;
+    }>) => void;
         "onKupTooltipLoadCellOptions"?: (event: CustomEvent<{
         relatedObject: TooltipRelatedObject;
         tooltip: KupTooltip;
@@ -3654,7 +3511,6 @@ declare namespace LocalJSX {
         "kup-card": KupCard;
         "kup-chart": KupChart;
         "kup-checkbox": KupCheckbox;
-        "kup-checkbox-menu": KupCheckboxMenu;
         "kup-chip": KupChip;
         "kup-combobox": KupCombobox;
         "kup-crud": KupCrud;
@@ -3673,7 +3529,6 @@ declare namespace LocalJSX {
         "kup-layout": KupLayout;
         "kup-lazy": KupLazy;
         "kup-list": KupList;
-        "kup-menu": KupMenu;
         "kup-modal": KupModal;
         "kup-nav-bar": KupNavBar;
         "kup-paginator": KupPaginator;
@@ -3703,7 +3558,6 @@ declare module "@stencil/core" {
             "kup-card": LocalJSX.KupCard & JSXBase.HTMLAttributes<HTMLKupCardElement>;
             "kup-chart": LocalJSX.KupChart & JSXBase.HTMLAttributes<HTMLKupChartElement>;
             "kup-checkbox": LocalJSX.KupCheckbox & JSXBase.HTMLAttributes<HTMLKupCheckboxElement>;
-            "kup-checkbox-menu": LocalJSX.KupCheckboxMenu & JSXBase.HTMLAttributes<HTMLKupCheckboxMenuElement>;
             "kup-chip": LocalJSX.KupChip & JSXBase.HTMLAttributes<HTMLKupChipElement>;
             "kup-combobox": LocalJSX.KupCombobox & JSXBase.HTMLAttributes<HTMLKupComboboxElement>;
             "kup-crud": LocalJSX.KupCrud & JSXBase.HTMLAttributes<HTMLKupCrudElement>;
@@ -3722,7 +3576,6 @@ declare module "@stencil/core" {
             "kup-layout": LocalJSX.KupLayout & JSXBase.HTMLAttributes<HTMLKupLayoutElement>;
             "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
-            "kup-menu": LocalJSX.KupMenu & JSXBase.HTMLAttributes<HTMLKupMenuElement>;
             "kup-modal": LocalJSX.KupModal & JSXBase.HTMLAttributes<HTMLKupModalElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-paginator": LocalJSX.KupPaginator & JSXBase.HTMLAttributes<HTMLKupPaginatorElement>;

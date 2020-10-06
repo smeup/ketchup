@@ -1,0 +1,21 @@
+//Row classes specified in JSON
+tr.clickable {
+  cursor: pointer;
+}
+
+//Cell classes specified in JSON
+td.clickable {
+  cursor: pointer;
+}
+
+td.icon-sized {
+  width: 30px;
+}
+
+td.display-on-hover {
+  opacity: 0;
+  transition: opacity 0.25s;
+  &:hover {
+    opacity: 1;
+  }
+}

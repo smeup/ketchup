@@ -6,7 +6,10 @@
       <div class="column">
         <div class="multi">
           <label>enable multiselect:</label>
-          <kup-checkbox :checked.prop="multi1" @kupCheckboxChange="changeMulti1" />
+          <kup-checkbox
+            :checked.prop="multi1"
+            @kupCheckboxChange="changeMulti1"
+          />
         </div>
         <kup-box
           id="box1"
@@ -24,11 +27,20 @@
       <div class="column">
         <div class="multi">
           <label>enable multiselect:</label>
-          <kup-checkbox :checked.prop="multi2" @kupCheckboxChange="changeMulti2" />
+          <kup-checkbox
+            :checked.prop="multi2"
+            @kupCheckboxChange="changeMulti2"
+          />
           <label>empty data:</label>
-          <kup-checkbox :checked.prop="empty2" @kupCheckboxChange="changeEmpty2" />
+          <kup-checkbox
+            :checked.prop="empty2"
+            @kupCheckboxChange="changeEmpty2"
+          />
           <label>enable drop on section:</label>
-          <kup-checkbox :checked.prop="dropOnSection2" @kupCheckboxChange="changeDropOnSection2" />
+          <kup-checkbox
+            :checked.prop="dropOnSection2"
+            @kupCheckboxChange="changeDropOnSection2"
+          />
         </div>
         <kup-box
           id="box2"
@@ -57,7 +69,9 @@
         </p>
         <p v-if="fromId">From box id: {{ fromId }}</p>
         <p v-if="fromRow">From box row: {{ fromRow }}</p>
-        <p v-if="fromSelectedRows">From selected rows: {{ fromSelectedRows }}</p>
+        <p v-if="fromSelectedRows"
+          >From selected rows: {{ fromSelectedRows }}</p
+        >
         <p v-if="toId">To box id: {{ toId }}</p>
         <p v-if="toRow">To box row: {{ toRow }}</p>
         <p v-if="toSelectedRows">To selected rows: {{ toSelectedRows }}</p>
@@ -165,6 +179,3 @@ kup-checkbox {
   margin-right: 15px;
 }
 </style>
-
-
-

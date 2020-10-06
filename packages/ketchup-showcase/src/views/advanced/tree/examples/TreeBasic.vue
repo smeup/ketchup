@@ -45,12 +45,18 @@
       @kupTreeNodeSelected="hdlChangeSelected($event, 'complex')"
     />
     <div class="example-container">
-      <div>The selected node is the one with the following index (0 based):</div>
+      <div
+        >The selected node is the one with the following index (0 based):</div
+      >
       <code>[{{ selectedNodes.complex.toString() }}]</code>
     </div>
 
     <h3>Automatically expanded tree</h3>
-    <kup-tree :columns.prop="expandedData.columns" :data.prop="expandedData.data" expanded />
+    <kup-tree
+      :columns.prop="expandedData.columns"
+      :data.prop="expandedData.data"
+      expanded
+    />
   </div>
 </template>
 

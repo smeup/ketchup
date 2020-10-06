@@ -49,7 +49,7 @@ function kupCheckboxChange_listener(checked) {
             text: 'Close button',
         };
         changedDefaultData.menuActions = null;
-        customStyle = ':host { --kup-header-background-color: blue; }';
+        customStyle = ':host { --kup-nav-bar-background-color: blue; }';
     }
     const navBar = document.getElementById('navbar');
     if (navBar != null) {

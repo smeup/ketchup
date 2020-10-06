@@ -206,9 +206,12 @@ export class KupCheckbox {
         let formClass: string = 'mdc-form-field';
         let componentClass: string = 'mdc-checkbox';
         let componentLabel: string = this.label;
+        let ripple: HTMLElement = undefined;
 
         if (this.disabled) {
             componentClass += ' mdc-checkbox--disabled';
+        } else {
+            ripple = <div class="mdc-checkbox__ripple"></div>;
         }
 
         if (this.checked) {
@@ -253,7 +256,7 @@ export class KupCheckbox {
                                 </svg>
                                 <div class="mdc-checkbox__mixedmark"></div>
                             </div>
-                            <div class="mdc-checkbox__ripple"></div>
+                            {ripple}
                         </div>
                         <label htmlFor="checkbox-wrapper">
                             {componentLabel}

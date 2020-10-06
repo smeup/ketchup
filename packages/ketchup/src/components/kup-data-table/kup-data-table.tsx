@@ -1,6 +1,7 @@
 import {
     Component,
     Event,
+    getAssetPath,
     EventEmitter,
     h,
     JSX,
@@ -92,6 +93,7 @@ import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
+import { KupButton } from '../kup-button/kup-button';
 
 @Component({
     tag: 'kup-data-table',
@@ -188,6 +190,11 @@ export class KupDataTable {
     @Element() rootElement: HTMLElement;
 
     /**
+     * If set to true, displays the button to open the customization panel.
+     */
+    @Prop({ mutable: true }) showCustomization: boolean = false;
+
+    /**
      * Expands groups when set to true.
      */
     @Prop({ reflect: true }) expandGroups = false;
@@ -264,7 +271,7 @@ export class KupDataTable {
     /**
      * When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.
      */
-    @Prop({ reflect: true }) lazyLoadRows: boolean = true;
+    @Prop({ reflect: true }) lazyLoadRows: boolean = false;
 
     /**
      * Sets a maximum limit of new records which can be required by the load more functionality.
@@ -553,7 +560,9 @@ export class KupDataTable {
     private renderStart: number = 0;
     private renderEnd: number = 0;
     private intObserver: IntersectionObserver = undefined;
-    private observedEl: Element = undefined;
+    private navBarHeight: number = 0;
+    private theadIntersecting: boolean = false;
+    private tableIntersecting: boolean = false;
 
     /**
      * When component uloade is complete
@@ -682,125 +691,214 @@ export class KupDataTable {
     })
     kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
 
-    onDocumentClick = () => {};
+    private stickyHeaderPosition = () => {
+        if (this.tableRef) {
+            this.stickyTheadRef.style.top = this.navBarHeight + 'px';
+            if (this.tableIntersecting) {
+                let widthTable: number = this.tableAreaRef.offsetWidth;
+                this.stickyTheadRef.style.maxWidth = widthTable + 'px';
 
-    stickyHeaderPosition = () => {
-        if (this.tableHeight !== undefined || this.tableWidth !== undefined) {
-            return;
-        }
-        let tableBody: HTMLTableElement = this.tableRef;
-        if (tableBody) {
-            let el: any = this.stickyTheadRef;
-            let parent: any = tableBody.closest('.below-wrapper');
-            var headerHeight: number;
-            if (document.querySelectorAll('.header')[0]) {
-                headerHeight = document.querySelectorAll('.header')[0]
-                    .clientHeight;
-            } else {
-                headerHeight = 0;
-            }
-            el.style.top = headerHeight + 'px';
-            if (
-                this.isElementPartiallyInViewport(tableBody, headerHeight, el)
-            ) {
-                let widthTable: number = parent.offsetWidth;
-                el.style.maxWidth = widthTable + 'px';
-
-                if (
-                    !this.isElementPartiallyInViewport(
-                        this.theadRef,
-                        headerHeight,
-                        el
-                    )
-                ) {
-                    var thCollection: any = this.theadRef.querySelectorAll(
+                if (!this.theadIntersecting) {
+                    let thCollection: any = this.theadRef.querySelectorAll(
                         'th'
                     );
-                    var thStickyCollection: any = el.querySelectorAll(
+                    let thStickyCollection: any = this.stickyTheadRef.querySelectorAll(
                         'th-sticky'
                     );
                     for (let i = 0; i < thCollection.length; i++) {
                         let widthTH = thCollection[i].offsetWidth;
                         thStickyCollection[i].style.width = widthTH + 'px';
                     }
-                    el.classList.add('activated');
+                    this.stickyTheadRef.classList.add('activated');
                 } else {
-                    el.classList.remove('activated');
+                    this.stickyTheadRef.classList.remove('activated');
                 }
             } else {
-                el.classList.remove('activated');
+                this.stickyTheadRef.classList.remove('activated');
             }
         }
     };
 
-    isElementPartiallyInViewport = (el: any, offset: number, row: any) => {
-        var rect = el.getBoundingClientRect();
-        if (
-            rect.top === 0 &&
-            rect.left === 0 &&
-            rect.right === 0 &&
-            rect.bottom === 0 &&
-            rect.height === 0 &&
-            rect.width === 0 &&
-            rect.x === 0 &&
-            rect.y === 0
-        ) {
-            return false;
-        }
-
-        var windowHeight =
-            window.innerHeight || document.documentElement.clientHeight;
-        var windowWidth =
-            window.innerWidth || document.documentElement.clientWidth;
-        windowHeight = windowHeight - offset;
-
-        var vertInView =
-            rect.top - offset <= windowHeight &&
-            rect.top - offset + rect.height >= 0;
-        var horInView = rect.left <= windowWidth && rect.left + rect.width >= 0;
-
-        // Se lo spazio visibile di tabella è inferiore ad altezza riga * 2 e se non mi è stato passato un elemento THEAD, ritorno false
-        if (
-            el.tagName !== 'THEAD' &&
-            row.clientHeight * 2 > rect.bottom - offset &&
-            vertInView &&
-            horInView
-        ) {
-            return false && false;
-        } else {
-            return vertInView && horInView;
-        }
-    };
-
-    setObserver() {
+    private setObserver() {
         let callback: IntersectionObserverCallback = (
             entries: IntersectionObserverEntry[]
         ) => {
             entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    logMessage(
-                        this,
-                        'Last row entering the viewport, loading more elements.'
-                    );
-                    let delta = this.rows.length - this.currentRowsPerPage;
-                    if (delta < this.loadMoreStep) {
-                        this.currentRowsPerPage += delta;
+                if (entry.target.tagName === 'TR') {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-viewport');
+                        if (entry.target.classList.contains('last-row')) {
+                            logMessage(
+                                this,
+                                'Last row entering the viewport, loading more elements.'
+                            );
+                            let delta =
+                                this.rows.length - this.currentRowsPerPage;
+                            if (delta < this.loadMoreStep) {
+                                this.currentRowsPerPage += delta;
+                            } else {
+                                this.currentRowsPerPage += this.loadMoreStep;
+                            }
+                            entry.target.classList.remove('last-row');
+                        }
                     } else {
-                        this.currentRowsPerPage += this.loadMoreStep;
+                        entry.target.classList.remove('in-viewport');
                     }
-                    this.intObserver.unobserve(this.observedEl);
+                }
+                if (entry.target.tagName === 'THEAD') {
+                    if (entry.isIntersecting) {
+                        this.theadIntersecting = true;
+                    } else if (
+                        entry.boundingClientRect.bottom > this.navBarHeight
+                    ) {
+                        //If the thead is not intersecting but it still is inside the viewport, is to be considered intersected
+                        this.theadIntersecting = true;
+                    } else {
+                        this.theadIntersecting = false;
+                    }
+                }
+                if (entry.target.tagName === 'TABLE') {
+                    if (entry.isIntersecting) {
+                        this.tableIntersecting = true;
+                    } else {
+                        this.tableIntersecting = false;
+                    }
+                }
+                if (
+                    this.tableHeight === undefined &&
+                    this.tableWidth === undefined
+                ) {
+                    this.stickyHeaderPosition();
                 }
             });
         };
         let options: IntersectionObserverInit = {
-            threshold: 0.25,
+            threshold: 0,
+            rootMargin: '-' + this.navBarHeight + 'px 0px 0px 0px',
         };
         this.intObserver = new IntersectionObserver(callback, options);
     }
 
-    //======== Lifecycle Hooks ========
+    private columnMenuPosition() {
+        if (this.rootElement.shadowRoot) {
+            let menu: HTMLElement = this.rootElement.shadowRoot.querySelector(
+                '.column-menu'
+            );
+            if (menu) {
+                let wrapper: HTMLElement = menu.closest('th');
+                positionRecalc(menu, wrapper);
+                menu.classList.add('dynamic-position-active');
+                menu.classList.add('visible');
+            }
+        }
+    }
+
+    private didRenderObservers() {
+        let rows = this.rootElement.shadowRoot.querySelectorAll('tbody > tr');
+        if (
+            this.paginatedRows != null &&
+            this.paginatedRows.length < this.rows.length &&
+            this.lazyLoadRows
+        ) {
+            rows[this.paginatedRows.length - 1].classList.add('last-row');
+        }
+        for (let index = 0; index < rows.length; index++) {
+            this.intObserver.observe(rows[index]);
+        }
+    }
+
+    private didLoadObservers() {
+        if (
+            this.headerIsPersistent &&
+            this.tableHeight === undefined &&
+            this.tableWidth === undefined
+        ) {
+            this.intObserver.observe(this.tableRef);
+            this.intObserver.observe(this.theadRef);
+        }
+    }
+
+    private didLoadEventHandling() {
+        // Attach function to close header menu onto the document
+        this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
+            this
+        );
+        // We use the click event to avoid a menu closing another one
+        document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
+    }
+
+    private setScrollOnHover() {
+        this.scrollOnHoverInstance = new scrollOnHover();
+        this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
+    }
+
+    private checkScrollOnHover() {
+        if (
+            this.scrollOnHoverInstance !== undefined &&
+            (this.tableHeight !== undefined || this.tableWidth !== undefined)
+        ) {
+            this.scrollOnHoverInstance.scrollOnHoverDisable(this.tableAreaRef);
+            this.scrollOnHoverInstance = undefined;
+        }
+    }
+
+    private customizePanelPosition() {
+        if (this.customizeTopButtonRef) {
+            positionRecalc(
+                this.customizeTopPanelRef,
+                this.customizeTopButtonRef
+            );
+        }
+        if (this.customizeBottomButtonRef) {
+            positionRecalc(
+                this.customizeBottomPanelRef,
+                this.customizeBottomButtonRef
+            );
+        }
+    }
+
+    private setAssetPathVars() {
+        this.rootElement.style.setProperty(
+            '--drop-up-svg',
+            `url('${getAssetPath(
+                `./assets/svg/arrow_drop_up.svg`
+            )}') no-repeat center`
+        );
+
+        this.rootElement.style.setProperty(
+            '--menu-right-svg',
+            `url('${getAssetPath(
+                `./assets/svg/menu-right.svg`
+            )}') no-repeat center`
+        );
+
+        this.rootElement.style.setProperty(
+            '--drop-down-svg',
+            `url('${getAssetPath(
+                `./assets/svg/arrow_drop_down.svg`
+            )}') no-repeat center`
+        );
+
+        this.rootElement.style.setProperty(
+            '--filter-remove-svg',
+            `url('${getAssetPath(
+                `./assets/svg/filter-remove.svg`
+            )}') no-repeat center`
+        );
+    }
+
+    //---- Lifecycle hooks ----
+
     componentWillLoad() {
         this.startTime = performance.now();
+        if (document.querySelectorAll('.header')[0]) {
+            this.navBarHeight = document.querySelectorAll(
+                '.header'
+            )[0].clientHeight;
+        } else {
+            this.navBarHeight = 0;
+        }
+        this.setAssetPathVars();
         this.setObserver();
         // *** Store
         this.initWithPersistedState();
@@ -821,45 +919,13 @@ export class KupDataTable {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        if (root) {
-            let menu: HTMLElement = root.querySelector('.column-menu');
-            if (menu) {
-                let wrapper: HTMLElement = menu.closest('th');
-                positionRecalc(menu, wrapper);
-                menu.classList.add('dynamic-position-active');
-                menu.classList.add('visible');
-            }
+        if (this.showCustomization) {
+            this.customizePanelPosition();
         }
+        this.columnMenuPosition();
+        this.checkScrollOnHover();
+        this.didRenderObservers();
 
-        if (
-            this.paginatedRows != null &&
-            this.paginatedRows.length < this.rows.length &&
-            this.lazyLoadRows
-        ) {
-            let rows = root.querySelectorAll('tbody > tr');
-            this.observedEl = rows[this.paginatedRows.length - 1];
-            this.intObserver.observe(this.observedEl);
-        }
-        document.addEventListener('click', this.onDocumentClick);
-
-        if (
-            this.headerIsPersistent &&
-            this.tableHeight === undefined &&
-            this.tableWidth === undefined
-        ) {
-            document.addEventListener('scroll', this.stickyHeaderPosition);
-            document.addEventListener('resize', this.stickyHeaderPosition);
-        }
-
-        if (
-            this.scrollOnHoverInstance !== undefined &&
-            (this.tableHeight !== undefined || this.tableWidth !== undefined)
-        ) {
-            this.scrollOnHoverInstance.scrollOnHoverDisable(this.tableAreaRef);
-            this.scrollOnHoverInstance = undefined;
-        }
         setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(), 50);
 
         this.renderEnd = performance.now();
@@ -869,7 +935,6 @@ export class KupDataTable {
             'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
         );
         // *** Store
-        //Twice execution not useful
         if (this.lazyLoadCells) {
             this.persistState();
         }
@@ -877,24 +942,9 @@ export class KupDataTable {
     }
 
     componentDidLoad() {
-        this.scrollOnHoverInstance = new scrollOnHover();
-        this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
-
-        if (this.customizeTopButtonRef) {
-            positionRecalc(
-                this.customizeTopPanelRef,
-                this.customizeTopButtonRef
-            );
-        }
-        if (this.customizeBottomButtonRef) {
-            positionRecalc(
-                this.customizeBottomPanelRef,
-                this.customizeBottomButtonRef
-            );
-        }
-
-        // observing table
-        // this.theadObserver.observe(this.theadRef);
+        this.setScrollOnHover();
+        this.didLoadObservers();
+        this.didLoadEventHandling();
 
         // automatic row selection
         if (this.selectRowsById) {
@@ -920,13 +970,6 @@ export class KupDataTable {
             }
         }
 
-        // Attach function to close header menu onto the document
-        this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
-            this
-        );
-        // We use the click event to avoid a menu closing another one
-        document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
-
         this.endTime = performance.now();
         let timeDiff: number = this.endTime - this.startTime;
         logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
@@ -935,13 +978,6 @@ export class KupDataTable {
     }
 
     componentDidUnload() {
-        // *** Store
-        //this.persistState();
-        // ***
-        document.removeEventListener('click', this.onDocumentClick);
-        document.removeEventListener('scroll', this.stickyHeaderPosition);
-        document.removeEventListener('resize', this.stickyHeaderPosition);
-
         // Remove function to close header menu onto the document
         if (this.documentHandlerCloseHeaderMenu) {
             document.removeEventListener(
@@ -1657,13 +1693,6 @@ export class KupDataTable {
         }
     }
 
-    //private onOptionClicked(column: string, row: Row) {
-    //    this.kupOptionClicked.emit({
-    //        column,
-    //        row,
-    //    });
-    //}
-
     private onJ4btnClicked(row, column, cell) {
         // Since this function is called with bind, the event from the kup-button gets passed into the arguments array
         const buttonEvent = arguments[3] as UIEvent;
@@ -1781,9 +1810,7 @@ export class KupDataTable {
         // check if column in sort array
         for (let sortObj of this.sort) {
             if (sortObj.column === columnName) {
-                return 'A' === sortObj.sortMode
-                    ? 'arrow_drop_down'
-                    : 'arrow_drop_up';
+                return 'A' === sortObj.sortMode ? 'descending' : 'ascending';
             }
         }
 
@@ -1809,10 +1836,6 @@ export class KupDataTable {
         if (this.multiSelection) {
             colSpan += 1;
         }
-
-        // if (this.isGrouping() && this.hasTotals()) {
-        //     colSpan += 1;
-        // }
 
         if (this.hasRowActions()) {
             colSpan += 1;
@@ -2055,20 +2078,15 @@ export class KupDataTable {
                      * When column has a filter but filters must not be displayed, shows an icon to remove the filter.
                      * Upon click, the filter gets removed.
                      * The payload event is simulated here.
-                     *
-                     * This SVG was created by Niccolò from Dreamonkey.
-                     * @author Niccolò Maria Menozzi <n.menozzi@dreamonkey.com>
                      */
                     filter = (
-                        <kup-button
-                            class="filter-remove"
-                            icon="filter-remove"
-                            custom-style=":host{transform:scale(0.75)}#kup-component .mdc-icon-button{--mdc-ripple-fg-opacity:0!important; height:1.25rem; width:1.25rem; padding:0}#kup-component .mdc-icon-button:before{display:none}.mdc-button__ripple{display:none}"
+                        <span
                             title={svgLabel}
-                            onKupButtonClick={() => {
+                            class="icon-container filter-remove"
+                            onClick={() => {
                                 this.onRemoveFilter(column.name);
                             }}
-                        />
+                        ></span>
                     );
                 }
 
@@ -2079,18 +2097,11 @@ export class KupDataTable {
                 // When sorting is enabled, there are two things to do:
                 // 1 - Add correct icon to the table
                 // 2 - stores the handler to be later set onto the whole cell
-                if (this.sortEnabled && isStringObject(column.obj)) {
-                    let iconName = this.getSortIcon(column.name);
-                    if (iconName !== '') {
-                        sortIcon = (
-                            <kup-image
-                                class="column-sort"
-                                resource={iconName}
-                                title={this.getSortDecode(column.name)}
-                                sizeX="18px"
-                                sizeY="18px"
-                            />
-                        );
+                if (this.sortEnabled) {
+                    let iconClass = this.getSortIcon(column.name);
+                    if (iconClass !== '') {
+                        iconClass += ' icon-container';
+                        sortIcon = <span class={iconClass}></span>;
                     }
 
                     // The handler for triggering the sorting of a column
@@ -2143,14 +2154,14 @@ export class KupDataTable {
                         <li role="menuitem" class="button-row">
                             <kup-button
                                 icon="book"
-                                tooltip={groupLabel}
+                                title={groupLabel}
                                 onKupButtonClick={() =>
                                     this.switchColumnGroup(group, column.name)
                                 }
                             />
                             <kup-button
                                 icon="table-column-plus-after"
-                                tooltip="Add column"
+                                title="Add column"
                                 onKupButtonClick={() => {
                                     this.kupAddColumn.emit({
                                         column: column.name,
@@ -2160,7 +2171,7 @@ export class KupDataTable {
                             />
                             <kup-button
                                 icon="table-column-remove"
-                                tooltip="Hide column"
+                                title="Hide column"
                                 onKupButtonClick={() => {
                                     column.visible = false;
                                     this.closeMenu();
@@ -2255,7 +2266,7 @@ export class KupDataTable {
 
                     if (columnMenuItems.length !== 0) {
                         columnMenu = (
-                            <div class={`column-menu visible`}>
+                            <div class={`kup-menu column-menu`}>
                                 <ul
                                     role="menubar"
                                     onMouseUp={(e) => e.stopPropagation()}
@@ -2313,7 +2324,10 @@ export class KupDataTable {
                                     KupDataTableColumnDragType
                                 ) >= 0
                             ) {
-                                const overElement = e.target as HTMLElement;
+                                let overElement = e.target as HTMLElement;
+                                if (overElement.tagName !== 'TH') {
+                                    overElement = overElement.closest('th');
+                                }
                                 overElement.setAttribute(
                                     this.dragOverAttribute,
                                     ''
@@ -2438,9 +2452,6 @@ export class KupDataTable {
         }
 
         let groupColumn = null;
-        // if (this.isGrouping() && this.hasTotals()) {
-        //     groupColumn = <th-sticky />;
-        // }
 
         // Empty cell for the actions
         let actionsColumn = null;
@@ -2572,7 +2583,9 @@ export class KupDataTable {
                 return null;
             }
 
-            const iconClass = row.group.expanded ? 'expanded' : 'collapsed';
+            const iconClass = row.group.expanded
+                ? 'icon-container expanded'
+                : 'icon-container collapsed';
 
             const jsxRows = [];
 
@@ -2589,13 +2602,7 @@ export class KupDataTable {
                     <td colSpan={this.calculateColspan()}>
                         <span class="group-cell-content">
                             {indent}
-                            <span class="icon-container">
-                                <kup-image
-                                    resource="arrow_drop_up"
-                                    class={iconClass}
-                                    title="Expand/collapse group"
-                                />
-                            </span>
+                            <span class={iconClass}></span>
                             <span class="text">{composedGroupLabel}</span>
                         </span>
                     </td>
@@ -2637,13 +2644,7 @@ export class KupDataTable {
                         <td colSpan={this.calculateColspan()}>
                             <span class="group-cell-content">
                                 {indent}
-                                <span class="icon-container">
-                                    <kup-image
-                                        resource="arrow_drop_up"
-                                        class={iconClass}
-                                        title="Expand/collapse group"
-                                    />
-                                </span>
+                                <span class={iconClass}></span>
                                 <span class="text">{composedGroupLabel}</span>
                             </span>
                         </td>
@@ -2698,6 +2699,7 @@ export class KupDataTable {
 
                 selectRowCell = (
                     <td
+                        row-select-cell
                         class={
                             selectionStyleAndClass
                                 ? selectionStyleAndClass.fixedCellClasses
@@ -2749,7 +2751,7 @@ export class KupDataTable {
                     rowActionExpander = (
                         <kup-button
                             icon="chevron-right"
-                            tooltip="Expand items"
+                            title="Expand items"
                             onKupButtonClick={(e) => {
                                 this.onRowActionExpanderClick(e, row);
                             }}
@@ -2759,6 +2761,7 @@ export class KupDataTable {
 
                 rowActionsCell = (
                     <td
+                        row-action-cell
                         class={
                             actionsStyleAndClass
                                 ? actionsStyleAndClass.fixedCellClasses
@@ -2894,7 +2897,7 @@ export class KupDataTable {
             return (
                 <kup-button
                     icon={action.icon}
-                    tooltip={action.text}
+                    title={action.text}
                     onKupButtonClick={(e) => {
                         this.onDefaultRowActionClick(e, {
                             action,
@@ -2936,157 +2939,26 @@ export class KupDataTable {
 
         // Sets the default value
         let content: any = valueToDisplay;
-        let props: any = cell.data;
+        let cellType: string = this.getCellType(cell.obj);
+        let props: any = { ...cell.data };
+        classObj[cellType + '-cell'] = true;
 
-        if (isBar(cell.obj)) {
-            if (props && this.lazyLoadCells) {
-                if (!props.sizeY) {
-                    props['sizeY'] = '26px';
-                    if (this.density === 'medium') {
-                        props['sizeY'] = '36px';
-                    }
-                    if (this.density === 'wide') {
-                        props['sizeY'] = '50px';
-                    }
-                }
-                content = (
-                    <kup-lazy
-                        class="cell-bar"
-                        componentName="kup-image"
-                        data={...props}
-                    />
-                );
+        if (cell.data) {
+            this.setCellSize(cellType, props, cell);
+            if (!this.lazyLoadCells) {
+                content = this.setLazyKupCell(cellType, props);
             } else {
-                content = undefined;
-            }
-        } else if (isButton(cell.obj)) {
-            if (props && this.lazyLoadCells) {
-                classObj['is-centered'] = true;
-                props['disabled'] = row.readOnly;
-                props['onKupButtonClick'] = this.onJ4btnClicked.bind(
-                    this,
+                content = this.setKupCell(
+                    cellType,
+                    classObj,
+                    props,
+                    cell,
                     row,
-                    column,
-                    cell
+                    column
                 );
-                content = (
-                    <kup-button class="cell-button" {...props}></kup-button>
-                );
-            } else {
-                content = undefined;
             }
-        } else if (isChart(cell.obj)) {
-            if (props && this.lazyLoadCells) {
-                classObj['is-centered'] = true;
-                content = (
-                    <kup-lazy
-                        class="cell-chart"
-                        componentName="kup-chart"
-                        data={...props}
-                    />
-                );
-            } else {
-                content = undefined;
-            }
-        } else if (isCheckbox(cell.obj)) {
-            if (this.lazyLoadCells) {
-                classObj['is-centered'] = true;
-                if (props) {
-                    props['disabled'] = row.readOnly;
-                } else {
-                    props = { disabled: row.readOnly };
-                }
-                content = (
-                    <kup-checkbox
-                        class="cell-checkbox"
-                        {...props}
-                    ></kup-checkbox>
-                );
-            } else {
-                content = undefined;
-            }
-        } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            if (props && this.lazyLoadCells) {
-                classObj['is-centered'] = true;
-                if (!props.sizeX) {
-                    props['sizeX'] = '18px';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '18px';
-                }
-                if (props.badgeData) {
-                    classObj['has-padding'] = true;
-                }
-                content = <kup-image class="cell-icon" {...props}></kup-image>;
-            } else {
-                content = undefined;
-            }
-        } else if (isImage(cell.obj)) {
-            if (props && this.lazyLoadCells) {
-                classObj['is-centered'] = true;
-                if (!props.sizeX) {
-                    props['sizeX'] = 'auto';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = 'var(--dtt_cell-image_max-height)';
-                }
-                if (props.badgeData) {
-                    classObj['has-padding'] = true;
-                }
-                let cellStyle = {
-                    width: props['sizeX'],
-                    height: props['sizeY'],
-                };
-                content = (
-                    <kup-lazy
-                        style={cellStyle}
-                        class="cell-image"
-                        componentName="kup-image"
-                        data={...props}
-                    />
-                );
-            } else {
-                content = undefined;
-            }
-        } else if (isLink(cell.obj)) {
-            content = (
-                <a class="cell-link" href={valueToDisplay} target="_blank">
-                    {valueToDisplay}
-                </a>
-            );
-        } else if (isNumber(cell.obj)) {
-            content = valueToDisplay;
-
-            if (content && content != '') {
-                const cellValueNumber: number = stringToNumber(cell.value);
-                const cellValue = unformattedStringToFormattedStringNumber(
-                    cell.value,
-                    column.decimals ? column.decimals : -1,
-                    cell.obj ? cell.obj.p : ''
-                );
-                content = cellValue;
-                if (cellValueNumber < 0) {
-                    classObj['negative-number'] = true;
-                }
-            }
-        } else if (isProgressBar(cell.obj)) {
-            if (props && this.lazyLoadCells) {
-                content = (
-                    <kup-progress-bar
-                        class="cell-progress-bar"
-                        {...props}
-                    ></kup-progress-bar>
-                );
-            } else {
-                content = undefined;
-            }
-        } else if (isRadio(cell.obj)) {
-            if (props && this.lazyLoadCells) {
-                props['disabled'] = row.readOnly;
-                content = <kup-radio class="cell-radio" {...props}></kup-radio>;
-            } else {
-                content = undefined;
-            }
+        } else {
+            content = this.setCell(cellType, content, classObj, cell, column);
         }
 
         let style = cell.style;
@@ -3113,15 +2985,217 @@ export class KupDataTable {
         );
     }
 
+    private getCellType(obj: any) {
+        if (isBar(obj)) {
+            return 'bar';
+        } else if (isButton(obj)) {
+            return 'button';
+        } else if (isChart(obj)) {
+            return 'chart';
+        } else if (isCheckbox(obj)) {
+            return 'checkbox';
+        } else if (isIcon(obj) || isVoCodver(obj)) {
+            return 'icon';
+        } else if (isImage(obj)) {
+            return 'image';
+        } else if (isLink(obj)) {
+            return 'link';
+        } else if (isNumber(obj)) {
+            return 'number';
+        } else if (isProgressBar(obj)) {
+            return 'progress-bar';
+        } else if (isRadio(obj)) {
+            return 'radio';
+        } else {
+            return 'string';
+        }
+    }
+
+    private setLazyKupCell(cellType: string, props: any) {
+        let lazyClass = 'cell-' + cellType + ' placeholder';
+        let style = { minHeight: props.sizeY };
+        return <span style={style} class={lazyClass}></span>;
+    }
+
+    private setCellSize(cellType: string, props: any, cell: Cell) {
+        switch (cellType) {
+            case 'bar':
+                if (!props.sizeY) {
+                    props['sizeY'] = '26px';
+                    if (this.density === 'medium') {
+                        props['sizeY'] = '36px';
+                    }
+                    if (this.density === 'wide') {
+                        props['sizeY'] = '50px';
+                    }
+                }
+                break;
+            case 'button':
+                let height: string = '';
+                if (props.label) {
+                    height = '36px';
+                } else {
+                    height = '48px';
+                }
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = height;
+                    }
+                } else {
+                    cell.style = { minHeight: height };
+                }
+                break;
+            case 'chart':
+                if (!props.sizeX) {
+                    props['sizeX'] = '100%';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '100%';
+                }
+                break;
+
+            case 'checkbox':
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = '40px';
+                    }
+                } else {
+                    cell.style = { minHeight: '40px' };
+                }
+                break;
+            case 'icon':
+                if (!props.sizeX) {
+                    props['sizeX'] = '18px';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '18px';
+                }
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = props['sizeY'];
+                    }
+                } else {
+                    cell.style = {
+                        minHeight: props['sizeY'],
+                    };
+                }
+                break;
+            case 'image':
+                if (!props.sizeX) {
+                    props['sizeX'] = 'auto';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '64px';
+                }
+                break;
+            case 'radio':
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = '40px';
+                    }
+                } else {
+                    cell.style = { minHeight: '40px' };
+                }
+                break;
+        }
+    }
+
+    private setKupCell(
+        cellType: string,
+        classObj: Record<string, boolean>,
+        props: any,
+        cell: Cell,
+        row: Row,
+        column: Column
+    ) {
+        switch (cellType) {
+            case 'bar':
+                return <kup-image {...props} />;
+
+            case 'button':
+                classObj['is-centered'] = true;
+                props['disabled'] = row.readOnly;
+                props['onKupButtonClick'] = this.onJ4btnClicked.bind(
+                    this,
+                    row,
+                    column,
+                    cell
+                );
+                return <kup-button {...props}></kup-button>;
+
+            case 'chart':
+                classObj['is-centered'] = true;
+                return <kup-chart {...props} />;
+
+            case 'checkbox':
+                classObj['is-centered'] = true;
+                if (props) {
+                    props['disabled'] = row.readOnly;
+                } else {
+                    props = { disabled: row.readOnly };
+                }
+                return <kup-checkbox {...props}></kup-checkbox>;
+
+            case 'icon':
+            case 'image':
+                classObj['is-centered'] = true;
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                return <kup-image {...props} />;
+
+            case 'progress-bar':
+                return <kup-progress-bar {...props}></kup-progress-bar>;
+
+            case 'radio':
+                classObj['is-centered'] = true;
+                props['disabled'] = row.readOnly;
+                return <kup-radio {...props}></kup-radio>;
+        }
+    }
+
+    private setCell(
+        cellType: string,
+        content: string,
+        classObj: Record<string, boolean>,
+        cell: Cell,
+        column: Column
+    ) {
+        switch (cellType) {
+            case 'link':
+                return (
+                    <a class="cell-link" href={content} target="_blank">
+                        {content}
+                    </a>
+                );
+            case 'number':
+                if (content && content != '') {
+                    const cellValueNumber: number = stringToNumber(cell.value);
+                    const cellValue = unformattedStringToFormattedStringNumber(
+                        cell.value,
+                        column.decimals ? column.decimals : -1,
+                        cell.obj ? cell.obj.p : ''
+                    );
+                    if (cellValueNumber < 0) {
+                        classObj['negative-number'] = true;
+                    }
+                    return cellValue;
+                }
+            case 'string':
+            default:
+                return content;
+        }
+    }
+
     private renderLoadMoreButton(isSlotted: boolean = true) {
         const label = 'Show more data';
         return (
             <kup-button
-                class="loadmore-button"
+                class="load-more-button"
                 label={label}
                 flat
                 icon="plus"
-                tooltip={label}
+                title={label}
                 slot={isSlotted ? 'more-results' : null}
                 onKupButtonClick={() => {
                     this.onLoadMoreClick();
@@ -3162,11 +3236,46 @@ export class KupDataTable {
     }
 
     private renderPaginator(top: boolean) {
-        let density: HTMLElement = undefined;
-        let fontsize: HTMLElement = undefined;
-        if (this.openedCustomSettings) {
-            density = this.renderDensityPanel();
-            fontsize = this.renderFontSizePanel();
+        let customizePanel: any[] = undefined;
+        let customizeButton: KupButton = undefined;
+        if (this.showCustomization) {
+            let density: HTMLElement = undefined;
+            let fontsize: HTMLElement = undefined;
+            let grid: HTMLElement = undefined;
+            if (this.openedCustomSettings) {
+                density = this.renderDensityPanel();
+                fontsize = this.renderFontSizePanel();
+                grid = this.renderGridPanel();
+            }
+            customizeButton = (
+                <kup-button
+                    class="paginator-button custom-settings"
+                    icon="settings"
+                    title="Show customization options"
+                    onKupButtonClick={() => {
+                        this.onCustomSettingsClick(top);
+                    }}
+                    ref={(el) => {
+                        top
+                            ? (this.customizeTopButtonRef = el as any)
+                            : (this.customizeBottomButtonRef = el as any);
+                    }}
+                />
+            );
+            customizePanel = (
+                <div
+                    class="kup-menu customize-panel"
+                    ref={(el) => {
+                        top
+                            ? (this.customizeTopPanelRef = el as any)
+                            : (this.customizeBottomPanelRef = el as any);
+                    }}
+                >
+                    {density}
+                    {grid}
+                    {fontsize}
+                </div>
+            );
         }
         return (
             <div class="paginator-wrapper">
@@ -3185,32 +3294,8 @@ export class KupDataTable {
                             }
                         />
                     ) : null}
-
-                    <kup-button
-                        class="paginator-button custom-settings"
-                        icon="settings"
-                        tooltip="Show customization options"
-                        onKupButtonClick={() => {
-                            this.onCustomSettingsClick(top);
-                        }}
-                        ref={(el) => {
-                            top
-                                ? (this.customizeTopButtonRef = el as any)
-                                : (this.customizeBottomButtonRef = el as any);
-                        }}
-                    />
-                    <div
-                        onMouseLeave={() => this.closeCustomSettings(top)}
-                        class="customize-panel"
-                        ref={(el) => {
-                            top
-                                ? (this.customizeTopPanelRef = el as any)
-                                : (this.customizeBottomPanelRef = el as any);
-                        }}
-                    >
-                        {density}
-                        {fontsize}
-                    </div>
+                    {customizeButton}
+                    {customizePanel}
                     {this.showLoadMore ? this.renderLoadMoreButton() : null}
                 </div>
             </div>
@@ -3218,7 +3303,7 @@ export class KupDataTable {
     }
 
     private transcodeItem(
-        item: string,
+        item: string | ShowGrid,
         searchIn: Array<string>,
         returnFrom: Array<string>
     ): string {
@@ -3283,13 +3368,14 @@ export class KupDataTable {
         let listData = { data: listItems, showIcons: true };
 
         let textfieldData = {
+            customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
             initialValue: this.getFontSizeDecodeFromCode(this.fontsize),
-            label: 'Font size:',
+            label: 'Font size',
             icon: 'arrow_drop_down',
         };
         return (
-            <div class="fontsize-panel">
+            <div class="customize-element fontsize-panel">
                 <kup-combobox
                     isSelect={true}
                     listData={listData}
@@ -3339,13 +3425,14 @@ export class KupDataTable {
         let listData = { data: listItems, showIcons: true };
 
         let textfieldData = {
+            customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
             initialValue: this.getDensityDecodeFromCode(this.density),
-            label: 'Row density:',
+            label: 'Row density',
             icon: 'arrow_drop_down',
         };
         return (
-            <div class="density-panel">
+            <div class="customize-element density-panel">
                 <kup-combobox
                     isSelect={true}
                     selectMode={ItemsDisplayMode.DESCRIPTION}
@@ -3356,6 +3443,59 @@ export class KupDataTable {
                         this.density = this.getDensityCodeFromDecode(
                             e.detail.value
                         );
+                    }}
+                />
+            </div>
+        );
+    }
+
+    private GRID_CODES: Array<string> = ['Complete', 'Col', 'Row', 'None'];
+    private GRID_DECODES: Array<string> = [
+        'Complete',
+        'Columns',
+        'Rows',
+        'None',
+    ];
+    private GRID_ICONS: Array<string> = [
+        'grid_on',
+        'view_column',
+        'view_headline',
+        'grid_off',
+    ];
+
+    private getGridCodeFromDecode(decode: string): string {
+        return this.transcodeItem(decode, this.GRID_DECODES, this.GRID_CODES);
+    }
+
+    private renderGridPanel() {
+        let listItems: ComponentListElement[] = this.createListData(
+            this.GRID_CODES,
+            this.GRID_DECODES,
+            this.GRID_ICONS,
+            this.showGrid
+        );
+
+        let listData = { data: listItems, showIcons: true };
+
+        let textfieldData = {
+            customStyle: ':host{--kup-field-background-color:transparent}',
+            trailingIcon: true,
+            initialValue: this.getFontSizeDecodeFromCode(this.showGrid),
+            label: 'Grid type',
+            icon: 'arrow_drop_down',
+        };
+        return (
+            <div class="customize-element grid-panel">
+                <kup-combobox
+                    isSelect={true}
+                    listData={listData}
+                    textfieldData={textfieldData}
+                    onKupComboboxItemClick={(e: CustomEvent) => {
+                        e.stopPropagation();
+                        let grid: any = this.getGridCodeFromDecode(
+                            e.detail.value
+                        );
+                        this.showGrid = grid;
                     }}
                 />
             </div>
@@ -3409,10 +3549,12 @@ export class KupDataTable {
         let globalFilter = null;
         if (this.globalFilter) {
             globalFilter = (
-                <div id="globalFilter">
+                <div id="global-filter">
                     <kup-text-field
+                        fullWidth={true}
+                        icon="magnify"
                         initialValue={this.globalFilterValue}
-                        label="Global filter"
+                        label="Search..."
                         onKupTextFieldInput={(event) =>
                             this.onGlobalFilterChange(event)
                         }
@@ -3424,17 +3566,23 @@ export class KupDataTable {
         let paginatorTop = undefined;
         let paginatorBottom = undefined;
         if (
-            PaginatorPos.TOP === this.paginatorPos ||
-            PaginatorPos.BOTH === this.paginatorPos
+            (!this.lazyLoadRows && this.rows.length >= this.rowsPerPage) ||
+            this.showCustomization ||
+            this.showLoadMore
         ) {
-            paginatorTop = this.renderPaginator(true);
-        }
+            if (
+                PaginatorPos.TOP === this.paginatorPos ||
+                PaginatorPos.BOTH === this.paginatorPos
+            ) {
+                paginatorTop = this.renderPaginator(true);
+            }
 
-        if (
-            PaginatorPos.BOTTOM === this.paginatorPos ||
-            PaginatorPos.BOTH === this.paginatorPos
-        ) {
-            paginatorBottom = this.renderPaginator(false);
+            if (
+                PaginatorPos.BOTTOM === this.paginatorPos ||
+                PaginatorPos.BOTH === this.paginatorPos
+            ) {
+                paginatorBottom = this.renderPaginator(false);
+            }
         }
 
         let groupChips = null;
@@ -3532,8 +3680,7 @@ export class KupDataTable {
 
         let compCreated = (
             <div
-                id="data-table-wrapper"
-                style={elStyle}
+                id="kup-component"
                 onMouseLeave={(ev) => unsetTooltip(this.tooltip, ev)}
             >
                 <div class="above-wrapper">
@@ -3541,6 +3688,7 @@ export class KupDataTable {
                     {globalFilter}
                 </div>
                 <div
+                    style={elStyle}
                     class={belowClass}
                     ref={(el: HTMLDivElement) => (this.tableAreaRef = el)}
                 >

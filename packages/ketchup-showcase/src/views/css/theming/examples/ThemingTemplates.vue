@@ -1,9 +1,10 @@
 <template>
   <div>
     <p>
-      Ketch.UP library includes premade templates containing sets of CSS variables.
-      These sets are shipped with Ketch.UP, in order to use them you just have to set the theme name to the kup-theme attribute on the document element.
-      You can try them yourself by clicking on the icons below.
+      Ketch.UP library includes premade templates containing sets of CSS
+      variables. These sets are shipped with Ketch.UP, in order to use them you
+      just have to set the theme name to the kup-theme attribute on the document
+      element. You can try them yourself by clicking on the icons below.
     </p>
     <div class="demo-container">
       <div id="theme-container" class="kup-container"></div>
@@ -18,6 +19,11 @@ export default {
   },
   name: 'ThemingTemplates',
 };
+
+function setTheme(themeID) {
+  let dom = document.documentElement;
+  dom.setAttribute('kup-theme', themeID);
+}
 
 function getThemes() {
   const dom = document.documentElement;
