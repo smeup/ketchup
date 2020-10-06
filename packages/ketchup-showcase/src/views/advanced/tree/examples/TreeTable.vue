@@ -22,24 +22,6 @@
       show-header
     />
 
-    <h3>With show objectNavigation active</h3>
-    <kup-tree
-      :columns.prop="basicData.columns"
-      :data.prop="basicData.data"
-      class="orange-icons"
-      show-columns
-      show-header
-      show-object-navigation
-      @kupOptionClicked="hdlOptionClicked"
-    />
-    <code>
-      Cell: {{ optionObj.cell }}
-      <br />
-      Column: {{ optionObj.column }}
-      <br />
-      TreeNode: {{ optionObj.treeNode }}
-    </code>
-
     <h3>When expand flag is set to true</h3>
     <kup-tree
       :columns.prop="expandedData.columns"
