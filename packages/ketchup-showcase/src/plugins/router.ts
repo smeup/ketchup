@@ -219,6 +219,11 @@ let testRoutes = [
     component: () => import(`@/views/test/Performance.vue`),
   },
   {
+    path: `/test/performance-tree`,
+    name: 'testPerformanceTree',
+    component: () => import(`@/views/test/PerformanceTree.vue`),
+  },
+  {
     path: `/test/graphic-cells`,
     name: 'testGraphicCells',
     component: () => import(`@/views/test/GraphicCells.vue`),
