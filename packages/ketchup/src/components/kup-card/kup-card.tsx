@@ -228,6 +228,9 @@ export class KupCard {
         let multiplier: number = parseFloat(
             scalableCard.style.getPropertyValue('--multiplier')
         );
+        if (multiplier < 0.1) {
+            multiplier = 1;
+        }
         let cardHeight: number = (75 / 100) * scalableCard.clientHeight;
         let cardWidthLow: number = (40 / 100) * scalableCard.clientWidth;
         let cardWidthHigh: number = (60 / 100) * scalableCard.clientWidth;
