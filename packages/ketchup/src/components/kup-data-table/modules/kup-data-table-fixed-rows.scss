@@ -18,7 +18,6 @@ $sticky-cell--row-z-index: 4;
 %fixedCellsBase {
   background-color: var(--kup-background-color);
   color: var(--kup-text-color);
-  transition: background-color 0.25s;
   position: sticky;
 
   // For fixed headers, we must set a different background and place the correct z-index to prevent overlapping.
@@ -53,10 +52,25 @@ $sticky-cell--row-z-index: 4;
   z-index: 1;
 }
 
+table.custom-size th.fixed-column {
+  z-index: 8;
+}
+
 tr:hover .fixed-row,
 tr:hover .fixed-column {
   color: var(--kup-hover-color);
   background-color: var(--kup-hover-background-color);
+}
+
+tr.selected .fixed-row,
+tr.selected .fixed-column {
+  background-color: var(--kup-background-color);
+  background-image: linear-gradient(
+    to right,
+    rgba(var(--kup-main-color-rgb), 0.175) 0%,
+    rgba(var(--kup-main-color-rgb), 0.175) 0.1%,
+    rgba(var(--kup-main-color-rgb), 0.175)
+  );
 }
 
 // For a fixed row

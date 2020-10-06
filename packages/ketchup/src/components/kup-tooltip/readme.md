@@ -54,8 +54,8 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
-  kup-tree --> kup-button
   kup-tree --> kup-lazy
+  kup-tree --> kup-button
   kup-tree --> kup-checkbox
   kup-tree --> kup-image
   kup-tree --> kup-progress-bar

@@ -72,6 +72,10 @@ export default {
         showGrid: 'Col',
         tableHeight: '200px',
         tableWidth: '400px',
+        totals: {
+          FLD0: 'Count',
+          FLD1: 'Count',
+        },
       },
       fixedData3: {
         data: groupDataTable,
