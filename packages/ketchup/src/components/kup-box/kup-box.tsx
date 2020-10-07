@@ -406,7 +406,7 @@ export class KupBox {
     })
     kupDidLoad: EventEmitter<void>;
 
-     /**
+    /**
      * Triggered when stop propagation event
      */
     @Event({
@@ -496,7 +496,6 @@ export class KupBox {
             this.selectedRows = this.selectedRowsState;
         }
         this.kupDidLoad.emit();
-        
     }
 
     componentWillRender() {
@@ -1492,7 +1491,7 @@ export class KupBox {
                 if (cell.style) {
                     boStyle = { ...cell.style };
                 }
-                let props: any = cell.data;
+                let props: any = { ...cell.data };
 
                 if (isButton(cell.obj)) {
                     if (props) {

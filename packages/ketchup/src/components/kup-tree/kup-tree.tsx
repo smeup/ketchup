@@ -696,7 +696,7 @@ export class KupTree {
 
         // Sets the default value
         let content: any = valueToDisplay;
-        let props: any = cell.data;
+        let props: any = { ...cell.data };
 
         if (isBar(cell.obj)) {
             if (props) {
