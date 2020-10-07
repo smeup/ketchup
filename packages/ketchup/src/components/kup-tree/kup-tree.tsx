@@ -536,14 +536,8 @@ export class KupTree {
                     treeExpandedPropName
                 ];
                 this.forceUpdate();
-                let expandIcon: any;
-                expandIcon = this.treeRef.querySelectorAll(
-                    "[data-tree-path='" + treeNodePath + "'] .expand-icon"
-                )[0];
                 if (treeNodeData[treeExpandedPropName]) {
                     // TreeNode is now expanded -> Fires expanded event
-                    expandIcon.classList.remove('collapsed');
-                    expandIcon.classList.add('expanded');
                     this.kupTreeNodeExpand.emit({
                         treeNodePath: arrayTreeNodePath,
                         treeNode: treeNodeData,
@@ -552,8 +546,6 @@ export class KupTree {
                     });
                 } else {
                     // TreeNode is now collapsed -> Fires collapsed event
-                    expandIcon.classList.remove('expanded');
-                    expandIcon.classList.add('collapsed');
                     this.kupTreeNodeCollapse.emit({
                         treeNodePath: arrayTreeNodePath,
                         treeNode: treeNodeData,
@@ -605,10 +597,9 @@ export class KupTree {
                         tree: this,
                     });
 
-                    // TODO remove these comments if this behavior will be accepted
-                    // Sets the flag for setting the TreeNode as opened, but does not force rerender,
-                    // to allow application to execute the update of the tree
-                    // treeNodeData[treeExpandedPropName] = !treeNodeData[treeExpandedPropName];
+                    treeNodeData[treeExpandedPropName] = !treeNodeData[
+                        treeExpandedPropName
+                    ];
                 }
             }
         }
@@ -916,7 +907,7 @@ export class KupTree {
                     sizeY="1.5rem"
                     resource="menu-right"
                     onClick={
-                        hasExpandIcon && !treeNodeData.disabled
+                        !treeNodeData.disabled
                             ? (event) => {
                                   event.stopPropagation();
                                   this.hdlTreeNodeExpanderClicked(
@@ -935,7 +926,7 @@ export class KupTree {
                         'expand-icon kup-tree__icon kup-tree__node__expander'
                     }
                     onClick={
-                        hasExpandIcon && !treeNodeData.disabled
+                        !treeNodeData.disabled
                             ? (event) => {
                                   event.stopPropagation();
                                   this.hdlTreeNodeExpanderClicked(
