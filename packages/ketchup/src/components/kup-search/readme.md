@@ -65,8 +65,8 @@ graph TD;
   kup-tooltip --> kup-button
   kup-tooltip --> kup-image
   kup-tooltip --> kup-tree
-  kup-tree --> kup-button
   kup-tree --> kup-lazy
+  kup-tree --> kup-button
   kup-tree --> kup-checkbox
   kup-tree --> kup-image
   kup-tree --> kup-progress-bar

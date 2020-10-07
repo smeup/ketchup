@@ -120,7 +120,6 @@ export class KupTree {
     @Prop({ reflect: true }) density: string = 'medium';
     /**
      * Function that gets invoked when a new set of nodes must be loaded as children of a node.
-     * Used in combination with showObjectNavigation.
      *
      * When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop.
      * 1 - If this prop is set to null, no callback to download data is available:
@@ -169,13 +168,6 @@ export class KupTree {
      */
     @Prop({ reflect: true }) showIcons: boolean = true;
     /**
-     * When a node has options in its data and is on mouse over state while this prop is true,
-     * the node must shows the cog wheel to trigger object navigation upon click.
-     *
-     * This will generate an event to inform the navigation object has been activated.
-     */
-    @Prop({ reflect: true }) showObjectNavigation: boolean = false;
-    /**
      * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the
      * tree have been passed inside the data property.
      *
@@ -209,24 +201,6 @@ export class KupTree {
     private renderEnd: number = 0;
 
     //-------- Events --------
-    /**
-     * When a cell option is clicked.
-     * If the cell option is the one of the TreeNodeCell,
-     * then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}.
-     */
-    @Event({
-        eventName: 'kupOptionClicked',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupOptionClicked: EventEmitter<{
-        cell: Cell;
-        column: Column;
-        treeNode: TreeNode;
-        tree: KupTree;
-    }>;
-
     /**
      * Fired when a TreeNode gets collapsed (closed).
      */
@@ -310,7 +284,7 @@ export class KupTree {
     })
     kupDidLoad: EventEmitter<void>;
 
-     /**
+    /**
      * Triggered when stop propagation event
      */
     @Event({
@@ -403,7 +377,6 @@ export class KupTree {
     }
 
     componentDidUnload() {
-
         this.kupDidUnload.emit();
     }
 
@@ -563,14 +536,8 @@ export class KupTree {
                     treeExpandedPropName
                 ];
                 this.forceUpdate();
-                let expandIcon: any;
-                expandIcon = this.treeRef.querySelectorAll(
-                    "[data-tree-path='" + treeNodePath + "'] .expand-icon"
-                )[0];
                 if (treeNodeData[treeExpandedPropName]) {
                     // TreeNode is now expanded -> Fires expanded event
-                    expandIcon.classList.remove('collapsed');
-                    expandIcon.classList.add('expanded');
                     this.kupTreeNodeExpand.emit({
                         treeNodePath: arrayTreeNodePath,
                         treeNode: treeNodeData,
@@ -579,8 +546,6 @@ export class KupTree {
                     });
                 } else {
                     // TreeNode is now collapsed -> Fires collapsed event
-                    expandIcon.classList.remove('expanded');
-                    expandIcon.classList.add('collapsed');
                     this.kupTreeNodeCollapse.emit({
                         treeNodePath: arrayTreeNodePath,
                         treeNode: treeNodeData,
@@ -632,31 +597,12 @@ export class KupTree {
                         tree: this,
                     });
 
-                    // TODO remove these comments if this behavior will be accepted
-                    // Sets the flag for setting the TreeNode as opened, but does not force rerender,
-                    // to allow application to execute the update of the tree
-                    // treeNodeData[treeExpandedPropName] = !treeNodeData[treeExpandedPropName];
+                    treeNodeData[treeExpandedPropName] = !treeNodeData[
+                        treeExpandedPropName
+                    ];
                 }
             }
         }
-    }
-
-    // Handler for clicking onto the cells option object
-    hdlOptionClicked(
-        e: CustomEvent,
-        cell: Cell,
-        column: Column,
-        treeNode: TreeNode
-    ) {
-        // We block propagation of this event to prevent tree node from being expanded or close.
-        e.stopPropagation();
-        // Emits custom event
-        this.kupOptionClicked.emit({
-            cell,
-            column,
-            treeNode,
-            tree: this,
-        });
     }
 
     /**
@@ -721,22 +667,6 @@ export class KupTree {
         return visibility;
     }
 
-    //-------- Rendering --------
-    renderOptionElement(cell: Cell, column: Column, treeNode: TreeNode) {
-        return (
-            <kup-button
-                class="options"
-                custom-style=":host{transform:scale(0.75)}#kup-component .mdc-icon-button{--mdc-ripple-fg-opacity:0!important; height:1.25rem; width:1.25rem; padding:0}#kup-component .mdc-icon-button:before{display:none}.mdc-button__ripple{display:none}"
-                icon="settings"
-                title="Options"
-                onKupButtonClick={(e: CustomEvent) =>
-                    this.hdlOptionClicked(e, cell, column, treeNode)
-                }
-                onClick={(e: MouseEvent) => e.stopPropagation()}
-            />
-        );
-    }
-
     /**
      * Factory function for cells.
      * @param cell - cell object
@@ -755,14 +685,8 @@ export class KupTree {
         },
         previousRowCellValue?: string
     ) {
-        let showOptions =
-            !cellData.treeNode.disabled &&
-            cell.options &&
-            this.showObjectNavigation;
-
         const classObj: Record<string, boolean> = {
             'cell-content': true,
-            'has-options': showOptions,
             clickable: !!cellData.column.clickable,
         };
 
@@ -772,7 +696,7 @@ export class KupTree {
 
         // Sets the default value
         let content: any = valueToDisplay;
-        let props: any = cell.data;
+        let props: any = { ...cell.data };
 
         if (isBar(cell.obj)) {
             if (props) {
@@ -923,26 +847,6 @@ export class KupTree {
             </span>
         );
 
-        /**
-         * Renders option object if necessary.
-         *
-         * Currently to align it on the right side of the cell, it uses the CSS float property.
-         * This can lead to some rendering errors.
-         * See [this page]{@link https://www.w3schools.com/cssref/pr_class_float.asp} for more details.
-         * If this case happens, then the solution is to wrap the content returned by this function into an element with
-         * display flex, to use its content property.
-         *
-         * @namespace KupTree.renderCellOption
-         */
-        if (showOptions) {
-            cellElements.push(
-                this.renderOptionElement(
-                    cell,
-                    cellData.column,
-                    cellData.treeNode
-                )
-            );
-        }
         return (
             <td
                 onClick={() => (this.selectedColumn = cellData.column.name)}
@@ -1003,7 +907,7 @@ export class KupTree {
                     sizeY="1.5rem"
                     resource="menu-right"
                     onClick={
-                        hasExpandIcon && !treeNodeData.disabled
+                        !treeNodeData.disabled
                             ? (event) => {
                                   event.stopPropagation();
                                   this.hdlTreeNodeExpanderClicked(
@@ -1022,7 +926,7 @@ export class KupTree {
                         'expand-icon kup-tree__icon kup-tree__node__expander'
                     }
                     onClick={
-                        hasExpandIcon && !treeNodeData.disabled
+                        !treeNodeData.disabled
                             ? (event) => {
                                   event.stopPropagation();
                                   this.hdlTreeNodeExpanderClicked(
@@ -1070,28 +974,11 @@ export class KupTree {
                 treeNodeData[treeExpandedPropName];
         }
 
-        // When can be expanded OR selected OR have option handler
-        let treeNodeOptionIcon: JSX.Element | null = null;
+        // When can be expanded OR selected
         if (!treeNodeData.disabled) {
             treeNodeOptions['onClick'] = () => {
                 this.hdlTreeNodeClicked(treeNodeData, treeNodePath, false);
             };
-
-            // Controls if there is the necessity to print out options also for the TreeNodeCell
-            if (treeNodeData.options && this.showObjectNavigation) {
-                treeNodeOptionIcon = this.renderOptionElement(
-                    {
-                        obj: treeNodeData.obj,
-                        value: treeNodeData.value,
-                    },
-                    // TODO for now creates a fictitious column standard for all TreeNodeCell
-                    {
-                        name: 'TreeNodeCell',
-                        title: 'TreeNodeCell',
-                    },
-                    treeNodeData
-                );
-            }
         }
 
         // When a tree node is displayed as a table
@@ -1139,7 +1026,6 @@ export class KupTree {
                     {treeExpandIcon}
                     {treeNodeIcon}
                     <span class="cell-content">{treeNodeData.value}</span>
-                    {treeNodeOptionIcon}
                 </td>
                 {treeNodeCells}
             </tr>
@@ -1238,7 +1124,9 @@ export class KupTree {
             filterField = (
                 <kup-text-field
                     class="filter"
-                    label="Filter"
+                    fullWidth={true}
+                    icon="magnify"
+                    label="Search..."
                     outlined={false}
                     initialValue={this.filterValue}
                     onKupTextFieldSubmit={(e) => {
@@ -1260,9 +1148,6 @@ export class KupTree {
                             class="kup-tree"
                             ref={(el) => (this.treeRef = el as any)}
                             data-show-columns={this.showColumns}
-                            data-show-object-navigation={
-                                this.showObjectNavigation
-                            }
                         >
                             <thead
                                 class={{

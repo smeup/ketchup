@@ -40,7 +40,7 @@ table {
   &.custom-size th {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 7;
   }
 
   &.row-separation > tbody > tr {
@@ -300,8 +300,6 @@ tbody {
   cursor: auto;
 
   tr {
-    transition: background-color 250ms ease-in-out;
-
     kup-button {
       max-width: max-content;
     }

@@ -23,10 +23,6 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupOptionClicked',
-          type: 'custom',
-        },
-        {
           name: 'kupTreeNodeCollapse',
           type: 'custom',
         },
@@ -81,7 +77,7 @@ export default {
         {
           prop: 'dynamicExpansionCallback',
           description:
-            'Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation. When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available: the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of a given node. After the load has been completed, a different event will be fired to alert the parent of the change.',
+            'Function that gets invoked when a new set of nodes must be loaded as children of a node. When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available: the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of a given node. After the load has been completed, a different event will be fired to alert the parent of the change.',
           type: '?',
           default: 'undefined',
           try: 'json',
@@ -144,14 +140,6 @@ export default {
           description: 'Shows the icons of the nodes.',
           type: 'boolean',
           default: 'true',
-          try: 'switch',
-        },
-        {
-          prop: 'showObjectNavigation',
-          description:
-            'When a node has options in its data and is on mouse over state while this prop is true, the node must shows the cog wheel to trigger object navigation upon click. This will generate an event to inform the navigation object has been activated.',
-          type: 'boolean',
-          default: 'false',
           try: 'switch',
         },
         {

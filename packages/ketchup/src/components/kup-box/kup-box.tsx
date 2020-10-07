@@ -744,7 +744,14 @@ export class KupBox {
     }
 
     private onSelectionCheckChange(row: BoxRow) {
-        const index = this.selectedRows.indexOf(row);
+        var index = -1;
+        for (let i = 0; i < this.selectedRows.length; i++) {
+            const select = this.selectedRows[i];
+            if (select.id === row.id) {
+                index = i;
+                break;
+            }
+        }
 
         if (index >= 0) {
             // remove row
@@ -1486,7 +1493,7 @@ export class KupBox {
                 if (cell.style) {
                     boStyle = { ...cell.style };
                 }
-                let props: any = cell.data;
+                let props: any = { ...cell.data };
 
                 if (isButton(cell.obj)) {
                     if (props) {
