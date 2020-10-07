@@ -1,3 +1,5 @@
+import { Identifiable } from '../../types/GenericTypes';
+
 export interface DataTable {
     columns?: Array<Column>;
     rows?: Array<Row>;
@@ -41,12 +43,10 @@ export interface Column {
     decimals?: number;
 }
 
-export interface Row {
+export interface Row extends Identifiable {
     cells: CellsHolder;
 
     actions?: Array<RowAction>;
-
-    id?: string;
 
     group?: RowGroup;
 

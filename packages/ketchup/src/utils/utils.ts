@@ -1,6 +1,13 @@
 import get from 'lodash/get';
 import numeral from 'numeral';
+import { Identifiable } from '../types/GenericTypes';
 import { logMessage } from './debug-manager';
+
+export function identify(array: Array<Identifiable>) {
+    for (let i = 0; i < array.length; i++) {
+        array[i].id = i.toString();
+    }
+}
 
 export function format(first: string, middle: string, last: string): string {
     return (

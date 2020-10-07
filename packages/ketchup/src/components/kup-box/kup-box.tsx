@@ -61,6 +61,7 @@ import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
+import { identify } from '../../utils/utils';
 @Component({
     tag: 'kup-box',
     styleUrl: 'kup-box.scss',
@@ -406,7 +407,7 @@ export class KupBox {
     })
     kupDidLoad: EventEmitter<void>;
 
-     /**
+    /**
      * Triggered when stop propagation event
      */
     @Event({
@@ -468,6 +469,7 @@ export class KupBox {
 
     componentWillLoad() {
         this.startTime = performance.now();
+        identify(this.data.rows);
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
         } else if (this.pageSize) {
@@ -496,7 +498,6 @@ export class KupBox {
             this.selectedRows = this.selectedRowsState;
         }
         this.kupDidLoad.emit();
-        
     }
 
     componentWillRender() {

@@ -1,14 +1,13 @@
 import { Cell, RowAction } from '../kup-data-table/kup-data-table-declarations';
 import { KupBadge } from '../kup-badge/kup-badge';
+import { Identifiable } from '../../types/GenericTypes';
 
-export interface BoxRow {
+export interface BoxRow extends Identifiable {
     cells: {
         [index: string]: Cell;
     };
 
     actions?: Array<RowAction>;
-
-    id?: string;
 
     layout?: Layout;
 
