@@ -112,7 +112,7 @@ table {
 
   &.obj-icon {
     display: block;
-    background-color: rgba(var(--kup-text-color-rgb), 0.275);
+    background-color: rgba(var(--kup-text-color-rgb), 0.375);
     margin: auto 0.5rem auto 0;
 
     :host([force-one-line]) & {
