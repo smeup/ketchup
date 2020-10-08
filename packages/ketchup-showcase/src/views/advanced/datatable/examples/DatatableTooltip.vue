@@ -16,7 +16,7 @@ import { defaultDataTable } from '@/mock/dataTable';
 
 import {
   bornToDie,
-  cellOptions,
+  cellOptionsTree,
   ultraviolence,
   honeymoon,
   lustForLife,
@@ -24,7 +24,6 @@ import {
 } from '@/mock/tooltip';
 
 import { j4btnData } from '@/mock/box';
-import { TreeFactory } from 'ketchup/src/components/kup-tree/kup-tree-faker';
 
 export default {
   name: 'dataTableBasic',
@@ -91,7 +90,10 @@ export default {
       setTimeout(() => (event.detail.tooltip.detailData = bornToDie), 400);
     },
     loadCellOptions(event) {
-      setTimeout(() => (event.detail.tooltip.cellOptions = TreeFactory()), 400);
+      setTimeout(
+        () => (event.detail.tooltip.cellOptions = cellOptionsTree),
+        400
+      );
     },
 
     onLoadData(event, index) {

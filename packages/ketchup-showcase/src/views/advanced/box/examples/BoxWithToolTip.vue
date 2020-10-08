@@ -15,7 +15,7 @@
 
 <script>
 import { defaultData } from '@/mock/box';
-import { bornToDie, imageUrls, cellOptions } from '@/mock/tooltip';
+import { bornToDie, imageUrls, cellOptionsTree } from '@/mock/tooltip';
 
 export default {
   data() {
@@ -39,7 +39,7 @@ export default {
       console.log('detail', detail);
     },
     loadCellOptions({ detail }) {
-      setTimeout(() => (detail.tooltip.cellOptions = cellOptions), 400);
+      setTimeout(() => (detail.tooltip.cellOptions = cellOptionsTree), 400);
     },
     onLoadData(event) {
       let data = {

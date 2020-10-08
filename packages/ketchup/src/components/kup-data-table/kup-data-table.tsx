@@ -565,7 +565,7 @@ export class KupDataTable {
     private tableIntersecting: boolean = false;
 
     /**
-     * When component uloade is complete
+     * When component unload is complete
      */
     @Event({
         eventName: 'kupDidUnload',
@@ -1001,9 +1001,14 @@ export class KupDataTable {
     }
 
     private _setTooltip(event: MouseEvent, cell: Cell) {
-        //unsetTooltip(this.tooltip);
-        setTooltip(event, cell, this.tooltip);
         this.closeMenu();
+        setTooltip(event, cell, this.tooltip);
+    }
+
+    private _unsetTooltip() {
+        if (!this.tooltip.mouseIsOn()) {
+            unsetTooltip(this.tooltip);
+        }
     }
 
     private getColumns(): Array<Column> {
@@ -2975,9 +2980,16 @@ export class KupDataTable {
             <span
                 class={classObj}
                 style={style}
-                onMouseOver={(ev) =>
-                    _hasTooltip ? this._setTooltip(ev, cell) : null
-                }
+                onMouseEnter={(ev) => {
+                    if (_hasTooltip) {
+                        this._setTooltip(ev, cell);
+                    } else {
+                        this._unsetTooltip();
+                    }
+                }}
+                onMouseLeave={() => {
+                    this._unsetTooltip();
+                }}
             >
                 {indend}
                 {content}
@@ -3679,10 +3691,7 @@ export class KupDataTable {
         }
 
         let compCreated = (
-            <div
-                id="kup-component"
-                onMouseLeave={(ev) => unsetTooltip(this.tooltip, ev)}
-            >
+            <div id="kup-component">
                 <div class="above-wrapper">
                     {paginatorTop}
                     {globalFilter}
@@ -3696,6 +3705,10 @@ export class KupDataTable {
                     <table
                         class={tableClass}
                         ref={(el: HTMLTableElement) => (this.tableRef = el)}
+                        onMouseLeave={(ev) => {
+                            ev.stopPropagation();
+                            this._unsetTooltip();
+                        }}
                     >
                         <thead
                             hidden={!this.showHeader}

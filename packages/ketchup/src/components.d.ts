@@ -2410,7 +2410,7 @@ declare namespace LocalJSX {
          */
         "onKupDidLoad"?: (event: CustomEvent<{}>) => void;
         /**
-          * When component uloade is complete
+          * When component unload is complete
          */
         "onKupDidUnload"?: (event: CustomEvent<{}>) => void;
         "onKupLoadMoreClicked"?: (event: CustomEvent<{
