@@ -159,6 +159,7 @@ export const defaultDataTable = {
     {
       name: 'FLD4',
       title: 'Expiring Date',
+      icon: 'calendar',
     },
   ],
   rows: [

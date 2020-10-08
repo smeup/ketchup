@@ -111,12 +111,19 @@ table {
   }
 
   &.obj-icon {
+    display: block;
     background-color: rgba(var(--kup-text-color-rgb), 0.275);
     margin: auto 0.5rem auto 0;
+
     :host([force-one-line]) & {
       display: inline-block;
       margin: 0 0.5rem 0 0;
       vertical-align: top;
+    }
+
+    .number & {
+      display: inline-block;
+      vertical-align: text-bottom;
     }
   }
 }
