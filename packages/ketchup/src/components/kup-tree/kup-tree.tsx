@@ -1129,7 +1129,7 @@ export class KupTree {
                     label="Search..."
                     outlined={false}
                     initialValue={this.filterValue}
-                    onKupTextFieldSubmit={(e) => {
+                    onKupTextFieldInput={(e) => {
                         this.onFilterChange(e);
                     }}
                 ></kup-text-field>
