@@ -109,6 +109,16 @@ table {
     margin: 0 0.25rem;
     mask: var(--filter-remove-svg);
   }
+
+  &.obj-icon {
+    background-color: var(--kup-icon-color);
+    margin: auto 0.5rem auto 0;
+    :host([force-one-line]) & {
+      display: inline-block;
+      margin: 0 0.5rem 0 0;
+      vertical-align: top;
+    }
+  }
 }
 
 .below-wrapper {

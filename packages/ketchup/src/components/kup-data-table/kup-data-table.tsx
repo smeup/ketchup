@@ -2966,6 +2966,21 @@ export class KupDataTable {
         if (styleHasWritingMode(cell)) {
             classObj['is-vertical'] = true;
         }
+
+        let icon = undefined;
+
+        if (column.icon) {
+            let svg = `url('${getAssetPath(
+                `./assets/svg/${column.icon}.svg`
+            )}') no-repeat center`;
+            let iconStyle = {
+                mask: svg,
+                webkitMask: svg,
+            };
+            icon = (
+                <span style={iconStyle} class="icon-container obj-icon"></span>
+            );
+        }
         /**
          * Controls if current cell needs a tooltip and eventually adds it.
          * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
@@ -2980,6 +2995,7 @@ export class KupDataTable {
                 }
             >
                 {indend}
+                {icon}
                 {content}
             </span>
         );
