@@ -1125,11 +1125,14 @@ export class KupTree {
                 <kup-text-field
                     class="filter"
                     fullWidth={true}
-                    icon="magnify"
+                    isClearable={true}
                     label="Search..."
-                    outlined={false}
+                    icon="magnify"
                     initialValue={this.filterValue}
-                    onKupTextFieldInput={(e) => {
+                    onKupTextFieldSubmit={(e) => {
+                        this.onFilterChange(e);
+                    }}
+                    onKupTextFieldClearIconClick={(e) => {
                         this.onFilterChange(e);
                     }}
                 ></kup-text-field>

@@ -2194,11 +2194,16 @@ export class KupDataTable {
                         columnMenuItems.push(
                             <li role="menuitem" class="textfield-row">
                                 <kup-text-field
-                                    full-width
-                                    label="Filter column..."
-                                    outlined={false}
+                                    fullWidth={true}
+                                    isClearable={true}
+                                    label="Search..."
+                                    icon="magnify"
                                     initialValue={filterInitialValue}
                                     onKupTextFieldSubmit={(e) => {
+                                        this.onFilterChange(e, column);
+                                        this.closeMenuAndTooltip();
+                                    }}
+                                    onKupTextFieldClearIconClick={(e) => {
                                         this.onFilterChange(e, column);
                                         this.closeMenuAndTooltip();
                                     }}
@@ -3575,10 +3580,14 @@ export class KupDataTable {
                 <div id="global-filter">
                     <kup-text-field
                         fullWidth={true}
+                        isClearable={true}
+                        label="Search..."
                         icon="magnify"
                         initialValue={this.globalFilterValue}
-                        label="Search..."
-                        onKupTextFieldInput={(event) =>
+                        onKupTextFieldSubmit={(event) =>
+                            this.onGlobalFilterChange(event)
+                        }
+                        onKupTextFieldClearIconClick={(event) =>
                             this.onGlobalFilterChange(event)
                         }
                     />

@@ -1682,11 +1682,15 @@ export class KupBox {
             filterPanel = (
                 <div id="global-filter">
                     <kup-text-field
-                        icon="magnify"
-                        label="Search..."
                         fullWidth={true}
+                        isClearable={true}
+                        label="Search..."
+                        icon="magnify"
                         initialValue={this.globalFilterValueState}
-                        onKupTextFieldInput={(event) =>
+                        onKupTextFieldSubmit={(event) =>
+                            this.onGlobalFilterChange(event)
+                        }
+                        onKupTextFieldClearIconClick={(event) =>
                             this.onGlobalFilterChange(event)
                         }
                     ></kup-text-field>
