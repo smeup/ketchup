@@ -20,6 +20,7 @@ export interface Cell {
     data?: CellData;
     cardID?: string;
     cssClass?: string;
+    icon?: string;
 }
 
 export interface CellsHolder {

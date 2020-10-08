@@ -2969,10 +2969,17 @@ export class KupDataTable {
 
         let icon = undefined;
 
-        if (column.icon && content) {
-            let svg = `url('${getAssetPath(
-                `./assets/svg/${column.icon}.svg`
-            )}') no-repeat center`;
+        if ((column.icon || cell.icon) && content) {
+            let svg: string = '';
+            if (cell.icon) {
+                svg = `url('${getAssetPath(
+                    `./assets/svg/${cell.icon}.svg`
+                )}') no-repeat center`;
+            } else {
+                svg = `url('${getAssetPath(
+                    `./assets/svg/${column.icon}.svg`
+                )}') no-repeat center`;
+            }
             let iconStyle = {
                 mask: svg,
                 webkitMask: svg,
