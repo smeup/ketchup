@@ -111,7 +111,7 @@ table {
   }
 
   &.obj-icon {
-    background-color: var(--kup-icon-color);
+    background-color: rgba(var(--kup-text-color-rgb), 0.275);
     margin: auto 0.5rem auto 0;
     :host([force-one-line]) & {
       display: inline-block;
