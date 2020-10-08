@@ -624,6 +624,9 @@ export namespace Components {
         "permanent": boolean;
         "right": boolean;
     }
+    interface KupEcharts {
+        "objectData": object;
+    }
     interface KupEditor {
         /**
           * The html to be rendered and edited
@@ -1478,6 +1481,12 @@ declare global {
         prototype: HTMLKupDrawerElement;
         new (): HTMLKupDrawerElement;
     };
+    interface HTMLKupEchartsElement extends Components.KupEcharts, HTMLStencilElement {
+    }
+    var HTMLKupEchartsElement: {
+        prototype: HTMLKupEchartsElement;
+        new (): HTMLKupEchartsElement;
+    };
     interface HTMLKupEditorElement extends Components.KupEditor, HTMLStencilElement {
     }
     var HTMLKupEditorElement: {
@@ -1645,6 +1654,7 @@ declare global {
         "kup-dash-list": HTMLKupDashListElement;
         "kup-data-table": HTMLKupDataTableElement;
         "kup-drawer": HTMLKupDrawerElement;
+        "kup-echarts": HTMLKupEchartsElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
@@ -2530,6 +2540,9 @@ declare namespace LocalJSX {
         "opened"?: boolean;
         "permanent"?: boolean;
         "right"?: boolean;
+    }
+    interface KupEcharts {
+        "objectData"?: object;
     }
     interface KupEditor {
         /**
@@ -3501,6 +3514,7 @@ declare namespace LocalJSX {
         "kup-dash-list": KupDashList;
         "kup-data-table": KupDataTable;
         "kup-drawer": KupDrawer;
+        "kup-echarts": KupEcharts;
         "kup-editor": KupEditor;
         "kup-field": KupField;
         "kup-form": KupForm;
@@ -3548,6 +3562,7 @@ declare module "@stencil/core" {
             "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
+            "kup-echarts": LocalJSX.KupEcharts & JSXBase.HTMLAttributes<HTMLKupEchartsElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;

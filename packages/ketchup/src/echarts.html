@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html dir="ltr"
+      lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+  <title>Stencil Component Starter</title>
+  
+  
+
+  <script type="module" src="/build/ketchup.esm.js"></script>
+  <script nomodule src="/build/ketchup.js"></script>
+</head>
+
+<body>
+ 
+<kup-echarts objectData > </kup-echarts>
+
+  <script>
+    const echarts = document.querySelector('kup-echarts');
+   
+   
+   echarts.objectData={
+            title: {
+                text: 'ECharts entry example'
+            },
+            tooltip: {},
+            legend: {
+                data:['Sales']
+            },
+            xAxis: {
+                data: ["shirt","cardign","chiffon shirt","pants","heels","socks"]
+            },
+            yAxis: {},
+            series: [{
+                name: 'Sales',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+        };
+
+
+  </script>
+</body>
+
+</html>
