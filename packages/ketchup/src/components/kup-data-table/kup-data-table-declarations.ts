@@ -39,6 +39,7 @@ export interface Column {
         k: string;
     };
     decimals?: number;
+    icon?: string;
 }
 
 export interface Row {
