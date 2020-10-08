@@ -2969,7 +2969,7 @@ export class KupDataTable {
 
         let icon = undefined;
 
-        if (column.icon) {
+        if (column.icon && content) {
             let svg = `url('${getAssetPath(
                 `./assets/svg/${column.icon}.svg`
             )}') no-repeat center`;
