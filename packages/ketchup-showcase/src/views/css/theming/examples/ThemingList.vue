@@ -105,6 +105,25 @@
             </tr>
             <tr>
               <td class="prevent-cr">
+                <span class="code-word">--kup-font-family-monospace</span>
+              </td>
+              <td>
+                Sets the font family used for monospace text. Right now it's
+                used only by kup-datatable when cells are numbers.
+              </td>
+              <td class="prevent-cr">
+                <span class="code-word">font</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field
+                  full-width
+                  id="font-family-monospace"
+                  @kupTextFieldInput="updateCSS"
+                ></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
                 <span class="code-word">--kup-font-size</span>
               </td>
               <td>
