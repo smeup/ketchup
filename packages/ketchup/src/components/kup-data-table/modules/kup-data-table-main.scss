@@ -362,6 +362,7 @@ tbody {
       &.number {
         .cell-content {
           display: block;
+          font-family: var(--kup-font-family-monospace);
           text-align: right;
         }
       }
