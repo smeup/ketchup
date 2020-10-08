@@ -59,6 +59,9 @@ table {
   }
 
   tfoot {
+    background-color: var(--kup-title-background-color);
+    color: var(--kup-title-color);
+
     td {
       text-align: right;
       font-weight: bold;
