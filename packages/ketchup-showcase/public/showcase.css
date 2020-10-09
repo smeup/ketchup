@@ -721,6 +721,7 @@ table.instruction-table th {
 
 #sample-comp-wrapper #demo-component {
   margin: auto;
+  visibility: inherit;
 }
 
 #sample-specs {
