@@ -580,7 +580,9 @@ export class KupChart {
 
     componentWillLoad() {
         this.startTime = performance.now();
-        identify(this.data.rows);
+        if (this.data) {
+            identify(this.data.rows);
+        }
         this.setObserver();
         setThemeCustomStyle(this);
         this.fetchThemeColors();
