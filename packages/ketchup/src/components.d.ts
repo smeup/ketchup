@@ -130,10 +130,6 @@ export namespace Components {
          */
         "multiSelection": boolean;
         /**
-          * Removes border
-         */
-        "noBorder": boolean;
-        /**
           * Removes padding
          */
         "noPadding": boolean;
@@ -1793,10 +1789,6 @@ declare namespace LocalJSX {
           * Enable multi selection
          */
         "multiSelection"?: boolean;
-        /**
-          * Removes border
-         */
-        "noBorder"?: boolean;
         /**
           * Removes padding
          */

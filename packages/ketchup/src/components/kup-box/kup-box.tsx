@@ -177,11 +177,6 @@ export class KupBox {
     @Prop({ reflect: true })
     multiSelection = false;
     /**
-     * Removes border
-     */
-    @Prop({ reflect: true })
-    noBorder: boolean = false;
-    /**
      * Removes padding
      */
     @Prop({ reflect: true })
@@ -1651,10 +1646,6 @@ export class KupBox {
 
     render() {
         let wrapperClass: string = '';
-
-        if (this.noBorder) {
-            wrapperClass += ' no-border';
-        }
 
         if (this.noPadding) {
             wrapperClass += ' no-padding';

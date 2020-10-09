@@ -1,13 +1,5 @@
 :host {
   #kup-component {
-    &.no-border {
-      #box-container {
-        .box {
-          border: none;
-        }
-      }
-    }
-
     &.no-padding {
       #box-container {
         .box {
@@ -60,6 +52,12 @@
   }
 }
 
+:host(:not(.borderless)) {
+  .box {
+    border: 1px solid var(--kup-border-color);
+  }
+}
+
 .box-section {
   text-align: center;
 
@@ -96,7 +94,6 @@
     align-items: center;
 
     .box {
-      border: 1px solid var(--kup-border-color);
       padding: 3px;
       flex-grow: 1;
       cursor: pointer;
