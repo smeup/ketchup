@@ -93,10 +93,10 @@ graph TD;
   kup-search --> kup-data-table
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
-  kup-data-table --> kup-image
   kup-data-table --> kup-text-field
   kup-data-table --> kup-tooltip
-  kup-data-table --> kup-lazy
+  kup-data-table --> kup-image
+  kup-data-table --> kup-chart
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
@@ -105,8 +105,8 @@ graph TD;
   kup-tooltip --> kup-button
   kup-tooltip --> kup-image
   kup-tooltip --> kup-tree
-  kup-tree --> kup-button
   kup-tree --> kup-lazy
+  kup-tree --> kup-button
   kup-tree --> kup-checkbox
   kup-tree --> kup-image
   kup-tree --> kup-progress-bar

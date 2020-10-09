@@ -3,7 +3,11 @@
     <div class="try">
       <div>
         <label>Try with</label>
-        <select name="sample-type" id="sample-type" @change="onSampleTypeChange">
+        <select
+          name="sample-type"
+          id="sample-type"
+          @change="onSampleTypeChange"
+        >
           <option value="simple">Simple</option>
           <option value="kitchenSink" selected>Kitchen Sink</option>
         </select>

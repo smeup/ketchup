@@ -4,7 +4,11 @@
     <kup-box :data.prop="basicData" :sortEnabled.prop="true"></kup-box>
 
     <h3>Sort enabled on Number</h3>
-    <kup-box :data.prop="basicData" :sortEnabled.prop="true" :sortBy.prop="'FLD3'"></kup-box>
+    <kup-box
+      :data.prop="basicData"
+      :sortEnabled.prop="true"
+      :sortBy.prop="'FLD3'"
+    ></kup-box>
   </div>
 </template>
 

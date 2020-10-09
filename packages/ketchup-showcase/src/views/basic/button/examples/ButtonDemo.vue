@@ -1,6 +1,11 @@
 <template>
   <div>
-    <demo :demoComp="demoComp" :demoEvents="demoEvents" :demoProps="demoProps" :demoTabs="demoTabs"></demo>
+    <demo
+      :demoComp="demoComp"
+      :demoEvents="demoEvents"
+      :demoProps="demoProps"
+      :demoTabs="demoTabs"
+    ></demo>
   </div>
 </template>
 
@@ -130,14 +135,6 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
-        },
-        {
-          prop: 'tooltip',
-          description:
-            'When set, this tooltip will be displayed on mouse over (using the HTML attribute title).',
-          type: 'string',
-          default: 'undefined',
-          try: 'field',
         },
         {
           prop: 'trailingIcon',

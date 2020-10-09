@@ -2,7 +2,7 @@
 @import '@material/form-field/mdc-form-field';
 
 :host {
-  display: var(--kup-display-mode);
+  display: block;
 }
 
 .mdc-radio {

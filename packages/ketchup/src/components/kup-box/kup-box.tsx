@@ -61,6 +61,7 @@ import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
+import { identify } from '../../utils/utils';
 @Component({
     tag: 'kup-box',
     styleUrl: 'kup-box.scss',
@@ -406,7 +407,7 @@ export class KupBox {
     })
     kupDidLoad: EventEmitter<void>;
 
-     /**
+    /**
      * Triggered when stop propagation event
      */
     @Event({
@@ -468,6 +469,7 @@ export class KupBox {
 
     componentWillLoad() {
         this.startTime = performance.now();
+        identify(this.data.rows);
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
         } else if (this.pageSize) {
@@ -496,7 +498,6 @@ export class KupBox {
             this.selectedRows = this.selectedRowsState;
         }
         this.kupDidLoad.emit();
-        
     }
 
     componentWillRender() {
@@ -743,7 +744,14 @@ export class KupBox {
     }
 
     private onSelectionCheckChange(row: BoxRow) {
-        const index = this.selectedRows.indexOf(row);
+        var index = -1;
+        for (let i = 0; i < this.selectedRows.length; i++) {
+            const select = this.selectedRows[i];
+            if (select.id === row.id) {
+                index = i;
+                break;
+            }
+        }
 
         if (index >= 0) {
             // remove row
@@ -1030,6 +1038,12 @@ export class KupBox {
 
     private _setTooltip(event: MouseEvent, cell: Cell) {
         setTooltip(event, cell, this.tooltip);
+    }
+
+    private _unsetTooltip() {
+        if (!this.tooltip.mouseIsOn()) {
+            unsetTooltip(this.tooltip);
+        }
     }
 
     private handleRowsPerPageChanged({ detail }) {
@@ -1485,7 +1499,7 @@ export class KupBox {
                 if (cell.style) {
                     boStyle = { ...cell.style };
                 }
-                let props: any = cell.data;
+                let props: any = { ...cell.data };
 
                 if (isButton(cell.obj)) {
                     if (props) {
@@ -1606,9 +1620,16 @@ export class KupBox {
                 style={boStyle}
             >
                 <span
-                    onMouseOver={(e) =>
-                        _hasTooltip ? this._setTooltip(e, cell) : null
-                    }
+                    onMouseEnter={(ev) => {
+                        if (_hasTooltip) {
+                            this._setTooltip(ev, cell);
+                        } else {
+                            this._unsetTooltip();
+                        }
+                    }}
+                    onMouseLeave={() => {
+                        this._unsetTooltip();
+                    }}
                 >
                     {boContent}
                 </span>
@@ -1674,25 +1695,20 @@ export class KupBox {
         let filterPanel = null;
         if (this.filterEnabled) {
             filterPanel = (
-                <div id="filter-panel">
+                <div id="global-filter">
                     <kup-text-field
-                        label="Cerca" // TODO
-                        full-width={true}
-                        initial-value={this.globalFilterValueState}
-                        onKupTextFieldInput={(event) =>
+                        fullWidth={true}
+                        isClearable={true}
+                        label="Search..."
+                        icon="magnify"
+                        initialValue={this.globalFilterValueState}
+                        onKupTextFieldSubmit={(event) =>
                             this.onGlobalFilterChange(event)
                         }
-                    >
-                        <svg
-                            slot="left"
-                            version="1.1"
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                        >
-                            <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
-                        </svg>
-                    </kup-text-field>
+                        onKupTextFieldClearIconClick={(event) =>
+                            this.onGlobalFilterChange(event)
+                        }
+                    ></kup-text-field>
                 </div>
             );
         }
@@ -1739,11 +1755,7 @@ export class KupBox {
         return (
             <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
-                <div
-                    id="kup-component"
-                    class={wrapperClass}
-                    onMouseLeave={(ev) => unsetTooltip(this.tooltip, ev)}
-                >
+                <div id="kup-component" class={wrapperClass}>
                     <div
                         class="box-component"
                         onDragOver={
@@ -1768,7 +1780,14 @@ export class KupBox {
                         {sortPanel}
                         {filterPanel}
                         {paginator}
-                        <div id="box-container" style={containerStyle}>
+                        <div
+                            id="box-container"
+                            style={containerStyle}
+                            onMouseLeave={(ev) => {
+                                ev.stopPropagation();
+                                this._unsetTooltip();
+                            }}
+                        >
                             {boxContent}
                         </div>
                         {tooltip}

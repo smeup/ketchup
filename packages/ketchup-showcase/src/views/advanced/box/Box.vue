@@ -99,7 +99,7 @@ export default {
         'Shapes',
         'Sortable',
         'Drag and drop',
-        'With tooltip'
+        'With tooltip',
       ],
     };
   },

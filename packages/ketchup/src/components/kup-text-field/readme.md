@@ -73,7 +73,6 @@ Type: `Promise<void>`
 
  - [kup-autocomplete](../kup-autocomplete)
  - [kup-box](../kup-box)
- - [kup-checkbox-menu](../kup-checkbox-menu)
  - [kup-combobox](../kup-combobox)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
@@ -93,7 +92,6 @@ graph TD;
   kup-badge --> kup-image
   kup-autocomplete --> kup-text-field
   kup-box --> kup-text-field
-  kup-checkbox-menu --> kup-text-field
   kup-combobox --> kup-text-field
   kup-data-table --> kup-text-field
   kup-form --> kup-text-field

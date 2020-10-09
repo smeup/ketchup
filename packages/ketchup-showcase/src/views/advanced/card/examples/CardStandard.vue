@@ -5,7 +5,10 @@
         <span class="code-word">Layout 1</span> settings:
         <br />
         <br />
-        <span class="code-word">- button1, button2, button3, button4, button5</span>: Actions, the action bar will be displayed only in presence of at least 1 button. They will be arranged from left to right.
+        <span class="code-word"
+          >- button1, button2, button3, button4, button5</span
+        >: Actions, the action bar will be displayed only in presence of at
+        least 1 button. They will be arranged from left to right.
         <br />
         <span class="code-word">- image1</span>: Cover.
         <br />
@@ -18,7 +21,12 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-card size-x="300px" size-y="300px" layout-number="1" :data.prop="data"></kup-card>
+          <kup-card
+            size-x="300px"
+            size-y="300px"
+            layout-number="1"
+            :data.prop="data"
+          ></kup-card>
         </div>
       </div>
     </div>
@@ -28,7 +36,10 @@
         <span class="code-word">Layout 2</span> settings:
         <br />
         <br />
-        <span class="code-word">- button1, button2, button3, button4, button5</span>: Actions, the action bar will be displayed only in presence of at least 1 button. They will be arranged from left to right.
+        <span class="code-word"
+          >- button1, button2, button3, button4, button5</span
+        >: Actions, the action bar will be displayed only in presence of at
+        least 1 button. They will be arranged from left to right.
         <br />
         <span class="code-word">- image1</span>: Cover.
         <br />
@@ -41,7 +52,12 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-card size-x="300px" size-y="300px" layout-number="2" :data.prop="data"></kup-card>
+          <kup-card
+            size-x="300px"
+            size-y="300px"
+            layout-number="2"
+            :data.prop="data"
+          ></kup-card>
         </div>
       </div>
     </div>
@@ -51,7 +67,10 @@
         <span class="code-word">Layout 3</span> settings:
         <br />
         <br />
-        <span class="code-word">- button1, button2, button3, button4, button5</span>: Actions, the action bar will be displayed only in presence of at least 1 button. They will be arranged from left to right.
+        <span class="code-word"
+          >- button1, button2, button3, button4, button5</span
+        >: Actions, the action bar will be displayed only in presence of at
+        least 1 button. They will be arranged from left to right.
         <br />
         <span class="code-word">- image1</span>: Cover.
         <br />
@@ -64,7 +83,12 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-card size-x="300px" size-y="300px" layout-number="3" :data.prop="data"></kup-card>
+          <kup-card
+            size-x="300px"
+            size-y="300px"
+            layout-number="3"
+            :data.prop="data"
+          ></kup-card>
         </div>
       </div>
     </div>
@@ -74,7 +98,10 @@
         <span class="code-word">Layout 4</span> settings:
         <br />
         <br />
-        <span class="code-word">- button1, button2, button3, button4, button5</span>: Actions, the action bar will be displayed only in presence of at least 1 button. They will be arranged from left to right.
+        <span class="code-word"
+          >- button1, button2, button3, button4, button5</span
+        >: Actions, the action bar will be displayed only in presence of at
+        least 1 button. They will be arranged from left to right.
         <br />
         <span class="code-word">- image1</span>: Cover.
         <br />
@@ -85,7 +112,12 @@
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-card size-x="300px" size-y="300px" layout-number="4" :data.prop="data"></kup-card>
+          <kup-card
+            size-x="300px"
+            size-y="300px"
+            layout-number="4"
+            :data.prop="data"
+          ></kup-card>
         </div>
       </div>
     </div>
@@ -97,9 +129,11 @@
         <br />
         <span class="code-word">- button1</span>: Action button.
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the top bar and of text4 and text6.
+        <span class="code-word">- color1</span>: Sets the color of the top bar
+        and of text4 and text6.
         <br />
-        <span class="code-word">- color2</span>: Sets the background color of the bottom section.
+        <span class="code-word">- color2</span>: Sets the background color of
+        the bottom section.
         <br />
         <span class="code-word">- image1</span>: Left image.
         <br />
@@ -107,16 +141,21 @@
         <br />
         <span class="code-word">- progressBar1</span>: Slim progress bar.
         <br />
-        <span class="code-word">- text1, text2, text3, text4, text5, text6</span>: Generic text, check the mock-up below to see how they are positioned.
-        <span
-          class="code-word"
-        >text2</span> is colored with the main color of the app.
+        <span class="code-word">- text1, text2, text3, text4, text5, text6</span
+        >: Generic text, check the mock-up below to see how they are positioned.
+        <span class="code-word">text2</span> is colored with the main color of
+        the app.
         <br />
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-card size-x="500px" size-y="300px" layout-number="5" :data.prop="data"></kup-card>
+          <kup-card
+            size-x="500px"
+            size-y="300px"
+            layout-number="5"
+            :data.prop="data"
+          ></kup-card>
         </div>
       </div>
     </div>
@@ -132,16 +171,20 @@
         <br />
         <span class="code-word">- progressBar1</span>: Radial progress bar.
         <br />
-        <span class="code-word">- text1, text2</span>: Generic text, check the mock-up below to see how they are positioned.
-        <span
-          class="code-word"
-        >text1</span> will be white.
+        <span class="code-word">- text1, text2</span>: Generic text, check the
+        mock-up below to see how they are positioned.
+        <span class="code-word">text1</span> will be white.
         <br />
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-card size-x="500px" size-y="300px" layout-number="6" :data.prop="data"></kup-card>
+          <kup-card
+            size-x="500px"
+            size-y="300px"
+            layout-number="6"
+            :data.prop="data"
+          ></kup-card>
         </div>
       </div>
     </div>
@@ -154,13 +197,19 @@
         <br />
         <span class="code-word">- image1</span>: Avatar.
         <br />
-        <span class="code-word">- text1, text2, text3</span>: Generic text, check the mock-up below to see how they are positioned.
+        <span class="code-word">- text1, text2, text3</span>: Generic text,
+        check the mock-up below to see how they are positioned.
         <br />
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-card size-x="300px" size-y="300px" layout-number="7" :data.prop="data"></kup-card>
+          <kup-card
+            size-x="300px"
+            size-y="300px"
+            layout-number="7"
+            :data.prop="data"
+          ></kup-card>
         </div>
       </div>
     </div>
@@ -170,19 +219,28 @@
         <span class="code-word">Layout 8</span> settings:
         <br />
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the elements placed in the top right corner and the color of the background, its opacity will be set to 10%.
+        <span class="code-word">- color1</span>: Sets the color of the elements
+        placed in the top right corner and the color of the background, its
+        opacity will be set to 10%.
         <br />
         <span class="code-word">- chip1</span>: Chips.
         <br />
-        <span class="code-word">- image1</span>: Image on the top right corner, colored with color1.
+        <span class="code-word">- image1</span>: Image on the top right corner,
+        colored with color1.
         <br />
-        <span class="code-word">- text1, text2, text3</span>: Generic text, check the mock-up below to see how they are positioned.
+        <span class="code-word">- text1, text2, text3</span>: Generic text,
+        check the mock-up below to see how they are positioned.
         <br />
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-card size-x="300px" size-y="300px" layout-number="8" :data.prop="data"></kup-card>
+          <kup-card
+            size-x="300px"
+            size-y="300px"
+            layout-number="8"
+            :data.prop="data"
+          ></kup-card>
         </div>
       </div>
     </div>
@@ -196,15 +254,22 @@
         <br />
         <span class="code-word">- chart1</span>: Chart on the right.
         <br />
-        <span class="code-word">- image1</span>: Image on the left, colored with color1.
+        <span class="code-word">- image1</span>: Image on the left, colored with
+        color1.
         <br />
-        <span class="code-word">- text1, text2, text3</span>: Generic text, check the mock-up below to see how they are positioned.
+        <span class="code-word">- text1, text2, text3</span>: Generic text,
+        check the mock-up below to see how they are positioned.
         <br />
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-card size-x="600px" size-y="150px" layout-number="9" :data.prop="data"></kup-card>
+          <kup-card
+            size-x="600px"
+            size-y="150px"
+            layout-number="9"
+            :data.prop="data"
+          ></kup-card>
         </div>
       </div>
     </div>
@@ -218,15 +283,22 @@
         <br />
         <span class="code-word">- chart1</span>: Chart on the left.
         <br />
-        <span class="code-word">- image1</span>: Image on the right, colored with color1.
+        <span class="code-word">- image1</span>: Image on the right, colored
+        with color1.
         <br />
-        <span class="code-word">- text1, text2, text3</span>: Generic text, check the mock-up below to see how they are positioned.
+        <span class="code-word">- text1, text2, text3</span>: Generic text,
+        check the mock-up below to see how they are positioned.
         <br />
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-card size-x="600px" size-y="150px" layout-number="10" :data.prop="data"></kup-card>
+          <kup-card
+            size-x="600px"
+            size-y="150px"
+            layout-number="10"
+            :data.prop="data"
+          ></kup-card>
         </div>
       </div>
     </div>
@@ -236,21 +308,31 @@
         <span class="code-word">Layout 11</span> settings:
         <br />
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the icon and the color of the left bar.
+        <span class="code-word">- color1</span>: Sets the color of the icon and
+        the color of the left bar.
         <br />
         <span class="code-word">- chart1</span>: Chart on the right.
         <br />
-        <span class="code-word">- image1</span>: Image on the left, hidden unless mouse hovering text1. Colored with color1.
+        <span class="code-word">- image1</span>: Image on the left, hidden
+        unless mouse hovering text1. Colored with color1.
         <br />
-        <span class="code-word">- text1</span>: Title, positioned vertically on the left. On mouse hover, image1, text2 and text3 will be displayed. Color is dynamic (black or white) depending on the contrast with color1.
+        <span class="code-word">- text1</span>: Title, positioned vertically on
+        the left. On mouse hover, image1, text2 and text3 will be displayed.
+        Color is dynamic (black or white) depending on the contrast with color1.
         <br />
-        <span class="code-word">- text2, text3</span>: Generic text, hidden unless mouse hovering text1.
+        <span class="code-word">- text2, text3</span>: Generic text, hidden
+        unless mouse hovering text1.
         <br />
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-card size-x="600px" size-y="150px" layout-number="11" :data.prop="data"></kup-card>
+          <kup-card
+            size-x="600px"
+            size-y="150px"
+            layout-number="11"
+            :data.prop="data"
+          ></kup-card>
         </div>
       </div>
     </div>

@@ -1,3 +1,5 @@
+import { Identifiable } from '../../types/GenericTypes';
+
 export interface DataTable {
     columns?: Array<Column>;
     rows?: Array<Row>;
@@ -20,6 +22,7 @@ export interface Cell {
     data?: CellData;
     cardID?: string;
     cssClass?: string;
+    icon?: string;
 }
 
 export interface CellsHolder {
@@ -39,14 +42,13 @@ export interface Column {
         k: string;
     };
     decimals?: number;
+    icon?: string;
 }
 
-export interface Row {
+export interface Row extends Identifiable {
     cells: CellsHolder;
 
     actions?: Array<RowAction>;
-
-    id?: string;
 
     group?: RowGroup;
 

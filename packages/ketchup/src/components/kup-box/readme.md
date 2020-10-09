@@ -1,5 +1,7 @@
 # kup-box
 
+
+
 <!-- Auto Generated Below -->
 
 
@@ -48,8 +50,8 @@
 | `kupBoxDragStarted`       | Triggered when a box dragging is started                  | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; }>`                                                         |
 | `kupBoxDropped`           | Triggered when a box is dropped                           | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; toId: string; toRow: BoxRow; toSelectedRows?: BoxRow[]; }>` |
 | `kupBoxSelected`          | Triggered when the multi selection checkbox changes value | `CustomEvent<{ rows: BoxRow[]; }>`                                                                                                       |
-| `kupDidLoad`              | Triggered when start propagation event                    | `CustomEvent<{ EventEmitter: Boolean; }>`                                                                                                |
-| `kupDidUnload`            | Triggered when stop propagation event                     | `CustomEvent<{ EventEmitter: Boolean; }>`                                                                                                |
+| `kupDidLoad`              |                                                           | `CustomEvent<void>`                                                                                                                      |
+| `kupDidUnload`            | Triggered when stop propagation event                     | `CustomEvent<void>`                                                                                                                      |
 | `kupRowActionClicked`     | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; action: RowAction; index: number; }>`                                                                        |
 | `kupRowActionMenuClicked` | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; }>`                                                                                                          |
 
@@ -75,25 +77,6 @@ Type: `Promise<void>`
 Type: `Promise<void>`
 
 
-
-
-## CSS Custom Properties
-
-| Name                                                                 | Description                          |
-| -------------------------------------------------------------------- | ------------------------------------ |
-| `--box_badge-background, --kup-box_badge-background`                 | badge background color               |
-| `--box_badge-border-radius, --kup-box_badge-border-radius`           | badge border radius                  |
-| `--box_badge-dimension, --kup-box_badge-dimension`                   | badge dimension                      |
-| `--box_badge-text, --kup-box_badge-text`                             | badge text color                     |
-| `--box_border-color, --kup-box_border-color`                         | single box border color              |
-| `--box_border-radius, --kup-box_border-radius`                       | single box border radius             |
-| `--box_color, --kup-box_color`                                       | text color                           |
-| `--box_expand-panel-color, --kup-box_expand-panel-color`             | text color for collapse header panel |
-| `--box_hover-box-shadow, --kup-box_hover-box-shadow`                 | shadow when hovering on a box        |
-| `--box_img-border-radius, --kup-box_img-border-radius`               | box image border radius              |
-| `--box_titled-section-bg-color, --kup-box_titled-section-bg-color`   | background color for section title   |
-| `--box_titled-section-font-size, --kup-box_titled-section-font-size` | font size for section title          |
-| `--box_titled-section-top, --kup-box_titled-section-top`             | top position for section title       |
 
 
 ## Dependencies
@@ -145,8 +128,8 @@ graph TD;
   kup-tooltip --> kup-button
   kup-tooltip --> kup-image
   kup-tooltip --> kup-tree
-  kup-tree --> kup-button
   kup-tree --> kup-lazy
+  kup-tree --> kup-button
   kup-tree --> kup-checkbox
   kup-tree --> kup-image
   kup-tree --> kup-progress-bar

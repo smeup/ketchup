@@ -1,0 +1,507 @@
+/* Class to put the table in "width auto" mode: in this way, if all visible columns have a fixed size,
+     * the table automatically has a size equal to the sum of the sizes all columns.
+     * Additionally it must remove the min width specification to allow a correct sizing.
+     * [column-width-related][mandatory]
+     *
+     * The property "table-layout" is mandatory to override the default algorithm by which the browsers renders the tables.
+     * This algorithm simply tries to adjust the table cell width to fit its content as best as it can.
+     * But this is in contrast with having specified widths for the cells.
+     * However, Firefox has a rendering error when "table-layout: fixed" and "width: -moz-fit-content;" are set on a table
+     * at the same time and there is even one column with no specified size: that column automatically gets the maximum width
+     * the browser itself can withstand. In contrast with V8 browsers, where the table is rendered correctly.
+     * Vice versa, by not using the "table-layout: fixed", Firefox renders correctly the table while V8 doesn't.
+     * In addition, there are also other size cases where there are similar rendering errors.
+     * Currently the most convenient solution that I've found is to manually set the desired max and min widths on all the
+     * cells of single column, if that column must have a given size.
+     *
+     * NOTES:
+     * [1] - If we do not place these properties in the correct order, on Firefox we will find that the
+     *     tables takes the whole available place, therefore fixed sizes are not respected.
+     * [2] - On the contrary, without using these properties, V8 browsers will not understand that the table must have
+     *     the width equal to the sum of all columns widths.
+     * [3] - Mandatory for width property to take effect.
+     */
+
+table {
+  border-collapse: collapse;
+  color: var(--kup-text-color);
+  font-size: var(--kup-font-size);
+  min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
+  min-width: -moz-max-content; /* Firefox/Gecko */
+  min-width: -webkit-max-content; /* Chrome */
+  text-align: left;
+  width: 100%;
+
+  &.auto-width {
+    min-width: auto; // [mandatory] See [1] [2]
+    width: 0; // [mandatory] See [1] [2]
+  }
+
+  &.custom-size th {
+    position: sticky;
+    top: 0;
+    z-index: 7;
+  }
+
+  &.row-separation > tbody > tr {
+    border-bottom: 1px solid var(--kup-border-color);
+  }
+
+  &.column-separation > tbody > tr > td {
+    border-right: 1px solid var(--kup-border-color);
+  }
+
+  &.noGrid {
+    &,
+    td {
+      border: none;
+    }
+  }
+
+  tfoot {
+    background-color: var(--kup-title-background-color);
+    color: var(--kup-title-color);
+
+    td {
+      text-align: right;
+      font-weight: bold;
+      padding: 0.5rem 0.3125rem;
+    }
+  }
+}
+
+#global-filter {
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.icon-container {
+  background-color: var(--kup-title-color);
+  margin: 0 0.25rem;
+  height: 1.25rem;
+  width: 1.25rem;
+
+  &.ascending,
+  &.descending,
+  &.filter-remove {
+    float: right;
+  }
+
+  &.collapsed,
+  &.expanded {
+    float: left;
+  }
+
+  &.ascending {
+    mask: var(--drop-up-svg);
+  }
+
+  &.collapsed {
+    mask: var(--menu-right-svg);
+  }
+
+  &.descending,
+  &.expanded {
+    mask: var(--drop-down-svg);
+  }
+
+  &.filter-remove {
+    margin: 0 0.25rem;
+    mask: var(--filter-remove-svg);
+  }
+
+  &.obj-icon {
+    display: block;
+    background-color: rgba(var(--kup-text-color-rgb), 0.375);
+    margin: auto 0.5rem auto 0;
+
+    :host([force-one-line]) & {
+      display: inline-block;
+      margin: 0 0.5rem 0 0;
+      vertical-align: top;
+    }
+
+    .number & {
+      display: inline-block;
+      vertical-align: text-bottom;
+    }
+  }
+}
+
+.below-wrapper {
+  height: auto;
+  overflow: auto;
+  &.custom-size {
+    overflow: unset;
+  }
+  &:not(.custom-size) {
+    overflow-x: auto;
+  }
+}
+
+.density- {
+  kup-lazy.to-be-loaded {
+    height: 36px;
+  }
+
+  &dense {
+    tbody > tr > td:not(.is-graphic) {
+      padding-top: 0.2rem;
+      padding-bottom: 0.2rem;
+    }
+    tbody > tr.group > td {
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+    }
+    kup-lazy.to-be-loaded {
+      height: 26px;
+    }
+  }
+
+  &wide {
+    tbody > tr > td:not(.is-graphic) {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    tbody > tr.group > td {
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
+    kup-lazy.to-be-loaded {
+      height: 50px;
+    }
+  }
+}
+
+.fontsize- {
+  &small {
+    font-size: calc(var(--kup-font-size) * 0.75);
+    transition: font-size 0.1s;
+
+    .group-cell-content {
+      > span {
+        &:before {
+          font-size: calc(var(--kup-font-size) * 1) !important;
+        }
+      }
+    }
+  }
+
+  &big {
+    font-size: calc(var(--kup-font-size) * 1.25);
+    transition: font-size 0.1s;
+
+    .group-cell-content {
+      > span {
+        &:before {
+          font-size: calc(var(--kup-font-size) * 1.5) !important;
+        }
+      }
+    }
+  }
+}
+
+thead {
+  border: 1px solid var(--kup-border-color);
+
+  th {
+    background-color: var(--kup-title-background-color);
+    color: var(--kup-title-color);
+    border-bottom: 2px solid var(--kup-border-color);
+    border-right: 1px solid var(--kup-border-color);
+    box-sizing: border-box;
+    padding: 0.5rem 0.3125rem;
+    text-overflow: ellipsis;
+    top: 0;
+    vertical-align: middle;
+    white-space: nowrap;
+    transition: background-color 0.25s ease;
+
+    // On Firefox, things changes
+    @supports (-moz-appearance: none) {
+      // The row separator:
+      &::after {
+        bottom: 0; // Is slightly placed to the bottom
+        left: -1px; // gets slightly bigger to cover the absence of a border-right
+      }
+
+      // The column separator
+      &::before {
+        content: none; // Is not rendered on firefox because it does not render right-border on thead.
+      }
+    }
+
+    //---- Column name container ----
+    $column-sort-margin: 0.5rem;
+
+    .column-title {
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: bottom;
+    }
+
+    &.icon {
+      width: 30px;
+    }
+
+    &.number {
+      text-align: right;
+    }
+
+    &.centered {
+      text-align: center;
+    }
+
+    //---- Sort and remove-filter icons ----
+    // Base for an header cell
+    &.header-cell {
+      // When column is sortable
+      &--sortable {
+        cursor: pointer;
+      }
+    }
+
+    .column-sort {
+      float: left;
+      margin: 0 $column-sort-margin;
+    }
+
+    //---- Column menu icon ----
+    .column-menu {
+      background: var(--kup-background-color);
+      box-shadow: var(--kup-box-shadow);
+      display: none;
+      color: var(--kup-text-color);
+      position: absolute;
+      z-index: 100;
+      font-weight: normal;
+      min-width: 200px;
+      min-width: -moz-max-content; /* Firefox/Gecko */
+      min-width: -webkit-max-content; /* Chrome */
+      max-height: unset;
+
+      ul {
+        list-style-type: none;
+        margin: 0; // override browser default
+        padding: 0; // override browser default
+        text-align: left;
+
+        > li {
+          padding: 0 0.5rem;
+          transition: color 0.2s ease-in-out;
+          color: var(--kup-text-color);
+          transition: color 0.25s, background-color 0.25s, opacity 0.25s;
+
+          &.textfield-row {
+            padding: 0.5rem 0.5rem;
+          }
+
+          &.button-row {
+            border-bottom: 1px solid var(--kup-border-color);
+          }
+
+          &.checkbox-row {
+            max-height: 20vh;
+            overflow: auto;
+          }
+
+          & kup-button {
+            display: inline-block;
+          }
+        }
+      }
+    }
+  }
+}
+
+tbody {
+  border: 1px solid var(--kup-border-color);
+  cursor: auto;
+
+  tr {
+    kup-button {
+      max-width: max-content;
+    }
+
+    &:not(.group):hover {
+      color: var(--kup-hover-color);
+      background-color: var(--kup-hover-background-color);
+    }
+
+    &.selected:hover,
+    &.selected {
+      background-color: rgba(var(--kup-main-color-rgb), 0.175);
+    }
+
+    // grouping
+    &.group {
+      background: var(--kup-title-background-color);
+      border-top: 1px solid var(--kup-border-color);
+      color: var(--kup-title-color);
+      font-weight: bold;
+      cursor: pointer;
+
+      &.group-label {
+        border-bottom: none;
+      }
+
+      &.group-total {
+        border-top: none;
+        line-height: 0.5rem;
+      }
+
+      > td {
+        padding: 0.5rem 0;
+
+        .group-cell-content {
+          .indent {
+            float: left;
+            margin-left: 0.25rem;
+          }
+          > span {
+            display: inline-flex;
+            outline: none;
+            margin-left: 0.25rem;
+          }
+        }
+
+        &.total {
+          text-align: right;
+          padding: 0.5rem 0.3125rem;
+        }
+      }
+    }
+
+    > td {
+      box-sizing: border-box;
+      padding: 0.5rem 0.3125rem;
+      word-break: break-all;
+      word-wrap: break-word;
+
+      &.number {
+        .cell-content {
+          display: block;
+          font-family: var(--kup-font-family-monospace);
+          text-align: right;
+        }
+      }
+
+      .row-expander {
+        margin-right: 0.5rem;
+      }
+
+      .indent {
+        display: inline-block;
+        height: 1rem;
+        width: 2rem;
+      }
+
+      .row-action {
+        margin-right: 0.2rem;
+      }
+
+      // The container of the effective cell content
+      .cell-content {
+        display: flex;
+
+        &.has-padding {
+          box-sizing: border-box;
+          padding: 1rem;
+        }
+
+        // When there is the necessity to hide long text
+        :host([force-one-line]) & {
+          display: inline-block; // [column-width-related][mandatory][3]
+          max-width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          vertical-align: middle;
+          white-space: nowrap;
+          width: 100%;
+
+          &.is-centered {
+            display: flex;
+          }
+        }
+
+        &.is-tooltip {
+          position: relative;
+        }
+
+        &.is-vertical,
+        :host([force-one-line]) &.is-vertical {
+          display: inline-flex;
+          margin: auto;
+          width: -webkit-fill-available;
+          align-items: center;
+          & > * {
+            margin: auto;
+          }
+        }
+
+        &.negative-number {
+          color: var(--kup-danger-color);
+        }
+      }
+
+      &.is-graphic {
+        padding: 0 1px;
+      }
+
+      kup-lazy {
+        margin: auto;
+      }
+
+      & .indent ~ kup-lazy,
+      & .indent ~ kup-image,
+      & .indent ~ kup-button {
+        margin: 0;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+tr {
+  &:not(:nth-child(1)) {
+    kup-checkbox {
+      display: none;
+      animation: fadeInFromNone 0.25s ease-out;
+    }
+  }
+
+  &.in-viewport {
+    kup-checkbox,
+    kup-image {
+      display: flex;
+    }
+
+    kup-button {
+      display: inline-block;
+    }
+
+    kup-progress-bar {
+      display: block;
+    }
+
+    & .indent ~ kup-image {
+      display: inline-block;
+    }
+  }
+
+  .indent {
+    & ~ kup-button,
+    & ~ kup-checkbox {
+      display: inline-block;
+    }
+  }
+
+  [row-select-cell] {
+    min-height: 40px;
+  }
+
+  td[row-action-cell] kup-button {
+    display: inline-block;
+  }
+}

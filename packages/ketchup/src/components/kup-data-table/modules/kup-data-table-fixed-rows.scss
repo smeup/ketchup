@@ -1,0 +1,140 @@
+//-------- Fixed columns and rows declarations --------
+/*
+* Section comments declarations.
+* [fcr-ff] - This is a workaround necessary to support correctly the Firefox browser,
+*
+*/
+
+// The z-index of the data table main wrapper.
+$table-below-wrapper--z-index: 0;
+// z-indexes to allow correct layering of different pieces of fixed and sticky positioning
+// These values must be decreasing order
+$sticky-header--z-index: 10;
+$sticky-cell--row-column-z-index: 8;
+$sticky-cell--column-z-index: 6;
+$sticky-cell--row-z-index: 4;
+
+// Base style for the cells which are sticky
+%fixedCellsBase {
+  background-color: var(--kup-background-color);
+  color: var(--kup-text-color);
+  position: sticky;
+
+  // For fixed headers, we must set a different background and place the correct z-index to prevent overlapping.
+  thead & {
+    background-color: var(--kup-title-background-color);
+    color: var(--kup-title-color);
+    z-index: #{$sticky-header--z-index};
+  }
+}
+
+@mixin fixedRowSeparator($bottom-position) {
+  bottom: $bottom-position;
+  border-bottom: 1px solid var(--kup-border-color);
+  content: '';
+  height: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  width: auto;
+  z-index: 1;
+}
+
+@mixin fixedColumnSeparator($right-position) {
+  bottom: 0;
+  border-right: 1px solid var(--kup-border-color);
+  content: '';
+  height: auto;
+  position: absolute;
+  right: $right-position;
+  top: 0;
+  width: 0;
+  z-index: 1;
+}
+
+table.custom-size th.fixed-column {
+  z-index: 8;
+}
+
+tr:hover .fixed-row,
+tr:hover .fixed-column {
+  color: var(--kup-hover-color);
+  background-color: var(--kup-hover-background-color);
+}
+
+tr.selected .fixed-row,
+tr.selected .fixed-column {
+  background-color: var(--kup-background-color);
+  background-image: linear-gradient(
+    to right,
+    rgba(var(--kup-main-color-rgb), 0.175) 0%,
+    rgba(var(--kup-main-color-rgb), 0.175) 0.1%,
+    rgba(var(--kup-main-color-rgb), 0.175)
+  );
+}
+
+// For a fixed row
+.fixed-row {
+  @extend %fixedCellsBase;
+  top: 0;
+  z-index: $sticky-cell--row-z-index;
+
+  // When the cell must keep its border
+  thead &::after,
+  &.show-row-separator::after {
+    @include fixedRowSeparator(-1px);
+  }
+
+  // The after for the rows separator element fallback for Firefox and sticky rows
+  th::after {
+    @include fixedRowSeparator(0);
+    border-bottom: 2px solid var(--kup-border-color);
+    bottom: -2px;
+  }
+
+  // @see [fcr-ff]
+  @supports (-moz-appearance: none) {
+    .column-separation &::before {
+      @include fixedColumnSeparator(0);
+    }
+
+    .row-separation &::after {
+      @include fixedRowSeparator(
+        0
+      ); // marked as !important otherwise the previous declaration will take precedence
+    }
+  }
+}
+
+// For a fixed column
+// MUST be after to take precedence
+.fixed-column {
+  @extend %fixedCellsBase;
+  left: 0;
+  z-index: $sticky-cell--column-z-index; // Must be higher than row
+
+  // When the cell must keep its border
+  &.show-column-separator::before {
+    @include fixedColumnSeparator(-1px);
+  }
+
+  // This is a small fix for Firefox since it has a strange bug which "compresses" the content of the sticky cells
+  @supports (-moz-appearance: none) {
+    .column-separation &::before {
+      @include fixedColumnSeparator(0);
+    }
+
+    .row-separation &::after {
+      @include fixedRowSeparator(0);
+    }
+
+    .row-separation &:not(.fixed-row)::after {
+      bottom: -1px;
+    }
+  }
+
+  // When there is both the column and the row fixed
+  &.fixed-row {
+    z-index: $sticky-cell--row-column-z-index; // Must be higher than column
+  }
+}

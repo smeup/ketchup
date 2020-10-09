@@ -1,0 +1,60 @@
+sticky-header {
+  display: none;
+}
+
+.persistent-header {
+  & ~ sticky-header {
+    background: var(--kup-title-background-color);
+    border-bottom: 2px solid var(--kup-border-color);
+    box-shadow: 0px 0px 7.5px 0px rgba(128, 128, 128, 0.5);
+    color: var(--kup-title-color);
+    display: block;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    transition: opacity 0.25s ease-in-out;
+    z-index: 10;
+
+    &.activated {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    &[hidden] {
+      display: none;
+    }
+
+    tr-sticky {
+      display: inline-flex;
+    }
+
+    th-sticky {
+      box-sizing: border-box;
+      display: inline-flex;
+      padding: 0.5rem 0.3125rem;
+
+      &.icon {
+        width: 30px;
+      }
+
+      &.number {
+        text-align: right;
+      }
+
+      &.centered {
+        text-align: center;
+      }
+    }
+
+    .column-title {
+      width: 100%;
+      font-weight: bold;
+      margin: auto;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

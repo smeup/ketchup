@@ -250,7 +250,7 @@ export class KupChip {
             let iconEl = [];
             let iconClass =
                 'material-icons mdc-chip__icon mdc-chip__icon--leading';
-            let iconColor = 'var(--kup-icon-color)';
+            let iconColor = 'var(--kup-title-color)';
             let cancelIcon = undefined;
 
             if (this.type === 'filter' || this.type === 'choice') {
@@ -297,6 +297,7 @@ export class KupChip {
                 cancelIcon = (
                     <span role="gridcell">
                         <kup-image
+                            color={iconColor}
                             tabindex="-1"
                             class="material-icons mdc-chip__icon remove-icon"
                             onClick={() => this.onKupIconClick(i)}

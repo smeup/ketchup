@@ -2,14 +2,14 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        Given the template-driven nature of cards, there aren't styling options besides setting the size.
-        By default cards will fit to 100% of their container, this can be changed by setting a CSS value to
-        <span
-          class="code-word"
-        >sizeX</span> and
-        <span class="code-word">sizeY</span> props.
-        <br />For example, the cards below should be of the same size, even though they differ for configuration.
-        One of them has sizeX and sizeY set to 300px, while the other follows the default behavior but is placed inside a 300x300px div.
+        Given the template-driven nature of cards, there aren't styling options
+        besides setting the size. By default cards will fit to 100% of their
+        container, this can be changed by setting a CSS value to
+        <span class="code-word">sizeX</span> and
+        <span class="code-word">sizeY</span> props. <br />For example, the cards
+        below should be of the same size, even though they differ for
+        configuration. One of them has sizeX and sizeY set to 300px, while the
+        other follows the default behavior but is placed inside a 300x300px div.
       </p>
       <div class="demo-container">
         <div class="kup-container">

@@ -186,4 +186,4 @@ export default {
     flex: 1 0 0%;
   }
 }
-</style> 
+</style>

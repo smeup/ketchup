@@ -4,7 +4,7 @@
 @import '@material/tab/mdc-tab';
 
 :host {
-  display: var(--kup-display-mode);
+  display: block;
 }
 
 .mdc-tab-bar {

@@ -36,7 +36,9 @@ export interface TooltipRelatedObject {
     object?: any;
 }
 
-export interface TooltipCellOptions extends TreeNode {}
+export interface TooltipCellOptions extends TreeNode {
+    config?: any;
+}
 
 export enum ViewMode {
     TOOTLIP = 'tip',

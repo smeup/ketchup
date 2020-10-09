@@ -1,44 +1,13 @@
-/**
-* @Prop --tlt_background, --kup-tlt_background: tooltip background
-* @Prop --tlt_border_color, --kup-tlt_background: tooltip border
-* @Prop --tlt_detail-lbl-color, --kup-tlt_detail-lbl-color: tooltip detail label color
-* @Prop --tlt_detail-lbl-color, --kup-tlt_detail-lbl-color: tooltip detail text color
-* @Prop --tlt_shadow, --kup-tlt_shadow: tooltip shadow
-* @Prop --tlt_display, --kup-tlt_display: tooltip display
-*/
-
 :host {
-  --tlt_background: var(--kup-tlt_background, #ffffff);
-  --tlt_border_color: var(--kup-tlt_border-color, #cccccc);
-  --tlt_detail-lbl-color: var(--kup-detail-lbl-color, #616161);
-  --tlt_detail-txt-color: var(--kup-detail-txt-color, #888888);
-  --tlt_shadow: var(--kup-tlt_shadow, #{$mainShadow});
-  --tlt_display: var(--kup-tlt_display, inline-block);
-
   #wrapper {
-    display: var(--tlt_display);
-
-    /*
-    position: absolute;
-
-    &.is-tooltip {
-      position: relative;
-    }
-
-    &.visible.dynamic-position-active {
-      display: block;
-      -webkit-animation: display-none-transition 0.5s both;
-      -webkit-animation-timing-function: cubic-bezier(0.67, -0.81, 0.89, 0.71);
-      animation: display-none-transition 0.5s both;
-      animation-timing-function: cubic-bezier(0.67, -0.81, 0.89, 0.71);
-    }*/
+    display: inline-block;
 
     #tooltip {
       position: fixed;
-      background: var(--tlt_background);
+      background: var(--kup-background-color);
       color: var(--kup-text-color);
       z-index: 1000;
-      box-shadow: var(--tlt_shadow);
+      box-shadow: var(--kup-box-shadow);
       border-radius: 3px;
       min-width: 350px;
       writing-mode: horizontal-tb;
@@ -46,7 +15,7 @@
       #main-content {
         margin: 20px;
         display: flex;
-        color: var(--tlt_detail-txt-color);
+        color: rgba(var(--kup-text-color-rgb), 0.8);
 
         .left {
           width: 75px;
@@ -91,7 +60,7 @@
         }
 
         .label {
-          color: var(--tlt_detail-lbl-color);
+          color: var(--kup-text-color);
         }
       }
 
@@ -103,9 +72,10 @@
         }
 
         &.visible {
-          border-top: 1px solid var(--tlt_border_color);
+          border-top: 1px solid var(--kup-border-color);
           padding: 20px;
-          max-height: 500px;
+          max-height: 40vh;
+          overflow: auto;
           opacity: 1;
           transition: max-height 500ms ease-in, opacity 500ms ease-in;
         }
@@ -119,13 +89,13 @@
           }
 
           &__label {
-            color: var(--tlt_detail-lbl-color);
+            color: var(--kup-text-color);
           }
         }
       }
 
       #detail-actions {
-        border-top: 1px solid var(--tlt_border_color);
+        border-top: 1px solid var(--kup-border-color);
         padding: 6px {
           top: 2px;
           bottom: 2px;

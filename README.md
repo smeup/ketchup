@@ -1,85 +1,66 @@
-# Ketch.UP
+# Ketch.UP: components for web applications
+
+![Ketch.UP Logo](https://raw.githubusercontent.com/smeup/ketchup/develop/docs/images/ketchup_small.png))
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Ketch.UP is a project that provides components to build web applications. 
+## Intro
 
-Actually all the components are web components, built using [Stencil](https://stenciljs.com/). 
+Ketch.UP is a web components library, built with [Ionic’s Stencil](https://stenciljs.com/), a small TypeScript based web component compiler.
 
-Go to [Ketch.UP Showcase](http://ketchup.smeup.com) to see our components live. 
+Web Components is a suite of different technologies allowing to create reusable custom elements — with their functionality encapsulated away from the rest of your code — that you can use in your web apps. For more information visit this link: https://developer.mozilla.org/en-US/docs/Web/Web_Components
 
-## Repo architecture
-Ketch.UP is a monorepo managed with [Lerna](https://github.com/lerna/lerna).
+The primary focus of Ketch.UP is to provide a suite of powerful and customizable web components, whose main objective is abstracting complex and recurrent programming patterns.
 
-## Project setup
+## Showcase
 
-#### 1. Download the project
+Go to [Ketch.UP Showcase](http://ketchup.smeup.com) to see our components live.
 
-Download project from GitHub and open a terminal inside its root.
-Note: the terminal must have access to Git commands for it to work correctly.
+## How the repository is organized
 
-#### 2. npm 6
-First thing to do is to be sure to have installed npm 6 or higher, since it's mandatory to develop with Stencil.
+Ketch.UP repository is a monorepo multi-package repository managed with [Lerna](https://github.com/lerna/lerna).
 
-Follow the [installation guide](https://www.npmjs.com/get-npm) and run:
-```
-npm -v
-``` 
-To verify the installation.
+-   _packages/ketchup_ contains the Stencil web components library
+-   _packages/ketchup_showcase_ contains the code of the components showcase (a [Vue](https://vuejs.org/) application built using Vue CLI)
+-   _docs_ contains documentation
 
-#### 3. Lerna
+## Development
 
-Install Lerna. From project's root run:
-```
-npm install
-```
-In this way Lerna will be installed as a dependency inside the project,
-and it's not necessary to install it globally.
+All information for developers is to be found in the [Development guide](docs/development.md).
 
-To use Lerna locally, it has been added to the scripts section of the project.
-The syntax is slightly different than having it installed globally, since it is used inside the scripts JSON field.
-See [this issue](https://github.com/lerna/lerna/issues/138) for more explanations.
+## Are there any presentations about your work?
 
-All commands must be composed like this:
-```
-npm run lerna -- --any --argument 
-```
-Arguments passed after `--` will be passed to Lerna script.
+Yes, of course: see the [presentation list](docs/presentations.md)
 
-###### Example
-```
-npm run lerna -- --help
-```
+<font color='red'>TODO: add presentations page</font>
 
-So, to install both projects run:
-```
-npm run lerna -- bootstrap
-```
-This command will take some time.
-It will install all dependencies in all packages inside the folder 'packages'
-and will symlink those packages inside the monorepo which are dependencies of one another.
+## How to use this code in your project
 
-Cleaning project:
+-   Add Ketch.UP dependency to your project:
 
 ```
-npm run lerna -- clean
+npm install @sme.up/ketchup --save
 ```
 
-#### 4. Developing
+-   Define Ketch.UP custom elements in your pages:
 
-Commands inside the different package.json of the 'packages' folder should be reported inside the main package.json
-so that they can be executed also by Lerna. 
+```
+import { defineCustomElements } from 'ketchup/dist/loader';
+defineCustomElements(window);
+```
 
-To see which command are available, open package.json in the root package and take a look at the scripts object. 
-Use 'npm run' to execute them
+-   Use Ketch.UP components in your pages. About components and their props and events see [Ketch.UP Showcase](https://ketchup.smeup.com/). A simple sample for a Ketch.UP button can be:
 
-Other details can be found inside the readme of the packages.
+```
+<kup-btn :buttons.prop="btnlist" @kupBtnClick="onKupBtnClicked" />
+```
 
-To install additional packages, use the syntax [reported here](https://github.com/lerna/lerna/tree/master/commands/add)
-if Lerna has been installed as a global package, or with the `npm run lerna -- add package_name --scope=packages_name`.
+## Contributing
 
-To remove a package, there is currently no Lerna shortcut. You have to go tho the terminal inside that package
-and remove it with your package manager. Afterwards, run Lerna `bootstrap` again to be sure that all packages are
-symlinked correctly.
+Every kind of contribution to this project is really welcome. See our [contributing guide](CONTRIBUTING.md) for more details.
 
-If errors perstist, then clean all `node_modules` with the `clean` command and `bootstrap` them again. 
+<font color='red'>TODO: add contributing page</font>
+
+## Open issues
+
+Here you can find a list of [open issues](docs/openIssues.md).

@@ -36,6 +36,7 @@ import {
     randomColor,
     colorContrast,
 } from '../../utils/theme-manager';
+import { identify } from '../../utils/utils';
 
 declare const google: any;
 declare const $: any;
@@ -579,6 +580,7 @@ export class KupChart {
 
     componentWillLoad() {
         this.startTime = performance.now();
+        identify(this.data.rows);
         this.setObserver();
         setThemeCustomStyle(this);
         this.fetchThemeColors();

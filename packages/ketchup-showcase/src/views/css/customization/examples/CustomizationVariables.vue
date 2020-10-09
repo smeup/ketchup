@@ -1,11 +1,10 @@
 <template>
   <div>
     <p>
-      An even more elegant way to customize components' look is using Ketch.UP CSS variables. You can check the whole list in the
-      <a
-        href="https://ketchup.smeup.com/ketchup-showcase/#/theming"
-      >Theming</a> page.
-      <br />Let's take the button we created before:
+      An even more elegant way to customize components' look is using Ketch.UP
+      CSS variables. You can check the whole list in the
+      <a href="https://ketchup.smeup.com/ketchup-showcase/#/theming">Theming</a>
+      page. <br />Let's take the button we created before:
     </p>
     <div class="demo-container">
       <div class="kup-container">
@@ -17,12 +16,12 @@
     </div>
     <p>
       Remember how we targeted the
-      <span class="code-word">button</span> element? That's why we needed to set the colors specifically on that element.
-      By using variables, we can just set the at the root level and the component will automatically use them where needed.
-      <br />For example, to recreate the button above I could just set these variables inside the
-      <span
-        class="code-word"
-      >customStyle</span> prop:
+      <span class="code-word">button</span> element? That's why we needed to set
+      the colors specifically on that element. By using variables, we can just
+      set the at the root level and the component will automatically use them
+      where needed. <br />For example, to recreate the button above I could just
+      set these variables inside the
+      <span class="code-word">customStyle</span> prop:
     </p>
     <div class="demo-container" style="padding: 3rem 0;">
       <code class="flat">{{ markupVariable }}</code>
@@ -40,9 +39,13 @@
     <br />
     <p>
       You might notice a couple things.
-      <br />There's no border radius anymore: that's because there isn't a variable which handles it - so if you want to change it you still have to add it manually to the button element.
-      <br />The ripple effect has different color: by using variables, Material Design automations will work. In this case the ripple effect will have a blending of your text color.
-      <br />In conclusion: when possibile, it's always to be preferred using variables instead of manually targeting elements.
+      <br />There's no border radius anymore: that's because there isn't a
+      variable which handles it - so if you want to change it you still have to
+      add it manually to the button element. <br />The ripple effect has
+      different color: by using variables, Material Design automations will
+      work. In this case the ripple effect will have a blending of your text
+      color. <br />In conclusion: when possibile, it's always to be preferred
+      using variables instead of manually targeting elements.
     </p>
   </div>
 </template>

@@ -9,11 +9,10 @@ import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/ku
 import { BadgePosition } from "./components/kup-badge/kup-badge-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { ComponentCardElement } from "./components/kup-card/kup-card-declarations";
-import { Cell, Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartType } from "./components/kup-chart/kup-chart-declarations";
-import { KupCheckboxMenuItem } from "./components/kup-checkbox-menu/kup-checkbox-menu-declarations";
 import { ComponentChipElement } from "./components/kup-chip/kup-chip-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
@@ -258,10 +257,6 @@ export namespace Components {
          */
         "toggable": boolean;
         /**
-          * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
-         */
-        "tooltip": string;
-        /**
           * Defaults at null. When set, the icon will be shown after the text.
          */
         "trailingIcon": boolean;
@@ -371,36 +366,6 @@ export namespace Components {
          */
         "leadingLabel": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-    }
-    interface KupCheckboxMenu {
-        /**
-          * Sets if the checkbox menu should be disabled
-         */
-        "disabled": boolean;
-        /**
-          * Chooses which field of an item object should be used to create the list and be filtered.
-         */
-        "displayedField": string;
-        /**
-          * The label to show as a placeholder inside the filter input
-         */
-        "filterLabel": string;
-        /**
-          * Marks the field as filterable, allowing an input text to filter the options
-         */
-        "isFilterable": boolean;
-        /**
-          * Sets the checkbox to be disabled  Must have reflect into the attribute
-         */
-        "items": KupCheckboxMenuItem[];
-        /**
-          * The label to set to the component
-         */
-        "label": string;
-        /**
-          * Chooses which field of an item object should be used to create the list and be filtered.
-         */
-        "valueField": string;
     }
     interface KupChip {
         /**
@@ -594,6 +559,10 @@ export namespace Components {
           * Semicolon separated rows id to select.
          */
         "selectRowsById": string;
+        /**
+          * If set to true, displays the button to open the customization panel.
+         */
+        "showCustomization": boolean;
         /**
           * When set to true enables the column filters.
          */
@@ -990,34 +959,6 @@ export namespace Components {
          */
         "twoLine": boolean;
     }
-    interface KupMenu {
-        /**
-          * When set to true, the menu will automatically close when the user clicks outside of its deactivationRelativeTo prop.
-          * @see deactivationRelativeTo
-         */
-        "closeOnOuterClick": boolean;
-        /**
-          * When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. Therefore, if the menu closing event comes from this element or one of its descendants, the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop. If positionRelativeTo is not defined, it will default to the menu parent element.
-          * @see closeOnOuterClick
-          * @see positionRelativeTo
-         */
-        "deactivationRelativeTo": HTMLElement;
-        /**
-          * Open or closes the menu. The menu itself can edit this prop.
-          * @see closeOnOuterClick
-          * @see deactivationRelativeTo
-         */
-        "isActive": boolean;
-        /**
-          * Specifies how many pixels will be use to separate the menu from its positionRelativeTo element.
-         */
-        "margin": number;
-        /**
-          * The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
-          * @see position
-         */
-        "positionRelativeTo": HTMLElement;
-    }
     interface KupModal {
         "header": string;
         "visible": boolean;
@@ -1387,7 +1328,7 @@ export namespace Components {
          */
         "density": string;
         /**
-          * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
+          * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion
          */
         "dynamicExpansionCallback": (
@@ -1428,10 +1369,6 @@ export namespace Components {
           * Shows the icons of the nodes.
          */
         "showIcons": boolean;
-        /**
-          * When a node has options in its data and is on mouse over state while this prop is true, the node must shows the cog wheel to trigger object navigation upon click.  This will generate an event to inform the navigation object has been activated.
-         */
-        "showObjectNavigation": boolean;
         "stateId": string;
         "store": KupStore;
         /**
@@ -1498,12 +1435,6 @@ declare global {
     var HTMLKupCheckboxElement: {
         prototype: HTMLKupCheckboxElement;
         new (): HTMLKupCheckboxElement;
-    };
-    interface HTMLKupCheckboxMenuElement extends Components.KupCheckboxMenu, HTMLStencilElement {
-    }
-    var HTMLKupCheckboxMenuElement: {
-        prototype: HTMLKupCheckboxMenuElement;
-        new (): HTMLKupCheckboxMenuElement;
     };
     interface HTMLKupChipElement extends Components.KupChip, HTMLStencilElement {
     }
@@ -1613,12 +1544,6 @@ declare global {
         prototype: HTMLKupListElement;
         new (): HTMLKupListElement;
     };
-    interface HTMLKupMenuElement extends Components.KupMenu, HTMLStencilElement {
-    }
-    var HTMLKupMenuElement: {
-        prototype: HTMLKupMenuElement;
-        new (): HTMLKupMenuElement;
-    };
     interface HTMLKupModalElement extends Components.KupModal, HTMLStencilElement {
     }
     var HTMLKupModalElement: {
@@ -1713,7 +1638,6 @@ declare global {
         "kup-card": HTMLKupCardElement;
         "kup-chart": HTMLKupChartElement;
         "kup-checkbox": HTMLKupCheckboxElement;
-        "kup-checkbox-menu": HTMLKupCheckboxMenuElement;
         "kup-chip": HTMLKupChipElement;
         "kup-combobox": HTMLKupComboboxElement;
         "kup-crud": HTMLKupCrudElement;
@@ -1732,7 +1656,6 @@ declare global {
         "kup-layout": HTMLKupLayoutElement;
         "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
-        "kup-menu": HTMLKupMenuElement;
         "kup-modal": HTMLKupModalElement;
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-paginator": HTMLKupPaginatorElement;
@@ -1940,18 +1863,11 @@ declare namespace LocalJSX {
         "onKupBoxSelected"?: (event: CustomEvent<{
         rows: BoxRow[];
     }>) => void;
-        /**
-          * Triggered when start propagation event
-         */
-        "onKupDidLoad"?: (event: CustomEvent<{
-        EventEmitter: Boolean;
-    }>) => void;
+        "onKupDidLoad"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when stop propagation event
          */
-        "onKupDidUnload"?: (event: CustomEvent<{
-        EventEmitter: Boolean;
-    }>) => void;
+        "onKupDidUnload"?: (event: CustomEvent<void>) => void;
         /**
           * When the row menu action icon is clicked
          */
@@ -2089,10 +2005,6 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the icon button will be toggable on/off.
          */
         "toggable"?: boolean;
-        /**
-          * When set, this tooltip will be displayed on mouse over (using the HTML attribute title).
-         */
-        "tooltip"?: string;
         /**
           * Defaults at null. When set, the icon will be shown after the text.
          */
@@ -2260,40 +2172,6 @@ declare namespace LocalJSX {
         value: string;
         checked: boolean;
     }>) => void;
-    }
-    interface KupCheckboxMenu {
-        /**
-          * Sets if the checkbox menu should be disabled
-         */
-        "disabled"?: boolean;
-        /**
-          * Chooses which field of an item object should be used to create the list and be filtered.
-         */
-        "displayedField"?: string;
-        /**
-          * The label to show as a placeholder inside the filter input
-         */
-        "filterLabel"?: string;
-        /**
-          * Marks the field as filterable, allowing an input text to filter the options
-         */
-        "isFilterable"?: boolean;
-        /**
-          * Sets the checkbox to be disabled  Must have reflect into the attribute
-         */
-        "items"?: KupCheckboxMenuItem[];
-        /**
-          * The label to set to the component
-         */
-        "label"?: string;
-        /**
-          * Fired when the checkbox input changes its value
-         */
-        "onKupCheckboxMenuSelected"?: (event: CustomEvent<KupCheckboxMenuItem[]>) => void;
-        /**
-          * Chooses which field of an item object should be used to create the list and be filtered.
-         */
-        "valueField"?: string;
     }
     interface KupChip {
         /**
@@ -2527,23 +2405,14 @@ declare namespace LocalJSX {
     }>) => void;
         "onKupCellButtonClicked"?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
         "onKupDataTableSortedColumn"?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
-
-        /**
-          * When a tooltip request detail data
-         */
-        "onKupDetailRequest"?: (event: CustomEvent<{
-        cell: Cell;
-        tooltip: KupTooltip;
-    }>) => void;
         /**
           * When component load is complete
          */
         "onKupDidLoad"?: (event: CustomEvent<{}>) => void;
         /**
-          * When component uloade is complete
+          * When component unload is complete
          */
         "onKupDidUnload"?: (event: CustomEvent<{}>) => void;
-
         "onKupLoadMoreClicked"?: (event: CustomEvent<{
         loadItems: number;
     }>) => void;
@@ -2598,6 +2467,10 @@ declare namespace LocalJSX {
           * Semicolon separated rows id to select.
          */
         "selectRowsById"?: string;
+        /**
+          * If set to true, displays the button to open the customization panel.
+         */
+        "showCustomization"?: boolean;
         /**
           * When set to true enables the column filters.
          */
@@ -3024,38 +2897,6 @@ declare namespace LocalJSX {
           * The list elements descriptions will be arranged in two lines.
          */
         "twoLine"?: boolean;
-    }
-    interface KupMenu {
-        /**
-          * When set to true, the menu will automatically close when the user clicks outside of its deactivationRelativeTo prop.
-          * @see deactivationRelativeTo
-         */
-        "closeOnOuterClick"?: boolean;
-        /**
-          * When closeOnOuterClick is set to true, the menu will search for this element inside the event path: if found, then the menu will not be closed. Therefore, if the menu closing event comes from this element or one of its descendants, the menu will not be closed. If left to null, the component will automatically use the element provided by positionRelativeTo prop. If positionRelativeTo is not defined, it will default to the menu parent element.
-          * @see closeOnOuterClick
-          * @see positionRelativeTo
-         */
-        "deactivationRelativeTo"?: HTMLElement;
-        /**
-          * Open or closes the menu. The menu itself can edit this prop.
-          * @see closeOnOuterClick
-          * @see deactivationRelativeTo
-         */
-        "isActive"?: boolean;
-        /**
-          * Specifies how many pixels will be use to separate the menu from its positionRelativeTo element.
-         */
-        "margin"?: number;
-        /**
-          * When the menu gets closed.
-         */
-        "onKupMenuClose"?: (event: CustomEvent<void>) => void;
-        /**
-          * The element relative to which the menu will be opened in a given position. If left to null, once, when the component menu is mounted, this prop will be automatically set to the parent HTML element.
-          * @see position
-         */
-        "positionRelativeTo"?: HTMLElement;
     }
     interface KupModal {
         "header"?: string;
@@ -3495,6 +3336,9 @@ declare namespace LocalJSX {
         "onKupDefaultOptionClicked"?: (event: CustomEvent<{
         obj: TooltipObject;
     }>) => void;
+        "onKupDefaultPreviewClicked"?: (event: CustomEvent<{
+        obj: TooltipObject;
+    }>) => void;
         "onKupTooltipLoadCellOptions"?: (event: CustomEvent<{
         relatedObject: TooltipRelatedObject;
         tooltip: KupTooltip;
@@ -3534,7 +3378,7 @@ declare namespace LocalJSX {
          */
         "density"?: string;
         /**
-          * Function that gets invoked when a new set of nodes must be loaded as children of a node. Used in combination with showObjectNavigation.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
+          * Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change.
           * @see useDynamicExpansion
          */
         "dynamicExpansionCallback"?: (
@@ -3558,15 +3402,6 @@ declare namespace LocalJSX {
           * Triggered when stop propagation event
          */
         "onKupDidUnload"?: (event: CustomEvent<void>) => void;
-        /**
-          * When a cell option is clicked. If the cell option is the one of the TreeNodeCell, then column will be set to the fixed value {name: "TreeNodeCell", title: "TreeNodeCell"}.
-         */
-        "onKupOptionClicked"?: (event: CustomEvent<{
-        cell: Cell;
-        column: Column;
-        treeNode: TreeNode;
-        tree: KupTree;
-    }>) => void;
         "onKupTreeNodeButtonClicked"?: (event: CustomEvent<{
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
@@ -3633,10 +3468,6 @@ declare namespace LocalJSX {
           * Shows the icons of the nodes.
          */
         "showIcons"?: boolean;
-        /**
-          * When a node has options in its data and is on mouse over state while this prop is true, the node must shows the cog wheel to trigger object navigation upon click.  This will generate an event to inform the navigation object has been activated.
-         */
-        "showObjectNavigation"?: boolean;
         "stateId"?: string;
         "store"?: KupStore;
         /**
@@ -3663,7 +3494,6 @@ declare namespace LocalJSX {
         "kup-card": KupCard;
         "kup-chart": KupChart;
         "kup-checkbox": KupCheckbox;
-        "kup-checkbox-menu": KupCheckboxMenu;
         "kup-chip": KupChip;
         "kup-combobox": KupCombobox;
         "kup-crud": KupCrud;
@@ -3682,7 +3512,6 @@ declare namespace LocalJSX {
         "kup-layout": KupLayout;
         "kup-lazy": KupLazy;
         "kup-list": KupList;
-        "kup-menu": KupMenu;
         "kup-modal": KupModal;
         "kup-nav-bar": KupNavBar;
         "kup-paginator": KupPaginator;
@@ -3712,7 +3541,6 @@ declare module "@stencil/core" {
             "kup-card": LocalJSX.KupCard & JSXBase.HTMLAttributes<HTMLKupCardElement>;
             "kup-chart": LocalJSX.KupChart & JSXBase.HTMLAttributes<HTMLKupChartElement>;
             "kup-checkbox": LocalJSX.KupCheckbox & JSXBase.HTMLAttributes<HTMLKupCheckboxElement>;
-            "kup-checkbox-menu": LocalJSX.KupCheckboxMenu & JSXBase.HTMLAttributes<HTMLKupCheckboxMenuElement>;
             "kup-chip": LocalJSX.KupChip & JSXBase.HTMLAttributes<HTMLKupChipElement>;
             "kup-combobox": LocalJSX.KupCombobox & JSXBase.HTMLAttributes<HTMLKupComboboxElement>;
             "kup-crud": LocalJSX.KupCrud & JSXBase.HTMLAttributes<HTMLKupCrudElement>;
@@ -3731,7 +3559,6 @@ declare module "@stencil/core" {
             "kup-layout": LocalJSX.KupLayout & JSXBase.HTMLAttributes<HTMLKupLayoutElement>;
             "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
-            "kup-menu": LocalJSX.KupMenu & JSXBase.HTMLAttributes<HTMLKupMenuElement>;
             "kup-modal": LocalJSX.KupModal & JSXBase.HTMLAttributes<HTMLKupModalElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-paginator": LocalJSX.KupPaginator & JSXBase.HTMLAttributes<HTMLKupPaginatorElement>;

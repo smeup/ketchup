@@ -25,6 +25,7 @@
 | `kupActionCommandClicked`   |             | `CustomEvent<{ actionCommand: TooltipAction; }>`                             |
 | `kupDefaultActionClicked`   |             | `CustomEvent<{ obj: TooltipObject; }>`                                       |
 | `kupDefaultOptionClicked`   |             | `CustomEvent<{ obj: TooltipObject; }>`                                       |
+| `kupDefaultPreviewClicked`  |             | `CustomEvent<{ obj: TooltipObject; }>`                                       |
 | `kupTooltipLoadCellOptions` |             | `CustomEvent<{ relatedObject: TooltipRelatedObject; tooltip: KupTooltip; }>` |
 | `kupTooltipLoadData`        |             | `CustomEvent<{ relatedObject: TooltipRelatedObject; tooltip: KupTooltip; }>` |
 | `kupTooltipLoadDetail`      |             | `CustomEvent<{ relatedObject: TooltipRelatedObject; tooltip: KupTooltip; }>` |
@@ -53,8 +54,8 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
-  kup-tree --> kup-button
   kup-tree --> kup-lazy
+  kup-tree --> kup-button
   kup-tree --> kup-checkbox
   kup-tree --> kup-image
   kup-tree --> kup-progress-bar

@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import Home from '@/views/Home.vue';
-import About from '@/views/About.vue';
 
 Vue.use(Router);
 
@@ -11,11 +10,6 @@ const baseRoutes = [
     path: '/',
     name: 'home',
     component: Home,
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: About,
   },
 ];
 
@@ -169,11 +163,6 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/imagebutton/Imagebutton.vue`),
   },
   {
-    path: `/menu`,
-    name: 'menu',
-    component: () => import(`@/views/advanced/menu/Menu.vue`),
-  },
-  {
     path: `/search`,
     name: 'search',
     component: () => import(`@/views/advanced/search/Search.vue`),
@@ -228,6 +217,16 @@ let testRoutes = [
     path: `/test/performance`,
     name: 'testPerformance',
     component: () => import(`@/views/test/Performance.vue`),
+  },
+  {
+    path: `/test/performance-tree`,
+    name: 'testPerformanceTree',
+    component: () => import(`@/views/test/PerformanceTree.vue`),
+  },
+  {
+    path: `/test/graphic-cells`,
+    name: 'testGraphicCells',
+    component: () => import(`@/views/test/GraphicCells.vue`),
   },
 ];
 
