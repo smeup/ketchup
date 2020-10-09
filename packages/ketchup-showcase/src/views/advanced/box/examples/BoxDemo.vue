@@ -67,7 +67,7 @@ export default {
         {
           prop: 'className',
           description:
-            'Available classes: left-aligned, right-aligned, borderless. Read below for detailed information.',
+            'Available classes: left-aligned, right-aligned, borderless and paddingless. Read below for detailed information.',
           type: 'string',
           default: '""',
           try: 'field',
@@ -141,13 +141,6 @@ export default {
         {
           prop: 'multiSelection',
           description: 'Enable multi selection.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'noPadding',
-          description: 'Removes padding.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
