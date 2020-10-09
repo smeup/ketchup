@@ -1038,6 +1038,12 @@ export class KupBox {
         setTooltip(event, cell, this.tooltip);
     }
 
+    private _unsetTooltip() {
+        if (!this.tooltip.mouseIsOn()) {
+            unsetTooltip(this.tooltip);
+        }
+    }
+
     private handleRowsPerPageChanged({ detail }) {
         this.currentRowsPerPage = detail.newRowsPerPage;
         this.adjustPaginator();
@@ -1612,9 +1618,16 @@ export class KupBox {
                 style={boStyle}
             >
                 <span
-                    onMouseOver={(e) =>
-                        _hasTooltip ? this._setTooltip(e, cell) : null
-                    }
+                    onMouseEnter={(ev) => {
+                        if (_hasTooltip) {
+                            this._setTooltip(ev, cell);
+                        } else {
+                            this._unsetTooltip();
+                        }
+                    }}
+                    onMouseLeave={() => {
+                        this._unsetTooltip();
+                    }}
                 >
                     {boContent}
                 </span>
@@ -1740,11 +1753,7 @@ export class KupBox {
         return (
             <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
-                <div
-                    id="kup-component"
-                    class={wrapperClass}
-                    onMouseLeave={(ev) => unsetTooltip(this.tooltip, ev)}
-                >
+                <div id="kup-component" class={wrapperClass}>
                     <div
                         class="box-component"
                         onDragOver={
@@ -1769,7 +1778,14 @@ export class KupBox {
                         {sortPanel}
                         {filterPanel}
                         {paginator}
-                        <div id="box-container" style={containerStyle}>
+                        <div
+                            id="box-container"
+                            style={containerStyle}
+                            onMouseLeave={(ev) => {
+                                ev.stopPropagation();
+                                this._unsetTooltip();
+                            }}
+                        >
                             {boxContent}
                         </div>
                         {tooltip}

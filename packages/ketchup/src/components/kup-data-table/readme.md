@@ -86,7 +86,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kupCellButtonClicked`     |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
 | `kupDataTableSortedColumn` |                                                | `CustomEvent<KupDataTableSortedColumnIndexes>`                                                                |
 | `kupDidLoad`               | When component load is complete                | `CustomEvent<{}>`                                                                                             |
-| `kupDidUnload`             | When component uloade is complete              | `CustomEvent<{}>`                                                                                             |
+| `kupDidUnload`             | When component unload is complete              | `CustomEvent<{}>`                                                                                             |
 | `kupLoadMoreClicked`       |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
 | `kupOptionClicked`         | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
 | `kupResetSelectedRows`     | When rows selections reset                     | `CustomEvent<{}>`                                                                                             |
