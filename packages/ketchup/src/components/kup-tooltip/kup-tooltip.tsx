@@ -7,6 +7,7 @@ import {
     Watch,
     State,
     h,
+    Method,
 } from '@stencil/core';
 
 import {
@@ -206,7 +207,8 @@ export class KupTooltip {
     private waitingServerResponse = false;
 
     // ---- Public methods  ----
-    public mouseIsOn(): boolean {
+    @Method()
+    async mouseIsOn() {
         return this._mouseIsOn;
     }
 
