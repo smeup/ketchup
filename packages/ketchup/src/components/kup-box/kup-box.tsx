@@ -62,6 +62,7 @@ import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { identify } from '../../utils/utils';
+
 @Component({
     tag: 'kup-box',
     styleUrl: 'kup-box.scss',
@@ -1261,9 +1262,12 @@ export class KupBox {
             badges = row.badgeData.map((badge) => (
                 <kup-badge
                     text={badge.text}
-                    position={badge.position}
+                    class={
+                        badge['className']
+                            ? `centered ${badge['className']}`
+                            : 'centered'
+                    }
                     imageData={badge.imageData}
-                    class="centered"
                 />
             ));
         }
