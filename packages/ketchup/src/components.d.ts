@@ -1296,6 +1296,7 @@ export namespace Components {
           * Timeout for tooltip
          */
         "loadTimeout": number;
+        "mouseIsOn": () => Promise<boolean>;
         /**
           * Container element for tooltip
          */

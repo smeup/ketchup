@@ -470,7 +470,9 @@ export class KupBox {
 
     componentWillLoad() {
         this.startTime = performance.now();
-        identify(this.data.rows);
+        if (this.data) {
+            identify(this.data.rows);
+        }
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
         } else if (this.pageSize) {
