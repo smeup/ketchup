@@ -4,8 +4,10 @@ import { Identifiable } from '../types/GenericTypes';
 import { logMessage } from './debug-manager';
 
 export function identify(array: Array<Identifiable>) {
-    for (let i = 0; i < array.length; i++) {
-        array[i].id = i.toString();
+    if (array) {
+        for (let i = 0; i < array.length; i++) {
+            array[i].id = i.toString();
+        }
     }
 }
 

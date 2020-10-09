@@ -892,7 +892,9 @@ export class KupDataTable {
 
     componentWillLoad() {
         this.startTime = performance.now();
-        identify(this.data.rows);
+        if (this.data) {
+            identify(this.data.rows);
+        }
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
                 '.header'
