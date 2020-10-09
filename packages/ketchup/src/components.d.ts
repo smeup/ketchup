@@ -130,10 +130,6 @@ export namespace Components {
          */
         "multiSelection": boolean;
         /**
-          * Removes padding
-         */
-        "noPadding": boolean;
-        /**
           * current number page
          */
         "pageSelected": number;
@@ -1789,10 +1785,6 @@ declare namespace LocalJSX {
           * Enable multi selection
          */
         "multiSelection"?: boolean;
-        /**
-          * Removes padding
-         */
-        "noPadding"?: boolean;
         /**
           * Triggered when a box is auto selected via selectBox prop
          */

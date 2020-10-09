@@ -177,11 +177,6 @@ export class KupBox {
     @Prop({ reflect: true })
     multiSelection = false;
     /**
-     * Removes padding
-     */
-    @Prop({ reflect: true })
-    noPadding: boolean = false;
-    /**
      * Number of boxes per page
      */
     @Prop({ reflect: true })
@@ -1645,12 +1640,6 @@ export class KupBox {
     }
 
     render() {
-        let wrapperClass: string = '';
-
-        if (this.noPadding) {
-            wrapperClass += ' no-padding';
-        }
-
         let sortPanel = null;
         if (this.sortEnabled) {
             // creating items
@@ -1747,7 +1736,7 @@ export class KupBox {
         return (
             <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component" class={wrapperClass}>
+                <div id="kup-component">
                     <div
                         class="box-component"
                         onDragOver={

@@ -1,23 +1,5 @@
 :host {
-  #kup-component {
-    &.no-padding {
-      #box-container {
-        .box {
-          padding: 0;
-
-          .box-section {
-            .box-object {
-              padding: 0;
-            }
-
-            &.last-child {
-              margin: 0;
-            }
-          }
-        }
-      }
-    }
-  }
+  display: block;
 }
 
 :host(.left-aligned) {
@@ -58,6 +40,24 @@
   }
 }
 
+:host(:not(.paddingless)) {
+  #box-container {
+    .box {
+      padding: 3px;
+
+      .box-section {
+        .box-object {
+          padding: 1px 4px;
+        }
+
+        &.last-child {
+          margin: 3px 4px;
+        }
+      }
+    }
+  }
+}
+
 .box-section {
   text-align: center;
 
@@ -94,7 +94,6 @@
     align-items: center;
 
     .box {
-      padding: 3px;
       flex-grow: 1;
       cursor: pointer;
       position: relative;
@@ -165,7 +164,6 @@
         }
 
         .box-object {
-          padding: 1px 4px;
           min-height: 16px;
 
           &.has-padding {
@@ -180,10 +178,6 @@
           img {
             height: auto;
           }
-        }
-
-        &.last-child {
-          margin: 3px 4px;
         }
 
         // collapsible sections
