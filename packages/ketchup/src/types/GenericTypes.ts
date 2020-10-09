@@ -1,3 +1,7 @@
 export interface GenericObject {
-  [index: string]: any;
+    [index: string]: any;
+}
+
+export interface Identifiable {
+    id?: string;
 }

@@ -79,6 +79,7 @@ import {
     formattedStringToUnformattedStringNumber,
     unformattedStringToFormattedStringNumber,
     numberToFormattedStringNumber,
+    identify,
 } from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 
@@ -891,6 +892,7 @@ export class KupDataTable {
 
     componentWillLoad() {
         this.startTime = performance.now();
+        identify(this.data.rows);
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
                 '.header'
