@@ -67,7 +67,7 @@ export default {
         {
           prop: 'className',
           description:
-            'Available classes: left-aligned, right-aligned. Read below for detailed information.',
+            'Available classes: left-aligned, right-aligned, borderless. Read below for detailed information.',
           type: 'string',
           default: '""',
           try: 'field',
@@ -141,13 +141,6 @@ export default {
         {
           prop: 'multiSelection',
           description: 'Enable multi selection.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'noBorder',
-          description: 'Removes border.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -238,7 +231,6 @@ function createComp() {
   comp.columns = '4';
   comp.data = defaultData;
   comp.id = 'demo-component';
-  comp.noBorder = true;
   return comp;
 }
 </script>
