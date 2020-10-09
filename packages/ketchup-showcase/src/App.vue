@@ -379,7 +379,7 @@ export default {
               name: 'combobox',
             },
           },
-            {
+          {
             title: 'Drawer',
             to: {
               name: 'drawer',
