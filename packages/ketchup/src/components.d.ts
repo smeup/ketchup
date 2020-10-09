@@ -89,10 +89,6 @@ export namespace Components {
          */
         "columns": number;
         /**
-          * Alignment of the content. Can be set to left, right or center.
-         */
-        "contentAlign": string;
-        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
@@ -1757,10 +1753,6 @@ declare namespace LocalJSX {
           * Number of columns
          */
         "columns"?: number;
-        /**
-          * Alignment of the content. Can be set to left, right or center.
-         */
-        "contentAlign"?: string;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */

@@ -134,11 +134,6 @@ export class KupBox {
      */
     @Prop({ reflect: true }) columns = 1;
     /**
-     * Alignment of the content. Can be set to left, right or center.
-     */
-    @Prop({ reflect: true })
-    contentAlign: string = 'center';
-    /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop({ reflect: true }) customStyle: string = undefined;
@@ -1655,7 +1650,7 @@ export class KupBox {
     }
 
     render() {
-        let wrapperClass = this.contentAlign + '-aligned';
+        let wrapperClass: string = '';
 
         if (this.noBorder) {
             wrapperClass += ' no-border';
