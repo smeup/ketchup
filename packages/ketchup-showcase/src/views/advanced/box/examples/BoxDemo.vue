@@ -65,18 +65,18 @@ export default {
           try: 'json',
         },
         {
+          prop: 'className',
+          description:
+            'Available classes: left-aligned, right-aligned. Read below for detailed information.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'columns',
           description: 'Number of columns.',
           type: 'number',
           default: '1',
-          try: 'field',
-        },
-        {
-          prop: 'contentAlign',
-          description:
-            'Alignment of the content. Can be set to left, right or center.',
-          type: 'string',
-          default: 'center',
           try: 'field',
         },
         {
@@ -236,7 +236,6 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-box');
   comp.columns = '4';
-  comp.contentAlign = 'center';
   comp.data = defaultData;
   comp.id = 'demo-component';
   comp.noBorder = true;
