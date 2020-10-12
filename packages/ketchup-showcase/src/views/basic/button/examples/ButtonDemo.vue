@@ -68,13 +68,6 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'flat',
-          description: 'The button will be rendered as flat text.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'icon',
           description:
             'The button will be rendered with the specified Material Design icon.',
@@ -99,18 +92,19 @@ export default {
           try: 'field',
         },
         {
-          prop: 'outlined',
-          description: 'The button will be rendered with an outlined style.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'shaped',
           description: "The button's borders will be more rounded.",
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'styling',
+          description:
+            'Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.',
+          type: 'string',
+          default: '""',
+          try: 'field',
         },
         {
           prop: 'toggable',

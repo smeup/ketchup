@@ -37,10 +37,6 @@ export class KupButton {
      */
     @Prop() disabled: boolean = false;
     /**
-     * Defaults at false. When set to true, the button will be rendered flat.
-     */
-    @Prop() flat: boolean = false;
-    /**
      * Defaults at null. When set, the button will show this icon.
      */
     @Prop() icon: string = null;
@@ -53,13 +49,13 @@ export class KupButton {
      */
     @Prop() label: string = null;
     /**
-     * Defaults at false. When set to true, the button will be rendered with a colored outline.
-     */
-    @Prop() outlined: boolean = false;
-    /**
      * Defaults at false. When set to true, the button will be rendered with rounded edges.
      */
     @Prop() shaped: boolean = false;
+    /**
+     * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
+     */
+    @Prop() styling: string = '';
     /**
      * Defaults at false. When set to true, the icon button will be toggable on/off.
      */
@@ -217,7 +213,10 @@ export class KupButton {
             labelEl = <span class="mdc-button__label">{this.label}</span>;
             if (this.icon) {
                 if (!iconColor) {
-                    if (this.flat || this.outlined) {
+                    if (
+                        this.styling === 'flat' ||
+                        this.styling === 'outlined'
+                    ) {
                         iconColor = 'var(--kup-main-color)';
                     } else {
                         iconColor = 'var(--kup-text-on-main-color)';
@@ -234,9 +233,9 @@ export class KupButton {
                 );
             }
 
-            if (this.outlined) {
+            if (this.styling === 'outlined') {
                 componentClass += ' mdc-button--outlined';
-            } else if (!this.flat) {
+            } else if (this.styling !== 'flat') {
                 componentClass += ' mdc-button--raised';
             }
 

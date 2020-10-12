@@ -199,17 +199,9 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Defaults at false. When set to true, the button will be rendered flat.
-         */
-        "flat": boolean;
-        /**
           * Defaults at null. When set, the button will show this icon.
          */
         "icon": string;
-        /**
-          * If not set, it will be managed by the component.
-         */
-        "iconColor": string;
         /**
           * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
          */
@@ -218,15 +210,15 @@ export namespace Components {
           * Defaults at null. When set, the button will show this text.
          */
         "label": string;
-        /**
-          * Defaults at false. When set to true, the button will be rendered with a colored outline.
-         */
-        "outlined": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Defaults at false. When set to true, the button will be rendered with rounded edges.
          */
         "shaped": boolean;
+        /**
+          * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
+         */
+        "styling": string;
         /**
           * Defaults at false. When set to true, the icon button will be toggable on/off.
          */
@@ -1914,17 +1906,9 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Defaults at false. When set to true, the button will be rendered flat.
-         */
-        "flat"?: boolean;
-        /**
           * Defaults at null. When set, the button will show this icon.
          */
         "icon"?: string;
-        /**
-          * If not set, it will be managed by the component.
-         */
-        "iconColor"?: string;
         /**
           * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
          */
@@ -1946,13 +1930,13 @@ declare namespace LocalJSX {
         value: string;
     }>) => void;
         /**
-          * Defaults at false. When set to true, the button will be rendered with a colored outline.
-         */
-        "outlined"?: boolean;
-        /**
           * Defaults at false. When set to true, the button will be rendered with rounded edges.
          */
         "shaped"?: boolean;
+        /**
+          * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
+         */
+        "styling"?: string;
         /**
           * Defaults at false. When set to true, the icon button will be toggable on/off.
          */
