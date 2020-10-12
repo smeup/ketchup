@@ -211,6 +211,10 @@ export class KupBox {
     @Prop({ reflect: true })
     showSelection = true;
     /**
+     * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+     */
+    @Prop() showTooltipOnRightClick: boolean = true;
+    /**
      * If sorting is enabled, specifies which column to sort
      */
     @Prop({ mutable: true, reflect: true })
@@ -1043,9 +1047,7 @@ export class KupBox {
     }
 
     private _unsetTooltip() {
-        if (!this.tooltip.mouseIsOn()) {
-            unsetTooltip(this.tooltip);
-        }
+        unsetTooltip(this.tooltip);
     }
 
     private handleRowsPerPageChanged({ detail }) {
@@ -1623,14 +1625,26 @@ export class KupBox {
             >
                 <span
                     onMouseEnter={(ev) => {
-                        if (_hasTooltip) {
+                        if (
+                            _hasTooltip &&
+                            this.showTooltipOnRightClick == false
+                        ) {
                             this._setTooltip(ev, cell);
-                        } else {
+                        } else if (!_hasTooltip) {
                             this._unsetTooltip();
                         }
                     }}
                     onMouseLeave={() => {
                         this._unsetTooltip();
+                    }}
+                    onContextMenu={(ev) => {
+                        ev.preventDefault();
+                        if (
+                            _hasTooltip &&
+                            this.showTooltipOnRightClick == true
+                        ) {
+                            this._setTooltip(ev, cell);
+                        }
                     }}
                 >
                     {boContent}
@@ -1643,7 +1657,11 @@ export class KupBox {
         return (
             <kup-tooltip
                 class="box-tooltip"
-                loadTimeout={this.tooltipLoadTimeout}
+                loadTimeout={
+                    this.showTooltipOnRightClick == true
+                        ? 0
+                        : this.tooltipLoadTimeout
+                }
                 detailTimeout={this.tooltipDetailTimeout}
                 ref={(el: any) => (this.tooltip = el as KupTooltip)}
             ></kup-tooltip>

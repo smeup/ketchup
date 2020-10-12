@@ -153,15 +153,15 @@ export class KupTooltip {
     onDataChanged() {
         this.waitingServerResponse = false;
         if (this.relatedObject == null) {
-            this.resetAll();
+            this.onElementChanged();
             return;
         }
         if (this.data == null) {
-            this.resetAll();
+            this.relatedObject = null;
             return;
         }
         this.visible = true;
-        this._mouseIsOn = true;
+        //this._mouseIsOn = true;
         this.startLoadDetail(true);
     }
 
@@ -169,11 +169,11 @@ export class KupTooltip {
     @Watch('detailData')
     onTooltipDetailChanged() {
         if (this.relatedObject == null) {
-            this.resetAll();
+            this.onElementChanged();
             return;
         }
         if (this.data == null) {
-            this.resetAll();
+            this.relatedObject = null;
             return;
         }
 
@@ -198,12 +198,29 @@ export class KupTooltip {
     private waitingServerResponse = false;
 
     // ---- Public methods  ----
+
     @Method()
-    async mouseIsOn() {
-        return this._mouseIsOn;
+    async setTooltipInfo(relatedObject: TooltipRelatedObject) {
+        //console.log('tooltip setTooltipInfo');
+        this.resetAll();
+        this.relatedObject = relatedObject;
+    }
+
+    @Method()
+    async unsetTooltipInfo() {
+        if (!this.mouseIsOn()) {
+            //console.log('tooltip unsetTooltipInfo');
+            this.onMouseLeave();
+        } else {
+            //console.log('tooltip unsetTooltipInfo mouseIsoN');
+        }
     }
 
     // ---- Private methods ----
+    private mouseIsOn() {
+        return this._mouseIsOn || this.waitingServerResponse;
+    }
+
     private hasDetailData(): boolean {
         return !!this.detailData && !!this.detailData.rows;
     }
@@ -401,7 +418,7 @@ export class KupTooltip {
         if (!this.waitingServerResponse) {
             let timeout = 800;
             this.mouseLeaveTimeout = setTimeout(() => {
-                this.resetAll();
+                this.relatedObject = null;
             }, timeout);
         }
     }
@@ -537,7 +554,6 @@ export class KupTooltip {
         if (this.hasCellOptionsData()) {
             detailContent = [
                 <kup-tree
-                    customStyle="font-size: calc(var(--kup-font-size) * 0.75);"
                     {...this.cellOptions.config}
                     {...this.cellOptions}
                 ></kup-tree>,
@@ -632,9 +648,6 @@ export class KupTooltip {
         if (this.visible) {
             positionRecalc(this.rootElement, this.relatedObject.element);
             this.rootElement.classList.add('dynamic-position-active');
-            console.log(
-                '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!CACCA'
-            );
         } else {
             this.rootElement.classList.remove('dynamic-position-active');
         }
