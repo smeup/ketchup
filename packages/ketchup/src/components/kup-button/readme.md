@@ -11,8 +11,6 @@
 | `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                               | `string`  | `undefined` |
 | `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                                               | `boolean` | `false`     |
 | `flat`         | `flat`          | Defaults at false. When set to true, the button will be rendered flat.                                                                        | `boolean` | `false`     |
-| `fullHeight`   | `full-height`   | Defaults at false. When set to true fill all the available horizontal space.                                                                  | `boolean` | `false`     |
-| `fullWidth`    | `full-width`    | Defaults at false. When set to true fill all the available horizontal space.                                                                  | `boolean` | `false`     |
 | `icon`         | `icon`          | Defaults at null. When set, the button will show this icon.                                                                                   | `string`  | `null`      |
 | `iconColor`    | `icon-color`    | If not set, it will be managed by the component.                                                                                              | `string`  | `null`      |
 | `iconOff`      | `icon-off`      | Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed. | `string`  | `null`      |

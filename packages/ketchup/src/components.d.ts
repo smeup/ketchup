@@ -203,14 +203,6 @@ export namespace Components {
          */
         "flat": boolean;
         /**
-          * Defaults at false. When set to true fill all the available horizontal space.
-         */
-        "fullHeight": boolean;
-        /**
-          * Defaults at false. When set to true fill all the available horizontal space.
-         */
-        "fullWidth": boolean;
-        /**
           * Defaults at null. When set, the button will show this icon.
          */
         "icon": string;
@@ -1925,14 +1917,6 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the button will be rendered flat.
          */
         "flat"?: boolean;
-        /**
-          * Defaults at false. When set to true fill all the available horizontal space.
-         */
-        "fullHeight"?: boolean;
-        /**
-          * Defaults at false. When set to true fill all the available horizontal space.
-         */
-        "fullWidth"?: boolean;
         /**
           * Defaults at null. When set, the button will show this icon.
          */

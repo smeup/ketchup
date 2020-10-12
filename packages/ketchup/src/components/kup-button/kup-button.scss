@@ -6,6 +6,26 @@
   margin: auto;
 }
 
+:host(.full-height) {
+  height: 100%;
+  #kup-component {
+    height: 100%;
+  }
+  .mdc-button {
+    height: 100%;
+  }
+}
+
+:host(.full-width) {
+  width: 100%;
+  #kup-component {
+    width: 100%;
+  }
+  .mdc-button {
+    width: 100%;
+  }
+}
+
 .mdc-button {
   font-family: var(--kup-font-family);
 
@@ -24,14 +44,6 @@
 
   &.mdc-button--raised:disabled {
     background: var(--kup-disabled-background-color);
-  }
-
-  &.fullwidth {
-    width: 100%;
-  }
-
-  &.fullheight {
-    height: 100%;
   }
 }
 

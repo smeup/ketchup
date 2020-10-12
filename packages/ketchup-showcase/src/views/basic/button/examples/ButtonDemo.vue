@@ -44,6 +44,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'className',
+          description:
+            'Available classes: full-height, full-width. Read below for detailed information.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
@@ -62,22 +70,6 @@ export default {
         {
           prop: 'flat',
           description: 'The button will be rendered as flat text.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'fullHeight',
-          description:
-            'The button will fill all available vertical space. Has no effect on icon buttons variant.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'fullWidth',
-          description:
-            'The button will fill all available horizontal space. Has no effect on icon buttons variant.',
           type: 'boolean',
           default: 'false',
           try: 'switch',

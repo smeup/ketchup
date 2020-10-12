@@ -41,14 +41,6 @@ export class KupButton {
      */
     @Prop({ reflect: true }) flat: boolean = false;
     /**
-     * Defaults at false. When set to true fill all the available horizontal space.
-     */
-    @Prop({ reflect: true }) fullHeight = false;
-    /**
-     * Defaults at false. When set to true fill all the available horizontal space.
-     */
-    @Prop({ reflect: true }) fullWidth = false;
-    /**
      * Defaults at null. When set, the button will show this icon.
      */
     @Prop({ reflect: true }) icon: string = null;
@@ -217,7 +209,6 @@ export class KupButton {
         let labelEl: HTMLElement = null;
         let leadingEl: HTMLElement = null;
         let trailingEl: HTMLElement = null;
-        let elStyle = undefined;
         let iconColor = undefined;
 
         if (this.disabled) {
@@ -259,21 +250,6 @@ export class KupButton {
                 componentClass += ' button-shaped';
             }
 
-            if (this.fullWidth) {
-                componentClass += ' fullwidth';
-                elStyle = {
-                    width: '100%',
-                };
-            }
-
-            if (this.fullHeight) {
-                componentClass += ' fullheight';
-                elStyle = {
-                    ...elStyle,
-                    height: '100%',
-                };
-            }
-
             if (this.trailingIcon && this.icon) {
                 leadingEl = labelEl;
                 trailingEl = iconEl;
@@ -282,9 +258,9 @@ export class KupButton {
                 trailingEl = labelEl;
             }
             return (
-                <Host class="handles-custom-style" style={elStyle}>
+                <Host class="handles-custom-style">
                     <style>{setCustomStyle(this)}</style>
-                    <div id="kup-component" style={elStyle}>
+                    <div id="kup-component">
                         <button
                             type="button"
                             class={componentClass}

@@ -44,18 +44,17 @@
       <p>
         It is possible to set the button to fill all available space both
         vertically and horizontally, using the
-        <span class="code-word">fullHeight</span> and
-        <span class="code-word">fullWidth</span> props. You can use them both as
-        in the example below.
+        <span class="code-word">full-height</span> and
+        <span class="code-word">full-width</span> classes. You can use them both
+        as in the example below.
       </p>
       <div class="demo-container">
         <div
           class="kup-container"
-          style="height: 25vh; width: 50vw; margin: auto;  margin-bottom: 2rem;"
+          style="height: 25vh; width: 50vw; margin: auto; margin-bottom: 2rem"
         >
           <kup-button
-            full-height
-            full-width
+            class="full-height full-width"
             label="Full height and full width"
           ></kup-button>
         </div>
@@ -119,9 +118,9 @@ export default {
     return {
       markupFlat: '<kup-button flat label="Flat"></kup-button>',
       markupFullheight:
-        '<kup-button full-height label="Full height"></kup-button>',
+        '<kup-button class="full-height" label="Full height"></kup-button>',
       markupFullwidth:
-        '<kup-button full-width label="Full width"></kup-button>',
+        '<kup-button class="full-width" label="Full width"></kup-button>',
       markupIconcolor:
         '<kup-button icon-color="purple" label="Purple heart"></kup-button>',
       markupOutlined: '<kup-button outlined label="Outlined"></kup-button>',
