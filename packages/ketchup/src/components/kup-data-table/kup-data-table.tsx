@@ -399,6 +399,11 @@ export class KupDataTable {
      */
     @Prop() tooltipDetailTimeout: number;
 
+    /**
+     * Defines the label to show when the table is empty.
+     */
+    @Prop() emptyDataLabel: string = 'Empty data';
+
     //-------- State --------
 
     @State()
@@ -3555,7 +3560,7 @@ export class KupDataTable {
         if (this.paginatedRows == null || this.paginatedRows.length === 0) {
             rows = (
                 <tr>
-                    <td colSpan={this.calculateColspan()}>Empty data</td>
+                    <td colSpan={this.calculateColspan()}>{this.emptyDataLabel}</td>
                 </tr>
             );
         } else {
