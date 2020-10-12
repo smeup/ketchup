@@ -107,7 +107,7 @@ export namespace Components {
         /**
           * Drop can be done in section
          */
-        "dropOnSection": false;
+        "dropOnSection": boolean;
         /**
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
          */
@@ -130,7 +130,7 @@ export namespace Components {
          */
         "multiSelection": boolean;
         /**
-          * current number page
+          * Current page number
          */
         "pageSelected": number;
         /**
@@ -143,7 +143,7 @@ export namespace Components {
         "pagination": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * current rows per page
+          * Number of current rows per page
          */
         "rowsPerPage": number;
         /**
@@ -1764,7 +1764,7 @@ declare namespace LocalJSX {
         /**
           * Drop can be done in section
          */
-        "dropOnSection"?: false;
+        "dropOnSection"?: boolean;
         /**
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
          */
@@ -1851,7 +1851,7 @@ declare namespace LocalJSX {
         row: BoxRow;
     }>) => void;
         /**
-          * current number page
+          * Current page number
          */
         "pageSelected"?: number;
         /**
@@ -1863,7 +1863,7 @@ declare namespace LocalJSX {
          */
         "pagination"?: boolean;
         /**
-          * current rows per page
+          * Number of current rows per page
          */
         "rowsPerPage"?: number;
         /**

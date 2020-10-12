@@ -132,11 +132,11 @@ export class KupBox {
     /**
      * Number of columns
      */
-    @Prop({ reflect: true }) columns = 1;
+    @Prop() columns: number = 1;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Data
      */
@@ -144,29 +144,28 @@ export class KupBox {
     /**
      * Enable dragging
      */
-    @Prop({ reflect: true })
-    dragEnabled = false;
+    @Prop() dragEnabled: boolean = false;
     /**
      * Enable dropping
      */
-    @Prop({ reflect: true })
-    dropEnabled = false;
+    @Prop() dropEnabled: boolean = false;
     /**
      * Drop can be done in section
      */
-    @Prop({ reflect: true })
-    dropOnSection: false;
+    @Prop() dropOnSection: boolean = false;
     /**
      * If enabled, a button to load / display the row actions
      * will be displayed on the right of every box
      */
-    @Prop({ reflect: true })
-    enableRowActions = false;
+    @Prop() enableRowActions: boolean = false;
     /**
      * Enable filtering
      */
-    @Prop({ reflect: true })
-    filterEnabled = false;
+    @Prop() filterEnabled: boolean = false;
+    /**
+     * Global filter value state
+     */
+    @Prop({ mutable: true }) globalFilterValueState: string;
     /**
      * How the field will be displayed. If not present, a default one will be created.
      */
@@ -174,73 +173,55 @@ export class KupBox {
     /**
      * Enable multi selection
      */
-    @Prop({ reflect: true })
-    multiSelection = false;
+    @Prop() multiSelection: boolean = false;
+    /**
+     * Current page number
+     */
+    @Prop() pageSelected: number = 1;
     /**
      * Number of boxes per page
      */
-    @Prop({ reflect: true })
-    pageSize = 10;
+    @Prop() pageSize: number = 10;
     /**
      * Enables pagination
      */
-    @Prop({ reflect: true })
-    pagination = false;
+    @Prop() pagination: boolean = false;
+    /**
+     * Number of current rows per page
+     */
+    @Prop() rowsPerPage: number;
     /**
      * Automatically selects the box at the specified index
      */
-    @Prop({ reflect: true })
-    selectBox: number;
-    /**
-     * If enabled, highlights the selected box/boxes
-     */
-    @Prop({ reflect: true })
-    showSelection = true;
-    /**
-     * If sorting is enabled, specifies which column to sort
-     */
-    @Prop({ mutable: true, reflect: true })
-    sortBy: string;
-    /**
-     * Global filter value state
-     */
-    @Prop({ mutable: true, reflect: true })
-    globalFilterValueState: string;
+    @Prop() selectBox: number;
     /**
      * Multiple selection
      */
-    @Prop({ mutable: true, reflect: true })
-    selectedRowsState: BoxRow[] = [];
+    @Prop({ mutable: true }) selectedRowsState: BoxRow[] = [];
+    /**
+     * If enabled, highlights the selected box/boxes
+     */
+    @Prop() showSelection: boolean = true;
+    /**
+     * If sorting is enabled, specifies which column to sort
+     */
+    @Prop({ mutable: true }) sortBy: string;
     /**
      * Enable sorting
      */
-    @Prop({ reflect: true })
-    sortEnabled = false;
+    @Prop() sortEnabled: boolean = false;
     /**
      * Disable swipe
      */
-    @Prop({ reflect: true })
-    swipeDisabled = false;
-    /**
-     * current number page
-     */
-    @Prop({ reflect: true })
-    pageSelected: number = 1;
-    /**
-     * current rows per page
-     */
-    @Prop({ reflect: true })
-    rowsPerPage: number;
-
-    /**
-     * Defines the timeout for tooltip load
-     */
-    @Prop() tooltipLoadTimeout: number;
-
+    @Prop() swipeDisabled: boolean = false;
     /**
      * Defines the timeout for tooltip detail
      */
     @Prop() tooltipDetailTimeout: number;
+    /**
+     * Defines the timeout for tooltip load
+     */
+    @Prop() tooltipLoadTimeout: number;
 
     private startTime: number = 0;
     private endTime: number = 0;
