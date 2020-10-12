@@ -49,10 +49,6 @@ export class KupButton {
      */
     @Prop() label: string = null;
     /**
-     * Defaults at false. When set to true, the button will be rendered with rounded edges.
-     */
-    @Prop() shaped: boolean = false;
-    /**
      * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
      */
     @Prop() styling: string = '';
@@ -237,10 +233,6 @@ export class KupButton {
                 componentClass += ' mdc-button--outlined';
             } else if (this.styling !== 'flat') {
                 componentClass += ' mdc-button--raised';
-            }
-
-            if (this.shaped) {
-                componentClass += ' button-shaped';
             }
 
             if (this.trailingIcon && this.icon) {

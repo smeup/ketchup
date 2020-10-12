@@ -26,13 +26,15 @@
   }
 }
 
-.mdc-button {
-  font-family: var(--kup-font-family);
-
-  &.button-shaped,
-  &.button-shaped .mdc-button__ripple {
+:host(.shaped) {
+  .mdc-button,
+  .mdc-button__ripple {
     border-radius: 18px;
   }
+}
+
+.mdc-button {
+  font-family: var(--kup-font-family);
 
   &:disabled {
     color: var(--kup-disabled-color);

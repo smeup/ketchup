@@ -212,10 +212,6 @@ export namespace Components {
         "label": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * Defaults at false. When set to true, the button will be rendered with rounded edges.
-         */
-        "shaped": boolean;
-        /**
           * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
          */
         "styling": string;
@@ -1929,10 +1925,6 @@ declare namespace LocalJSX {
         id: string;
         value: string;
     }>) => void;
-        /**
-          * Defaults at false. When set to true, the button will be rendered with rounded edges.
-         */
-        "shaped"?: boolean;
         /**
           * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
          */
