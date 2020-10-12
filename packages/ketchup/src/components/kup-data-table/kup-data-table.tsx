@@ -37,6 +37,8 @@ import {
     GenericFilter,
 } from './kup-data-table-declarations';
 
+import { isRating } from '../../utils/cell-utils';
+
 import {
     calcTotals,
     normalizeTotals,
@@ -2829,7 +2831,7 @@ export class KupDataTable {
                 let cellClass = {
                     //    'has-options': !!options,
                     'is-graphic': isBar(cell.obj),
-                    number: isNumber(cell.obj),
+                    number: isNumber(cell.obj) && !isRating(cell, null),
                 };
                 if (cell.cssClass) {
                     cellClass[cell.cssClass] = true;
@@ -2962,7 +2964,7 @@ export class KupDataTable {
 
         // Sets the default value
         let content: any = valueToDisplay;
-        let cellType: string = this.getCellType(cell.obj);
+        let cellType: string = this.getCellType(cell);
         let props: any = { ...cell.data };
         classObj[cellType + '-cell'] = true;
 
@@ -3038,8 +3040,12 @@ export class KupDataTable {
         );
     }
 
-    private getCellType(obj: any) {
-        if (isBar(obj)) {
+    // TODO: cell type can depend also from shape (see isRating)
+    private getCellType(cell: Cell) {
+        let obj = cell.obj;
+        if (isRating(cell, null)) {
+            return 'rating';
+        } else if (isBar(obj)) {
             return 'bar';
         } else if (isButton(obj)) {
             return 'button';
@@ -3200,6 +3206,17 @@ export class KupDataTable {
             case 'progress-bar':
                 return <kup-progress-bar {...props}></kup-progress-bar>;
 
+            case 'rating':
+                const cellValueNumber: number = stringToNumber(cell.value);
+                // NOTE: actually rating in datatable is only for output (-> put disabled)
+                return (
+                    <kup-rating
+                        value={cellValueNumber}
+                        {...props}
+                        disabled
+                    ></kup-rating>
+                );
+
             case 'radio':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
@@ -3234,6 +3251,12 @@ export class KupDataTable {
                     }
                     return cellValue;
                 }
+            case 'rating':
+                const cellValueNumber: number = stringToNumber(cell.value);
+                // NOTE: actually rating in datatable is only for output (-> put disabled)
+                return (
+                    <kup-rating value={cellValueNumber} disabled></kup-rating>
+                );
             case 'string':
             default:
                 return content;
