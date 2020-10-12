@@ -83,14 +83,6 @@ export default {
           try: 'field',
         },
         {
-          prop: 'iconColor',
-          description:
-            'Sets the color of the icon. When unset, it will be managed by the component.',
-          type: 'string',
-          default: 'null',
-          try: 'field',
-        },
-        {
           prop: 'iconOff',
           description:
             'Toggable icon button variant only. By default, the off state will be displayed as an outlined version of the icon prop. By setting this prop with a Material Design icon, the off state will show this icon instead.',

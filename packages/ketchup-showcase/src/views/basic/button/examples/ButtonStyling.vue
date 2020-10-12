@@ -88,26 +88,6 @@
         <code class="flat">{{ markupIcon }}</code>
       </div>
     </div>
-
-    <div class="demo-wrapper">
-      <p>
-        The
-        <span class="code-word">iconColor</span> prop will override the default
-        behavior of icons, always rendering them using the color provided,
-        unless the component is <span class="code-word">disabled</span>.
-      </p>
-      <div class="demo-container">
-        <div class="kup-container">
-          <kup-button
-            icon-color="purple"
-            icon="favorite"
-            label="Purple heart"
-          ></kup-button>
-        </div>
-        <p class="centered">Icon color sample markup</p>
-        <code class="flat">{{ markupIconcolor }}</code>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -121,8 +101,6 @@ export default {
         '<kup-button class="full-height" label="Full height"></kup-button>',
       markupFullwidth:
         '<kup-button class="full-width" label="Full width"></kup-button>',
-      markupIconcolor:
-        '<kup-button icon-color="purple" label="Purple heart"></kup-button>',
       markupOutlined: '<kup-button outlined label="Outlined"></kup-button>',
       markupRounded: '<kup-button shaped label="Shaped"></kup-button>',
       markupIcon: '<kup-button icon="Favorite" label="Favorite"></kup-button>',

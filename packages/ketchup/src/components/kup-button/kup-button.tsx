@@ -45,10 +45,6 @@ export class KupButton {
      */
     @Prop({ reflect: true }) icon: string = null;
     /**
-     * If not set, it will be managed by the component.
-     */
-    @Prop({ reflect: true }) iconColor: string = null;
-    /**
      * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
      */
     @Prop({ reflect: true }) iconOff: string = null;
@@ -214,8 +210,6 @@ export class KupButton {
         if (this.disabled) {
             componentClass += ' mdc-button--disabled';
             iconColor = 'var(--kup-disabled-color)';
-        } else {
-            iconColor = this.iconColor;
         }
 
         if (this.label) {
