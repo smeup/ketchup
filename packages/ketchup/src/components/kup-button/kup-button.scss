@@ -36,10 +36,6 @@
 .mdc-button {
   font-family: var(--kup-font-family);
 
-  &:disabled {
-    color: var(--kup-disabled-color);
-  }
-
   &.mdc-button--outlined:disabled {
     border-color: var(--kup-disabled-color);
   }
@@ -53,6 +49,13 @@
       background: var(--kup-text-on-main-color);
     }
   }
+
+  &:disabled {
+    color: var(--kup-disabled-color);
+    .icon-container {
+      background: var(--kup-disabled-color);
+    }
+  }
 }
 
 .icon-container {
@@ -64,6 +67,11 @@
     width: 24px;
     height: 24px;
   }
+}
+
+img {
+  height: auto;
+  width: 100%;
 }
 
 .mdc-icon-button {
