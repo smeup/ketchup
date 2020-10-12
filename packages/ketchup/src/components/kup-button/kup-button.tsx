@@ -27,47 +27,47 @@ export class KupButton {
     /**
      * Defaults at false. When set to true, the icon button state will be on.
      */
-    @Prop({ reflect: true }) checked: boolean = false;
+    @Prop() checked: boolean = false;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop({ reflect: true }) disabled: boolean = false;
+    @Prop() disabled: boolean = false;
     /**
      * Defaults at false. When set to true, the button will be rendered flat.
      */
-    @Prop({ reflect: true }) flat: boolean = false;
+    @Prop() flat: boolean = false;
     /**
      * Defaults at null. When set, the button will show this icon.
      */
-    @Prop({ reflect: true }) icon: string = null;
+    @Prop() icon: string = null;
     /**
      * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
      */
-    @Prop({ reflect: true }) iconOff: string = null;
+    @Prop() iconOff: string = null;
     /**
      * Defaults at null. When set, the button will show this text.
      */
-    @Prop({ reflect: true }) label: string = null;
+    @Prop() label: string = null;
     /**
      * Defaults at false. When set to true, the button will be rendered with a colored outline.
      */
-    @Prop({ reflect: true }) outlined: boolean = false;
+    @Prop() outlined: boolean = false;
     /**
      * Defaults at false. When set to true, the button will be rendered with rounded edges.
      */
-    @Prop({ reflect: true }) shaped: boolean = false;
+    @Prop() shaped: boolean = false;
     /**
      * Defaults at false. When set to true, the icon button will be toggable on/off.
      */
-    @Prop({ reflect: true }) toggable: boolean = false;
+    @Prop() toggable: boolean = false;
     /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
-    @Prop({ reflect: true }) trailingIcon: boolean = false;
+    @Prop() trailingIcon: boolean = false;
 
     private startTime: number = 0;
     private endTime: number = 0;
