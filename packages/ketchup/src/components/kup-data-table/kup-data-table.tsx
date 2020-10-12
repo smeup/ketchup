@@ -456,7 +456,6 @@ export class KupDataTable {
         this.forceGroupExpansion();
     }
 
-    @Watch('data')
     @Watch('sort')
     @Watch('filters')
     @Watch('globalFilterValue')
@@ -465,6 +464,12 @@ export class KupDataTable {
     @Watch('currentPage')
     @Watch('currentRowsPerPage')
     recalculateRows() {
+        this.initRows();
+    }
+
+    @Watch('data')
+    identifyAndInitRows() {
+        identify(this.getRows());
         this.initRows();
     }
 
@@ -897,9 +902,8 @@ export class KupDataTable {
 
     componentWillLoad() {
         this.startTime = performance.now();
-        if (this.data) {
-            identify(this.data.rows);
-        }
+        identify(this.getRows());
+
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
                 '.header'
