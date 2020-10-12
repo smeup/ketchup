@@ -131,6 +131,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'globalFilterValueState',
+          description: 'Global filter value state.',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'layout',
           description:
             'How the field will be displayed. If not present, a default one will be created.',
@@ -144,6 +151,13 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'pageSelected',
+          description: 'Current page number.',
+          type: 'number',
+          default: '1',
+          try: 'field',
         },
         {
           prop: 'pageSize',
@@ -160,11 +174,25 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'rowsPerPage',
+          description: 'Number of current rows per page.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'selectBox',
           description: 'Automatically selects the box at the specified index.',
           type: 'number',
           default: 'undefined',
           try: 'field',
+        },
+        {
+          prop: 'selectedRowsState',
+          description: 'Multiple selection.',
+          type: 'BoxRow[]',
+          default: '[]',
+          try: 'array',
         },
         {
           prop: 'showSelection',
@@ -186,6 +214,27 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'swipeDisabled',
+          description: 'Disable swipe.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'tooltipDetailTimeout',
+          description: 'Defines the timeout for tooltip detail.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'tooltipLoadTimeout',
+          description: 'Defines the timeout for tooltip load.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
         },
       ],
       demoTabs: [
