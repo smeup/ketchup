@@ -626,6 +626,7 @@ export namespace Components {
     }
     interface KupEcharts {
         "objectData": object;
+        "types": string;
     }
     interface KupEditor {
         /**
@@ -2543,6 +2544,7 @@ declare namespace LocalJSX {
     }
     interface KupEcharts {
         "objectData"?: object;
+        "types"?: string;
     }
     interface KupEditor {
         /**
