@@ -47,6 +47,23 @@
   &.mdc-button--raised:disabled {
     background: var(--kup-disabled-background-color);
   }
+
+  &.mdc-button--raised {
+    .icon-container {
+      background: var(--kup-text-on-main-color);
+    }
+  }
+}
+
+.icon-container {
+  background: var(--kup-main-color);
+  display: block;
+  width: 18px;
+  height: 18px;
+  .mdc-icon-button & {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 .mdc-icon-button {

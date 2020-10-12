@@ -119,7 +119,6 @@ graph TD;
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-chip --> kup-image
-  kup-button --> kup-image
   kup-progress-bar --> kup-image
   kup-text-field --> kup-image
   kup-tooltip --> kup-button

@@ -51,7 +51,6 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
-  kup-button --> kup-image
   style kup-nav-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

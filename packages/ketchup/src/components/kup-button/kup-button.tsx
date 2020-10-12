@@ -4,6 +4,7 @@ import {
     Element,
     Host,
     Event,
+    getAssetPath,
     EventEmitter,
     State,
     h,
@@ -193,39 +194,31 @@ export class KupButton {
         // It renders in two different ways because two different Material layouts are used.
         // If only the icon is present, with no text, an "icon button" will be rendered.
         let componentClass: string = 'kup-button';
-        let iconEl: HTMLElement = null;
-        let labelEl: HTMLElement = null;
-        let leadingEl: HTMLElement = null;
-        let trailingEl: HTMLElement = null;
-        let iconColor = undefined;
+        let iconEl: HTMLElement = undefined;
+        let labelEl: HTMLElement = undefined;
+        let leadingEl: HTMLElement = undefined;
+        let trailingEl: HTMLElement = undefined;
 
         if (this.disabled) {
             componentClass += ' mdc-button--disabled';
-            iconColor = 'var(--kup-disabled-color)';
         }
 
         if (this.label) {
             componentClass += ' mdc-button';
             labelEl = <span class="mdc-button__label">{this.label}</span>;
             if (this.icon) {
-                if (!iconColor) {
-                    if (
-                        this.styling === 'flat' ||
-                        this.styling === 'outlined'
-                    ) {
-                        iconColor = 'var(--kup-main-color)';
-                    } else {
-                        iconColor = 'var(--kup-text-on-main-color)';
-                    }
-                }
+                let svg = `url('${getAssetPath(
+                    `./assets/svg/${this.icon}.svg`
+                )}') no-repeat center`;
+                let iconStyle = {
+                    mask: svg,
+                    webkitMask: svg,
+                };
                 iconEl = (
-                    <kup-image
-                        color={iconColor}
-                        class="material-icons mdc-button__icon"
-                        sizeX="18px"
-                        sizeY="18px"
-                        resource={this.icon}
-                    ></kup-image>
+                    <span
+                        style={iconStyle}
+                        class="icon-container material-icons mdc-button__icon"
+                    ></span>
                 );
             }
 
@@ -262,29 +255,27 @@ export class KupButton {
                 </Host>
             );
         } else if (this.icon) {
-            if (!iconColor) {
-                iconColor = 'var(--kup-main-color)';
-            }
             componentClass += ' mdc-icon-button';
+            let svg = `url('${getAssetPath(
+                `./assets/svg/${this.icon}.svg`
+            )}') no-repeat center`;
+            let iconStyle = {
+                mask: svg,
+                webkitMask: svg,
+            };
             trailingEl = (
-                <kup-image
-                    color={iconColor}
-                    class="material-icons mdc-icon-button__icon"
-                    sizeX="24px"
-                    sizeY="24px"
-                    resource={this.icon}
-                ></kup-image>
+                <span
+                    style={iconStyle}
+                    class="icon-container material-icons mdc-icon-button__icon"
+                ></span>
             );
             if (this.toggable) {
                 componentClass += ' toggable';
-                trailingEl = (
-                    <kup-image
-                        color={iconColor}
-                        class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
-                        sizeX="24px"
-                        sizeY="24px"
-                        resource={this.icon}
-                    ></kup-image>
+                trailingEl = trailingEl = (
+                    <span
+                        style={iconStyle}
+                        class="icon-container material-icons mdc-icon-button__icon mdc-icon-button__icon--on"
+                    ></span>
                 );
                 if (this.checked) {
                     componentClass += ' mdc-icon-button--on';
@@ -297,14 +288,19 @@ export class KupButton {
                     iconOff = this.icon + '_border';
                 }
 
+                svg = `url('${getAssetPath(
+                    `./assets/svg/${iconOff}.svg`
+                )}') no-repeat center`;
+                iconStyle = {
+                    mask: svg,
+                    webkitMask: svg,
+                };
+
                 leadingEl = (
-                    <kup-image
-                        color={iconColor}
-                        class="material-icons mdc-icon-button__icon"
-                        sizeX="24px"
-                        sizeY="24px"
-                        resource={iconOff}
-                    ></kup-image>
+                    <span
+                        style={iconStyle}
+                        class="icon-container material-icons mdc-icon-button__icon"
+                    ></span>
                 );
             }
             return (
