@@ -3237,7 +3237,6 @@ export class KupDataTable {
             <kup-button
                 class="load-more-button"
                 label={label}
-                flat
                 icon="plus"
                 title={label}
                 slot={isSlotted ? 'more-results' : null}

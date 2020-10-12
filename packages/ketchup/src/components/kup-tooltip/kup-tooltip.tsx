@@ -324,14 +324,12 @@ export class KupTooltip {
                     {datatitle}
                 </div>
                 <kup-button
-                    flat={true}
                     icon="open-in-new"
                     onKupButtonClick={(event) =>
                         this.onDefaultActionClicked(event)
                     }
                 ></kup-button>
                 <kup-button
-                    flat={true}
                     icon="search"
                     onKupButtonClick={(event) =>
                         this.onDefaultPreviewClicked(event)
@@ -588,7 +586,6 @@ export class KupTooltip {
                     .map((action) => (
                         <div class="detail-actions__box">
                             <kup-button
-                                flat={true}
                                 title={action.text}
                                 icon={action.icon}
                                 onKupButtonClick={(event) =>
@@ -612,7 +609,6 @@ export class KupTooltip {
                 ...detailActions,
                 <div class="detail-actions__box">
                     <kup-button
-                        flat={true}
                         title={this.getTooltipForShowOptionsButton()}
                         icon={this.getIconForShowOptionsButton()}
                         onKupButtonClick={() => this.onShowRightClickOptions()}

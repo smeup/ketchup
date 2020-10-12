@@ -69,12 +69,11 @@ export class KupBtn {
                     return (
                         <td>
                             <kup-button
+                                class={
+                                    this.config.fillspace ? `full-width` : ''
+                                }
                                 label={btn.value}
                                 icon={btn.icon}
-                                fullWidth={this.config.fillspace}
-                                shaped={this.config.rounded}
-                                outlined={this.config.transparent}
-                                flat={this.config.flat}
                                 data-id={id++}
                                 onKupButtonClick={(ev) => this.onBtnClicked(ev)}
                             />
