@@ -46,7 +46,7 @@ export default {
         {
           prop: 'className',
           description:
-            'Available classes: full-height, full-width. Read below for detailed information.',
+            'Available classes: full-height, full-width, shaped. Read below for detailed information.',
           type: 'string',
           default: '""',
           try: 'field',
@@ -90,13 +90,6 @@ export default {
           type: 'string',
           default: 'null',
           try: 'field',
-        },
-        {
-          prop: 'shaped',
-          description: "The button's borders will be more rounded.",
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
         },
         {
           prop: 'styling',
