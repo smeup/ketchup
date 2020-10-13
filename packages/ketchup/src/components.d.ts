@@ -625,6 +625,10 @@ export namespace Components {
         "right": boolean;
     }
     interface KupEcharts {
+        "graphTitle": string;
+        "graphTitleColor": string;
+        "graphTitleSize": number;
+        "legend": string;
         "objectData": object;
         "types": string;
     }
@@ -2543,6 +2547,10 @@ declare namespace LocalJSX {
         "right"?: boolean;
     }
     interface KupEcharts {
+        "graphTitle"?: string;
+        "graphTitleColor"?: string;
+        "graphTitleSize"?: number;
+        "legend"?: string;
         "objectData"?: object;
         "types"?: string;
     }

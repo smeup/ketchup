@@ -12,6 +12,11 @@ import echarts from 'echarts'
 export class KupEcharts {
   @Prop() objectData: object={};
  @Prop() types: string='line';
+ @Prop() graphTitle:string='';
+ @Prop() graphTitleSize:number;
+ @Prop() legend:string;
+ @Prop() graphTitleColor:string;
+ 
  
 
   private chartContainer?: HTMLDivElement;
@@ -20,6 +25,8 @@ export class KupEcharts {
   private x=[];
   private rightjson:any;
   private datajson=[];
+  private datapiejson=[];
+  
   CreateEcharts()
   {
     //console.log(this.objectData);
@@ -46,7 +53,7 @@ export class KupEcharts {
     
     
     let ngraph=this.objectData['columns'];
-    console.log(ngraph);
+   // console.log(ngraph);
     let conta=0;
     for(let i=0;i<ngraph.length;i++)
     {
@@ -83,7 +90,47 @@ export class KupEcharts {
       
      
     }
+   // console.log(this.oj);
+
+  }
+  createlegend()
+  {
+        let arr=[];
+        for (let key in this.oj)
+        {
+          arr.push(key);
+        }
+        return arr;
+  }
+  
+   objectpie()
+  {
     console.log(this.oj);
+   // console.log(this.oj['Col4'][0]);
+    let somme=[];
+    for (let key in this.oj)
+    { let somma=0;
+      for(let j=0;j<this.oj[key].length;j++){
+      var d=parseFloat(this.oj[key][j]);
+      somma=somma+d;
+      }
+      somme.push(somma);
+      
+     // console.log(this.oj);
+
+    }
+    
+    let i=0;
+    for (let key in this.oj)
+    { let rjson={}; 
+    rjson['value'] = somme[i];
+    rjson['name']=key;
+    
+    this.datapiejson.push(rjson);
+    i++;
+    }
+    console.log(this.datapiejson);
+return this.datapiejson;
 
   }
 
@@ -99,9 +146,29 @@ export class KupEcharts {
       this.datajson.push(rjson);
     }
 
+  console.log(this.datajson);
+
+  let tlegend=this.legend;
+  console.log(tlegend);
+
   
     console.log(this.datajson);
     this.rightjson={
+      title: {
+        text: this.graphTitle,
+        textStyle: {
+          fontSize: this.graphTitleSize,
+          color:this.graphTitleColor,
+        },
+        
+    },
+      legend: {
+        data: this.createlegend(),
+        [tlegend]:0,
+        
+        
+        
+    },
       xAxis: {
           type: 'category',
           data: this.x
@@ -119,11 +186,66 @@ export class KupEcharts {
 
   }
 
+  createpiejson(){
+    let tlegend=this.legend;
+    this.rightjson={
+      title: {
+        text: this.graphTitle,
+        textStyle: {
+          fontSize: this.graphTitleSize,
+          color:this.graphTitleColor,
+        },
+        
+    },
+      legend: {
+        data: this.createlegend(),
+        [tlegend]:0,
+        
+        
+        
+    },
+     
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)'
+    },
+    
+      series:[
+        {
+            name: 'echart',
+            type: 'pie',
+            data: this.datapiejson,
+            emphasis: {
+                itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }
+    ]
+  };
+
+  }
+
   componentDidLoad() {
+    
     this.ParseJsonX();
     this.ParseJsonY();
+    if(this.types=='Pie')
+    {  
+      this.objectpie();
+       this.createpiejson();
+    
+
+    }
+    else{
     this.Createrightjson();
+    }
+   //this.createpiejson();
+    //this.objectpie();
     this.CreateEcharts();
+    //this.objectpie();
    
   
 
