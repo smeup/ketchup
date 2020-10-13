@@ -9,7 +9,7 @@
 import { ratingDataTable } from '@/mock/dataTableRating';
 
 export default {
-  name: 'data',
+  name: 'DatatableShapes',
   data() {
     return {
       data: { data: ratingDataTable },
