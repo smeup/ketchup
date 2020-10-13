@@ -176,6 +176,10 @@ export namespace Components {
          */
         "showSelection": boolean;
         /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick": boolean;
+        /**
           * If sorting is enabled, specifies which column to sort
          */
         "sortBy": string;
@@ -580,6 +584,10 @@ export namespace Components {
           * If set to true, displays the button to load more records.
          */
         "showLoadMore": boolean;
+        /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick": boolean;
         /**
           * Defines the current sorting options.
          */
@@ -1301,11 +1309,12 @@ export namespace Components {
           * Timeout for tooltip
          */
         "loadTimeout": number;
-        "mouseIsOn": () => Promise<boolean>;
         /**
           * Container element for tooltip
          */
         "relatedObject": TooltipRelatedObject;
+        "setTooltipInfo": (relatedObject: TooltipRelatedObject) => Promise<void>;
+        "unsetTooltipInfo": () => Promise<void>;
     }
     interface KupTree {
         /**
@@ -1912,6 +1921,10 @@ declare namespace LocalJSX {
          */
         "showSelection"?: boolean;
         /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick"?: boolean;
+        /**
           * If sorting is enabled, specifies which column to sort
          */
         "sortBy"?: string;
@@ -2489,6 +2502,10 @@ declare namespace LocalJSX {
           * If set to true, displays the button to load more records.
          */
         "showLoadMore"?: boolean;
+        /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick"?: boolean;
         /**
           * Defines the current sorting options.
          */

@@ -241,7 +241,7 @@ export const cellOptionsTree = {
       children: [],
       disabled: false,
       expandable: true,
-      icon: '/WebUP/javax.faces.resource/%253B%253B.jsf?ln=smeupIcons',
+      icon: '',
       id: '',
       isExpanded: false,
       obj: {
@@ -257,7 +257,7 @@ export const cellOptionsTree = {
       children: [],
       disabled: false,
       expandable: true,
-      icon: '/WebUP/javax.faces.resource/%253B%253B.jsf?ln=smeupIcons',
+      icon: '',
       id: '',
       isExpanded: false,
       obj: {
@@ -289,8 +289,7 @@ export const cellOptionsTree = {
       children: [],
       disabled: false,
       expandable: false,
-      icon:
-        '/WebUP/javax.faces.resource/V2%253BJAGRA%253BDYN.jsf?ln=smeupIcons',
+      icon: '',
       id: '',
       isExpanded: false,
       obj: {
@@ -322,7 +321,7 @@ export const cellOptionsTree = {
       children: [],
       disabled: false,
       expandable: true,
-      icon: '/WebUP/javax.faces.resource/OG%253B%253BOG.jsf?ln=smeupIcons',
+      icon: '',
       id: '',
       isExpanded: false,
       obj: {
@@ -354,7 +353,7 @@ export const cellOptionsTree = {
       children: [],
       disabled: false,
       expandable: true,
-      icon: '/WebUP/javax.faces.resource/%253B%253B.jsf?ln=smeupIcons',
+      icon: '',
       id: '',
       isExpanded: false,
       obj: {
@@ -370,7 +369,7 @@ export const cellOptionsTree = {
       children: [],
       disabled: false,
       expandable: true,
-      icon: '/WebUP/javax.faces.resource/%253B%253B.jsf?ln=smeupIcons',
+      icon: '',
       id: '',
       isExpanded: false,
       obj: {
@@ -386,7 +385,7 @@ export const cellOptionsTree = {
       children: [],
       disabled: false,
       expandable: false,
-      icon: '/WebUP/javax.faces.resource/%253B%253B.jsf?ln=smeupIcons',
+      icon: '',
       id: '',
       isExpanded: false,
       obj: {

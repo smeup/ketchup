@@ -202,6 +202,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showTooltipOnRightClick',
+          description:
+            'If set to true, displays tooltip on right click event; if set to false, displays tooltip on mouseOver event.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'sort',
           description: 'Defines the current sorting options.',
           type: 'SortObject[]',
@@ -283,6 +291,7 @@ function createComp() {
   comp.showHeader = true;
   comp.sortableColumnsMutateData = true;
   comp.sortEnabled = true;
+  comp.showTooltipOnRightClick = true;
   return comp;
 }
 </script>

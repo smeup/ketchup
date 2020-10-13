@@ -196,6 +196,11 @@ export class KupDataTable {
     @Prop({ mutable: true }) showCustomization: boolean = false;
 
     /**
+     * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+     */
+    @Prop() showTooltipOnRightClick: boolean = true;
+
+    /**
      * Expands groups when set to true.
      */
     @Prop({ reflect: true }) expandGroups = false;
@@ -1019,9 +1024,7 @@ export class KupDataTable {
     }
 
     private _unsetTooltip() {
-        if (!this.tooltip.mouseIsOn()) {
-            unsetTooltip(this.tooltip);
-        }
+        unsetTooltip(this.tooltip);
     }
 
     private getColumns(): Array<Column> {
@@ -2531,7 +2534,11 @@ export class KupDataTable {
         return (
             <kup-tooltip
                 class="datatable-tooltip"
-                loadTimeout={this.tooltipLoadTimeout}
+                loadTimeout={
+                    this.showTooltipOnRightClick == true
+                        ? 0
+                        : this.tooltipLoadTimeout
+                }
                 detailTimeout={this.tooltipDetailTimeout}
                 ref={(el: any) => (this.tooltip = el as KupTooltip)}
             ></kup-tooltip>
@@ -2883,8 +2890,39 @@ export class KupDataTable {
                     }
                 }
 
+                /**
+                 * Controls if current cell needs a tooltip and eventually adds it.
+                 * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
+                 */
+                const _hasTooltip: boolean = hasTooltip(cell.obj);
                 return (
-                    <td data-column={name} style={cellStyle} class={cellClass}>
+                    <td
+                        data-column={name}
+                        style={cellStyle}
+                        class={cellClass}
+                        onMouseEnter={(ev) => {
+                            if (
+                                _hasTooltip &&
+                                this.showTooltipOnRightClick == false
+                            ) {
+                                this._setTooltip(ev, cell);
+                            } else if (!_hasTooltip) {
+                                this._unsetTooltip();
+                            }
+                        }}
+                        onMouseLeave={() => {
+                            this._unsetTooltip();
+                        }}
+                        onContextMenu={(ev) => {
+                            ev.preventDefault();
+                            if (
+                                _hasTooltip &&
+                                this.showTooltipOnRightClick == true
+                            ) {
+                                this._setTooltip(ev, cell);
+                            }
+                        }}
+                    >
                         {jsxCell}
                         {/* {options} */}
                     </td>
@@ -3011,26 +3049,9 @@ export class KupDataTable {
                 <span style={iconStyle} class="icon-container obj-icon"></span>
             );
         }
-        /**
-         * Controls if current cell needs a tooltip and eventually adds it.
-         * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
-         */
-        const _hasTooltip: boolean = hasTooltip(cell.obj);
+
         return (
-            <span
-                class={classObj}
-                style={style}
-                onMouseEnter={(ev) => {
-                    if (_hasTooltip) {
-                        this._setTooltip(ev, cell);
-                    } else {
-                        this._unsetTooltip();
-                    }
-                }}
-                onMouseLeave={() => {
-                    this._unsetTooltip();
-                }}
-            >
+            <span class={classObj} style={style}>
                 {indend}
                 {icon}
                 {content}
