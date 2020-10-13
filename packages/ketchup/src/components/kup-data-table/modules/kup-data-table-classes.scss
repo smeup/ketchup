@@ -126,6 +126,7 @@ td.c-shaped {
 
 td.c-hor-padded {
   & * {
+    box-sizing: border-box;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
   }
@@ -133,6 +134,7 @@ td.c-hor-padded {
 
 td.c-ver-padded {
   & * {
+    box-sizing: border-box;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
@@ -191,4 +193,21 @@ td.c-purple-bg {
     background: #b88acc;
     color: white;
   }
+}
+
+// Overriden force one line behavior for c-centered
+:host([force-one-line]) tbody tr > td.c-centered * {
+  display: flex;
+  max-width: max-content;
+  width: max-content;
+}
+
+// Overriden force one line behavior for c-fitted
+:host([force-one-line]) tbody tr > td.c-fitted * {
+  max-width: max-content;
+}
+
+// Overriden force one line behavior for c-right-aligned
+:host([force-one-line]) tbody tr > td.c-right-aligned * {
+  text-align: right;
 }
