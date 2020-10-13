@@ -7,7 +7,7 @@ import {
     EventEmitter,
     State,
     h,
-    Method,
+    Method, Watch
 } from '@stencil/core';
 
 import {
@@ -121,6 +121,12 @@ export class KupChart {
     private renderStart: number = 0;
     private renderEnd: number = 0;
 
+    @Watch('data')
+    identifyRows(){
+        if (this.data) {
+            identify(this.data.rows);
+        }
+    }
     /**
      * Triggered when a chart serie is clicked
      */
@@ -580,9 +586,7 @@ export class KupChart {
 
     componentWillLoad() {
         this.startTime = performance.now();
-        if (this.data) {
-            identify(this.data.rows);
-        }
+        this.identifyRows();
         this.setObserver();
         setThemeCustomStyle(this);
         this.fetchThemeColors();

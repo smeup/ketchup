@@ -399,6 +399,11 @@ export class KupDataTable {
      */
     @Prop() tooltipDetailTimeout: number;
 
+    /**
+     * Defines the label to show when the table is empty.
+     */
+    @Prop() emptyDataLabel: string = 'Empty data';
+
     //-------- State --------
 
     @State()
@@ -451,7 +456,6 @@ export class KupDataTable {
         this.forceGroupExpansion();
     }
 
-    @Watch('data')
     @Watch('sort')
     @Watch('filters')
     @Watch('globalFilterValue')
@@ -460,6 +464,12 @@ export class KupDataTable {
     @Watch('currentPage')
     @Watch('currentRowsPerPage')
     recalculateRows() {
+        this.initRows();
+    }
+
+    @Watch('data')
+    identifyAndInitRows() {
+        identify(this.getRows());
         this.initRows();
     }
 
@@ -892,9 +902,8 @@ export class KupDataTable {
 
     componentWillLoad() {
         this.startTime = performance.now();
-        if (this.data) {
-            identify(this.data.rows);
-        }
+        identify(this.getRows());
+
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
                 '.header'
@@ -3554,7 +3563,7 @@ export class KupDataTable {
         if (this.paginatedRows == null || this.paginatedRows.length === 0) {
             rows = (
                 <tr>
-                    <td colSpan={this.calculateColspan()}>Empty data</td>
+                    <td colSpan={this.calculateColspan()}>{this.emptyDataLabel}</td>
                 </tr>
             );
         } else {

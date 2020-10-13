@@ -410,6 +410,7 @@ export class KupBox {
 
     @Watch('data')
     onDataChanged() {
+        identify(this.getRows());
         this.initVisibleColumns();
         this.initRows();
         this.checkLayout();
@@ -436,9 +437,7 @@ export class KupBox {
 
     componentWillLoad() {
         this.startTime = performance.now();
-        if (this.data) {
-            identify(this.data.rows);
-        }
+
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
         } else if (this.pageSize) {
