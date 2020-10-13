@@ -170,6 +170,8 @@ const mockedColumns = [
         size: 10,
         obj: {
             t: 'NR',
+            p: '',
+            k: '',
         },
     },
     {
@@ -178,6 +180,8 @@ const mockedColumns = [
         size: 10,
         obj: {
             t: 'NR',
+            p: '',
+            k: '',
         },
     },
     {
@@ -187,6 +191,17 @@ const mockedColumns = [
         obj: {
             t: 'D8',
             p: '*YYMD',
+            k: '',
+        },
+    },
+    {
+        name: 'FLD5',
+        title: 'Column Percentuale',
+        size: 10,
+        obj: {
+            t: 'NR',
+            p: 'P',
+            k: '',
         },
     },
 ];
@@ -226,6 +241,14 @@ const mockedRows = [
                 },
                 value: '01/11/2018',
             },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '10.60',
+                },
+                value: '10.60',
+            },
         },
     },
     {
@@ -261,6 +284,14 @@ const mockedRows = [
                     k: '20180102',
                 },
                 value: '02/01/2018',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '20.60',
+                },
+                value: '20.60',
             },
         },
     },
@@ -298,77 +329,13 @@ const mockedRows = [
                 },
                 value: '03/01/2018',
             },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: 'CN',
-                    p: 'COL',
-                    k: 'DELGIO',
-                },
-                value: 'DELGIO',
-            },
-            FLD2: {
+            FLD5: {
                 obj: {
                     t: 'NR',
-                    p: '',
-                    k: '6',
+                    p: 'P',
+                    k: '30.60',
                 },
-                value: '6',
-            },
-            FLD3: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '67.8',
-                },
-                value: '67.8',
-            },
-            FLD4: {
-                obj: {
-                    t: 'D8',
-                    p: '*YYMD',
-                    k: '20180102',
-                },
-                value: '02/01/2018',
-            },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: 'CN',
-                    p: 'COL',
-                    k: 'DELGIO',
-                },
-                value: 'DELGIO',
-            },
-            FLD2: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '6',
-                },
-                value: '6',
-            },
-            FLD3: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '67.8',
-                },
-                value: '67.8',
-            },
-            FLD4: {
-                obj: {
-                    t: 'D8',
-                    p: '*YYMD',
-                    k: '20180102',
-                },
-                value: '02/01/2018',
+                value: '30.60',
             },
         },
     },
@@ -406,77 +373,13 @@ const mockedRows = [
                 },
                 value: '02/01/2018',
             },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: 'CN',
-                    p: 'COL',
-                    k: 'DELGIO',
-                },
-                value: 'DELGIO',
-            },
-            FLD2: {
+            FLD5: {
                 obj: {
                     t: 'NR',
-                    p: '',
-                    k: '6',
+                    p: 'P',
+                    k: '40.60',
                 },
-                value: '6',
-            },
-            FLD3: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '67.8',
-                },
-                value: '67.8',
-            },
-            FLD4: {
-                obj: {
-                    t: 'D8',
-                    p: '*YYMD',
-                    k: '20180102',
-                },
-                value: '02/01/2018',
-            },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: 'CN',
-                    p: 'COL',
-                    k: 'DELGIO',
-                },
-                value: 'DELGIO',
-            },
-            FLD2: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '6',
-                },
-                value: '6',
-            },
-            FLD3: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '67.8',
-                },
-                value: '67.8',
-            },
-            FLD4: {
-                obj: {
-                    t: 'D8',
-                    p: '*YYMD',
-                    k: '20180102',
-                },
-                value: '02/01/2018',
+                value: '40.60',
             },
         },
     },
@@ -514,6 +417,14 @@ const mockedRows = [
                 },
                 value: '02/01/2018',
             },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '50.60',
+                },
+                value: '50.60',
+            },
         },
     },
     {
@@ -549,6 +460,190 @@ const mockedRows = [
                     k: '20180102',
                 },
                 value: '02/01/2018',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '60.60',
+                },
+                value: '60.60',
+            },
+        },
+    },
+    {
+        cells: {
+            FLD1: {
+                obj: {
+                    t: 'CN',
+                    p: 'COL',
+                    k: 'DELGIO',
+                },
+                value: 'DELGIO',
+            },
+            FLD2: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '6',
+                },
+                value: '6',
+            },
+            FLD3: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '67.8',
+                },
+                value: '67.8',
+            },
+            FLD4: {
+                obj: {
+                    t: 'D8',
+                    p: '*YYMD',
+                    k: '20180102',
+                },
+                value: '02/01/2018',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '70.60',
+                },
+                value: '70.60',
+            },
+        },
+    },
+    {
+        cells: {
+            FLD1: {
+                obj: {
+                    t: 'CN',
+                    p: 'COL',
+                    k: 'DELGIO',
+                },
+                value: 'DELGIO',
+            },
+            FLD2: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '6',
+                },
+                value: '6',
+            },
+            FLD3: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '67.8',
+                },
+                value: '67.8',
+            },
+            FLD4: {
+                obj: {
+                    t: 'D8',
+                    p: '*YYMD',
+                    k: '20180102',
+                },
+                value: '02/01/2018',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '80.60',
+                },
+                value: '80.60',
+            },
+        },
+    },
+    {
+        cells: {
+            FLD1: {
+                obj: {
+                    t: 'CN',
+                    p: 'COL',
+                    k: 'DELGIO',
+                },
+                value: 'DELGIO',
+            },
+            FLD2: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '6',
+                },
+                value: '6',
+            },
+            FLD3: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '67.8',
+                },
+                value: '67.8',
+            },
+            FLD4: {
+                obj: {
+                    t: 'D8',
+                    p: '*YYMD',
+                    k: '20180102',
+                },
+                value: '02/01/2018',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '90.60',
+                },
+                value: '90.60',
+            },
+        },
+    },
+    {
+        cells: {
+            FLD1: {
+                obj: {
+                    t: 'CN',
+                    p: 'COL',
+                    k: 'DELGIO',
+                },
+                value: 'DELGIO',
+            },
+            FLD2: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '6',
+                },
+                value: '6',
+            },
+            FLD3: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '67.8',
+                },
+                value: '67.8',
+            },
+            FLD4: {
+                obj: {
+                    t: 'D8',
+                    p: '*YYMD',
+                    k: '20180102',
+                },
+                value: '02/01/2018',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '0',
+                },
+                value: '',
             },
         },
     },
