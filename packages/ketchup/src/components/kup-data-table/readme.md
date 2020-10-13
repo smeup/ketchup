@@ -133,6 +133,7 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 - [kup-image](../kup-image)
 - [kup-chart](../kup-chart)
 - [kup-progress-bar](../kup-progress-bar)
+- [kup-rating](../kup-rating)
 - [kup-radio](../kup-radio)
 - [kup-paginator](../kup-paginator)
 - [kup-combobox](../kup-combobox)
@@ -148,6 +149,7 @@ graph TD;
   kup-data-table --> kup-image
   kup-data-table --> kup-chart
   kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-rating
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox

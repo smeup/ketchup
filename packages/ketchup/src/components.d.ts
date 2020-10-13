@@ -1097,6 +1097,20 @@ export namespace Components {
         "name": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
     }
+    interface KupRating {
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Max number of stars (default 5)
+         */
+        "maxValue": number;
+        /**
+          * Rated stars
+         */
+        "value": number;
+    }
     interface KupSearch {
         "data": TableData;
         "disabled": boolean;
@@ -1590,6 +1604,12 @@ declare global {
         prototype: HTMLKupRadioElement;
         new (): HTMLKupRadioElement;
     };
+    interface HTMLKupRatingElement extends Components.KupRating, HTMLStencilElement {
+    }
+    var HTMLKupRatingElement: {
+        prototype: HTMLKupRatingElement;
+        new (): HTMLKupRatingElement;
+    };
     interface HTMLKupSearchElement extends Components.KupSearch, HTMLStencilElement {
     }
     var HTMLKupSearchElement: {
@@ -1672,6 +1692,7 @@ declare global {
         "kup-progress-bar": HTMLKupProgressBarElement;
         "kup-qlik": HTMLKupQlikElement;
         "kup-radio": HTMLKupRadioElement;
+        "kup-rating": HTMLKupRatingElement;
         "kup-search": HTMLKupSearchElement;
         "kup-spinner": HTMLKupSpinnerElement;
         "kup-switch": HTMLKupSwitchElement;
@@ -3078,6 +3099,21 @@ declare namespace LocalJSX {
         checked: boolean;
     }>) => void;
     }
+    interface KupRating {
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Max number of stars (default 5)
+         */
+        "maxValue"?: number;
+        "onKupRatingClicked"?: (event: CustomEvent<any>) => void;
+        /**
+          * Rated stars
+         */
+        "value"?: number;
+    }
     interface KupSearch {
         "data"?: TableData;
         "disabled"?: boolean;
@@ -3536,6 +3572,7 @@ declare namespace LocalJSX {
         "kup-progress-bar": KupProgressBar;
         "kup-qlik": KupQlik;
         "kup-radio": KupRadio;
+        "kup-rating": KupRating;
         "kup-search": KupSearch;
         "kup-spinner": KupSpinner;
         "kup-switch": KupSwitch;
@@ -3583,6 +3620,7 @@ declare module "@stencil/core" {
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;
+            "kup-rating": LocalJSX.KupRating & JSXBase.HTMLAttributes<HTMLKupRatingElement>;
             "kup-search": LocalJSX.KupSearch & JSXBase.HTMLAttributes<HTMLKupSearchElement>;
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
             "kup-switch": LocalJSX.KupSwitch & JSXBase.HTMLAttributes<HTMLKupSwitchElement>;

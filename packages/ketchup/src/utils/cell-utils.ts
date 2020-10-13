@@ -1,7 +1,10 @@
 // Box and datatables cells utils functions
 
 import get from 'lodash/get';
-import { Cell } from '../components/kup-data-table/kup-data-table-declarations';
+import {
+    Cell,
+    Column,
+} from '../components/kup-data-table/kup-data-table-declarations';
 import { BoxObject } from '../components/kup-box/kup-box-declarations';
 import { isProgressBar as isProgressBarObj } from './object-utils';
 
@@ -15,7 +18,7 @@ import { toKebabCase } from './utils';
 
 export function getShape(cell: Cell, boxObject: BoxObject): string {
     let prop = get(cell, 'shape', null);
-    if (!prop) {
+    if (!prop && boxObject) {
         prop = get(boxObject, 'shape', null);
     }
     return prop ? prop.toUpperCase() : null;
@@ -210,4 +213,13 @@ export function isInputText(cell: Cell, boxObject: BoxObject) {
 export function isEditor(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return 'EDT' === shape;
+}
+
+// -------------
+// RATING
+// -------------
+
+export function isRating(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'RTG' === shape;
 }

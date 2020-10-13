@@ -13,6 +13,9 @@ export const config: Config = {
             src: 'data-table.html',
         },
         {
+            src: 'rating.html',
+        },
+        {
             src: 'dash.html',
         },
         {

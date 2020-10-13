@@ -85,6 +85,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/radio/Radio.vue`),
   },
   {
+    path: `/rating`,
+    name: 'rating',
+    component: () => import(`@/views/basic/rating/Rating.vue`),
+  },
+  {
     path: `/spinner`,
     name: 'spinner',
     component: () => import(`@/views/basic/spinner/Spinner.vue`),
