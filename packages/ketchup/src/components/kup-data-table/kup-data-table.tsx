@@ -2642,8 +2642,12 @@ export class KupDataTable {
 
                 // adding 'totals grouping' cells
                 for (let column of visibleColumns) {
+                    let totalClass = 'total';
+                    if (row.group.totals[column.name] < 0) {
+                        totalClass += ' negative-number';
+                    }
                     cells.push(
-                        <td class="total">
+                        <td class={totalClass}>
                             {numberToFormattedStringNumber(
                                 row.group.totals[column.name],
                                 column.decimals,
