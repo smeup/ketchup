@@ -37,6 +37,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'emptyDataLabel',
+          description: 'Defines the label to show when the table is empty.',
+          type: 'string',
+          default: 'Empty data',
+          try: 'field',
+        },
+        {
           prop: 'enableSortableColumns',
           description:
             'Enables the sorting of columns by dragging them into different columns.',

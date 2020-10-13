@@ -1,18 +1,17 @@
 <template>
   <div>
-    <h3>Rating</h3>
     <kup-lazy component-name="kup-data-table" :data.prop="data"></kup-lazy>
   </div>
 </template>
 
 <script>
-import { ratingDataTable } from '@/mock/dataTableRating';
+import { cellClassesDataTable } from '@/mock/dataTableCellClasses';
 
 export default {
-  name: 'DatatableShapes',
+  name: 'DatatableCellClasses',
   data() {
     return {
-      data: { data: ratingDataTable },
+      data: { data: cellClassesDataTable, lazyLoadRows: true },
     };
   },
 };
