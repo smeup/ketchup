@@ -3608,7 +3608,9 @@ export class KupDataTable {
         if (this.paginatedRows == null || this.paginatedRows.length === 0) {
             rows = (
                 <tr>
-                    <td colSpan={this.calculateColspan()}>{this.emptyDataLabel}</td>
+                    <td colSpan={this.calculateColspan()}>
+                        {this.emptyDataLabel}
+                    </td>
                 </tr>
             );
         } else {
@@ -3808,9 +3810,10 @@ export class KupDataTable {
                         <tbody>{rows}</tbody>
                         {footer}
                     </table>
-                    {tooltip}
+
                     {stickyEl}
                 </div>
+                {tooltip}
                 {paginatorBottom}
             </div>
         );
