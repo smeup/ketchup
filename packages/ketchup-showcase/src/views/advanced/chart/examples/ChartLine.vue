@@ -1,6 +1,7 @@
 <template>
   <div>
     <h3>Single serie</h3>
+
     <kup-chart
       :data.prop="baseData"
       :types.prop="types"
