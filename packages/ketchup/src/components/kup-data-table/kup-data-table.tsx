@@ -37,6 +37,8 @@ import {
     GenericFilter,
 } from './kup-data-table-declarations';
 
+import { isRating } from '../../utils/cell-utils';
+
 import {
     calcTotals,
     normalizeTotals,
@@ -194,6 +196,11 @@ export class KupDataTable {
      * If set to true, displays the button to open the customization panel.
      */
     @Prop({ mutable: true }) showCustomization: boolean = false;
+
+    /**
+     * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+     */
+    @Prop() showTooltipOnRightClick: boolean = true;
 
     /**
      * Expands groups when set to true.
@@ -1019,9 +1026,7 @@ export class KupDataTable {
     }
 
     private _unsetTooltip() {
-        if (!this.tooltip.mouseIsOn()) {
-            unsetTooltip(this.tooltip);
-        }
+        unsetTooltip(this.tooltip);
     }
 
     private getColumns(): Array<Column> {
@@ -2531,7 +2536,11 @@ export class KupDataTable {
         return (
             <kup-tooltip
                 class="datatable-tooltip"
-                loadTimeout={this.tooltipLoadTimeout}
+                loadTimeout={
+                    this.showTooltipOnRightClick == true
+                        ? 0
+                        : this.tooltipLoadTimeout
+                }
                 detailTimeout={this.tooltipDetailTimeout}
                 ref={(el: any) => (this.tooltip = el as KupTooltip)}
             ></kup-tooltip>
@@ -2829,7 +2838,7 @@ export class KupDataTable {
                 let cellClass = {
                     //    'has-options': !!options,
                     'is-graphic': isBar(cell.obj),
-                    number: isNumber(cell.obj),
+                    number: isNumber(cell.obj) && !isRating(cell, null),
                 };
                 if (cell.cssClass) {
                     cellClass[cell.cssClass] = true;
@@ -2883,8 +2892,39 @@ export class KupDataTable {
                     }
                 }
 
+                /**
+                 * Controls if current cell needs a tooltip and eventually adds it.
+                 * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
+                 */
+                const _hasTooltip: boolean = hasTooltip(cell.obj);
                 return (
-                    <td data-column={name} style={cellStyle} class={cellClass}>
+                    <td
+                        data-column={name}
+                        style={cellStyle}
+                        class={cellClass}
+                        onMouseEnter={(ev) => {
+                            if (
+                                _hasTooltip &&
+                                this.showTooltipOnRightClick == false
+                            ) {
+                                this._setTooltip(ev, cell);
+                            } else if (!_hasTooltip) {
+                                this._unsetTooltip();
+                            }
+                        }}
+                        onMouseLeave={() => {
+                            this._unsetTooltip();
+                        }}
+                        onContextMenu={(ev) => {
+                            ev.preventDefault();
+                            if (
+                                _hasTooltip &&
+                                this.showTooltipOnRightClick == true
+                            ) {
+                                this._setTooltip(ev, cell);
+                            }
+                        }}
+                    >
                         {jsxCell}
                         {/* {options} */}
                     </td>
@@ -2962,7 +3002,7 @@ export class KupDataTable {
 
         // Sets the default value
         let content: any = valueToDisplay;
-        let cellType: string = this.getCellType(cell.obj);
+        let cellType: string = this.getCellType(cell);
         let props: any = { ...cell.data };
         classObj[cellType + '-cell'] = true;
 
@@ -3011,26 +3051,9 @@ export class KupDataTable {
                 <span style={iconStyle} class="icon-container obj-icon"></span>
             );
         }
-        /**
-         * Controls if current cell needs a tooltip and eventually adds it.
-         * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
-         */
-        const _hasTooltip: boolean = hasTooltip(cell.obj);
+
         return (
-            <span
-                class={classObj}
-                style={style}
-                onMouseEnter={(ev) => {
-                    if (_hasTooltip) {
-                        this._setTooltip(ev, cell);
-                    } else {
-                        this._unsetTooltip();
-                    }
-                }}
-                onMouseLeave={() => {
-                    this._unsetTooltip();
-                }}
-            >
+            <span class={classObj} style={style}>
                 {indend}
                 {icon}
                 {content}
@@ -3038,8 +3061,12 @@ export class KupDataTable {
         );
     }
 
-    private getCellType(obj: any) {
-        if (isBar(obj)) {
+    // TODO: cell type can depend also from shape (see isRating)
+    private getCellType(cell: Cell) {
+        let obj = cell.obj;
+        if (isRating(cell, null)) {
+            return 'rating';
+        } else if (isBar(obj)) {
             return 'bar';
         } else if (isButton(obj)) {
             return 'button';
@@ -3200,6 +3227,17 @@ export class KupDataTable {
             case 'progress-bar':
                 return <kup-progress-bar {...props}></kup-progress-bar>;
 
+            case 'rating':
+                const cellValueNumber: number = stringToNumber(cell.value);
+                // NOTE: actually rating in datatable is only for output (-> put disabled)
+                return (
+                    <kup-rating
+                        value={cellValueNumber}
+                        {...props}
+                        disabled
+                    ></kup-rating>
+                );
+
             case 'radio':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
@@ -3234,6 +3272,12 @@ export class KupDataTable {
                     }
                     return cellValue;
                 }
+            case 'rating':
+                const cellValueNumber: number = stringToNumber(cell.value);
+                // NOTE: actually rating in datatable is only for output (-> put disabled)
+                return (
+                    <kup-rating value={cellValueNumber} disabled></kup-rating>
+                );
             case 'string':
             default:
                 return content;
@@ -3563,7 +3607,9 @@ export class KupDataTable {
         if (this.paginatedRows == null || this.paginatedRows.length === 0) {
             rows = (
                 <tr>
-                    <td colSpan={this.calculateColspan()}>{this.emptyDataLabel}</td>
+                    <td colSpan={this.calculateColspan()}>
+                        {this.emptyDataLabel}
+                    </td>
                 </tr>
             );
         } else {
@@ -3763,9 +3809,10 @@ export class KupDataTable {
                         <tbody>{rows}</tbody>
                         {footer}
                     </table>
-                    {tooltip}
+
                     {stickyEl}
                 </div>
+                {tooltip}
                 {paginatorBottom}
             </div>
         );

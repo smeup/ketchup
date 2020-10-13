@@ -37,6 +37,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'emptyDataLabel',
+          description: 'Defines the label to show when the table is empty.',
+          type: 'string',
+          default: 'Empty data',
+          try: 'field',
+        },
+        {
           prop: 'enableSortableColumns',
           description:
             'Enables the sorting of columns by dragging them into different columns.',
@@ -202,6 +209,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showTooltipOnRightClick',
+          description:
+            'If set to true, displays tooltip on right click event; if set to false, displays tooltip on mouseOver event.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'sort',
           description: 'Defines the current sorting options.',
           type: 'SortObject[]',
@@ -283,6 +298,7 @@ function createComp() {
   comp.showHeader = true;
   comp.sortableColumnsMutateData = true;
   comp.sortEnabled = true;
+  comp.showTooltipOnRightClick = true;
   return comp;
 }
 </script>

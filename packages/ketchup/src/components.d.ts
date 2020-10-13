@@ -159,6 +159,10 @@ export namespace Components {
          */
         "showSelection": boolean;
         /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick": boolean;
+        /**
           * If sorting is enabled, specifies which column to sort
          */
         "sortBy": string;
@@ -596,6 +600,10 @@ export namespace Components {
          */
         "showLoadMore": boolean;
         /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick": boolean;
+        /**
           * Defines the current sorting options.
          */
         "sort": Array<SortObject>;
@@ -638,6 +646,14 @@ export namespace Components {
         "opened": boolean;
         "permanent": boolean;
         "right": boolean;
+    }
+    interface KupEcharts {
+        "graphTitle": string;
+        "graphTitleColor": string;
+        "graphTitleSize": number;
+        "legend": string;
+        "objectData": object;
+        "types": string;
     }
     interface KupEditor {
         /**
@@ -1104,6 +1120,20 @@ export namespace Components {
         "name": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
     }
+    interface KupRating {
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Max number of stars (default 5)
+         */
+        "maxValue": number;
+        /**
+          * Rated stars
+         */
+        "value": number;
+    }
     interface KupSearch {
         "data": TableData;
         "disabled": boolean;
@@ -1316,11 +1346,12 @@ export namespace Components {
           * Timeout for tooltip
          */
         "loadTimeout": number;
-        "mouseIsOn": () => Promise<boolean>;
         /**
           * Container element for tooltip
          */
         "relatedObject": TooltipRelatedObject;
+        "setTooltipInfo": (relatedObject: TooltipRelatedObject) => Promise<void>;
+        "unsetTooltipInfo": () => Promise<void>;
     }
     interface KupTree {
         /**
@@ -1494,6 +1525,12 @@ declare global {
         prototype: HTMLKupDrawerElement;
         new (): HTMLKupDrawerElement;
     };
+    interface HTMLKupEchartsElement extends Components.KupEcharts, HTMLStencilElement {
+    }
+    var HTMLKupEchartsElement: {
+        prototype: HTMLKupEchartsElement;
+        new (): HTMLKupEchartsElement;
+    };
     interface HTMLKupEditorElement extends Components.KupEditor, HTMLStencilElement {
     }
     var HTMLKupEditorElement: {
@@ -1596,6 +1633,12 @@ declare global {
         prototype: HTMLKupRadioElement;
         new (): HTMLKupRadioElement;
     };
+    interface HTMLKupRatingElement extends Components.KupRating, HTMLStencilElement {
+    }
+    var HTMLKupRatingElement: {
+        prototype: HTMLKupRatingElement;
+        new (): HTMLKupRatingElement;
+    };
     interface HTMLKupSearchElement extends Components.KupSearch, HTMLStencilElement {
     }
     var HTMLKupSearchElement: {
@@ -1661,6 +1704,7 @@ declare global {
         "kup-dash-list": HTMLKupDashListElement;
         "kup-data-table": HTMLKupDataTableElement;
         "kup-drawer": HTMLKupDrawerElement;
+        "kup-echarts": HTMLKupEchartsElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
@@ -1678,6 +1722,7 @@ declare global {
         "kup-progress-bar": HTMLKupProgressBarElement;
         "kup-qlik": HTMLKupQlikElement;
         "kup-radio": HTMLKupRadioElement;
+        "kup-rating": HTMLKupRatingElement;
         "kup-search": HTMLKupSearchElement;
         "kup-spinner": HTMLKupSpinnerElement;
         "kup-switch": HTMLKupSwitchElement;
@@ -1910,6 +1955,10 @@ declare namespace LocalJSX {
           * If enabled, highlights the selected box/boxes
          */
         "showSelection"?: boolean;
+        /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick"?: boolean;
         /**
           * If sorting is enabled, specifies which column to sort
          */
@@ -2521,6 +2570,10 @@ declare namespace LocalJSX {
          */
         "showLoadMore"?: boolean;
         /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick"?: boolean;
+        /**
           * Defines the current sorting options.
          */
         "sort"?: Array<SortObject>;
@@ -2562,6 +2615,14 @@ declare namespace LocalJSX {
         "opened"?: boolean;
         "permanent"?: boolean;
         "right"?: boolean;
+    }
+    interface KupEcharts {
+        "graphTitle"?: string;
+        "graphTitleColor"?: string;
+        "graphTitleSize"?: number;
+        "legend"?: string;
+        "objectData"?: object;
+        "types"?: string;
     }
     interface KupEditor {
         /**
@@ -3092,6 +3153,21 @@ declare namespace LocalJSX {
         checked: boolean;
     }>) => void;
     }
+    interface KupRating {
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Max number of stars (default 5)
+         */
+        "maxValue"?: number;
+        "onKupRatingClicked"?: (event: CustomEvent<any>) => void;
+        /**
+          * Rated stars
+         */
+        "value"?: number;
+    }
     interface KupSearch {
         "data"?: TableData;
         "disabled"?: boolean;
@@ -3533,6 +3609,7 @@ declare namespace LocalJSX {
         "kup-dash-list": KupDashList;
         "kup-data-table": KupDataTable;
         "kup-drawer": KupDrawer;
+        "kup-echarts": KupEcharts;
         "kup-editor": KupEditor;
         "kup-field": KupField;
         "kup-form": KupForm;
@@ -3550,6 +3627,7 @@ declare namespace LocalJSX {
         "kup-progress-bar": KupProgressBar;
         "kup-qlik": KupQlik;
         "kup-radio": KupRadio;
+        "kup-rating": KupRating;
         "kup-search": KupSearch;
         "kup-spinner": KupSpinner;
         "kup-switch": KupSwitch;
@@ -3580,6 +3658,7 @@ declare module "@stencil/core" {
             "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
+            "kup-echarts": LocalJSX.KupEcharts & JSXBase.HTMLAttributes<HTMLKupEchartsElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
@@ -3597,6 +3676,7 @@ declare module "@stencil/core" {
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;
+            "kup-rating": LocalJSX.KupRating & JSXBase.HTMLAttributes<HTMLKupRatingElement>;
             "kup-search": LocalJSX.KupSearch & JSXBase.HTMLAttributes<HTMLKupSearchElement>;
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
             "kup-switch": LocalJSX.KupSwitch & JSXBase.HTMLAttributes<HTMLKupSwitchElement>;
