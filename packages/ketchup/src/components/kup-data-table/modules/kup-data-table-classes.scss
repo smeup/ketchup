@@ -1,15 +1,18 @@
-//Row classes specified in JSON
+//--------------------------------//
+// Row classes specified in JSON //
+//--------------------------------//
 tr.clickable {
   cursor: pointer;
 }
 
-//Cell classes specified in JSON
+//--------------------------------//
+// Cell classes specified in JSON //
+//--------------------------------//
+
+// TD styles
+// These styles are appplied to the whole cell
 td.clickable {
   cursor: pointer;
-}
-
-td.icon-sized {
-  width: 30px;
 }
 
 td.display-on-hover {
@@ -17,5 +20,146 @@ td.display-on-hover {
   transition: opacity 0.25s;
   &:hover {
     opacity: 1;
+  }
+}
+
+td.icon-sized {
+  width: 30px;
+}
+
+td.shaped {
+  border-radius: 4px;
+}
+
+td.strong-text {
+  font-weight: 600;
+}
+
+td.success-text {
+  color: var(--kup-success-color);
+}
+
+td.warning-text {
+  color: var(--kup-warning-color);
+}
+
+td.danger-text {
+  color: var(--kup-danger-color);
+}
+
+td.purple-text {
+  color: #8e15bf;
+}
+
+td.success-bg {
+  background: var(--kup-success-color);
+}
+
+td.warning-bg {
+  background: var(--kup-warning-color);
+}
+
+td.danger-bg {
+  background: var(--kup-danger-color);
+}
+
+td.teal-bg {
+  background: #00b4bc;
+}
+
+td.orange-bg {
+  background: #f59729;
+}
+
+td.green-bg {
+  background: #00be67;
+}
+
+td.grey-bg {
+  background: #8d8d8d;
+}
+
+td.purple-bg {
+  background: #b88acc;
+}
+
+td.vertical-text {
+  writing-mode: vertical-lr;
+  text-align: center;
+}
+
+// Content styles
+// These styles are applied to the cell's content
+td.c-fitted {
+  & * {
+    max-width: max-content;
+  }
+}
+
+td.c-shaped {
+  & * {
+    border-radius: 4px;
+  }
+}
+
+td.c-hor-padded {
+  & * {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+td.c-ver-padded {
+  & * {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+td.c-success-bg {
+  & * {
+    background: var(--kup-success-color);
+  }
+}
+
+td.c-warning-bg {
+  & * {
+    background: var(--kup-warning-color);
+  }
+}
+
+td.c-danger-bg {
+  & * {
+    background: var(--kup-danger-color);
+  }
+}
+
+td.c-teal-bg {
+  & * {
+    background: #00b4bc;
+  }
+}
+
+td.c-orange-bg {
+  & * {
+    background: #f59729;
+  }
+}
+
+td.c-green-bg {
+  & * {
+    background: #00be67;
+  }
+}
+
+td.c-grey-bg {
+  & * {
+    background: #8d8d8d;
+  }
+}
+
+td.c-purple-bg {
+  & * {
+    background: #b88acc;
   }
 }
