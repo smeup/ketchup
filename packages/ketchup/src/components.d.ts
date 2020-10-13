@@ -465,6 +465,10 @@ export namespace Components {
          */
         "density": string;
         /**
+          * Defines the label to show when the table is empty.
+         */
+        "emptyDataLabel": string;
+        /**
           * Enables the sorting of columns by dragging them into different columns.
          */
         "enableSortableColumns": boolean;
@@ -2354,6 +2358,10 @@ declare namespace LocalJSX {
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
          */
         "density"?: string;
+        /**
+          * Defines the label to show when the table is empty.
+         */
+        "emptyDataLabel"?: string;
         /**
           * Enables the sorting of columns by dragging them into different columns.
          */
