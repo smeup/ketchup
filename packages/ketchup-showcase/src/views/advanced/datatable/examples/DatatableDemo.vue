@@ -40,7 +40,7 @@ export default {
           prop: 'emptyDataLabel',
           description: 'Defines the label to show when the table is empty.',
           type: 'string',
-          default: 'undefined',
+          default: 'Empty data',
           try: 'field',
         },
         {
