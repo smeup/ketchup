@@ -66,6 +66,9 @@
     <template v-slot:21>
       <datatable-shapes></datatable-shapes>
     </template>
+    <template v-slot:22>
+      <datatable-cell-classes></datatable-cell-classes>
+    </template>
   </comp>
 </template>
 
@@ -99,6 +102,7 @@ import DatatableSortableColumns from '@/views/advanced/datatable/examples/Datata
 import DatatableTooltip from '@/views/advanced/datatable/examples/DatatableTooltip';
 import DatatableTotal from '@/views/advanced/datatable/examples/DatatableTotal';
 import DatatableShapes from '@/views/advanced/datatable/examples/DatatableShapes';
+import DatatableCellClasses from '@/views/advanced/datatable/examples/DatatableCellClasses';
 
 import Comp from '@/views/advanced/page/templates/Comp';
 
@@ -126,6 +130,7 @@ export default {
     DatatableTotal,
     DatatableJ4ico,
     DatatableShapes,
+    DatatableCellClasses,
     Comp,
   },
   data() {
@@ -156,6 +161,7 @@ export default {
         'With J4Ico',
         'Images and badges',
         'Shapes',
+        'Cell classes',
       ],
     };
   },

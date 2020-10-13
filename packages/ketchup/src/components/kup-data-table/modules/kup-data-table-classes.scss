@@ -53,6 +53,7 @@ td.purple-text {
 
 td.success-bg {
   background: var(--kup-success-color);
+  color: white;
 }
 
 td.warning-bg {
@@ -61,35 +62,56 @@ td.warning-bg {
 
 td.danger-bg {
   background: var(--kup-danger-color);
+  color: white;
 }
 
 td.teal-bg {
   background: #00b4bc;
+  color: white;
 }
 
 td.orange-bg {
   background: #f59729;
+  color: white;
 }
 
 td.green-bg {
   background: #00be67;
+  color: white;
 }
 
 td.grey-bg {
   background: #8d8d8d;
+  color: white;
 }
 
 td.purple-bg {
   background: #b88acc;
-}
-
-td.vertical-text {
-  writing-mode: vertical-lr;
-  text-align: center;
+  color: white;
 }
 
 // Content styles
 // These styles are applied to the cell's content
+td.c-vertical-text {
+  & * {
+    text-align: center;
+    writing-mode: vertical-lr;
+  }
+}
+
+td.c-right-aligned {
+  & * {
+    flex-flow: row-reverse;
+  }
+}
+
+td.c-centered {
+  & * {
+    margin: auto;
+    max-width: max-content;
+  }
+}
+
 td.c-fitted {
   & * {
     max-width: max-content;
@@ -119,6 +141,7 @@ td.c-ver-padded {
 td.c-success-bg {
   & * {
     background: var(--kup-success-color);
+    color: white;
   }
 }
 
@@ -131,35 +154,41 @@ td.c-warning-bg {
 td.c-danger-bg {
   & * {
     background: var(--kup-danger-color);
+    color: white;
   }
 }
 
 td.c-teal-bg {
   & * {
     background: #00b4bc;
+    color: white;
   }
 }
 
 td.c-orange-bg {
   & * {
     background: #f59729;
+    color: white;
   }
 }
 
 td.c-green-bg {
   & * {
     background: #00be67;
+    color: white;
   }
 }
 
 td.c-grey-bg {
   & * {
     background: #8d8d8d;
+    color: white;
   }
 }
 
 td.c-purple-bg {
   & * {
     background: #b88acc;
+    color: white;
   }
 }
