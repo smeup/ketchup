@@ -1,10 +1,11 @@
 <template>
   <div>
-    <div style="width: 300px;">
+    <div style="width: 300px">
       <kup-data-table
         :data.prop="data"
         id="basic-data"
         enable-sortable-columns
+        scroll-on-hover
       ></kup-data-table>
     </div>
   </div>

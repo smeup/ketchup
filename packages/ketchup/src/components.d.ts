@@ -560,7 +560,7 @@ export namespace Components {
          */
         "rowsPerPage": number;
         /**
-          * Semicolon separated rows id to select.
+          * Activates the scroll on hover function.
          */
         "scrollOnHover": boolean;
         /**
@@ -1383,11 +1383,11 @@ export namespace Components {
           * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
          */
         "filterValue": string;
-        /**
-          * Activates the scroll on hover function
-         */
-        "hoverScroll": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover": boolean;
         /**
           * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
          */
@@ -2522,7 +2522,7 @@ declare namespace LocalJSX {
          */
         "rowsPerPage"?: number;
         /**
-          * Semicolon separated rows id to select.
+          * Activates the scroll on hover function.
          */
         "scrollOnHover"?: boolean;
         /**
@@ -3486,10 +3486,6 @@ declare namespace LocalJSX {
           * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
          */
         "filterValue"?: string;
-        /**
-          * Activates the scroll on hover function
-         */
-        "hoverScroll"?: boolean;
         "onKupDidLoad"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when stop propagation event
@@ -3540,6 +3536,10 @@ declare namespace LocalJSX {
         auto: boolean;
         tree: KupTree;
     }>) => void;
+        /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover"?: boolean;
         /**
           * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
          */

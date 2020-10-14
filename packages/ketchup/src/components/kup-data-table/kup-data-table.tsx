@@ -330,7 +330,7 @@ export class KupDataTable {
      */
     @Prop({ reflect: true }) rowsPerPage = 10;
     /**
-     * Semicolon separated rows id to select.
+     * Activates the scroll on hover function.
      */
     @Prop({ reflect: true }) scrollOnHover: boolean = false;
     /**
