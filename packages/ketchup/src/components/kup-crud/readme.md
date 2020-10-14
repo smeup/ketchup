@@ -115,7 +115,6 @@ graph TD;
   kup-progress-bar --> kup-image
   kup-paginator --> kup-button
   kup-paginator --> kup-combobox
-  kup-chip --> kup-image
   style kup-crud fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

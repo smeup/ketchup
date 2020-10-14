@@ -177,7 +177,6 @@ graph TD;
   kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
-  kup-chip --> kup-image
   kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```

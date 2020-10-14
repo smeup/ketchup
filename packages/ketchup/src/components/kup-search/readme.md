@@ -80,7 +80,6 @@ graph TD;
   kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
-  kup-chip --> kup-image
   kup-form --> kup-search
   style kup-search fill:#f9f,stroke:#333,stroke-width:4px
 ```
