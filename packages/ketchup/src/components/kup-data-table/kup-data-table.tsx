@@ -82,6 +82,7 @@ import {
     unformattedStringToFormattedStringNumber,
     numberToFormattedStringNumber,
     identify,
+    isNumber as isNumberThisString,
 } from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 
@@ -1455,11 +1456,15 @@ export class KupDataTable {
         this.resetCurrentPage();
 
         let newFilter = detail.value.trim();
+
         if (newFilter != '' && isNumber(column.obj)) {
-            newFilter = formattedStringToUnformattedStringNumber(
+            let tmpStr = formattedStringToUnformattedStringNumber(
                 newFilter,
                 column.obj ? column.obj.p : ''
             );
+            if (isNumberThisString(tmpStr)) {
+                newFilter = tmpStr;
+            }
         }
 
         const newFilters: GenericFilter = { ...this.filters };
@@ -2207,7 +2212,12 @@ export class KupDataTable {
                         let filterInitialValue = this.getTextFieldFilterValue(
                             column.name
                         );
-                        if (filterInitialValue != '' && isNumber(column.obj)) {
+
+                        if (
+                            filterInitialValue != '' &&
+                            isNumber(column.obj) &&
+                            isNumberThisString(filterInitialValue)
+                        ) {
                             filterInitialValue = unformattedStringToFormattedStringNumber(
                                 filterInitialValue,
                                 column.decimals,
@@ -2642,8 +2652,12 @@ export class KupDataTable {
 
                 // adding 'totals grouping' cells
                 for (let column of visibleColumns) {
+                    let totalClass = 'total';
+                    if (row.group.totals[column.name] < 0) {
+                        totalClass += ' negative-number';
+                    }
                     cells.push(
-                        <td class="total">
+                        <td class={totalClass}>
                             {numberToFormattedStringNumber(
                                 row.group.totals[column.name],
                                 column.decimals,

@@ -2,10 +2,17 @@
 
 :host {
   display: block;
+}
 
-  #kup-component {
-    color: var(--kup-text-color);
+:host(.full-width) {
+  width: 100%;
+  table.kup-tree {
+    width: 100%;
   }
+}
+
+#kup-component {
+  color: var(--kup-text-color);
 }
 
 .density-dense .wrapper .kup-tree,

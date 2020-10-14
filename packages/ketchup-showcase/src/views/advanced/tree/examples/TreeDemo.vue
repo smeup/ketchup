@@ -44,6 +44,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'className',
+          description: 'Available classes: full-width.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'columns?',
           description:
             'The columns of the tree when tree visualization is active.',
