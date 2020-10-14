@@ -48,7 +48,6 @@ Type: `Promise<void>`
  - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
- - [kup-list](../kup-list)
  - [kup-progress-bar](../kup-progress-bar)
  - [kup-tab-bar](../kup-tab-bar)
  - [kup-text-field](../kup-text-field)
@@ -70,7 +69,6 @@ graph TD;
   kup-card --> kup-image
   kup-data-table --> kup-image
   kup-form --> kup-image
-  kup-list --> kup-image
   kup-progress-bar --> kup-image
   kup-tab-bar --> kup-image
   kup-text-field --> kup-image

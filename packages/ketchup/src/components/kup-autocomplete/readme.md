@@ -63,7 +63,6 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
-  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-form --> kup-autocomplete
