@@ -560,6 +560,10 @@ export namespace Components {
          */
         "rowsPerPage": number;
         /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover": boolean;
+        /**
           * Selects the row at the specified rendered rows prosition (base 1).
          */
         "selectRow": number;
@@ -1379,11 +1383,11 @@ export namespace Components {
           * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
          */
         "filterValue": string;
-        /**
-          * Activates the scroll on hover function
-         */
-        "hoverScroll": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover": boolean;
         /**
           * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
          */
@@ -2518,6 +2522,10 @@ declare namespace LocalJSX {
          */
         "rowsPerPage"?: number;
         /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover"?: boolean;
+        /**
           * Selects the row at the specified rendered rows prosition (base 1).
          */
         "selectRow"?: number;
@@ -3478,10 +3486,6 @@ declare namespace LocalJSX {
           * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
          */
         "filterValue"?: string;
-        /**
-          * Activates the scroll on hover function
-         */
-        "hoverScroll"?: boolean;
         "onKupDidLoad"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when stop propagation event
@@ -3532,6 +3536,10 @@ declare namespace LocalJSX {
         auto: boolean;
         tree: KupTree;
     }>) => void;
+        /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover"?: boolean;
         /**
           * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
          */
