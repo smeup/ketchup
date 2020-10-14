@@ -194,99 +194,82 @@ export class KupDataTable {
     @Element() rootElement: HTMLElement;
 
     /**
-     * If set to true, displays the button to open the customization panel.
-     */
-    @Prop({ mutable: true }) showCustomization: boolean = false;
-
-    /**
-     * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
-     */
-    @Prop() showTooltipOnRightClick: boolean = true;
-
-    /**
-     * Expands groups when set to true.
-     */
-    @Prop({ reflect: true }) expandGroups = false;
-
-    /**
      * The data of the table.
      */
     @Prop() data: TableData;
-
     /**
      * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
      */
-    @Prop({ reflect: true }) density: string = 'dense';
-
+    @Prop() density: string = 'dense';
+    /**
+     * Defines the label to show when the table is empty.
+     */
+    @Prop() emptyDataLabel: string = 'Empty data';
     /**
      * Enables the sorting of columns by dragging them into different columns.
      */
-    @Prop({ reflect: true }) enableSortableColumns: boolean = true;
-
+    @Prop() enableSortableColumns: boolean = true;
+    /**
+     * Expands groups when set to true.
+     */
+    @Prop() expandGroups: boolean = false;
     /**
      * List of filters set by the user.
      */
     @Prop({ mutable: true }) filters: GenericFilter = {};
-
     /**
      * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table.
      * If grouping is active or the value of the prop is <= 0, this prop will have no effect.
      * Can be combined with fixedRows.
      * @see fixedRows
      */
-    @Prop({ reflect: true }) fixedColumns: number = 0;
-
+    @Prop() fixedColumns: number = 0;
     /**
      * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table.
      * If grouping is active or the value of the prop is <= 0, this prop will have no effect.
      * Can be combined with fixedColumns.
      * @see fixedColumns
      */
-    @Prop({ reflect: true }) fixedRows: number = 0;
-
+    @Prop() fixedRows: number = 0;
     /**
      * Forces cells with long text and a fixed column size to have an ellipsis set on their text.
      * The reflect attribute is mandatory to allow styling.
      */
     @Prop({ reflect: true }) forceOneLine: boolean = false;
-
     /**
      * When set to true it activates the global filter.
      */
-    @Prop({ reflect: true }) globalFilter = false;
-
+    @Prop() globalFilter: boolean = false;
     /**
      * The value of the global filter.
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
-
     /**
      * How the label of a group must be displayed.
      * For available values [see here]{@link GroupLabelDisplayMode}
      */
-    @Prop({ reflect: true }) groupLabelDisplay: GroupLabelDisplayMode =
+    @Prop() groupLabelDisplay: GroupLabelDisplayMode =
         GroupLabelDisplayMode.BOTH;
-
     /**
      * The list of groups.
      */
     @Prop({ mutable: true }) groups: Array<GroupObject> = [];
-
     /**
      * When set to true the header will stick on top of the table when scrolling.
      */
-    @Prop({ reflect: true }) headerIsPersistent = true;
-
+    @Prop() headerIsPersistent = true;
     /**
      * When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.
      */
-    @Prop({ reflect: true }) lazyLoadRows: boolean = false;
-
+    @Prop() lazyLoadRows: boolean = false;
+    /**
+     * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
+     */
+    @Prop() lineBreakCharacter: string = '|';
     /**
      * Sets a maximum limit of new records which can be required by the load more functionality.
      */
-    @Prop({ reflect: true }) loadMoreLimit: number = 1000;
-
+    @Prop() loadMoreLimit: number = 1000;
     /**
      * Establish the modality of how many new records will be downloaded.
      *
@@ -295,7 +278,6 @@ export class KupDataTable {
      * @see loadMoreLimit
      */
     @Prop() loadMoreMode: LoadMoreMode = LoadMoreMode.PROGRESSIVE_THRESHOLD;
-
     /**
      * The number of records which will be requested to be downloaded when clicking on the load more button.
      *
@@ -303,114 +285,93 @@ export class KupDataTable {
      * @see loadMoreMode
      * @see loadMoreLimit
      */
-    @Prop({ reflect: true }) loadMoreStep: number = 60;
-
+    @Prop() loadMoreStep: number = 60;
+    /**
+     * When set to true enables rows multi selection.
+     */
+    @Prop() multiSelection: boolean = false;
     /**
      * Current selected page set on component load
      */
     @Prop() pageSelected: number = -1;
-
-    /**
-     * When set to true enables rows multi selection.
-     */
-    @Prop({ reflect: true }) multiSelection = false;
-
     /**
      * Sets the position of the paginator. Available positions: top, bottom or both.
      */
-    @Prop({ reflect: true }) paginatorPos: PaginatorPos = PaginatorPos.TOP;
-
+    @Prop() paginatorPos: PaginatorPos = PaginatorPos.TOP;
     /**
      * Sets the actions of the rows.
      */
     @Prop() rowActions: Array<RowAction>;
-
     /**
      * Sets the number of rows per page to display.
      */
-    @Prop({ reflect: true }) rowsPerPage = 10;
-
-    /**
-     * Semicolon separated rows id to select.
-     */
-    @Prop({ reflect: true }) selectRowsById: string;
-
+    @Prop() rowsPerPage = 10;
     /**
      * Selects the row at the specified rendered rows prosition (base 1).
      */
-    @Prop({ reflect: true }) selectRow: number;
-
+    @Prop() selectRow: number;
+    /**
+     * Semicolon separated rows id to select.
+     */
+    @Prop() selectRowsById: string;
+    /**
+     * If set to true, displays the button to open the customization panel.
+     */
+    @Prop() showCustomization: boolean = false;
     /**
      * When set to true enables the column filters.
      */
-    @Prop({ reflect: true }) showFilters = false;
-
+    @Prop() showFilters: boolean = false;
     /**
      * Can be used to customize the grid view of the table.
      */
-    @Prop({ reflect: true }) showGrid: ShowGrid = ShowGrid.ROW;
-
+    @Prop() showGrid: ShowGrid = ShowGrid.ROW;
     /**
      * Enables rendering of the table header.
      * @namespace KupDataTable.showHeader
      */
-    @Prop({ reflect: true }) showHeader = true;
-
+    @Prop() showHeader: boolean = true;
     /**
      * If set to true, displays the button to load more records.
      */
-    @Prop({ reflect: true }) showLoadMore: boolean = false;
-
+    @Prop() showLoadMore: boolean = false;
     /**
-     * When set to true enables the sorting of the columns.
+     * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
      */
-    @Prop({ reflect: true }) sortEnabled = true;
-
+    @Prop() showTooltipOnRightClick: boolean = true;
     /**
      * Defines the current sorting options.
      */
     @Prop({ mutable: true }) sort: Array<SortObject> = [];
-
     /**
      * If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property
      * and then fires the event
      */
-    @Prop({ reflect: true }) sortableColumnsMutateData: boolean = true;
-
+    @Prop() sortableColumnsMutateData: boolean = true;
+    /**
+     * When set to true enables the sorting of the columns.
+     */
+    @Prop() sortEnabled = true;
     /**
      * Sets the height of the table.
      */
-    @Prop({ reflect: true }) tableHeight: string = undefined;
-
+    @Prop() tableHeight: string = undefined;
     /**
      * Sets the width of the table.
      */
-    @Prop({ reflect: true }) tableWidth: string = undefined;
-
-    /**
-     * Defines the current totals options.
-     */
-    @Prop() totals: TotalsMap;
-
-    /**
-     * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
-     */
-    @Prop() lineBreakCharacter: string = '|';
-
-    /**
-     * Defines the timeout for tooltip load
-     */
-    @Prop() tooltipLoadTimeout: number;
-
+    @Prop() tableWidth: string = undefined;
     /**
      * Defines the timeout for tooltip detail
      */
     @Prop() tooltipDetailTimeout: number;
-
     /**
-     * Defines the label to show when the table is empty.
+     * Defines the timeout for tooltip load
      */
-    @Prop() emptyDataLabel: string = 'Empty data';
+    @Prop() tooltipLoadTimeout: number;
+    /**
+     * Defines the current totals options.
+     */
+    @Prop() totals: TotalsMap;
 
     //-------- State --------
 

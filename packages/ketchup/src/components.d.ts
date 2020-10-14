@@ -448,9 +448,21 @@ export namespace Components {
         "sections": FormSection;
     }
     interface KupDash {
+        /**
+          * The component can be clicked.
+         */
         "active": boolean;
+        /**
+          * Sets the font size of the component.
+         */
         "fontsize": string;
+        /**
+          * No idea what this is about.
+         */
         "index": number;
+        /**
+          * Sets the layout of the component.
+         */
         "layout": string;
     }
     interface KupDashList {
@@ -2364,9 +2376,21 @@ declare namespace LocalJSX {
         "sections"?: FormSection;
     }
     interface KupDash {
+        /**
+          * The component can be clicked.
+         */
         "active"?: boolean;
+        /**
+          * Sets the font size of the component.
+         */
         "fontsize"?: string;
+        /**
+          * No idea what this is about.
+         */
         "index"?: number;
+        /**
+          * Sets the layout of the component.
+         */
         "layout"?: string;
         "onKetchupDashClicked"?: (event: CustomEvent<{
         id: number;
