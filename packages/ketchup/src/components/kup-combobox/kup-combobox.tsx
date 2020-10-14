@@ -31,11 +31,11 @@ export class KupCombobox {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Lets the combobox behave as a select element.
      */
-    @Prop({ reflect: true }) isSelect: boolean = false;
+    @Prop() isSelect: boolean = false;
     /**
      * Props of the list.
      */
@@ -43,8 +43,7 @@ export class KupCombobox {
     /**
      * Sets how the return the elected item value. Suported values: "code", "description", "both".
      */
-    @Prop({ reflect: true }) selectMode: ItemsDisplayMode =
-        ItemsDisplayMode.DESCRIPTION;
+    @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
      * Props of the text field.
      */
