@@ -560,6 +560,10 @@ export namespace Components {
          */
         "rowsPerPage": number;
         /**
+          * Semicolon separated rows id to select.
+         */
+        "scrollOnHover": boolean;
+        /**
           * Selects the row at the specified rendered rows prosition (base 1).
          */
         "selectRow": number;
@@ -2517,6 +2521,10 @@ declare namespace LocalJSX {
           * Sets the number of rows per page to display.
          */
         "rowsPerPage"?: number;
+        /**
+          * Semicolon separated rows id to select.
+         */
+        "scrollOnHover"?: boolean;
         /**
           * Selects the row at the specified rendered rows prosition (base 1).
          */
