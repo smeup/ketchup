@@ -831,10 +831,6 @@ export namespace Components {
           * The actual data of the grid.
          */
         "data": ComponentGridElement[];
-        /**
-          * When set to true, forces the width to 100% for the single line layout.
-         */
-        "fullWidth": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * When set to true, forces the content on a single line.
@@ -2815,10 +2811,6 @@ declare namespace LocalJSX {
           * The actual data of the grid.
          */
         "data"?: ComponentGridElement[];
-        /**
-          * When set to true, forces the width to 100% for the single line layout.
-         */
-        "fullWidth"?: boolean;
         /**
           * When set to true, forces the content on a single line.
          */
