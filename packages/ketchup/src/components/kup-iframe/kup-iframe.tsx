@@ -25,17 +25,19 @@ export class KupIframe {
     /**
      * The component will be rendered as a button, which opens the link associated to the iframe in another tab when clicked.
      */
-    @Prop({ reflect: true }) isButton: boolean = false;
+    @Prop() isButton: boolean = false;
     /**
      * The address the iframe should be referencing to.
      */
-    @Prop({ reflect: true }) src: string = undefined;
+    @Prop() src: string = undefined;
 
     private startTime: number = 0;
     private endTime: number = 0;
     private renderCount: number = 0;
     private renderStart: number = 0;
     private renderEnd: number = 0;
+
+    //---- Methods ----
 
     @Event({
         eventName: 'kupIframeError',
