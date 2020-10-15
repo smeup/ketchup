@@ -329,7 +329,10 @@ export class KupDataTable {
      * Sets the number of rows per page to display.
      */
     @Prop({ reflect: true }) rowsPerPage = 10;
-
+    /**
+     * Activates the scroll on hover function.
+     */
+    @Prop({ reflect: true }) scrollOnHover: boolean = false;
     /**
      * Semicolon separated rows id to select.
      */
@@ -852,12 +855,25 @@ export class KupDataTable {
     }
 
     private checkScrollOnHover() {
-        if (
-            this.scrollOnHoverInstance !== undefined &&
-            (this.tableHeight !== undefined || this.tableWidth !== undefined)
-        ) {
-            this.scrollOnHoverInstance.scrollOnHoverDisable(this.tableAreaRef);
-            this.scrollOnHoverInstance = undefined;
+        if (!this.scrollOnHoverInstance) {
+            if (
+                this.scrollOnHover &&
+                this.tableHeight === undefined &&
+                this.tableWidth === undefined
+            ) {
+                this.setScrollOnHover();
+            }
+        } else {
+            if (
+                !this.scrollOnHover &&
+                (this.tableHeight !== undefined ||
+                    this.tableWidth !== undefined)
+            ) {
+                this.scrollOnHoverInstance.scrollOnHoverDisable(
+                    this.tableAreaRef
+                );
+                this.scrollOnHoverInstance = undefined;
+            }
         }
     }
 
@@ -963,7 +979,6 @@ export class KupDataTable {
     }
 
     componentDidLoad() {
-        this.setScrollOnHover();
         this.didLoadObservers();
         this.didLoadEventHandling();
 
@@ -2652,8 +2667,12 @@ export class KupDataTable {
 
                 // adding 'totals grouping' cells
                 for (let column of visibleColumns) {
+                    let totalClass = 'total';
+                    if (row.group.totals[column.name] < 0) {
+                        totalClass += ' negative-number';
+                    }
                     cells.push(
-                        <td class="total">
+                        <td class={totalClass}>
                             {numberToFormattedStringNumber(
                                 row.group.totals[column.name],
                                 column.decimals,

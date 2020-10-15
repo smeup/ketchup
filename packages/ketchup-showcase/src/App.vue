@@ -376,6 +376,12 @@ export default {
             },
           },
           {
+            title: 'Drawer',
+            to: {
+              name: 'drawer',
+            },
+          },
+          {
             title: 'Grid',
             to: {
               name: 'grid',

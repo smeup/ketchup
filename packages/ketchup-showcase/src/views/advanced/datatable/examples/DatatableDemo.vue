@@ -164,6 +164,14 @@ export default {
           try: 'json',
         },
         {
+          prop: 'scrollOnHover',
+          description:
+            'When the mouse move towards the left or right edge and there is an overflow, the table will automatically scroll.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'selectRow',
           description: 'Selects the specified row.',
           type: 'number',

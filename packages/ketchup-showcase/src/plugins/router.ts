@@ -30,6 +30,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/button/Button.vue`),
   },
   {
+    path: `/drawer`,
+    name: 'drawer',
+    component: () => import(`@/views/basic/drawer/Drawer.vue`),
+  },
+  {
     path: `/checkbox`,
     name: 'checkbox',
     component: () => import(`@/views/basic/checkbox/Checkbox.vue`),
