@@ -307,9 +307,9 @@ export class KupDataTable {
      */
     @Prop() rowsPerPage = 10;
     /**
-     * Selects the row at the specified rendered rows prosition (base 1).
+     * Activates the scroll on hover function.
      */
-    @Prop() selectRow: number;
+    @Prop() scrollOnHover: boolean = false;
     /**
      * Semicolon separated rows id to select.
      */
@@ -813,12 +813,25 @@ export class KupDataTable {
     }
 
     private checkScrollOnHover() {
-        if (
-            this.scrollOnHoverInstance !== undefined &&
-            (this.tableHeight !== undefined || this.tableWidth !== undefined)
-        ) {
-            this.scrollOnHoverInstance.scrollOnHoverDisable(this.tableAreaRef);
-            this.scrollOnHoverInstance = undefined;
+        if (!this.scrollOnHoverInstance) {
+            if (
+                this.scrollOnHover &&
+                this.tableHeight === undefined &&
+                this.tableWidth === undefined
+            ) {
+                this.setScrollOnHover();
+            }
+        } else {
+            if (
+                !this.scrollOnHover &&
+                (this.tableHeight !== undefined ||
+                    this.tableWidth !== undefined)
+            ) {
+                this.scrollOnHoverInstance.scrollOnHoverDisable(
+                    this.tableAreaRef
+                );
+                this.scrollOnHoverInstance = undefined;
+            }
         }
     }
 
@@ -924,7 +937,6 @@ export class KupDataTable {
     }
 
     componentDidLoad() {
-        this.setScrollOnHover();
         this.didLoadObservers();
         this.didLoadEventHandling();
 
@@ -2878,25 +2890,27 @@ export class KupDataTable {
                         style={cellStyle}
                         class={cellClass}
                         onMouseEnter={(ev) => {
-                            if (
-                                _hasTooltip &&
-                                this.showTooltipOnRightClick == false
-                            ) {
-                                this._setTooltip(ev, cell);
-                            } else if (!_hasTooltip) {
-                                this._unsetTooltip();
+                            if (this.showTooltipOnRightClick == false) {
+                                if (_hasTooltip) {
+                                    this._setTooltip(ev, cell);
+                                } else {
+                                    this._unsetTooltip();
+                                }
                             }
                         }}
                         onMouseLeave={() => {
-                            this._unsetTooltip();
+                            if (this.showTooltipOnRightClick == false) {
+                                this._unsetTooltip();
+                            }
                         }}
                         onContextMenu={(ev) => {
                             ev.preventDefault();
-                            if (
-                                _hasTooltip &&
-                                this.showTooltipOnRightClick == true
-                            ) {
-                                this._setTooltip(ev, cell);
+                            if (this.showTooltipOnRightClick == true) {
+                                if (_hasTooltip) {
+                                    this._setTooltip(ev, cell);
+                                } else {
+                                    this._unsetTooltip();
+                                }
                             }
                         }}
                     >
@@ -3247,6 +3261,7 @@ export class KupDataTable {
                     }
                     return cellValue;
                 }
+                return content;
             case 'rating':
                 const cellValueNumber: number = stringToNumber(cell.value);
                 // NOTE: actually rating in datatable is only for output (-> put disabled)

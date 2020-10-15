@@ -143,9 +143,9 @@ export class KupTree {
      */
     @Prop() filterValue: string = '';
     /**
-     * Activates the scroll on hover function
+     * Activates the scroll on hover function.
      */
-    @Prop() hoverScroll: boolean = true;
+    @Prop() scrollOnHover: boolean = false;
     /**
      * An array of integers containing the path to a selected child.\
      * Groups up the properties SelFirst, SelItem, SelName.
@@ -306,6 +306,25 @@ export class KupTree {
         );
     }
 
+    private setScrollOnHover() {
+        this.scrollOnHoverInstance = new scrollOnHover();
+        this.scrollOnHoverInstance.scrollOnHoverSetup(this.treeWrapperRef);
+    }
+
+    private checkScrollOnHover() {
+        if (!this.scrollOnHoverInstance) {
+            if (this.scrollOnHover) {
+                this.setScrollOnHover();
+            }
+        } else {
+            if (!this.scrollOnHover) {
+                this.scrollOnHoverInstance.scrollOnHoverDisable(
+                    this.treeWrapperRef
+                );
+                this.scrollOnHoverInstance = undefined;
+            }
+        }
+    }
     //-------- Lifecycle hooks --------
     componentWillLoad() {
         this.startTime = performance.now();
@@ -330,8 +349,6 @@ export class KupTree {
     }
 
     componentDidLoad() {
-        this.scrollOnHoverInstance = new scrollOnHover();
-        this.scrollOnHoverInstance.scrollOnHoverSetup(this.treeWrapperRef);
         if (
             this.selectedNode &&
             this.selectedNode.length > 0 &&
@@ -360,6 +377,8 @@ export class KupTree {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
+
+        this.checkScrollOnHover();
 
         if (root) {
             let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');

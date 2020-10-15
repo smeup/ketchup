@@ -106,10 +106,11 @@ export default {
           try: 'field',
         },
         {
-          prop: 'hoverScroll',
-          description: 'Activates the scroll on hover function.',
+          prop: 'scrollOnHover',
+          description:
+            'When the mouse move towards the left or right edge and there is an overflow, the tree will automatically scroll.',
           type: 'boolean',
-          default: 'true',
+          default: 'false',
           try: 'switch',
         },
         {
