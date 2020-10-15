@@ -46,7 +46,7 @@ function getThemes() {
           variables['--kup-background-color'];
         themeWrapper.style.borderColor = variables['--kup-border-color'];
         themeWrapper.id = key;
-        themeWrapper.onclick = function () {
+        themeWrapper.onclick = function() {
           setTheme(themeWrapper.id);
         };
         themeImage.color = variables['--kup-main-color'];
