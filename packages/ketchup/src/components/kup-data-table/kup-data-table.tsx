@@ -3251,6 +3251,7 @@ export class KupDataTable {
                     }
                     return cellValue;
                 }
+                return content;
             case 'rating':
                 const cellValueNumber: number = stringToNumber(cell.value);
                 // NOTE: actually rating in datatable is only for output (-> put disabled)
@@ -3587,7 +3588,9 @@ export class KupDataTable {
         if (this.paginatedRows == null || this.paginatedRows.length === 0) {
             rows = (
                 <tr>
-                    <td colSpan={this.calculateColspan()}>{this.emptyDataLabel}</td>
+                    <td colSpan={this.calculateColspan()}>
+                        {this.emptyDataLabel}
+                    </td>
                 </tr>
             );
         } else {
