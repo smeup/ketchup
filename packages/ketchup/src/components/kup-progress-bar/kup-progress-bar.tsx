@@ -47,7 +47,7 @@ export class KupProgressBar {
     /**
      * The current value the progress bar must display.
      */
-    @Prop({ reflect: true }) value: number = 0;
+    @Prop() value: number = 0;
 
     private startTime: number = 0;
     private endTime: number = 0;
@@ -126,7 +126,6 @@ export class KupProgressBar {
     }
 
     render() {
-        let wrapperClass: string = '';
         let componentClass: string = '';
         let pieClass: string = 'pie';
         let radialStyle = undefined;
@@ -188,7 +187,6 @@ export class KupProgressBar {
 
         let el: HTMLElement;
         if (this.isRadial) {
-            wrapperClass += ' is-radial';
             el = (
                 <div class={componentClass}>
                     {label}
@@ -215,9 +213,7 @@ export class KupProgressBar {
         return (
             <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component" class={wrapperClass}>
-                    {el}
-                </div>
+                <div id="kup-component">{el}</div>
             </Host>
         );
     }

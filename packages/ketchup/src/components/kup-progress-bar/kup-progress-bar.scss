@@ -102,16 +102,12 @@
   }
 }
 
-.is-radial {
+:host([is-radial]) {
   box-sizing: border-box;
   font-size: 10rem;
   margin: auto;
   width: 10rem;
   height: 10rem;
-
-  & kup-image {
-    margin-top: 2.25rem;
-  }
 
   & .pie-wrapper {
     height: 10rem;
