@@ -60,20 +60,6 @@
   position: relative;
   width: 100%;
 
-  & label.icon-container {
-    display: block;
-    height: 1.25rem;
-    width: 1.25rem;
-    margin: auto;
-    &:not(.is-image) {
-      background-color: var(--kup-text-on-main-color);
-    }
-    img {
-      width: auto;
-      height: 100%;
-    }
-  }
-
   &.text-color-on-main {
     & .progress-bar-percentage {
       color: var(--kup-text-on-main-color);
@@ -101,6 +87,18 @@
     line-height: 1.268rem;
     position: absolute;
     width: 100%;
+  }
+
+  & .icon-container {
+    display: block;
+    height: 1.25rem;
+    &:not(.is-image) {
+      background-color: var(--kup-text-on-main-color);
+    }
+    img {
+      width: auto;
+      height: 100%;
+    }
   }
 }
 
