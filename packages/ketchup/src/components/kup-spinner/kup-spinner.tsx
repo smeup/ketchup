@@ -27,35 +27,31 @@ export class KupSpinner {
     /**
      * Decides whether the component is a bar or a spinner.
      */
-    @Prop({ reflect: true }) barVariant: boolean = false;
+    @Prop() barVariant: boolean = false;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Width and height of the spinner. For the bar variant, only height.
      */
-    @Prop({ reflect: true }) dimensions: string = undefined;
+    @Prop() dimensions: string = undefined;
     /**
      * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
      */
-    @Prop({ reflect: true }) fader: boolean = false;
+    @Prop() fader: boolean = false;
     /**
      * The time required for the "fader" to trigger.
      */
-    @Prop({ reflect: true }) faderTimeout: number = 3500;
+    @Prop() faderTimeout: number = 3500;
     /**
      * When set to true the component will fill the whole viewport.
      */
     @Prop({ reflect: true }) fullScreen: boolean = false;
     /**
-     * When set to true the area covered by the component will be unclickable and the cursor will be changed to "wait".
-     */
-    @Prop({ reflect: true }) isUnclickable: boolean = false;
-    /**
      * Sets the layout of the spinner.
      */
-    @Prop({ reflect: true }) layout: number = 1;
+    @Prop() layout: number = 1;
 
     private startTime: number = 0;
     private endTime: number = 0;
@@ -124,14 +120,6 @@ export class KupSpinner {
         let spinnerEl: any = '';
         let elStyle = undefined;
 
-        if (this.active) {
-            masterClass += ' loading-wrapper-visible';
-        }
-
-        if (this.isUnclickable) {
-            masterClass += ' is-unclickable';
-        }
-
         if (this.barVariant) {
             masterClass += ' bar-version';
             wrapperClass = 'loading-wrapper-master-bar';
@@ -199,9 +187,7 @@ export class KupSpinner {
             }
         }
 
-        if (this.fullScreen) {
-            masterClass += ' full-screen';
-        } else {
+        if (!this.fullScreen) {
             elStyle = {
                 height: '100%',
                 width: '100%',

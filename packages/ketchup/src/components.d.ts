@@ -1176,10 +1176,6 @@ export namespace Components {
          */
         "fullScreen": boolean;
         /**
-          * When set to true the area covered by the component will be unclickable and the cursor will be changed to "wait".
-         */
-        "isUnclickable": boolean;
-        /**
           * Sets the layout of the spinner.
          */
         "layout": number;
@@ -3206,10 +3202,6 @@ declare namespace LocalJSX {
           * When set to true the component will fill the whole viewport.
          */
         "fullScreen"?: boolean;
-        /**
-          * When set to true the area covered by the component will be unclickable and the cursor will be changed to "wait".
-         */
-        "isUnclickable"?: boolean;
         /**
           * Sets the layout of the spinner.
          */
