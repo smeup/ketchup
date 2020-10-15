@@ -31,23 +31,19 @@ export class KupTextField {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop({ reflect: true }) disabled: boolean = false;
+    @Prop() disabled: boolean = false;
     /**
      * When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.
      */
-    @Prop({ reflect: true }) emitSubmitEventOnEnter: boolean = true;
+    @Prop() emitSubmitEventOnEnter: boolean = true;
     /**
      * Defaults at false. When set to true, the component will be focused.
      */
-    @Prop({ reflect: true, mutable: true }) forceFocus: boolean = false;
-    /**
-     * Defaults at false. When set to true, the component will be rendered at full height.
-     */
-    @Prop({ reflect: true }) fullHeight: boolean = false;
+    @Prop({ mutable: true }) forceFocus: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be rendered at full width.
      */
@@ -55,63 +51,59 @@ export class KupTextField {
     /**
      * Defaults at null. When set, its content will be shown as a help text below the field.
      */
-    @Prop({ reflect: true }) helper: string = null;
+    @Prop() helper: string = null;
     /**
      * Defaults at false. When set, the helper will be shown only when the field is focused.
      */
-    @Prop({ reflect: true }) helperWhenFocused: boolean = false;
+    @Prop() helperWhenFocused: boolean = false;
     /**
      * Defaults at null. When set, the text-field will show this icon.
      */
-    @Prop({ reflect: true }) icon: string = null;
+    @Prop() icon: string = null;
     /**
      * Sets the initial value of the component
      */
-    @Prop({ reflect: true }) initialValue: string = '';
+    @Prop() initialValue: string = '';
     /**
      * The HTML type of the input element. It has no effect on text areas.
      */
-    @Prop({ reflect: true }) inputType: string = 'text';
+    @Prop() inputType: string = 'text';
     /**
      * Enables a clear trailing icon.
      */
-    @Prop({ reflect: true }) isClearable: boolean = false;
+    @Prop() isClearable: boolean = false;
     /**
      * Defaults at null. When set, its content will be shown as a label.
      */
-    @Prop({ reflect: true }) label: string = null;
+    @Prop() label: string = null;
     /**
      * Defaults at false. When set to true, the label will be on the left of the component.
      */
-    @Prop({ reflect: true }) leadingLabel: boolean = false;
+    @Prop() leadingLabel: boolean = false;
     /**
      * Defaults at null. When set, the helper will display a character counter.
      */
-    @Prop({ reflect: true }) maxLength: number = null;
+    @Prop() maxLength: number = null;
     /**
      * Defaults at false. When set to true, the component will be rendered as an outlined field.
      */
-    @Prop({ reflect: true }) outlined: boolean = false;
+    @Prop() outlined: boolean = false;
     /**
      * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
      */
-    @Prop({ reflect: true }) readOnly: boolean = false;
-    /**
-     * Defaults at false. When set to true, the button will be rendered with shaped edges.
-     */
-    @Prop({ reflect: true }) shaped: boolean = false;
+    @Prop() readOnly: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be rendered as a textarea.
      */
-    @Prop({ reflect: true }) textArea: boolean = false;
+    @Prop() textArea: boolean = false;
     /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
-    @Prop({ reflect: true }) trailingIcon: boolean = false;
+    @Prop() trailingIcon: boolean = false;
     /**
      * Defaults at false. When set to true, the label will be on the right of the component.
      */
-    @Prop({ reflect: true }) trailingLabel: boolean = false;
+    @Prop() trailingLabel: boolean = false;
 
     private inputEl = undefined;
     private startTime: number = 0;
@@ -463,31 +455,15 @@ export class KupTextField {
 
     renderForm(widgetEl: HTMLElement, helperEl: HTMLElement) {
         let formClass: string = 'mdc-form-field';
-        let wrapperClass: string = '';
-        let elStyle = undefined;
-
-        if (this.fullWidth) {
-            elStyle = {
-                width: '100%',
-            };
-        }
-
-        if (this.fullHeight) {
-            wrapperClass += ' full-height';
-            elStyle = {
-                ...elStyle,
-                height: '100%',
-            };
-        }
 
         if (this.leadingLabel) {
             formClass += ' mdc-form-field--align-end';
         }
 
         return (
-            <Host style={elStyle}>
+            <Host>
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component" class={wrapperClass} style={elStyle}>
+                <div id="kup-component">
                     <div class={formClass}>
                         {widgetEl}
                         {helperEl}
@@ -499,27 +475,10 @@ export class KupTextField {
     }
 
     renderTextField(widgetEl: HTMLElement, helperEl: HTMLElement) {
-        let wrapperClass: string = '';
-        let elStyle = undefined;
-
-        if (this.fullWidth) {
-            elStyle = {
-                width: '100%',
-            };
-        }
-
-        if (this.fullHeight) {
-            wrapperClass += ' full-height';
-            elStyle = {
-                ...elStyle,
-                height: '100%',
-            };
-        }
-
         return (
-            <Host class="handles-custom-style" style={elStyle}>
+            <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component" class={wrapperClass} style={elStyle}>
+                <div id="kup-component">
                     {widgetEl}
                     {helperEl}
                 </div>
@@ -599,10 +558,6 @@ export class KupTextField {
 
         if (this.disabled) {
             componentClass += ' mdc-text-field--disabled';
-        }
-
-        if (this.shaped) {
-            componentClass += ' shaped';
         }
 
         if (this.fullWidth) {

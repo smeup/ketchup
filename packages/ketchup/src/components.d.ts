@@ -1240,10 +1240,6 @@ export namespace Components {
          */
         "forceFocus": boolean;
         /**
-          * Defaults at false. When set to true, the component will be rendered at full height.
-         */
-        "fullHeight": boolean;
-        /**
           * Defaults at false. When set to true, the component will be rendered at full width.
          */
         "fullWidth": boolean;
@@ -1292,10 +1288,6 @@ export namespace Components {
          */
         "readOnly": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        /**
-          * Defaults at false. When set to true, the button will be rendered with shaped edges.
-         */
-        "shaped": boolean;
         /**
           * Defaults at false. When set to true, the component will be rendered as a textarea.
          */
@@ -3284,10 +3276,6 @@ declare namespace LocalJSX {
          */
         "forceFocus"?: boolean;
         /**
-          * Defaults at false. When set to true, the component will be rendered at full height.
-         */
-        "fullHeight"?: boolean;
-        /**
           * Defaults at false. When set to true, the component will be rendered at full width.
          */
         "fullWidth"?: boolean;
@@ -3369,10 +3357,6 @@ declare namespace LocalJSX {
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
          */
         "readOnly"?: boolean;
-        /**
-          * Defaults at false. When set to true, the button will be rendered with shaped edges.
-         */
-        "shaped"?: boolean;
         /**
           * Defaults at false. When set to true, the component will be rendered as a textarea.
          */

@@ -18,16 +18,16 @@
 
     <div class="demo-wrapper">
       <p>
-        The attribute
+        The class
         <span class="code-word">shaped</span> will render a shaped text field
-        with its edges shaped.
+        with rounded corners.
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-text-field shaped label="I am shaped and flat"></kup-text-field>
+          <kup-text-field class="shaped" label="I am shaped"></kup-text-field>
           <kup-text-field
-            shaped
+            class="shaped"
             outlined
             label="I am shaped and outlined"
           ></kup-text-field>
@@ -61,14 +61,14 @@
     <div class="demo-wrapper">
       <p>
         To render a text field which occupies all the available vertical space,
-        you can use the prop
-        <span class="code-word">fullHeight</span>.
+        you can use the class
+        <span class="code-word">full-height</span>.
       </p>
       <br />
       <div class="demo-container">
-        <div class="kup-container-fw" style="height: 75px;">
+        <div class="kup-container-fw" style="height: 75px">
           <kup-text-field
-            full-height
+            class="full-height"
             label="I am a full height field"
           ></kup-text-field>
         </div>
@@ -204,9 +204,9 @@ export default {
   data() {
     return {
       markupOutlined: '<kup-text-field outlined></kup-text-field>',
-      markupShaped: '<kup-text-field shaped></kup-text-field>',
+      markupShaped: '<kup-text-field class="shaped"></kup-text-field>',
       markupFullwidth: '<kup-text-field full-width></kup-text-field>',
-      markupFullheight: '<kup-text-field full-height></kup-text-field>',
+      markupFullheight: '<kup-text-field class="full-height"></kup-text-field>',
       markupIcon: '<kup-text-field icon="your_icon"></kup-text-field>',
       markupTrailingIcon:
         '<kup-text-field trailing-icon icon="your_icon"></kup-text-field>',

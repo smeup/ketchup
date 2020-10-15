@@ -4,34 +4,47 @@
 @import '@material/textfield/character-counter/mdc-text-field-character-counter';
 @import '@material/textfield/icon/mdc-text-field-icon';
 
-:host([full-height]) {
-  height: 100%;
+:host {
+  display: block;
+}
 
-  & #kup-component {
-    &.full-height {
+:host([full-width]) {
+  width: 100%;
+  #kup-component {
+    width: 100%;
+  }
+}
+
+:host(.full-height) {
+  height: 100%;
+  #kup-component {
+    height: 100%;
+    .mdc-text-field {
       height: 100%;
-      & .mdc-text-field {
+      overflow-y: hidden;
+      &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
         height: 100%;
-        overflow-y: hidden;
-        &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
-          height: 100%;
-        }
-        & .mdc-text-field__input {
-          height: 100%;
-        }
+      }
+      .mdc-text-field__input {
+        height: 100%;
       }
     }
   }
 }
 
-:host {
-  display: block;
+:host(.shaped) {
+  .mdc-text-field {
+    border-radius: 16px 16px 0 0;
+  }
 }
 
 .mdc-form-field {
   & label {
     font-family: var(--kup-font-family);
     margin: auto;
+  }
+  .mdc-text-field__input {
+    padding: 6px 16px;
   }
 }
 
@@ -102,10 +115,6 @@ div.mdc-text-field-helper-text {
   &.mdc-text-field--fullwidth.mdc-text-field--with-trailing-icon
     .mdc-text-field__input {
     padding-right: 50px;
-  }
-
-  &.shaped {
-    border-radius: 16px 16px 0 0;
   }
 
   &.mdc-text-field--outlined.shaped
