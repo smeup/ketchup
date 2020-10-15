@@ -1034,14 +1034,6 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Sets a padding between the bar and its container. Not supported for the radial variant.
-         */
-        "hasPadding": boolean;
-        /**
-          * Sets a striped background. Not supported for the radial variant.
-         */
-        "hasStripes": boolean;
-        /**
           * Flag to show or hide the progress bar's label.
          */
         "hideLabel": boolean;
@@ -1050,17 +1042,9 @@ export namespace Components {
          */
         "icon": string;
         /**
-          * When striped background is active, it will be animated. Not supported for the radial variant.
-         */
-        "isAnimated": boolean;
-        /**
           * Radial version.
          */
         "isRadial": boolean;
-        /**
-          * Slim version.
-         */
-        "isSlim": boolean;
         /**
           * Specifies a text for the bar's label.
          */
@@ -3057,14 +3041,6 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Sets a padding between the bar and its container. Not supported for the radial variant.
-         */
-        "hasPadding"?: boolean;
-        /**
-          * Sets a striped background. Not supported for the radial variant.
-         */
-        "hasStripes"?: boolean;
-        /**
           * Flag to show or hide the progress bar's label.
          */
         "hideLabel"?: boolean;
@@ -3073,17 +3049,9 @@ declare namespace LocalJSX {
          */
         "icon"?: string;
         /**
-          * When striped background is active, it will be animated. Not supported for the radial variant.
-         */
-        "isAnimated"?: boolean;
-        /**
           * Radial version.
          */
         "isRadial"?: boolean;
-        /**
-          * Slim version.
-         */
-        "isSlim"?: boolean;
         /**
           * Specifies a text for the bar's label.
          */

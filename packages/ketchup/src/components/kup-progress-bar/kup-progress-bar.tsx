@@ -22,43 +22,27 @@ export class KupProgressBar {
     /**
      * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
      */
-    @Prop({ reflect: true }) centeredLabel: boolean = true;
+    @Prop() centeredLabel: boolean = true;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Flag to show or hide the progress bar's label.
      */
-    @Prop({ reflect: true }) hideLabel: boolean = false;
+    @Prop() hideLabel: boolean = false;
     /**
      * Specifies an icon to replace the label.
      */
-    @Prop({ reflect: true }) icon: string = undefined;
+    @Prop() icon: string = undefined;
     /**
      * Specifies a text for the bar's label.
      */
-    @Prop({ reflect: true }) label: string = undefined;
-    /**
-     * Sets a padding between the bar and its container. Not supported for the radial variant.
-     */
-    @Prop({ reflect: true }) hasPadding: boolean = false;
-    /**
-     * Sets a striped background. Not supported for the radial variant.
-     */
-    @Prop({ reflect: true }) hasStripes: boolean = false;
-    /**
-     * When striped background is active, it will be animated. Not supported for the radial variant.
-     */
-    @Prop({ reflect: true }) isAnimated: boolean = false;
+    @Prop() label: string = undefined;
     /**
      * Radial version.
      */
     @Prop({ reflect: true }) isRadial: boolean = false;
-    /**
-     * Slim version.
-     */
-    @Prop({ reflect: true }) isSlim: boolean = false;
     /**
      * The current value the progress bar must display.
      */
@@ -122,22 +106,6 @@ export class KupProgressBar {
             componentClass = 'pie-wrapper';
         } else {
             componentClass = 'progress-bar';
-        }
-
-        if (this.hasPadding) {
-            componentClass += ' has-padding';
-        }
-
-        if (this.hasStripes) {
-            componentClass += ' has-stripes';
-        }
-
-        if (this.isAnimated) {
-            componentClass += ' is-animated';
-        }
-
-        if (this.isSlim) {
-            componentClass += ' is-slim';
         }
 
         let labelStyle = undefined;

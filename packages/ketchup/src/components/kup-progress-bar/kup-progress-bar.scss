@@ -3,6 +3,56 @@
   width: 100%;
 }
 
+:host(.animated) {
+  .progress-bar-percentage {
+    animation: running-stripes 2s linear infinite;
+  }
+}
+
+:host(.padded) {
+  .progress-bar {
+    padding: 0.5rem;
+    width: calc(100% - 1rem);
+  }
+}
+
+:host(.slim) {
+  .progress-bar {
+    border-radius: 9px;
+
+    & .progress-bar-percentage {
+      border-radius: 9px;
+      padding: 0;
+    }
+  }
+  .is-radial .pie-wrapper {
+    & .pie {
+      & .half-circle {
+        border-width: 0.05em;
+      }
+    }
+    & .shadow {
+      border-width: 0.05em;
+    }
+  }
+}
+
+:host(.striped) {
+  .progress-bar-percentage {
+    background-image: linear-gradient(
+      -45deg,
+      rgba(var(--kup-text-color-rgb), 0.125) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(var(--kup-text-color-rgb), 0.125) 50%,
+      rgba(var(--kup-text-color-rgb), 0.125) 75%,
+      transparent 75%,
+      transparent
+    );
+    background-size: 3rem 3rem;
+  }
+}
+
 kup-image {
   margin: auto;
 }
@@ -13,11 +63,6 @@ kup-image {
   overflow: hidden;
   position: relative;
   width: 100%;
-
-  &.has-padding {
-    padding: 0.5rem;
-    width: calc(100% - 1rem);
-  }
 
   & .progress-bar-percentage {
     background: var(--kup-main-color);
@@ -45,37 +90,6 @@ kup-image {
       & span {
         color: var(--kup-text-on-main-color);
       }
-    }
-  }
-
-  &.has-stripes {
-    & .progress-bar-percentage {
-      background-image: linear-gradient(
-        -45deg,
-        rgba(var(--kup-text-color-rgb), 0.125) 25%,
-        transparent 25%,
-        transparent 50%,
-        rgba(var(--kup-text-color-rgb), 0.125) 50%,
-        rgba(var(--kup-text-color-rgb), 0.125) 75%,
-        transparent 75%,
-        transparent
-      );
-      background-size: 3rem 3rem;
-    }
-
-    &.is-animated {
-      & .progress-bar-percentage {
-        animation: running-stripes 2s linear infinite;
-      }
-    }
-  }
-
-  &.is-slim {
-    border-radius: 9px;
-
-    & .progress-bar-percentage {
-      border-radius: 9px;
-      padding: 0;
     }
   }
 }
@@ -174,17 +188,6 @@ kup-image {
       width: 10rem;
       border: 0.1em solid var(--kup-disabled-background-color);
       border-radius: 50%;
-    }
-
-    &.is-slim {
-      & .pie {
-        & .half-circle {
-          border-width: 0.05em;
-        }
-      }
-      & .shadow {
-        border-width: 0.05em;
-      }
     }
   }
 
