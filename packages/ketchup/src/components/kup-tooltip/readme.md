@@ -64,18 +64,13 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-button](../kup-button)
-- [kup-image](../kup-image)
 - [kup-tree](../kup-tree)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-tooltip --> kup-button
-  kup-tooltip --> kup-image
   kup-tooltip --> kup-tree
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
   kup-tree --> kup-lazy
   kup-tree --> kup-button
   kup-tree --> kup-checkbox
@@ -83,6 +78,9 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-text-field
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
+  kup-badge --> kup-image
   kup-box --> kup-tooltip
   kup-data-table --> kup-tooltip
   style kup-tooltip fill:#f9f,stroke:#333,stroke-width:4px

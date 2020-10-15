@@ -120,7 +120,6 @@ graph TD;
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-tooltip --> kup-button
-  kup-tooltip --> kup-image
   kup-tooltip --> kup-tree
   kup-tree --> kup-lazy
   kup-tree --> kup-button
