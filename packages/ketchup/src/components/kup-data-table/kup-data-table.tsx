@@ -3260,13 +3260,12 @@ export class KupDataTable {
     }
 
     private renderLoadMoreButton(isSlotted: boolean = true) {
-        const label = 'Show more data';
         return (
             <kup-button
+                styling="flat"
                 class="load-more-button"
-                label={label}
+                label="Show more data"
                 icon="plus"
-                title={label}
                 slot={isSlotted ? 'more-results' : null}
                 onKupButtonClick={() => {
                     this.onLoadMoreClick();
