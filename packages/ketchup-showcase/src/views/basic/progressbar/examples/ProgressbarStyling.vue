@@ -15,7 +15,7 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto;"
+          style="width: 50%; margin-left: auto; margin-right: auto"
         >
           <kup-progress-bar
             centered-label="false"
@@ -37,7 +37,7 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto;"
+          style="width: 50%; margin-left: auto; margin-right: auto"
         >
           <kup-progress-bar
             label="Custom label, here!"
@@ -57,7 +57,7 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto;"
+          style="width: 50%; margin-left: auto; margin-right: auto"
         >
           <kup-progress-bar hide-label value="35"></kup-progress-bar>
         </div>
@@ -81,7 +81,7 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto;"
+          style="width: 50%; margin-left: auto; margin-right: auto"
         >
           <kup-progress-bar icon="widgets" value="50"></kup-progress-bar>
         </div>
@@ -93,15 +93,15 @@
     <div class="demo-wrapper">
       <p>
         By enabling the
-        <span class="code-word">hasPadding</span> prop the bar will be displayed
+        <span class="code-word">padded</span> class the bar will be displayed
         with a border.
       </p>
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto;"
+          style="width: 50%; margin-left: auto; margin-right: auto"
         >
-          <kup-progress-bar value="60" has-padding></kup-progress-bar>
+          <kup-progress-bar value="60" class="padded"></kup-progress-bar>
         </div>
         <p class="centered">Padding sample markup</p>
         <code class="flat">{{ markupPadding }}</code>
@@ -110,26 +110,24 @@
 
     <div class="demo-wrapper">
       <p>
-        It's possible to add a striped texture to the filled area by setting to
-        true the
-        <span class="code-word">hasStripes</span> prop. This variant comes with
-        an additional prop which animates this texture when set to true:
-        <span class="code-word">isAnimated</span>.
+        It's possible to add a striped texture to the filled area by setting the
+        <span class="code-word">striped</span> class. This variant comes with an
+        additional class which animates this texture:
+        <span class="code-word">animated</span>.
       </p>
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto;"
+          style="width: 50%; margin-left: auto; margin-right: auto"
         >
           <kup-progress-bar
             value="75"
-            has-stripes
-            style="margin-bottom: 1rem;"
+            class="striped"
+            style="margin-bottom: 1rem"
           ></kup-progress-bar>
           <kup-progress-bar
             value="90"
-            has-stripes
-            is-animated
+            class="striped animated"
           ></kup-progress-bar>
         </div>
         <p class="centered">Stripes sample markup</p>
@@ -142,18 +140,18 @@
     <div class="demo-wrapper">
       <p>
         If you need a slim version because your UI lacks available space, you
-        can set to true the
-        <span class="code-word">isSlim</span> prop.
+        can set the
+        <span class="code-word">slim</span> class.
       </p>
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: 50%; margin-left: auto; margin-right: auto;"
+          style="width: 50%; margin-left: auto; margin-right: auto"
         >
-          <kup-progress-bar is-slim value="100"></kup-progress-bar>
+          <kup-progress-bar class="slim" value="100"></kup-progress-bar>
         </div>
         <p class="centered">Padding sample markup</p>
-        <code class="flat">{{ markupPadding }}</code>
+        <code class="flat">{{ markupSlim }}</code>
       </div>
     </div>
   </div>
@@ -172,12 +170,14 @@ export default {
         '<kup-progress-bar icon="your_icon" value="your_value"></kup-progress-bar>',
       markupHiddenLabel:
         '<kup-progress-bar hide-label value="your_value"></kup-progress-bar>',
+      markupSlim:
+        '<kup-progress-bar class="slim" value="your_value"></kup-progress-bar>',
       markupPadding:
-        '<kup-progress-bar has-padding value="your_value"></kup-progress-bar>',
+        '<kup-progress-bar class="padded" value="your_value"></kup-progress-bar>',
       markupStripes:
-        '<kup-progress-bar has-stripes value="your_value"></kup-progress-bar>',
+        '<kup-progress-bar class="striped" value="your_value"></kup-progress-bar>',
       markupAnimatedStripes:
-        '<kup-progress-bar is-animated has-stripes value="your_value"></kup-progress-bar>',
+        '<kup-progress-bar class="striped animated" value="your_value"></kup-progress-bar>',
     };
   },
 };
