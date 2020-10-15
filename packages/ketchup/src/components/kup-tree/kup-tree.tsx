@@ -10,6 +10,7 @@ import {
     Watch,
     JSX,
     Method,
+    getAssetPath,
 } from '@stencil/core';
 
 import { Cell, Column } from './../kup-data-table/kup-data-table-declarations';
@@ -101,7 +102,7 @@ export class KupTree {
     /**
      * Auto select programmatic selectic node
      */
-    @Prop({ reflect: true }) autoSelectionNodeMode: boolean = true;
+    @Prop() autoSelectionNodeMode: boolean = true;
     /**
      * The columns of the tree when tree visualization is active.
      */
@@ -109,7 +110,7 @@ export class KupTree {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * The json data used to populate the tree view: the basic, always visible tree nodes.
      */
@@ -117,7 +118,7 @@ export class KupTree {
     /**
      * The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.
      */
-    @Prop({ reflect: true }) density: string = 'medium';
+    @Prop() density: string = 'medium';
     /**
      * Function that gets invoked when a new set of nodes must be loaded as children of a node.
      *
@@ -136,15 +137,15 @@ export class KupTree {
     /**
      * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
      */
-    @Prop({ reflect: true }) expanded: boolean = false;
+    @Prop() expanded: boolean = false;
     /**
      * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
      */
-    @Prop({ reflect: true }) filterValue: string = '';
+    @Prop() filterValue: string = '';
     /**
      * Activates the scroll on hover function
      */
-    @Prop({ reflect: true }) hoverScroll: boolean = true;
+    @Prop() hoverScroll: boolean = true;
     /**
      * An array of integers containing the path to a selected child.\
      * Groups up the properties SelFirst, SelItem, SelName.
@@ -153,20 +154,20 @@ export class KupTree {
     /**
      * Shows the tree data as a table.
      */
-    @Prop({ reflect: true }) showColumns: boolean = false;
+    @Prop() showColumns: boolean = false;
     /**
      * When set to true enables the tree nodes filter.
      */
-    @Prop({ reflect: true }) showFilter: boolean = false;
+    @Prop() showFilter: boolean = false;
     /**
      * Flag: shows the header of the tree when the tree is displayed as a table.
      * @see showColumns
      */
-    @Prop({ reflect: true }) showHeader: boolean = false;
+    @Prop() showHeader: boolean = false;
     /**
      * Shows the icons of the nodes.
      */
-    @Prop({ reflect: true }) showIcons: boolean = true;
+    @Prop() showIcons: boolean = true;
     /**
      * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the
      * tree have been passed inside the data property.
@@ -177,12 +178,7 @@ export class KupTree {
      * For more information:
      * @see dynamicExpansionCallback
      */
-    @Prop({ reflect: true }) useDynamicExpansion: boolean = false;
-    /**
-     * Nodes of the tree are draggable and can be sorted.
-     * Currently this feature is not available.
-     */
-    // @Prop() draggableNodes: boolean = false;
+    @Prop() useDynamicExpansion: boolean = false;
 
     //-------- State --------
     visibleColumns: Column[] = [];
@@ -191,7 +187,6 @@ export class KupTree {
     @State() stateSwitcher: boolean = false;
 
     private treeWrapperRef: any;
-    private treeRef: any;
     private scrollOnHoverInstance: scrollOnHover;
     private selectedColumn: string = '';
     private startTime: number = 0;
@@ -302,10 +297,20 @@ export class KupTree {
         this.customStyleTheme = customStyleTheme;
     }
 
+    private setAssetPathVars() {
+        this.rootElement.style.setProperty(
+            '--menu-right-svg',
+            `url('${getAssetPath(
+                `./assets/svg/menu-right.svg`
+            )}') no-repeat center`
+        );
+    }
+
     //-------- Lifecycle hooks --------
     componentWillLoad() {
         this.startTime = performance.now();
         setThemeCustomStyle(this);
+        this.setAssetPathVars();
 
         if (this.data) {
             // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
@@ -898,47 +903,26 @@ export class KupTree {
             ((treeNodeData.children && treeNodeData.children.length) ||
                 this.useDynamicExpansion)
         );
-        let treeExpandIcon;
+        let expandClass = 'expand-icon kup-tree__icon kup-tree__node__expander';
         if (hasExpandIcon) {
-            treeExpandIcon = (
-                <kup-image
-                    class="expand-icon kup-tree__icon kup-tree__node__expander"
-                    sizeX="1.5rem"
-                    sizeY="1.5rem"
-                    resource="menu-right"
-                    onClick={
-                        !treeNodeData.disabled
-                            ? (event) => {
-                                  event.stopPropagation();
-                                  this.hdlTreeNodeExpanderClicked(
-                                      treeNodeData,
-                                      treeNodePath
-                                  );
-                              }
-                            : null
-                    }
-                ></kup-image>
-            );
-        } else {
-            treeExpandIcon = (
-                <span
-                    class={
-                        'expand-icon kup-tree__icon kup-tree__node__expander'
-                    }
-                    onClick={
-                        !treeNodeData.disabled
-                            ? (event) => {
-                                  event.stopPropagation();
-                                  this.hdlTreeNodeExpanderClicked(
-                                      treeNodeData,
-                                      treeNodePath
-                                  );
-                              }
-                            : null
-                    }
-                />
-            );
+            expandClass += ' icon-container';
         }
+        let treeExpandIcon = (
+            <span
+                class={expandClass}
+                onClick={
+                    !treeNodeData.disabled
+                        ? (event) => {
+                              event.stopPropagation();
+                              this.hdlTreeNodeExpanderClicked(
+                                  treeNodeData,
+                                  treeNodePath
+                              );
+                          }
+                        : null
+                }
+            ></span>
+        );
 
         // When TreeNode icons are visible, creates the icon if one is specified
         let treeNodeIcon: any = null;
@@ -947,14 +931,19 @@ export class KupTree {
                 if (treeNodeData.icon === '') {
                     treeNodeIcon = <span class="kup-tree__icon" />;
                 } else {
+                    let svg: string = `url('${getAssetPath(
+                        `./assets/svg/${treeNodeData.icon}.svg`
+                    )}') no-repeat center`;
+                    let iconStyle = {
+                        backgroundColor: treeNodeData.iconColor,
+                        mask: svg,
+                        webkitMask: svg,
+                    };
                     treeNodeIcon = (
-                        <kup-image
-                            class="kup-tree__icon"
-                            sizeX="1.5rem"
-                            sizeY="1.5rem"
-                            resource={treeNodeData.icon}
-                            color={treeNodeData.iconColor}
-                        ></kup-image>
+                        <span
+                            style={iconStyle}
+                            class="kup-tree__icon icon-container"
+                        ></span>
                     );
                 }
             } else {
@@ -1149,7 +1138,6 @@ export class KupTree {
                         {filterField}
                         <table
                             class="kup-tree"
-                            ref={(el) => (this.treeRef = el as any)}
                             data-show-columns={this.showColumns}
                         >
                             <thead

@@ -87,7 +87,6 @@
 
     td,
     th {
-      transition: color 0.25s, background-color 0.25s;
       padding: 0.4rem 0.5rem;
     }
 
@@ -121,6 +120,15 @@
         &__expander {
           pointer-events: none;
         }
+      }
+
+      .icon-container {
+        background-color: var(--kup-icon-color);
+      }
+
+      .icon-container.kup-tree__node__expander {
+        background-color: var(--kup-text-color);
+        mask: var(--menu-right-svg);
       }
 
       &[data-is-expanded] .expand-icon {
