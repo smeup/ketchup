@@ -46,10 +46,6 @@ graph TD;
   kup-search --> kup-button
   kup-search --> kup-modal
   kup-search --> kup-data-table
-  kup-text-field --> kup-image
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-text-field
@@ -65,6 +61,9 @@ graph TD;
   kup-tooltip --> kup-button
   kup-tooltip --> kup-image
   kup-tooltip --> kup-tree
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
+  kup-badge --> kup-image
   kup-tree --> kup-lazy
   kup-tree --> kup-button
   kup-tree --> kup-checkbox

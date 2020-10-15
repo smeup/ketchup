@@ -9,6 +9,7 @@ import {
     h,
     Watch,
     Method,
+    getAssetPath,
 } from '@stencil/core';
 import { MDCTextField } from '@material/textfield';
 import { MDCFormField } from '@material/form-field';
@@ -572,29 +573,39 @@ export class KupTextField {
         }
 
         if (this.isClearable) {
+            let svg: string = `url('${getAssetPath(
+                `./assets/svg/clear.svg`
+            )}') no-repeat center`;
+            let iconStyle = {
+                mask: svg,
+                webkitMask: svg,
+            };
             clearIconEl = (
-                <kup-image
+                <span
                     tabindex="1"
-                    class="material-icons mdc-text-field__icon clear-icon"
-                    sizeX="24px"
-                    sizeY="24px"
-                    resource="clear"
+                    style={iconStyle}
+                    class="material-icons mdc-text-field__icon clear-icon icon-container"
                     onClick={() => this.onKupClearIconClick()}
-                ></kup-image>
+                ></span>
             );
             componentClass += ' is-clearable';
         }
 
         if (this.icon) {
+            let svg: string = `url('${getAssetPath(
+                `./assets/svg/${this.icon}.svg`
+            )}') no-repeat center`;
+            let iconStyle = {
+                mask: svg,
+                webkitMask: svg,
+            };
             iconEl = (
-                <kup-image
+                <span
                     tabindex="0"
-                    class="material-icons mdc-text-field__icon"
-                    sizeX="24px"
-                    sizeY="24px"
-                    resource={this.icon}
+                    style={iconStyle}
+                    class="material-icons mdc-text-field__icon icon-container"
                     onClick={(e: any) => this.onKupIconClick(e)}
-                ></kup-image>
+                ></span>
             );
             if (this.trailingIcon) {
                 componentClass += ' mdc-text-field--with-trailing-icon';

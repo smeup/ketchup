@@ -77,17 +77,9 @@ Type: `Promise<void>`
  - [kup-search](../kup-search)
  - [kup-tree](../kup-tree)
 
-### Depends on
-
-- [kup-image](../kup-image)
-
 ### Graph
 ```mermaid
 graph TD;
-  kup-text-field --> kup-image
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
   kup-autocomplete --> kup-text-field
   kup-box --> kup-text-field
   kup-combobox --> kup-text-field

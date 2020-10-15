@@ -155,13 +155,12 @@ graph TD;
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
   kup-data-table --> kup-chip
-  kup-text-field --> kup-image
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
   kup-tooltip --> kup-button
   kup-tooltip --> kup-image
   kup-tooltip --> kup-tree
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
+  kup-badge --> kup-image
   kup-tree --> kup-lazy
   kup-tree --> kup-button
   kup-tree --> kup-checkbox

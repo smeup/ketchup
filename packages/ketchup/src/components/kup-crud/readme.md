@@ -77,10 +77,6 @@ graph TD;
   kup-form --> kup-crud
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
-  kup-text-field --> kup-image
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-autocomplete --> kup-text-field
@@ -104,6 +100,9 @@ graph TD;
   kup-tooltip --> kup-button
   kup-tooltip --> kup-image
   kup-tooltip --> kup-tree
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
+  kup-badge --> kup-image
   kup-tree --> kup-lazy
   kup-tree --> kup-button
   kup-tree --> kup-checkbox

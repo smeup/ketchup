@@ -83,7 +83,6 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-text-field
-  kup-text-field --> kup-image
   kup-box --> kup-tooltip
   kup-data-table --> kup-tooltip
   style kup-tooltip fill:#f9f,stroke:#333,stroke-width:4px
