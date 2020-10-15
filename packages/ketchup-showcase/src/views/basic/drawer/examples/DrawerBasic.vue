@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p>
-        The drawer is a very useful web component used in web pages.
-      </p>
+      <p> The drawer is a very useful web component used in web pages. </p>
       <p>
         It allows the user to move within the various sections of the web page
         via a side drop-down menu. Basic use of the drawer looks like a side
@@ -23,6 +21,7 @@
         >{{ markupBasic }}<br />{{ markupBasic2 }}<br />{{ markupBasic3
         }}<br />{{ markupBasic4 }}<br />{{ markupBasic5 }}<br />{{ markupBasic6
         }}<br />{{ markupBasic7 }}</code
+      >
       >
       <br />
       <br />
