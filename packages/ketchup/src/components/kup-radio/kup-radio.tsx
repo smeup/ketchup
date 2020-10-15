@@ -27,7 +27,7 @@ export class KupRadio {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * List of elements.
      */
@@ -35,15 +35,15 @@ export class KupRadio {
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop({ reflect: true }) disabled: boolean = false;
+    @Prop() disabled: boolean = false;
     /**
      * Defaults at false. When set to true, the label will be on the left of the component.
      */
-    @Prop({ reflect: true }) leadingLabel: boolean = false;
+    @Prop() leadingLabel: boolean = false;
     /**
      * Defaults at null. It's the name that binds the radio buttons together.
      */
-    @Prop({ reflect: true }) name: string = 'radio-list';
+    @Prop() name: string = 'radio-list';
 
     private startTime: number = 0;
     private endTime: number = 0;
