@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Method } from '@stencil/core';
+import { Component, h, Prop, State, Method,Event,EventEmitter } from '@stencil/core';
 
 @Component({
     tag: 'kup-drawer',
@@ -14,6 +14,9 @@ export class KupDrawer {
 
     @Prop({ reflect: true, mutable: true }) right: boolean;
     @Prop({ reflect: true, mutable: true }) permanent: boolean;
+    
+    @Event() ClDrawer: EventEmitter;
+    @Event() OpDrawer: EventEmitter;
 
     select:boolean;
     
@@ -27,16 +30,35 @@ export class KupDrawer {
     onCloseDrawer() {
         this.opened = false;
         this.right=false;
+        this.ClDrawer.emit();
     }
 
     @Method()
     async open() {
         this.opened = true;
         this.right=true;
+        this.OpDrawer.emit();
+    }
+
+    @Method()
+    async Toggle() {
+       // console.log(this.opened,this.right);
+      if(this.opened==true && this.right==true)
+      {
+          this.onCloseDrawer();
+
+      }
+      else if(this.opened==false && this.right==false)
+      {
+          
+         this.open();
+      }
     }
 
     componentWillLoad()
    { 
+       this.opened=true;
+       this.opened=false;
        if(this.right==true)
        {
             this.select=true;
@@ -95,13 +117,10 @@ export class KupDrawer {
    }
 
     render() {
-        let mainContent = <slot name='MainContent'/>;
-      
-        this.c= this.selectclass();
-        console.log(this.select,this.permanent,this.right,this.c);
 
-        
-       
+        let mainContent = <slot name='MainContent'/>;
+        this.c= this.selectclass();
+        //console.log(this.select,this.permanent,this.right,this.c);
 
         return [
             <div class="backdrop" onClick={() => this.onCloseDrawer()} />,
