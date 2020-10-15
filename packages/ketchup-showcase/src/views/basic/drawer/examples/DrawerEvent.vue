@@ -6,7 +6,9 @@
         <li
           >'ClDrawer': viene lanciato ogni volta che il drawer viene chiuso.</li
         >
-        <li>'ClOpen': viene lanciato ogni volta che il drawer viene aperto.</li>
+        <li
+          >'OpDrawer': viene lanciato ogni volta che il drawer viene aperto.</li
+        >
       </ul>
 
       <br />
