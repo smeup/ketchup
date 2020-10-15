@@ -632,6 +632,7 @@ export namespace Components {
         "totals": TotalsMap;
     }
     interface KupDrawer {
+        "Toggle": () => Promise<void>;
         "open": () => Promise<void>;
         /**
           * opened is used to make our drawer appear and disappear
@@ -2594,6 +2595,8 @@ declare namespace LocalJSX {
         "totals"?: TotalsMap;
     }
     interface KupDrawer {
+        "onClDrawer"?: (event: CustomEvent<any>) => void;
+        "onOpDrawer"?: (event: CustomEvent<any>) => void;
         /**
           * opened is used to make our drawer appear and disappear
          */

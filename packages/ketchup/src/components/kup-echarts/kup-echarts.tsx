@@ -10,7 +10,7 @@ import echarts from 'echarts'
   shadow: true,
 })
 export class KupEcharts {
-  @Prop() objectData: object={};
+ @Prop() objectData: object={};
  @Prop() types: string='line';
  @Prop() graphTitle:string='';
  @Prop() graphTitleSize:number;
@@ -29,9 +29,7 @@ export class KupEcharts {
   
   CreateEcharts()
   {
-    //console.log(this.objectData);
-   this.myChart= echarts.init(this.chartContainer);
-   
+    this.myChart= echarts.init(this.chartContainer);
     this.myChart.setOption(this.rightjson);
   }
   
@@ -39,59 +37,46 @@ export class KupEcharts {
   {
         let Xaxis=this.objectData['rows'];
         
-       // console.log(Xaxis);
         for(let i=0;i<Xaxis.length;i++)
-        {
+         {
           this.x[i]=Xaxis[i].cells.Col1.obj.k;
-        }
-   //  console.log(x);
+         }
+   
   
   }
 
   ParseJsonY()
   {
-    
-    
     let ngraph=this.objectData['columns'];
-   // console.log(ngraph);
     let conta=0;
+
     for(let i=0;i<ngraph.length;i++)
     {
        if(ngraph[i].name!='Col1')
-       {
+        {
         this.oj[ngraph[i].name] = [];
         
 
         conta=conta+1;
       
-       }
+        }
 
     }
-  // console.log(obj);
-  
-   let yvalue=this.objectData['rows'];
-   //console.log(yvalue);
-   let x=[];
-   // console.log(Xaxis);
-    for(let i=0;i<yvalue.length;i++)
+
+  let yvalue=this.objectData['rows'];
+  let x=[];
+  for(let i=0;i<yvalue.length;i++)
     {
-      
-        for (let key in this.oj) {
-          if (this.oj.hasOwnProperty(key)) {
-            
+      for (let key in this.oj) 
+         {
+          if (this.oj.hasOwnProperty(key)) 
+          {
             let value=yvalue[i].cells[key].obj.k;;
-          //  console.log(value);
-              this.oj[key].push(value);
+            this.oj[key].push(value);
           }
       }
         
-          
-        
-      
-     
-    }
-   // console.log(this.oj);
-
+     }
   }
   createlegend()
   {
@@ -106,30 +91,30 @@ export class KupEcharts {
    objectpie()
   {
     console.log(this.oj);
-   // console.log(this.oj['Col4'][0]);
     let somme=[];
     for (let key in this.oj)
-    { let somma=0;
-      for(let j=0;j<this.oj[key].length;j++){
-      var d=parseFloat(this.oj[key][j]);
-      somma=somma+d;
-      }
+      { let somma=0;
+      for(let j=0;j<this.oj[key].length;j++)
+        {
+            var d=parseFloat(this.oj[key][j]);
+            somma=somma+d;
+        }
       somme.push(somma);
-      
-     // console.log(this.oj);
 
-    }
+      }
     
     let i=0;
     for (let key in this.oj)
-    { let rjson={}; 
-    rjson['value'] = somme[i];
-    rjson['name']=key;
+        {   
+         let rjson={}; 
+         rjson['value'] = somme[i];
+         rjson['name']=key;
     
-    this.datapiejson.push(rjson);
-    i++;
-    }
-    console.log(this.datapiejson);
+         this.datapiejson.push(rjson);
+         i++;
+        }
+
+  console.log(this.datapiejson);
 return this.datapiejson;
 
   }
@@ -139,7 +124,8 @@ return this.datapiejson;
     
     
     for (let key in this.oj)
-    { let rjson={};
+    { 
+      let rjson={};
       rjson['data'] = this.oj[key];
       rjson['name']=key;
       rjson['type']=this.types.toLowerCase();
@@ -166,9 +152,7 @@ return this.datapiejson;
         data: this.createlegend(),
         [tlegend]:0,
         
-        
-        
-    },
+         },
       xAxis: {
           type: 'category',
           data: this.x
@@ -200,15 +184,12 @@ return this.datapiejson;
       legend: {
         data: this.createlegend(),
         [tlegend]:0,
-        
-        
-        
-    },
+        },
      
       tooltip: {
         trigger: 'item',
         formatter: '{a} <br/>{b}: {c} ({d}%)'
-    },
+        },
     
       series:[
         {
@@ -233,19 +214,17 @@ return this.datapiejson;
     this.ParseJsonX();
     this.ParseJsonY();
     if(this.types=='Pie')
-    {  
-      this.objectpie();
-       this.createpiejson();
-    
+      {  
+         this.objectpie();
+         this.createpiejson();
+      }
 
-    }
     else{
-    this.Createrightjson();
-    }
-   //this.createpiejson();
-    //this.objectpie();
+            this.Createrightjson();
+        }
+  
     this.CreateEcharts();
-    //this.objectpie();
+   
    
   
 
