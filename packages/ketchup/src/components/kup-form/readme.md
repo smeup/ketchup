@@ -175,7 +175,6 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-text-field
-  kup-progress-bar --> kup-image
   kup-paginator --> kup-button
   kup-paginator --> kup-combobox
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px

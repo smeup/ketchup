@@ -6,6 +6,7 @@ import {
     State,
     h,
     Method,
+    getAssetPath,
 } from '@stencil/core';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logMessage } from '../../utils/debug-manager';
@@ -59,6 +60,33 @@ export class KupProgressBar {
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+
+    private createIconElement() {
+        if (!this.icon) {
+            return undefined;
+        }
+
+        if (
+            this.icon.indexOf('.') > -1 ||
+            this.icon.indexOf('/') > -1 ||
+            this.icon.indexOf('\\') > -1
+        ) {
+            return (
+                <span class="label icon-container is-image">
+                    <img src={this.icon}></img>
+                </span>
+            );
+        } else {
+            let svg: string = `url('${getAssetPath(
+                `./assets/svg/${this.icon}.svg`
+            )}') no-repeat center`;
+            let iconStyle = {
+                mask: svg,
+                webkitMask: svg,
+            };
+            return <span style={iconStyle} class="label icon-container"></span>;
+        }
     }
 
     //---- Lifecycle hooks ----
@@ -125,30 +153,7 @@ export class KupProgressBar {
 
         let label = null;
         if (this.icon) {
-            if (this.isRadial) {
-                label = (
-                    <span class="label">
-                        <kup-image
-                            sizeX="3rem"
-                            sizeY="3rem"
-                            customStyle="img { object-fit: cover; }"
-                            color="var(--kup-main-color)"
-                            resource={this.icon}
-                        ></kup-image>
-                    </span>
-                );
-            } else {
-                label = (
-                    <span class="label">
-                        <kup-image
-                            sizeX="1.25rem"
-                            sizeY="1.25rem"
-                            color="var(--kup-text-on-main-color)"
-                            resource={this.icon}
-                        ></kup-image>
-                    </span>
-                );
-            }
+            label = this.createIconElement();
         } else {
             if (!this.hideLabel) {
                 if (this.isRadial) {

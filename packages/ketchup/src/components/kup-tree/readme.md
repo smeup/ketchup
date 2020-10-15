@@ -134,7 +134,6 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
-  kup-progress-bar --> kup-image
   kup-text-field --> kup-image
   kup-tooltip --> kup-tree
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
