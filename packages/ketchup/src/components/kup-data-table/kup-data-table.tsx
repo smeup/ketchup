@@ -2932,25 +2932,27 @@ export class KupDataTable {
                         style={cellStyle}
                         class={cellClass}
                         onMouseEnter={(ev) => {
-                            if (
-                                _hasTooltip &&
-                                this.showTooltipOnRightClick == false
-                            ) {
-                                this._setTooltip(ev, cell);
-                            } else if (!_hasTooltip) {
-                                this._unsetTooltip();
+                            if (this.showTooltipOnRightClick == false) {
+                                if (_hasTooltip) {
+                                    this._setTooltip(ev, cell);
+                                } else {
+                                    this._unsetTooltip();
+                                }
                             }
                         }}
                         onMouseLeave={() => {
-                            this._unsetTooltip();
+                            if (this.showTooltipOnRightClick == false) {
+                                this._unsetTooltip();
+                            }
                         }}
                         onContextMenu={(ev) => {
                             ev.preventDefault();
-                            if (
-                                _hasTooltip &&
-                                this.showTooltipOnRightClick == true
-                            ) {
-                                this._setTooltip(ev, cell);
+                            if (this.showTooltipOnRightClick == true) {
+                                if (_hasTooltip) {
+                                    this._setTooltip(ev, cell);
+                                } else {
+                                    this._unsetTooltip();
+                                }
                             }
                         }}
                     >
