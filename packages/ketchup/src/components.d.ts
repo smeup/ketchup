@@ -2467,6 +2467,9 @@ declare namespace LocalJSX {
         selectedRow: Row;
     }>) => void;
         "onKupCellButtonClicked"?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
+        "onKupDataTableDblClick"?: (event: CustomEvent<{
+        obj: {};
+    }>) => void;
         "onKupDataTableSortedColumn"?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
         /**
           * When component load is complete

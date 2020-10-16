@@ -713,6 +713,22 @@ export class KupDataTable {
     })
     kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
 
+    @Event({
+        eventName: 'kupDataTableDblClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableDblClick: EventEmitter<{
+        obj: {};
+    }>;
+
+    onKupDataTableDblClick(obj: { t: string; p: string; k: string }) {
+        this.kupDataTableDblClick.emit({
+            obj: obj,
+        });
+    }
+
     private stickyHeaderPosition = () => {
         if (this.tableRef) {
             this.stickyTheadRef.style.top = this.navBarHeight + 'px';
@@ -2954,6 +2970,9 @@ export class KupDataTable {
                                     this._unsetTooltip();
                                 }
                             }
+                        }}
+                        onDblClick={() => {
+                            this.onKupDataTableDblClick(cell.obj);
                         }}
                     >
                         {jsxCell}
