@@ -142,9 +142,9 @@ export class KupTree {
      */
     @Prop({ reflect: true }) filterValue: string = '';
     /**
-     * Activates the scroll on hover function
+     * Activates the scroll on hover function.
      */
-    @Prop({ reflect: true }) hoverScroll: boolean = true;
+    @Prop({ reflect: true }) scrollOnHover: boolean = false;
     /**
      * An array of integers containing the path to a selected child.\
      * Groups up the properties SelFirst, SelItem, SelName.
@@ -199,6 +199,7 @@ export class KupTree {
     private renderCount: number = 0;
     private renderStart: number = 0;
     private renderEnd: number = 0;
+    private clickTimeout: any[] = [];
 
     //-------- Events --------
     /**
@@ -287,6 +288,7 @@ export class KupTree {
     /**
      * Triggered when stop propagation event
      */
+
     @Event({
         eventName: 'kupDidUnload',
         composed: true,
@@ -295,6 +297,16 @@ export class KupTree {
     })
     kupDidUnload: EventEmitter<void>;
 
+    @Event({
+        eventName: 'kupTreeNodeDblClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeNodeDblClick: EventEmitter<{
+        obj: {};
+    }>;
+
     //---- Methods ----
 
     @Method()
@@ -302,7 +314,44 @@ export class KupTree {
         this.customStyleTheme = customStyleTheme;
     }
 
+    private setScrollOnHover() {
+        this.scrollOnHoverInstance = new scrollOnHover();
+        this.scrollOnHoverInstance.scrollOnHoverSetup(this.treeWrapperRef);
+    }
+
+    private checkScrollOnHover() {
+        if (!this.scrollOnHoverInstance) {
+            if (this.scrollOnHover) {
+                this.setScrollOnHover();
+            }
+        } else {
+            if (!this.scrollOnHover) {
+                this.scrollOnHoverInstance.scrollOnHoverDisable(
+                    this.treeWrapperRef
+                );
+                this.scrollOnHoverInstance = undefined;
+            }
+        }
+    }
+
+    onKupTreeNodeDblClick(obj: { t: string; p: string; k: string }) {
+        for (let index = 0; index < this.clickTimeout.length; index++) {
+            clearTimeout(this.clickTimeout[index]);
+            logMessage(
+                this,
+                'Cleared hdlTreeNodeClicked timeout(' +
+                    this.clickTimeout[index] +
+                    ').'
+            );
+        }
+        this.clickTimeout = [];
+        this.kupTreeNodeDblClick.emit({
+            obj: obj,
+        });
+    }
+
     //-------- Lifecycle hooks --------
+
     componentWillLoad() {
         this.startTime = performance.now();
         setThemeCustomStyle(this);
@@ -325,8 +374,6 @@ export class KupTree {
     }
 
     componentDidLoad() {
-        this.scrollOnHoverInstance = new scrollOnHover();
-        this.scrollOnHoverInstance.scrollOnHoverSetup(this.treeWrapperRef);
         if (
             this.selectedNode &&
             this.selectedNode.length > 0 &&
@@ -355,6 +402,8 @@ export class KupTree {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
+
+        this.checkScrollOnHover();
 
         if (root) {
             let rippleCells: any = root.querySelectorAll('.mdc-ripple-surface');
@@ -977,7 +1026,17 @@ export class KupTree {
         // When can be expanded OR selected
         if (!treeNodeData.disabled) {
             treeNodeOptions['onClick'] = () => {
-                this.hdlTreeNodeClicked(treeNodeData, treeNodePath, false);
+                this.clickTimeout.push(
+                    setTimeout(
+                        () =>
+                            this.hdlTreeNodeClicked(
+                                treeNodeData,
+                                treeNodePath,
+                                false
+                            ),
+                        300
+                    )
+                );
             };
         }
 
@@ -1021,6 +1080,9 @@ export class KupTree {
                             !this.showColumns && !treeNodeData.disabled,
                     }}
                     style={treeNodeData.style || null}
+                    onDblClick={() => {
+                        this.onKupTreeNodeDblClick(treeNodeData.obj);
+                    }}
                 >
                     {indent}
                     {treeExpandIcon}

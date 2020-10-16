@@ -33,13 +33,23 @@
 
 ## Methods
 
-### `mouseIsOn() => Promise<boolean>`
+### `setTooltipInfo(relatedObject: TooltipRelatedObject) => Promise<void>`
 
 
 
 #### Returns
 
-Type: `Promise<boolean>`
+Type: `Promise<void>`
+
+
+
+### `unsetTooltipInfo() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
 
 
 

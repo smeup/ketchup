@@ -30,6 +30,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/button/Button.vue`),
   },
   {
+    path: `/drawer`,
+    name: 'drawer',
+    component: () => import(`@/views/basic/drawer/Drawer.vue`),
+  },
+  {
     path: `/checkbox`,
     name: 'checkbox',
     component: () => import(`@/views/basic/checkbox/Checkbox.vue`),
@@ -83,6 +88,16 @@ let basicRoutes = [
     path: `/radio`,
     name: 'radio',
     component: () => import(`@/views/basic/radio/Radio.vue`),
+  },
+  {
+    path: `/rating`,
+    name: 'rating',
+    component: () => import(`@/views/basic/rating/Rating.vue`),
+  },
+  {
+    path: `/colorpicker`,
+    name: 'colorpicker',
+    component: () => import(`@/views/basic/colorpicker/ColorPicker.vue`),
   },
   {
     path: `/spinner`,

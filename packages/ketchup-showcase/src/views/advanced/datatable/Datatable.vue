@@ -63,6 +63,15 @@
     <template v-slot:20>
       <datatable-images-and-badges />
     </template>
+    <template v-slot:21>
+      <datatable-shapes></datatable-shapes>
+    </template>
+    <template v-slot:22>
+      <datatable-cell-classes></datatable-cell-classes>
+    </template>
+    <template v-slot:23>
+      <datatable-j1col></datatable-j1col>
+    </template>
   </comp>
 </template>
 
@@ -85,6 +94,7 @@ import DatatableGroups from '@/views/advanced/datatable/examples/DatatableGroups
 import DatatableImagesAndBadges from '@/views/advanced/datatable/examples/DatatableImagesAndBadges';
 import DatatableJ4btn from '@/views/advanced/datatable/examples/DatatableJ4btn';
 import DatatableJ4ico from '@/views/advanced/datatable/examples/DatatableJ4ico';
+import DatatableJ1col from '@/views/advanced/datatable/examples/DatatableJ1col';
 import DatatablePagination from '@/views/advanced/datatable/examples/DatatablePagination';
 import DatatableProgressbar from '@/views/advanced/datatable/examples/DatatableProgressbar';
 import DatatableRadio from '@/views/advanced/datatable/examples/DatatableRadio';
@@ -95,6 +105,9 @@ import DatatableSort from '@/views/advanced/datatable/examples/DatatableSort';
 import DatatableSortableColumns from '@/views/advanced/datatable/examples/DatatableSortableColumns';
 import DatatableTooltip from '@/views/advanced/datatable/examples/DatatableTooltip';
 import DatatableTotal from '@/views/advanced/datatable/examples/DatatableTotal';
+import DatatableShapes from '@/views/advanced/datatable/examples/DatatableShapes';
+import DatatableCellClasses from '@/views/advanced/datatable/examples/DatatableCellClasses';
+
 import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
@@ -120,6 +133,9 @@ export default {
     DatatableTooltip,
     DatatableTotal,
     DatatableJ4ico,
+    DatatableShapes,
+    DatatableCellClasses,
+    DatatableJ1col,
     Comp,
   },
   data() {
@@ -149,6 +165,9 @@ export default {
         'With totals',
         'With J4Ico',
         'Images and badges',
+        'Shapes',
+        'Cell classes',
+        'With color objects',
       ],
     };
   },

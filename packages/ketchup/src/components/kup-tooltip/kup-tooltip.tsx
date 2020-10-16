@@ -21,7 +21,7 @@ import {
 } from './kup-tooltip-declarations';
 import { logMessage } from '../../utils/debug-manager';
 import { Row } from '../kup-data-table/kup-data-table-declarations';
-//import { positionRecalc } from '../../utils/recalc-position';
+import { positionRecalc } from '../../utils/recalc-position';
 
 @Component({
     tag: 'kup-tooltip',
@@ -153,16 +153,15 @@ export class KupTooltip {
     onDataChanged() {
         this.waitingServerResponse = false;
         if (this.relatedObject == null) {
-            this.resetAll();
+            this.onElementChanged();
             return;
         }
         if (this.data == null) {
-            this.resetAll();
+            this.relatedObject = null;
             return;
         }
         this.visible = true;
-        this._mouseIsOn = true;
-        this.positionRecalc_();
+        //this._mouseIsOn = true;
         this.startLoadDetail(true);
     }
 
@@ -170,26 +169,18 @@ export class KupTooltip {
     @Watch('detailData')
     onTooltipDetailChanged() {
         if (this.relatedObject == null) {
-            this.resetAll();
+            this.onElementChanged();
             return;
         }
         if (this.data == null) {
-            this.resetAll();
+            this.relatedObject = null;
             return;
         }
-        if (this.cellOptions != null || this.detailData != null) {
-            this.positionRecalc_();
-        }
+
         this.waitingServerResponse = false;
     }
 
     // ---- Non reactive ----
-    private tooltipPosition: {
-        top?: string;
-        bottom?: string;
-        left?: string;
-        right?: string;
-    } = {};
 
     private tooltipTimeout: NodeJS.Timeout;
     private loadDetailTimeout: NodeJS.Timeout;
@@ -207,12 +198,29 @@ export class KupTooltip {
     private waitingServerResponse = false;
 
     // ---- Public methods  ----
+
     @Method()
-    async mouseIsOn() {
-        return this._mouseIsOn;
+    async setTooltipInfo(relatedObject: TooltipRelatedObject) {
+        //console.log('tooltip setTooltipInfo');
+        this.resetAll();
+        this.relatedObject = relatedObject;
+    }
+
+    @Method()
+    async unsetTooltipInfo() {
+        if (!this.mouseIsOn()) {
+            //console.log('tooltip unsetTooltipInfo');
+            this.onMouseLeave();
+        } else {
+            //console.log('tooltip unsetTooltipInfo mouseIsoN');
+        }
     }
 
     // ---- Private methods ----
+    private mouseIsOn() {
+        return this._mouseIsOn || this.waitingServerResponse;
+    }
+
     private hasDetailData(): boolean {
         return !!this.detailData && !!this.detailData.rows;
     }
@@ -410,7 +418,7 @@ export class KupTooltip {
         if (!this.waitingServerResponse) {
             let timeout = 800;
             this.mouseLeaveTimeout = setTimeout(() => {
-                this.resetAll();
+                this.relatedObject = null;
             }, timeout);
         }
     }
@@ -488,62 +496,6 @@ export class KupTooltip {
         }
 
         return infos;
-    }
-
-    private positionRecalc_() {
-        /*
-        if (this.visible == true) {
-            if (this.relatedObject != null) {
-                this.wrapperEl.classList.add('visible');
-                this.wrapperEl.classList.add('dynamic-position-active');
-                let offsetH = this.hasDetailData ? 300 : 150;
-                let offsetW = 350;
-                let margin = 3;
-                positionRecalc(
-                    this.wrapperEl,
-                    this.relatedObject.element,
-                    margin,
-                    offsetH,
-                    offsetW
-                );
-                this.tooltipPosition = {};
-                this.tooltipPosition.top = this.wrapperEl.style.top;
-                this.tooltipPosition.left = this.wrapperEl.style.left;
-                this.tooltipPosition.right = this.wrapperEl.style.right;
-                this.tooltipPosition.bottom = this.wrapperEl.style.bottom;
-                return;
-            }
-        }
-        this.wrapperEl.classList.remove('visible');
-        this.wrapperEl.classList.remove('dynamic-position-active');
-        */
-        // resetting position
-        this.tooltipPosition = {};
-        let rect;
-        if (this.relatedObject != null) {
-            rect = this.relatedObject.element.getBoundingClientRect();
-        } else {
-            rect = this.wrapperEl.getBoundingClientRect();
-        }
-        let threshold =
-            this.hasDetailData() || this.hasCellOptionsData() ? 300 : 150;
-
-        // vertical position
-        if (window.innerHeight - rect.bottom < threshold) {
-            this.tooltipPosition.bottom = `${
-                window.innerHeight - rect.top + 3
-            }px`;
-        } else {
-            this.tooltipPosition.top = `${rect.bottom + 3}px`;
-        }
-
-        // horizontal position
-        if (window.innerWidth - rect.left < 350) {
-            // 350 is the min-width of the tooltip
-            this.tooltipPosition.right = `${window.innerWidth - rect.right}px`;
-        } else {
-            this.tooltipPosition.left = `${rect.left}px`;
-        }
     }
 
     private createTooltip() {
@@ -626,14 +578,10 @@ export class KupTooltip {
             visible: this.hasDetailData() || this.hasCellOptionsData(),
         };
 
-        const tooltipStyle = {
-            ...this.tooltipPosition,
-        };
         return (
             <div
                 id="tooltip"
                 hidden={!this.visible}
-                style={tooltipStyle}
                 onClick={(e: MouseEvent) => e.stopPropagation()}
             >
                 <div id="main-content" class={mainContentClass}>
@@ -697,6 +645,12 @@ export class KupTooltip {
     }
 
     componentDidRender() {
+        if (this.visible) {
+            positionRecalc(this.rootElement, this.relatedObject.element);
+            this.rootElement.classList.add('dynamic-position-active');
+        } else {
+            this.rootElement.classList.remove('dynamic-position-active');
+        }
         this.renderEnd = performance.now();
         let timeDiff: number = this.renderEnd - this.renderStart;
         logMessage(

@@ -142,11 +142,7 @@
     <v-toolbar class="header" fixed app>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <div class="logo_header">
-        <img
-          src="ketchup_logo_header.svg"
-          class="light"
-          style="height: 40px;"
-        />
+        <img src="ketchup_logo_header.svg" class="light" style="height: 40px" />
       </div>
       <v-toolbar-title>Ketch.UP | Showcase</v-toolbar-title>
       <kup-switch
@@ -155,7 +151,7 @@
             this.changeTheme(e);
           }
         "
-        style="min-width: 150px; --kup-text-color: #f5f5f5;"
+        style="min-width: 150px; --kup-text-color: #f5f5f5"
         leading-label
         label="Dark Mode"
         id="theme-switch"
@@ -380,6 +376,12 @@ export default {
             },
           },
           {
+            title: 'Drawer',
+            to: {
+              name: 'drawer',
+            },
+          },
+          {
             title: 'Grid',
             to: {
               name: 'grid',
@@ -425,6 +427,18 @@ export default {
             title: `Radio`,
             to: {
               name: 'radio',
+            },
+          },
+          {
+            title: `Rating`,
+            to: {
+              name: 'rating',
+            },
+          },
+          {
+            title: `Color Picker`,
+            to: {
+              name: 'colorpicker',
             },
           },
           {

@@ -34,6 +34,10 @@ export default {
           name: 'kupTreeNodeSelected',
           type: 'custom',
         },
+        {
+          name: 'kupTreeNodeDblClick',
+          type: 'dblclick',
+        },
       ],
       demoProps: [
         {
@@ -42,6 +46,13 @@ export default {
           type: 'boolean',
           default: 'true',
           try: 'switch',
+        },
+        {
+          prop: 'className',
+          description: 'Available classes: full-width.',
+          type: 'string',
+          default: '""',
+          try: 'field',
         },
         {
           prop: 'columns?',
@@ -99,10 +110,11 @@ export default {
           try: 'field',
         },
         {
-          prop: 'hoverScroll',
-          description: 'Activates the scroll on hover function.',
+          prop: 'scrollOnHover',
+          description:
+            'When the mouse move towards the left or right edge and there is an overflow, the tree will automatically scroll.',
           type: 'boolean',
-          default: 'true',
+          default: 'false',
           try: 'switch',
         },
         {

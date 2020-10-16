@@ -1,6 +1,6 @@
 :host {
   #wrapper {
-    display: inline-block;
+    display: block;
 
     #tooltip {
       position: fixed;
@@ -113,24 +113,5 @@
         cursor: pointer;
       }
     }
-  }
-}
-
-:host(.datatable-tooltip) {
-  position: absolute;
-  /*height: 100%;
-  width: 100%;*/
-  height: 0;
-  width: 0;
-  left: 0;
-  top: 0;
-  #wrapper {
-    position: absolute;
-    /*height: 100%;
-    width: 100%;*/
-    height: 0;
-    width: 0;
-    left: 0;
-    top: 0;
   }
 }

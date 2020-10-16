@@ -170,6 +170,8 @@ const mockedColumns = [
         size: 10,
         obj: {
             t: 'NR',
+            p: '',
+            k: '',
         },
     },
     {
@@ -178,6 +180,8 @@ const mockedColumns = [
         size: 10,
         obj: {
             t: 'NR',
+            p: '',
+            k: '',
         },
     },
     {
@@ -187,6 +191,17 @@ const mockedColumns = [
         obj: {
             t: 'D8',
             p: '*YYMD',
+            k: '',
+        },
+    },
+    {
+        name: 'FLD5',
+        title: 'Column Percentuale',
+        size: 10,
+        obj: {
+            t: 'NR',
+            p: 'P',
+            k: '',
         },
     },
 ];
@@ -226,6 +241,14 @@ const mockedRows = [
                 },
                 value: '01/11/2018',
             },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '10.60',
+                },
+                value: '10.60',
+            },
         },
     },
     {
@@ -261,6 +284,14 @@ const mockedRows = [
                     k: '20180102',
                 },
                 value: '02/01/2018',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '20.60',
+                },
+                value: '20.60',
             },
         },
     },
@@ -298,77 +329,13 @@ const mockedRows = [
                 },
                 value: '03/01/2018',
             },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: 'CN',
-                    p: 'COL',
-                    k: 'DELGIO',
-                },
-                value: 'DELGIO',
-            },
-            FLD2: {
+            FLD5: {
                 obj: {
                     t: 'NR',
-                    p: '',
-                    k: '6',
+                    p: 'P',
+                    k: '30.60',
                 },
-                value: '6',
-            },
-            FLD3: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '67.8',
-                },
-                value: '67.8',
-            },
-            FLD4: {
-                obj: {
-                    t: 'D8',
-                    p: '*YYMD',
-                    k: '20180102',
-                },
-                value: '02/01/2018',
-            },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: 'CN',
-                    p: 'COL',
-                    k: 'DELGIO',
-                },
-                value: 'DELGIO',
-            },
-            FLD2: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '6',
-                },
-                value: '6',
-            },
-            FLD3: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '67.8',
-                },
-                value: '67.8',
-            },
-            FLD4: {
-                obj: {
-                    t: 'D8',
-                    p: '*YYMD',
-                    k: '20180102',
-                },
-                value: '02/01/2018',
+                value: '30.60',
             },
         },
     },
@@ -406,77 +373,13 @@ const mockedRows = [
                 },
                 value: '02/01/2018',
             },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: 'CN',
-                    p: 'COL',
-                    k: 'DELGIO',
-                },
-                value: 'DELGIO',
-            },
-            FLD2: {
+            FLD5: {
                 obj: {
                     t: 'NR',
-                    p: '',
-                    k: '6',
+                    p: 'P',
+                    k: '40.60',
                 },
-                value: '6',
-            },
-            FLD3: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '67.8',
-                },
-                value: '67.8',
-            },
-            FLD4: {
-                obj: {
-                    t: 'D8',
-                    p: '*YYMD',
-                    k: '20180102',
-                },
-                value: '02/01/2018',
-            },
-        },
-    },
-    {
-        cells: {
-            FLD1: {
-                obj: {
-                    t: 'CN',
-                    p: 'COL',
-                    k: 'DELGIO',
-                },
-                value: 'DELGIO',
-            },
-            FLD2: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '6',
-                },
-                value: '6',
-            },
-            FLD3: {
-                obj: {
-                    t: 'NR',
-                    p: '',
-                    k: '67.8',
-                },
-                value: '67.8',
-            },
-            FLD4: {
-                obj: {
-                    t: 'D8',
-                    p: '*YYMD',
-                    k: '20180102',
-                },
-                value: '02/01/2018',
+                value: '40.60',
             },
         },
     },
@@ -514,6 +417,14 @@ const mockedRows = [
                 },
                 value: '02/01/2018',
             },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '50.60',
+                },
+                value: '50.60',
+            },
         },
     },
     {
@@ -549,6 +460,190 @@ const mockedRows = [
                     k: '20180102',
                 },
                 value: '02/01/2018',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '60.60',
+                },
+                value: '60.60',
+            },
+        },
+    },
+    {
+        cells: {
+            FLD1: {
+                obj: {
+                    t: 'CN',
+                    p: 'COL',
+                    k: 'DELGIO',
+                },
+                value: 'DELGIO',
+            },
+            FLD2: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '6',
+                },
+                value: '6',
+            },
+            FLD3: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '67.8',
+                },
+                value: '67.8',
+            },
+            FLD4: {
+                obj: {
+                    t: 'D8',
+                    p: '*YYMD',
+                    k: '20180102',
+                },
+                value: '02/01/2018',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '70.60',
+                },
+                value: '70.60',
+            },
+        },
+    },
+    {
+        cells: {
+            FLD1: {
+                obj: {
+                    t: 'CN',
+                    p: 'COL',
+                    k: 'DELGIO',
+                },
+                value: 'DELGIO',
+            },
+            FLD2: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '6',
+                },
+                value: '6',
+            },
+            FLD3: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '67.8',
+                },
+                value: '67.8',
+            },
+            FLD4: {
+                obj: {
+                    t: 'D8',
+                    p: '*YYMD',
+                    k: '20180102',
+                },
+                value: '02/01/2018',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '80.60',
+                },
+                value: '80.60',
+            },
+        },
+    },
+    {
+        cells: {
+            FLD1: {
+                obj: {
+                    t: 'CN',
+                    p: 'COL',
+                    k: 'DELGIO',
+                },
+                value: 'DELGIO',
+            },
+            FLD2: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '6',
+                },
+                value: '6',
+            },
+            FLD3: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '67.8',
+                },
+                value: '67.8',
+            },
+            FLD4: {
+                obj: {
+                    t: 'D8',
+                    p: '*YYMD',
+                    k: '20180102',
+                },
+                value: '02/01/2018',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '90.60',
+                },
+                value: '90.60',
+            },
+        },
+    },
+    {
+        cells: {
+            FLD1: {
+                obj: {
+                    t: 'CN',
+                    p: 'COL',
+                    k: 'DELGIO',
+                },
+                value: 'DELGIO',
+            },
+            FLD2: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '6',
+                },
+                value: '6',
+            },
+            FLD3: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '67.8',
+                },
+                value: '67.8',
+            },
+            FLD4: {
+                obj: {
+                    t: 'D8',
+                    p: '*YYMD',
+                    k: '20180102',
+                },
+                value: '02/01/2018',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '0',
+                },
+                value: '',
             },
         },
     },
@@ -2172,7 +2267,7 @@ const mathTestData = {
                         t: 'NR',
                     },
                     options: false,
-                    value: '0.00',
+                    value: '7.99',
                 },
                 XXARTI: {
                     obj: {
@@ -2323,7 +2418,7 @@ const mathTestData = {
                         t: 'NR',
                     },
                     options: false,
-                    value: '0.00',
+                    value: '73.64',
                 },
                 XXARTI: {
                     obj: {
@@ -2474,7 +2569,7 @@ const mathTestData = {
                         t: 'NR',
                     },
                     options: false,
-                    value: '0.00',
+                    value: '-137.71',
                 },
                 XXARTI: {
                     obj: {
@@ -2625,7 +2720,7 @@ const mathTestData = {
                         t: 'NR',
                     },
                     options: false,
-                    value: '0.00',
+                    value: '-3.50',
                 },
                 XXARTI: {
                     obj: {
@@ -2770,6 +2865,7 @@ const mathTestTotals = {
     XXFAPR: 'Sum',
     XXFADE: 'MATH([XXFAPR]-[XXFACO])',
     XXQTPD: 'MATH([XXQTPR]-[XXQTCO])*100/[XXQTPR]',
+    OEE1: 'MATH([XXFAPR]-[XXFACO])*100/[XXFAPR]',
 };
 const mathTestGroups = [
     {
@@ -2782,6 +2878,185 @@ if (mathTest != null) {
     mathTest.data = mathTestData;
     mathTest.totals = mathTestTotals;
     mathTest.groups = mathTestGroups;
+}
+
+// shapes
+const ratingTestData = {
+    columns: [
+        {
+            name: 'RTG_00',
+            title: 'Rating shape',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                RTG_00: {
+                    obj: {
+                        t: '**',
+                        p: '',
+                        k: '',
+                    },
+                    value: '',
+                    options: false,
+                    shape: 'Rtg',
+                },
+            },
+        },
+        {
+            cells: {
+                RTG_00: {
+                    data: {
+                        maxValue: 10,
+                    },
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '5',
+                    },
+                    value: '5',
+                    options: false,
+                    shape: 'Rtg',
+                },
+            },
+        },
+        {
+            cells: {
+                RTG_00: {
+                    obj: {
+                        t: '**',
+                        p: '',
+                        k: '3',
+                    },
+                    value: '3',
+                    options: false,
+                    shape: 'Rtg',
+                },
+            },
+        },
+        {
+            cells: {
+                RTG_00: {
+                    obj: {
+                        t: '**',
+                        p: '',
+                        k: '4',
+                    },
+                    value: '4',
+                    options: false,
+                    shape: 'Rtg',
+                },
+            },
+        },
+    ],
+};
+
+const ratingTest = document.getElementById('rating-test');
+if (ratingTest != null) {
+    ratingTest.data = ratingTestData;
+}
+
+const colorTestData = {
+    columns: [
+        {
+            name: 'CLP_00',
+            title: 'Color object',
+        },
+        {
+            name: 'CLP_01',
+            title: 'Color shape',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                CLP_00: {
+                    data: {},
+                    obj: {
+                        t: 'J1',
+                        p: 'COL',
+                        k: '',
+                    },
+                    value: '',
+                    options: false,
+                },
+                CLP_01: {
+                    data: {},
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    value: '',
+                    options: false,
+                    shape: 'CLP',
+                },
+            },
+        },
+        {
+            cells: {
+                CLP_00: {
+                    data: {
+                        value: 'rgb(255, 0, 0)',
+                    },
+                    obj: {
+                        t: 'J1',
+                        p: 'COL',
+                        k: 'R255G000B000',
+                    },
+                    value: 'R255G000B000',
+                    options: false,
+                },
+                CLP_01: {
+                    data: {
+                        value: 'rgb(255, 0, 0)',
+                    },
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'R255G000B000',
+                    },
+                    value: 'R255G000B000',
+                    options: false,
+                    shape: 'CLP',
+                },
+            },
+        },
+        {
+            cells: {
+                CLP_00: {
+                    data: {
+                        value: 'rgb(064, 100, 216)',
+                    },
+                    obj: {
+                        t: 'J1',
+                        p: 'COL',
+                        k: 'R064G100B216',
+                    },
+                    value: 'R064G100B216',
+                    options: false,
+                },
+                CLP_01: {
+                    data: {
+                        value: 'rgb(064, 100, 216)',
+                    },
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'R064G100B216',
+                    },
+                    value: 'R064G100B216',
+                    options: false,
+                    shape: 'CLP',
+                },
+            },
+        },
+    ],
+};
+
+const colorTest = document.getElementById('color-test');
+if (colorTest != null) {
+    colorTest.data = colorTestData;
 }
 
 const tempDataTableTestData = {

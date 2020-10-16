@@ -2,6 +2,7 @@
   <div>
     <demo
       :demoComp="demoComp"
+      :demoEvents="demoEvents"
       :demoProps="demoProps"
       :demoTabs="demoTabs"
     ></demo>
@@ -20,6 +21,12 @@ export default {
   data() {
     return {
       demoComp: createComp(),
+      demoEvents: [
+        {
+          name: 'kupDataTableDblClick',
+          type: 'dblclick',
+        },
+      ],
       demoProps: [
         {
           prop: 'data',
@@ -34,6 +41,13 @@ export default {
             'The density of the rows, defaults at "medium" and can be also set to "large" or "small".',
           type: 'string',
           default: 'small',
+          try: 'field',
+        },
+        {
+          prop: 'emptyDataLabel',
+          description: 'Defines the label to show when the table is empty.',
+          type: 'string',
+          default: 'Empty data',
           try: 'field',
         },
         {
@@ -157,6 +171,14 @@ export default {
           try: 'json',
         },
         {
+          prop: 'scrollOnHover',
+          description:
+            'When the mouse move towards the left or right edge and there is an overflow, the table will automatically scroll.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'selectRow',
           description: 'Selects the specified row.',
           type: 'number',
@@ -199,6 +221,14 @@ export default {
             'If set to true, displays the button to load more records.',
           type: 'boolean',
           default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'showTooltipOnRightClick',
+          description:
+            'If set to true, displays tooltip on right click event; if set to false, displays tooltip on mouseOver event.',
+          type: 'boolean',
+          default: 'true',
           try: 'switch',
         },
         {
@@ -254,6 +284,11 @@ export default {
           active: true,
         },
         {
+          text: 'Events',
+          icon: '',
+          active: false,
+        },
+        {
           text: 'HTML',
           icon: '',
           active: false,
@@ -283,6 +318,7 @@ function createComp() {
   comp.showHeader = true;
   comp.sortableColumnsMutateData = true;
   comp.sortEnabled = true;
+  comp.showTooltipOnRightClick = true;
   return comp;
 }
 </script>

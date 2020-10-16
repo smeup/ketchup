@@ -41,6 +41,7 @@ export interface Column {
         p: string;
         k: string;
     };
+    shape?: string;
     decimals?: number;
     icon?: string;
 }

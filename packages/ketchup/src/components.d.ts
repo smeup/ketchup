@@ -176,6 +176,10 @@ export namespace Components {
          */
         "showSelection": boolean;
         /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick": boolean;
+        /**
           * If sorting is enabled, specifies which column to sort
          */
         "sortBy": string;
@@ -382,6 +386,16 @@ export namespace Components {
          */
         "type": string;
     }
+    interface KupColorPicker {
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
+         */
+        "value": string;
+    }
     interface KupCombobox {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -460,6 +474,10 @@ export namespace Components {
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
          */
         "density": string;
+        /**
+          * Defines the label to show when the table is empty.
+         */
+        "emptyDataLabel": string;
         /**
           * Enables the sorting of columns by dragging them into different columns.
          */
@@ -552,6 +570,10 @@ export namespace Components {
          */
         "rowsPerPage": number;
         /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover": boolean;
+        /**
           * Selects the row at the specified rendered rows prosition (base 1).
          */
         "selectRow": number;
@@ -580,6 +602,10 @@ export namespace Components {
           * If set to true, displays the button to load more records.
          */
         "showLoadMore": boolean;
+        /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick": boolean;
         /**
           * Defines the current sorting options.
          */
@@ -616,6 +642,7 @@ export namespace Components {
         "totals": TotalsMap;
     }
     interface KupDrawer {
+        "Toggle": () => Promise<void>;
         "open": () => Promise<void>;
         /**
           * opened is used to make our drawer appear and disappear
@@ -623,6 +650,14 @@ export namespace Components {
         "opened": boolean;
         "permanent": boolean;
         "right": boolean;
+    }
+    interface KupEcharts {
+        "graphTitle": string;
+        "graphTitleColor": string;
+        "graphTitleSize": number;
+        "legend": string;
+        "objectData": object;
+        "types": string;
     }
     interface KupEditor {
         /**
@@ -1089,6 +1124,20 @@ export namespace Components {
         "name": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
     }
+    interface KupRating {
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Max number of stars (default 5)
+         */
+        "maxValue": number;
+        /**
+          * Rated stars
+         */
+        "value": number;
+    }
     interface KupSearch {
         "data": TableData;
         "disabled": boolean;
@@ -1301,11 +1350,12 @@ export namespace Components {
           * Timeout for tooltip
          */
         "loadTimeout": number;
-        "mouseIsOn": () => Promise<boolean>;
         /**
           * Container element for tooltip
          */
         "relatedObject": TooltipRelatedObject;
+        "setTooltipInfo": (relatedObject: TooltipRelatedObject) => Promise<void>;
+        "unsetTooltipInfo": () => Promise<void>;
     }
     interface KupTree {
         /**
@@ -1344,11 +1394,11 @@ export namespace Components {
           * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
          */
         "filterValue": string;
-        /**
-          * Activates the scroll on hover function
-         */
-        "hoverScroll": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover": boolean;
         /**
           * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
          */
@@ -1443,6 +1493,12 @@ declare global {
         prototype: HTMLKupChipElement;
         new (): HTMLKupChipElement;
     };
+    interface HTMLKupColorPickerElement extends Components.KupColorPicker, HTMLStencilElement {
+    }
+    var HTMLKupColorPickerElement: {
+        prototype: HTMLKupColorPickerElement;
+        new (): HTMLKupColorPickerElement;
+    };
     interface HTMLKupComboboxElement extends Components.KupCombobox, HTMLStencilElement {
     }
     var HTMLKupComboboxElement: {
@@ -1478,6 +1534,12 @@ declare global {
     var HTMLKupDrawerElement: {
         prototype: HTMLKupDrawerElement;
         new (): HTMLKupDrawerElement;
+    };
+    interface HTMLKupEchartsElement extends Components.KupEcharts, HTMLStencilElement {
+    }
+    var HTMLKupEchartsElement: {
+        prototype: HTMLKupEchartsElement;
+        new (): HTMLKupEchartsElement;
     };
     interface HTMLKupEditorElement extends Components.KupEditor, HTMLStencilElement {
     }
@@ -1581,6 +1643,12 @@ declare global {
         prototype: HTMLKupRadioElement;
         new (): HTMLKupRadioElement;
     };
+    interface HTMLKupRatingElement extends Components.KupRating, HTMLStencilElement {
+    }
+    var HTMLKupRatingElement: {
+        prototype: HTMLKupRatingElement;
+        new (): HTMLKupRatingElement;
+    };
     interface HTMLKupSearchElement extends Components.KupSearch, HTMLStencilElement {
     }
     var HTMLKupSearchElement: {
@@ -1640,12 +1708,14 @@ declare global {
         "kup-chart": HTMLKupChartElement;
         "kup-checkbox": HTMLKupCheckboxElement;
         "kup-chip": HTMLKupChipElement;
+        "kup-color-picker": HTMLKupColorPickerElement;
         "kup-combobox": HTMLKupComboboxElement;
         "kup-crud": HTMLKupCrudElement;
         "kup-dash": HTMLKupDashElement;
         "kup-dash-list": HTMLKupDashListElement;
         "kup-data-table": HTMLKupDataTableElement;
         "kup-drawer": HTMLKupDrawerElement;
+        "kup-echarts": HTMLKupEchartsElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
@@ -1663,6 +1733,7 @@ declare global {
         "kup-progress-bar": HTMLKupProgressBarElement;
         "kup-qlik": HTMLKupQlikElement;
         "kup-radio": HTMLKupRadioElement;
+        "kup-rating": HTMLKupRatingElement;
         "kup-search": HTMLKupSearchElement;
         "kup-spinner": HTMLKupSpinnerElement;
         "kup-switch": HTMLKupSwitchElement;
@@ -1911,6 +1982,10 @@ declare namespace LocalJSX {
           * If enabled, highlights the selected box/boxes
          */
         "showSelection"?: boolean;
+        /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick"?: boolean;
         /**
           * If sorting is enabled, specifies which column to sort
          */
@@ -2208,6 +2283,16 @@ declare namespace LocalJSX {
          */
         "type"?: string;
     }
+    interface KupColorPicker {
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
+         */
+        "value"?: string;
+    }
     interface KupCombobox {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -2321,6 +2406,10 @@ declare namespace LocalJSX {
          */
         "density"?: string;
         /**
+          * Defines the label to show when the table is empty.
+         */
+        "emptyDataLabel"?: string;
+        /**
           * Enables the sorting of columns by dragging them into different columns.
          */
         "enableSortableColumns"?: boolean;
@@ -2405,6 +2494,9 @@ declare namespace LocalJSX {
         selectedRow: Row;
     }>) => void;
         "onKupCellButtonClicked"?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
+        "onKupDataTableDblClick"?: (event: CustomEvent<{
+        obj: {};
+    }>) => void;
         "onKupDataTableSortedColumn"?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
         /**
           * When component load is complete
@@ -2461,6 +2553,10 @@ declare namespace LocalJSX {
          */
         "rowsPerPage"?: number;
         /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover"?: boolean;
+        /**
           * Selects the row at the specified rendered rows prosition (base 1).
          */
         "selectRow"?: number;
@@ -2489,6 +2585,10 @@ declare namespace LocalJSX {
           * If set to true, displays the button to load more records.
          */
         "showLoadMore"?: boolean;
+        /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick"?: boolean;
         /**
           * Defines the current sorting options.
          */
@@ -2525,12 +2625,22 @@ declare namespace LocalJSX {
         "totals"?: TotalsMap;
     }
     interface KupDrawer {
+        "onClDrawer"?: (event: CustomEvent<any>) => void;
+        "onOpDrawer"?: (event: CustomEvent<any>) => void;
         /**
           * opened is used to make our drawer appear and disappear
          */
         "opened"?: boolean;
         "permanent"?: boolean;
         "right"?: boolean;
+    }
+    interface KupEcharts {
+        "graphTitle"?: string;
+        "graphTitleColor"?: string;
+        "graphTitleSize"?: number;
+        "legend"?: string;
+        "objectData"?: object;
+        "types"?: string;
     }
     interface KupEditor {
         /**
@@ -3061,6 +3171,21 @@ declare namespace LocalJSX {
         checked: boolean;
     }>) => void;
     }
+    interface KupRating {
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Max number of stars (default 5)
+         */
+        "maxValue"?: number;
+        "onKupRatingClicked"?: (event: CustomEvent<any>) => void;
+        /**
+          * Rated stars
+         */
+        "value"?: number;
+    }
     interface KupSearch {
         "data"?: TableData;
         "disabled"?: boolean;
@@ -3394,10 +3519,6 @@ declare namespace LocalJSX {
           * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
          */
         "filterValue"?: string;
-        /**
-          * Activates the scroll on hover function
-         */
-        "hoverScroll"?: boolean;
         "onKupDidLoad"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when stop propagation event
@@ -3418,6 +3539,9 @@ declare namespace LocalJSX {
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
         tree: KupTree;
+    }>) => void;
+        "onKupTreeNodeDblClick"?: (event: CustomEvent<{
+        obj: {};
     }>) => void;
         /**
           * Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.
@@ -3448,6 +3572,10 @@ declare namespace LocalJSX {
         auto: boolean;
         tree: KupTree;
     }>) => void;
+        /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover"?: boolean;
         /**
           * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
          */
@@ -3496,12 +3624,14 @@ declare namespace LocalJSX {
         "kup-chart": KupChart;
         "kup-checkbox": KupCheckbox;
         "kup-chip": KupChip;
+        "kup-color-picker": KupColorPicker;
         "kup-combobox": KupCombobox;
         "kup-crud": KupCrud;
         "kup-dash": KupDash;
         "kup-dash-list": KupDashList;
         "kup-data-table": KupDataTable;
         "kup-drawer": KupDrawer;
+        "kup-echarts": KupEcharts;
         "kup-editor": KupEditor;
         "kup-field": KupField;
         "kup-form": KupForm;
@@ -3519,6 +3649,7 @@ declare namespace LocalJSX {
         "kup-progress-bar": KupProgressBar;
         "kup-qlik": KupQlik;
         "kup-radio": KupRadio;
+        "kup-rating": KupRating;
         "kup-search": KupSearch;
         "kup-spinner": KupSpinner;
         "kup-switch": KupSwitch;
@@ -3543,12 +3674,14 @@ declare module "@stencil/core" {
             "kup-chart": LocalJSX.KupChart & JSXBase.HTMLAttributes<HTMLKupChartElement>;
             "kup-checkbox": LocalJSX.KupCheckbox & JSXBase.HTMLAttributes<HTMLKupCheckboxElement>;
             "kup-chip": LocalJSX.KupChip & JSXBase.HTMLAttributes<HTMLKupChipElement>;
+            "kup-color-picker": LocalJSX.KupColorPicker & JSXBase.HTMLAttributes<HTMLKupColorPickerElement>;
             "kup-combobox": LocalJSX.KupCombobox & JSXBase.HTMLAttributes<HTMLKupComboboxElement>;
             "kup-crud": LocalJSX.KupCrud & JSXBase.HTMLAttributes<HTMLKupCrudElement>;
             "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;
             "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
+            "kup-echarts": LocalJSX.KupEcharts & JSXBase.HTMLAttributes<HTMLKupEchartsElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
@@ -3566,6 +3699,7 @@ declare module "@stencil/core" {
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;
+            "kup-rating": LocalJSX.KupRating & JSXBase.HTMLAttributes<HTMLKupRatingElement>;
             "kup-search": LocalJSX.KupSearch & JSXBase.HTMLAttributes<HTMLKupSearchElement>;
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
             "kup-switch": LocalJSX.KupSwitch & JSXBase.HTMLAttributes<HTMLKupSwitchElement>;

@@ -188,6 +188,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showTooltipOnRightClick',
+          description:
+            'If set to true, displays tooltip on right click event; if set to false, displays tooltip on mouseOver event.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'sortBy',
           description: 'If sorting is enabled, specifies which column to sort.',
           type: 'string',
@@ -240,6 +248,7 @@ function createComp() {
   comp.data = defaultData;
   comp.id = 'demo-component';
   comp.noBorder = true;
+  comp.showTooltipOnRightClick = true;
   return comp;
 }
 </script>

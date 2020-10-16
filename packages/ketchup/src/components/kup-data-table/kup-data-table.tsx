@@ -37,6 +37,8 @@ import {
     GenericFilter,
 } from './kup-data-table-declarations';
 
+import { isRating, isColor } from '../../utils/cell-utils';
+
 import {
     calcTotals,
     normalizeTotals,
@@ -80,6 +82,7 @@ import {
     unformattedStringToFormattedStringNumber,
     numberToFormattedStringNumber,
     identify,
+    isNumber as isNumberThisString,
 } from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 
@@ -194,6 +197,11 @@ export class KupDataTable {
      * If set to true, displays the button to open the customization panel.
      */
     @Prop({ mutable: true }) showCustomization: boolean = false;
+
+    /**
+     * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+     */
+    @Prop() showTooltipOnRightClick: boolean = true;
 
     /**
      * Expands groups when set to true.
@@ -321,7 +329,10 @@ export class KupDataTable {
      * Sets the number of rows per page to display.
      */
     @Prop({ reflect: true }) rowsPerPage = 10;
-
+    /**
+     * Activates the scroll on hover function.
+     */
+    @Prop({ reflect: true }) scrollOnHover: boolean = false;
     /**
      * Semicolon separated rows id to select.
      */
@@ -399,6 +410,11 @@ export class KupDataTable {
      */
     @Prop() tooltipDetailTimeout: number;
 
+    /**
+     * Defines the label to show when the table is empty.
+     */
+    @Prop() emptyDataLabel: string = 'Empty data';
+
     //-------- State --------
 
     @State()
@@ -451,7 +467,6 @@ export class KupDataTable {
         this.forceGroupExpansion();
     }
 
-    @Watch('data')
     @Watch('sort')
     @Watch('filters')
     @Watch('globalFilterValue')
@@ -460,6 +475,12 @@ export class KupDataTable {
     @Watch('currentPage')
     @Watch('currentRowsPerPage')
     recalculateRows() {
+        this.initRows();
+    }
+
+    @Watch('data')
+    identifyAndInitRows() {
+        identify(this.getRows());
         this.initRows();
     }
 
@@ -692,6 +713,22 @@ export class KupDataTable {
     })
     kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
 
+    @Event({
+        eventName: 'kupDataTableDblClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableDblClick: EventEmitter<{
+        obj: {};
+    }>;
+
+    onKupDataTableDblClick(obj: { t: string; p: string; k: string }) {
+        this.kupDataTableDblClick.emit({
+            obj: obj,
+        });
+    }
+
     private stickyHeaderPosition = () => {
         if (this.tableRef) {
             this.stickyTheadRef.style.top = this.navBarHeight + 'px';
@@ -834,12 +871,25 @@ export class KupDataTable {
     }
 
     private checkScrollOnHover() {
-        if (
-            this.scrollOnHoverInstance !== undefined &&
-            (this.tableHeight !== undefined || this.tableWidth !== undefined)
-        ) {
-            this.scrollOnHoverInstance.scrollOnHoverDisable(this.tableAreaRef);
-            this.scrollOnHoverInstance = undefined;
+        if (!this.scrollOnHoverInstance) {
+            if (
+                this.scrollOnHover &&
+                this.tableHeight === undefined &&
+                this.tableWidth === undefined
+            ) {
+                this.setScrollOnHover();
+            }
+        } else {
+            if (
+                !this.scrollOnHover &&
+                (this.tableHeight !== undefined ||
+                    this.tableWidth !== undefined)
+            ) {
+                this.scrollOnHoverInstance.scrollOnHoverDisable(
+                    this.tableAreaRef
+                );
+                this.scrollOnHoverInstance = undefined;
+            }
         }
     }
 
@@ -892,9 +942,8 @@ export class KupDataTable {
 
     componentWillLoad() {
         this.startTime = performance.now();
-        if (this.data) {
-            identify(this.data.rows);
-        }
+        identify(this.getRows());
+
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
                 '.header'
@@ -946,7 +995,6 @@ export class KupDataTable {
     }
 
     componentDidLoad() {
-        this.setScrollOnHover();
         this.didLoadObservers();
         this.didLoadEventHandling();
 
@@ -1010,9 +1058,7 @@ export class KupDataTable {
     }
 
     private _unsetTooltip() {
-        if (!this.tooltip.mouseIsOn()) {
-            unsetTooltip(this.tooltip);
-        }
+        unsetTooltip(this.tooltip);
     }
 
     private getColumns(): Array<Column> {
@@ -1441,11 +1487,15 @@ export class KupDataTable {
         this.resetCurrentPage();
 
         let newFilter = detail.value.trim();
+
         if (newFilter != '' && isNumber(column.obj)) {
-            newFilter = formattedStringToUnformattedStringNumber(
+            let tmpStr = formattedStringToUnformattedStringNumber(
                 newFilter,
                 column.obj ? column.obj.p : ''
             );
+            if (isNumberThisString(tmpStr)) {
+                newFilter = tmpStr;
+            }
         }
 
         const newFilters: GenericFilter = { ...this.filters };
@@ -2193,7 +2243,12 @@ export class KupDataTable {
                         let filterInitialValue = this.getTextFieldFilterValue(
                             column.name
                         );
-                        if (filterInitialValue != '' && isNumber(column.obj)) {
+
+                        if (
+                            filterInitialValue != '' &&
+                            isNumber(column.obj) &&
+                            isNumberThisString(filterInitialValue)
+                        ) {
                             filterInitialValue = unformattedStringToFormattedStringNumber(
                                 filterInitialValue,
                                 column.decimals,
@@ -2522,7 +2577,11 @@ export class KupDataTable {
         return (
             <kup-tooltip
                 class="datatable-tooltip"
-                loadTimeout={this.tooltipLoadTimeout}
+                loadTimeout={
+                    this.showTooltipOnRightClick == true
+                        ? 0
+                        : this.tooltipLoadTimeout
+                }
                 detailTimeout={this.tooltipDetailTimeout}
                 ref={(el: any) => (this.tooltip = el as KupTooltip)}
             ></kup-tooltip>
@@ -2624,8 +2683,12 @@ export class KupDataTable {
 
                 // adding 'totals grouping' cells
                 for (let column of visibleColumns) {
+                    let totalClass = 'total';
+                    if (row.group.totals[column.name] < 0) {
+                        totalClass += ' negative-number';
+                    }
                     cells.push(
-                        <td class="total">
+                        <td class={totalClass}>
                             {numberToFormattedStringNumber(
                                 row.group.totals[column.name],
                                 column.decimals,
@@ -2820,7 +2883,7 @@ export class KupDataTable {
                 let cellClass = {
                     //    'has-options': !!options,
                     'is-graphic': isBar(cell.obj),
-                    number: isNumber(cell.obj),
+                    number: isNumber(cell.obj) && !isRating(cell, null),
                 };
                 if (cell.cssClass) {
                     cellClass[cell.cssClass] = true;
@@ -2874,8 +2937,44 @@ export class KupDataTable {
                     }
                 }
 
+                /**
+                 * Controls if current cell needs a tooltip and eventually adds it.
+                 * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
+                 */
+                const _hasTooltip: boolean = hasTooltip(cell.obj);
                 return (
-                    <td data-column={name} style={cellStyle} class={cellClass}>
+                    <td
+                        data-column={name}
+                        style={cellStyle}
+                        class={cellClass}
+                        onMouseEnter={(ev) => {
+                            if (this.showTooltipOnRightClick == false) {
+                                if (_hasTooltip) {
+                                    this._setTooltip(ev, cell);
+                                } else {
+                                    this._unsetTooltip();
+                                }
+                            }
+                        }}
+                        onMouseLeave={() => {
+                            if (this.showTooltipOnRightClick == false) {
+                                this._unsetTooltip();
+                            }
+                        }}
+                        onContextMenu={(ev) => {
+                            ev.preventDefault();
+                            if (this.showTooltipOnRightClick == true) {
+                                if (_hasTooltip) {
+                                    this._setTooltip(ev, cell);
+                                } else {
+                                    this._unsetTooltip();
+                                }
+                            }
+                        }}
+                        onDblClick={() => {
+                            this.onKupDataTableDblClick(cell.obj);
+                        }}
+                    >
                         {jsxCell}
                         {/* {options} */}
                     </td>
@@ -2953,7 +3052,7 @@ export class KupDataTable {
 
         // Sets the default value
         let content: any = valueToDisplay;
-        let cellType: string = this.getCellType(cell.obj);
+        let cellType: string = this.getCellType(cell);
         let props: any = { ...cell.data };
         classObj[cellType + '-cell'] = true;
 
@@ -3002,26 +3101,9 @@ export class KupDataTable {
                 <span style={iconStyle} class="icon-container obj-icon"></span>
             );
         }
-        /**
-         * Controls if current cell needs a tooltip and eventually adds it.
-         * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
-         */
-        const _hasTooltip: boolean = hasTooltip(cell.obj);
+
         return (
-            <span
-                class={classObj}
-                style={style}
-                onMouseEnter={(ev) => {
-                    if (_hasTooltip) {
-                        this._setTooltip(ev, cell);
-                    } else {
-                        this._unsetTooltip();
-                    }
-                }}
-                onMouseLeave={() => {
-                    this._unsetTooltip();
-                }}
-            >
+            <span class={classObj} style={style}>
                 {indend}
                 {icon}
                 {content}
@@ -3029,8 +3111,14 @@ export class KupDataTable {
         );
     }
 
-    private getCellType(obj: any) {
-        if (isBar(obj)) {
+    // TODO: cell type can depend also from shape (see isRating)
+    private getCellType(cell: Cell) {
+        let obj = cell.obj;
+        if (isRating(cell, null)) {
+            return 'rating';
+        } else if (isColor(cell, null)) {
+            return 'color-picker';
+        } else if (isBar(obj)) {
             return 'bar';
         } else if (isButton(obj)) {
             return 'button';
@@ -3191,6 +3279,27 @@ export class KupDataTable {
             case 'progress-bar':
                 return <kup-progress-bar {...props}></kup-progress-bar>;
 
+            case 'rating':
+                const cellValueNumber: number = stringToNumber(cell.value);
+                // NOTE: actually rating in datatable is only for output (-> put disabled)
+                return (
+                    <kup-rating
+                        value={cellValueNumber}
+                        {...props}
+                        disabled
+                    ></kup-rating>
+                );
+
+            case 'color-picker':
+                // NOTE: actually color-picker in datatable is only for output (-> put disabled)
+                return (
+                    <kup-color-picker
+                        value={cell.value}
+                        {...props}
+                        disabled
+                    ></kup-color-picker>
+                );
+
             case 'radio':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
@@ -3225,6 +3334,21 @@ export class KupDataTable {
                     }
                     return cellValue;
                 }
+                return content;
+            case 'rating':
+                const cellValueNumber: number = stringToNumber(cell.value);
+                // NOTE: actually rating in datatable is only for output (-> put disabled)
+                return (
+                    <kup-rating value={cellValueNumber} disabled></kup-rating>
+                );
+            case 'color-picker':
+                // NOTE: actually color-picker in datatable is only for output (-> put disabled)
+                return (
+                    <kup-color-picker
+                        value={cell.value}
+                        disabled
+                    ></kup-color-picker>
+                );
             case 'string':
             default:
                 return content;
@@ -3555,7 +3679,9 @@ export class KupDataTable {
         if (this.paginatedRows == null || this.paginatedRows.length === 0) {
             rows = (
                 <tr>
-                    <td colSpan={this.calculateColspan()}>Empty data</td>
+                    <td colSpan={this.calculateColspan()}>
+                        {this.emptyDataLabel}
+                    </td>
                 </tr>
             );
         } else {
@@ -3755,9 +3881,10 @@ export class KupDataTable {
                         <tbody>{rows}</tbody>
                         {footer}
                     </table>
-                    {tooltip}
+
                     {stickyEl}
                 </div>
+                {tooltip}
                 {paginatorBottom}
             </div>
         );

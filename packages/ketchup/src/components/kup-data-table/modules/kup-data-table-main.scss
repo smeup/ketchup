@@ -369,6 +369,10 @@ tbody {
         &.total {
           text-align: right;
           padding: 0.5rem 0.3125rem;
+
+          &.negative-number {
+            color: var(--kup-danger-color);
+          }
         }
       }
     }

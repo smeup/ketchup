@@ -13,10 +13,19 @@ export const config: Config = {
             src: 'data-table.html',
         },
         {
+            src: 'rating.html',
+        },
+        {
+            src: 'color-picker.html',
+        },
+        {
             src: 'dash.html',
         },
         {
             src: 'dash-list.html',
+        },
+        {
+            src: 'echarts.html',
         },
         {
             src: 'tree.html',
