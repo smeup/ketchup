@@ -597,10 +597,6 @@ export namespace Components {
          */
         "scrollOnHover": boolean;
         /**
-          * Selects the row at the specified rendered rows prosition (base 1).
-         */
-        "selectRow": number;
-        /**
           * Semicolon separated rows id to select.
          */
         "selectRowsById": string;
@@ -2571,10 +2567,6 @@ declare namespace LocalJSX {
           * Activates the scroll on hover function.
          */
         "scrollOnHover"?: boolean;
-        /**
-          * Selects the row at the specified rendered rows prosition (base 1).
-         */
-        "selectRow"?: number;
         /**
           * Semicolon separated rows id to select.
          */
