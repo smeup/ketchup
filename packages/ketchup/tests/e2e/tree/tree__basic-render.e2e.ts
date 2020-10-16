@@ -404,6 +404,7 @@ describe('kup-tree with data', () => {
                             ') td:nth-of-type(1) .cell-content'
                     );
                     await treeNodeCellContent.click();
+                    await page.waitFor(500);
 
                     if (!flatTree[rowIndexesToTest[i]].disabled) {
                         eventCount++;
