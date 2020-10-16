@@ -2467,6 +2467,9 @@ declare namespace LocalJSX {
         selectedRow: Row;
     }>) => void;
         "onKupCellButtonClicked"?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
+        "onKupDataTableDblClick"?: (event: CustomEvent<{
+        obj: {};
+    }>) => void;
         "onKupDataTableSortedColumn"?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
         /**
           * When component load is complete
@@ -3509,6 +3512,9 @@ declare namespace LocalJSX {
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
         tree: KupTree;
+    }>) => void;
+        "onKupTreeNodeDblClick"?: (event: CustomEvent<{
+        obj: {};
     }>) => void;
         /**
           * Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.
