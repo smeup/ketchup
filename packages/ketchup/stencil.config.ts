@@ -16,6 +16,9 @@ export const config: Config = {
             src: 'rating.html',
         },
         {
+            src: 'color-picker.html',
+        },
+        {
             src: 'dash.html',
         },
         {

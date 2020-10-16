@@ -2,11 +2,25 @@ export const ratingDataTable = {
   columns: [
     {
       name: 'RTG_00',
-      title: 'Rating',
+      title: 'Rating Shape',
       shape: 'Rtg',
     },
   ],
   rows: [
+    {
+      cells: {
+        RTG_00: {
+          obj: {
+            t: '**',
+            p: '',
+            k: '',
+          },
+          value: '',
+          options: false,
+          shape: 'Rtg',
+        },
+      },
+    },
     {
       cells: {
         RTG_00: {
