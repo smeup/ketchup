@@ -28,13 +28,23 @@
                 type="text/css"
             />
 
-            <kup-rating id="rating1" max-value="10" value="3"></kup-rating>
-            <kup-rating
-                id="rating1"
-                max-value="3"
-                value="1"
-                disabled
-            ></kup-rating>
+            <p>no value: <kup-rating id="rating1"></kup-rating></p>
+            <p
+                >value 3, max value 10:<kup-rating
+                    id="rating1"
+                    max-value="10"
+                    value="3"
+                ></kup-rating
+            ></p>
+            <p
+                >disabled:
+                <kup-rating
+                    id="rating1"
+                    max-value="3"
+                    value="1"
+                    disabled
+                ></kup-rating
+            ></p>
 
             <script>
                 window.onload = function () {

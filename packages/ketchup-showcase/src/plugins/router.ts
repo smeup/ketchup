@@ -95,6 +95,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/rating/Rating.vue`),
   },
   {
+    path: `/colorpicker`,
+    name: 'colorpicker',
+    component: () => import(`@/views/basic/colorpicker/ColorPicker.vue`),
+  },
+  {
     path: `/spinner`,
     name: 'spinner',
     component: () => import(`@/views/basic/spinner/Spinner.vue`),

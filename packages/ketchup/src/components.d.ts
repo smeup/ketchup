@@ -397,6 +397,16 @@ export namespace Components {
          */
         "type": string;
     }
+    interface KupColorPicker {
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
+         */
+        "value": string;
+    }
     interface KupCombobox {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -1474,6 +1484,12 @@ declare global {
         prototype: HTMLKupChipElement;
         new (): HTMLKupChipElement;
     };
+    interface HTMLKupColorPickerElement extends Components.KupColorPicker, HTMLStencilElement {
+    }
+    var HTMLKupColorPickerElement: {
+        prototype: HTMLKupColorPickerElement;
+        new (): HTMLKupColorPickerElement;
+    };
     interface HTMLKupComboboxElement extends Components.KupCombobox, HTMLStencilElement {
     }
     var HTMLKupComboboxElement: {
@@ -1683,6 +1699,7 @@ declare global {
         "kup-chart": HTMLKupChartElement;
         "kup-checkbox": HTMLKupCheckboxElement;
         "kup-chip": HTMLKupChipElement;
+        "kup-color-picker": HTMLKupColorPickerElement;
         "kup-combobox": HTMLKupComboboxElement;
         "kup-crud": HTMLKupCrudElement;
         "kup-dash": HTMLKupDashElement;
@@ -2268,6 +2285,16 @@ declare namespace LocalJSX {
           * The type of chip. Available types: input, filter, choice or empty for default.
          */
         "type"?: string;
+    }
+    interface KupColorPicker {
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
+         */
+        "value"?: string;
     }
     interface KupCombobox {
         /**
@@ -3580,6 +3607,7 @@ declare namespace LocalJSX {
         "kup-chart": KupChart;
         "kup-checkbox": KupCheckbox;
         "kup-chip": KupChip;
+        "kup-color-picker": KupColorPicker;
         "kup-combobox": KupCombobox;
         "kup-crud": KupCrud;
         "kup-dash": KupDash;
@@ -3629,6 +3657,7 @@ declare module "@stencil/core" {
             "kup-chart": LocalJSX.KupChart & JSXBase.HTMLAttributes<HTMLKupChartElement>;
             "kup-checkbox": LocalJSX.KupCheckbox & JSXBase.HTMLAttributes<HTMLKupCheckboxElement>;
             "kup-chip": LocalJSX.KupChip & JSXBase.HTMLAttributes<HTMLKupChipElement>;
+            "kup-color-picker": LocalJSX.KupColorPicker & JSXBase.HTMLAttributes<HTMLKupColorPickerElement>;
             "kup-combobox": LocalJSX.KupCombobox & JSXBase.HTMLAttributes<HTMLKupComboboxElement>;
             "kup-crud": LocalJSX.KupCrud & JSXBase.HTMLAttributes<HTMLKupCrudElement>;
             "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;

@@ -37,7 +37,7 @@ import {
     GenericFilter,
 } from './kup-data-table-declarations';
 
-import { isRating } from '../../utils/cell-utils';
+import { isRating, isColor } from '../../utils/cell-utils';
 
 import {
     calcTotals,
@@ -3074,6 +3074,8 @@ export class KupDataTable {
         let obj = cell.obj;
         if (isRating(cell, null)) {
             return 'rating';
+        } else if (isColor(cell, null)) {
+            return 'color-picker';
         } else if (isBar(obj)) {
             return 'bar';
         } else if (isButton(obj)) {
@@ -3246,6 +3248,16 @@ export class KupDataTable {
                     ></kup-rating>
                 );
 
+            case 'color-picker':
+                // NOTE: actually color-picker in datatable is only for output (-> put disabled)
+                return (
+                    <kup-color-picker
+                        value={cell.value}
+                        {...props}
+                        disabled
+                    ></kup-color-picker>
+                );
+
             case 'radio':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
@@ -3286,6 +3298,14 @@ export class KupDataTable {
                 // NOTE: actually rating in datatable is only for output (-> put disabled)
                 return (
                     <kup-rating value={cellValueNumber} disabled></kup-rating>
+                );
+            case 'color-picker':
+                // NOTE: actually color-picker in datatable is only for output (-> put disabled)
+                return (
+                    <kup-color-picker
+                        value={cell.value}
+                        disabled
+                    ></kup-color-picker>
                 );
             case 'string':
             default:
