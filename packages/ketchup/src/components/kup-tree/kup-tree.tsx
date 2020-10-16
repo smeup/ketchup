@@ -337,6 +337,12 @@ export class KupTree {
     onKupTreeNodeDblClick(obj: { t: string; p: string; k: string }) {
         for (let index = 0; index < this.clickTimeout.length; index++) {
             clearTimeout(this.clickTimeout[index]);
+            logMessage(
+                this,
+                'Cleared hdlTreeNodeClicked timeout(' +
+                    this.clickTimeout[index] +
+                    ').'
+            );
         }
         this.clickTimeout = [];
         this.kupTreeNodeDblClick.emit({
