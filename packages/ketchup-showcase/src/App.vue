@@ -299,6 +299,12 @@ export default {
             },
           },
           {
+            title: `Echarts`,
+            to: {
+              name: 'echarts',
+            },
+          },
+          {
             title: `Field`,
             to: {
               name: 'field',

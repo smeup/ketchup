@@ -17,6 +17,13 @@
 | `types`           | `types`             |             | `string` | `'line'`    |
 
 
+## Events
+
+| Event               | Description | Type               |
+| ------------------- | ----------- | ------------------ |
+| `kupEchartsClicked` |             | `CustomEvent<any>` |
+
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

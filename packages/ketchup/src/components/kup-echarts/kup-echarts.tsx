@@ -1,4 +1,4 @@
-import { Component, Host, h,Prop,Element} from '@stencil/core';
+import { Component, Host, h,Prop,Element,Event,EventEmitter} from '@stencil/core';
 import echarts from 'echarts'
 
 
@@ -26,6 +26,8 @@ export class KupEcharts {
   private rightjson:any;
   private datajson=[];
   private datapiejson=[];
+
+  @Event() kupEchartsClicked: EventEmitter;
   
   CreateEcharts()
   {
@@ -229,13 +231,15 @@ return this.datapiejson;
   
 
   }
+  OnKupClick()
+  {
+    this. kupEchartsClicked.emit();
+  }
 
   render() {
     return (
       <Host>
-    <div id="main" ref={(chartContainer) =>
-          (this.chartContainer = chartContainer)
-        }></div>
+    <div id="main" onClick={()=>this.OnKupClick()} ref={(chartContainer) =>(this.chartContainer = chartContainer)}></div>
       </Host>
     );
   }
