@@ -14,7 +14,25 @@
 | `right`     | `right`     |                                                        | `boolean` | `undefined` |
 
 
+## Events
+
+| Event      | Description | Type               |
+| ---------- | ----------- | ------------------ |
+| `ClDrawer` |             | `CustomEvent<any>` |
+| `OpDrawer` |             | `CustomEvent<any>` |
+
+
 ## Methods
+
+### `Toggle() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 ### `open() => Promise<void>`
 

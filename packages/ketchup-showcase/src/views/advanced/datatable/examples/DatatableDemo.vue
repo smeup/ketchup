@@ -2,6 +2,7 @@
   <div>
     <demo
       :demoComp="demoComp"
+      :demoEvents="demoEvents"
       :demoProps="demoProps"
       :demoTabs="demoTabs"
     ></demo>
@@ -20,6 +21,12 @@ export default {
   data() {
     return {
       demoComp: createComp(),
+      demoEvents: [
+        {
+          name: 'kupDataTableDblClick',
+          type: 'dblclick',
+        },
+      ],
       demoProps: [
         {
           prop: 'data',
@@ -334,6 +341,11 @@ export default {
           text: 'Props',
           icon: '',
           active: true,
+        },
+        {
+          text: 'Events',
+          icon: '',
+          active: false,
         },
         {
           text: 'HTML',
