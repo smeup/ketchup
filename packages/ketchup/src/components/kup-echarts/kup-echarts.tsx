@@ -11,7 +11,7 @@ import echarts from 'echarts'
 })
 export class KupEcharts {
  @Prop() objectData: object={};
- @Prop() types: string='line';
+ @Prop() types: string;
  @Prop() graphTitle:string='';
  @Prop() graphTitleSize:number;
  @Prop() legend:string;
@@ -215,7 +215,7 @@ return this.datapiejson;
   
   componentWillUpdate ()
   {
-    
+        
   this.oj = {};
   this.x=[];
   this.rightjson={};
@@ -234,6 +234,7 @@ return this.datapiejson;
   else{
           this.Createrightjson();
       }
+      console.log(this.rightjson);
 
     this.CreateEcharts();
     

@@ -39,21 +39,21 @@ export default {
           prop: 'graphTitle',
           description: 'Title of the graph.',
           type: 'string',
-          default: 'undefined',
+          default: 'TitolaProva',
           try: 'field',
         },
         {
           prop: 'graphTitleColor',
           description: "Title of the graph's color.",
           type: 'string',
-          default: 'undefined',
+          default: 'orange',
           try: 'field',
         },
         {
           prop: 'graphTitleSize',
           description: 'Size of title of the graph (in pixels).',
           type: 'number',
-          default: 'undefined',
+          default: 20,
           try: 'field',
         },
 
@@ -105,6 +105,9 @@ function createComp() {
   let comp = document.createElement('kup-echarts');
   comp.objectData = baseData;
   comp.id = 'demo-component';
+  comp.graphTitle = 'TitoloProva';
+  comp.graphTitleColor = 'orange';
+  comp.autocapitalize = 20;
   comp.legend = 'right';
   comp.types = 'Line';
   return comp;
