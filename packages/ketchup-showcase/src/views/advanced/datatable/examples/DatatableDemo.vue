@@ -29,6 +29,13 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'className',
+          description: 'Available classes: layout-fixed.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'data',
           description: 'The data of the table.',
           type: 'TableData',
