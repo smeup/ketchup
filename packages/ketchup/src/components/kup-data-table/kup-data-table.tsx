@@ -311,6 +311,10 @@ export class KupDataTable {
      */
     @Prop() scrollOnHover: boolean = false;
     /**
+     * Selects the row at the specified rendered rows prosition (base 1).
+     */
+    @Prop() selectRow: number;
+    /**
      * Semicolon separated rows id to select.
      */
     @Prop() selectRowsById: string;
