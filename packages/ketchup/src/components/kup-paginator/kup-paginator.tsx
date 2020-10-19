@@ -19,15 +19,15 @@ import { logMessage } from '../../utils/debug-manager';
 export class KupPaginator {
     @Element() rootElement: HTMLElement;
 
-    @Prop({ reflect: true }) currentPage = 1;
+    @Prop() currentPage: number = 1;
 
-    @Prop({ reflect: true }) max = 0;
+    @Prop() max: number = 0;
 
-    @Prop({ reflect: true }) mode: PaginatorMode = PaginatorMode.FULL;
+    @Prop() mode: PaginatorMode = PaginatorMode.FULL;
 
-    @Prop({ reflect: true }) perPage = 10;
+    @Prop() perPage: number = 10;
 
-    @Prop({ reflect: true }) selectedPerPage = 10;
+    @Prop() selectedPerPage: number = 10;
 
     private startTime: number = 0;
     private endTime: number = 0;

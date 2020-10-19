@@ -1,5 +1,15 @@
 //--------------------------------//
-// Row classes specified in JSON //
+// Component classes              //
+//--------------------------------//
+:host(.layout-fixed) {
+  table {
+    table-layout: fixed;
+    width: auto;
+  }
+}
+
+//--------------------------------//
+// Row classes specified in JSON  //
 //--------------------------------//
 tr.clickable {
   cursor: pointer;

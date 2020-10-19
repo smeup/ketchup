@@ -46,11 +46,6 @@ graph TD;
   kup-search --> kup-button
   kup-search --> kup-modal
   kup-search --> kup-data-table
-  kup-text-field --> kup-image
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
-  kup-button --> kup-image
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-text-field
@@ -65,7 +60,6 @@ graph TD;
   kup-data-table --> kup-combobox
   kup-data-table --> kup-chip
   kup-tooltip --> kup-button
-  kup-tooltip --> kup-image
   kup-tooltip --> kup-tree
   kup-tree --> kup-lazy
   kup-tree --> kup-button
@@ -74,15 +68,15 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-text-field
-  kup-progress-bar --> kup-image
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
+  kup-badge --> kup-image
   kup-paginator --> kup-button
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
-  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
-  kup-chip --> kup-image
   kup-form --> kup-search
   style kup-search fill:#f9f,stroke:#333,stroke-width:4px
 ```

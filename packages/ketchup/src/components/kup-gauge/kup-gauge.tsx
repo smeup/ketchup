@@ -44,6 +44,15 @@ export class KupGauge {
      */
     @Prop() minValue: number = -100;
     /**
+     * if true, shows a rounded needle.
+     */
+    @Prop() needleCircle: boolean = false;
+    /**
+     * if true, ignore threasholds in gauge and show
+     * colored value's arc.
+     */
+    @Prop() onlyValue: boolean = false;
+    /**
      * If set to true, the colors inside the colors array are used in the reversed order.
      */
     @Prop() reverseColors: boolean = false;
@@ -80,15 +89,6 @@ export class KupGauge {
      * Correct values are: 0,1,2 or 3.
      */
     @Prop() valueSize: number = 0;
-    /**
-     * if true, shows a rounded needle.
-     */
-    @Prop() needleCircle: boolean = false;
-    /**
-     * if true, ignore threasholds in gauge and show
-     * colored value's arc.
-     */
-    @Prop() onlyValue: boolean = false;
     /**
      * Set Width gauge.
      */

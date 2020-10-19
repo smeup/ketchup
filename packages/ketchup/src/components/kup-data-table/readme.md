@@ -159,13 +159,7 @@ graph TD;
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
   kup-data-table --> kup-chip
-  kup-button --> kup-image
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
-  kup-text-field --> kup-image
   kup-tooltip --> kup-button
-  kup-tooltip --> kup-image
   kup-tooltip --> kup-tree
   kup-tree --> kup-lazy
   kup-tree --> kup-button
@@ -174,15 +168,15 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-text-field
-  kup-progress-bar --> kup-image
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
+  kup-badge --> kup-image
   kup-paginator --> kup-button
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
-  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
-  kup-chip --> kup-image
   kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```

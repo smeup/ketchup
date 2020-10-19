@@ -30,42 +30,36 @@ import { positionRecalc } from '../../utils/recalc-position';
 })
 export class KupTooltip {
     @Element() rootElement: HTMLElement;
-    /**
-     * Layout used to display the items
-     */
-    @Prop() layout = '1';
-
-    /**
-     * Data for top section
-     */
-    @Prop() data: TooltipData;
-
-    /**
-     * Data for the detail
-     */
-    @Prop() detailData: TooltipDetailData;
+    @State() visible = false;
 
     /**
      * Data for cell options
      */
     @Prop() cellOptions: TooltipCellOptions;
-
+    /**
+     * Data for top section
+     */
+    @Prop() data: TooltipData;
+    /**
+     * Data for the detail
+     */
+    @Prop() detailData: TooltipDetailData;
     /**
      * Timeout for loadDetail
      */
     @Prop() detailTimeout: number = 800;
-
+    /**
+     * Layout used to display the items
+     */
+    @Prop() layout = '1';
     /**
      * Timeout for tooltip
      */
     @Prop() loadTimeout: number = 1000;
-
     /**
      * Container element for tooltip
      */
     @Prop() relatedObject: TooltipRelatedObject;
-
-    @State() visible = false;
 
     @Event({
         eventName: 'kupTooltipLoadData',
@@ -332,14 +326,12 @@ export class KupTooltip {
                     {datatitle}
                 </div>
                 <kup-button
-                    flat={true}
                     icon="open-in-new"
                     onKupButtonClick={(event) =>
                         this.onDefaultActionClicked(event)
                     }
                 ></kup-button>
                 <kup-button
-                    flat={true}
                     icon="search"
                     onKupButtonClick={(event) =>
                         this.onDefaultPreviewClicked(event)
@@ -442,11 +434,7 @@ export class KupTooltip {
     private getDefaultLayout() {
         return [
             <div class="left">
-                <kup-image
-                    resource={this.getImage()}
-                    sizeX="75px"
-                    sizeY="75px"
-                ></kup-image>
+                <img class="image-container" src={this.getImage()}></img>
             </div>,
             <div class="right">
                 <h3>{this.getTitle()}</h3>
@@ -540,7 +528,6 @@ export class KupTooltip {
                     .map((action) => (
                         <div class="detail-actions__box">
                             <kup-button
-                                flat={true}
                                 title={action.text}
                                 icon={action.icon}
                                 onKupButtonClick={(event) =>
@@ -564,7 +551,6 @@ export class KupTooltip {
                 ...detailActions,
                 <div class="detail-actions__box">
                     <kup-button
-                        flat={true}
                         title={this.getTooltipForShowOptionsButton()}
                         icon={this.getIconForShowOptionsButton()}
                         onKupButtonClick={() => this.onShowRightClickOptions()}

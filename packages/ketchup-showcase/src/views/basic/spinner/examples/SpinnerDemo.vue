@@ -35,6 +35,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'className',
+          description: 'Available classes: unclickable.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',

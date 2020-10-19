@@ -1,78 +1,74 @@
 :host {
-  #kup-component {
-    &.no-border {
-      #box-container {
-        .box {
-          border: none;
+  display: block;
+}
+
+:host(.left-aligned) {
+  .box-section {
+    text-align: left;
+
+    kup-image {
+      margin-left: 0;
+      margin-right: auto;
+    }
+
+    kup-checkbox,
+    kup-image {
+      justify-content: flex-start;
+    }
+  }
+}
+
+:host(.right-aligned) {
+  .box-section {
+    text-align: right;
+
+    kup-image {
+      margin-left: auto;
+      margin-right: 0;
+    }
+
+    kup-checkbox,
+    kup-image {
+      justify-content: flex-end;
+    }
+  }
+}
+
+:host(:not(.borderless)) {
+  .box {
+    border: 1px solid var(--kup-border-color);
+  }
+}
+
+:host(:not(.paddingless)) {
+  #box-container {
+    .box {
+      padding: 3px;
+
+      .box-section {
+        .box-object {
+          padding: 1px 4px;
+        }
+
+        &.last-child {
+          margin: 3px 4px;
         }
       }
     }
+  }
+}
 
-    &.no-padding {
-      #box-container {
-        .box {
-          padding: 0;
+.box-section {
+  text-align: center;
 
-          .box-section {
-            .box-object {
-              padding: 0;
-            }
+  kup-image {
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-            &.last-child {
-              margin: 0;
-            }
-          }
-        }
-      }
-    }
-
-    &.center-aligned {
-      & .box-section {
-        text-align: center;
-
-        kup-image {
-          margin-left: auto;
-          margin-right: auto;
-        }
-
-        kup-checkbox,
-        kup-image {
-          justify-content: center;
-        }
-      }
-    }
-
-    &.left-aligned {
-      & .box-section {
-        text-align: left;
-
-        kup-image {
-          margin-left: 0;
-          margin-right: auto;
-        }
-
-        kup-checkbox,
-        kup-image {
-          justify-content: flex-start;
-        }
-      }
-    }
-
-    &.right-aligned {
-      & .box-section {
-        text-align: right;
-
-        kup-image {
-          margin-left: auto;
-          margin-right: 0;
-        }
-
-        kup-checkbox,
-        kup-image {
-          justify-content: flex-end;
-        }
-      }
-    }
+  kup-checkbox,
+  kup-image {
+    justify-content: center;
   }
 }
 
@@ -98,8 +94,6 @@
     align-items: center;
 
     .box {
-      border: 1px solid var(--kup-border-color);
-      padding: 3px;
       flex-grow: 1;
       cursor: pointer;
       position: relative;
@@ -170,7 +164,6 @@
         }
 
         .box-object {
-          padding: 1px 4px;
           min-height: 16px;
 
           &.has-padding {
@@ -185,10 +178,6 @@
           img {
             height: auto;
           }
-        }
-
-        &.last-child {
-          margin: 3px 4px;
         }
 
         // collapsible sections

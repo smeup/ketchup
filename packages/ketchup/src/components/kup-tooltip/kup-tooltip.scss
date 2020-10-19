@@ -13,7 +13,7 @@
       writing-mode: horizontal-tb;
 
       #main-content {
-        margin: 20px;
+        margin: 10px 20px;
         display: flex;
         color: rgba(var(--kup-text-color-rgb), 0.8);
 
@@ -114,4 +114,11 @@
       }
     }
   }
+}
+
+.image-container {
+  display: block;
+  height: 75px;
+  width: 75px;
+  padding-top: 8px;
 }

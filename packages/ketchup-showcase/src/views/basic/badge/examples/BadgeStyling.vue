@@ -2,22 +2,24 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        The content of the
-        <span class="code-word">position</span> prop will decide where to anchor
-        the badge. <br />Supported values are:
-        <span class="code-word">BR</span> (bottom right),
-        <span class="code-word">BL</span> (bottom left),
-        <span class="code-word">TR</span> (top right),
-        <span class="code-word">TL</span> (top left, this is the default value).
+        Badges can be positioned in different places depending on their class.
+        By default they will be anchored to the top left, specifying the
+        following classes will change this behavior:
+        <br />
+        <span class="code-word">top-right</span> (top right),
+        <br />
+        <span class="code-word">bottom-left</span> (bottom left),
+        <br />
+        <span class="code-word">bottom-right</span> (bottom right).
       </p>
       <div class="demo-container">
         <div class="kup-container">
           <div class="badge-anchor">
             <span>YOUR CONTAINER</span>
-            <kup-badge position="TL" text="TL"></kup-badge>
-            <kup-badge position="TR" text="TR"></kup-badge>
-            <kup-badge position="BL" text="BL"></kup-badge>
-            <kup-badge position="BR" text="BR"></kup-badge>
+            <kup-badge text="TL"></kup-badge>
+            <kup-badge class="top-right" text="TR"></kup-badge>
+            <kup-badge class="bottom-left" text="BL"></kup-badge>
+            <kup-badge class="bottom-right" text="BR"></kup-badge>
           </div>
         </div>
         <p class="centered">Sample position markup</p>
@@ -39,8 +41,11 @@
         <div class="kup-container">
           <div class="badge-anchor">
             <span>YOUR CONTAINER</span>
-            <kup-badge :imageData.prop="imageData" position="TL"></kup-badge>
-            <kup-badge :imageData.prop="imageDataURL" position="TR"></kup-badge>
+            <kup-badge :imageData.prop="imageData"></kup-badge>
+            <kup-badge
+              :imageData.prop="imageDataURL"
+              class="top-right"
+            ></kup-badge>
           </div>
         </div>
       </div>
@@ -61,7 +66,7 @@ export default {
         resource:
           'https://ketchup.smeup.com/ketchup-showcase/header_logo_dark.svg',
       },
-      markupPosition: '<kup-badge position="your_position"></kup-badge>',
+      markupPosition: '<kup-badge class="top-right"></kup-badge>',
     };
   },
 };

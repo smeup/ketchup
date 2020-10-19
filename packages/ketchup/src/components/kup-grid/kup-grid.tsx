@@ -24,23 +24,19 @@ export class KupGrid {
     /**
      * The number of columns displayed by the grid, the default behavior is 12.
      */
-    @Prop({ reflect: true }) columns: number = 12;
+    @Prop() columns: number = 12;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * The actual data of the grid.
      */
     @Prop() data: ComponentGridElement[] = undefined;
     /**
-     * When set to true, forces the width to 100% for the single line layout.
-     */
-    @Prop({ reflect: true }) fullWidth: boolean = false;
-    /**
      * When set to true, forces the content on a single line.
      */
-    @Prop({ reflect: true }) singleLine: boolean = false;
+    @Prop() singleLine: boolean = false;
 
     private elStyle = undefined;
     private startTime: number = 0;
@@ -98,10 +94,6 @@ export class KupGrid {
         } else {
             componentClass = 'mdc-layout-grid';
             contentClass = 'mdc-layout-grid__inner';
-        }
-
-        if (this.fullWidth) {
-            contentClass += ' full-width';
         }
 
         this.elStyle = undefined;

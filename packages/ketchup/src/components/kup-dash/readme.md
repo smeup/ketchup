@@ -7,12 +7,12 @@
 
 ## Properties
 
-| Property   | Attribute  | Description | Type      | Default |
-| ---------- | ---------- | ----------- | --------- | ------- |
-| `active`   | `active`   |             | `boolean` | `false` |
-| `fontsize` | `fontsize` |             | `string`  | `''`    |
-| `index`    | `index`    |             | `number`  | `0`     |
-| `layout`   | `layout`   |             | `string`  | `'1'`   |
+| Property   | Attribute  | Description                          | Type      | Default |
+| ---------- | ---------- | ------------------------------------ | --------- | ------- |
+| `active`   | `active`   | The component can be clicked.        | `boolean` | `false` |
+| `fontsize` | `fontsize` | Sets the font size of the component. | `string`  | `''`    |
+| `index`    | `index`    | No idea what this is about.          | `number`  | `0`     |
+| `layout`   | `layout`   | Sets the layout of the component.    | `string`  | `'1'`   |
 
 
 ## Events

@@ -45,16 +45,9 @@ Type: `Promise<void>`
 
  - [kup-badge](../kup-badge)
  - [kup-box](../kup-box)
- - [kup-button](../kup-button)
  - [kup-card](../kup-card)
- - [kup-chip](../kup-chip)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
- - [kup-list](../kup-list)
- - [kup-progress-bar](../kup-progress-bar)
- - [kup-tab-bar](../kup-tab-bar)
- - [kup-text-field](../kup-text-field)
- - [kup-tooltip](../kup-tooltip)
  - [kup-tree](../kup-tree)
 
 ### Depends on
@@ -69,16 +62,9 @@ graph TD;
   kup-image --> kup-badge
   kup-badge --> kup-image
   kup-box --> kup-image
-  kup-button --> kup-image
   kup-card --> kup-image
-  kup-chip --> kup-image
   kup-data-table --> kup-image
   kup-form --> kup-image
-  kup-list --> kup-image
-  kup-progress-bar --> kup-image
-  kup-tab-bar --> kup-image
-  kup-text-field --> kup-image
-  kup-tooltip --> kup-image
   kup-tree --> kup-image
   style kup-image fill:#f9f,stroke:#333,stroke-width:4px
 ```

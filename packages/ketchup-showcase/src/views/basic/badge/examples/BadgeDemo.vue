@@ -28,6 +28,14 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'className',
+          description:
+            'Available classes: top-right, bottom-left, bottom-right. Read below for detailed information.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
@@ -42,14 +50,6 @@ export default {
           type: 'Object',
           default: '{}',
           try: 'json',
-        },
-        {
-          prop: 'position',
-          description:
-            'The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left)',
-          type: 'string',
-          default: 'TR',
-          try: 'field',
         },
         {
           prop: 'text',
