@@ -239,9 +239,10 @@ return this.datapiejson;
   render() {
     return (
       <Host>
-    <div id="main" onClick={()=>this.OnKupClick()} ref={(chartContainer) =>(this.chartContainer = chartContainer)}></div>
+    <div id="main" onClick={()=>this.OnKupClick()} ref={(chartContainer) =>(this.chartContainer = chartContainer)}> </div>
       </Host>
     );
+    
   }
 
 }
