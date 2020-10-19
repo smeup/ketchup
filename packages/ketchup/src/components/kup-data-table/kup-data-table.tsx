@@ -543,6 +543,7 @@ export class KupDataTable {
     private navBarHeight: number = 0;
     private theadIntersecting: boolean = false;
     private tableIntersecting: boolean = false;
+    private iconPaths: [{ icon: string; path: string }] = undefined;
 
     /**
      * When component unload is complete
@@ -869,30 +870,22 @@ export class KupDataTable {
     private setAssetPathVars() {
         this.rootElement.style.setProperty(
             '--drop-up-svg',
-            `url('${getAssetPath(
-                `./assets/svg/arrow_drop_up.svg`
-            )}') no-repeat center`
+            this.getIconPath('arrow_drop_up')
         );
 
         this.rootElement.style.setProperty(
             '--menu-right-svg',
-            `url('${getAssetPath(
-                `./assets/svg/menu-right.svg`
-            )}') no-repeat center`
+            this.getIconPath('menu-right')
         );
 
         this.rootElement.style.setProperty(
             '--drop-down-svg',
-            `url('${getAssetPath(
-                `./assets/svg/arrow_drop_down.svg`
-            )}') no-repeat center`
+            this.getIconPath('arrow_drop_down')
         );
 
         this.rootElement.style.setProperty(
             '--filter-remove-svg',
-            `url('${getAssetPath(
-                `./assets/svg/filter-remove.svg`
-            )}') no-repeat center`
+            this.getIconPath('filter-remove')
         );
     }
 
@@ -3043,14 +3036,11 @@ export class KupDataTable {
         if ((column.icon || cell.icon) && content) {
             let svg: string = '';
             if (cell.icon) {
-                svg = `url('${getAssetPath(
-                    `./assets/svg/${cell.icon}.svg`
-                )}') no-repeat center`;
+                svg = cell.icon;
             } else {
-                svg = `url('${getAssetPath(
-                    `./assets/svg/${column.icon}.svg`
-                )}') no-repeat center`;
+                svg = column.icon;
             }
+            svg = this.getIconPath(svg);
             let iconStyle = {
                 mask: svg,
                 webkitMask: svg,
@@ -3067,6 +3057,38 @@ export class KupDataTable {
                 {content}
             </span>
         );
+    }
+
+    private getIconPath(icon: string) {
+        let svg: string = '';
+        if (this.iconPaths) {
+            for (
+                let index = 0;
+                index < this.iconPaths.length || svg !== '';
+                index++
+            ) {
+                if (this.iconPaths[index].icon === icon) {
+                    return this.iconPaths[index].path;
+                }
+            }
+        }
+
+        svg = `url('${getAssetPath(
+            `./assets/svg/${icon}.svg`
+        )}') no-repeat center`;
+
+        if (!this.iconPaths) {
+            this.iconPaths = [
+                {
+                    icon: icon,
+                    path: svg,
+                },
+            ];
+        } else {
+            this.iconPaths.push({ icon: icon, path: svg });
+        }
+
+        return svg;
     }
 
     // TODO: cell type can depend also from shape (see isRating)
