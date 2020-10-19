@@ -1,4 +1,4 @@
-import { Component, Host, h,Prop,Element,Event,EventEmitter} from '@stencil/core';
+import { Component, Host, h,Prop,Element,Event,EventEmitter,Watch} from '@stencil/core';
 import echarts from 'echarts'
 
 
@@ -28,7 +28,7 @@ export class KupEcharts {
   private datapiejson=[];
 
   @Event() kupEchartsClicked: EventEmitter;
-  
+
   CreateEcharts()
   {
     this.myChart= echarts.init(this.chartContainer);
@@ -98,7 +98,7 @@ export class KupEcharts {
       { let somma=0;
       for(let j=0;j<this.oj[key].length;j++)
         {
-            var d=parseFloat(this.oj[key][j]);
+            let d=parseFloat(this.oj[key][j]);
             somma=somma+d;
         }
       somme.push(somma);
@@ -210,10 +210,32 @@ return this.datapiejson;
   };
 
   }
+  
   componentWillUpdate ()
   {
+    
+  this.oj = {};
+  this.x=[];
+  this.rightjson={};
+  this.datajson=[];
+  this.datapiejson=[];
+   
+  this.ParseJsonX();
+  this.ParseJsonY();
+  if(this.types=='Pie')
+    {  
+       this.objectpie();
+       this.createpiejson();
+    }
+
+  else{
+          this.Createrightjson();
+      }
+
     this.CreateEcharts();
+    
   }
+  
 
   componentDidLoad() {
     
