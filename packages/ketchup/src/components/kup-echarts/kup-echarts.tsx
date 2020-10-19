@@ -26,6 +26,7 @@ export class KupEcharts {
   private rightjson:any;
   private datajson=[];
   private datapiejson=[];
+  
 
   @Event() kupEchartsClicked: EventEmitter;
 
@@ -81,7 +82,7 @@ export class KupEcharts {
      }
   }
   createlegend()
-  {
+  {     
         let arr=[];
         for (let key in this.oj)
         {
@@ -121,9 +122,9 @@ return this.datapiejson;
 
   }
 
+
   Createrightjson()
   {
-    
     
     for (let key in this.oj)
     { 
@@ -173,6 +174,7 @@ return this.datapiejson;
   }
 
   createpiejson(){
+  
     let tlegend=this.legend;
     this.rightjson={
       title: {
@@ -219,6 +221,7 @@ return this.datapiejson;
   this.rightjson={};
   this.datajson=[];
   this.datapiejson=[];
+  
    
   this.ParseJsonX();
   this.ParseJsonY();
