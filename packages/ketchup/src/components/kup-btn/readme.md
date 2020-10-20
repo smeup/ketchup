@@ -9,10 +9,10 @@
 
 ## Properties
 
-| Property  | Attribute | Description | Type           | Default     |
-| --------- | --------- | ----------- | -------------- | ----------- |
-| `buttons` | --        |             | `any[]`        | `undefined` |
-| `config`  | --        |             | `ButtonConfig` | `{}`        |
+| Property  | Attribute | Description | Type           | Default                              |
+| --------- | --------- | ----------- | -------------- | ------------------------------------ |
+| `buttons` | --        |             | `any[]`        | `undefined`                          |
+| `config`  | --        |             | `ButtonConfig` | `{ showicon: true, showtext: true }` |
 
 
 ## Events
