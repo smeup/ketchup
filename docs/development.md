@@ -80,7 +80,7 @@ npm run build
     -   Prettier
     -   Vetur
 
--   Add this settings (to auto formatting code when saving):
+-   Add this settings in order to format the code when saving:
 
 ```
 
@@ -88,14 +88,29 @@ npm run build
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.validate": [
-    {
-      "language": "vue",
-      "autoFix": true
-    }
-  ],
-  "eslint.autoFixOnSave": true,
+  "eslint.validate": ["vue", "html", "javascript", "tipescript"],
   "eslint.run": "onSave",
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 
 ```
 
