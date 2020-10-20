@@ -56,6 +56,7 @@ import {
     getTextFieldFilterValue,
     getCheckBoxFilterValues,
     hasFiltersForColumn,
+    getCellValueForDisplay,
 } from './kup-data-table-helper';
 
 import {
@@ -79,7 +80,6 @@ import { GenericObject } from '../../types/GenericTypes';
 import {
     stringToNumber,
     formattedStringToUnformattedStringNumber,
-    unformattedStringToFormattedStringNumber,
     numberToFormattedStringNumber,
     identify,
     isNumber as isNumberThisString,
@@ -2204,10 +2204,9 @@ export class KupDataTable {
                             isNumber(column.obj) &&
                             isNumberThisString(filterInitialValue)
                         ) {
-                            filterInitialValue = unformattedStringToFormattedStringNumber(
+                            filterInitialValue = getCellValueForDisplay(
                                 filterInitialValue,
-                                column.decimals,
-                                column.obj ? column.obj.p : ''
+                                column
                             );
                         }
                         columnMenuItems.push(
@@ -2260,12 +2259,8 @@ export class KupDataTable {
                                 } else {
                                     label = '(*unchecked)';
                                 }
-                            } else if (v != '' && isNumber(column.obj)) {
-                                label = unformattedStringToFormattedStringNumber(
-                                    v,
-                                    column.decimals,
-                                    column.obj ? column.obj.p : ''
-                                );
+                            } else {
+                                label = getCellValueForDisplay(v, column);
                             }
 
                             checkboxItems.push(
@@ -3308,10 +3303,9 @@ export class KupDataTable {
             case 'number':
                 if (content && content != '') {
                     const cellValueNumber: number = stringToNumber(cell.value);
-                    const cellValue = unformattedStringToFormattedStringNumber(
+                    const cellValue = getCellValueForDisplay(
                         cell.value,
-                        column.decimals ? column.decimals : -1,
-                        cell.obj ? cell.obj.p : ''
+                        column
                     );
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;
