@@ -4,10 +4,10 @@
       <p> The drawer component has 2 usable events </p>
       <ul>
         <li
-          >'ClDrawer': viene lanciato ogni volta che il drawer viene chiuso.</li
+          >'kupDrawerClose': it is launched every time the drawer is closed.</li
         >
         <li
-          >'OpDrawer': viene lanciato ogni volta che il drawer viene aperto.</li
+          >'kupDrawerOpen': it is launched every time the drawer is opened.</li
         >
       </ul>
 
@@ -28,9 +28,9 @@ export default {
     return {
       markupBasic: ' const sideDrawer = document.querySelector("kup-drawer");',
       markupBasic2:
-        "  sideDrawer.addEventListener('ClDrawer',  (e)=> {  console.log ('Event Recieved'+':ClDrawer');  });",
+        "  sideDrawer.addEventListener('kupDrawerClose',  (e)=> {  console.log ('Event Received'+':kupDrawerClose');  });",
       markupBasic3:
-        " sideDrawer.addEventListener('OpDrawer',  (e)=> { console.log ('Event Recieved'+':OpDrawer');  });",
+        " sideDrawer.addEventListener('kupDrawerOpen',  (e)=> { console.log ('Event Received'+':kupDrawerOpen');  });",
     };
   },
 };
