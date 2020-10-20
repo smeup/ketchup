@@ -228,10 +228,7 @@ return this.datapiejson;
   this.myChart='';
   
   
-  
-   
- // this.ParseJsonX();
- // this.ParseJsonY();
+
   if(this.types.toLowerCase()=='pie')
     {  
       this.ParseJsonY();
@@ -253,8 +250,6 @@ return this.datapiejson;
 
   componentDidLoad() {
     
-   // this.ParseJsonX();
-   // this.ParseJsonY();
     if(this.types.toLowerCase()=='pie')
       {  
         this.ParseJsonY();

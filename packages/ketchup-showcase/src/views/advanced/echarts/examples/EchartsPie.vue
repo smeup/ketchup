@@ -1,6 +1,10 @@
 <template>
   <div style="width: 600px; height: 400px">
-    <kup-echarts :objectData.prop="baseData" :types.prop="types" />
+    <kup-echarts
+      :objectData.prop="baseData"
+      :types.prop="types"
+      legend="right"
+    />
   </div>
 </template>
 
