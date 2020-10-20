@@ -1,21 +1,22 @@
 <template>
-  <div class="wrapper">
-    <!-- bar -->
-    <kup-echarts
-      :objectData.prop="baseData"
-      :types.prop="types"
-      @kupEchartsClicked="onBarChartClicked"
-    />
-
+  <div class="wrapper" style="width: 800px; height: 1000px">
+    <div style="width: 580px; height: 400px">
+      <!-- bar -->
+      <kup-echarts
+        :objectData.prop="baseData"
+        :types.prop="types"
+        @kupEchartsClicked="onBarChartClicked"
+      />
+    </div>
     <div id="event">click on the graph to trigger the event</div>
-
-    <!-- pie -->
-    <kup-echarts
-      :objectData.prop="baseData"
-      :types.prop="types1"
-      @kupEchartsClicked="onPieChartClicked()"
-    />
-
+    <div style="width: 580px; height: 400px">
+      <!-- pie -->
+      <kup-echarts
+        :objectData.prop="baseData"
+        :types.prop="types1"
+        @kupEchartsClicked="onPieChartClicked()"
+      />
+    </div>
     <div id="event1">click on the graph to trigger the event</div>
   </div>
 </template>

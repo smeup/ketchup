@@ -1,12 +1,14 @@
 <template>
-  <div>
+  <div style="width: 800px; height: 1000px">
     <h3>Single serie</h3>
-
-    <kup-echarts :objectData.prop="singleData" :types.prop="types" />
+    <div style="width: 600px; height: 400px">
+      <kup-echarts :objectData.prop="singleData" :types.prop="types" />
+    </div>
     <hr />
     <h3> Multiple series</h3>
-
-    <kup-echarts :objectData.prop="baseData" :types.prop="types" />
+    <div style="width: 600px; height: 400px">
+      <kup-echarts :objectData.prop="baseData" :types.prop="types" />
+    </div>
     <hr />
   </div>
 </template>

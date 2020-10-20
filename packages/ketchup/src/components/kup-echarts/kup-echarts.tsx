@@ -32,8 +32,12 @@ export class KupEcharts {
 
   CreateEcharts()
   {
+    if(!this.myChart)
+    {
     this.myChart= echarts.init(this.chartContainer);
-    this.myChart.setOption(this.rightjson);
+    }
+    
+    this.myChart.setOption(this.rightjson,true);
   }
   
   ParseJsonX()
@@ -221,17 +225,23 @@ return this.datapiejson;
   this.rightjson={};
   this.datajson=[];
   this.datapiejson=[];
+  this.myChart='';
+  
+  
   
    
-  this.ParseJsonX();
-  this.ParseJsonY();
-  if(this.types=='Pie')
+ // this.ParseJsonX();
+ // this.ParseJsonY();
+  if(this.types.toLowerCase()=='pie')
     {  
+      this.ParseJsonY();
        this.objectpie();
        this.createpiejson();
     }
 
   else{
+          this.ParseJsonX();
+          this.ParseJsonY();
           this.Createrightjson();
       }
       console.log(this.rightjson);
@@ -243,15 +253,18 @@ return this.datapiejson;
 
   componentDidLoad() {
     
-    this.ParseJsonX();
-    this.ParseJsonY();
-    if(this.types=='Pie')
+   // this.ParseJsonX();
+   // this.ParseJsonY();
+    if(this.types.toLowerCase()=='pie')
       {  
+        this.ParseJsonY();
          this.objectpie();
          this.createpiejson();
       }
 
     else{
+            this.ParseJsonX();
+            this.ParseJsonY();
             this.Createrightjson();
         }
   

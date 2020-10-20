@@ -60,7 +60,7 @@ export default {
         {
           prop: 'legend',
           description:
-            'Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.',
+            'Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types',
           type: 'string',
           default: 'right',
           try: 'field',
@@ -69,7 +69,7 @@ export default {
         {
           prop: 'types',
           description:
-            'The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.',
+            'The type of the chart. Supported formats: Bar, Line, Pie, Scatter',
           type: 'string',
           default: 'line',
           try: 'field',
@@ -107,7 +107,7 @@ function createComp() {
   comp.id = 'demo-component';
   comp.graphTitle = 'TitoloProva';
   comp.graphTitleColor = 'orange';
-  comp.autocapitalize = 20;
+  comp.graphTitleSize = 10;
   comp.legend = 'right';
   comp.types = 'Line';
   return comp;

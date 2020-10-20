@@ -14,7 +14,7 @@
 | `graphTitleSize`  | `graph-title-size`  |             | `number` | `undefined` |
 | `legend`          | `legend`            |             | `string` | `undefined` |
 | `objectData`      | --                  |             | `object` | `{}`        |
-| `types`           | `types`             |             | `string` | `'line'`    |
+| `types`           | `types`             |             | `string` | `undefined` |
 
 
 ## Events
