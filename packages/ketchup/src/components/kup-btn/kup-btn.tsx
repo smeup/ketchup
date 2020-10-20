@@ -11,7 +11,7 @@ export class KupBtn {
     @Prop() buttons: any[];
 
     // setup props
-    @Prop() config: ButtonConfig = {};
+    @Prop() config: ButtonConfig = { showicon: true, showtext: true };
 
     @State() selectedBtnIndex: number;
 
@@ -63,20 +63,23 @@ export class KupBtn {
 
         let buttonsJsx = null;
         let id = 0;
+
         if (buttonsInGrid.length > 0) {
             buttonsJsx = buttonsInGrid.map((btns) => {
                 const btnsJsx = btns.map((btn) => {
+                    const props = {
+                        ...(this.config.fillspace
+                            ? { class: 'full-width' }
+                            : {}),
+                        ...(this.config.showtext ? { label: btn.value } : {}),
+                        ...(this.config.showicon ? { icon: btn.icon } : {}),
+                        'data-id': id++,
+                        onKupButtonClick: (ev) => this.onBtnClicked(ev),
+                    };
+
                     return (
                         <td>
-                            <kup-button
-                                class={
-                                    this.config.fillspace ? `full-width` : ''
-                                }
-                                label={btn.value}
-                                icon={btn.icon}
-                                data-id={id++}
-                                onKupButtonClick={(ev) => this.onBtnClicked(ev)}
-                            />
+                            <kup-button {...props} />
                         </td>
                     );
                 });

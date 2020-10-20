@@ -20,6 +20,12 @@ export class KupQlik {
      * How to find app id --> https://support.qlik.com/articles/000026239
      */
     @Prop({ reflect: true }) appid: string = '';
+
+    /**
+     * Set Qlik App's istance would you like to use
+     * (!!!ALLERT!!! if you have already set appid app's istance will be generated again)
+     */
+    @Prop({ reflect: true }) app: any = false;
     /**
    * Set the grid structure (JSON)
    * selections --> Data selection array
@@ -82,7 +88,6 @@ export class KupQlik {
     @State() divlist: Array<object> = [];
 
     private isload = false;
-    private app = null;
     private startTime: number = 0;
     private endTime: number = 0;
     private renderCount: number = 0;
@@ -160,10 +165,14 @@ export class KupQlik {
      * @param grid
      */
     getObjects(grid) {
+        let noSelections 
         return new Promise((resolve) => {
             grid.rows.forEach((row) => {
                 row.columns.forEach((column) => {
-                    this.app.getObject(column.obj, column.obj);
+                    noSelections = false
+                    if(column.noSelections)
+                        noSelections = column.noSelections
+                    this.app.getObject(column.obj, column.obj, {noInteraction:false, noSelections:noSelections});
                 });
             });
             resolve(true);
@@ -262,12 +271,14 @@ export class KupQlik {
     componentDidRender() {
         console.log('Grid', this.grid);
         if (this.qlik) {
+          if(this.appid!='' && !this.app) {
             this.app = this.qlik.openApp(this.appid, this.config);
-        }
-        if (this.app) {
+          }           
+          if (this.app) {
             this.getObjects(this.grid).then(() => {
                 this.doSelection(this.grid);
             });
+          }
         }
         this.renderEnd = performance.now();
         let timeDiff: number = this.renderEnd - this.renderStart;

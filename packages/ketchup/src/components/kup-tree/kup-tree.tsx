@@ -299,7 +299,8 @@ export class KupTree {
         bubbles: true,
     })
     kupTreeNodeDblClick: EventEmitter<{
-        obj: {};
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
     }>;
 
     //---- Methods ----
@@ -338,7 +339,7 @@ export class KupTree {
         }
     }
 
-    onKupTreeNodeDblClick(obj: { t: string; p: string; k: string }) {
+    onKupTreeNodeDblClick(treeNodeData: TreeNode, treeNodePath: string) {
         for (let index = 0; index < this.clickTimeout.length; index++) {
             clearTimeout(this.clickTimeout[index]);
             logMessage(
@@ -350,7 +351,10 @@ export class KupTree {
         }
         this.clickTimeout = [];
         this.kupTreeNodeDblClick.emit({
-            obj: obj,
+            treeNodePath: treeNodePath
+                .split(',')
+                .map((treeNodeIndex) => parseInt(treeNodeIndex)),
+            treeNode: treeNodeData,
         });
     }
 
@@ -1070,7 +1074,7 @@ export class KupTree {
                     }}
                     style={treeNodeData.style || null}
                     onDblClick={() => {
-                        this.onKupTreeNodeDblClick(treeNodeData.obj);
+                        this.onKupTreeNodeDblClick(treeNodeData, treeNodePath);
                     }}
                 >
                     {indent}
