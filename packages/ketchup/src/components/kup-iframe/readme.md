@@ -32,10 +32,6 @@
 ```mermaid
 graph TD;
   kup-iframe --> kup-button
-  kup-button --> kup-image
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
   style kup-iframe fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

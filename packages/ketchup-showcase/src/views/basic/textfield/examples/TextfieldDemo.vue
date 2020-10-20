@@ -56,6 +56,13 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'className',
+          description: 'Available classes: full-height.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
@@ -83,14 +90,6 @@ export default {
           prop: 'forceFocus',
           description:
             'Defaults at false. When set to true, the component will be focused.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'fullHeight',
-          description:
-            'Sets the height of the component to fill all the available horizontal space provided by its parent.',
           type: 'boolean',
           default: 'false',
           try: 'switch',

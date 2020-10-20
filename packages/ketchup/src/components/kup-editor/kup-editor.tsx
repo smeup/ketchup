@@ -10,7 +10,7 @@ export class KupEditor {
     /**
      * The html to be rendered and edited
      */
-    @Prop({ reflect: true }) text: string = '';
+    @Prop() text: string = '';
 
     private startTime: number = 0;
     private endTime: number = 0;

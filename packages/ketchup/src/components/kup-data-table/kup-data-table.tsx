@@ -37,7 +37,7 @@ import {
     GenericFilter,
 } from './kup-data-table-declarations';
 
-import { isRating } from '../../utils/cell-utils';
+import { isRating, isColor } from '../../utils/cell-utils';
 
 import {
     calcTotals,
@@ -56,6 +56,7 @@ import {
     getTextFieldFilterValue,
     getCheckBoxFilterValues,
     hasFiltersForColumn,
+    getCellValueForDisplay,
 } from './kup-data-table-helper';
 
 import {
@@ -79,7 +80,6 @@ import { GenericObject } from '../../types/GenericTypes';
 import {
     stringToNumber,
     formattedStringToUnformattedStringNumber,
-    unformattedStringToFormattedStringNumber,
     numberToFormattedStringNumber,
     identify,
     isNumber as isNumberThisString,
@@ -194,99 +194,82 @@ export class KupDataTable {
     @Element() rootElement: HTMLElement;
 
     /**
-     * If set to true, displays the button to open the customization panel.
-     */
-    @Prop({ mutable: true }) showCustomization: boolean = false;
-
-    /**
-     * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
-     */
-    @Prop() showTooltipOnRightClick: boolean = true;
-
-    /**
-     * Expands groups when set to true.
-     */
-    @Prop({ reflect: true }) expandGroups = false;
-
-    /**
      * The data of the table.
      */
     @Prop() data: TableData;
-
     /**
      * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
      */
-    @Prop({ reflect: true }) density: string = 'dense';
-
+    @Prop() density: string = 'dense';
+    /**
+     * Defines the label to show when the table is empty.
+     */
+    @Prop() emptyDataLabel: string = 'Empty data';
     /**
      * Enables the sorting of columns by dragging them into different columns.
      */
-    @Prop({ reflect: true }) enableSortableColumns: boolean = true;
-
+    @Prop() enableSortableColumns: boolean = true;
+    /**
+     * Expands groups when set to true.
+     */
+    @Prop() expandGroups: boolean = false;
     /**
      * List of filters set by the user.
      */
     @Prop({ mutable: true }) filters: GenericFilter = {};
-
     /**
      * Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table.
      * If grouping is active or the value of the prop is <= 0, this prop will have no effect.
      * Can be combined with fixedRows.
      * @see fixedRows
      */
-    @Prop({ reflect: true }) fixedColumns: number = 0;
-
+    @Prop() fixedColumns: number = 0;
     /**
      * Fixes the given number of rows so that they stay visible when vertically scrolling the data-table.
      * If grouping is active or the value of the prop is <= 0, this prop will have no effect.
      * Can be combined with fixedColumns.
      * @see fixedColumns
      */
-    @Prop({ reflect: true }) fixedRows: number = 0;
-
+    @Prop() fixedRows: number = 0;
     /**
      * Forces cells with long text and a fixed column size to have an ellipsis set on their text.
      * The reflect attribute is mandatory to allow styling.
      */
     @Prop({ reflect: true }) forceOneLine: boolean = false;
-
     /**
      * When set to true it activates the global filter.
      */
-    @Prop({ reflect: true }) globalFilter = false;
-
+    @Prop() globalFilter: boolean = false;
     /**
      * The value of the global filter.
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
-
     /**
      * How the label of a group must be displayed.
      * For available values [see here]{@link GroupLabelDisplayMode}
      */
-    @Prop({ reflect: true }) groupLabelDisplay: GroupLabelDisplayMode =
+    @Prop() groupLabelDisplay: GroupLabelDisplayMode =
         GroupLabelDisplayMode.BOTH;
-
     /**
      * The list of groups.
      */
     @Prop({ mutable: true }) groups: Array<GroupObject> = [];
-
     /**
      * When set to true the header will stick on top of the table when scrolling.
      */
-    @Prop({ reflect: true }) headerIsPersistent = true;
-
+    @Prop() headerIsPersistent = true;
     /**
      * When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.
      */
-    @Prop({ reflect: true }) lazyLoadRows: boolean = false;
-
+    @Prop() lazyLoadRows: boolean = false;
+    /**
+     * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
+     */
+    @Prop() lineBreakCharacter: string = '|';
     /**
      * Sets a maximum limit of new records which can be required by the load more functionality.
      */
-    @Prop({ reflect: true }) loadMoreLimit: number = 1000;
-
+    @Prop() loadMoreLimit: number = 1000;
     /**
      * Establish the modality of how many new records will be downloaded.
      *
@@ -295,7 +278,6 @@ export class KupDataTable {
      * @see loadMoreLimit
      */
     @Prop() loadMoreMode: LoadMoreMode = LoadMoreMode.PROGRESSIVE_THRESHOLD;
-
     /**
      * The number of records which will be requested to be downloaded when clicking on the load more button.
      *
@@ -303,117 +285,97 @@ export class KupDataTable {
      * @see loadMoreMode
      * @see loadMoreLimit
      */
-    @Prop({ reflect: true }) loadMoreStep: number = 60;
-
+    @Prop() loadMoreStep: number = 60;
+    /**
+     * When set to true enables rows multi selection.
+     */
+    @Prop() multiSelection: boolean = false;
     /**
      * Current selected page set on component load
      */
     @Prop() pageSelected: number = -1;
-
-    /**
-     * When set to true enables rows multi selection.
-     */
-    @Prop({ reflect: true }) multiSelection = false;
-
     /**
      * Sets the position of the paginator. Available positions: top, bottom or both.
      */
-    @Prop({ reflect: true }) paginatorPos: PaginatorPos = PaginatorPos.TOP;
-
+    @Prop() paginatorPos: PaginatorPos = PaginatorPos.TOP;
     /**
      * Sets the actions of the rows.
      */
     @Prop() rowActions: Array<RowAction>;
-
     /**
      * Sets the number of rows per page to display.
      */
-    @Prop({ reflect: true }) rowsPerPage = 10;
+    @Prop() rowsPerPage = 10;
     /**
      * Activates the scroll on hover function.
      */
-    @Prop({ reflect: true }) scrollOnHover: boolean = false;
-    /**
-     * Semicolon separated rows id to select.
-     */
-    @Prop({ reflect: true }) selectRowsById: string;
-
+    @Prop() scrollOnHover: boolean = false;
     /**
      * Selects the row at the specified rendered rows prosition (base 1).
      */
-    @Prop({ reflect: true }) selectRow: number;
-
+    @Prop() selectRow: number;
+    /**
+     * Semicolon separated rows id to select.
+     */
+    @Prop() selectRowsById: string;
+    /**
+     * If set to true, displays the button to open the customization panel.
+     */
+    @Prop() showCustomization: boolean = false;
     /**
      * When set to true enables the column filters.
      */
-    @Prop({ reflect: true }) showFilters = false;
-
+    @Prop() showFilters: boolean = false;
     /**
      * Can be used to customize the grid view of the table.
      */
-    @Prop({ reflect: true }) showGrid: ShowGrid = ShowGrid.ROW;
-
+    @Prop() showGrid: ShowGrid = ShowGrid.ROW;
     /**
      * Enables rendering of the table header.
      * @namespace KupDataTable.showHeader
      */
-    @Prop({ reflect: true }) showHeader = true;
-
+    @Prop() showHeader: boolean = true;
     /**
      * If set to true, displays the button to load more records.
      */
-    @Prop({ reflect: true }) showLoadMore: boolean = false;
-
+    @Prop() showLoadMore: boolean = false;
     /**
-     * When set to true enables the sorting of the columns.
+     * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
      */
-    @Prop({ reflect: true }) sortEnabled = true;
-
+    @Prop() showTooltipOnRightClick: boolean = true;
     /**
      * Defines the current sorting options.
      */
     @Prop({ mutable: true }) sort: Array<SortObject> = [];
-
     /**
      * If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property
      * and then fires the event
      */
-    @Prop({ reflect: true }) sortableColumnsMutateData: boolean = true;
-
+    @Prop() sortableColumnsMutateData: boolean = true;
+    /**
+     * When set to true enables the sorting of the columns.
+     */
+    @Prop() sortEnabled = true;
     /**
      * Sets the height of the table.
      */
-    @Prop({ reflect: true }) tableHeight: string = undefined;
-
+    @Prop() tableHeight: string = undefined;
     /**
      * Sets the width of the table.
      */
-    @Prop({ reflect: true }) tableWidth: string = undefined;
-
-    /**
-     * Defines the current totals options.
-     */
-    @Prop() totals: TotalsMap;
-
-    /**
-     * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
-     */
-    @Prop() lineBreakCharacter: string = '|';
-
-    /**
-     * Defines the timeout for tooltip load
-     */
-    @Prop() tooltipLoadTimeout: number;
-
+    @Prop() tableWidth: string = undefined;
     /**
      * Defines the timeout for tooltip detail
      */
     @Prop() tooltipDetailTimeout: number;
-
     /**
-     * Defines the label to show when the table is empty.
+     * Defines the timeout for tooltip load
      */
-    @Prop() emptyDataLabel: string = 'Empty data';
+    @Prop() tooltipLoadTimeout: number;
+    /**
+     * Defines the current totals options.
+     */
+    @Prop() totals: TotalsMap;
 
     //-------- State --------
 
@@ -585,6 +547,7 @@ export class KupDataTable {
     private navBarHeight: number = 0;
     private theadIntersecting: boolean = false;
     private tableIntersecting: boolean = false;
+    private iconPaths: [{ icon: string; path: string }] = undefined;
 
     /**
      * When component unload is complete
@@ -712,6 +675,22 @@ export class KupDataTable {
         bubbles: true,
     })
     kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
+
+    @Event({
+        eventName: 'kupDataTableDblClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableDblClick: EventEmitter<{
+        obj: {};
+    }>;
+
+    onKupDataTableDblClick(obj: { t: string; p: string; k: string }) {
+        this.kupDataTableDblClick.emit({
+            obj: obj,
+        });
+    }
 
     private stickyHeaderPosition = () => {
         if (this.tableRef) {
@@ -895,30 +874,22 @@ export class KupDataTable {
     private setAssetPathVars() {
         this.rootElement.style.setProperty(
             '--drop-up-svg',
-            `url('${getAssetPath(
-                `./assets/svg/arrow_drop_up.svg`
-            )}') no-repeat center`
+            this.getIconPath('arrow_drop_up')
         );
 
         this.rootElement.style.setProperty(
             '--menu-right-svg',
-            `url('${getAssetPath(
-                `./assets/svg/menu-right.svg`
-            )}') no-repeat center`
+            this.getIconPath('menu-right')
         );
 
         this.rootElement.style.setProperty(
             '--drop-down-svg',
-            `url('${getAssetPath(
-                `./assets/svg/arrow_drop_down.svg`
-            )}') no-repeat center`
+            this.getIconPath('arrow_drop_down')
         );
 
         this.rootElement.style.setProperty(
             '--filter-remove-svg',
-            `url('${getAssetPath(
-                `./assets/svg/filter-remove.svg`
-            )}') no-repeat center`
+            this.getIconPath('filter-remove')
         );
     }
 
@@ -2233,10 +2204,9 @@ export class KupDataTable {
                             isNumber(column.obj) &&
                             isNumberThisString(filterInitialValue)
                         ) {
-                            filterInitialValue = unformattedStringToFormattedStringNumber(
+                            filterInitialValue = getCellValueForDisplay(
                                 filterInitialValue,
-                                column.decimals,
-                                column.obj ? column.obj.p : ''
+                                column
                             );
                         }
                         columnMenuItems.push(
@@ -2289,12 +2259,8 @@ export class KupDataTable {
                                 } else {
                                     label = '(*unchecked)';
                                 }
-                            } else if (v != '' && isNumber(column.obj)) {
-                                label = unformattedStringToFormattedStringNumber(
-                                    v,
-                                    column.decimals,
-                                    column.obj ? column.obj.p : ''
-                                );
+                            } else {
+                                label = getCellValueForDisplay(v, column);
                             }
 
                             checkboxItems.push(
@@ -2926,34 +2892,35 @@ export class KupDataTable {
                  * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
                  */
                 const _hasTooltip: boolean = hasTooltip(cell.obj);
+                let eventHandlers = undefined;
+                if (_hasTooltip) {
+                    eventHandlers = {
+                        onMouseEnter: (ev) => {
+                            if (this.showTooltipOnRightClick == false) {
+                                this._setTooltip(ev, cell);
+                            }
+                        },
+                        onMouseLeave: () => {
+                            if (this.showTooltipOnRightClick == false) {
+                                this._unsetTooltip();
+                            }
+                        },
+                        onContextMenu: (ev) => {
+                            ev.preventDefault();
+                            if (this.showTooltipOnRightClick == true) {
+                                this._setTooltip(ev, cell);
+                            }
+                        },
+                    };
+                }
                 return (
                     <td
                         data-column={name}
                         style={cellStyle}
                         class={cellClass}
-                        onMouseEnter={(ev) => {
-                            if (this.showTooltipOnRightClick == false) {
-                                if (_hasTooltip) {
-                                    this._setTooltip(ev, cell);
-                                } else {
-                                    this._unsetTooltip();
-                                }
-                            }
-                        }}
-                        onMouseLeave={() => {
-                            if (this.showTooltipOnRightClick == false) {
-                                this._unsetTooltip();
-                            }
-                        }}
-                        onContextMenu={(ev) => {
-                            ev.preventDefault();
-                            if (this.showTooltipOnRightClick == true) {
-                                if (_hasTooltip) {
-                                    this._setTooltip(ev, cell);
-                                } else {
-                                    this._unsetTooltip();
-                                }
-                            }
+                        {...eventHandlers}
+                        onDblClick={() => {
+                            this.onKupDataTableDblClick(cell.obj);
                         }}
                     >
                         {jsxCell}
@@ -3066,14 +3033,11 @@ export class KupDataTable {
         if ((column.icon || cell.icon) && content) {
             let svg: string = '';
             if (cell.icon) {
-                svg = `url('${getAssetPath(
-                    `./assets/svg/${cell.icon}.svg`
-                )}') no-repeat center`;
+                svg = cell.icon;
             } else {
-                svg = `url('${getAssetPath(
-                    `./assets/svg/${column.icon}.svg`
-                )}') no-repeat center`;
+                svg = column.icon;
             }
+            svg = this.getIconPath(svg);
             let iconStyle = {
                 mask: svg,
                 webkitMask: svg,
@@ -3092,11 +3056,45 @@ export class KupDataTable {
         );
     }
 
+    private getIconPath(icon: string) {
+        let svg: string = '';
+        if (this.iconPaths) {
+            for (
+                let index = 0;
+                index < this.iconPaths.length || svg !== '';
+                index++
+            ) {
+                if (this.iconPaths[index].icon === icon) {
+                    return this.iconPaths[index].path;
+                }
+            }
+        }
+
+        svg = `url('${getAssetPath(
+            `./assets/svg/${icon}.svg`
+        )}') no-repeat center`;
+
+        if (!this.iconPaths) {
+            this.iconPaths = [
+                {
+                    icon: icon,
+                    path: svg,
+                },
+            ];
+        } else {
+            this.iconPaths.push({ icon: icon, path: svg });
+        }
+
+        return svg;
+    }
+
     // TODO: cell type can depend also from shape (see isRating)
     private getCellType(cell: Cell) {
         let obj = cell.obj;
         if (isRating(cell, null)) {
             return 'rating';
+        } else if (isColor(cell, null)) {
+            return 'color-picker';
         } else if (isBar(obj)) {
             return 'bar';
         } else if (isButton(obj)) {
@@ -3269,6 +3267,16 @@ export class KupDataTable {
                     ></kup-rating>
                 );
 
+            case 'color-picker':
+                // NOTE: actually color-picker in datatable is only for output (-> put disabled)
+                return (
+                    <kup-color-picker
+                        value={cell.value}
+                        {...props}
+                        disabled
+                    ></kup-color-picker>
+                );
+
             case 'radio':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
@@ -3293,21 +3301,29 @@ export class KupDataTable {
             case 'number':
                 if (content && content != '') {
                     const cellValueNumber: number = stringToNumber(cell.value);
-                    const cellValue = unformattedStringToFormattedStringNumber(
+                    const cellValue = getCellValueForDisplay(
                         cell.value,
-                        column.decimals ? column.decimals : -1,
-                        cell.obj ? cell.obj.p : ''
+                        column
                     );
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;
                     }
                     return cellValue;
                 }
+                return content;
             case 'rating':
                 const cellValueNumber: number = stringToNumber(cell.value);
                 // NOTE: actually rating in datatable is only for output (-> put disabled)
                 return (
                     <kup-rating value={cellValueNumber} disabled></kup-rating>
+                );
+            case 'color-picker':
+                // NOTE: actually color-picker in datatable is only for output (-> put disabled)
+                return (
+                    <kup-color-picker
+                        value={cell.value}
+                        disabled
+                    ></kup-color-picker>
                 );
             case 'string':
             default:
@@ -3316,14 +3332,12 @@ export class KupDataTable {
     }
 
     private renderLoadMoreButton(isSlotted: boolean = true) {
-        const label = 'Show more data';
         return (
             <kup-button
+                styling="flat"
                 class="load-more-button"
-                label={label}
-                flat
+                label="Show more data"
                 icon="plus"
-                title={label}
                 slot={isSlotted ? 'more-results' : null}
                 onKupButtonClick={() => {
                     this.onLoadMoreClick();

@@ -44,6 +44,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'className',
+          description:
+            'Available classes: full-height, full-width, shaped. Read below for detailed information.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
@@ -60,40 +68,9 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'flat',
-          description: 'The button will be rendered as flat text.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'fullHeight',
-          description:
-            'The button will fill all available vertical space. Has no effect on icon buttons variant.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'fullWidth',
-          description:
-            'The button will fill all available horizontal space. Has no effect on icon buttons variant.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'icon',
           description:
             'The button will be rendered with the specified Material Design icon.',
-          type: 'string',
-          default: 'null',
-          try: 'field',
-        },
-        {
-          prop: 'iconColor',
-          description:
-            'Sets the color of the icon. When unset, it will be managed by the component.',
           type: 'string',
           default: 'null',
           try: 'field',
@@ -115,18 +92,12 @@ export default {
           try: 'field',
         },
         {
-          prop: 'outlined',
-          description: 'The button will be rendered with an outlined style.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'shaped',
-          description: "The button's borders will be more rounded.",
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
+          prop: 'styling',
+          description:
+            'Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.',
+          type: 'string',
+          default: '""',
+          try: 'field',
         },
         {
           prop: 'toggable',

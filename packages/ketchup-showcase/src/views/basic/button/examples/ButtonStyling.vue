@@ -12,8 +12,8 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <kup-button flat label="Flat"></kup-button>
-          <kup-button outlined label="Outlined"></kup-button>
+          <kup-button styling="flat" label="Flat"></kup-button>
+          <kup-button styling="outlined" label="Outlined"></kup-button>
         </div>
         <p class="centered">Flat sample markup</p>
         <code class="flat">{{ markupFlat }}</code>
@@ -24,18 +24,22 @@
 
     <div class="demo-wrapper">
       <p>
-        The attribute
+        The class
         <span class="code-word">shaped</span> may be used for any of the
         stylings above, and it will shape the edges of the button to be more
         round.
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <kup-button shaped label="Raised"></kup-button>
-          <kup-button flat shaped label="Flat"></kup-button>
-          <kup-button outlined shaped label="Outlined"></kup-button>
+          <kup-button class="shaped" label="Raised"></kup-button>
+          <kup-button styling="flat" class="shaped" label="Flat"></kup-button>
+          <kup-button
+            styling="outlined"
+            class="shaped"
+            label="Outlined"
+          ></kup-button>
         </div>
-        <p class="centered">Rounded sample markup</p>
+        <p class="centered">Shaped sample markup</p>
         <code class="flat">{{ markupRounded }}</code>
       </div>
     </div>
@@ -44,18 +48,17 @@
       <p>
         It is possible to set the button to fill all available space both
         vertically and horizontally, using the
-        <span class="code-word">fullHeight</span> and
-        <span class="code-word">fullWidth</span> props. You can use them both as
-        in the example below.
+        <span class="code-word">full-height</span> and
+        <span class="code-word">full-width</span> classes. You can use them both
+        as in the example below.
       </p>
       <div class="demo-container">
         <div
           class="kup-container"
-          style="height: 25vh; width: 50vw; margin: auto;  margin-bottom: 2rem;"
+          style="height: 25vh; width: 50vw; margin: auto; margin-bottom: 2rem"
         >
           <kup-button
-            full-height
-            full-width
+            class="full-height full-width"
             label="Full height and full width"
           ></kup-button>
         </div>
@@ -82,31 +85,19 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-button icon="favorite" label="Favorite"></kup-button>
-          <kup-button flat icon="play_arrow" label="Play"></kup-button>
-          <kup-button outlined icon="done" label="Submit"></kup-button>
+          <kup-button
+            styling="flat"
+            icon="play_arrow"
+            label="Play"
+          ></kup-button>
+          <kup-button
+            styling="outlined"
+            icon="done"
+            label="Submit"
+          ></kup-button>
         </div>
         <p class="centered">Icon sample markup</p>
         <code class="flat">{{ markupIcon }}</code>
-      </div>
-    </div>
-
-    <div class="demo-wrapper">
-      <p>
-        The
-        <span class="code-word">iconColor</span> prop will override the default
-        behavior of icons, always rendering them using the color provided,
-        unless the component is <span class="code-word">disabled</span>.
-      </p>
-      <div class="demo-container">
-        <div class="kup-container">
-          <kup-button
-            icon-color="purple"
-            icon="favorite"
-            label="Purple heart"
-          ></kup-button>
-        </div>
-        <p class="centered">Icon color sample markup</p>
-        <code class="flat">{{ markupIconcolor }}</code>
       </div>
     </div>
   </div>
@@ -117,15 +108,14 @@ export default {
   name: 'ButtonStyling',
   data() {
     return {
-      markupFlat: '<kup-button flat label="Flat"></kup-button>',
+      markupFlat: '<kup-button styling="flat" label="Flat"></kup-button>',
       markupFullheight:
-        '<kup-button full-height label="Full height"></kup-button>',
+        '<kup-button class="full-height" label="Full height"></kup-button>',
       markupFullwidth:
-        '<kup-button full-width label="Full width"></kup-button>',
-      markupIconcolor:
-        '<kup-button icon-color="purple" label="Purple heart"></kup-button>',
-      markupOutlined: '<kup-button outlined label="Outlined"></kup-button>',
-      markupRounded: '<kup-button shaped label="Shaped"></kup-button>',
+        '<kup-button class="full-width" label="Full width"></kup-button>',
+      markupOutlined:
+        '<kup-button styling="outlined" label="Outlined"></kup-button>',
+      markupRounded: '<kup-button class="shaped" label="Shaped"></kup-button>',
       markupIcon: '<kup-button icon="Favorite" label="Favorite"></kup-button>',
     };
   },

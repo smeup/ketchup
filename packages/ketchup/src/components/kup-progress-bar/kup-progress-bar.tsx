@@ -6,6 +6,7 @@ import {
     State,
     h,
     Method,
+    getAssetPath,
 } from '@stencil/core';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logMessage } from '../../utils/debug-manager';
@@ -22,47 +23,31 @@ export class KupProgressBar {
     /**
      * Displays the label in the middle of the progress bar. It's the default for the radial variant and can't be changed.
      */
-    @Prop({ reflect: true }) centeredLabel: boolean = true;
+    @Prop() centeredLabel: boolean = true;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Flag to show or hide the progress bar's label.
      */
-    @Prop({ reflect: true }) hideLabel: boolean = false;
+    @Prop() hideLabel: boolean = false;
     /**
      * Specifies an icon to replace the label.
      */
-    @Prop({ reflect: true }) icon: string = undefined;
+    @Prop() icon: string = undefined;
     /**
      * Specifies a text for the bar's label.
      */
-    @Prop({ reflect: true }) label: string = undefined;
-    /**
-     * Sets a padding between the bar and its container. Not supported for the radial variant.
-     */
-    @Prop({ reflect: true }) hasPadding: boolean = false;
-    /**
-     * Sets a striped background. Not supported for the radial variant.
-     */
-    @Prop({ reflect: true }) hasStripes: boolean = false;
-    /**
-     * When striped background is active, it will be animated. Not supported for the radial variant.
-     */
-    @Prop({ reflect: true }) isAnimated: boolean = false;
+    @Prop() label: string = undefined;
     /**
      * Radial version.
      */
     @Prop({ reflect: true }) isRadial: boolean = false;
     /**
-     * Slim version.
-     */
-    @Prop({ reflect: true }) isSlim: boolean = false;
-    /**
      * The current value the progress bar must display.
      */
-    @Prop({ reflect: true }) value: number = 0;
+    @Prop() value: number = 0;
 
     private startTime: number = 0;
     private endTime: number = 0;
@@ -75,6 +60,33 @@ export class KupProgressBar {
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+
+    private createIconElement() {
+        if (!this.icon) {
+            return undefined;
+        }
+
+        if (
+            this.icon.indexOf('.') > -1 ||
+            this.icon.indexOf('/') > -1 ||
+            this.icon.indexOf('\\') > -1
+        ) {
+            return (
+                <span class="label icon-container is-image">
+                    <img src={this.icon}></img>
+                </span>
+            );
+        } else {
+            let svg: string = `url('${getAssetPath(
+                `./assets/svg/${this.icon}.svg`
+            )}') no-repeat center`;
+            let iconStyle = {
+                mask: svg,
+                webkitMask: svg,
+            };
+            return <span style={iconStyle} class="label icon-container"></span>;
+        }
     }
 
     //---- Lifecycle hooks ----
@@ -114,7 +126,6 @@ export class KupProgressBar {
     }
 
     render() {
-        let wrapperClass: string = '';
         let componentClass: string = '';
         let pieClass: string = 'pie';
         let radialStyle = undefined;
@@ -122,22 +133,6 @@ export class KupProgressBar {
             componentClass = 'pie-wrapper';
         } else {
             componentClass = 'progress-bar';
-        }
-
-        if (this.hasPadding) {
-            componentClass += ' has-padding';
-        }
-
-        if (this.hasStripes) {
-            componentClass += ' has-stripes';
-        }
-
-        if (this.isAnimated) {
-            componentClass += ' is-animated';
-        }
-
-        if (this.isSlim) {
-            componentClass += ' is-slim';
         }
 
         let labelStyle = undefined;
@@ -157,30 +152,7 @@ export class KupProgressBar {
 
         let label = null;
         if (this.icon) {
-            if (this.isRadial) {
-                label = (
-                    <span class="label">
-                        <kup-image
-                            sizeX="3rem"
-                            sizeY="3rem"
-                            customStyle="img { object-fit: cover; }"
-                            color="var(--kup-main-color)"
-                            resource={this.icon}
-                        ></kup-image>
-                    </span>
-                );
-            } else {
-                label = (
-                    <span class="label">
-                        <kup-image
-                            sizeX="1.25rem"
-                            sizeY="1.25rem"
-                            color="var(--kup-text-on-main-color)"
-                            resource={this.icon}
-                        ></kup-image>
-                    </span>
-                );
-            }
+            label = this.createIconElement();
         } else {
             if (!this.hideLabel) {
                 if (this.isRadial) {
@@ -215,7 +187,6 @@ export class KupProgressBar {
 
         let el: HTMLElement;
         if (this.isRadial) {
-            wrapperClass += ' is-radial';
             el = (
                 <div class={componentClass}>
                     {label}
@@ -242,9 +213,7 @@ export class KupProgressBar {
         return (
             <Host class="handles-custom-style">
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component" class={wrapperClass}>
-                    {el}
-                </div>
+                <div id="kup-component">{el}</div>
             </Host>
         );
     }

@@ -15,7 +15,11 @@ import {
 } from './kup-data-table-declarations';
 
 import { isNumber, isDate } from '../../utils/object-utils';
-import { isEmpty, stringToNumber } from '../../utils/utils';
+import {
+    isEmpty,
+    stringToNumber,
+    unformattedStringToFormattedStringNumber,
+} from '../../utils/utils';
 import {
     isFilterCompliantForValue,
     filterIsNegative,
@@ -444,8 +448,10 @@ export function groupRows(
 
         // getting row value
         const cell = row.cells[columnName];
+
         if (cell) {
-            const cellValue = cell.value;
+            const column = getColumnByName(columns, columnName);
+            const cellValue = getCellValueForDisplay(cell.value, column);
             let groupRow: Row = null;
 
             // check in already in groupedRow
@@ -483,7 +489,11 @@ export function groupRows(
                 // getting cell value
                 const tempCell = row.cells[group.column];
                 if (tempCell) {
-                    const tempCellValue = tempCell.value;
+                    const column = getColumnByName(columns, group.column);
+                    const tempCellValue = getCellValueForDisplay(
+                        tempCell.value,
+                        column
+                    );
 
                     // check if group already exists
                     let tempGroupingRow: Row = null;
@@ -997,4 +1007,15 @@ export function styleHasWritingMode(cell: Cell): boolean {
         cell.style &&
         (cell.style.writingMode || cell.style['writing-mode'])
     );
+}
+
+export function getCellValueForDisplay(value, column: Column): string {
+    if (value != '' && isNumber(column.obj)) {
+        return unformattedStringToFormattedStringNumber(
+            value,
+            column.decimals ? column.decimals : -1,
+            column.obj ? column.obj.p : ''
+        );
+    }
+    return value;
 }

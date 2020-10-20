@@ -6,17 +6,35 @@
   margin: auto;
 }
 
-.mdc-button {
-  font-family: var(--kup-font-family);
+:host(.full-height) {
+  height: 100%;
+  #kup-component {
+    height: 100%;
+  }
+  .mdc-button {
+    height: 100%;
+  }
+}
 
-  &.button-shaped,
-  &.button-shaped .mdc-button__ripple {
+:host(.full-width) {
+  width: 100%;
+  #kup-component {
+    width: 100%;
+  }
+  .mdc-button {
+    width: 100%;
+  }
+}
+
+:host(.shaped) {
+  .mdc-button,
+  .mdc-button__ripple {
     border-radius: 18px;
   }
+}
 
-  &:disabled {
-    color: var(--kup-disabled-color);
-  }
+.mdc-button {
+  font-family: var(--kup-font-family);
 
   &.mdc-button--outlined:disabled {
     border-color: var(--kup-disabled-color);
@@ -26,13 +44,34 @@
     background: var(--kup-disabled-background-color);
   }
 
-  &.fullwidth {
-    width: 100%;
+  &.mdc-button--raised {
+    .icon-container {
+      background: var(--kup-text-on-main-color);
+    }
   }
 
-  &.fullheight {
-    height: 100%;
+  &:disabled {
+    color: var(--kup-disabled-color);
+    .icon-container {
+      background: var(--kup-disabled-color);
+    }
   }
+}
+
+.icon-container {
+  background: var(--kup-main-color);
+  display: block;
+  width: 18px;
+  height: 18px;
+  .mdc-icon-button & {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+img {
+  height: auto;
+  width: 100%;
 }
 
 .mdc-icon-button {

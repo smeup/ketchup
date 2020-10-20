@@ -7,6 +7,7 @@ import {
 } from '../components/kup-data-table/kup-data-table-declarations';
 import { BoxObject } from '../components/kup-box/kup-box-declarations';
 import { isProgressBar as isProgressBarObj } from './object-utils';
+import { isColor as isColorObj } from './object-utils';
 
 import { isImage as isImageObj } from './object-utils';
 import numeral from 'numeral';
@@ -222,4 +223,15 @@ export function isEditor(cell: Cell, boxObject: BoxObject) {
 export function isRating(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return 'RTG' === shape;
+}
+
+// -------------
+// COLOR
+// -------------
+
+export function isColor(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return (
+        'CLP' === shape || (!shape && cell && cell.obj && isColorObj(cell.obj))
+    );
 }

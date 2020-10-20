@@ -20,13 +20,13 @@
     <div class="demo-wrapper">
       <p>
         The single line layout can also be forced to fit the container for its
-        length by setting to true the
-        <span class="code-word">fullWidth</span> prop.
+        length by setting the
+        <span class="code-word">full-width</span> class.
       </p>
       <br />
       <div class="demo-container">
-        <div class="kup-container" style="width: 100%;">
-          <kup-grid full-width single-line :data.prop="data"></kup-grid>
+        <div class="kup-container" style="width: 100%">
+          <kup-grid class="full-width" single-line :data.prop="data"></kup-grid>
         </div>
         <br />
         <br />
@@ -63,7 +63,8 @@ export default {
         },
       ],
       markupSingleline: '<kup-grid single-line></kup-grid>',
-      markupSinglelineFW: '<kup-grid full-width single-line></kup-grid>',
+      markupSinglelineFW:
+        '<kup-grid class="full-width" single-line></kup-grid>',
     };
   },
 };

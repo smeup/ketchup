@@ -2880,15 +2880,29 @@ if (mathTest != null) {
     mathTest.groups = mathTestGroups;
 }
 
-// math test
-const shapeTestData = {
+// shapes
+const ratingTestData = {
     columns: [
         {
             name: 'RTG_00',
-            title: 'Rating',
+            title: 'Rating shape',
         },
     ],
     rows: [
+        {
+            cells: {
+                RTG_00: {
+                    obj: {
+                        t: '**',
+                        p: '',
+                        k: '',
+                    },
+                    value: '',
+                    options: false,
+                    shape: 'Rtg',
+                },
+            },
+        },
         {
             cells: {
                 RTG_00: {
@@ -2937,9 +2951,112 @@ const shapeTestData = {
     ],
 };
 
-const shapeTest = document.getElementById('shape-test');
-if (shapeTest != null) {
-    shapeTest.data = shapeTestData;
+const ratingTest = document.getElementById('rating-test');
+if (ratingTest != null) {
+    ratingTest.data = ratingTestData;
+}
+
+const colorTestData = {
+    columns: [
+        {
+            name: 'CLP_00',
+            title: 'Color object',
+        },
+        {
+            name: 'CLP_01',
+            title: 'Color shape',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                CLP_00: {
+                    data: {},
+                    obj: {
+                        t: 'J1',
+                        p: 'COL',
+                        k: '',
+                    },
+                    value: '',
+                    options: false,
+                },
+                CLP_01: {
+                    data: {},
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    value: '',
+                    options: false,
+                    shape: 'CLP',
+                },
+            },
+        },
+        {
+            cells: {
+                CLP_00: {
+                    data: {
+                        value: 'rgb(255, 0, 0)',
+                    },
+                    obj: {
+                        t: 'J1',
+                        p: 'COL',
+                        k: 'R255G000B000',
+                    },
+                    value: 'R255G000B000',
+                    options: false,
+                },
+                CLP_01: {
+                    data: {
+                        value: 'rgb(255, 0, 0)',
+                    },
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'R255G000B000',
+                    },
+                    value: 'R255G000B000',
+                    options: false,
+                    shape: 'CLP',
+                },
+            },
+        },
+        {
+            cells: {
+                CLP_00: {
+                    data: {
+                        value: 'rgb(064, 100, 216)',
+                    },
+                    obj: {
+                        t: 'J1',
+                        p: 'COL',
+                        k: 'R064G100B216',
+                    },
+                    value: 'R064G100B216',
+                    options: false,
+                },
+                CLP_01: {
+                    data: {
+                        value: 'rgb(064, 100, 216)',
+                    },
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: 'R064G100B216',
+                    },
+                    value: 'R064G100B216',
+                    options: false,
+                    shape: 'CLP',
+                },
+            },
+        },
+    ],
+};
+
+const colorTest = document.getElementById('color-test');
+if (colorTest != null) {
+    colorTest.data = colorTestData;
 }
 
 const tempDataTableTestData = {

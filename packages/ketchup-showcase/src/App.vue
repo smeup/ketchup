@@ -442,6 +442,12 @@ export default {
             },
           },
           {
+            title: `Color Picker`,
+            to: {
+              name: 'colorpicker',
+            },
+          },
+          {
             title: `Spinner`,
             to: {
               name: 'spinner',

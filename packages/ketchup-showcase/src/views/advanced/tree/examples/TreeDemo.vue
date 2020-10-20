@@ -34,6 +34,10 @@ export default {
           name: 'kupTreeNodeSelected',
           type: 'custom',
         },
+        {
+          name: 'kupTreeNodeDblClick',
+          type: 'dblclick',
+        },
       ],
       demoProps: [
         {

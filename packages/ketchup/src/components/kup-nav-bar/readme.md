@@ -45,13 +45,8 @@ Type: `Promise<void>`
 graph TD;
   kup-nav-bar --> kup-list
   kup-nav-bar --> kup-button
-  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
-  kup-button --> kup-image
   style kup-nav-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

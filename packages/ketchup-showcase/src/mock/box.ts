@@ -648,7 +648,7 @@ export const imgBadgeData = {
             badgeData: [
               {
                 text: '12',
-                position: 'TR',
+                className: 'top-right',
               },
             ],
           },
@@ -695,7 +695,7 @@ export const imgBadgeData = {
             badgeData: [
               {
                 imageData: { resource: 'account' },
-                position: 'BR',
+                className: 'bottom-right',
               },
             ],
           },
@@ -742,11 +742,11 @@ export const imgBadgeData = {
             badgeData: [
               {
                 text: '33',
-                position: 'TR',
+                className: 'top-right',
               },
               {
                 imageData: { resource: 'widgets' },
-                position: 'BR',
+                className: 'bottom-right',
               },
             ],
           },
@@ -793,11 +793,11 @@ export const imgBadgeData = {
             badgeData: [
               {
                 text: '23',
-                position: 'TL',
+                className: 'top-left',
               },
               {
                 imageData: { resource: 'account' },
-                position: 'BL',
+                className: 'bottom-left',
               },
             ],
           },
@@ -1205,7 +1205,7 @@ export const boxBadgeData = {
       badgeData: [
         {
           imageData: { resource: 'account' },
-          position: 'TL',
+          className: 'top-left',
         },
       ],
     },
@@ -1304,7 +1304,7 @@ export const shapeData = {
             badgeData: [
               {
                 imageData: { resource: 'account' },
-                position: 'BR',
+                className: 'bottom-right',
               },
             ],
             width: 20,
@@ -1378,7 +1378,7 @@ export const shapeData = {
             badgeData: [
               {
                 imageData: { resource: 'account' },
-                position: 'TL',
+                className: 'top-left',
               },
             ],
           },

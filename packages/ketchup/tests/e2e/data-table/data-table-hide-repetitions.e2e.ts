@@ -58,25 +58,28 @@ describe('kup-data-table with hide repetitions active', () => {
                                     _column.decimals ? _column.decimals : -1,
                                     'it-IT'
                                 );
+
+                                /*
                                 console.log(
-                                    'navigator.language=' +
-                                        navigator.language +
-                                        ' cells[columnIndex]=' +
-                                        cells[columnIndex] +
+                                    ' cells[columnIndex].textContent=' +
+                                        cells[columnIndex].textContent +
                                         ' <> cellValue=' +
-                                        cellValue +
-                                        ' <> row.cells[column].value=' +
-                                        row.cells[column].value +
-                                        ' <> cellValueNumber.toLocaleString("it-IT", {})=' +
-                                        cellValueNumber.toLocaleString(
-                                            'it-IT',
-                                            {}
-                                        ) +
-                                        ' <> cellValue.replace(RegExp(/,/g), ".")=' +
-                                        cellValue.replace(RegExp(/,/g), '.') +
-                                        ' cells[columnIndex].textContent=' +
-                                        cells[columnIndex].textContent
+                                        cellValue
                                 );
+                                console.log(
+                                    'istrue: [' +
+                                        (cells[columnIndex].textContent ==
+                                            cellValue.replace(
+                                                RegExp(/\./g),
+                                                ','
+                                            ) ||
+                                            cells[columnIndex].textContent ==
+                                                cellValue.replace(
+                                                    RegExp(/,/g),
+                                                    '.'
+                                                )) +
+                                        ']'
+                                );*/
 
                                 expect(
                                     cells[columnIndex].textContent ==

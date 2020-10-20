@@ -34,35 +34,35 @@ export class KupImage {
     /**
      * The color of the icon, defaults to the main color of the app.
      */
-    @Prop({ reflect: true }) color: string = 'var(--kup-icon-color)';
+    @Prop() color: string = 'var(--kup-icon-color)';
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.
      */
-    @Prop({ reflect: true }) data: CssDraw[] = undefined;
+    @Prop() data: CssDraw[] = undefined;
     /**
      * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
      */
-    @Prop({ reflect: true }) feedback: boolean = false;
+    @Prop() feedback: boolean = false;
     /**
      * The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future.
      */
-    @Prop({ reflect: true }) isCanvas: boolean = false;
+    @Prop() isCanvas: boolean = false;
     /**
      * The resource used to fetch the image.
      */
-    @Prop({ reflect: true }) resource: string = undefined;
+    @Prop() resource: string = undefined;
     /**
      * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
      */
-    @Prop({ reflect: true }) sizeX: string = '100%';
+    @Prop() sizeX: string = '100%';
     /**
      * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
      */
-    @Prop({ reflect: true }) sizeY: string = '100%';
+    @Prop() sizeY: string = '100%';
 
     private isUrl: boolean = false;
     private elStyle = undefined;

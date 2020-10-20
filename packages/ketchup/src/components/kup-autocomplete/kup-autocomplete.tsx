@@ -37,10 +37,6 @@ export class KupAutocomplete {
      */
     @Prop() listData: Object = {};
     /**
-     * Props of the text field.
-     */
-    @Prop() textfieldData: Object = {};
-    /**
      * The minimum number of chars to trigger the autocomplete
      */
     @Prop() minimumChars: number = 1;
@@ -48,6 +44,10 @@ export class KupAutocomplete {
      * Sets how the return the selected item value
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
+    /**
+     * Props of the text field.
+     */
+    @Prop() textfieldData: Object = {};
 
     private textfieldEl: any = undefined;
     private listEl: any = undefined;
