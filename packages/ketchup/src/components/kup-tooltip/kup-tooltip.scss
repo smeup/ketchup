@@ -74,7 +74,7 @@
           border-top: 1px solid var(--kup-border-color);
           box-sizing: border-box;
           padding: 20px;
-          height: 120px;
+          height: 180px;
           overflow: auto;
           opacity: 1;
         }
@@ -84,8 +84,8 @@
         }
 
         &.detail-loaded {
-          height: 120px;
-          min-height: 120px;
+          height: 180px;
+          min-height: 180px;
         }
 
         .detail-row {
