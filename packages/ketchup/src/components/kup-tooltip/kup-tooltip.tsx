@@ -544,6 +544,7 @@ export class KupTooltip {
         if (this.hasCellOptionsData()) {
             detailContent = [
                 <kup-tree
+                    showFilter={true}
                     {...this.cellOptions.config}
                     {...this.cellOptions}
                 ></kup-tree>,
