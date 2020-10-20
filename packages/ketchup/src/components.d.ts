@@ -1072,6 +1072,10 @@ export namespace Components {
     }
     interface KupQlik {
         /**
+          * Set Qlik App's istance would you like to use (!!!ALLERT!!! if you have already set appid app's istance will be generated again)
+         */
+        "app": any;
+        /**
           * Set Qlik App's id would you like to use How to find app id --> https://support.qlik.com/articles/000026239
          */
         "appid": string;
@@ -3091,6 +3095,10 @@ declare namespace LocalJSX {
         "value"?: number;
     }
     interface KupQlik {
+        /**
+          * Set Qlik App's istance would you like to use (!!!ALLERT!!! if you have already set appid app's istance will be generated again)
+         */
+        "app"?: any;
         /**
           * Set Qlik App's id would you like to use How to find app id --> https://support.qlik.com/articles/000026239
          */
