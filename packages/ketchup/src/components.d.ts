@@ -3524,7 +3524,8 @@ declare namespace LocalJSX {
         tree: KupTree;
     }>) => void;
         "onKupTreeNodeDblClick"?: (event: CustomEvent<{
-        obj: {};
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
     }>) => void;
         /**
           * Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.

@@ -191,7 +191,7 @@ const kupThemes = JSON.parse(`{
             "--kup-hover-color": "#000000",
             "--kup-title-background-color": "#f1f3f4",
             "--kup-title-color": "#2e2e2e",
-            "--kup-icon-color": "#00B2CB",
+            "--kup-icon-color": "#808080",
             "--kup-border-color": "#ededed",
             "--kup-box-shadow": "rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px",
             "--kup-field-background-color": "#fafafa",
