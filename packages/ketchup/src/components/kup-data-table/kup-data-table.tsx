@@ -2897,35 +2897,33 @@ export class KupDataTable {
                  * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
                  */
                 const _hasTooltip: boolean = hasTooltip(cell.obj);
+                let eventHandlers = undefined;
+                if (_hasTooltip) {
+                    eventHandlers = {
+                        onMouseEnter: (ev) => {
+                            if (this.showTooltipOnRightClick == false) {
+                                this._setTooltip(ev, cell);
+                            }
+                        },
+                        onMouseLeave: () => {
+                            if (this.showTooltipOnRightClick == false) {
+                                this._unsetTooltip();
+                            }
+                        },
+                        onContextMenu: (ev) => {
+                            ev.preventDefault();
+                            if (this.showTooltipOnRightClick == true) {
+                                this._setTooltip(ev, cell);
+                            }
+                        },
+                    };
+                }
                 return (
                     <td
                         data-column={name}
                         style={cellStyle}
                         class={cellClass}
-                        onMouseEnter={(ev) => {
-                            if (this.showTooltipOnRightClick == false) {
-                                if (_hasTooltip) {
-                                    this._setTooltip(ev, cell);
-                                } else {
-                                    this._unsetTooltip();
-                                }
-                            }
-                        }}
-                        onMouseLeave={() => {
-                            if (this.showTooltipOnRightClick == false) {
-                                this._unsetTooltip();
-                            }
-                        }}
-                        onContextMenu={(ev) => {
-                            ev.preventDefault();
-                            if (this.showTooltipOnRightClick == true) {
-                                if (_hasTooltip) {
-                                    this._setTooltip(ev, cell);
-                                } else {
-                                    this._unsetTooltip();
-                                }
-                            }
-                        }}
+                        {...eventHandlers}
                         onDblClick={() => {
                             this.onKupDataTableDblClick(cell.obj);
                         }}

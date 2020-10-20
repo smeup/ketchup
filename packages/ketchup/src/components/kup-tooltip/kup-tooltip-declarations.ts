@@ -41,6 +41,6 @@ export interface TooltipCellOptions extends TreeNode {
 }
 
 export enum ViewMode {
-    TOOTLIP = 'tip',
+    TOOLTIP = 'tip',
     CELL_OPTIONS = 'cellopt',
 }
