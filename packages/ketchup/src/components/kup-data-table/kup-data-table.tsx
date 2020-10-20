@@ -1095,7 +1095,7 @@ export class KupDataTable {
         let values = [];
 
         let tmpFilters: GenericFilter = { ...this.filters };
-        tmpFilters[column] = null;
+//        tmpFilters[column] = null;
 
         let visibleColumns = this.getVisibleColumns();
         let columnObject = getColumnByName(visibleColumns, column);
