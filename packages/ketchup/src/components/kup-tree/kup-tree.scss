@@ -129,11 +129,10 @@
       .icon-container.kup-tree__node__expander {
         background-color: var(--kup-text-color);
         mask: var(--menu-right-svg);
-        transform: rotate(90deg);
       }
 
       &[data-is-expanded] .expand-icon {
-        transform: rotate(180deg);
+        transform: rotate(90deg);
       }
 
       &--selected:not(.kup-tree__node--disabled),

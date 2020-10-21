@@ -878,6 +878,11 @@ export class KupDataTable {
         );
 
         this.rootElement.style.setProperty(
+            '--menu-right-svg',
+            this.getIconPath('menu-right')
+        );
+
+        this.rootElement.style.setProperty(
             '--drop-down-svg',
             this.getIconPath('arrow_drop_down')
         );

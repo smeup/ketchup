@@ -314,7 +314,7 @@ export class KupTree {
         this.rootElement.style.setProperty(
             '--menu-right-svg',
             `url('${getAssetPath(
-                `./assets/svg/arrow_drop_up.svg`
+                `./assets/svg/menu-right.svg`
             )}') no-repeat center`
         );
     }
@@ -1184,7 +1184,7 @@ export class KupTree {
                     label="Search..."
                     icon="magnify"
                     initialValue={this.filterValue}
-                    onKupTextFieldInput={(e) => {
+                    onKupTextFieldSubmit={(e) => {
                         this.onFilterChange(e);
                     }}
                     onKupTextFieldClearIconClick={(e) => {
