@@ -138,10 +138,10 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-rating](../kup-rating)
 - [kup-color-picker](../kup-color-picker)
+- [kup-chip](../kup-chip)
 - [kup-radio](../kup-radio)
 - [kup-paginator](../kup-paginator)
 - [kup-combobox](../kup-combobox)
-- [kup-chip](../kup-chip)
 
 ### Graph
 ```mermaid
@@ -155,10 +155,10 @@ graph TD;
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-rating
   kup-data-table --> kup-color-picker
+  kup-data-table --> kup-chip
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
-  kup-data-table --> kup-chip
   kup-tooltip --> kup-button
   kup-tooltip --> kup-tree
   kup-tree --> kup-lazy

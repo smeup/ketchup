@@ -70,6 +70,7 @@ import {
     isProgressBar,
     isRadio,
     isVoCodver,
+    isObjectList,
     isStringObject,
     isCheckbox,
     hasTooltip,
@@ -3091,7 +3092,9 @@ export class KupDataTable {
     // TODO: cell type can depend also from shape (see isRating)
     private getCellType(cell: Cell) {
         let obj = cell.obj;
-        if (isRating(cell, null)) {
+        if (isObjectList(obj)) {
+            return 'chips';
+        } else if (isRating(cell, null)) {
             return 'rating';
         } else if (isColor(cell, null)) {
             return 'color-picker';
@@ -3277,6 +3280,9 @@ export class KupDataTable {
                     ></kup-color-picker>
                 );
 
+            case 'chips':
+                return <kup-chip {...props}></kup-chip>;
+
             case 'radio':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
@@ -3325,6 +3331,8 @@ export class KupDataTable {
                         disabled
                     ></kup-color-picker>
                 );
+            case 'chips':
+                return <kup-chip></kup-chip>;
             case 'string':
             default:
                 return content;

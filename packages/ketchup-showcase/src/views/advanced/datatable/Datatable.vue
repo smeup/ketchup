@@ -72,6 +72,9 @@
     <template v-slot:23>
       <datatable-j1col></datatable-j1col>
     </template>
+    <template v-slot:24>
+      <datatable-jl></datatable-jl>
+    </template>
   </comp>
 </template>
 
@@ -95,6 +98,7 @@ import DatatableImagesAndBadges from '@/views/advanced/datatable/examples/Datata
 import DatatableJ4btn from '@/views/advanced/datatable/examples/DatatableJ4btn';
 import DatatableJ4ico from '@/views/advanced/datatable/examples/DatatableJ4ico';
 import DatatableJ1col from '@/views/advanced/datatable/examples/DatatableJ1col';
+import DatatableJl from '@/views/advanced/datatable/examples/DatatableJl';
 import DatatablePagination from '@/views/advanced/datatable/examples/DatatablePagination';
 import DatatableProgressbar from '@/views/advanced/datatable/examples/DatatableProgressbar';
 import DatatableRadio from '@/views/advanced/datatable/examples/DatatableRadio';
@@ -136,6 +140,7 @@ export default {
     DatatableShapes,
     DatatableCellClasses,
     DatatableJ1col,
+    DatatableJl,
     Comp,
   },
   data() {
@@ -168,6 +173,7 @@ export default {
         'Shapes',
         'Cell classes',
         'With color objects',
+        'With JL objects',
       ],
     };
   },
