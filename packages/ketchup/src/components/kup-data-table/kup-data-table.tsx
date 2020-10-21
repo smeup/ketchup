@@ -1095,7 +1095,9 @@ export class KupDataTable {
         let values = [];
 
         let tmpFilters: GenericFilter = { ...this.filters };
-        tmpFilters[column] = null;
+        if(this.filters[column]){
+            tmpFilters[column] = { textField: this.filters[column].textField, checkBoxes: []};
+        }
 
         let visibleColumns = this.getVisibleColumns();
         let columnObject = getColumnByName(visibleColumns, column);
@@ -1142,8 +1144,10 @@ export class KupDataTable {
         row: Row
     ) {
         const cell = row.cells[column];
-        if (values.indexOf(cell.value) < 0) {
-            values[values.length] = cell.value;
+        if(cell){
+            if (values.indexOf(cell.value) < 0) {
+                values[values.length] = cell.value;
+            }
         }
     }
 
@@ -1440,8 +1444,10 @@ export class KupDataTable {
     private onFilterChange({ detail }, column: Column) {
         // resetting current page
         this.resetCurrentPage();
-
-        let newFilter = detail.value.trim();
+        let newFilter = '';
+        if(detail.value){
+            newFilter = detail.value.trim();
+        }
 
         if (newFilter != '' && isNumber(column.obj)) {
             let tmpStr = formattedStringToUnformattedStringNumber(
