@@ -314,7 +314,7 @@ export class KupTree {
         this.rootElement.style.setProperty(
             '--menu-right-svg',
             `url('${getAssetPath(
-                `./assets/svg/menu-right.svg`
+                `./assets/svg/arrow_drop_up.svg`
             )}') no-repeat center`
         );
     }
