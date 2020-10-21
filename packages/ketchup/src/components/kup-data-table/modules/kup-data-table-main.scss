@@ -92,18 +92,17 @@ table {
     float: left;
   }
 
-  &.ascending,
-  &.collapsed {
+  &.ascending {
     mask: var(--drop-up-svg);
+  }
+
+  &.collapsed {
+    mask: var(--menu-right-svg);
   }
 
   &.descending,
   &.expanded {
     mask: var(--drop-down-svg);
-  }
-
-  &.collapsed {
-    transform: rotate(90deg);
   }
 
   &.filter-remove {
