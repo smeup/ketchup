@@ -114,6 +114,11 @@
         cursor: pointer;
       }
 
+      &:not(.kup-tree__node--disabled)
+        .icon-container.kup-tree__node__expander {
+        cursor: pointer;
+      }
+
       &--disabled {
         opacity: 0.4;
 
