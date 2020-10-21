@@ -2899,7 +2899,16 @@ export class KupDataTable {
                  */
                 const _hasTooltip: boolean = hasTooltip(cell.obj);
                 let eventHandlers = undefined;
+                let title: string = undefined;
                 if (_hasTooltip) {
+                    cellClass['is-obj'] = true;
+                    title =
+                        cell.obj.t +
+                        '; ' +
+                        cell.obj.p +
+                        '; ' +
+                        cell.obj.k +
+                        ';';
                     eventHandlers = {
                         onMouseEnter: (ev) => {
                             if (this.showTooltipOnRightClick == false) {
@@ -2921,6 +2930,7 @@ export class KupDataTable {
                 }
                 return (
                     <td
+                        title={title}
                         data-column={name}
                         style={cellStyle}
                         class={cellClass}
