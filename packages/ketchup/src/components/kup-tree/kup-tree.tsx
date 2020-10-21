@@ -756,7 +756,6 @@ export class KupTree {
         // Sets the default value
         let content: any = valueToDisplay;
         let props: any = { ...cell.data };
-        const _hasTooltip: boolean = hasTooltip(cell.obj);
 
         if (isBar(cell.obj)) {
             if (props) {
@@ -901,12 +900,15 @@ export class KupTree {
             tdStyle = cell.style;
         }
 
+        const _hasTooltip: boolean = hasTooltip(cell.obj);
+        let title: string = undefined;
         if (_hasTooltip) {
             classObj['is-obj'] = true;
+            title = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
         }
 
         cellElements.push(
-            <span style={style} class={classObj}>
+            <span title={title} style={style} class={classObj}>
                 {content}
             </span>
         );
@@ -1060,6 +1062,18 @@ export class KupTree {
             }
         }
 
+        const _hasTooltip: boolean = hasTooltip(treeNodeData.obj);
+        let title: string = undefined;
+        if (_hasTooltip) {
+            title =
+                treeNodeData.obj.t +
+                '; ' +
+                treeNodeData.obj.p +
+                '; ' +
+                treeNodeData.obj.k +
+                ';';
+        }
+
         return (
             <tr
                 class={{
@@ -1080,6 +1094,7 @@ export class KupTree {
                         'is-obj': hasTooltip(treeNodeData.obj),
                     }}
                     style={treeNodeData.style || null}
+                    title={title}
                     onDblClick={() => {
                         this.onKupTreeNodeDblClick(treeNodeData, treeNodePath);
                     }}

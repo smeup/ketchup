@@ -1585,14 +1585,17 @@ export class KupBox {
             // fixed value
             boContent = boxObject.value;
         }
+        let title: string = undefined;
         if (_hasTooltip) {
             classObj['is-obj'] = true;
+            title = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
         }
         return (
             <div
                 data-column={boxObject.column}
                 class={classObj}
                 style={boStyle}
+                title={title}
             >
                 <span
                     onMouseEnter={(ev) => {
