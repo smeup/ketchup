@@ -2894,6 +2894,7 @@ export class KupDataTable {
                 const _hasTooltip: boolean = hasTooltip(cell.obj);
                 let eventHandlers = undefined;
                 if (_hasTooltip) {
+                    cellClass['is-obj'] = true;
                     eventHandlers = {
                         onMouseEnter: (ev) => {
                             if (this.showTooltipOnRightClick == false) {

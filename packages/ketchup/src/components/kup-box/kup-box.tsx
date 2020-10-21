@@ -1585,7 +1585,9 @@ export class KupBox {
             // fixed value
             boContent = boxObject.value;
         }
-
+        if (_hasTooltip) {
+            classObj['is-obj'] = true;
+        }
         return (
             <div
                 data-column={boxObject.column}

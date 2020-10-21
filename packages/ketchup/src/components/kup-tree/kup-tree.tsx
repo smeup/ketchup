@@ -33,6 +33,7 @@ import {
     isProgressBar,
     isRadio,
     isNumber,
+    hasTooltip,
 } from '../../utils/object-utils';
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
@@ -755,6 +756,7 @@ export class KupTree {
         // Sets the default value
         let content: any = valueToDisplay;
         let props: any = { ...cell.data };
+        const _hasTooltip: boolean = hasTooltip(cell.obj);
 
         if (isBar(cell.obj)) {
             if (props) {
@@ -897,6 +899,10 @@ export class KupTree {
             }
         } else {
             tdStyle = cell.style;
+        }
+
+        if (_hasTooltip) {
+            classObj['is-obj'] = true;
         }
 
         cellElements.push(
@@ -1071,6 +1077,7 @@ export class KupTree {
                     class={{
                         'mdc-ripple-surface':
                             !this.showColumns && !treeNodeData.disabled,
+                        'is-obj': hasTooltip(treeNodeData.obj),
                     }}
                     style={treeNodeData.style || null}
                     onDblClick={() => {
