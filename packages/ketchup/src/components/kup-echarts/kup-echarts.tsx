@@ -1,4 +1,4 @@
-import { Component, Host, h,Prop,Element} from '@stencil/core';
+import { Component, Host, h,Prop,Element,Event,EventEmitter,Watch} from '@stencil/core';
 import echarts from 'echarts'
 
 
@@ -11,7 +11,7 @@ import echarts from 'echarts'
 })
 export class KupEcharts {
  @Prop() objectData: object={};
- @Prop() types: string='line';
+ @Prop() types: string;
  @Prop() graphTitle:string='';
  @Prop() graphTitleSize:number;
  @Prop() legend:string;
@@ -27,10 +27,17 @@ export class KupEcharts {
   private datajson=[];
   private datapiejson=[];
   
+
+  @Event() kupEchartsClicked: EventEmitter;
+
   CreateEcharts()
   {
+    if(!this.myChart)
+    {
     this.myChart= echarts.init(this.chartContainer);
-    this.myChart.setOption(this.rightjson);
+    }
+    
+    this.myChart.setOption(this.rightjson,true);
   }
   
   ParseJsonX()
@@ -79,7 +86,7 @@ export class KupEcharts {
      }
   }
   createlegend()
-  {
+  {     
         let arr=[];
         for (let key in this.oj)
         {
@@ -96,7 +103,7 @@ export class KupEcharts {
       { let somma=0;
       for(let j=0;j<this.oj[key].length;j++)
         {
-            var d=parseFloat(this.oj[key][j]);
+            let d=parseFloat(this.oj[key][j]);
             somma=somma+d;
         }
       somme.push(somma);
@@ -119,9 +126,9 @@ return this.datapiejson;
 
   }
 
+
   Createrightjson()
   {
-    
     
     for (let key in this.oj)
     { 
@@ -171,6 +178,7 @@ return this.datapiejson;
   }
 
   createpiejson(){
+  
     let tlegend=this.legend;
     this.rightjson={
       title: {
@@ -208,18 +216,50 @@ return this.datapiejson;
   };
 
   }
+  
+  componentWillUpdate ()
+  {
+        
+  this.oj = {};
+  this.x=[];
+  this.rightjson={};
+  this.datajson=[];
+  this.datapiejson=[];
+  this.myChart='';
+  
+  
+
+  if(this.types.toLowerCase()=='pie')
+    {  
+      this.ParseJsonY();
+       this.objectpie();
+       this.createpiejson();
+    }
+
+  else{
+          this.ParseJsonX();
+          this.ParseJsonY();
+          this.Createrightjson();
+      }
+      console.log(this.rightjson);
+
+    this.CreateEcharts();
+    
+  }
+  
 
   componentDidLoad() {
     
-    this.ParseJsonX();
-    this.ParseJsonY();
-    if(this.types=='Pie')
+    if(this.types.toLowerCase()=='pie')
       {  
+        this.ParseJsonY();
          this.objectpie();
          this.createpiejson();
       }
 
     else{
+            this.ParseJsonX();
+            this.ParseJsonY();
             this.Createrightjson();
         }
   
@@ -229,15 +269,19 @@ return this.datapiejson;
   
 
   }
+  OnKupClick()
+  {
+    this. kupEchartsClicked.emit();
+  }
 
   render() {
     return (
       <Host>
-    <div id="main" ref={(chartContainer) =>
-          (this.chartContainer = chartContainer)
-        }></div>
+    <div id="main" onClick={()=>this.OnKupClick()} ref={(chartContainer) =>(this.chartContainer = chartContainer)}> </div>
+  
       </Host>
     );
+    
   }
 
 }

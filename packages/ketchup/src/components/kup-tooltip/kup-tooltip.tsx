@@ -186,7 +186,8 @@ export class KupTooltip {
     private renderStart: number = 0;
     private renderEnd: number = 0;
 
-    private viewMode: ViewMode = ViewMode.TOOTLIP;
+    private viewMode: ViewMode = ViewMode.TOOLTIP;
+    private firstLoad: boolean = false;
 
     private _mouseIsOn: boolean = false;
     private waitingServerResponse = false;
@@ -237,6 +238,7 @@ export class KupTooltip {
         var timeoutMs = withTimeout == true ? this.detailTimeout : 0;
         this.loadDetailTimeout = setTimeout(() => {
             this.loadDetail();
+            this.firstLoad = true;
         }, timeoutMs);
     }
 
@@ -268,7 +270,7 @@ export class KupTooltip {
     }
 
     private isViewModeTooltip(): boolean {
-        return this.viewMode == ViewMode.TOOTLIP;
+        return this.viewMode == ViewMode.TOOLTIP;
     }
 
     private isViewModeCellOptions(): boolean {
@@ -411,6 +413,7 @@ export class KupTooltip {
             let timeout = 800;
             this.mouseLeaveTimeout = setTimeout(() => {
                 this.relatedObject = null;
+                this.firstLoad = false;
             }, timeout);
         }
     }
@@ -427,7 +430,7 @@ export class KupTooltip {
         this.visible = false;
         this._mouseIsOn = false;
         this.waitingServerResponse = false;
-        this.viewMode = ViewMode.TOOTLIP;
+        this.viewMode = ViewMode.TOOLTIP;
     }
 
     // ---- Render methods ----
@@ -541,12 +544,18 @@ export class KupTooltip {
         if (this.hasCellOptionsData()) {
             detailContent = [
                 <kup-tree
+                    class="full-width"
+                    showFilter={true}
                     {...this.cellOptions.config}
                     {...this.cellOptions}
                 ></kup-tree>,
             ];
         }
-        if (this.hasDetailData() || this.hasCellOptionsData()) {
+        if (
+            this.hasDetailData() ||
+            this.hasCellOptionsData() ||
+            this.firstLoad
+        ) {
             detailActions = [
                 ...detailActions,
                 <div class="detail-actions__box">
@@ -562,6 +571,8 @@ export class KupTooltip {
 
         const detailClass = {
             visible: this.hasDetailData() || this.hasCellOptionsData(),
+            [this.viewMode]: true,
+            'detail-loaded': this.firstLoad,
         };
 
         return (
@@ -608,9 +619,9 @@ export class KupTooltip {
 
     onShowRightClickOptions() {
         this.viewMode =
-            this.viewMode == ViewMode.TOOTLIP
+            this.viewMode == ViewMode.TOOLTIP
                 ? ViewMode.CELL_OPTIONS
-                : ViewMode.TOOTLIP;
+                : ViewMode.TOOLTIP;
         this.startLoadDetail(false);
     }
     //---- Lifecycle hooks ----

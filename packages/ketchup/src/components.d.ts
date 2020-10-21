@@ -1072,6 +1072,10 @@ export namespace Components {
     }
     interface KupQlik {
         /**
+          * Set Qlik App's istance would you like to use (!!!ALLERT!!! if you have already set appid app's istance will be generated again)
+         */
+        "app": any;
+        /**
           * Set Qlik App's id would you like to use How to find app id --> https://support.qlik.com/articles/000026239
          */
         "appid": string;
@@ -2640,8 +2644,8 @@ declare namespace LocalJSX {
         "totals"?: TotalsMap;
     }
     interface KupDrawer {
-        "onClDrawer"?: (event: CustomEvent<any>) => void;
-        "onOpDrawer"?: (event: CustomEvent<any>) => void;
+        "onKupDrawerClose"?: (event: CustomEvent<any>) => void;
+        "onKupDrawerOpen"?: (event: CustomEvent<any>) => void;
         /**
           * opened is used to make our drawer appear and disappear
          */
@@ -2655,6 +2659,7 @@ declare namespace LocalJSX {
         "graphTitleSize"?: number;
         "legend"?: string;
         "objectData"?: object;
+        "onKupEchartsClicked"?: (event: CustomEvent<any>) => void;
         "types"?: string;
     }
     interface KupEditor {
@@ -3091,6 +3096,10 @@ declare namespace LocalJSX {
         "value"?: number;
     }
     interface KupQlik {
+        /**
+          * Set Qlik App's istance would you like to use (!!!ALLERT!!! if you have already set appid app's istance will be generated again)
+         */
+        "app"?: any;
         /**
           * Set Qlik App's id would you like to use How to find app id --> https://support.qlik.com/articles/000026239
          */

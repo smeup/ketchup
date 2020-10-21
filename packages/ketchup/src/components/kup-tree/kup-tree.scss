@@ -5,9 +5,9 @@
 }
 
 :host(.full-width) {
-  width: 100%;
+  min-width: 100%;
   table.kup-tree {
-    width: 100%;
+    min-width: 100%;
   }
 }
 

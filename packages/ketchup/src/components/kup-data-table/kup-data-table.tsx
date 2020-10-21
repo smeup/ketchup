@@ -56,6 +56,7 @@ import {
     getTextFieldFilterValue,
     getCheckBoxFilterValues,
     hasFiltersForColumn,
+    getCellValueForDisplay,
 } from './kup-data-table-helper';
 
 import {
@@ -79,7 +80,6 @@ import { GenericObject } from '../../types/GenericTypes';
 import {
     stringToNumber,
     formattedStringToUnformattedStringNumber,
-    unformattedStringToFormattedStringNumber,
     numberToFormattedStringNumber,
     identify,
     isNumber as isNumberThisString,
@@ -2210,10 +2210,9 @@ export class KupDataTable {
                             isNumber(column.obj) &&
                             isNumberThisString(filterInitialValue)
                         ) {
-                            filterInitialValue = unformattedStringToFormattedStringNumber(
+                            filterInitialValue = getCellValueForDisplay(
                                 filterInitialValue,
-                                column.decimals,
-                                column.obj ? column.obj.p : ''
+                                column
                             );
                         }
                         columnMenuItems.push(
@@ -2266,12 +2265,8 @@ export class KupDataTable {
                                 } else {
                                     label = '(*unchecked)';
                                 }
-                            } else if (v != '' && isNumber(column.obj)) {
-                                label = unformattedStringToFormattedStringNumber(
-                                    v,
-                                    column.decimals,
-                                    column.obj ? column.obj.p : ''
-                                );
+                            } else {
+                                label = getCellValueForDisplay(v, column);
                             }
 
                             checkboxItems.push(
@@ -2903,35 +2898,33 @@ export class KupDataTable {
                  * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
                  */
                 const _hasTooltip: boolean = hasTooltip(cell.obj);
+                let eventHandlers = undefined;
+                if (_hasTooltip) {
+                    eventHandlers = {
+                        onMouseEnter: (ev) => {
+                            if (this.showTooltipOnRightClick == false) {
+                                this._setTooltip(ev, cell);
+                            }
+                        },
+                        onMouseLeave: () => {
+                            if (this.showTooltipOnRightClick == false) {
+                                this._unsetTooltip();
+                            }
+                        },
+                        onContextMenu: (ev) => {
+                            ev.preventDefault();
+                            if (this.showTooltipOnRightClick == true) {
+                                this._setTooltip(ev, cell);
+                            }
+                        },
+                    };
+                }
                 return (
                     <td
                         data-column={name}
                         style={cellStyle}
                         class={cellClass}
-                        onMouseEnter={(ev) => {
-                            if (this.showTooltipOnRightClick == false) {
-                                if (_hasTooltip) {
-                                    this._setTooltip(ev, cell);
-                                } else {
-                                    this._unsetTooltip();
-                                }
-                            }
-                        }}
-                        onMouseLeave={() => {
-                            if (this.showTooltipOnRightClick == false) {
-                                this._unsetTooltip();
-                            }
-                        }}
-                        onContextMenu={(ev) => {
-                            ev.preventDefault();
-                            if (this.showTooltipOnRightClick == true) {
-                                if (_hasTooltip) {
-                                    this._setTooltip(ev, cell);
-                                } else {
-                                    this._unsetTooltip();
-                                }
-                            }
-                        }}
+                        {...eventHandlers}
                         onDblClick={() => {
                             this.onKupDataTableDblClick(cell.obj);
                         }}
@@ -3314,10 +3307,9 @@ export class KupDataTable {
             case 'number':
                 if (content && content != '') {
                     const cellValueNumber: number = stringToNumber(cell.value);
-                    const cellValue = unformattedStringToFormattedStringNumber(
+                    const cellValue = getCellValueForDisplay(
                         cell.value,
-                        column.decimals ? column.decimals : -1,
-                        cell.obj ? cell.obj.p : ''
+                        column
                     );
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;

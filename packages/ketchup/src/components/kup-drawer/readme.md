@@ -16,10 +16,10 @@
 
 ## Events
 
-| Event      | Description | Type               |
-| ---------- | ----------- | ------------------ |
-| `ClDrawer` |             | `CustomEvent<any>` |
-| `OpDrawer` |             | `CustomEvent<any>` |
+| Event            | Description | Type               |
+| ---------------- | ----------- | ------------------ |
+| `kupDrawerClose` |             | `CustomEvent<any>` |
+| `kupDrawerOpen`  |             | `CustomEvent<any>` |
 
 
 ## Methods
