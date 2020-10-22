@@ -1,3 +1,4 @@
+import { getAssetPath } from '@stencil/core';
 import { logMessage } from './debug-manager';
 
 declare global {
@@ -38,7 +39,16 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-1": "#60c3fc",
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#860bb5",
-            "--kup-chart-color-4": "#1a83e4"
+            "--kup-chart-color-4": "#1a83e4",
+            "--kup-obj-cursor": "alias"
+        },
+        "icons": {
+            "ascending-icon": "arrow_drop_up",
+            "descending-icon": "arrow_drop_down",
+            "expanded-icon": "arrow_drop_down",
+            "collapsed-icon": "menu-right",
+            "clear-icon": "cancel",
+            "filter-remove-icon": "filter-remove"
         }
     },
     "default": {
@@ -69,7 +79,16 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-1": "#ff5959",
             "--kup-chart-color-2": "#e0a0a0",
             "--kup-chart-color-3": "#8e1010",
-            "--kup-chart-color-4": "#f5f5dc"
+            "--kup-chart-color-4": "#f5f5dc",
+            "--kup-obj-cursor": "alias"
+        },
+        "icons": {
+            "ascending-icon": "sort-ascending",
+            "descending-icon": "sort-descending",
+            "expanded-icon": "chevron-down",
+            "collapsed-icon": "chevron_right",
+            "clear-icon": "clear",
+            "filter-remove-icon": "filter-remove"
         }
     },
     "graphite": {
@@ -106,10 +125,19 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-7": "brown",
             "--kup-chart-color-8": "magenta",
             "--kup-chart-color-9": "grey",
-            "--kup-chart-color-10": "indigo"
+            "--kup-chart-color-10": "indigo",
+            "--kup-obj-cursor": "alias"
         },
         "customStyles": {
             "KUP-BUTTON": "#kup-component button { text-transform: unset; }"
+        },
+        "icons": {
+            "ascending-icon": "arrow_drop_up",
+            "descending-icon": "arrow_drop_down",
+            "expanded-icon": "arrow_drop_down",
+            "collapsed-icon": "menu-right",
+            "clear-icon": "cancel",
+            "filter-remove-icon": "filter-remove"
         }
     },
     "IBMh2o": {
@@ -140,7 +168,16 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-1": "#ffffff",
             "--kup-chart-color-2": "rgb(187, 198, 5)",
             "--kup-chart-color-3": "#ffe600",
-            "--kup-chart-color-4": "#effd02"
+            "--kup-chart-color-4": "#effd02",
+            "--kup-obj-cursor": "alias"
+        },
+        "icons": {
+            "ascending-icon": "sort-ascending",
+            "descending-icon": "sort-descending",
+            "expanded-icon": "chevron-down",
+            "collapsed-icon": "chevron_right",
+            "clear-icon": "cancel",
+            "filter-remove-icon": "filter-remove"
         }
     },
     "ocean": {
@@ -171,7 +208,16 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-1": "#60c3fc",
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#e48b47",
-            "--kup-chart-color-4": "#81e447"
+            "--kup-chart-color-4": "#81e447",
+            "--kup-obj-cursor": "alias"
+        },
+        "icons": {
+            "ascending-icon": "arrow_drop_up",
+            "descending-icon": "arrow_drop_down",
+            "expanded-icon": "arrow_drop_down",
+            "collapsed-icon": "menu-right",
+            "clear-icon": "cancel",
+            "filter-remove-icon": "filter-remove"
         }
     },
     "teal": {
@@ -201,7 +247,16 @@ const kupThemes = JSON.parse(`{
             "--kup-spinner-color": "#eaa710",
             "--kup-chart-color-1": "#735DED",
             "--kup-chart-color-2": "#00B2CB",
-            "--kup-chart-color-3": "#EDC900"
+            "--kup-chart-color-3": "#EDC900",
+            "--kup-obj-cursor": "alias"
+        },
+        "icons": {
+            "ascending-icon": "arrow_drop_up",
+            "descending-icon": "arrow_drop_down",
+            "expanded-icon": "arrow_drop_down",
+            "collapsed-icon": "menu-right",
+            "clear-icon": "cancel",
+            "filter-remove-icon": "filter-remove"
         }
     },
     "wildlife": {
@@ -232,7 +287,16 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-1": "#60c3fc",
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#e48b47",
-            "--kup-chart-color-4": "#81e447"
+            "--kup-chart-color-4": "#81e447",
+            "--kup-obj-cursor": "alias"
+        },
+        "icons": {
+            "ascending-icon": "arrow_drop_up",
+            "descending-icon": "arrow_drop_down",
+            "expanded-icon": "arrow_drop_down",
+            "collapsed-icon": "menu-right",
+            "clear-icon": "cancel",
+            "filter-remove-icon": "filter-remove"
         }
     },
     "test": {
@@ -263,7 +327,8 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-1": "#60c3fc",
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#e48b47",
-            "--kup-chart-color-4": "#81e447"
+            "--kup-chart-color-4": "#81e447",
+            "--kup-obj-cursor": "crosshair"
         },
         "customStyles": {
             "master": "#kup-component { background-color: red; }",
@@ -288,6 +353,14 @@ const kupThemes = JSON.parse(`{
             "KUP-TAB-BAR": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-TEXT-FIELD": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-TREE": "#kup-component { border: 1px solid var(--kup-border-color); }"
+        },
+        "icons": {
+            "ascending-icon": "sort-ascending",
+            "descending-icon": "sort-descending",
+            "expanded-icon": "chevron-down",
+            "collapsed-icon": "chevron_right",
+            "clear-icon": "cancel",
+            "filter-remove-icon": "broom"
         }
     }
 }`);
@@ -331,6 +404,16 @@ function setTheme() {
         logMessage('theme manager', message);
         dom.kupCurrentTheme = dom.kupThemes['default'];
     }
+
+    setupCssVariables();
+    setupIcons();
+    setupCustomStyle();
+
+    var event = new CustomEvent('kupThemeChanged');
+    document.dispatchEvent(event);
+}
+
+function setupCssVariables() {
     let variables = dom.kupCurrentTheme.cssVariables;
     let rgbVariables: [{ rgbKey: string; rgbVal: string }] = undefined;
     for (var key in variables) {
@@ -356,14 +439,27 @@ function setTheme() {
             );
         }
     }
-    var event = new CustomEvent('kupThemeChanged');
-    document.dispatchEvent(event);
+}
+
+function setupCustomStyle() {
     let components: any = document.querySelectorAll('.handles-custom-style');
     for (let i = 0; i < components.length; i++) {
         components[i].refreshCustomStyle(
             fetchThemeCustomStyle('master') +
                 fetchThemeCustomStyle(components[i].tagName)
         );
+    }
+}
+
+function setupIcons() {
+    let icons = dom.kupCurrentTheme.icons;
+    for (var key in icons) {
+        if (icons.hasOwnProperty(key)) {
+            let val = `url('${getAssetPath(
+                `./assets/svg/${icons[key]}.svg`
+            )}') no-repeat center`;
+            dom.style.setProperty('--kup-' + key, val);
+        }
     }
 }
 

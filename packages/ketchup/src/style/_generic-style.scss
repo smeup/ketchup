@@ -203,7 +203,32 @@ div.mdc-menu {
   }
 }
 
-//Object cursor
+// Icons and cursors variables
+
 .is-obj {
-  cursor: alias;
+  cursor: var(--kup-obj-cursor);
+}
+
+.icon-container.ascending {
+  mask: var(--kup-ascending-icon);
+}
+
+.icon-container.descending {
+  mask: var(--kup-descending-icon);
+}
+
+.icon-container.collapsed {
+  mask: var(--kup-collapsed-icon);
+}
+
+.icon-container.expanded {
+  mask: var(--kup-expanded-icon);
+}
+
+.icon-container.filter-remove {
+  mask: var(--kup-filter-remove-icon);
+}
+
+.icon-container.clear {
+  mask: var(--kup-clear-icon);
 }
