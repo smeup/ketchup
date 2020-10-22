@@ -25,6 +25,7 @@ import {
     filterIsNegative,
 } from '../../utils/filters';
 import { logMessage } from '../../utils/debug-manager';
+import { unformatDate } from '../../utils/cell-formatter';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -845,13 +846,26 @@ export function calcTotals(
 }
 
 function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
+    return compareValues(
+        cell1.obj,
+        cell1.value,
+        cell2.obj,
+        cell2.value,
+        sortMode
+    );
+}
+
+export function compareValues(
+    obj1: any,
+    value1: any,
+    obj2: any,
+    value2: any,
+    sortMode: SortMode
+): number {
     const sm = sortMode === 'A' ? 1 : -1;
 
-    const obj1 = cell1.obj;
-    const obj2 = cell2.obj;
-
     if (obj1 == null || obj2 == null) {
-        return localCompareAsInJava(cell1.value, cell2.value);
+        return localCompareAsInJava(value1, value2);
     }
 
     // If either the type or the parameter of the current object are not equal.
@@ -863,57 +877,37 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
         return compare * sm;
     }
 
-    // number
+    let s1: string = value1;
+    let s2: string = value2;
+
+    if (s1 == s2) {
+        return 0;
+    }
+
+    if (s1 == '') {
+        return sm * -1;
+    }
+
+    if (s2 == '') {
+        return sm * 1;
+    }
+
+    let v1: any = s1;
+    let v2: any = s2;
     if (isNumber(obj1)) {
-        const n1: number = stringToNumber(cell1.value);
-        const n2: number = stringToNumber(cell2.value);
-
-        if (n1 === n2) {
-            return 0;
-        }
-
-        return sm * (n1 > n2 ? 1 : -1);
+        v1 = stringToNumber(s1);
+        v2 = stringToNumber(s2);
+    } else if (isDate(obj1)) {
+        v1 = unformatDate(s1);
+        v2 = unformatDate(s2);
     }
-
-    // date
-    if (isDate(obj1)) {
-        let m1: moment.Moment;
-        let m2: moment.Moment;
-
-        if (obj1.p === '*YYMD') {
-            m1 = moment(obj1.k, 'YYYYMMDD');
-            m2 = moment(obj2.k, 'YYYYMMDD');
-        } else if (obj1.p === '*DMYY') {
-            m1 = moment(obj1.k, 'DDMMYYYY');
-            m2 = moment(obj2.k, 'DDMMYYYY');
-        } else {
-            // no valid format -> check via k
-            return sm * localCompareAsInJava(obj1.k, obj2.k);
-        }
-
-        if (m1.isSame(m2)) {
-            return 0;
-        }
-
-        if (m1.isBefore(m2)) {
-            return sm * -1;
-        } else {
-            return sm * 1;
-        }
+    if (v1 > v2) {
+        return sm * 1;
     }
-
-    /**
-     * order by value contained in cell.value,
-     * the value could be calculated from another cell and the cell.obj is the object of original cell
-     **/
-    return (
-        sm * localCompareAsInJava(cell1.value, cell2.value) // otherwise use cell value
-        /*
-            (obj1.k && obj2.k
-                ? localCompareAsInJava(obj1.k, obj2.k) // If there is k set sort by it
-                : localCompareAsInJava(cell1.value, cell2.value)) // otherwise use cell value
-                */
-    );
+    if (v1 < v2) {
+        return sm * -1;
+    }
+    return 0;
 }
 
 /**
