@@ -212,7 +212,7 @@ export class KupQlik {
                     }
 
                     style =
-                        style + 'col-' + column.colDim + ' size-' + column.size;
+                        style + 'width-' + column.colDim + ' size-' + column.size;
                     if (column.obj != '')
                         tmp.push(<div id={column.obj} class={style}></div>);
                     else tmp.push(<div class={style}></div>);
