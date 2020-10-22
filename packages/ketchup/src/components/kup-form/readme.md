@@ -156,6 +156,7 @@ graph TD;
   kup-data-table --> kup-image
   kup-data-table --> kup-chart
   kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-gauge
   kup-data-table --> kup-rating
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-chip

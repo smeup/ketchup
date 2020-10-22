@@ -136,6 +136,7 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 - [kup-image](../kup-image)
 - [kup-chart](../kup-chart)
 - [kup-progress-bar](../kup-progress-bar)
+- [kup-gauge](../kup-gauge)
 - [kup-rating](../kup-rating)
 - [kup-color-picker](../kup-color-picker)
 - [kup-chip](../kup-chip)
@@ -153,6 +154,7 @@ graph TD;
   kup-data-table --> kup-image
   kup-data-table --> kup-chart
   kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-gauge
   kup-data-table --> kup-rating
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-chip

@@ -37,7 +37,7 @@ import {
     GenericFilter,
 } from './kup-data-table-declarations';
 
-import { isRating, isColor } from '../../utils/cell-utils';
+import { isRating, isColor, isGauge } from '../../utils/cell-utils';
 
 import {
     calcTotals,
@@ -1097,8 +1097,11 @@ export class KupDataTable {
         let values = [];
 
         let tmpFilters: GenericFilter = { ...this.filters };
-        if(this.filters[column]){
-            tmpFilters[column] = { textField: this.filters[column].textField, checkBoxes: []};
+        if (this.filters[column]) {
+            tmpFilters[column] = {
+                textField: this.filters[column].textField,
+                checkBoxes: [],
+            };
         }
 
         let visibleColumns = this.getVisibleColumns();
@@ -1136,7 +1139,7 @@ export class KupDataTable {
         row: Row
     ) {
         const cell = row.cells[column];
-        if(cell){
+        if (cell) {
             if (values.indexOf(cell.value) < 0) {
                 values[values.length] = cell.value;
             }
@@ -1437,7 +1440,7 @@ export class KupDataTable {
         // resetting current page
         this.resetCurrentPage();
         let newFilter = '';
-        if(detail.value){
+        if (detail.value) {
             newFilter = detail.value.trim();
         }
 
@@ -2831,7 +2834,10 @@ export class KupDataTable {
                 let cellClass = {
                     //    'has-options': !!options,
                     'is-graphic': isBar(cell.obj),
-                    number: isNumber(cell.obj) && !isRating(cell, null),
+                    number:
+                        isNumber(cell.obj) &&
+                        !isRating(cell, null) &&
+                        !isGauge(cell, null),
                 };
                 if (cell.cssClass) {
                     cellClass[cell.cssClass] = true;
@@ -3101,6 +3107,8 @@ export class KupDataTable {
         let obj = cell.obj;
         if (isObjectList(obj)) {
             return 'chips';
+        } else if (isGauge(cell, null)) {
+            return 'gauge';
         } else if (isRating(cell, null)) {
             return 'rating';
         } else if (isColor(cell, null)) {
@@ -3266,12 +3274,20 @@ export class KupDataTable {
             case 'progress-bar':
                 return <kup-progress-bar {...props}></kup-progress-bar>;
 
+            case 'gauge':
+                return (
+                    <kup-gauge
+                        value={stringToNumber(cell.value)}
+                        width-component="100%"
+                        {...props}
+                    ></kup-gauge>
+                );
+
             case 'rating':
-                const cellValueNumber: number = stringToNumber(cell.value);
                 // NOTE: actually rating in datatable is only for output (-> put disabled)
                 return (
                     <kup-rating
-                        value={cellValueNumber}
+                        value={stringToNumber(cell.value)}
                         {...props}
                         disabled
                     ></kup-rating>
@@ -3324,11 +3340,20 @@ export class KupDataTable {
                     return cellValue;
                 }
                 return content;
+            case 'gauge':
+                return (
+                    <kup-gauge
+                        value={stringToNumber(cell.value)}
+                        width-component="100%"
+                    ></kup-gauge>
+                );
             case 'rating':
-                const cellValueNumber: number = stringToNumber(cell.value);
                 // NOTE: actually rating in datatable is only for output (-> put disabled)
                 return (
-                    <kup-rating value={cellValueNumber} disabled></kup-rating>
+                    <kup-rating
+                        value={stringToNumber(cell.value)}
+                        disabled
+                    ></kup-rating>
                 );
             case 'color-picker':
                 // NOTE: actually color-picker in datatable is only for output (-> put disabled)
