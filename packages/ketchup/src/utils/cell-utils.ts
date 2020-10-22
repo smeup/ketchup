@@ -235,3 +235,12 @@ export function isColor(cell: Cell, boxObject: BoxObject) {
         'CLP' === shape || (!shape && cell && cell.obj && isColorObj(cell.obj))
     );
 }
+
+// -------------
+// GAUGE
+// -------------
+
+export function isGauge(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'GAU' === shape;
+}
