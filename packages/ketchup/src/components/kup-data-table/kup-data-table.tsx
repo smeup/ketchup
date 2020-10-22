@@ -71,6 +71,7 @@ import {
     isProgressBar,
     isRadio,
     isVoCodver,
+    isObjectList,
     isStringObject,
     isCheckbox,
     hasTooltip,
@@ -1096,7 +1097,9 @@ export class KupDataTable {
         let values = [];
 
         let tmpFilters: GenericFilter = { ...this.filters };
-        tmpFilters[column] = null;
+        if(this.filters[column]){
+            tmpFilters[column] = { textField: this.filters[column].textField, checkBoxes: []};
+        }
 
         let visibleColumns = this.getVisibleColumns();
         let columnObject = getColumnByName(visibleColumns, column);
@@ -1133,8 +1136,10 @@ export class KupDataTable {
         row: Row
     ) {
         const cell = row.cells[column];
-        if (values.indexOf(cell.value) < 0) {
-            values[values.length] = cell.value;
+        if(cell){
+            if (values.indexOf(cell.value) < 0) {
+                values[values.length] = cell.value;
+            }
         }
     }
 
@@ -1431,8 +1436,10 @@ export class KupDataTable {
     private onFilterChange({ detail }, column: Column) {
         // resetting current page
         this.resetCurrentPage();
-
-        let newFilter = detail.value.trim();
+        let newFilter = '';
+        if(detail.value){
+            newFilter = detail.value.trim();
+        }
 
         if (newFilter != '' && isNumber(column.obj)) {
             let tmpStr = formattedStringToUnformattedStringNumber(
@@ -2884,7 +2891,16 @@ export class KupDataTable {
                  */
                 const _hasTooltip: boolean = hasTooltip(cell.obj);
                 let eventHandlers = undefined;
+                let title: string = undefined;
                 if (_hasTooltip) {
+                    cellClass['is-obj'] = true;
+                    title =
+                        cell.obj.t +
+                        '; ' +
+                        cell.obj.p +
+                        '; ' +
+                        cell.obj.k +
+                        ';';
                     eventHandlers = {
                         onMouseEnter: (ev) => {
                             if (this.showTooltipOnRightClick == false) {
@@ -2906,6 +2922,7 @@ export class KupDataTable {
                 }
                 return (
                     <td
+                        title={title}
                         data-column={name}
                         style={cellStyle}
                         class={cellClass}
@@ -3082,7 +3099,9 @@ export class KupDataTable {
     // TODO: cell type can depend also from shape (see isRating)
     private getCellType(cell: Cell) {
         let obj = cell.obj;
-        if (isRating(cell, null)) {
+        if (isObjectList(obj)) {
+            return 'chips';
+        } else if (isRating(cell, null)) {
             return 'rating';
         } else if (isColor(cell, null)) {
             return 'color-picker';
@@ -3268,6 +3287,9 @@ export class KupDataTable {
                     ></kup-color-picker>
                 );
 
+            case 'chips':
+                return <kup-chip {...props}></kup-chip>;
+
             case 'radio':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
@@ -3316,6 +3338,8 @@ export class KupDataTable {
                         disabled
                     ></kup-color-picker>
                 );
+            case 'chips':
+                return <kup-chip></kup-chip>;
             case 'string':
             default:
                 return content;
