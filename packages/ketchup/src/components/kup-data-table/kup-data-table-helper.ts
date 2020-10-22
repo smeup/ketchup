@@ -892,7 +892,8 @@ export function compareValues(
         return sm * 1;
     }
 
-    let v1, v2;
+    let v1: any = s1;
+    let v2: any = s2;
     if (isNumber(obj1)) {
         v1 = stringToNumber(s1);
         v2 = stringToNumber(s2);
