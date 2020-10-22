@@ -41,6 +41,7 @@ import { isRating, isColor } from '../../utils/cell-utils';
 
 import {
     calcTotals,
+    compareValues,
     normalizeTotals,
     normalizeRows,
     filterRows,
@@ -1114,23 +1115,13 @@ export class KupDataTable {
 
         if (columnObject != null) {
             values = values.sort((n1: string, n2: string) => {
-                let obj1: any = n1;
-                let obj2: any = n2;
-
-                if (isNumber(columnObject.obj)) {
-                    obj1 = stringToNumber(n1);
-                    obj2 = stringToNumber(n2);
-                } else if (isDate(columnObject.obj)) {
-                    obj1 = unformatDate(n1);
-                    obj2 = unformatDate(n2);
-                }
-                if (obj1 > obj2) {
-                    return 1;
-                }
-                if (obj1 < obj2) {
-                    return -1;
-                }
-                return 0;
+                return compareValues(
+                    columnObject.obj,
+                    n1,
+                    columnObject.obj,
+                    n2,
+                    SortMode.A
+                );
             });
         }
         return values;
