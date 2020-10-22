@@ -68,7 +68,7 @@
         <table
           v-if="demoEvents !== null"
           id="events-tab"
-          style="display: none;"
+          style="display: none"
           class="instruction-table sample-section events-section"
         >
           <thead>
@@ -93,7 +93,7 @@
             </tr>
           </tbody>
         </table>
-        <div id="html-tab" class="sample-section" style="display: none;">
+        <div id="html-tab" class="sample-section" style="display: none">
           <div class="code-word sample-html"></div>
           <kup-button
             @kupButtonClick="copyHtml"
@@ -102,8 +102,8 @@
             title="Copy HTML markup"
           ></kup-button>
         </div>
-        <div id="json-tab" class="sample-section padded" style="display: none;">
-          <textarea id="json-textarea" style="display: none;"></textarea>
+        <div id="json-tab" class="sample-section padded" style="display: none">
+          <textarea id="json-textarea" style="display: none"></textarea>
           <kup-text-field
             class="visible"
             label="Prop"
@@ -127,8 +127,8 @@
             title="Invalid JSON. You can ignore this warning if the prop you're changing isn't an object."
           ></kup-button>
         </div>
-        <div id="css-tab" class="sample-section padded" style="display: none;">
-          <textarea id="css-textarea" style="display: none;"></textarea>
+        <div id="css-tab" class="sample-section padded" style="display: none">
+          <textarea id="css-textarea" style="display: none"></textarea>
           <kup-text-field
             class="visible"
             label="Prop"
@@ -158,7 +158,7 @@
           @kupButtonClick="menuTrigger"
           id="menu-trigger"
           toggable
-          style="--kup-main-color: var(--kup-text-on-main-color);"
+          style="--kup-main-color: var(--kup-text-on-main-color)"
           icon="last_page"
           icon-off="menu_open"
           title="Open/close side panel"
@@ -167,7 +167,7 @@
           @kupButtonClick="swapView"
           id="view-swapper"
           toggable
-          style="--kup-main-color: var(--kup-text-on-main-color);"
+          style="--kup-main-color: var(--kup-text-on-main-color)"
           icon="fullscreen_exit"
           icon-off="fullscreen"
           title="Toggle/disable full screen"
@@ -176,7 +176,11 @@
           @kupButtonClick="splitView"
           id="view-splitter"
           toggable
-          style="--kup-main-color: var(--kup-text-on-main-color); width: fit-content; margin: auto;"
+          style="
+            --kup-main-color: var(--kup-text-on-main-color);
+            width: fit-content;
+            margin: auto;
+          "
           icon="view_agenda"
           icon-off="flip"
           title="Split/detach view"
@@ -267,6 +271,7 @@ export default {
                   .addEventListener('kupButtonClick', (e) => {
                     this.updateDemoFieldArrayRemove(e);
                   });
+                document.querySelector('#' + newEntryId).styling = 'flat';
               }
             }
             break;
@@ -490,7 +495,7 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function(cm) {
+      }).on('change', function (cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
         let prop = demoComponent.currentJSONprop;
@@ -522,7 +527,7 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function(cm) {
+      }).on('change', function (cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
         let prop = demoComponent.currentCSSprop;
