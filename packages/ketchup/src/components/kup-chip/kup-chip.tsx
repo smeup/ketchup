@@ -292,20 +292,12 @@ export class KupChip {
             }
 
             if (this.type === 'input') {
-                let svg: string = `url('${getAssetPath(
-                    `./assets/svg/cancel.svg`
-                )}') no-repeat center`;
-                let iconStyle = {
-                    mask: svg,
-                    webkitMask: svg,
-                };
                 cancelIcon = (
                     <span role="gridcell">
                         <span
                             onClick={() => this.onKupIconClick(i)}
                             tabindex="-1"
-                            class="icon-container material-icons mdc-chip__icon remove-icon"
-                            style={iconStyle}
+                            class="icon-container material-icons mdc-chip__icon clear"
                         ></span>
                     </span>
                 );

@@ -573,18 +573,10 @@ export class KupTextField {
         }
 
         if (this.isClearable) {
-            let svg: string = `url('${getAssetPath(
-                `./assets/svg/clear.svg`
-            )}') no-repeat center`;
-            let iconStyle = {
-                mask: svg,
-                webkitMask: svg,
-            };
             clearIconEl = (
                 <span
                     tabindex="1"
-                    style={iconStyle}
-                    class="material-icons mdc-text-field__icon clear-icon icon-container"
+                    class="material-icons mdc-text-field__icon clear-icon icon-container clear"
                     onClick={() => this.onKupClearIconClick()}
                 ></span>
             );

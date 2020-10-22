@@ -47,6 +47,7 @@ const kupThemes = JSON.parse(`{
             "descending-icon": "arrow_drop_down",
             "expanded-icon": "arrow_drop_down",
             "collapsed-icon": "menu-right",
+            "clear-icon": "cancel",
             "filter-remove-icon": "filter-remove"
         }
     },
@@ -86,6 +87,7 @@ const kupThemes = JSON.parse(`{
             "descending-icon": "sort-descending",
             "expanded-icon": "chevron-down",
             "collapsed-icon": "chevron_right",
+            "clear-icon": "clear",
             "filter-remove-icon": "filter-remove"
         }
     },
@@ -134,6 +136,7 @@ const kupThemes = JSON.parse(`{
             "descending-icon": "arrow_drop_down",
             "expanded-icon": "arrow_drop_down",
             "collapsed-icon": "menu-right",
+            "clear-icon": "cancel",
             "filter-remove-icon": "filter-remove"
         }
     },
@@ -173,6 +176,7 @@ const kupThemes = JSON.parse(`{
             "descending-icon": "sort-descending",
             "expanded-icon": "chevron-down",
             "collapsed-icon": "chevron_right",
+            "clear-icon": "cancel",
             "filter-remove-icon": "filter-remove"
         }
     },
@@ -212,6 +216,7 @@ const kupThemes = JSON.parse(`{
             "descending-icon": "arrow_drop_down",
             "expanded-icon": "arrow_drop_down",
             "collapsed-icon": "menu-right",
+            "clear-icon": "cancel",
             "filter-remove-icon": "filter-remove"
         }
     },
@@ -250,6 +255,7 @@ const kupThemes = JSON.parse(`{
             "descending-icon": "arrow_drop_down",
             "expanded-icon": "arrow_drop_down",
             "collapsed-icon": "menu-right",
+            "clear-icon": "cancel",
             "filter-remove-icon": "filter-remove"
         }
     },
@@ -289,6 +295,7 @@ const kupThemes = JSON.parse(`{
             "descending-icon": "arrow_drop_down",
             "expanded-icon": "arrow_drop_down",
             "collapsed-icon": "menu-right",
+            "clear-icon": "cancel",
             "filter-remove-icon": "filter-remove"
         }
     },
@@ -352,6 +359,7 @@ const kupThemes = JSON.parse(`{
             "descending-icon": "sort-descending",
             "expanded-icon": "chevron-down",
             "collapsed-icon": "chevron_right",
+            "clear-icon": "cancel",
             "filter-remove-icon": "broom"
         }
     }
