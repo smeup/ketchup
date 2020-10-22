@@ -288,6 +288,8 @@ export class KupChart {
             opts.titleTextStyle = {};
             if (this.graphTitleColor) {
                 opts.titleTextStyle.color = this.graphTitleColor;
+            } else {
+                opts.titleTextStyle.color = this.themeText;
             }
 
             if (this.graphTitleSize) {
