@@ -967,6 +967,11 @@ export class KupTree {
         let expandClass = 'expand-icon kup-tree__icon kup-tree__node__expander';
         if (hasExpandIcon) {
             expandClass += ' icon-container';
+            if (treeNodeData[treeExpandedPropName]) {
+                expandClass += ' expanded';
+            } else {
+                expandClass += ' collapsed';
+            }
         }
         let treeExpandIcon = (
             <span

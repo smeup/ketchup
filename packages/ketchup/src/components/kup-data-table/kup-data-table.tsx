@@ -872,28 +872,6 @@ export class KupDataTable {
         }
     }
 
-    private setAssetPathVars() {
-        this.rootElement.style.setProperty(
-            '--drop-up-svg',
-            this.getIconPath('arrow_drop_up')
-        );
-
-        this.rootElement.style.setProperty(
-            '--menu-right-svg',
-            this.getIconPath('menu-right')
-        );
-
-        this.rootElement.style.setProperty(
-            '--drop-down-svg',
-            this.getIconPath('arrow_drop_down')
-        );
-
-        this.rootElement.style.setProperty(
-            '--filter-remove-svg',
-            this.getIconPath('filter-remove')
-        );
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -907,7 +885,6 @@ export class KupDataTable {
         } else {
             this.navBarHeight = 0;
         }
-        this.setAssetPathVars();
         this.setObserver();
         // *** Store
         this.initWithPersistedState();
@@ -1096,8 +1073,11 @@ export class KupDataTable {
         let values = [];
 
         let tmpFilters: GenericFilter = { ...this.filters };
-        if(this.filters[column]){
-            tmpFilters[column] = { textField: this.filters[column].textField, checkBoxes: []};
+        if (this.filters[column]) {
+            tmpFilters[column] = {
+                textField: this.filters[column].textField,
+                checkBoxes: [],
+            };
         }
 
         let visibleColumns = this.getVisibleColumns();
@@ -1145,7 +1125,7 @@ export class KupDataTable {
         row: Row
     ) {
         const cell = row.cells[column];
-        if(cell){
+        if (cell) {
             if (values.indexOf(cell.value) < 0) {
                 values[values.length] = cell.value;
             }
@@ -1446,7 +1426,7 @@ export class KupDataTable {
         // resetting current page
         this.resetCurrentPage();
         let newFilter = '';
-        if(detail.value){
+        if (detail.value) {
             newFilter = detail.value.trim();
         }
 

@@ -133,11 +133,6 @@
 
       .icon-container.kup-tree__node__expander {
         background-color: var(--kup-text-color);
-        mask: var(--menu-right-svg);
-      }
-
-      &[data-is-expanded] .expand-icon {
-        transform: rotate(90deg);
       }
 
       &--selected:not(.kup-tree__node--disabled),

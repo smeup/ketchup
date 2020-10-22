@@ -92,22 +92,8 @@ table {
     float: left;
   }
 
-  &.ascending {
-    mask: var(--drop-up-svg);
-  }
-
-  &.collapsed {
-    mask: var(--menu-right-svg);
-  }
-
-  &.descending,
-  &.expanded {
-    mask: var(--drop-down-svg);
-  }
-
   &.filter-remove {
     margin: 0 0.25rem;
-    mask: var(--filter-remove-svg);
   }
 
   &.obj-icon {
