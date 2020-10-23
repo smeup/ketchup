@@ -3082,15 +3082,7 @@ export class KupDataTable {
     // TODO: cell type can depend also from shape (see isRating)
     private getCellType(cell: Cell) {
         let obj = cell.obj;
-        if (isObjectList(obj)) {
-            return 'chips';
-        } else if (isGauge(cell, null)) {
-            return 'gauge';
-        } else if (isRating(cell, null)) {
-            return 'rating';
-        } else if (isColor(cell, null)) {
-            return 'color-picker';
-        } else if (isBar(obj)) {
+        if (isBar(obj)) {
             return 'bar';
         } else if (isButton(obj)) {
             return 'button';
@@ -3098,6 +3090,10 @@ export class KupDataTable {
             return 'chart';
         } else if (isCheckbox(obj)) {
             return 'checkbox';
+        } else if (isColor(cell, null)) {
+            return 'color-picker';
+        } else if (isGauge(cell, null)) {
+            return 'gauge';
         } else if (isIcon(obj) || isVoCodver(obj)) {
             return 'icon';
         } else if (isImage(obj)) {
@@ -3108,8 +3104,12 @@ export class KupDataTable {
             return 'number';
         } else if (isProgressBar(obj)) {
             return 'progress-bar';
+        } else if (isObjectList(obj)) {
+            return 'chips';
         } else if (isRadio(obj)) {
             return 'radio';
+        } else if (isRating(cell, null)) {
+            return 'rating';
         } else {
             return 'string';
         }
@@ -3157,7 +3157,6 @@ export class KupDataTable {
                     props['sizeY'] = '100%';
                 }
                 break;
-
             case 'checkbox':
                 if (cell.style) {
                     if (!cell.style.height) {
@@ -3165,6 +3164,15 @@ export class KupDataTable {
                     }
                 } else {
                     cell.style = { minHeight: '40px' };
+                }
+                break;
+            case 'chips':
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = '53px';
+                    }
+                } else {
+                    cell.style = { minHeight: '53px' };
                 }
                 break;
             case 'icon':
@@ -3215,7 +3223,6 @@ export class KupDataTable {
         switch (cellType) {
             case 'bar':
                 return <kup-image {...props} />;
-
             case 'button':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
@@ -3226,11 +3233,9 @@ export class KupDataTable {
                     cell
                 );
                 return <kup-button {...props}></kup-button>;
-
             case 'chart':
                 classObj['is-centered'] = true;
                 return <kup-chart {...props} />;
-
             case 'checkbox':
                 classObj['is-centered'] = true;
                 if (props) {
@@ -3239,18 +3244,16 @@ export class KupDataTable {
                     props = { disabled: row.readOnly };
                 }
                 return <kup-checkbox {...props}></kup-checkbox>;
-
-            case 'icon':
-            case 'image':
-                classObj['is-centered'] = true;
-                if (props.badgeData) {
-                    classObj['has-padding'] = true;
-                }
-                return <kup-image {...props} />;
-
-            case 'progress-bar':
-                return <kup-progress-bar {...props}></kup-progress-bar>;
-
+            case 'chips':
+                return <kup-chip {...props}></kup-chip>;
+            case 'color-picker':
+                return (
+                    <kup-color-picker
+                        value={cell.value}
+                        {...props}
+                        disabled
+                    ></kup-color-picker>
+                );
             case 'gauge':
                 return (
                     <kup-gauge
@@ -3259,9 +3262,16 @@ export class KupDataTable {
                         {...props}
                     ></kup-gauge>
                 );
-
+            case 'icon':
+            case 'image':
+                classObj['is-centered'] = true;
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                return <kup-image {...props} />;
+            case 'progress-bar':
+                return <kup-progress-bar {...props}></kup-progress-bar>;
             case 'rating':
-                // NOTE: currently rating in datatable is only for output (-> put disabled)
                 return (
                     <kup-rating
                         value={stringToNumber(cell.value)}
@@ -3269,20 +3279,6 @@ export class KupDataTable {
                         disabled
                     ></kup-rating>
                 );
-
-            case 'color-picker':
-                // NOTE: currently color-picker in datatable is only for output (-> put disabled)
-                return (
-                    <kup-color-picker
-                        value={cell.value}
-                        {...props}
-                        disabled
-                    ></kup-color-picker>
-                );
-
-            case 'chips':
-                return <kup-chip {...props}></kup-chip>;
-
             case 'radio':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
