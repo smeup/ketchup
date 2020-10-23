@@ -3261,7 +3261,7 @@ export class KupDataTable {
                 );
 
             case 'rating':
-                // NOTE: actually rating in datatable is only for output (-> put disabled)
+                // NOTE: currently rating in datatable is only for output (-> put disabled)
                 return (
                     <kup-rating
                         value={stringToNumber(cell.value)}
@@ -3271,7 +3271,7 @@ export class KupDataTable {
                 );
 
             case 'color-picker':
-                // NOTE: actually color-picker in datatable is only for output (-> put disabled)
+                // NOTE: currently color-picker in datatable is only for output (-> put disabled)
                 return (
                     <kup-color-picker
                         value={cell.value}
@@ -3317,31 +3317,6 @@ export class KupDataTable {
                     return cellValue;
                 }
                 return content;
-            case 'gauge':
-                return (
-                    <kup-gauge
-                        value={stringToNumber(cell.value)}
-                        width-component="100%"
-                    ></kup-gauge>
-                );
-            case 'rating':
-                // NOTE: actually rating in datatable is only for output (-> put disabled)
-                return (
-                    <kup-rating
-                        value={stringToNumber(cell.value)}
-                        disabled
-                    ></kup-rating>
-                );
-            case 'color-picker':
-                // NOTE: actually color-picker in datatable is only for output (-> put disabled)
-                return (
-                    <kup-color-picker
-                        value={cell.value}
-                        disabled
-                    ></kup-color-picker>
-                );
-            case 'chips':
-                return <kup-chip></kup-chip>;
             case 'string':
             default:
                 return content;
