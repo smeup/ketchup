@@ -12,6 +12,7 @@ import {
     Column,
     GenericFilter,
     Filter,
+    RowGroup,
 } from './kup-data-table-declarations';
 
 import { isNumber, isDate } from '../../utils/object-utils';
@@ -969,11 +970,108 @@ export function getColumnByName(columns: Column[], name: string): Column {
 export function paginateRows(
     rows: Row[],
     currentPage: number,
-    rowsPerPage: number
+    rowsPerPage: number,
+    areGrouped: boolean
 ) {
-    const start = currentPage * rowsPerPage - rowsPerPage;
+    const start: number = currentPage * rowsPerPage - rowsPerPage;
+    const end: number = start + Number(rowsPerPage);
+    if (areGrouped == false) {
+        return rows.slice(start, end);
+    }
+    let pagRows: Array<Row> = [];
 
-    return rows.slice(start, start + rowsPerPage);
+    _paginateRows(rows, pagRows, start, Number(rowsPerPage), 0);
+
+    return pagRows;
+}
+
+function _paginateRows(
+    rows: Row[],
+    pagRows: Row[],
+    start: number,
+    rowsPerPage: number,
+    ci: number
+): { ci: number; added: boolean } {
+    let added: boolean = false;
+    for (let i: number = 0; i < rows.length; i++) {
+        let originalRow = rows[i];
+        let row: Row = cloneRow(rows[i]);
+        if (
+            originalRow.group != null &&
+            originalRow.group.children != null &&
+            originalRow.group.children.length > 0
+        ) {
+            row.group.children = [];
+            let retValue: { ci: number; added: boolean } = _paginateRows(
+                originalRow.group.children,
+                row.group.children,
+                start,
+                rowsPerPage,
+                ci
+            );
+            ci = retValue.ci;
+            added = retValue.added;
+            if (added == true) {
+                pagRows[pagRows.length] = row;
+            }
+        } else {
+            if (ci >= start) {
+                pagRows[pagRows.length] = row;
+                added = true;
+            }
+            ci++;
+        }
+
+        if (ci >= start + rowsPerPage) {
+            break;
+        }
+    }
+    return { ci: ci, added: added };
+}
+
+function cloneRow(row: Row): Row {
+    if (row == null) {
+        return null;
+    }
+    let cloned: Row = {
+        cells: { ...row.cells },
+        actions: row.actions ? [...row.actions] : null,
+        group: cloneRowGroup(row.group),
+        readOnly: row.readOnly,
+        cssClass: row.cssClass,
+    };
+
+    return cloned;
+}
+
+function cloneRows(rows: Array<Row>): Array<Row> {
+    if (rows == null) {
+        return null;
+    }
+    let cloned: Array<Row> = [];
+    for (let i: number = 0; i < rows.length; i++) {
+        cloned[cloned.length] = cloneRow(rows[i]);
+    }
+    return cloned;
+}
+
+function cloneRowGroup(group: RowGroup): RowGroup {
+    if (group == null) {
+        return null;
+    }
+    let cloned: RowGroup = {
+        id: group.id,
+        parent: { ...group.parent },
+        column: group.column,
+        columnLabel: group.columnLabel,
+        expanded: group.expanded,
+        label: group.label,
+        children: cloneRows(group.children),
+        obj: { ...group.obj },
+        totals: { ...group.totals },
+    };
+
+    return cloned;
 }
 
 /**
