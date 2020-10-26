@@ -426,6 +426,7 @@ export class KupDataTable {
 
     @Watch('expandGroups')
     expandGroupsHandler() {
+        this.recalculateRows();
         // reset group state
         this.groupState = {};
         this.forceGroupExpansion();
@@ -445,7 +446,10 @@ export class KupDataTable {
     @Watch('data')
     identifyAndInitRows() {
         identify(this.getRows());
-        this.initRows();
+        this.recalculateRows();
+        // reset group state
+        this.groupState = {};
+        this.forceGroupExpansion();
     }
 
     @Watch('groups')
@@ -901,7 +905,7 @@ export class KupDataTable {
 
     componentWillLoad() {
         this.startTime = performance.now();
-        identify(this.getRows());
+        this.identifyAndInitRows();
 
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
@@ -918,10 +922,6 @@ export class KupDataTable {
             this.currentPage = this.pageSelected;
         }
         this.rowsPerPageHandler(this.rowsPerPage);
-        this.initRows();
-        this.adjustPaginator();
-        this.groupState = {};
-        this.forceGroupExpansion();
     }
 
     componentWillRender() {
@@ -1162,6 +1162,7 @@ export class KupDataTable {
         this.groupRows();
 
         this.sortRows();
+        this.adjustPaginator();
 
         this.paginatedRows = paginateRows(
             this.rows,
@@ -1238,6 +1239,7 @@ export class KupDataTable {
 
     private forceGroupExpansion() {
         this.rows.forEach((row) => this.forceRowGroupExpansion(row));
+        this.paginatedRows.forEach((row) => this.forceRowGroupExpansion(row));
     }
 
     private forceRowGroupExpansion(row: Row) {
