@@ -489,6 +489,10 @@ export namespace Components {
     }
     interface KupDataTable {
         /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
           * The data of the table.
          */
         "data": TableData;
@@ -584,6 +588,7 @@ export namespace Components {
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
         "paginatorPos": PaginatorPos;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Sets the actions of the rows.
          */
@@ -2416,6 +2421,10 @@ declare namespace LocalJSX {
         "valueColor"?: Array<any>;
     }
     interface KupDataTable {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
         /**
           * The data of the table.
          */

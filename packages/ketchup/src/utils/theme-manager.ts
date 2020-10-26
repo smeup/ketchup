@@ -251,7 +251,8 @@ const kupThemes = JSON.parse(`{
             "--kup-obj-cursor": "auto"
         },
         "customStyles": {
-            "KUP-BUTTON": "#kup-component { display: none; }"
+            "KUP-BUTTON": "#kup-component { display: none; }",
+            "KUP-DATA-TABLE": "#kup-component kup-paginator { display: none; }"
         },
         "icons": {
             "ascending-icon": "arrow_drop_up",
@@ -382,6 +383,7 @@ const kupThemes = JSON.parse(`{
             "KUP-CHECKBOX": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-CHIP": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-COMBOBOX": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-DATA-TABLE": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-FIELD": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-GRID": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-IMAGE": "#kup-component { border: 1px solid var(--kup-border-color); }",

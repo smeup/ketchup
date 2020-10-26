@@ -35,6 +35,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 | Property                    | Attribute                      | Description                                                                                                                                                                                                                    | Type                                                                                             | Default                              |
 | --------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------ |
+| `customStyle`               | `custom-style`                 | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                                                                                                | `string`                                                                                         | `undefined`                          |
 | `data`                      | --                             | The data of the table.                                                                                                                                                                                                         | `TableData`                                                                                      | `undefined`                          |
 | `density`                   | `density`                      | The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.                                                                                                                                       | `string`                                                                                         | `'dense'`                            |
 | `emptyDataLabel`            | `empty-data-label`             | Defines the label to show when the table is empty.                                                                                                                                                                             | `string`                                                                                         | `'Empty data'`                       |
@@ -117,6 +118,16 @@ Type: `Promise<Column[]>`
 #### Returns
 
 Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>`
+
+
+
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
 
 
 
