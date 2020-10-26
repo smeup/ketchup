@@ -5,6 +5,7 @@ declare global {
     interface HTMLElement {
         'kup-theme': any;
         kupCurrentTheme: any;
+        kupCustomStyles: any;
         kupThemes: any;
     }
 }
@@ -410,7 +411,7 @@ const kupThemes = JSON.parse(`{
     }
 }`);
 
-async function initThemes() {
+function initThemes() {
     if (dom.kupCurrentTheme) {
         //In case multiple initializing instances are launched
         return;
@@ -425,6 +426,7 @@ async function initThemes() {
     if (!dom.getAttribute('kup-theme')) {
         dom.setAttribute('kup-theme', 'default');
     }
+    dom.kupCustomStyles = [];
     setTheme();
 
     const observer = new MutationObserver(function () {
@@ -487,7 +489,7 @@ function setupCssVariables() {
 }
 
 function setupCustomStyle() {
-    let components: any = document.querySelectorAll('.handles-custom-style');
+    let components: any = dom.kupCustomStyles;
     for (let i = 0; i < components.length; i++) {
         components[i].refreshCustomStyle(
             fetchThemeCustomStyle('master') +
@@ -534,6 +536,7 @@ export function setThemeCustomStyle(component: any) {
     if (!dom.kupCurrentTheme) {
         initThemes();
     }
+    dom.kupCustomStyles.push(component.rootElement);
     component.customStyleTheme = fetchThemeCustomStyle(
         component.rootElement.tagName
     );
