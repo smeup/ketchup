@@ -3832,7 +3832,7 @@ export class KupDataTable {
         }
 
         let compCreated = (
-            <Host class="handles-custom-style">
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class="above-wrapper">
