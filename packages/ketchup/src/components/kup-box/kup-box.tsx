@@ -563,7 +563,8 @@ export class KupBox {
             this.rows = paginateRows(
                 this.rows,
                 this.currentPage,
-                this.currentRowsPerPage
+                this.currentRowsPerPage,
+                false
             );
         }
     }

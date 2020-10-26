@@ -433,6 +433,7 @@ export class KupDataTable {
 
     @Watch('expandGroups')
     expandGroupsHandler() {
+        this.recalculateRows();
         // reset group state
         this.groupState = {};
         this.forceGroupExpansion();
@@ -452,7 +453,10 @@ export class KupDataTable {
     @Watch('data')
     identifyAndInitRows() {
         identify(this.getRows());
-        this.initRows();
+        this.recalculateRows();
+        // reset group state
+        this.groupState = {};
+        this.forceGroupExpansion();
     }
 
     @Watch('groups')
@@ -485,8 +489,10 @@ export class KupDataTable {
     private documentHandlerCloseHeaderMenu;
 
     private rows: Array<Row>;
+    private rowsLength: number = 0;
 
     private paginatedRows: Array<Row>;
+    private paginatedRowsLength: number = 0;
 
     private footer: { [index: string]: number };
 
@@ -810,12 +816,8 @@ export class KupDataTable {
 
     private didRenderObservers() {
         let rows = this.rootElement.shadowRoot.querySelectorAll('tbody > tr');
-        if (
-            this.paginatedRows != null &&
-            this.paginatedRows.length < this.rows.length &&
-            this.lazyLoadRows
-        ) {
-            rows[this.paginatedRows.length - 1].classList.add('last-row');
+        if (this.paginatedRowsLength < this.rowsLength && this.lazyLoadRows) {
+            rows[this.paginatedRowsLength - 1].classList.add('last-row');
         }
         for (let index = 0; index < rows.length; index++) {
             this.intObserver.observe(rows[index]);
@@ -885,11 +887,37 @@ export class KupDataTable {
         }
     }
 
+    private rowsPointLength(): number {
+        return this._rowsLength(this.rows);
+    }
+
+    private paginatedRowsPointLength(): number {
+        return this._rowsLength(this.paginatedRows);
+    }
+
+    private _rowsLength(r: Array<Row>): number {
+        if (r == null) {
+            return 0;
+        }
+        let count = 0;
+        for (let i: number = 0; i < r.length; i++) {
+            let row = r[i];
+            if (row == null) {
+                continue;
+            }
+            count += 1;
+            if (row.group != null) {
+                count += this._rowsLength(row.group.children);
+            }
+        }
+        return count;
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
         this.startTime = performance.now();
-        identify(this.getRows());
+        this.identifyAndInitRows();
 
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
@@ -906,10 +934,6 @@ export class KupDataTable {
             this.currentPage = this.pageSelected;
         }
         this.rowsPerPageHandler(this.rowsPerPage);
-        this.initRows();
-        this.adjustPaginator();
-        this.groupState = {};
-        this.forceGroupExpansion();
         setThemeCustomStyle(this);
     }
 
@@ -1151,12 +1175,15 @@ export class KupDataTable {
         this.groupRows();
 
         this.sortRows();
+        this.adjustPaginator();
 
         this.paginatedRows = paginateRows(
             this.rows,
             this.currentPage,
-            this.currentRowsPerPage
+            this.currentRowsPerPage,
+            this.isGrouping()
         );
+        this.paginatedRowsLength = this.paginatedRowsPointLength();
     }
 
     private filterRows(): void {
@@ -1166,6 +1193,7 @@ export class KupDataTable {
             this.globalFilterValue,
             this.getVisibleColumns().map((c) => c.name)
         );
+        this.rowsLength = this.rowsPointLength();
     }
 
     private isGrouping() {
@@ -1224,6 +1252,7 @@ export class KupDataTable {
 
     private forceGroupExpansion() {
         this.rows.forEach((row) => this.forceRowGroupExpansion(row));
+        this.paginatedRows.forEach((row) => this.forceRowGroupExpansion(row));
     }
 
     private forceRowGroupExpansion(row: Row) {
@@ -1256,7 +1285,7 @@ export class KupDataTable {
     }
 
     private adjustPaginator() {
-        const numberOfRows = this.rows.length;
+        const numberOfRows = this.rowsLength;
 
         // check if current page is valid
         const numberOfPages = Math.ceil(numberOfRows / this.currentRowsPerPage);
@@ -1775,7 +1804,7 @@ export class KupDataTable {
     private adjustGroupState(): void {
         if (
             !this.rows ||
-            this.rows.length === 0 ||
+            this.rowsLength === 0 ||
             !this.rows[0].hasOwnProperty('group')
         ) {
             // no grouping
@@ -3428,10 +3457,10 @@ export class KupDataTable {
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
                     {!this.lazyLoadRows &&
-                    this.rows.length >= this.rowsPerPage ? (
+                    this.rowsLength >= this.rowsPerPage ? (
                         <kup-paginator
                             id={top ? 'top-paginator' : 'bottom-paginator'}
-                            max={this.rows.length}
+                            max={this.rowsLength}
                             perPage={this.rowsPerPage}
                             selectedPerPage={this.currentRowsPerPage}
                             currentPage={this.currentPage}
@@ -3655,7 +3684,7 @@ export class KupDataTable {
         this.sizedColumns = this.getSizedColumns();
 
         let rows = null;
-        if (this.paginatedRows == null || this.paginatedRows.length === 0) {
+        if (this.paginatedRowsLength === 0) {
             rows = (
                 <tr>
                     <td colSpan={this.calculateColspan()}>
@@ -3719,7 +3748,7 @@ export class KupDataTable {
         let paginatorTop = undefined;
         let paginatorBottom = undefined;
         if (
-            (!this.lazyLoadRows && this.rows.length >= this.rowsPerPage) ||
+            (!this.lazyLoadRows && this.rowsLength >= this.rowsPerPage) ||
             this.showCustomization ||
             this.showLoadMore
         ) {
