@@ -251,6 +251,7 @@ const kupThemes = JSON.parse(`{
             "--kup-obj-cursor": "auto"
         },
         "customStyles": {
+            "master": "",
             "KUP-BUTTON": "#kup-component { display: none; }",
             "KUP-DATA-TABLE": "#kup-component kup-paginator { display: none; }"
         },
@@ -510,9 +511,9 @@ function setupIcons() {
 export function fetchThemeCustomStyle(component: string) {
     let styles = dom.kupCurrentTheme.customStyles;
     if (!styles) {
-        return undefined;
+        return '';
     }
-    let completeStyle: string = undefined;
+    let completeStyle: string = '';
 
     if (styles['master']) {
         completeStyle = styles['master'];
