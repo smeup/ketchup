@@ -491,10 +491,12 @@ function setupCssVariables() {
 function setupCustomStyle() {
     let components: any = dom.kupCustomStyles;
     for (let i = 0; i < components.length; i++) {
-        components[i].refreshCustomStyle(
-            fetchThemeCustomStyle('master') +
-                fetchThemeCustomStyle(components[i].tagName)
-        );
+        if (components[i].isConnected) {
+            components[i].refreshCustomStyle(
+                fetchThemeCustomStyle('master') +
+                    fetchThemeCustomStyle(components[i].tagName)
+            );
+        }
     }
 }
 
