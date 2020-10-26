@@ -917,6 +917,243 @@ const sortRows = [
     },
 ];
 
+const objColumns = [
+  {
+    icon: "account",
+    name: "COL001",
+    obj: {
+      k: '',
+      p: 'COL',
+      t: 'CN'
+    },
+    title: 'Tipo'
+  },
+  {
+    name: 'COL002',
+    title: 'Tipo'
+  }
+];
+
+const objRows = [
+  {
+    cells:{
+       COL001:{
+          cssClass:"strong-text",
+          obj:{
+             k:"SANCOS",
+             p:"COL",
+             t:"CN"
+           },
+          options:true,
+          value:"SANCOS"
+        },
+       COL002:{
+          icon:"account",
+          obj:{
+             k:"SANCOS",
+             p:"",
+             t:"CN"
+           },
+          options:true,
+          value:"Mauro Sanfilippo"
+        }
+     },
+    cssClass:"clickable",
+    object:"",
+    readOnly:true
+  },
+  {
+    cells:{
+       COL001:{
+          cssClass:"strong-text",
+          obj:{
+             k:"MINCLA",
+             p:"COL",
+             t:"CN"
+           },
+          options:true,
+          value:"MINCLA"
+        },
+       COL002:{
+          icon:"account",
+          obj:{
+             k:"MINCLA",
+             p:"",
+             t:"CN"
+           },
+          options:true,
+          value:"Claudio Minelli"
+        }
+     },
+    cssClass:"clickable",
+    object:"",
+    readOnly:true
+  },
+  {
+    cells:{
+       COL001:{
+          cssClass:"strong-text",
+          obj:{
+             k:"FEDROB",
+             p:"COL",
+             t:"CN"
+           },
+          options:true,
+          value:"FEDROB"
+        },
+       COL002:{
+          icon:"account",
+          obj:{
+             k:"FEDROB",
+             p:"",
+             t:"CN"
+           },
+          options:true,
+          value:"Roberto Fedrigotti"
+        }
+     },
+    cssClass:"clickable",
+    object:"",
+    readOnly:true
+  },
+  {
+    cells:{
+       COL001:{
+          cssClass:"strong-text",
+          obj:{
+             k:"PARFRA",
+             p:"COL",
+             t:"CN"
+           },
+          options:true,
+          value:"PARFRA"
+        },
+       COL002:{
+          icon:"account",
+          obj:{
+             k:"PARFRA",
+             p:"",
+             t:"CN"
+           },
+          options:true,
+          value:"Franco Parodi"
+        }
+     },
+    cssClass:"clickable",
+    object:"",
+    readOnly:true
+  },
+  {
+    cells:{
+       COL001:{
+          cssClass:"strong-text",
+          obj:{
+             k:"CASFRA",
+             p:"COL",
+             t:"CN"
+           },
+          options:true,
+          value:"CASFRA"
+        },
+       COL002:{
+          icon:"account",
+          obj:{
+             k:"CASFRA",
+             p:"",
+             t:"CN"
+           },
+          options:true,
+          value:"Francesco Casetta"
+        }
+     },
+    cssClass:"clickable",
+    object:"",
+    readOnly:true
+  },
+  {
+    cells:{
+       COL001:{
+          cssClass:"strong-text",
+          obj:{
+             k:"FIOGIA",
+             p:"COL",
+             t:"CN"
+           },
+          options:true,
+          value:"FIOGIA"
+        },
+       COL002:{
+          icon:"account",
+          obj:{
+             k:"FIOGIA",
+             p:"",
+             t:"CN"
+           },
+          options:true,
+          value:"Gianluca Fioletti"
+        }
+     },
+    cssClass:"clickable",
+    object:"",
+    readOnly:true
+  },
+  {
+    cells:{
+       COL001:{
+          cssClass:"strong-text",
+          obj:{
+             k:"ZAMCHI",
+             p:"COL",
+             t:"CN"
+           },
+          options:true,
+          value:"ZAMCHI"
+        },
+       COL002:{
+          icon:"account",
+          obj:{
+             k:"ZAMCHI",
+             p:"",
+             t:"CN"
+           },
+          options:true,
+          value:"Chiara Zambelli"
+        }
+     },
+    cssClass:"clickable",
+    object:"",
+    readOnly:true
+  },
+  {
+    cells:{
+       COL001:{
+          cssClass:"strong-text",
+          obj:{
+             k:"CICCIO",
+             p:"COL",
+             t:"CN"
+           },
+          options:true,
+          value:"CICCIO"
+        },
+       COL002:{
+          icon:"account",
+          obj:{
+             k:"CICCIO",
+             p:"",
+             t:"CN"
+           },
+          options:true,
+          value:"CICCIA"
+        }
+     },
+    cssClass:"clickable",
+    object:"",
+    readOnly:true
+  }
+];
+
+
 const radioData = {
     columns: radioColumns,
     rows: radioRows,
@@ -930,6 +1167,11 @@ const checkboxData = {
 const defaultData = {
     columns: mockedColumns,
     rows: mockedRows,
+};
+
+const filterObjectData = {
+  columns: objColumns,
+  rows: objRows,
 };
 
 const sortData = {
@@ -982,6 +1224,15 @@ if (globalFilter != null) {
     globalFilter.data = defaultData;
     globalFilter.globalFilter = 'true';
 }
+
+const filterObjectValue = document.getElementById('filter-object-value');
+if (filterObjectValue != null) {
+   filterObjectValue.data = filterObjectData;
+   filterObjectValue.showFilters = 'true';
+}
+
+
+
 
 // sort
 const noSort = document.getElementById('no-sort');
