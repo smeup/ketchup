@@ -386,13 +386,7 @@ export function isRowCompliant(
                 return false;
             }
         }
-/*
-        if (!isFilterCompliantForCell(cell, filterValue)) {
-            if (!isFilterCompliantForCellObj(cell, filterValue)) {
-                return false;
-            }
-        }
-*/
+      
         let filterValues = getCheckBoxFilterValues(filters, key);
         if (filterValues.length == 0) {
             continue;
@@ -422,11 +416,14 @@ export function isFilterCompliantForCell(cellValue: Cell, filterValue: string) {
     return isFilterCompliantForValue(cellValue.value, filterValue);
 }
 
-export function isFilterCompliantForCellObj(cellValue: Cell, filterValue: string) {
+export function isFilterCompliantForCellObj(
+    cellValue: Cell,
+    filterValue: string
+) {
     if (!cellValue) {
         return false;
     }
-    if(!cellValue.obj){
+    if (!cellValue.obj) {
         return false;
     }
     return isFilterCompliantForValue(cellValue.obj.k, filterValue);
@@ -1060,6 +1057,7 @@ function cloneRow(row: Row): Row {
         return null;
     }
     let cloned: Row = {
+        id: row.id,
         cells: { ...row.cells },
         actions: row.actions ? [...row.actions] : null,
         group: cloneRowGroup(row.group),
