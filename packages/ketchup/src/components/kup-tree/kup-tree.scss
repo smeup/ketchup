@@ -11,6 +11,12 @@
   }
 }
 
+:host(.shaped) {
+  td.mdc-ripple-surface {
+    border-radius: 0 66px 66px 0;
+  }
+}
+
 #kup-component {
   color: var(--kup-text-color);
 }

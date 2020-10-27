@@ -81,36 +81,6 @@ export const cellClassesDataTable = {
             p: '',
             k: '',
           },
-          value: 'icon-sized',
-        },
-        DESCR: {
-          obj: {
-            t: '',
-            p: '',
-            k: '',
-          },
-          value:
-            'Cell will have the size of 30px (provided its content can fit). It will impact the whole column, so this example will be disabled.',
-        },
-        EXAMPLE: {
-          obj: {
-            t: '',
-            p: '',
-            k: '',
-          },
-          value: '-',
-          cssClass: '-',
-        },
-      },
-    },
-    {
-      cells: {
-        CSSCLASS: {
-          obj: {
-            t: '',
-            p: '',
-            k: '',
-          },
           value: 'shaped',
         },
         DESCR: {

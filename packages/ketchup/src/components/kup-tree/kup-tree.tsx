@@ -1211,7 +1211,7 @@ export class KupTree {
                     label="Search..."
                     icon="magnify"
                     initialValue={this.filterValue}
-                    onKupTextFieldSubmit={(e) => {
+                    onKupTextFieldInput={(e) => {
                         this.onFilterChange(e);
                     }}
                     onKupTextFieldClearIconClick={(e) => {

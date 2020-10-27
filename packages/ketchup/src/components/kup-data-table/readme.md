@@ -135,11 +135,11 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 - [kup-tooltip](../kup-tooltip)
 - [kup-image](../kup-image)
 - [kup-chart](../kup-chart)
-- [kup-progress-bar](../kup-progress-bar)
-- [kup-gauge](../kup-gauge)
-- [kup-rating](../kup-rating)
-- [kup-color-picker](../kup-color-picker)
 - [kup-chip](../kup-chip)
+- [kup-color-picker](../kup-color-picker)
+- [kup-gauge](../kup-gauge)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-rating](../kup-rating)
 - [kup-radio](../kup-radio)
 - [kup-paginator](../kup-paginator)
 - [kup-combobox](../kup-combobox)
@@ -153,11 +153,11 @@ graph TD;
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-image
   kup-data-table --> kup-chart
-  kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-gauge
-  kup-data-table --> kup-rating
-  kup-data-table --> kup-color-picker
   kup-data-table --> kup-chip
+  kup-data-table --> kup-color-picker
+  kup-data-table --> kup-gauge
+  kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-rating
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
