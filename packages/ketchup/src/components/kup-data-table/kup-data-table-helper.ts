@@ -374,7 +374,7 @@ export function isRowCompliant(
 
         let filterValue = getTextFieldFilterValue(filters, key);
         if (!isFilterCompliantForCell(cell, filterValue)) {
-           return isFilterCompliantForCellObj(cell, filterValue)
+            return isFilterCompliantForCellObj(cell, filterValue);
         }
 
         let filterValues = getCheckBoxFilterValues(filters, key);
@@ -406,11 +406,14 @@ export function isFilterCompliantForCell(cellValue: Cell, filterValue: string) {
     return isFilterCompliantForValue(cellValue.value, filterValue);
 }
 
-export function isFilterCompliantForCellObj(cellValue: Cell, filterValue: string) {
+export function isFilterCompliantForCellObj(
+    cellValue: Cell,
+    filterValue: string
+) {
     if (!cellValue) {
         return false;
     }
-    if(!cellValue.obj){
+    if (!cellValue.obj) {
         return false;
     }
     return isFilterCompliantForValue(cellValue.obj.k, filterValue);
@@ -1044,6 +1047,7 @@ function cloneRow(row: Row): Row {
         return null;
     }
     let cloned: Row = {
+        id: row.id,
         cells: { ...row.cells },
         actions: row.actions ? [...row.actions] : null,
         group: cloneRowGroup(row.group),

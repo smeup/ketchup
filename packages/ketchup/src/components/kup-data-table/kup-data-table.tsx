@@ -38,7 +38,7 @@ import {
     GenericFilter,
 } from './kup-data-table-declarations';
 
-import { isRating, isColor, isGauge } from '../../utils/cell-utils';
+import { isRating, isColor, isGauge, getShape } from '../../utils/cell-utils';
 
 import {
     calcTotals,
@@ -3148,7 +3148,7 @@ export class KupDataTable {
             return 'progress-bar';
         } else if (isObjectList(obj)) {
             return 'chips';
-        } else if (isRadio(obj)) {
+        } else if (isRadio(obj) || getShape(cell) === 'RAD') {
             return 'radio';
         } else if (isRating(cell, null)) {
             return 'rating';
