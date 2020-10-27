@@ -212,7 +212,7 @@ export class KupSpinner {
         }
 
         return (
-            <Host class="handles-custom-style" style={elStyle}>
+            <Host style={elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={elStyle}>
                     <div

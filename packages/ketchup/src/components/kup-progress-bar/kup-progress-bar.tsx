@@ -211,7 +211,7 @@ export class KupProgressBar {
         }
 
         return (
-            <Host class="handles-custom-style">
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">{el}</div>
             </Host>

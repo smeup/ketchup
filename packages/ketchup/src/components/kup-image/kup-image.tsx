@@ -308,7 +308,7 @@ export class KupImage {
         }
 
         return (
-            <Host class="handles-custom-style" style={this.elStyle}>
+            <Host style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 {feedback}
                 {el}

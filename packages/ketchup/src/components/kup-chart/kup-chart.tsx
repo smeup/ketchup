@@ -682,7 +682,7 @@ export class KupChart {
         };
 
         return (
-            <Host class="handles-custom-style" style={this.elStyle}>
+            <Host style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div
                     id="kup-component"

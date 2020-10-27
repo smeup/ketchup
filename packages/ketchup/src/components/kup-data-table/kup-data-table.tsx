@@ -10,6 +10,7 @@ import {
     Element,
     State,
     Watch,
+    Host,
 } from '@stencil/core';
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
@@ -94,6 +95,7 @@ import {
 } from '../kup-list/kup-list-declarations';
 import { logMessage } from '../../utils/debug-manager';
 import { unformatDate } from '../../utils/cell-formatter';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
@@ -194,7 +196,12 @@ export class KupDataTable {
     //////////////////////////////
 
     @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
 
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = undefined;
     /**
      * The data of the table.
      */
@@ -694,6 +701,11 @@ export class KupDataTable {
         obj: {};
     }>;
 
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
     onKupDataTableDblClick(obj: { t: string; p: string; k: string }) {
         this.kupDataTableDblClick.emit({
             obj: obj,
@@ -922,6 +934,7 @@ export class KupDataTable {
             this.currentPage = this.pageSelected;
         }
         this.rowsPerPageHandler(this.rowsPerPage);
+        setThemeCustomStyle(this);
     }
 
     componentWillRender() {
@@ -3844,40 +3857,43 @@ export class KupDataTable {
         }
 
         let compCreated = (
-            <div id="kup-component">
-                <div class="above-wrapper">
-                    {paginatorTop}
-                    {globalFilter}
-                </div>
-                <div
-                    style={elStyle}
-                    class={belowClass}
-                    ref={(el: HTMLDivElement) => (this.tableAreaRef = el)}
-                >
-                    {groupChips}
-                    <table
-                        class={tableClass}
-                        ref={(el: HTMLTableElement) => (this.tableRef = el)}
-                        onMouseLeave={(ev) => {
-                            ev.stopPropagation();
-                            this._unsetTooltip();
-                        }}
+            <Host>
+                <style>{setCustomStyle(this)}</style>
+                <div id="kup-component">
+                    <div class="above-wrapper">
+                        {paginatorTop}
+                        {globalFilter}
+                    </div>
+                    <div
+                        style={elStyle}
+                        class={belowClass}
+                        ref={(el: HTMLDivElement) => (this.tableAreaRef = el)}
                     >
-                        <thead
-                            hidden={!this.showHeader}
-                            ref={(el) => (this.theadRef = el as any)}
+                        {groupChips}
+                        <table
+                            class={tableClass}
+                            ref={(el: HTMLTableElement) => (this.tableRef = el)}
+                            onMouseLeave={(ev) => {
+                                ev.stopPropagation();
+                                this._unsetTooltip();
+                            }}
                         >
-                            <tr>{header}</tr>
-                        </thead>
-                        <tbody>{rows}</tbody>
-                        {footer}
-                    </table>
+                            <thead
+                                hidden={!this.showHeader}
+                                ref={(el) => (this.theadRef = el as any)}
+                            >
+                                <tr>{header}</tr>
+                            </thead>
+                            <tbody>{rows}</tbody>
+                            {footer}
+                        </table>
 
-                    {stickyEl}
+                        {stickyEl}
+                    </div>
+                    {tooltip}
+                    {paginatorBottom}
                 </div>
-                {tooltip}
-                {paginatorBottom}
-            </div>
+            </Host>
         );
         return compCreated;
     }

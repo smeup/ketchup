@@ -5,6 +5,7 @@ declare global {
     interface HTMLElement {
         'kup-theme': any;
         kupCurrentTheme: any;
+        kupCustomStyles: any;
         kupThemes: any;
     }
 }
@@ -220,6 +221,50 @@ const kupThemes = JSON.parse(`{
             "filter-remove-icon": "filter-remove"
         }
     },
+    "print": {
+        "cssVariables": {
+            "--kup-main-color": "#000000",
+            "--kup-background-color": "#ffffff",
+            "--kup-nav-bar-background-color": "#000000",
+            "--kup-drawer-background-color": "#ffffff",
+            "--kup-font-family": "Arial, Helvetica, sans-serif",
+            "--kup-font-family-monospace": "Courier New, Courier, monospace",
+            "--kup-font-size": "13px",
+            "--kup-text-color": "#000000",
+            "--kup-text-on-main-color": "#ffffff",
+            "--kup-disabled-background-color": "#f0f0f0",
+            "--kup-disabled-color": "#2e2e2e",
+            "--kup-hover-background-color": "#f0f0f0",
+            "--kup-hover-color": "#000000",
+            "--kup-title-background-color": "#f1f1f1",
+            "--kup-title-color": "#000000",
+            "--kup-icon-color": "#333333",
+            "--kup-border-color": "#2e2e2e",
+            "--kup-box-shadow": "rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px",
+            "--kup-field-background-color": "#ffffff",
+            "--kup-success-color": "#4d9f02",
+            "--kup-warning-color": "#ffc107",
+            "--kup-danger-color": "#A6192E",
+            "--kup-spinner-color": "#eaa710",
+            "--kup-chart-color-1": "#000000",
+            "--kup-chart-color-2": "#808080",
+            "--kup-chart-color-3": "#cccccc",
+            "--kup-obj-cursor": "auto"
+        },
+        "customStyles": {
+            "master": "",
+            "KUP-BUTTON": "#kup-component { display: none; }",
+            "KUP-DATA-TABLE": "#kup-component kup-paginator { display: none; }"
+        },
+        "icons": {
+            "ascending-icon": "arrow_drop_up",
+            "descending-icon": "arrow_drop_down",
+            "expanded-icon": "arrow_drop_down",
+            "collapsed-icon": "menu-right",
+            "clear-icon": "cancel",
+            "filter-remove-icon": "filter-remove"
+        }
+    },
     "teal": {
         "cssVariables": {
             "--kup-main-color": "#068A9C",
@@ -340,6 +385,7 @@ const kupThemes = JSON.parse(`{
             "KUP-CHECKBOX": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-CHIP": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-COMBOBOX": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-DATA-TABLE": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-FIELD": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-GRID": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-IMAGE": "#kup-component { border: 1px solid var(--kup-border-color); }",
@@ -365,7 +411,7 @@ const kupThemes = JSON.parse(`{
     }
 }`);
 
-async function initThemes() {
+function initThemes() {
     if (dom.kupCurrentTheme) {
         //In case multiple initializing instances are launched
         return;
@@ -380,6 +426,7 @@ async function initThemes() {
     if (!dom.getAttribute('kup-theme')) {
         dom.setAttribute('kup-theme', 'default');
     }
+    dom.kupCustomStyles = [];
     setTheme();
 
     const observer = new MutationObserver(function () {
@@ -442,12 +489,14 @@ function setupCssVariables() {
 }
 
 function setupCustomStyle() {
-    let components: any = document.querySelectorAll('.handles-custom-style');
+    let components: any = dom.kupCustomStyles;
     for (let i = 0; i < components.length; i++) {
-        components[i].refreshCustomStyle(
-            fetchThemeCustomStyle('master') +
-                fetchThemeCustomStyle(components[i].tagName)
-        );
+        if (components[i].isConnected) {
+            components[i].refreshCustomStyle(
+                fetchThemeCustomStyle('master') +
+                    fetchThemeCustomStyle(components[i].tagName)
+            );
+        }
     }
 }
 
@@ -466,9 +515,9 @@ function setupIcons() {
 export function fetchThemeCustomStyle(component: string) {
     let styles = dom.kupCurrentTheme.customStyles;
     if (!styles) {
-        return undefined;
+        return '';
     }
-    let completeStyle: string = undefined;
+    let completeStyle: string = '';
 
     if (styles['master']) {
         completeStyle = styles['master'];
@@ -489,6 +538,7 @@ export function setThemeCustomStyle(component: any) {
     if (!dom.kupCurrentTheme) {
         initThemes();
     }
+    dom.kupCustomStyles.push(component.rootElement);
     component.customStyleTheme = fetchThemeCustomStyle(
         component.rootElement.tagName
     );

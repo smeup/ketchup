@@ -477,7 +477,7 @@ export class KupTextField {
 
     renderTextField(widgetEl: HTMLElement, helperEl: HTMLElement) {
         return (
-            <Host class="handles-custom-style">
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     {widgetEl}

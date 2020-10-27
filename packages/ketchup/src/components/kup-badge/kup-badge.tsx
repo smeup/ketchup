@@ -99,10 +99,6 @@ export class KupBadge {
 
         let imageEl: HTMLElement = undefined;
 
-        const hostClass = {
-            'handles-custom-style': true,
-        };
-
         if (this.text === undefined && this.imageData !== undefined) {
             if (!this.imageData['sizeX']) {
                 this.imageData['sizeX'] = '1rem';
@@ -117,7 +113,7 @@ export class KupBadge {
         }
 
         return (
-            <Host class={hostClass}>
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
                     {this.text}

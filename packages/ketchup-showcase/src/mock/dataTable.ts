@@ -4,7 +4,7 @@ const fld1Values = [
   'Marketing module',
   'Commerce module',
   'Service module',
-];
+]; 
 
 const fld2Values = ['Java', 'Javascript', 'Delphi', 'Kotlin', 'Go'];
 

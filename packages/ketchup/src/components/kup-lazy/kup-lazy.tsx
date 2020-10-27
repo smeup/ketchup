@@ -99,7 +99,7 @@ export class KupLazy {
     render() {
         let content: HTMLElement;
         let resource: HTMLElement;
-        let className: string = 'handles-custom-style ' + this.componentName;
+        let className: string = this.componentName;
         switch (this.componentName) {
             case 'kup-button':
                 //call_to_action.svg

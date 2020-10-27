@@ -244,7 +244,7 @@ export class KupRadio {
         }
 
         return (
-            <Host class="handles-custom-style">
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">{radioList}</div>
             </Host>

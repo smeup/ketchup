@@ -402,11 +402,7 @@ export class KupAutocomplete {
         let listEl = this.prepList();
 
         return (
-            <Host
-                class="handles-custom-style"
-                onBlur={(e: any) => this.onKupBlur(e)}
-                style={this.elStyle}
-            >
+            <Host onBlur={(e: any) => this.onKupBlur(e)} style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
                     {textfieldEl}
