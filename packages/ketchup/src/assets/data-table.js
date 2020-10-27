@@ -14921,3 +14921,2590 @@ if (tempDataTableTest != null) {
     tempDataTableTest.data = tempDataTableTestData;
     tempDataTableTest.sort = tempDataTableTestSort;
 }
+
+const tempDataTableRadioData = {
+  "columns": [
+    {
+      "name": "RAD_01",
+      "obj": {
+        "k": "",
+        "p": "B£WAR",
+        "t": "TA"
+      },
+      "title": "Selezionato con valore 10"
+    },
+    {
+      "name": "RAD_02",
+      "obj": {
+        "k": "",
+        "p": "BSA",
+        "t": "TA"
+      },
+      "title": "Selezionato 37 (su 1 colonna):"
+    },
+    {
+      "name": "RAD_03",
+      "obj": {
+        "k": "",
+        "p": "BSA",
+        "t": "TA"
+      },
+      "title": "Su 5 colonne:"
+    },
+    {
+      "name": "RAD_04",
+      "obj": {
+        "k": "",
+        "p": "B£WAR",
+        "t": "TA"
+      },
+      "title": "Con layout inline"
+    },
+    {
+      "name": "RAD_05",
+      "obj": {
+        "k": "",
+        "p": "B£WAR",
+        "t": "TA"
+      },
+      "title": "Mostra solo il codice"
+    },
+    {
+      "name": "RAD_06",
+      "obj": {
+        "k": "",
+        "p": "B£WAR",
+        "t": "TA"
+      },
+      "title": "Mostra solo la descrizione"
+    },
+    {
+      "name": "RAD_07",
+      "obj": {
+        "k": "",
+        "p": "B£WAR",
+        "t": "TA"
+      },
+      "title": "Mostra codice e descizione"
+    },
+    {
+      "name": "RAD_08",
+      "obj": {
+        "k": "",
+        "p": "B£WAR",
+        "t": "TA"
+      },
+      "title": "Disabilitato"
+    },
+    {
+      "name": "RAD_09",
+      "obj": {
+        "k": "",
+        "p": "B£APP",
+        "t": "V2"
+      },
+      "title": "Con valore blank(in sviluppo)"
+    }
+  ],
+  "rows": [
+    {
+      "cells": {
+        "RAD_07": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10",
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_06": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_09": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": false,
+                "value": ""
+              }
+            ]
+          },
+          "obj": {
+            "k": "",
+            "p": "B£APP",
+            "t": "V2"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": ""
+        },
+        "RAD_08": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_01": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10",
+                "label": "Valore 10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_03": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_02": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_05": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_04": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        }
+      },
+      "object": "",
+      "readOnly": true,
+      "id": "0"
+    },
+    {
+      "cells": {
+        "RAD_07": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_06": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_09": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": false,
+                "value": ""
+              }
+            ]
+          },
+          "obj": {
+            "k": "",
+            "p": "B£APP",
+            "t": "V2"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": ""
+        },
+        "RAD_08": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_01": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_03": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_02": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_05": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_04": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        }
+      },
+      "object": "",
+      "readOnly": true,
+      "id": "1"
+    },
+    {
+      "cells": {
+        "RAD_07": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_06": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_09": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": false,
+                "value": ""
+              }
+            ]
+          },
+          "obj": {
+            "k": "",
+            "p": "B£APP",
+            "t": "V2"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": ""
+        },
+        "RAD_08": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_01": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_03": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_02": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_05": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_04": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        }
+      },
+      "object": "",
+      "readOnly": true,
+      "id": "2"
+    },
+    {
+      "cells": {
+        "RAD_07": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_06": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_09": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": false,
+                "value": ""
+              }
+            ]
+          },
+          "obj": {
+            "k": "",
+            "p": "B£APP",
+            "t": "V2"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": ""
+        },
+        "RAD_08": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_01": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_03": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_02": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_05": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_04": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        }
+      },
+      "object": "",
+      "readOnly": true,
+      "id": "3"
+    },
+    {
+      "cells": {
+        "RAD_07": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_06": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_09": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": false,
+                "value": ""
+              }
+            ]
+          },
+          "obj": {
+            "k": "",
+            "p": "B£APP",
+            "t": "V2"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": ""
+        },
+        "RAD_08": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_01": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_03": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_02": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_05": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_04": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        }
+      },
+      "object": "",
+      "readOnly": true,
+      "id": "4"
+    },
+    {
+      "cells": {
+        "RAD_07": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_06": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_09": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": false,
+                "value": ""
+              }
+            ]
+          },
+          "obj": {
+            "k": "",
+            "p": "B£APP",
+            "t": "V2"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": ""
+        },
+        "RAD_08": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_01": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_03": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_02": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_05": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_04": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        }
+      },
+      "object": "",
+      "readOnly": true,
+      "id": "5"
+    },
+    {
+      "cells": {
+        "RAD_07": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_06": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_09": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": false,
+                "value": ""
+              }
+            ]
+          },
+          "obj": {
+            "k": "",
+            "p": "B£APP",
+            "t": "V2"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": ""
+        },
+        "RAD_08": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_01": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_03": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_02": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_05": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_04": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        }
+      },
+      "object": "",
+      "readOnly": true,
+      "id": "6"
+    },
+    {
+      "cells": {
+        "RAD_07": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_06": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_09": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": false,
+                "value": ""
+              }
+            ]
+          },
+          "obj": {
+            "k": "",
+            "p": "B£APP",
+            "t": "V2"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": ""
+        },
+        "RAD_08": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_01": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_03": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_02": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_05": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_04": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        }
+      },
+      "object": "",
+      "readOnly": true,
+      "id": "7"
+    },
+    {
+      "cells": {
+        "RAD_07": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_06": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_09": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": false,
+                "value": ""
+              }
+            ]
+          },
+          "obj": {
+            "k": "",
+            "p": "B£APP",
+            "t": "V2"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": ""
+        },
+        "RAD_08": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_01": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_03": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_02": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_05": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_04": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        }
+      },
+      "object": "",
+      "readOnly": true,
+      "id": "8"
+    },
+    {
+      "cells": {
+        "RAD_07": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_06": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_09": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": false,
+                "value": ""
+              }
+            ]
+          },
+          "obj": {
+            "k": "",
+            "p": "B£APP",
+            "t": "V2"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": ""
+        },
+        "RAD_08": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_01": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_03": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_02": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_05": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_04": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        }
+      },
+      "object": "",
+      "readOnly": true,
+      "id": "9"
+    },
+    {
+      "cells": {
+        "RAD_07": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_06": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_09": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": false,
+                "value": ""
+              }
+            ]
+          },
+          "obj": {
+            "k": "",
+            "p": "B£APP",
+            "t": "V2"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": ""
+        },
+        "RAD_08": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_01": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_03": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_02": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_05": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_04": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        }
+      },
+      "object": "",
+      "readOnly": true,
+      "id": "10"
+    },
+    {
+      "cells": {
+        "RAD_07": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_06": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_09": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": false,
+                "value": ""
+              }
+            ]
+          },
+          "obj": {
+            "k": "",
+            "p": "B£APP",
+            "t": "V2"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": ""
+        },
+        "RAD_08": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_01": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_03": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_02": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_05": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_04": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        }
+      },
+      "object": "",
+      "readOnly": true,
+      "id": "11"
+    },
+    {
+      "cells": {
+        "RAD_07": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_06": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_09": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": false,
+                "value": ""
+              }
+            ]
+          },
+          "obj": {
+            "k": "",
+            "p": "B£APP",
+            "t": "V2"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": ""
+        },
+        "RAD_08": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_01": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_03": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_02": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_05": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_04": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        }
+      },
+      "object": "",
+      "readOnly": true,
+      "id": "12"
+    },
+    {
+      "cells": {
+        "RAD_07": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_06": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_09": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": false,
+                "value": ""
+              }
+            ]
+          },
+          "obj": {
+            "k": "",
+            "p": "B£APP",
+            "t": "V2"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": ""
+        },
+        "RAD_08": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_01": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_03": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_02": {
+          "cssClass": "strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "37"
+              }
+            ]
+          },
+          "obj": {
+            "k": "37",
+            "p": "BSA",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "37"
+        },
+        "RAD_05": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        },
+        "RAD_04": {
+          "cssClass": "c-fitted c-shaped c-hor-padded c-teal-bg strong-text",
+          "data": {
+            "data": [
+              {
+                "checked": true,
+                "value": "10"
+              }
+            ]
+          },
+          "obj": {
+            "k": "10",
+            "p": "B£WAR",
+            "t": "TA"
+          },
+          "options": false,
+          "shape": "Rad",
+          "value": "10"
+        }
+      },
+      "object": "",
+      "readOnly": true,
+      "id": "13"
+    }
+  ]
+};
+
+const tempDataTableRadio = document.getElementById('temp-data-table-radio');
+
+if (tempDataTableRadio != null) {
+  tempDataTableRadio.data = tempDataTableRadioData;
+}

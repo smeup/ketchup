@@ -17,7 +17,7 @@ import { toKebabCase } from './utils';
 // COMMONS
 // -------------
 
-export function getShape(cell: Cell, boxObject: BoxObject): string {
+export function getShape(cell: Cell, boxObject?: BoxObject): string {
     let prop = get(cell, 'shape', null);
     if (!prop && boxObject) {
         prop = get(boxObject, 'shape', null);
