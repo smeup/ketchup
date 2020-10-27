@@ -374,7 +374,7 @@ export function isRowCompliant(
 
         let filterValue = getTextFieldFilterValue(filters, key);
         if (!isFilterCompliantForCell(cell, filterValue)) {
-            return false;
+           return isFilterCompliantForCellObj(cell, filterValue)
         }
 
         let filterValues = getCheckBoxFilterValues(filters, key);
@@ -404,6 +404,16 @@ export function isFilterCompliantForCell(cellValue: Cell, filterValue: string) {
         return false;
     }
     return isFilterCompliantForValue(cellValue.value, filterValue);
+}
+
+export function isFilterCompliantForCellObj(cellValue: Cell, filterValue: string) {
+    if (!cellValue) {
+        return false;
+    }
+    if(!cellValue.obj){
+        return false;
+    }
+    return isFilterCompliantForValue(cellValue.obj.k, filterValue);
 }
 
 export function groupRows(
