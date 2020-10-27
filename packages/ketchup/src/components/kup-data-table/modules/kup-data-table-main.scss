@@ -37,12 +37,6 @@ table {
     width: 0; // [mandatory] See [1] [2]
   }
 
-  &.custom-size th {
-    position: sticky;
-    top: 0;
-    z-index: 7;
-  }
-
   &.row-separation > tbody > tr {
     border-bottom: 1px solid var(--kup-border-color);
   }

@@ -52,8 +52,17 @@ $sticky-cell--row-z-index: 4;
   z-index: 1;
 }
 
-table.custom-size th.fixed-column {
-  z-index: 8;
+// For sticky header
+table.custom-size th {
+  position: sticky;
+  top: 0;
+  // When header cell is not fixed. we simply place its index as an higher number than any inside the table.
+  // This prevents non fixed table cells from overlapping the first th cells.
+  z-index: $sticky-header--z-index;
+
+  &.fixed-column {
+    z-index: $sticky-header--z-index + 1; // And when the cell is fixed, then we rise that same z-index by one unit to prevent menu of the th to slip underneath
+  }
 }
 
 tr:hover .fixed-row,
