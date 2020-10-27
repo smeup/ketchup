@@ -3782,6 +3782,7 @@ export class KupDataTable {
             if (chipsData.length > 0) {
                 groupChips = (
                     <kup-chip
+                        id="group-chips"
                         type="input"
                         onKupChipIconClick={(e: CustomEvent) =>
                             this.removeGroup(e.detail.index)

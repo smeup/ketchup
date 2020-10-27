@@ -254,7 +254,7 @@ const kupThemes = JSON.parse(`{
         "customStyles": {
             "master": "",
             "KUP-BUTTON": "#kup-component { display: none; }",
-            "KUP-DATA-TABLE": "#kup-component kup-paginator { display: none; }"
+            "KUP-DATA-TABLE": "#kup-component .paginator-wrapper { display: none; } #kup-component .above-wrapper { display: none; } #kup-component #global-filter { display: none; } #kup-component sticky-header { display: none; } #kup-component #group-chips { display: none; }"
         },
         "icons": {
             "ascending-icon": "arrow_drop_up",
