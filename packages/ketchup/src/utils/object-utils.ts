@@ -71,6 +71,11 @@ export function isVoCodver(smeupObj: Object): boolean {
     return 'VO' === smeupObj.t && 'COD_VER' === smeupObj.p;
 }
 
+export function isColor(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'J1' === smeupObj.t && 'COL' === smeupObj.p;
+}
+
 export function isStringObject(obj: any): boolean {
     if (!obj) return true;
 

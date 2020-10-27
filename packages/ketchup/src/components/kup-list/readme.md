@@ -66,19 +66,14 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-image](../kup-image)
 - [kup-radio](../kup-radio)
 - [kup-checkbox](../kup-checkbox)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
   kup-autocomplete --> kup-list
   kup-combobox --> kup-list
   kup-nav-bar --> kup-list

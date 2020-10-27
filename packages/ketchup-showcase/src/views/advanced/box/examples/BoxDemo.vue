@@ -65,18 +65,18 @@ export default {
           try: 'json',
         },
         {
+          prop: 'className',
+          description:
+            'Available classes: left-aligned, right-aligned, borderless and paddingless. Read below for detailed information.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'columns',
           description: 'Number of columns.',
           type: 'number',
           default: '1',
-          try: 'field',
-        },
-        {
-          prop: 'contentAlign',
-          description:
-            'Alignment of the content. Can be set to left, right or center.',
-          type: 'string',
-          default: 'center',
           try: 'field',
         },
         {
@@ -131,6 +131,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'globalFilterValueState',
+          description: 'Global filter value state.',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'layout',
           description:
             'How the field will be displayed. If not present, a default one will be created.',
@@ -146,18 +153,11 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'noBorder',
-          description: 'Removes border.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'noPadding',
-          description: 'Removes padding.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
+          prop: 'pageSelected',
+          description: 'Current page number.',
+          type: 'number',
+          default: '1',
+          try: 'field',
         },
         {
           prop: 'pageSize',
@@ -174,11 +174,25 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'rowsPerPage',
+          description: 'Number of current rows per page.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'selectBox',
           description: 'Automatically selects the box at the specified index.',
           type: 'number',
           default: 'undefined',
           try: 'field',
+        },
+        {
+          prop: 'selectedRowsState',
+          description: 'Multiple selection.',
+          type: 'BoxRow[]',
+          default: '[]',
+          try: 'array',
         },
         {
           prop: 'showSelection',
@@ -208,6 +222,27 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'swipeDisabled',
+          description: 'Disable swipe.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'tooltipDetailTimeout',
+          description: 'Defines the timeout for tooltip detail.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'tooltipLoadTimeout',
+          description: 'Defines the timeout for tooltip load.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
         },
       ],
       demoTabs: [
@@ -244,10 +279,8 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-box');
   comp.columns = '4';
-  comp.contentAlign = 'center';
   comp.data = defaultData;
   comp.id = 'demo-component';
-  comp.noBorder = true;
   comp.showTooltipOnRightClick = true;
   return comp;
 }

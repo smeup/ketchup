@@ -8,6 +8,7 @@ import {
     State,
     h,
     Method,
+    getAssetPath,
 } from '@stencil/core';
 
 import { MDCTabBar } from '@material/tab-bar';
@@ -27,7 +28,7 @@ export class KupTabBar {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * List of elements.
      */
@@ -148,14 +149,18 @@ export class KupTabBar {
             }
 
             if (this.data[i].icon !== '') {
+                let svg: string = `url('${getAssetPath(
+                    `./assets/svg/${this.data[i].icon}.svg`
+                )}') no-repeat center`;
+                let iconStyle = {
+                    mask: svg,
+                    webkitMask: svg,
+                };
                 iconEl = (
-                    <kup-image
-                        color="var(--kup-main-color)"
-                        class="mdc-tab__icon material-icons"
-                        sizeX="24px"
-                        sizeY="24px"
-                        resource={this.data[i].icon}
-                    ></kup-image>
+                    <span
+                        style={iconStyle}
+                        class="mdc-tab__icon material-icons icon-container"
+                    ></span>
                 );
             }
 

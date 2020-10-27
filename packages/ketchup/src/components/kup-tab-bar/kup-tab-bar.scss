@@ -21,6 +21,12 @@
   }
 }
 
+.icon-container {
+  background-color: var(--kup-main-color);
+  height: 24px;
+  width: 24px;
+}
+
 .material-icons {
   color: var(--kup-icon-color);
   font-family: 'Material Icons';

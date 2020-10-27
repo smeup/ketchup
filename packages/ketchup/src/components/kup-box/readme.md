@@ -11,23 +11,20 @@
 | ------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
 | `cardData`                | --                            | Number of columns                                                                                               | `ComponentCardElement`                     | `undefined` |
 | `columns`                 | `columns`                     | Number of columns                                                                                               | `number`                                   | `1`         |
-| `contentAlign`            | `content-align`               | Alignment of the content. Can be set to left, right or center.                                                  | `string`                                   | `'center'`  |
 | `customStyle`             | `custom-style`                | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                   | `undefined` |
 | `data`                    | --                            | Data                                                                                                            | `{ columns?: Column[]; rows?: BoxRow[]; }` | `undefined` |
 | `dragEnabled`             | `drag-enabled`                | Enable dragging                                                                                                 | `boolean`                                  | `false`     |
 | `dropEnabled`             | `drop-enabled`                | Enable dropping                                                                                                 | `boolean`                                  | `false`     |
-| `dropOnSection`           | `drop-on-section`             | Drop can be done in section                                                                                     | `boolean`                                  | `undefined` |
+| `dropOnSection`           | `drop-on-section`             | Drop can be done in section                                                                                     | `boolean`                                  | `false`     |
 | `enableRowActions`        | `enable-row-actions`          | If enabled, a button to load / display the row actions will be displayed on the right of every box              | `boolean`                                  | `false`     |
 | `filterEnabled`           | `filter-enabled`              | Enable filtering                                                                                                | `boolean`                                  | `false`     |
 | `globalFilterValueState`  | `global-filter-value-state`   | Global filter value state                                                                                       | `string`                                   | `undefined` |
 | `layout`                  | --                            | How the field will be displayed. If not present, a default one will be created.                                 | `Layout`                                   | `undefined` |
 | `multiSelection`          | `multi-selection`             | Enable multi selection                                                                                          | `boolean`                                  | `false`     |
-| `noBorder`                | `no-border`                   | Removes border                                                                                                  | `boolean`                                  | `false`     |
-| `noPadding`               | `no-padding`                  | Removes padding                                                                                                 | `boolean`                                  | `false`     |
-| `pageSelected`            | `page-selected`               | current number page                                                                                             | `number`                                   | `1`         |
+| `pageSelected`            | `page-selected`               | Current page number                                                                                             | `number`                                   | `1`         |
 | `pageSize`                | `page-size`                   | Number of boxes per page                                                                                        | `number`                                   | `10`        |
 | `pagination`              | `pagination`                  | Enables pagination                                                                                              | `boolean`                                  | `false`     |
-| `rowsPerPage`             | `rows-per-page`               | current rows per page                                                                                           | `number`                                   | `undefined` |
+| `rowsPerPage`             | `rows-per-page`               | Number of current rows per page                                                                                 | `number`                                   | `undefined` |
 | `selectBox`               | `select-box`                  | Automatically selects the box at the specified index                                                            | `number`                                   | `undefined` |
 | `selectedRowsState`       | --                            | Multiple selection                                                                                              | `BoxRow[]`                                 | `[]`        |
 | `showSelection`           | `show-selection`              | If enabled, highlights the selected box/boxes                                                                   | `boolean`                                  | `true`      |
@@ -122,12 +119,7 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
-  kup-chip --> kup-image
-  kup-button --> kup-image
-  kup-progress-bar --> kup-image
-  kup-text-field --> kup-image
   kup-tooltip --> kup-button
-  kup-tooltip --> kup-image
   kup-tooltip --> kup-tree
   kup-tree --> kup-lazy
   kup-tree --> kup-button
@@ -138,7 +130,6 @@ graph TD;
   kup-tree --> kup-text-field
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
-  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-paginator --> kup-button

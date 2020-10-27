@@ -9,7 +9,6 @@ import {
     Host,
     Method,
 } from '@stencil/core';
-import { BadgePosition } from './kup-badge-declarations';
 import { logMessage } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
@@ -30,10 +29,6 @@ export class KupBadge {
      * The data of the image displayed inside the badge.
      */
     @Prop() imageData: {} = undefined;
-    /**
-     * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
-     */
-    @Prop({ reflect: true }) position: BadgePosition = BadgePosition.TOP_LEFT;
     /**
      * The text displayed inside the badge.
      */
