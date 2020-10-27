@@ -2563,25 +2563,54 @@ export class KupDataTable {
             // no footer
             return null;
         }
-        const footerCells = this.getVisibleColumns().map((column: Column) => (
-            <td>
-                {numberToFormattedStringNumber(
-                    this.footer[column.name],
-                    column.decimals,
-                    column.obj ? column.obj.p : ''
-                )}
-            </td>
-        ));
 
+        let extraCells = 0;
+
+        // Composes initial cells if necessary
         let selectRowCell = null;
         if (this.multiSelection) {
-            selectRowCell = <td />;
+            extraCells++;
+            const fixedCellStyle = this.composeFixedCellStyleAndClass(
+              extraCells,
+              0,
+              extraCells
+            );
+
+            selectRowCell = <td class={fixedCellStyle ? fixedCellStyle.fixedCellClasses : null}
+                                style={fixedCellStyle ? fixedCellStyle.fixedCellStyle : null}/>;
         }
 
         let groupingCell = null;
         // if (this.isGrouping() && this.hasTotals()) {
-        //     groupingCell = <td />;
+        //     extraCells++;
+        //     const fixedCellStyle = this.composeFixedCellStyleAndClass(
+        //         extraCells,
+        //         0,
+        //         extraCells
+        //     );
+        //     groupingCell = <td class={fixedCellStyle ? fixedCellStyle.fixedCellClasses : null}
+        //                             style={fixedCellStyle ? fixedCellStyle.fixedCellStyle : null}/>;
         // }
+
+        const footerCells = this.getVisibleColumns().map((column: Column, columnIndex) => {
+          const fixedCellStyle = this.composeFixedCellStyleAndClass(
+            columnIndex + 1 + extraCells,
+            0,
+            extraCells
+          );
+
+          return (
+            <td
+              class={fixedCellStyle ? fixedCellStyle.fixedCellClasses : null}
+              style={fixedCellStyle ? fixedCellStyle.fixedCellStyle : null}>
+              {numberToFormattedStringNumber(
+                this.footer[column.name],
+                column.decimals,
+                column.obj ? column.obj.p : ''
+              )}
+            </td>
+          )
+        });
 
         const footer = (
             <tfoot>

@@ -48,6 +48,12 @@ h3 {
       component-name="kup-data-table"
       :data.prop="fixedData7"
     ></kup-lazy>
+
+    <h3>When we have totals (fixed columns (4) rows (4))</h3>
+    <kup-lazy
+        component-name="kup-data-table"
+        :data.prop="fixedDataTotals"
+    />
   </div>
 </template>
 
@@ -143,6 +149,21 @@ export default {
           },
         ],
         expandGroups: true,
+      },
+      fixedDataTotals: {
+        data: groupDataTable,
+        showFilters: true,
+        fixedColumns: '4',
+        fixedRows: '4',
+        showGrid: 'Complete',
+        tableHeight: '230px',
+        tableWidth: '450px',
+        totals: {
+          FLD2: 'Count',
+          FLD3: 'Count',
+          FLD4: 'Count',
+          FLD5: 'Count',
+        },
       },
     };
   },
