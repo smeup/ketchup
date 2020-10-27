@@ -373,10 +373,20 @@ export function isRowCompliant(
         }
 
         let filterValue = getTextFieldFilterValue(filters, key);
-        if (!isFilterCompliantForCell(cell, filterValue)) {
-            return isFilterCompliantForCellObj(cell, filterValue);
-        }
+        let b1 = isFilterCompliantForCell(cell, filterValue);
+        let b2 = isFilterCompliantForCellObj(cell, filterValue);
 
+        const _filterIsNegative: boolean = filterIsNegative(filterValue);
+        if(_filterIsNegative){
+            if (!b1 || !b2) {
+                return false;
+            }
+        } else {
+            if (!b1 && !b2) {
+                return false;
+            }
+        }
+      
         let filterValues = getCheckBoxFilterValues(filters, key);
         if (filterValues.length == 0) {
             continue;
