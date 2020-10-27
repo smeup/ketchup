@@ -19,11 +19,29 @@ import { world } from '../../assets/maps/Emaps';
     shadow: true,
 })
 export class KupEcharts {
+    /**
+     * The actual data of the chart.
+     */
     @Prop() objectData: object = {};
+    /**
+     * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+     */
     @Prop() types: string;
+    /**
+     * Title of the graph.
+     */
     @Prop() graphTitle: string = '';
+    /**
+     * Size of title of the graph (in pixels).
+     */
     @Prop() graphTitleSize: number;
+    /**
+     * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+     */
     @Prop() legend: string;
+    /**
+     * Title of the graph's color.
+     */
     @Prop() graphTitleColor: string;
 
     private chartContainer?: HTMLDivElement;
