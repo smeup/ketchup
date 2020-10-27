@@ -407,6 +407,7 @@ describe('kup-data-table with groups expanded', () => {
         element.setProperty('data', groupingData);
         element.setProperty('groups', [{ column: 'FLD1', visible: true }]);
         element.setProperty('expandGroups', true);
+        element.setProperty('rowsPerPage', '50');
 
         await page.waitForChanges();
 
@@ -435,6 +436,7 @@ describe('kup-data-table with groups expanded', () => {
             { column: 'FLD2', visible: true },
         ]);
         element.setProperty('expandGroups', true);
+        element.setProperty('rowsPerPage', '50');
 
         await page.waitForChanges();
 
