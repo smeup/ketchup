@@ -3,14 +3,12 @@ import {
     Host,
     h,
     Prop,
-    Element,
     Event,
     EventEmitter,
-    Watch,
 } from '@stencil/core';
+
 import echarts from 'echarts';
-import { map } from 'lodash';
-import { europe } from '../../assets/maps/Emaps';
+// import { europe } from '../../assets/maps/Emaps';
 import { world } from '../../assets/maps/Emaps';
 
 @Component({
@@ -51,7 +49,7 @@ export class KupEcharts {
     private rightjson: any;
     private datajson = [];
     private datapiejson = [];
-    private rightjsonmap: any;
+    // private rightjsonmap: any;
 
     @Event() kupEchartsClicked: EventEmitter;
 
@@ -60,7 +58,7 @@ export class KupEcharts {
             this.myChart = echarts.init(this.chartContainer);
         }
         if (this.types == 'map') {
-            echarts.registerMap('Wordl', world);
+            echarts.registerMap('World', world);
         }
 
         this.myChart.setOption(this.rightjson, true);
@@ -70,31 +68,21 @@ export class KupEcharts {
         let Xaxis = this.objectData['rows'];
 
         for (let i = 0; i < Xaxis.length; i++) {
-            this.x[i] = Xaxis[i].cells.Col1.obj.k;
+            this.x[i] = Xaxis[i].cells.Col1.value;
         }
     }
 
     ParseJsonY() {
-        let ngraph = this.objectData['columns'];
-        let conta = 0;
-
-        for (let i = 0; i < ngraph.length; i++) {
-            if (ngraph[i].name != 'Col1') {
-                this.oj[ngraph[i].name] = [];
-
-                conta = conta + 1;
-            }
-        }
-
-        let yvalue = this.objectData['rows'];
-        let x = [];
-        for (let i = 0; i < yvalue.length; i++) {
-            for (let key in this.oj) {
-                if (this.oj.hasOwnProperty(key)) {
-                    let value = yvalue[i].cells[key].obj.k;
+        let rows = this.objectData['rows'];
+        for (const row of rows) {
+            for (const key of Object.keys(row.cells)) {
+                if (key != 'Col1') { // Temporary - waiting for axes selection prop.
+                    const cell = row.cells[key];
+                    const value = cell.value;
+                    if (!this.oj[key]) this.oj[key] = [];
                     this.oj[key].push(value);
                 }
-            }
+            }  
         }
     }
     createlegend() {
@@ -106,25 +94,37 @@ export class KupEcharts {
     }
 
     objectpie() {
-        console.log(this.oj);
-        let somme = [];
+        // console.log(this.oj);
+        // let somme = [];
+        // for (let key in this.oj) {
+        //     let somma = 0;
+        //     for (let j = 0; j < this.oj[key].length; j++) {
+        //         let d = parseFloat(this.oj[key][j]);
+        //         somma = somma + d;
+        //     }
+        //     somme.push(somma);
+        // }
+
+        // let i = 0;
+        // for (let key in this.oj) {
+        //     let rjson = {};
+        //     rjson['value'] = somme[i];
+        //     rjson['name'] = key;
+
+        //     this.datapiejson.push(rjson);
+        //     i++;
+        // }
+
         for (let key in this.oj) {
             let somma = 0;
+            const rjson = {};
             for (let j = 0; j < this.oj[key].length; j++) {
                 let d = parseFloat(this.oj[key][j]);
                 somma = somma + d;
             }
-            somme.push(somma);
-        }
-
-        let i = 0;
-        for (let key in this.oj) {
-            let rjson = {};
-            rjson['value'] = somme[i];
+            rjson['value'] = somma;
             rjson['name'] = key;
-
             this.datapiejson.push(rjson);
-            i++;
         }
 
         console.log(this.datapiejson);
@@ -132,7 +132,7 @@ export class KupEcharts {
     }
 
     Createrightjson() {
-        for (let key in this.oj) {
+        for (const key in this.oj) {
             let rjson = {};
             rjson['data'] = this.oj[key];
             rjson['name'] = key;
@@ -142,7 +142,7 @@ export class KupEcharts {
 
         console.log(this.datajson);
 
-        let tlegend = this.legend;
+        const tlegend = this.legend;
         console.log(tlegend);
 
         console.log(this.datajson);
@@ -260,7 +260,7 @@ export class KupEcharts {
                     name: 'Europe estimate',
                     type: 'map',
                     roam: true,
-                    map: 'Wordl',
+                    map: 'World',
                     emphasis: {
                         label: {
                             show: true,
@@ -285,13 +285,24 @@ export class KupEcharts {
     }
 
     componentWillUpdate() {
+        this.resetChart();
+        this.initializeChart();
+    }
+
+    componentDidLoad() {
+        this.initializeChart();
+    }
+
+    resetChart() {
         this.oj = {};
         this.x = [];
         this.rightjson = {};
         this.datajson = [];
         this.datapiejson = [];
-        this.myChart = '';
+        // this.myChart = '';
+    }
 
+    initializeChart() {
         if (this.types != 'map') {
             if (this.types.toLowerCase() == 'pie') {
                 this.ParseJsonY();
@@ -308,22 +319,6 @@ export class KupEcharts {
         this.CreateEcharts();
     }
 
-    componentDidLoad() {
-        if (this.types != 'map') {
-            if (this.types.toLowerCase() == 'pie') {
-                this.ParseJsonY();
-                this.objectpie();
-                this.createpiejson();
-            } else {
-                this.ParseJsonX();
-                this.ParseJsonY();
-                this.Createrightjson();
-            }
-        } else {
-            this.createmapjson();
-        }
-        this.CreateEcharts();
-    }
     OnKupClick() {
         this.kupEchartsClicked.emit();
     }
