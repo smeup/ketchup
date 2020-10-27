@@ -675,11 +675,29 @@ export namespace Components {
         "right": boolean;
     }
     interface KupEcharts {
+        /**
+          * Title of the graph.
+         */
         "graphTitle": string;
+        /**
+          * Title of the graph's color.
+         */
         "graphTitleColor": string;
+        /**
+          * Size of title of the graph (in pixels).
+         */
         "graphTitleSize": number;
+        /**
+          * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+         */
         "legend": string;
+        /**
+          * The actual data of the chart.
+         */
         "objectData": object;
+        /**
+          * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+         */
         "types": string;
     }
     interface KupEditor {
@@ -2654,12 +2672,30 @@ declare namespace LocalJSX {
         "right"?: boolean;
     }
     interface KupEcharts {
+        /**
+          * Title of the graph.
+         */
         "graphTitle"?: string;
+        /**
+          * Title of the graph's color.
+         */
         "graphTitleColor"?: string;
+        /**
+          * Size of title of the graph (in pixels).
+         */
         "graphTitleSize"?: number;
+        /**
+          * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+         */
         "legend"?: string;
+        /**
+          * The actual data of the chart.
+         */
         "objectData"?: object;
         "onKupEchartsClicked"?: (event: CustomEvent<any>) => void;
+        /**
+          * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+         */
         "types"?: string;
     }
     interface KupEditor {

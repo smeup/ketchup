@@ -1,14 +1,6 @@
-import {
-    Component,
-    Host,
-    h,
-    Prop,
-    Event,
-    EventEmitter,
-} from '@stencil/core';
+import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
 
 import echarts from 'echarts';
-// import { europe } from '../../assets/maps/Emaps';
 import { world } from '../../assets/maps/Emaps';
 
 @Component({
@@ -44,12 +36,11 @@ export class KupEcharts {
 
     private chartContainer?: HTMLDivElement;
     private myChart: any;
-    private oj = {};
-    private x = [];
-    private rightjson: any;
+    private objectyvalue = {};
+    private Xaxis = [];
+    private echartsjson: any;
     private datajson = [];
     private datapiejson = [];
-    // private rightjsonmap: any;
 
     @Event() kupEchartsClicked: EventEmitter;
 
@@ -61,65 +52,49 @@ export class KupEcharts {
             echarts.registerMap('World', world);
         }
 
-        this.myChart.setOption(this.rightjson, true);
+        this.myChart.setOption(this.echartsjson, true);
     }
 
-    ParseJsonX() {
-        let Xaxis = this.objectData['rows'];
+    createXaxis() {
+        //creates an array that contains x-axis values
+        let x = this.objectData['rows'];
 
-        for (let i = 0; i < Xaxis.length; i++) {
-            this.x[i] = Xaxis[i].cells.Col1.value;
+        for (let i = 0; i < x.length; i++) {
+            this.Xaxis[i] = x[i].cells.Col1.value;
         }
     }
 
-    ParseJsonY() {
+    createObjectYvalue() {
+        //creates an object that contains all the information needed to derive the values ​​and keys needed to create the chart.
         let rows = this.objectData['rows'];
         for (const row of rows) {
             for (const key of Object.keys(row.cells)) {
-                if (key != 'Col1') { // Temporary - waiting for axes selection prop.
+                if (key != 'Col1') {
+                    // Temporary - waiting for axes selection prop.
                     const cell = row.cells[key];
                     const value = cell.value;
-                    if (!this.oj[key]) this.oj[key] = [];
-                    this.oj[key].push(value);
+                    if (!this.objectyvalue[key]) this.objectyvalue[key] = [];
+                    this.objectyvalue[key].push(value);
                 }
-            }  
+            }
         }
     }
-    createlegend() {
+    createLegend() {
+        //create the chart legend
         let arr = [];
-        for (let key in this.oj) {
+        for (let key in this.objectyvalue) {
             arr.push(key);
         }
         return arr;
     }
 
-    objectpie() {
-        // console.log(this.oj);
-        // let somme = [];
-        // for (let key in this.oj) {
-        //     let somma = 0;
-        //     for (let j = 0; j < this.oj[key].length; j++) {
-        //         let d = parseFloat(this.oj[key][j]);
-        //         somma = somma + d;
-        //     }
-        //     somme.push(somma);
-        // }
-
-        // let i = 0;
-        // for (let key in this.oj) {
-        //     let rjson = {};
-        //     rjson['value'] = somme[i];
-        //     rjson['name'] = key;
-
-        //     this.datapiejson.push(rjson);
-        //     i++;
-        // }
-
-        for (let key in this.oj) {
+    objectPie() {
+        //creates object containing the right data format to pass to pie type
+        for (let key in this.objectyvalue) {
             let somma = 0;
             const rjson = {};
-            for (let j = 0; j < this.oj[key].length; j++) {
-                let d = parseFloat(this.oj[key][j]);
+            for (let j = 0; j < this.objectyvalue[key].length; j++) {
+                let d = parseFloat(this.objectyvalue[key][j]);
                 somma = somma + d;
             }
             rjson['value'] = somma;
@@ -127,26 +102,22 @@ export class KupEcharts {
             this.datapiejson.push(rjson);
         }
 
-        console.log(this.datapiejson);
+        // console.log(this.datapiejson);
         return this.datapiejson;
     }
 
-    Createrightjson() {
-        for (const key in this.oj) {
+    createEchartsJson() {
+        //Create the object and the right json format to create line, bar, scatter graphs
+        for (const key in this.objectyvalue) {
             let rjson = {};
-            rjson['data'] = this.oj[key];
+            rjson['data'] = this.objectyvalue[key];
             rjson['name'] = key;
             rjson['type'] = this.types.toLowerCase();
             this.datajson.push(rjson);
         }
 
-        console.log(this.datajson);
-
-        const tlegend = this.legend;
-        console.log(tlegend);
-
-        console.log(this.datajson);
-        this.rightjson = {
+        // console.log(this.datajson);
+        this.echartsjson = {
             title: {
                 text: this.graphTitle,
                 textStyle: {
@@ -155,12 +126,12 @@ export class KupEcharts {
                 },
             },
             legend: {
-                data: this.createlegend(),
-                [tlegend]: 0,
+                data: this.createLegend(),
+                [this.legend]: 0,
             },
             xAxis: {
                 type: 'category',
-                data: this.x,
+                data: this.Xaxis,
             },
             tooltip: {
                 trigger: 'axis',
@@ -172,9 +143,9 @@ export class KupEcharts {
         };
     }
 
-    createpiejson() {
-        let tlegend = this.legend;
-        this.rightjson = {
+    createEchartsPieJson() {
+        //create the right json to create pie type charts
+        this.echartsjson = {
             title: {
                 text: this.graphTitle,
                 textStyle: {
@@ -183,8 +154,8 @@ export class KupEcharts {
                 },
             },
             legend: {
-                data: this.createlegend(),
-                [tlegend]: 0,
+                data: this.createLegend(),
+                [this.legend]: 0,
             },
 
             tooltip: {
@@ -209,8 +180,9 @@ export class KupEcharts {
         };
     }
 
-    createmapjson() {
-        this.rightjson = {
+    createEchartsMapJson() {
+        //create the right json for creating map-like graphics
+        this.echartsjson = {
             title: {
                 text: 'World map',
                 subtext: 'Data of Population Europe',
@@ -251,7 +223,7 @@ export class KupEcharts {
                         '#a50026',
                     ],
                 },
-                text: ['High', 'Low'], // 文本，默认为数值文本
+                text: ['High', 'Low'],
                 calculable: true,
             },
 
@@ -266,7 +238,6 @@ export class KupEcharts {
                             show: true,
                         },
                     },
-                    // 文本位置修正
 
                     data: [
                         { name: 'Italy', value: 4822023 },
@@ -294,27 +265,26 @@ export class KupEcharts {
     }
 
     resetChart() {
-        this.oj = {};
-        this.x = [];
-        this.rightjson = {};
+        this.objectyvalue = {};
+        this.Xaxis = [];
+        this.echartsjson = {};
         this.datajson = [];
         this.datapiejson = [];
-        // this.myChart = '';
     }
 
     initializeChart() {
         if (this.types != 'map') {
             if (this.types.toLowerCase() == 'pie') {
-                this.ParseJsonY();
-                this.objectpie();
-                this.createpiejson();
+                this.createObjectYvalue();
+                this.objectPie();
+                this.createEchartsPieJson();
             } else {
-                this.ParseJsonX();
-                this.ParseJsonY();
-                this.Createrightjson();
+                this.createXaxis();
+                this.createObjectYvalue();
+                this.createEchartsJson();
             }
         } else {
-            this.createmapjson();
+            this.createEchartsMapJson();
         }
         this.CreateEcharts();
     }

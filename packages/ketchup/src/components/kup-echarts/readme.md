@@ -7,14 +7,14 @@
 
 ## Properties
 
-| Property          | Attribute           | Description | Type     | Default     |
-| ----------------- | ------------------- | ----------- | -------- | ----------- |
-| `graphTitle`      | `graph-title`       |             | `string` | `''`        |
-| `graphTitleColor` | `graph-title-color` |             | `string` | `undefined` |
-| `graphTitleSize`  | `graph-title-size`  |             | `number` | `undefined` |
-| `legend`          | `legend`            |             | `string` | `undefined` |
-| `objectData`      | --                  |             | `object` | `{}`        |
-| `types`           | `types`             |             | `string` | `undefined` |
+| Property          | Attribute           | Description                                                                                                                                                            | Type     | Default     |
+| ----------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `graphTitle`      | `graph-title`       | Title of the graph.                                                                                                                                                    | `string` | `''`        |
+| `graphTitleColor` | `graph-title-color` | Title of the graph's color.                                                                                                                                            | `string` | `undefined` |
+| `graphTitleSize`  | `graph-title-size`  | Size of title of the graph (in pixels).                                                                                                                                | `number` | `undefined` |
+| `legend`          | `legend`            | Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work. | `string` | `undefined` |
+| `objectData`      | --                  | The actual data of the chart.                                                                                                                                          | `object` | `{}`        |
+| `types`           | `types`             | The type of the chart. Supported formats: Line, Pie, Map, Scatter                                                                                                      | `string` | `undefined` |
 
 
 ## Events
