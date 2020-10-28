@@ -3839,6 +3839,8 @@ export class KupDataTable {
 
             'custom-size':
                 this.tableHeight !== undefined || this.tableWidth !== undefined,
+
+            'border-top': !this.showHeader
         };
 
         tableClass[`density-${this.density}`] = true;
