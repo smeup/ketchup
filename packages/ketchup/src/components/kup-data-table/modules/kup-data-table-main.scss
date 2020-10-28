@@ -23,9 +23,9 @@
      */
 
 table {
-  // This is needed to avoid problems with fixed rows/columns
-  border-spacing: 0;
-  border-collapse: separate;
+  // [TFixed-1] - This is needed to avoid problems with fixed rows/columns
+  border-spacing: 0; // [TFixed-1]
+  border-collapse: separate; // [TFixed-1]
   color: var(--kup-text-color);
   font-size: var(--kup-font-size);
   min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
@@ -219,7 +219,7 @@ thead {
     background-color: var(--kup-title-background-color);
     color: var(--kup-title-color);
     border: $common-th-border;
-    border-left: 0 none; // Importnat: only the first cell must have the border left, otherwise the th will have a visual 2px border between each other.
+    border-left: 0 none; // Important: only the first cell must have the border left, otherwise the th will have a visual 2px border between each other.
     border-bottom-width: 2px;
     box-sizing: border-box;
     padding: 0.5rem 0.3125rem;
@@ -233,21 +233,7 @@ thead {
     &:first-of-type {
       border-left: $common-th-border;
     }
-/*
-    // On Firefox, things changes TODO: remove
-    @supports (-moz-appearance: none) {
-      // The row separator:
-      &::after {
-        bottom: 0; // Is slightly placed to the bottom
-        left: -1px; // gets slightly bigger to cover the absence of a border-right
-      }
 
-      // The column separator
-      &::before {
-        content: none; // Is not rendered on firefox because it does not render right-border on thead.
-      }
-    }
-*/
     //---- Column name container ----
     $column-sort-margin: 0.5rem;
 
