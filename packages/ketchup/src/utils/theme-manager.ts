@@ -41,7 +41,7 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#860bb5",
             "--kup-chart-color-4": "#1a83e4",
-            "--kup-obj-cursor": "alias"
+            "--kup-obj-cursor": "inherit"
         },
         "icons": {
             "ascending-icon": "arrow_drop_up",
@@ -81,7 +81,7 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-2": "#e0a0a0",
             "--kup-chart-color-3": "#8e1010",
             "--kup-chart-color-4": "#f5f5dc",
-            "--kup-obj-cursor": "alias"
+            "--kup-obj-cursor": "inherit"
         },
         "icons": {
             "ascending-icon": "sort-ascending",
@@ -127,7 +127,7 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-8": "magenta",
             "--kup-chart-color-9": "grey",
             "--kup-chart-color-10": "indigo",
-            "--kup-obj-cursor": "alias"
+            "--kup-obj-cursor": "inherit"
         },
         "customStyles": {
             "KUP-BUTTON": "#kup-component button { text-transform: unset; }"
@@ -170,7 +170,7 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-2": "rgb(187, 198, 5)",
             "--kup-chart-color-3": "#ffe600",
             "--kup-chart-color-4": "#effd02",
-            "--kup-obj-cursor": "alias"
+            "--kup-obj-cursor": "inherit"
         },
         "icons": {
             "ascending-icon": "sort-ascending",
@@ -210,7 +210,7 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#e48b47",
             "--kup-chart-color-4": "#81e447",
-            "--kup-obj-cursor": "alias"
+            "--kup-obj-cursor": "inherit"
         },
         "icons": {
             "ascending-icon": "arrow_drop_up",
@@ -249,7 +249,7 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-1": "#000000",
             "--kup-chart-color-2": "#808080",
             "--kup-chart-color-3": "#cccccc",
-            "--kup-obj-cursor": "auto"
+            "--kup-obj-cursor": "inherit"
         },
         "customStyles": {
             "master": "",
@@ -293,7 +293,7 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-1": "#735DED",
             "--kup-chart-color-2": "#00B2CB",
             "--kup-chart-color-3": "#EDC900",
-            "--kup-obj-cursor": "alias"
+            "--kup-obj-cursor": "inherit"
         },
         "icons": {
             "ascending-icon": "arrow_drop_up",
@@ -333,7 +333,7 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#e48b47",
             "--kup-chart-color-4": "#81e447",
-            "--kup-obj-cursor": "alias"
+            "--kup-obj-cursor": "inherit"
         },
         "icons": {
             "ascending-icon": "arrow_drop_up",
@@ -373,7 +373,7 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-2": "#e268d8",
             "--kup-chart-color-3": "#e48b47",
             "--kup-chart-color-4": "#81e447",
-            "--kup-obj-cursor": "crosshair"
+            "--kup-obj-cursor": "alias"
         },
         "customStyles": {
             "master": "#kup-component { background-color: red; }",
