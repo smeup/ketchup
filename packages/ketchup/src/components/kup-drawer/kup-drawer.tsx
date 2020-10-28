@@ -1,4 +1,13 @@
-import { Component, h, Prop, State, Method,Event,EventEmitter } from '@stencil/core';
+import {
+    Component,
+    h,
+    Prop,
+    Method,
+    Event,
+    EventEmitter,
+    Host,
+    Element,
+} from '@stencil/core';
 
 @Component({
     tag: 'kup-drawer',
@@ -6,143 +15,90 @@ import { Component, h, Prop, State, Method,Event,EventEmitter } from '@stencil/c
     shadow: true,
 })
 export class KupDrawer {
-   
-      /**
-     * opened is used to make our drawer appear and disappear
-     */
-     @Prop({ reflect: true, mutable: true })opened: boolean;
+    @Element() rootElement: HTMLElement;
 
-    @Prop({ reflect: true, mutable: true }) right: boolean;
-    @Prop({ reflect: true, mutable: true }) permanent: boolean;
-    
+    // add permormance e customStyle
+
+    /**
+     * Defaults at false. When set to true, the drawer appears.
+     */
+    @Prop({ reflect: true, mutable: true }) opened = false;
+    /**
+     * Defaults at false. When set to true, the drawer appears on the right.
+     */
+    // TODO remove. Fare con le classi
+    @Prop({ reflect: true, mutable: true }) right = false;
+    /**
+     * Defaults at false. When set to true, the drawer remains permanent on the screen.
+     */
+    @Prop({ reflect: true, mutable: true }) permanent = false;
+
+    //---- Events ----
     @Event() kupDrawerClose: EventEmitter;
     @Event() kupDrawerOpen: EventEmitter;
 
-    select:boolean;
-    
-    c:string;
-
-    
-    
-
-
-  //---- Methods ----
-    onCloseDrawer() {
+    onCloseDrawer(): void {
         this.opened = false;
-        this.right=false;
         this.kupDrawerClose.emit();
     }
 
-    @Method()
-    async open() {
+    onOpenDrawer(): void {
         this.opened = true;
-        this.right=true;
         this.kupDrawerOpen.emit();
     }
 
+    //---- Methods ----
     @Method()
-    async Toggle() {
-       // console.log(this.opened,this.right);
-      if(this.opened==true && this.right==true)
-      {
-          this.onCloseDrawer();
-
-      }
-      else if(this.opened==false && this.right==false)
-      {
-          
-         this.open();
-      }
+    async open() {
+        this.onOpenDrawer();
     }
 
-    componentWillLoad()
-   { 
-       this.opened=true;
-       this.opened=false;
-       if(this.right==true)
-       {
-            this.select=true;
-            this.right=false;
-            if(this.permanent==true)
-            {
-
-            }
-            else{
-            
-                this.permanent=true;
-                this.permanent=false;        
-                                                   
-            }
-                
-       }
-       else{
-           this.select=false;
-           this.right=true;
-           this.right=false;
-           if(this.permanent==true)
-           {
-
-           }
-           else{
-               this.permanent=true;
-               this.permanent=false;
-           }
-
-       }
-        
+    @Method()
+    async close() {
+        this.onCloseDrawer();
     }
-    
-   
-    
-   selectclass()
-   {  let c:string;
-       if(this.select==true&&this.permanent==false)
-       {
-           c='rightpos'
-       }
-       else if(this.select==false&&this.permanent==false)
-       {
-           c='leftpos'
-       }
-       
-       else if(this.select==true&&this.permanent==true)
-       {
-           c= 'permanentright'
-       }
-       else{
-           c= 'permanentleft'
-       }
-       
-       return c;
-   }
+
+    @Method()
+    async toggle() {
+        if (this.opened == true) {
+            this.onCloseDrawer();
+        } else if (this.opened == false) {
+            this.onOpenDrawer();
+        }
+    }
+
+    getClass() {
+        let drawerClass = 'aside ';
+
+        return drawerClass;
+    }
 
     render() {
-
-        let mainContent = <slot name='MainContent'/>;
-        this.c= this.selectclass();
-        //console.log(this.select,this.permanent,this.right,this.c);
-
+        let mainContent = <slot name="MainContent" />;
+        let drawerClass = this.getClass();
+        // TODO remove
+        console.log('drawerClass', drawerClass);
         return [
-            <div class="backdrop" onClick={() => this.onCloseDrawer()} />,
-            <aside class={this.c} >
-                <div class="header">
-              
-               <div class='title'>
-                   <slot name='title'/>
-               </div>
-
-               
-               <div class='subtitle'>
-                   <slot name='subtitle'/>
-               </div>
-              
-               
+            <Host>
+                <div id="kup-component">
+                    <div
+                        class="backdrop"
+                        onClick={() => this.onCloseDrawer()}
+                    />
+                    ,
+                    <aside class={drawerClass}>
+                        <div class="header">
+                            <div class="title">
+                                <slot name="title" />
+                            </div>
+                            <div class="subtitle">
+                                <slot name="subtitle" />
+                            </div>
+                        </div>
+                        <main>{mainContent}</main>
+                    </aside>
                 </div>
-
-                <main>{mainContent}</main>
-                
-                
-            </aside>,
+            </Host>,
         ];
     }
 }

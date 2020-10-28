@@ -665,14 +665,21 @@ export namespace Components {
         "totals": TotalsMap;
     }
     interface KupDrawer {
-        "Toggle": () => Promise<void>;
+        "close": () => Promise<void>;
         "open": () => Promise<void>;
         /**
-          * opened is used to make our drawer appear and disappear
+          * Defaults at false. When set to true, the drawer appears.
          */
         "opened": boolean;
+        /**
+          * Defaults at false. When set to true, the drawer remains permanent on the screen.
+         */
         "permanent": boolean;
+        /**
+          * Defaults at false. When set to true, the drawer appears on the right.
+         */
         "right": boolean;
+        "toggle": () => Promise<void>;
     }
     interface KupEcharts {
         "graphTitle": string;
@@ -2647,10 +2654,16 @@ declare namespace LocalJSX {
         "onKupDrawerClose"?: (event: CustomEvent<any>) => void;
         "onKupDrawerOpen"?: (event: CustomEvent<any>) => void;
         /**
-          * opened is used to make our drawer appear and disappear
+          * Defaults at false. When set to true, the drawer appears.
          */
         "opened"?: boolean;
+        /**
+          * Defaults at false. When set to true, the drawer remains permanent on the screen.
+         */
         "permanent"?: boolean;
+        /**
+          * Defaults at false. When set to true, the drawer appears on the right.
+         */
         "right"?: boolean;
     }
     interface KupEcharts {
