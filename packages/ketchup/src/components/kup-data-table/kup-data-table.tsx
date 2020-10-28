@@ -504,6 +504,8 @@ export class KupDataTable {
 
     private scrollOnHoverInstance: scrollOnHover;
 
+    private filterForCheckBox: GenericFilter = {};
+
     /**
      * Internal not reactive state used to keep track if a column is being dragged.
      * @private
@@ -1118,6 +1120,13 @@ export class KupDataTable {
             };
         }
 
+        if (this.getCheckBoxFilter(column)) {
+            tmpFilters[column] = {
+                textField: this.getCheckBoxFilter(column),
+                checkBoxes: [],
+            };
+        }
+
         let visibleColumns = this.getVisibleColumns();
         let columnObject = getColumnByName(visibleColumns, column);
 
@@ -1453,11 +1462,13 @@ export class KupDataTable {
         const newFilters: GenericFilter = { ...this.filters };
         newFilters[column] = { textField: '', checkBoxes: [] };
         this.filters = newFilters;
+        this.setCheckBoxFilter(column, '');
     }
 
     private onFilterChange({ detail }, column: Column) {
         // resetting current page
         this.resetCurrentPage();
+        this.setCheckBoxFilter(column.name, '');
         let newFilter = '';
         if (detail.value) {
             newFilter = detail.value.trim();
@@ -1491,6 +1502,26 @@ export class KupDataTable {
         }
 
         this.filters = newFilters;
+    }
+
+    private onCheckBoxFilterChange({ detail }, column: Column) {
+        // resetting current page
+        this.resetCurrentPage();
+        this.setCheckBoxFilter(column.name, detail.value.trim());
+    }
+
+    private setCheckBoxFilter(column: string, value: string) {
+        const newFilters: GenericFilter = { ...this.filterForCheckBox };
+        setTextFieldFilterValue(newFilters, column, value);
+        this.filterForCheckBox = newFilters;
+    }
+
+    private getCheckBoxFilter(column: string): string {
+        var value = '';
+        if(this.filterForCheckBox[column] && this.filterForCheckBox[column].textField){
+            value = this.filterForCheckBox[column].textField;
+        }
+        return value;
     }
 
     private hasFiltersForColumn(column: string): boolean {
@@ -2219,6 +2250,10 @@ export class KupDataTable {
                             column.name
                         );
 
+                        if (!filterInitialValue && this.getCheckBoxFilter(column.name)) {
+                            filterInitialValue = this.getCheckBoxFilter(column.name);
+                        }
+
                         if (
                             filterInitialValue != '' &&
                             isNumber(column.obj) &&
@@ -2237,6 +2272,9 @@ export class KupDataTable {
                                     label="Search..."
                                     icon="magnify"
                                     initialValue={filterInitialValue}
+                                    onKupTextFieldInput={(e) => {
+                                        this.onCheckBoxFilterChange(e, column);
+                                    }}
                                     onKupTextFieldSubmit={(e) => {
                                         this.onFilterChange(e, column);
                                         this.closeMenuAndTooltip();
