@@ -747,23 +747,17 @@ export class KupDataTable {
             entries.forEach((entry) => {
                 if (entry.target.tagName === 'TR') {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('in-viewport');
-                        if (entry.target.classList.contains('last-row')) {
-                            logMessage(
-                                this,
-                                'Last row entering the viewport, loading more elements.'
-                            );
-                            let delta =
-                                this.rows.length - this.currentRowsPerPage;
-                            if (delta < this.loadMoreStep) {
-                                this.currentRowsPerPage += delta;
-                            } else {
-                                this.currentRowsPerPage += this.loadMoreStep;
-                            }
-                            entry.target.classList.remove('last-row');
+                        logMessage(
+                            this,
+                            'Last row entering the viewport, loading more elements.'
+                        );
+                        let delta = this.rows.length - this.currentRowsPerPage;
+                        if (delta < this.loadMoreStep) {
+                            this.currentRowsPerPage += delta;
+                        } else {
+                            this.currentRowsPerPage += this.loadMoreStep;
                         }
-                    } else {
-                        entry.target.classList.remove('in-viewport');
+                        entry.target.classList.remove('last-row');
                     }
                 }
                 if (entry.target.tagName === 'THEAD') {
@@ -817,10 +811,7 @@ export class KupDataTable {
     private didRenderObservers() {
         let rows = this.rootElement.shadowRoot.querySelectorAll('tbody > tr');
         if (this.paginatedRowsLength < this.rowsLength && this.lazyLoadRows) {
-            rows[this.paginatedRowsLength - 1].classList.add('last-row');
-        }
-        for (let index = 0; index < rows.length; index++) {
-            this.intObserver.observe(rows[index]);
+            this.intObserver.observe(rows[this.paginatedRowsLength - 1]);
         }
     }
 
@@ -2571,13 +2562,21 @@ export class KupDataTable {
         if (this.multiSelection) {
             extraCells++;
             const fixedCellStyle = this.composeFixedCellStyleAndClass(
-              extraCells,
-              0,
-              extraCells
+                extraCells,
+                0,
+                extraCells
             );
 
-            selectRowCell = <td class={fixedCellStyle ? fixedCellStyle.fixedCellClasses : null}
-                                style={fixedCellStyle ? fixedCellStyle.fixedCellStyle : null}/>;
+            selectRowCell = (
+                <td
+                    class={
+                        fixedCellStyle ? fixedCellStyle.fixedCellClasses : null
+                    }
+                    style={
+                        fixedCellStyle ? fixedCellStyle.fixedCellStyle : null
+                    }
+                />
+            );
         }
 
         let groupingCell = null;
@@ -2592,25 +2591,36 @@ export class KupDataTable {
         //                             style={fixedCellStyle ? fixedCellStyle.fixedCellStyle : null}/>;
         // }
 
-        const footerCells = this.getVisibleColumns().map((column: Column, columnIndex) => {
-          const fixedCellStyle = this.composeFixedCellStyleAndClass(
-            columnIndex + 1 + extraCells,
-            0,
-            extraCells
-          );
+        const footerCells = this.getVisibleColumns().map(
+            (column: Column, columnIndex) => {
+                const fixedCellStyle = this.composeFixedCellStyleAndClass(
+                    columnIndex + 1 + extraCells,
+                    0,
+                    extraCells
+                );
 
-          return (
-            <td
-              class={fixedCellStyle ? fixedCellStyle.fixedCellClasses : null}
-              style={fixedCellStyle ? fixedCellStyle.fixedCellStyle : null}>
-              {numberToFormattedStringNumber(
-                this.footer[column.name],
-                column.decimals,
-                column.obj ? column.obj.p : ''
-              )}
-            </td>
-          )
-        });
+                return (
+                    <td
+                        class={
+                            fixedCellStyle
+                                ? fixedCellStyle.fixedCellClasses
+                                : null
+                        }
+                        style={
+                            fixedCellStyle
+                                ? fixedCellStyle.fixedCellStyle
+                                : null
+                        }
+                    >
+                        {numberToFormattedStringNumber(
+                            this.footer[column.name],
+                            column.decimals,
+                            column.obj ? column.obj.p : ''
+                        )}
+                    </td>
+                );
+            }
+        );
 
         const footer = (
             <tfoot>
@@ -3840,7 +3850,7 @@ export class KupDataTable {
             'custom-size':
                 this.tableHeight !== undefined || this.tableWidth !== undefined,
 
-            'border-top': !this.showHeader
+            'border-top': !this.showHeader,
         };
 
         tableClass[`density-${this.density}`] = true;

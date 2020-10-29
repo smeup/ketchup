@@ -470,30 +470,21 @@ tbody {
 }
 
 tr {
-  &:not(:nth-child(1)) {
-    kup-checkbox {
-      display: none;
-      animation: fadeInFromNone 0.25s ease-out;
-    }
+  kup-checkbox,
+  kup-image {
+    display: flex;
   }
 
-  &.in-viewport {
-    kup-checkbox,
-    kup-image {
-      display: flex;
-    }
+  kup-button {
+    display: inline-block;
+  }
 
-    kup-button {
-      display: inline-block;
-    }
+  kup-progress-bar {
+    display: block;
+  }
 
-    kup-progress-bar {
-      display: block;
-    }
-
-    & .indent ~ kup-image {
-      display: inline-block;
-    }
+  & .indent ~ kup-image {
+    display: inline-block;
   }
 
   .indent {
