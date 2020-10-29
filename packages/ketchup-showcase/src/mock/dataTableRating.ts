@@ -10,6 +10,9 @@ export const ratingDataTable = {
     {
       cells: {
         RTG_00: {
+          data: {
+            value: '',
+          },
           obj: {
             t: '**',
             p: '',
@@ -25,6 +28,7 @@ export const ratingDataTable = {
       cells: {
         RTG_00: {
           data: {
+            value: '5',
             maxValue: 10,
           },
           obj: {
@@ -41,6 +45,9 @@ export const ratingDataTable = {
     {
       cells: {
         RTG_00: {
+          data: {
+            value: '3',
+          },
           obj: {
             t: '**',
             p: '',
@@ -55,6 +62,9 @@ export const ratingDataTable = {
     {
       cells: {
         RTG_00: {
+          data: {
+            value: '4',
+          },
           obj: {
             t: '**',
             p: '',
