@@ -311,15 +311,6 @@ export class KupTree {
         this.customStyleTheme = customStyleTheme;
     }
 
-    private setAssetPathVars() {
-        this.rootElement.style.setProperty(
-            '--menu-right-svg',
-            `url('${getAssetPath(
-                `./assets/svg/menu-right.svg`
-            )}') no-repeat center`
-        );
-    }
-
     private setScrollOnHover() {
         this.scrollOnHoverInstance = new scrollOnHover();
         this.scrollOnHoverInstance.scrollOnHoverSetup(this.treeWrapperRef);
@@ -364,7 +355,6 @@ export class KupTree {
     componentWillLoad() {
         this.startTime = performance.now();
         setThemeCustomStyle(this);
-        this.setAssetPathVars();
 
         if (this.data) {
             // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
@@ -726,6 +716,31 @@ export class KupTree {
         return visibility;
     }
 
+    private createIconElement(CSSClass: string, icon: string) {
+        if (
+            icon.indexOf('.') > -1 ||
+            icon.indexOf('/') > -1 ||
+            icon.indexOf('\\') > -1
+        ) {
+            CSSClass += ' is-image';
+            return (
+                <span class={CSSClass}>
+                    <img src={icon}></img>
+                </span>
+            );
+        } else {
+            let svg: string = `url('${getAssetPath(
+                `./assets/svg/${icon}.svg`
+            )}') no-repeat center`;
+            CSSClass += ' icon-container material-icons';
+            let iconStyle = {
+                mask: svg,
+                webkitMask: svg,
+            };
+            return <span style={iconStyle} class={CSSClass}></span>;
+        }
+    }
+
     /**
      * Factory function for cells.
      * @param cell - cell object
@@ -997,19 +1012,9 @@ export class KupTree {
                 if (treeNodeData.icon === '') {
                     treeNodeIcon = <span class="kup-tree__icon" />;
                 } else {
-                    let svg: string = `url('${getAssetPath(
-                        `./assets/svg/${treeNodeData.icon}.svg`
-                    )}') no-repeat center`;
-                    let iconStyle = {
-                        backgroundColor: treeNodeData.iconColor,
-                        mask: svg,
-                        webkitMask: svg,
-                    };
-                    treeNodeIcon = (
-                        <span
-                            style={iconStyle}
-                            class="kup-tree__icon icon-container"
-                        ></span>
+                    treeNodeIcon = this.createIconElement(
+                        'kup-tree__icon icon-container',
+                        treeNodeData.icon
                     );
                 }
             } else {

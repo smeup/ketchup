@@ -133,12 +133,18 @@
         }
       }
 
-      .icon-container {
+      .icon-container:not(.is-image) {
         background-color: var(--kup-icon-color);
       }
 
-      .icon-container.kup-tree__node__expander {
+      .icon-container.kup-tree__node__expander:not(.is-image) {
         background-color: var(--kup-text-color);
+      }
+
+      .icon-container.is-image img {
+        display: block;
+        height: auto;
+        width: 100%;
       }
 
       &--selected:not(.kup-tree__node--disabled),
