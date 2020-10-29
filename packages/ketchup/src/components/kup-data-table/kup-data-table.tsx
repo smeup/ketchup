@@ -544,7 +544,7 @@ export class KupDataTable {
     private tooltip: KupTooltip;
 
     /**
-     * Reference to the working area of teh table. This is the below-wrapper reference.
+     * Reference to the working area of the table. This is the below-wrapper reference.
      */
     private tableAreaRef: HTMLDivElement;
     private stickyTheadRef: any;
@@ -1343,6 +1343,8 @@ export class KupDataTable {
     }
 
     private updateFixedRowsAndColumnsCssVariables(): boolean {
+        // [ffbf] - Using getBoundingClientRect is mandatory since Firefox return a wrong value for ele.offsetHeight and witdh values
+
         // When grouping, the fixed rows and columns are not sticky
         if (this.isGrouping() || !this.tableRef) return false;
         let toRet: boolean = false;
@@ -1354,7 +1356,7 @@ export class KupDataTable {
             // The height must start from the height of the header
             let previousHeight: number = (this.tableRef.querySelector(
                 'thead > tr:first-of-type > th:first-of-type'
-            ) as HTMLTableCellElement).offsetHeight;
+            ) as HTMLTableCellElement).getBoundingClientRect().height;// [ffbf]
 
             // [CSSCount] - I must start from 1 since we are referencing html elements e not array (with CSS selectors starting from 1)
             for (let i = 1; i <= this.fixedRows && currentRow; i++) {
@@ -1363,7 +1365,7 @@ export class KupDataTable {
                     previousHeight + 'px'
                 );
                 previousHeight += (currentRow
-                    .children[0] as HTMLTableCellElement).offsetHeight;
+                    .children[0] as HTMLTableCellElement).getBoundingClientRect().height;// [ffbf]
                 currentRow = currentRow.nextElementSibling as HTMLTableRowElement;
             }
             toRet = true;
@@ -1385,7 +1387,7 @@ export class KupDataTable {
                     FixedCellsCSSVarsBase.columns + i,
                     previousWidth + 'px'
                 );
-                previousWidth += currentCell.offsetWidth;
+                previousWidth += currentCell.getBoundingClientRect().width;// [ffbf]
                 currentCell = currentCell.nextElementSibling as HTMLTableCellElement;
             }
             toRet = true;
