@@ -1518,7 +1518,10 @@ export class KupDataTable {
 
     private getCheckBoxFilter(column: string): string {
         var value = '';
-        if(this.filterForCheckBox[column] && this.filterForCheckBox[column].textField){
+        if (
+            this.filterForCheckBox[column] &&
+            this.filterForCheckBox[column].textField
+        ) {
             value = this.filterForCheckBox[column].textField;
         }
         return value;
@@ -2250,8 +2253,13 @@ export class KupDataTable {
                             column.name
                         );
 
-                        if (!filterInitialValue && this.getCheckBoxFilter(column.name)) {
-                            filterInitialValue = this.getCheckBoxFilter(column.name);
+                        if (
+                            !filterInitialValue &&
+                            this.getCheckBoxFilter(column.name)
+                        ) {
+                            filterInitialValue = this.getCheckBoxFilter(
+                                column.name
+                            );
                         }
 
                         if (
@@ -3160,6 +3168,8 @@ export class KupDataTable {
     }
 
     // TODO: cell type can depend also from shape (see isRating)
+    // NOTE: keep care to change conditions order... shape wins on object .. -> so if isNumber after shape checks.. ->
+    // TODO: more clear conditions when refactoring...
     private getCellType(cell: Cell) {
         let obj = cell.obj;
         if (isBar(obj)) {
@@ -3180,16 +3190,16 @@ export class KupDataTable {
             return 'image';
         } else if (isLink(obj)) {
             return 'link';
-        } else if (isNumber(obj)) {
-            return 'number';
         } else if (isProgressBar(obj)) {
             return 'progress-bar';
-        } else if (isObjectList(obj)) {
-            return 'chips';
         } else if (isRadio(obj) || getShape(cell) === 'RAD') {
             return 'radio';
         } else if (isRating(cell, null)) {
             return 'rating';
+        } else if (isObjectList(obj)) {
+            return 'chips';
+        } else if (isNumber(obj)) {
+            return 'number';
         } else {
             return 'string';
         }
