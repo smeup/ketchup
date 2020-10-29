@@ -546,7 +546,7 @@ export class KupDataTable {
     private tooltip: KupTooltip;
 
     /**
-     * Reference to the working area of teh table. This is the below-wrapper reference.
+     * Reference to the working area of the table. This is the below-wrapper reference.
      */
     private tableAreaRef: HTMLDivElement;
     private stickyTheadRef: any;
@@ -749,23 +749,17 @@ export class KupDataTable {
             entries.forEach((entry) => {
                 if (entry.target.tagName === 'TR') {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('in-viewport');
-                        if (entry.target.classList.contains('last-row')) {
-                            logMessage(
-                                this,
-                                'Last row entering the viewport, loading more elements.'
-                            );
-                            let delta =
-                                this.rows.length - this.currentRowsPerPage;
-                            if (delta < this.loadMoreStep) {
-                                this.currentRowsPerPage += delta;
-                            } else {
-                                this.currentRowsPerPage += this.loadMoreStep;
-                            }
-                            entry.target.classList.remove('last-row');
+                        logMessage(
+                            this,
+                            'Last row entering the viewport, loading more elements.'
+                        );
+                        let delta = this.rows.length - this.currentRowsPerPage;
+                        if (delta < this.loadMoreStep) {
+                            this.currentRowsPerPage += delta;
+                        } else {
+                            this.currentRowsPerPage += this.loadMoreStep;
                         }
-                    } else {
-                        entry.target.classList.remove('in-viewport');
+                        entry.target.classList.remove('last-row');
                     }
                 }
                 if (entry.target.tagName === 'THEAD') {
@@ -819,10 +813,7 @@ export class KupDataTable {
     private didRenderObservers() {
         let rows = this.rootElement.shadowRoot.querySelectorAll('tbody > tr');
         if (this.paginatedRowsLength < this.rowsLength && this.lazyLoadRows) {
-            rows[this.paginatedRowsLength - 1].classList.add('last-row');
-        }
-        for (let index = 0; index < rows.length; index++) {
-            this.intObserver.observe(rows[index]);
+            this.intObserver.observe(rows[this.paginatedRowsLength - 1]);
         }
     }
 
@@ -1361,6 +1352,8 @@ export class KupDataTable {
     }
 
     private updateFixedRowsAndColumnsCssVariables(): boolean {
+        // [ffbf] - Using getBoundingClientRect is mandatory since Firefox return a wrong value for ele.offsetHeight and witdh values
+
         // When grouping, the fixed rows and columns are not sticky
         if (this.isGrouping() || !this.tableRef) return false;
         let toRet: boolean = false;
@@ -1372,7 +1365,7 @@ export class KupDataTable {
             // The height must start from the height of the header
             let previousHeight: number = (this.tableRef.querySelector(
                 'thead > tr:first-of-type > th:first-of-type'
-            ) as HTMLTableCellElement).offsetHeight;
+            ) as HTMLTableCellElement).getBoundingClientRect().height;// [ffbf]
 
             // [CSSCount] - I must start from 1 since we are referencing html elements e not array (with CSS selectors starting from 1)
             for (let i = 1; i <= this.fixedRows && currentRow; i++) {
@@ -1381,7 +1374,7 @@ export class KupDataTable {
                     previousHeight + 'px'
                 );
                 previousHeight += (currentRow
-                    .children[0] as HTMLTableCellElement).offsetHeight;
+                    .children[0] as HTMLTableCellElement).getBoundingClientRect().height;// [ffbf]
                 currentRow = currentRow.nextElementSibling as HTMLTableRowElement;
             }
             toRet = true;
@@ -1403,7 +1396,7 @@ export class KupDataTable {
                     FixedCellsCSSVarsBase.columns + i,
                     previousWidth + 'px'
                 );
-                previousWidth += currentCell.offsetWidth;
+                previousWidth += currentCell.getBoundingClientRect().width;// [ffbf]
                 currentCell = currentCell.nextElementSibling as HTMLTableCellElement;
             }
             toRet = true;
@@ -2609,25 +2602,73 @@ export class KupDataTable {
             // no footer
             return null;
         }
-        const footerCells = this.getVisibleColumns().map((column: Column) => (
-            <td>
-                {numberToFormattedStringNumber(
-                    this.footer[column.name],
-                    column.decimals,
-                    column.obj ? column.obj.p : ''
-                )}
-            </td>
-        ));
 
+        let extraCells = 0;
+
+        // Composes initial cells if necessary
         let selectRowCell = null;
         if (this.multiSelection) {
-            selectRowCell = <td />;
+            extraCells++;
+            const fixedCellStyle = this.composeFixedCellStyleAndClass(
+                extraCells,
+                0,
+                extraCells
+            );
+
+            selectRowCell = (
+                <td
+                    class={
+                        fixedCellStyle ? fixedCellStyle.fixedCellClasses : null
+                    }
+                    style={
+                        fixedCellStyle ? fixedCellStyle.fixedCellStyle : null
+                    }
+                />
+            );
         }
 
         let groupingCell = null;
         // if (this.isGrouping() && this.hasTotals()) {
-        //     groupingCell = <td />;
+        //     extraCells++;
+        //     const fixedCellStyle = this.composeFixedCellStyleAndClass(
+        //         extraCells,
+        //         0,
+        //         extraCells
+        //     );
+        //     groupingCell = <td class={fixedCellStyle ? fixedCellStyle.fixedCellClasses : null}
+        //                             style={fixedCellStyle ? fixedCellStyle.fixedCellStyle : null}/>;
         // }
+
+        const footerCells = this.getVisibleColumns().map(
+            (column: Column, columnIndex) => {
+                const fixedCellStyle = this.composeFixedCellStyleAndClass(
+                    columnIndex + 1 + extraCells,
+                    0,
+                    extraCells
+                );
+
+                return (
+                    <td
+                        class={
+                            fixedCellStyle
+                                ? fixedCellStyle.fixedCellClasses
+                                : null
+                        }
+                        style={
+                            fixedCellStyle
+                                ? fixedCellStyle.fixedCellStyle
+                                : null
+                        }
+                    >
+                        {numberToFormattedStringNumber(
+                            this.footer[column.name],
+                            column.decimals,
+                            column.obj ? column.obj.p : ''
+                        )}
+                    </td>
+                );
+            }
+        );
 
         const footer = (
             <tfoot>
@@ -3859,6 +3900,8 @@ export class KupDataTable {
 
             'custom-size':
                 this.tableHeight !== undefined || this.tableWidth !== undefined,
+
+            'border-top': !this.showHeader,
         };
 
         tableClass[`density-${this.density}`] = true;
