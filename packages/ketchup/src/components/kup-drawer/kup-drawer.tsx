@@ -15,8 +15,8 @@ export class KupDrawer {
     @Prop({ reflect: true, mutable: true }) right: boolean;
     @Prop({ reflect: true, mutable: true }) permanent: boolean;
     
-    @Event() ClDrawer: EventEmitter;
-    @Event() OpDrawer: EventEmitter;
+    @Event() kupDrawerClose: EventEmitter;
+    @Event() kupDrawerOpen: EventEmitter;
 
     select:boolean;
     
@@ -30,14 +30,14 @@ export class KupDrawer {
     onCloseDrawer() {
         this.opened = false;
         this.right=false;
-        this.ClDrawer.emit();
+        this.kupDrawerClose.emit();
     }
 
     @Method()
     async open() {
         this.opened = true;
         this.right=true;
-        this.OpDrawer.emit();
+        this.kupDrawerOpen.emit();
     }
 
     @Method()

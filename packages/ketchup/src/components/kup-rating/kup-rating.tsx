@@ -18,17 +18,17 @@ export class KupRating {
     // PROPS
     // -------------------------------------------------------------------------
     /**
+     * Defaults at false. When set to true, the component is disabled.
+     */
+    @Prop() disabled: boolean = false;
+    /**
      * Max number of stars (default 5)
      */
-    @Prop({ reflect: true }) maxValue: number = 5;
+    @Prop() maxValue: number = 5;
     /**
      * Rated stars
      */
-    @Prop({ reflect: true }) value: number = 0;
-    /**
-     * Defaults at false. When set to true, the component is disabled.
-     */
-    @Prop({ reflect: true }) disabled: boolean = false;
+    @Prop() value: number = 0;
 
     //--------------------------------------------------------------------------
     // EVENTS

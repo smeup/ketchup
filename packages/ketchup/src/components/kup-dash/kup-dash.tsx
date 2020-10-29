@@ -7,17 +7,22 @@ import { logMessage } from '../../utils/debug-manager';
     shadow: true,
 })
 export class KupDash {
-    @Prop()
-    layout = '1';
-
-    @Prop()
-    fontsize = '';
-
-    @Prop()
-    active = false;
-
-    @Prop()
-    index = 0;
+    /**
+     * The component can be clicked.
+     */
+    @Prop() active = false;
+    /**
+     * Sets the font size of the component.
+     */
+    @Prop() fontsize = '';
+    /**
+     * Sets the layout of the component.
+     */
+    @Prop() layout = '1';
+    /**
+     * No idea what this is about.
+     */
+    @Prop() index = 0;
 
     private startTime: number = 0;
     private endTime: number = 0;

@@ -685,6 +685,14 @@ const sortRows = [
                 },
                 value: '01/01/2018',
             },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '10.60',
+                },
+                value: '10.60',
+            },
         },
     },
     {
@@ -720,6 +728,14 @@ const sortRows = [
                     k: '20180102',
                 },
                 value: '02/01/2018',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '10.60',
+                },
+                value: '10.60',
             },
         },
     },
@@ -757,6 +773,14 @@ const sortRows = [
                 },
                 value: '03/01/2018',
             },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '10.60',
+                },
+                value: '10.60',
+            },
         },
     },
     {
@@ -792,6 +816,14 @@ const sortRows = [
                     k: '20180101',
                 },
                 value: '01/01/2018',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '10.60',
+                },
+                value: '10.60',
             },
         },
     },
@@ -829,6 +861,14 @@ const sortRows = [
                 },
                 value: '02/01/2018',
             },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '10.60',
+                },
+                value: '10.60',
+            },
         },
     },
     {
@@ -865,7 +905,251 @@ const sortRows = [
                 },
                 value: '03/01/2018',
             },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '10.60',
+                },
+                value: '10.60',
+            },
         },
+    },
+];
+
+const objColumns = [
+    {
+        icon: 'account',
+        name: 'COL001',
+        obj: {
+            k: '',
+            p: 'COL',
+            t: 'CN',
+        },
+        title: 'Tipo',
+    },
+    {
+        name: 'COL002',
+        title: 'Tipo',
+    },
+];
+
+const objRows = [
+    {
+        cells: {
+            COL001: {
+                cssClass: 'strong-text',
+                obj: {
+                    k: 'SANCOS',
+                    p: 'COL',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'SANCOS',
+            },
+            COL002: {
+                icon: 'account',
+                obj: {
+                    k: 'SANCOS',
+                    p: '',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'Mauro Sanfilippo',
+            },
+        },
+        cssClass: 'clickable',
+        object: '',
+        readOnly: true,
+    },
+    {
+        cells: {
+            COL001: {
+                cssClass: 'strong-text',
+                obj: {
+                    k: 'MINCLA',
+                    p: 'COL',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'MINCLA',
+            },
+            COL002: {
+                icon: 'account',
+                obj: {
+                    k: 'MINCLA',
+                    p: '',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'Claudio Minelli',
+            },
+        },
+        cssClass: 'clickable',
+        object: '',
+        readOnly: true,
+    },
+    {
+        cells: {
+            COL001: {
+                cssClass: 'strong-text',
+                obj: {
+                    k: 'FEDROB',
+                    p: 'COL',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'FEDROB',
+            },
+            COL002: {
+                icon: 'account',
+                obj: {
+                    k: 'FEDROB',
+                    p: '',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'Roberto Fedrigotti',
+            },
+        },
+        cssClass: 'clickable',
+        object: '',
+        readOnly: true,
+    },
+    {
+        cells: {
+            COL001: {
+                cssClass: 'strong-text',
+                obj: {
+                    k: 'PARFRA',
+                    p: 'COL',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'PARFRA',
+            },
+            COL002: {
+                icon: 'account',
+                obj: {
+                    k: 'PARFRA',
+                    p: '',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'Franco Parodi',
+            },
+        },
+        cssClass: 'clickable',
+        object: '',
+        readOnly: true,
+    },
+    {
+        cells: {
+            COL001: {
+                cssClass: 'strong-text',
+                obj: {
+                    k: 'CASFRA',
+                    p: 'COL',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'CASFRA',
+            },
+            COL002: {
+                icon: 'account',
+                obj: {
+                    k: 'CASFRA',
+                    p: '',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'Francesco Casetta',
+            },
+        },
+        cssClass: 'clickable',
+        object: '',
+        readOnly: true,
+    },
+    {
+        cells: {
+            COL001: {
+                cssClass: 'strong-text',
+                obj: {
+                    k: 'FIOGIA',
+                    p: 'COL',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'FIOGIA',
+            },
+            COL002: {
+                icon: 'account',
+                obj: {
+                    k: 'FIOGIA',
+                    p: '',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'Gianluca Fioletti',
+            },
+        },
+        cssClass: 'clickable',
+        object: '',
+        readOnly: true,
+    },
+    {
+        cells: {
+            COL001: {
+                cssClass: 'strong-text',
+                obj: {
+                    k: 'ZAMCHI',
+                    p: 'COL',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'ZAMCHI',
+            },
+            COL002: {
+                icon: 'account',
+                obj: {
+                    k: 'ZAMCHI',
+                    p: '',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'Chiara Zambelli',
+            },
+        },
+        cssClass: 'clickable',
+        object: '',
+        readOnly: true,
+    },
+    {
+        cells: {
+            COL001: {
+                cssClass: 'strong-text',
+                obj: {
+                    k: 'CICCIO',
+                    p: 'COL',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'CICCIO',
+            },
+            COL002: {
+                icon: 'account',
+                obj: {
+                    k: 'CICCIO',
+                    p: '',
+                    t: 'CN',
+                },
+                options: true,
+                value: 'CICCIA',
+            },
+        },
+        cssClass: 'clickable',
+        object: '',
+        readOnly: true,
     },
 ];
 
@@ -882,6 +1166,11 @@ const checkboxData = {
 const defaultData = {
     columns: mockedColumns,
     rows: mockedRows,
+};
+
+const filterObjectData = {
+    columns: objColumns,
+    rows: objRows,
 };
 
 const sortData = {
@@ -933,6 +1222,12 @@ const globalFilter = document.getElementById('global-filter');
 if (globalFilter != null) {
     globalFilter.data = defaultData;
     globalFilter.globalFilter = 'true';
+}
+
+const filterObjectValue = document.getElementById('filter-object-value');
+if (filterObjectValue != null) {
+    filterObjectValue.data = filterObjectData;
+    filterObjectValue.showFilters = 'true';
 }
 
 // sort
@@ -2879,19 +3174,11119 @@ if (mathTest != null) {
     mathTest.totals = mathTestTotals;
     mathTest.groups = mathTestGroups;
 }
+const orderGroupTestData = {
+    columns: [
+        {
+            name: 'TTELEM',
+            obj: {
+                k: '',
+                p: 'CPG',
+                t: 'TA',
+            },
+            title: 'Codice',
+        },
+        {
+            name: 'TTDESC',
+            title: 'Descrizione',
+        },
+        {
+            name: 'T$CPGB',
+            obj: {
+                k: '',
+                p: '',
+                t: 'UP',
+            },
+            title: 'Team Leader',
+        },
+        {
+            name: 'T$CPGI',
+            obj: {
+                k: '',
+                p: '',
+                t: '',
+            },
+            title: 'ABC',
+        },
+        {
+            icon: 'calendar',
+            name: 'T$CPGG',
+            obj: {
+                k: '',
+                p: '*YYMD',
+                t: 'D8',
+            },
+            title: 'Data consegna',
+        },
+        {
+            name: 'T$CPGB',
+            obj: {
+                k: '',
+                p: '',
+                t: 'UP',
+            },
+            title: 'Team Leader',
+        },
+        {
+            name: 'T$CPGH',
+            obj: {
+                k: '',
+                p: 'B£WCP',
+                t: 'TA',
+            },
+            title: 'Stato (SV)',
+        },
+        {
+            name: '$OP',
+            obj: {
+                k: '',
+                p: 'COD_VER',
+                t: 'VO',
+            },
+            title: 'Op',
+            visible: false,
+        },
+        {
+            name: 'ID_TP',
+            obj: {
+                k: '',
+                p: '',
+                t: 'OG',
+            },
+            title: 'Tipo',
+            visible: false,
+        },
+        {
+            name: 'ID_LI',
+            obj: {
+                k: '',
+                p: 'CPG',
+                t: 'TA',
+            },
+            title: 'Id',
+            visible: false,
+        },
+        {
+            name: 'TTANNU',
+            obj: {
+                k: '',
+                p: '',
+                t: '',
+            },
+            title: 'Annullamento',
+            visible: false,
+        },
+        {
+            name: 'TTSETT',
+            obj: {
+                k: '',
+                p: '',
+                t: 'ST',
+            },
+            title: 'Settore',
+            visible: false,
+        },
+        {
+            name: 'T$CPGD',
+            obj: {
+                k: '',
+                p: '',
+                t: 'UP',
+            },
+            title: 'Product Owner',
+            visible: false,
+        },
+        {
+            name: 'T$CPGE',
+            obj: {
+                k: '',
+                p: '',
+                t: 'CM',
+            },
+            title: 'Commessa',
+            visible: false,
+        },
+        {
+            name: 'T$CPGF',
+            obj: {
+                k: '',
+                p: 'SI/NO',
+                t: 'V2',
+            },
+            title: 'Commessa Obblig.',
+            visible: false,
+        },
+        {
+            name: 'T$CPGJ',
+            obj: {
+                k: '',
+                p: 'A£.AVCPG',
+                t: 'V4',
+            },
+            title: 'Avanzamento',
+            visible: false,
+        },
+        {
+            name: 'TTUSIN',
+            obj: {
+                k: '',
+                p: '*USRPRF',
+                t: 'OJ',
+            },
+            title: 'Utente inserimento',
+            visible: false,
+        },
+        {
+            icon: 'calendar',
+            name: 'TTDTIN',
+            obj: {
+                k: '',
+                p: '*YYMD',
+                t: 'D8',
+            },
+            title: 'Data inserimento',
+            visible: false,
+        },
+        {
+            name: 'TTORIN',
+            obj: {
+                k: '',
+                p: '2',
+                t: 'I1',
+            },
+            title: 'Ora inserimento',
+            visible: false,
+        },
+        {
+            name: 'TTUSAG',
+            obj: {
+                k: '',
+                p: '*USRPRF',
+                t: 'OJ',
+            },
+            title: 'Utente aggiornamento',
+            visible: false,
+        },
+        {
+            icon: 'calendar',
+            name: 'TTDTAG',
+            obj: {
+                k: '',
+                p: '*YYMD',
+                t: 'D8',
+            },
+            title: 'Data aggiornamento',
+            visible: false,
+        },
+        {
+            name: 'TTORAG',
+            obj: {
+                k: '',
+                p: '2',
+                t: 'I1',
+            },
+            title: 'Ora aggiornamento',
+            visible: false,
+        },
+        {
+            name: 'groupingRowColumnCode',
+            obj: {
+                k: '',
+                p: '',
+                t: '',
+            },
+            title: '',
+            visible: false,
+        },
+        {
+            name: 'groupingRowColumnCodeLevel',
+            obj: {
+                k: '',
+                p: '',
+                t: '',
+            },
+            title: '',
+            visible: false,
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20201014',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '14/10/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200824',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '24/08/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00001',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00001',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PDL00001',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'migrazione a showcase@smeup',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'LAB.S.005',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'LAB.S.005',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200915',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '15/09/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '28',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '28',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'N',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'N',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '150035',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '15:00:35',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '163834',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '16:38:34',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00001',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00001',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '0',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200911',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '11/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200826',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '26/08/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00002',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00002',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PDL00002',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Gestione testi in H53',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'LANSIL',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'LANSIL',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SMEUP.011',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'SMEUP.011',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200918',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '18/09/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '30',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '30',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '95407',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:54:07',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '141117',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '14:11:17',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00002',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00002',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '1',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200916',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '16/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200826',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '26/08/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00003',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00003',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PDL00003',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Richieste su TED',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'LANSIL',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'LANSIL',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.S.001',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.S.001',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20201231',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '31/12/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '45',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '45',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '144933',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '14:49:33',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '161249',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '16:12:49',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00003',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00003',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '2',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200827',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '27/08/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00004',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00004',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PDL00004',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Stato componenti cls A',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.002',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.002',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '31',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '31',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'C',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'C',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '91818',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:18:18',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '192105',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '19:21:05',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00004',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00004',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '3',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200911',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '11/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200902',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '02/09/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00005',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00005',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PDL00005',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Immagine di una funzione',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'LANSIL',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'LANSIL',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.D.005',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.D.005',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '1',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '1',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'D',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'D',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '95721',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:57:21',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '142935',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '14:29:35',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00005',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00005',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '4',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200903',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '03/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200903',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '03/09/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00006',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00006',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PDL00006',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Implementazioni su spotlight',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'LANSIL',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'LANSIL',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.005',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.005',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '2',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '2',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '165050',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '16:50:50',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '165022',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '16:50:22',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00006',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00006',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '5',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200907',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '07/09/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00007',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00007',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PDL00007',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Performance Ketchup',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.002',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.002',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20201015',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '15/10/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '38',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '38',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '91316',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:13:16',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '90743',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:07:43',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00007',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00007',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '6',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20201016',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '16/10/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200914',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '14/09/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00009',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00009',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PDL00009',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'CSS TED Html',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.002',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.002',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '32',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '32',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'Q',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'Q',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '151005',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '15:10:05',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '111842',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '11:18:42',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00009',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00009',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '7',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200916',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '16/09/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00010',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00010',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PDL00010',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Revisione Tooltip',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.002',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.002',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20201015',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '15/10/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '39',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '39',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'Q',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'Q',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '91338',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:13:38',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '145227',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '14:52:27',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDL00010',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PDL00010',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '8',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20191007',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '07/10/19',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000098',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000098',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000098',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Salvataggio stato Matrice Kup',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.002',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.002',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '33',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '33',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'C',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'C',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '91650',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:16:50',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '120051',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '12:00:51',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000098',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000098',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '9',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200731',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '31/07/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20191012',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '12/10/19',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000126',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000126',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000126',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Nuova Home',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.005',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.005',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200331',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '31/03/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '12',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '12',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'N',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'N',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '115448',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '11:54:48',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '101923',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '10:19:23',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000126',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000126',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '10',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200722',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '22/07/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20191128',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '28/11/19',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000158',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000158',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000158',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'UPP Import paghe',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'FERPAO',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'FERPAO',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SMEC5.003',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'SMEC5.003',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200331',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '31/03/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '13',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '13',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'N',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'N',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '90516',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:05:16',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '172851',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '17:28:51',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000158',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000158',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '11',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200730',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/07/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20191229',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '29/12/19',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000175',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000175',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000175',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '#RILASCIO nuovi showcase',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'LAB.F.001',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'LAB.F.001',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200831',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '31/08/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '25',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '25',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'Q',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'Q',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '183735',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '18:37:35',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '111844',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '11:18:44',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000175',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000175',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '12',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20201021',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '21/10/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200229',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '29/02/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000188',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000188',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000188',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Security Framework',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'AGOALE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'AGOALE',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.K.004',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.K.004',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200831',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '31/08/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '26',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '26',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'N',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'N',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '113442',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '11:34:42',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '102106',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '10:21:06',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000188',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000188',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '13',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20201008',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '08/10/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200313',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '13/03/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000195',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000195',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000195',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Observability LOA38',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.K.003',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.K.003',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200630',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/06/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '17',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '17',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '164534',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '16:45:34',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '101255',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '10:12:55',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000195',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000195',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '14',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200610',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '10/06/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200316',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '16/03/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000199',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000199',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000199',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Myti MVP',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.I.006',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.I.006',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200627',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '27/06/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '16',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '16',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '143025',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '14:30:25',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '84006',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '08:40:06',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000199',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000199',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '15',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200728',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '28/07/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200420',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '20/04/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000209',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000209',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000209',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Docsify per UPP e PER',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SMEDC.001',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'SMEDC.001',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200915',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '15/09/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '29',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '29',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '161508',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '16:15:08',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '192856',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '19:28:56',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000209',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000209',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '16',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200715',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '15/07/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200512',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '12/05/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000215',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000215',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000215',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '#RIL smartkit webup',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'LAB.F.001',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'LAB.F.001',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200815',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '15/08/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '23',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '23',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '130021',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '13:00:21',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '143055',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '14:30:55',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000215',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000215',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '17',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20201016',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '16/10/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200513',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '13/05/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000219',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000219',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000219',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Rilascio Smeup Mobile',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'LAB.F.001',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'LAB.F.001',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '34',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '34',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'C',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'C',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '172119',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '17:21:19',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '91016',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:10:16',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000219',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000219',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '18',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20201014',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '14/10/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200513',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '13/05/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000222',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000222',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000222',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'gateway per FEC',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.I.003',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.I.003',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200613',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '13/06/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '14',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '14',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'C',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'C',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '144442',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '14:44:42',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '153241',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '15:32:41',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000222',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000222',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '19',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200701',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '01/07/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200513',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '13/05/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000225',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000225',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000225',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'securing loocup',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.K.005',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.K.005',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200613',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '13/06/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '15',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '15',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'C',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'C',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '160040',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '16:00:40',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '153348',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '15:33:48',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000225',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000225',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '20',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200722',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '22/07/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200519',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '19/05/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000226',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000226',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000226',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'G53: supporto SFTP e FTPS',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.I.007',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.I.007',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '2',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '2',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200731',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '31/07/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'N',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'N',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '95913',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:59:13',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '162801',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '16:28:01',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000226',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000226',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '21',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200911',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '11/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200527',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '27/05/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000227',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000227',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000227',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Interfacciamento gcal',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.I.010',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.I.010',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200715',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '15/07/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '19',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '19',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'C',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'C',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '111401',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '11:14:01',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '92650',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:26:50',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000227',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000227',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '22',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200729',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '29/07/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200527',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '27/05/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000228',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000228',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000228',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Analisi Sme.UP unicode',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.K.006',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.K.006',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '3',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '3',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '85735',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '08:57:35',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '161006',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '16:10:06',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000228',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000228',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '23',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200722',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '22/07/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200603',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '03/06/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000229',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000229',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000229',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Gestione Matricole in Ditech',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MOLFRA',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MOLFRA',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DT15337',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'DT15337',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200630',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/06/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '18',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '18',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'C',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'C',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '100257',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '10:02:57',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '115314',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '11:53:14',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000229',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000229',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '24',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200611',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '11/06/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000230',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000230',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000230',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Negoziando App Terminali',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'NEGO.008',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'NEGO.008',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20201015',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '15/10/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '40',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '40',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '91739',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:17:39',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '122109',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '12:21:09',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000230',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000230',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '25',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200611',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '11/06/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000231',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000231',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000231',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'kup-qlik (WebComp e Showcase)',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.002',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.002',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20201015',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '15/10/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '41',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '41',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '91509',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:15:09',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '123543',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '12:35:43',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000231',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000231',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '26',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200715',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '15/07/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200612',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '12/06/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000233',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000233',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000233',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Gateway CI/CD (smartkit)',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'LAB.S.007',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'LAB.S.007',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200815',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '15/08/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '24',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '24',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '130133',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '13:01:33',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '172353',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '17:23:53',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000233',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000233',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '27',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20201020',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '20/10/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200615',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '15/06/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000234',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000234',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000234',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Schedulaz. Sme.UP su Panthera',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'LAB.F.004',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'LAB.F.004',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '4',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '4',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'N',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'N',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '165441',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '16:54:41',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '95820',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:58:20',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000234',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000234',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '28',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200826',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '26/08/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200616',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '16/06/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000235',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000235',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000235',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Revisione Activity Timeline',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.002',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.002',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200731',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '31/07/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '21',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '21',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'Q',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'Q',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '111737',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '11:17:37',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '84547',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '08:45:47',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000235',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000235',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '29',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200625',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '25/06/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000236',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000236',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000236',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Refactoring Symbol Table',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'LANMAR',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'LANMAR',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.M.008',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.M.008',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '35',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '35',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'Q',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'Q',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '121614',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '12:16:14',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '94059',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:40:59',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000236',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000236',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '30',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200916',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '16/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200703',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '03/07/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000237',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000237',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000237',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Stage accesso sedi multipiatt.',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.M.009',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.M.009',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20201031',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '31/10/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '43',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '43',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '161053',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '16:10:53',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '170033',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '17:00:33',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000237',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000237',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '31',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20201014',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '14/10/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200703',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '03/07/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000238',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000238',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000238',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Stage: Webup in Kubernetes',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.I.013',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.I.013',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200911',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '11/09/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '27',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '27',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'C',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'C',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '123653',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '12:36:53',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '172834',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '17:28:34',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000238',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000238',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '32',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20201014',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '14/10/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200708',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '08/07/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000241',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000241',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000241',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Touch400 e Sme.UP',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.006',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.006',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '5',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '5',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'N',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'N',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '150133',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '15:01:33',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '182622',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '18:26:22',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000241',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000241',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '33',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200805',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '05/08/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200715',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '15/07/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000243',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000243',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000243',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'H2O per smeup',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.E.004',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.E.004',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '6',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '6',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '111218',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '11:12:18',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '91505',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:15:05',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000243',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000243',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '34',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20201014',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '14/10/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200716',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '16/07/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000245',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000245',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000245',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Webapp on quarkus',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.M.003',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.M.003',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200731',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '31/07/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '22',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '22',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'C',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'C',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '123549',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '12:35:49',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '145452',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '14:54:52',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000245',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000245',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAEOLI',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'MAEOLI',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '35',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200923',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '23/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200731',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '31/07/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000247',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000247',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000247',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'CRM Base',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MAFPAA',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MAFPAA',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SMERE.001',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'SMERE.001',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: 'C',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: 'C',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '7',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '7',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'N',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'N',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '105521',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '10:55:21',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '105513',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '10:55:13',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000247',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000247',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '36',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200923',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '23/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200806',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '06/08/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000253',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000253',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000253',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'showcase v1.0',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'MACSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'MACSTE',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.D.001',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.D.001',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20201015',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '15/10/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '42',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '42',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'N',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'N',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '115353',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '11:53:53',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '91625',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:16:25',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000253',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000253',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '37',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200811',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '11/08/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000254',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000254',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000254',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'CONAP in Web.UP',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ZAMCHI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ZAMCHI',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.009',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.009',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '8',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '8',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '103219',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '10:32:19',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '110931',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '11:09:31',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000254',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000254',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '38',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200811',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '11/08/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000255',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000255',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000255',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Miglioram. compat. sch web-loo',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ZAMCHI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ZAMCHI',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.010',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.010',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '36',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '36',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '111916',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '11:19:16',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '111158',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '11:11:58',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000255',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000255',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '39',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20201005',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '05/10/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200811',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '11/08/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000256',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000256',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000256',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Matrice KetchUP in prod',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ZAMCHI',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ZAMCHI',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.002',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.002',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20201031',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '31/10/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '44',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '44',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '153507',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '15:35:07',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '111337',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '11:13:37',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000256',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000256',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '40',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20201002',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '02/10/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200827',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '27/08/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000257',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000257',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000257',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Revisione processo sviluppo -E',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'LANSIL',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'LANSIL',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'LAB.S.003',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'LAB.S.003',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '9',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '9',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '130221',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '13:02:21',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '101128',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '10:11:28',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000257',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000257',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '41',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20201016',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '16/10/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200827',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '27/08/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000258',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000258',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000258',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Parent e class sui g.set',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'LANSIL',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'LANSIL',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.002',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.002',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '37',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '37',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'C',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'C',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '172022',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '17:20:22',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '191832',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '19:18:32',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000258',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000258',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'DELGIO',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'DELGIO',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '42',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200911',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '11/09/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000265',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000265',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000265',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Stage: http su AS400',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'FOR-S',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'FOR-S',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '10',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '10',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'I',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'I',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '95723',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:57:23',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '142034',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '14:20:34',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000265',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000265',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'ARRSTE',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'ARRSTE',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '43',
+        },
+        {
+            cells: {
+                TTDTAG: {
+                    obj: {
+                        k: '20200930',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '30/09/20',
+                },
+                TTANNU: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTDTIN: {
+                    obj: {
+                        k: '20200916',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: true,
+                    value: '16/09/20',
+                },
+                ID_LI: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000267',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000267',
+                },
+                $OP: {
+                    cssClass: 'strong-text',
+                    data: {
+                        sizeX: '18px',
+                        resource: 'chevron-down',
+                        sizeY: '18px',
+                    },
+                    obj: {
+                        k: '000102',
+                        p: 'COD_VER',
+                        t: 'VO',
+                    },
+                    options: false,
+                    value: 'chevron-down',
+                },
+                ID_TP: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'TACPG',
+                        p: '',
+                        t: 'OG',
+                    },
+                    options: true,
+                    value: 'TACPG',
+                },
+                TTDESC: {
+                    obj: {
+                        k: 'PD000267',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'Tooltip su BOX',
+                },
+                T$CPGD: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'SANCOS',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'SANCOS',
+                },
+                T$CPGE: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PDS.W.002',
+                        p: '',
+                        t: 'CM',
+                    },
+                    options: true,
+                    value: 'PDS.W.002',
+                },
+                T$CPGB: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '',
+                        t: 'UP',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+                groupingRowColumnCodeLevel: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '0',
+                        p: 'HEADER',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '0',
+                },
+                T$CPGH: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-green-bg strong-text',
+                    obj: {
+                        k: '20',
+                        p: 'B£WCP',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: '20',
+                },
+                T$CPGI: {
+                    obj: {
+                        k: '',
+                        p: '',
+                        t: '',
+                    },
+                    options: false,
+                    value: '',
+                },
+                T$CPGF: {
+                    cssClass: 'strong-text',
+                    data: {
+                        checked: false,
+                    },
+                    obj: {
+                        k: '',
+                        p: 'SI/NO',
+                        t: 'V2',
+                    },
+                    options: false,
+                    value: '',
+                },
+                TTSETT: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'CPG',
+                        p: '',
+                        t: 'ST',
+                    },
+                    options: true,
+                    value: 'CPG',
+                },
+                T$CPGG: {
+                    obj: {
+                        k: '',
+                        p: '*YYMD',
+                        t: 'D8',
+                    },
+                    options: false,
+                    value: '',
+                },
+                groupingRowColumnCode: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '11',
+                        p: 'ROW',
+                        t: 'JG',
+                    },
+                    options: true,
+                    value: '11',
+                },
+                T$CPGJ: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'C',
+                        p: 'A£.AVCPG',
+                        t: 'V4',
+                    },
+                    options: true,
+                    value: 'C',
+                },
+                TTORAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '94715',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '09:47:15',
+                },
+                TTORIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: '164935',
+                        p: '2',
+                        t: 'I1',
+                    },
+                    options: true,
+                    value: '16:49:35',
+                },
+                TTELEM: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'PD000267',
+                        p: 'CPG',
+                        t: 'TA',
+                    },
+                    options: true,
+                    value: 'PD000267',
+                },
+                TTUSAG: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+                TTUSIN: {
+                    cssClass: 'strong-text',
+                    obj: {
+                        k: 'BENMAR',
+                        p: '*USRPRF',
+                        t: 'OJ',
+                    },
+                    options: true,
+                    value: 'BENMAR',
+                },
+            },
+            cssClass: 'clickable',
+            object: '',
+            readOnly: true,
+            id: '44',
+        },
+    ],
+};
+const orderGroupTestTotals = null;
+const orderGroupTestGroups = [
+    {
+        column: 'T$CPGG',
+        visible: true,
+    },
+];
+const orderGroupTest = document.getElementById('order-group-test');
+if (orderGroupTest != null) {
+    orderGroupTest.data = orderGroupTestData;
+    orderGroupTest.totals = orderGroupTestTotals;
+    orderGroupTest.groups = orderGroupTestGroups;
+    orderGroupTest.rowsPerPage = 2;
+}
 
 // shapes
 const ratingTestData = {
     columns: [
         {
             name: 'RTG_00',
-            title: 'Rating shape',
+            title: 'Rating Shape',
+            shape: 'Rtg',
         },
     ],
     rows: [
         {
             cells: {
                 RTG_00: {
+                    data: {
+                        value: '',
+                    },
                     obj: {
                         t: '**',
                         p: '',
@@ -2907,6 +14302,7 @@ const ratingTestData = {
             cells: {
                 RTG_00: {
                     data: {
+                        value: '5',
                         maxValue: 10,
                     },
                     obj: {
@@ -2923,6 +14319,9 @@ const ratingTestData = {
         {
             cells: {
                 RTG_00: {
+                    data: {
+                        value: '3',
+                    },
                     obj: {
                         t: '**',
                         p: '',
@@ -2937,6 +14336,9 @@ const ratingTestData = {
         {
             cells: {
                 RTG_00: {
+                    data: {
+                        value: '4',
+                    },
                     obj: {
                         t: '**',
                         p: '',
@@ -2971,7 +14373,9 @@ const colorTestData = {
         {
             cells: {
                 CLP_00: {
-                    data: {},
+                    data: {
+                        value: '',
+                    },
                     obj: {
                         t: 'J1',
                         p: 'COL',
@@ -2981,7 +14385,9 @@ const colorTestData = {
                     options: false,
                 },
                 CLP_01: {
-                    data: {},
+                    data: {
+                        value: '',
+                    },
                     obj: {
                         t: '',
                         p: '',
@@ -3057,6 +14463,298 @@ const colorTestData = {
 const colorTest = document.getElementById('color-test');
 if (colorTest != null) {
     colorTest.data = colorTestData;
+}
+
+const jlObjectsTestData = {
+    columns: [
+        {
+            name: 'JL_00',
+            title: 'JL Objects',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                JL_00: {
+                    obj: {
+                        t: 'JL',
+                        p: '**',
+                        k: '',
+                    },
+                    value: '',
+                    options: false,
+                },
+            },
+        },
+        {
+            cells: {
+                JL_00: {
+                    data: {
+                        data: [
+                            {
+                                value: 'text',
+                                label: 'Text only',
+                            },
+                            {
+                                value: 'icon',
+                                icon: 'widgets',
+                                label: 'With icon',
+                            },
+                        ],
+                    },
+                    obj: {
+                        t: 'JL',
+                        p: '**',
+                        k: 'text;icon',
+                    },
+                    value: 'text;icon',
+                    options: false,
+                },
+            },
+        },
+        {
+            cells: {
+                JL_00: {
+                    data: {
+                        data: [
+                            {
+                                label: 'Federico Robertozzi',
+                            },
+                            {
+                                label: 'Parodonte Frascati',
+                            },
+                        ],
+                    },
+                    obj: {
+                        t: 'JL',
+                        p: 'CNCOL',
+                        k: 'FEDROB;PARFRA',
+                    },
+                    value: 'Federico Robertozzi;Parodonte Frascati',
+                    options: false,
+                },
+            },
+        },
+    ],
+};
+
+const jlTest = document.getElementById('jl-test');
+if (jlTest != null) {
+    jlTest.data = jlObjectsTestData;
+}
+
+const gaugeShapeTestData = {
+    columns: [
+        {
+            name: 'GAU_00',
+            title: 'Gau shapes',
+        },
+        {
+            name: 'DESCR',
+            title: 'Description',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                GAU_00: {
+                    data: {
+                        value: '',
+                    },
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '',
+                    },
+                    shape: 'Gau',
+                    options: false,
+                },
+                DESCR: {
+                    value: 'No data',
+                },
+            },
+        },
+        {
+            cells: {
+                GAU_00: {
+                    data: {
+                        value: '50',
+                    },
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '50',
+                    },
+                    value: '50',
+                    shape: 'Gau',
+                    options: false,
+                },
+                DESCR: {
+                    value: 'Only value',
+                },
+            },
+        },
+        {
+            cells: {
+                GAU_00: {
+                    data: {
+                        minValue: '30',
+                        maxValue: '150',
+                        value: '50',
+                    },
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '50',
+                    },
+                    value: '50',
+                    shape: 'Gau',
+                    options: false,
+                },
+                DESCR: {
+                    value: 'Max and min',
+                },
+            },
+        },
+        {
+            cells: {
+                GAU_00: {
+                    data: {
+                        firstThreshold: '30',
+                        value: '50',
+                    },
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '50',
+                    },
+                    value: '50',
+                    shape: 'Gau',
+                    options: false,
+                },
+                DESCR: {
+                    value: 'With one threshold',
+                },
+            },
+        },
+        {
+            cells: {
+                GAU_00: {
+                    data: {
+                        firstThreshold: '15',
+                        secondThreshold: '45',
+                        value: '50',
+                    },
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '50',
+                    },
+                    value: '50',
+                    shape: 'Gau',
+                    options: false,
+                },
+                DESCR: {
+                    value: 'With two thresholds',
+                },
+            },
+        },
+        {
+            cells: {
+                GAU_00: {
+                    data: {
+                        reverseColors: 'true',
+                        value: '50',
+                    },
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '50',
+                    },
+                    value: '50',
+                    shape: 'Gau',
+                    options: false,
+                },
+                DESCR: {
+                    value: 'Reverse colors',
+                },
+            },
+        },
+        {
+            cells: {
+                GAU_00: {
+                    data: {
+                        firstThreshold: '33',
+                        secondThreshold: '66',
+                        onlyValue: 'true',
+                        value: '50',
+                    },
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '50',
+                    },
+                    value: '50',
+                    shape: 'Gau',
+                    options: false,
+                },
+                DESCR: {
+                    value: 'Only value',
+                },
+            },
+        },
+        {
+            cells: {
+                GAU_00: {
+                    data: {
+                        showValue: 'false',
+                        value: '50',
+                    },
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '50',
+                    },
+                    value: '50',
+                    shape: 'Gau',
+                    options: false,
+                },
+                DESCR: {
+                    value: 'No show value',
+                },
+            },
+        },
+        {
+            cells: {
+                GAU_00: {
+                    data: {
+                        minValue: '0',
+                        firstThreshold: '20',
+                        maxValue: '200',
+                        secondThreshold: '50',
+                        measurementUnit: 'C°',
+                        value: '50',
+                    },
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '50',
+                    },
+                    value: '50',
+                    shape: 'Gau',
+                    options: false,
+                },
+                DESCR: {
+                    value: 'With measurement unit',
+                },
+            },
+        },
+    ],
+};
+
+const gaugeTest = document.getElementById('gauge-test');
+if (gaugeTest != null) {
+    gaugeTest.data = gaugeShapeTestData;
 }
 
 const tempDataTableTestData = {
@@ -3291,4 +14989,2675 @@ const tempDataTableTest = document.getElementById('temp-data-table-test');
 if (tempDataTableTest != null) {
     tempDataTableTest.data = tempDataTableTestData;
     tempDataTableTest.sort = tempDataTableTestSort;
+}
+
+const tempDataTableRadioData = {
+    columns: [
+        {
+            name: 'RAD_01',
+            obj: {
+                k: '',
+                p: 'B£WAR',
+                t: 'TA',
+            },
+            title: 'Selezionato con valore 10',
+        },
+        {
+            name: 'RAD_02',
+            obj: {
+                k: '',
+                p: 'BSA',
+                t: 'TA',
+            },
+            title: 'Selezionato 37 (su 1 colonna):',
+        },
+        {
+            name: 'RAD_03',
+            obj: {
+                k: '',
+                p: 'BSA',
+                t: 'TA',
+            },
+            title: 'Su 5 colonne:',
+        },
+        {
+            name: 'RAD_04',
+            obj: {
+                k: '',
+                p: 'B£WAR',
+                t: 'TA',
+            },
+            title: 'Con layout inline',
+        },
+        {
+            name: 'RAD_05',
+            obj: {
+                k: '',
+                p: 'B£WAR',
+                t: 'TA',
+            },
+            title: 'Mostra solo il codice',
+        },
+        {
+            name: 'RAD_06',
+            obj: {
+                k: '',
+                p: 'B£WAR',
+                t: 'TA',
+            },
+            title: 'Mostra solo la descrizione',
+        },
+        {
+            name: 'RAD_07',
+            obj: {
+                k: '',
+                p: 'B£WAR',
+                t: 'TA',
+            },
+            title: 'Mostra codice e descizione',
+        },
+        {
+            name: 'RAD_08',
+            obj: {
+                k: '',
+                p: 'B£WAR',
+                t: 'TA',
+            },
+            title: 'Disabilitato',
+        },
+        {
+            name: 'RAD_09',
+            obj: {
+                k: '',
+                p: 'B£APP',
+                t: 'V2',
+            },
+            title: 'Con valore blank(in sviluppo)',
+        },
+    ],
+    rows: [
+        {
+            cells: {
+                RAD_07: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_06: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_09: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: false,
+                                value: '',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '',
+                        p: 'B£APP',
+                        t: 'V2',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '',
+                },
+                RAD_08: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_01: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                                label: 'Valore 10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_03: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_02: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_05: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_04: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+            },
+            object: '',
+            readOnly: true,
+            id: '0',
+        },
+        {
+            cells: {
+                RAD_07: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_06: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_09: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: false,
+                                value: '',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '',
+                        p: 'B£APP',
+                        t: 'V2',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '',
+                },
+                RAD_08: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_01: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_03: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_02: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_05: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_04: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+            },
+            object: '',
+            readOnly: true,
+            id: '1',
+        },
+        {
+            cells: {
+                RAD_07: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_06: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_09: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: false,
+                                value: '',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '',
+                        p: 'B£APP',
+                        t: 'V2',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '',
+                },
+                RAD_08: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_01: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_03: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_02: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_05: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_04: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+            },
+            object: '',
+            readOnly: true,
+            id: '2',
+        },
+        {
+            cells: {
+                RAD_07: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_06: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_09: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: false,
+                                value: '',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '',
+                        p: 'B£APP',
+                        t: 'V2',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '',
+                },
+                RAD_08: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_01: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_03: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_02: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_05: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_04: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+            },
+            object: '',
+            readOnly: true,
+            id: '3',
+        },
+        {
+            cells: {
+                RAD_07: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_06: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_09: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: false,
+                                value: '',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '',
+                        p: 'B£APP',
+                        t: 'V2',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '',
+                },
+                RAD_08: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_01: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_03: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_02: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_05: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_04: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+            },
+            object: '',
+            readOnly: true,
+            id: '4',
+        },
+        {
+            cells: {
+                RAD_07: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_06: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_09: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: false,
+                                value: '',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '',
+                        p: 'B£APP',
+                        t: 'V2',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '',
+                },
+                RAD_08: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_01: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_03: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_02: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_05: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_04: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+            },
+            object: '',
+            readOnly: true,
+            id: '5',
+        },
+        {
+            cells: {
+                RAD_07: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_06: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_09: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: false,
+                                value: '',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '',
+                        p: 'B£APP',
+                        t: 'V2',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '',
+                },
+                RAD_08: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_01: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_03: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_02: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_05: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_04: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+            },
+            object: '',
+            readOnly: true,
+            id: '6',
+        },
+        {
+            cells: {
+                RAD_07: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_06: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_09: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: false,
+                                value: '',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '',
+                        p: 'B£APP',
+                        t: 'V2',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '',
+                },
+                RAD_08: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_01: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_03: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_02: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_05: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_04: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+            },
+            object: '',
+            readOnly: true,
+            id: '7',
+        },
+        {
+            cells: {
+                RAD_07: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_06: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_09: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: false,
+                                value: '',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '',
+                        p: 'B£APP',
+                        t: 'V2',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '',
+                },
+                RAD_08: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_01: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_03: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_02: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_05: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_04: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+            },
+            object: '',
+            readOnly: true,
+            id: '8',
+        },
+        {
+            cells: {
+                RAD_07: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_06: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_09: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: false,
+                                value: '',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '',
+                        p: 'B£APP',
+                        t: 'V2',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '',
+                },
+                RAD_08: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_01: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_03: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_02: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_05: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_04: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+            },
+            object: '',
+            readOnly: true,
+            id: '9',
+        },
+        {
+            cells: {
+                RAD_07: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_06: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_09: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: false,
+                                value: '',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '',
+                        p: 'B£APP',
+                        t: 'V2',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '',
+                },
+                RAD_08: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_01: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_03: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_02: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_05: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_04: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+            },
+            object: '',
+            readOnly: true,
+            id: '10',
+        },
+        {
+            cells: {
+                RAD_07: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_06: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_09: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: false,
+                                value: '',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '',
+                        p: 'B£APP',
+                        t: 'V2',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '',
+                },
+                RAD_08: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_01: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_03: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_02: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_05: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_04: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+            },
+            object: '',
+            readOnly: true,
+            id: '11',
+        },
+        {
+            cells: {
+                RAD_07: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_06: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_09: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: false,
+                                value: '',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '',
+                        p: 'B£APP',
+                        t: 'V2',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '',
+                },
+                RAD_08: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_01: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_03: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_02: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_05: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_04: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+            },
+            object: '',
+            readOnly: true,
+            id: '12',
+        },
+        {
+            cells: {
+                RAD_07: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_06: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_09: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: false,
+                                value: '',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '',
+                        p: 'B£APP',
+                        t: 'V2',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '',
+                },
+                RAD_08: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_01: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_03: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_02: {
+                    cssClass: 'strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '37',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '37',
+                        p: 'BSA',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '37',
+                },
+                RAD_05: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+                RAD_04: {
+                    cssClass:
+                        'c-fitted c-shaped c-hor-padded c-teal-bg strong-text',
+                    data: {
+                        data: [
+                            {
+                                checked: true,
+                                value: '10',
+                            },
+                        ],
+                    },
+                    obj: {
+                        k: '10',
+                        p: 'B£WAR',
+                        t: 'TA',
+                    },
+                    options: false,
+                    shape: 'Rad',
+                    value: '10',
+                },
+            },
+            object: '',
+            readOnly: true,
+            id: '13',
+        },
+    ],
+};
+
+const tempDataTableRadio = document.getElementById('temp-data-table-radio');
+
+if (tempDataTableRadio != null) {
+    tempDataTableRadio.data = tempDataTableRadioData;
 }

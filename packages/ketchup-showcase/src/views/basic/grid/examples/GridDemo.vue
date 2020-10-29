@@ -21,6 +21,13 @@ export default {
       demoComp: createComp(),
       demoProps: [
         {
+          prop: 'className',
+          description: 'Available classes: full-width.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'columns',
           description:
             'The number of columns displayed by the grid, the default behavior is 12.',
@@ -42,14 +49,6 @@ export default {
           type: 'ComponentLayoutElement[]',
           default: 'undefined',
           try: 'json',
-        },
-        {
-          prop: 'fullWidth',
-          description:
-            'When set to true, forces the width to 100% for the single line layout.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
         },
         {
           prop: 'singleLine',

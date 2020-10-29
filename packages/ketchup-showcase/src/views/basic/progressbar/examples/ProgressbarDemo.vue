@@ -29,28 +29,20 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'className',
+          description:
+            'Available classes: padded, striped, animated (works with striped), slim.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
           default: 'undefined',
           try: 'css',
-        },
-        {
-          prop: 'hasPadding',
-          description:
-            'Sets a padding between the bar and its container. Not supported for the radial variant.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'hasStripes',
-          description:
-            'Sets a striped background. Not supported for the radial variant.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
         },
         {
           prop: 'hideLabel',
@@ -67,23 +59,8 @@ export default {
           try: 'field',
         },
         {
-          prop: 'isAnimated',
-          description:
-            'When striped background is active, it will be animated. Not supported for the radial variant.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'isRadial',
           description: 'Radial version.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'isSlim',
-          description: 'Slim version.',
           type: 'boolean',
           default: 'false',
           try: 'switch',

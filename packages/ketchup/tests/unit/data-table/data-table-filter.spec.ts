@@ -198,10 +198,16 @@ describe('kup-data-table filters rows', () => {
 
                     const filterProofRowsCount = mockedRowsWithEmptyValues.reduce(
                         (displayedRowsCount, { cells }) => {
-                            const compareResult = compareFunction(
+                            let compareResult = compareFunction(
                                 cells[columnToFilterOn].value,
                                 filterText
                             );
+                            if(!compareResult && cells[columnToFilterOn].obj){
+                                compareResult = compareFunction(
+                                    cells[columnToFilterOn].obj.k,
+                                    filterText
+                                );
+                            }
                             return (displayedRowsCount += (
                                 isAffirmative ? compareResult : !compareResult
                             )
@@ -213,10 +219,17 @@ describe('kup-data-table filters rows', () => {
                     expect(filtered).toHaveLength(filterProofRowsCount);
 
                     filtered.forEach((row) => {
-                        const compareResult = compareFunction(
+                        let compareResult = compareFunction(
                             row.cells[columnToFilterOn].value,
                             filterText
                         );
+                        if(!compareResult && row.cells[columnToFilterOn].obj){
+                            compareResult = compareFunction(
+                                row.cells[columnToFilterOn].obj.k,
+                                filterText
+                            );
+                        }
+
                         expect(
                             isAffirmative ? compareResult : !compareResult
                         ).toBeTruthy(); // [1]

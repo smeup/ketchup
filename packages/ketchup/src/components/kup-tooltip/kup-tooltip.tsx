@@ -30,42 +30,36 @@ import { positionRecalc } from '../../utils/recalc-position';
 })
 export class KupTooltip {
     @Element() rootElement: HTMLElement;
-    /**
-     * Layout used to display the items
-     */
-    @Prop() layout = '1';
-
-    /**
-     * Data for top section
-     */
-    @Prop() data: TooltipData;
-
-    /**
-     * Data for the detail
-     */
-    @Prop() detailData: TooltipDetailData;
+    @State() visible = false;
 
     /**
      * Data for cell options
      */
     @Prop() cellOptions: TooltipCellOptions;
-
+    /**
+     * Data for top section
+     */
+    @Prop() data: TooltipData;
+    /**
+     * Data for the detail
+     */
+    @Prop() detailData: TooltipDetailData;
     /**
      * Timeout for loadDetail
      */
     @Prop() detailTimeout: number = 800;
-
+    /**
+     * Layout used to display the items
+     */
+    @Prop() layout = '1';
     /**
      * Timeout for tooltip
      */
     @Prop() loadTimeout: number = 1000;
-
     /**
      * Container element for tooltip
      */
     @Prop() relatedObject: TooltipRelatedObject;
-
-    @State() visible = false;
 
     @Event({
         eventName: 'kupTooltipLoadData',
@@ -192,7 +186,8 @@ export class KupTooltip {
     private renderStart: number = 0;
     private renderEnd: number = 0;
 
-    private viewMode: ViewMode = ViewMode.TOOTLIP;
+    private viewMode: ViewMode = ViewMode.TOOLTIP;
+    private firstLoad: boolean = false;
 
     private _mouseIsOn: boolean = false;
     private waitingServerResponse = false;
@@ -243,6 +238,7 @@ export class KupTooltip {
         var timeoutMs = withTimeout == true ? this.detailTimeout : 0;
         this.loadDetailTimeout = setTimeout(() => {
             this.loadDetail();
+            this.firstLoad = true;
         }, timeoutMs);
     }
 
@@ -274,7 +270,7 @@ export class KupTooltip {
     }
 
     private isViewModeTooltip(): boolean {
-        return this.viewMode == ViewMode.TOOTLIP;
+        return this.viewMode == ViewMode.TOOLTIP;
     }
 
     private isViewModeCellOptions(): boolean {
@@ -332,14 +328,12 @@ export class KupTooltip {
                     {datatitle}
                 </div>
                 <kup-button
-                    flat={true}
                     icon="open-in-new"
                     onKupButtonClick={(event) =>
                         this.onDefaultActionClicked(event)
                     }
                 ></kup-button>
                 <kup-button
-                    flat={true}
                     icon="search"
                     onKupButtonClick={(event) =>
                         this.onDefaultPreviewClicked(event)
@@ -419,6 +413,7 @@ export class KupTooltip {
             let timeout = 800;
             this.mouseLeaveTimeout = setTimeout(() => {
                 this.relatedObject = null;
+                this.firstLoad = false;
             }, timeout);
         }
     }
@@ -435,18 +430,14 @@ export class KupTooltip {
         this.visible = false;
         this._mouseIsOn = false;
         this.waitingServerResponse = false;
-        this.viewMode = ViewMode.TOOTLIP;
+        this.viewMode = ViewMode.TOOLTIP;
     }
 
     // ---- Render methods ----
     private getDefaultLayout() {
         return [
             <div class="left">
-                <kup-image
-                    resource={this.getImage()}
-                    sizeX="75px"
-                    sizeY="75px"
-                ></kup-image>
+                <img class="image-container" src={this.getImage()}></img>
             </div>,
             <div class="right">
                 <h3>{this.getTitle()}</h3>
@@ -540,7 +531,6 @@ export class KupTooltip {
                     .map((action) => (
                         <div class="detail-actions__box">
                             <kup-button
-                                flat={true}
                                 title={action.text}
                                 icon={action.icon}
                                 onKupButtonClick={(event) =>
@@ -554,17 +544,22 @@ export class KupTooltip {
         if (this.hasCellOptionsData()) {
             detailContent = [
                 <kup-tree
+                    class="full-width"
+                    showFilter={true}
                     {...this.cellOptions.config}
                     {...this.cellOptions}
                 ></kup-tree>,
             ];
         }
-        if (this.hasDetailData() || this.hasCellOptionsData()) {
+        if (
+            this.hasDetailData() ||
+            this.hasCellOptionsData() ||
+            this.firstLoad
+        ) {
             detailActions = [
                 ...detailActions,
                 <div class="detail-actions__box">
                     <kup-button
-                        flat={true}
                         title={this.getTooltipForShowOptionsButton()}
                         icon={this.getIconForShowOptionsButton()}
                         onKupButtonClick={() => this.onShowRightClickOptions()}
@@ -576,6 +571,8 @@ export class KupTooltip {
 
         const detailClass = {
             visible: this.hasDetailData() || this.hasCellOptionsData(),
+            [this.viewMode]: true,
+            'detail-loaded': this.firstLoad,
         };
 
         return (
@@ -622,9 +619,9 @@ export class KupTooltip {
 
     onShowRightClickOptions() {
         this.viewMode =
-            this.viewMode == ViewMode.TOOTLIP
+            this.viewMode == ViewMode.TOOLTIP
                 ? ViewMode.CELL_OPTIONS
-                : ViewMode.TOOTLIP;
+                : ViewMode.TOOLTIP;
         this.startLoadDetail(false);
     }
     //---- Lifecycle hooks ----

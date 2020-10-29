@@ -17,7 +17,7 @@ import { toKebabCase } from './utils';
 // COMMONS
 // -------------
 
-export function getShape(cell: Cell, boxObject: BoxObject): string {
+export function getShape(cell: Cell, boxObject?: BoxObject): string {
     let prop = get(cell, 'shape', null);
     if (!prop && boxObject) {
         prop = get(boxObject, 'shape', null);
@@ -234,4 +234,13 @@ export function isColor(cell: Cell, boxObject: BoxObject) {
     return (
         'CLP' === shape || (!shape && cell && cell.obj && isColorObj(cell.obj))
     );
+}
+
+// -------------
+// GAUGE
+// -------------
+
+export function isGauge(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'GAU' === shape;
 }

@@ -7,7 +7,8 @@ import {
     EventEmitter,
     State,
     h,
-    Method, Watch
+    Method,
+    Watch,
 } from '@stencil/core';
 
 import {
@@ -52,68 +53,82 @@ export class KupChart {
     @State() themeColors: string[] = undefined;
     @State() themeText: string = undefined;
 
-    @Prop() data: DataTable;
-
-    @Prop()
-    asp: ChartAspect;
-
-    @Prop({ reflect: true })
-    axis: string;
-
-    @Prop()
-    colors: string[] = [];
+    /**
+     * Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.
+     */
+    @Prop() asp: ChartAspect;
+    /**
+     * Sets the axis of the chart.
+     */
+    @Prop() axis: string;
+    /**
+     * Colors of the chart.
+     */
+    @Prop() colors: string[] = [];
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
-
-    @Prop({ reflect: true })
-    graphTitle: string;
-
-    @Prop({ reflect: true })
-    graphTitleColor: string;
-
-    @Prop({ reflect: true })
-    graphTitleSize: number;
-
-    @Prop()
-    hAxis: ChartAxis;
-
+    @Prop() customStyle: string = undefined;
+    /**
+     * The actual data of the chart.
+     */
+    @Prop() data: DataTable;
+    /**
+     * Title of the graph.
+     */
+    @Prop() graphTitle: string;
+    /**
+     * Title of the graph's color.
+     */
+    @Prop() graphTitleColor: string;
+    /**
+     * Size of title of the graph (in pixels).
+     */
+    @Prop() graphTitleSize: number;
+    /**
+     * Customize the hAxis.
+     */
+    @Prop() hAxis: ChartAxis;
     /**
      * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
      */
-    @Prop({ reflect: true })
-    legend: string = 'right';
-
-    @Prop()
-    series: string[];
-
-    @Prop({ reflect: true })
-    showMarks = false;
-
-    @Prop({ reflect: true })
-    sizeX: string = '100%';
-
-    @Prop({ reflect: true })
-    sizeY: string = '100%';
-
-    @Prop({ reflect: true })
-    offlineMode: ChartOfflineMode = undefined;
-
-    @Prop({ reflect: true })
-    stacked = false;
-
-    @Prop()
-    types: ChartType[] = [ChartType.Hbar];
-
-    @Prop()
-    vAxis: ChartAxis;
-
+    @Prop() legend: string = 'right';
+    /**
+     * Renders charts without the Google API and using jQuery Sparkline.
+     */
+    @Prop() offlineMode: ChartOfflineMode = undefined;
+    /**
+     * The data series to be displayed. They must be of the same type.
+     */
+    @Prop() series: string[];
+    /**
+     * Displays the numerical values.
+     */
+    @Prop() showMarks = false;
+    /**
+     * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+     */
+    @Prop() sizeX: string = '100%';
+    /**
+     * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+     */
+    @Prop() sizeY: string = '100%';
+    /**
+     * Displays the data columns of an object on top of each other.
+     */
+    @Prop() stacked = false;
+    /**
+     * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
+     */
+    @Prop() types: ChartType[] = [ChartType.Hbar];
+    /**
+     * Customize the vAxis.
+     */
+    @Prop() vAxis: ChartAxis;
     /**
      * Google chart version to load
      */
-    @Prop()
-    version = '45.2';
+    @Prop() version = '45.2';
 
     private startTime: number = 0;
     private endTime: number = 0;
@@ -122,7 +137,7 @@ export class KupChart {
     private renderEnd: number = 0;
 
     @Watch('data')
-    identifyRows(){
+    identifyRows() {
         if (this.data) {
             identify(this.data.rows);
         }
@@ -273,6 +288,8 @@ export class KupChart {
             opts.titleTextStyle = {};
             if (this.graphTitleColor) {
                 opts.titleTextStyle.color = this.graphTitleColor;
+            } else {
+                opts.titleTextStyle.color = this.themeText;
             }
 
             if (this.graphTitleSize) {
@@ -665,7 +682,7 @@ export class KupChart {
         };
 
         return (
-            <Host class="handles-custom-style" style={this.elStyle}>
+            <Host style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div
                     id="kup-component"

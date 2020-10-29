@@ -23,7 +23,9 @@
      */
 
 table {
-  border-collapse: collapse;
+  // [TFixed-1] - This is needed to avoid problems with fixed rows/columns
+  border-spacing: 0; // [TFixed-1]
+  border-collapse: separate; // [TFixed-1]
   color: var(--kup-text-color);
   font-size: var(--kup-font-size);
   min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
@@ -37,18 +39,41 @@ table {
     width: 0; // [mandatory] See [1] [2]
   }
 
-  &.custom-size th {
-    position: sticky;
-    top: 0;
-    z-index: 7;
+  // The common border specification
+  $common-border: 1px solid var(--kup-border-color);
+
+  // By default, since border has been moved to the cells themselves, the first and last cell must always simulate the table border
+  > tbody > tr {
+    > td {
+      &:first-of-type {
+        border-left: $common-border;
+      }
+
+      &:last-of-type {
+        border-right: $common-border;
+      }
+    }
+
+    // ALso the last row must always have the border bottom property
+    &:last-of-type > td {
+      border-bottom: $common-border;
+    }
   }
 
-  &.row-separation > tbody > tr {
-    border-bottom: 1px solid var(--kup-border-color);
+  // When table header is not visible the table needs a border to,
+  // so the first row gets added a border
+  &.border-top > tbody > tr:first-of-type > td {
+    border-top: $common-border;
   }
 
+  // If row separation is specified, all rows gets a border bottom
+  &.row-separation > tbody > tr > td {
+    border-bottom: $common-border;
+  }
+
+  // If column separation is specified, all rows gets a border bottom
   &.column-separation > tbody > tr > td {
-    border-right: 1px solid var(--kup-border-color);
+    border-right: $common-border;
   }
 
   &.noGrid {
@@ -92,22 +117,8 @@ table {
     float: left;
   }
 
-  &.ascending {
-    mask: var(--drop-up-svg);
-  }
-
-  &.collapsed {
-    mask: var(--menu-right-svg);
-  }
-
-  &.descending,
-  &.expanded {
-    mask: var(--drop-down-svg);
-  }
-
   &.filter-remove {
     margin: 0 0.25rem;
-    mask: var(--filter-remove-svg);
   }
 
   &.obj-icon {
@@ -118,7 +129,7 @@ table {
     :host([force-one-line]) & {
       display: inline-block;
       margin: 0 0.5rem 0 0;
-      vertical-align: top;
+      vertical-align: -0.275rem;
     }
 
     .number & {
@@ -202,13 +213,14 @@ table {
 }
 
 thead {
-  border: 1px solid var(--kup-border-color);
-
   th {
+    $common-th-border: 1px solid var(--kup-border-color);
+
     background-color: var(--kup-title-background-color);
     color: var(--kup-title-color);
-    border-bottom: 2px solid var(--kup-border-color);
-    border-right: 1px solid var(--kup-border-color);
+    border: $common-th-border;
+    border-left: 0 none; // Important: only the first cell must have the border left, otherwise the th will have a visual 2px border between each other.
+    border-bottom-width: 2px;
     box-sizing: border-box;
     padding: 0.5rem 0.3125rem;
     text-overflow: ellipsis;
@@ -217,18 +229,9 @@ thead {
     white-space: nowrap;
     transition: background-color 0.25s ease;
 
-    // On Firefox, things changes
-    @supports (-moz-appearance: none) {
-      // The row separator:
-      &::after {
-        bottom: 0; // Is slightly placed to the bottom
-        left: -1px; // gets slightly bigger to cover the absence of a border-right
-      }
-
-      // The column separator
-      &::before {
-        content: none; // Is not rendered on firefox because it does not render right-border on thead.
-      }
+    // The first cell must have border left to simulate table border.
+    &:first-of-type {
+      border-left: $common-th-border;
     }
 
     //---- Column name container ----
@@ -316,7 +319,6 @@ thead {
 }
 
 tbody {
-  border: 1px solid var(--kup-border-color);
   cursor: auto;
 
   tr {
@@ -468,30 +470,21 @@ tbody {
 }
 
 tr {
-  &:not(:nth-child(1)) {
-    kup-checkbox {
-      display: none;
-      animation: fadeInFromNone 0.25s ease-out;
-    }
+  kup-checkbox,
+  kup-image {
+    display: flex;
   }
 
-  &.in-viewport {
-    kup-checkbox,
-    kup-image {
-      display: flex;
-    }
+  kup-button {
+    display: inline-block;
+  }
 
-    kup-button {
-      display: inline-block;
-    }
+  kup-progress-bar {
+    display: block;
+  }
 
-    kup-progress-bar {
-      display: block;
-    }
-
-    & .indent ~ kup-image {
-      display: inline-block;
-    }
+  & .indent ~ kup-image {
+    display: inline-block;
   }
 
   .indent {

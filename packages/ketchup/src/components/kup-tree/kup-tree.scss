@@ -5,9 +5,15 @@
 }
 
 :host(.full-width) {
-  width: 100%;
+  min-width: 100%;
   table.kup-tree {
-    width: 100%;
+    min-width: 100%;
+  }
+}
+
+:host(.shaped) {
+  td.mdc-ripple-surface {
+    border-radius: 0 66px 66px 0;
   }
 }
 
@@ -87,7 +93,6 @@
 
     td,
     th {
-      transition: color 0.25s, background-color 0.25s;
       padding: 0.4rem 0.5rem;
     }
 
@@ -115,6 +120,11 @@
         cursor: pointer;
       }
 
+      &:not(.kup-tree__node--disabled)
+        .icon-container.kup-tree__node__expander {
+        cursor: pointer;
+      }
+
       &--disabled {
         opacity: 0.4;
 
@@ -123,8 +133,18 @@
         }
       }
 
-      &[data-is-expanded] .expand-icon {
-        transform: rotate(90deg);
+      .icon-container:not(.is-image) {
+        background-color: var(--kup-icon-color);
+      }
+
+      .icon-container.kup-tree__node__expander:not(.is-image) {
+        background-color: var(--kup-text-color);
+      }
+
+      .icon-container.is-image img {
+        display: block;
+        height: auto;
+        width: 100%;
       }
 
       &--selected:not(.kup-tree__node--disabled),

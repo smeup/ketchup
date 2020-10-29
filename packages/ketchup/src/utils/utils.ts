@@ -139,7 +139,7 @@ export function isNumber(value: any): boolean {
  * output number
  **/
 export function stringToNumber(input: string): number {
-    if (input == null || input.trim() == '') {
+    if (!input || input == null || input.trim() == '') {
         input = '0';
     }
     return numeral(input).value();

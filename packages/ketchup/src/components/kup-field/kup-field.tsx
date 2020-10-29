@@ -27,42 +27,35 @@ export class KupField {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
-
+    @Prop() customStyle: string = undefined;
     /**
      * Effective data to pass to the component.
      */
     @Prop() data: Object = {};
-
     /**
      * The text of the label. If set to empty or has only white space chars, the label will be removed.
      */
-    @Prop({ reflect: true }) label: string = '';
-
+    @Prop() label: string = '';
     /**
      * Sets the label's position, left right or top.
      */
-    @Prop({ reflect: true }) labelPos: string = 'left';
-
+    @Prop() labelPos: string = 'left';
     /**
      * Sets whether the submit button must be displayed or not.
      */
-    @Prop({ reflect: true }) showSubmit: boolean = false;
-
+    @Prop() showSubmit: boolean = false;
     /**
      * Sets the submit button's label.
      */
-    @Prop({ reflect: true }) submitLabel: string = '';
-
+    @Prop() submitLabel: string = '';
     /**
      * Sets the submit button's position, top right bottom or left.
      */
-    @Prop({ reflect: true }) submitPos: string = 'right';
-
+    @Prop() submitPos: string = 'right';
     /**
      * The type of the FLD
      */
-    @Prop({ reflect: true }) type: string = undefined;
+    @Prop() type: string = undefined;
 
     private startTime: number = 0;
     private endTime: number = 0;
@@ -284,7 +277,7 @@ export class KupField {
         }
 
         return (
-            <Host class="handles-custom-style">
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     {toRender}

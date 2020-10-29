@@ -88,7 +88,7 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 | `kupDidUnload`             | Triggered when stop propagation event                                                                                             | `CustomEvent<void>`                                                                                                                                          |
 | `kupTreeNodeButtonClicked` |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; column: Column; columnName: string; auto: boolean; tree: KupTree; }>`                         |
 | `kupTreeNodeCollapse`      | Fired when a TreeNode gets collapsed (closed).                                                                                    | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; tree: KupTree; }>`                                                                            |
-| `kupTreeNodeDblClick`      |                                                                                                                                   | `CustomEvent<{ obj: {}; }>`                                                                                                                                  |
+| `kupTreeNodeDblClick`      |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>`                                                                                           |
 | `kupTreeNodeExpand`        | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature. | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; usesDynamicExpansion?: boolean; dynamicExpansionRequireChildren?: boolean; tree: KupTree; }>` |
 | `kupTreeNodeSelected`      | Fired when a node of the tree has been selected                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; columnName: string; auto: boolean; tree: KupTree; }>`                                         |
 
@@ -132,12 +132,9 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-radio
   kup-tree --> kup-text-field
-  kup-button --> kup-image
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
-  kup-progress-bar --> kup-image
-  kup-text-field --> kup-image
   kup-tooltip --> kup-tree
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```

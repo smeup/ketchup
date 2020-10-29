@@ -60,7 +60,7 @@ describe('kup-btn', () => {
             expect(text).not.toBeNull();
             expect(text).toEqualText(buttons[i].value);
 
-            expect(button).toHaveClasses(['kup-button', 'mdc-button']);
+            expect(button).toHaveClasses(['mdc-button']);
             // no title
             expect(button.getAttribute('title')).toBeNull();
         }
@@ -111,7 +111,7 @@ describe('kup-btn', () => {
 
             //expect(icon.innerHTML).toContain(buttons[i].icon);
 
-            expect(button).toHaveClasses(['kup-button', 'mdc-button']);
+            expect(button).toHaveClasses(['mdc-button']);
             // no title
             expect(button.getAttribute('title')).toBeNull();
         }

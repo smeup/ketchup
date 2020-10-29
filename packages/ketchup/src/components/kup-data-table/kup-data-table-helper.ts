@@ -12,15 +12,21 @@ import {
     Column,
     GenericFilter,
     Filter,
+    RowGroup,
 } from './kup-data-table-declarations';
 
 import { isNumber, isDate } from '../../utils/object-utils';
-import { isEmpty, stringToNumber } from '../../utils/utils';
+import {
+    isEmpty,
+    stringToNumber,
+    unformattedStringToFormattedStringNumber,
+} from '../../utils/utils';
 import {
     isFilterCompliantForValue,
     filterIsNegative,
 } from '../../utils/filters';
 import { logMessage } from '../../utils/debug-manager';
+import { unformatDate } from '../../utils/cell-formatter';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -367,10 +373,20 @@ export function isRowCompliant(
         }
 
         let filterValue = getTextFieldFilterValue(filters, key);
-        if (!isFilterCompliantForCell(cell, filterValue)) {
-            return false;
-        }
+        let b1 = isFilterCompliantForCell(cell, filterValue);
+        let b2 = isFilterCompliantForCellObj(cell, filterValue);
 
+        const _filterIsNegative: boolean = filterIsNegative(filterValue);
+        if(_filterIsNegative){
+            if (!b1 || !b2) {
+                return false;
+            }
+        } else {
+            if (!b1 && !b2) {
+                return false;
+            }
+        }
+      
         let filterValues = getCheckBoxFilterValues(filters, key);
         if (filterValues.length == 0) {
             continue;
@@ -398,6 +414,19 @@ export function isFilterCompliantForCell(cellValue: Cell, filterValue: string) {
         return false;
     }
     return isFilterCompliantForValue(cellValue.value, filterValue);
+}
+
+export function isFilterCompliantForCellObj(
+    cellValue: Cell,
+    filterValue: string
+) {
+    if (!cellValue) {
+        return false;
+    }
+    if (!cellValue.obj) {
+        return false;
+    }
+    return isFilterCompliantForValue(cellValue.obj.k, filterValue);
 }
 
 export function groupRows(
@@ -444,8 +473,10 @@ export function groupRows(
 
         // getting row value
         const cell = row.cells[columnName];
+
         if (cell) {
-            const cellValue = cell.value;
+            const column = getColumnByName(columns, columnName);
+            const cellValue = getCellValueForDisplay(cell.value, column);
             let groupRow: Row = null;
 
             // check in already in groupedRow
@@ -483,7 +514,11 @@ export function groupRows(
                 // getting cell value
                 const tempCell = row.cells[group.column];
                 if (tempCell) {
-                    const tempCellValue = tempCell.value;
+                    const column = getColumnByName(columns, group.column);
+                    const tempCellValue = getCellValueForDisplay(
+                        tempCell.value,
+                        column
+                    );
 
                     // check if group already exists
                     let tempGroupingRow: Row = null;
@@ -835,13 +870,26 @@ export function calcTotals(
 }
 
 function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
+    return compareValues(
+        cell1.obj,
+        cell1.value,
+        cell2.obj,
+        cell2.value,
+        sortMode
+    );
+}
+
+export function compareValues(
+    obj1: any,
+    value1: any,
+    obj2: any,
+    value2: any,
+    sortMode: SortMode
+): number {
     const sm = sortMode === 'A' ? 1 : -1;
 
-    const obj1 = cell1.obj;
-    const obj2 = cell2.obj;
-
     if (obj1 == null || obj2 == null) {
-        return localCompareAsInJava(cell1.value, cell2.value);
+        return localCompareAsInJava(value1, value2);
     }
 
     // If either the type or the parameter of the current object are not equal.
@@ -853,57 +901,37 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
         return compare * sm;
     }
 
-    // number
+    let s1: string = value1;
+    let s2: string = value2;
+
+    if (s1 == s2) {
+        return 0;
+    }
+
+    if (s1 == '') {
+        return sm * -1;
+    }
+
+    if (s2 == '') {
+        return sm * 1;
+    }
+
+    let v1: any = s1;
+    let v2: any = s2;
     if (isNumber(obj1)) {
-        const n1: number = stringToNumber(cell1.value);
-        const n2: number = stringToNumber(cell2.value);
-
-        if (n1 === n2) {
-            return 0;
-        }
-
-        return sm * (n1 > n2 ? 1 : -1);
+        v1 = stringToNumber(s1);
+        v2 = stringToNumber(s2);
+    } else if (isDate(obj1)) {
+        v1 = unformatDate(s1);
+        v2 = unformatDate(s2);
     }
-
-    // date
-    if (isDate(obj1)) {
-        let m1: moment.Moment;
-        let m2: moment.Moment;
-
-        if (obj1.p === '*YYMD') {
-            m1 = moment(obj1.k, 'YYYYMMDD');
-            m2 = moment(obj2.k, 'YYYYMMDD');
-        } else if (obj1.p === '*DMYY') {
-            m1 = moment(obj1.k, 'DDMMYYYY');
-            m2 = moment(obj2.k, 'DDMMYYYY');
-        } else {
-            // no valid format -> check via k
-            return sm * localCompareAsInJava(obj1.k, obj2.k);
-        }
-
-        if (m1.isSame(m2)) {
-            return 0;
-        }
-
-        if (m1.isBefore(m2)) {
-            return sm * -1;
-        } else {
-            return sm * 1;
-        }
+    if (v1 > v2) {
+        return sm * 1;
     }
-
-    /**
-     * order by value contained in cell.value,
-     * the value could be calculated from another cell and the cell.obj is the object of original cell
-     **/
-    return (
-        sm * localCompareAsInJava(cell1.value, cell2.value) // otherwise use cell value
-        /*
-            (obj1.k && obj2.k
-                ? localCompareAsInJava(obj1.k, obj2.k) // If there is k set sort by it
-                : localCompareAsInJava(cell1.value, cell2.value)) // otherwise use cell value
-                */
-    );
+    if (v1 < v2) {
+        return sm * -1;
+    }
+    return 0;
 }
 
 /**
@@ -965,11 +993,109 @@ export function getColumnByName(columns: Column[], name: string): Column {
 export function paginateRows(
     rows: Row[],
     currentPage: number,
-    rowsPerPage: number
+    rowsPerPage: number,
+    areGrouped: boolean
 ) {
-    const start = currentPage * rowsPerPage - rowsPerPage;
+    const start: number = currentPage * rowsPerPage - rowsPerPage;
+    const end: number = start + Number(rowsPerPage);
+    if (areGrouped == false) {
+        return rows.slice(start, end);
+    }
+    let pagRows: Array<Row> = [];
 
-    return rows.slice(start, start + rowsPerPage);
+    _paginateRows(rows, pagRows, start, Number(rowsPerPage), 0);
+
+    return pagRows;
+}
+
+function _paginateRows(
+    rows: Row[],
+    pagRows: Row[],
+    start: number,
+    rowsPerPage: number,
+    ci: number
+): { ci: number; added: boolean } {
+    let added: boolean = false;
+    for (let i: number = 0; i < rows.length; i++) {
+        let originalRow = rows[i];
+        let row: Row = cloneRow(rows[i]);
+        if (
+            originalRow.group != null &&
+            originalRow.group.children != null &&
+            originalRow.group.children.length > 0
+        ) {
+            row.group.children = [];
+            let retValue: { ci: number; added: boolean } = _paginateRows(
+                originalRow.group.children,
+                row.group.children,
+                start,
+                rowsPerPage,
+                ci
+            );
+            ci = retValue.ci;
+            added = retValue.added;
+            if (added == true) {
+                pagRows[pagRows.length] = row;
+            }
+        } else {
+            if (ci >= start) {
+                pagRows[pagRows.length] = row;
+                added = true;
+            }
+            ci++;
+        }
+
+        if (ci >= start + rowsPerPage) {
+            break;
+        }
+    }
+    return { ci: ci, added: added };
+}
+
+function cloneRow(row: Row): Row {
+    if (row == null) {
+        return null;
+    }
+    let cloned: Row = {
+        id: row.id,
+        cells: { ...row.cells },
+        actions: row.actions ? [...row.actions] : null,
+        group: cloneRowGroup(row.group),
+        readOnly: row.readOnly,
+        cssClass: row.cssClass,
+    };
+
+    return cloned;
+}
+
+function cloneRows(rows: Array<Row>): Array<Row> {
+    if (rows == null) {
+        return null;
+    }
+    let cloned: Array<Row> = [];
+    for (let i: number = 0; i < rows.length; i++) {
+        cloned[cloned.length] = cloneRow(rows[i]);
+    }
+    return cloned;
+}
+
+function cloneRowGroup(group: RowGroup): RowGroup {
+    if (group == null) {
+        return null;
+    }
+    let cloned: RowGroup = {
+        id: group.id,
+        parent: { ...group.parent },
+        column: group.column,
+        columnLabel: group.columnLabel,
+        expanded: group.expanded,
+        label: group.label,
+        children: cloneRows(group.children),
+        obj: { ...group.obj },
+        totals: { ...group.totals },
+    };
+
+    return cloned;
 }
 
 /**
@@ -997,4 +1123,15 @@ export function styleHasWritingMode(cell: Cell): boolean {
         cell.style &&
         (cell.style.writingMode || cell.style['writing-mode'])
     );
+}
+
+export function getCellValueForDisplay(value, column: Column): string {
+    if (value != '' && isNumber(column.obj)) {
+        return unformattedStringToFormattedStringNumber(
+            value,
+            column.decimals ? column.decimals : -1,
+            column.obj ? column.obj.p : ''
+        );
+    }
+    return value;
 }

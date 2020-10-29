@@ -3,17 +3,16 @@
     display: block;
 
     #tooltip {
-      position: fixed;
       background: var(--kup-background-color);
       color: var(--kup-text-color);
-      z-index: 1000;
       box-shadow: var(--kup-box-shadow);
       border-radius: 3px;
       min-width: 350px;
+      max-width: 700px;
       writing-mode: horizontal-tb;
 
       #main-content {
-        margin: 20px;
+        padding: 10px 20px;
         display: flex;
         color: rgba(var(--kup-text-color-rgb), 0.8);
 
@@ -65,19 +64,29 @@
       }
 
       #detail {
+        transition: height 250ms ease-out, opacity 250ms ease-out;
+
         &:not(.visible) {
-          max-height: 0;
+          height: 0;
           opacity: 0;
-          transition: max-height 500ms ease-out, opacity 500ms ease-out;
         }
 
         &.visible {
           border-top: 1px solid var(--kup-border-color);
+          box-sizing: border-box;
           padding: 20px;
-          max-height: 40vh;
+          height: 180px;
           overflow: auto;
           opacity: 1;
-          transition: max-height 500ms ease-in, opacity 500ms ease-in;
+        }
+
+        &.cellopt {
+          padding: 5px 0;
+        }
+
+        &.detail-loaded {
+          height: 180px;
+          min-height: 180px;
         }
 
         .detail-row {
@@ -114,4 +123,11 @@
       }
     }
   }
+}
+
+.image-container {
+  display: block;
+  height: 75px;
+  width: 75px;
+  padding-top: 8px;
 }

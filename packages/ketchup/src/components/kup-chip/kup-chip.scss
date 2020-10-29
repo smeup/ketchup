@@ -32,7 +32,17 @@ svg path {
   display: none;
 }
 
-.remove-icon {
+.icon-container {
+  background: var(--kup-title-color);
+  display: block;
+  width: 18px;
+  height: 18px;
+  .mdc-chip--selected & {
+    background: var(--kup-main-color);
+  }
+}
+
+.clear {
   margin-left: 4px;
   margin-right: -4px;
   &:hover {

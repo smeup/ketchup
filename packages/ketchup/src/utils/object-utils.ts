@@ -76,6 +76,11 @@ export function isColor(smeupObj: Object): boolean {
     return 'J1' === smeupObj.t && 'COL' === smeupObj.p;
 }
 
+export function isObjectList(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'JL' === smeupObj.t;
+}
+
 export function isStringObject(obj: any): boolean {
     if (!obj) return true;
 

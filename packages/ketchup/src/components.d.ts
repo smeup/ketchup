@@ -6,7 +6,6 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
-import { BadgePosition } from "./components/kup-badge/kup-badge-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { ComponentCardElement } from "./components/kup-card/kup-card-declarations";
 import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
@@ -74,10 +73,6 @@ export namespace Components {
           * The data of the image displayed inside the badge.
          */
         "imageData": {};
-        /**
-          * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
-         */
-        "position": BadgePosition;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * The text displayed inside the badge.
@@ -93,10 +88,6 @@ export namespace Components {
           * Number of columns
          */
         "columns": number;
-        /**
-          * Alignment of the content. Can be set to left, right or center.
-         */
-        "contentAlign": string;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
@@ -116,7 +107,7 @@ export namespace Components {
         /**
           * Drop can be done in section
          */
-        "dropOnSection": false;
+        "dropOnSection": boolean;
         /**
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
          */
@@ -139,15 +130,7 @@ export namespace Components {
          */
         "multiSelection": boolean;
         /**
-          * Removes border
-         */
-        "noBorder": boolean;
-        /**
-          * Removes padding
-         */
-        "noPadding": boolean;
-        /**
-          * current number page
+          * Current page number
          */
         "pageSelected": number;
         /**
@@ -160,7 +143,7 @@ export namespace Components {
         "pagination": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * current rows per page
+          * Number of current rows per page
          */
         "rowsPerPage": number;
         /**
@@ -220,25 +203,9 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Defaults at false. When set to true, the button will be rendered flat.
-         */
-        "flat": boolean;
-        /**
-          * Defaults at false. When set to true fill all the available horizontal space.
-         */
-        "fullHeight": boolean;
-        /**
-          * Defaults at false. When set to true fill all the available horizontal space.
-         */
-        "fullWidth": boolean;
-        /**
           * Defaults at null. When set, the button will show this icon.
          */
         "icon": string;
-        /**
-          * If not set, it will be managed by the component.
-         */
-        "iconColor": string;
         /**
           * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
          */
@@ -247,15 +214,11 @@ export namespace Components {
           * Defaults at null. When set, the button will show this text.
          */
         "label": string;
-        /**
-          * Defaults at false. When set to true, the button will be rendered with a colored outline.
-         */
-        "outlined": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * Defaults at false. When set to true, the button will be rendered with rounded edges.
+          * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
          */
-        "shaped": boolean;
+        "styling": string;
         /**
           * Defaults at false. When set to true, the icon button will be toggable on/off.
          */
@@ -314,30 +277,78 @@ export namespace Components {
         "sizeY": string;
     }
     interface KupChart {
+        /**
+          * Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.
+         */
         "asp": ChartAspect;
+        /**
+          * Sets the axis of the chart.
+         */
         "axis": string;
+        /**
+          * Colors of the chart.
+         */
         "colors": string[];
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle": string;
+        /**
+          * The actual data of the chart.
+         */
         "data": DataTable;
+        /**
+          * Title of the graph.
+         */
         "graphTitle": string;
+        /**
+          * Title of the graph's color.
+         */
         "graphTitleColor": string;
+        /**
+          * Size of title of the graph (in pixels).
+         */
         "graphTitleSize": number;
+        /**
+          * Customize the hAxis.
+         */
         "hAxis": ChartAxis;
         /**
           * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
         "legend": string;
+        /**
+          * Renders charts without the Google API and using jQuery Sparkline.
+         */
         "offlineMode": ChartOfflineMode;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * The data series to be displayed. They must be of the same type.
+         */
         "series": string[];
+        /**
+          * Displays the numerical values.
+         */
         "showMarks": boolean;
+        /**
+          * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+         */
         "sizeX": string;
+        /**
+          * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
         "sizeY": string;
+        /**
+          * Displays the data columns of an object on top of each other.
+         */
         "stacked": boolean;
+        /**
+          * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
+         */
         "types": ChartType[];
+        /**
+          * Customize the vAxis.
+         */
         "vAxis": ChartAxis;
         /**
           * Google chart version to load
@@ -447,9 +458,21 @@ export namespace Components {
         "sections": FormSection;
     }
     interface KupDash {
+        /**
+          * The component can be clicked.
+         */
         "active": boolean;
+        /**
+          * Sets the font size of the component.
+         */
         "fontsize": string;
+        /**
+          * No idea what this is about.
+         */
         "index": number;
+        /**
+          * Sets the layout of the component.
+         */
         "layout": string;
     }
     interface KupDashList {
@@ -465,6 +488,10 @@ export namespace Components {
         "valueColor": Array<any>;
     }
     interface KupDataTable {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
         /**
           * The data of the table.
          */
@@ -561,6 +588,7 @@ export namespace Components {
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
         "paginatorPos": PaginatorPos;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Sets the actions of the rows.
          */
@@ -823,10 +851,6 @@ export namespace Components {
           * The actual data of the grid.
          */
         "data": ComponentGridElement[];
-        /**
-          * When set to true, forces the width to 100% for the single line layout.
-         */
-        "fullWidth": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * When set to true, forces the content on a single line.
@@ -1030,14 +1054,6 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Sets a padding between the bar and its container. Not supported for the radial variant.
-         */
-        "hasPadding": boolean;
-        /**
-          * Sets a striped background. Not supported for the radial variant.
-         */
-        "hasStripes": boolean;
-        /**
           * Flag to show or hide the progress bar's label.
          */
         "hideLabel": boolean;
@@ -1046,17 +1062,9 @@ export namespace Components {
          */
         "icon": string;
         /**
-          * When striped background is active, it will be animated. Not supported for the radial variant.
-         */
-        "isAnimated": boolean;
-        /**
           * Radial version.
          */
         "isRadial": boolean;
-        /**
-          * Slim version.
-         */
-        "isSlim": boolean;
         /**
           * Specifies a text for the bar's label.
          */
@@ -1068,6 +1076,10 @@ export namespace Components {
         "value": number;
     }
     interface KupQlik {
+        /**
+          * Set Qlik App's istance would you like to use (!!!ALLERT!!! if you have already set appid app's istance will be generated again)
+         */
+        "app": any;
         /**
           * Set Qlik App's id would you like to use How to find app id --> https://support.qlik.com/articles/000026239
          */
@@ -1188,10 +1200,6 @@ export namespace Components {
          */
         "fullScreen": boolean;
         /**
-          * When set to true the area covered by the component will be unclickable and the cursor will be changed to "wait".
-         */
-        "isUnclickable": boolean;
-        /**
           * Sets the layout of the spinner.
          */
         "layout": number;
@@ -1256,10 +1264,6 @@ export namespace Components {
          */
         "forceFocus": boolean;
         /**
-          * Defaults at false. When set to true, the component will be rendered at full height.
-         */
-        "fullHeight": boolean;
-        /**
           * Defaults at false. When set to true, the component will be rendered at full width.
          */
         "fullWidth": boolean;
@@ -1308,10 +1312,6 @@ export namespace Components {
          */
         "readOnly": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        /**
-          * Defaults at false. When set to true, the button will be rendered with shaped edges.
-         */
-        "shaped": boolean;
         /**
           * Defaults at false. When set to true, the component will be rendered as a textarea.
          */
@@ -1820,10 +1820,6 @@ declare namespace LocalJSX {
         el: EventTarget;
     }>) => void;
         /**
-          * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
-         */
-        "position"?: BadgePosition;
-        /**
           * The text displayed inside the badge.
          */
         "text"?: string;
@@ -1837,10 +1833,6 @@ declare namespace LocalJSX {
           * Number of columns
          */
         "columns"?: number;
-        /**
-          * Alignment of the content. Can be set to left, right or center.
-         */
-        "contentAlign"?: string;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
@@ -1860,7 +1852,7 @@ declare namespace LocalJSX {
         /**
           * Drop can be done in section
          */
-        "dropOnSection"?: false;
+        "dropOnSection"?: boolean;
         /**
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
          */
@@ -1881,14 +1873,6 @@ declare namespace LocalJSX {
           * Enable multi selection
          */
         "multiSelection"?: boolean;
-        /**
-          * Removes border
-         */
-        "noBorder"?: boolean;
-        /**
-          * Removes padding
-         */
-        "noPadding"?: boolean;
         /**
           * Triggered when a box is auto selected via selectBox prop
          */
@@ -1955,7 +1939,7 @@ declare namespace LocalJSX {
         row: BoxRow;
     }>) => void;
         /**
-          * current number page
+          * Current page number
          */
         "pageSelected"?: number;
         /**
@@ -1967,7 +1951,7 @@ declare namespace LocalJSX {
          */
         "pagination"?: boolean;
         /**
-          * current rows per page
+          * Number of current rows per page
          */
         "rowsPerPage"?: number;
         /**
@@ -2030,25 +2014,9 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Defaults at false. When set to true, the button will be rendered flat.
-         */
-        "flat"?: boolean;
-        /**
-          * Defaults at false. When set to true fill all the available horizontal space.
-         */
-        "fullHeight"?: boolean;
-        /**
-          * Defaults at false. When set to true fill all the available horizontal space.
-         */
-        "fullWidth"?: boolean;
-        /**
           * Defaults at null. When set, the button will show this icon.
          */
         "icon"?: string;
-        /**
-          * If not set, it will be managed by the component.
-         */
-        "iconColor"?: string;
         /**
           * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
          */
@@ -2070,13 +2038,9 @@ declare namespace LocalJSX {
         value: string;
     }>) => void;
         /**
-          * Defaults at false. When set to true, the button will be rendered with a colored outline.
+          * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
          */
-        "outlined"?: boolean;
-        /**
-          * Defaults at false. When set to true, the button will be rendered with rounded edges.
-         */
-        "shaped"?: boolean;
+        "styling"?: string;
         /**
           * Defaults at false. When set to true, the icon button will be toggable on/off.
          */
@@ -2170,33 +2134,81 @@ declare namespace LocalJSX {
         "sizeY"?: string;
     }
     interface KupChart {
+        /**
+          * Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.
+         */
         "asp"?: ChartAspect;
+        /**
+          * Sets the axis of the chart.
+         */
         "axis"?: string;
+        /**
+          * Colors of the chart.
+         */
         "colors"?: string[];
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle"?: string;
+        /**
+          * The actual data of the chart.
+         */
         "data"?: DataTable;
+        /**
+          * Title of the graph.
+         */
         "graphTitle"?: string;
+        /**
+          * Title of the graph's color.
+         */
         "graphTitleColor"?: string;
+        /**
+          * Size of title of the graph (in pixels).
+         */
         "graphTitleSize"?: number;
+        /**
+          * Customize the hAxis.
+         */
         "hAxis"?: ChartAxis;
         /**
           * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
         "legend"?: string;
+        /**
+          * Renders charts without the Google API and using jQuery Sparkline.
+         */
         "offlineMode"?: ChartOfflineMode;
         /**
           * Triggered when a chart serie is clicked
          */
         "onKupChartClicked"?: (event: CustomEvent<ChartClickedEvent>) => void;
+        /**
+          * The data series to be displayed. They must be of the same type.
+         */
         "series"?: string[];
+        /**
+          * Displays the numerical values.
+         */
         "showMarks"?: boolean;
+        /**
+          * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+         */
         "sizeX"?: string;
+        /**
+          * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
         "sizeY"?: string;
+        /**
+          * Displays the data columns of an object on top of each other.
+         */
         "stacked"?: boolean;
+        /**
+          * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
+         */
         "types"?: ChartType[];
+        /**
+          * Customize the vAxis.
+         */
         "vAxis"?: ChartAxis;
         /**
           * Google chart version to load
@@ -2373,9 +2385,21 @@ declare namespace LocalJSX {
         "sections"?: FormSection;
     }
     interface KupDash {
+        /**
+          * The component can be clicked.
+         */
         "active"?: boolean;
+        /**
+          * Sets the font size of the component.
+         */
         "fontsize"?: string;
+        /**
+          * No idea what this is about.
+         */
         "index"?: number;
+        /**
+          * Sets the layout of the component.
+         */
         "layout"?: string;
         "onKetchupDashClicked"?: (event: CustomEvent<{
         id: number;
@@ -2397,6 +2421,10 @@ declare namespace LocalJSX {
         "valueColor"?: Array<any>;
     }
     interface KupDataTable {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
         /**
           * The data of the table.
          */
@@ -2625,8 +2653,8 @@ declare namespace LocalJSX {
         "totals"?: TotalsMap;
     }
     interface KupDrawer {
-        "onClDrawer"?: (event: CustomEvent<any>) => void;
-        "onOpDrawer"?: (event: CustomEvent<any>) => void;
+        "onKupDrawerClose"?: (event: CustomEvent<any>) => void;
+        "onKupDrawerOpen"?: (event: CustomEvent<any>) => void;
         /**
           * opened is used to make our drawer appear and disappear
          */
@@ -2640,6 +2668,7 @@ declare namespace LocalJSX {
         "graphTitleSize"?: number;
         "legend"?: string;
         "objectData"?: object;
+        "onKupEchartsClicked"?: (event: CustomEvent<any>) => void;
         "types"?: string;
     }
     interface KupEditor {
@@ -2809,10 +2838,6 @@ declare namespace LocalJSX {
           * The actual data of the grid.
          */
         "data"?: ComponentGridElement[];
-        /**
-          * When set to true, forces the width to 100% for the single line layout.
-         */
-        "fullWidth"?: boolean;
         /**
           * When set to true, forces the content on a single line.
          */
@@ -3059,14 +3084,6 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Sets a padding between the bar and its container. Not supported for the radial variant.
-         */
-        "hasPadding"?: boolean;
-        /**
-          * Sets a striped background. Not supported for the radial variant.
-         */
-        "hasStripes"?: boolean;
-        /**
           * Flag to show or hide the progress bar's label.
          */
         "hideLabel"?: boolean;
@@ -3075,17 +3092,9 @@ declare namespace LocalJSX {
          */
         "icon"?: string;
         /**
-          * When striped background is active, it will be animated. Not supported for the radial variant.
-         */
-        "isAnimated"?: boolean;
-        /**
           * Radial version.
          */
         "isRadial"?: boolean;
-        /**
-          * Slim version.
-         */
-        "isSlim"?: boolean;
         /**
           * Specifies a text for the bar's label.
          */
@@ -3096,6 +3105,10 @@ declare namespace LocalJSX {
         "value"?: number;
     }
     interface KupQlik {
+        /**
+          * Set Qlik App's istance would you like to use (!!!ALLERT!!! if you have already set appid app's istance will be generated again)
+         */
+        "app"?: any;
         /**
           * Set Qlik App's id would you like to use How to find app id --> https://support.qlik.com/articles/000026239
          */
@@ -3241,10 +3254,6 @@ declare namespace LocalJSX {
          */
         "fullScreen"?: boolean;
         /**
-          * When set to true the area covered by the component will be unclickable and the cursor will be changed to "wait".
-         */
-        "isUnclickable"?: boolean;
-        /**
           * Sets the layout of the spinner.
          */
         "layout"?: number;
@@ -3325,10 +3334,6 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the component will be focused.
          */
         "forceFocus"?: boolean;
-        /**
-          * Defaults at false. When set to true, the component will be rendered at full height.
-         */
-        "fullHeight"?: boolean;
         /**
           * Defaults at false. When set to true, the component will be rendered at full width.
          */
@@ -3411,10 +3416,6 @@ declare namespace LocalJSX {
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
          */
         "readOnly"?: boolean;
-        /**
-          * Defaults at false. When set to true, the button will be rendered with shaped edges.
-         */
-        "shaped"?: boolean;
         /**
           * Defaults at false. When set to true, the component will be rendered as a textarea.
          */
@@ -3541,7 +3542,8 @@ declare namespace LocalJSX {
         tree: KupTree;
     }>) => void;
         "onKupTreeNodeDblClick"?: (event: CustomEvent<{
-        obj: {};
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
     }>) => void;
         /**
           * Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.

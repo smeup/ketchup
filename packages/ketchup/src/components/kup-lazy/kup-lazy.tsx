@@ -16,11 +16,11 @@ export class KupLazy {
     /**
      * Sets the tag name of the component to be lazy loaded.
      */
-    @Prop({ reflect: true }) componentName: string = undefined;
+    @Prop() componentName: string = undefined;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Sets the data of the component to be lazy loaded.
      */
@@ -28,7 +28,6 @@ export class KupLazy {
     /**
      * Displays an animated SVG placeholder until the component is loaded.
      */
-
     @Prop() showPlaceholder: boolean = true;
 
     private intObserver: IntersectionObserver = undefined;
@@ -100,7 +99,7 @@ export class KupLazy {
     render() {
         let content: HTMLElement;
         let resource: HTMLElement;
-        let className: string = 'handles-custom-style ' + this.componentName;
+        let className: string = this.componentName;
         switch (this.componentName) {
             case 'kup-button':
                 //call_to_action.svg

@@ -8,6 +8,7 @@ import {
     State,
     h,
     Method,
+    getAssetPath,
 } from '@stencil/core';
 import { MDCChipSet } from '@material/chips';
 import { ComponentChipElement } from './kup-chip-declarations';
@@ -26,7 +27,7 @@ export class KupChip {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * List of elements.
      */
@@ -34,7 +35,7 @@ export class KupChip {
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      */
-    @Prop({ reflect: true }) type: string = undefined;
+    @Prop() type: string = undefined;
 
     private startTime: number = 0;
     private endTime: number = 0;
@@ -249,14 +250,12 @@ export class KupChip {
             let componentClass: string = 'mdc-chip';
             let iconEl = [];
             let iconClass =
-                'material-icons mdc-chip__icon mdc-chip__icon--leading';
-            let iconColor = 'var(--kup-title-color)';
+                'icon-container material-icons mdc-chip__icon mdc-chip__icon--leading';
             let cancelIcon = undefined;
 
             if (this.type === 'filter' || this.type === 'choice') {
                 if (this.data[i].checked) {
                     componentClass += ' mdc-chip--selected';
-                    iconColor = 'var(--kup-main-color)';
                     if (this.type === 'filter') {
                         iconClass += ' mdc-chip__icon--leading-hidden';
                     }
@@ -264,15 +263,14 @@ export class KupChip {
             }
 
             if (this.data[i].icon) {
-                iconEl.push(
-                    <kup-image
-                        color={iconColor}
-                        class={iconClass}
-                        resource={this.data[i].icon}
-                        sizeX="18px"
-                        sizeY="18px"
-                    ></kup-image>
-                );
+                let svg: string = `url('${getAssetPath(
+                    `./assets/svg/${this.data[i].icon}.svg`
+                )}') no-repeat center`;
+                let iconStyle = {
+                    mask: svg,
+                    webkitMask: svg,
+                };
+                iconEl.push(<span style={iconStyle} class={iconClass}></span>);
             }
 
             if (this.type === 'filter') {
@@ -296,15 +294,11 @@ export class KupChip {
             if (this.type === 'input') {
                 cancelIcon = (
                     <span role="gridcell">
-                        <kup-image
-                            color={iconColor}
-                            tabindex="-1"
-                            class="material-icons mdc-chip__icon remove-icon"
+                        <span
                             onClick={() => this.onKupIconClick(i)}
-                            resource="cancel"
-                            sizeX="18px"
-                            sizeY="18px"
-                        ></kup-image>
+                            tabindex="-1"
+                            class="icon-container material-icons mdc-chip__icon clear"
+                        ></span>
                     </span>
                 );
             }
@@ -342,7 +336,7 @@ export class KupChip {
         }
 
         return (
-            <Host class="handles-custom-style">
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={wrapperClass} role="grid">
