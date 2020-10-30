@@ -19,29 +19,129 @@ Custom event names must be composed in compliance with the following rules:
 
 Where `componentName` has the prefix `kup`.
 
+### Code structure
+
+To make components' code more readable and accessible, their structure should be as similar as possible.
+
+Ideally, component classes should be structured like this:
+
+1. `@Element` decorator (named rootElement).
+2. `@State` decorators.
+3. `@Props` decorators (sorted alphabetically and with a description).
+4. Internal variables.
+
+Example:
+
+```
+    @Element() rootElement: HTMLElement;
+
+    @State() state1: string = '';
+
+    /**
+     * Prop description.
+     */
+    @Prop() prop1: string = "";
+
+
+    private variable1: number = 0;
+    private variable2: string = "";
+```
+
+5. `@Watch` decorators.
+6. `@Events` decorators.
+7. `@Method` decorators.
+8. Event-related methods.
+9. Other internal methods.
+10. Lifecycle hooks
+
+### Common methods
+
+Almost every Ketch.UP component should include these features:
+
+-   customStyle
+-   debugging
+
+The `customStyle` prop allows a custom style sheet to be defined inside a component. More info [here](https://ketchup.smeup.com/ketchup-showcase/#/customization).
+
+Debugging is useful to understand a component's performances.
+
+#### customStyle
+
+1. Import these methods from the `theme manager`:
+
+```
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+```
+
+2. Define the `customStyle` prop:
+
+```
+/**
+ * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+ */
+ @Prop() customStyle: string = undefined;
+```
+
+3. Define the `refreshCustomStyle` method which allows the component to auto-refresh itself once a theme mutation is detected (themes can include customStyle info):
+
+```
+@Method()
+async refreshCustomStyle(customStyleTheme: string) {
+ this.customStyleTheme = customStyleTheme;
+}
+```
+
+Note - sometimes components' theme information must be dynamic. For example, kup-chart colors are used by a Google API which doesn't support CSS variables. In this particular case, the variables' value must be calculated runtime and then sent to the API. For this reason, the component must refresh itself even when there is no customStyle info inside a theme, in order to properly decode the new variables' value.
+
+```
+@Method()
+async refreshCustomStyle(customStyleTheme: string) {
+ this.customStyleTheme =
+ 'Needs to be refreshed every time the theme changes because there are dynamic colors.';
+ this.customStyleTheme = customStyleTheme;
+ this.fetchThemeColors();
+}
+```
+
+4. Call the `setThemeCustomStyle(this)` inside the `componentWillLoad` lifecycle method to properly initialize a theme-defined customStyle:
+
+```
+    componentWillLoad() {
+        setThemeCustomStyle(this);
+    }
+```
+
+5.  Include a `<style>` tag containing the returning value of `setCustomStyle(this)`, which will be a string containing the theme-defined customStyle followed by the component's specific customStyle:
+
+```
+<Host>
+   <style>{setCustomStyle(this)}</style>
+   <div id="kup-component"/>
+</Host>
+```
+
+#### debugging
+
+TODO: needs refactoring soon probably.
+
+### Rendered markup
+
+The markup returned by the render() method should be like this:
+
+```
+<Host>
+   <div id="kup-component">
+   ...
+   </div>
+</Host>
+```
+
+The definition of `Host` makes it easy to add styles, classes or events directly on the root element. The `#kup-component` wrapper helps specificity when defining styles, for example when 3rd party stylesheets must be overridden.
+
 ### CSS variables
 
-Usually there are two variables which can be used for each customizable property on a component:
+In order to streamline the look of each component, CSS variables should be declared inside themes and should be used across the library. More info about themes can be found [here](https://ketchup.smeup.com/ketchup-showcase/#/theming).
 
-1. an internal variable, defined on the `:host` element of the component, which is provided with a fallback;
-2. an external variable, which is not defined by the component and can be used to create themes.
+There are also internal variables but they are mostly used for runtime needs (i.e.. kup-data-table's fixed rows feature uses CSS variables to set the top property of cells)
 
-#### Naming
-
-The names of the variables must be composed like this:
-
-```
---prefix[_internal-component]_component-property
-```
-
-Where:
-
-1. `prefix` is either: a 3 letters acronym of the component for internally defined variables, or `kup-` + `component-name` for external variables.
-2. `[_internal-component]` is an optional kebab case prefix used to specify id a property specifically targets an element which is part of the component.
-3. `component-property` is a mandatory kebab case suffix describing the property the variable will change, and is referred as a global component change if no `internal-component` has been specified.
-
-#### Usage
-
-For each property, there are two types of CSS variables: a local one and a more global one, prefixed with `--kup`. In this way it's also possible to define a basic theme.
-
-Always use the global one if possible, while override the local one if a particular instance of a component requires a peculiar value.
+In relation to themes, it is important to prevent bloating: each new theme-related CSS variable should be added with caution.
