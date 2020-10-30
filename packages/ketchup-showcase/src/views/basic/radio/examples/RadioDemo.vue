@@ -44,6 +44,14 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'columns',
+          description:
+            'Number of columns. When undefined, radio fields will be displayed inline.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
