@@ -41,6 +41,9 @@ export class KupEcharts {
     private echartsjson: any;
     private datajson = [];
     private datapiejson = [];
+    private datamapjson = [];
+    private objectkey: any;
+    private objectmapyvalue = {};
 
     @Event() kupEchartsClicked: EventEmitter;
 
@@ -79,6 +82,24 @@ export class KupEcharts {
             }
         }
     }
+    createObjectMapYvalue() {
+        let rows = this.objectData['rows'];
+        for (const row of rows) {
+            for (const key of Object.keys(row.cells)) {
+                if (key == 'Col1') {
+                    this.objectkey = row.cells[key].value;
+                    if (!this.objectmapyvalue[this.objectkey])
+                        this.objectmapyvalue[this.objectkey] = [];
+                } else {
+                    const cell = row.cells[key];
+                    const value = cell.value;
+                    this.objectmapyvalue[this.objectkey].push(value);
+                }
+            }
+        }
+        console.log(this.objectmapyvalue);
+    }
+
     createLegend() {
         //create the chart legend
         let arr = [];
@@ -104,6 +125,19 @@ export class KupEcharts {
 
         // console.log(this.datapiejson);
         return this.datapiejson;
+    }
+
+    objectMap() {
+        for (let i in this.objectmapyvalue) {
+            const rjson = {};
+            const item = {};
+            item['color'] = this.objectmapyvalue[i][0];
+            rjson['name'] = i;
+            rjson['itemStyle'] = item;
+            this.datamapjson.push(rjson);
+        }
+        console.log(this.datamapjson);
+        return this.datamapjson;
     }
 
     createEchartsJson() {
@@ -191,40 +225,6 @@ export class KupEcharts {
             tooltip: {
                 trigger: 'item',
                 showDelay: 0,
-                transitionDuration: 0.2,
-                formatter: function (params) {
-                    var value = [];
-                    value = (params.value + '').split('.');
-                    value = value[0].replace(
-                        /(\d{1,3})(?=(?:\d{3})+(?!\d))/g,
-                        '$1,'
-                    );
-                    return (
-                        params.seriesName + '<br/>' + params.name + ': ' + value
-                    );
-                },
-            },
-            visualMap: {
-                left: 'right',
-                min: 500000,
-                max: 38000000,
-                inRange: {
-                    color: [
-                        '#313695',
-                        '#4575b4',
-                        '#74add1',
-                        '#abd9e9',
-                        '#e0f3f8',
-                        '#ffffbf',
-                        '#fee090',
-                        '#fdae61',
-                        '#f46d43',
-                        '#d73027',
-                        '#a50026',
-                    ],
-                },
-                text: ['High', 'Low'],
-                calculable: true,
             },
 
             series: [
@@ -239,17 +239,7 @@ export class KupEcharts {
                         },
                     },
 
-                    data: [
-                        { name: 'Italy', value: 4822023 },
-                        { name: 'Russia', value: 50000000 },
-                        { name: 'Spain', value: 5000004 },
-                        { name: 'Germany', value: 23444444 },
-                        { name: 'Ukraine', value: 2399999 },
-                        { name: 'Sweden', value: 30234122 },
-                        { name: 'Poland', value: 21212121 },
-                        { name: 'Finland', value: 21212121 },
-                        { name: 'Roma', value: 21212121 },
-                    ],
+                    data: this.datamapjson,
                 },
             ],
         };
@@ -270,6 +260,9 @@ export class KupEcharts {
         this.echartsjson = {};
         this.datajson = [];
         this.datapiejson = [];
+        this.datamapjson = [];
+        this.objectkey = '';
+        this.objectmapyvalue = {};
     }
 
     initializeChart() {
@@ -284,6 +277,8 @@ export class KupEcharts {
                 this.createEchartsJson();
             }
         } else {
+            this.createObjectMapYvalue();
+            this.objectMap();
             this.createEchartsMapJson();
         }
         this.CreateEcharts();

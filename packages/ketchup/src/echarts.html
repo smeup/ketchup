@@ -26,9 +26,9 @@
         </div>
         <div style="width: 100vw; height: 50vh">
             <kup-echarts
-                id="linechart"
+                id="mapchart"
                 objectData
-                types="Line"
+                types="map"
                 graph-title="titolo Prova2"
                 graph-title-size="18"
                 legend="bottom"
@@ -38,7 +38,7 @@
         </div>
         <script>
             const echarts1 = document.getElementById('piechart');
-            const echarts2 = document.getElementById('linechart');
+            const echarts2 = document.getElementById('mapchart');
 
             echarts1.objectData = {
                 columns: [
@@ -178,7 +178,123 @@
                 ],
             };
 
-            echarts2.objectData = echarts1.objectData;
+            echarts2.objectData = {
+                columns: [
+                    {
+                        name: 'Col1',
+                        title: 'State',
+                        size: '10',
+                    },
+                    {
+                        name: 'Col2',
+                        title: 'value',
+                        size: '10',
+                    },
+                ],
+                rows: [
+                    {
+                        cells: {
+                            Col1: {
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: 'Germany',
+                                },
+                                value: 'Germany',
+                            },
+                            Col2: {
+                                obj: {
+                                    t: 'Color',
+                                    p: '',
+                                    k: 'red',
+                                },
+                                value: 'red',
+                            },
+                        },
+                    },
+                    {
+                        cells: {
+                            Col1: {
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: 'United States',
+                                },
+                                value: 'United States',
+                            },
+                            Col2: {
+                                obj: {
+                                    t: 'Color',
+                                    p: '',
+                                    k: 'Green',
+                                },
+                                value: 'Green',
+                            },
+                        },
+                    },
+                    {
+                        cells: {
+                            Col1: {
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: 'Brazil',
+                                },
+                                value: 'Brazil',
+                            },
+                            Col2: {
+                                obj: {
+                                    t: 'Color',
+                                    p: '',
+                                    k: 'purple',
+                                },
+                                value: 'purple',
+                            },
+                        },
+                    },
+                    {
+                        cells: {
+                            Col1: {
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: 'Canada',
+                                },
+                                value: 'Canada',
+                            },
+                            Col2: {
+                                obj: {
+                                    t: 'Color',
+                                    p: '',
+                                    k: 'yellow',
+                                },
+                                value: 'yellow',
+                            },
+                        },
+                    },
+                    {
+                        cells: {
+                            Col1: {
+                                obj: {
+                                    t: '',
+                                    p: '',
+                                    k: 'France',
+                                },
+                                value: 'France',
+                            },
+                            Col2: {
+                                obj: {
+                                    t: 'Color',
+                                    p: '',
+                                    k: 'orange',
+                                },
+                                value: 'orange',
+                            },
+                        },
+                    },
+                ],
+            };
+            //echarts2.objectData = echarts1.objectData;
         </script>
     </body>
 </html>
