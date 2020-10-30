@@ -25,6 +25,10 @@ export class KupRadio {
     @State() customStyleTheme: string = undefined;
 
     /**
+     * Number of columns. When undefined, radio fields will be displayed inline.
+     */
+    @Prop() columns: number = undefined;
+    /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = undefined;
@@ -193,12 +197,20 @@ export class KupRadio {
     }
 
     render() {
+        let hostStyle: {} = undefined;
         let formClass: string = 'mdc-form-field';
+        let wrapperClass: string = 'radio-wrapper';
         let componentClass: string = 'mdc-radio';
         let componentLabel: string = '';
         let radioList: Array<HTMLElement> = [];
         let radioEl: HTMLElement;
 
+        if (this.columns) {
+            wrapperClass += ' is-grid';
+            hostStyle = {
+                '--grid-columns': `repeat(${this.columns}, 1fr)`,
+            };
+        }
         if (this.disabled) {
             componentClass += ' mdc-radio--disabled';
         }
@@ -244,9 +256,11 @@ export class KupRadio {
         }
 
         return (
-            <Host>
+            <Host style={hostStyle}>
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component">{radioList}</div>
+                <div id="kup-component">
+                    <div class={wrapperClass}>{radioList}</div>
+                </div>
             </Host>
         );
     }

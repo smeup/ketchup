@@ -22,3 +22,13 @@ label {
   color: var(--kup-text-color);
   font-family: var(--kup-font-family);
 }
+
+.radio-wrapper.is-grid {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: var(--grid-columns);
+}
+
+* {
+  box-sizing: border-box;
+}

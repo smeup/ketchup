@@ -1115,6 +1115,10 @@ export namespace Components {
     }
     interface KupRadio {
         /**
+          * Number of columns. When undefined, radio fields will be displayed inline.
+         */
+        "columns": number;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
@@ -3143,6 +3147,10 @@ declare namespace LocalJSX {
         "qlik"?: any;
     }
     interface KupRadio {
+        /**
+          * Number of columns. When undefined, radio fields will be displayed inline.
+         */
+        "columns"?: number;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
