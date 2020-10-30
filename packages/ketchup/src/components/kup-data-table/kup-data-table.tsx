@@ -565,6 +565,7 @@ export class KupDataTable {
     private theadIntersecting: boolean = false;
     private tableIntersecting: boolean = false;
     private iconPaths: [{ icon: string; path: string }] = undefined;
+    private isSafariBrowser: boolean = false;
 
     /**
      * When component unload is complete
@@ -928,6 +929,9 @@ export class KupDataTable {
         }
         this.rowsPerPageHandler(this.rowsPerPage);
         setThemeCustomStyle(this);
+
+        // Detects is the browser is Safari. If needed, this function can be moved into an external file and then imported into components
+        this.isSafariBrowser = CSS.supports('position', '-webkit-sticky') || !!(window && (window as (Window & {safari?: object})).safari);
     }
 
     componentWillRender() {
@@ -1362,10 +1366,14 @@ export class KupDataTable {
             let currentRow: HTMLTableRowElement = this.tableRef.querySelector(
                 'tbody > tr:first-of-type'
             );
-            // The height must start from the height of the header
-            let previousHeight: number = (this.tableRef.querySelector(
+            // The height must start from the height of the header. BUT not on Safari.
+            // Safari handles the sticky position on the tables in a different way, making it start from the tbody element
+            // and not on the table with a specified position of sticky. There fore in that case we must set initial height to 0.
+            let previousHeight: number = !this.isSafariBrowser
+              ? (this.tableRef.querySelector(
                 'thead > tr:first-of-type > th:first-of-type'
-            ) as HTMLTableCellElement).getBoundingClientRect().height;// [ffbf]
+                ) as HTMLTableCellElement).getBoundingClientRect().height // [ffbf]
+              : 0;
 
             // [CSSCount] - I must start from 1 since we are referencing html elements e not array (with CSS selectors starting from 1)
             for (let i = 1; i <= this.fixedRows && currentRow; i++) {
