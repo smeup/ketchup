@@ -7,7 +7,7 @@
       <radio-basic></radio-basic>
     </template>
     <template v-slot:2>
-      <radio-labels></radio-labels>
+      <radio-styling></radio-styling>
     </template>
     <template v-slot:3>
       <radio-disabled></radio-disabled>
@@ -18,14 +18,14 @@
 <script>
 import RadioDemo from '@/views/basic/radio/examples/RadioDemo';
 import RadioBasic from '@/views/basic/radio/examples/RadioBasic';
-import RadioLabels from '@/views/basic/radio/examples/RadioLabels';
+import RadioStyling from '@/views/basic/radio/examples/RadioStyling';
 import RadioDisabled from '@/views/basic/radio/examples/RadioDisabled';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
     RadioDemo,
     RadioBasic,
-    RadioLabels,
+    RadioStyling,
     RadioDisabled,
     Comp,
   },
@@ -34,7 +34,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-radio',
       headtitle: 'Radio',
-      titles: ['Playground', 'Basic usage', 'Adding labels', 'Disabled'],
+      titles: ['Playground', 'Basic usage', 'Styling', 'Disabled'],
     };
   },
 };
