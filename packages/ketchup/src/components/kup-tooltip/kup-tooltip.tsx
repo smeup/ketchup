@@ -477,7 +477,7 @@ export class KupTooltip {
                     if (info.label != '' && info.value != '') {
                         infos.push(
                             <div>
-                                <span class="label">{info.label}:</span>
+                                <span class="label">{info.label}</span>
                                 <span class="value">{info.value}</span>
                             </div>
                         );
