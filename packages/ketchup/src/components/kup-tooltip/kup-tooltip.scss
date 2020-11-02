@@ -14,7 +14,6 @@
       #main-content {
         padding: 10px 20px;
         display: flex;
-        color: rgba(var(--kup-text-color-rgb), 0.8);
 
         .left {
           width: 75px;
@@ -59,7 +58,13 @@
         }
 
         .label {
+          color: rgba(var(--kup-text-color-rgb), 0.5);
+        }
+
+        .value {
           color: var(--kup-text-color);
+          font-size: 120%;
+          margin-left: 0.325rem;
         }
       }
 
@@ -98,7 +103,12 @@
           }
 
           &__label {
+            color: rgba(var(--kup-text-color-rgb), 0.5);
+          }
+
+          &__value {
             color: var(--kup-text-color);
+            font-size: 120%;
           }
         }
       }
