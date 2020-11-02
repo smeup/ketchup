@@ -93,7 +93,7 @@ import {
     ComponentListElement,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { unformatDate } from '../../utils/cell-formatter';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
@@ -555,11 +555,6 @@ export class KupDataTable {
     private customizeTopPanelRef: any;
     private customizeBottomPanelRef: any;
     private sizedColumns: Column[] = undefined;
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
     private intObserver: IntersectionObserver = undefined;
     private navBarHeight: number = 0;
     private theadIntersecting: boolean = false;
@@ -910,7 +905,7 @@ export class KupDataTable {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         this.identifyAndInitRows();
 
         if (document.querySelectorAll('.header')[0]) {
@@ -931,12 +926,13 @@ export class KupDataTable {
         setThemeCustomStyle(this);
 
         // Detects is the browser is Safari. If needed, this function can be moved into an external file and then imported into components
-        this.isSafariBrowser = CSS.supports('position', '-webkit-sticky') || !!(window && (window as (Window & {safari?: object})).safari);
+        this.isSafariBrowser =
+            CSS.supports('position', '-webkit-sticky') ||
+            !!(window && (window as Window & { safari?: object }).safari);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
@@ -948,18 +944,12 @@ export class KupDataTable {
         this.didRenderObservers();
 
         setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(), 50);
-
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
         // *** Store
         if (this.lazyLoadCells) {
             this.persistState();
         }
         // ***
+        logRender(this, true);
     }
 
     componentDidLoad() {
@@ -990,11 +980,9 @@ export class KupDataTable {
             }
         }
 
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
         this.lazyLoadCells = true;
         this.kupDidLoad.emit();
+        logLoad(this, true);
     }
 
     componentDidUnload() {
@@ -1370,10 +1358,10 @@ export class KupDataTable {
             // Safari handles the sticky position on the tables in a different way, making it start from the tbody element
             // and not on the table with a specified position of sticky. There fore in that case we must set initial height to 0.
             let previousHeight: number = !this.isSafariBrowser
-              ? (this.tableRef.querySelector(
-                'thead > tr:first-of-type > th:first-of-type'
-                ) as HTMLTableCellElement).getBoundingClientRect().height // [ffbf]
-              : 0;
+                ? (this.tableRef.querySelector(
+                      'thead > tr:first-of-type > th:first-of-type'
+                  ) as HTMLTableCellElement).getBoundingClientRect().height // [ffbf]
+                : 0;
 
             // [CSSCount] - I must start from 1 since we are referencing html elements e not array (with CSS selectors starting from 1)
             for (let i = 1; i <= this.fixedRows && currentRow; i++) {
@@ -1382,7 +1370,8 @@ export class KupDataTable {
                     previousHeight + 'px'
                 );
                 previousHeight += (currentRow
-                    .children[0] as HTMLTableCellElement).getBoundingClientRect().height;// [ffbf]
+                    .children[0] as HTMLTableCellElement).getBoundingClientRect()
+                    .height; // [ffbf]
                 currentRow = currentRow.nextElementSibling as HTMLTableRowElement;
             }
             toRet = true;
@@ -1404,7 +1393,7 @@ export class KupDataTable {
                     FixedCellsCSSVarsBase.columns + i,
                     previousWidth + 'px'
                 );
-                previousWidth += currentCell.getBoundingClientRect().width;// [ffbf]
+                previousWidth += currentCell.getBoundingClientRect().width; // [ffbf]
                 currentCell = currentCell.nextElementSibling as HTMLTableCellElement;
             }
             toRet = true;

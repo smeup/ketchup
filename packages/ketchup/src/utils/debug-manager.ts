@@ -4,6 +4,8 @@ declare global {
     }
 }
 
+const dom = document.documentElement;
+
 export function logMessage(comp: any, message: string, type?: string) {
     if ((!type || type === 'log') && !document.documentElement['kupDebug']) {
         return;
@@ -92,5 +94,45 @@ export function logMessage(comp: any, message: string, type?: string) {
         default:
             console.log(consoleDate + id + message, obj);
             break;
+    }
+}
+
+export function logLoad(comp: any, didLoad: boolean) {
+    if (!didLoad) {
+        comp['debugInfo'] = {
+            startTime: performance.now(),
+            endTime: 0,
+            renderCount: 0,
+            renderStart: 0,
+            renderEnd: 0,
+        };
+    } else {
+        comp.debugInfo.endTime = performance.now();
+        let timeDiff: number =
+            comp.debugInfo.endTime - comp.debugInfo.startTime;
+        if (dom.kupDebug) {
+            logMessage(comp, 'Component ready after ' + timeDiff + 'ms.');
+        }
+    }
+}
+
+export function logRender(comp: any, didRender: boolean) {
+    if (!didRender) {
+        comp.debugInfo.renderCount++;
+        comp.debugInfo.renderStart = performance.now();
+    } else {
+        comp.debugInfo.renderEnd = performance.now();
+        let timeDiff: number =
+            comp.debugInfo.renderEnd - comp.debugInfo.renderStart;
+        if (dom.kupDebug) {
+            logMessage(
+                comp,
+                'Render #' +
+                    comp.debugInfo.renderCount +
+                    ' took ' +
+                    timeDiff +
+                    'ms.'
+            );
+        }
     }
 }
