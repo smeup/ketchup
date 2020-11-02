@@ -13,7 +13,7 @@ import {
 import { MDCRipple } from '@material/ripple';
 import { MDCIconButtonToggle } from '@material/icon-button';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-button',
@@ -61,12 +61,6 @@ export class KupButton {
      * Defaults at null. When set, the icon will be shown after the text.
      */
     @Prop() trailingIcon: boolean = false;
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     @Event({
         eventName: 'kupButtonBlur',
@@ -282,19 +276,16 @@ export class KupButton {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
         if (this.label === null && this.icon !== null) {
             if (this.checked) {
                 this.value = 'on';
@@ -321,12 +312,7 @@ export class KupButton {
                 }
             }
         }
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
