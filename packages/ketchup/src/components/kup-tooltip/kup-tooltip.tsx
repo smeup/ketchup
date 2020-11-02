@@ -322,7 +322,7 @@ export class KupTooltip {
         const title = (
             <div>
                 <div
-                    class="title"
+                    class="title ellipsis"
                     onClick={(event) => this.onDefaultOptionClicked(event)}
                 >
                     {datatitle}
@@ -477,8 +477,8 @@ export class KupTooltip {
                     if (info.label != '' && info.value != '') {
                         infos.push(
                             <div>
-                                <span class="label">{info.label}</span>
-                                <span class="value">{info.value}</span>
+                                <div class="label ellipsis">{info.label}</div>
+                                <div class="value ellipsis">{info.value}</div>
                             </div>
                         );
                     }
@@ -516,10 +516,10 @@ export class KupTooltip {
                     <span></span>
                 ) : (
                     <div class="detail-row">
-                        <div class="detail-row__label">
+                        <div class="detail-row__label ellipsis">
                             {row.cells['label'].value}
                         </div>
-                        <div class="detail-row__value">
+                        <div class="detail-row__value ellipsis">
                             {row.cells['value'].value}
                         </div>
                     </div>

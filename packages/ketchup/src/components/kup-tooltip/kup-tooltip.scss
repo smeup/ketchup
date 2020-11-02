@@ -22,6 +22,7 @@
 
         .title {
           display: inline-block;
+          max-width: 440px;
 
           &:hover {
             text-decoration: underline;
@@ -59,12 +60,17 @@
 
         .label {
           color: rgba(var(--kup-text-color-rgb), 0.5);
+          display: inline-block;
+          max-width: 270px;
+          vertical-align: 0.1rem;
         }
 
         .value {
           color: var(--kup-text-color);
+          display: inline-block;
           font-size: 120%;
           margin-left: 0.325rem;
+          max-width: 270px;
         }
       }
 
@@ -104,11 +110,14 @@
 
           &__label {
             color: rgba(var(--kup-text-color-rgb), 0.5);
+            margin-top: 0.175rem;
+            max-width: 320px;
           }
 
           &__value {
             color: var(--kup-text-color);
             font-size: 120%;
+            max-width: 320px;
           }
         }
       }
@@ -140,4 +149,10 @@
   height: 75px;
   width: 75px;
   padding-top: 8px;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
