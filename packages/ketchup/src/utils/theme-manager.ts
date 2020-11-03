@@ -246,9 +246,9 @@ const kupThemes = JSON.parse(`{
             "--kup-warning-color": "#ffc107",
             "--kup-danger-color": "#A6192E",
             "--kup-spinner-color": "#eaa710",
-            "--kup-chart-color-1": "#000000",
-            "--kup-chart-color-2": "#808080",
-            "--kup-chart-color-3": "#cccccc",
+            "--kup-chart-color-1": "#735DED",
+            "--kup-chart-color-2": "#00B2CB",
+            "--kup-chart-color-3": "#EDC900",
             "--kup-obj-cursor": "inherit"
         },
         "customStyles": {
