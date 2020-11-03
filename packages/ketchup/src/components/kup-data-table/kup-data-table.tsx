@@ -38,7 +38,14 @@ import {
     GenericFilter,
 } from './kup-data-table-declarations';
 
-import { isRating, isColor, isGauge, getShape } from '../../utils/cell-utils';
+import {
+    isRating,
+    isColor,
+    isGauge,
+    isKnob,
+    isRadio,
+    isProgressBar,
+} from '../../utils/cell-utils';
 
 import {
     calcTotals,
@@ -69,14 +76,14 @@ import {
     isImage,
     isLink,
     isNumber,
-    isProgressBar,
-    isRadio,
+    isProgressBar as isProgressBarObj,
     isVoCodver,
     isObjectList,
     isStringObject,
     isCheckbox,
     hasTooltip,
     isDate,
+    isRadio as isRadioObj,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
 
@@ -2036,8 +2043,8 @@ export class KupDataTable {
             isCheckbox(column.obj) ||
             isImage(column.obj) ||
             isIcon(column.obj) ||
-            isProgressBar(column.obj) ||
-            isRadio(column.obj) ||
+            isProgressBarObj(column.obj) ||
+            isRadioObj(column.obj) ||
             isVoCodver(column.obj)
         ) {
             columnClass.centered = true;
@@ -2970,7 +2977,8 @@ export class KupDataTable {
                     number:
                         isNumber(cell.obj) &&
                         !isRating(cell, null) &&
-                        !isGauge(cell, null),
+                        !isGauge(cell, null) &&
+                        !isKnob(cell, null),
                 };
                 if (cell.cssClass) {
                     cellClass[cell.cssClass] = true;
@@ -3252,15 +3260,17 @@ export class KupDataTable {
             return 'color-picker';
         } else if (isGauge(cell, null)) {
             return 'gauge';
+        } else if (isKnob(cell, null)) {
+            return 'knob';
         } else if (isIcon(obj) || isVoCodver(obj)) {
             return 'icon';
         } else if (isImage(obj)) {
             return 'image';
         } else if (isLink(obj)) {
             return 'link';
-        } else if (isProgressBar(obj)) {
+        } else if (isProgressBar(cell, null)) {
             return 'progress-bar';
-        } else if (isRadio(obj) || getShape(cell) === 'RAD') {
+        } else if (isRadio(cell, null)) {
             return 'radio';
         } else if (isRating(cell, null)) {
             return 'rating';
@@ -3419,6 +3429,14 @@ export class KupDataTable {
                         width-component="100%"
                         {...props}
                     ></kup-gauge>
+                );
+            case 'knob':
+                return (
+                    <kup-progress-bar
+                        class="cell-progress-bar"
+                        value={stringToNumber(cell.value)}
+                        {...props}
+                    ></kup-progress-bar>
                 );
             case 'icon':
             case 'image':

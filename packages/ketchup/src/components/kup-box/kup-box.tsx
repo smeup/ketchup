@@ -31,10 +31,8 @@ import {
 
 import {
     isButton,
-    isRadio,
     isPassword,
     isIcon,
-    isChart,
     isCheckbox,
     hasTooltip,
 } from '../../utils/object-utils';
@@ -43,7 +41,10 @@ import {
     isEditor,
     isImage,
     isProgressBar,
-    getShape,
+    isRadio,
+    isGauge,
+    isKnob,
+    isChart,
 } from '../../utils/cell-utils';
 
 import {
@@ -61,7 +62,7 @@ import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
-import { identify } from '../../utils/utils';
+import { identify, stringToNumber } from '../../utils/utils';
 
 @Component({
     tag: 'kup-box',
@@ -1486,10 +1487,7 @@ export class KupBox {
                     } else {
                         boContent = undefined;
                     }
-                } else if (
-                    isChart(cell.obj) ||
-                    getShape(cell, boxObject) === 'GRA'
-                ) {
+                } else if (isChart(cell, boxObject)) {
                     if (props) {
                         boContent = (
                             <kup-lazy
@@ -1566,7 +1564,7 @@ export class KupBox {
                     } else {
                         boContent = undefined;
                     }
-                } else if (isRadio(cell.obj)) {
+                } else if (isRadio(cell, boxObject)) {
                     if (props) {
                         props['disabled'] = true;
                         boContent = (
@@ -1574,6 +1572,30 @@ export class KupBox {
                                 class="cell-radio"
                                 {...props}
                             ></kup-radio>
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
+                } else if (isGauge(cell, boxObject)) {
+                    if (props) {
+                        boContent = (
+                            <kup-gauge
+                                value={stringToNumber(cell.value)}
+                                width-component="100%"
+                                {...props}
+                            ></kup-gauge>
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
+                } else if (isKnob(cell, boxObject)) {
+                    if (props) {
+                        boContent = (
+                            <kup-progress-bar
+                                class="cell-progress-bar"
+                                value={stringToNumber(cell.value)}
+                                {...props}
+                            ></kup-progress-bar>
                         );
                     } else {
                         boContent = undefined;
