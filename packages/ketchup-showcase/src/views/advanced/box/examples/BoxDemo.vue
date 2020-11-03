@@ -67,7 +67,7 @@ export default {
         {
           prop: 'className',
           description:
-            'Available classes: left-aligned, right-aligned, borderless and paddingless. Read below for detailed information.',
+            'Available classes: left-aligned, right-aligned, bottom-aligned, top-aligned, borderless and paddingless. Read below for detailed information.',
           type: 'string',
           default: '""',
           try: 'field',
