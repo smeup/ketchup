@@ -34,6 +34,18 @@
   }
 }
 
+:host(.top-aligned) {
+  #box-container .box-wrapper .box .box-section .column {
+    justify-content: flex-start;
+  }
+}
+
+:host(.bottom-aligned) {
+  #box-container .box-wrapper .box .box-section .column {
+    justify-content: flex-end;
+  }
+}
+
 :host(:not(.borderless)) {
   .box {
     border: 1px solid var(--kup-border-color);
@@ -60,16 +72,6 @@
 
 .box-section {
   text-align: center;
-
-  kup-image {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  kup-checkbox,
-  kup-image {
-    justify-content: center;
-  }
 }
 
 .box-component {
@@ -168,11 +170,6 @@
 
           &.has-padding {
             padding: 1rem;
-          }
-
-          kup-image, // TODO must remove this since it no longer makes sense. However removing this automatically changes the correct alignment of the internal image. Must be adjusted.
-          kup-checkbox {
-            display: flex;
           }
 
           img {
