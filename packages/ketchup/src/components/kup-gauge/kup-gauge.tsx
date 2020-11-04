@@ -1,5 +1,5 @@
-import { Component, Prop, h } from '@stencil/core';
-import { logMessage } from '../../utils/debug-manager';
+import { Component, Element, Prop, h } from '@stencil/core';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 declare const d3: any;
 
@@ -9,6 +9,8 @@ declare const d3: any;
     shadow: true,
 })
 export class KupGauge {
+    @Element() rootElement: HTMLElement;
+
     /**
      * Sets how much the arc of the gauge should be thick.
      * @namespace kup-gauge.arcThickness
@@ -95,12 +97,6 @@ export class KupGauge {
     @Prop() widthComponent: string = '22vw';
 
     //---- Internal not reactive state ----
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
     // Arcs generator
     private arcGenerator = d3.arc();
 
@@ -188,27 +184,19 @@ export class KupGauge {
     }
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
