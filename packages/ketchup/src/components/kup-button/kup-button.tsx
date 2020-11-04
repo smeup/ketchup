@@ -13,7 +13,7 @@ import {
 import { MDCRipple } from '@material/ripple';
 import { MDCIconButtonToggle } from '@material/icon-button';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-button',

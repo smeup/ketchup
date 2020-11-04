@@ -11,7 +11,7 @@ import {
 import { formatToMomentDate } from '../../utils/cell-formatter';
 import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 import moment from 'moment';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-calendar',
