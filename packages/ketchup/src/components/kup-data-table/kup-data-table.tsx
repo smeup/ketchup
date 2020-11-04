@@ -718,16 +718,7 @@ export class KupDataTable {
                 this.stickyTheadRef.style.maxWidth = widthTable + 'px';
 
                 if (!this.theadIntersecting) {
-                    let thCollection: any = this.theadRef.querySelectorAll(
-                        'th'
-                    );
-                    let thStickyCollection: any = this.stickyTheadRef.querySelectorAll(
-                        'th-sticky'
-                    );
-                    for (let i = 0; i < thCollection.length; i++) {
-                        let widthTH = thCollection[i].offsetWidth;
-                        thStickyCollection[i].style.width = widthTH + 'px';
-                    }
+                    this.updateStickyHeaderSize();
                     this.stickyTheadRef.classList.add('activated');
                 } else {
                     this.stickyTheadRef.classList.remove('activated');
@@ -737,6 +728,17 @@ export class KupDataTable {
             }
         }
     };
+
+    private updateStickyHeaderSize() {
+        let thCollection: any = this.theadRef.querySelectorAll('th');
+        let thStickyCollection: any = this.stickyTheadRef.querySelectorAll(
+            'th-sticky'
+        );
+        for (let i = 0; i < thCollection.length; i++) {
+            let widthTH = thCollection[i].offsetWidth;
+            thStickyCollection[i].style.width = widthTH + 'px';
+        }
+    }
 
     private setObserver() {
         let callback: IntersectionObserverCallback = (
@@ -831,6 +833,16 @@ export class KupDataTable {
         );
         // We use the click event to avoid a menu closing another one
         document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
+        this.tableAreaRef.addEventListener('scroll', () =>
+            this.scrollStickyHeader()
+        );
+    }
+
+    private scrollStickyHeader() {
+        if (!this.stickyTheadRef) {
+            return;
+        }
+        this.stickyTheadRef.scrollLeft = this.tableAreaRef.scrollLeft;
     }
 
     private setScrollOnHover() {
@@ -942,6 +954,10 @@ export class KupDataTable {
         this.columnMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
+
+        if (this.headerIsPersistent) {
+            this.updateStickyHeaderSize();
+        }
 
         setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(), 50);
         // *** Store

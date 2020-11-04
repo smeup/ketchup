@@ -1477,13 +1477,7 @@ export class KupBox {
                     getShape(cell, boxObject) === 'GRA'
                 ) {
                     if (props) {
-                        boContent = (
-                            <kup-lazy
-                                class="cell-chart"
-                                componentName="kup-chart"
-                                data={...props}
-                            />
-                        );
+                        boContent = <kup-chart class="cell-chart" {...props} />;
                     } else {
                         boContent = undefined;
                     }
@@ -1523,13 +1517,7 @@ export class KupBox {
                         if (props.badgeData) {
                             classObj['has-padding'] = true;
                         }
-                        boContent = (
-                            <kup-lazy
-                                class="cell-image"
-                                componentName="kup-image"
-                                data={...props}
-                            />
-                        );
+                        boContent = <kup-image class="cell-image" {...props} />;
                     } else {
                         boContent = undefined;
                     }
