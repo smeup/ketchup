@@ -122,7 +122,39 @@ async refreshCustomStyle(customStyleTheme: string) {
 
 #### debugging
 
-TODO: needs refactoring soon probably.
+1. Import these methods from the `debug manager`:
+
+```
+import { logLoad, logRender } from '../../utils/debug-manager';
+```
+
+2. Call the following methods in the following `Stencil's lifecycle hooks`:
+
+```
+    componentWillLoad() {
+        logLoad(this, false);
+        //..
+        //Actual willLoad code (below)
+    }
+
+    componentDidLoad() {
+        //Actual didLoad code (above)
+        //..
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+        //..
+        //Actual willRender code (below)
+    }
+
+    componentDidRender() {
+        //Actual didRender code (above)
+        //..
+        logRender(this, true);
+    }
+```
 
 ### Rendered markup
 
