@@ -8,6 +8,8 @@ import {
 import { BoxObject } from '../components/kup-box/kup-box-declarations';
 import { isProgressBar as isProgressBarObj } from './object-utils';
 import { isColor as isColorObj } from './object-utils';
+import { isRadio as isRadioObj } from './object-utils';
+import { isChart as isChartObj } from './object-utils';
 
 import { isImage as isImageObj } from './object-utils';
 import numeral from 'numeral';
@@ -237,10 +239,41 @@ export function isColor(cell: Cell, boxObject: BoxObject) {
 }
 
 // -------------
+// CHART
+// -------------
+
+export function isChart(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return (
+        'GRA' === shape || (!shape && cell && cell.obj && isChartObj(cell.obj))
+    );
+}
+
+// -------------
+// RADIO
+// -------------
+
+export function isRadio(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return (
+        'RAD' === shape || (!shape && cell && cell.obj && isRadioObj(cell.obj))
+    );
+}
+
+// -------------
 // GAUGE
 // -------------
 
 export function isGauge(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return 'GAU' === shape;
+}
+
+// -------------
+// KNOB
+// -------------
+
+export function isKnob(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'KNB' === shape;
 }

@@ -30,8 +30,6 @@ import {
     isVoCodver,
     isButton,
     isChart,
-    isProgressBar,
-    isRadio,
     isNumber,
     hasTooltip,
 } from '../../utils/object-utils';
@@ -48,6 +46,7 @@ import {
 } from '../kup-data-table/kup-data-table-helper';
 import { KupTreeState } from './kup-tree-state';
 import { KupStore } from '../kup-state/kup-store';
+import { isProgressBar, isRadio } from '../../utils/cell-utils';
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -864,7 +863,7 @@ export class KupTree {
             if (cellValue < 0) {
                 classObj['negative-number'] = true;
             }
-        } else if (isProgressBar(cell.obj)) {
+        } else if (isProgressBar(cell, null)) {
             if (props) {
                 content = (
                     <kup-progress-bar
@@ -875,7 +874,7 @@ export class KupTree {
             } else {
                 content = undefined;
             }
-        } else if (isRadio(cell.obj)) {
+        } else if (isRadio(cell, null)) {
             if (props) {
                 if (cellData.treeNode.hasOwnProperty('readOnly')) {
                     props['disabled'] = cellData.treeNode.readOnly;

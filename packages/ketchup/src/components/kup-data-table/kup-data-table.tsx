@@ -38,7 +38,14 @@ import {
     GenericFilter,
 } from './kup-data-table-declarations';
 
-import { isRating, isColor, isGauge, getShape } from '../../utils/cell-utils';
+import {
+    isRating,
+    isColor,
+    isGauge,
+    isKnob,
+    isRadio,
+    isProgressBar,
+} from '../../utils/cell-utils';
 
 import {
     calcTotals,
@@ -69,14 +76,14 @@ import {
     isImage,
     isLink,
     isNumber,
-    isProgressBar,
-    isRadio,
+    isProgressBar as isProgressBarObj,
     isVoCodver,
     isObjectList,
     isStringObject,
     isCheckbox,
     hasTooltip,
     isDate,
+    isRadio as isRadioObj,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
 
@@ -433,10 +440,12 @@ export class KupDataTable {
 
     @Watch('expandGroups')
     expandGroupsHandler() {
-        this.recalculateRows();
-        // reset group state
-        this.groupState = {};
-        this.forceGroupExpansion();
+        if (!this.isRestoringState) {
+            this.recalculateRows();
+            // reset group state
+            this.groupState = {};
+            this.forceGroupExpansion();
+        }
     }
 
     @Watch('sort')
@@ -447,22 +456,23 @@ export class KupDataTable {
     @Watch('currentPage')
     @Watch('currentRowsPerPage')
     recalculateRows() {
-        this.initRows();
+        if (!this.isRestoringState) {
+            this.initRows();
+        }
     }
 
     @Watch('data')
     identifyAndInitRows() {
         identify(this.getRows());
-        this.recalculateRows();
-        // reset group state
-        this.groupState = {};
-        this.forceGroupExpansion();
+        this.expandGroupsHandler();
     }
 
     @Watch('groups')
     recalculateRowsAndUndoSelections() {
-        this.recalculateRows();
-        this.resetSelectedRows();
+        if (!this.isRestoringState) {
+            this.recalculateRows();
+            this.resetSelectedRows();
+        }
     }
 
     @Watch('fixedColumns')
@@ -561,6 +571,7 @@ export class KupDataTable {
     private tableIntersecting: boolean = false;
     private iconPaths: [{ icon: string; path: string }] = undefined;
     private isSafariBrowser: boolean = false;
+    private isRestoringState: boolean = false;
 
     /**
      * When component unload is complete
@@ -928,13 +939,18 @@ export class KupDataTable {
             this.navBarHeight = 0;
         }
         this.setObserver();
+
+        this.isRestoringState = true;
         // *** Store
         this.initWithPersistedState();
         // ***
         if (this.pageSelected > 0) {
             this.currentPage = this.pageSelected;
         }
-        this.rowsPerPageHandler(this.rowsPerPage);
+        this.currentRowsPerPage = this.rowsPerPage;
+        this.isRestoringState = false;
+        this.recalculateRows();
+
         setThemeCustomStyle(this);
 
         // Detects is the browser is Safari. If needed, this function can be moved into an external file and then imported into components
@@ -2022,8 +2038,8 @@ export class KupDataTable {
             isCheckbox(column.obj) ||
             isImage(column.obj) ||
             isIcon(column.obj) ||
-            isProgressBar(column.obj) ||
-            isRadio(column.obj) ||
+            isProgressBarObj(column.obj) ||
+            isRadioObj(column.obj) ||
             isVoCodver(column.obj)
         ) {
             columnClass.centered = true;
@@ -2956,7 +2972,8 @@ export class KupDataTable {
                     number:
                         isNumber(cell.obj) &&
                         !isRating(cell, null) &&
-                        !isGauge(cell, null),
+                        !isGauge(cell, null) &&
+                        !isKnob(cell, null),
                 };
                 if (cell.cssClass) {
                     cellClass[cell.cssClass] = true;
@@ -3238,15 +3255,17 @@ export class KupDataTable {
             return 'color-picker';
         } else if (isGauge(cell, null)) {
             return 'gauge';
+        } else if (isKnob(cell, null)) {
+            return 'knob';
         } else if (isIcon(obj) || isVoCodver(obj)) {
             return 'icon';
         } else if (isImage(obj)) {
             return 'image';
         } else if (isLink(obj)) {
             return 'link';
-        } else if (isProgressBar(obj)) {
+        } else if (isProgressBar(cell, null)) {
             return 'progress-bar';
-        } else if (isRadio(obj) || getShape(cell) === 'RAD') {
+        } else if (isRadio(cell, null)) {
             return 'radio';
         } else if (isRating(cell, null)) {
             return 'rating';
@@ -3405,6 +3424,14 @@ export class KupDataTable {
                         width-component="100%"
                         {...props}
                     ></kup-gauge>
+                );
+            case 'knob':
+                return (
+                    <kup-progress-bar
+                        class="cell-progress-bar"
+                        value={stringToNumber(cell.value)}
+                        {...props}
+                    ></kup-progress-bar>
                 );
             case 'icon':
             case 'image':

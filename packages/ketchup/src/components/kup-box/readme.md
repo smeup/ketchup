@@ -91,6 +91,7 @@ Type: `Promise<void>`
 - [kup-text-field](../kup-text-field)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
+- [kup-gauge](../kup-gauge)
 - [kup-tooltip](../kup-tooltip)
 - [kup-combobox](../kup-combobox)
 - [kup-paginator](../kup-paginator)
@@ -108,6 +109,7 @@ graph TD;
   kup-box --> kup-text-field
   kup-box --> kup-progress-bar
   kup-box --> kup-radio
+  kup-box --> kup-gauge
   kup-box --> kup-tooltip
   kup-box --> kup-combobox
   kup-box --> kup-paginator
