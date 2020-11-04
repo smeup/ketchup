@@ -249,6 +249,13 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-1": "#735DED",
             "--kup-chart-color-2": "#00B2CB",
             "--kup-chart-color-3": "#EDC900",
+            "--kup-chart-color-4": "green",
+            "--kup-chart-color-5": "yellow",
+            "--kup-chart-color-6": "cyan",
+            "--kup-chart-color-7": "brown",
+            "--kup-chart-color-8": "magenta",
+            "--kup-chart-color-9": "grey",
+            "--kup-chart-color-10": "indigo",
             "--kup-obj-cursor": "inherit"
         },
         "customStyles": {
@@ -293,6 +300,13 @@ const kupThemes = JSON.parse(`{
             "--kup-chart-color-1": "#735DED",
             "--kup-chart-color-2": "#00B2CB",
             "--kup-chart-color-3": "#EDC900",
+            "--kup-chart-color-4": "green",
+            "--kup-chart-color-5": "yellow",
+            "--kup-chart-color-6": "cyan",
+            "--kup-chart-color-7": "brown",
+            "--kup-chart-color-8": "magenta",
+            "--kup-chart-color-9": "grey",
+            "--kup-chart-color-10": "indigo",
             "--kup-obj-cursor": "inherit"
         },
         "icons": {
