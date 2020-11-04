@@ -38,7 +38,7 @@ import {
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { isFilterCompliantForValue } from '../../utils/filters';
 import numeral from 'numeral';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
@@ -190,11 +190,6 @@ export class KupTree {
     private treeWrapperRef: any;
     private scrollOnHoverInstance: scrollOnHover;
     private selectedColumn: string = '';
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
     private clickTimeout: any[] = [];
 
     //-------- Events --------
@@ -353,7 +348,7 @@ export class KupTree {
     //-------- Lifecycle hooks --------
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
 
         if (this.data) {
@@ -388,15 +383,12 @@ export class KupTree {
                 this.hdlTreeNodeClicked(tn, this.selectedNodeString, true);
             }
         }
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
         this.kupDidLoad.emit();
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
         this.filterNodes();
     }
 
@@ -413,16 +405,11 @@ export class KupTree {
                 }
             }
         }
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
 
         // *** Store
         this.persistState();
         // ***
+        logRender(this, true);
     }
 
     componentDidUnload() {

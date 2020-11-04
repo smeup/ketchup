@@ -19,7 +19,7 @@ import {
     ViewMode,
     TooltipCellOptions,
 } from './kup-tooltip-declarations';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 import { Row } from '../kup-data-table/kup-data-table-declarations';
 import { positionRecalc } from '../../utils/recalc-position';
 
@@ -179,12 +179,6 @@ export class KupTooltip {
     private tooltipTimeout: NodeJS.Timeout;
     private loadDetailTimeout: NodeJS.Timeout;
     private mouseLeaveTimeout: NodeJS.Timeout;
-    private wrapperEl: HTMLElement;
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     private viewMode: ViewMode = ViewMode.TOOLTIP;
     private firstLoad: boolean = false;
@@ -627,18 +621,15 @@ export class KupTooltip {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
@@ -648,12 +639,7 @@ export class KupTooltip {
         } else {
             this.rootElement.classList.remove('dynamic-position-active');
         }
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
@@ -668,7 +654,6 @@ export class KupTooltip {
                     this.onMouseLeave();
                     ev.stopPropagation();
                 }}
-                ref={(el) => (this.wrapperEl = el)}
             >
                 {this.createTooltip()}
             </div>
