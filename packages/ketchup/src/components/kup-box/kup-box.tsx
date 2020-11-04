@@ -56,7 +56,7 @@ import {
 import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 
 import { KupBoxState } from './kup-box-state';
@@ -227,12 +227,6 @@ export class KupBox {
      * Defines the timeout for tooltip load
      */
     @Prop() tooltipLoadTimeout: number;
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     @State()
     private globalFilterValue = '';
@@ -441,7 +435,7 @@ export class KupBox {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
 
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
@@ -458,9 +452,6 @@ export class KupBox {
 
         // When component is created, then the listener is set. @See clickFunction for more details
         document.addEventListener('click', this.clickFunction.bind(this));
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
 
         // Initialize @State from @Prop
         this.globalFilterValue = this.globalFilterValueState;
@@ -471,23 +462,18 @@ export class KupBox {
             this.selectedRows = this.selectedRowsState;
         }
         this.kupDidLoad.emit();
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
         // *** Store
         this.persistState();
         // ***
+        logRender(this, true);
     }
 
     componentDidUnload() {

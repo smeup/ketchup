@@ -399,9 +399,14 @@ export namespace Components {
     }
     interface KupColorPicker {
         /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
          */
@@ -1142,6 +1147,10 @@ export namespace Components {
     }
     interface KupRating {
         /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
@@ -1149,6 +1158,7 @@ export namespace Components {
           * Max number of stars (default 5)
          */
         "maxValue": number;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Rated stars
          */
@@ -2301,6 +2311,10 @@ declare namespace LocalJSX {
     }
     interface KupColorPicker {
         /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled"?: boolean;
@@ -3193,6 +3207,10 @@ declare namespace LocalJSX {
     }>) => void;
     }
     interface KupRating {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
         /**
           * Defaults at false. When set to true, the component is disabled.
          */

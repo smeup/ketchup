@@ -38,7 +38,7 @@
         <div class="kup-container">
           <kup-chip
             :data.prop="chipData"
-            custom-style="#kup-component .mdc-chip { background-color: blue; color: pink; } #kup-component .mdc-chip kup-image { --kup-icon-color: pink; }"
+            custom-style="#kup-component .mdc-chip { background-color: blue; color: pink; } #kup-component .icon-container { background-color: pink; }"
           ></kup-chip>
         </div>
         <p class="centered">customStyle used</p>
@@ -53,7 +53,7 @@
         <div class="kup-container">
           <kup-chip
             :data.prop="chipData"
-            custom-style="#kup-component .mdc-chip:first-child { background-color: blue; color: pink; } #kup-component .mdc-chip:first-child kup-image { --kup-icon-color: pink; }"
+            custom-style="#kup-component .mdc-chip:first-child { background-color: blue; color: pink; } #kup-component .mdc-chip:first-child .icon-container{ background-color: pink; }"
           ></kup-chip>
         </div>
         <p class="centered">customStyle used</p>
@@ -127,7 +127,7 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="width: fit-content; margin-left: auto; margin-right: auto;"
+          style="width: fit-content; margin-left: auto; margin-right: auto"
         >
           <kup-button
             custom-style="#kup-component { box-shadow: 0 0 0 purple; animation: pulse 2s infinite; border-radius: 4px; } #kup-component:hover { animation: none; } #kup-component button { background-color: purple; } @-webkit-keyframes pulse { 0% { -webkit-box-shadow: 0 0 0 0 purple; } 70% { -webkit-box-shadow: 0 0 5px 5px transparent; } 100% { -webkit-box-shadow: 0 0 0 0 transparent; }}@keyframes pulse { 0% { -moz-box-shadow: 0 0 0 0 purple; box-shadow: 0 0 0 0 purple; }  70% { -moz-box-shadow: 0 0 5px 5px transparent; box-shadow: 0 0 5px 5px transparent; }  100% { -moz-box-shadow: 0 0 0 0 transparent; box-shadow: 0 0 0 0 transparent; }}"

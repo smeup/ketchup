@@ -100,7 +100,7 @@ import {
     ComponentListElement,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { unformatDate } from '../../utils/cell-formatter';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
@@ -565,11 +565,6 @@ export class KupDataTable {
     private customizeTopPanelRef: any;
     private customizeBottomPanelRef: any;
     private sizedColumns: Column[] = undefined;
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
     private intObserver: IntersectionObserver = undefined;
     private navBarHeight: number = 0;
     private theadIntersecting: boolean = false;
@@ -933,7 +928,7 @@ export class KupDataTable {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         this.identifyAndInitRows();
 
         if (document.querySelectorAll('.header')[0]) {
@@ -965,8 +960,7 @@ export class KupDataTable {
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
@@ -982,18 +976,12 @@ export class KupDataTable {
         }
 
         setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(), 50);
-
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
         // *** Store
         if (this.lazyLoadCells) {
             this.persistState();
         }
         // ***
+        logRender(this, true);
     }
 
     componentDidLoad() {
@@ -1024,11 +1012,9 @@ export class KupDataTable {
             }
         }
 
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
         this.lazyLoadCells = true;
         this.kupDidLoad.emit();
+        logLoad(this, true);
     }
 
     componentDidUnload() {
