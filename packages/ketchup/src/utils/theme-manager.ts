@@ -395,6 +395,7 @@ const kupThemes = JSON.parse(`{
             "KUP-NAV-BAR": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-PROGRESS-BAR": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-RADIO": "#kup-component { border: 1px solid var(--kup-border-color); }",
+            "KUP-RATING": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-SPINNER": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-SWITCH": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-TAB-BAR": "#kup-component { border: 1px solid var(--kup-border-color); }",

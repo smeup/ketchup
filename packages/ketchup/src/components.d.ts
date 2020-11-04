@@ -1147,6 +1147,10 @@ export namespace Components {
     }
     interface KupRating {
         /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
@@ -1154,6 +1158,7 @@ export namespace Components {
           * Max number of stars (default 5)
          */
         "maxValue": number;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Rated stars
          */
@@ -3202,6 +3207,10 @@ declare namespace LocalJSX {
     }>) => void;
     }
     interface KupRating {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
         /**
           * Defaults at false. When set to true, the component is disabled.
          */
