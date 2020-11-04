@@ -12,7 +12,7 @@ import {
     Method,
 } from '@stencil/core';
 import { CssDraw } from './kup-image-declarations';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { imageCanvas } from './canvas/kup-image-canvas';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { KupBadge } from '../kup-badge/kup-badge';
@@ -67,11 +67,6 @@ export class KupImage {
     private isUrl: boolean = false;
     private elStyle = undefined;
     private imageCanvas: imageCanvas;
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
     canvas: HTMLCanvasElement;
 
     @Event({
@@ -222,19 +217,16 @@ export class KupImage {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
         this.isUrl = false;
         if (this.resource) {
             if (
@@ -256,12 +248,7 @@ export class KupImage {
             this.canvas.width = this.canvas.clientWidth;
             this.imageCanvas.drawCanvas(this.resource, this.canvas);
         }
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
