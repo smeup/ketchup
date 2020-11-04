@@ -440,10 +440,12 @@ export class KupDataTable {
 
     @Watch('expandGroups')
     expandGroupsHandler() {
-        this.recalculateRows();
-        // reset group state
-        this.groupState = {};
-        this.forceGroupExpansion();
+        if (!this.isRestoringState) {
+            this.recalculateRows();
+            // reset group state
+            this.groupState = {};
+            this.forceGroupExpansion();
+        }
     }
 
     @Watch('sort')
@@ -454,22 +456,23 @@ export class KupDataTable {
     @Watch('currentPage')
     @Watch('currentRowsPerPage')
     recalculateRows() {
-        this.initRows();
+        if (!this.isRestoringState) {
+            this.initRows();
+        }
     }
 
     @Watch('data')
     identifyAndInitRows() {
         identify(this.getRows());
-        this.recalculateRows();
-        // reset group state
-        this.groupState = {};
-        this.forceGroupExpansion();
+        this.expandGroupsHandler();
     }
 
     @Watch('groups')
     recalculateRowsAndUndoSelections() {
-        this.recalculateRows();
-        this.resetSelectedRows();
+        if (!this.isRestoringState) {
+            this.recalculateRows();
+            this.resetSelectedRows();
+        }
     }
 
     @Watch('fixedColumns')
@@ -573,6 +576,7 @@ export class KupDataTable {
     private tableIntersecting: boolean = false;
     private iconPaths: [{ icon: string; path: string }] = undefined;
     private isSafariBrowser: boolean = false;
+    private isRestoringState: boolean = false;
 
     /**
      * When component unload is complete
@@ -940,13 +944,18 @@ export class KupDataTable {
             this.navBarHeight = 0;
         }
         this.setObserver();
+
+        this.isRestoringState = true;
         // *** Store
         this.initWithPersistedState();
         // ***
         if (this.pageSelected > 0) {
             this.currentPage = this.pageSelected;
         }
-        this.rowsPerPageHandler(this.rowsPerPage);
+        this.currentRowsPerPage = this.rowsPerPage;
+        this.isRestoringState = false;
+        this.recalculateRows();
+
         setThemeCustomStyle(this);
 
         // Detects is the browser is Safari. If needed, this function can be moved into an external file and then imported into components
