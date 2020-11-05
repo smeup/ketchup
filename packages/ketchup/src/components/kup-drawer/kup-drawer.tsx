@@ -7,47 +7,47 @@ import {
     EventEmitter,
     Host,
     Element,
+    State,
 } from '@stencil/core';
+import { logMessage } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-drawer',
-    styleUrl: 'kup-drawer.css',
+    styleUrl: 'kup-drawer.scss',
     shadow: true,
 })
 export class KupDrawer {
     @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
 
-    // add permormance e customStyle
-
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = undefined;
     /**
      * Defaults at false. When set to true, the drawer appears.
      */
     @Prop({ reflect: true, mutable: true }) opened = false;
-    /**
-     * Defaults at false. When set to true, the drawer appears on the right.
-     */
-    // TODO remove. Fare con le classi
-    @Prop({ reflect: true, mutable: true }) right = false;
-    /**
-     * Defaults at false. When set to true, the drawer remains permanent on the screen.
-     */
-    @Prop({ reflect: true, mutable: true }) permanent = false;
+
+    private startTime: number = 0;
+    private endTime: number = 0;
+    private renderCount: number = 0;
+    private renderStart: number = 0;
+    private renderEnd: number = 0;
 
     //---- Events ----
+
     @Event() kupDrawerClose: EventEmitter;
     @Event() kupDrawerOpen: EventEmitter;
 
-    onCloseDrawer(): void {
-        this.opened = false;
-        this.kupDrawerClose.emit();
-    }
-
-    onOpenDrawer(): void {
-        this.opened = true;
-        this.kupDrawerOpen.emit();
-    }
-
     //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
     @Method()
     async open() {
         this.onOpenDrawer();
@@ -67,26 +67,54 @@ export class KupDrawer {
         }
     }
 
-    getClass() {
-        let drawerClass = 'aside ';
+    onCloseDrawer(): void {
+        this.opened = false;
+        this.kupDrawerClose.emit();
+    }
 
-        return drawerClass;
+    onOpenDrawer(): void {
+        this.opened = true;
+        this.kupDrawerOpen.emit();
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        this.startTime = performance.now();
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        this.endTime = performance.now();
+        let timeDiff: number = this.endTime - this.startTime;
+        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+    }
+
+    componentWillRender() {
+        this.renderCount++;
+        this.renderStart = performance.now();
+    }
+
+    componentDidRender() {
+        this.renderEnd = performance.now();
+        let timeDiff: number = this.renderEnd - this.renderStart;
+        logMessage(
+            this,
+            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
+        );
     }
 
     render() {
         let mainContent = <slot name="MainContent" />;
-        let drawerClass = this.getClass();
-        // TODO remove
-        console.log('drawerClass', drawerClass);
-        return [
+        return (
             <Host>
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div
                         class="backdrop"
                         onClick={() => this.onCloseDrawer()}
                     />
-                    ,
-                    <aside class={drawerClass}>
+                    <aside>
                         <div class="header">
                             <div class="title">
                                 <slot name="title" />
@@ -98,7 +126,7 @@ export class KupDrawer {
                         <main>{mainContent}</main>
                     </aside>
                 </div>
-            </Host>,
-        ];
+            </Host>
+        );
     }
 }
