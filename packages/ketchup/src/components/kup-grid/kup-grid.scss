@@ -31,6 +31,7 @@
 .flex-layout__inner {
   width: auto;
   & * {
+    display: block;
     margin: 0 1.5rem;
   }
 }
