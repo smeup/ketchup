@@ -1,6 +1,7 @@
 import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
 
 import echarts from 'echarts';
+
 import { world } from '../../assets/maps/Emaps';
 
 @Component({
@@ -33,6 +34,14 @@ export class KupEcharts {
      * Title of the graph's color.
      */
     @Prop() graphTitleColor: string;
+    /**
+     * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
+     */
+    @Prop() mapType: any;
+    /**
+     * Title position
+     */
+    @Prop() titlePosition: string = 'left';
 
     private chartContainer?: HTMLDivElement;
     private myChart: any;
@@ -42,8 +51,9 @@ export class KupEcharts {
     private datajson = [];
     private datapiejson = [];
     private datamapjson = [];
-    private objectkey: any;
     private objectmapyvalue = {};
+    private namemap: any;
+    private jsonmap: any;
 
     @Event() kupEchartsClicked: EventEmitter;
 
@@ -52,10 +62,82 @@ export class KupEcharts {
             this.myChart = echarts.init(this.chartContainer);
         }
         if (this.types == 'map') {
-            echarts.registerMap('World', world);
-        }
+            this.dynamicImport()
+                .then((res) => {
+                    console.log(res);
+                    console.log('stoprovando', this.jsonmap, this.namemap);
+                    echarts.registerMap(this.namemap, this.jsonmap);
+                    this.createObjectMapYvalue();
+                    this.objectMap();
+                    this.createEchartsMapJson();
+                    this.myChart.setOption(this.echartsjson, true);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
 
-        this.myChart.setOption(this.echartsjson, true);
+            // echarts.registerMap('world', world);
+        } else {
+            this.myChart.setOption(this.echartsjson, true);
+        }
+    }
+    async dynamicImport(): Promise<Boolean> {
+        const charts = this;
+        return new Promise(function (resolve, reject) {
+            if (typeof charts.mapType == 'string') {
+                let total;
+                import('../../assets/maps/Emaps')
+                    .then((res) => {
+                        total = res;
+                        charts.assigne(total, charts).then(() => {
+                            resolve(true);
+                        });
+                        /*
+                        charts.jsonmap = total.world;
+
+                        charts.namemap = 'world';
+                        console.log(
+                            'originale',
+                            charts.jsonmap,
+                            charts.namemap
+                        );*/
+                        // resolve(true);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        reject();
+                    });
+            } else if (typeof charts.mapType == 'object') {
+                let total;
+                import('../../assets/maps/Emaps')
+                    .then((res) => {
+                        total = res;
+                        charts.assigne(total, charts).then(() => {
+                            resolve(true);
+                        });
+
+                        resolve(true);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        reject();
+                    });
+            } else reject();
+        });
+    }
+
+    async assigne(total, charts) {
+        console.log(charts.mapType);
+        if (typeof (charts.mapType == 'string')) {
+            charts.jsonmap = total[charts.mapType];
+
+            charts.namemap = charts.mapType;
+            console.log('originale', charts.jsonmap, charts.namemap);
+        } else if (typeof (charts.mapType == 'object')) {
+            charts.jsnonmap = charts.mapType;
+            charts.namemap = 'custom';
+            console.log('originale', charts.jsonmap, charts.namemap);
+        }
     }
 
     createXaxis() {
@@ -83,21 +165,23 @@ export class KupEcharts {
         }
     }
     createObjectMapYvalue() {
+        //creates an object that contains all the information needed to derive the values ​​and keys needed to create the chart map.
         let rows = this.objectData['rows'];
+        let objetckey;
         for (const row of rows) {
             for (const key of Object.keys(row.cells)) {
                 if (key == 'Col1') {
-                    this.objectkey = row.cells[key].value;
-                    if (!this.objectmapyvalue[this.objectkey])
-                        this.objectmapyvalue[this.objectkey] = [];
+                    objetckey = row.cells[key].value;
+                    if (!this.objectmapyvalue[objetckey])
+                        this.objectmapyvalue[objetckey] = [];
                 } else {
                     const cell = row.cells[key];
                     const value = cell.value;
-                    this.objectmapyvalue[this.objectkey].push(value);
+                    this.objectmapyvalue[objetckey].push(value);
                 }
             }
         }
-        console.log(this.objectmapyvalue);
+        // console.log(this.objectmapyvalue);
     }
 
     createLegend() {
@@ -128,6 +212,7 @@ export class KupEcharts {
     }
 
     objectMap() {
+        //creates object containing the right data format to pass to pie type
         for (let i in this.objectmapyvalue) {
             const rjson = {};
             const item = {};
@@ -136,7 +221,7 @@ export class KupEcharts {
             rjson['itemStyle'] = item;
             this.datamapjson.push(rjson);
         }
-        console.log(this.datamapjson);
+        //  console.log(this.datamapjson);
         return this.datamapjson;
     }
 
@@ -154,6 +239,7 @@ export class KupEcharts {
         this.echartsjson = {
             title: {
                 text: this.graphTitle,
+                [this.titlePosition]: 0,
                 textStyle: {
                     fontSize: this.graphTitleSize,
                     color: this.graphTitleColor,
@@ -182,6 +268,7 @@ export class KupEcharts {
         this.echartsjson = {
             title: {
                 text: this.graphTitle,
+                [this.titlePosition]: 0,
                 textStyle: {
                     fontSize: this.graphTitleSize,
                     color: this.graphTitleColor,
@@ -218,9 +305,12 @@ export class KupEcharts {
         //create the right json for creating map-like graphics
         this.echartsjson = {
             title: {
-                text: 'World map',
-                subtext: 'Data of Population Europe',
-                left: 'right',
+                text: this.graphTitle,
+                [this.titlePosition]: 0,
+                textStyle: {
+                    fontSize: this.graphTitleSize,
+                    color: this.graphTitleColor,
+                },
             },
             tooltip: {
                 trigger: 'item',
@@ -232,7 +322,7 @@ export class KupEcharts {
                     name: 'Europe estimate',
                     type: 'map',
                     roam: true,
-                    map: 'World',
+                    map: this.namemap,
                     emphasis: {
                         label: {
                             show: true,
@@ -261,8 +351,8 @@ export class KupEcharts {
         this.datajson = [];
         this.datapiejson = [];
         this.datamapjson = [];
-        this.objectkey = '';
         this.objectmapyvalue = {};
+        this.namemap = '';
     }
 
     initializeChart() {
@@ -277,9 +367,11 @@ export class KupEcharts {
                 this.createEchartsJson();
             }
         } else {
+            /*
             this.createObjectMapYvalue();
             this.objectMap();
             this.createEchartsMapJson();
+            */
         }
         this.CreateEcharts();
     }

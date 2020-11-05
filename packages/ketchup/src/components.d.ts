@@ -692,9 +692,17 @@ export namespace Components {
          */
         "legend": string;
         /**
+          * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
+         */
+        "mapType": any;
+        /**
           * The actual data of the chart.
          */
         "objectData": object;
+        /**
+          * Title position
+         */
+        "titlePosition": string;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */
@@ -2689,10 +2697,18 @@ declare namespace LocalJSX {
          */
         "legend"?: string;
         /**
+          * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
+         */
+        "mapType"?: any;
+        /**
           * The actual data of the chart.
          */
         "objectData"?: object;
         "onKupEchartsClicked"?: (event: CustomEvent<any>) => void;
+        /**
+          * Title position
+         */
+        "titlePosition"?: string;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */
