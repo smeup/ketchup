@@ -105,7 +105,7 @@ export class KupDrawer {
     }
 
     render() {
-        let mainContent = <slot name="MainContent" />;
+        let mainContent = <slot name="main-component" />;
         return (
             <Host>
                 <style>{setCustomStyle(this)}</style>
