@@ -17,7 +17,6 @@ import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChang
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
-import { ComponentGridElement } from "./components/kup-grid/kup-grid-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { CssDraw } from "./components/kup-image/kup-image-declarations";
 import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
@@ -852,10 +851,6 @@ export namespace Components {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
-        /**
-          * The actual data of the grid.
-         */
-        "data": ComponentGridElement[];
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * When set to true, forces the content on a single line.
@@ -2852,10 +2847,6 @@ declare namespace LocalJSX {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
-        /**
-          * The actual data of the grid.
-         */
-        "data"?: ComponentGridElement[];
         /**
           * When set to true, forces the content on a single line.
          */

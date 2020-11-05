@@ -239,6 +239,16 @@ let testRoutes = [
     component: () => import(`@/views/test/Performance.vue`),
   },
   {
+    path: `/test/performance-autocomplete`,
+    name: 'testPerformanceAutocomplete',
+    component: () => import(`@/views/test/PerformanceAutocomplete.vue`),
+  },
+  {
+    path: `/test/performance-grid`,
+    name: 'testPerformanceGrid',
+    component: () => import(`@/views/test/PerformanceGrid.vue`),
+  },
+  {
     path: `/test/performance-tree`,
     name: 'testPerformanceTree',
     component: () => import(`@/views/test/PerformanceTree.vue`),
