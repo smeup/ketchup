@@ -8,7 +8,6 @@ import {
     JSX,
     Method,
 } from '@stencil/core';
-import { ComponentGridElement } from './kup-grid-declarations';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
@@ -29,10 +28,6 @@ export class KupGrid {
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = undefined;
-    /**
-     * The actual data of the grid.
-     */
-    @Prop() data: ComponentGridElement[] = undefined;
     /**
      * When set to true, forces the content on a single line.
      */
@@ -67,8 +62,9 @@ export class KupGrid {
     }
 
     render() {
-        if (!this.data || this.data.length === 0) {
-            let message = 'Missing data, not rendering!';
+        let slots = this.rootElement.children;
+        if (!slots || slots.length === 0) {
+            let message = 'Missing slots, not rendering!';
             logMessage(this, message, 'warning');
             return;
         }
@@ -93,27 +89,21 @@ export class KupGrid {
 
         let el: JSX.Element[] = [];
 
-        for (let i = 0; i < this.data.length; i++) {
-            let Tag = this.data[i].tagName;
+        for (let i = 0; i < slots.length; i++) {
             let content = undefined;
 
             if (this.singleLine) {
-                content = (
-                    <Tag {...this.data[i].props}>{this.data[i].content}</Tag>
-                );
+                content = <slot name={`${i}`}></slot>;
             } else {
                 let span: number = 1;
                 let spanClass: string = 'mdc-layout-grid__cell';
-                if (this.data[i].span) {
-                    span = this.data[i].span;
+                if (slots[i]['span']) {
+                    span = slots[i]['span'];
                 }
                 spanClass += ' mdc-layout-grid__cell--span-' + span;
                 content = (
                     <div class={spanClass}>
-                        <Tag
-                            {...this.data[i].props}
-                            innerHTML={this.data[i].content}
-                        ></Tag>
+                        <slot name={`${i}`}></slot>
                     </div>
                 );
             }

@@ -41,18 +41,4 @@ export default {
     }
   },
 };
-
-const compSort = [
-  {
-    column: 'COMCOD',
-    sortMode: 'A',
-  },
-];
-
-const compGroups = [
-  {
-    column: 'COMA01',
-    visible: true,
-  },
-];
 </script>
