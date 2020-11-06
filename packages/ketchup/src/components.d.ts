@@ -11,7 +11,7 @@ import { ComponentCardElement } from "./components/kup-card/kup-card-declaration
 import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
-import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartType } from "./components/kup-chart/kup-chart-declarations";
+import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { ComponentChipElement } from "./components/kup-chip/kup-chip-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
@@ -324,11 +324,7 @@ export namespace Components {
         /**
           * The data series to be displayed. They must be of the same type.
          */
-        "series": string[];
-        /**
-          * The data series decodes to be displayed. They must be of the same type.
-         */
-        "seriesDecode": string[];
+        "series": ChartSerie[];
         /**
           * Displays the numerical values.
          */
@@ -2198,11 +2194,7 @@ declare namespace LocalJSX {
         /**
           * The data series to be displayed. They must be of the same type.
          */
-        "series"?: string[];
-        /**
-          * The data series decodes to be displayed. They must be of the same type.
-         */
-        "seriesDecode"?: string[];
+        "series"?: ChartSerie[];
         /**
           * Displays the numerical values.
          */

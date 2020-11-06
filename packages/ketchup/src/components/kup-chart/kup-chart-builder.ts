@@ -8,6 +8,21 @@ import { isDate, isNumber } from '../../utils/object-utils';
 
 import { formatToNumber, formatToMomentDate } from '../../utils/cell-formatter';
 import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
+import { ChartSerie } from './kup-chart-declarations';
+
+export function getSerieDecode(serie: string, series: ChartSerie[]): string {
+    if (serie == null || series == null) {
+        return null;
+    }
+
+    for (let i = 0; i < series.length; i++) {
+        let serieObj = series[i];
+        if (serieObj != null && serieObj.code == serie) {
+            return serieObj.decode;
+        }
+    }
+    return serie;
+}
 
 export const convertColumns = (data: DataTable, { series, axis }): Column[] => {
     if (!data || !series) {
@@ -23,9 +38,9 @@ export const convertColumns = (data: DataTable, { series, axis }): Column[] => {
     }
 
     // series
-    series.map((serie: string) => {
+    series.map((serie: ChartSerie) => {
         // searching colum
-        const c = getColumnByName(data.columns, serie);
+        const c = getColumnByName(data.columns, serie.code);
 
         if (c) {
             columns.push(c);
