@@ -437,14 +437,14 @@ export class KupChart {
 
                     event.column = getColumnByName(
                         this.data.columns,
-                        this.series[originalColIndex - 1]
+                        this.series[originalColIndex - 1].code
                     );
 
                     event.colindex = originalColIndex;
                 } else {
                     event.column = getColumnByName(
                         this.data.columns,
-                        this.series[0]
+                        this.series[0].code
                     );
                     event.colindex = 0;
                 }
