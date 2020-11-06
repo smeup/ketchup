@@ -7,17 +7,21 @@ import {
 import { isDate, isNumber } from '../../utils/object-utils';
 
 import { formatToNumber, formatToMomentDate } from '../../utils/cell-formatter';
+import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
+import { ChartSerie } from './kup-chart-declarations';
 
-// TODO this should be in a "data-table" utility file
-function getColumnByName(name: string, columns: Column[]): Column | null {
-    for (let i = 0; i < columns.length; i++) {
-        const column = columns[i];
-        if (name === column.name) {
-            return column;
-        }
+export function getSerieDecode(serie: string, series: ChartSerie[]): string {
+    if (serie == null || series == null) {
+        return null;
     }
 
-    return null;
+    for (let i = 0; i < series.length; i++) {
+        let serieObj = series[i];
+        if (serieObj != null && serieObj.code == serie) {
+            return serieObj.decode;
+        }
+    }
+    return serie;
 }
 
 export const convertColumns = (data: DataTable, { series, axis }): Column[] => {
@@ -28,15 +32,15 @@ export const convertColumns = (data: DataTable, { series, axis }): Column[] => {
     const columns: Column[] = [];
 
     // axis
-    const axisColumn = getColumnByName(axis, data.columns);
+    const axisColumn = getColumnByName(data.columns, axis);
     if (axisColumn) {
         columns.push(axisColumn);
     }
 
     // series
-    series.map((serie: string) => {
+    series.map((serie: ChartSerie) => {
         // searching colum
-        const c = getColumnByName(serie, data.columns);
+        const c = getColumnByName(data.columns, serie.code);
 
         if (c) {
             columns.push(c);

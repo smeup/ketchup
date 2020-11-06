@@ -18,13 +18,18 @@ import {
     ChartClickedEvent,
     ChartAxis,
     ChartOfflineMode,
+    ChartSerie,
 } from './kup-chart-declarations';
 
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 
-import { convertColumns, convertRows } from './kup-chart-builder';
+import {
+    convertColumns,
+    convertRows,
+    getSerieDecode,
+} from './kup-chart-builder';
 
 import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 
@@ -100,7 +105,7 @@ export class KupChart {
     /**
      * The data series to be displayed. They must be of the same type.
      */
-    @Prop() series: string[];
+    @Prop() series: ChartSerie[];
     /**
      * Displays the numerical values.
      */
@@ -350,7 +355,7 @@ export class KupChart {
             const c = tableColumns[i];
 
             dataTableColumns.push({
-                label: c.name,
+                label: getSerieDecode(c.name, this.series),
             });
 
             if (i > 0 && this.showMarks) {
