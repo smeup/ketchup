@@ -102,6 +102,10 @@ export class KupChart {
      */
     @Prop() series: string[];
     /**
+     * The data series decodes to be displayed. They must be of the same type.
+     */
+    @Prop() seriesDecode: string[];
+    /**
      * Displays the numerical values.
      */
     @Prop() showMarks = false;
@@ -349,8 +353,14 @@ export class KupChart {
         for (let i = 0; i < tableColumns.length; i++) {
             const c = tableColumns[i];
 
+            let serieCode = c.name;
+            let serieDecode = serieCode;
+            let index = this.series.indexOf(serieCode);
+            if (index != -1) {
+                serieDecode = this.seriesDecode[index];
+            }
             dataTableColumns.push({
-                label: c.name,
+                label: serieDecode,
             });
 
             if (i > 0 && this.showMarks) {

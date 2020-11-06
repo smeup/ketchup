@@ -7,18 +7,7 @@ import {
 import { isDate, isNumber } from '../../utils/object-utils';
 
 import { formatToNumber, formatToMomentDate } from '../../utils/cell-formatter';
-
-// TODO this should be in a "data-table" utility file
-function getColumnByName(name: string, columns: Column[]): Column | null {
-    for (let i = 0; i < columns.length; i++) {
-        const column = columns[i];
-        if (name === column.name) {
-            return column;
-        }
-    }
-
-    return null;
-}
+import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 
 export const convertColumns = (data: DataTable, { series, axis }): Column[] => {
     if (!data || !series) {
@@ -28,7 +17,7 @@ export const convertColumns = (data: DataTable, { series, axis }): Column[] => {
     const columns: Column[] = [];
 
     // axis
-    const axisColumn = getColumnByName(axis, data.columns);
+    const axisColumn = getColumnByName(data.columns, axis);
     if (axisColumn) {
         columns.push(axisColumn);
     }
@@ -36,7 +25,7 @@ export const convertColumns = (data: DataTable, { series, axis }): Column[] => {
     // series
     series.map((serie: string) => {
         // searching colum
-        const c = getColumnByName(serie, data.columns);
+        const c = getColumnByName(data.columns, serie);
 
         if (c) {
             columns.push(c);

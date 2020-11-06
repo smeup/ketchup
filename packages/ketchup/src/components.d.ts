@@ -326,6 +326,10 @@ export namespace Components {
          */
         "series": string[];
         /**
+          * The data series decodes to be displayed. They must be of the same type.
+         */
+        "seriesDecode": string[];
+        /**
           * Displays the numerical values.
          */
         "showMarks": boolean;
@@ -2195,6 +2199,10 @@ declare namespace LocalJSX {
           * The data series to be displayed. They must be of the same type.
          */
         "series"?: string[];
+        /**
+          * The data series decodes to be displayed. They must be of the same type.
+         */
+        "seriesDecode"?: string[];
         /**
           * Displays the numerical values.
          */
