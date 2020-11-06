@@ -4,10 +4,11 @@
       <p>
         The grid component receives a list of slots and places them inside a
         grid.<br />
-        Slots should have a <span class="code-word">name</span> attribute with
+        Slots should have a <span class="code-word">slot</span> attribute with
         the index of the slot (base 0) and an optional
-        <span class="code-word">span</span> attribute which specifies the number
-        of columns the slot occupies.
+        <span class="code-word">span</span> attribute which sets the number of
+        columns the slot occupies (when not specified, the component will span 1
+        column).
       </p>
       <br />
       <p class="centered">Sample slot</p>
@@ -34,7 +35,7 @@ export default {
   data() {
     return {
       markupBasic: '<kup-grid></kup-grid>',
-      markupSlot: '<kup-component name="0" span="2"></kup-component>',
+      markupSlot: '<kup-component slot="0" span="2"></kup-component>',
     };
   },
 };
