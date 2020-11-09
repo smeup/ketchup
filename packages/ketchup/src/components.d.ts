@@ -3544,9 +3544,10 @@ declare namespace LocalJSX {
           * Triggered when stop propagation event
          */
         "onKupDidUnload"?: (event: CustomEvent<void>) => void;
-        "onKupTreeExpandAll"?: (event: CustomEvent<{
-        expanded: boolean;
-        usesDynamicExpansion: boolean;
+        "onKupTreeDynamicMassExpansion"?: (event: CustomEvent<{
+        treeNodePath?: TreeNodePath;
+        treeNode?: TreeNode;
+        expandAll?: boolean;
     }>) => void;
         "onKupTreeNodeButtonClicked"?: (event: CustomEvent<{
         treeNodePath: TreeNodePath;

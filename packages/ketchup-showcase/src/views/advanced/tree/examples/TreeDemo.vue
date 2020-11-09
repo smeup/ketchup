@@ -38,6 +38,10 @@ export default {
           name: 'kupTreeNodeDblClick',
           type: 'dblclick',
         },
+        {
+          name: 'kupTreeDynamicMassExpansion',
+          type: 'custom',
+        },
       ],
       demoProps: [
         {

@@ -299,14 +299,15 @@ export class KupTree {
     }>;
 
     @Event({
-        eventName: 'kupTreeExpandAll',
+        eventName: 'kupTreeDynamicMassExpansion',
         composed: true,
         cancelable: false,
         bubbles: true,
     })
-    kupTreeExpandAll: EventEmitter<{
-        expanded: boolean;
-        usesDynamicExpansion: boolean;
+    kupTreeDynamicMassExpansion: EventEmitter<{
+        treeNodePath?: TreeNodePath;
+        treeNode?: TreeNode;
+        expandAll?: boolean;
     }>;
 
     //---- Methods ----
@@ -323,12 +324,12 @@ export class KupTree {
                 this.data[index][treeExpandedPropName] = true;
                 this.handleChildren(this.data[index], true);
             }
+        } else {
+            this.kupTreeDynamicMassExpansion.emit({
+                expandAll: true,
+            });
         }
         this.forceUpdate();
-        this.kupTreeExpandAll.emit({
-            expanded: true,
-            usesDynamicExpansion: this.useDynamicExpansion,
-        });
     }
 
     @Method()
@@ -338,12 +339,12 @@ export class KupTree {
                 this.data[index][treeExpandedPropName] = false;
                 this.handleChildren(this.data[index], false);
             }
+        } else {
+            this.kupTreeDynamicMassExpansion.emit({
+                expandAll: false,
+            });
         }
         this.forceUpdate();
-        this.kupTreeExpandAll.emit({
-            expanded: false,
-            usesDynamicExpansion: this.useDynamicExpansion,
-        });
     }
 
     private setScrollOnHover() {
@@ -639,6 +640,12 @@ export class KupTree {
                     });
                 }
             } else if (this.useDynamicExpansion) {
+                if (ctrlKey) {
+                    this.kupTreeDynamicMassExpansion.emit({
+                        treeNodePath: arrayTreeNodePath,
+                        treeNode: treeNodeData,
+                    });
+                }
                 // When the component must use the dynamic expansion feature
                 // Currently it does not support the expanded prop
 
