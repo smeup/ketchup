@@ -437,10 +437,11 @@ tbody {
 
         &.is-vertical,
         :host([force-one-line]) &.is-vertical {
-          display: inline-flex;
+          display: block;
+          width: auto;
           margin: auto;
-          width: -webkit-fill-available;
-          align-items: center;
+          min-height: 16px;
+          min-width: 16px;
           & > * {
             margin: auto;
           }
