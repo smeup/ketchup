@@ -2,7 +2,6 @@
   <div>
     <demo
       :demoComp="demoComp"
-      :demoEvents="demoEvents"
       :demoProps="demoProps"
       :demoTabs="demoTabs"
     ></demo>
@@ -28,11 +27,20 @@ export default {
       ],
       demoProps: [
         {
-          prop: 'value',
-          description: 'The value of the rating',
-          type: 'number',
-          default: '0',
-          try: 'field',
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
+        },
+        {
+          prop: 'disabled',
+          description:
+            'Sets the component to disabled state, making it not interactable.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'maxValue',
@@ -42,12 +50,11 @@ export default {
           try: 'field',
         },
         {
-          prop: 'disabled',
-          description:
-            'Sets the component to disabled state, making it not interactable.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
+          prop: 'value',
+          description: 'The value of the rating',
+          type: 'number',
+          default: '0',
+          try: 'field',
         },
       ],
       demoTabs: [
@@ -63,11 +70,6 @@ export default {
         },
         {
           text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
           icon: '',
           active: false,
         },

@@ -30,14 +30,13 @@ import {
     isVoCodver,
     isButton,
     isChart,
-    isProgressBar,
-    isRadio,
     isNumber,
+    hasTooltip,
 } from '../../utils/object-utils';
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { isFilterCompliantForValue } from '../../utils/filters';
 import numeral from 'numeral';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
@@ -47,6 +46,7 @@ import {
 } from '../kup-data-table/kup-data-table-helper';
 import { KupTreeState } from './kup-tree-state';
 import { KupStore } from '../kup-state/kup-store';
+import { isProgressBar, isRadio } from '../../utils/cell-utils';
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -189,11 +189,6 @@ export class KupTree {
     private treeWrapperRef: any;
     private scrollOnHoverInstance: scrollOnHover;
     private selectedColumn: string = '';
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
     private clickTimeout: any[] = [];
 
     //-------- Events --------
@@ -310,15 +305,6 @@ export class KupTree {
         this.customStyleTheme = customStyleTheme;
     }
 
-    private setAssetPathVars() {
-        this.rootElement.style.setProperty(
-            '--menu-right-svg',
-            `url('${getAssetPath(
-                `./assets/svg/menu-right.svg`
-            )}') no-repeat center`
-        );
-    }
-
     private setScrollOnHover() {
         this.scrollOnHoverInstance = new scrollOnHover();
         this.scrollOnHoverInstance.scrollOnHoverSetup(this.treeWrapperRef);
@@ -361,9 +347,8 @@ export class KupTree {
     //-------- Lifecycle hooks --------
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
-        this.setAssetPathVars();
 
         if (this.data) {
             // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
@@ -397,15 +382,12 @@ export class KupTree {
                 this.hdlTreeNodeClicked(tn, this.selectedNodeString, true);
             }
         }
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
         this.kupDidLoad.emit();
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
         this.filterNodes();
     }
 
@@ -422,16 +404,11 @@ export class KupTree {
                 }
             }
         }
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
 
         // *** Store
         this.persistState();
         // ***
+        logRender(this, true);
     }
 
     componentDidUnload() {
@@ -725,6 +702,31 @@ export class KupTree {
         return visibility;
     }
 
+    private createIconElement(CSSClass: string, icon: string) {
+        if (
+            icon.indexOf('.') > -1 ||
+            icon.indexOf('/') > -1 ||
+            icon.indexOf('\\') > -1
+        ) {
+            CSSClass += ' is-image';
+            return (
+                <span class={CSSClass}>
+                    <img src={icon}></img>
+                </span>
+            );
+        } else {
+            let svg: string = `url('${getAssetPath(
+                `./assets/svg/${icon}.svg`
+            )}') no-repeat center`;
+            CSSClass += ' icon-container material-icons';
+            let iconStyle = {
+                mask: svg,
+                webkitMask: svg,
+            };
+            return <span style={iconStyle} class={CSSClass}></span>;
+        }
+    }
+
     /**
      * Factory function for cells.
      * @param cell - cell object
@@ -861,7 +863,7 @@ export class KupTree {
             if (cellValue < 0) {
                 classObj['negative-number'] = true;
             }
-        } else if (isProgressBar(cell.obj)) {
+        } else if (isProgressBar(cell, null)) {
             if (props) {
                 content = (
                     <kup-progress-bar
@@ -872,7 +874,7 @@ export class KupTree {
             } else {
                 content = undefined;
             }
-        } else if (isRadio(cell.obj)) {
+        } else if (isRadio(cell, null)) {
             if (props) {
                 if (cellData.treeNode.hasOwnProperty('readOnly')) {
                     props['disabled'] = cellData.treeNode.readOnly;
@@ -899,8 +901,15 @@ export class KupTree {
             tdStyle = cell.style;
         }
 
+        const _hasTooltip: boolean = hasTooltip(cell.obj);
+        let title: string = undefined;
+        if (_hasTooltip) {
+            classObj['is-obj'] = true;
+            title = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+        }
+
         cellElements.push(
-            <span style={style} class={classObj}>
+            <span title={title} style={style} class={classObj}>
                 {content}
             </span>
         );
@@ -959,6 +968,11 @@ export class KupTree {
         let expandClass = 'expand-icon kup-tree__icon kup-tree__node__expander';
         if (hasExpandIcon) {
             expandClass += ' icon-container';
+            if (treeNodeData[treeExpandedPropName]) {
+                expandClass += ' expanded';
+            } else {
+                expandClass += ' collapsed';
+            }
         }
         let treeExpandIcon = (
             <span
@@ -984,19 +998,9 @@ export class KupTree {
                 if (treeNodeData.icon === '') {
                     treeNodeIcon = <span class="kup-tree__icon" />;
                 } else {
-                    let svg: string = `url('${getAssetPath(
-                        `./assets/svg/${treeNodeData.icon}.svg`
-                    )}') no-repeat center`;
-                    let iconStyle = {
-                        backgroundColor: treeNodeData.iconColor,
-                        mask: svg,
-                        webkitMask: svg,
-                    };
-                    treeNodeIcon = (
-                        <span
-                            style={iconStyle}
-                            class="kup-tree__icon icon-container"
-                        ></span>
+                    treeNodeIcon = this.createIconElement(
+                        'kup-tree__icon icon-container',
+                        treeNodeData.icon
                     );
                 }
             } else {
@@ -1054,6 +1058,18 @@ export class KupTree {
             }
         }
 
+        const _hasTooltip: boolean = hasTooltip(treeNodeData.obj);
+        let title: string = undefined;
+        if (_hasTooltip) {
+            title =
+                treeNodeData.obj.t +
+                '; ' +
+                treeNodeData.obj.p +
+                '; ' +
+                treeNodeData.obj.k +
+                ';';
+        }
+
         return (
             <tr
                 class={{
@@ -1071,8 +1087,10 @@ export class KupTree {
                     class={{
                         'mdc-ripple-surface':
                             !this.showColumns && !treeNodeData.disabled,
+                        'is-obj': hasTooltip(treeNodeData.obj),
                     }}
                     style={treeNodeData.style || null}
+                    title={title}
                     onDblClick={() => {
                         this.onKupTreeNodeDblClick(treeNodeData, treeNodePath);
                     }}
@@ -1194,7 +1212,7 @@ export class KupTree {
             );
         }
         return (
-            <Host class="handles-custom-style">
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <div

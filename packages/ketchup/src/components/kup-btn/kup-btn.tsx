@@ -73,6 +73,7 @@ export class KupBtn {
                             : {}),
                         ...(this.config.showtext ? { label: btn.value } : {}),
                         ...(this.config.showicon ? { icon: btn.icon } : {}),
+                        ...(this.config.flat ? { styling: 'flat' } : {}),
                         'data-id': id++,
                         onKupButtonClick: (ev) => this.onBtnClicked(ev),
                     };

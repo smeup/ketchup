@@ -48,6 +48,18 @@ h3 {
       component-name="kup-data-table"
       :data.prop="fixedData7"
     ></kup-lazy>
+
+    <h3>With totals (fixed columns (4) rows (4))</h3>
+    <kup-lazy
+        component-name="kup-data-table"
+        :data.prop="fixedDataTotals"
+    />
+
+    <h3>With hidden table header (fixed columns (4) rows (4))</h3>
+    <kup-lazy
+        component-name="kup-data-table"
+        :data.prop="fixedDataNoHeaders"
+    />
   </div>
 </template>
 
@@ -143,6 +155,31 @@ export default {
           },
         ],
         expandGroups: true,
+      },
+      fixedDataTotals: {
+        data: groupDataTable,
+        showFilters: true,
+        fixedColumns: '4',
+        fixedRows: '4',
+        showGrid: 'Complete',
+        tableHeight: '230px',
+        tableWidth: '450px',
+        totals: {
+          FLD2: 'Count',
+          FLD3: 'Count',
+          FLD4: 'Count',
+          FLD5: 'Count',
+        },
+      },
+      fixedDataNoHeaders: {
+        data: groupDataTable,
+        showFilters: true,
+        showHeader: false,
+        fixedColumns: '4',
+        fixedRows: '4',
+        showGrid: 'Complete',
+        tableHeight: '230px',
+        tableWidth: '450px',
       },
     };
   },

@@ -1,5 +1,12 @@
-import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
-import { logMessage } from '../../utils/debug-manager';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    Prop,
+    h,
+} from '@stencil/core';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-dash',
@@ -7,6 +14,8 @@ import { logMessage } from '../../utils/debug-manager';
     shadow: true,
 })
 export class KupDash {
+    @Element() rootElement: HTMLElement;
+
     /**
      * The component can be clicked.
      */
@@ -23,12 +32,6 @@ export class KupDash {
      * No idea what this is about.
      */
     @Prop() index = 0;
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     @Event({
         eventName: 'ketchupDashClicked',
@@ -49,27 +52,19 @@ export class KupDash {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {

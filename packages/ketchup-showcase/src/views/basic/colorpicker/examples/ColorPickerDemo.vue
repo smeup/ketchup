@@ -2,7 +2,6 @@
   <div>
     <demo
       :demoComp="demoComp"
-      :demoEvents="demoEvents"
       :demoProps="demoProps"
       :demoTabs="demoTabs"
     ></demo>
@@ -22,12 +21,12 @@ export default {
       demoComp: createComp(),
       demoProps: [
         {
-          prop: 'value',
+          prop: 'customStyle',
           description:
-            'The value of the color (css name or hex code or rgb code)',
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: '',
-          try: 'field',
+          default: 'undefined',
+          try: 'css',
         },
         {
           prop: 'disabled',
@@ -36,6 +35,14 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'value',
+          description:
+            'The value of the color (css name or hex code or rgb code)',
+          type: 'string',
+          default: '',
+          try: 'field',
         },
       ],
       demoTabs: [
@@ -46,11 +53,6 @@ export default {
         },
         {
           text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
           icon: '',
           active: false,
         },

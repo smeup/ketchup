@@ -36,6 +36,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
+        },
+        {
           prop: 'data',
           description: 'The data of the table.',
           type: 'TableData',
@@ -361,6 +369,11 @@ export default {
         },
         {
           text: 'JSON',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'CSS',
           icon: '',
           active: false,
         },

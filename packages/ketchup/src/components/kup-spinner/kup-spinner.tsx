@@ -8,7 +8,7 @@ import {
     Method,
 } from '@stencil/core';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-spinner',
@@ -53,12 +53,6 @@ export class KupSpinner {
      */
     @Prop() layout: number = 1;
 
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
-
     //---- Methods ----
 
     @Method()
@@ -69,14 +63,12 @@ export class KupSpinner {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentDidUpdate() {
@@ -89,8 +81,7 @@ export class KupSpinner {
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
@@ -105,12 +96,7 @@ export class KupSpinner {
                 }, this.faderTimeout);
             }
         }
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
@@ -212,7 +198,7 @@ export class KupSpinner {
         }
 
         return (
-            <Host class="handles-custom-style" style={elStyle}>
+            <Host style={elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={elStyle}>
                     <div

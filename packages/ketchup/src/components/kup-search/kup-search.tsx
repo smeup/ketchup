@@ -15,7 +15,7 @@ import {
     SearchSelectionUpdatedEventDetail,
     SearchFilterSubmittedEventDetail,
 } from './kup-search-declarations';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-search',
@@ -54,12 +54,6 @@ export class KupSearch {
     @Prop() searchCallBackOnFilterSubmitted: (
         detail: SearchFilterSubmittedEventDetail
     ) => Promise<TableData> | undefined = undefined;
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     //--------------------------------------------------------------------------
     // EVENTS
@@ -165,28 +159,20 @@ export class KupSearch {
     // -------------------------------------------------------------------------
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         this.onInitialValueChanged();
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {

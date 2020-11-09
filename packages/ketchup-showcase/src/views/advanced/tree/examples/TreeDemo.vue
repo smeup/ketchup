@@ -49,7 +49,7 @@ export default {
         },
         {
           prop: 'className',
-          description: 'Available classes: full-width.',
+          description: 'Available classes: full-width, shaped.',
           type: 'string',
           default: '""',
           try: 'field',

@@ -14,7 +14,7 @@ import {
 import { MDCTabBar } from '@material/tab-bar';
 import { ComponentTabBarElement } from './kup-tab-bar-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -33,12 +33,6 @@ export class KupTabBar {
      * List of elements.
      */
     @Prop() data: ComponentTabBarElement[] = [];
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     @Event({
         eventName: 'kupTabBarBlur',
@@ -104,19 +98,16 @@ export class KupTabBar {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
@@ -125,12 +116,7 @@ export class KupTabBar {
         if (root) {
             MDCTabBar.attachTo(root.querySelector('.mdc-tab-bar'));
         }
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
@@ -190,7 +176,7 @@ export class KupTabBar {
         }
 
         return (
-            <Host class="handles-custom-style">
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={componentClass} role="tablist">

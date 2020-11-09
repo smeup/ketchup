@@ -11,6 +11,12 @@
   }
 }
 
+:host(.shaped) {
+  td.mdc-ripple-surface {
+    border-radius: 0 66px 66px 0;
+  }
+}
+
 #kup-component {
   color: var(--kup-text-color);
 }
@@ -114,6 +120,11 @@
         cursor: pointer;
       }
 
+      &:not(.kup-tree__node--disabled)
+        .icon-container.kup-tree__node__expander {
+        cursor: pointer;
+      }
+
       &--disabled {
         opacity: 0.4;
 
@@ -122,17 +133,18 @@
         }
       }
 
-      .icon-container {
+      .icon-container:not(.is-image) {
         background-color: var(--kup-icon-color);
       }
 
-      .icon-container.kup-tree__node__expander {
+      .icon-container.kup-tree__node__expander:not(.is-image) {
         background-color: var(--kup-text-color);
-        mask: var(--menu-right-svg);
       }
 
-      &[data-is-expanded] .expand-icon {
-        transform: rotate(90deg);
+      .icon-container.is-image img {
+        display: block;
+        height: auto;
+        width: 100%;
       }
 
       &--selected:not(.kup-tree__node--disabled),

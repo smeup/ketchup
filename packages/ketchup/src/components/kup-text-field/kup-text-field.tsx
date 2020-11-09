@@ -17,7 +17,7 @@ import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
 import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
 import { MDCTextFieldIcon } from '@material/textfield/icon';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-text-field',
@@ -107,11 +107,6 @@ export class KupTextField {
     @Prop() trailingLabel: boolean = false;
 
     private inputEl = undefined;
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     @Event({
         eventName: 'kupTextFieldBlur',
@@ -477,7 +472,7 @@ export class KupTextField {
 
     renderTextField(widgetEl: HTMLElement, helperEl: HTMLElement) {
         return (
-            <Host class="handles-custom-style">
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     {widgetEl}
@@ -490,20 +485,17 @@ export class KupTextField {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
         this.watchInitialValue();
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
@@ -535,12 +527,7 @@ export class KupTextField {
                 );
             }
         }
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
@@ -573,18 +560,10 @@ export class KupTextField {
         }
 
         if (this.isClearable) {
-            let svg: string = `url('${getAssetPath(
-                `./assets/svg/clear.svg`
-            )}') no-repeat center`;
-            let iconStyle = {
-                mask: svg,
-                webkitMask: svg,
-            };
             clearIconEl = (
                 <span
                     tabindex="1"
-                    style={iconStyle}
-                    class="material-icons mdc-text-field__icon clear-icon icon-container"
+                    class="material-icons mdc-text-field__icon clear-icon icon-container clear"
                     onClick={() => this.onKupClearIconClick()}
                 ></span>
             );

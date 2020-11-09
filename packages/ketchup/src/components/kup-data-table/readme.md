@@ -35,6 +35,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 | Property                    | Attribute                      | Description                                                                                                                                                                                                                    | Type                                                                                             | Default                              |
 | --------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------ |
+| `customStyle`               | `custom-style`                 | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                                                                                                | `string`                                                                                         | `undefined`                          |
 | `data`                      | --                             | The data of the table.                                                                                                                                                                                                         | `TableData`                                                                                      | `undefined`                          |
 | `density`                   | `density`                      | The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.                                                                                                                                       | `string`                                                                                         | `'dense'`                            |
 | `emptyDataLabel`            | `empty-data-label`             | Defines the label to show when the table is empty.                                                                                                                                                                             | `string`                                                                                         | `'Empty data'`                       |
@@ -120,6 +121,16 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 
 
 
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
@@ -135,13 +146,14 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 - [kup-tooltip](../kup-tooltip)
 - [kup-image](../kup-image)
 - [kup-chart](../kup-chart)
+- [kup-chip](../kup-chip)
+- [kup-color-picker](../kup-color-picker)
+- [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-rating](../kup-rating)
-- [kup-color-picker](../kup-color-picker)
 - [kup-radio](../kup-radio)
 - [kup-paginator](../kup-paginator)
 - [kup-combobox](../kup-combobox)
-- [kup-chip](../kup-chip)
 
 ### Graph
 ```mermaid
@@ -152,13 +164,14 @@ graph TD;
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-image
   kup-data-table --> kup-chart
+  kup-data-table --> kup-chip
+  kup-data-table --> kup-color-picker
+  kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
   kup-data-table --> kup-rating
-  kup-data-table --> kup-color-picker
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
-  kup-data-table --> kup-chip
   kup-tooltip --> kup-button
   kup-tooltip --> kup-tree
   kup-tree --> kup-lazy

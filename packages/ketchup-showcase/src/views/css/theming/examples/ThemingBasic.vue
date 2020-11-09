@@ -2,8 +2,8 @@
   <div>
     <p>
       Ketch.UP components use CSS variables in order to handle their style, it's
-      a powerful and easy way to customize colors, fonts, etc. In addition to
-      this variables, it is also possible to set a
+      a powerful and easy way to customize colors, fonts, icons, etc. In
+      addition to this variables, it is also possible to set a
       <span class="code-word">customStyle</span> on each Ketch.UP component. For
       example, buttons apply the uppercase transformation to their labels. You
       can choose to change this behavior in your theme by using the custom style
@@ -12,29 +12,49 @@
       <br />
       <span class="code-word">"YOUR_THEME_NAME"</span>:
       <br />
-      <span class="code-word" style="margin-left: 2rem;">"cssVariables"</span>,
+      <span class="code-word" style="margin-left: 2rem">"cssVariables"</span>,
       <br />
-      <span class="code-word" style="margin-left: 3.5rem;"
+      <span class="code-word" style="margin-left: 3.5rem"
         >"--kup-main-color"</span
       >,
       <br />
-      <span class="code-word" style="margin-left: 3.5rem;"
+      <span class="code-word" style="margin-left: 3.5rem"
         >"--kup-text-color"</span
       >,
       <br />
-      <span class="code-word" style="margin-left: 3.5rem;">"..."</span>,
+      <span class="code-word" style="margin-left: 3.5rem">"..."</span>,
       <br />
-      <span class="code-word" style="margin-left: 2rem;">"customStyles"</span>
+      <span class="code-word" style="margin-left: 2rem">"customStyles"</span>
       <br />
-      <span class="code-word" style="margin-left: 3.5rem;">"master"</span>,
+      <span class="code-word" style="margin-left: 3.5rem">"master"</span>,
       <br />
-      <span class="code-word" style="margin-left: 3.5rem;">"KUP-BUTTON"</span>,
+      <span class="code-word" style="margin-left: 3.5rem">"KUP-BUTTON"</span>,
       <br />
-      <span class="code-word" style="margin-left: 3.5rem;"
-        >"KUP-TEXT-FIELD"</span
+      <span class="code-word" style="margin-left: 3.5rem">"KUP-TEXT-FIELD"</span
       >,
       <br />
-      <span class="code-word" style="margin-left: 3.5rem;">"..."</span>,
+      <span class="code-word" style="margin-left: 3.5rem">"..."</span>,
+      <br />
+      <span class="code-word" style="margin-left: 2rem">"icons"</span>
+      <br />
+      <span class="code-word" style="margin-left: 3.5rem">"ascending-icon"</span
+      >,
+      <br />
+      <span class="code-word" style="margin-left: 3.5rem"
+        >"descending-icon"</span
+      >,
+      <br />
+      <span class="code-word" style="margin-left: 3.5rem">"expanded-icon"</span
+      >,
+      <br />
+      <span class="code-word" style="margin-left: 3.5rem">"collapsed-icon"</span
+      >,
+      <br />
+      <span class="code-word" style="margin-left: 3.5rem">"clear-icon"</span>,
+      <br />
+      <span class="code-word" style="margin-left: 3.5rem"
+        >"filter-remove-icon"</span
+      >
     </p>
     <p>
       The theming process is handled by the library itself, through a mutation

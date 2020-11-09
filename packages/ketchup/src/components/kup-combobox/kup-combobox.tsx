@@ -17,7 +17,7 @@ import {
     consistencyCheck,
 } from '../kup-list/kup-list-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-combobox',
@@ -53,11 +53,6 @@ export class KupCombobox {
     private listEl: any = undefined;
     private value: string = undefined;
     private elStyle: any = undefined;
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     /**
      * Event example.
@@ -342,29 +337,21 @@ export class KupCombobox {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
         positionRecalc(this.listEl, this.textfieldEl);
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
@@ -373,11 +360,7 @@ export class KupCombobox {
         let listEl = this.prepList();
 
         return (
-            <Host
-                class="handles-custom-style"
-                onBlur={(e: any) => this.onKupBlur(e)}
-                style={this.elStyle}
-            >
+            <Host onBlur={(e: any) => this.onKupBlur(e)} style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
                     {textfieldEl}

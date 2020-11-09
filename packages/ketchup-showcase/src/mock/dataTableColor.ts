@@ -9,7 +9,9 @@ export const colorObjectsDataTable = {
     {
       cells: {
         CLP_00: {
-          data: {},
+          data: {
+            value: '',
+          },
           obj: {
             t: 'J1',
             p: 'COL',
@@ -66,7 +68,9 @@ export const colorShapesDataTable = {
     {
       cells: {
         CLP_00: {
-          data: {},
+          data: {
+            value: '',
+          },
           obj: {
             t: '',
             p: '',

@@ -18,19 +18,24 @@ import {
     ChartClickedEvent,
     ChartAxis,
     ChartOfflineMode,
+    ChartSerie,
 } from './kup-chart-declarations';
 
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 
-import { convertColumns, convertRows } from './kup-chart-builder';
+import {
+    convertColumns,
+    convertRows,
+    getSerieDecode,
+} from './kup-chart-builder';
 
 import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 
 import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import {
     setThemeCustomStyle,
     setCustomStyle,
@@ -100,7 +105,7 @@ export class KupChart {
     /**
      * The data series to be displayed. They must be of the same type.
      */
-    @Prop() series: string[];
+    @Prop() series: ChartSerie[];
     /**
      * Displays the numerical values.
      */
@@ -129,12 +134,6 @@ export class KupChart {
      * Google chart version to load
      */
     @Prop() version = '45.2';
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     @Watch('data')
     identifyRows() {
@@ -288,6 +287,8 @@ export class KupChart {
             opts.titleTextStyle = {};
             if (this.graphTitleColor) {
                 opts.titleTextStyle.color = this.graphTitleColor;
+            } else {
+                opts.titleTextStyle.color = this.themeText;
             }
 
             if (this.graphTitleSize) {
@@ -354,7 +355,7 @@ export class KupChart {
             const c = tableColumns[i];
 
             dataTableColumns.push({
-                label: c.name,
+                label: getSerieDecode(c.name, this.series),
             });
 
             if (i > 0 && this.showMarks) {
@@ -436,14 +437,14 @@ export class KupChart {
 
                     event.column = getColumnByName(
                         this.data.columns,
-                        this.series[originalColIndex - 1]
+                        this.series[originalColIndex - 1].code
                     );
 
                     event.colindex = originalColIndex;
                 } else {
                     event.column = getColumnByName(
                         this.data.columns,
-                        this.series[0]
+                        this.series[0].code
                     );
                     event.colindex = 0;
                 }
@@ -600,7 +601,7 @@ export class KupChart {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         this.identifyRows();
         this.setObserver();
         setThemeCustomStyle(this);
@@ -637,23 +638,15 @@ export class KupChart {
                 console.error(err);
             }
         }
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     componentWillUpdate() {
@@ -680,7 +673,7 @@ export class KupChart {
         };
 
         return (
-            <Host class="handles-custom-style" style={this.elStyle}>
+            <Host style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div
                     id="kup-component"

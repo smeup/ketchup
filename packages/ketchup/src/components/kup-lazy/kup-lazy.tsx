@@ -1,7 +1,7 @@
 import { Component, Element, Host, Prop, State, h } from '@stencil/core';
 import { Method } from '@stencil/core/internal';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-lazy',
@@ -31,11 +31,6 @@ export class KupLazy {
     @Prop() showPlaceholder: boolean = true;
 
     private intObserver: IntersectionObserver = undefined;
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     //---- Methods ----
 
@@ -70,36 +65,28 @@ export class KupLazy {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         this.setObserver();
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
         this.intObserver.observe(this.rootElement);
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
         let content: HTMLElement;
         let resource: HTMLElement;
-        let className: string = 'handles-custom-style ' + this.componentName;
+        let className: string = this.componentName;
         switch (this.componentName) {
             case 'kup-button':
                 //call_to_action.svg

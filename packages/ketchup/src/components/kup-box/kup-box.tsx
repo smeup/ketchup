@@ -31,10 +31,8 @@ import {
 
 import {
     isButton,
-    isRadio,
     isPassword,
     isIcon,
-    isChart,
     isCheckbox,
     hasTooltip,
 } from '../../utils/object-utils';
@@ -43,7 +41,10 @@ import {
     isEditor,
     isImage,
     isProgressBar,
-    getShape,
+    isRadio,
+    isGauge,
+    isKnob,
+    isChart,
 } from '../../utils/cell-utils';
 
 import {
@@ -55,13 +56,13 @@ import {
 import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
-import { identify } from '../../utils/utils';
+import { identify, stringToNumber } from '../../utils/utils';
 
 @Component({
     tag: 'kup-box',
@@ -226,12 +227,6 @@ export class KupBox {
      * Defines the timeout for tooltip load
      */
     @Prop() tooltipLoadTimeout: number;
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     @State()
     private globalFilterValue = '';
@@ -440,7 +435,7 @@ export class KupBox {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
 
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
@@ -457,9 +452,6 @@ export class KupBox {
 
         // When component is created, then the listener is set. @See clickFunction for more details
         document.addEventListener('click', this.clickFunction.bind(this));
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
 
         // Initialize @State from @Prop
         this.globalFilterValue = this.globalFilterValueState;
@@ -470,23 +462,18 @@ export class KupBox {
             this.selectedRows = this.selectedRowsState;
         }
         this.kupDidLoad.emit();
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
         // *** Store
         this.persistState();
         // ***
+        logRender(this, true);
     }
 
     componentDidUnload() {
@@ -563,7 +550,8 @@ export class KupBox {
             this.rows = paginateRows(
                 this.rows,
                 this.currentPage,
-                this.currentRowsPerPage
+                this.currentRowsPerPage,
+                false
             );
         }
     }
@@ -1485,18 +1473,9 @@ export class KupBox {
                     } else {
                         boContent = undefined;
                     }
-                } else if (
-                    isChart(cell.obj) ||
-                    getShape(cell, boxObject) === 'GRA'
-                ) {
+                } else if (isChart(cell, boxObject)) {
                     if (props) {
-                        boContent = (
-                            <kup-lazy
-                                class="cell-chart"
-                                componentName="kup-chart"
-                                data={...props}
-                            />
-                        );
+                        boContent = <kup-chart class="cell-chart" {...props} />;
                     } else {
                         boContent = undefined;
                     }
@@ -1536,13 +1515,7 @@ export class KupBox {
                         if (props.badgeData) {
                             classObj['has-padding'] = true;
                         }
-                        boContent = (
-                            <kup-lazy
-                                class="cell-image"
-                                componentName="kup-image"
-                                data={...props}
-                            />
-                        );
+                        boContent = <kup-image class="cell-image" {...props} />;
                     } else {
                         boContent = undefined;
                     }
@@ -1565,7 +1538,7 @@ export class KupBox {
                     } else {
                         boContent = undefined;
                     }
-                } else if (isRadio(cell.obj)) {
+                } else if (isRadio(cell, boxObject)) {
                     if (props) {
                         props['disabled'] = true;
                         boContent = (
@@ -1573,6 +1546,30 @@ export class KupBox {
                                 class="cell-radio"
                                 {...props}
                             ></kup-radio>
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
+                } else if (isGauge(cell, boxObject)) {
+                    if (props) {
+                        boContent = (
+                            <kup-gauge
+                                value={stringToNumber(cell.value)}
+                                width-component="100%"
+                                {...props}
+                            ></kup-gauge>
+                        );
+                    } else {
+                        boContent = undefined;
+                    }
+                } else if (isKnob(cell, boxObject)) {
+                    if (props) {
+                        boContent = (
+                            <kup-progress-bar
+                                class="cell-progress-bar"
+                                value={stringToNumber(cell.value)}
+                                {...props}
+                            ></kup-progress-bar>
                         );
                     } else {
                         boContent = undefined;
@@ -1585,12 +1582,17 @@ export class KupBox {
             // fixed value
             boContent = boxObject.value;
         }
-
+        let title: string = undefined;
+        if (_hasTooltip) {
+            classObj['is-obj'] = true;
+            title = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+        }
         return (
             <div
                 data-column={boxObject.column}
                 class={classObj}
                 style={boStyle}
+                title={title}
             >
                 <span
                     onMouseEnter={(ev) => {
@@ -1732,7 +1734,7 @@ export class KupBox {
         const tooltip = this.renderTooltip();
 
         return (
-            <Host class="handles-custom-style">
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div

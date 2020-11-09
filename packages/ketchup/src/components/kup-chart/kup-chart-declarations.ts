@@ -71,3 +71,8 @@ export interface ChartOfflineMode {
     value: string;
     shape: string;
 }
+
+export interface ChartSerie {
+    code: string;
+    decode?: string;
+}

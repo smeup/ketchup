@@ -28,7 +28,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="main-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -44,7 +44,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="background-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -60,7 +60,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="header-background-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -76,7 +76,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="drawer-background-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -97,7 +97,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="font-family"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -116,7 +116,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="font-family-monospace"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -136,7 +136,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="font-size"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -152,7 +152,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="text-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -171,7 +171,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="text-on-main-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -190,7 +190,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="disabled-background-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -206,7 +206,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="disabled-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -222,7 +222,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="hover-background-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -241,7 +241,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="hover-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -260,7 +260,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="title-background-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -276,7 +276,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="title-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -295,7 +295,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="icon-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -311,7 +311,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="border-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -330,7 +330,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="box-shadow"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -346,7 +346,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="field-background-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -365,7 +365,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="success-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -384,7 +384,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="warning-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -403,7 +403,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="danger-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -419,7 +419,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="spinner-color"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -439,7 +439,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="chart-color-1"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -459,7 +459,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="chart-color-2"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -478,7 +478,7 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="chart-color-3"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
@@ -497,8 +497,26 @@
               </td>
               <td class="text-cell">
                 <kup-text-field
-                  full-width
+                  class="full-width"
                   id="chart-color-4"
+                  @kupTextFieldInput="updateCSS"
+                ></kup-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td class="prevent-cr">
+                <span class="code-word">--kup-obj-cursor</span>
+              </td>
+              <td
+                >Sets the cursor style when the mouse hovers over an object.</td
+              >
+              <td class="prevent-cr">
+                <span class="code-word">cursor</span>
+              </td>
+              <td class="text-cell">
+                <kup-text-field
+                  class="full-width"
+                  id="obj-cursor"
                   @kupTextFieldInput="updateCSS"
                 ></kup-text-field>
               </td>
