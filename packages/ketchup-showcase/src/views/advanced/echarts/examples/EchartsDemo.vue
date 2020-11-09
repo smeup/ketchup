@@ -69,9 +69,39 @@ export default {
         {
           prop: 'types',
           description:
-            'The type of the chart. Supported formats: Bar, Line, Pie, Scatter',
+            'The type of the chart. Supported formats: Bar, Line, Pie, Scatter, it is possible for line bar and scatter types to pass multiple values ​​to create series of different types',
+          type: 'string[]',
+          default: ['Line'],
+          try: 'array',
+        },
+        {
+          prop: 'series',
+          description:
+            'The data series to be displayed. They must be of the same type.',
+          type: 'string[]',
+          default: 'undefined',
+          try: 'array',
+        },
+        {
+          prop: 'axis',
+          description: 'Sets the axis of the chart.',
           type: 'string',
-          default: 'line',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'titlePosition',
+          description: 'Sets the position of the Title',
+          type: 'string',
+          default: 'left',
+          try: 'field',
+        },
+        {
+          prop: 'mapType',
+          description:
+            'It allows you to choose the type of map, between europe, america, asia, oceania, africa, world or pass a custom json to create a map.',
+          type: 'any',
+          default: 'world',
           try: 'field',
         },
       ],
@@ -109,7 +139,8 @@ function createComp() {
   comp.graphTitleColor = 'orange';
   comp.graphTitleSize = 10;
   comp.legend = 'right';
-  comp.types = 'Line';
+  comp.types = ['Line'];
+  comp.mapType = 'world';
   return comp;
 }
 </script>

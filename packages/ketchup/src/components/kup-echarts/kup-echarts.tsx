@@ -345,11 +345,24 @@ export class KupEcharts {
             tooltip: {
                 trigger: 'item',
                 showDelay: 0,
+                transitionDuration: 0.2,
+                formatter: function (params) {
+                    let value;
+                    if (params.color != '#c23531') {
+                        value = params.color;
+                    } else {
+                        value = 'no value';
+                    }
+
+                    return (
+                        params.seriesName + '<br/>' + params.name + ': ' + value
+                    );
+                },
             },
 
             series: [
                 {
-                    name: 'Europe estimate',
+                    name: 'estimate',
                     type: 'map',
                     roam: true,
                     map: this.namemap,
