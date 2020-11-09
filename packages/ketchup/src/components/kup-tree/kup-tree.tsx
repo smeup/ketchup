@@ -298,11 +298,52 @@ export class KupTree {
         treeNode: TreeNode;
     }>;
 
+    @Event({
+        eventName: 'kupTreeExpandAll',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeExpandAll: EventEmitter<{
+        expanded: boolean;
+        usesDynamicExpansion: boolean;
+    }>;
+
     //---- Methods ----
 
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+
+    @Method()
+    async expandAll() {
+        if (!this.useDynamicExpansion) {
+            for (let index = 0; index < this.data.length; index++) {
+                this.data[index][treeExpandedPropName] = true;
+                this.handleChildren(this.data[index], true);
+            }
+        }
+        this.forceUpdate();
+        this.kupTreeExpandAll.emit({
+            expanded: true,
+            usesDynamicExpansion: this.useDynamicExpansion,
+        });
+    }
+
+    @Method()
+    async collapseAll() {
+        if (!this.useDynamicExpansion) {
+            for (let index = 0; index < this.data.length; index++) {
+                this.data[index][treeExpandedPropName] = false;
+                this.handleChildren(this.data[index], false);
+            }
+        }
+        this.forceUpdate();
+        this.kupTreeExpandAll.emit({
+            expanded: false,
+            usesDynamicExpansion: this.useDynamicExpansion,
+        });
     }
 
     private setScrollOnHover() {

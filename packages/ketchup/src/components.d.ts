@@ -1371,6 +1371,7 @@ export namespace Components {
           * Auto select programmatic selectic node
          */
         "autoSelectionNodeMode": boolean;
+        "collapseAll": () => Promise<void>;
         /**
           * The columns of the tree when tree visualization is active.
          */
@@ -1395,6 +1396,7 @@ export namespace Components {
         treeNodeToExpand: TreeNode,
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined;
+        "expandAll": () => Promise<void>;
         /**
           * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
          */
@@ -3542,6 +3544,10 @@ declare namespace LocalJSX {
           * Triggered when stop propagation event
          */
         "onKupDidUnload"?: (event: CustomEvent<void>) => void;
+        "onKupTreeExpandAll"?: (event: CustomEvent<{
+        expanded: boolean;
+        usesDynamicExpansion: boolean;
+    }>) => void;
         "onKupTreeNodeButtonClicked"?: (event: CustomEvent<{
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;

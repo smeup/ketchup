@@ -86,6 +86,7 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `kupDidLoad`               |                                                                                                                                   | `CustomEvent<void>`                                                                                                                                          |
 | `kupDidUnload`             | Triggered when stop propagation event                                                                                             | `CustomEvent<void>`                                                                                                                                          |
+| `kupTreeExpandAll`         |                                                                                                                                   | `CustomEvent<{ expanded: boolean; usesDynamicExpansion: boolean; }>`                                                                                         |
 | `kupTreeNodeButtonClicked` |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; column: Column; columnName: string; auto: boolean; tree: KupTree; }>`                         |
 | `kupTreeNodeCollapse`      | Fired when a TreeNode gets collapsed (closed).                                                                                    | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; tree: KupTree; }>`                                                                            |
 | `kupTreeNodeDblClick`      |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>`                                                                                           |
@@ -94,6 +95,26 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 
 
 ## Methods
+
+### `collapseAll() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `expandAll() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 ### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
 
