@@ -30,12 +30,6 @@ export class KupDrawer {
      */
     @Prop({ reflect: true, mutable: true }) opened = false;
 
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
-
     //---- Events ----
 
     @Event() kupDrawerClose: EventEmitter;
