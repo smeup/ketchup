@@ -676,6 +676,10 @@ export namespace Components {
     }
     interface KupEcharts {
         /**
+          * Sets the axis of the chart.
+         */
+        "axis": string;
+        /**
           * Title of the graph.
          */
         "graphTitle": string;
@@ -700,13 +704,17 @@ export namespace Components {
          */
         "objectData": object;
         /**
+          * The data series to be displayed. They must be of the same type.
+         */
+        "series": string[];
+        /**
           * Title position
          */
         "titlePosition": string;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */
-        "types": string;
+        "types": String[];
     }
     interface KupEditor {
         /**
@@ -2681,6 +2689,10 @@ declare namespace LocalJSX {
     }
     interface KupEcharts {
         /**
+          * Sets the axis of the chart.
+         */
+        "axis"?: string;
+        /**
           * Title of the graph.
          */
         "graphTitle"?: string;
@@ -2706,13 +2718,17 @@ declare namespace LocalJSX {
         "objectData"?: object;
         "onKupEchartsClicked"?: (event: CustomEvent<any>) => void;
         /**
+          * The data series to be displayed. They must be of the same type.
+         */
+        "series"?: string[];
+        /**
           * Title position
          */
         "titlePosition"?: string;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */
-        "types"?: string;
+        "types"?: String[];
     }
     interface KupEditor {
         /**

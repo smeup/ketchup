@@ -16,12 +16,12 @@
         <div style="width: 100vw; height: 50vh">
             <kup-echarts
                 id="piechart"
-                types="bar"
                 graph-title="titolo Prova"
                 graph-title-size="18"
                 legend="bottom"
                 graph-title-color="#ff9933"
                 title-position="right"
+                axis="Col1"
                 ;
             >
             </kup-echarts>
@@ -30,7 +30,6 @@
             <kup-echarts
                 id="mapchart"
                 objectData
-                types="map"
                 graph-title="titolo Prova2"
                 graph-title-size="18"
                 legend="bottom"
@@ -44,6 +43,10 @@
         <script>
             const echarts1 = document.getElementById('piechart');
             const echarts2 = document.getElementById('mapchart');
+
+            echarts1.series = ['Col3', 'Col4'];
+            echarts1.types = ['Line', 'Scatter'];
+            echarts2.types = ['Map'];
 
             echarts1.objectData = {
                 columns: [
