@@ -2,32 +2,28 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        The basic use of the drawer component is very simple. Let's start by
-        saying that it contains a public method called "open" which must be
-        called externally to make our drawer open.the open method will act on a
-        prop of the drawer, called "opened" which, when set to true, will open
-        our drawer
+        To get the Ketch.UP drawer visible it is possible to call the public
+        method
+        <span class="code-word">open</span>. This method simply set the drawer's
+        prop <span class="code-word">opened</span> to true. In order to manage
+        the drawer's visibility it is possible to call the public method
+        <span class="code-word">toggle</span> which is able to open or close the
+        Drawer automatically.
       </p>
       <p class="centered">
-        A simple example would be a button that calls the works open like this:
+        In this example, when the button is pressed, the drawer's
+        <span class="code-word">open</span> method will be called.
       </p>
 
       <code align="center" class="flat"
-        >{{ markupBasic }}<br />{{ markupBasic2 }}<br />{{ markupBasic3
+        >{{ markupBasic1 }}<br />{{ markupBasic2 }}<br />{{ markupBasic3
         }}<br />{{ markupBasic4 }}<br />{{ markupBasic5 }}</code
       >
       <br />
       <br />
-      <p class="centered">
-        for example using the example of the button provided above, we will
-        obtain the following drawer as a result:</p
-      >
-      <br />
-      <br />
-
       <kup-button
         align="center"
-        v-on:kupButtonClick="Updrawer"
+        v-on:kupButtonClick="openDrawer"
         class="hydrated handles-custom-style"
         icon
         label="open drawer"
@@ -36,7 +32,7 @@
       ></kup-button>
       <kup-drawer id="firstdrawer">
         <span slot="title">Title</span>
-        <span slot="subtitle">subtitle</span>
+        <span slot="subtitle">Subtitle</span>
 
         <nav class="side-nav" slot="MainContent">
           <kup-list
@@ -60,12 +56,15 @@ export default {
   data() {
     return {
       markupBasic1:
-        '<kup-button class="hydrated handles-custom-style"  icon label="open drawer" id="side-drawer-btn" icon-off></kup-button>',
-      markupBasic2: 'const bot = document.querySelector("kup-button"); ',
-      markupBasic3: 'const sideDrawer = document.querySelector("kup-drawer");',
+        '<kup-button label="open drawer" id="side-drawer-btn"></kup-button>',
+      markupBasic2:
+        'const example_btn = document.querySelector("kup-button"); ',
+      markupBasic3:
+        'const example_drawer = document.querySelector("kup-drawer");',
       markupBasic4:
-        'function openDrawer() {  if (!sideDrawer.opened) {  sideDrawer.open(); }  }',
-      markupBasic5: 'bot.addEventListener("kupButtonClick",openDrawer);',
+        'function openDrawerExample() { example_drawer.open(); }  }',
+      markupBasic5:
+        'example_btn.addEventListener("kupButtonClick", openDrawerExample);',
       listdate: [
         {
           text: 'First choice',
@@ -91,7 +90,7 @@ export default {
     };
   },
   methods: {
-    Updrawer: function() {
+    openDrawer: function () {
       const sideDrawer = document.getElementById('firstdrawer');
       if (!sideDrawer.opened) {
         sideDrawer.open();
