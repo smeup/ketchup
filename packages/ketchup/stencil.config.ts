@@ -53,12 +53,7 @@ export const config: Config = {
     plugins: [
         sass({
             includePaths: ['./node_modules'],
-            injectGlobalPaths: [
-                'src/style/_variables.scss',
-                'src/style/_classes.scss',
-                'src/style/_generic-style.scss',
-                'src/style/global.scss',
-            ],
+            injectGlobalPaths: ['src/style/global.scss'],
         }),
     ],
 };

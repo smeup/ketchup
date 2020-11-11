@@ -1,11 +1,3 @@
-//Dynamic positioning
-.dynamic-position {
-  position: fixed !important;
-  z-index: 1000;
-  display: block;
-}
-
-//Scroll on hover
 .hover-scrolling-parent > .hover-scrolling-el {
   overflow: auto;
 }
@@ -166,69 +158,4 @@
     opacity: 1;
     transform: translate(-10px, -10px);
   }
-}
-
-//Material menu and kup contextual menu
-div.kup-menu,
-div.mdc-menu {
-  animation: fadeInFromNone 0.25s ease-out;
-  background-color: var(--kup-background-color);
-  box-shadow: var(--kup-box-shadow);
-  color: var(--kup-text-color);
-  display: none;
-  max-height: 40vh;
-  opacity: 0;
-  position: relative;
-  transition: height 0.2s;
-  &.visible {
-    display: block;
-    opacity: 1;
-  }
-}
-
-@keyframes fadeInFromNone {
-  0% {
-    display: none;
-    opacity: 0;
-  }
-
-  1% {
-    display: block;
-    opacity: 0;
-  }
-
-  100% {
-    display: block;
-    opacity: 1;
-  }
-}
-
-// Icons and cursors variables
-
-.is-obj {
-  cursor: var(--kup-obj-cursor);
-}
-
-.icon-container.ascending {
-  mask: var(--kup-ascending-icon);
-}
-
-.icon-container.descending {
-  mask: var(--kup-descending-icon);
-}
-
-.icon-container.collapsed {
-  mask: var(--kup-collapsed-icon);
-}
-
-.icon-container.expanded {
-  mask: var(--kup-expanded-icon);
-}
-
-.icon-container.filter-remove {
-  mask: var(--kup-filter-remove-icon);
-}
-
-.icon-container.clear {
-  mask: var(--kup-clear-icon);
 }
