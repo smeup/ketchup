@@ -17,7 +17,7 @@
       <br />
       <br />
       <p class="centered">Sample markup</p>
-      <code align="center" class="flat"
+      <code class="flat"
         >{{ markupBasic }}<br />{{ markupBasic2 }}<br />{{ markupBasic3
         }}<br />{{ markupBasic4 }}<br />{{ markupBasic5 }}<br />{{ markupBasic6
         }}<br />{{ markupBasic7 }}</code
@@ -53,11 +53,11 @@ export default {
   data() {
     return {
       markupBasic: '<kup-drawer>',
-      markupBasic2: '<span slot="title">Title</span> ',
-      markupBasic3: '<span slot="subtitle">Subtitle</span>',
-      markupBasic4: '<div slot="main-content">',
-      markupBasic5: '<kup-list></kup-list>',
-      markupBasic6: '</div>',
+      markupBasic2: '  <span slot="title">Title</span> ',
+      markupBasic3: '  <span slot="subtitle">Subtitle</span>',
+      markupBasic4: '  <div slot="main-content">',
+      markupBasic5: '    <kup-list></kup-list>',
+      markupBasic6: ' </div>',
       markupBasic7: '</kup-drawer>',
 
       listdata: [

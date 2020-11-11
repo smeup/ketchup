@@ -8,17 +8,17 @@
         prop <span class="code-word">opened</span> to true. In order to manage
         the drawer's visibility it is possible to call the public method
         <span class="code-word">toggle</span> which is able to open or close the
-        Drawer automatically.
+        drawer automatically.
       </p>
+      <br />
       <p class="centered">
-        In this example, when the button is pressed, the drawer's
-        <span class="code-word">open</span> method will be called.
+        In this example, when the button is pressed, the open method will be
+        called.
       </p>
-
-      <code align="center" class="flat"
+      <code class="flat"
         >{{ markupBasic1 }}<br />{{ markupBasic2 }}<br />{{ markupBasic3
-        }}<br />{{ markupBasic4 }}<br />{{ markupBasic5 }}</code
-      >
+        }}<br />{{ markupBasic4 }}<br
+      /></code>
       <br />
       <br />
       <kup-button
@@ -33,7 +33,6 @@
       <kup-drawer id="firstdrawer">
         <span slot="title">Title</span>
         <span slot="subtitle">Subtitle</span>
-
         <nav class="side-nav" slot="MainContent">
           <kup-list
             show-icons
@@ -56,14 +55,11 @@ export default {
   data() {
     return {
       markupBasic1:
-        '<kup-button label="open drawer" id="side-drawer-btn"></kup-button>',
-      markupBasic2:
         'const example_btn = document.querySelector("kup-button"); ',
-      markupBasic3:
+      markupBasic2:
         'const example_drawer = document.querySelector("kup-drawer");',
+      markupBasic3: 'function openDrawerExample(() => example_drawer.open());',
       markupBasic4:
-        'function openDrawerExample() { example_drawer.open(); }  }',
-      markupBasic5:
         'example_btn.addEventListener("kupButtonClick", openDrawerExample);',
       listdate: [
         {

@@ -2,9 +2,9 @@
   <div>
     <div class="demo-wrapper">
       <p
-        >The web drawer component also has an intelligent public method: Toggle
-        (), which can be called up from the outside and is able to open the
-        drawer if it is closed and vice versa if it is open.
+        >The drawer component also has an useful public method;
+        <span class="code-word">toggle</span>, which is able to automatically
+        open or close the drawer depending on its current status.
       </p>
       <br />
       <br />
@@ -21,8 +21,10 @@ export default {
   name: 'DrawerBasic',
   data() {
     return {
-      markupBasic: ' const sideDrawer = document.querySelector("kup-drawer");',
-      markupBasic2: ' function menu(){ sideDrawer.Toggle();  }',
+      markupBasic:
+        'const ketchupDrawer = document.querySelector("kup-drawer");',
+      markupBasic2:
+        'function toggleKetchupDrawer(() => {ketchupDrawer.toggle()})',
     };
   },
 };
