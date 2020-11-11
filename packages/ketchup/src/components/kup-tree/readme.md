@@ -82,18 +82,39 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 
 ## Events
 
-| Event                      | Description                                                                                                                       | Type                                                                                                                                                         |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `kupDidLoad`               |                                                                                                                                   | `CustomEvent<void>`                                                                                                                                          |
-| `kupDidUnload`             | Triggered when stop propagation event                                                                                             | `CustomEvent<void>`                                                                                                                                          |
-| `kupTreeNodeButtonClicked` |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; column: Column; columnName: string; auto: boolean; tree: KupTree; }>`                         |
-| `kupTreeNodeCollapse`      | Fired when a TreeNode gets collapsed (closed).                                                                                    | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; tree: KupTree; }>`                                                                            |
-| `kupTreeNodeDblClick`      |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>`                                                                                           |
-| `kupTreeNodeExpand`        | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature. | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; usesDynamicExpansion?: boolean; dynamicExpansionRequireChildren?: boolean; tree: KupTree; }>` |
-| `kupTreeNodeSelected`      | Fired when a node of the tree has been selected                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; columnName: string; auto: boolean; tree: KupTree; }>`                                         |
+| Event                         | Description                                                                                                                       | Type                                                                                                                                                         |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `kupDidLoad`                  |                                                                                                                                   | `CustomEvent<void>`                                                                                                                                          |
+| `kupDidUnload`                | Triggered when stop propagation event                                                                                             | `CustomEvent<void>`                                                                                                                                          |
+| `kupTreeDynamicMassExpansion` |                                                                                                                                   | `CustomEvent<{ treeNodePath?: TreeNodePath; treeNode?: TreeNode; expandAll?: boolean; }>`                                                                    |
+| `kupTreeNodeButtonClicked`    |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; column: Column; columnName: string; auto: boolean; tree: KupTree; }>`                         |
+| `kupTreeNodeCollapse`         | Fired when a TreeNode gets collapsed (closed).                                                                                    | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; tree: KupTree; }>`                                                                            |
+| `kupTreeNodeDblClick`         |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>`                                                                                           |
+| `kupTreeNodeExpand`           | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature. | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; usesDynamicExpansion?: boolean; dynamicExpansionRequireChildren?: boolean; tree: KupTree; }>` |
+| `kupTreeNodeSelected`         | Fired when a node of the tree has been selected                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; columnName: string; auto: boolean; tree: KupTree; }>`                                         |
 
 
 ## Methods
+
+### `collapseAll() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `expandAll() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 ### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
 
