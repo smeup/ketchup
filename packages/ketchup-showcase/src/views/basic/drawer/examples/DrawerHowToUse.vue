@@ -33,7 +33,7 @@
       <kup-drawer id="firstdrawer">
         <span slot="title">Title</span>
         <span slot="subtitle">Subtitle</span>
-        <nav class="side-nav" slot="main-content">
+        <div slot="main-content">
           <kup-list
             show-icons
             class="handles-custom-style hydrated"
@@ -43,7 +43,7 @@
             role-type="listbox"
             selectable
           ></kup-list>
-        </nav>
+        </div>
       </kup-drawer>
     </div>
   </div>
