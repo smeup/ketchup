@@ -792,7 +792,8 @@ export class KupDataTable {
                 }
                 if (
                     this.tableHeight === undefined &&
-                    this.tableWidth === undefined
+                    this.tableWidth === undefined &&
+                    this.headerIsPersistent
                 ) {
                     this.stickyHeaderPosition();
                 }
@@ -971,7 +972,11 @@ export class KupDataTable {
         this.checkScrollOnHover();
         this.didRenderObservers();
 
-        if (this.headerIsPersistent) {
+        if (
+            this.headerIsPersistent &&
+            this.tableHeight === undefined &&
+            this.tableWidth === undefined
+        ) {
             this.updateStickyHeaderSize();
         }
 
