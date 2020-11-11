@@ -6,24 +6,32 @@
   margin: auto;
 }
 
-.mdc-checkbox {
-  @include mdc-checkbox-container-colors(
-    var(--kup-border-color),
-    transparent,
-    var(--kup-main-color),
-    var(--kup-main-color)
-  );
-  @include mdc-checkbox-disabled-container-colors(
-    var(--kup-border-color),
-    var(--kup-disabled-background-color),
-    var(--kup-border-color),
-    var(--kup-disabled-background-color)
-  );
-  @include mdc-checkbox-disabled-ink-color(var(--kup-disabled-color));
-  @include mdc-checkbox-ink-color(var(--kup-text-on-main-color));
-}
-
-label {
-  color: var(--kup-text-color);
-  font-family: var(--kup-font-family);
+#kup-component .mdc-checkbox {
+  label {
+    color: var(--kup-text-color);
+    font-family: var(--kup-font-family);
+  }
+  .mdc-checkbox__background {
+    border-color: rgba(var(--kup-text-color-rgb), 0.575);
+  }
+  .mdc-checkbox__checkmark,
+  .mdc-checkbox__mixedmark {
+    color: var(--kup-text-on-main-color);
+  }
+  &.mdc-checkbox--checked .mdc-checkbox__background {
+    background-color: var(--kup-main-color);
+    border-color: var(--kup-main-color);
+  }
+  &.mdc-checkbox--disabled .mdc-checkbox__background {
+    background-color: transparent;
+    border-color: rgba(var(--kup-text-color-rgb), 0.325);
+  }
+  &.mdc-checkbox--disabled.mdc-checkbox--checked .mdc-checkbox__background {
+    background-color: rgba(var(--kup-text-color-rgb), 0.325);
+    border-color: transparent;
+  }
+  &.mdc-checkbox--disabled.mdc-checkbox--checked .mdc-checkbox__checkmark,
+  &.mdc-checkbox--disabled.mdc-checkbox--checked .mdc-checkbox__mixedmark {
+    color: var(--kup-background-color);
+  }
 }
