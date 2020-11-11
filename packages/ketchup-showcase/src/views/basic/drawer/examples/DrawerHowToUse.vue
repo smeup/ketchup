@@ -33,7 +33,7 @@
       <kup-drawer id="firstdrawer">
         <span slot="title">Title</span>
         <span slot="subtitle">Subtitle</span>
-        <nav class="side-nav" slot="MainContent">
+        <nav class="side-nav" slot="main-content">
           <kup-list
             show-icons
             class="handles-custom-style hydrated"
