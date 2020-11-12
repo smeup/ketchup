@@ -4,7 +4,10 @@
       :data.prop="sankeyData"
       :types.prop="types"
       axis="Col1"
-      :series.prop="['Col2', 'Col3']"
+      :series.prop="[
+        { code: 'Col2', decode: 'Col2' },
+        { code: 'Col3', decode: 'Col3' },
+      ]"
     />
     <hr />
   </div>
