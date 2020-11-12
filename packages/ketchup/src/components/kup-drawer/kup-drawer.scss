@@ -6,7 +6,7 @@
   }
 }
 
-:host(.visible) {
+:host([opened]) {
   aside {
     left: 0;
   }
@@ -23,7 +23,7 @@
   }
 }
 
-:host(.right.visible) {
+:host([opened].right) {
   aside {
     right: 0;
   }

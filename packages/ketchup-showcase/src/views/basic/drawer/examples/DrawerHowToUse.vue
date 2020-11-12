@@ -47,6 +47,12 @@
 </template>
 
 <script>
+document.addEventListener('kupDrawerOpen', () => {
+  console.log('Drawer opened!');
+});
+document.addEventListener('kupDrawerClose', () => {
+  console.log('Drawer closed!');
+});
 export default {
   name: 'ComboboxBasic',
   data() {
@@ -85,11 +91,7 @@ export default {
   methods: {
     openDrawer: function () {
       const sideDrawer = document.getElementById('first-drawer');
-      if (sideDrawer.classList.contains('visible')) {
-        sideDrawer.classList.remove('visible');
-      } else {
-        sideDrawer.classList.add('visible');
-      }
+      sideDrawer.toggle();
     },
   },
 };
