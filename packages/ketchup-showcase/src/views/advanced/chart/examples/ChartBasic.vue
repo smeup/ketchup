@@ -142,7 +142,10 @@ export default {
       baseData,
       ageWeightData,
       chartData: baseData,
-      series: ['Col2', 'Col3'],
+      series: [
+        { code: 'Col2', decode: 'Col2' },
+        { code: 'Col3', decode: 'Col3' },
+      ],
       asp: '2D',
       types: ['VBar'],
       colors: null,

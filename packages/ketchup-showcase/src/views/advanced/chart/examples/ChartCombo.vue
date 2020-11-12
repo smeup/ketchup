@@ -17,7 +17,10 @@ export default {
     return {
       comboData,
       types: ['Area', 'Line'],
-      series: ['Col2', 'Col3'],
+      series: [
+        { code: 'Col2', decode: 'Col2' },
+        { code: 'Col3', decode: 'Col3' },
+      ],
     };
   },
 };

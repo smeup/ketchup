@@ -4,7 +4,7 @@
       :data.prop="calendarData"
       :types.prop="types"
       axis="Col1"
-      :series.prop="['Col2']"
+      :series.prop="[{ code: 'Col2', decode: 'Col2' }]"
     />
     <hr />
   </div>
