@@ -298,11 +298,53 @@ export class KupTree {
         treeNode: TreeNode;
     }>;
 
+    @Event({
+        eventName: 'kupTreeDynamicMassExpansion',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeDynamicMassExpansion: EventEmitter<{
+        treeNodePath?: TreeNodePath;
+        treeNode?: TreeNode;
+        expandAll?: boolean;
+    }>;
+
     //---- Methods ----
 
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+
+    @Method()
+    async expandAll() {
+        if (!this.useDynamicExpansion) {
+            for (let index = 0; index < this.data.length; index++) {
+                this.data[index][treeExpandedPropName] = true;
+                this.handleChildren(this.data[index], true);
+            }
+        } else {
+            this.kupTreeDynamicMassExpansion.emit({
+                expandAll: true,
+            });
+        }
+        this.forceUpdate();
+    }
+
+    @Method()
+    async collapseAll() {
+        if (!this.useDynamicExpansion) {
+            for (let index = 0; index < this.data.length; index++) {
+                this.data[index][treeExpandedPropName] = false;
+                this.handleChildren(this.data[index], false);
+            }
+        } else {
+            this.kupTreeDynamicMassExpansion.emit({
+                expandAll: false,
+            });
+        }
+        this.forceUpdate();
     }
 
     private setScrollOnHover() {
@@ -556,7 +598,11 @@ export class KupTree {
     }
 
     // When a TreeNode must be expanded or closed.
-    hdlTreeNodeExpanderClicked(treeNodeData: TreeNode, treeNodePath: string) {
+    hdlTreeNodeExpanderClicked(
+        treeNodeData: TreeNode,
+        treeNodePath: string,
+        ctrlKey: boolean
+    ) {
         // If the node is expandable
         if (treeNodeData.expandable) {
             // Always composes the tree node path as an array
@@ -570,6 +616,12 @@ export class KupTree {
                 treeNodeData[treeExpandedPropName] = !treeNodeData[
                     treeExpandedPropName
                 ];
+                if (ctrlKey) {
+                    this.handleChildren(
+                        treeNodeData,
+                        treeNodeData[treeExpandedPropName]
+                    );
+                }
                 this.forceUpdate();
                 if (treeNodeData[treeExpandedPropName]) {
                     // TreeNode is now expanded -> Fires expanded event
@@ -588,6 +640,12 @@ export class KupTree {
                     });
                 }
             } else if (this.useDynamicExpansion) {
+                if (ctrlKey) {
+                    this.kupTreeDynamicMassExpansion.emit({
+                        treeNodePath: arrayTreeNodePath,
+                        treeNode: treeNodeData,
+                    });
+                }
                 // When the component must use the dynamic expansion feature
                 // Currently it does not support the expanded prop
 
@@ -635,6 +693,18 @@ export class KupTree {
                     treeNodeData[treeExpandedPropName] = !treeNodeData[
                         treeExpandedPropName
                     ];
+                }
+            }
+        }
+    }
+
+    private handleChildren(TreeNode: TreeNode, expand: boolean) {
+        for (let index = 0; index < TreeNode.children.length; index++) {
+            let node = TreeNode.children[index];
+            if (!node.disabled) {
+                node[treeExpandedPropName] = expand;
+                if (node.children) {
+                    this.handleChildren(node, expand);
                 }
             }
         }
@@ -976,14 +1046,16 @@ export class KupTree {
         }
         let treeExpandIcon = (
             <span
+                title="Expand/collapse children (CTRL + Click) "
                 class={expandClass}
                 onClick={
                     !treeNodeData.disabled
-                        ? (event) => {
+                        ? (event: MouseEvent) => {
                               event.stopPropagation();
                               this.hdlTreeNodeExpanderClicked(
                                   treeNodeData,
-                                  treeNodePath
+                                  treeNodePath,
+                                  event.ctrlKey
                               );
                           }
                         : null
