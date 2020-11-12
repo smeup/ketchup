@@ -32,7 +32,7 @@ const kupThemes = JSON.parse(`{
             "--kup-icon-color": "#65cbe9",
             "--kup-border-color": "#535353",
             "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
-            "--kup-field-background-color": "#2a2a2a",
+            "--kup-field-background-color": "#222222",
             "--kup-success-color": "#4d9f02",
             "--kup-warning-color": "#ffc107",
             "--kup-danger-color": "#d91e18",

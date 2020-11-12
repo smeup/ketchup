@@ -46,7 +46,7 @@ function getThemes() {
           variables['--kup-background-color'];
         themeWrapper.style.borderColor = variables['--kup-border-color'];
         themeWrapper.id = key;
-        themeWrapper.onclick = function() {
+        themeWrapper.onclick = function () {
           setTheme(themeWrapper.id);
         };
         themeImage.color = variables['--kup-main-color'];
@@ -57,7 +57,8 @@ function getThemes() {
         themeText.innerText = key;
         themeText.style.color = variables['--kup-text-color'];
         themeText.style.letterSpacing = '1.5px';
-        themeText.style.textTransform = 'uppercase';
+        themeText.style.fontFamily = variables['--kup-font-family'];
+        themeText.style.fontSize = variables['--kup-font-size'];
         themeWrapper.append(themeImage);
         themeWrapper.append(themeText);
         themeContainer.append(themeWrapper);
