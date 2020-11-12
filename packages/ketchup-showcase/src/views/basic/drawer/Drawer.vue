@@ -8,7 +8,7 @@
         <drawer-how-to-use></drawer-how-to-use>
       </template>
       <template v-slot:2>
-        <drawer-prop></drawer-prop>
+        <drawer-class-name></drawer-class-name>
       </template>
       <template v-slot:3>
         <drawer-event></drawer-event>
@@ -23,7 +23,7 @@
 <script>
 import DrawerBasic from '@/views/basic/drawer/examples/DrawerBasic';
 import DrawerHowToUse from '@/views/basic/drawer/examples/DrawerHowToUse';
-import DrawerProp from '@/views/basic/drawer/examples/DrawerProp';
+import DrawerClassName from '@/views/basic/drawer/examples/DrawerClassName';
 import DrawerEvent from '@/views/basic/drawer/examples/DrawerEvent';
 import DrawerToggle from '@/views/basic/drawer/examples/DrawerToggle';
 import Comp from '@/views/advanced/page/templates/Comp';
@@ -31,7 +31,7 @@ export default {
   components: {
     DrawerBasic,
     DrawerHowToUse,
-    DrawerProp,
+    DrawerClassName,
     DrawerEvent,
     DrawerToggle,
     Comp,
@@ -44,9 +44,9 @@ export default {
       titles: [
         'Basic usage',
         'How To Use',
-        'Drawer prop',
+        'Class Name',
         'Drawer Event',
-        'Function Toggle',
+        'Function toggle',
       ],
     };
   },
