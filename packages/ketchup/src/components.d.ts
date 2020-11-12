@@ -674,14 +674,18 @@ export namespace Components {
         "totals": TotalsMap;
     }
     interface KupDrawer {
-        "Toggle": () => Promise<void>;
+        "close": () => Promise<void>;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
         "open": () => Promise<void>;
         /**
-          * opened is used to make our drawer appear and disappear
+          * Defaults at false. When set to true, the drawer appears.
          */
         "opened": boolean;
-        "permanent": boolean;
-        "right": boolean;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "toggle": () => Promise<void>;
     }
     interface KupEcharts {
         "graphTitle": string;
@@ -2668,14 +2672,16 @@ declare namespace LocalJSX {
         "totals"?: TotalsMap;
     }
     interface KupDrawer {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
         "onKupDrawerClose"?: (event: CustomEvent<any>) => void;
         "onKupDrawerOpen"?: (event: CustomEvent<any>) => void;
         /**
-          * opened is used to make our drawer appear and disappear
+          * Defaults at false. When set to true, the drawer appears.
          */
         "opened"?: boolean;
-        "permanent"?: boolean;
-        "right"?: boolean;
     }
     interface KupEcharts {
         "graphTitle"?: string;
