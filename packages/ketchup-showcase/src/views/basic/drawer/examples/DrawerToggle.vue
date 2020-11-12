@@ -10,7 +10,7 @@
       <br />
       <p class="centered">Sample markup</p>
       <code align="center" class="flat"
-        >{{ markupBasic }}<br />{{ markupBasic2 }}<br />{{ markupBasic3 }}<br
+        >{{ markupBasic }}<br />{{ markupBasic2 }} <br
       /></code>
     </div>
   </div>

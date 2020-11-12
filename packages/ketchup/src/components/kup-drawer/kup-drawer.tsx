@@ -3,13 +3,11 @@ import {
     h,
     Prop,
     Method,
-    Event,
-    EventEmitter,
     Host,
     Element,
     State,
 } from '@stencil/core';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
@@ -25,15 +23,6 @@ export class KupDrawer {
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = undefined;
-    /**
-     * Defaults at false. When set to true, the drawer appears.
-     */
-    @Prop({ reflect: true, mutable: true }) opened = false;
-
-    //---- Events ----
-
-    @Event() kupDrawerClose: EventEmitter;
-    @Event() kupDrawerOpen: EventEmitter;
 
     //---- Methods ----
 
@@ -42,33 +31,8 @@ export class KupDrawer {
         this.customStyleTheme = customStyleTheme;
     }
 
-    @Method()
-    async open() {
-        this.onOpenDrawer();
-    }
-
-    @Method()
-    async close() {
-        this.onCloseDrawer();
-    }
-
-    @Method()
-    async toggle() {
-        if (this.opened == true) {
-            this.onCloseDrawer();
-        } else if (this.opened == false) {
-            this.onOpenDrawer();
-        }
-    }
-
-    onCloseDrawer(): void {
-        this.opened = false;
-        this.kupDrawerClose.emit();
-    }
-
-    onOpenDrawer(): void {
-        this.opened = true;
-        this.kupDrawerOpen.emit();
+    private closeDrawer() {
+        this.rootElement.classList.remove('visible');
     }
 
     //---- Lifecycle hooks ----
@@ -91,15 +55,11 @@ export class KupDrawer {
     }
 
     render() {
-        let mainContent = <slot name="main-content" />;
         return (
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
-                    <div
-                        class="backdrop"
-                        onClick={() => this.onCloseDrawer()}
-                    />
+                    <div class="backdrop" onClick={() => this.closeDrawer()} />
                     <aside>
                         <div class="header">
                             <div class="title">
@@ -109,7 +69,9 @@ export class KupDrawer {
                                 <slot name="subtitle" />
                             </div>
                         </div>
-                        <main>{mainContent}</main>
+                        <main>
+                            <slot name="main-content" />
+                        </main>
                     </aside>
                 </div>
             </Host>

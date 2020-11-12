@@ -24,20 +24,17 @@
       <kup-button
         align="center"
         v-on:kupButtonClick="openDrawer"
-        class="hydrated handles-custom-style"
-        icon
-        label="open drawer"
+        label="Toggle drawer"
         id="side-drawer-btn"
         icon-off
       ></kup-button>
-      <kup-drawer id="firstdrawer">
+      <kup-drawer id="first-drawer">
         <span slot="title">Title</span>
         <span slot="subtitle">Subtitle</span>
         <div slot="main-content">
           <kup-list
             show-icons
-            class="handles-custom-style hydrated"
-            :data.prop="listdate"
+            :data.prop="listdata"
             display-mode="description"
             filter
             role-type="listbox"
@@ -61,7 +58,7 @@ export default {
       markupBasic3: 'function openDrawerExample(() => example_drawer.open());',
       markupBasic4:
         'example_btn.addEventListener("kupButtonClick", openDrawerExample);',
-      listdate: [
+      listdata: [
         {
           text: 'First choice',
           value: '1',
@@ -87,9 +84,11 @@ export default {
   },
   methods: {
     openDrawer: function () {
-      const sideDrawer = document.getElementById('firstdrawer');
-      if (!sideDrawer.opened) {
-        sideDrawer.open();
+      const sideDrawer = document.getElementById('first-drawer');
+      if (sideDrawer.classList.contains('visible')) {
+        sideDrawer.classList.remove('visible');
+      } else {
+        sideDrawer.classList.add('visible');
       }
     },
   },
