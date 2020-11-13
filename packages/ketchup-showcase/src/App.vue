@@ -211,7 +211,7 @@ export default {
       if (e.detail.value === 'on') {
         this.setTheme('dark');
       } else {
-        this.setTheme('default');
+        this.setTheme('ketchup');
       }
     },
     setTheme(themeID) {
