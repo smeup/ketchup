@@ -143,6 +143,11 @@ i.v-icon.material-icons {
   color: var(--kup-icon-color);
 }
 
+.v-list__group:after,
+.v-list__group:before {
+  display: none;
+}
+
 .demo-container {
   text-align: center;
   margin: auto;

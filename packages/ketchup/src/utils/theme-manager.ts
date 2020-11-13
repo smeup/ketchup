@@ -1,5 +1,4 @@
 import { getAssetPath } from '@stencil/core';
-import { JSONObject } from 'puppeteer';
 import { logMessage } from './debug-manager';
 import * as themesJson from './themes.json';
 
@@ -13,7 +12,6 @@ declare global {
 }
 
 const dom: HTMLElement = document.documentElement;
-const kupThemes: JSONObject = themesJson;
 
 function initThemes() {
     console.log('hey');
@@ -22,7 +20,8 @@ function initThemes() {
         return;
     }
     if (!dom.kupThemes) {
-        dom['kupThemes'] = kupThemes;
+        //TODO: not sure why themesJson is imported with a "default" prop containing itself...need to investigate, meanwhile set kupThemes to "default" prop
+        dom['kupThemes'] = themesJson['default'];
     } else {
         let message =
             'Ketchup themes were already set by a third party application.';
