@@ -827,7 +827,7 @@ table.instruction-table th {
 
 .icon-wrapper.theme-wrapper {
   border-radius: 20px;
-  border-style: outset;
+  border-style: double;
   border-width: 2px;
   cursor: pointer;
   margin: 1rem auto;
@@ -837,6 +837,7 @@ table.instruction-table th {
 }
 
 .icon-wrapper.theme-wrapper:hover {
+  box-shadow: var(--kup-box-shadow);
   transform: scale(1.25);
 }
 
