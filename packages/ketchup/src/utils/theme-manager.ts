@@ -14,7 +14,6 @@ declare global {
 const dom: HTMLElement = document.documentElement;
 
 function initThemes() {
-    console.log('hey');
     if (dom.kupCurrentTheme) {
         //In case multiple initializing instances are launched
         return;
