@@ -173,7 +173,9 @@ div.mdc-text-field-helper-text {
 
     label.mdc-floating-label {
       display: block;
-      overflow: visible;
+      &.mdc-floating-label--float-above {
+        overflow: visible;
+      }
     }
 
     transition: border-color 0.25s;
@@ -212,7 +214,7 @@ div.mdc-text-field-helper-text {
     }
     &:not(.mdc-text-field--no-label) input {
       box-sizing: border-box;
-      padding-top: 7px;
+      padding-top: 9px;
     }
     &:not(.mdc-text-field--disabled) {
       background-color: var(--kup-field-background-color);
