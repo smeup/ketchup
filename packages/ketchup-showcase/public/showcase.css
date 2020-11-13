@@ -830,14 +830,14 @@ table.instruction-table th {
   border-style: outset;
   border-width: 2px;
   cursor: pointer;
-  margin: 1rem;
+  margin: 1rem auto;
   opacity: 1;
   padding: 0.75rem;
-  transition: opacity 0.175s;
+  transition: all 0.25s;
 }
 
 .icon-wrapper.theme-wrapper:hover {
-  opacity: 0.75;
+  transform: scale(1.25);
 }
 
 @media screen and (max-width: 767px) {
