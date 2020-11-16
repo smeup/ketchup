@@ -104,10 +104,24 @@ export function getCurrentLocale(): string {
 }
 
 export function getCurrentDateFormatFromBrowserLocale(): string {
-    let m = moment();
-    m = m.locale(getCurrentLocale());
-    let dateFormat: string = m.localeData().longDateFormat('L');
-    console.log('getCurrentDateFormatFromBrowserLocale(): ' + dateFormat);
+    const formatObj = new Intl.DateTimeFormat(getCurrentLocale()).formatToParts(
+        new Date()
+    );
+
+    let dateFormat = formatObj
+        .map((obj) => {
+            switch (obj.type) {
+                case 'day':
+                    return 'DD';
+                case 'month':
+                    return 'MM';
+                case 'year':
+                    return 'YYYY';
+                default:
+                    return obj.value;
+            }
+        })
+        .join('');
     return dateFormat;
 }
 
@@ -283,7 +297,6 @@ export function _numberToString(
     return n.toLocaleString(locale, f);
 }
 
-export const DEFAULT_DATE_FORMAT = 'YYYYMMDD';
 export const ISO_DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
 
 /**
@@ -298,11 +311,9 @@ export function changeDateFormat(
     inputFormat: string,
     outputFormat: string
 ): string {
-    let m = moment(value, 'DD/MM/YYYY');
-    console.log('changeDateFormat() 1: ' + m);
-
-    let m1 = moment(value, inputFormat);
-    return m1.format(outputFormat);
+    let m = moment(value, inputFormat);
+    let str = m.format(outputFormat);
+    return str;
 }
 
 /**
@@ -357,47 +368,11 @@ export function unformattedStringToFormattedStringDate(
     valueDateFormat?: string,
     customedFormat?: string
 ): string {
-    console.log(
-        'unformattedStringToFormattedStringDate() customedFormat=' +
+    logMessage(
+        'DATE-FIELD-VALUE',
+        'unformattedStringToFormattedStringDate() - customedFormat param [' +
             customedFormat +
-            ' (TODO: to manage)'
+            '] not managed yet!!!'
     );
     return unformatDate(value, valueDateFormat).toLocaleDateString();
-    /*
-    moment.locale(getCurrentLocale());
-    var format = getCurrentDateFormatFromBrowserLocale();
-    console.log(
-        'unformattedStringToFormattedStringDate() customedFormat=' +
-            customedFormat +
-            ' (TODO: to manage)'
-    );
-    */
-    //return moment(value, valueDateFormat).format(format);
-    //return moment(value, valueDateFormat).format('L');
-    //return new Date(value).toLocaleDateString();
-
-    /*
-    var m = moment(input, DEFAULT_DATE_FORMAT);
-    m = m.locale(getCurrentLocale());
-    console.log(
-        'unformattedStringToFormattedStringDate 1 m.locale()=' + m.locale()
-    );
-    var format = getCurrentDateFormatFromBrowserLocale();
-    console.log(
-        'unformattedStringToFormattedStringDate 2 m.locale()=' +
-            m.locale() +
-            ' navigator.language=' +
-            getCurrentLocale() +
-            " m.localeData().longDateFormat('L')=" +
-            format
-    );
-
-    console.log(
-        'unformattedStringToFormattedStringDate input=' +
-            input +
-            ' customedFormat=' +
-            customedFormat
-    );
-    return m.format(format);
-    */
 }

@@ -674,11 +674,14 @@ export namespace Components {
         "totals": TotalsMap;
     }
     interface KupDatePicker {
+        "maxValue": string;
+        "minValue": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Props of the text field.
          */
         "textfieldData": Object;
+        "value": string;
     }
     interface KupDatePickerVaadin {
     }
@@ -2695,6 +2698,8 @@ declare namespace LocalJSX {
         "totals"?: TotalsMap;
     }
     interface KupDatePicker {
+        "maxValue"?: string;
+        "minValue"?: string;
         /**
           * Events.
          */
@@ -2723,6 +2728,7 @@ declare namespace LocalJSX {
           * Props of the text field.
          */
         "textfieldData"?: Object;
+        "value"?: string;
     }
     interface KupDatePickerVaadin {
     }
