@@ -260,6 +260,7 @@ export default {
       }
       data.push({
         text: 'HTML',
+        icon: 'code',
       });
       data.push({
         text: 'JSON',
