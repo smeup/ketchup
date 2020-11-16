@@ -1,1 +1,3 @@
+import { ISO_DEFAULT_DATE_FORMAT } from '../../utils/utils';
 
+export const DATE_PICKER_INPUT_OUTPUT_DATE_FORMAT = ISO_DEFAULT_DATE_FORMAT;

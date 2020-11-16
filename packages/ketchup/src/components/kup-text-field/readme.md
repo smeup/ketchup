@@ -73,6 +73,7 @@ Type: `Promise<void>`
  - [kup-box](../kup-box)
  - [kup-combobox](../kup-combobox)
  - [kup-data-table](../kup-data-table)
+ - [kup-date-picker](../kup-date-picker)
  - [kup-form](../kup-form)
  - [kup-search](../kup-search)
  - [kup-tree](../kup-tree)
@@ -84,6 +85,7 @@ graph TD;
   kup-box --> kup-text-field
   kup-combobox --> kup-text-field
   kup-data-table --> kup-text-field
+  kup-date-picker --> kup-text-field
   kup-form --> kup-text-field
   kup-search --> kup-text-field
   kup-tree --> kup-text-field

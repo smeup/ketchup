@@ -673,6 +673,15 @@ export namespace Components {
          */
         "totals": TotalsMap;
     }
+    interface KupDatePicker {
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * Props of the text field.
+         */
+        "textfieldData": Object;
+    }
+    interface KupDatePickerVaadin {
+    }
     interface KupDrawer {
         "Toggle": () => Promise<void>;
         "open": () => Promise<void>;
@@ -1538,6 +1547,18 @@ declare global {
         prototype: HTMLKupDataTableElement;
         new (): HTMLKupDataTableElement;
     };
+    interface HTMLKupDatePickerElement extends Components.KupDatePicker, HTMLStencilElement {
+    }
+    var HTMLKupDatePickerElement: {
+        prototype: HTMLKupDatePickerElement;
+        new (): HTMLKupDatePickerElement;
+    };
+    interface HTMLKupDatePickerVaadinElement extends Components.KupDatePickerVaadin, HTMLStencilElement {
+    }
+    var HTMLKupDatePickerVaadinElement: {
+        prototype: HTMLKupDatePickerVaadinElement;
+        new (): HTMLKupDatePickerVaadinElement;
+    };
     interface HTMLKupDrawerElement extends Components.KupDrawer, HTMLStencilElement {
     }
     var HTMLKupDrawerElement: {
@@ -1723,6 +1744,8 @@ declare global {
         "kup-dash": HTMLKupDashElement;
         "kup-dash-list": HTMLKupDashListElement;
         "kup-data-table": HTMLKupDataTableElement;
+        "kup-date-picker": HTMLKupDatePickerElement;
+        "kup-date-picker-vaadin": HTMLKupDatePickerVaadinElement;
         "kup-drawer": HTMLKupDrawerElement;
         "kup-echarts": HTMLKupEchartsElement;
         "kup-editor": HTMLKupEditorElement;
@@ -2664,6 +2687,38 @@ declare namespace LocalJSX {
           * Defines the current totals options.
          */
         "totals"?: TotalsMap;
+    }
+    interface KupDatePicker {
+        /**
+          * Events.
+         */
+        "onKupDatePickerBlur"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDatePickerChange"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDatePickerClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDatePickerFocus"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDatePickerIconClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDatePickerInput"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDatePickerItemClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        /**
+          * Props of the text field.
+         */
+        "textfieldData"?: Object;
+    }
+    interface KupDatePickerVaadin {
     }
     interface KupDrawer {
         "onKupDrawerClose"?: (event: CustomEvent<any>) => void;
@@ -3649,6 +3704,8 @@ declare namespace LocalJSX {
         "kup-dash": KupDash;
         "kup-dash-list": KupDashList;
         "kup-data-table": KupDataTable;
+        "kup-date-picker": KupDatePicker;
+        "kup-date-picker-vaadin": KupDatePickerVaadin;
         "kup-drawer": KupDrawer;
         "kup-echarts": KupEcharts;
         "kup-editor": KupEditor;
@@ -3699,6 +3756,8 @@ declare module "@stencil/core" {
             "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;
             "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
+            "kup-date-picker": LocalJSX.KupDatePicker & JSXBase.HTMLAttributes<HTMLKupDatePickerElement>;
+            "kup-date-picker-vaadin": LocalJSX.KupDatePickerVaadin & JSXBase.HTMLAttributes<HTMLKupDatePickerVaadinElement>;
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
             "kup-echarts": LocalJSX.KupEcharts & JSXBase.HTMLAttributes<HTMLKupEchartsElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;

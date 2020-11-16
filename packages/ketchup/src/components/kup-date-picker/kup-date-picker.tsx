@@ -15,6 +15,11 @@ import { logLoad, logRender } from '../../utils/debug-manager';
 import { positionRecalc } from '../../utils/recalc-position';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import 'app-datepicker/dist/app-datepicker-dialog';
+import {
+    formattedStringToDefaultUnformattedStringDate,
+    getCurrentLocale,
+    unformattedStringToFormattedStringDate,
+} from '../../utils/utils';
 
 @Component({
     tag: 'kup-date-picker',
@@ -151,7 +156,10 @@ export class KupDatePicker {
     }
 
     onKupChange(e: CustomEvent) {
-        this.value = e.detail.value;
+        this.value = formattedStringToDefaultUnformattedStringDate(
+            e.detail.value
+        );
+        this.refreshDatePickerValue();
         this.kupChange.emit({
             value: this.value,
         });
@@ -172,7 +180,9 @@ export class KupDatePicker {
     }
 
     onKupInput(e: CustomEvent) {
-        this.value = e.detail.value;
+        this.value = formattedStringToDefaultUnformattedStringDate(
+            e.detail.value
+        );
         this.refreshDatePickerValue();
         this.kupInput.emit({
             value: this.value,
@@ -193,6 +203,9 @@ export class KupDatePicker {
     }
 
     refreshDatePickerValue() {
+        if (!this.isDatePickerOpened()) {
+            return;
+        }
         this.datePickerEl.value = this.value;
     }
 
@@ -203,9 +216,14 @@ export class KupDatePicker {
         if (newValue == null) {
             newValue = this.datePickerEl.value;
         }
-        this.value = newValue;
-        this.textfieldEl.initialValue = this.value;
         this.closeDatePicker();
+        if (newValue == null) {
+            return;
+        }
+        console.log('setDatePickerValueSelected() newValue=' + newValue);
+        this.value = newValue;
+        //this.textfieldEl.initialValue = this.value;
+        this.textfieldEl.initialValue = this.getDateForOutput();
     }
 
     openDatePicker(): boolean {
@@ -263,7 +281,7 @@ export class KupDatePicker {
             <kup-text-field
                 {...this.textfieldData}
                 style={this.elStyle}
-                initial-value={this.value}
+                initial-value={this.getDateForOutput()}
                 id={this.rootElement.id + '_text-field'}
                 /* onKupTextFieldBlur={(e: any) => this.onKupBlur(e)} */
                 onKupTextFieldChange={(e: any) => this.onKupChange(e)}
@@ -288,7 +306,7 @@ export class KupDatePicker {
                     firstdayofweek="1"
                     startview="calendar"
                     value=""
-                    locale="it"
+                    locale={getCurrentLocale()}
                     dragratio="0.15"
                     inline="true"
                     ref={(el) => (this.datePickerEl = el as any)}
@@ -296,6 +314,17 @@ export class KupDatePicker {
             </div>
         );
         return comp;
+    }
+
+    getDateForOutput(): string {
+        if (this.value == null || this.value.trim() == '') {
+            return '';
+        }
+        console.log('getDateForOutput() this.value=' + this.value);
+
+        let v1 = unformattedStringToFormattedStringDate(this.value);
+        console.log('getDateForOutput() v1=' + v1);
+        return v1;
     }
 
     //---- Lifecycle hooks ----

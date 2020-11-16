@@ -1,5 +1,7 @@
 import get from 'lodash/get';
 import numeral from 'numeral';
+import moment from 'moment';
+
 import { Identifiable } from '../types/GenericTypes';
 import { logMessage } from './debug-manager';
 
@@ -66,7 +68,7 @@ export function isEventFromElement(
 /**
  * Given a camelCase formatted string, returns the same string in kebab-case.
  * @param str - the string to convert.
- * @return the converted string.
+ * @returns the converted string.
  */
 export function toKebabCase(str: string): string {
     return (str || '').replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
@@ -97,10 +99,22 @@ export function formatSize(size: any) {
     }
 }
 
+export function getCurrentLocale(): string {
+    return navigator.language;
+}
+
+export function getCurrentDateFormatFromBrowserLocale(): string {
+    let m = moment();
+    m = m.locale(getCurrentLocale());
+    let dateFormat: string = m.localeData().longDateFormat('L');
+    console.log('getCurrentDateFormatFromBrowserLocale(): ' + dateFormat);
+    return dateFormat;
+}
+
 /**
  * Convert argument to boolean. Everything is false unless: true, "true", 1, "1", "on", "yes"
  * @param value the value to convert
- * @return the boolean value of passed argument
+ * @returns the boolean value of passed argument
  */
 export function getBoolean(value: any) {
     switch (value) {
@@ -119,7 +133,7 @@ export function getBoolean(value: any) {
 /**
  * Check if an object is undefined, null or empty
  * @param obj the object to check
- * @return true or false
+ * @returns true or false
  */
 export function isEmpty(obj: any) {
     return (
@@ -135,8 +149,8 @@ export function isNumber(value: any): boolean {
 }
 
 /**
- * input formatted by locale US, decimal separator . (like java decimal numbers)
- * output number
+ * @param input number as string, formatted by locale US, decimal separator . (like java decimal numbers)
+ * @returns number
  **/
 export function stringToNumber(input: string): number {
     if (!input || input == null || input.trim() == '') {
@@ -146,18 +160,20 @@ export function stringToNumber(input: string): number {
 }
 
 /**
- * input number
- * output formatted by actual browser locale
+ * @param input number
+ * @param decimals number of significant decimal digits for output
+ * @returns number as string, formatted by actual browser locale
  **/
 export function numberToString(input: number, decimals: number): string {
     if (input == null) {
         return '';
     }
-    return _numberToString(input, decimals, navigator.language);
+    return _numberToString(input, decimals, getCurrentLocale());
 }
 
 /**
- * type type of number for calculate suffix
+ * @param type - type of number for calculate suffix
+ * @returns suffix for number, by type
  **/
 export function getNumericValueSuffixByType(type: string): string {
     type = type.toUpperCase();
@@ -175,10 +191,10 @@ export function getNumericValueSuffixByType(type: string): string {
 }
 
 /**
- * input number, decimal separator . (like java decimal numbers)
- * decimals number of decimals for output
- * type type of number for calculate suffix
- * output formatted by actual browser locale
+ * @param input number
+ * @param decimals number of significant decimal digits for output
+ * @param type - type of number for calculate suffix
+ * @returns number as string, formatted by actual browser locale, with suffix by type
  **/
 export function numberToFormattedStringNumber(
     input: number,
@@ -194,10 +210,10 @@ export function numberToFormattedStringNumber(
 }
 
 /**
- * input string formatted by locale US, decimal separator . (like java decimal numbers)
- * decimals number of decimals for output
- * type type of number for calculate suffix
- * output formatted by actual browser locale
+ * @param input number as string, formatted by locale US, decimal separator . (like java decimal numbers)
+ * @param decimals number of significant decimal digits for output
+ * @param type - type of number for calculate suffix
+ * @returns number as string, formatted by actual browser locale, with suffix by type
  **/
 export function unformattedStringToFormattedStringNumber(
     input: string,
@@ -208,9 +224,9 @@ export function unformattedStringToFormattedStringNumber(
 }
 
 /**
- * input formatted by actual browser locale
- * type type of number for calculate suffix
- * output formatted by locale US, decimal separator . (like java decimal numbers)
+ * @param input number as string, formatted by actual browser locale
+ * @param type - type of number for calculate suffix
+ * @returns number as string, formatted by locale US, decimal separator . (like java decimal numbers)
  **/
 export function formattedStringToUnformattedStringNumber(
     input: string,
@@ -224,7 +240,7 @@ export function formattedStringToUnformattedStringNumber(
     if (suffix != '') {
         input = input.replace(suffix, '');
     }
-    let decFmt: string = getDecimalSeparator(navigator.language);
+    let decFmt: string = getDecimalSeparator(getCurrentLocale());
     let regExpr: RegExp = null;
     if (decFmt == '.') {
         regExpr = /,/g;
@@ -265,4 +281,123 @@ export function _numberToString(
               }
             : {};
     return n.toLocaleString(locale, f);
+}
+
+export const DEFAULT_DATE_FORMAT = 'YYYYMMDD';
+export const ISO_DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
+
+/**
+ *
+ * @param value date as string
+ * @param inputFormat date format
+ * @param outputFormat date format to return
+ * @returns date as string with format changed
+ */
+export function changeDateFormat(
+    value: string,
+    inputFormat: string,
+    outputFormat: string
+): string {
+    let m = moment(value, 'DD/MM/YYYY');
+    console.log('changeDateFormat() 1: ' + m);
+
+    let m1 = moment(value, inputFormat);
+    return m1.format(outputFormat);
+}
+
+/**
+ * @param value date as string
+ * @param valueDateFormat date format (default ISO)
+ * @return Date object
+ **/
+export function unformatDate(value: string, valueDateFormat?: string): Date {
+    if (valueDateFormat == null || valueDateFormat.trim() == '') {
+        valueDateFormat = ISO_DEFAULT_DATE_FORMAT;
+    }
+    return moment(value, valueDateFormat).toDate();
+}
+
+/**
+ * @param value date as string, formatted by actual browser locale
+ * @returns date as string, formatted ISO
+ **/
+export function formattedStringToDefaultUnformattedStringDate(
+    value: string
+): string {
+    return formattedStringToCustomUnformattedStringDate(
+        value,
+        ISO_DEFAULT_DATE_FORMAT
+    );
+}
+
+/**
+ * @param value date as string, formatted by actual browser locale
+ * @param outputFormat date format to return
+ * @returns date as string, formatted
+ **/
+export function formattedStringToCustomUnformattedStringDate(
+    value: string,
+    outputFormat: string
+): string {
+    return changeDateFormat(
+        value,
+        getCurrentDateFormatFromBrowserLocale(),
+        outputFormat
+    );
+}
+
+/**
+ * @param value date as string, formatted ISO
+ * @param valueDateFormat date format (default ISO)
+ * @param customedFormat date format from smeupObject (TODO: must be managed)
+ * @returns date as string, formatted by actual browser locale
+ **/
+export function unformattedStringToFormattedStringDate(
+    value: string,
+    valueDateFormat?: string,
+    customedFormat?: string
+): string {
+    console.log(
+        'unformattedStringToFormattedStringDate() customedFormat=' +
+            customedFormat +
+            ' (TODO: to manage)'
+    );
+    return unformatDate(value, valueDateFormat).toLocaleDateString();
+    /*
+    moment.locale(getCurrentLocale());
+    var format = getCurrentDateFormatFromBrowserLocale();
+    console.log(
+        'unformattedStringToFormattedStringDate() customedFormat=' +
+            customedFormat +
+            ' (TODO: to manage)'
+    );
+    */
+    //return moment(value, valueDateFormat).format(format);
+    //return moment(value, valueDateFormat).format('L');
+    //return new Date(value).toLocaleDateString();
+
+    /*
+    var m = moment(input, DEFAULT_DATE_FORMAT);
+    m = m.locale(getCurrentLocale());
+    console.log(
+        'unformattedStringToFormattedStringDate 1 m.locale()=' + m.locale()
+    );
+    var format = getCurrentDateFormatFromBrowserLocale();
+    console.log(
+        'unformattedStringToFormattedStringDate 2 m.locale()=' +
+            m.locale() +
+            ' navigator.language=' +
+            getCurrentLocale() +
+            " m.localeData().longDateFormat('L')=" +
+            format
+    );
+
+    console.log(
+        'unformattedStringToFormattedStringDate input=' +
+            input +
+            ' customedFormat=' +
+            customedFormat
+    );
+    return m.format(format);
+    */
 }

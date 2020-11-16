@@ -80,8 +80,10 @@
                 z-index: 100;
             }
         </style>
+
     </head>
     <body>
+
         <div id="theme-tester">
             <kup-switch leading-label label="Theme tester" id="theme-switch"></kup-switch>
         </div>
@@ -106,6 +108,31 @@
         <a href="drawer.html">Ketchup drawer tests</a>
         <br />
         <a href="echarts.html">Ketchup echarts tests</a>
+
+        <h1>Date picker</h1>
+        <script>
+            //document.documentElement['kupDebug'] = true;
+        </script>
+
+        <!--
+        <dom-module id="custom-input-field-style" theme-for="vaadin-text-field">
+            <template>
+            <style>
+                :host([theme~="custom-input-field-style"]) [part="input-field"] {
+                border: 1px solid black;
+                background-color: white;
+                }
+            </style>
+            </template>
+        </dom-module>
+        <vaadin-date-picker theme="custom-input-field-style" label="vaadin-date-picker"></vaadin-date-picker>
+    -->
+        <kup-date-picker id="date-picker3"></kup-date-picker>
+
+        <!-- <kup-date-picker-vaadin label="my label1" is-clearable leading-label id="date-picker1"></kup-date-picker-vaadin> -->
+        <!-- <kup-date-picker-vaadin full-width label="kup-date-picker-vaadin" is-clearable id="date-picker2"></kup-date-picker-vaadin> -->
+
+        <h1>Simple text field</h1>
         <kup-text-field
             id="int1"
             is-clearable
@@ -1258,6 +1285,7 @@ chipList.data = [
         }
         </style>
 
+<!--
         <kup-qlik id="qlik-obj" appid = "c9f6a87b-0027-40dc-b439-8171b7457031" doconnection = "true" bordered = "true" fluid = "true"></kup-qlik>
         <kup-qlik id="qlik-obj2" appid = "52cb8ec5-f27c-4125-830a-3cb8c1c3b376" bordered = "true" fluid = "true"></kup-qlik>
         
@@ -1322,6 +1350,6 @@ chipList.data = [
                     }
                 ]
             }
-        </script>
+        </script>-->
     </body>
 </html>
