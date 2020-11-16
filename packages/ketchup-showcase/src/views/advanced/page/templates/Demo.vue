@@ -3,8 +3,8 @@
     <div id="sample-modal"></div>
     <div id="sample-specs">
       <kup-tab-bar
+        id="demo-tab-bar"
         @kupTabBarClick="tabSelection"
-        :data.prop="demoTabs"
       ></kup-tab-bar>
       <div id="sample-specs-container">
         <table
@@ -220,7 +220,6 @@
 <script>
 export default {
   props: {
-    demoTabs: Array,
     demoComp: HTMLElement,
     demoProps: Array,
     demoClasses: Array,
@@ -239,15 +238,54 @@ export default {
         }
       }
     },
+    initTabs() {
+      let demoComponent = document.querySelector('#demo-component');
+      let tabBar = document.querySelector('#demo-tab-bar');
+      let data = [];
+
+      if (this.demoProps) {
+        data.push({
+          text: 'Props',
+        });
+      }
+      if (this.demoClasses) {
+        data.push({
+          text: 'Classes',
+        });
+      }
+      if (this.demoEvents) {
+        data.push({
+          text: 'Events',
+        });
+      }
+      data.push({
+        text: 'HTML',
+      });
+      data.push({
+        text: 'JSON',
+        icon: 'json',
+      });
+      if (this.demoProps) {
+        for (let i = 0; i < this.demoProps.length; i++) {
+          if (this.demoProps[i].prop === 'customStyle') {
+            data.push({
+              text: 'CSS',
+              icon: 'style',
+            });
+          }
+        }
+      }
+      if (data.length === 0) {
+        console.error("Couldn't initialize playground: missing data.");
+      } else {
+        tabBar.data = data;
+        data[0]['active'] = true;
+        this.handleTab(demoComponent, 0);
+      }
+    },
 
     initDefaults() {
       let demoComponent = document.querySelector('#demo-component');
-
-      for (let i = 0; i < this.demoTabs.length; i++) {
-        if (this.demoTabs[i].status === 'Active') {
-          this.handleTab(demoComponent, i);
-        }
-      }
 
       for (let i = 0; i < this.demoProps.length; i++) {
         switch (this.demoProps[i].try) {
@@ -441,6 +479,7 @@ export default {
     },
 
     handleTab(demoComponent, i) {
+      let tabBar = document.querySelector('#demo-tab-bar');
       let propsTab = document.querySelector('#props-tab');
       let classesTab = document.querySelector('#classes-tab');
       let eventsTab = document.querySelector('#events-tab');
@@ -455,7 +494,7 @@ export default {
       jsonTab.setAttribute('style', 'display: none;');
       cssTab.setAttribute('style', 'display: none;');
 
-      switch (this.demoTabs[i].text) {
+      switch (tabBar.data[i].text) {
         case 'Props':
           propsTab.setAttribute('style', '');
           break;
@@ -580,6 +619,7 @@ export default {
 
   mounted() {
     this.initEvents();
+    this.initTabs();
     this.initDefaults();
   },
 };
