@@ -154,25 +154,8 @@
             title="Invalid JSON. You can ignore this warning if the prop you're changing isn't an object."
           ></kup-button>
         </div>
-        <div id="css-tab" class="sample-section padded" style="display: none">
+        <div id="css-tab" class="sample-section" style="display: none">
           <textarea id="css-textarea" style="display: none"></textarea>
-          <kup-text-field
-            class="visible"
-            label="Prop"
-            helper="i.e.: customStyle"
-            id="css-setter"
-            icon="arrow-collapse"
-            trailing-icon
-            helper-when-focused
-            @kupTextFieldIconClick="cssSetSwitch"
-            @kupTextFieldInput="cssSet"
-          ></kup-text-field>
-          <kup-button
-            @kupButtonClick="cssSetSwitch"
-            id="css-setter-opener"
-            icon="settings"
-            title="Show prop field"
-          ></kup-button>
         </div>
       </div>
     </div>
@@ -531,6 +514,7 @@ export default {
           break;
         case 'CSS':
           cssTab.setAttribute('style', '');
+          this.cssSet();
           break;
       }
     },
@@ -551,17 +535,11 @@ export default {
     },
 
     cssSetSwitch() {
-      let cssSetter = document.querySelector('#css-setter');
-      let cssSetterOpener = document.querySelector('#css-setter-opener');
       let cssTab = document.querySelector('#css-tab');
       if (cssSetter.classList.contains('visible')) {
-        cssSetter.classList.remove('visible');
         cssTab.classList.remove('padded');
-        cssSetterOpener.classList.add('visible');
       } else {
-        cssSetter.classList.add('visible');
         cssTab.classList.add('padded');
-        cssSetterOpener.classList.remove('visible');
       }
     },
 
@@ -599,14 +577,11 @@ export default {
       });
     },
 
-    cssSet(e) {
-      let cssProp = e.detail.value;
+    cssSet() {
       let demoComponent = document.querySelector('#demo-component');
-      demoComponent.currentCSSprop = cssProp;
-      let cssData = demoComponent[cssProp];
       let cssTextarea = document.querySelector('#css-textarea');
       let codemirrorTextarea = document.querySelector('#css-tab .CodeMirror');
-      cssTextarea.value = cssData;
+      cssTextarea.value = demoComponent['customStyle'];
       if (codemirrorTextarea) {
         codemirrorTextarea.remove();
       }
@@ -619,8 +594,7 @@ export default {
       }).on('change', function (cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
-        let prop = demoComponent.currentCSSprop;
-        demoComponent[prop] = cssTextarea.value;
+        demoComponent['customStyle'] = cssTextarea.value;
       });
     },
   },
