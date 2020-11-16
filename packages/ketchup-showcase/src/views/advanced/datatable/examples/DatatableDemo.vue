@@ -4,7 +4,7 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -28,13 +28,6 @@ export default {
         },
       ],
       demoProps: [
-        {
-          prop: 'className',
-          description: 'Available classes: layout-fixed.',
-          type: 'string',
-          default: '""',
-          try: 'field',
-        },
         {
           prop: 'customStyle',
           description:
@@ -351,31 +344,10 @@ export default {
           try: 'json',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'layout-fixed',
+          description: 'Sets a fixed layout to improve performances.',
         },
       ],
     };
