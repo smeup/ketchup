@@ -82,7 +82,6 @@ import {
     isStringObject,
     isCheckbox,
     hasTooltip,
-    isDate,
     isRadio as isRadioObj,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
@@ -101,7 +100,6 @@ import {
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
-import { unformatDate } from '../../utils/cell-formatter';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 import { KupDataTableState } from './kup-data-table-state';
@@ -109,6 +107,14 @@ import { KupStore } from '../kup-state/kup-store';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { KupButton } from '../kup-button/kup-button';
+
+import {
+    setDragEffectAllowed,
+    setKetchupDraggable,
+    setKetchupDroppable,
+    DragHandlers,
+    DropHandlers,
+} from '../../utils/drag-and-drop';
 
 @Component({
     tag: 'kup-data-table',
@@ -2386,109 +2392,85 @@ export class KupDataTable {
                     }
                 }
 
-                // Check if columns are droppable and sets their handlers
-                let dragHandlers: any = {};
-                if (this.enableSortableColumns) {
-                    // Reference for drag events and what they permit or not
-                    // https://html.spec.whatwg.org/multipage/dnd.html#concept-dnd-p
+                // Reference for drag events and what they permit or not
+                // https://html.spec.whatwg.org/multipage/dnd.html#concept-dnd-p
+                const dragHandlers: DragHandlers = {
+                    onDragStart: (e: DragEvent) => {
+                        // Sets the type of drag
+                        setDragEffectAllowed(e, 'move');
 
-                    dragHandlers = {
-                        draggable: true,
-                        onDragStart: (e: DragEvent) => {
-                            // Sets drag data and the type of drag
-                            e.dataTransfer.setData(
-                                KupDataTableColumnDragType,
-                                JSON.stringify(column)
+                        // Remember that the current target is different from the one print out in the console
+                        // Sets which element has started the drag
+                        (e.target as HTMLElement).setAttribute(
+                            this.dragStarterAttribute,
+                            ''
+                        );
+                        this.theadRef.setAttribute(this.dragFlagAttribute, '');
+                        this.columnsAreBeingDragged = true;
+                    },
+                    onDragLeave: (e: DragEvent) => {
+                        if (
+                            e.dataTransfer.types.indexOf(
+                                KupDataTableColumnDragType
+                            ) >= 0
+                        ) {
+                            (e.target as HTMLElement).removeAttribute(
+                                this.dragOverAttribute
                             );
-                            e.dataTransfer.effectAllowed = 'move';
-
-                            // Remember that the current target is different from the one print out in the console
-                            // Sets which element has started the drag
-                            (e.target as HTMLElement).setAttribute(
-                                this.dragStarterAttribute,
+                        }
+                    },
+                    onDragOver: (e: DragEvent) => {
+                        if (
+                            e.dataTransfer.types.indexOf(
+                                KupDataTableColumnDragType
+                            ) >= 0
+                        ) {
+                            let overElement = e.target as HTMLElement;
+                            if (overElement.tagName !== 'TH') {
+                                overElement = overElement.closest('th');
+                            }
+                            overElement.setAttribute(
+                                this.dragOverAttribute,
                                 ''
                             );
-                            this.theadRef.setAttribute(
-                                this.dragFlagAttribute,
-                                ''
-                            );
-                            this.columnsAreBeingDragged = true;
-                        },
-                        onDragLeave: (e: DragEvent) => {
+                            // If element can have a drop effect
                             if (
-                                e.dataTransfer.types.indexOf(
-                                    KupDataTableColumnDragType
-                                ) >= 0
-                            ) {
-                                (e.target as HTMLElement).removeAttribute(
-                                    this.dragOverAttribute
-                                );
-                            }
-                        },
-                        onDragOver: (e: DragEvent) => {
-                            if (
-                                e.dataTransfer.types.indexOf(
-                                    KupDataTableColumnDragType
-                                ) >= 0
-                            ) {
-                                let overElement = e.target as HTMLElement;
-                                if (overElement.tagName !== 'TH') {
-                                    overElement = overElement.closest('th');
-                                }
-                                overElement.setAttribute(
-                                    this.dragOverAttribute,
-                                    ''
-                                );
-                                // If element can have a drop effect
-                                if (
-                                    !overElement.hasAttribute(
-                                        this.dragStarterAttribute
-                                    ) &&
-                                    this.columnsAreBeingDragged
-                                ) {
-                                    e.preventDefault(); // Mandatory to allow drop
-                                    e.dataTransfer.effectAllowed = 'move';
-                                } else {
-                                    e.dataTransfer.effectAllowed = 'none';
-                                }
-                            }
-                        },
-                        onDragEnd: (e: DragEvent) => {
-                            // When the drag has ended, checks if the element still exists or it was destroyed by the JSX
-                            const dragStarter = e.target as HTMLElement;
-                            if (dragStarter) {
-                                // IF it still exists, removes the attribute so that it can perform a new drag again
-                                dragStarter.removeAttribute(
+                                !overElement.hasAttribute(
                                     this.dragStarterAttribute
-                                );
-                            }
-                            this.theadRef.removeAttribute(
-                                this.dragFlagAttribute
-                            );
-                            this.columnsAreBeingDragged = false;
-                        },
-                        onDrop: (e: DragEvent) => {
-                            if (
-                                e.dataTransfer.types.indexOf(
-                                    KupDataTableColumnDragType
-                                ) >= 0
+                                ) &&
+                                this.columnsAreBeingDragged
                             ) {
-                                const transferredData = JSON.parse(
-                                    e.dataTransfer.getData(
-                                        KupDataTableColumnDragType
-                                    )
-                                ) as Column;
-                                e.preventDefault();
-                                (e.target as HTMLElement).removeAttribute(
-                                    this.dragOverAttribute
-                                );
-
-                                // We are sure the tables have been dropped in a valid location -> starts sorting the columns
-                                this.handleColumnSort(column, transferredData);
+                                e.preventDefault(); // Mandatory to allow drop
+                                setDragEffectAllowed(e, 'move');
+                            } else {
+                                setDragEffectAllowed(e, 'none');
                             }
-                        },
-                    };
-                }
+                        }
+                    },
+                    onDragEnd: (e: DragEvent) => {
+                        // When the drag has ended, checks if the element still exists or it was destroyed by the JSX
+                        const dragStarter = e.target as HTMLElement;
+                        if (dragStarter) {
+                            // IF it still exists, removes the attribute so that it can perform a new drag again
+                            dragStarter.removeAttribute(
+                                this.dragStarterAttribute
+                            );
+                        }
+                        this.theadRef.removeAttribute(this.dragFlagAttribute);
+                        this.columnsAreBeingDragged = false;
+                    },
+                };
+                const dropHandlers: DropHandlers = {
+                    onDrop: (e: DragEvent) => {
+                        const transferredData = JSON.parse(
+                            e.dataTransfer.getData(KupDataTableColumnDragType)
+                        ) as Column;
+                        // We are sure the tables have been dropped in a valid location -> starts sorting the columns
+                        this.handleColumnSort(column, transferredData);
+
+                        return true;
+                    },
+                };
 
                 columnClass.number = isNumber(column.obj);
 
@@ -2500,7 +2482,20 @@ export class KupDataTable {
                             this.onHeaderCellContextMenuOpen(e, column.name)
                         }
                         onMouseUp={sortEventHandler}
-                        {...dragHandlers}
+                        {...(this.enableSortableColumns
+                            ? setKetchupDraggable(dragHandlers, {
+                                  KupDataTableColumnDragType: column,
+                                  'kup-drop-source-element': column.obj,
+                              })
+                            : {})}
+                        {...(this.enableSortableColumns
+                            ? setKetchupDroppable(
+                                  dropHandlers,
+                                  [KupDataTableColumnDragType],
+                                  this.rootElement,
+                                  { obj: column.obj }
+                              )
+                            : {})}
                     >
                         <span class="column-title">
                             {this.applyLineBreaks(column.title)}

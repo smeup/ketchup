@@ -6,10 +6,7 @@
 // TODO: [feat-2]: if acceptedDataTypesFound must be passed to all drag event handler but the dragStart event.a
 // This could possibly simplify the analysis of the e.dataTransfer.types
 
-import { Event, EventEmitter } from '@stencil/core';
-
-// TODO: import polyfill for mobile drag and drop
-// TODO: install the polyfill
+// import polyfill for mobile drag and drop
 if ('ontouchstart' in document) {
     // TODO: verify if this causes drag & drop delay at runtime
     import('@justinribeiro/html5-dragdroptouch-shim/dist/esm.js').then(
@@ -28,18 +25,17 @@ if ('ontouchstart' in document) {
     );
 }
 
-// TODO: rename this
-interface DragHandlers {
-    onDragStart: Function;
-    onDragLeave?: Function;
-    onDragOver?: Function;
-    onDragEnd?: Function;
+export interface DragHandlers {
+    onDragStart: (e: DragEvent) => void;
+    onDragLeave?: (e: DragEvent) => void;
+    onDragOver?: (e: DragEvent) => void;
+    onDragEnd?: (e: DragEvent) => void;
 }
 
-interface DropHandlers {
-    onDragLeave?: Function;
-    onDragOver?: Function;
-    onDrop: Function;
+export interface DropHandlers {
+    onDragLeave?: (e: DragEvent) => void;
+    onDragOver?: (e: DragEvent) => void;
+    onDrop: (e: DragEvent, acceptedDataTypesFound: string[]) => boolean;
 }
 
 interface DragData {
@@ -48,6 +44,7 @@ interface DragData {
     // ['ketchup/tablecolumnsort']: string | object;
     // ['ketchup/boxdrag']: string | object;
     // ['ketchup/table']: string | object;
+    'kup-drop-source-element': object;
     [index: string]: string | object;
 }
 
@@ -57,6 +54,15 @@ interface ImageData {
     offsetY: number;
 }
 
+interface DropTargetElement {
+    obj: {
+        t: string;
+        p: string;
+        k: string;
+    };
+}
+
+// additional: T; // TODO: ask Paolo how to spread generic properties from a type
 /**
  *
  */
@@ -75,7 +81,6 @@ export function setKetchupDraggable(
                     : JSON.stringify(data[key])
             );
         });
-
         if (image) {
             e.dataTransfer.setDragImage(
                 image.img,
@@ -99,14 +104,14 @@ export function setKetchupDraggable(
 
 export function setKetchupDroppable(
     handlers: DropHandlers,
-	acceptedDataTypes: string[],
-	dispatcherElement: HTMLElement,
-	targetPayload: any // TODO create a skeleton?
+    acceptedDataTypes: string[],
+    dispatcherElement: HTMLElement,
+    targetElement: DropTargetElement
 ) {
     const onDrop = (e: DragEvent) => {
         // Searches for accepted data types
         const acceptedDataTypesFound = acceptedDataTypes.filter((dataType) =>
-            dragHasDataType(e, dataType)
+            hasDragDataType(e, dataType)
         );
 
         // If not accepted data types have been found, we stop the drop operation
@@ -114,17 +119,18 @@ export function setKetchupDroppable(
             acceptedDataTypesFound.length >= 1 &&
             handlers.onDrop(e, acceptedDataTypesFound)
         ) {
-            // TODO: fire ketchup event for the accomplished drag operation
-            const ketchupDropEvent = new CustomEvent('ketchup-drop', {
+            // TODO: fire ketchup event for the accomplished drag & drop operation
+            const ketchupDropEvent = new CustomEvent('kup-drop', {
                 bubbles: true,
                 cancelable: true,
-                detail:
-                {
-                  dataType:'', // TODO: probably this is not useful
-                  sourceElement: , // TODO get from dataTrasfer
-                  targetElement: targetPayload
+                detail: {
+                    dataType: '',
+                    sourceElement: JSON.parse(
+                        e.dataTransfer.getData('kup-drop-source-element')
+                    ), // TODO: this must us a try catch statement
+                    targetElement,
                 },
-						});
+            });
             dispatcherElement.dispatchEvent(ketchupDropEvent);
 
             e.preventDefault();
@@ -138,13 +144,13 @@ export function setKetchupDroppable(
     };
 }
 
-export function dragSetEffectAllowed(
+export function setDragEffectAllowed(
     e: DragEvent,
     effectAllowed: string = 'move'
 ) {
     e.dataTransfer.effectAllowed = effectAllowed;
 }
 
-export function dragHasDataType(e: DragEvent, dataType: string): boolean {
+export function hasDragDataType(e: DragEvent, dataType: string): boolean {
     return e.dataTransfer.types.indexOf(dataType) >= 0;
 }
