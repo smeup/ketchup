@@ -129,12 +129,12 @@ export class KupTabBar {
             let indicatorClass: string = 'mdc-tab-indicator';
             let iconEl: HTMLElement = null;
 
-            if (this.data[i].active === true) {
+            if (this.data[i].active) {
                 tabClass += ' mdc-tab--active';
                 indicatorClass += ' mdc-tab-indicator--active';
             }
 
-            if (this.data[i].icon !== '') {
+            if (this.data[i].icon) {
                 let svg: string = `url('${getAssetPath(
                     `./assets/svg/${this.data[i].icon}.svg`
                 )}') no-repeat center`;
