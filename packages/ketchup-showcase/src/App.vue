@@ -365,6 +365,12 @@ export default {
             },
           },
           {
+            title: `Color Picker`,
+            to: {
+              name: 'colorpicker',
+            },
+          },
+          {
             title: `Combobox`,
             to: {
               name: 'combobox',
@@ -428,12 +434,6 @@ export default {
             title: `Rating`,
             to: {
               name: 'rating',
-            },
-          },
-          {
-            title: `Color Picker`,
-            to: {
-              name: 'colorpicker',
             },
           },
           {

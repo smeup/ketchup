@@ -38,7 +38,14 @@ import {
     GenericFilter,
 } from './kup-data-table-declarations';
 
-import { isRating, isColor, isGauge, getShape } from '../../utils/cell-utils';
+import {
+    isRating,
+    isColor,
+    isGauge,
+    isKnob,
+    isRadio,
+    isProgressBar,
+} from '../../utils/cell-utils';
 
 import {
     calcTotals,
@@ -69,14 +76,14 @@ import {
     isImage,
     isLink,
     isNumber,
-    isProgressBar,
-    isRadio,
+    isProgressBar as isProgressBarObj,
     isVoCodver,
     isObjectList,
     isStringObject,
     isCheckbox,
     hasTooltip,
     isDate,
+    isRadio as isRadioObj,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
 
@@ -93,7 +100,7 @@ import {
     ComponentListElement,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { unformatDate } from '../../utils/cell-formatter';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
@@ -433,10 +440,12 @@ export class KupDataTable {
 
     @Watch('expandGroups')
     expandGroupsHandler() {
-        this.recalculateRows();
-        // reset group state
-        this.groupState = {};
-        this.forceGroupExpansion();
+        if (!this.isRestoringState) {
+            this.recalculateRows();
+            // reset group state
+            this.groupState = {};
+            this.forceGroupExpansion();
+        }
     }
 
     @Watch('sort')
@@ -447,22 +456,23 @@ export class KupDataTable {
     @Watch('currentPage')
     @Watch('currentRowsPerPage')
     recalculateRows() {
-        this.initRows();
+        if (!this.isRestoringState) {
+            this.initRows();
+        }
     }
 
     @Watch('data')
     identifyAndInitRows() {
         identify(this.getRows());
-        this.recalculateRows();
-        // reset group state
-        this.groupState = {};
-        this.forceGroupExpansion();
+        this.expandGroupsHandler();
     }
 
     @Watch('groups')
     recalculateRowsAndUndoSelections() {
-        this.recalculateRows();
-        this.resetSelectedRows();
+        if (!this.isRestoringState) {
+            this.recalculateRows();
+            this.resetSelectedRows();
+        }
     }
 
     @Watch('fixedColumns')
@@ -555,16 +565,13 @@ export class KupDataTable {
     private customizeTopPanelRef: any;
     private customizeBottomPanelRef: any;
     private sizedColumns: Column[] = undefined;
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
     private intObserver: IntersectionObserver = undefined;
     private navBarHeight: number = 0;
     private theadIntersecting: boolean = false;
     private tableIntersecting: boolean = false;
     private iconPaths: [{ icon: string; path: string }] = undefined;
+    private isSafariBrowser: boolean = false;
+    private isRestoringState: boolean = false;
 
     /**
      * When component unload is complete
@@ -722,16 +729,7 @@ export class KupDataTable {
                 this.stickyTheadRef.style.maxWidth = widthTable + 'px';
 
                 if (!this.theadIntersecting) {
-                    let thCollection: any = this.theadRef.querySelectorAll(
-                        'th'
-                    );
-                    let thStickyCollection: any = this.stickyTheadRef.querySelectorAll(
-                        'th-sticky'
-                    );
-                    for (let i = 0; i < thCollection.length; i++) {
-                        let widthTH = thCollection[i].offsetWidth;
-                        thStickyCollection[i].style.width = widthTH + 'px';
-                    }
+                    this.updateStickyHeaderSize();
                     this.stickyTheadRef.classList.add('activated');
                 } else {
                     this.stickyTheadRef.classList.remove('activated');
@@ -741,6 +739,17 @@ export class KupDataTable {
             }
         }
     };
+
+    private updateStickyHeaderSize() {
+        let thCollection: any = this.theadRef.querySelectorAll('th');
+        let thStickyCollection: any = this.stickyTheadRef.querySelectorAll(
+            'th-sticky'
+        );
+        for (let i = 0; i < thCollection.length; i++) {
+            let widthTH = thCollection[i].offsetWidth;
+            thStickyCollection[i].style.width = widthTH + 'px';
+        }
+    }
 
     private setObserver() {
         let callback: IntersectionObserverCallback = (
@@ -783,7 +792,8 @@ export class KupDataTable {
                 }
                 if (
                     this.tableHeight === undefined &&
-                    this.tableWidth === undefined
+                    this.tableWidth === undefined &&
+                    this.headerIsPersistent
                 ) {
                     this.stickyHeaderPosition();
                 }
@@ -835,6 +845,16 @@ export class KupDataTable {
         );
         // We use the click event to avoid a menu closing another one
         document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
+        this.tableAreaRef.addEventListener('scroll', () =>
+            this.scrollStickyHeader()
+        );
+    }
+
+    private scrollStickyHeader() {
+        if (!this.stickyTheadRef) {
+            return;
+        }
+        this.stickyTheadRef.scrollLeft = this.tableAreaRef.scrollLeft;
     }
 
     private setScrollOnHover() {
@@ -909,7 +929,7 @@ export class KupDataTable {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         this.identifyAndInitRows();
 
         if (document.querySelectorAll('.header')[0]) {
@@ -920,19 +940,28 @@ export class KupDataTable {
             this.navBarHeight = 0;
         }
         this.setObserver();
+
+        this.isRestoringState = true;
         // *** Store
         this.initWithPersistedState();
         // ***
         if (this.pageSelected > 0) {
             this.currentPage = this.pageSelected;
         }
-        this.rowsPerPageHandler(this.rowsPerPage);
+        this.currentRowsPerPage = this.rowsPerPage;
+        this.isRestoringState = false;
+        this.recalculateRows();
+
         setThemeCustomStyle(this);
+
+        // Detects is the browser is Safari. If needed, this function can be moved into an external file and then imported into components
+        this.isSafariBrowser =
+            CSS.supports('position', '-webkit-sticky') ||
+            !!(window && (window as Window & { safari?: object }).safari);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
@@ -943,19 +972,21 @@ export class KupDataTable {
         this.checkScrollOnHover();
         this.didRenderObservers();
 
-        setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(), 50);
+        if (
+            this.headerIsPersistent &&
+            this.tableHeight === undefined &&
+            this.tableWidth === undefined
+        ) {
+            this.updateStickyHeaderSize();
+        }
 
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        setTimeout(() => this.updateFixedRowsAndColumnsCssVariables(), 50);
         // *** Store
         if (this.lazyLoadCells) {
             this.persistState();
         }
         // ***
+        logRender(this, true);
     }
 
     componentDidLoad() {
@@ -986,11 +1017,9 @@ export class KupDataTable {
             }
         }
 
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
         this.lazyLoadCells = true;
         this.kupDidLoad.emit();
+        logLoad(this, true);
     }
 
     componentDidUnload() {
@@ -1362,10 +1391,14 @@ export class KupDataTable {
             let currentRow: HTMLTableRowElement = this.tableRef.querySelector(
                 'tbody > tr:first-of-type'
             );
-            // The height must start from the height of the header
-            let previousHeight: number = (this.tableRef.querySelector(
-                'thead > tr:first-of-type > th:first-of-type'
-            ) as HTMLTableCellElement).getBoundingClientRect().height;// [ffbf]
+            // The height must start from the height of the header. BUT not on Safari.
+            // Safari handles the sticky position on the tables in a different way, making it start from the tbody element
+            // and not on the table with a specified position of sticky. There fore in that case we must set initial height to 0.
+            let previousHeight: number = !this.isSafariBrowser
+                ? (this.tableRef.querySelector(
+                      'thead > tr:first-of-type > th:first-of-type'
+                  ) as HTMLTableCellElement).getBoundingClientRect().height // [ffbf]
+                : 0;
 
             // [CSSCount] - I must start from 1 since we are referencing html elements e not array (with CSS selectors starting from 1)
             for (let i = 1; i <= this.fixedRows && currentRow; i++) {
@@ -1374,7 +1407,8 @@ export class KupDataTable {
                     previousHeight + 'px'
                 );
                 previousHeight += (currentRow
-                    .children[0] as HTMLTableCellElement).getBoundingClientRect().height;// [ffbf]
+                    .children[0] as HTMLTableCellElement).getBoundingClientRect()
+                    .height; // [ffbf]
                 currentRow = currentRow.nextElementSibling as HTMLTableRowElement;
             }
             toRet = true;
@@ -1396,7 +1430,7 @@ export class KupDataTable {
                     FixedCellsCSSVarsBase.columns + i,
                     previousWidth + 'px'
                 );
-                previousWidth += currentCell.getBoundingClientRect().width;// [ffbf]
+                previousWidth += currentCell.getBoundingClientRect().width; // [ffbf]
                 currentCell = currentCell.nextElementSibling as HTMLTableCellElement;
             }
             toRet = true;
@@ -2009,8 +2043,8 @@ export class KupDataTable {
             isCheckbox(column.obj) ||
             isImage(column.obj) ||
             isIcon(column.obj) ||
-            isProgressBar(column.obj) ||
-            isRadio(column.obj) ||
+            isProgressBarObj(column.obj) ||
+            isRadioObj(column.obj) ||
             isVoCodver(column.obj)
         ) {
             columnClass.centered = true;
@@ -2943,7 +2977,8 @@ export class KupDataTable {
                     number:
                         isNumber(cell.obj) &&
                         !isRating(cell, null) &&
-                        !isGauge(cell, null),
+                        !isGauge(cell, null) &&
+                        !isKnob(cell, null),
                 };
                 if (cell.cssClass) {
                     cellClass[cell.cssClass] = true;
@@ -3225,15 +3260,17 @@ export class KupDataTable {
             return 'color-picker';
         } else if (isGauge(cell, null)) {
             return 'gauge';
+        } else if (isKnob(cell, null)) {
+            return 'knob';
         } else if (isIcon(obj) || isVoCodver(obj)) {
             return 'icon';
         } else if (isImage(obj)) {
             return 'image';
         } else if (isLink(obj)) {
             return 'link';
-        } else if (isProgressBar(obj)) {
+        } else if (isProgressBar(cell, null)) {
             return 'progress-bar';
-        } else if (isRadio(obj) || getShape(cell) === 'RAD') {
+        } else if (isRadio(cell, null)) {
             return 'radio';
         } else if (isRating(cell, null)) {
             return 'rating';
@@ -3392,6 +3429,14 @@ export class KupDataTable {
                         width-component="100%"
                         {...props}
                     ></kup-gauge>
+                );
+            case 'knob':
+                return (
+                    <kup-progress-bar
+                        class="cell-progress-bar"
+                        value={stringToNumber(cell.value)}
+                        {...props}
+                    ></kup-progress-bar>
                 );
             case 'icon':
             case 'image':

@@ -1,5 +1,4 @@
-const sortBox = document.getElementById('sort-box');
-sortBox.data = {
+let sortBoxData = {
     columns: [
         {
             name: 'FLD1',
@@ -175,4 +174,236 @@ sortBox.data = {
         },
     ],
 };
-sortBox.sortEnabled = true;
+
+const sortBox = document.getElementById('sort-box');
+if (sortBox != null) {
+    sortBox.data = sortBoxData;
+    sortBox.sortEnabled = true;
+}
+
+let graphicsBoxData = {
+    "columns": [
+      {
+        "icon": "account",
+        "name": "COL",
+        "obj": {
+          "k": "",
+          "p": "COL",
+          "t": "CN"
+        },
+        "title": "immagine"
+      },
+      {
+        "name": "GREF",
+        "obj": {
+          "k": "",
+          "p": "GRA_PIE",
+          "t": "J4"
+        },
+        "title": "grafico"
+      }
+    ],
+    "rows": [
+      {
+        "cells": {
+          "COL": {
+            "data": {
+              "resource": "/WebUP/javax.faces.resource/CN%253BCOL%253BBERNIC.jsf?ln=smeupImages"
+            },
+            "obj": {
+              "k": "BERNIC",
+              "p": "COL",
+              "t": "CN"
+            },
+            "shape": "Img",
+            "value": "/WebUP/javax.faces.resource/CN%253BCOL%253BBERNIC.jsf?ln=smeupImages"
+          },
+          "GREF": {
+            "data": {
+              "sizeX": "50px",
+              "offlineMode": {
+                "value": "8;4;5"
+              },
+              "id": "i1012_GREF_0",
+              "cellId": "i1012_GREF_0",
+              "sizeY": "50px"
+            },
+            "obj": {
+              "k": "8;4;5",
+              "p": "GRA_PIE",
+              "t": "J4"
+            },
+            "shape": "Gra",
+            "value": "8;4;5"
+          }
+        },
+        "layout": {
+          "horizontal": true,
+          "sections": [
+            {
+              "content": [
+                {
+                  "column": "COL",
+                  "config": {
+                    "width": "64",
+                    "height": "64"
+                  },
+                  "shape": "Img"
+                }
+              ],
+              "dim": "10%",
+              "horizontal": false
+            },
+            {
+              "content": [
+                {
+                  "column": "GREF",
+                  "shape": "Gra"
+                }
+              ],
+              "horizontal": false
+            }
+          ]
+        },
+        "object": "",
+        "readOnly": true,
+        "id": "0"
+      },
+      {
+        "cells": {
+          "COL": {
+            "data": {
+              "resource": "/WebUP/javax.faces.resource/CN%253BCOL%253BSCIMAM.jsf?ln=smeupImages"
+            },
+            "obj": {
+              "k": "SCIMAM",
+              "p": "COL",
+              "t": "CN"
+            },
+            "shape": "Img",
+            "value": "/WebUP/javax.faces.resource/CN%253BCOL%253BSCIMAM.jsf?ln=smeupImages"
+          },
+          "GREF": {
+            "data": {
+              "sizeX": "50px",
+              "offlineMode": {
+                "value": "6;9;6",
+                "shape": "pie"
+              },
+              "id": "i1012_GREF_1",
+              "cellId": "i1012_GREF_1",
+              "sizeY": "50px"
+            },
+            "obj": {
+              "k": "6;9;6",
+              "p": "GRA_PIE",
+              "t": "J4"
+            },
+            "shape": "Gra",
+            "value": "6;9;6"
+          }
+        },
+        "layout": {
+          "horizontal": true,
+          "sections": [
+            {
+              "content": [
+                {
+                  "column": "COL",
+                  "config": {
+                    "width": "64",
+                    "height": "64"
+                  },
+                  "shape": "Img"
+                }
+              ],
+              "dim": "10%",
+              "horizontal": false
+            },
+            {
+              "content": [
+                {
+                  "column": "GREF",
+                  "shape": "Gra"
+                }
+              ],
+              "horizontal": false
+            }
+          ]
+        },
+        "object": "",
+        "readOnly": true,
+        "id": "1"
+      },
+      {
+        "cells": {
+          "COL": {
+            "data": {
+              "resource": "/WebUP/javax.faces.resource/CN%253BCOL%253BVERFRA.jsf?ln=smeupImages"
+            },
+            "obj": {
+              "k": "VERFRA",
+              "p": "COL",
+              "t": "CN"
+            },
+            "shape": "Img",
+            "value": "/WebUP/javax.faces.resource/CN%253BCOL%253BVERFRA.jsf?ln=smeupImages"
+          },
+          "GREF": {
+            "data": {
+              "sizeX": "50px",
+              "offlineMode": {
+                "value": "5;1;5"
+              },
+              "id": "i1012_GREF_2",
+              "cellId": "i1012_GREF_2",
+              "sizeY": "50px"
+            },
+            "obj": {
+              "k": "5;1;5",
+              "p": "GRA_PIE",
+              "t": "J4"
+            },
+            "shape": "Gra",
+            "value": "5;1;5"
+          }
+        },
+        "layout": {
+          "horizontal": true,
+          "sections": [
+            {
+              "content": [
+                {
+                  "column": "COL",
+                  "config": {
+                    "width": "64",
+                    "height": "64"
+                  },
+                  "shape": "Img"
+                }
+              ],
+              "dim": "10%",
+              "horizontal": false
+            },
+            {
+              "content": [
+                {
+                  "column": "GREF",
+                  "shape": "Gra"
+                }
+              ],
+              "horizontal": false
+            }
+          ]
+        },
+        "object": "",
+        "readOnly": true,
+        "id": "2"
+      }
+    ]
+  };
+
+const graphicsBox = document.getElementById('graphics-box');
+if (graphicsBox != null) {
+    graphicsBox.data = graphicsBoxData;
+}

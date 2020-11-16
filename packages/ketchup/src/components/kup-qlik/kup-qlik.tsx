@@ -1,7 +1,7 @@
 import { Component, Prop, Element, h, State } from '@stencil/core';
 import qApp from './qApp';
 import { QlikServer, KupQlikGrid } from './kup-qlik-declarations';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-qlik',
@@ -88,11 +88,6 @@ export class KupQlik {
     @State() divlist: Array<object> = [];
 
     private isload = false;
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     /**
      * Set in DOM head require import
@@ -165,14 +160,16 @@ export class KupQlik {
      * @param grid
      */
     getObjects(grid) {
-        let noSelections 
+        let noSelections;
         return new Promise((resolve) => {
             grid.rows.forEach((row) => {
                 row.columns.forEach((column) => {
-                    noSelections = false
-                    if(column.noSelections)
-                        noSelections = column.noSelections
-                    this.app.getObject(column.obj, column.obj, {noInteraction:false, noSelections:noSelections});
+                    noSelections = false;
+                    if (column.noSelections) noSelections = column.noSelections;
+                    this.app.getObject(column.obj, column.obj, {
+                        noInteraction: false,
+                        noSelections: noSelections,
+                    });
                 });
             });
             resolve(true);
@@ -212,7 +209,11 @@ export class KupQlik {
                     }
 
                     style =
-                        style + 'width-' + column.colDim + ' size-' + column.size;
+                        style +
+                        'width-' +
+                        column.colDim +
+                        ' size-' +
+                        column.size;
                     if (column.obj != '')
                         tmp.push(<div id={column.obj} class={style}></div>);
                     else tmp.push(<div class={style}></div>);
@@ -225,21 +226,18 @@ export class KupQlik {
     }
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         if (this.doconnection) {
             this.loadApp();
         }
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
         this.setRender(this.grid);
     }
 
@@ -271,20 +269,15 @@ export class KupQlik {
     componentDidRender() {
         console.log('Grid', this.grid);
         if (this.qlik) {
-          if(this.appid!='' && !this.app) {
-            this.app = this.qlik.openApp(this.appid, this.config);
-          }           
-          if (this.app) {
-            this.getObjects(this.grid).then(() => {
-                this.doSelection(this.grid);
-            });
-          }
+            if (this.appid != '' && !this.app) {
+                this.app = this.qlik.openApp(this.appid, this.config);
+            }
+            if (this.app) {
+                this.getObjects(this.grid).then(() => {
+                    this.doSelection(this.grid);
+                });
+            }
         }
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 }

@@ -20,7 +20,7 @@
 | `hAxis`           | --                  | Customize the hAxis.                                                                                                                                                                  | `ChartAxis`                        | `undefined`        |
 | `legend`          | `legend`            | Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work. | `string`                           | `'right'`          |
 | `offlineMode`     | --                  | Renders charts without the Google API and using jQuery Sparkline.                                                                                                                     | `ChartOfflineMode`                 | `undefined`        |
-| `series`          | --                  | The data series to be displayed. They must be of the same type.                                                                                                                       | `string[]`                         | `undefined`        |
+| `series`          | --                  | The data series to be displayed. They must be of the same type.                                                                                                                       | `ChartSerie[]`                     | `undefined`        |
 | `showMarks`       | `show-marks`        | Displays the numerical values.                                                                                                                                                        | `boolean`                          | `false`            |
 | `sizeX`           | `size-x`            | The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).                                                                                             | `string`                           | `'100%'`           |
 | `sizeY`           | `size-y`            | The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).                                                                                            | `string`                           | `'100%'`           |
@@ -54,12 +54,14 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-box](../kup-box)
  - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-box --> kup-chart
   kup-card --> kup-chart
   kup-data-table --> kup-chart
   style kup-chart fill:#f9f,stroke:#333,stroke-width:4px

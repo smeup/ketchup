@@ -11,13 +11,12 @@ import { ComponentCardElement } from "./components/kup-card/kup-card-declaration
 import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
-import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartType } from "./components/kup-chart/kup-chart-declarations";
+import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { ComponentChipElement } from "./components/kup-chip/kup-chip-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
-import { ComponentGridElement } from "./components/kup-grid/kup-grid-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { CssDraw } from "./components/kup-image/kup-image-declarations";
 import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
@@ -325,7 +324,7 @@ export namespace Components {
         /**
           * The data series to be displayed. They must be of the same type.
          */
-        "series": string[];
+        "series": ChartSerie[];
         /**
           * Displays the numerical values.
          */
@@ -399,9 +398,14 @@ export namespace Components {
     }
     interface KupColorPicker {
         /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
          */
@@ -670,14 +674,18 @@ export namespace Components {
         "totals": TotalsMap;
     }
     interface KupDrawer {
-        "Toggle": () => Promise<void>;
+        "close": () => Promise<void>;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
         "open": () => Promise<void>;
         /**
-          * opened is used to make our drawer appear and disappear
+          * Defaults at false. When set to true, the drawer appears.
          */
         "opened": boolean;
-        "permanent": boolean;
-        "right": boolean;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "toggle": () => Promise<void>;
     }
     interface KupEcharts {
         "graphTitle": string;
@@ -847,10 +855,6 @@ export namespace Components {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
-        /**
-          * The actual data of the grid.
-         */
-        "data": ComponentGridElement[];
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * When set to true, forces the content on a single line.
@@ -1115,6 +1119,10 @@ export namespace Components {
     }
     interface KupRadio {
         /**
+          * Number of columns. When undefined, radio fields will be displayed inline.
+         */
+        "columns": number;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
@@ -1138,6 +1146,10 @@ export namespace Components {
     }
     interface KupRating {
         /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
@@ -1145,6 +1157,7 @@ export namespace Components {
           * Max number of stars (default 5)
          */
         "maxValue": number;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Rated stars
          */
@@ -1362,6 +1375,7 @@ export namespace Components {
           * Auto select programmatic selectic node
          */
         "autoSelectionNodeMode": boolean;
+        "collapseAll": () => Promise<void>;
         /**
           * The columns of the tree when tree visualization is active.
          */
@@ -1386,6 +1400,7 @@ export namespace Components {
         treeNodeToExpand: TreeNode,
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined;
+        "expandAll": () => Promise<void>;
         /**
           * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
          */
@@ -2185,7 +2200,7 @@ declare namespace LocalJSX {
         /**
           * The data series to be displayed. They must be of the same type.
          */
-        "series"?: string[];
+        "series"?: ChartSerie[];
         /**
           * Displays the numerical values.
          */
@@ -2296,6 +2311,10 @@ declare namespace LocalJSX {
         "type"?: string;
     }
     interface KupColorPicker {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
         /**
           * Defaults at false. When set to true, the component is disabled.
          */
@@ -2653,14 +2672,16 @@ declare namespace LocalJSX {
         "totals"?: TotalsMap;
     }
     interface KupDrawer {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
         "onKupDrawerClose"?: (event: CustomEvent<any>) => void;
         "onKupDrawerOpen"?: (event: CustomEvent<any>) => void;
         /**
-          * opened is used to make our drawer appear and disappear
+          * Defaults at false. When set to true, the drawer appears.
          */
         "opened"?: boolean;
-        "permanent"?: boolean;
-        "right"?: boolean;
     }
     interface KupEcharts {
         "graphTitle"?: string;
@@ -2834,10 +2855,6 @@ declare namespace LocalJSX {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
-        /**
-          * The actual data of the grid.
-         */
-        "data"?: ComponentGridElement[];
         /**
           * When set to true, forces the content on a single line.
          */
@@ -3144,6 +3161,10 @@ declare namespace LocalJSX {
     }
     interface KupRadio {
         /**
+          * Number of columns. When undefined, radio fields will be displayed inline.
+         */
+        "columns"?: number;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
@@ -3185,6 +3206,10 @@ declare namespace LocalJSX {
     }>) => void;
     }
     interface KupRating {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
         /**
           * Defaults at false. When set to true, the component is disabled.
          */
@@ -3525,6 +3550,11 @@ declare namespace LocalJSX {
           * Triggered when stop propagation event
          */
         "onKupDidUnload"?: (event: CustomEvent<void>) => void;
+        "onKupTreeDynamicMassExpansion"?: (event: CustomEvent<{
+        treeNodePath?: TreeNodePath;
+        treeNode?: TreeNode;
+        expandAll?: boolean;
+    }>) => void;
         "onKupTreeNodeButtonClicked"?: (event: CustomEvent<{
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;

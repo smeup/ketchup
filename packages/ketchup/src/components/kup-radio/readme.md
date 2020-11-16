@@ -7,6 +7,7 @@
 
 | Property       | Attribute       | Description                                                                                                     | Type                      | Default        |
 | -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------- | -------------- |
+| `columns`      | `columns`       | Number of columns. When undefined, radio fields will be displayed inline.                                       | `number`                  | `undefined`    |
 | `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                  | `undefined`    |
 | `data`         | --              | List of elements.                                                                                               | `ComponentRadioElement[]` | `[]`           |
 | `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                 | `boolean`                 | `false`        |

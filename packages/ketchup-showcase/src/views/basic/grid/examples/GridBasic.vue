@@ -2,22 +2,17 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        The grid component receives a list of elements inside the
-        <span class="code-word">data</span> prop and places them inside a grid.
+        The grid component receives a list of slots and places them inside a
+        grid.<br />
+        Slots should have a <span class="code-word">slot</span> attribute with
+        the index of the slot (base 0) and an optional
+        <span class="code-word">span</span> attribute which sets the number of
+        columns the slot occupies (when not specified, the component will span 1
+        column).
       </p>
-      <p>The data JSON, which is an array, has this format:</p>
       <br />
-      <span class="code-word">content? : string</span>, its value will be placed
-      as inner HTML of this element.
-      <br />
-      <span class="code-word">props? : any</span>, is an object containing all
-      the props that will be spread to this element.
-      <br />
-      <span class="code-word">span? : number</span>, the number of columns of
-      the grid this element occupies, defaults at 1.
-      <br />
-      <span class="code-word">tagName? : string</span>, the tag name of the
-      element.
+      <p class="centered">Sample slot</p>
+      <code class="flat">{{ markupSlot }}</code>
       <br />
       <br />
       <p>
@@ -40,6 +35,7 @@ export default {
   data() {
     return {
       markupBasic: '<kup-grid></kup-grid>',
+      markupSlot: '<kup-component slot="0" span="2"></kup-component>',
     };
   },
 };

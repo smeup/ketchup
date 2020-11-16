@@ -1,4 +1,4 @@
-# Ketch.UP: components for web applications
+# Ketch.UP: super-rich components for web applications
 
 ![Ketch.UP Logo](https://raw.githubusercontent.com/smeup/ketchup/develop/docs/images/ketchup_small.png))
 

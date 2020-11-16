@@ -30,15 +30,13 @@ import {
     isVoCodver,
     isButton,
     isChart,
-    isProgressBar,
-    isRadio,
     isNumber,
     hasTooltip,
 } from '../../utils/object-utils';
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { isFilterCompliantForValue } from '../../utils/filters';
 import numeral from 'numeral';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
@@ -48,6 +46,7 @@ import {
 } from '../kup-data-table/kup-data-table-helper';
 import { KupTreeState } from './kup-tree-state';
 import { KupStore } from '../kup-state/kup-store';
+import { isProgressBar, isRadio } from '../../utils/cell-utils';
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -190,11 +189,6 @@ export class KupTree {
     private treeWrapperRef: any;
     private scrollOnHoverInstance: scrollOnHover;
     private selectedColumn: string = '';
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
     private clickTimeout: any[] = [];
 
     //-------- Events --------
@@ -304,11 +298,53 @@ export class KupTree {
         treeNode: TreeNode;
     }>;
 
+    @Event({
+        eventName: 'kupTreeDynamicMassExpansion',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeDynamicMassExpansion: EventEmitter<{
+        treeNodePath?: TreeNodePath;
+        treeNode?: TreeNode;
+        expandAll?: boolean;
+    }>;
+
     //---- Methods ----
 
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+
+    @Method()
+    async expandAll() {
+        if (!this.useDynamicExpansion) {
+            for (let index = 0; index < this.data.length; index++) {
+                this.data[index][treeExpandedPropName] = true;
+                this.handleChildren(this.data[index], true);
+            }
+        } else {
+            this.kupTreeDynamicMassExpansion.emit({
+                expandAll: true,
+            });
+        }
+        this.forceUpdate();
+    }
+
+    @Method()
+    async collapseAll() {
+        if (!this.useDynamicExpansion) {
+            for (let index = 0; index < this.data.length; index++) {
+                this.data[index][treeExpandedPropName] = false;
+                this.handleChildren(this.data[index], false);
+            }
+        } else {
+            this.kupTreeDynamicMassExpansion.emit({
+                expandAll: false,
+            });
+        }
+        this.forceUpdate();
     }
 
     private setScrollOnHover() {
@@ -353,7 +389,7 @@ export class KupTree {
     //-------- Lifecycle hooks --------
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
 
         if (this.data) {
@@ -388,15 +424,12 @@ export class KupTree {
                 this.hdlTreeNodeClicked(tn, this.selectedNodeString, true);
             }
         }
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
         this.kupDidLoad.emit();
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
         this.filterNodes();
     }
 
@@ -413,16 +446,11 @@ export class KupTree {
                 }
             }
         }
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
 
         // *** Store
         this.persistState();
         // ***
+        logRender(this, true);
     }
 
     componentDidUnload() {
@@ -570,7 +598,11 @@ export class KupTree {
     }
 
     // When a TreeNode must be expanded or closed.
-    hdlTreeNodeExpanderClicked(treeNodeData: TreeNode, treeNodePath: string) {
+    hdlTreeNodeExpanderClicked(
+        treeNodeData: TreeNode,
+        treeNodePath: string,
+        ctrlKey: boolean
+    ) {
         // If the node is expandable
         if (treeNodeData.expandable) {
             // Always composes the tree node path as an array
@@ -584,6 +616,12 @@ export class KupTree {
                 treeNodeData[treeExpandedPropName] = !treeNodeData[
                     treeExpandedPropName
                 ];
+                if (ctrlKey) {
+                    this.handleChildren(
+                        treeNodeData,
+                        treeNodeData[treeExpandedPropName]
+                    );
+                }
                 this.forceUpdate();
                 if (treeNodeData[treeExpandedPropName]) {
                     // TreeNode is now expanded -> Fires expanded event
@@ -602,6 +640,12 @@ export class KupTree {
                     });
                 }
             } else if (this.useDynamicExpansion) {
+                if (ctrlKey) {
+                    this.kupTreeDynamicMassExpansion.emit({
+                        treeNodePath: arrayTreeNodePath,
+                        treeNode: treeNodeData,
+                    });
+                }
                 // When the component must use the dynamic expansion feature
                 // Currently it does not support the expanded prop
 
@@ -649,6 +693,18 @@ export class KupTree {
                     treeNodeData[treeExpandedPropName] = !treeNodeData[
                         treeExpandedPropName
                     ];
+                }
+            }
+        }
+    }
+
+    private handleChildren(TreeNode: TreeNode, expand: boolean) {
+        for (let index = 0; index < TreeNode.children.length; index++) {
+            let node = TreeNode.children[index];
+            if (!node.disabled) {
+                node[treeExpandedPropName] = expand;
+                if (node.children) {
+                    this.handleChildren(node, expand);
                 }
             }
         }
@@ -877,7 +933,7 @@ export class KupTree {
             if (cellValue < 0) {
                 classObj['negative-number'] = true;
             }
-        } else if (isProgressBar(cell.obj)) {
+        } else if (isProgressBar(cell, null)) {
             if (props) {
                 content = (
                     <kup-progress-bar
@@ -888,7 +944,7 @@ export class KupTree {
             } else {
                 content = undefined;
             }
-        } else if (isRadio(cell.obj)) {
+        } else if (isRadio(cell, null)) {
             if (props) {
                 if (cellData.treeNode.hasOwnProperty('readOnly')) {
                     props['disabled'] = cellData.treeNode.readOnly;
@@ -990,14 +1046,16 @@ export class KupTree {
         }
         let treeExpandIcon = (
             <span
+                title="Expand/collapse children (CTRL + Click) "
                 class={expandClass}
                 onClick={
                     !treeNodeData.disabled
-                        ? (event) => {
+                        ? (event: MouseEvent) => {
                               event.stopPropagation();
                               this.hdlTreeNodeExpanderClicked(
                                   treeNodeData,
-                                  treeNodePath
+                                  treeNodePath,
+                                  event.ctrlKey
                               );
                           }
                         : null

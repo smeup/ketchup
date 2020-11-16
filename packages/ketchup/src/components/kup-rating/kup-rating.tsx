@@ -2,11 +2,16 @@ import {
     Component,
     Prop,
     Event,
+    Element,
+    Host,
     EventEmitter,
     State,
     Watch,
     h,
+    Method,
 } from '@stencil/core';
+import { logLoad, logRender } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-rating',
@@ -14,9 +19,14 @@ import {
     shadow: true,
 })
 export class KupRating {
-    //--------------------------------------------------------------------------
-    // PROPS
-    // -------------------------------------------------------------------------
+    @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
+    @State() stars: Array<object> = [];
+
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
@@ -30,19 +40,7 @@ export class KupRating {
      */
     @Prop() value: number = 0;
 
-    //--------------------------------------------------------------------------
-    // EVENTS
-    // -------------------------------------------------------------------------
     @Event() kupRatingClicked: EventEmitter;
-
-    //--------------------------------------------------------------------------
-    // STATE
-    // -------------------------------------------------------------------------
-    @State() stars: Array<object> = [];
-
-    //--------------------------------------------------------------------------
-    // ON SOMETHING
-    // -------------------------------------------------------------------------
 
     @Watch('value')
     @Watch('maxValue')
@@ -50,8 +48,11 @@ export class KupRating {
         this.buildStars(this.value);
     }
 
-    componentWillLoad() {
-        this.onValueChanged();
+    //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
     onStarClicked(newValue: number) {
@@ -73,10 +74,6 @@ export class KupRating {
             this.buildStars(this.value);
         }
     }
-
-    //--------------------------------------------------------------------------
-    // RENDERING
-    // -------------------------------------------------------------------------
 
     buildStars(numberOfStars: number) {
         let stars = [];
@@ -110,7 +107,34 @@ export class KupRating {
         this.stars = stars;
     }
 
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logLoad(this, false);
+        setThemeCustomStyle(this);
+        this.onValueChanged();
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        logRender(this, true);
+    }
+
     render() {
-        return <div>{this.stars}</div>;
+        return (
+            <Host>
+                <style>{setCustomStyle(this)}</style>
+                <div id="kup-component">
+                    <div>{this.stars}</div>
+                </div>
+            </Host>
+        );
     }
 }
