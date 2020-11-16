@@ -113,9 +113,9 @@ export default {
           prop: 'series',
           description:
             'The data series to be displayed. They must be of the same type.',
-          type: 'string[]',
+          type: 'ChartSerie[]',
           default: 'undefined',
-          try: 'array',
+          try: 'json',
         },
         {
           prop: 'showMarks',
@@ -204,7 +204,11 @@ function createComp() {
   comp.data = baseData;
   comp.id = 'demo-component';
   comp.legend = 'right';
-  comp.series = ['Col2', 'Col3', 'Col4'];
+  comp.series = [
+    { code: 'Col2', decode: 'Something' },
+    { code: 'Col3', decode: 'Something else' },
+    { code: 'Col4', decode: 'Something else entirely' },
+  ];
   comp.type = ['Hbar'];
   return comp;
 }

@@ -284,7 +284,12 @@ export class KupList {
     }
 
     renderListItem(item: ComponentListElement, index: number) {
+        let rippleEl: HTMLElement = undefined;
         this.filteredItems[index] = item;
+
+        if (this.selectable) {
+            rippleEl = <span class="mdc-list-item__ripple"></span>;
+        }
 
         if (item.selected != true) {
             item.selected = false;
@@ -424,6 +429,7 @@ export class KupList {
                         : (e: any) => this.onKupInput(e, item, index)
                 }
             >
+                {rippleEl}
                 {innerSpanTag}
             </li>
         );

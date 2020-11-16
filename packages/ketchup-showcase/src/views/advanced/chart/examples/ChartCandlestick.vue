@@ -4,7 +4,12 @@
       :data.prop="csData"
       :types.prop="types"
       axis="Col1"
-      :series.prop="['Col2', 'Col3', 'Col4', 'Col5']"
+      :series.prop="[
+        { code: 'Col2', decode: 'Col2' },
+        { code: 'Col3', decode: 'Col3' },
+        { code: 'Col4', decode: 'Col4' },
+        { code: 'Col5', decode: 'Col5' },
+      ]"
     />
     <hr />
   </div>

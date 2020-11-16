@@ -4,7 +4,7 @@
     <kup-chart
       :data.prop="baseData"
       :axis.prop="'Col1'"
-      :series.prop="['Col2']"
+      :series.prop="[{ code: 'Col2', decode: 'Col2' }]"
     />
     <hr />
 
@@ -33,7 +33,11 @@ export default {
   data() {
     return {
       baseData,
-      series: ['Col2', 'Col3', 'Col4'],
+      series: [
+        { code: 'Col2', decode: 'Col2' },
+        { code: 'Col3', decode: 'Col3' },
+        { code: 'Col4', decode: 'Col4' },
+      ],
     };
   },
 };

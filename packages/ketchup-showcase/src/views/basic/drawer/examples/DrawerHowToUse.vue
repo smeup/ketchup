@@ -2,71 +2,69 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        The basic use of the drawer component is very simple. Let's start by
-        saying that it contains a public method called "open" which must be
-        called externally to make our drawer open.the open method will act on a
-        prop of the drawer, called "opened" which, when set to true, will open
-        our drawer
+        To get the Ketch.UP drawer visible it is possible to call the public
+        method
+        <span class="code-word">open</span>. This method simply set the drawer's
+        prop <span class="code-word">opened</span> to true. In order to manage
+        the drawer's visibility it is possible to call the public method
+        <span class="code-word">toggle</span> which is able to open or close the
+        drawer automatically.
       </p>
-      <p class="centered">
-        A simple example would be a button that calls the works open like this:
-      </p>
-
-      <code align="center" class="flat"
-        >{{ markupBasic }}<br />{{ markupBasic2 }}<br />{{ markupBasic3
-        }}<br />{{ markupBasic4 }}<br />{{ markupBasic5 }}</code
-      >
-      <br />
       <br />
       <p class="centered">
-        for example using the example of the button provided above, we will
-        obtain the following drawer as a result:</p
-      >
+        In this example, when the button is pressed, the open method will be
+        called.
+      </p>
+      <code class="flat"
+        >{{ markupBasic1 }}<br />{{ markupBasic2 }}<br />{{ markupBasic3
+        }}<br />{{ markupBasic4 }}<br
+      /></code>
       <br />
       <br />
-
       <kup-button
         align="center"
-        v-on:kupButtonClick="Updrawer"
-        class="hydrated handles-custom-style"
-        icon
-        label="open drawer"
+        v-on:kupButtonClick="openDrawer"
+        label="Toggle drawer"
         id="side-drawer-btn"
         icon-off
       ></kup-button>
-      <kup-drawer id="firstdrawer">
+      <kup-drawer id="first-drawer">
         <span slot="title">Title</span>
-        <span slot="subtitle">subtitle</span>
-
-        <nav class="side-nav" slot="MainContent">
+        <span slot="subtitle">Subtitle</span>
+        <div slot="main-content">
           <kup-list
             show-icons
-            class="handles-custom-style hydrated"
-            :data.prop="listdate"
+            :data.prop="listdata"
             display-mode="description"
             filter
             role-type="listbox"
             selectable
           ></kup-list>
-        </nav>
+        </div>
       </kup-drawer>
     </div>
   </div>
 </template>
 
 <script>
+document.addEventListener('kupDrawerOpen', () => {
+  console.log('Drawer opened!');
+});
+document.addEventListener('kupDrawerClose', () => {
+  console.log('Drawer closed!');
+});
 export default {
   name: 'ComboboxBasic',
   data() {
     return {
       markupBasic1:
-        '<kup-button class="hydrated handles-custom-style"  icon label="open drawer" id="side-drawer-btn" icon-off></kup-button>',
-      markupBasic2: 'const bot = document.querySelector("kup-button"); ',
-      markupBasic3: 'const sideDrawer = document.querySelector("kup-drawer");',
+        'const example_btn = document.querySelector("kup-button"); ',
+      markupBasic2:
+        'const example_drawer = document.querySelector("kup-drawer");',
+      markupBasic3: 'function openDrawerExample(() => example_drawer.open());',
       markupBasic4:
-        'function openDrawer() {  if (!sideDrawer.opened) {  sideDrawer.open(); }  }',
-      markupBasic5: 'bot.addEventListener("kupButtonClick",openDrawer);',
-      listdate: [
+        'example_btn.addEventListener("kupButtonClick", openDrawerExample);',
+      listdata: [
         {
           text: 'First choice',
           value: '1',
@@ -91,11 +89,9 @@ export default {
     };
   },
   methods: {
-    Updrawer: function() {
-      const sideDrawer = document.getElementById('firstdrawer');
-      if (!sideDrawer.opened) {
-        sideDrawer.open();
-      }
+    openDrawer: function () {
+      const sideDrawer = document.getElementById('first-drawer');
+      sideDrawer.toggle();
     },
   },
 };
