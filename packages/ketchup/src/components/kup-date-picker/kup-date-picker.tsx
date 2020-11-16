@@ -35,10 +35,13 @@ export class KupDatePicker {
      */
     @Prop() textfieldData: Object = {};
 
+    @Prop() value: string = '';
+    @Prop() minValue: string = '1970-01-01';
+    @Prop() maxValue: string = null;
+
     private textfieldEl: any = undefined;
     private datePickerContainerEl: any = undefined;
     private datePickerEl: any = undefined;
-    private value: string = undefined;
     private elStyle: any = undefined;
     private datePickerOpened = false;
 
@@ -227,13 +230,13 @@ export class KupDatePicker {
     }
 
     openDatePicker(): boolean {
+        this.datePickerOpened = true;
         this.refreshDatePickerValue();
         let textFieldWidth = this.textfieldEl.shadowRoot.querySelector(
             '.mdc-text-field'
         ).clientWidth;
         this.textfieldEl.classList.add('toggled');
         this.textfieldEl.emitSubmitEventOnEnter = false;
-        this.datePickerOpened = true;
         this.datePickerContainerEl.classList.add('dynamic-position-active');
         this.datePickerContainerEl.classList.add('visible');
         let elStyle: any = this.datePickerContainerEl.style;
@@ -243,9 +246,9 @@ export class KupDatePicker {
     }
 
     closeDatePicker() {
+        this.datePickerOpened = false;
         this.textfieldEl.classList.remove('toggled');
         this.textfieldEl.emitSubmitEventOnEnter = true;
-        this.datePickerOpened = false;
         this.datePickerContainerEl.classList.remove('dynamic-position-active');
         this.datePickerContainerEl.classList.remove('visible');
     }
@@ -304,6 +307,8 @@ export class KupDatePicker {
             >
                 <app-datepicker
                     firstdayofweek="1"
+                    min={this.minValue}
+                    max={this.maxValue}
                     startview="calendar"
                     value=""
                     locale={getCurrentLocale()}
