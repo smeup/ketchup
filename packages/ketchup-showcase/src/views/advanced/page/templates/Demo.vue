@@ -246,25 +246,30 @@ export default {
       if (this.demoProps) {
         data.push({
           text: 'Props',
+          title: 'List of props available to the component.',
         });
       }
       if (this.demoClasses) {
         data.push({
           text: 'Classes',
+          title: 'List of classes available to the component.',
         });
       }
       if (this.demoEvents) {
         data.push({
           text: 'Events',
+          title: 'List of events available to the component.',
         });
       }
       data.push({
         text: 'HTML',
         icon: 'code',
+        title: 'HTML mark up of the component.',
       });
       data.push({
         text: 'JSON',
         icon: 'json',
+        title: 'Here you can change props values manually.',
       });
       if (this.demoProps) {
         for (let i = 0; i < this.demoProps.length; i++) {
@@ -272,6 +277,8 @@ export default {
             data.push({
               text: 'CSS',
               icon: 'style',
+              title:
+                'Here you can write CSS code used by the customStyle prop.',
             });
           }
         }
