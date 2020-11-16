@@ -5,7 +5,6 @@
       :demoEvents="demoEvents"
       :demoProps="demoProps"
       :demoClasses="demoClasses"
-      :demoTabs="demoTabs"
     ></demo>
   </div>
 </template>
@@ -265,38 +264,6 @@ export default {
         {
           class: 'top-aligned',
           description: "Content will be vertically aligned to section's top.",
-        },
-      ],
-      demoTabs: [
-        {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'Classes',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
         },
       ],
     };
