@@ -1,10 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoTabs="demoTabs"
-    ></demo>
+    <demo :demoComp="demoComp" :demoProps="demoProps"></demo>
   </div>
 </template>
 
@@ -43,23 +39,6 @@ export default {
           type: 'string',
           default: '',
           try: 'field',
-        },
-      ],
-      demoTabs: [
-        {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
         },
       ],
     };
