@@ -66,6 +66,33 @@
           </tbody>
         </table>
         <table
+          id="classes-tab"
+          v-if="demoClasses !== null"
+          class="instruction-table sample-section"
+        >
+          <thead>
+            <tr>
+              <th>Class</th>
+              <th>Description</th>
+              <th>Try it!</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(classList, i) in demoClasses" :key="i">
+              <td class="prevent-cr">
+                <span class="code-word">{{ classList.class }}</span>
+              </td>
+              <td>{{ classList.description }}</td>
+              <td class="switch-cell">
+                <kup-switch
+                  v-bind:id="classList.class"
+                  @kupSwitchChange="updateDemoClass"
+                ></kup-switch>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
           v-if="demoEvents !== null"
           id="events-tab"
           style="display: none"
@@ -196,6 +223,7 @@ export default {
     demoTabs: Array,
     demoComp: HTMLElement,
     demoProps: Array,
+    demoClasses: Array,
     demoEvents: Array,
   },
   methods: {
@@ -325,6 +353,15 @@ export default {
       }
     },
 
+    updateDemoClass(e) {
+      let demoComponent = document.querySelector('#demo-component');
+      if (e.detail.value === 'on') {
+        demoComponent.classList.add(e.target.id);
+      } else {
+        demoComponent.classList.remove(e.target.id);
+      }
+    },
+
     updateDemoSwitch(e) {
       let demoComponent = document.querySelector('#demo-component');
       if (e.detail.value === 'on') {
@@ -405,12 +442,14 @@ export default {
 
     handleTab(demoComponent, i) {
       let propsTab = document.querySelector('#props-tab');
+      let classesTab = document.querySelector('#classes-tab');
       let eventsTab = document.querySelector('#events-tab');
       let htmlTab = document.querySelector('#html-tab');
       let jsonTab = document.querySelector('#json-tab');
       let cssTab = document.querySelector('#css-tab');
 
       propsTab.setAttribute('style', 'display: none;');
+      classesTab.setAttribute('style', 'display: none;');
       eventsTab.setAttribute('style', 'display: none;');
       htmlTab.setAttribute('style', 'display: none;');
       jsonTab.setAttribute('style', 'display: none;');
@@ -419,6 +458,9 @@ export default {
       switch (this.demoTabs[i].text) {
         case 'Props':
           propsTab.setAttribute('style', '');
+          break;
+        case 'Classes':
+          classesTab.setAttribute('style', '');
           break;
         case 'Events':
           eventsTab.setAttribute('style', '');

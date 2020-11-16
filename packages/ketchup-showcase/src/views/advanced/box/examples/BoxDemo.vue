@@ -4,6 +4,7 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
+      :demoClasses="demoClasses"
       :demoTabs="demoTabs"
     ></demo>
   </div>
@@ -63,14 +64,6 @@ export default {
           type: 'ComponentCardElement',
           default: 'undefined',
           try: 'json',
-        },
-        {
-          prop: 'className',
-          description:
-            'Available classes: left-aligned, right-aligned, bottom-aligned, top-aligned, borderless and paddingless. Read below for detailed information.',
-          type: 'string',
-          default: '""',
-          try: 'field',
         },
         {
           prop: 'columns',
@@ -245,11 +238,45 @@ export default {
           try: 'field',
         },
       ],
+      demoClasses: [
+        {
+          class: 'borderless',
+          description: 'Displays boxes without borders.',
+        },
+        {
+          class: 'bottom-aligned',
+          description:
+            "Content will be vertically aligned to section's bottom.",
+        },
+        {
+          class: 'left-aligned',
+          description:
+            "Content will be horizontally aligned to section's left.",
+        },
+        {
+          class: 'paddingless',
+          description: 'Removes padding from box sections.',
+        },
+        {
+          class: 'right-aligned',
+          description:
+            "Content will be horizontally aligned to section's right.",
+        },
+        {
+          class: 'top-aligned',
+          description: "Content will be vertically aligned to section's top.",
+        },
+      ],
       demoTabs: [
         {
           text: 'Props',
           icon: '',
           active: true,
+        },
+        {
+          text: 'Classes',
+          icon: '',
+          active: false,
         },
         {
           text: 'Events',
