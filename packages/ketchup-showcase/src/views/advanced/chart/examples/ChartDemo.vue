@@ -113,9 +113,9 @@ export default {
           prop: 'series',
           description:
             'The data series to be displayed. They must be of the same type.',
-          type: 'string[]',
+          type: 'ChartSerie[]',
           default: 'undefined',
-          try: 'array',
+          try: 'json',
         },
         {
           prop: 'showMarks',

@@ -143,6 +143,11 @@ i.v-icon.material-icons {
   color: var(--kup-icon-color);
 }
 
+.v-list__group:after,
+.v-list__group:before {
+  display: none;
+}
+
 .demo-container {
   text-align: center;
   margin: auto;
@@ -822,17 +827,18 @@ table.instruction-table th {
 
 .icon-wrapper.theme-wrapper {
   border-radius: 20px;
-  border-style: outset;
+  border-style: double;
   border-width: 2px;
   cursor: pointer;
-  margin: 1rem;
+  margin: 1rem auto;
   opacity: 1;
   padding: 0.75rem;
-  transition: opacity 0.175s;
+  transition: all 0.25s;
 }
 
 .icon-wrapper.theme-wrapper:hover {
-  opacity: 0.75;
+  box-shadow: var(--kup-box-shadow);
+  transform: scale(1.25);
 }
 
 @media screen and (max-width: 767px) {

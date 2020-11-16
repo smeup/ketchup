@@ -350,20 +350,22 @@ export class KupTextField {
                 );
             }
             inputEl = (
-                <textarea
-                    id="kup-input"
-                    class="mdc-text-field__input"
-                    disabled={this.disabled}
-                    readOnly={this.readOnly}
-                    maxlength={this.maxLength}
-                    value={this.value}
-                    onBlur={(e: any) => this.onKupBlur(e)}
-                    onChange={(e: any) => this.onKupChange(e)}
-                    onClick={(e: any) => this.onKupClick(e)}
-                    onFocus={(e: any) => this.onKupFocus(e)}
-                    onInput={(e: any) => this.onKupInput(e)}
-                    ref={(el) => (this.inputEl = el as any)}
-                ></textarea>
+                <span class="mdc-text-field__resizer">
+                    <textarea
+                        id="kup-input"
+                        class="mdc-text-field__input"
+                        disabled={this.disabled}
+                        readOnly={this.readOnly}
+                        maxlength={this.maxLength}
+                        value={this.value}
+                        onBlur={(e: any) => this.onKupBlur(e)}
+                        onChange={(e: any) => this.onKupChange(e)}
+                        onClick={(e: any) => this.onKupClick(e)}
+                        onFocus={(e: any) => this.onKupFocus(e)}
+                        onInput={(e: any) => this.onKupInput(e)}
+                        ref={(el) => (this.inputEl = el as any)}
+                    ></textarea>
+                </span>
             );
         } else {
             inputEl = (
@@ -421,6 +423,10 @@ export class KupTextField {
             }
         }
 
+        if (!this.fullWidth) {
+            componentClass += '  mdc-text-field--filled';
+        }
+
         return (
             <div class={componentClass}>
                 {leadingIconEl}
@@ -444,7 +450,7 @@ export class KupTextField {
                 {clearIconEl}
                 {trailingIconEl}
                 {labelEl}
-                <div class="mdc-line-ripple"></div>
+                <span class="mdc-line-ripple"></span>
             </div>
         );
     }

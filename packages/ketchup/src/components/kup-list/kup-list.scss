@@ -4,13 +4,26 @@
 
 :host {
   display: block;
+}
 
+#kup-component .mdc-list {
   .mdc-list-item {
     & .mdc-list-item__text,
     & .mdc-list-item__primary-text,
     & .mdc-list-item__secondary-text {
       font-family: var(--kup-font-family);
     }
+  }
+
+  &:not(.mdc-list--non-interactive) .mdc-list-item {
+    &:not(.mdc-list-item--selected):hover {
+      background-color: var(--kup-hover-background-color);
+      color: var(--kup-hover-color);
+    }
+  }
+
+  &.mdc-list--non-interactive .mdc-list-item {
+    cursor: auto;
   }
 }
 
