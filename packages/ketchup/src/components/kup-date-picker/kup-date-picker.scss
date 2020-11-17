@@ -2,19 +2,12 @@
   display: block;
 }
 
-:host([full-width]) {
-  width: 100%;
-  #kup-component {
-    width: 100%;
-  }
-}
-
-#app-date-picker-div.visible {
-  display: block;
-}
-
 #app-date-picker-div {
   display: none;
+
+  &.visible {
+    display: block;
+  }
 }
 
 app-datepicker {
