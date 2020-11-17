@@ -9,6 +9,7 @@ import {
     h,
     Listen,
     Method,
+    Watch,
 } from '@stencil/core';
 
 import { logLoad, logRender } from '../../utils/debug-manager';
@@ -20,6 +21,11 @@ import {
     getCurrentLocale,
     unformattedStringToFormattedStringDate,
 } from '../../utils/utils';
+import {
+    PICKER_COMPONENT_INFO,
+    PICKER_SOURCE_EVENT,
+    PICKER_STATUS,
+} from './kup-picker-declarations';
 
 @Component({
     tag: 'kup-picker',
@@ -29,21 +35,14 @@ import {
 export class KupPicker {
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
+    @State() dateValue: string = '';
 
-    /**
-     * Props of the text field.
-     */
-    @Prop() textfieldData: Object = {};
+    @Prop() dateTextfieldData: Object = {};
+    @Prop() dateInitialValue: string = '';
+    @Prop() dateMinValue: string = '1970-01-01';
+    @Prop() dateMaxValue: string = null;
 
-    @Prop() value: string = '';
-    @Prop() minValue: string = '1970-01-01';
-    @Prop() maxValue: string = null;
-
-    private textfieldEl: any = undefined;
-    private pickerContainerEl: any = undefined;
-    private pickerEl: any = undefined;
-    private elStyle: any = undefined;
-    private pickerOpened = false;
+    private status: PICKER_STATUS = {};
 
     /**
      * Events.
@@ -56,6 +55,7 @@ export class KupPicker {
     })
     kupBlur: EventEmitter<{
         value: any;
+        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Event({
@@ -66,6 +66,7 @@ export class KupPicker {
     })
     kupChange: EventEmitter<{
         value: any;
+        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Event({
@@ -76,6 +77,7 @@ export class KupPicker {
     })
     kupClick: EventEmitter<{
         value: any;
+        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Event({
@@ -86,6 +88,7 @@ export class KupPicker {
     })
     kupFocus: EventEmitter<{
         value: any;
+        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Event({
@@ -96,6 +99,7 @@ export class KupPicker {
     })
     kupInput: EventEmitter<{
         value: any;
+        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Event({
@@ -106,6 +110,7 @@ export class KupPicker {
     })
     kupIconClick: EventEmitter<{
         value: any;
+        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Event({
@@ -116,33 +121,47 @@ export class KupPicker {
     })
     kupItemClick: EventEmitter<{
         value: any;
+        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Listen('keyup', { target: 'document' })
     listenKeyup(e: KeyboardEvent) {
-        if (this.isPickerOpened()) {
+        let source: PICKER_SOURCE_EVENT = this.getSourceFromEvent(e);
+        if (this.isPickerOpened(source)) {
             if (e.key === 'Escape') {
-                this.closePicker();
+                this.closePicker(source);
             }
             if (e.key === 'Enter') {
-                this.setPickerValueSelected();
+                this.setPickerValueSelected(source);
             }
         }
     }
 
-    @Listen('picker-value-updated', { target: 'document' })
-    onKupItemClick(e: CustomEvent) {
-        this.setPickerValueSelected(e.detail.value);
+    @Listen('datepicker-value-updated', { target: 'document' })
+    onKupDatePickerItemClick(e: CustomEvent) {
+        this.setPickerValueSelected(PICKER_SOURCE_EVENT.DATE, e.detail.value);
 
         this.kupChange.emit({
-            value: this.value,
+            value: this.dateValue,
+            source: PICKER_SOURCE_EVENT.DATE,
         });
 
         this.kupItemClick.emit({
-            value: this.value,
+            value: this.dateValue,
+            source: PICKER_SOURCE_EVENT.DATE,
         });
     }
 
+    @Watch('dateInitialValue')
+    watchDateInitialValue() {
+        this.dateValue = this.dateInitialValue;
+
+        if (this.status[PICKER_SOURCE_EVENT.DATE].textfieldEl !== undefined) {
+            this.status[
+                PICKER_SOURCE_EVENT.DATE
+            ].textfieldEl.initialValue = this.dateValue;
+        }
+    }
     //---- Methods ----
 
     @Method()
@@ -150,171 +169,256 @@ export class KupPicker {
         this.customStyleTheme = customStyleTheme;
     }
 
-    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        this.closePicker();
+    onKupBlur(
+        e: UIEvent & { target: HTMLInputElement },
+        source: PICKER_SOURCE_EVENT
+    ) {
+        this.closePicker(source);
         const { target } = e;
         this.kupBlur.emit({
             value: target.value,
+            source: source,
         });
     }
 
-    onKupChange(e: CustomEvent) {
-        this.value = formattedStringToDefaultUnformattedStringDate(
-            e.detail.value
-        );
-        this.refreshPickerValue();
+    onKupChange(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
+        let newValue = null;
+        if (source == PICKER_SOURCE_EVENT.DATE) {
+            this.dateValue = formattedStringToDefaultUnformattedStringDate(
+                e.detail.value
+            );
+            newValue = this.dateValue;
+        }
+        this.refreshPickerValue(source);
         this.kupChange.emit({
-            value: this.value,
+            value: newValue,
+            source: source,
         });
     }
 
-    onKupClick(e: UIEvent & { target: HTMLInputElement }) {
+    onKupClick(
+        e: UIEvent & { target: HTMLInputElement },
+        source: PICKER_SOURCE_EVENT
+    ) {
         const { target } = e;
         this.kupClick.emit({
             value: target.value,
+            source: source,
         });
     }
 
-    onKupFocus(e: UIEvent & { target: HTMLInputElement }) {
+    onKupFocus(
+        e: UIEvent & { target: HTMLInputElement },
+        source: PICKER_SOURCE_EVENT
+    ) {
         const { target } = e;
         this.kupFocus.emit({
             value: target.value,
+            source: source,
         });
     }
 
-    onKupInput(e: CustomEvent) {
-        this.value = formattedStringToDefaultUnformattedStringDate(
-            e.detail.value
-        );
-        this.refreshPickerValue();
+    onKupInput(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
+        let newValue = null;
+        if (source == PICKER_SOURCE_EVENT.DATE) {
+            this.dateValue = formattedStringToDefaultUnformattedStringDate(
+                e.detail.value
+            );
+            newValue = this.dateValue;
+        }
+        this.refreshPickerValue(source);
         this.kupInput.emit({
-            value: this.value,
+            value: newValue,
+            source: source,
         });
     }
 
-    onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
+    onKupIconClick(
+        event: UIEvent & { target: HTMLInputElement },
+        source: PICKER_SOURCE_EVENT
+    ) {
         const { target } = event;
 
-        if (this.isPickerOpened()) {
-            this.closePicker();
+        if (this.isPickerOpened(source)) {
+            this.closePicker(source);
         } else {
-            this.openPicker();
+            this.openPicker(source);
         }
         this.kupIconClick.emit({
             value: target.value,
+            source: source,
         });
     }
 
-    refreshPickerValue() {
-        if (!this.isPickerOpened()) {
-            return;
-        }
-        this.pickerEl.value = this.value;
+    getSourceFromEvent(event: Event): PICKER_SOURCE_EVENT {
+        // cacca
+        console.log('getSourceFromEvent() event: ' + event.target);
+        return PICKER_SOURCE_EVENT.DATE;
     }
 
-    setPickerValueSelected(newValue?: string) {
-        if (!this.isPickerOpened()) {
+    refreshPickerValue(source: PICKER_SOURCE_EVENT) {
+        if (!this.isPickerOpened(source)) {
+            return;
+        }
+        this.status[source].pickerEl.value = this.dateValue;
+    }
+
+    setPickerValueSelected(source: PICKER_SOURCE_EVENT, newValue?: string) {
+        if (!this.isPickerOpened(source)) {
             return;
         }
         if (newValue == null) {
-            newValue = this.pickerEl.value;
+            newValue = this.getPickerValueSelected(source);
         }
-        this.closePicker();
+        this.closePicker(source);
         if (newValue == null) {
             return;
         }
         console.log('setPickerValueSelected() newValue=' + newValue);
-        this.value = newValue;
-        //this.textfieldEl.initialValue = this.value;
-        this.textfieldEl.initialValue = this.getDateForOutput();
+        if (source == PICKER_SOURCE_EVENT.DATE) {
+            this.dateValue = newValue;
+            this.status[
+                source
+            ].textfieldEl.initialValue = this.getDateForOutput();
+        }
     }
 
-    openPicker(): boolean {
-        this.pickerOpened = true;
-        this.refreshPickerValue();
-        let textFieldWidth = this.textfieldEl.shadowRoot.querySelector(
-            '.mdc-text-field'
-        ).clientWidth;
-        this.textfieldEl.classList.add('toggled');
-        this.textfieldEl.emitSubmitEventOnEnter = false;
-        this.pickerContainerEl.classList.add('dynamic-position-active');
-        this.pickerContainerEl.classList.add('visible');
-        let elStyle: any = this.pickerContainerEl.style;
-        elStyle.height = 'auto';
-        elStyle.minWidth = textFieldWidth + 'px';
-        return true;
+    getPickerValueSelected(source: PICKER_SOURCE_EVENT): string {
+        return this.status[source].pickerEl.value;
     }
 
-    closePicker() {
-        this.pickerOpened = false;
-        this.textfieldEl.classList.remove('toggled');
-        this.textfieldEl.emitSubmitEventOnEnter = true;
-        this.pickerContainerEl.classList.remove('dynamic-position-active');
-        this.pickerContainerEl.classList.remove('visible');
+    openPicker(source: PICKER_SOURCE_EVENT) {
+        let textfieldEl = this.status[source].textfieldEl;
+        let containerEl = this.status[source].pickerContainerEl;
+        this.status[source].pickerOpened = true;
+        this.refreshPickerValue(source);
+
+        let textFieldWidth = null;
+        if (textfieldEl != null) {
+            textFieldWidth = textfieldEl.shadowRoot.querySelector(
+                '.mdc-text-field'
+            ).clientWidth;
+            textfieldEl.classList.add('toggled');
+            textfieldEl.emitSubmitEventOnEnter = false;
+        }
+        if (containerEl != null) {
+            containerEl.classList.add('dynamic-position-active');
+            containerEl.classList.add('visible');
+            let elStyle: any = containerEl.style;
+            elStyle.height = 'auto';
+            if (textFieldWidth != null) {
+                elStyle.minWidth = textFieldWidth + 'px';
+            }
+        }
     }
 
-    isPickerOpened(): boolean {
-        return this.pickerOpened;
+    closePicker(source: PICKER_SOURCE_EVENT) {
+        let textfieldEl = this.status[source].textfieldEl;
+        let containerEl = this.status[source].pickerContainerEl;
+        this.status[source].pickerOpened = false;
+        if (textfieldEl != null) {
+            textfieldEl.classList.remove('toggled');
+            textfieldEl.emitSubmitEventOnEnter = true;
+        }
+        if (containerEl != null) {
+            containerEl.classList.remove('dynamic-position-active');
+            containerEl.classList.remove('visible');
+        }
     }
 
-    prepTextfield() {
-        if (this.textfieldData['fullWidth']) {
-            this.elStyle = {
-                ...this.elStyle,
+    isPickerOpened(source: PICKER_SOURCE_EVENT): boolean {
+        return this.status[source].pickerOpened;
+    }
+
+    prepDateTextfield(): PICKER_COMPONENT_INFO {
+        let ret: PICKER_COMPONENT_INFO = this.prepTextfield(
+            PICKER_SOURCE_EVENT.DATE,
+            this.dateTextfieldData,
+            this.status[PICKER_SOURCE_EVENT.DATE].elStyle,
+            this.getDateForOutput()
+        );
+        return ret;
+    }
+
+    prepTextfield(
+        source: PICKER_SOURCE_EVENT,
+        textfieldData,
+        elStyle,
+        initialValue: string
+    ): PICKER_COMPONENT_INFO {
+        if (textfieldData['fullWidth']) {
+            elStyle = {
+                ...elStyle,
                 width: '100%',
             };
         }
 
-        if (this.textfieldData['fullHeight']) {
-            this.elStyle = {
-                ...this.elStyle,
+        if (textfieldData['fullHeight']) {
+            elStyle = {
+                ...elStyle,
                 height: '100%',
             };
         }
 
-        if (!this.textfieldData['icon']) {
-            this.textfieldData['icon'] = 'date_range';
+        if (!textfieldData['icon']) {
+            textfieldData['icon'] = 'date_range';
         }
 
-        if (this.textfieldData['icon']) {
-            this.textfieldData['trailingIcon'] = true;
+        if (textfieldData['icon']) {
+            textfieldData['trailingIcon'] = true;
         }
+
+        let ref: PICKER_COMPONENT_INFO = { type: source };
 
         let comp: HTMLElement = (
             <kup-text-field
-                {...this.textfieldData}
-                style={this.elStyle}
-                initial-value={this.getDateForOutput()}
+                {...textfieldData}
+                style={elStyle}
+                initial-value={initialValue}
                 id={this.rootElement.id + '_text-field'}
                 /* onKupTextFieldBlur={(e: any) => this.onKupBlur(e)} */
-                onKupTextFieldChange={(e: any) => this.onKupChange(e)}
-                onKupTextFieldClick={(e: any) => this.onKupClick(e)}
-                onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
-                onKupTextFieldInput={(e: any) => this.onKupInput(e)}
-                onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
-                ref={(el) => (this.textfieldEl = el as any)}
+                onKupTextFieldChange={(e: any) => this.onKupChange(e, source)}
+                onKupTextFieldClick={(e: any) => this.onKupClick(e, source)}
+                onKupTextFieldFocus={(e: any) => this.onKupFocus(e, source)}
+                onKupTextFieldInput={(e: any) => this.onKupInput(e, source)}
+                onKupTextFieldIconClick={(e: any) =>
+                    this.onKupIconClick(e, source)
+                }
+                ref={(el) => (this.status[source].textfieldEl = el as any)}
             ></kup-text-field>
         );
 
-        return comp;
+        this.status[source].elStyle = elStyle;
+        ref.kupComponent = comp;
+        ref.style = elStyle;
+        ref.type = source;
+        return ref;
     }
 
-    prepPicker() {
+    prepDatePicker() {
         let comp: any = (
             <div
                 id="app-date-picker-div"
-                ref={(el) => (this.pickerContainerEl = el as any)}
+                ref={(el) =>
+                    (this.status[
+                        PICKER_SOURCE_EVENT.DATE
+                    ].pickerContainerEl = el as any)
+                }
             >
                 <app-datepicker
                     firstdayofweek="1"
-                    min={this.minValue}
-                    max={this.maxValue}
+                    min={this.dateMinValue}
+                    max={this.dateMaxValue}
                     startview="calendar"
                     value=""
                     locale={getCurrentLocale()}
                     dragratio="0.15"
                     inline="true"
-                    ref={(el) => (this.pickerEl = el as any)}
+                    ref={(el) =>
+                        (this.status[
+                            PICKER_SOURCE_EVENT.DATE
+                        ].pickerEl = el as any)
+                    }
                 ></app-datepicker>
             </div>
         );
@@ -322,12 +426,12 @@ export class KupPicker {
     }
 
     getDateForOutput(): string {
-        if (this.value == null || this.value.trim() == '') {
+        if (this.dateValue == null || this.dateValue.trim() == '') {
             return '';
         }
-        console.log('getDateForOutput() this.value=' + this.value);
+        console.log('getDateForOutput() this.value=' + this.dateValue);
 
-        let v1 = unformattedStringToFormattedStringDate(this.value);
+        let v1 = unformattedStringToFormattedStringDate(this.dateValue);
         console.log('getDateForOutput() v1=' + v1);
         return v1;
     }
@@ -336,6 +440,8 @@ export class KupPicker {
     componentWillLoad() {
         logLoad(this, false);
         setThemeCustomStyle(this);
+        this.status[PICKER_SOURCE_EVENT.DATE] = { pickerOpened: false };
+        this.watchDateInitialValue();
     }
 
     componentDidLoad() {
@@ -347,19 +453,40 @@ export class KupPicker {
     }
 
     componentDidRender() {
-        positionRecalc(this.pickerContainerEl, this.textfieldEl);
+        if (
+            this.status[PICKER_SOURCE_EVENT.DATE] &&
+            this.status[PICKER_SOURCE_EVENT.DATE].pickerContainerEl != null &&
+            this.status[PICKER_SOURCE_EVENT.DATE].textfieldEl != null
+        ) {
+            positionRecalc(
+                this.status[PICKER_SOURCE_EVENT.DATE].pickerContainerEl,
+                this.status[PICKER_SOURCE_EVENT.DATE].textfieldEl
+            );
+        }
         logRender(this, true);
     }
 
     render() {
-        let textfieldEl = this.prepTextfield();
-        let datePickerContainerEl = this.prepPicker();
+        let textfieldEl: PICKER_COMPONENT_INFO = this.prepDateTextfield();
+        let datePickerContainerEl = this.prepDatePicker();
+
+        let style = null;
+        if (textfieldEl != null && textfieldEl.style != null) {
+            style = {
+                ...textfieldEl.style,
+            };
+        }
 
         return (
-            <Host onBlur={(e: any) => this.onKupBlur(e)} style={this.elStyle}>
+            <Host
+                onBlur={(e: any) =>
+                    this.onKupBlur(e, this.getSourceFromEvent(e))
+                }
+                style={style}
+            >
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component" style={this.elStyle}>
-                    {textfieldEl}
+                <div id="kup-component" style={style}>
+                    {textfieldEl.kupComponent}
                     {datePickerContainerEl}
                 </div>
             </Host>

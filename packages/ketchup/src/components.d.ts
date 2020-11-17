@@ -21,6 +21,7 @@ import { KupBadge } from "./components/kup-badge/kup-badge";
 import { CssDraw } from "./components/kup-image/kup-image-declarations";
 import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
+import { PICKER_SOURCE_EVENT } from "./components/kup-picker/kup-picker-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
@@ -1049,14 +1050,11 @@ export namespace Components {
         "selectedPerPage": number;
     }
     interface KupPicker {
-        "maxValue": string;
-        "minValue": string;
+        "dateInitialValue": string;
+        "dateMaxValue": string;
+        "dateMinValue": string;
+        "dateTextfieldData": Object;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData": Object;
-        "value": string;
     }
     interface KupProgressBar {
         /**
@@ -3109,37 +3107,41 @@ declare namespace LocalJSX {
         "selectedPerPage"?: number;
     }
     interface KupPicker {
-        "maxValue"?: string;
-        "minValue"?: string;
+        "dateInitialValue"?: string;
+        "dateMaxValue"?: string;
+        "dateMinValue"?: string;
+        "dateTextfieldData"?: Object;
         /**
           * Events.
          */
         "onKupPickerBlur"?: (event: CustomEvent<{
         value: any;
+        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupPickerChange"?: (event: CustomEvent<{
         value: any;
+        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupPickerClick"?: (event: CustomEvent<{
         value: any;
+        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupPickerFocus"?: (event: CustomEvent<{
         value: any;
+        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupPickerIconClick"?: (event: CustomEvent<{
         value: any;
+        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupPickerInput"?: (event: CustomEvent<{
         value: any;
+        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupPickerItemClick"?: (event: CustomEvent<{
         value: any;
+        source: PICKER_SOURCE_EVENT;
     }>) => void;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData"?: Object;
-        "value"?: string;
     }
     interface KupProgressBar {
         /**

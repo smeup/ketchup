@@ -7,25 +7,25 @@
 
 ## Properties
 
-| Property        | Attribute   | Description              | Type     | Default        |
-| --------------- | ----------- | ------------------------ | -------- | -------------- |
-| `maxValue`      | `max-value` |                          | `string` | `null`         |
-| `minValue`      | `min-value` |                          | `string` | `'1970-01-01'` |
-| `textfieldData` | --          | Props of the text field. | `Object` | `{}`           |
-| `value`         | `value`     |                          | `string` | `''`           |
+| Property            | Attribute            | Description | Type     | Default        |
+| ------------------- | -------------------- | ----------- | -------- | -------------- |
+| `dateInitialValue`  | `date-initial-value` |             | `string` | `''`           |
+| `dateMaxValue`      | `date-max-value`     |             | `string` | `null`         |
+| `dateMinValue`      | `date-min-value`     |             | `string` | `'1970-01-01'` |
+| `dateTextfieldData` | --                   |             | `Object` | `{}`           |
 
 
 ## Events
 
-| Event                | Description | Type                           |
-| -------------------- | ----------- | ------------------------------ |
-| `kupPickerBlur`      | Events.     | `CustomEvent<{ value: any; }>` |
-| `kupPickerChange`    |             | `CustomEvent<{ value: any; }>` |
-| `kupPickerClick`     |             | `CustomEvent<{ value: any; }>` |
-| `kupPickerFocus`     |             | `CustomEvent<{ value: any; }>` |
-| `kupPickerIconClick` |             | `CustomEvent<{ value: any; }>` |
-| `kupPickerInput`     |             | `CustomEvent<{ value: any; }>` |
-| `kupPickerItemClick` |             | `CustomEvent<{ value: any; }>` |
+| Event                | Description | Type                                                        |
+| -------------------- | ----------- | ----------------------------------------------------------- |
+| `kupPickerBlur`      | Events.     | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupPickerChange`    |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupPickerClick`     |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupPickerFocus`     |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupPickerIconClick` |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupPickerInput`     |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupPickerItemClick` |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
 
 
 ## Methods
