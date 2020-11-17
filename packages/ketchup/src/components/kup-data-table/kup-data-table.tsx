@@ -3587,7 +3587,7 @@ export class KupDataTable {
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
                     {!this.lazyLoadRows &&
-                    this.rowsLength >= this.rowsPerPage ? (
+                    this.rowsLength > this.rowsPerPage ? (
                         <kup-paginator
                             id={top ? 'top-paginator' : 'bottom-paginator'}
                             max={this.rowsLength}
@@ -3878,7 +3878,7 @@ export class KupDataTable {
         let paginatorTop = undefined;
         let paginatorBottom = undefined;
         if (
-            (!this.lazyLoadRows && this.rowsLength >= this.rowsPerPage) ||
+            (!this.lazyLoadRows && this.rowsLength > this.rowsPerPage) ||
             this.showCustomization ||
             this.showLoadMore
         ) {
