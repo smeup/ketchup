@@ -4,7 +4,6 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
     ></demo>
   </div>
 </template>
@@ -29,13 +28,6 @@ export default {
       ],
       demoProps: [
         {
-          prop: 'objectData',
-          description: 'The actual data of the chart.',
-          type: 'DataTable',
-          default: 'undefined',
-          try: 'json',
-        },
-        {
           prop: 'graphTitle',
           description: 'Title of the graph.',
           type: 'string',
@@ -56,7 +48,6 @@ export default {
           default: 20,
           try: 'field',
         },
-
         {
           prop: 'legend',
           description:
@@ -65,7 +56,13 @@ export default {
           default: 'right',
           try: 'field',
         },
-
+        {
+          prop: 'objectData',
+          description: 'The actual data of the chart.',
+          type: 'DataTable',
+          default: 'undefined',
+          try: 'json',
+        },
         {
           prop: 'types',
           description:
@@ -73,28 +70,6 @@ export default {
           type: 'string',
           default: 'line',
           try: 'field',
-        },
-      ],
-      demoTabs: [
-        {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
         },
       ],
     };

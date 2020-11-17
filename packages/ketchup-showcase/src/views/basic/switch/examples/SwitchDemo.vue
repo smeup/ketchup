@@ -1,7 +1,6 @@
 <template>
   <div>
     <demo
-      :demoTabs="demoTabs"
       :demoComp="demoComp"
       :demoProps="demoProps"
       :demoEvents="demoEvents"
@@ -80,28 +79,6 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
-        },
-      ],
-      demoTabs: [
-        {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
         },
       ],
     };
