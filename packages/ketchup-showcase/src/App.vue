@@ -419,6 +419,12 @@ export default {
             },
           },
           {
+            title: `Picker`,
+            to: {
+              name: 'picker',
+            },
+          },
+          {
             title: 'Progress bar',
             to: {
               name: 'progressbar',

@@ -7,12 +7,13 @@
 
 ## Properties
 
-| Property        | Attribute   | Description              | Type     | Default        |
-| --------------- | ----------- | ------------------------ | -------- | -------------- |
-| `maxValue`      | `max-value` |                          | `string` | `null`         |
-| `minValue`      | `min-value` |                          | `string` | `'1970-01-01'` |
-| `textfieldData` | --          | Props of the text field. | `Object` | `{}`           |
-| `value`         | `value`     |                          | `string` | `''`           |
+| Property        | Attribute      | Description                                                                                                     | Type     | Default        |
+| --------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | -------- | -------------- |
+| `customStyle`   | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string` | `undefined`    |
+| `maxValue`      | `max-value`    | The maximum value of the picker.                                                                                | `string` | `null`         |
+| `minValue`      | `min-value`    | The minimum value of the picker.                                                                                | `string` | `'1970-01-01'` |
+| `textfieldData` | --             | Props of the text field.                                                                                        | `Object` | `{}`           |
+| `value`         | `value`        | The value of the picker.                                                                                        | `string` | `''`           |
 
 
 ## Events
