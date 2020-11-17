@@ -20,7 +20,7 @@
 
 | Event                | Description | Type                           |
 | -------------------- | ----------- | ------------------------------ |
-| `kupPickerBlur`      | Events.     | `CustomEvent<{ value: any; }>` |
+| `kupPickerBlur`      |             | `CustomEvent<{ value: any; }>` |
 | `kupPickerChange`    |             | `CustomEvent<{ value: any; }>` |
 | `kupPickerClick`     |             | `CustomEvent<{ value: any; }>` |
 | `kupPickerFocus`     |             | `CustomEvent<{ value: any; }>` |

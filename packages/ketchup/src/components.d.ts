@@ -3134,9 +3134,6 @@ declare namespace LocalJSX {
           * The minimum value of the picker.
          */
         "minValue"?: string;
-        /**
-          * Events.
-         */
         "onKupPickerBlur"?: (event: CustomEvent<{
         value: any;
     }>) => void;
