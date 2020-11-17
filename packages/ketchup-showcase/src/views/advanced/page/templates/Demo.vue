@@ -120,15 +120,6 @@
             </tr>
           </tbody>
         </table>
-        <div id="html-tab" class="sample-section" style="display: none">
-          <div class="code-word sample-html"></div>
-          <kup-button
-            @kupButtonClick="copyHtml"
-            id="copy-html"
-            icon="file_copy"
-            title="Copy HTML markup"
-          ></kup-button>
-        </div>
         <div id="json-tab" class="sample-section padded" style="display: none">
           <textarea id="json-textarea" style="display: none"></textarea>
           <kup-text-field
@@ -245,11 +236,6 @@ export default {
         });
       }
       data.push({
-        text: 'HTML',
-        icon: 'code',
-        title: 'HTML mark up of the component.',
-      });
-      data.push({
         text: 'JSON',
         icon: 'json',
         title: 'Here you can change props values manually.',
@@ -347,11 +333,6 @@ export default {
         d.getMinutes() +
         ':' +
         d.getSeconds();
-    },
-
-    copyHtml(e) {
-      let text = document.querySelector('.code-word.sample-html').innerText;
-      navigator.clipboard.writeText(text);
     },
 
     swapView(e) {
@@ -474,14 +455,12 @@ export default {
       let propsTab = document.querySelector('#props-tab');
       let classesTab = document.querySelector('#classes-tab');
       let eventsTab = document.querySelector('#events-tab');
-      let htmlTab = document.querySelector('#html-tab');
       let jsonTab = document.querySelector('#json-tab');
       let cssTab = document.querySelector('#css-tab');
 
       propsTab.setAttribute('style', 'display: none;');
       classesTab.setAttribute('style', 'display: none;');
       eventsTab.setAttribute('style', 'display: none;');
-      htmlTab.setAttribute('style', 'display: none;');
       jsonTab.setAttribute('style', 'display: none;');
       cssTab.setAttribute('style', 'display: none;');
 
@@ -494,20 +473,6 @@ export default {
           break;
         case 'Events':
           eventsTab.setAttribute('style', '');
-          break;
-        case 'HTML':
-          htmlTab.setAttribute('style', '');
-          htmlTab.querySelector('.code-word').innerText =
-            demoComponent.outerHTML;
-          htmlTab.querySelector('.code-word').innerText = htmlTab
-            .querySelector('.code-word')
-            .innerText.replace('id="demo-component"', '');
-          htmlTab.querySelector('.code-word').innerText = htmlTab
-            .querySelector('.code-word')
-            .innerText.replace('class="hydrated"', '');
-          htmlTab.querySelector('.code-word').innerText = htmlTab
-            .querySelector('.code-word')
-            .innerText.replace(/=""/g, '');
           break;
         case 'JSON':
           jsonTab.setAttribute('style', '');
