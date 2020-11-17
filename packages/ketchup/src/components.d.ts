@@ -1049,13 +1049,26 @@ export namespace Components {
         "selectedPerPage": number;
     }
     interface KupPicker {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * The maximum value of the picker.
+         */
         "maxValue": string;
+        /**
+          * The minimum value of the picker.
+         */
         "minValue": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Props of the text field.
          */
         "textfieldData": Object;
+        /**
+          * The value of the picker.
+         */
         "value": string;
     }
     interface KupProgressBar {
@@ -3109,7 +3122,17 @@ declare namespace LocalJSX {
         "selectedPerPage"?: number;
     }
     interface KupPicker {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * The maximum value of the picker.
+         */
         "maxValue"?: string;
+        /**
+          * The minimum value of the picker.
+         */
         "minValue"?: string;
         /**
           * Events.
@@ -3139,6 +3162,9 @@ declare namespace LocalJSX {
           * Props of the text field.
          */
         "textfieldData"?: Object;
+        /**
+          * The value of the picker.
+         */
         "value"?: string;
     }
     interface KupProgressBar {

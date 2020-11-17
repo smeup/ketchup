@@ -31,13 +31,25 @@ export class KupPicker {
     @State() customStyleTheme: string = undefined;
 
     /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = undefined;
+    /**
+     * The minimum value of the picker.
+     */
+    @Prop() minValue: string = '1970-01-01';
+    /**
+     * The maximum value of the picker.
+     */
+    @Prop() maxValue: string = null;
+    /**
      * Props of the text field.
      */
     @Prop() textfieldData: Object = {};
-
+    /**
+     * The value of the picker.
+     */
     @Prop() value: string = '';
-    @Prop() minValue: string = '1970-01-01';
-    @Prop() maxValue: string = null;
 
     private textfieldEl: any = undefined;
     private pickerContainerEl: any = undefined;
@@ -45,9 +57,8 @@ export class KupPicker {
     private elStyle: any = undefined;
     private pickerOpened = false;
 
-    /**
-     * Events.
-     */
+    //---- Events ----
+
     @Event({
         eventName: 'kupPickerBlur',
         composed: true,
@@ -333,6 +344,7 @@ export class KupPicker {
     }
 
     //---- Lifecycle hooks ----
+
     componentWillLoad() {
         logLoad(this, false);
         setThemeCustomStyle(this);
