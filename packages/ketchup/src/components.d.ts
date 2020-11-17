@@ -673,18 +673,6 @@ export namespace Components {
          */
         "totals": TotalsMap;
     }
-    interface KupDatePicker {
-        "maxValue": string;
-        "minValue": string;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData": Object;
-        "value": string;
-    }
-    interface KupDatePickerVaadin {
-    }
     interface KupDrawer {
         "close": () => Promise<void>;
         /**
@@ -1059,6 +1047,16 @@ export namespace Components {
         "mode": PaginatorMode;
         "perPage": number;
         "selectedPerPage": number;
+    }
+    interface KupPicker {
+        "maxValue": string;
+        "minValue": string;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * Props of the text field.
+         */
+        "textfieldData": Object;
+        "value": string;
     }
     interface KupProgressBar {
         /**
@@ -1556,18 +1554,6 @@ declare global {
         prototype: HTMLKupDataTableElement;
         new (): HTMLKupDataTableElement;
     };
-    interface HTMLKupDatePickerElement extends Components.KupDatePicker, HTMLStencilElement {
-    }
-    var HTMLKupDatePickerElement: {
-        prototype: HTMLKupDatePickerElement;
-        new (): HTMLKupDatePickerElement;
-    };
-    interface HTMLKupDatePickerVaadinElement extends Components.KupDatePickerVaadin, HTMLStencilElement {
-    }
-    var HTMLKupDatePickerVaadinElement: {
-        prototype: HTMLKupDatePickerVaadinElement;
-        new (): HTMLKupDatePickerVaadinElement;
-    };
     interface HTMLKupDrawerElement extends Components.KupDrawer, HTMLStencilElement {
     }
     var HTMLKupDrawerElement: {
@@ -1664,6 +1650,12 @@ declare global {
         prototype: HTMLKupPaginatorElement;
         new (): HTMLKupPaginatorElement;
     };
+    interface HTMLKupPickerElement extends Components.KupPicker, HTMLStencilElement {
+    }
+    var HTMLKupPickerElement: {
+        prototype: HTMLKupPickerElement;
+        new (): HTMLKupPickerElement;
+    };
     interface HTMLKupProgressBarElement extends Components.KupProgressBar, HTMLStencilElement {
     }
     var HTMLKupProgressBarElement: {
@@ -1753,8 +1745,6 @@ declare global {
         "kup-dash": HTMLKupDashElement;
         "kup-dash-list": HTMLKupDashListElement;
         "kup-data-table": HTMLKupDataTableElement;
-        "kup-date-picker": HTMLKupDatePickerElement;
-        "kup-date-picker-vaadin": HTMLKupDatePickerVaadinElement;
         "kup-drawer": HTMLKupDrawerElement;
         "kup-echarts": HTMLKupEchartsElement;
         "kup-editor": HTMLKupEditorElement;
@@ -1771,6 +1761,7 @@ declare global {
         "kup-modal": HTMLKupModalElement;
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-paginator": HTMLKupPaginatorElement;
+        "kup-picker": HTMLKupPickerElement;
         "kup-progress-bar": HTMLKupProgressBarElement;
         "kup-qlik": HTMLKupQlikElement;
         "kup-radio": HTMLKupRadioElement;
@@ -2697,41 +2688,6 @@ declare namespace LocalJSX {
          */
         "totals"?: TotalsMap;
     }
-    interface KupDatePicker {
-        "maxValue"?: string;
-        "minValue"?: string;
-        /**
-          * Events.
-         */
-        "onKupDatePickerBlur"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupDatePickerChange"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupDatePickerClick"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupDatePickerFocus"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupDatePickerIconClick"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupDatePickerInput"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        "onKupDatePickerItemClick"?: (event: CustomEvent<{
-        value: any;
-    }>) => void;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData"?: Object;
-        "value"?: string;
-    }
-    interface KupDatePickerVaadin {
-    }
     interface KupDrawer {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -3151,6 +3107,39 @@ declare namespace LocalJSX {
         "onKupRowsPerPageChanged"?: (event: CustomEvent<{ newRowsPerPage: number }>) => void;
         "perPage"?: number;
         "selectedPerPage"?: number;
+    }
+    interface KupPicker {
+        "maxValue"?: string;
+        "minValue"?: string;
+        /**
+          * Events.
+         */
+        "onKupPickerBlur"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupPickerChange"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupPickerClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupPickerFocus"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupPickerIconClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupPickerInput"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupPickerItemClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        /**
+          * Props of the text field.
+         */
+        "textfieldData"?: Object;
+        "value"?: string;
     }
     interface KupProgressBar {
         /**
@@ -3723,8 +3712,6 @@ declare namespace LocalJSX {
         "kup-dash": KupDash;
         "kup-dash-list": KupDashList;
         "kup-data-table": KupDataTable;
-        "kup-date-picker": KupDatePicker;
-        "kup-date-picker-vaadin": KupDatePickerVaadin;
         "kup-drawer": KupDrawer;
         "kup-echarts": KupEcharts;
         "kup-editor": KupEditor;
@@ -3741,6 +3728,7 @@ declare namespace LocalJSX {
         "kup-modal": KupModal;
         "kup-nav-bar": KupNavBar;
         "kup-paginator": KupPaginator;
+        "kup-picker": KupPicker;
         "kup-progress-bar": KupProgressBar;
         "kup-qlik": KupQlik;
         "kup-radio": KupRadio;
@@ -3775,8 +3763,6 @@ declare module "@stencil/core" {
             "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;
             "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
-            "kup-date-picker": LocalJSX.KupDatePicker & JSXBase.HTMLAttributes<HTMLKupDatePickerElement>;
-            "kup-date-picker-vaadin": LocalJSX.KupDatePickerVaadin & JSXBase.HTMLAttributes<HTMLKupDatePickerVaadinElement>;
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
             "kup-echarts": LocalJSX.KupEcharts & JSXBase.HTMLAttributes<HTMLKupEchartsElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
@@ -3793,6 +3779,7 @@ declare module "@stencil/core" {
             "kup-modal": LocalJSX.KupModal & JSXBase.HTMLAttributes<HTMLKupModalElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-paginator": LocalJSX.KupPaginator & JSXBase.HTMLAttributes<HTMLKupPaginatorElement>;
+            "kup-picker": LocalJSX.KupPicker & JSXBase.HTMLAttributes<HTMLKupPickerElement>;
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;

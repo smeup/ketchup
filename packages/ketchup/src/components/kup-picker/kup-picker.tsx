@@ -22,11 +22,11 @@ import {
 } from '../../utils/utils';
 
 @Component({
-    tag: 'kup-date-picker',
-    styleUrl: 'kup-date-picker.scss',
+    tag: 'kup-picker',
+    styleUrl: 'kup-picker.scss',
     shadow: true,
 })
-export class KupDatePicker {
+export class KupPicker {
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
 
@@ -40,16 +40,16 @@ export class KupDatePicker {
     @Prop() maxValue: string = null;
 
     private textfieldEl: any = undefined;
-    private datePickerContainerEl: any = undefined;
-    private datePickerEl: any = undefined;
+    private pickerContainerEl: any = undefined;
+    private pickerEl: any = undefined;
     private elStyle: any = undefined;
-    private datePickerOpened = false;
+    private pickerOpened = false;
 
     /**
      * Events.
      */
     @Event({
-        eventName: 'kupDatePickerBlur',
+        eventName: 'kupPickerBlur',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -59,7 +59,7 @@ export class KupDatePicker {
     }>;
 
     @Event({
-        eventName: 'kupDatePickerChange',
+        eventName: 'kupPickerChange',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -69,7 +69,7 @@ export class KupDatePicker {
     }>;
 
     @Event({
-        eventName: 'kupDatePickerClick',
+        eventName: 'kupPickerClick',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -79,7 +79,7 @@ export class KupDatePicker {
     }>;
 
     @Event({
-        eventName: 'kupDatePickerFocus',
+        eventName: 'kupPickerFocus',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -89,7 +89,7 @@ export class KupDatePicker {
     }>;
 
     @Event({
-        eventName: 'kupDatePickerInput',
+        eventName: 'kupPickerInput',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -99,7 +99,7 @@ export class KupDatePicker {
     }>;
 
     @Event({
-        eventName: 'kupDatePickerIconClick',
+        eventName: 'kupPickerIconClick',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -109,7 +109,7 @@ export class KupDatePicker {
     }>;
 
     @Event({
-        eventName: 'kupDatePickerItemClick',
+        eventName: 'kupPickerItemClick',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -120,19 +120,19 @@ export class KupDatePicker {
 
     @Listen('keyup', { target: 'document' })
     listenKeyup(e: KeyboardEvent) {
-        if (this.isDatePickerOpened()) {
+        if (this.isPickerOpened()) {
             if (e.key === 'Escape') {
-                this.closeDatePicker();
+                this.closePicker();
             }
             if (e.key === 'Enter') {
-                this.setDatePickerValueSelected();
+                this.setPickerValueSelected();
             }
         }
     }
 
-    @Listen('datepicker-value-updated', { target: 'document' })
+    @Listen('picker-value-updated', { target: 'document' })
     onKupItemClick(e: CustomEvent) {
-        this.setDatePickerValueSelected(e.detail.value);
+        this.setPickerValueSelected(e.detail.value);
 
         this.kupChange.emit({
             value: this.value,
@@ -151,7 +151,7 @@ export class KupDatePicker {
     }
 
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        this.closeDatePicker();
+        this.closePicker();
         const { target } = e;
         this.kupBlur.emit({
             value: target.value,
@@ -162,7 +162,7 @@ export class KupDatePicker {
         this.value = formattedStringToDefaultUnformattedStringDate(
             e.detail.value
         );
-        this.refreshDatePickerValue();
+        this.refreshPickerValue();
         this.kupChange.emit({
             value: this.value,
         });
@@ -186,7 +186,7 @@ export class KupDatePicker {
         this.value = formattedStringToDefaultUnformattedStringDate(
             e.detail.value
         );
-        this.refreshDatePickerValue();
+        this.refreshPickerValue();
         this.kupInput.emit({
             value: this.value,
         });
@@ -195,66 +195,66 @@ export class KupDatePicker {
     onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
 
-        if (this.isDatePickerOpened()) {
-            this.closeDatePicker();
+        if (this.isPickerOpened()) {
+            this.closePicker();
         } else {
-            this.openDatePicker();
+            this.openPicker();
         }
         this.kupIconClick.emit({
             value: target.value,
         });
     }
 
-    refreshDatePickerValue() {
-        if (!this.isDatePickerOpened()) {
+    refreshPickerValue() {
+        if (!this.isPickerOpened()) {
             return;
         }
-        this.datePickerEl.value = this.value;
+        this.pickerEl.value = this.value;
     }
 
-    setDatePickerValueSelected(newValue?: string) {
-        if (!this.isDatePickerOpened()) {
+    setPickerValueSelected(newValue?: string) {
+        if (!this.isPickerOpened()) {
             return;
         }
         if (newValue == null) {
-            newValue = this.datePickerEl.value;
+            newValue = this.pickerEl.value;
         }
-        this.closeDatePicker();
+        this.closePicker();
         if (newValue == null) {
             return;
         }
-        console.log('setDatePickerValueSelected() newValue=' + newValue);
+        console.log('setPickerValueSelected() newValue=' + newValue);
         this.value = newValue;
         //this.textfieldEl.initialValue = this.value;
         this.textfieldEl.initialValue = this.getDateForOutput();
     }
 
-    openDatePicker(): boolean {
-        this.datePickerOpened = true;
-        this.refreshDatePickerValue();
+    openPicker(): boolean {
+        this.pickerOpened = true;
+        this.refreshPickerValue();
         let textFieldWidth = this.textfieldEl.shadowRoot.querySelector(
             '.mdc-text-field'
         ).clientWidth;
         this.textfieldEl.classList.add('toggled');
         this.textfieldEl.emitSubmitEventOnEnter = false;
-        this.datePickerContainerEl.classList.add('dynamic-position-active');
-        this.datePickerContainerEl.classList.add('visible');
-        let elStyle: any = this.datePickerContainerEl.style;
+        this.pickerContainerEl.classList.add('dynamic-position-active');
+        this.pickerContainerEl.classList.add('visible');
+        let elStyle: any = this.pickerContainerEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = textFieldWidth + 'px';
         return true;
     }
 
-    closeDatePicker() {
-        this.datePickerOpened = false;
+    closePicker() {
+        this.pickerOpened = false;
         this.textfieldEl.classList.remove('toggled');
         this.textfieldEl.emitSubmitEventOnEnter = true;
-        this.datePickerContainerEl.classList.remove('dynamic-position-active');
-        this.datePickerContainerEl.classList.remove('visible');
+        this.pickerContainerEl.classList.remove('dynamic-position-active');
+        this.pickerContainerEl.classList.remove('visible');
     }
 
-    isDatePickerOpened(): boolean {
-        return this.datePickerOpened;
+    isPickerOpened(): boolean {
+        return this.pickerOpened;
     }
 
     prepTextfield() {
@@ -299,11 +299,11 @@ export class KupDatePicker {
         return comp;
     }
 
-    prepDatePicker() {
+    prepPicker() {
         let comp: any = (
             <div
                 id="app-date-picker-div"
-                ref={(el) => (this.datePickerContainerEl = el as any)}
+                ref={(el) => (this.pickerContainerEl = el as any)}
             >
                 <app-datepicker
                     firstdayofweek="1"
@@ -314,7 +314,7 @@ export class KupDatePicker {
                     locale={getCurrentLocale()}
                     dragratio="0.15"
                     inline="true"
-                    ref={(el) => (this.datePickerEl = el as any)}
+                    ref={(el) => (this.pickerEl = el as any)}
                 ></app-datepicker>
             </div>
         );
@@ -347,13 +347,13 @@ export class KupDatePicker {
     }
 
     componentDidRender() {
-        positionRecalc(this.datePickerContainerEl, this.textfieldEl);
+        positionRecalc(this.pickerContainerEl, this.textfieldEl);
         logRender(this, true);
     }
 
     render() {
         let textfieldEl = this.prepTextfield();
-        let datePickerContainerEl = this.prepDatePicker();
+        let datePickerContainerEl = this.prepPicker();
 
         return (
             <Host onBlur={(e: any) => this.onKupBlur(e)} style={this.elStyle}>
