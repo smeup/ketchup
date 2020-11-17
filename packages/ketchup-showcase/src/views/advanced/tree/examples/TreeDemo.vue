@@ -4,7 +4,7 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -50,13 +50,6 @@ export default {
           type: 'boolean',
           default: 'true',
           try: 'switch',
-        },
-        {
-          prop: 'className',
-          description: 'Available classes: full-width, shaped.',
-          type: 'string',
-          default: '""',
-          try: 'field',
         },
         {
           prop: 'columns?',
@@ -167,31 +160,15 @@ export default {
           try: 'switch',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          class: 'full-width',
+          description: 'The tree will fill all the available horizontal space.',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'shaped',
+          description:
+            'The right border of the cells will be shaped. It only applies when showColumns prop is set to false. ',
         },
       ],
     };

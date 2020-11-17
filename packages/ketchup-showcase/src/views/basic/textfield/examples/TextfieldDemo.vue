@@ -4,7 +4,7 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -55,13 +55,6 @@ export default {
         },
       ],
       demoProps: [
-        {
-          prop: 'className',
-          description: 'Available classes: full-height.',
-          type: 'string',
-          default: '""',
-          try: 'field',
-        },
         {
           prop: 'customStyle',
           description:
@@ -217,26 +210,11 @@ export default {
           try: 'switch',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'full-height',
+          description:
+            'The text field will fill all the available vertical space.',
         },
       ],
     };
