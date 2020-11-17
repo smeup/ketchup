@@ -16,3 +16,12 @@
 #app-date-picker-div {
   display: none;
 }
+
+app-datepicker {
+  box-shadow: var(--kup-box-shadow);
+  --app-datepicker-accent-color: var(--kup-main-color);
+  --app-datepicker-bg-color: var(--kup-background-color);
+  --app-datepicker-color: var(--kup-text-color);
+  --app-datepicker-focused-day-color: var(--kup-text-on-main-color);
+  --app-datepicker-weekday-color: var(--kup-text-color);
+}
