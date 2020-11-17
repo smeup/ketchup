@@ -30,11 +30,6 @@ let basicRoutes = [
     component: () => import(`@/views/basic/button/Button.vue`),
   },
   {
-    path: `/drawer`,
-    name: 'drawer',
-    component: () => import(`@/views/basic/drawer/Drawer.vue`),
-  },
-  {
     path: `/checkbox`,
     name: 'checkbox',
     component: () => import(`@/views/basic/checkbox/Checkbox.vue`),
@@ -45,9 +40,19 @@ let basicRoutes = [
     component: () => import(`@/views/basic/chip/Chip.vue`),
   },
   {
+    path: `/colorpicker`,
+    name: 'colorpicker',
+    component: () => import(`@/views/basic/colorpicker/ColorPicker.vue`),
+  },
+  {
     path: `/combobox`,
     name: 'combobox',
     component: () => import(`@/views/basic/combobox/Combobox.vue`),
+  },
+  {
+    path: `/drawer`,
+    name: 'drawer',
+    component: () => import(`@/views/basic/drawer/Drawer.vue`),
   },
   {
     path: `/grid`,
@@ -80,6 +85,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/navbar/Navbar.vue`),
   },
   {
+    path: `/picker`,
+    name: 'picker',
+    component: () => import(`@/views/basic/picker/Picker.vue`),
+  },
+  {
     path: `/progressbar`,
     name: 'progressbar',
     component: () => import(`@/views/basic/progressbar/Progressbar.vue`),
@@ -93,11 +103,6 @@ let basicRoutes = [
     path: `/rating`,
     name: 'rating',
     component: () => import(`@/views/basic/rating/Rating.vue`),
-  },
-  {
-    path: `/colorpicker`,
-    name: 'colorpicker',
-    component: () => import(`@/views/basic/colorpicker/ColorPicker.vue`),
   },
   {
     path: `/spinner`,

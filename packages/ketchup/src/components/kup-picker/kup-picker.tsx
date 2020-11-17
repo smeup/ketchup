@@ -36,17 +36,31 @@ export class KupPicker {
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
     @State() dateValue: string = '';
-
+    /**
+     * Props of the date text field.
+     */
     @Prop() dateTextfieldData: Object = {};
+    /**
+     * The value of the date picker.
+     */
     @Prop() dateInitialValue: string = '';
+    /**
+     * The minimum value of the date picker.
+     */
     @Prop() dateMinValue: string = '1970-01-01';
+    /**
+     * The maximum value of the date picker.
+     */
     @Prop() dateMaxValue: string = null;
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = undefined;
 
     private status: PICKER_STATUS = {};
 
-    /**
-     * Events.
-     */
+    //---- Events ----
+
     @Event({
         eventName: 'kupPickerBlur',
         composed: true,
@@ -437,6 +451,7 @@ export class KupPicker {
     }
 
     //---- Lifecycle hooks ----
+
     componentWillLoad() {
         logLoad(this, false);
         setThemeCustomStyle(this);
