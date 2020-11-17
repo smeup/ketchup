@@ -163,11 +163,10 @@ export class KupCombobox {
         this.customStyleTheme = customStyleTheme;
     }
 
-    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
+    onKupBlur() {
         this.closeList();
-        const { target } = e;
         this.kupBlur.emit({
-            value: target.value,
+            value: this.value,
         });
     }
 
@@ -360,7 +359,7 @@ export class KupCombobox {
         let listEl = this.prepList();
 
         return (
-            <Host onBlur={(e: any) => this.onKupBlur(e)} style={this.elStyle}>
+            <Host onBlur={() => this.onKupBlur()} style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
                     {textfieldEl}
