@@ -968,13 +968,9 @@ export default {
   methods: {
     updateThemeVariable(e) {
       const dom = document.documentElement;
-      if (!dom.kupThemes['showcaseDemo']) {
-        dom.kupThemes['showcaseDemo'] = JSON.parse(
-          JSON.stringify(dom.kupCurrentTheme)
-        );
-      }
-      console.log('ciao');
-      dom.kupThemes['showcaseDemo'].cssVariables['--kup-' + e.target.id] =
+      this.initTheme();
+
+      dom.kupThemes['showcaseDemo']['cssVariables']['--kup-' + e.target.id] =
         e.detail.value;
 
       this.refreshThemes();
@@ -982,11 +978,9 @@ export default {
 
     updateThemeCustomStyles(e) {
       const dom = document.documentElement;
-      if (!dom.kupThemes['showcaseDemo']) {
-        dom.kupThemes['showcaseDemo'] = dom.kupCurrentTheme;
-      }
+      this.initTheme();
 
-      dom.kupThemes['showcaseDemo'].customStyles[e.target.id.toUpperCase()] =
+      dom.kupThemes['showcaseDemo']['customStyles'][e.target.id.toUpperCase()] =
         e.detail.value;
 
       this.refreshThemes();
@@ -994,14 +988,31 @@ export default {
 
     updateThemeIcons(e) {
       const dom = document.documentElement;
-      if (!dom.kupThemes['showcaseDemo']) {
-        dom.kupThemes['showcaseDemo'] = dom.kupCurrentTheme;
-      }
+      this.initTheme();
 
-      dom.kupThemes['showcaseDemo'].icons['--kup-' + e.target.id] =
+      dom.kupThemes['showcaseDemo']['icons']['--kup-' + e.target.id] =
         e.detail.value;
 
       this.refreshThemes();
+    },
+
+    initTheme() {
+      const dom = document.documentElement;
+
+      if (!dom.kupThemes['showcaseDemo']) {
+        dom.kupThemes['showcaseDemo'] = JSON.parse(
+          JSON.stringify(dom.kupCurrentTheme)
+        );
+        if (!dom.kupThemes['showcaseDemo'].cssVariables) {
+          dom.kupThemes['showcaseDemo'].cssVariables = {};
+        }
+        if (!dom.kupThemes['showcaseDemo'].customStyles) {
+          dom.kupThemes['showcaseDemo'].customStyles = {};
+        }
+        if (!dom.kupThemes['showcaseDemo'].icons) {
+          dom.kupThemes['showcaseDemo'].icons = {};
+        }
+      }
     },
 
     refreshThemes() {
