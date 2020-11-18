@@ -1081,7 +1081,7 @@ export namespace Components {
     }
     interface KupQlik {
         /**
-          * Set Qlik App's istance would you like to use (!!!ALLERT!!! if you have already set appid app's istance will be generated again)
+          * Set Qlik App's istance would you like to use (!!!ALLERT!!! if you have already set appid app's istance will be NOT generated again)
          */
         "app": any;
         /**
@@ -1093,27 +1093,27 @@ export namespace Components {
          */
         "bordered": boolean;
         /**
-          * Set Qlik Server's connection parameters {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
+          * Set Qlik Server's connection parameters MUST be delcared to open apps {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
          */
         "config": QlikServer;
+        /**
+          * Activate logging  Default false
+         */
+        "debug": boolean;
         /**
           * Set default obj's container pixel height
          */
         "defobjsize": string;
         /**
-          * Do connection to Qlik Sever, if you have more component only one must have doconnection = "true"
-         */
-        "doconnection": boolean;
-        /**
           * Define width of grid, with true width = 100% responsive, false 1200px
          */
         "fluid": boolean;
         /**
-          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 10 where 10 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL   Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L'         },         {             obj:'JjSaVm', colDim:5, size:'S'         }     ]   } ] }
+          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 12 where 12 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL         noSelections --> define if selections in object are disable (default: false) Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L', noSelections:<true/flase>         },         {             obj:'JjSaVm', colDim:5, size:'S', noSelections:<true/flase>         }     ]   } ] }
          */
         "grid": Array<KupQlikGrid>;
         /**
-          * System prop
+          * Set Qlik Server istance would you like to use after connection
          */
         "qlik": any;
     }
@@ -3123,7 +3123,7 @@ declare namespace LocalJSX {
     }
     interface KupQlik {
         /**
-          * Set Qlik App's istance would you like to use (!!!ALLERT!!! if you have already set appid app's istance will be generated again)
+          * Set Qlik App's istance would you like to use (!!!ALLERT!!! if you have already set appid app's istance will be NOT generated again)
          */
         "app"?: any;
         /**
@@ -3135,27 +3135,27 @@ declare namespace LocalJSX {
          */
         "bordered"?: boolean;
         /**
-          * Set Qlik Server's connection parameters {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
+          * Set Qlik Server's connection parameters MUST be delcared to open apps {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
          */
         "config"?: QlikServer;
+        /**
+          * Activate logging  Default false
+         */
+        "debug"?: boolean;
         /**
           * Set default obj's container pixel height
          */
         "defobjsize"?: string;
         /**
-          * Do connection to Qlik Sever, if you have more component only one must have doconnection = "true"
-         */
-        "doconnection"?: boolean;
-        /**
           * Define width of grid, with true width = 100% responsive, false 1200px
          */
         "fluid"?: boolean;
         /**
-          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 10 where 10 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL   Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L'         },         {             obj:'JjSaVm', colDim:5, size:'S'         }     ]   } ] }
+          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 12 where 12 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL         noSelections --> define if selections in object are disable (default: false) Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L', noSelections:<true/flase>         },         {             obj:'JjSaVm', colDim:5, size:'S', noSelections:<true/flase>         }     ]   } ] }
          */
         "grid"?: Array<KupQlikGrid>;
         /**
-          * System prop
+          * Set Qlik Server istance would you like to use after connection
          */
         "qlik"?: any;
     }
