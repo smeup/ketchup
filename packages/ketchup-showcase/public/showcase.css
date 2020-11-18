@@ -168,6 +168,10 @@ i.v-icon.material-icons {
   flex-wrap: wrap;
 }
 
+#theme-container {
+  margin-bottom: 0;
+}
+
 .kup-container-fw {
   display: block;
   margin: 30px 0;
@@ -543,8 +547,8 @@ table.instruction-table th {
   z-index: 130;
 }
 
-#sample-wrapper.theming {
-  overflow: auto;
+#sample-wrapper.theming #sample-specs {
+  width: 100%;
 }
 
 #sample-wrapper.detached {

@@ -15,7 +15,11 @@
 <script>
 export default {
   mounted() {
-    getThemes();
+    if (!document.documentElement.kupCurrentTheme) {
+      document.addEventListener('kupThemeChanged', getThemes);
+    } else {
+      getThemes();
+    }
   },
   name: 'ThemingTemplates',
 };
@@ -27,15 +31,11 @@ function setTheme(themeID) {
 
 function getThemes() {
   const dom = document.documentElement;
-  if (!dom.kupCurrentTheme) {
-    //Waiting for kup themes initialization...
-    setTimeout(getThemes, 250);
-    return;
-  }
+  const themeContainer = document.querySelector('#theme-container');
+
   for (let key in dom.kupThemes) {
     if (key !== 'test') {
       var variables = dom.kupThemes[key].cssVariables;
-      let themeContainer = document.querySelector('#theme-container');
       let themeWrapper = document.createElement('div');
       let themeImage = document.createElement('kup-image');
       let themeText = document.createElement('div');
@@ -62,5 +62,6 @@ function getThemes() {
       themeContainer.append(themeWrapper);
     }
   }
+  document.removeEventListener('kupThemeChanged', getThemes);
 }
 </script>

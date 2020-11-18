@@ -4,31 +4,31 @@
       <theming-basic></theming-basic>
     </template>
     <template v-slot:1>
-      <theming-list></theming-list>
+      <theming-templates></theming-templates>
     </template>
     <template v-slot:2>
-      <theming-templates></theming-templates>
+      <theming-variables></theming-variables>
     </template>
   </comp>
 </template>
 
 <script>
 import ThemingBasic from '@/views/css/theming/examples/ThemingBasic';
-import ThemingList from '@/views/css/theming/examples/ThemingList';
 import ThemingTemplates from '@/views/css/theming/examples/ThemingTemplates';
+import ThemingVariables from '@/views/css/theming/examples/ThemingVariables';
 import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
   components: {
     ThemingBasic,
-    ThemingList,
     ThemingTemplates,
+    ThemingVariables,
     Comp,
   },
   data() {
     return {
       headtitle: 'Theming',
-      titles: ['Basic usage', 'List of CSS variables', 'List of templates'],
+      titles: ['Basic usage', 'List of templates', 'Variables'],
     };
   },
 };
