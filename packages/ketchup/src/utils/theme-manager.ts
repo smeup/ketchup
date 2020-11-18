@@ -110,7 +110,7 @@ function setupIcons() {
             let val = `url('${getAssetPath(
                 `./assets/svg/${icons[key]}.svg`
             )}') no-repeat center`;
-            dom.style.setProperty('--kup-' + key, val);
+            dom.style.setProperty(key, val);
         }
     }
 }

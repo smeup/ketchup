@@ -31,12 +31,12 @@
             "--kup-obj-cursor": "inherit"
         },
         "icons": {
-            "ascending-icon": "arrow_drop_up",
-            "descending-icon": "arrow_drop_down",
-            "expanded-icon": "arrow_drop_down",
-            "collapsed-icon": "menu-right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
+            "--kup-ascending-icon": "arrow_drop_up",
+            "--kup-descending-icon": "arrow_drop_down",
+            "--kup-expanded-icon": "arrow_drop_down",
+            "--kup-collapsed-icon": "menu-right",
+            "--kup-clear-icon": "cancel",
+            "--kup-filter-remove-icon": "filter-remove"
         }
     },
     "dark": {
@@ -71,12 +71,12 @@
             "--kup-obj-cursor": "inherit"
         },
         "icons": {
-            "ascending-icon": "arrow_drop_up",
-            "descending-icon": "arrow_drop_down",
-            "expanded-icon": "arrow_drop_down",
-            "collapsed-icon": "menu-right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
+            "--kup-ascending-icon": "arrow_drop_up",
+            "--kup-descending-icon": "arrow_drop_down",
+            "--kup-expanded-icon": "arrow_drop_down",
+            "--kup-collapsed-icon": "menu-right",
+            "--kup-clear-icon": "cancel",
+            "--kup-filter-remove-icon": "filter-remove"
         }
     },
     "flamingo": {
@@ -111,12 +111,12 @@
             "--kup-obj-cursor": "inherit"
         },
         "icons": {
-            "ascending-icon": "arrow_drop_up",
-            "descending-icon": "arrow_drop_down",
-            "expanded-icon": "arrow_drop_down",
-            "collapsed-icon": "menu-right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
+            "--kup-ascending-icon": "arrow_drop_up",
+            "--kup-descending-icon": "arrow_drop_down",
+            "--kup-expanded-icon": "arrow_drop_down",
+            "--kup-collapsed-icon": "menu-right",
+            "--kup-clear-icon": "cancel",
+            "--kup-filter-remove-icon": "filter-remove"
         }
     },
     "graphite": {
@@ -160,12 +160,12 @@
             "KUP-BUTTON": "#kup-component button { text-transform: unset; }"
         },
         "icons": {
-            "ascending-icon": "arrow_drop_up",
-            "descending-icon": "arrow_drop_down",
-            "expanded-icon": "arrow_drop_down",
-            "collapsed-icon": "menu-right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
+            "--kup-ascending-icon": "arrow_drop_up",
+            "--kup-descending-icon": "arrow_drop_down",
+            "--kup-expanded-icon": "arrow_drop_down",
+            "--kup-collapsed-icon": "menu-right",
+            "--kup-clear-icon": "cancel",
+            "--kup-filter-remove-icon": "filter-remove"
         }
     },
     "IBMh2o": {
@@ -200,12 +200,12 @@
             "--kup-obj-cursor": "inherit"
         },
         "icons": {
-            "ascending-icon": "sort-ascending",
-            "descending-icon": "sort-descending",
-            "expanded-icon": "chevron-down",
-            "collapsed-icon": "chevron_right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
+            "--kup-ascending-icon": "sort-ascending",
+            "--kup-descending-icon": "sort-descending",
+            "--kup-expanded-icon": "chevron-down",
+            "--kup-collapsed-icon": "chevron_right",
+            "--kup-clear-icon": "cancel",
+            "--kup-filter-remove-icon": "filter-remove"
         }
     },
     "ketchup": {
@@ -240,12 +240,12 @@
             "--kup-obj-cursor": "inherit"
         },
         "icons": {
-            "ascending-icon": "sort-ascending",
-            "descending-icon": "sort-descending",
-            "expanded-icon": "chevron-down",
-            "collapsed-icon": "chevron_right",
-            "clear-icon": "clear",
-            "filter-remove-icon": "filter-remove"
+            "--kup-ascending-icon": "sort-ascending",
+            "--kup-descending-icon": "sort-descending",
+            "--kup-expanded-icon": "chevron-down",
+            "--kup-collapsed-icon": "chevron_right",
+            "--kup-clear-icon": "clear",
+            "--kup-filter-remove-icon": "filter-remove"
         }
     },
     "ocean": {
@@ -280,12 +280,12 @@
             "--kup-obj-cursor": "inherit"
         },
         "icons": {
-            "ascending-icon": "arrow_drop_up",
-            "descending-icon": "arrow_drop_down",
-            "expanded-icon": "arrow_drop_down",
-            "collapsed-icon": "menu-right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
+            "--kup-ascending-icon": "arrow_drop_up",
+            "--kup-descending-icon": "arrow_drop_down",
+            "--kup-expanded-icon": "arrow_drop_down",
+            "--kup-collapsed-icon": "menu-right",
+            "--kup-clear-icon": "cancel",
+            "--kup-filter-remove-icon": "filter-remove"
         }
     },
     "print": {
@@ -331,12 +331,12 @@
             "KUP-DATA-TABLE": "#kup-component .paginator-wrapper { display: none; } #kup-component .above-wrapper { display: none; } #kup-component #global-filter { display: none; } #kup-component sticky-header { display: none; } #kup-component #group-chips { display: none; }"
         },
         "icons": {
-            "ascending-icon": "arrow_drop_up",
-            "descending-icon": "arrow_drop_down",
-            "expanded-icon": "arrow_drop_down",
-            "collapsed-icon": "menu-right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
+            "--kup-ascending-icon": "arrow_drop_up",
+            "--kup-descending-icon": "arrow_drop_down",
+            "--kup-expanded-icon": "arrow_drop_down",
+            "--kup-collapsed-icon": "menu-right",
+            "--kup-clear-icon": "cancel",
+            "--kup-filter-remove-icon": "filter-remove"
         }
     },
     "teal": {
@@ -377,12 +377,12 @@
             "--kup-obj-cursor": "inherit"
         },
         "icons": {
-            "ascending-icon": "arrow_drop_up",
-            "descending-icon": "arrow_drop_down",
-            "expanded-icon": "arrow_drop_down",
-            "collapsed-icon": "menu-right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
+            "--kup-ascending-icon": "arrow_drop_up",
+            "--kup-descending-icon": "arrow_drop_down",
+            "--kup-expanded-icon": "arrow_drop_down",
+            "--kup-collapsed-icon": "menu-right",
+            "--kup-clear-icon": "cancel",
+            "--kup-filter-remove-icon": "filter-remove"
         }
     },
     "wildlife": {
@@ -417,12 +417,12 @@
             "--kup-obj-cursor": "inherit"
         },
         "icons": {
-            "ascending-icon": "arrow_drop_up",
-            "descending-icon": "arrow_drop_down",
-            "expanded-icon": "arrow_drop_down",
-            "collapsed-icon": "menu-right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
+            "--kup-ascending-icon": "arrow_drop_up",
+            "--kup-descending-icon": "arrow_drop_down",
+            "--kup-expanded-icon": "arrow_drop_down",
+            "--kup-collapsed-icon": "menu-right",
+            "--kup-clear-icon": "cancel",
+            "--kup-filter-remove-icon": "filter-remove"
         }
     },
     "test": {
@@ -485,12 +485,12 @@
             "KUP-TREE": "#kup-component { border: 1px solid var(--kup-border-color); }"
         },
         "icons": {
-            "ascending-icon": "sort-ascending",
-            "descending-icon": "sort-descending",
-            "expanded-icon": "chevron-down",
-            "collapsed-icon": "chevron_right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "broom"
+            "--kup-ascending-icon": "sort-ascending",
+            "--kup-descending-icon": "sort-descending",
+            "--kup-expanded-icon": "chevron-down",
+            "--kup-collapsed-icon": "chevron_right",
+            "--kup-clear-icon": "cancel",
+            "--kup-filter-remove-icon": "broom"
         }
     }
 }
