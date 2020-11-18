@@ -219,18 +219,40 @@ export function colorCheck(color: string) {
     if (color.substr(0, 1) === '#') {
         let oldColor = color;
         let rgbColor = hexToRgb(color);
-        color = 'rgb(' + rgbColor.r + ',' + rgbColor.g + ',' + rgbColor.b + ')';
-        logMessage(
-            'theme manager',
-            'Received HEX color ' + oldColor + ', converted to ' + color + '.'
-        );
+        try {
+            color =
+                'rgb(' + rgbColor.r + ',' + rgbColor.g + ',' + rgbColor.b + ')';
+            logMessage(
+                'theme manager',
+                'Received HEX color ' +
+                    oldColor +
+                    ', converted to ' +
+                    color +
+                    '.'
+            );
+        } catch (error) {
+            logMessage(
+                'theme-manager',
+                'Invalid color: ' + color + '.',
+                'warning'
+            );
+        }
     }
 
     let rgbValues: string = undefined;
     var values = color.match(
         /rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/
     );
-    rgbValues = values[1] + ',' + values[2] + ',' + values[3];
+
+    try {
+        rgbValues = values[1] + ',' + values[2] + ',' + values[3];
+    } catch (error) {
+        logMessage(
+            'theme-manager',
+            'Color not converted to rgb values: ' + color + '.',
+            'warning'
+        );
+    }
 
     return { rgbColor: color, rgbValues: rgbValues };
 }
