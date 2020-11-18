@@ -2440,10 +2440,12 @@ export class KupDataTable {
                                 ) &&
                                 this.columnsAreBeingDragged
                             ) {
-                                e.preventDefault(); // Mandatory to allow drop
+                                // e.preventDefault(); // Mandatory to allow drop
                                 setDragEffectAllowed(e, 'move');
+                                return true;
                             } else {
                                 setDragEffectAllowed(e, 'none');
+                                return false;
                             }
                         }
                     },
@@ -2484,8 +2486,8 @@ export class KupDataTable {
                         onMouseUp={sortEventHandler}
                         {...(this.enableSortableColumns
                             ? setKetchupDraggable(dragHandlers, {
-                                  KupDataTableColumnDragType: column,
-                                  'kup-drop-source-element': column.obj,
+                                  [KupDataTableColumnDragType]: column,
+                                  'kup-drop-source-element': column,
                               })
                             : {})}
                         {...(this.enableSortableColumns

@@ -28,7 +28,7 @@ if ('ontouchstart' in document) {
 export interface DragHandlers {
     onDragStart: (e: DragEvent) => void;
     onDragLeave?: (e: DragEvent) => void;
-    onDragOver?: (e: DragEvent) => void;
+    onDragOver?: (e: DragEvent) => boolean;
     onDragEnd?: (e: DragEvent) => void;
 }
 
@@ -54,13 +54,14 @@ interface ImageData {
     offsetY: number;
 }
 
-interface DropTargetElement {
+type DropTargetElement<T extends any> = T & {
+    // TODO check with FB. Actually I can't know what is T
     obj: {
         t: string;
         p: string;
         k: string;
     };
-}
+};
 
 // additional: T; // TODO: ask Paolo how to spread generic properties from a type
 /**
@@ -93,11 +94,18 @@ export function setKetchupDraggable(
         handlers.onDragStart(e);
     };
 
+    const onDragOver = (e: DragEvent) => {
+        // TODO ask to FB if I have to do this in DropHandlers. And ask him to re-explain the reasons about two dragOver (and dragLeave)
+        if (handlers.onDragOver(e)) {
+            e.preventDefault();
+        }
+    };
+
     return {
         draggable: true,
         onDragStart,
         ...(handlers.onDragLeave ? { onDragLeave: handlers.onDragLeave } : {}),
-        ...(handlers.onDragOver ? { onDragOver: handlers.onDragOver } : {}),
+        onDragOver,
         ...(handlers.onDragEnd ? { onDragEnd: handlers.onDragEnd } : {}),
     };
 }
@@ -106,7 +114,7 @@ export function setKetchupDroppable(
     handlers: DropHandlers,
     acceptedDataTypes: string[],
     dispatcherElement: HTMLElement,
-    targetElement: DropTargetElement
+    targetElement: DropTargetElement<any> // TODO as above. Check with FB
 ) {
     const onDrop = (e: DragEvent) => {
         // Searches for accepted data types
@@ -119,15 +127,26 @@ export function setKetchupDroppable(
             acceptedDataTypesFound.length >= 1 &&
             handlers.onDrop(e, acceptedDataTypesFound)
         ) {
-            // TODO: fire ketchup event for the accomplished drag & drop operation
+            let sourceElement;
+            try {
+                sourceElement = JSON.parse(
+                    e.dataTransfer.getData('kup-drop-source-element')
+                );
+            } catch (error) {
+                console.log(
+                    'Error during the kup-drop-source-element parsing',
+                    error
+                );
+                sourceElement = e.dataTransfer.getData(
+                    'kup-drop-source-element'
+                ); // TODO The error means that the data is a String, right? Ask to FB
+            }
             const ketchupDropEvent = new CustomEvent('kup-drop', {
                 bubbles: true,
                 cancelable: true,
                 detail: {
-                    dataType: '',
-                    sourceElement: JSON.parse(
-                        e.dataTransfer.getData('kup-drop-source-element')
-                    ), // TODO: this must us a try catch statement
+                    dataType: '', // TODO Ask to FB about this content. Must add another params for it?
+                    sourceElement,
                     targetElement,
                 },
             });
