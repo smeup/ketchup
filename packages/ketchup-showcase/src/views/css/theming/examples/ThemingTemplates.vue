@@ -34,7 +34,7 @@ function getThemes() {
   const themeContainer = document.querySelector('#theme-container');
 
   for (let key in dom.kupThemes) {
-    if (key !== 'test') {
+    if (key !== 'test' && key !== 'showcaseDemo') {
       var variables = dom.kupThemes[key].cssVariables;
       let themeWrapper = document.createElement('div');
       let themeImage = document.createElement('kup-image');

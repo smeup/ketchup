@@ -1,9 +1,14 @@
 <template>
   <div>
     <p>
-      In this section you can see the variables for the current theme and you
-      can customize them.
+      In this section you can create your theme. <br />Choose a template to
+      start from, then start editing your variables.
     </p>
+    <div id="theme-container-demo" class="kup-container"></div>
+    <div id="theme-action-demo">
+      <kup-button icon="download" />
+      <kup-button icon="delete"
+    /></div>
     <div id="sample-wrapper" class="theming">
       <div id="sample-specs">
         <kup-tab-bar
@@ -941,6 +946,14 @@
                 </td> </tr
             ></tbody>
           </table>
+          <div id="json-tab" class="sample-section" style="display: none">
+            <textarea id="json-textarea" style="display: none"></textarea>
+            <kup-button
+              id="json-warning"
+              icon="warning"
+              title="Invalid JSON. Theme not set."
+            ></kup-button>
+          </div>
         </div>
       </div>
     </div>
@@ -949,7 +962,7 @@
 
 <script>
 export default {
-  name: 'ThemingVariables',
+  name: 'ThemingCreator',
   data() {
     return {
       tabs: [
@@ -961,6 +974,10 @@ export default {
         },
         {
           text: 'Icons',
+        },
+        {
+          text: 'JSON',
+          icon: 'json',
         },
       ],
     };
@@ -1013,6 +1030,11 @@ export default {
           dom.kupThemes['showcaseDemo'].icons = {};
         }
       }
+
+      const tile = document.querySelector('#showcaseDemo');
+      if (!tile) {
+        createTile();
+      }
     },
 
     refreshThemes() {
@@ -1020,6 +1042,7 @@ export default {
 
       dom.setAttribute('kup-theme', 'ketchup');
       dom.setAttribute('kup-theme', 'showcaseDemo');
+      updateTile();
     },
 
     handleTab(e) {
@@ -1028,10 +1051,12 @@ export default {
       let cssVariablesTab = document.querySelector('#css-variables-tab');
       let customStyleTab = document.querySelector('#customstyle-tab');
       let iconsTab = document.querySelector('#icons-tab');
+      let jsonTab = document.querySelector('#json-tab');
 
       cssVariablesTab.setAttribute('style', 'display: none;');
       customStyleTab.setAttribute('style', 'display: none;');
       iconsTab.setAttribute('style', 'display: none;');
+      jsonTab.setAttribute('style', 'display: none;');
 
       switch (tabBar.data[i].text) {
         case 'CSS variables':
@@ -1043,15 +1068,22 @@ export default {
         case 'Icons':
           iconsTab.setAttribute('style', '');
           break;
+        case 'JSON':
+          jsonTab.setAttribute('style', '');
+          this.initTheme();
+          jsonSet();
+          break;
       }
     },
   },
 
   destroyed() {
     document.removeEventListener('kupThemeChanged', initDemo);
+    document.removeEventListener('kupThemeChanged', jsonSet);
   },
 
   mounted() {
+    const dom = document.documentElement;
     let customStyleTab = document.querySelector('#customstyle-tab');
     let iconsTab = document.querySelector('#icons-tab');
 
@@ -1063,12 +1095,22 @@ export default {
     } else {
       initDemo();
     }
+
+    document.addEventListener('kupThemeChanged', jsonSet);
   },
 };
 
 function initDemo() {
-  const theme = document.documentElement.kupCurrentTheme;
+  const dom = document.documentElement;
+  const theme = dom.kupCurrentTheme;
   const fields = document.querySelectorAll('#sample-comp kup-text-field');
+  const tile = document.querySelector('#showcaseDemo');
+
+  if (tile) {
+    updateTile();
+  } else if (dom.kupThemes['showcaseDemo']) {
+    createTile();
+  }
 
   for (let index = 0; index < fields.length; index++) {
     fields[index].customStyle = undefined;
@@ -1115,5 +1157,81 @@ function initDemo() {
       console.warn("Couldn't set field for icon '" + key + "'.");
     }
   }
+}
+
+function jsonSet() {
+  const dom = document.documentElement;
+  let jsonWarning = document.querySelector('#json-warning');
+  let jsonTextarea = document.querySelector('#json-textarea');
+  let codemirrorTextarea = document.querySelector('#json-tab .CodeMirror');
+  jsonTextarea.value = JSON.stringify(dom.kupCurrentTheme, null, 2);
+  if (codemirrorTextarea) {
+    codemirrorTextarea.remove();
+  }
+  CodeMirror.fromTextArea(jsonTextarea, {
+    mode: { name: 'javascript', json: true },
+    lineNumbers: true,
+    lineWrapping: true,
+    foldGutter: true,
+    gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+  }).on('change', function (cm) {
+    cm.save();
+    try {
+      let jsonifiedData = JSON.parse(jsonTextarea.value);
+      dom.kupCurrentTheme = jsonifiedData;
+      dom.setAttribute('kup-theme', 'ketchup');
+      dom.setAttribute('kup-theme', 'showcaseDemo');
+      jsonWarning.classList.remove('visible');
+    } catch (error) {
+      jsonWarning.classList.add('visible');
+    }
+  });
+}
+
+function createTile() {
+  const dom = document.documentElement;
+  const themeContainer = document.querySelector('#theme-container-demo');
+  let themeWrapper = document.createElement('div');
+  let themeImage = document.createElement('kup-image');
+  let themeText = document.createElement('div');
+  themeWrapper.classList.add('icon-wrapper');
+  themeWrapper.classList.add('theme-wrapper');
+  themeWrapper.id = 'showcaseDemo';
+  themeWrapper.onclick = function () {
+    setDemoTheme();
+  };
+  themeImage.sizeX = '70px';
+  themeImage.sizeY = '70px';
+  themeImage.resource = 'widgets';
+  themeText.classList.add('icon-label');
+  themeText.innerText = 'Your theme!';
+  themeText.style.letterSpacing = '1.5px';
+  themeWrapper.append(themeImage);
+  themeWrapper.append(themeText);
+  themeContainer.append(themeWrapper);
+  updateTile();
+}
+
+function updateTile() {
+  const dom = document.documentElement;
+  var variables = dom.kupThemes['showcaseDemo'].cssVariables;
+  let themeWrapper = document.querySelector('#showcaseDemo');
+  let themeImage = document.querySelector('#showcaseDemo kup-image');
+  let themeText = document.querySelector('#showcaseDemo .icon-label');
+  if (variables) {
+    themeWrapper.style.backgroundColor = variables['--kup-background-color'];
+    themeWrapper.style.borderColor = variables['--kup-border-color'];
+    themeImage.color = variables['--kup-main-color'];
+    themeText.style.color = variables['--kup-text-color'];
+    themeText.style.fontFamily = variables['--kup-font-family'];
+    themeText.style.fontSize = variables['--kup-font-size'];
+  }
+  const actions = document.querySelector('#theme-action-demo');
+  actions.classList.add('visible');
+}
+
+function setDemoTheme() {
+  let dom = document.documentElement;
+  dom.setAttribute('kup-theme', 'showcaseDemo');
 }
 </script>

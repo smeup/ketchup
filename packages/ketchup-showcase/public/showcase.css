@@ -168,8 +168,19 @@ i.v-icon.material-icons {
   flex-wrap: wrap;
 }
 
-#theme-container {
-  margin-bottom: 0;
+#theme-container,
+#theme-container-demo {
+  margin: 0;
+  width: 100%;
+}
+
+#theme-action-demo {
+  display: none;
+}
+
+#theme-action-demo.visible {
+  display: flex;
+  justify-content: center;
 }
 
 .kup-container-fw {
@@ -549,6 +560,10 @@ table.instruction-table th {
 
 #sample-wrapper.theming #sample-specs {
   width: 100%;
+}
+
+#sample-wrapper.theming #sample-comp {
+  height: calc(100% - 36px);
 }
 
 #sample-wrapper.detached {

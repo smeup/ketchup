@@ -7,7 +7,7 @@
       <theming-templates></theming-templates>
     </template>
     <template v-slot:2>
-      <theming-variables></theming-variables>
+      <theming-creator></theming-creator>
     </template>
   </comp>
 </template>
@@ -15,20 +15,20 @@
 <script>
 import ThemingBasic from '@/views/css/theming/examples/ThemingBasic';
 import ThemingTemplates from '@/views/css/theming/examples/ThemingTemplates';
-import ThemingVariables from '@/views/css/theming/examples/ThemingVariables';
+import ThemingCreator from '@/views/css/theming/examples/ThemingCreator';
 import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
   components: {
     ThemingBasic,
     ThemingTemplates,
-    ThemingVariables,
+    ThemingCreator,
     Comp,
   },
   data() {
     return {
       headtitle: 'Theming',
-      titles: ['Basic usage', 'List of templates', 'Variables'],
+      titles: ['Basic usage', 'List of templates', 'Create your theme'],
     };
   },
 };
