@@ -37,7 +37,7 @@
                   <kup-text-field
                     full-width
                     id="main-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -53,7 +53,7 @@
                   <kup-text-field
                     full-width
                     id="background-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -69,7 +69,7 @@
                   <kup-text-field
                     full-width
                     id="nav-bar-background-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -85,7 +85,7 @@
                   <kup-text-field
                     full-width
                     id="drawer-background-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -106,7 +106,7 @@
                   <kup-text-field
                     full-width
                     id="font-family"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -125,7 +125,7 @@
                   <kup-text-field
                     full-width
                     id="font-family-monospace"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -145,7 +145,7 @@
                   <kup-text-field
                     full-width
                     id="font-size"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -161,7 +161,7 @@
                   <kup-text-field
                     full-width
                     id="text-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -180,7 +180,7 @@
                   <kup-text-field
                     full-width
                     id="text-on-main-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -200,7 +200,7 @@
                   <kup-text-field
                     full-width
                     id="disabled-background-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -216,7 +216,7 @@
                   <kup-text-field
                     full-width
                     id="disabled-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -232,7 +232,7 @@
                   <kup-text-field
                     full-width
                     id="hover-background-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -252,7 +252,7 @@
                   <kup-text-field
                     full-width
                     id="hover-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -271,7 +271,7 @@
                   <kup-text-field
                     full-width
                     id="title-background-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -287,7 +287,7 @@
                   <kup-text-field
                     full-width
                     id="title-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -306,7 +306,7 @@
                   <kup-text-field
                     full-width
                     id="icon-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -322,7 +322,7 @@
                   <kup-text-field
                     full-width
                     id="border-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -341,7 +341,7 @@
                   <kup-text-field
                     full-width
                     id="box-shadow"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -357,7 +357,7 @@
                   <kup-text-field
                     full-width
                     id="field-background-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -376,7 +376,7 @@
                   <kup-text-field
                     full-width
                     id="success-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -395,7 +395,7 @@
                   <kup-text-field
                     full-width
                     id="warning-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -414,7 +414,7 @@
                   <kup-text-field
                     full-width
                     id="danger-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -430,7 +430,7 @@
                   <kup-text-field
                     full-width
                     id="spinner-color"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -450,7 +450,7 @@
                   <kup-text-field
                     full-width
                     id="chart-color-1"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -470,7 +470,7 @@
                   <kup-text-field
                     full-width
                     id="chart-color-2"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -489,7 +489,7 @@
                   <kup-text-field
                     full-width
                     id="chart-color-3"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -509,7 +509,7 @@
                   <kup-text-field
                     full-width
                     id="chart-color-4"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -528,7 +528,7 @@
                   <kup-text-field
                     full-width
                     id="obj-cursor"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -550,7 +550,7 @@
                   <kup-text-field
                     full-width
                     id="master"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -562,7 +562,7 @@
                   <kup-text-field
                     full-width
                     id="kup-autocomplete"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -574,7 +574,7 @@
                   <kup-text-field
                     full-width
                     id="kup-badge"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -586,7 +586,7 @@
                   <kup-text-field
                     full-width
                     id="kup-button"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -598,7 +598,7 @@
                   <kup-text-field
                     full-width
                     id="kup-box"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -610,7 +610,7 @@
                   <kup-text-field
                     full-width
                     id="kup-card"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -622,7 +622,7 @@
                   <kup-text-field
                     full-width
                     id="kup-checkbox"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -634,7 +634,7 @@
                   <kup-text-field
                     full-width
                     id="kup-chip"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -646,7 +646,7 @@
                   <kup-text-field
                     full-width
                     id="kup-color-picker"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -658,7 +658,7 @@
                   <kup-text-field
                     full-width
                     id="kup-combobox"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -670,7 +670,7 @@
                   <kup-text-field
                     full-width
                     id="kup-data-table"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -682,7 +682,7 @@
                   <kup-text-field
                     full-width
                     id="kup-drawer"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -694,7 +694,7 @@
                   <kup-text-field
                     full-width
                     id="kup-field"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -706,7 +706,7 @@
                   <kup-text-field
                     full-width
                     id="kup-grid"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -718,7 +718,7 @@
                   <kup-text-field
                     full-width
                     id="kup-image"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -730,7 +730,7 @@
                   <kup-text-field
                     full-width
                     id="kup-lazy"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -742,7 +742,7 @@
                   <kup-text-field
                     full-width
                     id="kup-list"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -754,7 +754,7 @@
                   <kup-text-field
                     full-width
                     id="kup-nav-bar"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -766,7 +766,7 @@
                   <kup-text-field
                     full-width
                     id="kup-progress-bar"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -778,7 +778,7 @@
                   <kup-text-field
                     full-width
                     id="kup-radio"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -790,7 +790,7 @@
                   <kup-text-field
                     full-width
                     id="kup-rating"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -802,7 +802,7 @@
                   <kup-text-field
                     full-width
                     id="kup-spinner"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -814,7 +814,7 @@
                   <kup-text-field
                     full-width
                     id="kup-switch"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -826,7 +826,7 @@
                   <kup-text-field
                     full-width
                     id="kup-tab-bar"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -838,7 +838,7 @@
                   <kup-text-field
                     full-width
                     id="kup-text-field"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
               </tr>
@@ -850,7 +850,7 @@
                   <kup-text-field
                     full-width
                     id="kup-tree"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td> </tr></tbody
           ></table>
@@ -871,7 +871,7 @@
                   <kup-text-field
                     full-width
                     id="ascending-icon"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -884,7 +884,7 @@
                   <kup-text-field
                     full-width
                     id="descending-icon"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -897,7 +897,7 @@
                   <kup-text-field
                     full-width
                     id="expanded-icon"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -910,7 +910,7 @@
                   <kup-text-field
                     full-width
                     id="collapsed-icon"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -923,7 +923,7 @@
                   <kup-text-field
                     full-width
                     id="clear-icon"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeIcons"
                   ></kup-text-field>
                 </td>
               </tr>
@@ -936,7 +936,7 @@
                   <kup-text-field
                     full-width
                     id="filter-remove-icon"
-                    @kupTextFieldInput="updateCSS"
+                    @kupTextFieldInput="updateThemeIcons"
                   ></kup-text-field>
                 </td> </tr
             ></tbody>
@@ -966,11 +966,49 @@ export default {
     };
   },
   methods: {
-    updateCSS(e) {
-      var DOMEl = document.documentElement;
-      var varCSS = '--kup-' + e.target.id;
-      DOMEl.style.setProperty(varCSS, e.detail.value);
-      initDemo();
+    updateThemeVariable(e) {
+      const dom = document.documentElement;
+      if (!dom.kupThemes['showcaseDemo']) {
+        dom.kupThemes['showcaseDemo'] = JSON.parse(
+          JSON.stringify(dom.kupCurrentTheme)
+        );
+      }
+      console.log('ciao');
+      dom.kupThemes['showcaseDemo'].cssVariables['--kup-' + e.target.id] =
+        e.detail.value;
+
+      this.refreshThemes();
+    },
+
+    updateThemeCustomStyles(e) {
+      const dom = document.documentElement;
+      if (!dom.kupThemes['showcaseDemo']) {
+        dom.kupThemes['showcaseDemo'] = dom.kupCurrentTheme;
+      }
+
+      dom.kupThemes['showcaseDemo'].customStyles[e.target.id.toUpperCase()] =
+        e.detail.value;
+
+      this.refreshThemes();
+    },
+
+    updateThemeIcons(e) {
+      const dom = document.documentElement;
+      if (!dom.kupThemes['showcaseDemo']) {
+        dom.kupThemes['showcaseDemo'] = dom.kupCurrentTheme;
+      }
+
+      dom.kupThemes['showcaseDemo'].icons['--kup-' + e.target.id] =
+        e.detail.value;
+
+      this.refreshThemes();
+    },
+
+    refreshThemes() {
+      const dom = document.documentElement;
+
+      dom.setAttribute('kup-theme', 'ketchup');
+      dom.setAttribute('kup-theme', 'showcaseDemo');
     },
 
     handleTab(e) {
@@ -997,6 +1035,11 @@ export default {
       }
     },
   },
+
+  destroyed() {
+    document.removeEventListener('kupThemeChanged', initDemo);
+  },
+
   mounted() {
     let customStyleTab = document.querySelector('#customstyle-tab');
     let iconsTab = document.querySelector('#icons-tab');
@@ -1004,7 +1047,11 @@ export default {
     customStyleTab.setAttribute('style', 'display: none;');
     iconsTab.setAttribute('style', 'display: none;');
 
-    document.addEventListener('kupThemeChanged', initDemo);
+    if (!document.documentElement.kupCurrentTheme) {
+      document.addEventListener('kupThemeChanged', initDemo);
+    } else {
+      initDemo();
+    }
   },
 };
 
@@ -1013,6 +1060,8 @@ function initDemo() {
   const fields = document.querySelectorAll('#sample-comp kup-text-field');
 
   for (let index = 0; index < fields.length; index++) {
+    fields[index].customStyle = undefined;
+    fields[index].icon = undefined;
     fields[index].initialValue = '';
   }
 
@@ -1021,6 +1070,13 @@ function initDemo() {
     let variable = key.replace('--kup-', '');
     let field = cssVariablesTab.querySelector('#' + variable);
     try {
+      if (key.indexOf('color') > -1) {
+        field.icon = 'color_lens';
+        field.customStyle =
+          '#kup-component .icon-container { background-color: ' +
+          theme.cssVariables[key] +
+          ' }';
+      }
       field.initialValue = theme.cssVariables[key];
     } catch (error) {
       console.warn("Couldn't set field for variable '" + key + "'.");
@@ -1042,6 +1098,7 @@ function initDemo() {
     let variable = key.replace('--kup-', '');
     let field = iconsTab.querySelector('#' + variable);
     try {
+      field.icon = theme.icons[key];
       field.initialValue = theme.icons[key];
     } catch (error) {
       console.warn("Couldn't set field for icon '" + key + "'.");
