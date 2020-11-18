@@ -140,37 +140,37 @@ export class KupPaginator {
     private getRowsPerPageItems() {
         const rowsPerPageItems = [];
 
-        if (this.currentPage !== this.max) {
-            let i = this.perPage;
+        /*if (this.currentPage !== this.max) {*/
+        let i = this.perPage;
 
-            if (i === 0) {
-                return rowsPerPageItems;
-            }
+        if (i === 0) {
+            return rowsPerPageItems;
+        }
 
-            while (i < this.max) {
-                let selected = i == this.selectedPerPage;
-                rowsPerPageItems.push({
-                    text: i,
-                    value: i,
-                    selected: selected,
-                });
-                i = i * 2;
-            }
-
-            let selected = this.max == this.selectedPerPage;
-            // adding 'max' option
+        while (i < this.max) {
+            let selected = i == this.selectedPerPage;
             rowsPerPageItems.push({
-                text: this.max,
-                value: this.max,
+                text: i,
+                value: i,
                 selected: selected,
             });
-        } else {
+            i = i * 2;
+        }
+
+        let selected = this.max == this.selectedPerPage;
+        // adding 'max' option
+        rowsPerPageItems.push({
+            text: this.max,
+            value: this.max,
+            selected: selected,
+        });
+        /*} else {
             rowsPerPageItems.push({
                 text: this.perPage,
                 value: this.perPage,
                 selected: true,
             });
-        }
+        }*/
 
         return rowsPerPageItems;
     }
@@ -242,6 +242,7 @@ export class KupPaginator {
                             onKupComboboxTextFieldSubmit={(e) =>
                                 this.onPageChange(e)
                             }
+                            onKupComboboxBlur={(e) => this.onPageChange(e)}
                         />
                         <kup-button
                             icon="chevron_right"
@@ -262,6 +263,7 @@ export class KupPaginator {
                             onKupComboboxTextFieldSubmit={(e) =>
                                 this.onRowsPerPage(e)
                             }
+                            onKupComboboxBlur={(e) => this.onRowsPerPage(e)}
                         />
                         <slot name="right" />
                     </div>
