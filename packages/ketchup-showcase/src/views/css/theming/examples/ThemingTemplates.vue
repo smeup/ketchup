@@ -16,7 +16,7 @@
 export default {
   mounted() {
     if (!document.documentElement.kupCurrentTheme) {
-      document.addEventListener('kupThemeChanged', getThemes);
+      document.addEventListener('kupThemeChange', getThemes);
     } else {
       getThemes();
     }
@@ -62,6 +62,6 @@ function getThemes() {
       themeContainer.append(themeWrapper);
     }
   }
-  document.removeEventListener('kupThemeChanged', getThemes);
+  document.removeEventListener('kupThemeChange', getThemes);
 }
 </script>

@@ -39,7 +39,7 @@ function initThemes() {
 
                 let message = 'Theme ' + dom.kupCurrentTheme + ' refreshed.';
                 logMessage('theme manager', message);
-                let event = new CustomEvent('kupThemeRefreshed');
+                let event = new CustomEvent('kupThemeRefresh');
                 document.dispatchEvent(event);
             } catch (error) {
                 let message = 'Theme not refreshed.';
@@ -77,7 +77,7 @@ function setTheme() {
     setupIcons();
     setupCustomStyle();
 
-    var event = new CustomEvent('kupThemeChanged');
+    var event = new CustomEvent('kupThemeChange');
     document.dispatchEvent(event);
 }
 

@@ -11,8 +11,11 @@
     </p>
     <div id="theme-container-demo" class="kup-container"></div>
     <div id="theme-action-demo">
-      <kup-button icon="download" @kupButtonClick="downloadTheme" />
-      <kup-button icon="delete" @kupButtonClick="deleteTheme"
+      <kup-button
+        title="Download"
+        icon="download"
+        @kupButtonClick="downloadTheme" />
+      <kup-button title="Delete" icon="delete" @kupButtonClick="deleteTheme"
     /></div>
     <div id="sample-wrapper" class="theming">
       <div id="sample-specs">
@@ -1151,7 +1154,7 @@ export default {
   },
 
   destroyed() {
-    document.removeEventListener('kupThemeChanged', initDemo);
+    document.removeEventListener('kupThemeChange', initDemo);
   },
 
   mounted() {
@@ -1166,7 +1169,7 @@ export default {
       initDemo();
     }
 
-    document.addEventListener('kupThemeChanged', initDemo);
+    document.addEventListener('kupThemeChange', initDemo);
   },
 };
 
