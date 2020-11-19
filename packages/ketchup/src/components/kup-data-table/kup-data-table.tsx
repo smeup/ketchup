@@ -114,6 +114,8 @@ import {
     setKetchupDroppable,
     DragHandlers,
     DropHandlers,
+    setDragDropPayload,
+    getDragDropPayload,
 } from '../../utils/drag-and-drop';
 
 @Component({
@@ -2407,6 +2409,11 @@ export class KupDataTable {
                         );
                         this.theadRef.setAttribute(this.dragFlagAttribute, '');
                         this.columnsAreBeingDragged = true;
+
+                        // TODO set drag payload and get it in the other methods when need it
+                        // setDragDropPayload
+                        // getDragDropPayload
+                        // replace the used flags set with attribute
                     },
                     onDragLeave: (e: DragEvent) => {
                         if (
@@ -2433,6 +2440,10 @@ export class KupDataTable {
                                 this.dragOverAttribute,
                                 ''
                             );
+                            // TODO do it without using the element but with data like id, etc.
+                            setDragDropPayload({
+                                overElement,
+                            });
                             // If element can have a drop effect
                             if (
                                 !overElement.hasAttribute(
@@ -2440,7 +2451,6 @@ export class KupDataTable {
                                 ) &&
                                 this.columnsAreBeingDragged
                             ) {
-                                // e.preventDefault(); // Mandatory to allow drop
                                 setDragEffectAllowed(e, 'move');
                                 return true;
                             } else {
@@ -2450,12 +2460,19 @@ export class KupDataTable {
                         }
                     },
                     onDragEnd: (e: DragEvent) => {
-                        // When the drag has ended, checks if the element still exists or it was destroyed by the JSX
-                        const dragStarter = e.target as HTMLElement;
-                        if (dragStarter) {
-                            // IF it still exists, removes the attribute so that it can perform a new drag again
-                            dragStarter.removeAttribute(
+                        // When the drag has ended, checks if the element still exists or it was destroyed by JSX
+                        const targetElement = e.target as HTMLElement;
+                        if (targetElement) {
+                            // If it still exists, removes the attribute so that it can perform a new drag again
+                            targetElement.removeAttribute(
                                 this.dragStarterAttribute
+                            );
+                        }
+                        // Remove the over attribute
+                        const dragDropPayload = getDragDropPayload();
+                        if (dragDropPayload.overElement) {
+                            dragDropPayload.overElement.removeAttribute(
+                                this.dragOverAttribute
                             );
                         }
                         this.theadRef.removeAttribute(this.dragFlagAttribute);
@@ -2470,7 +2487,7 @@ export class KupDataTable {
                         // We are sure the tables have been dropped in a valid location -> starts sorting the columns
                         this.handleColumnSort(column, transferredData);
 
-                        return true;
+                        return KupDataTableColumnDragType;
                     },
                 };
 

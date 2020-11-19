@@ -34,8 +34,8 @@ export interface DragHandlers {
 
 export interface DropHandlers {
     onDragLeave?: (e: DragEvent) => void;
-    onDragOver?: (e: DragEvent) => void;
-    onDrop: (e: DragEvent, acceptedDataTypesFound: string[]) => boolean;
+    onDragOver?: (e: DragEvent) => boolean;
+    onDrop: (e: DragEvent, acceptedDataTypesFound: string[]) => string;
 }
 
 interface DragData {
@@ -54,8 +54,7 @@ interface ImageData {
     offsetY: number;
 }
 
-type DropTargetElement<T extends any> = T & {
-    // TODO check with FB. Actually I can't know what is T
+type DropTargetElement<T> = T & {
     obj: {
         t: string;
         p: string;
@@ -63,7 +62,34 @@ type DropTargetElement<T extends any> = T & {
     };
 };
 
-// additional: T; // TODO: ask Paolo how to spread generic properties from a type
+interface DragDropHolder {
+    dragPayload:
+        | undefined
+        | {
+              [index: string]: any; // This is used to support any data type
+          };
+}
+
+// TODO: payloadstructure to implement or remove
+const dragDropPayloadHolder: DragDropHolder = {
+    // fields used only by the D&D wrapper
+    // [...]
+    // The holder of the payload data
+    dragPayload: undefined,
+};
+
+export function getDragDropPayload() {
+    return dragDropPayloadHolder.dragPayload;
+}
+
+export function setDragDropPayload(dragPayload) {
+    dragDropPayloadHolder.dragPayload = dragPayload;
+}
+
+function _cleanDragDropPayload() {
+    dragDropPayloadHolder.dragPayload = undefined;
+}
+
 /**
  *
  */
@@ -73,6 +99,8 @@ export function setKetchupDraggable(
     image?: ImageData
 ) {
     const onDragStart = (e: DragEvent) => {
+        // clean the DragDropPlayload
+        _cleanDragDropPayload();
         // Sets drag data, the type of drag action, and the image
         Object.keys(data).forEach((key) => {
             e.dataTransfer.setData(
@@ -94,18 +122,20 @@ export function setKetchupDraggable(
         handlers.onDragStart(e);
     };
 
-    const onDragOver = (e: DragEvent) => {
-        // TODO ask to FB if I have to do this in DropHandlers. And ask him to re-explain the reasons about two dragOver (and dragLeave)
-        if (handlers.onDragOver(e)) {
-            e.preventDefault();
-        }
-    };
+    let onDragOver = undefined;
+    if (handlers.onDragOver) {
+        onDragOver = (e: DragEvent) => {
+            if (handlers.onDragOver(e)) {
+                e.preventDefault();
+            }
+        };
+    }
 
     return {
         draggable: true,
         onDragStart,
         ...(handlers.onDragLeave ? { onDragLeave: handlers.onDragLeave } : {}),
-        onDragOver,
+        ...(onDragOver ? { onDragOver } : {}),
         ...(handlers.onDragEnd ? { onDragEnd: handlers.onDragEnd } : {}),
     };
 }
@@ -114,7 +144,7 @@ export function setKetchupDroppable(
     handlers: DropHandlers,
     acceptedDataTypes: string[],
     dispatcherElement: HTMLElement,
-    targetElement: DropTargetElement<any> // TODO as above. Check with FB
+    targetElement: DropTargetElement<any>
 ) {
     const onDrop = (e: DragEvent) => {
         // Searches for accepted data types
@@ -123,9 +153,10 @@ export function setKetchupDroppable(
         );
 
         // If not accepted data types have been found, we stop the drop operation
+        let processedDataType = '';
         if (
             acceptedDataTypesFound.length >= 1 &&
-            handlers.onDrop(e, acceptedDataTypesFound)
+            !!(processedDataType = handlers.onDrop(e, acceptedDataTypesFound))
         ) {
             let sourceElement;
             try {
@@ -134,18 +165,18 @@ export function setKetchupDroppable(
                 );
             } catch (error) {
                 console.log(
-                    'Error during the kup-drop-source-element parsing',
+                    'Managed error during the kup-drop-source-element parsing',
                     error
                 );
                 sourceElement = e.dataTransfer.getData(
                     'kup-drop-source-element'
-                ); // TODO The error means that the data is a String, right? Ask to FB
+                );
             }
             const ketchupDropEvent = new CustomEvent('kup-drop', {
                 bubbles: true,
                 cancelable: true,
                 detail: {
-                    dataType: '', // TODO Ask to FB about this content. Must add another params for it?
+                    dataType: processedDataType,
                     sourceElement,
                     targetElement,
                 },
@@ -156,12 +187,35 @@ export function setKetchupDroppable(
         }
     };
 
+    let onDragOver = undefined;
+    if (handlers.onDragOver) {
+        onDragOver = (e: DragEvent) => {
+            if (handlers.onDragOver(e)) {
+                e.preventDefault();
+            }
+        };
+    }
+
     return {
-        ...(handlers.onDragOver ? { onDragOver: handlers.onDragOver } : {}),
+        ...(onDragOver ? { onDragOver } : {}),
         ...(handlers.onDragLeave ? { onDragLeave: handlers.onDragLeave } : {}),
         onDrop,
     };
 }
+
+/*
+TODO: Implement function to merge declarations of onDragLeave and onDragOver when an element must be both a draggable element and a drop zone.
+This is necessary to avoid launching twice the same code for both the event handlers (from drag and from drop).
+We have to write a function which will accept the payload to pass to setKetchupDraggable and setKetchupDroppable in addition with a third parameter.
+The third parameter is an object like this one: 
+{
+    dragOverHandlerMerge: Enum (draggableOnly, droppableOnly, both)
+    dragOverHandlerExecuteDroppableFirst: boolean = true
+    dragLeaveHandlerMerge: Enum (draggableOnly, droppableOnly, both)
+    dragLeaveHandlerExecuteDroppableFirst: boolean = true
+}
+In this way we can specify which event handlers we have to execute and/or merge in this common D&D zone, which is the whole point of this method.
+*/
 
 export function setDragEffectAllowed(
     e: DragEvent,
