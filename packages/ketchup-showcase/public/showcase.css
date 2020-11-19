@@ -535,6 +535,10 @@ table.instruction-table td.switch-cell {
 
 table.instruction-table th {
   font-weight: 600;
+  position: sticky;
+  top: 0;
+  background: var(--kup-background-color);
+  z-index: 1;
 }
 
 #sample-wrapper {
@@ -853,11 +857,13 @@ table.instruction-table th {
   opacity: 1;
   padding: 0.75rem;
   transition: all 0.25s;
+  z-index: 1;
 }
 
 .icon-wrapper.theme-wrapper:hover {
   box-shadow: var(--kup-box-shadow);
   transform: scale(1.25);
+  z-index: 2;
 }
 
 @media screen and (max-width: 767px) {
