@@ -326,7 +326,7 @@
             "--kup-obj-cursor": "inherit"
         },
         "customStyles": {
-            "master": "",
+            "MASTER": "",
             "KUP-BUTTON": "#kup-component { display: none; }",
             "KUP-DATA-TABLE": "#kup-component .paginator-wrapper { display: none; } #kup-component .above-wrapper { display: none; } #kup-component #global-filter { display: none; } #kup-component sticky-header { display: none; } #kup-component #group-chips { display: none; }"
         },
@@ -457,7 +457,7 @@
             "--kup-obj-cursor": "alias"
         },
         "customStyles": {
-            "master": "#kup-component { background-color: red; }",
+            "MASTER": "#kup-component { background-color: red; }",
             "KUP-AUTOCOMPLETE": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-BADGE": "#kup-component { border: 1px solid var(--kup-border-color); }",
             "KUP-BUTTON": "#kup-component { border: 1px solid var(--kup-border-color); }",

@@ -96,8 +96,7 @@ function setupCustomStyle() {
     for (let i = 0; i < components.length; i++) {
         if (components[i].isConnected) {
             components[i].refreshCustomStyle(
-                fetchThemeCustomStyle('master') +
-                    fetchThemeCustomStyle(components[i].tagName)
+                fetchThemeCustomStyle(components[i].tagName)
             );
         }
     }
@@ -122,19 +121,15 @@ export function fetchThemeCustomStyle(component: string) {
     }
     let completeStyle: string = '';
 
-    if (styles['master']) {
-        completeStyle = styles['master'];
+    if (styles['MASTER']) {
+        completeStyle += styles['MASTER'];
     }
 
     if (styles[component]) {
-        if (completeStyle) {
-            completeStyle += styles[component];
-        } else {
-            completeStyle = styles[component];
-        }
+        completeStyle += ' ' + styles[component];
     }
 
-    return completeStyle;
+    return completeStyle + ' ';
 }
 
 export function setThemeCustomStyle(component: any) {

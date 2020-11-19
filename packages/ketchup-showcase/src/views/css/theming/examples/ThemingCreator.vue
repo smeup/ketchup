@@ -554,7 +554,7 @@
             <tbody>
               <tr>
                 <td class="prevent-cr">
-                  <span class="code-word">master</span>
+                  <span class="code-word">MASTER</span>
                 </td>
                 <td class="text-cell">
                   <kup-text-field
