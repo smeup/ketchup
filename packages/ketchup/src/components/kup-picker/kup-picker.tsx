@@ -15,7 +15,7 @@ import {
 import { logLoad, logRender } from '../../utils/debug-manager';
 import { positionRecalc } from '../../utils/recalc-position';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import 'app-datepicker/dist/app-datepicker-dialog';
+import 'app-datepicker/dist/app-datepicker';
 import {
     formattedStringToDefaultUnformattedStringDate,
     getCurrentLocale,
