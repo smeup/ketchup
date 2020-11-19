@@ -1144,7 +1144,6 @@ export default {
 
   destroyed() {
     document.removeEventListener('kupThemeChanged', initDemo);
-    document.removeEventListener('kupThemeChanged', jsonSet);
   },
 
   mounted() {
@@ -1160,7 +1159,6 @@ export default {
     }
 
     document.addEventListener('kupThemeChanged', initDemo);
-    document.addEventListener('kupThemeChanged', jsonSet);
   },
 };
 
