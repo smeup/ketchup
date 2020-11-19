@@ -44,6 +44,7 @@ function getThemes() {
       themeWrapper.style.backgroundColor = variables['--kup-background-color'];
       themeWrapper.style.borderColor = variables['--kup-border-color'];
       themeWrapper.id = key;
+      themeWrapper.title = 'Toggle ' + key + ' theme';
       themeWrapper.onclick = function () {
         setTheme(themeWrapper.id);
       };

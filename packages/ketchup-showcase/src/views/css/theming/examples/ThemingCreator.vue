@@ -1035,7 +1035,7 @@ export default {
         e.detail.value +
         ' }';
 
-      this.refreshThemes();
+      this.refreshTheme();
     },
 
     updateThemeCustomStyles(e) {
@@ -1045,7 +1045,7 @@ export default {
       dom.kupThemes['showcaseDemo']['customStyles'][e.target.id.toUpperCase()] =
         e.detail.value;
 
-      this.refreshThemes();
+      this.refreshTheme();
     },
 
     updateThemeIcons(e) {
@@ -1056,7 +1056,7 @@ export default {
         e.detail.value;
       e.target.icon = e.detail.value;
 
-      this.refreshThemes();
+      this.refreshTheme();
     },
 
     initTheme() {
@@ -1110,7 +1110,7 @@ export default {
       delete dom.kupThemes['showcaseDemo'];
     },
 
-    refreshThemes() {
+    refreshTheme() {
       const dom = document.documentElement;
 
       if (dom.getAttribute('kup-theme') === 'showcaseDemo') {
@@ -1147,9 +1147,47 @@ export default {
         case 'JSON':
           jsonTab.setAttribute('style', '');
           this.initTheme();
-          jsonSet();
+          this.jsonSet();
           break;
       }
+    },
+
+    jsonSet() {
+      const dom = document.documentElement;
+      let jsonWarning = document.querySelector('#json-warning');
+      let jsonTextarea = document.querySelector('#json-textarea');
+      let codemirrorTextarea = document.querySelector('#json-tab .CodeMirror');
+      let stringifiedJSON = JSON.stringify(
+        dom.kupThemes['showcaseDemo'],
+        null,
+        2
+      );
+      if (jsonTextarea.value === stringifiedJSON) {
+        return;
+      } else {
+        jsonTextarea.value = stringifiedJSON;
+      }
+      if (codemirrorTextarea) {
+        codemirrorTextarea.remove();
+      }
+      CodeMirror.fromTextArea(jsonTextarea, {
+        mode: { name: 'javascript', json: true },
+        lineNumbers: true,
+        lineWrapping: true,
+        foldGutter: true,
+        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+      }).on('change', function (cm) {
+        cm.save();
+        try {
+          let jsonifiedData = JSON.parse(jsonTextarea.value);
+          dom.kupThemes['showcaseDemo'] = jsonifiedData;
+          dom.setAttribute('kup-theme', 'ketchup');
+          dom.setAttribute('kup-theme', 'showcaseDemo');
+          jsonWarning.classList.remove('visible');
+        } catch (error) {
+          jsonWarning.classList.add('visible');
+        }
+      });
     },
   },
 
@@ -1232,40 +1270,6 @@ function initDemo() {
   }
 }
 
-function jsonSet() {
-  const dom = document.documentElement;
-  let jsonWarning = document.querySelector('#json-warning');
-  let jsonTextarea = document.querySelector('#json-textarea');
-  let codemirrorTextarea = document.querySelector('#json-tab .CodeMirror');
-  let stringifiedJSON = JSON.stringify(dom.kupThemes['showcaseDemo'], null, 2);
-  if (jsonTextarea.value === stringifiedJSON) {
-    return;
-  } else {
-    jsonTextarea.value = stringifiedJSON;
-  }
-  if (codemirrorTextarea) {
-    codemirrorTextarea.remove();
-  }
-  CodeMirror.fromTextArea(jsonTextarea, {
-    mode: { name: 'javascript', json: true },
-    lineNumbers: true,
-    lineWrapping: true,
-    foldGutter: true,
-    gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-  }).on('change', function (cm) {
-    cm.save();
-    try {
-      let jsonifiedData = JSON.parse(jsonTextarea.value);
-      dom.kupThemes['showcaseDemo'] = jsonifiedData;
-      dom.setAttribute('kup-theme', 'ketchup');
-      dom.setAttribute('kup-theme', 'showcaseDemo');
-      jsonWarning.classList.remove('visible');
-    } catch (error) {
-      jsonWarning.classList.add('visible');
-    }
-  });
-}
-
 function createTile() {
   const dom = document.documentElement;
   const themeContainer = document.querySelector('#theme-container-demo');
@@ -1278,6 +1282,7 @@ function createTile() {
   themeWrapper.onclick = function () {
     setDemoTheme();
   };
+  themeWrapper.title = 'Toggle your theme';
   themeImage.sizeX = '70px';
   themeImage.sizeY = '70px';
   themeImage.resource = 'widgets';
