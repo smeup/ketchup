@@ -7,6 +7,7 @@ declare global {
         'kup-theme': any;
         kupCurrentTheme: any;
         kupCustomStyles: any;
+        kupRefreshTheme: any;
         kupThemes: any;
     }
 }
@@ -28,6 +29,23 @@ function initThemes() {
     }
     if (!dom.getAttribute('kup-theme')) {
         dom.setAttribute('kup-theme', 'ketchup');
+    }
+    if (!dom.kupRefreshTheme) {
+        dom.kupRefreshTheme = () => {
+            try {
+                setupCssVariables();
+                setupIcons();
+                setupCustomStyle();
+
+                let message = 'Theme ' + dom.kupCurrentTheme + ' refreshed.';
+                logMessage('theme manager', message);
+                let event = new CustomEvent('kupThemeRefreshed');
+                document.dispatchEvent(event);
+            } catch (error) {
+                let message = 'Theme not refreshed.';
+                logMessage('theme manager', message, 'warning');
+            }
+        };
     }
     dom.kupCustomStyles = [];
     setTheme();
