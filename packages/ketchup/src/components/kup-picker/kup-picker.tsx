@@ -19,6 +19,7 @@ import 'app-datepicker/dist/app-datepicker';
 import {
     formattedStringToDefaultUnformattedStringDate,
     getCurrentLocale,
+    isValidFormattedStringDate,
     unformattedStringToFormattedStringDate,
 } from '../../utils/utils';
 import {
@@ -196,18 +197,7 @@ export class KupPicker {
     }
 
     onKupChange(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
-        let newValue = null;
-        if (source == PICKER_SOURCE_EVENT.DATE) {
-            this.dateValue = formattedStringToDefaultUnformattedStringDate(
-                e.detail.value
-            );
-            newValue = this.dateValue;
-        }
-        this.refreshPickerValue(source);
-        this.kupChange.emit({
-            value: newValue,
-            source: source,
-        });
+        this.refreshPickerValue(source, e.detail.value, this.kupChange);
     }
 
     onKupClick(
@@ -233,18 +223,7 @@ export class KupPicker {
     }
 
     onKupInput(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
-        let newValue = null;
-        if (source == PICKER_SOURCE_EVENT.DATE) {
-            this.dateValue = formattedStringToDefaultUnformattedStringDate(
-                e.detail.value
-            );
-            newValue = this.dateValue;
-        }
-        this.refreshPickerValue(source);
-        this.kupInput.emit({
-            value: newValue,
-            source: source,
-        });
+        this.refreshPickerValue(source, e.detail.value, this.kupInput);
     }
 
     onKupIconClick(
@@ -270,7 +249,30 @@ export class KupPicker {
         return PICKER_SOURCE_EVENT.DATE;
     }
 
-    refreshPickerValue(source: PICKER_SOURCE_EVENT) {
+    refreshPickerValue(
+        source: PICKER_SOURCE_EVENT,
+        eventDetailValue: string,
+        eventToRaise: EventEmitter
+    ) {
+        let newValue = null;
+        if (source == PICKER_SOURCE_EVENT.DATE) {
+            if (isValidFormattedStringDate(eventDetailValue)) {
+                this.dateValue = formattedStringToDefaultUnformattedStringDate(
+                    eventDetailValue
+                );
+                newValue = this.dateValue;
+            }
+        }
+        if (newValue != null) {
+            this.refreshPickerComponentValue(source);
+            eventToRaise.emit({
+                value: newValue,
+                source: source,
+            });
+        }
+    }
+
+    refreshPickerComponentValue(source: PICKER_SOURCE_EVENT) {
         if (!this.isPickerOpened(source)) {
             return;
         }
@@ -305,7 +307,7 @@ export class KupPicker {
         let textfieldEl = this.status[source].textfieldEl;
         let containerEl = this.status[source].pickerContainerEl;
         this.status[source].pickerOpened = true;
-        this.refreshPickerValue(source);
+        this.refreshPickerComponentValue(source);
 
         let textFieldWidth = null;
         if (textfieldEl != null) {

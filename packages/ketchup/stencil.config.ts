@@ -2,6 +2,7 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 
 export const config: Config = {
+    buildEs5: false,
     copy: [
         {
             src: 'box.html',

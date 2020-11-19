@@ -14,9 +14,9 @@
 
 ## Events
 
-| Event                    | Description | Type                           |
-| ------------------------ | ----------- | ------------------------------ |
-| `datepickerValueUpdated` |             | `CustomEvent<{ value: any; }>` |
+| Event                      | Description | Type                           |
+| -------------------------- | ----------- | ------------------------------ |
+| `datepicker-value-updated` |             | `CustomEvent<{ value: any; }>` |
 
 
 ## Dependencies

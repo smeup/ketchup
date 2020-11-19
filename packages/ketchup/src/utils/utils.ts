@@ -328,6 +328,12 @@ export function unformatDate(value: string, valueDateFormat?: string): Date {
     return moment(value, valueDateFormat).toDate();
 }
 
+export function isValidFormattedStringDate(value: string): boolean {
+    let format = getCurrentDateFormatFromBrowserLocale();
+    let m = moment(value, format);
+    return m.isValid();
+}
+
 /**
  * @param value date as string, formatted by actual browser locale
  * @returns date as string, formatted ISO
