@@ -558,6 +558,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="master"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -570,6 +571,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-autocomplete"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -582,6 +584,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-badge"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -594,6 +597,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-button"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -606,6 +610,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-box"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -618,6 +623,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-card"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -630,6 +636,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-checkbox"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -642,6 +649,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-chip"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -654,6 +662,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-color-picker"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -666,6 +675,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-combobox"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -678,6 +688,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-data-table"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -690,6 +701,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-drawer"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -702,6 +714,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-field"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -714,6 +727,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-grid"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -726,6 +740,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-image"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -738,6 +753,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-lazy"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -750,6 +766,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-list"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -762,6 +779,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-nav-bar"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -774,6 +792,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-progress-bar"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -786,6 +805,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-radio"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -798,6 +818,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-rating"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -810,6 +831,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-spinner"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -822,6 +844,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-switch"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -834,6 +857,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-tab-bar"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -846,6 +870,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-text-field"
                     @kupTextFieldInput="updateThemeCustomStyles"
@@ -858,6 +883,7 @@
                 </td>
                 <td class="text-cell">
                   <kup-text-field
+                    text-area
                     full-width
                     id="kup-tree"
                     @kupTextFieldInput="updateThemeCustomStyles"
