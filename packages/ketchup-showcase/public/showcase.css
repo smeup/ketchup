@@ -541,6 +541,14 @@ table.instruction-table th {
   z-index: 1;
 }
 
+table#customstyle-tab td.prevent-cr {
+  width: 200px;
+}
+
+table#customstyle-tab kup-text-field {
+  margin-bottom: 10px;
+}
+
 #sample-wrapper {
   width: 100%;
   height: 50vh;
