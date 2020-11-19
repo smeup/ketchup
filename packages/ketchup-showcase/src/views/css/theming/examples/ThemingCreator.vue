@@ -1,13 +1,18 @@
 <template>
   <div>
     <p>
-      In this section you can create your theme. <br />Choose a template to
-      start from, then start editing your variables.
+      In this section you can create your own theme. <br />Choose a template to
+      start from, then start editing your variables.<br />
+      Keep in mind that the JSON tab will always contain the data of your theme,
+      if it doesn't yet exist it will be created.<br /><br />
+      Your theme will be stored until you refresh the page or until you delete
+      it, so you can freely swap to another template during the creation
+      process.
     </p>
     <div id="theme-container-demo" class="kup-container"></div>
     <div id="theme-action-demo">
-      <kup-button icon="download" />
-      <kup-button icon="delete"
+      <kup-button icon="download" @kupButtonClick="downloadTheme" />
+      <kup-button icon="delete" @kupButtonClick="deleteTheme"
     /></div>
     <div id="sample-wrapper" class="theming">
       <div id="sample-specs">
@@ -968,16 +973,23 @@ export default {
       tabs: [
         {
           text: 'CSS variables',
+          icon: 'color_lens',
+          title: "List of the current theme's variables",
         },
         {
-          text: 'customStyle',
+          text: 'customStyles',
+          icon: 'style',
+          title: "List of the current theme's customStyles",
         },
         {
           text: 'Icons',
+          icon: 'photo',
+          title: "List of the current theme's icons",
         },
         {
           text: 'JSON',
           icon: 'json',
+          title: 'The JSON of your theme',
         },
       ],
     };
@@ -1037,6 +1049,33 @@ export default {
       }
     },
 
+    downloadTheme() {
+      const dom = document.documentElement;
+      var dataStr =
+        'data:text/json;charset=utf-8,' +
+        encodeURIComponent(
+          JSON.stringify(dom.kupThemes['showcaseDemo'], null, 2)
+        );
+      var downloadAnchorNode = document.createElement('a');
+      downloadAnchorNode.setAttribute('href', dataStr);
+      downloadAnchorNode.setAttribute('download', 'your_theme.json');
+      document.body.appendChild(downloadAnchorNode);
+      downloadAnchorNode.click();
+      downloadAnchorNode.remove();
+    },
+
+    deleteTheme() {
+      const dom = document.documentElement;
+      const tile = document.querySelector('#showcaseDemo');
+      const actions = document.querySelector('#theme-action-demo');
+
+      dom.setAttribute('kup-theme', 'ketchup');
+
+      actions.classList.remove('visible');
+      tile.remove();
+      delete dom.kupThemes['showcaseDemo'];
+    },
+
     refreshThemes() {
       const dom = document.documentElement;
 
@@ -1062,7 +1101,7 @@ export default {
         case 'CSS variables':
           cssVariablesTab.setAttribute('style', '');
           break;
-        case 'customStyle':
+        case 'customStyles':
           customStyleTab.setAttribute('style', '');
           break;
         case 'Icons':
@@ -1090,12 +1129,11 @@ export default {
     customStyleTab.setAttribute('style', 'display: none;');
     iconsTab.setAttribute('style', 'display: none;');
 
-    if (!document.documentElement.kupCurrentTheme) {
-      document.addEventListener('kupThemeChanged', initDemo);
-    } else {
+    if (document.documentElement.kupCurrentTheme) {
       initDemo();
     }
 
+    document.addEventListener('kupThemeChanged', initDemo);
     document.addEventListener('kupThemeChanged', jsonSet);
   },
 };
@@ -1164,7 +1202,12 @@ function jsonSet() {
   let jsonWarning = document.querySelector('#json-warning');
   let jsonTextarea = document.querySelector('#json-textarea');
   let codemirrorTextarea = document.querySelector('#json-tab .CodeMirror');
-  jsonTextarea.value = JSON.stringify(dom.kupCurrentTheme, null, 2);
+  let stringifiedJSON = JSON.stringify(dom.kupThemes['showcaseDemo'], null, 2);
+  if (jsonTextarea.value === stringifiedJSON) {
+    return;
+  } else {
+    jsonTextarea.value = stringifiedJSON;
+  }
   if (codemirrorTextarea) {
     codemirrorTextarea.remove();
   }
@@ -1178,7 +1221,7 @@ function jsonSet() {
     cm.save();
     try {
       let jsonifiedData = JSON.parse(jsonTextarea.value);
-      dom.kupCurrentTheme = jsonifiedData;
+      dom.kupThemes['showcaseDemo'] = jsonifiedData;
       dom.setAttribute('kup-theme', 'ketchup');
       dom.setAttribute('kup-theme', 'showcaseDemo');
       jsonWarning.classList.remove('visible');
