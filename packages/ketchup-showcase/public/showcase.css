@@ -570,6 +570,10 @@ table#customstyle-tab kup-text-field {
   z-index: 130;
 }
 
+#sample-wrapper.theming {
+  height: 75vh;
+}
+
 #sample-wrapper.theming #sample-specs {
   width: 100%;
 }
