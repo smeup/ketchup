@@ -45,11 +45,13 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-text-field](../kup-text-field)
+- [date-picker1](date-picker-1)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-picker --> kup-text-field
+  kup-picker --> date-picker1
   style kup-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

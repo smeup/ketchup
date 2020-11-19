@@ -29,6 +29,9 @@ import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, Tool
 import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
+    interface DatePicker1 {
+        "value": string;
+    }
     interface KupAutocomplete {
         /**
           * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
@@ -1472,6 +1475,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLDatePicker1Element extends Components.DatePicker1, HTMLStencilElement {
+    }
+    var HTMLDatePicker1Element: {
+        prototype: HTMLDatePicker1Element;
+        new (): HTMLDatePicker1Element;
+    };
     interface HTMLKupAutocompleteElement extends Components.KupAutocomplete, HTMLStencilElement {
     }
     var HTMLKupAutocompleteElement: {
@@ -1743,6 +1752,7 @@ declare global {
         new (): HTMLKupUploadElement;
     };
     interface HTMLElementTagNameMap {
+        "date-picker1": HTMLDatePicker1Element;
         "kup-autocomplete": HTMLKupAutocompleteElement;
         "kup-badge": HTMLKupBadgeElement;
         "kup-box": HTMLKupBoxElement;
@@ -1791,6 +1801,12 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface DatePicker1 {
+        "onDatepicker-value-updated"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "value"?: string;
+    }
     interface KupAutocomplete {
         /**
           * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
@@ -3727,6 +3743,7 @@ declare namespace LocalJSX {
         "typeOptions"?: UploadProps;
     }
     interface IntrinsicElements {
+        "date-picker1": DatePicker1;
         "kup-autocomplete": KupAutocomplete;
         "kup-badge": KupBadge;
         "kup-box": KupBox;
@@ -3778,6 +3795,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "date-picker1": LocalJSX.DatePicker1 & JSXBase.HTMLAttributes<HTMLDatePicker1Element>;
             "kup-autocomplete": LocalJSX.KupAutocomplete & JSXBase.HTMLAttributes<HTMLKupAutocompleteElement>;
             "kup-badge": LocalJSX.KupBadge & JSXBase.HTMLAttributes<HTMLKupBadgeElement>;
             "kup-box": LocalJSX.KupBox & JSXBase.HTMLAttributes<HTMLKupBoxElement>;

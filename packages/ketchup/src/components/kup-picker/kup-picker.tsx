@@ -412,7 +412,7 @@ export class KupPicker {
     prepDatePicker() {
         let comp: any = (
             <div
-                id="app-date-picker-div"
+                id="date-picker-div"
                 ref={(el) =>
                     (this.status[
                         PICKER_SOURCE_EVENT.DATE
@@ -434,6 +434,29 @@ export class KupPicker {
                         ].pickerEl = el as any)
                     }
                 ></app-datepicker>
+            </div>
+        );
+        return comp;
+    }
+
+    prepDatePicker1() {
+        let comp: any = (
+            <div
+                id="date-picker-div"
+                ref={(el) =>
+                    (this.status[
+                        PICKER_SOURCE_EVENT.DATE
+                    ].pickerContainerEl = el as any)
+                }
+            >
+                <date-picker1
+                    value=""
+                    ref={(el) =>
+                        (this.status[
+                            PICKER_SOURCE_EVENT.DATE
+                        ].pickerEl = el as any)
+                    }
+                ></date-picker1>
             </div>
         );
         return comp;
@@ -484,6 +507,7 @@ export class KupPicker {
     render() {
         let textfieldEl: PICKER_COMPONENT_INFO = this.prepDateTextfield();
         let datePickerContainerEl = this.prepDatePicker();
+        //let datePickerContainerEl = this.prepDatePicker1();
 
         let style = null;
         if (textfieldEl != null && textfieldEl.style != null) {
