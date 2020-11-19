@@ -996,7 +996,7 @@
 
 <script>
 export default {
-  name: 'ThemingCreator',
+  name: 'ThemingMaker',
   data() {
     return {
       tabs: [
