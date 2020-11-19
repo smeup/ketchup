@@ -1027,6 +1027,10 @@ export default {
 
       dom.kupThemes['showcaseDemo']['cssVariables']['--kup-' + e.target.id] =
         e.detail.value;
+      e.target.customStyle =
+        '#kup-component .icon-container { background-color: ' +
+        e.detail.value +
+        ' }';
 
       this.refreshThemes();
     },
@@ -1047,6 +1051,7 @@ export default {
 
       dom.kupThemes['showcaseDemo']['icons']['--kup-' + e.target.id] =
         e.detail.value;
+      e.target.icon = e.detail.value;
 
       this.refreshThemes();
     },
@@ -1105,8 +1110,11 @@ export default {
     refreshThemes() {
       const dom = document.documentElement;
 
-      dom.setAttribute('kup-theme', 'ketchup');
-      dom.setAttribute('kup-theme', 'showcaseDemo');
+      if (dom.getAttribute('kup-theme') === 'showcaseDemo') {
+        dom.kupRefreshTheme();
+      } else {
+        dom.setAttribute('kup-theme', 'showcaseDemo');
+      }
       updateTile();
     },
 
