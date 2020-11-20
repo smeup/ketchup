@@ -7,6 +7,7 @@ declare global {
         'kup-theme': any;
         kupCurrentTheme: any;
         kupCustomStyles: any;
+        kupRefreshTheme: any;
         kupThemes: any;
     }
 }
@@ -28,6 +29,23 @@ function initThemes() {
     }
     if (!dom.getAttribute('kup-theme')) {
         dom.setAttribute('kup-theme', 'ketchup');
+    }
+    if (!dom.kupRefreshTheme) {
+        dom.kupRefreshTheme = () => {
+            try {
+                setupCssVariables();
+                setupIcons();
+                setupCustomStyle();
+
+                let message = 'Theme ' + dom.kupCurrentTheme + ' refreshed.';
+                logMessage('theme manager', message);
+                let event = new CustomEvent('kupThemeRefresh');
+                document.dispatchEvent(event);
+            } catch (error) {
+                let message = 'Theme not refreshed.';
+                logMessage('theme manager', message, 'warning');
+            }
+        };
     }
     dom.kupCustomStyles = [];
     setTheme();
@@ -59,7 +77,7 @@ function setTheme() {
     setupIcons();
     setupCustomStyle();
 
-    var event = new CustomEvent('kupThemeChanged');
+    var event = new CustomEvent('kupThemeChange');
     document.dispatchEvent(event);
 }
 
@@ -96,8 +114,7 @@ function setupCustomStyle() {
     for (let i = 0; i < components.length; i++) {
         if (components[i].isConnected) {
             components[i].refreshCustomStyle(
-                fetchThemeCustomStyle('master') +
-                    fetchThemeCustomStyle(components[i].tagName)
+                fetchThemeCustomStyle(components[i].tagName)
             );
         }
     }
@@ -110,7 +127,7 @@ function setupIcons() {
             let val = `url('${getAssetPath(
                 `./assets/svg/${icons[key]}.svg`
             )}') no-repeat center`;
-            dom.style.setProperty('--kup-' + key, val);
+            dom.style.setProperty(key, val);
         }
     }
 }
@@ -122,19 +139,15 @@ export function fetchThemeCustomStyle(component: string) {
     }
     let completeStyle: string = '';
 
-    if (styles['master']) {
-        completeStyle = styles['master'];
+    if (styles['MASTER']) {
+        completeStyle += styles['MASTER'];
     }
 
     if (styles[component]) {
-        if (completeStyle) {
-            completeStyle += styles[component];
-        } else {
-            completeStyle = styles[component];
-        }
+        completeStyle += ' ' + styles[component];
     }
 
-    return completeStyle;
+    return completeStyle + ' ';
 }
 
 export function setThemeCustomStyle(component: any) {
@@ -219,18 +232,40 @@ export function colorCheck(color: string) {
     if (color.substr(0, 1) === '#') {
         let oldColor = color;
         let rgbColor = hexToRgb(color);
-        color = 'rgb(' + rgbColor.r + ',' + rgbColor.g + ',' + rgbColor.b + ')';
-        logMessage(
-            'theme manager',
-            'Received HEX color ' + oldColor + ', converted to ' + color + '.'
-        );
+        try {
+            color =
+                'rgb(' + rgbColor.r + ',' + rgbColor.g + ',' + rgbColor.b + ')';
+            logMessage(
+                'theme manager',
+                'Received HEX color ' +
+                    oldColor +
+                    ', converted to ' +
+                    color +
+                    '.'
+            );
+        } catch (error) {
+            logMessage(
+                'theme-manager',
+                'Invalid color: ' + color + '.',
+                'warning'
+            );
+        }
     }
 
     let rgbValues: string = undefined;
     var values = color.match(
         /rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/
     );
-    rgbValues = values[1] + ',' + values[2] + ',' + values[3];
+
+    try {
+        rgbValues = values[1] + ',' + values[2] + ',' + values[3];
+    } catch (error) {
+        logMessage(
+            'theme-manager',
+            'Color not converted to rgb values: ' + color + '.',
+            'warning'
+        );
+    }
 
     return { rgbColor: color, rgbValues: rgbValues };
 }

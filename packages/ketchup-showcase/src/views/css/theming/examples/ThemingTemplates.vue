@@ -15,7 +15,11 @@
 <script>
 export default {
   mounted() {
-    getThemes();
+    if (!document.documentElement.kupCurrentTheme) {
+      document.addEventListener('kupThemeChange', getThemes);
+    } else {
+      getThemes();
+    }
   },
   name: 'ThemingTemplates',
 };
@@ -27,15 +31,11 @@ function setTheme(themeID) {
 
 function getThemes() {
   const dom = document.documentElement;
-  if (!dom.kupCurrentTheme) {
-    //Waiting for kup themes initialization...
-    setTimeout(getThemes, 250);
-    return;
-  }
+  const themeContainer = document.querySelector('#theme-container');
+
   for (let key in dom.kupThemes) {
-    if (key !== 'test') {
+    if (key !== 'test' && key !== 'showcaseDemo') {
       var variables = dom.kupThemes[key].cssVariables;
-      let themeContainer = document.querySelector('#theme-container');
       let themeWrapper = document.createElement('div');
       let themeImage = document.createElement('kup-image');
       let themeText = document.createElement('div');
@@ -44,6 +44,7 @@ function getThemes() {
       themeWrapper.style.backgroundColor = variables['--kup-background-color'];
       themeWrapper.style.borderColor = variables['--kup-border-color'];
       themeWrapper.id = key;
+      themeWrapper.title = 'Toggle ' + key + ' theme';
       themeWrapper.onclick = function () {
         setTheme(themeWrapper.id);
       };
@@ -62,5 +63,6 @@ function getThemes() {
       themeContainer.append(themeWrapper);
     }
   }
+  document.removeEventListener('kupThemeChange', getThemes);
 }
 </script>

@@ -168,6 +168,21 @@ i.v-icon.material-icons {
   flex-wrap: wrap;
 }
 
+#theme-container,
+#theme-container-demo {
+  margin: 0;
+  width: 100%;
+}
+
+#theme-action-demo {
+  display: none;
+}
+
+#theme-action-demo.visible {
+  display: flex;
+  justify-content: center;
+}
+
 .kup-container-fw {
   display: block;
   margin: 30px 0;
@@ -520,6 +535,18 @@ table.instruction-table td.switch-cell {
 
 table.instruction-table th {
   font-weight: 600;
+  position: sticky;
+  top: 0;
+  background: var(--kup-background-color);
+  z-index: 1;
+}
+
+table#customstyle-tab td.prevent-cr {
+  width: 200px;
+}
+
+table#customstyle-tab kup-text-field {
+  margin-bottom: 10px;
 }
 
 #sample-wrapper {
@@ -544,7 +571,15 @@ table.instruction-table th {
 }
 
 #sample-wrapper.theming {
-  overflow: auto;
+  height: 75vh;
+}
+
+#sample-wrapper.theming #sample-specs {
+  width: 100%;
+}
+
+#sample-wrapper.theming #sample-comp {
+  height: calc(100% - 36px);
 }
 
 #sample-wrapper.detached {
@@ -834,11 +869,13 @@ table.instruction-table th {
   opacity: 1;
   padding: 0.75rem;
   transition: all 0.25s;
+  z-index: 1;
 }
 
 .icon-wrapper.theme-wrapper:hover {
   box-shadow: var(--kup-box-shadow);
   transform: scale(1.25);
+  z-index: 2;
 }
 
 @media screen and (max-width: 767px) {
