@@ -125,6 +125,28 @@ export function getCurrentDateFormatFromBrowserLocale(): string {
     return dateFormat;
 }
 
+export function getCurrentTimeFormatFromBrowserLocale(): string {
+    const formatObj = new Intl.DateTimeFormat(getCurrentLocale()).formatToParts(
+        new Date()
+    );
+
+    let timeFormat = formatObj
+        .map((obj) => {
+            switch (obj.type) {
+                case 'hour':
+                    return 'HH';
+                case 'minute':
+                    return 'mm';
+                case 'second':
+                    return 'ss';
+                default:
+                    return obj.value;
+            }
+        })
+        .join('');
+    return timeFormat;
+}
+
 /**
  * Convert argument to boolean. Everything is false unless: true, "true", 1, "1", "on", "yes"
  * @param value the value to convert
@@ -298,6 +320,7 @@ export function _numberToString(
 }
 
 export const ISO_DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
+export const ISO_DEFAULT_TIME_FORMAT = 'hh:mm:ss';
 
 /**
  *
@@ -306,7 +329,7 @@ export const ISO_DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
  * @param outputFormat date format to return
  * @returns date as string with format changed
  */
-export function changeDateFormat(
+export function changeDateTimeFormat(
     value: string,
     inputFormat: string,
     outputFormat: string
@@ -321,15 +344,33 @@ export function changeDateFormat(
  * @param valueDateFormat date format (default ISO)
  * @return Date object
  **/
-export function unformatDate(value: string, valueDateFormat?: string): Date {
-    if (valueDateFormat == null || valueDateFormat.trim() == '') {
-        valueDateFormat = ISO_DEFAULT_DATE_FORMAT;
+export function unformatDateTime(
+    value: string,
+    defaultValueFormat: string,
+    valueFormat?: string
+): Date {
+    if (valueFormat == null || valueFormat.trim() == '') {
+        valueFormat = defaultValueFormat;
     }
-    return moment(value, valueDateFormat).toDate();
+    return moment(value, valueFormat).toDate();
 }
 
+/**
+ * @param value date string, formatted by actual browser locale
+ * @returns true id date string in input is a valid date
+ */
 export function isValidFormattedStringDate(value: string): boolean {
     let format = getCurrentDateFormatFromBrowserLocale();
+    let m = moment(value, format);
+    return m.isValid();
+}
+
+/**
+ * @param value time string, formatted by actual browser locale
+ * @returns true if time string in input is a valid time
+ */
+export function isValidFormattedStringTime(value: string): boolean {
+    let format = getCurrentTimeFormatFromBrowserLocale();
     let m = moment(value, format);
     return m.isValid();
 }
@@ -348,6 +389,17 @@ export function formattedStringToDefaultUnformattedStringDate(
 }
 
 /**
+ * @param value time as string, formatted by actual browser locale
+ * @returns time as string, formatted ISO
+ **/
+export function formattedStringToDefaultUnformattedStringTime(value: string) {
+    return formattedStringToCustomUnformattedStringTime(
+        value,
+        ISO_DEFAULT_TIME_FORMAT
+    );
+}
+
+/**
  * @param value date as string, formatted by actual browser locale
  * @param outputFormat date format to return
  * @returns date as string, formatted
@@ -356,9 +408,25 @@ export function formattedStringToCustomUnformattedStringDate(
     value: string,
     outputFormat: string
 ): string {
-    return changeDateFormat(
+    return changeDateTimeFormat(
         value,
         getCurrentDateFormatFromBrowserLocale(),
+        outputFormat
+    );
+}
+
+/**
+ * @param value time as string, formatted by actual browser locale
+ * @param outputFormat time format to return
+ * @returns time as string, formatted
+ **/
+export function formattedStringToCustomUnformattedStringTime(
+    value: string,
+    outputFormat: string
+): string {
+    return changeDateTimeFormat(
+        value,
+        getCurrentTimeFormatFromBrowserLocale(),
         outputFormat
     );
 }
@@ -380,5 +448,33 @@ export function unformattedStringToFormattedStringDate(
             customedFormat +
             '] not managed yet!!!'
     );
-    return unformatDate(value, valueDateFormat).toLocaleDateString();
+    return unformatDateTime(
+        value,
+        ISO_DEFAULT_DATE_FORMAT,
+        valueDateFormat
+    ).toLocaleDateString();
+}
+
+/**
+ * @param value time as string, formatted ISO
+ * @param valueTimeFormat time format (default ISO)
+ * @param customedFormat time format from smeupObject (TODO: must be managed)
+ * @returns time as string, formatted by actual browser locale
+ **/
+export function unformattedStringToFormattedStringTime(
+    value: string,
+    valueTimeFormat?: string,
+    customedFormat?: string
+): string {
+    logMessage(
+        'TIME-FIELD-VALUE',
+        'unformattedStringToFormattedStringTime() - customedFormat param [' +
+            customedFormat +
+            '] not managed yet!!!'
+    );
+    return unformatDateTime(
+        value,
+        ISO_DEFAULT_TIME_FORMAT,
+        valueTimeFormat
+    ).toLocaleDateString();
 }

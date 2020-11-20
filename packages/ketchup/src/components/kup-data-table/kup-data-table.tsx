@@ -101,7 +101,6 @@ import {
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
-import { unformatDate } from '../../utils/cell-formatter';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 import { KupDataTableState } from './kup-data-table-state';

@@ -8,10 +8,12 @@
 | Property            | Attribute            | Description                                                                                                     | Type     | Default        |
 | ------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | -------------- |
 | `customStyle`       | `custom-style`       | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string` | `undefined`    |
-| `dateInitialValue`  | `date-initial-value` | The value of the date picker.                                                                                   | `string` | `''`           |
+| `dateInitialValue`  | `date-initial-value` | The initial value of the date picker.                                                                           | `string` | `''`           |
 | `dateMaxValue`      | `date-max-value`     | The maximum value of the date picker.                                                                           | `string` | `null`         |
 | `dateMinValue`      | `date-min-value`     | The minimum value of the date picker.                                                                           | `string` | `'1970-01-01'` |
 | `dateTextfieldData` | --                   | Props of the date text field.                                                                                   | `Object` | `{}`           |
+| `timeInitialValue`  | `time-initial-value` | The initial value of the time picker.                                                                           | `string` | `''`           |
+| `timeTextfieldData` | --                   | Props of the time text field.                                                                                   | `Object` | `{}`           |
 
 
 ## Events
@@ -45,13 +47,11 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-text-field](../kup-text-field)
-- [date-picker1](date-picker-1)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-picker --> kup-text-field
-  kup-picker --> date-picker1
   style kup-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -1058,7 +1058,7 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * The value of the date picker.
+          * The initial value of the date picker.
          */
         "dateInitialValue": string;
         /**
@@ -1074,6 +1074,14 @@ export namespace Components {
          */
         "dateTextfieldData": Object;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * The initial value of the time picker.
+         */
+        "timeInitialValue": string;
+        /**
+          * Props of the time text field.
+         */
+        "timeTextfieldData": Object;
     }
     interface KupProgressBar {
         /**
@@ -3144,7 +3152,7 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * The value of the date picker.
+          * The initial value of the date picker.
          */
         "dateInitialValue"?: string;
         /**
@@ -3187,6 +3195,14 @@ declare namespace LocalJSX {
         value: any;
         source: PICKER_SOURCE_EVENT;
     }>) => void;
+        /**
+          * The initial value of the time picker.
+         */
+        "timeInitialValue"?: string;
+        /**
+          * Props of the time text field.
+         */
+        "timeTextfieldData"?: Object;
     }
     interface KupProgressBar {
         /**
