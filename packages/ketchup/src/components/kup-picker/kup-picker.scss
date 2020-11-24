@@ -10,11 +10,92 @@
   }
 }
 
-app-datepicker {
+#date-picker-div {
+  outline: none;
+  pointer-events: all;
+  background-color: var(--kup-background-color);
   box-shadow: var(--kup-box-shadow);
-  --app-datepicker-accent-color: var(--kup-main-color);
-  --app-datepicker-bg-color: var(--kup-background-color);
-  --app-datepicker-color: var(--kup-text-color);
-  --app-datepicker-focused-day-color: var(--kup-text-on-main-color);
-  --app-datepicker-weekday-color: var(--kup-text-color);
+  color: var(--kup-text-color);
+  display: none;
+  overflow: hidden;
+  padding: 10px;
+  box-sizing: border-box;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  height: 22rem;
+  width: 22rem;
+
+  &.dynamic-position-active {
+    display: flex;
+  }
+
+  .section-1 {
+    box-sizing: border-box;
+    height: 60px;
+    overflow: auto;
+    padding-bottom: 12px;
+    width: 100%;
+    .sub-1 {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  .section-2 {
+    height: calc(100% - 60px);
+    overflow: auto;
+    width: 100%;
+  }
+
+  #prev-month {
+    margin-left: auto;
+  }
+
+  #year-button {
+    margin: auto;
+    width: 12rem;
+    text-align: center;
+  }
+
+  #next-month {
+    margin-right: auto;
+  }
+
+  #calendar {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  thead {
+    border-bottom: 1px solid var(--kup-border-color);
+  }
+
+  .day-text {
+    color: rgba(var(--kup-text-color-rgb), 0.5);
+  }
+
+  .day {
+    text-align: center;
+
+    &:not(.selected) .day-number:hover {
+      background-color: var(--kup-hover-background-color);
+    }
+    &.selected .day-number,
+    &.selected .day-number:hover {
+      background-color: rgba(var(--kup-main-color-rgb), 0.175);
+    }
+  }
+
+  .day-number {
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    line-height: 2.5rem;
+    margin: auto;
+    width: 2.5rem;
+    transition: background-color 0.25s;
+  }
 }
