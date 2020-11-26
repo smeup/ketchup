@@ -18,8 +18,6 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 
 import {
-    getMonthsAsStringByLocale,
-    getDaysOfWeekAsStringByLocale,
     ISO_DEFAULT_TIME_FORMAT,
     isValidFormattedStringTime,
     formattedStringToDefaultUnformattedStringTime,
@@ -42,7 +40,6 @@ export class KupTimePicker {
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
     @State() timeValue: string = '';
-    @State() stateSwitcher: boolean = false;
     /**
      * Props of the time text field.
      */
@@ -141,6 +138,17 @@ export class KupTimePicker {
         source: PICKER_SOURCE_EVENT;
     }>;
 
+    @Event({
+        eventName: 'kupTimePickerTextFieldSubmit',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTextFieldSubmit: EventEmitter<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>;
+
     @Listen('keyup', { target: 'document' })
     listenKeyup(e: KeyboardEvent) {
         let source: PICKER_SOURCE_EVENT = this.getSourceEvent();
@@ -177,6 +185,34 @@ export class KupTimePicker {
             PICKER_SOURCE_EVENT.TIME,
             this.getTimeForOutput()
         );
+    }
+
+    @Watch('timeMinutesStep')
+    watchTimeMinutesStep() {
+        if (this.timeMinutesStep <= 0) {
+            logMessage(
+                this,
+                'property time-minutes-step=[' +
+                    this.timeMinutesStep +
+                    '] not allowed: it must be > 0 and divisor of 60',
+                'warning'
+            );
+            this.timeMinutesStep = 10;
+            return;
+        }
+        let result: number = 60 % this.timeMinutesStep;
+
+        if (result != 0) {
+            logMessage(
+                this,
+                'property time-minutes-step=[' +
+                    this.timeMinutesStep +
+                    '] not allowed: it must be > 0 and divisor of 60',
+                'warning'
+            );
+            this.timeMinutesStep = 10;
+            return;
+        }
     }
 
     //---- Methods ----
@@ -217,6 +253,14 @@ export class KupTimePicker {
 
     onKupInput(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
         this.refreshPickerValue(source, e.detail.value, this.kupInput);
+    }
+
+    onKupTextFieldSubmit(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
+        this.refreshPickerValue(
+            source,
+            e.detail.value,
+            this.kupTextFieldSubmit
+        );
     }
 
     onKupIconClick(e: UIEvent, source: PICKER_SOURCE_EVENT) {
@@ -418,6 +462,9 @@ export class KupTimePicker {
                 onKupTextFieldIconClick={(e: any) =>
                     this.onKupIconClick(e, source)
                 }
+                onKupTextFieldSubmit={(e: any) =>
+                    this.onKupTextFieldSubmit(e, source)
+                }
                 ref={(el) => (this.status[source].textfieldEl = el as any)}
             ></kup-text-field>
         );
@@ -529,6 +576,7 @@ export class KupTimePicker {
             pickerOpened: false,
         };
 
+        this.watchTimeMinutesStep();
         this.watchTimeInitialValue();
     }
 

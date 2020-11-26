@@ -15,15 +15,16 @@
 
 ## Events
 
-| Event                    | Description | Type                                                        |
-| ------------------------ | ----------- | ----------------------------------------------------------- |
-| `kupTimePickerBlur`      |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
-| `kupTimePickerChange`    |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
-| `kupTimePickerClick`     |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
-| `kupTimePickerFocus`     |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
-| `kupTimePickerIconClick` |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
-| `kupTimePickerInput`     |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
-| `kupTimePickerItemClick` |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| Event                          | Description | Type                                                        |
+| ------------------------------ | ----------- | ----------------------------------------------------------- |
+| `kupTimePickerBlur`            |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupTimePickerChange`          |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupTimePickerClick`           |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupTimePickerFocus`           |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupTimePickerIconClick`       |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupTimePickerInput`           |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupTimePickerItemClick`       |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupTimePickerTextFieldSubmit` |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
 
 
 ## Methods

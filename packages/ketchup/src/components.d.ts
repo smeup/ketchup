@@ -3591,6 +3591,10 @@ declare namespace LocalJSX {
         value: any;
         source: PICKER_SOURCE_EVENT;
     }>) => void;
+        "onKupTimePickerTextFieldSubmit"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
         /**
           * The initial value of the time picker.
          */
