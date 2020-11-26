@@ -1,0 +1,11 @@
+:host {
+  display: block;
+}
+
+#time-picker-div {
+  display: none;
+
+  &.visible {
+    display: block;
+  }
+}

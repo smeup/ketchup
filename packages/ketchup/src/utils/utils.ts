@@ -24,13 +24,14 @@ export function generateUniqueId(field: string = 'def'): string {
 }
 
 export function generateUuidv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (
-        c
-    ) {
-        var r = (Math.random() * 16) | 0,
-            v = c == 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
+        /[xy]/g,
+        function (c) {
+            var r = (Math.random() * 16) | 0,
+                v = c == 'x' ? r : (r & 0x3) | 0x8;
+            return v.toString(16);
+        }
+    );
 }
 
 export function eventFromElement(
@@ -126,10 +127,16 @@ export function getCurrentDateFormatFromBrowserLocale(): string {
 }
 
 export function getCurrentTimeFormatFromBrowserLocale(): string {
-    const formatObj = new Intl.DateTimeFormat(getCurrentLocale()).formatToParts(
-        new Date()
-    );
-
+    const options = {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+    };
+    const formatObj = new Intl.DateTimeFormat(
+        getCurrentLocale(),
+        options
+    ).formatToParts(new Date());
     let timeFormat = formatObj
         .map((obj) => {
             switch (obj.type) {
@@ -320,7 +327,7 @@ export function _numberToString(
 }
 
 export const ISO_DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
-export const ISO_DEFAULT_TIME_FORMAT = 'hh:mm:ss';
+export const ISO_DEFAULT_TIME_FORMAT = 'HH:mm:ss';
 
 /**
  *
@@ -353,6 +360,33 @@ export function unformatDateTime(
         valueFormat = defaultValueFormat;
     }
     return moment(value, valueFormat).toDate();
+}
+
+/**
+ * @param date date as Date object
+ * @return date as string, formatted
+ **/
+export function formatDate(date: Date): string {
+    const options: Intl.DateTimeFormatOptions = {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+    };
+    return date.toLocaleDateString(getCurrentLocale(), options);
+}
+
+/**
+ * @param time time as Date object
+ * @return time as string, formatted
+ **/
+export function formatTime(time: Date): string {
+    const options: Intl.DateTimeFormatOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+    };
+    return time.toLocaleTimeString(getCurrentLocale(), options);
 }
 
 /**
@@ -448,11 +482,16 @@ export function unformattedStringToFormattedStringDate(
             customedFormat +
             '] not managed yet!!!'
     );
+    const options: Intl.DateTimeFormatOptions = {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+    };
     return unformatDateTime(
         value,
         ISO_DEFAULT_DATE_FORMAT,
         valueDateFormat
-    ).toLocaleDateString();
+    ).toLocaleDateString(getCurrentLocale(), options);
 }
 
 /**
@@ -472,9 +511,86 @@ export function unformattedStringToFormattedStringTime(
             customedFormat +
             '] not managed yet!!!'
     );
+    const options: Intl.DateTimeFormatOptions = {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+    };
     return unformatDateTime(
         value,
         ISO_DEFAULT_TIME_FORMAT,
         valueTimeFormat
-    ).toLocaleDateString();
+    ).toLocaleTimeString(getCurrentLocale(), options);
+}
+
+export function getMonthAsStringByLocale(month: number): string {
+    if (month == null) {
+        return '';
+    }
+    const dateTmp = new Date();
+    dateTmp.setDate(1);
+    dateTmp.setMonth(month - 1);
+    const options: Intl.DateTimeFormatOptions = {
+        month: 'long',
+    };
+    const dateTimeFormat = new Intl.DateTimeFormat(getCurrentLocale(), options);
+    return dateTimeFormat.format(dateTmp);
+}
+
+export function getMonthsAsStringByLocale(): string[] {
+    var months: string[] = [];
+    for (var i = 0; i < 12; i++) {
+        months[i] = getMonthAsStringByLocale(i + 1);
+    }
+
+    return months;
+}
+
+export function getDayAsStringByLocale(date: Date): string {
+    if (date == null) {
+        return '';
+    }
+    const options: Intl.DateTimeFormatOptions = {
+        weekday: 'narrow',
+        /** weekday: 'narrow' 'short' 'long' */
+    };
+    const dateTimeFormat = new Intl.DateTimeFormat(getCurrentLocale(), options);
+    return dateTimeFormat.format(date);
+}
+
+function mondayThisWeek(dateFrom?: Date): Date {
+    var d = new Date();
+    if (dateFrom != null) {
+        d = new Date(dateFrom.toISOString());
+    }
+    const day = d.getDay();
+    const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+    return new Date(d.setDate(diff));
+}
+
+const offsetDate = (base: Date, count: number): Date => {
+    const date = new Date(base);
+    date.setDate(base.getDate() + count);
+    return date;
+};
+
+function thisWeek(dateFrom?: Date): { startDate: Date; endDate: Date } {
+    const monday = mondayThisWeek(dateFrom);
+    return {
+        startDate: monday,
+        endDate: offsetDate(monday, 6),
+    };
+}
+
+export function getDaysOfWeekAsStringByLocale(dateFrom?: Date): string[] {
+    var thisWeekDays: { startDate: Date; endDate: Date } = thisWeek(dateFrom);
+    var monday: Date = thisWeekDays.startDate;
+    var days: string[] = [];
+    for (var i = 0; i < 7; i++) {
+        var date: Date = new Date(monday.toISOString());
+        date.setDate(date.getDate() + i);
+        days[i] = getDayAsStringByLocale(date);
+    }
+    return days;
 }

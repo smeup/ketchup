@@ -467,7 +467,6 @@ export class KupTree {
 
     @Watch('expanded')
     enrichStructureStateWhenChanged(newValue, oldValue) {
-        console.log('!!!!!!!!!!!!!!!!!!!!!!expanded=' + this.expanded);
         if (newValue !== oldValue) {
             this.refreshStructureState();
         }

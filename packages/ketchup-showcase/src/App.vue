@@ -377,6 +377,12 @@ export default {
             },
           },
           {
+            title: `Date Picker`,
+            to: {
+              name: 'datepicker',
+            },
+          },
+          {
             title: 'Drawer',
             to: {
               name: 'drawer',
@@ -419,12 +425,6 @@ export default {
             },
           },
           {
-            title: `Picker`,
-            to: {
-              name: 'picker',
-            },
-          },
-          {
             title: 'Progress bar',
             to: {
               name: 'progressbar',
@@ -464,6 +464,12 @@ export default {
             title: `Text field`,
             to: {
               name: 'textfield',
+            },
+          },
+          {
+            title: `Time Picker`,
+            to: {
+              name: 'timepicker',
             },
           },
         ],

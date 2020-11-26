@@ -208,7 +208,8 @@ export class KupTextField {
 
     @Watch('emitSubmitEventOnEnter')
     watchEmitSubmitEventOnEnter() {
-        this.inputEl.focus();
+        // non necessario, se si vuole forzare il focus usare la prop forceFocus
+        //this.inputEl.focus();
     }
 
     @Watch('forceFocus')

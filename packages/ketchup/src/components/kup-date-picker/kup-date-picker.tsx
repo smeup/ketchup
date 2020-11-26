@@ -15,36 +15,31 @@ import {
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { positionRecalc } from '../../utils/recalc-position';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import 'app-datepicker/dist/app-datepicker';
-//import 'stencil-timepicker';
 
 import {
     formattedStringToDefaultUnformattedStringDate,
-    formattedStringToDefaultUnformattedStringTime,
-    getCurrentLocale,
     isValidFormattedStringDate,
-    isValidFormattedStringTime,
     unformattedStringToFormattedStringDate,
-    unformattedStringToFormattedStringTime,
+    getMonthsAsStringByLocale,
+    getDaysOfWeekAsStringByLocale,
+    ISO_DEFAULT_DATE_FORMAT,
 } from '../../utils/utils';
 import {
     PICKER_COMPONENT_INFO,
     PICKER_SOURCE_EVENT,
     PICKER_STATUS,
-} from './kup-picker-declarations';
-import { nullFormat } from 'numeral';
+} from './kup-date-picker-declarations';
 import moment from 'moment';
 
 @Component({
-    tag: 'kup-picker',
-    styleUrl: 'kup-picker.scss',
+    tag: 'kup-date-picker',
+    styleUrl: 'kup-date-picker.scss',
     shadow: true,
 })
-export class KupPicker {
+export class KupDatePicker {
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
     @State() dateValue: string = '';
-    @State() timeValue: string = '';
     @State() stateSwitcher: boolean = false;
     /**
      * Props of the date text field.
@@ -57,47 +52,24 @@ export class KupPicker {
     /**
      * The minimum value of the date picker.
      */
-    @Prop() dateMinValue: string = '1970-01-01';
+    //@Prop() dateMinValue: string = '1970-01-01';
     /**
      * The maximum value of the date picker.
      */
-    @Prop() dateMaxValue: string = null;
-
-    /**
-     * Props of the time text field.
-     */
-    @Prop() timeTextfieldData: Object = {};
-    /**
-     * The initial value of the time picker.
-     */
-    @Prop() timeInitialValue: string = '';
+    //@Prop() dateMaxValue: string = null;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = undefined;
 
     private status: PICKER_STATUS = {};
-    private days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    private months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ];
-    private pickerDate: Date = undefined;
+    private days = getDaysOfWeekAsStringByLocale();
+    private months = getMonthsAsStringByLocale();
 
     //---- Events ----
 
     @Event({
-        eventName: 'kupPickerBlur',
+        eventName: 'kupDatePickerBlur',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -108,7 +80,7 @@ export class KupPicker {
     }>;
 
     @Event({
-        eventName: 'kupPickerChange',
+        eventName: 'kupDatePickerChange',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -119,7 +91,7 @@ export class KupPicker {
     }>;
 
     @Event({
-        eventName: 'kupPickerClick',
+        eventName: 'kupDatePickerClick',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -130,7 +102,7 @@ export class KupPicker {
     }>;
 
     @Event({
-        eventName: 'kupPickerFocus',
+        eventName: 'kupDatePickerFocus',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -141,7 +113,7 @@ export class KupPicker {
     }>;
 
     @Event({
-        eventName: 'kupPickerInput',
+        eventName: 'kupDatePickerInput',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -152,7 +124,7 @@ export class KupPicker {
     }>;
 
     @Event({
-        eventName: 'kupPickerIconClick',
+        eventName: 'kupDatePickerIconClick',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -163,7 +135,7 @@ export class KupPicker {
     }>;
 
     @Event({
-        eventName: 'kupPickerItemClick',
+        eventName: 'kupDatePickerItemClick',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -175,29 +147,30 @@ export class KupPicker {
 
     @Listen('keyup', { target: 'document' })
     listenKeyup(e: KeyboardEvent) {
-        let source: PICKER_SOURCE_EVENT = this.getSourceFromEvent(e);
+        let source: PICKER_SOURCE_EVENT = this.getSourceEvent();
         if (this.isPickerOpened(source)) {
             if (e.key === 'Escape') {
                 this.closePicker(source);
             }
             if (e.key === 'Enter') {
+                e.stopPropagation();
                 this.setPickerValueSelected(source);
             }
         }
     }
 
-    @Listen('datepicker-value-updated', { target: 'document' })
-    onKupDatePickerItemClick(e: CustomEvent) {
-        this.setPickerValueSelected(PICKER_SOURCE_EVENT.DATE, e.detail.value);
+    onKupDatePickerItemClick(value: string) {
+        let source = PICKER_SOURCE_EVENT.DATE;
+        this.setPickerValueSelected(source, value);
 
         this.kupChange.emit({
             value: this.dateValue,
-            source: PICKER_SOURCE_EVENT.DATE,
+            source: source,
         });
 
         this.kupItemClick.emit({
             value: this.dateValue,
-            source: PICKER_SOURCE_EVENT.DATE,
+            source: source,
         });
     }
 
@@ -210,14 +183,6 @@ export class KupPicker {
         );
     }
 
-    @Watch('timeInitialValue')
-    watchTimeInitialValue() {
-        this.timeValue = this.timeInitialValue;
-        this.setTextFieldInitalValue(
-            PICKER_SOURCE_EVENT.TIME,
-            this.getTimeForOutput()
-        );
-    }
     //---- Methods ----
 
     @Method()
@@ -225,14 +190,11 @@ export class KupPicker {
         this.customStyleTheme = customStyleTheme;
     }
 
-    onKupBlur(
-        e: UIEvent & { target: HTMLInputElement },
-        source: PICKER_SOURCE_EVENT
-    ) {
-        this.closePicker(source);
-        const { target } = e;
+    onKupBlur(e: UIEvent, source: PICKER_SOURCE_EVENT) {
+        e.stopPropagation();
+        this.closePicker(source, true);
         this.kupBlur.emit({
-            value: target.value,
+            value: this.dateValue,
             source: source,
         });
     }
@@ -241,24 +203,18 @@ export class KupPicker {
         this.refreshPickerValue(source, e.detail.value, this.kupChange);
     }
 
-    onKupClick(
-        e: UIEvent & { target: HTMLInputElement },
-        source: PICKER_SOURCE_EVENT
-    ) {
-        const { target } = e;
+    onKupClick(e: UIEvent, source: PICKER_SOURCE_EVENT) {
+        e.stopPropagation();
         this.kupClick.emit({
-            value: target.value,
+            value: this.dateValue,
             source: source,
         });
     }
 
-    onKupFocus(
-        e: UIEvent & { target: HTMLInputElement },
-        source: PICKER_SOURCE_EVENT
-    ) {
-        const { target } = e;
+    onKupFocus(e: UIEvent, source: PICKER_SOURCE_EVENT) {
+        e.stopPropagation();
         this.kupFocus.emit({
-            value: target.value,
+            value: this.dateValue,
             source: source,
         });
     }
@@ -267,19 +223,15 @@ export class KupPicker {
         this.refreshPickerValue(source, e.detail.value, this.kupInput);
     }
 
-    onKupIconClick(
-        event: UIEvent & { target: HTMLInputElement },
-        source: PICKER_SOURCE_EVENT
-    ) {
-        const { target } = event;
-
+    onKupIconClick(e: UIEvent, source: PICKER_SOURCE_EVENT) {
+        e.stopPropagation();
         if (this.isPickerOpened(source)) {
             this.closePicker(source);
         } else {
             this.openPicker(source);
         }
         this.kupIconClick.emit({
-            value: target.value,
+            value: this.dateValue,
             source: source,
         });
     }
@@ -288,9 +240,7 @@ export class KupPicker {
         this.stateSwitcher = !this.stateSwitcher;
     }
 
-    getSourceFromEvent(event: Event): PICKER_SOURCE_EVENT {
-        // cacca
-        console.log('getSourceFromEvent() event: ' + event.target);
+    getSourceEvent(): PICKER_SOURCE_EVENT {
         return PICKER_SOURCE_EVENT.DATE;
     }
 
@@ -308,14 +258,7 @@ export class KupPicker {
                 newValue = this.dateValue;
             }
         }
-        if (source == PICKER_SOURCE_EVENT.TIME) {
-            if (isValidFormattedStringTime(eventDetailValue)) {
-                this.timeValue = formattedStringToDefaultUnformattedStringTime(
-                    eventDetailValue
-                );
-                newValue = this.timeValue;
-            }
-        }
+
         if (newValue != null) {
             this.refreshPickerComponentValue(source, newValue);
             eventToRaise.emit({
@@ -329,11 +272,16 @@ export class KupPicker {
         if (!this.isPickerOpened(source)) {
             return;
         }
-        try {
-            this.status[source].pickerEl.value = value;
-        } catch (error) {
-            console.log('TODO: ???');
+        let d: Date;
+        let m = moment(value, ISO_DEFAULT_DATE_FORMAT);
+        if (m.isValid()) {
+            d = new Date(value);
+        } else {
+            d = new Date();
         }
+        this.status[source].pickerEl.value = d.toISOString();
+        this.status[source].pickerEl.date = d;
+        this.forceUpdate();
     }
 
     setPickerValueSelected(source: PICKER_SOURCE_EVENT, newValue?: string) {
@@ -351,10 +299,6 @@ export class KupPicker {
             this.dateValue = newValue;
             this.setTextFieldInitalValue(source, this.getDateForOutput());
         }
-        if (source == PICKER_SOURCE_EVENT.TIME) {
-            this.timeValue = newValue;
-            this.setTextFieldInitalValue(source, this.getTimeForOutput());
-        }
     }
 
     getPickerValueSelected(source: PICKER_SOURCE_EVENT): string {
@@ -367,12 +311,16 @@ export class KupPicker {
         }
     }
 
+    getTextFieldInitalValue(source: PICKER_SOURCE_EVENT): string {
+        if (this.status[source].textfieldEl !== undefined) {
+            return this.status[source].textfieldEl.initialValue;
+        }
+        return null;
+    }
+
     getValueForPickerComponent(source: PICKER_SOURCE_EVENT) {
         if (source == PICKER_SOURCE_EVENT.DATE) {
             return this.dateValue;
-        }
-        if (source == PICKER_SOURCE_EVENT.TIME) {
-            return this.timeValue;
         }
         return null;
     }
@@ -393,11 +341,11 @@ export class KupPicker {
             ).clientWidth;
             textfieldEl.classList.add('toggled');
             textfieldEl.emitSubmitEventOnEnter = false;
+            textfieldEl.forceFocus = true;
         }
         if (containerEl != null) {
             containerEl.classList.add('dynamic-position-active');
             containerEl.classList.add('visible');
-            this.status[PICKER_SOURCE_EVENT.DATE].pickerContainerEl.focus();
             let elStyle: any = containerEl.style;
             elStyle.height = 'auto';
             if (textFieldWidth != null) {
@@ -406,13 +354,16 @@ export class KupPicker {
         }
     }
 
-    closePicker(source: PICKER_SOURCE_EVENT) {
+    closePicker(source: PICKER_SOURCE_EVENT, fromOnBlur?: boolean) {
         let textfieldEl = this.status[source].textfieldEl;
         let containerEl = this.status[source].pickerContainerEl;
         this.status[source].pickerOpened = false;
         if (textfieldEl != null) {
             textfieldEl.classList.remove('toggled');
             textfieldEl.emitSubmitEventOnEnter = true;
+            if (fromOnBlur != true) {
+                textfieldEl.forceFocus = true;
+            }
         }
         if (containerEl != null) {
             containerEl.classList.remove('dynamic-position-active');
@@ -424,22 +375,17 @@ export class KupPicker {
         return this.status[source].pickerOpened;
     }
 
-    prepDateTextfield(): PICKER_COMPONENT_INFO {
-        let ret: PICKER_COMPONENT_INFO = this.prepTextfield(
-            PICKER_SOURCE_EVENT.DATE,
-            this.dateTextfieldData,
-            this.status[PICKER_SOURCE_EVENT.DATE].elStyle,
-            this.getDateForOutput()
-        );
-        return ret;
+    getTextFieldId(source: PICKER_SOURCE_EVENT): string {
+        return this.status[source].textfieldEl.id;
     }
 
-    prepTimeTextfield(): PICKER_COMPONENT_INFO {
+    prepDateTextfield(): PICKER_COMPONENT_INFO {
+        let source = PICKER_SOURCE_EVENT.DATE;
         let ret: PICKER_COMPONENT_INFO = this.prepTextfield(
-            PICKER_SOURCE_EVENT.TIME,
-            this.timeTextfieldData,
-            this.status[PICKER_SOURCE_EVENT.TIME].elStyle,
-            this.getTimeForOutput()
+            source,
+            this.dateTextfieldData,
+            this.status[source].elStyle,
+            this.getTextFieldInitalValue(source)
         );
         return ret;
     }
@@ -500,43 +446,23 @@ export class KupPicker {
     }
 
     prepDatePicker() {
-        let date: Date = undefined;
-        let m = moment(this.dateValue, 'YYYY-MM-DD');
-        if (m.isValid()) {
-            date = new Date(this.dateValue);
-        } else {
-            logMessage(
-                this,
-                'Invalid date, initializing date picker to today.'
-            );
-            date = new Date();
-        }
-        if (!this.pickerDate) {
-            this.pickerDate = date;
-        }
+        let source = PICKER_SOURCE_EVENT.DATE;
+        let date: Date = this.status[source].pickerEl.date;
 
         return (
             <div
                 tabindex="0"
                 id="date-picker-div"
                 ref={(el) =>
-                    (this.status[
-                        PICKER_SOURCE_EVENT.DATE
-                    ].pickerContainerEl = el as any)
+                    (this.status[source].pickerContainerEl = el as any)
                 }
                 onBlur={(e: any) => {
-                    console.log('here');
                     if (e.relatedTarget) {
-                        let comp = e.relatedTarget.closest('#date-picker-div');
-                        if (!comp) {
-                            this.onKupBlur(e, this.getSourceFromEvent(e));
-                        } else {
-                            this.status[
-                                PICKER_SOURCE_EVENT.DATE
-                            ].pickerContainerEl.focus();
+                        if (e.relatedTarget.id != this.getTextFieldId(source)) {
+                            this.onKupBlur(e, this.getSourceEvent());
                         }
                     } else {
-                        this.onKupBlur(e, this.getSourceFromEvent(e));
+                        this.onKupBlur(e, this.getSourceEvent());
                     }
                 }}
             >
@@ -551,9 +477,9 @@ export class KupPicker {
                             id="year-button"
                             styling="flat"
                             label={
-                                this.months[this.pickerDate.getMonth()] +
+                                this.months[date.getMonth()] +
                                 ', ' +
-                                this.pickerDate.getFullYear().toString()
+                                date.getFullYear().toString()
                             }
                         ></kup-button>
                         <kup-button
@@ -569,7 +495,13 @@ export class KupPicker {
     }
 
     private createCalendar() {
-        let date = new Date(this.dateValue);
+        let date: Date = this.status[PICKER_SOURCE_EVENT.DATE].pickerEl.date;
+        let selecteDate: Date;
+        if (this.dateValue == null || this.dateValue.trim() == '') {
+            selecteDate = new Date();
+        } else {
+            selecteDate = new Date(this.dateValue);
+        }
         let thead = [];
         let tbody = [];
         for (let index = 0; index < this.days.length; index++) {
@@ -580,37 +512,39 @@ export class KupPicker {
             );
         }
 
-        let firstDay = new Date(
-            this.pickerDate.getFullYear(),
-            this.pickerDate.getMonth(),
-            1
-        );
-        let lastDay = new Date(
-            this.pickerDate.getFullYear(),
-            this.pickerDate.getMonth() + 1,
-            0
-        );
+        let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+        let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
         let offset = firstDay.getDay();
+        if (offset == 0) {
+            offset = 6;
+        } else {
+            offset--;
+        }
 
         let dayCount = 1;
-        for (let index = 0; index < 5; index++) {
+        for (let index = 0; index < 6; index++) {
+            if (dayCount > lastDay.getDate()) {
+                break;
+            }
             let row = [];
             for (let index = 0; index < 7; index++) {
+                if (dayCount > lastDay.getDate()) {
+                    break;
+                }
                 if (offset == 0) {
                     let dayClass = 'day';
                     let dataIndex = {
                         'data-index':
-                            this.pickerDate.getFullYear().toString() +
+                            date.getFullYear().toString() +
                             '-' +
-                            (this.pickerDate.getMonth() + 1).toString() +
+                            (date.getMonth() + 1).toString() +
                             '-' +
                             dayCount,
                     };
                     if (
-                        //TODO: la selezione del giorno va fatta attraveso una data legata al picker da testare con la data del componente
-                        dayCount === date.getDate() &&
-                        this.pickerDate.getMonth() === date.getMonth() &&
-                        this.pickerDate.getFullYear() === date.getFullYear()
+                        dayCount === selecteDate.getDate() &&
+                        date.getMonth() === selecteDate.getMonth() &&
+                        date.getFullYear() === selecteDate.getFullYear()
                     ) {
                         dayClass += ' selected';
                     }
@@ -619,17 +553,16 @@ export class KupPicker {
                             <span
                                 {...dataIndex}
                                 class="day-number"
-                                onMouseDown={(e) => {
-                                    this.datePick(e);
+                                onClick={() => {
+                                    this.onKupDatePickerItemClick(
+                                        dataIndex['data-index']
+                                    );
                                 }}
                             >
                                 {dayCount}
                             </span>
                         </td>
                     );
-                    if (dayCount >= lastDay.getDate()) {
-                        break;
-                    }
                     dayCount++;
                 } else {
                     row.push(<td class="day empty"></td>);
@@ -647,90 +580,49 @@ export class KupPicker {
         );
     }
 
-    private datePick(e: any) {
-        let el: HTMLElement = e.target;
-        this.dateValue = el.getAttribute('data-index');
-        this.pickerDate = new Date(el.getAttribute('data-index'));
-        this.closePicker(PICKER_SOURCE_EVENT.DATE);
-    }
-
     private prevMonth() {
-        let yy: number = this.pickerDate.getFullYear();
-        let mm: number = this.pickerDate.getMonth();
+        let source = PICKER_SOURCE_EVENT.DATE;
+        let date: Date = this.status[source].pickerEl.date;
+        let yy: number = date.getFullYear();
+        let mm: number = date.getMonth();
         if (mm < 1) {
             mm = 11;
             yy--;
         } else {
             mm--;
         }
-        this.pickerDate.setFullYear(yy);
-        this.pickerDate.setMonth(mm);
+        date.setFullYear(yy);
+        date.setMonth(mm);
+        this.status[source].pickerEl.value = date.toISOString();
+        this.status[source].pickerEl.date = date;
+        this.dateTextfieldData['forceFocus'] = true;
         this.forceUpdate();
     }
 
     private nextMonth() {
-        let yy: number = this.pickerDate.getFullYear();
-        let mm: number = this.pickerDate.getMonth();
+        let source = PICKER_SOURCE_EVENT.DATE;
+        let date: Date = this.status[source].pickerEl.date;
+        let yy: number = date.getFullYear();
+        let mm: number = date.getMonth();
         if (mm > 10) {
             mm = 0;
             yy++;
         } else {
             mm++;
         }
-        this.pickerDate.setFullYear(yy);
-        this.pickerDate.setMonth(mm);
+        date.setFullYear(yy);
+        date.setMonth(mm);
+        this.status[source].pickerEl.value = date.toISOString();
+        this.status[source].pickerEl.date = date;
+        this.dateTextfieldData['forceFocus'] = true;
         this.forceUpdate();
-    }
-
-    prepTimePicker() {
-        /*
-        let comp: any = (
-            <div
-                id="time-picker-div"
-                ref={(el) =>
-                    (this.status[
-                        PICKER_SOURCE_EVENT.TIME
-                    ].pickerContainerEl = el as any)
-                }
-            >
-                <st-timepicker
-                    selected="05:00 AM"
-                    class="my-class"
-                    label="Choose time"
-                    step="5"
-                    clock24
-                    ref={(el) =>
-                        (this.status[
-                            PICKER_SOURCE_EVENT.TIME
-                        ].pickerEl = el as any)
-                    }
-                ></st-timepicker>
-            </div>
-        );
-        return comp;
-        */
-        return null;
     }
 
     getDateForOutput(): string {
         if (this.dateValue == null || this.dateValue.trim() == '') {
             return '';
         }
-        console.log('getDateForOutput() this.dateValue=' + this.dateValue);
-
         let v1 = unformattedStringToFormattedStringDate(this.dateValue);
-        console.log('getDateForOutput() v1=' + v1);
-        return v1;
-    }
-
-    getTimeForOutput(): string {
-        if (this.timeValue == null || this.timeValue.trim() == '') {
-            return '';
-        }
-        console.log('getTimeForOutput() this.timeValue=' + this.timeValue);
-
-        let v1 = unformattedStringToFormattedStringTime(this.timeValue);
-        console.log('getTimeForOutput() v1=' + v1);
         return v1;
     }
 
@@ -751,10 +643,12 @@ export class KupPicker {
     componentWillLoad() {
         logLoad(this, false);
         setThemeCustomStyle(this);
-        this.status[PICKER_SOURCE_EVENT.DATE] = { pickerOpened: false };
-        this.status[PICKER_SOURCE_EVENT.TIME] = { pickerOpened: false };
+        this.status[PICKER_SOURCE_EVENT.DATE] = {
+            pickerOpened: false,
+            pickerEl: { value: new Date().toISOString(), date: new Date() },
+        };
+
         this.watchDateInitialValue();
-        this.watchTimeInitialValue();
     }
 
     componentDidLoad() {
@@ -766,16 +660,14 @@ export class KupPicker {
     }
 
     componentDidRender() {
-        this.recalcPosition(PICKER_SOURCE_EVENT.DATE);
-        this.recalcPosition(PICKER_SOURCE_EVENT.TIME);
+        let source = PICKER_SOURCE_EVENT.DATE;
+        this.recalcPosition(source);
         logRender(this, true);
     }
 
     render() {
         let dateTextfieldEl: PICKER_COMPONENT_INFO = this.prepDateTextfield();
         let datePickerContainerEl = this.prepDatePicker();
-        let timeTextfieldEl: PICKER_COMPONENT_INFO = this.prepTimeTextfield();
-        let timePickerContainerEl = this.prepTimePicker();
 
         let style = null;
         if (dateTextfieldEl != null && dateTextfieldEl.style != null) {
@@ -783,20 +675,16 @@ export class KupPicker {
                 ...dateTextfieldEl.style,
             };
         }
-        if (timeTextfieldEl != null && timeTextfieldEl.style != null) {
-            style = {
-                ...timeTextfieldEl.style,
-            };
-        }
 
         return (
-            <Host style={style}>
+            <Host
+                style={style}
+                onBlur={(e) => this.onKupBlur(e, this.getSourceEvent())}
+            >
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={style}>
                     {dateTextfieldEl.kupComponent}
                     {datePickerContainerEl}
-                    {timeTextfieldEl.kupComponent}
-                    {timePickerContainerEl}
                 </div>
             </Host>
         );

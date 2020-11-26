@@ -1,18 +1,7 @@
-import { ISO_DEFAULT_DATE_FORMAT } from '../../utils/utils';
-
-export const DATE_PICKER_INPUT_OUTPUT_DATE_FORMAT = ISO_DEFAULT_DATE_FORMAT;
-
-export enum PICKER_TYPE {
-    DATE = 'date',
-    TIME = 'time',
-    DATE_TIME = 'date_time',
-    COLOR = 'color',
-}
-
 export enum PICKER_SOURCE_EVENT {
     DATE = 'date',
-    TIME = 'time',
-    COLOR = 'color',
+    /*TIME = 'time',
+    COLOR = 'color',*/
 }
 
 export interface PICKER_COMPONENT_INFO {

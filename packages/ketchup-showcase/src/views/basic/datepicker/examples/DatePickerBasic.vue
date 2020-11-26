@@ -2,10 +2,9 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        The picker component features a
+        The date picker component features a
         <span class="code-word">Text Field</span> and a drop down menu which
-        lets the user set the desired value. At the moment, the only supported
-        picker is "date".</p
+        lets the user set the desired value.</p
       ><br /><p class="centered">Sample markup</p>
       <code class="flat">{{ markupBasic }}</code>
     </div>
@@ -14,10 +13,10 @@
 
 <script>
 export default {
-  name: 'PickerBasic',
+  name: 'DatePickerBasic',
   data() {
     return {
-      markupBasic: '<kup-picker></kup-picker>',
+      markupBasic: '<kup-date-picker></kup-date-picker>',
     };
   },
 };

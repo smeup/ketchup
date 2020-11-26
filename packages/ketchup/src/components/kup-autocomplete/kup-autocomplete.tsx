@@ -180,7 +180,7 @@ export class KupAutocomplete {
     }
 
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        this.closeList();
+        this.closeList(true);
         const { target } = e;
         this.kupBlur.emit({
             value: target.value,
@@ -293,12 +293,15 @@ export class KupAutocomplete {
         return true;
     }
 
-    closeList() {
+    closeList(fromOnBlur?: boolean) {
         this.textfieldEl.classList.remove('toggled');
         if (this.textfieldEl['icon']) {
             this.textfieldEl['icon'] = 'arrow_drop_down';
         }
         this.textfieldEl.emitSubmitEventOnEnter = true;
+        if (fromOnBlur != true) {
+            this.textfieldEl.forceFocus = true;
+        }
         this.listEl.menuVisible = false;
         this.listEl.classList.remove('dynamic-position-active');
     }

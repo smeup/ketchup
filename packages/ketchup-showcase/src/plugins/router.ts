@@ -55,6 +55,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/drawer/Drawer.vue`),
   },
   {
+    path: `/datepicker`,
+    name: 'datepicker',
+    component: () => import(`@/views/basic/datepicker/DatePicker.vue`),
+  },
+  {
     path: `/grid`,
     name: 'grid',
     component: () => import(`@/views/basic/grid/Grid.vue`),
@@ -83,11 +88,6 @@ let basicRoutes = [
     path: `/navbar`,
     name: 'navbar',
     component: () => import(`@/views/basic/navbar/Navbar.vue`),
-  },
-  {
-    path: `/picker`,
-    name: 'picker',
-    component: () => import(`@/views/basic/picker/Picker.vue`),
   },
   {
     path: `/progressbar`,
@@ -123,6 +123,11 @@ let basicRoutes = [
     path: `/textfield`,
     name: 'textfield',
     component: () => import(`@/views/basic/textfield/Textfield.vue`),
+  },
+  {
+    path: `/timepicker`,
+    name: 'timepicker',
+    component: () => import(`@/views/basic/timepicker/TimePicker.vue`),
   },
 ];
 

@@ -50,6 +50,7 @@ Type: `Promise<void>`
  - [kup-card](../kup-card)
  - [kup-crud](../kup-crud)
  - [kup-data-table](../kup-data-table)
+ - [kup-date-picker](../kup-date-picker)
  - [kup-field](../kup-field)
  - [kup-form](../kup-form)
  - [kup-iframe](../kup-iframe)
@@ -68,6 +69,7 @@ graph TD;
   kup-card --> kup-button
   kup-crud --> kup-button
   kup-data-table --> kup-button
+  kup-date-picker --> kup-button
   kup-field --> kup-button
   kup-form --> kup-button
   kup-iframe --> kup-button
