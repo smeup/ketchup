@@ -50,21 +50,15 @@ export class KupDatePicker {
      */
     @Prop() dateInitialValue: string = '';
     /**
-     * The minimum value of the date picker.
+     * First day number (0 - sunday, 1 - monday, ...)
      */
-    //@Prop() dateMinValue: string = '1970-01-01';
-    /**
-     * The maximum value of the date picker.
-     */
-    //@Prop() dateMaxValue: string = null;
+    @Prop() firstDayIndex: number = 1;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = undefined;
 
     private status: PICKER_STATUS = {};
-    private days = getDaysOfWeekAsStringByLocale();
-    private months = getMonthsAsStringByLocale();
 
     //---- Events ----
 
@@ -145,6 +139,17 @@ export class KupDatePicker {
         source: PICKER_SOURCE_EVENT;
     }>;
 
+    @Event({
+        eventName: 'kupDatePickerTextFieldSubmit',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTextFieldSubmit: EventEmitter<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>;
+
     @Listen('keyup', { target: 'document' })
     listenKeyup(e: KeyboardEvent) {
         let source: PICKER_SOURCE_EVENT = this.getSourceEvent();
@@ -181,6 +186,20 @@ export class KupDatePicker {
             PICKER_SOURCE_EVENT.DATE,
             this.getDateForOutput()
         );
+    }
+
+    @Watch('firstDayIndex')
+    watchFirstDayIndex() {
+        if (this.firstDayIndex > 6 || this.firstDayIndex < 0) {
+            logMessage(
+                this,
+                'property first-day-index=[' +
+                    this.firstDayIndex +
+                    '] not allowed: it must be >= 0 and <= 6',
+                'warning'
+            );
+            this.firstDayIndex = 1;
+        }
     }
 
     //---- Methods ----
@@ -221,6 +240,14 @@ export class KupDatePicker {
 
     onKupInput(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
         this.refreshPickerValue(source, e.detail.value, this.kupInput);
+    }
+
+    onKupTextFieldSubmit(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
+        this.refreshPickerValue(
+            source,
+            e.detail.value,
+            this.kupTextFieldSubmit
+        );
     }
 
     onKupIconClick(e: UIEvent, source: PICKER_SOURCE_EVENT) {
@@ -434,6 +461,9 @@ export class KupDatePicker {
                 onKupTextFieldIconClick={(e: any) =>
                     this.onKupIconClick(e, source)
                 }
+                onKupTextFieldSubmit={(e: any) =>
+                    this.onKupTextFieldSubmit(e, source)
+                }
                 ref={(el) => (this.status[source].textfieldEl = el as any)}
             ></kup-text-field>
         );
@@ -448,6 +478,7 @@ export class KupDatePicker {
     prepDatePicker() {
         let source = PICKER_SOURCE_EVENT.DATE;
         let date: Date = this.status[source].pickerEl.date;
+        let months = getMonthsAsStringByLocale();
 
         return (
             <div
@@ -477,7 +508,7 @@ export class KupDatePicker {
                             id="year-button"
                             styling="flat"
                             label={
-                                this.months[date.getMonth()] +
+                                months[date.getMonth()] +
                                 ', ' +
                                 date.getFullYear().toString()
                             }
@@ -495,6 +526,8 @@ export class KupDatePicker {
     }
 
     private createCalendar() {
+        let days = getDaysOfWeekAsStringByLocale(this.firstDayIndex);
+
         let date: Date = this.status[PICKER_SOURCE_EVENT.DATE].pickerEl.date;
         let selecteDate: Date;
         if (this.dateValue == null || this.dateValue.trim() == '') {
@@ -504,72 +537,77 @@ export class KupDatePicker {
         }
         let thead = [];
         let tbody = [];
-        for (let index = 0; index < this.days.length; index++) {
+        for (let index = 0; index < days.length; index++) {
             thead.push(
                 <th>
-                    <span class="day-text">{this.days[index]}</span>
+                    <span class="day-text">{days[index]}</span>
                 </th>
             );
         }
 
-        let firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-        let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-        let offset = firstDay.getDay();
-        if (offset == 0) {
-            offset = 6;
-        } else {
-            offset--;
-        }
+        let firstMonthDay = new Date(date.getFullYear(), date.getMonth(), 1);
+        let lastMonthDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
-        let dayCount = 1;
-        for (let index = 0; index < 6; index++) {
-            if (dayCount > lastDay.getDate()) {
+        let finish: boolean = false;
+        let currentDayIndex = this.firstDayIndex;
+        let firstMonthDayIndex = firstMonthDay.getDay();
+        let row = [];
+        let daysForRowAdded = 0;
+        while (!finish) {
+            if (currentDayIndex == firstMonthDayIndex) {
                 break;
             }
-            let row = [];
-            for (let index = 0; index < 7; index++) {
-                if (dayCount > lastDay.getDate()) {
+            row.push(<td class="day empty"></td>);
+            currentDayIndex++;
+            daysForRowAdded++;
+            if (currentDayIndex > 6) {
+                currentDayIndex = 0;
+            }
+        }
+        let dayCount = 1;
+        while (dayCount <= lastMonthDay.getDate()) {
+            for (let i = daysForRowAdded; i < 7; i++) {
+                let dayClass = 'day';
+                let dataIndex = {
+                    'data-index':
+                        date.getFullYear().toString() +
+                        '-' +
+                        (date.getMonth() + 1).toString() +
+                        '-' +
+                        dayCount,
+                };
+                if (
+                    dayCount === selecteDate.getDate() &&
+                    date.getMonth() === selecteDate.getMonth() &&
+                    date.getFullYear() === selecteDate.getFullYear()
+                ) {
+                    dayClass += ' selected';
+                }
+                row.push(
+                    <td class={dayClass}>
+                        <span
+                            {...dataIndex}
+                            class="day-number"
+                            onClick={() => {
+                                this.onKupDatePickerItemClick(
+                                    dataIndex['data-index']
+                                );
+                            }}
+                        >
+                            {dayCount}
+                        </span>
+                    </td>
+                );
+                dayCount++;
+                if (dayCount > lastMonthDay.getDate()) {
                     break;
                 }
-                if (offset == 0) {
-                    let dayClass = 'day';
-                    let dataIndex = {
-                        'data-index':
-                            date.getFullYear().toString() +
-                            '-' +
-                            (date.getMonth() + 1).toString() +
-                            '-' +
-                            dayCount,
-                    };
-                    if (
-                        dayCount === selecteDate.getDate() &&
-                        date.getMonth() === selecteDate.getMonth() &&
-                        date.getFullYear() === selecteDate.getFullYear()
-                    ) {
-                        dayClass += ' selected';
-                    }
-                    row.push(
-                        <td class={dayClass}>
-                            <span
-                                {...dataIndex}
-                                class="day-number"
-                                onClick={() => {
-                                    this.onKupDatePickerItemClick(
-                                        dataIndex['data-index']
-                                    );
-                                }}
-                            >
-                                {dayCount}
-                            </span>
-                        </td>
-                    );
-                    dayCount++;
-                } else {
-                    row.push(<td class="day empty"></td>);
-                    offset--;
-                }
             }
-            tbody.push(<tr>{row}</tr>);
+            if (row.length > 0) {
+                tbody.push(<tr>{row}</tr>);
+                row = [];
+            }
+            daysForRowAdded = 0;
         }
 
         return (
@@ -647,7 +685,7 @@ export class KupDatePicker {
             pickerOpened: false,
             pickerEl: { value: new Date().toISOString(), date: new Date() },
         };
-
+        this.watchFirstDayIndex();
         this.watchDateInitialValue();
     }
 

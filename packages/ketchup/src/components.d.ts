@@ -688,6 +688,10 @@ export namespace Components {
           * Props of the date text field.
          */
         "dateTextfieldData": Object;
+        /**
+          * First day number (0 - sunday, 1 - monday, ...)
+         */
+        "firstDayIndex": number;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
     }
     interface KupDrawer {
@@ -2734,6 +2738,10 @@ declare namespace LocalJSX {
           * Props of the date text field.
          */
         "dateTextfieldData"?: Object;
+        /**
+          * First day number (0 - sunday, 1 - monday, ...)
+         */
+        "firstDayIndex"?: number;
         "onKupDatePickerBlur"?: (event: CustomEvent<{
         value: any;
         source: PICKER_SOURCE_EVENT;
@@ -2759,6 +2767,10 @@ declare namespace LocalJSX {
         source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerItemClick"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupDatePickerTextFieldSubmit"?: (event: CustomEvent<{
         value: any;
         source: PICKER_SOURCE_EVENT;
     }>) => void;

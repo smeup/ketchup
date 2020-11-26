@@ -10,19 +10,21 @@
 | `customStyle`       | `custom-style`       | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string` | `undefined` |
 | `dateInitialValue`  | `date-initial-value` | The initial value of the date picker.                                                                           | `string` | `''`        |
 | `dateTextfieldData` | --                   | Props of the date text field.                                                                                   | `Object` | `{}`        |
+| `firstDayIndex`     | `first-day-index`    | First day number (0 - sunday, 1 - monday, ...)                                                                  | `number` | `1`         |
 
 
 ## Events
 
-| Event                    | Description | Type                                                        |
-| ------------------------ | ----------- | ----------------------------------------------------------- |
-| `kupDatePickerBlur`      |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
-| `kupDatePickerChange`    |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
-| `kupDatePickerClick`     |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
-| `kupDatePickerFocus`     |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
-| `kupDatePickerIconClick` |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
-| `kupDatePickerInput`     |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
-| `kupDatePickerItemClick` |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| Event                          | Description | Type                                                        |
+| ------------------------------ | ----------- | ----------------------------------------------------------- |
+| `kupDatePickerBlur`            |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupDatePickerChange`          |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupDatePickerClick`           |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupDatePickerFocus`           |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupDatePickerIconClick`       |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupDatePickerInput`           |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupDatePickerItemClick`       |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
+| `kupDatePickerTextFieldSubmit` |             | `CustomEvent<{ value: any; source: PICKER_SOURCE_EVENT; }>` |
 
 
 ## Methods

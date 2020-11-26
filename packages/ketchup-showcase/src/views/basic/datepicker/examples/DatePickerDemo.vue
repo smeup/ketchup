@@ -62,20 +62,14 @@ export default {
           default: 'undefined',
           try: 'css',
         },
-        /*{
-          prop: 'minValue',
-          description: 'The minimum value of the picker.',
+        {
+          prop: 'dateInitialValue',
+          description:
+            'The initial value of the date picker (ISO date format).',
           type: 'string',
-          default: '1970-01-01',
+          default: '""',
           try: 'field',
         },
-        {
-          prop: 'maxValue',
-          description: 'The maximum value of the picker.',
-          type: 'string',
-          default: 'null',
-          try: 'field',
-        },*/
         {
           prop: 'dateTextfieldData',
           description:
@@ -85,11 +79,11 @@ export default {
           try: 'json',
         },
         {
-          prop: 'dateInitialValue',
+          prop: 'firstDayIndex',
           description:
-            'The initial value of the date picker (ISO date format).',
-          type: 'string',
-          default: '""',
+            'The initial day index for calendar (0 - Sunday, 1 - Monday, ...) .',
+          type: 'number',
+          default: '1',
           try: 'field',
         },
       ],

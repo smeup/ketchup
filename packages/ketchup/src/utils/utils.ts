@@ -559,14 +559,14 @@ export function getDayAsStringByLocale(date: Date): string {
     return dateTimeFormat.format(date);
 }
 
-function mondayThisWeek(dateFrom?: Date): Date {
+function firstDayThisWeek(firstDayIndex?: number): Date {
     var d = new Date();
-    if (dateFrom != null) {
-        d = new Date(dateFrom.toISOString());
-    }
     const day = d.getDay();
-    const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-    return new Date(d.setDate(diff));
+    // dayIndex0
+    d.setDate(d.getDate() - day);
+    // dayIndexX
+    d.setDate(d.getDate() + firstDayIndex);
+    return d;
 }
 
 const offsetDate = (base: Date, count: number): Date => {
@@ -575,16 +575,20 @@ const offsetDate = (base: Date, count: number): Date => {
     return date;
 };
 
-function thisWeek(dateFrom?: Date): { startDate: Date; endDate: Date } {
-    const monday = mondayThisWeek(dateFrom);
+function thisWeek(firstDayIndex?: number): { startDate: Date; endDate: Date } {
+    const firstDay = firstDayThisWeek(firstDayIndex);
     return {
-        startDate: monday,
-        endDate: offsetDate(monday, 6),
+        startDate: firstDay,
+        endDate: offsetDate(firstDay, 6),
     };
 }
 
-export function getDaysOfWeekAsStringByLocale(dateFrom?: Date): string[] {
-    var thisWeekDays: { startDate: Date; endDate: Date } = thisWeek(dateFrom);
+export function getDaysOfWeekAsStringByLocale(
+    firstDayIndex?: number
+): string[] {
+    var thisWeekDays: { startDate: Date; endDate: Date } = thisWeek(
+        firstDayIndex
+    );
     var monday: Date = thisWeekDays.startDate;
     var days: string[] = [];
     for (var i = 0; i < 7; i++) {
