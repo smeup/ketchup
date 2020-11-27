@@ -80,8 +80,10 @@
                 z-index: 100;
             }
         </style>
+
     </head>
     <body>
+
         <div id="theme-tester">
             <kup-switch leading-label label="Theme tester" id="theme-switch"></kup-switch>
         </div>
@@ -107,6 +109,18 @@
         <br />
         <a href="echarts.html">Ketchup echarts tests</a>
 
+        <h1>Date/time picker</h1>
+        <script>
+            //document.documentElement['kupDebug'] = true;
+        </script>
+        <h4>init on Monday</h4>
+        <kup-date-picker id="date-picker1"></kup-date-picker>
+        <h4>init on Sunday</h4>
+        <kup-date-picker id="date-picker2" first-day-index="0"></kup-date-picker>
+        <h4>init on Tuesday</h4>
+        <kup-date-picker id="date-picker3" first-day-index="2"></kup-date-picker>
+        <kup-time-picker id="time-picker1"></kup-time-picker>
+        <br/><br/><br/><br/>
         <h1>Simple text field</h1>
         <kup-text-field
             id="int1"
@@ -1260,6 +1274,7 @@ chipList.data = [
         }
         </style>
 
+<!--
         <kup-qlik id="qlik-obj" appid = "c9f6a87b-0027-40dc-b439-8171b7457031" doconnection = "true" bordered = "true" fluid = "true"></kup-qlik>
         <kup-qlik id="qlik-obj2" appid = "52cb8ec5-f27c-4125-830a-3cb8c1c3b376" bordered = "true" fluid = "true"></kup-qlik>
         
@@ -1324,6 +1339,6 @@ chipList.data = [
                     }
                 ]
             }
-        </script>
+        </script>-->
     </body>
 </html>

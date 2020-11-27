@@ -30,11 +30,6 @@ let basicRoutes = [
     component: () => import(`@/views/basic/button/Button.vue`),
   },
   {
-    path: `/drawer`,
-    name: 'drawer',
-    component: () => import(`@/views/basic/drawer/Drawer.vue`),
-  },
-  {
     path: `/checkbox`,
     name: 'checkbox',
     component: () => import(`@/views/basic/checkbox/Checkbox.vue`),
@@ -45,9 +40,24 @@ let basicRoutes = [
     component: () => import(`@/views/basic/chip/Chip.vue`),
   },
   {
+    path: `/colorpicker`,
+    name: 'colorpicker',
+    component: () => import(`@/views/basic/colorpicker/ColorPicker.vue`),
+  },
+  {
     path: `/combobox`,
     name: 'combobox',
     component: () => import(`@/views/basic/combobox/Combobox.vue`),
+  },
+  {
+    path: `/drawer`,
+    name: 'drawer',
+    component: () => import(`@/views/basic/drawer/Drawer.vue`),
+  },
+  {
+    path: `/datepicker`,
+    name: 'datepicker',
+    component: () => import(`@/views/basic/datepicker/DatePicker.vue`),
   },
   {
     path: `/grid`,
@@ -95,11 +105,6 @@ let basicRoutes = [
     component: () => import(`@/views/basic/rating/Rating.vue`),
   },
   {
-    path: `/colorpicker`,
-    name: 'colorpicker',
-    component: () => import(`@/views/basic/colorpicker/ColorPicker.vue`),
-  },
-  {
     path: `/spinner`,
     name: 'spinner',
     component: () => import(`@/views/basic/spinner/Spinner.vue`),
@@ -118,6 +123,11 @@ let basicRoutes = [
     path: `/textfield`,
     name: 'textfield',
     component: () => import(`@/views/basic/textfield/Textfield.vue`),
+  },
+  {
+    path: `/timepicker`,
+    name: 'timepicker',
+    component: () => import(`@/views/basic/timepicker/TimePicker.vue`),
   },
 ];
 

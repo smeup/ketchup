@@ -14,25 +14,31 @@
 }
 
 .icon-container.ascending {
+  -webkit-mask: var(--kup-ascending-icon);
   mask: var(--kup-ascending-icon);
 }
 
 .icon-container.descending {
+  -webkit-mask: var(--kup-descending-icon);
   mask: var(--kup-descending-icon);
 }
 
 .icon-container.collapsed {
+  -webkit-mask: var(--kup-collapsed-icon);
   mask: var(--kup-collapsed-icon);
 }
 
 .icon-container.expanded {
+  -webkit-mask: var(--kup-expanded-icon);
   mask: var(--kup-expanded-icon);
 }
 
 .icon-container.filter-remove {
+  -webkit-mask: var(--kup-filter-remove-icon);
   mask: var(--kup-filter-remove-icon);
 }
 
 .icon-container.clear {
+  -webkit-mask: var(--kup-clear-icon);
   mask: var(--kup-clear-icon);
 }

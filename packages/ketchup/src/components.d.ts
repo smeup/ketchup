@@ -16,6 +16,7 @@ import { ComponentChipElement } from "./components/kup-chip/kup-chip-declaration
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
+import { PICKER_SOURCE_EVENT } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { CssDraw } from "./components/kup-image/kup-image-declarations";
@@ -24,6 +25,7 @@ import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarat
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
+import { PICKER_SOURCE_EVENT as PICKER_SOURCE_EVENT1 } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
@@ -672,6 +674,25 @@ export namespace Components {
           * Defines the current totals options.
          */
         "totals": TotalsMap;
+    }
+    interface KupDatePicker {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * The initial value of the date picker.
+         */
+        "dateInitialValue": string;
+        /**
+          * Props of the date text field.
+         */
+        "dateTextfieldData": Object;
+        /**
+          * First day number (0 - sunday, 1 - monday, ...)
+         */
+        "firstDayIndex": number;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
     }
     interface KupDrawer {
         "close": () => Promise<void>;
@@ -1338,6 +1359,25 @@ export namespace Components {
          */
         "trailingLabel": boolean;
     }
+    interface KupTimePicker {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * The initial value of the time picker.
+         */
+        "timeInitialValue": string;
+        /**
+          * Minutes step
+         */
+        "timeMinutesStep": number;
+        /**
+          * Props of the time text field.
+         */
+        "timeTextfieldData": Object;
+    }
     interface KupTooltip {
         /**
           * Data for cell options
@@ -1544,6 +1584,12 @@ declare global {
         prototype: HTMLKupDataTableElement;
         new (): HTMLKupDataTableElement;
     };
+    interface HTMLKupDatePickerElement extends Components.KupDatePicker, HTMLStencilElement {
+    }
+    var HTMLKupDatePickerElement: {
+        prototype: HTMLKupDatePickerElement;
+        new (): HTMLKupDatePickerElement;
+    };
     interface HTMLKupDrawerElement extends Components.KupDrawer, HTMLStencilElement {
     }
     var HTMLKupDrawerElement: {
@@ -1694,6 +1740,12 @@ declare global {
         prototype: HTMLKupTextFieldElement;
         new (): HTMLKupTextFieldElement;
     };
+    interface HTMLKupTimePickerElement extends Components.KupTimePicker, HTMLStencilElement {
+    }
+    var HTMLKupTimePickerElement: {
+        prototype: HTMLKupTimePickerElement;
+        new (): HTMLKupTimePickerElement;
+    };
     interface HTMLKupTooltipElement extends Components.KupTooltip, HTMLStencilElement {
     }
     var HTMLKupTooltipElement: {
@@ -1729,6 +1781,7 @@ declare global {
         "kup-dash": HTMLKupDashElement;
         "kup-dash-list": HTMLKupDashListElement;
         "kup-data-table": HTMLKupDataTableElement;
+        "kup-date-picker": HTMLKupDatePickerElement;
         "kup-drawer": HTMLKupDrawerElement;
         "kup-echarts": HTMLKupEchartsElement;
         "kup-editor": HTMLKupEditorElement;
@@ -1754,6 +1807,7 @@ declare global {
         "kup-switch": HTMLKupSwitchElement;
         "kup-tab-bar": HTMLKupTabBarElement;
         "kup-text-field": HTMLKupTextFieldElement;
+        "kup-time-picker": HTMLKupTimePickerElement;
         "kup-tooltip": HTMLKupTooltipElement;
         "kup-tree": HTMLKupTreeElement;
         "kup-upload": HTMLKupUploadElement;
@@ -2671,6 +2725,56 @@ declare namespace LocalJSX {
          */
         "totals"?: TotalsMap;
     }
+    interface KupDatePicker {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * The initial value of the date picker.
+         */
+        "dateInitialValue"?: string;
+        /**
+          * Props of the date text field.
+         */
+        "dateTextfieldData"?: Object;
+        /**
+          * First day number (0 - sunday, 1 - monday, ...)
+         */
+        "firstDayIndex"?: number;
+        "onKupDatePickerBlur"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupDatePickerChange"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupDatePickerClick"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupDatePickerFocus"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupDatePickerIconClick"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupDatePickerInput"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupDatePickerItemClick"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupDatePickerTextFieldSubmit"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+    }
     interface KupDrawer {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -3454,6 +3558,56 @@ declare namespace LocalJSX {
          */
         "trailingLabel"?: boolean;
     }
+    interface KupTimePicker {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        "onKupTimePickerBlur"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupTimePickerChange"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupTimePickerClick"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupTimePickerFocus"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupTimePickerIconClick"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupTimePickerInput"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupTimePickerItemClick"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        "onKupTimePickerTextFieldSubmit"?: (event: CustomEvent<{
+        value: any;
+        source: PICKER_SOURCE_EVENT;
+    }>) => void;
+        /**
+          * The initial value of the time picker.
+         */
+        "timeInitialValue"?: string;
+        /**
+          * Minutes step
+         */
+        "timeMinutesStep"?: number;
+        /**
+          * Props of the time text field.
+         */
+        "timeTextfieldData"?: Object;
+    }
     interface KupTooltip {
         /**
           * Data for cell options
@@ -3662,6 +3816,7 @@ declare namespace LocalJSX {
         "kup-dash": KupDash;
         "kup-dash-list": KupDashList;
         "kup-data-table": KupDataTable;
+        "kup-date-picker": KupDatePicker;
         "kup-drawer": KupDrawer;
         "kup-echarts": KupEcharts;
         "kup-editor": KupEditor;
@@ -3687,6 +3842,7 @@ declare namespace LocalJSX {
         "kup-switch": KupSwitch;
         "kup-tab-bar": KupTabBar;
         "kup-text-field": KupTextField;
+        "kup-time-picker": KupTimePicker;
         "kup-tooltip": KupTooltip;
         "kup-tree": KupTree;
         "kup-upload": KupUpload;
@@ -3712,6 +3868,7 @@ declare module "@stencil/core" {
             "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;
             "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
+            "kup-date-picker": LocalJSX.KupDatePicker & JSXBase.HTMLAttributes<HTMLKupDatePickerElement>;
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
             "kup-echarts": LocalJSX.KupEcharts & JSXBase.HTMLAttributes<HTMLKupEchartsElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
@@ -3737,6 +3894,7 @@ declare module "@stencil/core" {
             "kup-switch": LocalJSX.KupSwitch & JSXBase.HTMLAttributes<HTMLKupSwitchElement>;
             "kup-tab-bar": LocalJSX.KupTabBar & JSXBase.HTMLAttributes<HTMLKupTabBarElement>;
             "kup-text-field": LocalJSX.KupTextField & JSXBase.HTMLAttributes<HTMLKupTextFieldElement>;
+            "kup-time-picker": LocalJSX.KupTimePicker & JSXBase.HTMLAttributes<HTMLKupTimePickerElement>;
             "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;
             "kup-tree": LocalJSX.KupTree & JSXBase.HTMLAttributes<HTMLKupTreeElement>;
             "kup-upload": LocalJSX.KupUpload & JSXBase.HTMLAttributes<HTMLKupUploadElement>;

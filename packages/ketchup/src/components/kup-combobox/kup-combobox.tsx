@@ -164,7 +164,7 @@ export class KupCombobox {
     }
 
     onKupBlur() {
-        this.closeList();
+        this.closeList(true);
         this.kupBlur.emit({
             value: this.value,
         });
@@ -258,10 +258,13 @@ export class KupCombobox {
         elStyle.minWidth = textFieldWidth + 'px';
     }
 
-    closeList() {
+    closeList(fromOnBlur?: boolean) {
         this.textfieldEl.classList.remove('toggled');
         this.textfieldEl['icon'] = 'arrow_drop_down';
         this.textfieldEl.emitSubmitEventOnEnter = true;
+        if (fromOnBlur != true) {
+            this.textfieldEl.forceFocus = true;
+        }
         this.listEl.menuVisible = false;
         this.listEl.classList.remove('dynamic-position-active');
     }

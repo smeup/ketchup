@@ -392,16 +392,7 @@ export class KupTree {
         logLoad(this, false);
         setThemeCustomStyle(this);
 
-        if (this.data) {
-            // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
-            // the default value of the treeExpandedPropName is set to true
-            this.data.forEach((rootNode) => {
-                this.expandCollapseAllNodes(
-                    rootNode,
-                    this.expanded && !this.useDynamicExpansion
-                );
-            });
-        }
+        this.refreshStructureState();
 
         // Initializes the selectedNodeString
         if (Array.isArray(this.selectedNode)) {
@@ -461,6 +452,7 @@ export class KupTree {
     @Watch('data')
     enrichDataWhenChanged(newData, oldData) {
         if (newData !== oldData) {
+            /*
             newData.forEach((rootNode) => {
                 this.expandCollapseAllNodes(
                     rootNode,
@@ -468,6 +460,15 @@ export class KupTree {
                 );
             });
             this.filterNodes();
+            */
+            this.refreshStructureState();
+        }
+    }
+
+    @Watch('expanded')
+    enrichStructureStateWhenChanged(newValue, oldValue) {
+        if (newValue !== oldValue) {
+            this.refreshStructureState();
         }
     }
 
@@ -747,6 +748,20 @@ export class KupTree {
         for (let i = 0; i < this.data.length; i++) {
             if (this.setNodeVisibility(this.data[i])) {
             }
+        }
+    }
+
+    private refreshStructureState() {
+        if (this.data) {
+            // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
+            // the default value of the treeExpandedPropName is set to true
+            this.data.forEach((rootNode) => {
+                this.expandCollapseAllNodes(
+                    rootNode,
+                    this.expanded && !this.useDynamicExpansion
+                );
+            });
+            this.filterNodes();
         }
     }
 
