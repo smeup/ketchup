@@ -44,6 +44,10 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+         */
+        "displayMode": ItemsDisplayMode;
+        /**
           * Props of the list.
          */
         "listData": Object;
@@ -53,7 +57,7 @@ export namespace Components {
         "minimumChars": number;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * Sets how the return the selected item value
+          * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
         /**
@@ -419,6 +423,10 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+         */
+        "displayMode": ItemsDisplayMode;
+        /**
           * Lets the combobox behave as a select element.
          */
         "isSelect": boolean;
@@ -428,7 +436,7 @@ export namespace Components {
         "listData": Object;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * Sets how the return the elected item value. Suported values: "code", "description", "both".
+          * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
         /**
@@ -1828,6 +1836,10 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
+          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+         */
+        "displayMode"?: ItemsDisplayMode;
+        /**
           * Props of the list.
          */
         "listData"?: Object;
@@ -1864,7 +1876,7 @@ declare namespace LocalJSX {
         value: any;
     }>) => void;
         /**
-          * Sets how the return the selected item value
+          * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
         /**
@@ -2384,6 +2396,10 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
+          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+         */
+        "displayMode"?: ItemsDisplayMode;
+        /**
           * Lets the combobox behave as a select element.
          */
         "isSelect"?: boolean;
@@ -2419,7 +2435,7 @@ declare namespace LocalJSX {
         value: any;
     }>) => void;
         /**
-          * Sets how the return the elected item value. Suported values: "code", "description", "both".
+          * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
         /**
