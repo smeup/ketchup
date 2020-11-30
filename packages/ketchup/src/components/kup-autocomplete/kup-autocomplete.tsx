@@ -41,9 +41,13 @@ export class KupAutocomplete {
      */
     @Prop() minimumChars: number = 1;
     /**
-     * Sets how the return the selected item value
+     * Sets how the return the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
+    /**
+     * Sets how the show the selected item value. Suported values: "code", "description", "both".
+     */
+    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
      * Props of the text field.
      */
@@ -52,6 +56,7 @@ export class KupAutocomplete {
     private textfieldEl: any = undefined;
     private listEl: any = undefined;
     private value: string = undefined;
+    private displayedValue: string = undefined;
     private elStyle: any = undefined;
 
     /**
@@ -188,7 +193,8 @@ export class KupAutocomplete {
     }
 
     onKupChange(e: CustomEvent) {
-        this.value = e.detail.value;
+        //this.value = e.detail.value;
+        this.consistencyCheck(null, e.detail.value);
         this.kupChange.emit({
             value: this.value,
         });
@@ -209,8 +215,8 @@ export class KupAutocomplete {
     }
 
     onKupInput(e: CustomEvent) {
-        this.value = e.detail.value;
-
+        //this.value = e.detail.value;
+        this.consistencyCheck(null, e.detail.value);
         if (this.openList(false)) {
             this.handleFilterChange(this.value, e.target);
         }
@@ -233,8 +239,8 @@ export class KupAutocomplete {
         });
     }
 
-    onKupItemClick() {
-        this.consistencyCheck();
+    onKupItemClick(e: CustomEvent) {
+        this.consistencyCheck(e);
         this.closeList();
 
         this.kupChange.emit({
@@ -246,9 +252,10 @@ export class KupAutocomplete {
         });
     }
 
+    /*
     onKupFilterChanged(e: CustomEvent) {
         this.handleFilterChange(e.detail.value, e.target);
-    }
+    }*/
 
     handleFilterChange(newFilter: string, eventTarget: EventTarget) {
         let detail = {
@@ -310,13 +317,21 @@ export class KupAutocomplete {
         return this.listEl.menuVisible == true;
     }
 
-    consistencyCheck() {
-        this.value = consistencyCheck(
-            this.value,
+    consistencyCheck(e?: CustomEvent, valueIn?: string) {
+        let ret = consistencyCheck(
+            valueIn,
             this.listData,
             this.textfieldEl,
-            this.selectMode
+            this.listEl,
+            this.selectMode,
+            this.displayMode,
+            e
         );
+        this.value = ret.value;
+        this.displayedValue = ret.displayedValue;
+        if (this.listEl != null) {
+            this.listEl.resetFilter(valueIn);
+        }
     }
 
     prepTextfield() {
@@ -338,7 +353,7 @@ export class KupAutocomplete {
             <kup-text-field
                 {...this.textfieldData}
                 style={this.elStyle}
-                initial-value={this.value}
+                initial-value={this.displayedValue}
                 id={this.rootElement.id + '_text-field'}
                 /* onKupTextFieldBlur={(e: any) => this.onKupBlur(e)} */
                 onKupTextFieldChange={(e: any) => this.onKupChange(e)}
@@ -357,8 +372,9 @@ export class KupAutocomplete {
         let comp: HTMLElement = (
             <kup-list
                 {...this.listData}
+                displayMode={this.displayMode}
                 is-menu
-                onKupListClick={() => this.onKupItemClick()}
+                onKupListClick={(e) => this.onKupItemClick(e)}
                 id={this.rootElement.id + '_list'}
                 ref={(el) => (this.listEl = el as any)}
             ></kup-list>

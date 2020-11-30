@@ -63,6 +63,14 @@ export default {
           try: 'css',
         },
         {
+          prop: 'displayMode',
+          description:
+            'Sets how the show the selected item value. Suported values: "code", "description", "both".',
+          type: 'string',
+          default: 'description',
+          try: 'field',
+        },
+        {
           prop: 'isSelect',
           description: 'Lets the combobox behave as a select element.',
           type: 'boolean',
@@ -80,7 +88,7 @@ export default {
         {
           prop: 'selectMode',
           description:
-            'Sets how the return the elected item value. Suported values: "code", "description", "both".',
+            'Sets how the return the selected item value. Suported values: "code", "description", "both".',
           type: 'string',
           default: 'description',
           try: 'field',
@@ -127,6 +135,7 @@ function createComp() {
     selectable: true,
   };
   comp.selectMode = 'description';
+  comp.displayMode = 'description';
   comp.textfieldData = {
     icon: 'arrow_drop_down',
     label: 'demo',
