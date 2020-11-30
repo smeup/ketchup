@@ -18,7 +18,12 @@ import {
 import { isNumber, isDate } from '../../utils/object-utils';
 import {
     isEmpty,
+    ISO_DEFAULT_DATE_FORMAT,
+    isValidFormattedStringDate,
+    isValidStringDate,
     stringToNumber,
+    unformatDateTime,
+    unformattedStringToFormattedStringDate,
     unformattedStringToFormattedStringNumber,
 } from '../../utils/utils';
 import {
@@ -26,7 +31,6 @@ import {
     filterIsNegative,
 } from '../../utils/filters';
 import { logMessage } from '../../utils/debug-manager';
-import { unformatDate } from '../../utils/cell-formatter';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -377,7 +381,7 @@ export function isRowCompliant(
         let b2 = isFilterCompliantForCellObj(cell, filterValue);
 
         const _filterIsNegative: boolean = filterIsNegative(filterValue);
-        if(_filterIsNegative){
+        if (_filterIsNegative) {
             if (!b1 || !b2) {
                 return false;
             }
@@ -386,7 +390,7 @@ export function isRowCompliant(
                 return false;
             }
         }
-      
+
         let filterValues = getCheckBoxFilterValues(filters, key);
         if (filterValues.length == 0) {
             continue;
@@ -922,8 +926,8 @@ export function compareValues(
         v1 = stringToNumber(s1);
         v2 = stringToNumber(s2);
     } else if (isDate(obj1)) {
-        v1 = unformatDate(s1);
-        v2 = unformatDate(s2);
+        v1 = unformatDateTime(s1, ISO_DEFAULT_DATE_FORMAT);
+        v2 = unformatDateTime(s2, ISO_DEFAULT_DATE_FORMAT);
     }
     if (v1 > v2) {
         return sm * 1;
@@ -1131,6 +1135,17 @@ export function getCellValueForDisplay(value, column: Column): string {
             value,
             column.decimals ? column.decimals : -1,
             column.obj ? column.obj.p : ''
+        );
+    }
+    if (
+        value != '' &&
+        isDate(column.obj) &&
+        isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)
+    ) {
+        return unformattedStringToFormattedStringDate(
+            value,
+            null,
+            column.obj.p
         );
     }
     return value;

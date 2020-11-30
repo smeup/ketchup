@@ -93,6 +93,8 @@ import {
     numberToFormattedStringNumber,
     identify,
     isNumber as isNumberThisString,
+    formattedStringToDefaultUnformattedStringDate,
+    isValidFormattedStringDate,
 } from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 
@@ -1482,11 +1484,11 @@ export class KupDataTable {
         }
     }
 
-    private onRemoveFilter(column: string) {
+    private onRemoveFilter(column: Column) {
         // resetting current page
         this.resetCurrentPage();
         const newFilters: GenericFilter = { ...this.filters };
-        newFilters[column] = { textField: '', checkBoxes: [] };
+        newFilters[column.name] = { textField: '', checkBoxes: [] };
         this.filters = newFilters;
         this.setCheckBoxFilter(column, '');
     }
@@ -1494,7 +1496,7 @@ export class KupDataTable {
     private onFilterChange({ detail }, column: Column) {
         // resetting current page
         this.resetCurrentPage();
-        this.setCheckBoxFilter(column.name, '');
+        this.setCheckBoxFilter(column, '');
         let newFilter = '';
         if (detail.value) {
             newFilter = detail.value.trim();
@@ -1507,6 +1509,16 @@ export class KupDataTable {
             );
             if (isNumberThisString(tmpStr)) {
                 newFilter = tmpStr;
+            }
+        }
+
+        if (newFilter != '' && isDate(column.obj)) {
+            if (isValidFormattedStringDate(newFilter)) {
+                newFilter = formattedStringToDefaultUnformattedStringDate(
+                    newFilter
+                );
+            } else {
+                newFilter = '';
             }
         }
 
@@ -1533,12 +1545,35 @@ export class KupDataTable {
     private onCheckBoxFilterChange({ detail }, column: Column) {
         // resetting current page
         this.resetCurrentPage();
-        this.setCheckBoxFilter(column.name, detail.value.trim());
+        this.setCheckBoxFilter(column, detail.value.trim());
     }
 
-    private setCheckBoxFilter(column: string, value: string) {
+    private setCheckBoxFilter(column: Column, value: string) {
+        let newFilter = '';
+        if (value) {
+            newFilter = value.trim();
+        }
+        if (newFilter != '' && isNumber(column.obj)) {
+            let tmpStr = formattedStringToUnformattedStringNumber(
+                newFilter,
+                column.obj ? column.obj.p : ''
+            );
+            if (isNumberThisString(tmpStr)) {
+                newFilter = tmpStr;
+            }
+        }
+
+        if (newFilter != '' && isDate(column.obj)) {
+            if (isValidFormattedStringDate(newFilter)) {
+                newFilter = formattedStringToDefaultUnformattedStringDate(
+                    newFilter
+                );
+            } else {
+                newFilter = '';
+            }
+        }
         const newFilters: GenericFilter = { ...this.filterForCheckBox };
-        setTextFieldFilterValue(newFilters, column, value);
+        setTextFieldFilterValue(newFilters, column.name, value);
         this.filterForCheckBox = newFilters;
     }
 
@@ -2178,7 +2213,7 @@ export class KupDataTable {
                             title={svgLabel}
                             class="icon-container filter-remove"
                             onClick={() => {
-                                this.onRemoveFilter(column.name);
+                                this.onRemoveFilter(column);
                             }}
                         ></span>
                     );
@@ -2275,6 +2310,7 @@ export class KupDataTable {
                     );
 
                     if (this.showFilters && isStringObject(column.obj)) {
+                        let filterFromCheckBoxFilter: boolean = false;
                         let filterInitialValue = this.getTextFieldFilterValue(
                             column.name
                         );
@@ -2286,8 +2322,10 @@ export class KupDataTable {
                             filterInitialValue = this.getCheckBoxFilter(
                                 column.name
                             );
+                            filterFromCheckBoxFilter = true;
                         }
 
+                        //if (!filterFromCheckBoxFilter) {
                         if (
                             filterInitialValue != '' &&
                             isNumber(column.obj) &&
@@ -2298,6 +2336,13 @@ export class KupDataTable {
                                 column
                             );
                         }
+                        if (filterInitialValue != '' && isDate(column.obj)) {
+                            filterInitialValue = getCellValueForDisplay(
+                                filterInitialValue,
+                                column
+                            );
+                        }
+                        //}
                         columnMenuItems.push(
                             <li role="menuitem" class="textfield-row">
                                 <kup-text-field
@@ -3277,6 +3322,8 @@ export class KupDataTable {
             return 'chips';
         } else if (isNumber(obj)) {
             return 'number';
+        } else if (isDate(obj)) {
+            return 'date';
         } else {
             return 'string';
         }
@@ -3485,6 +3532,15 @@ export class KupDataTable {
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;
                     }
+                    return cellValue;
+                }
+                return content;
+            case 'date':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(
+                        cell.value,
+                        column
+                    );
                     return cellValue;
                 }
                 return content;

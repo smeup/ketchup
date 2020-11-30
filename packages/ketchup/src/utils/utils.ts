@@ -391,11 +391,25 @@ export function formatTime(time: Date): string {
 
 /**
  * @param value date string, formatted by actual browser locale
- * @returns true id date string in input is a valid date
+ * @returns true if date string in input is a valid date
  */
 export function isValidFormattedStringDate(value: string): boolean {
-    let format = getCurrentDateFormatFromBrowserLocale();
-    let m = moment(value, format);
+    return isValidStringDate(value);
+}
+
+/**
+ * @param value date string
+ * @param valueDateFormat date format (default actual browser locale)
+ * @returns true if date string in input is a valid date
+ */
+export function isValidStringDate(
+    value: string,
+    valueDateFormat?: string
+): boolean {
+    if (valueDateFormat == null) {
+        valueDateFormat = getCurrentDateFormatFromBrowserLocale();
+    }
+    let m = moment(value, valueDateFormat);
     return m.isValid();
 }
 
