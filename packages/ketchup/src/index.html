@@ -316,6 +316,7 @@
 
         <h4>Material Select (widget)</h4>
         <kup-combobox is-filterable="false" field-id="pluto1" is-select="true"></kup-combobox>
+        <kup-combobox is-filterable="false" field-id="pluto2" is-select="true" display-mode="description" select-mode="code" ></kup-combobox>
 
         <h4>Events testing</h4>
         <kup-tab-bar id="event-tabbar"></kup-tab-bar>
@@ -645,6 +646,10 @@ chipList.data = [
             let selectBox1 = document.getElementsByTagName('kup-combobox')[0];
             selectBox1.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
             selectBox1.listData = {data: [...itemsForListBox], selectable: true,};
+
+            let selectBox2 = document.getElementsByTagName('kup-combobox')[1];
+            selectBox2.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
+            selectBox2.listData = {data: [...itemsForListBox], selectable: true,};
 
             let autocompleteBox1 = document.getElementsByTagName('kup-autocomplete')[0];
             autocompleteBox1.textfieldData = {trailingIcon:  true, icon: "arrow_drop_down"};

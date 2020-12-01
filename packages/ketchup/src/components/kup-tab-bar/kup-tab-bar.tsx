@@ -15,7 +15,6 @@ import { MDCTabBar } from '@material/tab-bar';
 import { ComponentTabBarElement } from './kup-tab-bar-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
-import { consistencyCheck } from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-tab-bar',
