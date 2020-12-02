@@ -1743,6 +1743,14 @@
             ></kup-image>
             <div class="icon-label">windows</div>
           </div>
+          <div class="icon-wrapper" title="wrench">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="wrench"
+            ></kup-image>
+            <div class="icon-label">wrench</div>
+          </div>
           <div class="icon-wrapper" title="xml">
             <kup-image size-x="48px" size-y="48px" resource="xml"></kup-image>
             <div class="icon-label">xml</div>
