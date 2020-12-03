@@ -19,6 +19,7 @@
   --gau_third-color: var(--kup-gauge_third-color, #02a045);
 
   display: inline-block;
+  width: 100%;
 
   .gauge {
     /*
@@ -30,7 +31,8 @@
 
     // Div wrapping the SVG element
     &__container {
-      padding: var(--gau_top-lateral-padding) var(--gau_top-lateral-padding) 0;
+      // padding: var(--gau_top-lateral-padding) var(--gau_top-lateral-padding) 0;
+      width: 100%;
     }
 
     // Class for the labels of the threshold
