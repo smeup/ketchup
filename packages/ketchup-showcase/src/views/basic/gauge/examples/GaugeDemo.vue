@@ -32,6 +32,14 @@ export default {
           try: 'array',
         },
         {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
+        },
+        {
           prop: 'firstThreshold',
           description:
             'The first threshold, establishing the length of the first and second arc.',

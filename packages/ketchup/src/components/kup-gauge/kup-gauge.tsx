@@ -1,5 +1,14 @@
-import { Component, Element, Prop, h } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Prop,
+    h,
+    State,
+    Method,
+    Host,
+} from '@stencil/core';
 import { logLoad, logRender } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 declare const d3: any;
 
@@ -10,6 +19,7 @@ declare const d3: any;
 })
 export class KupGauge {
     @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Sets how much the arc of the gauge should be thick.
@@ -25,6 +35,10 @@ export class KupGauge {
         'var(--kup-warning-color)',
         'var(--kup-danger-color)',
     ];
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = undefined;
     /**
      * The first threshold, establishing the length of the first and second arc.
      */
@@ -109,6 +123,13 @@ export class KupGauge {
      */
     private maxValuePositive = 0;
 
+    //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
     //---- Utility functions ----
     // Manipulates and transforms degrees to percentage and vice versa.
 
@@ -190,6 +211,7 @@ export class KupGauge {
 
     componentWillLoad() {
         logLoad(this, false);
+        setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
@@ -373,39 +395,42 @@ export class KupGauge {
 
         const width = { width: this.widthComponent };
         return (
-            <div class="gauge__container">
-                <svg
-                    class="gauge"
-                    style={width}
-                    viewBox={`0 0 ${this.size} ${valueLabelYPosition}`}
-                >
-                    <g
-                        transform={`rotate(-90) translate(-${halvedSize}, ${halvedSize})`}
+            <Host>
+                <style>{setCustomStyle(this)}</style>
+                <div id="kup-component" class="gauge__container">
+                    <svg
+                        class="gauge"
+                        style={width}
+                        viewBox={`0 0 ${this.size} ${valueLabelYPosition}`}
                     >
-                        {arcsElements}
-                    </g>
-                    {this.needleCircle ? (
-                        <circle
-                            class="gauge__needle-base"
-                            cx={halvedSize}
-                            cy={halvedSize}
-                            r={needleCircleRadius}
+                        <g
+                            transform={`rotate(-90) translate(-${halvedSize}, ${halvedSize})`}
+                        >
+                            {arcsElements}
+                        </g>
+                        {this.needleCircle ? (
+                            <circle
+                                class="gauge__needle-base"
+                                cx={halvedSize}
+                                cy={halvedSize}
+                                r={needleCircleRadius}
+                            />
+                        ) : null}
+                        <path
+                            class="gauge__needle"
+                            d={this.paintNeedle(
+                                needleLength,
+                                needleCircleRadius,
+                                halvedSize,
+                                halvedSize,
+                                this.calculateValuePercentage(this.value)
+                            )}
                         />
-                    ) : null}
-                    <path
-                        class="gauge__needle"
-                        d={this.paintNeedle(
-                            needleLength,
-                            needleCircleRadius,
-                            halvedSize,
-                            halvedSize,
-                            this.calculateValuePercentage(this.value)
-                        )}
-                    />
-                    {textElements}
-                    {valueText}
-                </svg>
-            </div>
+                        {textElements}
+                        {valueText}
+                    </svg>
+                </div>
+            </Host>
         );
     }
 }

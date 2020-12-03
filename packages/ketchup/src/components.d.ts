@@ -809,6 +809,10 @@ export namespace Components {
          */
         "colors": string[];
         /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
           * The first threshold, establishing the length of the first and second arc.
          */
         "firstThreshold"?: number;
@@ -836,6 +840,7 @@ export namespace Components {
           * When true, ignore thresholds in gauge and show colored value's arc.
          */
         "onlyValue": boolean;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * When true, the colors inside the colors array are used in the reversed order.
          */
@@ -2899,6 +2904,10 @@ declare namespace LocalJSX {
           * Array of three elements to specify the color of the arcs.
          */
         "colors"?: string[];
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
         /**
           * The first threshold, establishing the length of the first and second arc.
          */

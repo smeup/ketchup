@@ -468,8 +468,10 @@
             "KUP-COLOR-PICKER": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-COMBOBOX": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-DATA-TABLE": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
+            "KUP-DATE-PICKER": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-DRAWER": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-FIELD": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
+            "KUP-GAUGE": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-GRID": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-IMAGE": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-LAZY": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
@@ -482,6 +484,7 @@
             "KUP-SWITCH": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-TAB-BAR": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-TEXT-FIELD": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
+            "KUP-TIME-PICKER": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-TREE": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n"
         },
         "icons": {
