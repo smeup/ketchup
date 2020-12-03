@@ -349,6 +349,9 @@ export class KupDatePicker {
         if (source == PICKER_SOURCE_EVENT.DATE) {
             return this.dateValue;
         }
+        if (source == PICKER_SOURCE_EVENT.MONTH) {
+            return this.status[PICKER_SOURCE_EVENT.DATE].pickerEl.value;
+        }
         return null;
     }
 
@@ -382,6 +385,9 @@ export class KupDatePicker {
     }
 
     closePicker(source: PICKER_SOURCE_EVENT, fromOnBlur?: boolean) {
+        if (source == PICKER_SOURCE_EVENT.DATE) {
+            this.closePicker(PICKER_SOURCE_EVENT.MONTH, fromOnBlur);
+        }
         let textfieldEl = this.status[source].textfieldEl;
         let containerEl = this.status[source].pickerContainerEl;
         this.status[source].pickerOpened = false;
@@ -512,6 +518,7 @@ export class KupDatePicker {
                                 ', ' +
                                 date.getFullYear().toString()
                             }
+                            onKupButtonClick={() => this.openSelectMonth()}
                         ></kup-button>
                         <kup-button
                             id="next-month"
@@ -618,6 +625,68 @@ export class KupDatePicker {
         );
     }
 
+    private prepMonthPicker() {
+        let source = PICKER_SOURCE_EVENT.MONTH;
+        let months = getMonthsAsStringByLocale();
+        let monthsRows = [];
+
+        let date: Date = this.status[source].pickerEl.date;
+        let row = [];
+
+        for (let i = 0; i < months.length; i++) {
+            let monthStr = months[i];
+            let monthClass = 'month';
+            if (date.getMonth() == i) {
+                monthClass += ' selected';
+            }
+
+            row.push(
+                <td class={monthClass}>
+                    <span
+                        class="month"
+                        onClick={() => {
+                            this.selectMonth(i);
+                        }}
+                    >
+                        {monthStr}
+                    </span>
+                </td>
+            );
+            if (row.length == 4) {
+                monthsRows.push(<tr>{row}</tr>);
+                row = [];
+            }
+        }
+        return (
+            <div
+                tabindex="0"
+                id="month-picker-div"
+                ref={(el) =>
+                    (this.status[source].pickerContainerEl = el as any)
+                }
+            >
+                <table id="months">
+                    <tbody>{monthsRows}</tbody>
+                </table>
+            </div>
+        );
+    }
+
+    private openSelectMonth() {
+        this.openPicker(PICKER_SOURCE_EVENT.MONTH);
+    }
+
+    private selectMonth(month: number) {
+        let source = PICKER_SOURCE_EVENT.DATE;
+        let date: Date = this.status[source].pickerEl.date;
+        date.setMonth(month);
+        this.status[source].pickerEl.value = date.toISOString();
+        this.status[source].pickerEl.date = date;
+        this.dateTextfieldData['forceFocus'] = true;
+        this.closePicker(PICKER_SOURCE_EVENT.MONTH);
+        this.forceUpdate();
+    }
+
     private prevMonth() {
         let source = PICKER_SOURCE_EVENT.DATE;
         let date: Date = this.status[source].pickerEl.date;
@@ -685,6 +754,10 @@ export class KupDatePicker {
             pickerOpened: false,
             pickerEl: { value: new Date().toISOString(), date: new Date() },
         };
+        this.status[PICKER_SOURCE_EVENT.MONTH] = {
+            pickerOpened: false,
+            pickerEl: { value: new Date().toISOString(), date: new Date() },
+        };
         this.watchFirstDayIndex();
         this.watchDateInitialValue();
     }
@@ -706,6 +779,7 @@ export class KupDatePicker {
     render() {
         let dateTextfieldEl: PICKER_COMPONENT_INFO = this.prepDateTextfield();
         let datePickerContainerEl = this.prepDatePicker();
+        let monthPickerContainerEl = this.prepMonthPicker();
 
         let style = null;
         if (dateTextfieldEl != null && dateTextfieldEl.style != null) {
@@ -723,6 +797,7 @@ export class KupDatePicker {
                 <div id="kup-component" style={style}>
                     {dateTextfieldEl.kupComponent}
                     {datePickerContainerEl}
+                    {monthPickerContainerEl}
                 </div>
             </Host>
         );
