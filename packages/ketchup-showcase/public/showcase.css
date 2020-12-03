@@ -829,8 +829,9 @@ table#customstyle-tab kup-text-field {
 }
 
 .icon-wrapper {
-  height: 120px;
-  width: 120px;
+  box-sizing: border-box;
+  height: 132px;
+  width: 132px;
   padding: 0.25rem;
   margin: auto;
 }
@@ -866,9 +867,9 @@ table#customstyle-tab kup-text-field {
   border-style: double;
   border-width: 2px;
   cursor: pointer;
-  margin: 1rem auto;
+  margin: 0;
   opacity: 1;
-  padding: 0.75rem;
+  padding: 14px 10.5px 10.5px;
   transition: all 0.25s;
   z-index: 1;
 }
