@@ -513,7 +513,7 @@
                 <td
                   >Sets the fourth color of kup-chart and so on. It is possible
                   to specify an infinite amount of "--kup-chart-color"
-                  variables.</td
+                  variables (use the JSON tab to add as many as you like).</td
                 >
                 <td class="prevent-cr">
                   <span class="code-word">color</span>
