@@ -163,15 +163,24 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-gauge');
   comp.id = 'demo-component';
+  comp.arcThickness = 30;
   comp.colors = [
     'var(--kup-success-color)',
     'var(--kup-warning-color)',
     'var(--kup-danger-color)',
   ];
+  comp.firstThreshold = 33.3;
+  comp.labelDistance = 20;
+  comp.maxValue = 100;
+  comp.minValue = 0;
+  comp.needleCircle = true;
+  comp.onlyValue = true;
+  comp.secondThreshold = 66.6;
+  comp.showMaxmin = true;
   comp.size = 300;
-  comp.value = -20;
-  comp.firstThreshold = -25;
-  comp.secondThreshold = 50;
+  comp.value = 50;
+  comp.valueSize = 0;
+  comp.widthComponent = '100%';
   return comp;
 }
 </script>
