@@ -829,15 +829,15 @@ export namespace Components {
          */
         "minValue": number;
         /**
-          * if true, shows a rounded needle.
+          * When true, shows a rounded needle.
          */
         "needleCircle": boolean;
         /**
-          * if true, ignore threasholds in gauge and show colored value's arc.
+          * When true, ignore thresholds in gauge and show colored value's arc.
          */
         "onlyValue": boolean;
         /**
-          * If set to true, the colors inside the colors array are used in the reversed order.
+          * When true, the colors inside the colors array are used in the reversed order.
          */
         "reverseColors": boolean;
         /**
@@ -2920,15 +2920,15 @@ declare namespace LocalJSX {
          */
         "minValue"?: number;
         /**
-          * if true, shows a rounded needle.
+          * When true, shows a rounded needle.
          */
         "needleCircle"?: boolean;
         /**
-          * if true, ignore threasholds in gauge and show colored value's arc.
+          * When true, ignore thresholds in gauge and show colored value's arc.
          */
         "onlyValue"?: boolean;
         /**
-          * If set to true, the colors inside the colors array are used in the reversed order.
+          * When true, the colors inside the colors array are used in the reversed order.
          */
         "reverseColors"?: boolean;
         /**
