@@ -94,7 +94,7 @@ export class KupGauge {
     /**
      * Set Width gauge.
      */
-    @Prop() widthComponent: string = '22vw';
+    @Prop() widthComponent: string = '100%';
 
     //---- Internal not reactive state ----
     // Arcs generator
