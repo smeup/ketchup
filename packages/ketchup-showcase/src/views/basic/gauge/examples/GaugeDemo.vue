@@ -185,6 +185,7 @@ function createComp() {
   comp.onlyValue = true;
   comp.secondThreshold = 66.6;
   comp.showMaxmin = true;
+  comp.showValue = true;
   comp.size = 300;
   comp.value = 50;
   comp.valueSize = 0;
