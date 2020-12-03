@@ -11,7 +11,7 @@ export default {
   components: {
     Demo,
   },
-  name: 'CheckboxDemo',
+  name: 'GaugeDemo',
   data() {
     return {
       demoComp: createComp(),
