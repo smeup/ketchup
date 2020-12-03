@@ -871,7 +871,7 @@ table#customstyle-tab kup-text-field {
   cursor: pointer;
   margin: 0 auto;
   opacity: 1;
-  padding: 14px 10.5px 10.5px;
+  padding: 12px 10.5px 10.5px;
   transition: all 0.25s;
   z-index: 1;
 }
