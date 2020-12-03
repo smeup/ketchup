@@ -50,6 +50,22 @@
             first-threshold="33"
             second-threshold="66"
           ></kup-gauge>
+        </div> </div
+      ><p>
+        The needle base by default will be squared. To make it round set to true
+        the <span class="code-word">needleCircle</span> prop.
+      </p>
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-gauge
+            needle-circle
+            only-value
+            width-component="300px"
+            min-value="0"
+            value="50"
+            first-threshold="33"
+            second-threshold="66"
+          ></kup-gauge>
         </div>
       </div>
     </div>
