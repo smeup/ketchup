@@ -2,13 +2,20 @@ import {
     Component,
     Element,
     State,
+    Event,
     Prop,
     h,
     Host,
     Method,
+    EventEmitter,
 } from '@stencil/core';
-import { logLoad, logRender } from '../../utils/debug-manager';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import {
+    setThemeCustomStyle,
+    setCustomStyle,
+    colorCheck,
+} from '../../utils/theme-manager';
+import Picker from 'vanilla-picker';
 
 @Component({
     tag: 'kup-color-picker',
@@ -18,6 +25,7 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 // TODO: currently is only a simple color output... in future it will open a widget to change color when clicked (if enabled)
 export class KupColorPicker {
     @Element() rootElement: HTMLElement;
+    @State() hexValue: string = undefined;
     @State() customStyleTheme: string = undefined;
 
     /**
@@ -33,6 +41,18 @@ export class KupColorPicker {
      */
     @Prop() value: string;
 
+    private anchorEl = undefined;
+
+    @Event({
+        eventName: 'kupColorPickerChange',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupChange: EventEmitter<{
+        value: any;
+    }>;
+
     //---- Methods ----
 
     @Method()
@@ -45,9 +65,34 @@ export class KupColorPicker {
     componentWillLoad() {
         logLoad(this, false);
         setThemeCustomStyle(this);
+        if (this.value) {
+            this.hexValue = colorCheck(this.value).hexColor;
+        }
     }
 
     componentDidLoad() {
+        if (this.hexValue) {
+            let picker = new Picker({
+                alpha: false,
+                color: this.hexValue,
+                parent: this.anchorEl,
+            });
+            picker['kupColorPicker'] = this;
+            picker['onChange'] = function (color) {
+                this['kupColorPicker'].hexValue = color.hex;
+
+                this['kupColorPicker'].kupChange.emit({
+                    value: color.hex,
+                });
+            };
+            picker['onClose'] = function (color) {
+                this['kupColorPicker'].hexValue = color.hex;
+
+                this['kupColorPicker'].kupChange.emit({
+                    value: color.hex,
+                });
+            };
+        }
         logLoad(this, true);
     }
 
@@ -60,6 +105,11 @@ export class KupColorPicker {
     }
 
     render() {
+        if (!this.hexValue) {
+            let message = 'Invalid color: ' + this.value;
+            logMessage(this, message, 'warning');
+            return;
+        }
         return (
             <Host>
                 <style>{setCustomStyle(this)}</style>
@@ -69,8 +119,9 @@ export class KupColorPicker {
                         disabled={this.disabled}
                         class="color-picker"
                         style={{
-                            backgroundColor: this.value,
+                            backgroundColor: this.hexValue,
                         }}
+                        ref={(el) => (this.anchorEl = el as any)}
                     />
                 </div>
             </Host>

@@ -14,6 +14,13 @@
 | `value`       | `value`        | The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )     | `string`  | `undefined` |
 
 
+## Events
+
+| Event                  | Description | Type                           |
+| ---------------------- | ----------- | ------------------------------ |
+| `kupColorPickerChange` |             | `CustomEvent<{ value: any; }>` |
+
+
 ## Methods
 
 ### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`

@@ -2390,6 +2390,9 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled"?: boolean;
+        "onKupColorPickerChange"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
         /**
           * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
          */
