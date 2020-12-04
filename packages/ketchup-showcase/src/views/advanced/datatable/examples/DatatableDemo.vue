@@ -152,7 +152,7 @@ export default {
           description:
             'Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.',
           type: 'string',
-          default: '|',
+          default: '\\n',
           try: 'field',
         },
         {

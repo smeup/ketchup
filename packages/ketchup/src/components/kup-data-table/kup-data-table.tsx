@@ -280,7 +280,7 @@ export class KupDataTable {
     /**
      * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
      */
-    @Prop() lineBreakCharacter: string = '|';
+    @Prop() lineBreakCharacter: string = '\n';
     /**
      * Sets a maximum limit of new records which can be required by the load more functionality.
      */

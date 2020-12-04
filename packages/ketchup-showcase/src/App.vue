@@ -389,6 +389,12 @@ export default {
             },
           },
           {
+            title: 'Gauge',
+            to: {
+              name: 'gauge',
+            },
+          },
+          {
             title: 'Grid',
             to: {
               name: 'grid',
