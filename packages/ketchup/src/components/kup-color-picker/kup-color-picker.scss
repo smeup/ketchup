@@ -1,9 +1,10 @@
 .color-picker {
-  width: 25px;
-  height: 25px;
-  margin: 5px;
+  outline: none;
+  width: 1.5rem;
+  width: 1.5rem;
+  margin: 0.25rem;
   border-radius: 50%;
-  border: 1.2px solid rgb(115, 130, 132);
+  border: 0.1rem solid var(--kup-border-color);
   background-color: transparent;
   cursor: pointer;
 
