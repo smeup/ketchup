@@ -689,13 +689,9 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * The initial value of the date picker.
+          * Props of the sub-components (date input text field).
          */
-        "dateInitialValue": string;
-        /**
-          * Props of the date text field.
-         */
-        "dateTextfieldData": Object;
+        "data": Object;
         /**
           * First day number (0 - sunday, 1 - monday, ...)
          */
@@ -1372,19 +1368,15 @@ export namespace Components {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * The initial value of the time picker.
+          * Props of the sub-components (time input text field)
          */
-        "timeInitialValue": string;
+        "data": Object;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Minutes step
          */
         "timeMinutesStep": number;
-        /**
-          * Props of the time text field.
-         */
-        "timeTextfieldData": Object;
     }
     interface KupTooltip {
         /**
@@ -2747,13 +2739,9 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * The initial value of the date picker.
+          * Props of the sub-components (date input text field).
          */
-        "dateInitialValue"?: string;
-        /**
-          * Props of the date text field.
-         */
-        "dateTextfieldData"?: Object;
+        "data"?: Object;
         /**
           * First day number (0 - sunday, 1 - monday, ...)
          */
@@ -3579,6 +3567,10 @@ declare namespace LocalJSX {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
+        /**
+          * Props of the sub-components (time input text field)
+         */
+        "data"?: Object;
         "onKupTimePickerBlur"?: (event: CustomEvent<{
         value: any;
         source: PICKER_SOURCE_EVENT;
@@ -3612,17 +3604,9 @@ declare namespace LocalJSX {
         source: PICKER_SOURCE_EVENT;
     }>) => void;
         /**
-          * The initial value of the time picker.
-         */
-        "timeInitialValue"?: string;
-        /**
           * Minutes step
          */
         "timeMinutesStep"?: number;
-        /**
-          * Props of the time text field.
-         */
-        "timeTextfieldData"?: Object;
     }
     interface KupTooltip {
         /**

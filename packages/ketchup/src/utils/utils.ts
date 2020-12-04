@@ -524,7 +524,10 @@ export function unformattedStringToFormattedStringTime(
     ).toLocaleTimeString(getCurrentLocale(), options);
 }
 
-export function getMonthAsStringByLocale(month: number): string {
+export function getMonthAsStringByLocale(
+    month: number,
+    format: string
+): string {
     if (month == null) {
         return '';
     }
@@ -532,16 +535,19 @@ export function getMonthAsStringByLocale(month: number): string {
     dateTmp.setDate(1);
     dateTmp.setMonth(month - 1);
     const options: Intl.DateTimeFormatOptions = {
-        month: 'long',
+        month: format,
     };
     const dateTimeFormat = new Intl.DateTimeFormat(getCurrentLocale(), options);
     return dateTimeFormat.format(dateTmp);
 }
 
-export function getMonthsAsStringByLocale(): string[] {
+export function getMonthsAsStringByLocale(format?: string): string[] {
+    if (format == null || format.trim() == '') {
+        format = 'long';
+    }
     var months: string[] = [];
     for (var i = 0; i < 12; i++) {
-        months[i] = getMonthAsStringByLocale(i + 1);
+        months[i] = getMonthAsStringByLocale(i + 1, format);
     }
 
     return months;

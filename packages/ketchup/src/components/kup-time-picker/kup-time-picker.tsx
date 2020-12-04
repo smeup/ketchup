@@ -41,13 +41,9 @@ export class KupTimePicker {
     @State() customStyleTheme: string = undefined;
     @State() timeValue: string = '';
     /**
-     * Props of the time text field.
+     * Props of the sub-components (time input text field)
      */
-    @Prop() timeTextfieldData: Object = {};
-    /**
-     * The initial value of the time picker.
-     */
-    @Prop() timeInitialValue: string = '';
+    @Prop() data: Object = {};
     /**
      * Minutes step
      */
@@ -178,13 +174,14 @@ export class KupTimePicker {
         });
     }
 
-    @Watch('timeInitialValue')
-    watchTimeInitialValue() {
-        this.timeValue = this.timeInitialValue;
-        this.setTextFieldInitalValue(
-            PICKER_SOURCE_EVENT.TIME,
-            this.getTimeForOutput()
-        );
+    @Watch('data')
+    watchInitialValue() {
+        this.timeValue = this.getTextFieldData().initialValue;
+        let source: PICKER_SOURCE_EVENT = PICKER_SOURCE_EVENT.TIME;
+        if (this.status[source].textfieldEl !== undefined) {
+            this.status[source].textfieldEl.data = this.getTextFieldData();
+            this.setTextFieldInitalValue(source, this.getTimeForOutput());
+        }
     }
 
     @Watch('timeMinutesStep')
@@ -403,6 +400,13 @@ export class KupTimePicker {
         return this.status[source].pickerOpened;
     }
 
+    getTextFieldData() {
+        if (this.data['text-field'] == null) {
+            this.data['text-field'] = {};
+        }
+        return this.data['text-field'];
+    }
+
     getTextFieldId(source: PICKER_SOURCE_EVENT): string {
         return this.status[source].textfieldEl.id;
     }
@@ -411,7 +415,7 @@ export class KupTimePicker {
         let source = PICKER_SOURCE_EVENT.TIME;
         let ret: PICKER_COMPONENT_INFO = this.prepTextfield(
             source,
-            this.timeTextfieldData,
+            this.getTextFieldData(),
             this.status[source].elStyle,
             this.getTextFieldInitalValue(source)
         );
@@ -577,7 +581,7 @@ export class KupTimePicker {
         };
 
         this.watchTimeMinutesStep();
-        this.watchTimeInitialValue();
+        this.watchInitialValue();
     }
 
     componentDidLoad() {

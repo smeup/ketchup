@@ -1,8 +1,7 @@
 export enum PICKER_SOURCE_EVENT {
     DATE = 'date',
     MONTH = 'month',
-    /*TIME = 'time',
-    COLOR = 'color',*/
+    YEAR = 'year',
 }
 
 export interface PICKER_COMPONENT_INFO {
