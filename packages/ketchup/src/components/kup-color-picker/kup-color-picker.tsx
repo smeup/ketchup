@@ -16,6 +16,7 @@ import {
     colorCheck,
 } from '../../utils/theme-manager';
 import Picker from 'vanilla-picker';
+import { positionRecalc } from '../../utils/recalc-position';
 
 @Component({
     tag: 'kup-color-picker',
@@ -42,6 +43,7 @@ export class KupColorPicker {
     @Prop() value: string;
 
     private anchorEl = undefined;
+    private pickerEl = undefined;
 
     @Event({
         eventName: 'kupColorPickerChange',
@@ -71,27 +73,55 @@ export class KupColorPicker {
     }
 
     componentDidLoad() {
-        if (this.hexValue) {
-            let picker = new Picker({
-                alpha: false,
-                color: this.hexValue,
-                parent: this.anchorEl,
-            });
-            picker['kupColorPicker'] = this;
-            picker['onChange'] = function (color) {
-                this['kupColorPicker'].hexValue = color.hex;
+        const root = this.rootElement.shadowRoot;
 
-                this['kupColorPicker'].kupChange.emit({
-                    value: color.hex,
+        if (root) {
+            if (this.hexValue) {
+                let picker = new Picker({
+                    alpha: false,
+                    color: this.hexValue,
+                    parent: this.anchorEl,
                 });
-            };
-            picker['onClose'] = function (color) {
-                this['kupColorPicker'].hexValue = color.hex;
+                picker['kupColorPicker'] = this;
+                picker['onChange'] = function (color) {
+                    this['kupColorPicker'].hexValue = color.hex;
 
-                this['kupColorPicker'].kupChange.emit({
-                    value: color.hex,
-                });
-            };
+                    this['kupColorPicker'].kupChange.emit({
+                        value: color.hex,
+                    });
+                };
+                picker['onClose'] = function (color) {
+                    this['kupColorPicker'].hexValue = color.hex;
+                    this['kupColorPicker'].pickerEl.classList.remove(
+                        'dynamic-position-active'
+                    );
+
+                    this['kupColorPicker'].kupChange.emit({
+                        value: color.hex,
+                    });
+                };
+                picker['onOpen'] = function () {
+                    if (this['kupColorPicker'].pickerEl) {
+                        this['kupColorPicker'].pickerEl.classList.add(
+                            'dynamic-position-active'
+                        );
+                    } else {
+                        this['kupColorPicker'].pickerEl = this[
+                            'kupColorPicker'
+                        ].rootElement.shadowRoot.querySelector(
+                            '.picker_wrapper'
+                        );
+                        positionRecalc(
+                            this['kupColorPicker'].pickerEl,
+                            this['kupColorPicker'].anchorEl,
+                            -10
+                        );
+                        this['kupColorPicker'].pickerEl.classList.add(
+                            'dynamic-position-active'
+                        );
+                    }
+                };
+            }
         }
         logLoad(this, true);
     }
@@ -113,7 +143,10 @@ export class KupColorPicker {
         return (
             <Host>
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component">
+                <div
+                    id="kup-component"
+                    ref={(el) => (this.anchorEl = el as any)}
+                >
                     <button
                         type="button"
                         disabled={this.disabled}
@@ -121,7 +154,6 @@ export class KupColorPicker {
                         style={{
                             backgroundColor: this.hexValue,
                         }}
-                        ref={(el) => (this.anchorEl = el as any)}
                     />
                 </div>
             </Host>

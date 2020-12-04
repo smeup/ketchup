@@ -354,7 +354,10 @@ $color-bg: var(--kup-background-color);
 }
 
 .layout_default.picker_wrapper {
-  margin-left: -2em;
+  top: unset;
+  left: unset;
+  bottom: unset;
+  right: unset;
 }
 
 .layout_default .picker_editor input {
