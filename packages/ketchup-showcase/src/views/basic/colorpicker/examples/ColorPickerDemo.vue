@@ -1,6 +1,10 @@
 <template>
   <div>
-    <demo :demoComp="demoComp" :demoProps="demoProps"></demo>
+    <demo
+      :demoComp="demoComp"
+      :demoEvents="demoEvents"
+      :demoProps="demoProps"
+    ></demo>
   </div>
 </template>
 
@@ -15,6 +19,12 @@ export default {
   data() {
     return {
       demoComp: createComp(),
+      demoEvents: [
+        {
+          name: 'kupColorPickerChange',
+          type: 'change',
+        },
+      ],
       demoProps: [
         {
           prop: 'customStyle',
@@ -49,6 +59,7 @@ function createComp() {
   let comp = document.createElement('kup-color-picker');
   comp.id = 'demo-component';
   comp.name = 'color-picker';
+  comp.value = '#d64325';
   return comp;
 }
 </script>
