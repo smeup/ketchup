@@ -1,11 +1,10 @@
 <template>
   <div>
     <demo
-      :demoTabs="demoTabs"
       :demoComp="demoComp"
-      :demoProps="demoProps"
       :demoEvents="demoEvents"
-      :demoData="demoData"
+      :demoProps="demoProps"
+      :demoTabs="demoTabs"
     ></demo>
   </div>
 </template>
@@ -21,26 +20,29 @@ export default {
   name: 'DatatableDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
+          name: 'kupDataTableDblClick',
+          type: 'dblclick',
         },
       ],
-      demoComp:
-        '<kup-data-table id="demo-component" sort-enabled density="small" global-filter-value group-label-display="both" header-is-persistent load-more-limit="1000" load-more-step="60" paginator-pos="Top" rows-per-page="10" show-grid="Row" show-header sortable-columns-mutate-data></kup-data-table>',
       demoProps: [
+        {
+          prop: 'className',
+          description: 'Available classes: layout-fixed.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
+        },
         {
           prop: 'data',
           description: 'The data of the table.',
@@ -51,9 +53,16 @@ export default {
         {
           prop: 'density',
           description:
-            'The density of the rows, defaults at "medium" and can be also set to "large" or "small".',
+            'The density of the rows, defaults at "medium" and can be also set to "wide" or "dense".',
           type: 'string',
-          default: 'small',
+          default: 'dense',
+          try: 'field',
+        },
+        {
+          prop: 'emptyDataLabel',
+          description: 'Defines the label to show when the table is empty.',
+          type: 'string',
+          default: 'Empty data',
           try: 'field',
         },
         {
@@ -61,7 +70,7 @@ export default {
           description:
             'Enables the sorting of columns by dragging them into different columns.',
           type: 'boolean',
-          default: 'false',
+          default: 'true',
           try: 'switch',
         },
         {
@@ -77,6 +86,20 @@ export default {
           type: 'GenericMap',
           default: 'undefined',
           try: 'json',
+        },
+        {
+          prop: 'fixedColumns',
+          description: 'Amount of frozen columns.',
+          type: 'number',
+          default: '0',
+          try: 'field',
+        },
+        {
+          prop: 'fixedRows',
+          description: 'Amount of frozen rows.',
+          type: 'number',
+          default: '0',
+          try: 'field',
         },
         {
           prop: 'forceOneLine',
@@ -124,11 +147,35 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'lazyLoadRows',
+          description:
+            'When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'lineBreakCharacter',
+          description:
+            'Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.',
+          type: 'string',
+          default: '|',
+          try: 'field',
+        },
+        {
           prop: 'loadMoreLimit',
           description:
             'Sets a maximum limit of new records which can be required by the load more functionality.',
           type: 'number',
           default: '1000',
+          try: 'field',
+        },
+        {
+          prop: 'loadMoreMode',
+          description:
+            'Establish the modality of how many new records will be downloaded.',
+          type: 'LoadMoreMode',
+          default: 'progressive_threshold',
           try: 'field',
         },
         {
@@ -147,18 +194,18 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'pageSelected',
+          description: 'Current selected page set on component load.',
+          type: 'number',
+          default: '-1',
+          try: 'field',
+        },
+        {
           prop: 'paginatorPos',
           description:
             'Sets the position of the paginator. Available values: Top, Bottom or Both.',
           type: 'string',
           default: 'Top',
-          try: 'field',
-        },
-        {
-          prop: 'rowsPerPage',
-          description: 'Sets the number of rows per page to display.',
-          type: 'number',
-          default: '10',
           try: 'field',
         },
         {
@@ -169,11 +216,42 @@ export default {
           try: 'json',
         },
         {
+          prop: 'rowsPerPage',
+          description: 'Sets the number of rows per page to display.',
+          type: 'number',
+          default: '10',
+          try: 'field',
+        },
+
+        {
+          prop: 'scrollOnHover',
+          description:
+            'When the mouse move towards the left or right edge and there is an overflow, the table will automatically scroll.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'selectRow',
           description: 'Selects the specified row.',
           type: 'number',
           default: 'undefined',
           try: 'field',
+        },
+        {
+          prop: 'selectRowsById',
+          description: 'Semicolon separated rows id to select.',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'showCustomization',
+          description:
+            'If set to true, displays the button to open the customization panel.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'showFilters',
@@ -193,6 +271,22 @@ export default {
         {
           prop: 'showHeader',
           description: 'Enables rendering of the table header.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'showLoadMore',
+          description:
+            'If set to true, displays the button to load more records.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'showTooltipOnRightClick',
+          description:
+            'If set to true, displays tooltip on right click event; if set to false, displays tooltip on mouseOver event.',
           type: 'boolean',
           default: 'true',
           try: 'switch',
@@ -236,6 +330,20 @@ export default {
           try: 'field',
         },
         {
+          prop: 'tooltipDetailTimeout',
+          description: 'Defines the timeout for tooltip detail.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'tooltipLoadTimeout',
+          description: 'Defines the timeout for tooltip load.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'totals',
           description: 'Defines the current sorting options.',
           type: 'TotalsMap',
@@ -243,11 +351,53 @@ export default {
           try: 'json',
         },
       ],
-      demoEvents: [],
-      demoData: {
-        data: defaultDataTable,
-      },
+      demoTabs: [
+        {
+          text: 'Props',
+          icon: '',
+          active: true,
+        },
+        {
+          text: 'Events',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'HTML',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'JSON',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
+        },
+      ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-data-table');
+  comp.data = defaultDataTable;
+  comp.density = 'dense';
+  comp.groupLabelDisplay = 'both';
+  comp.headerIsPersistent = true;
+  comp.id = 'demo-component';
+  comp.loadMoreLimit = '1000';
+  comp.loadMoreStep = '60';
+  comp.paginatorPos = 'Top';
+  comp.rowsPerPage = '10';
+  comp.showGrid = 'Row';
+  comp.showHeader = true;
+  comp.sortableColumnsMutateData = true;
+  comp.sortEnabled = true;
+  comp.showTooltipOnRightClick = true;
+  return comp;
+}
 </script>

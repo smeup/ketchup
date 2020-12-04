@@ -2,14 +2,19 @@ import {
     Component,
     Prop,
     Element,
+    Host,
     Event,
     EventEmitter,
-    Host,
+    State,
     h,
+    Method,
+    getAssetPath,
 } from '@stencil/core';
 
 import { MDCTabBar } from '@material/tab-bar';
 import { ComponentTabBarElement } from './kup-tab-bar-declarations';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -18,11 +23,12 @@ import { ComponentTabBarElement } from './kup-tab-bar-declarations';
 })
 export class KupTabBar {
     @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
 
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * List of elements.
      */
@@ -63,6 +69,11 @@ export class KupTabBar {
 
     //---- Methods ----
 
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
     onKupBlur(i: number, e: Event) {
         this.kupBlur.emit({
             index: i,
@@ -86,22 +97,32 @@ export class KupTabBar {
 
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        logLoad(this, false);
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != null) {
+        if (root) {
             MDCTabBar.attachTo(root.querySelector('.mdc-tab-bar'));
         }
+        logRender(this, true);
     }
 
     render() {
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;
         let componentClass: string = 'mdc-tab-bar';
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         for (let i = 0; i < this.data.length; i++) {
             let tabClass: string = 'mdc-tab';
@@ -114,14 +135,18 @@ export class KupTabBar {
             }
 
             if (this.data[i].icon !== '') {
+                let svg: string = `url('${getAssetPath(
+                    `./assets/svg/${this.data[i].icon}.svg`
+                )}') no-repeat center`;
+                let iconStyle = {
+                    mask: svg,
+                    webkitMask: svg,
+                };
                 iconEl = (
-                    <kup-image
-                        color="var(--kup-main-color)"
-                        class="mdc-tab__icon material-icons"
-                        sizeX="24px"
-                        sizeY="24px"
-                        resource={this.data[i].icon}
-                    ></kup-image>
+                    <span
+                        style={iconStyle}
+                        class="mdc-tab__icon material-icons icon-container"
+                    ></span>
                 );
             }
 
@@ -152,7 +177,7 @@ export class KupTabBar {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={componentClass} role="tablist">
                         <div class="mdc-tab-scroller">

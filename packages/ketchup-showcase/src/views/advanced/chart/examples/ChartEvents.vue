@@ -20,7 +20,7 @@
       :data.prop="baseData"
       :types.prop="['Pie']"
       axis="Col1"
-      :series.prop="['Col3']"
+      :series.prop="[{ code: 'Col3', decode: 'Col3' }]"
       @kupChartClicked="onPieChartClicked"
     />
 
@@ -36,7 +36,7 @@
       :data.prop="calendarData"
       :types.prop="['Cal']"
       axis="Col1"
-      :series.prop="['Col2']"
+      :series.prop="[{ code: 'Col2', decode: 'Col2' }]"
       @kupChartClicked="onCalChartClicked"
     />
 
@@ -57,7 +57,11 @@ export default {
     return {
       baseData,
       calendarData,
-      series: ['Col2', 'Col3', 'Col4'],
+      series: [
+        { code: 'Col2', decode: 'Col2' },
+        { code: 'Col3', decode: 'Col3' },
+        { code: 'Col4', decode: 'Col4' },
+      ],
       barChartDetail: null,
       pieChartDetail: null,
       calChartDetail: null,

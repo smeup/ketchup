@@ -7,9 +7,12 @@ import {
     Host,
     State,
     h,
+    Method,
 } from '@stencil/core';
 import { MDCCheckbox } from '@material/checkbox';
 import { MDCFormField } from '@material/form-field';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-checkbox',
@@ -19,31 +22,32 @@ import { MDCFormField } from '@material/form-field';
 export class KupCheckbox {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
      */
-    @Prop({ reflect: true }) checked: boolean = false;
+    @Prop() checked: boolean = false;
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop({ reflect: true }) disabled: boolean = false;
+    @Prop() disabled: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be set to 'indeterminate'.
      */
-    @Prop({ reflect: true }) indeterminate: boolean = false;
+    @Prop() indeterminate: boolean = false;
     /**
      * Defaults at null. When specified, its content will be shown as a label.
      */
-    @Prop({ reflect: true }) label: string = null;
+    @Prop() label: string = null;
     /**
      * Defaults at false. When set to true, the label will be on the left of the component.
      */
-    @Prop({ reflect: true }) leadingLabel: boolean = false;
+    @Prop() leadingLabel: boolean = false;
 
     @Event({
         eventName: 'kupCheckboxBlur',
@@ -102,6 +106,11 @@ export class KupCheckbox {
 
     //---- Methods ----
 
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
     onKupBlur() {
         this.kupBlur.emit({
             value: this.value,
@@ -144,9 +153,26 @@ export class KupCheckbox {
         });
     }
 
+    private createRippleElement() {
+        if (this.disabled) {
+            return undefined;
+        }
+        return <div class="mdc-checkbox__ripple"></div>;
+    }
+
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        logLoad(this, false);
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
     componentWillRender() {
+        logRender(this, false);
         if (this.checked) {
             this.value = 'on';
         } else {
@@ -157,7 +183,7 @@ export class KupCheckbox {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != null) {
+        if (root && !this.disabled) {
             const component = MDCCheckbox.attachTo(
                 root.querySelector('.mdc-checkbox')
             );
@@ -166,16 +192,13 @@ export class KupCheckbox {
             );
             formField.input = component;
         }
+        logRender(this, true);
     }
 
     render() {
         let formClass: string = 'mdc-form-field';
         let componentClass: string = 'mdc-checkbox';
         let componentLabel: string = this.label;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.disabled) {
             componentClass += ' mdc-checkbox--disabled';
@@ -191,7 +214,7 @@ export class KupCheckbox {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={formClass}>
                         <div id="checkbox-wrapper" class={componentClass}>
@@ -223,7 +246,7 @@ export class KupCheckbox {
                                 </svg>
                                 <div class="mdc-checkbox__mixedmark"></div>
                             </div>
-                            <div class="mdc-checkbox__ripple"></div>
+                            {this.createRippleElement()}
                         </div>
                         <label htmlFor="checkbox-wrapper">
                             {componentLabel}

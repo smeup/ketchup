@@ -4,7 +4,7 @@
 @import '@material/tab/mdc-tab';
 
 :host {
-  display: var(--kup-display-mode);
+  display: block;
 }
 
 .mdc-tab-bar {
@@ -19,6 +19,12 @@
   & button {
     font-family: var(--kup-font-family);
   }
+}
+
+.icon-container {
+  background-color: var(--kup-main-color);
+  height: 24px;
+  width: 24px;
 }
 
 .material-icons {

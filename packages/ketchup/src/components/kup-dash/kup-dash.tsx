@@ -1,4 +1,12 @@
-import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Event,
+    EventEmitter,
+    Prop,
+    h,
+} from '@stencil/core';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-dash',
@@ -6,17 +14,24 @@ import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
     shadow: true,
 })
 export class KupDash {
-    @Prop()
-    layout = '1';
+    @Element() rootElement: HTMLElement;
 
-    @Prop()
-    fontsize = '';
-
-    @Prop()
-    active = false;
-
-    @Prop()
-    index = 0;
+    /**
+     * The component can be clicked.
+     */
+    @Prop() active = false;
+    /**
+     * Sets the font size of the component.
+     */
+    @Prop() fontsize = '';
+    /**
+     * Sets the layout of the component.
+     */
+    @Prop() layout = '1';
+    /**
+     * No idea what this is about.
+     */
+    @Prop() index = 0;
 
     @Event({
         eventName: 'ketchupDashClicked',
@@ -32,6 +47,24 @@ export class KupDash {
         this.dashClicked.emit({
             id: this.index,
         });
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logLoad(this, false);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        logRender(this, true);
     }
 
     render() {

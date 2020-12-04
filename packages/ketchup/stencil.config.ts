@@ -13,13 +13,31 @@ export const config: Config = {
             src: 'data-table.html',
         },
         {
+            src: 'rating.html',
+        },
+        {
+            src: 'color-picker.html',
+        },
+        {
             src: 'dash.html',
         },
         {
             src: 'dash-list.html',
         },
         {
+            src: 'echarts.html',
+        },
+        {
             src: 'tree.html',
+        },
+        {
+            src: 'nav-bar.html',
+        },
+        {
+            src: 'tooltip.html',
+        },
+        {
+            src: 'drawer.html',
         },
     ],
 
@@ -37,6 +55,7 @@ export const config: Config = {
             includePaths: ['./node_modules'],
             injectGlobalPaths: [
                 'src/style/_variables.scss',
+                'src/style/_classes.scss',
                 'src/style/_generic-style.scss',
                 'src/style/global.scss',
             ],

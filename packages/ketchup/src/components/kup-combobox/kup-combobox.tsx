@@ -1,20 +1,23 @@
 import {
     Component,
-    Event,
-    EventEmitter,
     Prop,
     Element,
     Host,
+    Event,
+    EventEmitter,
+    State,
     h,
     Listen,
+    Method,
 } from '@stencil/core';
 
-import { errorLogging } from '../../utils/error-logging';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
     ItemsDisplayMode,
-    getValueOfItemByDisplayMode,
+    consistencyCheck,
 } from '../kup-list/kup-list-declarations';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-combobox',
@@ -23,15 +26,16 @@ import {
 })
 export class KupCombobox {
     @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
 
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Lets the combobox behave as a select element.
      */
-    @Prop({ reflect: true }) isSelect: boolean = false;
+    @Prop() isSelect: boolean = false;
     /**
      * Props of the list.
      */
@@ -39,8 +43,7 @@ export class KupCombobox {
     /**
      * Sets how the return the elected item value. Suported values: "code", "description", "both".
      */
-    @Prop({ reflect: true }) selectMode: ItemsDisplayMode =
-        ItemsDisplayMode.DESCRIPTION;
+    @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
      * Props of the text field.
      */
@@ -152,9 +155,13 @@ export class KupCombobox {
             }
         }
     }
-    /**
-     * --- Methods ----
-     */
+
+    //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
 
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
         this.closeList();
@@ -265,43 +272,12 @@ export class KupCombobox {
     }
 
     consistencyCheck() {
-        var firstSelectedFound = false;
-
-        if (this.listData['data']) {
-            for (let i = 0; i < this.listData['data'].length; i++) {
-                if (this.listData['data'][i].selected && firstSelectedFound) {
-                    this.listData['data'][i].selected = false;
-                    let message =
-                        'Found occurence of data(' +
-                        i +
-                        ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
-
-                    errorLogging('kup-combobox', message);
-                }
-                if (this.listData['data'][i].selected && !firstSelectedFound) {
-                    firstSelectedFound = true;
-                    this.value = getValueOfItemByDisplayMode(
-                        this.listData['data'][i],
-                        this.selectMode,
-                        ' - '
-                    );
-                    if (this.textfieldEl) {
-                        if (this.textfieldEl.initialValue === this.value) {
-                            this.textfieldEl.initialValue = '';
-                            this.textfieldEl.initialValue = this.value;
-                        } else {
-                            this.textfieldEl.initialValue = this.value;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    //---- Lifecycle hooks ----
-
-    componentDidRender() {
-        positionRecalc(this.listEl, this.textfieldEl);
+        this.value = consistencyCheck(
+            this.value,
+            this.listData,
+            this.textfieldEl,
+            this.selectMode
+        );
     }
 
     prepTextfield() {
@@ -358,19 +334,34 @@ export class KupCombobox {
         return comp;
     }
 
-    render() {
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
+    //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        logLoad(this, false);
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        positionRecalc(this.listEl, this.textfieldEl);
+        logRender(this, true);
+    }
+
+    render() {
         this.consistencyCheck();
         let textfieldEl = this.prepTextfield();
         let listEl = this.prepList();
 
         return (
             <Host onBlur={(e: any) => this.onKupBlur(e)} style={this.elStyle}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
                     {textfieldEl}
                     {listEl}

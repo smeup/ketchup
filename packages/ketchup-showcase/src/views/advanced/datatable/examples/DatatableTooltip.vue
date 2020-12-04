@@ -7,12 +7,7 @@ h3 {
 <template>
   <div>
     <h3>With Fixed Tooltip</h3>
-    <kup-data-table
-      :data.prop="data"
-      @kupOptionClicked="handleKupOptionClicked"
-      @kupLoadRequest="onLoadData($event, 1)"
-      @kupDetailRequest="loadBornToDie"
-    ></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="data"></kup-lazy>
   </div>
 </template>
 
@@ -21,6 +16,7 @@ import { defaultDataTable } from '@/mock/dataTable';
 
 import {
   bornToDie,
+  cellOptionsTree,
   ultraviolence,
   honeymoon,
   lustForLife,
@@ -35,7 +31,32 @@ export default {
   data() {
     return {
       data: {
-        ...defaultDataTable,
+        data: defaultDataTable,
+
+        onKupOptionClicked: (e) => {
+          this.handleKupOptionClicked(e.detail);
+        },
+        onKupTooltipLoadData: (e) => {
+          this.onLoadData(e, 1);
+        },
+        onKupTooltipLoadDetail: (e) => {
+          this.loadBornToDie(e);
+        },
+        onKupTooltipLoadCellOptions: (e) => {
+          this.loadCellOptions(e);
+        },
+        onKupTreeNodeButtonClicked: (e) => {
+          this.treeNodeButtonClicked(e);
+        },
+        onKupTreeNodeSelected: (e) => {
+          this.treeNodeSelected(e);
+        },
+        onKupTreeNodeExpand: (e) => {
+          this.treeNodeExpand(e);
+        },
+        onKupTreeNodeCollapse: (e) => {
+          this.treeNodeCollapse(e);
+        },
       },
       images: {
         ...imageUrls,
@@ -46,11 +67,33 @@ export default {
 
   methods: {
     handleKupOptionClicked({ detail }) {
-      console.log('detail', detail);
+      console.log('KupOptionClicked detail', detail);
+    },
+
+    treeNodeButtonClicked({ detail }) {
+      console.log('treeNodeButtonClicked detail', detail);
+    },
+
+    treeNodeSelected({ detail }) {
+      console.log('treeNodeSelected detail', detail);
+    },
+
+    treeNodeExpand({ detail }) {
+      console.log('treeNodeExpand detail', detail);
+    },
+
+    treeNodeCollapse({ detail }) {
+      console.log('treeNodeCollapse detail', detail);
     },
 
     loadBornToDie(event) {
       setTimeout(() => (event.detail.tooltip.detailData = bornToDie), 400);
+    },
+    loadCellOptions(event) {
+      setTimeout(
+        () => (event.detail.tooltip.cellOptions = cellOptionsTree),
+        400
+      );
     },
 
     onLoadData(event, index) {

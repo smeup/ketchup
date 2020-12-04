@@ -1,4 +1,5 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Element, Prop, h } from '@stencil/core';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 declare const d3: any;
 
@@ -8,6 +9,8 @@ declare const d3: any;
     shadow: true,
 })
 export class KupGauge {
+    @Element() rootElement: HTMLElement;
+
     /**
      * Sets how much the arc of the gauge should be thick.
      * @namespace kup-gauge.arcThickness
@@ -42,6 +45,15 @@ export class KupGauge {
      * The minimum value reachable in the current graph.
      */
     @Prop() minValue: number = -100;
+    /**
+     * if true, shows a rounded needle.
+     */
+    @Prop() needleCircle: boolean = false;
+    /**
+     * if true, ignore threasholds in gauge and show
+     * colored value's arc.
+     */
+    @Prop() onlyValue: boolean = false;
     /**
      * If set to true, the colors inside the colors array are used in the reversed order.
      */
@@ -80,21 +92,11 @@ export class KupGauge {
      */
     @Prop() valueSize: number = 0;
     /**
-     * if true, shows a rounded needle.
-     */
-    @Prop() needleCircle: boolean = false;
-    /**
-     * if true, ignore threasholds in gauge and show
-     * colored value's arc.
-     */
-    @Prop() onlyValue: boolean = false;
-    /**
      * Set Width gauge.
      */
-    @Prop() widthComponent: string='22vw';
+    @Prop() widthComponent: string = '22vw';
 
     //---- Internal not reactive state ----
-
     // Arcs generator
     private arcGenerator = d3.arc();
 
@@ -179,6 +181,22 @@ export class KupGauge {
             ' ' +
             rightY
         );
+    }
+
+    componentWillLoad() {
+        logLoad(this, false);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        logRender(this, true);
     }
 
     render() {
@@ -318,37 +336,52 @@ export class KupGauge {
                   })
                 : [];
 
-    const style = {fontSize: this.calculateValueFontSize()};
-    const width = {width: this.widthComponent};
-    return (
-      <div class="gauge__container">
-        <svg
-          class="gauge" style={width}
-          viewBox={`0 0 ${this.size} ${valueLabelYPosition}`}>
-          <g transform={`rotate(-90) translate(-${halvedSize}, ${halvedSize})`}>
-            {arcsElements}
-          </g>
-          {this.needleCircle ?
-          <circle
-            class="gauge__needle-base"
-            cx={halvedSize}
-            cy={halvedSize}
-            r={needleCircleRadius}/> : null }
-          <path
-            class="gauge__needle"
-            d={this.paintNeedle(needleLength, needleCircleRadius, halvedSize, halvedSize, this.calculateValuePercentage(this.value))}
-          />
-          {textElements}
-        </svg>
-        <div>
-        {this.showValue ?
-            <div
-              class="gauge__value-text"
-              text-anchor="middle"
-              style={style}>{this.value + ' ' + this.measurementUnit}</div>
-            : null}
-       </div>
-      </div>
-    );
-  }
+        const style = { fontSize: this.calculateValueFontSize() };
+        const width = { width: this.widthComponent };
+        return (
+            <div class="gauge__container">
+                <svg
+                    class="gauge"
+                    style={width}
+                    viewBox={`0 0 ${this.size} ${valueLabelYPosition}`}
+                >
+                    <g
+                        transform={`rotate(-90) translate(-${halvedSize}, ${halvedSize})`}
+                    >
+                        {arcsElements}
+                    </g>
+                    {this.needleCircle ? (
+                        <circle
+                            class="gauge__needle-base"
+                            cx={halvedSize}
+                            cy={halvedSize}
+                            r={needleCircleRadius}
+                        />
+                    ) : null}
+                    <path
+                        class="gauge__needle"
+                        d={this.paintNeedle(
+                            needleLength,
+                            needleCircleRadius,
+                            halvedSize,
+                            halvedSize,
+                            this.calculateValuePercentage(this.value)
+                        )}
+                    />
+                    {textElements}
+                </svg>
+                <div>
+                    {this.showValue ? (
+                        <div
+                            class="gauge__value-text"
+                            text-anchor="middle"
+                            style={style}
+                        >
+                            {this.value + ' ' + this.measurementUnit}
+                        </div>
+                    ) : null}
+                </div>
+            </div>
+        );
+    }
 }

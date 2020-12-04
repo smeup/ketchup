@@ -32,6 +32,9 @@
     "ksc:test:e2e:run": "lerna run test:e2e:run --scope ketchup-showcase --stream"
   },
   "dependencies": {
-    "@types/jest": "^25.2.1"
+    "@types/echarts": "^4.8.0",
+    "@types/jest": "^25.2.1",
+    "echarts": "^4.9.0",
+    "resize-observer": "^1.0.0"
   }
 }

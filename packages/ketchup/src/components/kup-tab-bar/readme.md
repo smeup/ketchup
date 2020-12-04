@@ -5,10 +5,10 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                 | Type                       | Default     |
-| ------------- | -------------- | ------------------------------------------- | -------------------------- | ----------- |
-| `customStyle` | `custom-style` | Custom style to be passed to the component. | `string`                   | `undefined` |
-| `data`        | --             | List of elements.                           | `ComponentTabBarElement[]` | `[]`        |
+| Property      | Attribute      | Description                                                                                                     | Type                       | Default     |
+| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------- | ----------- |
+| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                   | `undefined` |
+| `data`        | --             | List of elements.                                                                                               | `ComponentTabBarElement[]` | `[]`        |
 
 
 ## Events
@@ -20,21 +20,18 @@
 | `kupTabBarFocus` |             | `CustomEvent<{ index: number; el: EventTarget; }>` |
 
 
-## Dependencies
+## Methods
 
-### Depends on
+### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
 
-- [kup-image](../kup-image)
 
-### Graph
-```mermaid
-graph TD;
-  kup-tab-bar --> kup-image
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
-  style kup-tab-bar fill:#f9f,stroke:#333,stroke-width:4px
-```
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ----------------------------------------------
 

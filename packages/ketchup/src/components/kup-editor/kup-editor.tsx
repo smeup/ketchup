@@ -1,28 +1,38 @@
-import {
-    Component,
-    Prop,
-    h
-} from '@stencil/core';
+import { Component, Element, Prop, h } from '@stencil/core';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-editor',
     styleUrl: 'kup-editor.scss',
-    shadow: true
+    shadow: true,
 })
 export class KupEditor {
+    @Element() rootElement: HTMLElement;
+
     /**
      * The html to be rendered and edited
      */
-    @Prop({ reflect: true }) text: string = '';
+    @Prop() text: string = '';
 
-    //-- Emitted --
+    //---- Lifecycle hooks ----
 
-    //---- Rendering functions ----
+    componentWillLoad() {
+        logLoad(this, false);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        logRender(this, true);
+    }
+
     render() {
-        return (
-            <div
-                innerHTML={this.text} >
-            </div>
-            );
+        return <div innerHTML={this.text}></div>;
     }
 }

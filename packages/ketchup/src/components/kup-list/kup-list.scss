@@ -3,7 +3,15 @@
 @import '@material/menu-surface/mdc-menu-surface';
 
 :host {
-  display: var(--kup-display-mode);
+  display: block;
+
+  .mdc-list-item {
+    & .mdc-list-item__text,
+    & .mdc-list-item__primary-text,
+    & .mdc-list-item__secondary-text {
+      font-family: var(--kup-font-family);
+    }
+  }
 }
 
 .mdc-list.text-hidden {
@@ -25,11 +33,17 @@
   opacity: 0.75;
 }
 
-kup-image {
+.icon-container {
+  background-color: var(--kup-icon-color);
+  height: 24px;
+  width: 24px;
   margin-right: 6px;
-  --kup-icon-color: var(--kup-text-color);
 }
 
-.mdc-list-item--selected kup-image {
-  --kup-icon-color: var(--kup-main-color);
+kup-checkbox {
+  margin: 0;
+}
+
+.mdc-list-item--selected .icon-container {
+  background-color: var(--kup-main-color);
 }

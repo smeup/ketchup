@@ -1,0 +1,14 @@
+@import '@material/top-app-bar/mdc-top-app-bar';
+
+:host {
+  --mdc-theme-primary: var(--kup-nav-bar-background-color);
+  width: 100%;
+}
+
+#kup-component {
+  width: 100%;
+}
+
+kup-button {
+  margin: 0;
+}

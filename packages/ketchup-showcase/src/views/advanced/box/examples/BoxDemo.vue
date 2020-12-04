@@ -1,17 +1,17 @@
 <template>
   <div>
     <demo
-      :demoTabs="demoTabs"
       :demoComp="demoComp"
-      :demoProps="demoProps"
       :demoEvents="demoEvents"
-      :demoData="demoData"
+      :demoProps="demoProps"
+      :demoTabs="demoTabs"
     ></demo>
   </div>
 </template>
 
 <script>
 import Demo from '@/views/advanced/page/templates/Demo';
+import { defaultData } from '@/mock/box';
 
 export default {
   components: {
@@ -20,36 +20,58 @@ export default {
   name: 'BoxDemo',
   data() {
     return {
-      demoTabs: [
+      demoComp: createComp(),
+      demoEvents: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          name: 'kupAutoBoxSelect',
+          type: 'CustomEvent',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          name: 'kupBoxClicked',
+          type: 'CustomEvent',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          name: 'kupBoxDragEnded',
+          type: 'CustomEvent',
         },
         {
-          text: 'JSON',
-          icon: '',
-          active: false,
+          name: 'kupBoxDragStarted',
+          type: 'CustomEvent',
         },
         {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          name: 'kupBoxDropped',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kupBoxSelected',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kupRowActionClicked',
+          type: 'CustomEvent',
+        },
+        {
+          name: 'kupRowActionMenuClicked',
+          type: 'CustomEvent',
         },
       ],
-      demoComp:
-        '<kup-box content-align="center" no-border id="demo-component"></kup-box>',
       demoProps: [
+        {
+          prop: 'cardData',
+          description:
+            'When present, the box will be rendered using the card component. This prop contains the card props which will be spread on the kup-card.',
+          type: 'ComponentCardElement',
+          default: 'undefined',
+          try: 'json',
+        },
+        {
+          prop: 'className',
+          description:
+            'Available classes: left-aligned, right-aligned, bottom-aligned, top-aligned, borderless and paddingless. Read below for detailed information.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
         {
           prop: 'columns',
           description: 'Number of columns.',
@@ -58,19 +80,11 @@ export default {
           try: 'field',
         },
         {
-          prop: 'contentAlign',
-          description:
-            'Alignment of the content. Can be set to left, right or center.',
-          type: 'string',
-          default: 'center',
-          try: 'field',
-        },
-        {
           prop: 'customStyle',
           description:
-            'Sets a custom style for the component by feeding this string into a <style> tag.',
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'null',
+          default: 'undefined',
           try: 'css',
         },
         {
@@ -117,6 +131,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'globalFilterValueState',
+          description: 'Global filter value state.',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'layout',
           description:
             'How the field will be displayed. If not present, a default one will be created.',
@@ -132,18 +153,11 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'noBorder',
-          description: 'Removes border.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'noPadding',
-          description: 'Removes padding.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
+          prop: 'pageSelected',
+          description: 'Current page number.',
+          type: 'number',
+          default: '1',
+          try: 'field',
         },
         {
           prop: 'pageSize',
@@ -160,6 +174,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'rowsPerPage',
+          description: 'Number of current rows per page.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'selectBox',
           description: 'Automatically selects the box at the specified index.',
           type: 'number',
@@ -167,8 +188,23 @@ export default {
           try: 'field',
         },
         {
+          prop: 'selectedRowsState',
+          description: 'Multiple selection.',
+          type: 'BoxRow[]',
+          default: '[]',
+          try: 'array',
+        },
+        {
           prop: 'showSelection',
           description: 'If enabled, highlights the selected box/boxes.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'showTooltipOnRightClick',
+          description:
+            'If set to true, displays tooltip on right click event; if set to false, displays tooltip on mouseOver event.',
           type: 'boolean',
           default: 'true',
           try: 'switch',
@@ -187,136 +223,65 @@ export default {
           default: 'false',
           try: 'switch',
         },
-      ],
-      demoEvents: [
         {
-          name: 'kupAutoBoxSelect',
-          type: 'CustomEvent',
+          prop: 'swipeDisabled',
+          description: 'Disable swipe.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
-          name: 'kupBoxClicked',
-          type: 'CustomEvent',
+          prop: 'tooltipDetailTimeout',
+          description: 'Defines the timeout for tooltip detail.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
         },
         {
-          name: 'kupBoxDragEnded',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kupBoxDragStarted',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kupBoxDropped',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kupBoxSelected',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kupRowActionClicked',
-          type: 'CustomEvent',
-        },
-        {
-          name: 'kupRowActionMenuClicked',
-          type: 'CustomEvent',
+          prop: 'tooltipLoadTimeout',
+          description: 'Defines the timeout for tooltip load.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
         },
       ],
-      demoData: {
-        columns: '3',
-        data: {
-          columns: [
-            {
-              name: 'FLD1',
-              title: 'Photo',
-              size: '',
-            },
-            {
-              name: 'FLD2',
-              title: 'Name',
-              size: 10,
-            },
-          ],
-          rows: [
-            {
-              id: '1',
-              cells: {
-                FLD1: {
-                  obj: {
-                    t: 'J4',
-                    p: 'IMG',
-                    k: 'AR;ART;Blue Flowers',
-                  },
-                  value: 'images/blueflowers.JPG',
-                  config: {
-                    sizeX: '64px',
-                    sizeY: '64px',
-                  },
-                },
-                FLD2: {
-                  obj: {
-                    t: 'AR',
-                    p: 'ART',
-                    k: 'Blue Flowers',
-                  },
-                  value: 'Blue flowers',
-                },
-              },
-            },
-            {
-              id: '2',
-              cells: {
-                FLD1: {
-                  obj: {
-                    t: 'J4',
-                    p: 'IMG',
-                    k: 'AR;ART;Purple flowers',
-                  },
-                  value: 'images/purpleflowers.JPG',
-                  config: {
-                    sizeX: '64px',
-                    sizeY: '64px',
-                  },
-                },
-                FLD2: {
-                  obj: {
-                    t: 'AR',
-                    p: 'ART',
-                    k: 'Purple flowers',
-                  },
-                  value: 'Purple flowers',
-                },
-              },
-            },
-            {
-              id: '3',
-              cells: {
-                FLD1: {
-                  obj: {
-                    t: 'J4',
-                    p: 'IMG',
-                    k: 'AR;ART;Red flowers',
-                  },
-                  value: 'images/redflowers.JPG',
-                  config: {
-                    sizeX: '64px',
-                    sizeY: '64px',
-                  },
-                },
-                FLD2: {
-                  obj: {
-                    t: 'AR',
-                    p: 'ART',
-                    k: 'Red flowers',
-                  },
-                  value: 'Red flowers',
-                },
-              },
-            },
-          ],
+      demoTabs: [
+        {
+          text: 'Props',
+          icon: '',
+          active: true,
         },
-      },
+        {
+          text: 'Events',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'HTML',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'JSON',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
+        },
+      ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-box');
+  comp.columns = '4';
+  comp.data = defaultData;
+  comp.id = 'demo-component';
+  comp.showTooltipOnRightClick = true;
+  return comp;
+}
 </script>

@@ -1,15 +1,19 @@
 import {
     Component,
-    Event,
-    EventEmitter,
     Prop,
     Element,
     Host,
+    Event,
+    EventEmitter,
+    State,
     h,
+    Method,
+    getAssetPath,
 } from '@stencil/core';
 import { MDCChipSet } from '@material/chips';
 import { ComponentChipElement } from './kup-chip-declarations';
-import { errorLogging } from '../../utils/error-logging';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-chip',
@@ -18,11 +22,12 @@ import { errorLogging } from '../../utils/error-logging';
 })
 export class KupChip {
     @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
 
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * List of elements.
      */
@@ -30,7 +35,7 @@ export class KupChip {
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      */
-    @Prop({ reflect: true }) type: string = undefined;
+    @Prop() type: string = undefined;
 
     @Event({
         eventName: 'kupChipBlur',
@@ -39,6 +44,8 @@ export class KupChip {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
+        id: string;
+        index: number;
         value: string;
     }>;
 
@@ -49,8 +56,9 @@ export class KupChip {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: string;
         index: number;
-        el: EventTarget;
+        value: string;
     }>;
 
     @Event({
@@ -60,6 +68,8 @@ export class KupChip {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
+        id: string;
+        index: number;
         value: string;
     }>;
 
@@ -70,30 +80,35 @@ export class KupChip {
         bubbles: true,
     })
     kupIconClick: EventEmitter<{
+        id: string;
         index: number;
-        el: EventTarget;
-    }>;
-
-    @Event({
-        eventName: 'kupChipError',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupError: EventEmitter<{
-        el: EventTarget;
+        value: string;
     }>;
 
     //---- Methods ----
 
-    onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
+    onKupBlur(i: number) {
+        let value: string = undefined;
+        if (this.data[i]) {
+            value = this.data[i].value;
+        }
         this.kupBlur.emit({
-            value: target.value,
+            id: this.rootElement.id,
+            index: i,
+            value: value,
         });
     }
 
-    onKupClick(i: number, e: Event) {
+    onKupClick(i: number) {
+        let value: string = undefined;
+        if (this.data[i]) {
+            value = this.data[i].value;
+        }
         if (this.type === 'choice') {
             for (let j = 0; j < this.data.length; j++) {
                 if (j !== i && this.data[j].checked) {
@@ -111,29 +126,49 @@ export class KupChip {
             this.data = newData;
         }
         this.kupClick.emit({
+            id: this.rootElement.id,
             index: i,
-            el: e.target,
+            value: value,
         });
     }
 
-    onKupFocus(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
+    onKupFocus(i: number) {
+        let value: string = undefined;
+        if (this.data[i]) {
+            value = this.data[i].value;
+        }
         this.kupFocus.emit({
-            value: target.value,
+            id: this.rootElement.id,
+            index: i,
+            value: value,
         });
     }
 
-    onKupIconClick(i: number, e: Event) {
+    onKupIconClick(i: number) {
+        let value: string = undefined;
+        if (this.data[i]) {
+            value = this.data[i].value;
+        }
         this.data.splice(i, 1);
         let newData = [...this.data];
         this.data = newData;
         this.kupIconClick.emit({
+            id: this.rootElement.id,
             index: i,
-            el: e.target,
+            value: value,
         });
     }
 
     //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logLoad(this, false);
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
 
     componentWillUpdate() {
         var firstCheckedFound = false;
@@ -146,13 +181,17 @@ export class KupChip {
                         j +
                         ") to be set on 'checked' when another one was found before! Overriding to false because the type='choice' allows only 1 'checked'.";
 
-                    errorLogging('kup-chip', message);
+                    logMessage(this, message, 'warning');
                 }
                 if (this.data[j].checked && !firstCheckedFound) {
                     firstCheckedFound = true;
                 }
             }
         }
+    }
+
+    componentWillRender() {
+        logRender(this, false);
     }
 
     componentDidRender() {
@@ -162,16 +201,13 @@ export class KupChip {
             const chipSetEl = root.querySelector('.mdc-chip-set');
             new MDCChipSet(chipSetEl);
         }
+        logRender(this, true);
     }
 
     render() {
         let wrapperClass = 'mdc-chip-set';
         let chipList: Array<HTMLElement> = [];
         let chipEl: HTMLElement;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.type) {
             switch (this.type) {
@@ -189,25 +225,23 @@ export class KupChip {
                         'The value received for prop "type" is not supported(' +
                         this.type +
                         ').';
-                    errorLogging('kup-chip', message);
+                    logMessage(this, message, 'warning');
             }
         }
         if (this.data.length === 0) {
             let message = 'Empty data.';
-            errorLogging('kup-chip', message);
+            logMessage(this, message, 'warning');
         }
         for (let i = 0; i < this.data.length; i++) {
             let componentClass: string = 'mdc-chip';
             let iconEl = [];
             let iconClass =
-                'material-icons mdc-chip__icon mdc-chip__icon--leading';
-            let iconColor = 'var(--kup-icon-color)';
+                'icon-container material-icons mdc-chip__icon mdc-chip__icon--leading';
             let cancelIcon = undefined;
 
             if (this.type === 'filter' || this.type === 'choice') {
                 if (this.data[i].checked) {
                     componentClass += ' mdc-chip--selected';
-                    iconColor = 'var(--kup-main-color)';
                     if (this.type === 'filter') {
                         iconClass += ' mdc-chip__icon--leading-hidden';
                     }
@@ -215,15 +249,14 @@ export class KupChip {
             }
 
             if (this.data[i].icon) {
-                iconEl.push(
-                    <kup-image
-                        color={iconColor}
-                        class={iconClass}
-                        resource={this.data[i].icon}
-                        sizeX="18px"
-                        sizeY="18px"
-                    ></kup-image>
-                );
+                let svg: string = `url('${getAssetPath(
+                    `./assets/svg/${this.data[i].icon}.svg`
+                )}') no-repeat center`;
+                let iconStyle = {
+                    mask: svg,
+                    webkitMask: svg,
+                };
+                iconEl.push(<span style={iconStyle} class={iconClass}></span>);
             }
 
             if (this.type === 'filter') {
@@ -247,14 +280,11 @@ export class KupChip {
             if (this.type === 'input') {
                 cancelIcon = (
                     <span role="gridcell">
-                        <kup-image
+                        <span
+                            onClick={() => this.onKupIconClick(i)}
                             tabindex="-1"
-                            class="material-icons mdc-chip__icon remove-icon"
-                            onClick={(e) => this.onKupIconClick(i, e)}
-                            resource="cancel"
-                            sizeX="18px"
-                            sizeY="18px"
-                        ></kup-image>
+                            class="icon-container material-icons mdc-chip__icon clear"
+                        ></span>
                     </span>
                 );
             }
@@ -263,7 +293,7 @@ export class KupChip {
                 <div
                     class={componentClass}
                     role="row"
-                    onClick={(e) => this.onKupClick(i, e)}
+                    onClick={() => this.onKupClick(i)}
                 >
                     <div class="mdc-chip__ripple"></div>
                     {iconEl}
@@ -277,8 +307,8 @@ export class KupChip {
                             // @ts-ignore
                             value={this.data[i].value}
                             checked={this.data[i].checked}
-                            onBlur={(e: any) => this.onKupBlur(e)}
-                            onFocus={(e: any) => this.onKupFocus(e)}
+                            onBlur={() => this.onKupBlur(i)}
+                            onFocus={() => this.onKupFocus(i)}
                         >
                             <span class="mdc-chip__text">
                                 {this.data[i].label}
@@ -293,7 +323,7 @@ export class KupChip {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={wrapperClass} role="grid">
                         {chipList}

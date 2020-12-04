@@ -1,0 +1,43 @@
+.scalable-layout-4 {
+  .scalable-element {
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+  }
+
+  .icon {
+    font-size: 150%;
+    margin: auto 5% auto auto;
+  }
+
+  .value-and-unit {
+    display: flex;
+    color: var(--color-1);
+
+    .value-int {
+      font-size: 250%;
+    }
+
+    .value-dec,
+    .unit {
+      font-size: 130%;
+      margin-top: auto;
+      margin-bottom: 10%;
+    }
+
+    .value-dec {
+      margin-left: 2%;
+    }
+
+    .unit {
+      margin-left: 4%;
+    }
+  }
+
+  .descr {
+    margin-left: 4%;
+    text-align: left;
+    font-size: 80%;
+    width: 100%;
+    min-width: max-content;
+  }
+}

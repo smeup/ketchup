@@ -1,6 +1,10 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps"></demo>
+    <demo
+      :demoTabs="demoTabs"
+      :demoComp="demoComp"
+      :demoProps="demoProps"
+    ></demo>
   </div>
 </template>
 
@@ -14,25 +18,7 @@ export default {
   name: 'ProgressbarDemo',
   data() {
     return {
-      demoTabs: [
-        {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
-        },
-      ],
-      demoComp:
-        '<kup-progress-bar centered-label value="50" id="demo-component"></kup-progress-bar>',
+      demoComp: createComp(),
       demoProps: [
         {
           prop: 'centeredLabel',
@@ -43,28 +29,20 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'className',
+          description:
+            'Available classes: padded, striped, animated (works with striped), slim.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'customStyle',
           description:
-            'Sets a custom style for the component by feeding this string into a <style> tag.',
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'null',
+          default: 'undefined',
           try: 'css',
-        },
-        {
-          prop: 'hasPadding',
-          description:
-            'Sets a padding between the bar and its container. Not supported for the radial variant.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'hasStripes',
-          description:
-            'Sets a striped background. Not supported for the radial variant.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
         },
         {
           prop: 'hideLabel',
@@ -81,23 +59,8 @@ export default {
           try: 'field',
         },
         {
-          prop: 'isAnimated',
-          description:
-            'When striped background is active, it will be animated. Not supported for the radial variant.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'isRadial',
           description: 'Radial version.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'isSlim',
-          description: 'Slim version.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -118,7 +81,32 @@ export default {
           try: 'field',
         },
       ],
+      demoTabs: [
+        {
+          text: 'Props',
+          icon: '',
+          active: true,
+        },
+        {
+          text: 'HTML',
+          icon: '',
+          active: false,
+        },
+        {
+          text: 'CSS',
+          icon: '',
+          active: false,
+        },
+      ],
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-progress-bar');
+  comp.centeredLabel = true;
+  comp.id = 'demo-component';
+  comp.value = '75';
+  return comp;
+}
 </script>

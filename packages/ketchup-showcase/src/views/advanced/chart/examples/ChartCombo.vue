@@ -1,6 +1,11 @@
 <template>
   <div>
-    <kup-chart axis="Col1" :data.prop="comboData" :types.prop="types" :series.prop="series" />
+    <kup-chart
+      axis="Col1"
+      :data.prop="comboData"
+      :types.prop="types"
+      :series.prop="series"
+    />
   </div>
 </template>
 
@@ -12,7 +17,10 @@ export default {
     return {
       comboData,
       types: ['Area', 'Line'],
-      series: ['Col2', 'Col3'],
+      series: [
+        { code: 'Col2', decode: 'Col2' },
+        { code: 'Col3', decode: 'Col3' },
+      ],
     };
   },
 };

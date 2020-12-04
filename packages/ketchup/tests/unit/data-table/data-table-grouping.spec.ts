@@ -641,7 +641,7 @@ describe('single groups with totals', () => {
             rows,
             [{ column: 'FLD1', visible: true }],
             {
-                FLD4: TotalMode.AVARAGE,
+                FLD4: TotalMode.AVERAGE,
             }
         );
 
@@ -659,32 +659,32 @@ describe('single groups with totals', () => {
 
             expect(keys).toHaveLength(1);
 
-            const avarage = totals['FLD4'];
+            const average = totals['FLD4'];
 
             switch (i) {
                 case 0:
-                    expect(avarage).toBe(2769916.6666666665);
+                    expect(average).toBe(2769916.6666666665);
                     break;
 
                 case 1:
-                    expect(avarage).toBe(1770537.3333333333);
+                    expect(average).toBe(1770537.3333333333);
                     break;
 
                 default:
-                    expect(avarage).toBe(20041147.666666667);
+                    expect(average).toBe(20041147.666666667);
                     break;
             }
         }
     });
 
-    it('Group on FLD1, count on FLD1, avarage on FLD4', () => {
+    it('Group on FLD1, count on FLD1, average on FLD4', () => {
         const groups = groupRows(
             columns,
             rows,
             [{ column: 'FLD1', visible: true }],
             {
                 FLD1: TotalMode.COUNT,
-                FLD4: TotalMode.AVARAGE,
+                FLD4: TotalMode.AVERAGE,
             }
         );
 
@@ -703,21 +703,21 @@ describe('single groups with totals', () => {
             expect(keys).toHaveLength(2);
 
             const count = totals['FLD1'];
-            const avarage = totals['FLD4'];
+            const average = totals['FLD4'];
 
             expect(count).toBe(3);
 
             switch (i) {
                 case 0:
-                    expect(avarage).toBe(2769916.6666666665);
+                    expect(average).toBe(2769916.6666666665);
                     break;
 
                 case 1:
-                    expect(avarage).toBe(1770537.3333333333);
+                    expect(average).toBe(1770537.3333333333);
                     break;
 
                 default:
-                    expect(avarage).toBe(20041147.666666667);
+                    expect(average).toBe(20041147.666666667);
                     break;
             }
         }
@@ -826,7 +826,7 @@ describe('multiple groups with totals', () => {
         }
     });
 
-    it('Group on FLD1 and FLD2, avarage on FLD4', () => {
+    it('Group on FLD1 and FLD2, average on FLD4', () => {
         const groups = groupRows(
             columns,
             rows,
@@ -835,7 +835,7 @@ describe('multiple groups with totals', () => {
                 { column: 'FLD2', visible: true },
             ],
             {
-                FLD4: TotalMode.AVARAGE,
+                FLD4: TotalMode.AVERAGE,
             }
         );
 
@@ -852,7 +852,7 @@ describe('multiple groups with totals', () => {
 
             expect(keys).toHaveLength(1);
 
-            const avarage = totals['FLD4'];
+            const average = totals['FLD4'];
 
             const children = group.group.children;
 
@@ -860,7 +860,7 @@ describe('multiple groups with totals', () => {
 
             switch (i) {
                 case 0:
-                    expect(avarage).toBe(2769916.6666666665);
+                    expect(average).toBe(2769916.6666666665);
 
                     expect(children[0].group.totals['FLD4']).toBe(2857321);
                     expect(children[1].group.totals['FLD4']).toBe(2229095);
@@ -868,7 +868,7 @@ describe('multiple groups with totals', () => {
                     break;
 
                 case 1:
-                    expect(avarage).toBe(1770537.3333333333);
+                    expect(average).toBe(1770537.3333333333);
 
                     expect(children[0].group.totals['FLD4']).toBe(4057875);
                     expect(children[1].group.totals['FLD4']).toBe(463347);
@@ -876,7 +876,7 @@ describe('multiple groups with totals', () => {
                     break;
 
                 default:
-                    expect(avarage).toBe(20041147.666666667);
+                    expect(average).toBe(20041147.666666667);
 
                     expect(children[0].group.totals['FLD4']).toBe(13857443);
                     expect(children[1].group.totals['FLD4']).toBe(24516000);
@@ -886,7 +886,7 @@ describe('multiple groups with totals', () => {
         }
     });
 
-    it('Group on FLD1 and FLD2, count on FLD2 and avarage on FLD4', () => {
+    it('Group on FLD1 and FLD2, count on FLD2 and average on FLD4', () => {
         const groups = groupRows(
             columns,
             rows,
@@ -896,7 +896,7 @@ describe('multiple groups with totals', () => {
             ],
             {
                 FLD2: TotalMode.COUNT,
-                FLD4: TotalMode.AVARAGE,
+                FLD4: TotalMode.AVERAGE,
             }
         );
 
@@ -917,7 +917,7 @@ describe('multiple groups with totals', () => {
 
             expect(count).toBe(3);
 
-            const avarage = totals['FLD4'];
+            const average = totals['FLD4'];
 
             const children = group.group.children;
 
@@ -925,7 +925,7 @@ describe('multiple groups with totals', () => {
 
             switch (i) {
                 case 0:
-                    expect(avarage).toBe(2769916.6666666665);
+                    expect(average).toBe(2769916.6666666665);
 
                     expect(children[0].group.totals['FLD2']).toBe(1);
                     expect(children[0].group.totals['FLD4']).toBe(2857321);
@@ -938,7 +938,7 @@ describe('multiple groups with totals', () => {
                     break;
 
                 case 1:
-                    expect(avarage).toBe(1770537.3333333333);
+                    expect(average).toBe(1770537.3333333333);
 
                     expect(children[0].group.totals['FLD2']).toBe(1);
                     expect(children[0].group.totals['FLD4']).toBe(4057875);
@@ -951,7 +951,7 @@ describe('multiple groups with totals', () => {
                     break;
 
                 default:
-                    expect(avarage).toBe(20041147.666666667);
+                    expect(average).toBe(20041147.666666667);
 
                     expect(children[0].group.totals['FLD2']).toBe(1);
                     expect(children[0].group.totals['FLD4']).toBe(13857443);

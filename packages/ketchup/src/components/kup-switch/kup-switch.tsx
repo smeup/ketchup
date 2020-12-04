@@ -1,15 +1,18 @@
 import {
     Component,
-    Event,
-    EventEmitter,
     Prop,
     Element,
-    State,
     Host,
+    Event,
+    EventEmitter,
+    State,
     h,
+    Method,
 } from '@stencil/core';
 import { MDCSwitch } from '@material/switch';
 import { MDCFormField } from '@material/form-field';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-switch',
@@ -19,27 +22,28 @@ import { MDCFormField } from '@material/form-field';
 export class KupSwitch {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
      */
-    @Prop({ reflect: true }) checked: boolean = false;
+    @Prop() checked: boolean = false;
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop({ reflect: true }) disabled: boolean = false;
+    @Prop() disabled: boolean = false;
     /**
      * Defaults at null. When specified, its content will be shown as a label.
      */
-    @Prop({ reflect: true }) label: string = null;
+    @Prop() label: string = null;
     /**
      * Defaults at false. When set to true, the label will be on the left of the component.
      */
-    @Prop({ reflect: true }) leadingLabel: boolean = false;
+    @Prop() leadingLabel: boolean = false;
 
     @Event({
         eventName: 'kupSwitchBlur',
@@ -93,6 +97,11 @@ export class KupSwitch {
 
     //---- Methods ----
 
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
     onKupBlur() {
         this.kupBlur.emit({
             value: this.value,
@@ -132,7 +141,17 @@ export class KupSwitch {
 
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        logLoad(this, false);
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
     componentWillRender() {
+        logRender(this, false);
         if (this.checked) {
             this.value = 'on';
         } else {
@@ -143,7 +162,7 @@ export class KupSwitch {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != null) {
+        if (root && !this.disabled) {
             const component = MDCSwitch.attachTo(
                 root.querySelector('.mdc-switch')
             );
@@ -152,17 +171,13 @@ export class KupSwitch {
             );
             formField.input = component;
         }
+        logRender(this, true);
     }
 
     render() {
         let formClass: string = 'mdc-form-field';
         let componentClass: string = 'mdc-switch';
         let componentLabel: string = this.label;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
-
         if (this.disabled) {
             componentClass += ' mdc-switch--disabled';
         }
@@ -177,7 +192,7 @@ export class KupSwitch {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={formClass}>
                         <div class={componentClass}>

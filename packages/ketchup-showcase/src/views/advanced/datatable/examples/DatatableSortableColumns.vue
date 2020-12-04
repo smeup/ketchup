@@ -3,12 +3,7 @@
     <h2>Data Table</h2>
 
     <h3>Without configuration</h3>
-    <kup-data-table
-      :data.prop="data"
-      enable-sortable-columns
-      @kupDataTableSortedColumn="handleKupDataTable('noConfig', $event)"
-      @dragstart="logger"
-    />
+    <kup-lazy component-name="kup-data-table" :data.prop="data"></kup-lazy>
     <code>
       {{ JSON.stringify(data.columns) }}
       <br />
@@ -16,11 +11,7 @@
     </code>
 
     <h3>Hidden columns</h3>
-    <kup-data-table
-      :data.prop="hiddenColumnsData"
-      :enableSortableColumns.prop="true"
-      @kupDataTableSortedColumn="handleKupDataTable('hiddenCols', $event)"
-    />
+    <kup-lazy component-name="kup-data-table" :data.prop="data2"></kup-lazy>
     <code>
       {{ JSON.stringify(hiddenColumnsData.columns) }}
       <br />
@@ -29,13 +20,11 @@
 
     <h3>No automatic sorting</h3>
     <h4>With no new object created to hold the result</h4>
-    <kup-data-table
+    <kup-lazy
       ref="noAutomaticMutate"
-      :data.prop="noAutomaticMutate"
-      :enableSortableColumns.prop="true"
-      :sortableColumnsMutateData.prop="false"
-      @kupDataTableSortedColumn="handleKupDataTableNoAutomatic('noAutomatic', 'noAutomaticMutate', $event)"
-    />
+      component-name="kup-data-table"
+      :data.prop="data3"
+    ></kup-lazy>
     <code>
       {{ JSON.stringify(noAutomaticMutate.columns) }}
       <br />
@@ -43,13 +32,11 @@
     </code>
 
     <h4>With new object created to hold the result</h4>
-    <kup-data-table
+    <kup-lazy
       ref="noAutomaticNewObject"
-      :data.prop="noAutomaticNewObject"
-      :enableSortableColumns.prop="true"
-      :sortableColumnsMutateData.prop="false"
-      @kupDataTableSortedColumn="handleKupDataTableNoAutomatic('noAutomatic2', 'noAutomaticNewObject', $event)"
-    />
+      component-name="kup-data-table"
+      :data.prop="data4"
+    ></kup-lazy>
     <code>
       {{ JSON.stringify(noAutomaticNewObject.columns) }}
       <br />
@@ -62,9 +49,7 @@
 import {
   createDataForPagination,
   defaultDataTable,
-  // cellStyleDataTable,
   hiddenColumnsData,
-  // iconImagesDataTable,
 } from '@/mock/dataTable';
 
 export default {
@@ -72,21 +57,49 @@ export default {
   data() {
     return {
       data: {
-        ...defaultDataTable,
+        data: defaultDataTable,
+        enableSortableColumns: true,
+        onKupDataTableSortedColumn: (e) => {
+          this.handleKupDataTable('noConfig', e.detail);
+        },
+        onDragstart: (e) => {
+          this.logger();
+        },
       },
-      hiddenColumnsData: { ...hiddenColumnsData },
+      data2: {
+        data: hiddenColumnsData,
+        enableSortableColumns: true,
+        onKupDataTableSortedColumn: (e) => {
+          this.handleKupDataTable('hiddenCols', e.detail);
+        },
+      },
+      data3: {
+        data: createDataForPagination(4, 25),
+        enableSortableColumns: true,
+        sortableColumnsMutateData: false,
+        onKupDataTableSortedColumn: (e) => {
+          this.handleKupDataTableNoAutomatic(
+            'noAutomatic',
+            'noAutomaticMutate',
+            event.detail
+          );
+        },
+      },
+      data4: {
+        data: createDataForPagination(4, 25),
+        enableSortableColumns: true,
+        sortableColumnsMutateData: false,
+        onKupDataTableSortedColumn: (e) => {
+          this.handleKupDataTableNoAutomatic(
+            'noAutomatic2',
+            'noAutomaticMutate',
+            event.detail
+          );
+        },
+      },
       noAutomaticMutate: createDataForPagination(4, 25),
       noAutomaticNewObject: createDataForPagination(4, 25),
-      sort: [
-          {
-              column: 'FLD1',
-              sortMode: 'A',
-          },
-          {
-              column: 'FLD2',
-              sortMode: 'D',
-          },
-      ],
+      hiddenColumnsData: { ...hiddenColumnsData },
     };
   },
 

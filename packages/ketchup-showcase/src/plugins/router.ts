@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import Home from '@/views/Home.vue';
-import About from '@/views/About.vue';
 
 Vue.use(Router);
 
@@ -11,11 +10,6 @@ const baseRoutes = [
     path: '/',
     name: 'home',
     component: Home,
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: About,
   },
 ];
 
@@ -34,6 +28,11 @@ let basicRoutes = [
     path: `/button`,
     name: 'button',
     component: () => import(`@/views/basic/button/Button.vue`),
+  },
+  {
+    path: `/drawer`,
+    name: 'drawer',
+    component: () => import(`@/views/basic/drawer/Drawer.vue`),
   },
   {
     path: `/checkbox`,
@@ -66,9 +65,19 @@ let basicRoutes = [
     component: () => import(`@/views/basic/image/Image.vue`),
   },
   {
+    path: `/lazy`,
+    name: 'lazy',
+    component: () => import(`@/views/basic/lazy/Lazy.vue`),
+  },
+  {
     path: `/list`,
     name: 'list',
     component: () => import(`@/views/basic/list/List.vue`),
+  },
+  {
+    path: `/navbar`,
+    name: 'navbar',
+    component: () => import(`@/views/basic/navbar/Navbar.vue`),
   },
   {
     path: `/progressbar`,
@@ -79,6 +88,16 @@ let basicRoutes = [
     path: `/radio`,
     name: 'radio',
     component: () => import(`@/views/basic/radio/Radio.vue`),
+  },
+  {
+    path: `/rating`,
+    name: 'rating',
+    component: () => import(`@/views/basic/rating/Rating.vue`),
+  },
+  {
+    path: `/colorpicker`,
+    name: 'colorpicker',
+    component: () => import(`@/views/basic/colorpicker/ColorPicker.vue`),
   },
   {
     path: `/spinner`,
@@ -129,6 +148,11 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/chart/Chart.vue`),
   },
   {
+    path: `/echarts`,
+    name: 'echarts',
+    component: () => import(`@/views/advanced/echarts/Echarts.vue`),
+  },
+  {
     path: `/crud`,
     name: 'crud',
     component: () => import(`@/views/advanced/crud/Crud.vue`),
@@ -157,11 +181,6 @@ let advancedRoutes = [
     path: `/imagebutton`,
     name: 'imagebutton',
     component: () => import(`@/views/advanced/imagebutton/Imagebutton.vue`),
-  },
-  {
-    path: `/menu`,
-    name: 'menu',
-    component: () => import(`@/views/advanced/menu/Menu.vue`),
   },
   {
     path: `/search`,
@@ -195,9 +214,9 @@ let cssRoutes = [
 
 let javascriptRoutes = [
   {
-    path: `/errorlogging`,
-    name: 'errorlogging',
-    component: () => import(`@/views/javascript/errorlogging/Errorlogging.vue`),
+    path: `/debugging`,
+    name: 'debugging',
+    component: () => import(`@/views/javascript/debugging/Debugging.vue`),
   },
   {
     path: `/scrollonhover`,
@@ -213,12 +232,41 @@ let javascriptRoutes = [
   },
 ];
 
+let testRoutes = [
+  {
+    path: `/test/performance`,
+    name: 'testPerformance',
+    component: () => import(`@/views/test/Performance.vue`),
+  },
+  {
+    path: `/test/performance-autocomplete`,
+    name: 'testPerformanceAutocomplete',
+    component: () => import(`@/views/test/PerformanceAutocomplete.vue`),
+  },
+  {
+    path: `/test/performance-grid`,
+    name: 'testPerformanceGrid',
+    component: () => import(`@/views/test/PerformanceGrid.vue`),
+  },
+  {
+    path: `/test/performance-tree`,
+    name: 'testPerformanceTree',
+    component: () => import(`@/views/test/PerformanceTree.vue`),
+  },
+  {
+    path: `/test/graphic-cells`,
+    name: 'testGraphicCells',
+    component: () => import(`@/views/test/GraphicCells.vue`),
+  },
+];
+
 const routes = [
   ...baseRoutes,
   ...advancedRoutes,
   ...cssRoutes,
   ...javascriptRoutes,
   ...basicRoutes,
+  ...testRoutes,
 ];
 
 export default new Router({

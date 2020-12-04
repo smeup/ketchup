@@ -1,0 +1,27 @@
+.scalable-layout-6 {
+  .scalable-element {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .text-wrapper {
+    margin-left: 1em;
+  }
+
+  .icon {
+    font-size: 150%;
+    margin: auto;
+  }
+
+  .value {
+    font-size: 220%;
+    text-align: right;
+  }
+
+  .descr {
+    font-size: 80%;
+    text-align: right;
+    width: 100%;
+    min-width: max-content;
+  }
+}

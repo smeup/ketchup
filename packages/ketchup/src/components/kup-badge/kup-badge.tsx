@@ -5,10 +5,12 @@ import {
     Event,
     EventEmitter,
     h,
+    State,
     Host,
+    Method,
 } from '@stencil/core';
-import { BadgePosition } from './kup-badge-declarations';
-import { errorLogging } from '../../utils/error-logging';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-badge',
@@ -17,23 +19,20 @@ import { errorLogging } from '../../utils/error-logging';
 })
 export class KupBadge {
     @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
 
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * The data of the image displayed inside the badge.
      */
     @Prop() imageData: {} = undefined;
     /**
-     * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
-     */
-    @Prop({ reflect: true }) position: BadgePosition = BadgePosition.TOP_LEFT;
-    /**
      * The text displayed inside the badge.
      */
-    @Prop({ reflect: true }) text: string = undefined;
+    @Prop() text: string = undefined;
 
     @Event({
         eventName: 'kupBadgeClick',
@@ -47,42 +46,51 @@ export class KupBadge {
 
     //---- Methods ----
 
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
     onKupClick(e: Event) {
         this.kupClick.emit({
             el: e.target,
         });
     }
 
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logLoad(this, false);
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        logRender(this, true);
+    }
+
     render() {
         if (this.text === undefined && this.imageData === undefined) {
             let message = 'Empty badge, not rendering!';
-            errorLogging('kup-badge', message);
+            logMessage(this, message, 'warning');
             return;
         }
 
         let imageEl: HTMLElement = undefined;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
-
-        const isTopRight = BadgePosition.TOP_RIGHT === this.position;
-        const isBottomRight = BadgePosition.BOTTOM_RIGHT === this.position;
-        const isBottomLeft = BadgePosition.BOTTOM_LEFT === this.position;
-
-        const hostClass = {
-            'top-left': !isTopRight && !isBottomRight && !isBottomLeft,
-            'top-right': isTopRight,
-            'bottom-right': isBottomRight,
-            'bottom-left': isBottomLeft,
-        };
 
         if (this.text === undefined && this.imageData !== undefined) {
             if (!this.imageData['sizeX']) {
-                this.imageData['sizeX'] = '.8rem';
+                this.imageData['sizeX'] = '1rem';
             }
             if (!this.imageData['sizeY']) {
-                this.imageData['sizeY'] = '.8rem';
+                this.imageData['sizeY'] = '1rem';
             }
             if (!this.imageData['color']) {
                 this.imageData['color'] = 'var(--kup-text-on-main-color)';
@@ -91,8 +99,8 @@ export class KupBadge {
         }
 
         return (
-            <Host class={hostClass}>
-                {customStyle}
+            <Host>
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
                     {this.text}
                     {imageEl}

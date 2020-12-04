@@ -3,27 +3,32 @@ export const defaultData = {
     {
       name: 'FLD1',
       title: 'Photo',
-      size: '',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
       title: 'Name',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Ordered quantity',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Delivery date',
-      size: 10,
     },
     {
       name: 'FLD5',
       title: 'HTML',
-      size: 50,
     },
   ],
   rows: [
@@ -36,11 +41,12 @@ export const defaultData = {
             p: 'IMG',
             k: 'AR;ART;Blue Flowers',
           },
-          value: 'images/blueflowers.JPG',
-          config: {
+          data: {
+            resource: 'images/blueflowers.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'images/blueflowers.JPG',
         },
         FLD2: {
           obj: {
@@ -77,11 +83,12 @@ export const defaultData = {
             p: 'IMG',
             k: 'AR;ART;Wooden heart',
           },
-          value: 'images/woodheart.JPG',
-          config: {
+          data: {
+            resource: 'images/woodheart.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'images/woodheart.JPG',
         },
         FLD2: {
           obj: {
@@ -118,11 +125,12 @@ export const defaultData = {
             p: 'IMG',
             k: 'AR;ART;Purple flowers',
           },
-          value: 'images/purpleflowers.JPG',
-          config: {
+          data: {
+            resource: 'images/purpleflowers.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'images/purpleflowers.JPG',
         },
         FLD2: {
           obj: {
@@ -159,11 +167,12 @@ export const defaultData = {
             p: 'IMG',
             k: 'AR;ART;Red flowers',
           },
-          value: 'images/redflowers.JPG',
-          config: {
+          data: {
+            resource: 'images/redflowers.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'images/redflowers.JPG',
         },
         FLD2: {
           obj: {
@@ -199,22 +208,33 @@ export const j4btnData = {
     {
       name: 'FLD1',
       title: 'Image',
-      size: '',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
       title: 'Name',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Number',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Button',
-      size: 10,
+      obj: {
+        t: 'J4',
+        p: 'BTN',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -226,11 +246,12 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Florence',
           },
-          value: 'images/florence.JPG',
-          config: {
+          data: {
+            resource: 'images/Florence.jpg',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'images/Florence.jpg',
         },
         FLD2: {
           obj: {
@@ -254,11 +275,11 @@ export const j4btnData = {
             p: 'BTN',
             k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Florence)',
           },
-          value: 'Book',
-          config: {
-            icon: 'lead-pencil',
-            showtext: true,
+          data: {
+            label: 'Book',
+            icon: 'pencil',
           },
+          value: 'Book',
         },
       },
     },
@@ -270,11 +291,12 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Parme',
           },
-          value: 'images/parme.JPG',
-          config: {
+          data: {
+            resource: 'images/Parme.JPG',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'images/Parme.JPG',
         },
         FLD2: {
           obj: {
@@ -298,11 +320,12 @@ export const j4btnData = {
             p: 'BTN',
             k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Parme)',
           },
-          value: 'Book',
-          config: {
-            icon: 'lead-pencil',
+          data: {
+            icon: 'pencil',
+            label: 'Book',
             showtext: true,
           },
+          value: 'Book',
         },
       },
     },
@@ -314,11 +337,12 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Milan',
           },
-          value: 'images/milan.JPG',
-          config: {
+          data: {
+            resource: 'images/Milan.jpg',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'images/Milan.jpg',
         },
         FLD2: {
           obj: {
@@ -342,11 +366,12 @@ export const j4btnData = {
             p: 'BTN',
             k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Milan)',
           },
-          value: 'Book',
-          config: {
-            icon: 'lead-pencil',
+          data: {
+            label: 'Book',
+            icon: 'pencil',
             showtext: true,
           },
+          value: 'Book',
         },
       },
     },
@@ -358,11 +383,12 @@ export const j4btnData = {
             p: 'IMG',
             k: 'AR;ART;Rome',
           },
-          value: 'images/rome.JPG',
-          config: {
+          data: {
+            resource: 'images/Rome.jpg',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'images/Rome.jpg',
         },
         FLD2: {
           obj: {
@@ -386,11 +412,11 @@ export const j4btnData = {
             p: 'BTN',
             k: 'VO;COD_VER;000001;Prenota;F(EXD;*SCO;) 1(AR;ART;Rome)',
           },
-          value: 'Book',
-          config: {
-            icon: 'lead-pencil',
-            showtext: true,
+          data: {
+            label: 'Book',
+            icon: 'pencil',
           },
+          value: 'Book',
         },
       },
     },
@@ -402,12 +428,15 @@ export const v2sinoData = {
     {
       name: 'FLD1',
       title: 'Description',
-      size: 10,
     },
     {
       name: 'FLD2',
       title: 'SiNo',
-      size: 10,
+      obj: {
+        t: 'V2',
+        p: 'SI/NO',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -459,12 +488,15 @@ export const v2radioData = {
     {
       name: 'FLD1',
       title: 'Description',
-      size: 10,
     },
     {
       name: 'FLD2',
       title: 'Radio',
-      size: 10,
+      obj: {
+        t: 'V2',
+        p: 'RADIO',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -516,12 +548,15 @@ export const j1pwdData = {
     {
       name: 'FLD1',
       title: 'Description',
-      size: 10,
     },
     {
       name: 'FLD2',
       title: 'Password',
-      size: 10,
+      obj: {
+        t: 'J1',
+        p: 'PWD',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -573,22 +608,28 @@ export const imgBadgeData = {
     {
       name: 'FLD1',
       title: 'Image',
-      size: '',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
       title: 'Name',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Number',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Date',
-      size: 10,
     },
   ],
   rows: [
@@ -600,17 +641,18 @@ export const imgBadgeData = {
             p: 'IMG',
             k: 'AR;ART;Purple Flowers',
           },
-          value: 'images/purpleflowers.JPG',
-          config: {
+          data: {
+            resource: 'images/purpleflowers.JPG',
             sizeX: '64px',
             sizeY: '64px',
             badgeData: [
               {
                 text: '12',
-                position: 'TR',
+                className: 'top-right',
               },
             ],
           },
+          value: 'images/purpleflowers.JPG',
         },
         FLD2: {
           obj: {
@@ -646,17 +688,18 @@ export const imgBadgeData = {
             p: 'IMG',
             k: 'AR;ART;Milan',
           },
-          value: 'images/milan.JPG',
-          config: {
+          data: {
+            resource: 'images/Milan.jpg',
             sizeX: '64px',
             sizeY: '64px',
             badgeData: [
               {
                 imageData: { resource: 'account' },
-                position: 'BR',
+                className: 'bottom-right',
               },
             ],
           },
+          value: 'images/Milan.jpg',
         },
         FLD2: {
           obj: {
@@ -692,21 +735,22 @@ export const imgBadgeData = {
             p: 'IMG',
             k: 'AR;ART;Parme',
           },
-          value: 'images/parme.JPG',
-          config: {
+          data: {
+            resource: 'images/Parme.JPG',
             sizeX: '64px',
             sizeY: '64px',
             badgeData: [
               {
                 text: '33',
-                position: 'TR',
+                className: 'top-right',
               },
               {
                 imageData: { resource: 'widgets' },
-                position: 'BR',
+                className: 'bottom-right',
               },
             ],
           },
+          value: 'images/Parme.JPG',
         },
         FLD2: {
           obj: {
@@ -718,11 +762,11 @@ export const imgBadgeData = {
         },
         FLD3: {
           obj: {
-            t: 'AR',
-            p: 'ART',
-            k: 'Via Nazionale, 2',
+            t: 'NR',
+            p: '',
+            k: '16',
           },
-          value: 'Via Nazionale, 2',
+          value: '16',
         },
         FLD4: {
           obj: {
@@ -742,21 +786,22 @@ export const imgBadgeData = {
             p: 'IMG',
             k: 'CN;COL;SANCOS',
           },
-          value: 'https://via.placeholder.com/64?text=SC',
-          config: {
+          data: {
+            resource: 'https://via.placeholder.com/64?text=SC',
             sizeX: '64px',
             sizeY: '64px',
             badgeData: [
               {
                 text: '23',
-                position: 'TL',
+                className: 'top-left',
               },
               {
                 imageData: { resource: 'account' },
-                position: 'BL',
+                className: 'bottom-left',
               },
             ],
           },
+          value: 'https://via.placeholder.com/64?text=SC',
         },
         FLD2: {
           obj: {
@@ -792,17 +837,24 @@ export const pgbData = {
     {
       name: 'FLD1',
       title: 'Image',
-      size: '',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
       title: 'Todo',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Progress',
-      size: 10,
+      obj: {
+        t: 'J4',
+        p: 'PGB',
+        k: '',
+      },
     },
   ],
   rows: [
@@ -814,11 +866,12 @@ export const pgbData = {
             p: 'IMG',
             k: 'CN;COL;SANCOS',
           },
-          value: 'https://via.placeholder.com/64?text=SC',
-          config: {
+          data: {
+            resource: 'https://via.placeholder.com/64?text=SC',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'https://via.placeholder.com/64?text=SC',
         },
         FLD2: {
           obj: {
@@ -834,6 +887,9 @@ export const pgbData = {
             p: 'PGB',
             k: '80',
           },
+          data: {
+            value: '80',
+          },
           value: '80',
         },
       },
@@ -846,8 +902,12 @@ export const pgbData = {
             p: 'IMG',
             k: 'CN;COL;CASFRA',
           },
+          data: {
+            resource: 'https://via.placeholder.com/64?text=CF',
+            sizeX: '64px',
+            sizeY: '64px',
+          },
           value: 'https://via.placeholder.com/64?text=CF',
-          config: { sizeX: '64px', sizeY: '64px' },
         },
         FLD2: {
           obj: {
@@ -863,10 +923,11 @@ export const pgbData = {
             p: 'PGB',
             k: '100\\*LAB;Done',
           },
-          value: '100',
-          config: {
-            labelText: 'Done',
+          data: {
+            label: 'Done',
+            value: '100',
           },
+          value: '100',
         },
       },
     },
@@ -878,11 +939,12 @@ export const pgbData = {
             p: 'IMG',
             k: 'CN;COL;DELGIO',
           },
-          value: 'https://via.placeholder.com/64?text=DG',
-          config: {
+          data: {
+            resource: 'https://via.placeholder.com/64?text=DG',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'https://via.placeholder.com/64?text=DG',
         },
         FLD2: {
           obj: {
@@ -898,10 +960,11 @@ export const pgbData = {
             p: 'PGB',
             k: '75',
           },
-          value: '75',
-          config: {
+          data: {
             hideLabel: true,
+            value: '75',
           },
+          value: '75',
         },
       },
     },
@@ -913,11 +976,12 @@ export const pgbData = {
             p: 'IMG',
             k: 'CN;COL;PARFRA',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
-          config: {
+          data: {
+            resource: 'https://via.placeholder.com/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'https://via.placeholder.com/64?text=PF',
         },
         FLD2: {
           obj: {
@@ -933,11 +997,13 @@ export const pgbData = {
             p: 'PGB',
             k: '#C01BAF;33',
           },
-          value: '33',
-          config: {
-            foregroundColor: 'rgb(251, 223, 000)',
+          data: {
+            customStyle:
+              ':host{--kup-disabled-background-color: black; --kup-main-color: green}',
             backgroundColor: 'black',
+            value: '33',
           },
+          value: '33',
         },
       },
     },
@@ -949,11 +1015,12 @@ export const pgbData = {
             p: 'IMG',
             k: 'CN;COL;PARFRA',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
-          config: {
+          data: {
+            resource: 'https://via.placeholder.com/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'https://via.placeholder.com/64?text=PF',
         },
         FLD2: {
           obj: {
@@ -969,12 +1036,12 @@ export const pgbData = {
             p: 'PGB',
             k: '#C01BAF;45',
           },
-          value: '45',
-          config: {
-            backgroundColor: 'yellow',
-            foregroundColor: 'magenta',
-            borderRadius: '9px',
+          data: {
+            value: '45',
+            customStyle:
+              ':host{--kup-disabled-background-color: magenta; --kup-main-color: yellow}',
           },
+          value: '45',
         },
       },
     },
@@ -986,11 +1053,12 @@ export const pgbData = {
             p: 'IMG',
             k: 'CN;COL;PARFRA',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
-          config: {
+          data: {
+            resource: 'https://via.placeholder.com/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'https://via.placeholder.com/64?text=PF',
         },
         FLD2: {
           obj: {
@@ -1006,11 +1074,10 @@ export const pgbData = {
             p: 'PGB',
             k: '#C01BAF;70',
           },
-          value: '70',
-          config: {
-            foregroundColor: '#e0e0e0',
-            textColor: 'black',
+          data: {
+            value: '70',
           },
+          value: '70',
         },
       },
     },
@@ -1022,22 +1089,28 @@ export const boxBadgeData = {
     {
       name: 'FLD1',
       title: 'Image',
-      size: '',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
       title: 'Name',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Number',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Date',
-      size: 10,
     },
   ],
   rows: [
@@ -1050,11 +1123,12 @@ export const boxBadgeData = {
             p: 'IMG',
             k: 'CN;COL;CASFRA',
           },
-          value: 'https://via.placeholder.com/64?text=CF',
-          config: {
+          data: {
+            resource: 'https://via.placeholder.com/64?text=CF',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'https://via.placeholder.com/64?text=CF',
         },
         FLD2: {
           obj: {
@@ -1096,11 +1170,12 @@ export const boxBadgeData = {
             p: 'IMG',
             k: 'CN;COL;PARFRA',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
-          config: {
+          data: {
+            resource: 'https://via.placeholder.com/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'https://via.placeholder.com/64?text=PF',
         },
         FLD2: {
           obj: {
@@ -1130,7 +1205,7 @@ export const boxBadgeData = {
       badgeData: [
         {
           imageData: { resource: 'account' },
-          position: 'TL',
+          className: 'top-left',
         },
       ],
     },
@@ -1143,11 +1218,12 @@ export const boxBadgeData = {
             p: 'IMG',
             k: 'CN;COL;DELGIO',
           },
-          value: 'https://via.placeholder.com/64?text=DG',
-          config: {
+          data: {
+            resource: 'https://via.placeholder.com/64?text=DG',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'https://via.placeholder.com/64?text=DG',
         },
         FLD2: {
           obj: {
@@ -1188,22 +1264,28 @@ export const shapeData = {
     {
       name: 'FLD1',
       title: 'Image',
-      size: '',
+      obj: {
+        t: 'J4',
+        p: 'IMG',
+        k: '',
+      },
     },
     {
       name: 'FLD2',
       title: 'Todo',
-      size: 10,
     },
     {
       name: 'FLD3',
       title: 'Progress',
-      size: 10,
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
     },
     {
       name: 'FLD4',
       title: 'Html',
-      size: 10,
     },
   ],
   rows: [
@@ -1217,11 +1299,12 @@ export const shapeData = {
             k: 'PARFRA',
           },
           value: 'https://via.placeholder.com/64?text=CUSTOM',
-          config: {
+          data: {
+            resource: 'https://via.placeholder.com/64?text=CUSTOM',
             badgeData: [
               {
                 imageData: { resource: 'account' },
-                position: 'BR',
+                className: 'bottom-right',
               },
             ],
             width: 20,
@@ -1267,9 +1350,9 @@ export const shapeData = {
                       {
                         column: 'FLD3',
                         shape: 'PGB',
-                        config: {
-                          labelText: 'Done',
-                          foregroundColor: 'rgb(200, 100, 002)',
+                        data: {
+                          value: 100,
+                          label: 'Done',
                         },
                       },
                     ],
@@ -1291,11 +1374,11 @@ export const shapeData = {
             k: 'CASFRA',
           },
           value: '',
-          config: {
+          data: {
             badgeData: [
               {
                 imageData: { resource: 'account' },
-                position: 'TL',
+                className: 'top-left',
               },
             ],
           },
@@ -1355,22 +1438,28 @@ export function createData(rows: number) {
       {
         name: 'FLD1',
         title: 'Image',
-        size: '',
+        obj: {
+          t: 'J4',
+          p: 'IMG',
+          k: '',
+        },
       },
       {
         name: 'FLD2',
         title: 'Name',
-        size: 10,
       },
       {
         name: 'FLD3',
         title: 'Number',
-        size: 10,
+        obj: {
+          t: 'NR',
+          p: '',
+          k: '',
+        },
       },
       {
         name: 'FLD4',
         title: 'Date',
-        size: 10,
       },
     ],
     rows: [],
@@ -1388,11 +1477,12 @@ export function createData(rows: number) {
             p: 'IMG',
             k: 'CN;COL;CASFRA',
           },
-          value: 'https://via.placeholder.com/64?text=CF',
-          config: {
+          data: {
+            resource: 'https://via.placeholder.com/64?text=CF',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'https://via.placeholder.com/64?text=CF',
         },
         FLD2: {
           obj: {
@@ -1430,11 +1520,12 @@ export function createData(rows: number) {
             p: 'IMG',
             k: 'CN;COL;PARFRA',
           },
-          value: 'https://via.placeholder.com/64?text=PF',
-          config: {
+          data: {
+            resource: 'https://via.placeholder.com/64?text=PF',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'https://via.placeholder.com/64?text=PF',
         },
         FLD2: {
           obj: {
@@ -1472,11 +1563,12 @@ export function createData(rows: number) {
             p: 'IMG',
             k: 'CN;COL;DELGIO',
           },
-          value: 'https://via.placeholder.com/64?text=DG',
-          config: {
+          data: {
+            resource: 'https://via.placeholder.com/64?text=DG',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'https://via.placeholder.com/64?text=DG',
         },
         FLD2: {
           obj: {
@@ -1514,11 +1606,12 @@ export function createData(rows: number) {
             p: 'IMG',
             k: 'CN;COL;SANCOS',
           },
-          value: 'https://via.placeholder.com/64?text=SC',
-          config: {
+          data: {
+            resource: 'https://via.placeholder.com/64?text=SC',
             sizeX: '64px',
             sizeY: '64px',
           },
+          value: 'https://via.placeholder.com/64?text=SC',
         },
         FLD2: {
           obj: {

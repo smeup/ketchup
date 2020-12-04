@@ -1,9 +1,15 @@
 // Box and datatables cells utils functions
 
 import get from 'lodash/get';
-import { Cell } from '../components/kup-data-table/kup-data-table-declarations';
+import {
+    Cell,
+    Column,
+} from '../components/kup-data-table/kup-data-table-declarations';
 import { BoxObject } from '../components/kup-box/kup-box-declarations';
 import { isProgressBar as isProgressBarObj } from './object-utils';
+import { isColor as isColorObj } from './object-utils';
+import { isRadio as isRadioObj } from './object-utils';
+import { isChart as isChartObj } from './object-utils';
 
 import { isImage as isImageObj } from './object-utils';
 import numeral from 'numeral';
@@ -13,9 +19,9 @@ import { toKebabCase } from './utils';
 // COMMONS
 // -------------
 
-export function getShape(cell: Cell, boxObject: BoxObject): string {
+export function getShape(cell: Cell, boxObject?: BoxObject): string {
     let prop = get(cell, 'shape', null);
-    if (!prop) {
+    if (!prop && boxObject) {
         prop = get(boxObject, 'shape', null);
     }
     return prop ? prop.toUpperCase() : null;
@@ -35,8 +41,8 @@ export function getFromConfig(
     propName: string
 ): any {
     let prop = null;
-    if (cell && cell.config) {
-        prop = get(cell.config, propName, null);
+    if (cell && cell.data) {
+        prop = get(cell.data, propName, null);
     }
     if (!prop && boxObject && boxObject.config) {
         prop = get(boxObject.config, propName, null);
@@ -132,8 +138,8 @@ export function buildIconConfig(cell: Cell, value: string) {
     let sizeX = undefined;
     let sizeY = undefined;
 
-    if (cell && cell.config) {
-        const config = cell.config;
+    if (cell && cell.data) {
+        const config = cell.data;
         badgeData = config.badgeData;
         color = config.color;
         customStyle = config.customStyle;
@@ -210,4 +216,64 @@ export function isInputText(cell: Cell, boxObject: BoxObject) {
 export function isEditor(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return 'EDT' === shape;
+}
+
+// -------------
+// RATING
+// -------------
+
+export function isRating(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'RTG' === shape;
+}
+
+// -------------
+// COLOR
+// -------------
+
+export function isColor(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return (
+        'CLP' === shape || (!shape && cell && cell.obj && isColorObj(cell.obj))
+    );
+}
+
+// -------------
+// CHART
+// -------------
+
+export function isChart(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return (
+        'GRA' === shape || (!shape && cell && cell.obj && isChartObj(cell.obj))
+    );
+}
+
+// -------------
+// RADIO
+// -------------
+
+export function isRadio(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return (
+        'RAD' === shape || (!shape && cell && cell.obj && isRadioObj(cell.obj))
+    );
+}
+
+// -------------
+// GAUGE
+// -------------
+
+export function isGauge(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'GAU' === shape;
+}
+
+// -------------
+// KNOB
+// -------------
+
+export function isKnob(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return 'KNB' === shape;
 }

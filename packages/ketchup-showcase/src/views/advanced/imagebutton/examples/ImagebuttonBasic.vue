@@ -81,4 +81,3 @@ export default {
   flex-direction: row;
 }
 </style>
-

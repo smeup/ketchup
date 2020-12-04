@@ -8,7 +8,7 @@ import {
     h,
 } from '@stencil/core';
 
-import { errorLogging } from '../../utils/error-logging';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-iframe',
@@ -25,11 +25,13 @@ export class KupIframe {
     /**
      * The component will be rendered as a button, which opens the link associated to the iframe in another tab when clicked.
      */
-    @Prop({ reflect: true }) isButton: boolean = false;
+    @Prop() isButton: boolean = false;
     /**
      * The address the iframe should be referencing to.
      */
-    @Prop({ reflect: true }) src: string = undefined;
+    @Prop() src: string = undefined;
+
+    //---- Methods ----
 
     @Event({
         eventName: 'kupIframeError',
@@ -59,10 +61,28 @@ export class KupIframe {
         window.open(this.src, '_blank');
     }
 
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logLoad(this, false);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        logRender(this, true);
+    }
+
     render() {
         if (this.src === undefined || this.src === null || this.src === '') {
             let message = 'Resource undefined, not rendering!';
-            errorLogging('kup-iframe', message);
+            logMessage(this, message, 'warning');
             return;
         }
 

@@ -407,6 +407,7 @@ describe('kup-data-table with groups expanded', () => {
         element.setProperty('data', groupingData);
         element.setProperty('groups', [{ column: 'FLD1', visible: true }]);
         element.setProperty('expandGroups', true);
+        element.setProperty('rowsPerPage', '50');
 
         await page.waitForChanges();
 
@@ -435,6 +436,7 @@ describe('kup-data-table with groups expanded', () => {
             { column: 'FLD2', visible: true },
         ]);
         element.setProperty('expandGroups', true);
+        element.setProperty('rowsPerPage', '50');
 
         await page.waitForChanges();
 
@@ -486,7 +488,7 @@ describe('grouping on complex objects', () => {
 
         expect(rows).toHaveLength(3);
 
-        expect(rows[0]).toEqualText('67.8');
+        expect(rows[0]).toEqualText('67.80');
         expect(rows[1]).toEqualText('100.60');
         expect(rows[2]).toEqualText('120.06');
     });

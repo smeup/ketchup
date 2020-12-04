@@ -30,14 +30,14 @@
   & .left-scrolling-arrow {
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-right: 8px solid var(--main-color);
+    border-right: 8px solid var(--kup-main-color);
     transform: translate(30px, -10px);
   }
 
   & .right-scrolling-arrow {
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
-    border-left: 8px solid var(--main-color);
+    border-left: 8px solid var(--kup-main-color);
     transform: translate(-30px, -10px);
   }
 
@@ -168,9 +168,13 @@
   }
 }
 
-//Material menu
+//Material menu and kup contextual menu
+div.kup-menu,
 div.mdc-menu {
   animation: fadeInFromNone 0.25s ease-out;
+  background-color: var(--kup-background-color);
+  box-shadow: var(--kup-box-shadow);
+  color: var(--kup-text-color);
   display: none;
   max-height: 40vh;
   opacity: 0;
@@ -197,4 +201,34 @@ div.mdc-menu {
     display: block;
     opacity: 1;
   }
+}
+
+// Icons and cursors variables
+
+.is-obj {
+  cursor: var(--kup-obj-cursor);
+}
+
+.icon-container.ascending {
+  mask: var(--kup-ascending-icon);
+}
+
+.icon-container.descending {
+  mask: var(--kup-descending-icon);
+}
+
+.icon-container.collapsed {
+  mask: var(--kup-collapsed-icon);
+}
+
+.icon-container.expanded {
+  mask: var(--kup-expanded-icon);
+}
+
+.icon-container.filter-remove {
+  mask: var(--kup-filter-remove-icon);
+}
+
+.icon-container.clear {
+  mask: var(--kup-clear-icon);
 }

@@ -68,7 +68,7 @@ function getDataTableVisibleColumns(columns: Column[]) {
         .length;
 }
 
-it(`kup-data-table table area can be limited by using the CSS property ${tableCustomHeightCSSVarName}`, async () => {
+it.skip(`kup-data-table table area can be limited by using the CSS property ${tableCustomHeightCSSVarName}`, async () => {
     const page = await newE2EPage();
     await page.setContent(`<kup-data-table></kup-data-table>`);
     const tableElement = await page.find('kup-data-table');

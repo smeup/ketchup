@@ -1,13 +1,15 @@
 import {
     Component,
-    Event,
-    EventEmitter,
+    Prop,
     Element,
     Host,
+    Event,
+    EventEmitter,
+    State,
     h,
-    Prop,
     Watch,
     Method,
+    getAssetPath,
 } from '@stencil/core';
 
 import { MDCList } from '@material/list';
@@ -17,7 +19,8 @@ import { KupRadio } from '../kup-radio/kup-radio';
 import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
 import { getValueOfItemByDisplayMode } from './kup-list-declarations';
-import { KupImage } from '../kup-image/kup-image';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-list',
@@ -26,16 +29,17 @@ import { KupImage } from '../kup-image/kup-image';
 })
 export class KupList {
     @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Used to navigate the list when it's bound to a text field, i.e.: autocomplete.
      */
-    @Prop({ mutable: true, reflect: true }) arrowDown: boolean = false;
-    @Prop({ mutable: true, reflect: true }) arrowUp: boolean = false;
+    @Prop({ mutable: true }) arrowDown: boolean = false;
+    @Prop({ mutable: true }) arrowUp: boolean = false;
     /**
-     * Sets a custom style for the component by feeding this string into a <style> tag.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * The data of the list.
      */
@@ -43,40 +47,39 @@ export class KupList {
     /**
      * Selects how the items must display their label and how they can be filtered for.
      */
-    @Prop({ reflect: true }) displayMode: ItemsDisplayMode =
-        ItemsDisplayMode.DESCRIPTION;
+    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
      * Keeps string for filtering elements when filter mode is active
      */
-    @Prop({ reflect: true }) filter: string = '';
+    @Prop() filter: string = '';
     /**
      * Hides rows' text, ideally to display a list of icons only.
      */
-    @Prop({ reflect: true }) hideText: boolean = false;
+    @Prop() hideText: boolean = false;
     /**
      * Defines whether the list is a menu or not.
      */
-    @Prop({ reflect: true }) isMenu: boolean = false;
+    @Prop() isMenu: boolean = false;
     /**
      * Sets the status of the menu, when false it's hidden otherwise it's visible.
      */
-    @Prop({ reflect: true }) menuVisible: boolean = false;
+    @Prop() menuVisible: boolean = false;
     /**
      * Defines the type of selection. Values accepted: listbox, radiogroup or group.
      */
-    @Prop({ reflect: true }) roleType?: string = KupList.ROLE_LISTBOX;
+    @Prop() roleType?: string = KupList.ROLE_LISTBOX;
     /**
      * Defines whether items are selectable or not.
      */
-    @Prop({ reflect: true }) selectable: boolean = true;
+    @Prop() selectable: boolean = true;
     /**
      * Displays the icons associated to each row when set to true.
      */
-    @Prop({ reflect: true }) showIcons: boolean = false;
+    @Prop() showIcons: boolean = false;
     /**
      * The list elements descriptions will be arranged in two lines.
      */
-    @Prop({ reflect: true }) twoLine: boolean = false;
+    @Prop() twoLine: boolean = false;
 
     //---- Internal state ----
 
@@ -193,9 +196,12 @@ export class KupList {
         }
     }
 
-    /**
-     * --- Methods ----
-     */
+    //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
 
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
         this.kupBlur.emit({
@@ -284,15 +290,20 @@ export class KupList {
             item.selected = false;
         }
 
-        let imageTag: KupImage = undefined;
+        let imageTag: HTMLElement = undefined;
         if (
             this.showIcons == true &&
             item.icon != null &&
             item.icon.trim() != ''
         ) {
-            imageTag = (
-                <kup-image resource={item.icon} sizeX="24px" sizeY="24px" />
-            );
+            let svg: string = `url('${getAssetPath(
+                `./assets/svg/${item.icon}.svg`
+            )}') no-repeat center`;
+            let iconStyle = {
+                mask: svg,
+                webkitMask: svg,
+            };
+            imageTag = <span style={iconStyle} class="icon-container"></span>;
         }
         let primaryTextTag = [
             getValueOfItemByDisplayMode(item, this.displayMode, ' - '),
@@ -322,7 +333,7 @@ export class KupList {
             ariaSelectedAttr = null;
         }
         let innerSpanTag = [
-            <span class="row-icon">{imageTag}</span>,
+            imageTag,
             <span class="mdc-list-item__text">
                 {primaryTextTag}
                 {secTextTag}
@@ -351,7 +362,7 @@ export class KupList {
                         ref={(el) => (this.radios[index] = el as any)}
                     ></kup-radio>
                 </span>,
-                <span class="row-icon">{imageTag}</span>,
+                imageTag,
                 <label
                     class="mdc-list-item__text"
                     htmlFor={this.rootElement.id + '_' + index}
@@ -379,7 +390,7 @@ export class KupList {
                         ref={(el) => (this.checkboxes[index] = el as any)}
                     ></kup-checkbox>
                 </span>,
-                <span class="row-icon">{imageTag}</span>,
+                imageTag,
                 <label
                     class="mdc-list-item__text"
                     htmlFor={this.rootElement.id + '_' + index}
@@ -485,26 +496,6 @@ export class KupList {
         }
     }
 
-    //---- Lifecycle hooks ----
-
-    componentDidLoad() {
-        this.listComponent = null;
-        this.focIndex = -1;
-        // Called once just after the component fully loaded and the first render() occurs.
-        const root = this.rootElement.shadowRoot;
-        if (root != null) {
-            this.listComponent = MDCList.attachTo(
-                root.querySelector('.mdc-list')
-            );
-
-            this.listComponent.singleSelection = this.isSingleSelection();
-
-            this.listComponent.listElements.map(
-                (listItemEl: any) => new MDCRipple(listItemEl)
-            );
-        }
-    }
-
     itemCompliant(item: ComponentListElement): boolean {
         if (item.isSeparator) {
             return true;
@@ -530,13 +521,43 @@ export class KupList {
         );
     }
 
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logLoad(this, false);
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        this.listComponent = null;
+        this.focIndex = -1;
+        // Called once just after the component fully loaded and the first render() occurs.
+        const root = this.rootElement.shadowRoot;
+        if (root) {
+            this.listComponent = MDCList.attachTo(
+                root.querySelector('.mdc-list')
+            );
+
+            this.listComponent.singleSelection = this.isSingleSelection();
+
+            this.listComponent.listElements.map(
+                (listItemEl: any) => new MDCRipple(listItemEl)
+            );
+        }
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        logRender(this, true);
+    }
+
     render() {
         let componentClass: string = 'mdc-list';
         let wrapperClass = undefined;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         if (this.isMenu) {
             wrapperClass = 'mdc-menu mdc-menu-surface';
@@ -574,7 +595,7 @@ export class KupList {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <ul
                         class={componentClass}

@@ -7,19 +7,18 @@ h3 {
 <template>
   <div>
     <h3>Count on Column A and Column D</h3>
-    <kup-data-table :data.prop="data" :config.prop="config1" :totals.prop="countTotals"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="data"></kup-lazy>
 
     <h3>Sum on Column B and Column C</h3>
-    <kup-data-table :data.prop="data" :config.prop="config1" :totals.prop="sumTotals"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="data1"></kup-lazy>
 
-    <h3>Avarage on Column B and Column C</h3>
-    <kup-data-table :data.prop="data" :config.prop="config1" :totals.prop="avgTotals"></kup-data-table>
+    <h3>Average on Column B and Column C</h3>
+    <kup-lazy component-name="kup-data-table" :data.prop="data2"></kup-lazy>
 
     <h3>
-      Count on Column A, Sum on column B, Avg on Column C and count on Column
-      d
+      Count on Column A, Sum on column B, Avg on Column C and count on Column d
     </h3>
-    <kup-data-table :data.prop="data" :config.prop="config1" :totals.prop="mixedTotals"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="data3"></kup-lazy>
   </div>
 </template>
 
@@ -32,28 +31,38 @@ export default {
   data() {
     return {
       data: {
-        ...sortDataTable,
-      },
-      config1: {
         showFilter: true,
+        data: sortDataTable,
+        totals: {
+          FLD1: 'Count',
+          FLD4: 'Count',
+        },
       },
-      countTotals: {
-        FLD1: 'Count',
-        FLD4: 'Count',
+      data1: {
+        showFilter: true,
+        data: sortDataTable,
+        totals: {
+          FLD1: 'Sum',
+          FLD4: 'Sum',
+        },
       },
-      sumTotals: {
-        FLD2: 'Sum',
-        FLD3: 'Sum',
+      data2: {
+        showFilter: true,
+        data: sortDataTable,
+        totals: {
+          FLD1: 'Average',
+          FLD4: 'Average',
+        },
       },
-      avgTotals: {
-        FLD2: 'Avarage',
-        FLD3: 'Avarage',
-      },
-      mixedTotals: {
-        FLD1: 'Count',
-        FLD2: 'Sum',
-        FLD3: 'Avarage',
-        FLD4: 'Count',
+      data3: {
+        showFilter: true,
+        data: sortDataTable,
+        totals: {
+          FLD1: 'Count',
+          FLD2: 'Sum',
+          FLD3: 'Average',
+          FLD4: 'Count',
+        },
       },
     };
   },

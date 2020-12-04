@@ -1,5 +1,5 @@
 :host {
-  display: var(--kup-display-mode);
+  display: block;
 }
 
 #loading-wrapper-master {
@@ -25,7 +25,7 @@
     }
   }
 
-  &.loading-wrapper-visible {
+  :host([active]) & {
     opacity: 1;
 
     &.spinner-version > #loading-wrapper-master-spinner {
@@ -52,7 +52,7 @@
     }
   }
 
-  &.full-screen {
+  :host([full-screen]) & {
     top: 0;
     left: 0;
     bottom: 0;
@@ -68,6 +68,13 @@
       transition: opacity 1.25s ease-in, background-color 1s ease-in,
         top 0.5s ease-in;
     }
+  }
+}
+
+:host(.unclickable) {
+  #loading-wrapper-master {
+    cursor: wait;
+    pointer-events: all;
   }
 }
 

@@ -1,6 +1,10 @@
 <template>
   <div>
-    <demo :demoTabs="demoTabs" :demoComp="demoComp" :demoProps="demoProps" :demoData="demoData"></demo>
+    <demo
+      :demoComp="demoComp"
+      :demoProps="demoProps"
+      :demoTabs="demoTabs"
+    ></demo>
   </div>
 </template>
 
@@ -14,6 +18,39 @@ export default {
   name: 'GridDemo',
   data() {
     return {
+      demoComp: createComp(),
+      demoProps: [
+        {
+          prop: 'className',
+          description: 'Available classes: full-width.',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
+          prop: 'columns',
+          description:
+            'The number of columns displayed by the grid, the default behavior is 12.',
+          type: 'number',
+          default: '12',
+          try: 'field',
+        },
+        {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
+        },
+        {
+          prop: 'singleLine',
+          description: 'When set to true, forces the content on a single line.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+      ],
       demoTabs: [
         {
           text: 'Props',
@@ -26,734 +63,33 @@ export default {
           active: false,
         },
         {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-        {
           text: 'CSS',
           icon: '',
           active: false,
         },
       ],
-      demoComp: '<kup-grid columns="12" id="demo-component"></kup-grid>',
-      demoProps: [
-        {
-          prop: 'columns',
-          description:
-            'The number of columns displayed by the grid, the default behavior is 12.',
-          type: 'number',
-          default: '12',
-          try: 'field',
-        },
-        {
-          prop: 'customStyle',
-          description:
-            'Sets a custom style for the component by feeding this string into a <style> tag.',
-          type: 'string',
-          default: 'null',
-          try: 'css',
-        },
-        {
-          prop: 'data',
-          description: 'The actual data of the grid.',
-          type: 'ComponentLayoutElement[]',
-          default: 'undefined',
-          try: 'json',
-        },
-        {
-          prop: 'fullWidth',
-          description:
-            'When set to true, forces the width to 100% for the single line layout.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'singleLine',
-          description: 'When set to true, forces the content on a single line.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-      ],
-      demoData: {
-        data: [
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-          {
-            props: {
-              data: [
-                {
-                  shape: 'bar',
-                  color: 'var(--kup-main-color)',
-                  width: '100%',
-                  height: '100%',
-                },
-              ],
-              sizeY: '48px',
-            },
-            tagName: 'kup-image',
-          },
-        ],
-      },
     };
   },
 };
+
+function createComp() {
+  let comp = document.createElement('kup-grid');
+  comp.id = 'demo-component';
+  comp.columns = '12';
+  for (let index = 0; index < 48; index++) {
+    let compImage = document.createElement('kup-image');
+    compImage.data = [
+      {
+        shape: 'bar',
+        color: 'var(--kup-main-color)',
+        width: '100%',
+        height: '100%',
+      },
+    ];
+    compImage.sizeY = '48px';
+    compImage.slot = index;
+    comp.appendChild(compImage);
+  }
+  return comp;
+}
 </script>

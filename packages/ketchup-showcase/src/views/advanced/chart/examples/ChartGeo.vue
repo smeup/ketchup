@@ -1,6 +1,11 @@
 <template>
   <div>
-    <kup-chart :data.prop="geoData" :types.prop="types" axis="Col1" :series.prop="['Col2']" />
+    <kup-chart
+      :data.prop="geoData"
+      :types.prop="types"
+      axis="Col1"
+      :series.prop="[{ code: 'Col2', decode: 'Col2' }]"
+    />
     <hr />
   </div>
 </template>

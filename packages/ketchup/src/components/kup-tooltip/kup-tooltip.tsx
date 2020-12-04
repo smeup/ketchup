@@ -1,21 +1,27 @@
 import {
     Component,
-    h,
     Prop,
+    Element,
     Event,
     EventEmitter,
     Watch,
-    Element,
     State,
+    h,
+    Method,
 } from '@stencil/core';
 
-import { Row } from '../kup-data-table/kup-data-table-declarations';
 import {
     TooltipData,
     TooltipDetailData,
+    TooltipRelatedObject,
     TooltipAction,
     TooltipObject,
+    ViewMode,
+    TooltipCellOptions,
 } from './kup-tooltip-declarations';
+import { logLoad, logRender } from '../../utils/debug-manager';
+import { Row } from '../kup-data-table/kup-data-table-declarations';
+import { positionRecalc } from '../../utils/recalc-position';
 
 @Component({
     tag: 'kup-tooltip',
@@ -23,35 +29,37 @@ import {
     shadow: true,
 })
 export class KupTooltip {
-    /**
-     * Layout used to display the items
-     */
-    @Prop()
-    layout = '1';
+    @Element() rootElement: HTMLElement;
+    @State() visible = false;
 
+    /**
+     * Data for cell options
+     */
+    @Prop() cellOptions: TooltipCellOptions;
     /**
      * Data for top section
      */
-    @Prop()
-    data: TooltipData;
-
+    @Prop() data: TooltipData;
     /**
      * Data for the detail
      */
-    @Prop()
-    detailData: TooltipDetailData;
-
+    @Prop() detailData: TooltipDetailData;
     /**
      * Timeout for loadDetail
      */
-    @Prop()
-    detailDataTimeout: number = 800;
-
-    @State()
-    visible = false;
-
-    @Element()
-    tooltipEl: HTMLElement;
+    @Prop() detailTimeout: number = 800;
+    /**
+     * Layout used to display the items
+     */
+    @Prop() layout = '1';
+    /**
+     * Timeout for tooltip
+     */
+    @Prop() loadTimeout: number = 1000;
+    /**
+     * Container element for tooltip
+     */
+    @Prop() relatedObject: TooltipRelatedObject;
 
     @Event({
         eventName: 'kupTooltipLoadData',
@@ -59,7 +67,10 @@ export class KupTooltip {
         cancelable: false,
         bubbles: true,
     })
-    kupTooltipLoadData: EventEmitter;
+    kupTooltipLoadData: EventEmitter<{
+        relatedObject: TooltipRelatedObject;
+        tooltip: KupTooltip;
+    }>;
 
     @Event({
         eventName: 'kupTooltipLoadDetail',
@@ -67,7 +78,21 @@ export class KupTooltip {
         cancelable: false,
         bubbles: true,
     })
-    kupTooltipLoadDetail: EventEmitter;
+    kupTooltipLoadDetail: EventEmitter<{
+        relatedObject: TooltipRelatedObject;
+        tooltip: KupTooltip;
+    }>;
+
+    @Event({
+        eventName: 'kupTooltipLoadCellOptions',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTooltipLoadCellOptions: EventEmitter<{
+        relatedObject: TooltipRelatedObject;
+        tooltip: KupTooltip;
+    }>;
 
     @Event({
         eventName: 'kupActionCommandClicked',
@@ -90,6 +115,16 @@ export class KupTooltip {
     }>;
 
     @Event({
+        eventName: 'kupDefaultPreviewClicked',
+        composed: true,
+        cancelable: true,
+        bubbles: true,
+    })
+    kupDefaultPreviewClicked: EventEmitter<{
+        obj: TooltipObject;
+    }>;
+
+    @Event({
         eventName: 'kupDefaultOptionClicked',
         composed: true,
         cancelable: true,
@@ -99,35 +134,88 @@ export class KupTooltip {
         obj: TooltipObject;
     }>;
 
-    @Watch('data')
-    onDataChanged() {
-        if (this.visible) {
-            this.positionRecalc();
-            // loading detail
-            this.loadDetailTimeout = setTimeout(
-                () => this.loadDetail(),
-                this.detailDataTimeout
-            );
+    @Watch('relatedObject')
+    onElementChanged() {
+        if (this.relatedObject != null) {
+            this.loadAll();
+        } else {
+            this.resetAll();
         }
     }
 
+    @Watch('data')
+    onDataChanged() {
+        this.waitingServerResponse = false;
+        if (this.relatedObject == null) {
+            this.onElementChanged();
+            return;
+        }
+        if (this.data == null) {
+            this.relatedObject = null;
+            return;
+        }
+        this.visible = true;
+        //this._mouseIsOn = true;
+        this.startLoadDetail(true);
+    }
+
+    @Watch('cellOptions')
+    @Watch('detailData')
+    onTooltipDetailChanged() {
+        if (this.relatedObject == null) {
+            this.onElementChanged();
+            return;
+        }
+        if (this.data == null) {
+            this.relatedObject = null;
+            return;
+        }
+
+        this.waitingServerResponse = false;
+    }
+
     // ---- Non reactive ----
-    private tooltipPosition: {
-        top?: string;
-        bottom?: string;
-        left?: string;
-        right?: string;
-    } = {};
 
     private tooltipTimeout: NodeJS.Timeout;
     private loadDetailTimeout: NodeJS.Timeout;
     private mouseLeaveTimeout: NodeJS.Timeout;
 
-    private wrapperEl: HTMLSpanElement;
+    private viewMode: ViewMode = ViewMode.TOOLTIP;
+    private firstLoad: boolean = false;
+
+    private _mouseIsOn: boolean = false;
+    private waitingServerResponse = false;
+
+    // ---- Public methods  ----
+
+    @Method()
+    async setTooltipInfo(relatedObject: TooltipRelatedObject) {
+        //console.log('tooltip setTooltipInfo');
+        this.resetAll();
+        this.relatedObject = relatedObject;
+    }
+
+    @Method()
+    async unsetTooltipInfo() {
+        if (!this.mouseIsOn()) {
+            //console.log('tooltip unsetTooltipInfo');
+            this.onMouseLeave();
+        } else {
+            //console.log('tooltip unsetTooltipInfo mouseIsoN');
+        }
+    }
 
     // ---- Private methods ----
+    private mouseIsOn() {
+        return this._mouseIsOn || this.waitingServerResponse;
+    }
+
     private hasDetailData(): boolean {
         return !!this.detailData && !!this.detailData.rows;
+    }
+
+    private hasCellOptionsData(): boolean {
+        return this.cellOptions != null;
     }
 
     private hasActionsData(): boolean {
@@ -138,29 +226,77 @@ export class KupTooltip {
         );
     }
 
+    private startLoadDetail(withTimeout: boolean) {
+        this.waitingServerResponse = true;
+        // loading detail
+        var timeoutMs = withTimeout == true ? this.detailTimeout : 0;
+        this.loadDetailTimeout = setTimeout(() => {
+            this.loadDetail();
+            this.firstLoad = true;
+        }, timeoutMs);
+    }
+
     private resetTimeouts() {
+        this.resetTooltipTimeout();
+        this.resetLoadDetailTimeout();
+        this.resetMouseLeaveTimeout();
+    }
+
+    private resetTooltipTimeout() {
         if (this.tooltipTimeout) {
             clearTimeout(this.tooltipTimeout);
             this.tooltipTimeout = null;
         }
+    }
 
+    private resetLoadDetailTimeout() {
         if (this.loadDetailTimeout) {
             clearTimeout(this.loadDetailTimeout);
             this.loadDetailTimeout = null;
         }
+    }
 
+    private resetMouseLeaveTimeout() {
         if (this.mouseLeaveTimeout) {
             clearTimeout(this.mouseLeaveTimeout);
             this.mouseLeaveTimeout = null;
         }
     }
 
-    private loadDetail() {
-        this.loadDetailTimeout = null;
-        this.kupTooltipLoadDetail.emit();
+    private isViewModeTooltip(): boolean {
+        return this.viewMode == ViewMode.TOOLTIP;
     }
 
-    get rows(): Row[] {
+    private isViewModeCellOptions(): boolean {
+        return this.viewMode == ViewMode.CELL_OPTIONS;
+    }
+
+    private loadDetail() {
+        this.resetLoadDetailTimeout();
+        if (this.relatedObject == null) {
+            this.resetAll();
+            return;
+        }
+        if (this.data == null) {
+            this.resetAll();
+            return;
+        }
+        if (this.isViewModeTooltip()) {
+            this.cellOptions = null;
+            this.kupTooltipLoadDetail.emit({
+                relatedObject: this.relatedObject,
+                tooltip: this,
+            });
+        } else if (this.isViewModeCellOptions()) {
+            this.detailData = null;
+            this.kupTooltipLoadCellOptions.emit({
+                relatedObject: this.relatedObject,
+                tooltip: this,
+            });
+        }
+    }
+
+    private getRows(): Row[] {
         return this.hasDetailData() ? this.detailData.rows : [];
     }
 
@@ -180,16 +316,21 @@ export class KupTooltip {
         const title = (
             <div>
                 <div
-                    class="title"
+                    class="title ellipsis"
                     onClick={(event) => this.onDefaultOptionClicked(event)}
                 >
                     {datatitle}
                 </div>
                 <kup-button
-                    flat={true}
                     icon="open-in-new"
                     onKupButtonClick={(event) =>
                         this.onDefaultActionClicked(event)
+                    }
+                ></kup-button>
+                <kup-button
+                    icon="search"
+                    onKupButtonClick={(event) =>
+                        this.onDefaultPreviewClicked(event)
                     }
                 ></kup-button>
             </div>
@@ -207,23 +348,22 @@ export class KupTooltip {
     }
 
     // ---- Listeners ----
-    private onMouseOver() {
-        // Cancello il mouseLeaveTimeout così se l'utente
-        // esce e rientra rimanendo nell'intervallo di 500ms
-        // il tip non si chiude
-        if (this.mouseLeaveTimeout) {
-            clearTimeout(this.mouseLeaveTimeout);
-            this.mouseLeaveTimeout = null;
-        }
-        if (!this.tooltipTimeout) {
-            this.tooltipTimeout = setTimeout(() => {
-                this.tooltipTimeout = null;
+    private loadAll() {
+        this.resetAll();
+        this.prepareLoadData();
+    }
 
-                this.visible = true;
-
-                this.kupTooltipLoadData.emit();
-            }, 1500);
-        }
+    private prepareLoadData() {
+        this.waitingServerResponse = true;
+        this.tooltipTimeout = setTimeout(() => {
+            if (this.relatedObject == null) {
+                return;
+            }
+            this.kupTooltipLoadData.emit({
+                relatedObject: this.relatedObject,
+                tooltip: this,
+            });
+        }, this.loadTimeout);
     }
 
     private onActionCommandClicked(event: Event, action: TooltipAction) {
@@ -240,38 +380,58 @@ export class KupTooltip {
         this.kupDefaultActionClicked.emit({ obj: this.getObj() });
     }
 
+    private onDefaultPreviewClicked(event: Event) {
+        //Evento di default al click
+        event.stopPropagation();
+        this.kupDefaultPreviewClicked.emit({ obj: this.getObj() });
+    }
+
     private onDefaultOptionClicked(event: Event) {
         //Evento di default al click
         event.stopPropagation();
         this.kupDefaultOptionClicked.emit({ obj: this.getObj() });
     }
 
+    private onMouseEnter() {
+        // Cancello il mouseLeaveTimeout così se l'utente
+        // esce e rientra rimanendo nell'intervallo di 500ms
+        // il tip non si chiude
+        this.resetMouseLeaveTimeout();
+        this._mouseIsOn = true;
+    }
+
     private onMouseLeave() {
-        // Se non sono presenti azioni si chiude immediatamente, altrimenti
-        // lo chiudo dopo 500ms
-        let timeout = this.hasActionsData() ? 500 : 0;
-        this.mouseLeaveTimeout = setTimeout(() => {
-            // reset data
-            this.data = null;
-            this.detailData = null;
+        this.resetMouseLeaveTimeout();
 
-            // reset visibility
-            this.visible = false;
+        if (!this.waitingServerResponse) {
+            let timeout = 800;
+            this.mouseLeaveTimeout = setTimeout(() => {
+                this.relatedObject = null;
+                this.firstLoad = false;
+            }, timeout);
+        }
+    }
 
-            // reset timeouts
-            this.resetTimeouts();
-        }, timeout);
+    private resetAll() {
+        // reset timeouts
+        this.resetTimeouts();
+        // reset data
+        this.data = null;
+        this.detailData = null;
+        this.cellOptions = null;
+
+        // reset visibility
+        this.visible = false;
+        this._mouseIsOn = false;
+        this.waitingServerResponse = false;
+        this.viewMode = ViewMode.TOOLTIP;
     }
 
     // ---- Render methods ----
     private getDefaultLayout() {
         return [
             <div class="left">
-                <kup-image
-                    resource={this.getImage()}
-                    sizeX="75px"
-                    sizeY="75px"
-                ></kup-image>
+                <img class="image-container" src={this.getImage()}></img>
             </div>,
             <div class="right">
                 <h3>{this.getTitle()}</h3>
@@ -311,8 +471,8 @@ export class KupTooltip {
                     if (info.label != '' && info.value != '') {
                         infos.push(
                             <div>
-                                <span class="label">{info.label}: </span>
-                                {' ' + info.value}
+                                <div class="label ellipsis">{info.label}</div>
+                                <div class="value ellipsis">{info.value}</div>
                             </div>
                         );
                     }
@@ -323,33 +483,8 @@ export class KupTooltip {
         return infos;
     }
 
-    private positionRecalc() {
-        // resetting position
-        this.tooltipPosition = {};
-
-        const rect = this.wrapperEl.getBoundingClientRect();
-        let threshold = this.hasDetailData ? 300 : 150;
-
-        // vertical position
-        if (window.innerHeight - rect.bottom < threshold) {
-            this.tooltipPosition.bottom = `${
-                window.innerHeight - rect.top + 3
-            }px`;
-        } else {
-            this.tooltipPosition.top = `${rect.bottom + 3}px`;
-        }
-
-        // horizontal position
-        if (window.innerWidth - rect.left < 350) {
-            // 350 is the min-width of the tooltip
-            this.tooltipPosition.right = `${window.innerWidth - rect.right}px`;
-        } else {
-            this.tooltipPosition.left = `${rect.left}px`;
-        }
-    }
-
     private createTooltip() {
-        if (!this.data) {
+        if (this.data == null) {
             return null;
         }
 
@@ -367,19 +502,18 @@ export class KupTooltip {
         }
 
         let detailContent = null;
-        let detailActions = null;
-        //console.log(this.detailData);
+        let detailActions = [];
         if (this.hasDetailData()) {
-            detailContent = this.rows.map((row) =>
+            detailContent = this.getRows().map((row) =>
                 row.cells['label'].value === '' ||
                 row.cells['value'].value === '' ? (
                     <span></span>
                 ) : (
                     <div class="detail-row">
-                        <div class="detail-row__label">
+                        <div class="detail-row__label ellipsis">
                             {row.cells['label'].value}
                         </div>
-                        <div class="detail-row__value">
+                        <div class="detail-row__value ellipsis">
                             {row.cells['value'].value}
                         </div>
                     </div>
@@ -391,8 +525,7 @@ export class KupTooltip {
                     .map((action) => (
                         <div class="detail-actions__box">
                             <kup-button
-                                flat={true}
-                                tooltip={action.text}
+                                title={action.text}
                                 icon={action.icon}
                                 onKupButtonClick={(event) =>
                                     this.onActionCommandClicked(event, action)
@@ -402,20 +535,44 @@ export class KupTooltip {
                     ));
             }
         }
+        if (this.hasCellOptionsData()) {
+            detailContent = [
+                <kup-tree
+                    class="full-width"
+                    showFilter={true}
+                    {...this.cellOptions.config}
+                    {...this.cellOptions}
+                ></kup-tree>,
+            ];
+        }
+        if (
+            this.hasDetailData() ||
+            this.hasCellOptionsData() ||
+            this.firstLoad
+        ) {
+            detailActions = [
+                ...detailActions,
+                <div class="detail-actions__box">
+                    <kup-button
+                        title={this.getTooltipForShowOptionsButton()}
+                        icon={this.getIconForShowOptionsButton()}
+                        onKupButtonClick={() => this.onShowRightClickOptions()}
+                        onClick={(e) => e.stopPropagation()}
+                    ></kup-button>
+                </div>,
+            ];
+        }
 
         const detailClass = {
-            visible: this.hasDetailData(),
-        };
-
-        const tooltipStyle = {
-            ...this.tooltipPosition,
+            visible: this.hasDetailData() || this.hasCellOptionsData(),
+            [this.viewMode]: true,
+            'detail-loaded': this.firstLoad,
         };
 
         return (
             <div
                 id="tooltip"
-                hidden={!this.visible || !this.data}
-                style={tooltipStyle}
+                hidden={!this.visible}
                 onClick={(e: MouseEvent) => e.stopPropagation()}
             >
                 <div id="main-content" class={mainContentClass}>
@@ -424,23 +581,80 @@ export class KupTooltip {
                 <div id="detail" class={detailClass}>
                     {detailContent}
                 </div>
-                <div id="detail-actions" hidden={!this.hasActionsData()}>
+                <div
+                    id="detail-actions"
+                    hidden={detailActions == null || detailActions.length == 0}
+                >
                     {detailActions}
                 </div>
             </div>
         );
     }
 
+    getTooltipForShowOptionsButton(): string {
+        if (this.isViewModeTooltip()) {
+            return 'Show row options';
+        } else if (this.isViewModeCellOptions()) {
+            return 'Show tooltip info';
+        } else {
+            return '???';
+        }
+    }
+
+    getIconForShowOptionsButton(): string {
+        if (this.isViewModeTooltip()) {
+            return 'menu';
+        } else if (this.isViewModeCellOptions()) {
+            return 'menu';
+        } else {
+            return '???';
+        }
+    }
+
+    onShowRightClickOptions() {
+        this.viewMode =
+            this.viewMode == ViewMode.TOOLTIP
+                ? ViewMode.CELL_OPTIONS
+                : ViewMode.TOOLTIP;
+        this.startLoadDetail(false);
+    }
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logLoad(this, false);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        if (this.visible) {
+            positionRecalc(this.rootElement, this.relatedObject.element);
+            this.rootElement.classList.add('dynamic-position-active');
+        } else {
+            this.rootElement.classList.remove('dynamic-position-active');
+        }
+        logRender(this, true);
+    }
+
     render() {
         return (
             <div
                 id="wrapper"
-                onMouseOver={this.onMouseOver.bind(this)}
-                onMouseLeave={this.onMouseLeave.bind(this)}
-                ref={(el) => (this.wrapperEl = el)}
+                onMouseEnter={(ev) => {
+                    this.onMouseEnter();
+                    ev.stopPropagation();
+                }}
+                onMouseLeave={(ev) => {
+                    this.onMouseLeave();
+                    ev.stopPropagation();
+                }}
             >
-                <slot />
-
                 {this.createTooltip()}
             </div>
         );

@@ -1,6 +1,7 @@
 interface Object {
     t: string;
     p: string;
+    k: string;
 }
 
 export function isBar(smeupObj: Object): boolean {
@@ -70,6 +71,16 @@ export function isVoCodver(smeupObj: Object): boolean {
     return 'VO' === smeupObj.t && 'COD_VER' === smeupObj.p;
 }
 
+export function isColor(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'J1' === smeupObj.t && 'COL' === smeupObj.p;
+}
+
+export function isObjectList(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'JL' === smeupObj.t;
+}
+
 export function isStringObject(obj: any): boolean {
     if (!obj) return true;
 
@@ -85,6 +96,7 @@ export function isStringObject(obj: any): boolean {
 
 export function hasTooltip(obj: any) {
     if (!obj) return false;
+    if (obj.t == null || (obj.t as string).trim() == '') return false;
     return (
         !isBar(obj) &&
         !isButton(obj) &&
@@ -98,4 +110,33 @@ export function hasTooltip(obj: any) {
         !isVoCodver(obj) &&
         !isChart(obj)
     );
+}
+
+export function smeupObjectEquals(obj1: any, obj2: any): boolean {
+    if (obj1 == obj2) {
+        return true;
+    }
+    if (obj1 == null) {
+        return false;
+    }
+    if (obj2 == null) {
+        return false;
+    }
+
+    if (!(obj1 instanceof Object) || !(obj2 instanceof Object)) {
+        return false;
+    }
+    let smeupObject1: Object = obj1 as Object;
+    let smeupObject2: Object = obj2 as Object;
+
+    if (smeupObject1.t != smeupObject2.t) {
+        return false;
+    }
+    if (smeupObject1.p != smeupObject2.p) {
+        return false;
+    }
+    if (smeupObject1.k != smeupObject2.k) {
+        return false;
+    }
+    return true;
 }

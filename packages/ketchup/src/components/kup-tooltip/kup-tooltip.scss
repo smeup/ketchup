@@ -1,36 +1,19 @@
-/**
-* @Prop --tlt_background, --kup-tlt_background: tooltip background
-* @Prop --tlt_border_color, --kup-tlt_background: tooltip border
-* @Prop --tlt_detail-lbl-color, --kup-tlt_detail-lbl-color: tooltip detail label color
-* @Prop --tlt_detail-lbl-color, --kup-tlt_detail-lbl-color: tooltip detail text color
-* @Prop --tlt_shadow, --kup-tlt_shadow: tooltip shadow
-* @Prop --tlt_display, --kup-tlt_display: tooltip display
-*/
-
 :host {
-  --tlt_background: var(--kup-tlt_background, #ffffff);
-  --tlt_border_color: var(--kup-tlt_border-color, #cccccc);
-  --tlt_detail-lbl-color: var(--kup-detail-lbl-color, #616161);
-  --tlt_detail-txt-color: var(--kup-detail-txt-color, #888888);
-  --tlt_shadow: var(--kup-tlt_shadow, #{$mainShadow});
-  --tlt_display: var(--kup-tlt_display, inline-block);
-
   #wrapper {
-    position: relative;
-    display: var(--tlt_display);
+    display: block;
 
     #tooltip {
-      position: fixed;
-      background: var(--tlt_background);
-      z-index: 1000;
-      box-shadow: var(--tlt_shadow);
+      background: var(--kup-background-color);
+      color: var(--kup-text-color);
+      box-shadow: var(--kup-box-shadow);
       border-radius: 3px;
       min-width: 350px;
+      max-width: 700px;
+      writing-mode: horizontal-tb;
 
       #main-content {
-        margin: 20px;
+        padding: 10px 20px;
         display: flex;
-        color: var(--tlt_detail-txt-color);
 
         .left {
           width: 75px;
@@ -39,6 +22,7 @@
 
         .title {
           display: inline-block;
+          max-width: 440px;
 
           &:hover {
             text-decoration: underline;
@@ -75,23 +59,45 @@
         }
 
         .label {
-          color: var(--tlt_detail-lbl-color);
+          color: rgba(var(--kup-text-color-rgb), 0.5);
+          display: inline-block;
+          max-width: 270px;
+          vertical-align: 0.1rem;
+        }
+
+        .value {
+          color: var(--kup-text-color);
+          display: inline-block;
+          font-size: 120%;
+          margin-left: 0.325rem;
+          max-width: 270px;
         }
       }
 
       #detail {
+        transition: height 250ms ease-out, opacity 250ms ease-out;
+
         &:not(.visible) {
-          max-height: 0;
+          height: 0;
           opacity: 0;
-          transition: max-height 500ms ease-out, opacity 500ms ease-out;
         }
 
         &.visible {
-          border-top: 1px solid var(--tlt_border_color);
+          border-top: 1px solid var(--kup-border-color);
+          box-sizing: border-box;
           padding: 20px;
-          max-height: 500px;
+          height: 180px;
+          overflow: auto;
           opacity: 1;
-          transition: max-height 500ms ease-in, opacity 500ms ease-in;
+        }
+
+        &.cellopt {
+          padding: 5px 0;
+        }
+
+        &.detail-loaded {
+          height: 180px;
+          min-height: 180px;
         }
 
         .detail-row {
@@ -103,13 +109,21 @@
           }
 
           &__label {
-            color: var(--tlt_detail-lbl-color);
+            color: rgba(var(--kup-text-color-rgb), 0.5);
+            margin-top: 0.175rem;
+            max-width: 320px;
+          }
+
+          &__value {
+            color: var(--kup-text-color);
+            font-size: 120%;
+            max-width: 320px;
           }
         }
       }
 
       #detail-actions {
-        border-top: 1px solid var(--tlt_border_color);
+        border-top: 1px solid var(--kup-border-color);
         padding: 6px {
           top: 2px;
           bottom: 2px;
@@ -128,4 +142,17 @@
       }
     }
   }
+}
+
+.image-container {
+  display: block;
+  height: 75px;
+  width: 75px;
+  padding-top: 8px;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

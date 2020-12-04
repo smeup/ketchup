@@ -1,8 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap');
+
 /* Global */
 html {
   font-family: var(--kup-font-family);
   font-size: var(--kup-font-size) !important;
   transition: all 0.25s ease 0s;
+}
+
+html .application {
+  font-family: var(--kup-font-family);
+  font-size: var(--kup-font-size) !important;
 }
 
 .container {
@@ -33,10 +40,6 @@ h3 {
   max-width: 80% !important;
 }
 
-::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
 #page-wrapper {
   display: inline-flex;
   position: relative;
@@ -61,6 +64,9 @@ h3 {
   right: 0;
   top: auto;
   width: 250px;
+  max-height: 75vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .logo_header {
@@ -122,20 +128,19 @@ h3 {
 
 ::-webkit-scrollbar {
   width: 9px;
-  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #888888;
+  background-color: var(--kup-disabled-color);
   transition: background-color 0.2s ease-in-out;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background-color: #aaaaaa;
+::-webkit-scrollbar-track {
+  background-color: var(--kup-background-color);
 }
 
 i.v-icon.material-icons {
-  color: var(--main-text-color);
+  color: var(--kup-icon-color);
 }
 
 .demo-container {
@@ -194,11 +199,6 @@ code.flat {
   text-align: center;
   top: calc(50% - 18px);
   position: relative;
-}
-
-#inspire.theme--dark .code-word,
-#inspire.theme--dark code.flat {
-  color: var(--main-color);
 }
 
 .centered {
@@ -261,10 +261,41 @@ code.flat {
 /* Navigation bar and footer */
 nav.v-toolbar,
 footer.v-footer {
-  background: var(--kup-header-background-color) !important;
+  background: var(--kup-nav-bar-background-color) !important;
   color: #ffffff !important;
   box-shadow: 0px -1px 4px -1px rgba(0, 0, 0, 0.2),
     0px -1px 5px 0 rgba(0, 0, 0, 0.14), 0px -1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+nav {
+  z-index: 90 !important;
+}
+
+aside {
+  z-index: 100 !important;
+}
+
+.v-footer {
+  display: flex;
+  justify-content: center;
+  z-index: 110 !important;
+}
+
+a.first-icon {
+  margin-right: 20px;
+}
+
+a.second-icon {
+  margin-left: 20px;
+}
+
+.footer-icon {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.footer-icon:hover {
+  opacity: 0.7;
 }
 
 nav.v-toolbar i.v-icon.material-icons,
@@ -291,7 +322,6 @@ nav .v-input--selection-controls:not(.v-input--hide-details) .v-input__slot {
 
 span.company-text {
   text-align: center;
-  width: 100%;
   font-size: 0.8rem;
 }
 
@@ -333,24 +363,18 @@ a.primary--text {
   color: var(--kup-text-color);
 }
 
-div.logo img {
-  margin: 1rem auto 2rem auto;
-  display: none;
+div.logo svg {
   cursor: pointer;
-}
-
-#inspire.theme--light div.logo img.light {
   display: block;
+  fill: var(--kup-main-color);
+  margin: 1rem auto 2rem auto;
   height: 70px;
   margin-top: 30px;
   margin-bottom: 50px;
 }
 
-#inspire.theme--dark div.logo img.dark {
+div.logo svg.visible {
   display: block;
-  height: 70px;
-  margin-top: 30px;
-  margin-bottom: 50px;
 }
 
 div.v-list--dense .v-list__tile:not(.v-list__tile--avatar) {
@@ -511,7 +535,7 @@ table.instruction-table th {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: 130;
 }
 
 #sample-wrapper.theming {
@@ -578,8 +602,7 @@ table.instruction-table th {
   left: 0;
 }
 
-#sample-wrapper.detached #menu-trigger,
-#sample-wrapper.detached #view-swapper {
+#sample-wrapper.detached #menu-trigger {
   display: none;
 }
 
@@ -589,6 +612,7 @@ table.instruction-table th {
   right: 0;
 }
 
+#json-warning,
 #json-setter,
 #json-setter-opener,
 #css-setter,
@@ -609,15 +633,21 @@ table.instruction-table th {
 }
 
 #json-setter-opener,
-#css-setter-opener {
+#css-setter-opener,
+#json-warning {
   bottom: 10px;
   right: 10px;
 }
 
-#json-setter.shown,
-#json-setter-opener.shown,
-#css-setter.shown,
-#css-setter-opener.shown {
+#json-setter-opener.visible + #json-warning {
+  right: 50px;
+}
+
+#json-setter.visible,
+#json-setter-opener.visible,
+#css-setter.visible,
+#css-setter-opener.visible,
+#json-warning.visible {
   display: block;
 }
 
@@ -650,7 +680,7 @@ table.instruction-table th {
   display: none;
   position: fixed;
   background-color: black;
-  z-index: 90;
+  z-index: 120;
   top: 0;
   left: 0;
   opacity: 0.85;
@@ -670,7 +700,7 @@ table.instruction-table th {
 #sample-wrapper.full #sample-dynamic {
   width: 50%;
   background-color: var(--kup-background-color);
-  z-index: 91;
+  z-index: 140;
 }
 
 #sample-dynamic-wrapper {
@@ -691,6 +721,7 @@ table.instruction-table th {
 
 #sample-comp-wrapper #demo-component {
   margin: auto;
+  visibility: inherit;
 }
 
 #sample-specs {
@@ -787,6 +818,21 @@ table.instruction-table th {
 .badge-anchor span {
   line-height: 50px;
   letter-spacing: 2px;
+}
+
+.icon-wrapper.theme-wrapper {
+  border-radius: 20px;
+  border-style: outset;
+  border-width: 2px;
+  cursor: pointer;
+  margin: 1rem;
+  opacity: 1;
+  padding: 0.75rem;
+  transition: opacity 0.175s;
+}
+
+.icon-wrapper.theme-wrapper:hover {
+  opacity: 0.75;
 }
 
 @media screen and (max-width: 767px) {

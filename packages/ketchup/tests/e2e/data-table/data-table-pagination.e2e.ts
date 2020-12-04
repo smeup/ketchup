@@ -15,6 +15,7 @@ describe('paginator position', () => {
         const element = await page.find('kup-data-table');
 
         element.setProperty('data', data);
+        element.setProperty('lazyLoadRows', false);
 
         await page.waitForChanges();
 
@@ -32,6 +33,7 @@ describe('paginator position', () => {
         const element = await page.find('kup-data-table');
 
         element.setProperty('data', data);
+        element.setProperty('lazyLoadRows', false);
 
         await page.waitForChanges();
 
@@ -49,6 +51,7 @@ describe('paginator position', () => {
         const element = await page.find('kup-data-table');
 
         element.setProperty('data', data);
+        element.setProperty('lazyLoadRows', false);
 
         await page.waitForChanges();
 
@@ -68,6 +71,7 @@ describe('paginator values', () => {
         const element = await page.find('kup-data-table');
 
         element.setProperty('data', data);
+        element.setProperty('lazyLoadRows', false);
 
         await page.waitForChanges();
 

@@ -1,6 +1,10 @@
 import { newE2EPage } from '@stencil/core/testing';
 import { dataTableHideRepetitionsData } from './mocked-data';
 import { rowsSelector } from './data-table-selectors';
+import { Column } from '../../../src/components/kup-data-table/kup-data-table-declarations';
+import { getColumnByName } from '../../../src/components/kup-data-table/kup-data-table-helper';
+import { _numberToString, stringToNumber } from '../../../src/utils/utils';
+import { isNumber } from '../../../src/utils/object-utils';
 
 describe('kup-data-table with hide repetitions active', () => {
     it('hides values where the previous cell on the same column has the same value', async () => {
@@ -35,21 +39,71 @@ describe('kup-data-table with hide repetitions active', () => {
                                 row.cells[column].value !==
                                     currentArr[index - 1].cells[column].value)
                         ) {
-                            // When values are different or is the first item
-                            expect(cells[columnIndex]).toEqualText(
-                                row.cells[column].value
+                            const _column: Column = getColumnByName(
+                                columns,
+                                column
                             );
-                            //  if (row.cells[column].options) {
-                            //    const option = await cells[columnIndex].find('span.options');
-                            //    expect(option).toBeTruthy();
-                            //  }
-                            //} else {
-                            // When value must be hidden
-                            //  expect(cells[columnIndex]).toEqualText('');
-                            //  if (row.cells[column].options) {
-                            //    const option = await cells[columnIndex].find('span.options');
-                            //    expect(option).toBeFalsy();
-                            //  }
+                            if (isNumber(row.cells[column].obj)) {
+                                /*
+                                const cellValue = unformattedStringToFormattedStringNumber(
+                                    row.cells[column].value,
+                                    _column.decimals
+                                );*/
+
+                                const cellValueNumber: number = stringToNumber(
+                                    row.cells[column].value
+                                );
+                                const cellValue = _numberToString(
+                                    cellValueNumber,
+                                    _column.decimals ? _column.decimals : -1,
+                                    'it-IT'
+                                );
+
+                                /*
+                                console.log(
+                                    ' cells[columnIndex].textContent=' +
+                                        cells[columnIndex].textContent +
+                                        ' <> cellValue=' +
+                                        cellValue
+                                );
+                                console.log(
+                                    'istrue: [' +
+                                        (cells[columnIndex].textContent ==
+                                            cellValue.replace(
+                                                RegExp(/\./g),
+                                                ','
+                                            ) ||
+                                            cells[columnIndex].textContent ==
+                                                cellValue.replace(
+                                                    RegExp(/,/g),
+                                                    '.'
+                                                )) +
+                                        ']'
+                                );*/
+
+                                expect(
+                                    cells[columnIndex].textContent ==
+                                        cellValue.replace(RegExp(/\./g), ',') ||
+                                        cells[columnIndex].textContent ==
+                                            cellValue.replace(RegExp(/,/g), '.')
+                                ).toBeTruthy();
+                            } else {
+                                // When values are different or is the first item
+                                expect(cells[columnIndex]).toEqualText(
+                                    row.cells[column].value
+                                );
+                                //  if (row.cells[column].options) {
+                                //    const option = await cells[columnIndex].find('span.options');
+                                //    expect(option).toBeTruthy();
+                                //  }
+                                //} else {
+                                // When value must be hidden
+                                //  expect(cells[columnIndex]).toEqualText('');
+                                //  if (row.cells[column].options) {
+                                //    const option = await cells[columnIndex].find('span.options');
+                                //    expect(option).toBeFalsy();
+                                //  }
+                            }
                         }
                     })
                 );

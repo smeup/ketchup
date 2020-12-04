@@ -1,12 +1,13 @@
 @import '@material/chips/mdc-chips';
 
 :host {
-  display: var(--kup-display-mode);
+  display: block;
+  --mdc-theme-on-surface: var(--kup-title-color);
 }
 
 .mdc-chip {
-  background-color: var(--kup-chip-background-color);
-  color: var(--kup-text-color);
+  background-color: var(--kup-title-background-color);
+  color: var(--kup-title-color);
 }
 
 .mdc-chip-set--choice .mdc-chip--selected {
@@ -23,18 +24,32 @@
 }
 
 svg path {
-  color: var(--kup-text-color);
-  stroke: var(--kup-text-color);
+  color: var(--kup-title-color);
+  stroke: var(--kup-title-color);
 }
 
 .mdc-chip__icon--leading-hidden {
   display: none;
 }
 
-.remove-icon {
+.icon-container {
+  background: var(--kup-title-color);
+  display: block;
+  width: 18px;
+  height: 18px;
+  .mdc-chip--selected & {
+    background: var(--kup-main-color);
+  }
+}
+
+.clear {
   margin-left: 4px;
   margin-right: -4px;
   &:hover {
     opacity: 0.75;
   }
+}
+
+.mdc-chip__text {
+  font-family: var(--kup-font-family);
 }

@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  style="--kup-main-color:#d64325; --kup-background-color:#ffffff; --kup-nav-bar-background-color:#2e2e2e; --kup-drawer-background-color:#ffffff; --kup-font-family:Roboto, sans-serif; --kup-font-size:14px; --kup-text-color:#2e2e2e; --kup-text-on-main-color:#ffffff; --kup-disabled-background-color:#eaeaea; --kup-disabled-color:#5c5c5c; --kup-hover-background-color:#f0f0f0; --kup-hover-color:#545454; --kup-title-background-color:#f1f3f4; --kup-title-color:#2e2e2e; --kup-icon-color:#505050; --kup-border-color:#e0e0e0; --kup-box-shadow:rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px; --kup-field-background-color:#fafafa; --kup-success-color:#4d9f02; --kup-warning-color:#ffc107; --kup-danger-color:#d91e18; --kup-spinner-color:#eaa710; --kup-chart-color-1:#ff5959; --kup-chart-color-2:#e0a0a0; --kup-chart-color-3:#8e1010; --kup-chart-color-4:#f5f5dc; --kup-main-color-rgb:214,67,37; --kup-background-color-rgb:255,255,255; --kup-nav-bar-background-color-rgb:46,46,46; --kup-drawer-background-color-rgb:255,255,255; --kup-text-color-rgb:46,46,46; --kup-text-on-main-color-rgb:255,255,255; --kup-disabled-background-color-rgb:234,234,234; --kup-disabled-color-rgb:92,92,92; --kup-hover-background-color-rgb:240,240,240; --kup-hover-color-rgb:84,84,84; --kup-title-background-color-rgb:241,243,244; --kup-title-color-rgb:46,46,46; --kup-icon-color-rgb:80,80,80; --kup-border-color-rgb:224,224,224; --kup-field-background-color-rgb:250,250,250; --kup-success-color-rgb:77,159,2; --kup-warning-color-rgb:255,193,7; --kup-danger-color-rgb:217,30,24; --kup-spinner-color-rgb:234,167,16; --kup-chart-color-1-rgb:255,89,89; --kup-chart-color-2-rgb:224,160,160; --kup-chart-color-3-rgb:142,16,16; --kup-chart-color-4-rgb:245,245,220;"
+>
   <head>
     <link rel="stylesheet" href="codemirror/codemirror.css" />
     <script src="codemirror/codemirror.js"></script>
@@ -50,8 +53,6 @@
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
-    <link href="darkTheme.css" rel="stylesheet" type="text/css" />
-    <link href="lightTheme.css" rel="stylesheet" type="text/css" />
     <link href="showcase.css" rel="stylesheet" type="text/css" />
     <script src="showcase.js"></script>
     <title>Ketch.UP | Showcase</title>
@@ -98,127 +99,4 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
-
-  <style>
-    :root {
-      --kup-background-color: #ffffff;
-      --kup-header-background-color: #2e2e2e;
-      --kup-drawer-background-color: #ffffff;
-      --kup-main-color: #d64325;
-      --kup-display-mode: block;
-      --kup-font-family: 'Oswald', sans-serif;
-      --kup-font-size: 14px;
-      --kup-text-on-main-color: #ffffff;
-      --kup-text-color: #2e2e2e;
-      --kup-icon-color: #505050;
-      --kup-hover-background-color: #f0f0f0;
-      --kup-hover-color: #545454;
-      --kup-border-color: #e0e0e0;
-      --kup-disabled-text-color: #5c5c5c;
-      --kup-disabled-background-color: #eaeaea;
-      --kup-field-background-color: #fafafa;
-      --kup-chip-background-color: #eaeaea;
-      --kup-spinner-color: #eaa710;
-      --kup-title-background-color: #f1f3f4;
-    }
-  </style>
-  <script>
-    function changeTheme() {
-      var DOMEl = document.documentElement;
-      var themeArray = DOMEl.themeJSON;
-      if (DOMEl.hasAttribute('style')) {
-        DOMEl.removeAttribute('style');
-      }
-
-      if (DOMEl.querySelector('#inspire').classList.contains('theme--dark')) {
-        DOMEl.querySelector('#inspire').classList.add('theme--light');
-        DOMEl.querySelector('#inspire').classList.remove('theme--dark');
-      } else {
-        DOMEl.querySelector('#inspire').classList.remove('theme--light');
-        DOMEl.querySelector('#inspire').classList.add('theme--dark');
-        for (let i = 0; i < themeArray.length; i++) {
-          DOMEl.style.setProperty(themeArray[i].name, themeArray[i].value);
-        }
-      }
-    }
-
-    document.documentElement.themeJSON = [
-      {
-        name: '--kup-background-color',
-        value: '#2d2d2d',
-      },
-      {
-        name: '--kup-header-background-color',
-        value: '#2d2d2d',
-      },
-      {
-        name: '--kup-drawer-background-color',
-        value: '#1f1f1f',
-      },
-      {
-        name: '--kup-main-color',
-        value: '#82f0e2',
-      },
-      {
-        name: '--kup-display-mode',
-        value: 'block',
-      },
-      {
-        name: '--kup-font-family',
-        value: 'Roboto, sans-serif',
-      },
-      {
-        name: '--kup-font-size',
-        value: '14px',
-      },
-      {
-        name: '--kup-text-color',
-        value: '#f5f5f5',
-      },
-      {
-        name: '--kup-icon-color',
-        value: '#e0e0e0',
-      },
-      {
-        name: '--kup-hover-background-color',
-        value: '#3c3c3c',
-      },
-      {
-        name: '--kup-hover-color',
-        value: '#dddddd',
-      },
-      {
-        name: '--kup-text-on-main-color',
-        value: '#555555',
-      },
-      {
-        name: '--kup-border-color',
-        value: '#535353',
-      },
-      {
-        name: '--kup-disabled-text-color',
-        value: '#7e7e7e',
-      },
-      {
-        name: '--kup-disabled-background-color',
-        value: '#3c3c3c',
-      },
-      {
-        name: '--kup-field-background-color',
-        value: '#2a2a2a',
-      },
-      {
-        name: '--kup-chip-background-color',
-        value: '#222222',
-      },
-      {
-        name: '--kup-spinner-color',
-        value: '#f2e114',
-      },
-      {
-        name: '--kup-title-background-color',
-        value: '#111111',
-      },
-    ];
-  </script>
 </html>

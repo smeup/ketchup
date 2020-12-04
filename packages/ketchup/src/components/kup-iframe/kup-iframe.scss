@@ -1,12 +1,12 @@
 :host(.iframe-version) {
   box-sizing: border-box;
-  display: var(--kup-display-mode);
+  display: block;
   height: 100%;
   width: 100%;
+}
 
-  iframe {
-    box-sizing: border-box;
-    height: 100%;
-    width: 100%;
-  }
+iframe {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
 }

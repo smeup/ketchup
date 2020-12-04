@@ -1,15 +1,19 @@
 import {
     Component,
-    Event,
-    EventEmitter,
     Prop,
     Element,
     Host,
+    Event,
+    EventEmitter,
+    State,
     h,
+    Method,
 } from '@stencil/core';
 import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
 import { ComponentRadioElement } from './kup-radio-declarations';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-radio',
@@ -18,11 +22,16 @@ import { ComponentRadioElement } from './kup-radio-declarations';
 })
 export class KupRadio {
     @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
 
     /**
-     * Custom style to be passed to the component.
+     * Number of columns. When undefined, radio fields will be displayed inline.
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() columns: number = undefined;
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = undefined;
     /**
      * List of elements.
      */
@@ -30,15 +39,15 @@ export class KupRadio {
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop({ reflect: true }) disabled: boolean = false;
+    @Prop() disabled: boolean = false;
     /**
      * Defaults at false. When set to true, the label will be on the left of the component.
      */
-    @Prop({ reflect: true }) leadingLabel: boolean = false;
+    @Prop() leadingLabel: boolean = false;
     /**
      * Defaults at null. It's the name that binds the radio buttons together.
      */
-    @Prop({ reflect: true }) name: string = 'radio-list';
+    @Prop() name: string = 'radio-list';
 
     @Event({
         eventName: 'kupRadioBlur',
@@ -97,6 +106,11 @@ export class KupRadio {
 
     //---- Methods ----
 
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupBlur.emit({
@@ -139,10 +153,23 @@ export class KupRadio {
 
     //---- Lifecycle hooks ----
 
+    componentWillLoad() {
+        logLoad(this, false);
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        if (root != null) {
+        if (root && !this.disabled) {
             let formFields: any = root.querySelectorAll('.mdc-form-field');
             for (let i = 0; i < formFields.length; i++) {
                 let component = MDCRadio.attachTo(
@@ -152,19 +179,24 @@ export class KupRadio {
                 formField.input = component;
             }
         }
+        logRender(this, true);
     }
 
     render() {
+        let hostStyle: {} = undefined;
         let formClass: string = 'mdc-form-field';
+        let wrapperClass: string = 'radio-wrapper';
         let componentClass: string = 'mdc-radio';
         let componentLabel: string = '';
         let radioList: Array<HTMLElement> = [];
         let radioEl: HTMLElement;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
+        if (this.columns) {
+            wrapperClass += ' is-grid';
+            hostStyle = {
+                '--grid-columns': `repeat(${this.columns}, 1fr)`,
+            };
+        }
         if (this.disabled) {
             componentClass += ' mdc-radio--disabled';
         }
@@ -210,9 +242,11 @@ export class KupRadio {
         }
 
         return (
-            <Host>
-                {customStyle}
-                <div id="kup-component">{radioList}</div>
+            <Host style={hostStyle}>
+                <style>{setCustomStyle(this)}</style>
+                <div id="kup-component">
+                    <div class={wrapperClass}>{radioList}</div>
+                </div>
             </Host>
         );
     }

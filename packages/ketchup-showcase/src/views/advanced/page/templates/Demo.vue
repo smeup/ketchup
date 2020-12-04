@@ -2,9 +2,16 @@
   <div id="sample-wrapper" class="detached">
     <div id="sample-modal"></div>
     <div id="sample-specs">
-      <kup-tab-bar @kupTabBarClick="tabSelection" :data.prop="demoTabs"></kup-tab-bar>
+      <kup-tab-bar
+        @kupTabBarClick="tabSelection"
+        :data.prop="demoTabs"
+      ></kup-tab-bar>
       <div id="sample-specs-container">
-        <table id="props-tab" v-if="demoProps !== null" class="instruction-table sample-section">
+        <table
+          id="props-tab"
+          v-if="demoProps !== null"
+          class="instruction-table sample-section"
+        >
           <thead>
             <tr>
               <th>Prop</th>
@@ -26,10 +33,17 @@
               <td class="prevent-cr">
                 <span class="code-word">{{ propList.default }}</span>
               </td>
-              <td v-if="propList.try === 'json'">Use the JSON tab to view/change this prop.</td>
-              <td v-if="propList.try === 'css'">Use the CSS tab to view/change this prop.</td>
+              <td v-if="propList.try === 'json'"
+                >Use the JSON tab to view/change this prop.</td
+              >
+              <td v-if="propList.try === 'css'"
+                >Use the CSS tab to view/change this prop.</td
+              >
               <td class="switch-cell" v-if="propList.try === 'switch'">
-                <kup-switch v-bind:id="propList.prop" @kupSwitchChange="updateDemoSwitch"></kup-switch>
+                <kup-switch
+                  v-bind:id="propList.prop"
+                  @kupSwitchChange="updateDemoSwitch"
+                ></kup-switch>
               </td>
               <td class="text-cell" v-if="propList.try === 'field'">
                 <kup-text-field
@@ -54,7 +68,7 @@
         <table
           v-if="demoEvents !== null"
           id="events-tab"
-          style="display: none;"
+          style="display: none"
           class="instruction-table sample-section events-section"
         >
           <thead>
@@ -79,7 +93,7 @@
             </tr>
           </tbody>
         </table>
-        <div id="html-tab" class="sample-section" style="display: none;">
+        <div id="html-tab" class="sample-section" style="display: none">
           <div class="code-word sample-html"></div>
           <kup-button
             @kupButtonClick="copyHtml"
@@ -88,14 +102,14 @@
             title="Copy HTML markup"
           ></kup-button>
         </div>
-        <div id="json-tab" class="sample-section padded" style="display: none;">
-          <textarea id="json-textarea" style="display: none;"></textarea>
+        <div id="json-tab" class="sample-section padded" style="display: none">
+          <textarea id="json-textarea" style="display: none"></textarea>
           <kup-text-field
-            class="shown"
+            class="visible"
             label="Prop"
             helper="i.e.: data"
             id="json-setter"
-            icon="close"
+            icon="arrow-collapse"
             trailing-icon
             helper-when-focused
             @kupTextFieldIconClick="jsonSetSwitch"
@@ -107,15 +121,20 @@
             icon="settings"
             title="Show prop field"
           ></kup-button>
+          <kup-button
+            id="json-warning"
+            icon="warning"
+            title="Invalid JSON. You can ignore this warning if the prop you're changing isn't an object."
+          ></kup-button>
         </div>
-        <div id="css-tab" class="sample-section padded" style="display: none;">
-          <textarea id="css-textarea" style="display: none;"></textarea>
+        <div id="css-tab" class="sample-section padded" style="display: none">
+          <textarea id="css-textarea" style="display: none"></textarea>
           <kup-text-field
-            class="shown"
+            class="visible"
             label="Prop"
             helper="i.e.: customStyle"
             id="css-setter"
-            icon="close"
+            icon="arrow-collapse"
             trailing-icon
             helper-when-focused
             @kupTextFieldIconClick="cssSetSwitch"
@@ -132,14 +151,14 @@
     </div>
     <div id="sample-dynamic">
       <div id="sample-comp">
-        <div v-html="demoComp" id="sample-comp-wrapper"></div>
+        <div id="sample-comp-wrapper"></div>
       </div>
       <div id="split-container">
         <kup-button
           @kupButtonClick="menuTrigger"
           id="menu-trigger"
           toggable
-          style="--kup-main-color: var(--kup-text-on-main-color);"
+          style="--kup-main-color: var(--kup-text-on-main-color)"
           icon="last_page"
           icon-off="menu_open"
           title="Open/close side panel"
@@ -148,7 +167,7 @@
           @kupButtonClick="swapView"
           id="view-swapper"
           toggable
-          style="--kup-main-color: var(--kup-text-on-main-color);"
+          style="--kup-main-color: var(--kup-text-on-main-color)"
           icon="fullscreen_exit"
           icon-off="fullscreen"
           title="Toggle/disable full screen"
@@ -157,7 +176,11 @@
           @kupButtonClick="splitView"
           id="view-splitter"
           toggable
-          style="--kup-main-color: var(--kup-text-on-main-color); width: fit-content; margin: auto;"
+          style="
+            --kup-main-color: var(--kup-text-on-main-color);
+            width: fit-content;
+            margin: auto;
+          "
           icon="view_agenda"
           icon-off="flip"
           title="Split/detach view"
@@ -171,26 +194,20 @@
 export default {
   props: {
     demoTabs: Array,
-    demoComp: String,
+    demoComp: HTMLElement,
     demoProps: Array,
     demoEvents: Array,
-    demoData: Object,
   },
   methods: {
     initEvents() {
+      let demoComponentWrapper = document.querySelector('#sample-comp-wrapper');
+      demoComponentWrapper.appendChild(this.demoComp);
       let demoComponent = document.querySelector('#demo-component');
       if (this.demoEvents) {
         for (let i = 0; i < this.demoEvents.length; i++) {
           demoComponent.addEventListener(this.demoEvents[i].name, (e) =>
             this.handleEvent(e)
           );
-        }
-      }
-      if (this.demoData) {
-        const keys = Object.keys(this.demoData);
-
-        for (let k of keys) {
-          demoComponent[k] = this.demoData[k];
         }
       }
     },
@@ -243,7 +260,7 @@ export default {
                   propName +
                   '" id="' +
                   newEntryId +
-                  '" style="--kup-display-mode: inline-block;" flat icon="remove" label="' +
+                  '" style="display: inline-block;" flat icon="remove" label="' +
                   arrayList[j] +
                   '"></kup-button>';
                 document
@@ -254,6 +271,7 @@ export default {
                   .addEventListener('kupButtonClick', (e) => {
                     this.updateDemoFieldArrayRemove(e);
                   });
+                document.querySelector('#' + newEntryId).styling = 'flat';
               }
             }
             break;
@@ -263,6 +281,7 @@ export default {
 
     handleEvent(e) {
       var d = new Date();
+      console.log('Playground event fired: ', e);
       document.querySelector('#on' + e.type).innerText =
         e.type +
         ' event fired at ' +
@@ -350,7 +369,7 @@ export default {
         e.target.id +
         '" id="' +
         newEntryId +
-        '" style="--kup-display-mode: inline-block;" flat icon="remove" label="' +
+        '" style="display: inline-block;" flat icon="remove" label="' +
         e.detail.value +
         '"></kup-button>';
       demoComponent[propName] = arrayList;
@@ -431,14 +450,14 @@ export default {
       let jsonSetter = document.querySelector('#json-setter');
       let jsonSetterOpener = document.querySelector('#json-setter-opener');
       let jsonTab = document.querySelector('#json-tab');
-      if (jsonSetter.classList.contains('shown')) {
-        jsonSetter.classList.remove('shown');
+      if (jsonSetter.classList.contains('visible')) {
+        jsonSetter.classList.remove('visible');
         jsonTab.classList.remove('padded');
-        jsonSetterOpener.classList.add('shown');
+        jsonSetterOpener.classList.add('visible');
       } else {
-        jsonSetter.classList.add('shown');
+        jsonSetter.classList.add('visible');
         jsonTab.classList.add('padded');
-        jsonSetterOpener.classList.remove('shown');
+        jsonSetterOpener.classList.remove('visible');
       }
     },
 
@@ -446,18 +465,19 @@ export default {
       let cssSetter = document.querySelector('#css-setter');
       let cssSetterOpener = document.querySelector('#css-setter-opener');
       let cssTab = document.querySelector('#css-tab');
-      if (cssSetter.classList.contains('shown')) {
-        cssSetter.classList.remove('shown');
+      if (cssSetter.classList.contains('visible')) {
+        cssSetter.classList.remove('visible');
         cssTab.classList.remove('padded');
-        cssSetterOpener.classList.add('shown');
+        cssSetterOpener.classList.add('visible');
       } else {
-        cssSetter.classList.add('shown');
+        cssSetter.classList.add('visible');
         cssTab.classList.add('padded');
-        cssSetterOpener.classList.remove('shown');
+        cssSetterOpener.classList.remove('visible');
       }
     },
 
     jsonSet(e) {
+      let jsonWarning = document.querySelector('#json-warning');
       let jsonProp = e.detail.value;
       let demoComponent = document.querySelector('#demo-component');
       demoComponent.currentJSONprop = jsonProp;
@@ -475,12 +495,18 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function(cm) {
+      }).on('change', function (cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
-        let jsonifiedData = JSON.parse(jsonTextarea.value);
         let prop = demoComponent.currentJSONprop;
-        demoComponent[prop] = jsonifiedData;
+        try {
+          let jsonifiedData = JSON.parse(jsonTextarea.value);
+          demoComponent[prop] = jsonifiedData;
+          jsonWarning.classList.remove('visible');
+        } catch (error) {
+          demoComponent[prop] = jsonTextarea.value;
+          jsonWarning.classList.add('visible');
+        }
       });
     },
 
@@ -501,7 +527,7 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function(cm) {
+      }).on('change', function (cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
         let prop = demoComponent.currentCSSprop;

@@ -12,15 +12,21 @@ import {
     Column,
     GenericFilter,
     Filter,
+    RowGroup,
 } from './kup-data-table-declarations';
 
 import { isNumber, isDate } from '../../utils/object-utils';
-import { isEmpty } from '../../utils/utils';
-import { errorLogging } from '../../utils/error-logging';
+import {
+    isEmpty,
+    stringToNumber,
+    unformattedStringToFormattedStringNumber,
+} from '../../utils/utils';
 import {
     isFilterCompliantForValue,
     filterIsNegative,
 } from '../../utils/filters';
+import { logMessage } from '../../utils/debug-manager';
+import { unformatDate } from '../../utils/cell-formatter';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -167,13 +173,7 @@ export function hasFiltersForColumn(
     if (checkboxes == null || checkboxes.length < 1) {
         return false;
     }
-    for (let i = 0; i < checkboxes.length; i++) {
-        let ch = checkboxes[i];
-        if (ch.trim() != '') {
-            return true;
-        }
-    }
-    return false;
+    return true;
 }
 
 export function getCheckBoxFilterValues(
@@ -208,6 +208,9 @@ export function addCheckBoxFilterValue(
         filter = { textField: '', checkBoxes: [] };
         filters[column] = filter;
     }
+    if (filter.checkBoxes == null) {
+        filter.checkBoxes = [];
+    }
     if (newFilter == null) {
         filter.checkBoxes = [];
     } else {
@@ -228,6 +231,9 @@ export function removeCheckBoxFilterValue(
     let filter: Filter = filters[column];
     if (filter == null) {
         return;
+    }
+    if (filter.checkBoxes == null) {
+        filter.checkBoxes = [];
     }
     let index = filter.checkBoxes.indexOf(remFilter.trim());
     if (index >= 0) {
@@ -272,14 +278,6 @@ export function setTextFieldFilterValue(
         filters[column] = filter;
     }
     filter.textField = newFilter.trim();
-}
-
-export function log(methodName: string, msg: string) {
-    errorLogging(
-        'kup-data-table-helper',
-        methodName + '()' + ' - ' + msg,
-        'log'
-    );
 }
 /**
  * Filters the rows data of a data-table component according to the parameters
@@ -375,10 +373,20 @@ export function isRowCompliant(
         }
 
         let filterValue = getTextFieldFilterValue(filters, key);
-        if (!isFilterCompliantForCell(cell, filterValue)) {
-            return false;
-        }
+        let b1 = isFilterCompliantForCell(cell, filterValue);
+        let b2 = isFilterCompliantForCellObj(cell, filterValue);
 
+        const _filterIsNegative: boolean = filterIsNegative(filterValue);
+        if(_filterIsNegative){
+            if (!b1 || !b2) {
+                return false;
+            }
+        } else {
+            if (!b1 && !b2) {
+                return false;
+            }
+        }
+      
         let filterValues = getCheckBoxFilterValues(filters, key);
         if (filterValues.length == 0) {
             continue;
@@ -406,6 +414,19 @@ export function isFilterCompliantForCell(cellValue: Cell, filterValue: string) {
         return false;
     }
     return isFilterCompliantForValue(cellValue.value, filterValue);
+}
+
+export function isFilterCompliantForCellObj(
+    cellValue: Cell,
+    filterValue: string
+) {
+    if (!cellValue) {
+        return false;
+    }
+    if (!cellValue.obj) {
+        return false;
+    }
+    return isFilterCompliantForValue(cellValue.obj.k, filterValue);
 }
 
 export function groupRows(
@@ -452,8 +473,10 @@ export function groupRows(
 
         // getting row value
         const cell = row.cells[columnName];
+
         if (cell) {
-            const cellValue = cell.value;
+            const column = getColumnByName(columns, columnName);
+            const cellValue = getCellValueForDisplay(cell.value, column);
             let groupRow: Row = null;
 
             // check in already in groupedRow
@@ -491,7 +514,11 @@ export function groupRows(
                 // getting cell value
                 const tempCell = row.cells[group.column];
                 if (tempCell) {
-                    const tempCellValue = tempCell.value;
+                    const column = getColumnByName(columns, group.column);
+                    const tempCellValue = getCellValueForDisplay(
+                        tempCell.value,
+                        column
+                    );
 
                     // check if group already exists
                     let tempGroupingRow: Row = null;
@@ -534,7 +561,8 @@ export function groupRows(
         }
     });
 
-    adjustGroupsAvarage(groupRows, totals);
+    adjustGroupsAverageOrFormula(groupRows, TotalMode.AVERAGE, totals);
+    adjustGroupsAverageOrFormula(groupRows, TotalMode.MATH, totals);
 
     return groupRows;
 }
@@ -581,11 +609,11 @@ function updateGroupTotal(
                     break;
 
                 case TotalMode.SUM:
-                case TotalMode.AVARAGE:
+                case TotalMode.AVERAGE:
                     if (_isNumber) {
-                        const cellValue = numeral(cell.obj.k);
+                        const cellValue = numeral(stringToNumber(cell.value));
 
-                        groupRow.group.totals[key] = cellValue
+                        groupRow.group.totals[key] = numeral(cellValue)
                             .add(currentTotalValue)
                             .value();
 
@@ -595,7 +623,7 @@ function updateGroupTotal(
                             const currentParentSum =
                                 parent.group.totals[key] || 0;
 
-                            parent.group.totals[key] = cellValue
+                            parent.group.totals[key] = numeral(cellValue)
                                 .add(currentParentSum)
                                 .value();
 
@@ -604,15 +632,22 @@ function updateGroupTotal(
                     }
                     break;
 
-                default:
-                    console.warn(`invalid total mode: ${totalMode}`);
+                default: {
+                    if (totalMode.indexOf(TotalMode.MATH) != 0) {
+                        console.warn(`invalid total mode: ${totalMode}`);
+                    }
                     break;
+                }
             }
         }
     });
 }
 
-function adjustGroupsAvarage(groupRows: Array<Row>, totals: TotalsMap): void {
+function adjustGroupsAverageOrFormula(
+    groupRows: Array<Row>,
+    type: TotalMode,
+    totals: TotalsMap
+): void {
     if (!groupRows || !totals) {
         return;
     }
@@ -623,19 +658,40 @@ function adjustGroupsAvarage(groupRows: Array<Row>, totals: TotalsMap): void {
         return;
     }
 
-    const avarageKeys = keys.filter((key) => TotalMode.AVARAGE === totals[key]);
+    let toAdjustKeys;
 
-    if (avarageKeys.length > 0) {
+    if (type == TotalMode.AVERAGE) {
+        toAdjustKeys = keys.filter((key) => TotalMode.AVERAGE === totals[key]);
+    }
+    if (type == TotalMode.MATH) {
+        toAdjustKeys = keys.filter(
+            (key) => totals[key].indexOf(TotalMode.MATH) == 0
+        );
+    }
+
+    if (toAdjustKeys.length > 0) {
         groupRows
             .filter((groupRow) => groupRow.group.children.length > 0)
-            .forEach((groupRow) => adjustGroupAvarage(groupRow, avarageKeys));
+            .forEach((groupRow) =>
+                adjustGroupAverageOrFormula(
+                    groupRow,
+                    type,
+                    toAdjustKeys,
+                    totals
+                )
+            );
     }
 }
 
 /**
  * @returns number of 'leaf' of group
  */
-function adjustGroupAvarage(row: Row, avarage: Array<string>): number {
+function adjustGroupAverageOrFormula(
+    row: Row,
+    type: TotalMode,
+    toAdjustKeys: Array<string>,
+    totals: TotalsMap
+): number {
     const children = row.group.children;
 
     if (children.length === 0) {
@@ -647,27 +703,60 @@ function adjustGroupAvarage(row: Row, avarage: Array<string>): number {
     // check if child is a grouping row
     if (children[0].group) {
         children.forEach((child) => {
-            numberOfLeaf += adjustGroupAvarage(child, avarage);
-        });
-
-        // adjust avarage
-        avarage.forEach((avarageKey) => {
-            row.group.totals[avarageKey] = numeral(row.group.totals[avarageKey])
-                .divide(numberOfLeaf)
-                .value();
+            numberOfLeaf += adjustGroupAverageOrFormula(
+                child,
+                type,
+                toAdjustKeys,
+                totals
+            );
         });
     } else {
         numberOfLeaf = children.length;
-
-        // adjust avarage
-        avarage.forEach((avarageKey) => {
-            row.group.totals[avarageKey] = numeral(row.group.totals[avarageKey])
-                .divide(row.group.children.length)
-                .value();
-        });
     }
+    // adjust average/formulas
+    toAdjustKeys.forEach((key) => {
+        if (type == TotalMode.AVERAGE) {
+            row.group.totals[key] = numeral(row.group.totals[key])
+                .divide(numberOfLeaf)
+                .value();
+        }
+        if (type == TotalMode.MATH) {
+            let formula = totals[key].substring(TotalMode.MATH.length);
+            row.group.totals[key] = evaluateFormula(formula, row.group.totals);
+        }
+    });
 
     return numberOfLeaf;
+}
+
+export function evaluateFormula(
+    formula: string,
+    row: { [index: string]: number }
+): number {
+    let formula1: string = formula;
+    const keys = Object.keys(row);
+    for (let i = 0; i < keys.length; i++) {
+        let key = keys[i];
+        let value: number = row[key];
+        if (value != null && !isNaN(value)) {
+            let re: RegExp = new RegExp(key, 'g');
+            formula1 = formula1.replace(re, value.toString());
+        }
+    }
+    try {
+        return evaluateString(formula1);
+    } catch (e) {
+        logMessage(
+            'kup-data-table-helper',
+            'Error during evaluate formula [' + formula1 + ']',
+            'error'
+        );
+        return NaN;
+    }
+}
+
+export function evaluateString(f: string) {
+    return Function('"use strict"; return (' + f + ')')();
 }
 
 export function normalizeRows(
@@ -741,28 +830,28 @@ export function calcTotals(
         keys.forEach((columnName) => (footerRow[columnName] = rows.length));
     } else {
         rows.forEach((r) => {
-            keys.filter((key) => TotalMode.COUNT !== totals[key]).forEach(
-                (key) => {
-                    // getting column
-                    const cell = r.cells[key];
+            keys.filter(
+                (key) =>
+                    TotalMode.COUNT !== totals[key] &&
+                    totals[key].indexOf(TotalMode.MATH) != 0
+            ).forEach((key) => {
+                // getting column
+                const cell = r.cells[key];
 
-                    // check if number
-                    if (cell && isNumber(cell.obj)) {
-                        const cellValue = numeral(cell.obj.k);
+                // check if number
+                if (cell && isNumber(cell.obj)) {
+                    const cellValue = numeral(stringToNumber(cell.value));
 
-                        const currentFooterValue = footerRow[key] || 0;
+                    const currentFooterValue = footerRow[key] || 0;
 
-                        footerRow[key] = cellValue
-                            .add(currentFooterValue)
-                            .value();
-                    }
+                    footerRow[key] = cellValue.add(currentFooterValue).value();
                 }
-            );
+            });
         });
 
         // fixing count and avg
         for (let key of keys) {
-            if (totals[key] === TotalMode.AVARAGE) {
+            if (totals[key] === TotalMode.AVERAGE) {
                 const sum: number = footerRow[key];
 
                 if (sum && rows.length > 0) {
@@ -770,6 +859,9 @@ export function calcTotals(
                 }
             } else if (totals[key] === TotalMode.COUNT) {
                 footerRow[key] = rows.length;
+            } else if (totals[key].indexOf(TotalMode.MATH) == 0) {
+                let formula = totals[key].substring(TotalMode.MATH.length);
+                footerRow[key] = evaluateFormula(formula, footerRow);
             }
         }
     }
@@ -778,13 +870,26 @@ export function calcTotals(
 }
 
 function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
+    return compareValues(
+        cell1.obj,
+        cell1.value,
+        cell2.obj,
+        cell2.value,
+        sortMode
+    );
+}
+
+export function compareValues(
+    obj1: any,
+    value1: any,
+    obj2: any,
+    value2: any,
+    sortMode: SortMode
+): number {
     const sm = sortMode === 'A' ? 1 : -1;
 
-    const obj1 = cell1.obj;
-    const obj2 = cell2.obj;
-
     if (obj1 == null || obj2 == null) {
-        return localCompareAsInJava(cell1.value, cell2.value);
+        return localCompareAsInJava(value1, value2);
     }
 
     // If either the type or the parameter of the current object are not equal.
@@ -796,51 +901,37 @@ function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
         return compare * sm;
     }
 
-    // number
+    let s1: string = value1;
+    let s2: string = value2;
+
+    if (s1 == s2) {
+        return 0;
+    }
+
+    if (s1 == '') {
+        return sm * -1;
+    }
+
+    if (s2 == '') {
+        return sm * 1;
+    }
+
+    let v1: any = s1;
+    let v2: any = s2;
     if (isNumber(obj1)) {
-        const n1: number = numeral(obj1.k).value();
-        const n2: number = numeral(obj2.k).value();
-
-        if (n1 === n2) {
-            return 0;
-        }
-
-        return sm * (n1 > n2 ? 1 : -1);
+        v1 = stringToNumber(s1);
+        v2 = stringToNumber(s2);
+    } else if (isDate(obj1)) {
+        v1 = unformatDate(s1);
+        v2 = unformatDate(s2);
     }
-
-    // date
-    if (isDate(obj1)) {
-        let m1: moment.Moment;
-        let m2: moment.Moment;
-
-        if (obj1.p === '*YYMD') {
-            m1 = moment(obj1.k, 'YYYYMMDD');
-            m2 = moment(obj2.k, 'YYYYMMDD');
-        } else if (obj1.p === '*DMYY') {
-            m1 = moment(obj1.k, 'DDMMYYYY');
-            m2 = moment(obj2.k, 'DDMMYYYY');
-        } else {
-            // no valid format -> check via k
-            return sm * localCompareAsInJava(obj1.k, obj2.k);
-        }
-
-        if (m1.isSame(m2)) {
-            return 0;
-        }
-
-        if (m1.isBefore(m2)) {
-            return sm * -1;
-        } else {
-            return sm * 1;
-        }
+    if (v1 > v2) {
+        return sm * 1;
     }
-
-    return (
-        sm *
-        (obj1.k && obj2.k
-            ? localCompareAsInJava(obj1.k, obj2.k) // If there is k set sort by it
-            : localCompareAsInJava(cell1.value, cell2.value)) // otherwise use cell value
-    );
+    if (v1 < v2) {
+        return sm * -1;
+    }
+    return 0;
 }
 
 /**
@@ -902,11 +993,109 @@ export function getColumnByName(columns: Column[], name: string): Column {
 export function paginateRows(
     rows: Row[],
     currentPage: number,
-    rowsPerPage: number
+    rowsPerPage: number,
+    areGrouped: boolean
 ) {
-    const start = currentPage * rowsPerPage - rowsPerPage;
+    const start: number = currentPage * rowsPerPage - rowsPerPage;
+    const end: number = start + Number(rowsPerPage);
+    if (areGrouped == false) {
+        return rows.slice(start, end);
+    }
+    let pagRows: Array<Row> = [];
 
-    return rows.slice(start, start + rowsPerPage);
+    _paginateRows(rows, pagRows, start, Number(rowsPerPage), 0);
+
+    return pagRows;
+}
+
+function _paginateRows(
+    rows: Row[],
+    pagRows: Row[],
+    start: number,
+    rowsPerPage: number,
+    ci: number
+): { ci: number; added: boolean } {
+    let added: boolean = false;
+    for (let i: number = 0; i < rows.length; i++) {
+        let originalRow = rows[i];
+        let row: Row = cloneRow(rows[i]);
+        if (
+            originalRow.group != null &&
+            originalRow.group.children != null &&
+            originalRow.group.children.length > 0
+        ) {
+            row.group.children = [];
+            let retValue: { ci: number; added: boolean } = _paginateRows(
+                originalRow.group.children,
+                row.group.children,
+                start,
+                rowsPerPage,
+                ci
+            );
+            ci = retValue.ci;
+            added = retValue.added;
+            if (added == true) {
+                pagRows[pagRows.length] = row;
+            }
+        } else {
+            if (ci >= start) {
+                pagRows[pagRows.length] = row;
+                added = true;
+            }
+            ci++;
+        }
+
+        if (ci >= start + rowsPerPage) {
+            break;
+        }
+    }
+    return { ci: ci, added: added };
+}
+
+function cloneRow(row: Row): Row {
+    if (row == null) {
+        return null;
+    }
+    let cloned: Row = {
+        id: row.id,
+        cells: { ...row.cells },
+        actions: row.actions ? [...row.actions] : null,
+        group: cloneRowGroup(row.group),
+        readOnly: row.readOnly,
+        cssClass: row.cssClass,
+    };
+
+    return cloned;
+}
+
+function cloneRows(rows: Array<Row>): Array<Row> {
+    if (rows == null) {
+        return null;
+    }
+    let cloned: Array<Row> = [];
+    for (let i: number = 0; i < rows.length; i++) {
+        cloned[cloned.length] = cloneRow(rows[i]);
+    }
+    return cloned;
+}
+
+function cloneRowGroup(group: RowGroup): RowGroup {
+    if (group == null) {
+        return null;
+    }
+    let cloned: RowGroup = {
+        id: group.id,
+        parent: { ...group.parent },
+        column: group.column,
+        columnLabel: group.columnLabel,
+        expanded: group.expanded,
+        label: group.label,
+        children: cloneRows(group.children),
+        obj: { ...group.obj },
+        totals: { ...group.totals },
+    };
+
+    return cloned;
 }
 
 /**
@@ -934,4 +1123,15 @@ export function styleHasWritingMode(cell: Cell): boolean {
         cell.style &&
         (cell.style.writingMode || cell.style['writing-mode'])
     );
+}
+
+export function getCellValueForDisplay(value, column: Column): string {
+    if (value != '' && isNumber(column.obj)) {
+        return unformattedStringToFormattedStringNumber(
+            value,
+            column.decimals ? column.decimals : -1,
+            column.obj ? column.obj.p : ''
+        );
+    }
+    return value;
 }

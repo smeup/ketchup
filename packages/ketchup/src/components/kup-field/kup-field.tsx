@@ -1,16 +1,19 @@
 import {
     Component,
+    Prop,
+    Element,
+    Host,
     Event,
     EventEmitter,
-    Host,
-    Method,
-    Prop,
+    State,
     h,
+    Method,
 } from '@stencil/core';
 
 import { KupFldChangeEvent, KupFldSubmitEvent } from './kup-field-declarations';
 
-import { errorLogging } from '../../utils/error-logging';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-field',
@@ -18,45 +21,41 @@ import { errorLogging } from '../../utils/error-logging';
     shadow: true,
 })
 export class KupField {
-    /**
-     * Custom style to be passed to the component.
-     */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
 
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = undefined;
     /**
      * Effective data to pass to the component.
      */
     @Prop() data: Object = {};
-
     /**
      * The text of the label. If set to empty or has only white space chars, the label will be removed.
      */
-    @Prop({ reflect: true }) label: string = '';
-
+    @Prop() label: string = '';
     /**
      * Sets the label's position, left right or top.
      */
-    @Prop({ reflect: true }) labelPos: string = 'left';
-
+    @Prop() labelPos: string = 'left';
     /**
      * Sets whether the submit button must be displayed or not.
      */
-    @Prop({ reflect: true }) showSubmit: boolean = false;
-
+    @Prop() showSubmit: boolean = false;
     /**
      * Sets the submit button's label.
      */
-    @Prop({ reflect: true }) submitLabel: string = '';
-
+    @Prop() submitLabel: string = '';
     /**
      * Sets the submit button's position, top right bottom or left.
      */
-    @Prop({ reflect: true }) submitPos: string = 'right';
-
+    @Prop() submitPos: string = 'right';
     /**
      * The type of the FLD
      */
-    @Prop({ reflect: true }) type: string = undefined;
+    @Prop() type: string = undefined;
 
     //-- Not reactive --
     currentValue: object | string = null;
@@ -91,6 +90,11 @@ export class KupField {
     kupSubmit: EventEmitter<KupFldSubmitEvent>;
 
     //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
 
     // When a change or update event must be launched as if it's coming from the FLD itself
     onChange(event: CustomEvent) {
@@ -132,17 +136,31 @@ export class KupField {
         return this.currentValue;
     }
 
-    //---- Rendering functions ----
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logLoad(this, false);
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        logRender(this, true);
+    }
+
     render() {
         let toRender = [];
         const baseClass = 'kup-field';
         let label = null;
         let submit = null;
         let wrapperClass = '';
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
 
         let propList: any = { ...this.data };
 
@@ -205,7 +223,7 @@ export class KupField {
 
         if (this.type === undefined) {
             let message = 'Type (state) is undefined!';
-            errorLogging('kup-field', message);
+            logMessage(this, message, 'warning');
         } else {
             switch (this.type.toLowerCase()) {
                 case 'cmb':
@@ -246,7 +264,7 @@ export class KupField {
 
         return (
             <Host>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     {toRender}
                 </div>

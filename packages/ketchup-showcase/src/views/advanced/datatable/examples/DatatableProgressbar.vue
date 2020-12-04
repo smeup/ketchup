@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Progress Bar (kup-progress-bar)</h3>
-    <kup-data-table :data.prop="progressbarData" />
+    <kup-lazy component-name="kup-data-table" :data.prop="data"></kup-lazy>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   name: 'DTFogog',
   data() {
     return {
-      progressbarData: pgbData,
+      data: { data: pgbData },
     };
   },
 };

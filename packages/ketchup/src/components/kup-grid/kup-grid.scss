@@ -5,6 +5,15 @@
   width: 100%;
 }
 
+:host(.full-width) {
+  .flex-layout__inner {
+    width: 100%;
+    & * {
+      margin: auto;
+    }
+  }
+}
+
 #kup-component {
   height: 100%;
   width: 100%;
@@ -22,13 +31,8 @@
 .flex-layout__inner {
   width: auto;
   & * {
+    display: block;
     margin: 0 1.5rem;
-  }
-  &.full-width {
-    width: 100%;
-    & * {
-      margin: auto;
-    }
   }
 }
 

@@ -11,6 +11,7 @@ import {
 import { formatToMomentDate } from '../../utils/cell-formatter';
 import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 import moment from 'moment';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-calendar',
@@ -176,6 +177,10 @@ export class KupCalendar {
     }
 
     // ---- Lifecycle ----
+    componentWillLoad() {
+        logLoad(this, false);
+    }
+
     componentDidLoad() {
         const plugins = [interactionPlugin];
         if (this.weekView) {
@@ -264,12 +269,15 @@ export class KupCalendar {
         });
 
         this.calendar.render();
+        logLoad(this, true);
     }
 
-    componentDidUnload() {
-        if (this.calendar) {
-            this.calendar.destroy();
-        }
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        logRender(this, true);
     }
 
     render() {
@@ -278,17 +286,14 @@ export class KupCalendar {
                 {this.hideNavigation ? null : (
                     <div id="kup-calendar__menu">
                         <kup-button
-                            flat
                             icon="chevron_left"
                             onKupButtonClick={() => this.onPrev()}
                         ></kup-button>
                         <kup-button
-                            flat
                             icon="calendar"
                             onKupButtonClick={() => this.onToday()}
                         ></kup-button>
                         <kup-button
-                            flat
                             icon="chevron_right"
                             onKupButtonClick={() => this.onNext()}
                         ></kup-button>
@@ -297,5 +302,11 @@ export class KupCalendar {
                 <div ref={(el) => (this.calendarContainer = el)}></div>
             </div>
         );
+    }
+
+    disconnectedCallback() {
+        if (this.calendar) {
+            this.calendar.destroy();
+        }
     }
 }

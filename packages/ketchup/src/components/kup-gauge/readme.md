@@ -112,6 +112,21 @@ Fundamentally, the main problem here is that that if
 | `--gau_value-color, --kup-gauge_value-color`                 | Sets the color of the value label.                                                               |
 
 
+## Dependencies
+
+### Used by
+
+ - [kup-box](../kup-box)
+ - [kup-data-table](../kup-data-table)
+
+### Graph
+```mermaid
+graph TD;
+  kup-box --> kup-gauge
+  kup-data-table --> kup-gauge
+  style kup-gauge fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

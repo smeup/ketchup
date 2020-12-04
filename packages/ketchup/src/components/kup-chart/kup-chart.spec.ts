@@ -107,7 +107,10 @@ const dataMock: DataTable = {
 };
 
 const axis = 'Col1';
-const series = ['Col2', 'Col3'];
+const series = [
+    { code: 'Col2', decode: 'Decode Col2' },
+    { code: 'Col3', decode: 'Decode Col3' },
+];
 
 describe('data conversion', () => {
     it('can convert null', () => {
@@ -144,7 +147,7 @@ describe('data conversion', () => {
     it('rows conversion (one serie)', () => {
         const columns = convertColumns(dataMock, {
             axis: axis,
-            series: ['Col2'],
+            series: [{ code: 'Col2', decode: 'Decode Col2' }],
         });
         const rows = convertRows(dataMock, columns, false);
 

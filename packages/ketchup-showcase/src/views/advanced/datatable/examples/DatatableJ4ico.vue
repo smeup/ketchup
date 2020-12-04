@@ -1,6 +1,6 @@
 <template>
   <div>
-    <kup-data-table :data.prop="j4icoData" />
+    <kup-lazy component-name="kup-data-table" :data.prop="data"></kup-lazy>
   </div>
 </template>
 
@@ -11,11 +11,10 @@ export default {
   name: 'DTJ4ico',
   data() {
     return {
-      j4icoData,
+      data: { data: j4icoData },
     };
   },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

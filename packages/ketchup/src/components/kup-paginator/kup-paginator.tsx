@@ -1,8 +1,15 @@
-import { Component, Event, EventEmitter, Prop, h } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Event,
+    EventEmitter,
+    h,
+} from '@stencil/core';
 
 import { PaginatorMode } from './kup-paginator-declarations';
 import { isNumber } from '../../utils/utils';
-import { errorLogging } from '../../utils/error-logging';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-paginator',
@@ -10,15 +17,17 @@ import { errorLogging } from '../../utils/error-logging';
     shadow: true,
 })
 export class KupPaginator {
-    @Prop({ reflect: true }) currentPage = 1;
+    @Element() rootElement: HTMLElement;
 
-    @Prop({ reflect: true }) max = 0;
+    @Prop() currentPage: number = 1;
 
-    @Prop({ reflect: true }) mode: PaginatorMode = PaginatorMode.FULL;
+    @Prop() max: number = 0;
 
-    @Prop({ reflect: true }) perPage = 10;
+    @Prop() mode: PaginatorMode = PaginatorMode.FULL;
 
-    @Prop({ reflect: true }) selectedPerPage = 10;
+    @Prop() perPage: number = 10;
+
+    @Prop() selectedPerPage: number = 10;
 
     /**
      * When the current page change
@@ -166,13 +175,25 @@ export class KupPaginator {
         return rowsPerPageItems;
     }
 
-    log(methodName: string, msg: string) {
-        errorLogging('kup-paginator', methodName + '()' + ' - ' + msg, 'log');
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logLoad(this, false);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        logRender(this, true);
     }
 
     render() {
-        //let lcltime = new Date();
-        //let starttime = lcltime.getTime();
         const maxNumberOfPage = Math.ceil(this.max / this.selectedPerPage);
 
         const goToPageItems = this.getGoToPageItems(maxNumberOfPage);
@@ -249,9 +270,6 @@ export class KupPaginator {
                 <div class="align-left"></div>
             </div>
         );
-        //lcltime = new Date();
-        //let endtime = lcltime.getTime();
-        //this.log('render', 'time spent [' + (endtime - starttime) + ']');
 
         return compCreated;
     }

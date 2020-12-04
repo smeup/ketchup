@@ -1,4 +1,14 @@
-import { Component, Prop, Element, Host, h } from '@stencil/core';
+import {
+    Component,
+    Prop,
+    Element,
+    Host,
+    State,
+    h,
+    Method,
+} from '@stencil/core';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-spinner',
@@ -8,6 +18,7 @@ import { Component, Prop, Element, Host, h } from '@stencil/core';
 })
 export class KupSpinner {
     @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * When set to true the spinner is animating.
@@ -16,23 +27,23 @@ export class KupSpinner {
     /**
      * Decides whether the component is a bar or a spinner.
      */
-    @Prop({ reflect: true }) barVariant: boolean = false;
+    @Prop() barVariant: boolean = false;
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Width and height of the spinner. For the bar variant, only height.
      */
-    @Prop({ reflect: true }) dimensions: string = undefined;
+    @Prop() dimensions: string = undefined;
     /**
      * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
      */
-    @Prop({ reflect: true }) fader: boolean = false;
+    @Prop() fader: boolean = false;
     /**
      * The time required for the "fader" to trigger.
      */
-    @Prop({ reflect: true }) faderTimeout: number = 3500;
+    @Prop() faderTimeout: number = 3500;
     /**
      * When set to true the component will fill the whole viewport.
      */
@@ -40,11 +51,25 @@ export class KupSpinner {
     /**
      * Sets the layout of the spinner.
      */
-    @Prop({ reflect: true }) layout: number = 1;
+    @Prop() layout: number = 1;
 
     //---- Methods ----
 
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
     //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logLoad(this, false);
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
 
     componentDidUpdate() {
         const root = this.rootElement.shadowRoot;
@@ -53,6 +78,10 @@ export class KupSpinner {
                 'loading-wrapper-big-wait'
             );
         }
+    }
+
+    componentWillRender() {
+        logRender(this, false);
     }
 
     componentDidRender() {
@@ -67,6 +96,7 @@ export class KupSpinner {
                 }, this.faderTimeout);
             }
         }
+        logRender(this, true);
     }
 
     render() {
@@ -75,14 +105,6 @@ export class KupSpinner {
         let spinnerClass = '';
         let spinnerEl: any = '';
         let elStyle = undefined;
-        let customStyle = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
-        }
-
-        if (this.active) {
-            masterClass += ' loading-wrapper-visible';
-        }
 
         if (this.barVariant) {
             masterClass += ' bar-version';
@@ -151,9 +173,7 @@ export class KupSpinner {
             }
         }
 
-        if (this.fullScreen) {
-            masterClass += ' full-screen';
-        } else {
+        if (!this.fullScreen) {
             elStyle = {
                 height: '100%',
                 width: '100%',
@@ -179,7 +199,7 @@ export class KupSpinner {
 
         return (
             <Host style={elStyle}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={elStyle}>
                     <div
                         id="loading-wrapper-master"

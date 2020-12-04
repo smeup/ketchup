@@ -1,6 +1,9 @@
 <template>
   <div>
-    <p>The Btn component purpose is to provide a simple and powerful way to manage many button components</p>
+    <p
+      >The Btn component purpose is to provide a simple and powerful way to
+      manage many button components</p
+    >
 
     <h3>Playground</h3>
     <div class="BTN">
@@ -61,7 +64,12 @@
 
         <div>
           <label for="btn-rounded">Rounded</label>
-          <input type="checkbox" name="btn-rounded" id="btn-rounded" @change="toggleBtnRounded" />
+          <input
+            type="checkbox"
+            name="btn-rounded"
+            id="btn-rounded"
+            @change="toggleBtnRounded"
+          />
         </div>
 
         <div>
@@ -96,7 +104,11 @@
 
         <div>
           <label for="btn-buttonclass">Button class</label>
-          <select name="btn-buttonclass" id="btn-buttonclass" @change="onBorderButtonClassChange">
+          <select
+            name="btn-buttonclass"
+            id="btn-buttonclass"
+            @change="onBorderButtonClassChange"
+          >
             <option value></option>
             <option value="btn-info">btn-info</option>
             <option value="btn-danger">btn-danger</option>
@@ -107,7 +119,12 @@
 
         <div>
           <label for="btn-flat">Flat</label>
-          <input type="checkbox" name="btn-flat" id="btn-flat" @change="toggleBtnFlat" />
+          <input
+            type="checkbox"
+            name="btn-flat"
+            id="btn-flat"
+            @change="toggleBtnFlat"
+          />
         </div>
 
         <div>
@@ -122,7 +139,12 @@
 
         <div>
           <label for="btn-columns">Columns</label>
-          <input type="number" name="btn-columns" id="btn-columns" @change="toggleBtnColumns" />
+          <input
+            type="number"
+            name="btn-columns"
+            id="btn-columns"
+            @change="toggleBtnColumns"
+          />
         </div>
 
         <div>
@@ -136,12 +158,22 @@
 
         <div>
           <label for="btn-fontbold">Bold font</label>
-          <input type="checkbox" name="btn-fontbold" id="btn-fontbold" @change="toggleBtnStyle" />
+          <input
+            type="checkbox"
+            name="btn-fontbold"
+            id="btn-fontbold"
+            @change="toggleBtnStyle"
+          />
         </div>
 
         <div>
           <label for="btn-fontitalic">Italic font</label>
-          <input type="checkbox" name="btn-fontitalic" id="btn-fontitalic" @change="toggleBtnStyle" />
+          <input
+            type="checkbox"
+            name="btn-fontitalic"
+            id="btn-fontitalic"
+            @change="toggleBtnStyle"
+          />
         </div>
 
         <div>
@@ -187,7 +219,12 @@
 
         <div>
           <label for="btn-fontsize">Font size</label>
-          <input id="btn-fontsize" type="number" @change="toggleBtnStyle" value="14" />
+          <input
+            id="btn-fontsize"
+            type="number"
+            @change="toggleBtnStyle"
+            value="14"
+          />
         </div>
       </div>
 

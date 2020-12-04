@@ -7,10 +7,10 @@ h3 {
 <template>
   <div>
     <h3>Sort disabled</h3>
-    <kup-data-table :data.prop="data" :sortEnabled.prop="false"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="data"></kup-lazy>
 
     <h3>Sort ascending on first column, descending on second</h3>
-    <kup-data-table :data.prop="data" :sort.prop="sort"></kup-data-table>
+    <kup-lazy component-name="kup-data-table" :data.prop="data2"></kup-lazy>
   </div>
 </template>
 
@@ -23,18 +23,22 @@ export default {
   data() {
     return {
       data: {
-        ...sortDataTable,
+        data: sortDataTable,
+        sortEnabled: false,
       },
-      sort: [
-        {
-          column: 'FLD1',
-          sortMode: 'A',
-        },
-        {
-          column: 'FLD2',
-          sortMode: 'D',
-        },
-      ],
+      data2: {
+        data: sortDataTable,
+        sort: [
+          {
+            column: 'FLD1',
+            sortMode: 'A',
+          },
+          {
+            column: 'FLD2',
+            sortMode: 'D',
+          },
+        ],
+      },
     };
   },
 };

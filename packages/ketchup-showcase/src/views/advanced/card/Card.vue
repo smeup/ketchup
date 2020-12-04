@@ -13,6 +13,15 @@
       <template v-slot:3>
         <card-menu></card-menu>
       </template>
+      <template v-slot:4>
+        <card-standard></card-standard>
+      </template>
+      <template v-slot:5>
+        <card-collapsible></card-collapsible>
+      </template>
+      <template v-slot:6>
+        <card-scalable></card-scalable>
+      </template>
     </comp>
   </div>
 </template>
@@ -22,6 +31,9 @@ import CardDemo from '@/views/advanced/card/examples/CardDemo';
 import CardBasic from '@/views/advanced/card/examples/CardBasic';
 import CardStyling from '@/views/advanced/card/examples/CardStyling';
 import CardMenu from '@/views/advanced/card/examples/CardMenu';
+import CardCollapsible from '@/views/advanced/card/examples/CardCollapsible';
+import CardScalable from '@/views/advanced/card/examples/CardScalable';
+import CardStandard from '@/views/advanced/card/examples/CardStandard';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
@@ -29,6 +41,9 @@ export default {
     CardBasic,
     CardStyling,
     CardMenu,
+    CardCollapsible,
+    CardScalable,
+    CardStandard,
     Comp,
   },
   data() {
@@ -36,7 +51,15 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-card',
       headtitle: 'Card',
-      titles: ['Playground', 'Basic usage', 'Styling', 'Menu variant'],
+      titles: [
+        'Playground',
+        'Basic usage',
+        'Styling',
+        'Menu variant',
+        'Standard layouts',
+        'Collapsible layouts',
+        'Scalable layouts',
+      ],
     };
   },
 };

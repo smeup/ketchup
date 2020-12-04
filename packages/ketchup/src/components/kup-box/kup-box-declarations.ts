@@ -1,19 +1,17 @@
 import { Cell, RowAction } from '../kup-data-table/kup-data-table-declarations';
+import { KupBadge } from '../kup-badge/kup-badge';
+import { Identifiable } from '../../types/GenericTypes';
 
-import { Badge } from '../kup-image/kup-image-declarations';
-
-export interface BoxRow {
+export interface BoxRow extends Identifiable {
     cells: {
         [index: string]: Cell;
     };
 
     actions?: Array<RowAction>;
 
-    id?: string;
-
     layout?: Layout;
 
-    badgeData?: Badge[];
+    badgeData?: KupBadge[];
 }
 
 export interface Layout {
@@ -31,6 +29,7 @@ export interface Section {
     collapsible?: boolean;
     columns?: number;
     title?: string;
+    cssClass?: string;
 }
 
 export interface BoxObject {

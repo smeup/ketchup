@@ -4,40 +4,69 @@
 @import '@material/textfield/character-counter/mdc-text-field-character-counter';
 @import '@material/textfield/icon/mdc-text-field-icon';
 
-:host([full-height]) {
-  height: 100%;
+:host {
+  display: block;
+}
 
-  & #kup-component {
-    &.full-height {
+:host([full-width]) {
+  width: 100%;
+  #kup-component {
+    width: 100%;
+  }
+}
+
+:host(.full-height) {
+  height: 100%;
+  #kup-component {
+    height: 100%;
+    .mdc-text-field {
       height: 100%;
-      & .mdc-text-field {
+      overflow-y: hidden;
+      &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
         height: 100%;
-        overflow-y: hidden;
-        &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
-          height: 100%;
-        }
-        & .mdc-text-field__input {
-          height: 100%;
-        }
+      }
+      .mdc-text-field__input {
+        height: 100%;
       }
     }
   }
 }
 
-:host {
-  display: var(--kup-display-mode);
+:host(.shaped) {
+  .mdc-text-field {
+    border-radius: 16px 16px 0 0;
+  }
 }
 
 .mdc-form-field {
   & label {
+    font-family: var(--kup-font-family);
     margin: auto;
+  }
+  .mdc-text-field__input {
+    padding: 6px 16px;
   }
 }
 
-.mdc-text-field {
-  & kup-image {
-    cursor: pointer;
-    outline: none;
+div.mdc-text-field-helper-text {
+  font-family: var(--kup-font-family);
+}
+
+.icon-container {
+  background-color: var(--kup-icon-color);
+  cursor: pointer;
+  height: 24px;
+  outline: none;
+  width: 24px;
+  &.clear-icon:hover {
+    background-color: var(--kup-danger-color);
+  }
+}
+
+#kup-component .mdc-text-field {
+  input,
+  label {
+    font-family: var(--kup-font-family);
   }
 
   & .mdc-text-field__icon.clear-icon {
@@ -63,6 +92,45 @@
   @include mdc-text-field-textarea-stroke-color(var(--kup-border-color));
   @include mdc-text-field-fullwidth-bottom-line-color(var(--kup-text-color));
 
+  &.mdc-text-field--outlined {
+    @include mdc-text-field-focused-outline-color(var(--kup-main-color));
+
+    & .mdc-notched-outline__leading,
+    & .mdc-notched-outline__notch,
+    & .mdc-notched-outline__trailing {
+      border-color: rgba(var(--kup-text-color-rgb), 0.575);
+      border-bottom-style: inset;
+    }
+
+    &:hover .mdc-notched-outline__leading,
+    &:hover .mdc-notched-outline__notch,
+    &:hover .mdc-notched-outline__trailing {
+      border-color: rgba(var(--kup-text-color-rgb), 0.8);
+    }
+
+    &.mdc-text-field--disabled .mdc-notched-outline__leading,
+    &.mdc-text-field--disabled .mdc-notched-outline__notch,
+    &.mdc-text-field--disabled .mdc-notched-outline__trailing {
+      border-color: rgba(var(--kup-text-color-rgb), 0.325);
+    }
+
+    &.mdc-text-field--disabled {
+      color: rgba(var(--kup-text-color-rgb), 0.5);
+
+      & .mdc-text-field__input {
+        color: rgba(var(--kup-text-color-rgb), 0.5);
+      }
+
+      & label {
+        color: rgba(var(--kup-text-color-rgb), 0.5);
+      }
+    }
+
+    &.mdc-text-field--textarea .mdc-floating-label--float-above {
+      transform: translateY(-160%) scale(0.75);
+    }
+  }
+
   &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
     @include mdc-text-field-density(-4);
     @include mdc-text-field-fill-color(var(--kup-field-background-color));
@@ -71,8 +139,7 @@
 
   &.mdc-text-field--outlined:not(.mdc-text-field--textarea) {
     @include mdc-text-field-outlined-density(-4);
-    @include mdc-text-field-outline-color(var(--kup-border-color));
-    @include mdc-text-field-focused-outline-color(var(--kup-main-color));
+    transition: border-color 0.25s;
 
     //Fixed floating label position when outlined field has a leading icon
     &.mdc-text-field--with-leading-icon .mdc-floating-label--float-above {
@@ -92,10 +159,6 @@
   &.mdc-text-field--fullwidth.mdc-text-field--with-trailing-icon
     .mdc-text-field__input {
     padding-right: 50px;
-  }
-
-  &.shaped {
-    border-radius: 16px 16px 0 0;
   }
 
   &.mdc-text-field--outlined.shaped
@@ -134,17 +197,17 @@
     }
   }
 
-  &.mdc-text-field--disabled {
-    color: var(--kup-disabled-text-color);
+  &.mdc-text-field--disabled:not(.mdc-text-field--outlined) {
+    color: var(--kup-disabled-color);
     background: var(--kup-disabled-background-color);
 
     & .mdc-text-field__input {
-      color: var(--kup-disabled-text-color);
+      color: var(--kup-disabled-color);
       background: var(--kup-disabled-background-color);
     }
 
     & label {
-      color: var(--kup-disabled-text-color);
+      color: var(--kup-disabled-color);
       background: var(--kup-disabled-background-color);
     }
   }

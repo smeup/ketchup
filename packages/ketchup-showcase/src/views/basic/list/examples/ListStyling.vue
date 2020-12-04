@@ -3,14 +3,17 @@
     <div class="demo-wrapper">
       <p>
         List description can be split into two rows by setting to true the
-        <span
-          class="code-word"
-        >twoLine</span> prop.
+        <span class="code-word">twoLine</span> prop.
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-list selectable="false" two-line :data.prop="dataLIST" role-type="listbox"></kup-list>
+          <kup-list
+            selectable="false"
+            two-line
+            :data.prop="dataLIST"
+            role-type="listbox"
+          ></kup-list>
         </div>
         <p class="centered">Sample two line markup</p>
         <code class="flat">{{ markupTwoline }}</code>
@@ -19,15 +22,20 @@
 
     <div class="demo-wrapper">
       <p>
-        It's possible to display icons associated to rows inside the data prop by setting the
-        <span
-          class="code-word"
-        >showIcons</span> prop to true.
+        It's possible to display icons associated to rows inside the data prop
+        by setting the
+        <span class="code-word">showIcons</span> prop to true.
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container">
-          <kup-list show-icons selectable="false" :data.prop="dataLIST" role-type="listbox"></kup-list>
+          <kup-list
+            two-line
+            show-icons
+            selectable="false"
+            :data.prop="dataLIST"
+            role-type="listbox"
+          ></kup-list>
         </div>
         <p class="centered">Sample icons markup</p>
         <code class="flat">{{ markupIcons }}</code>
@@ -36,10 +44,9 @@
 
     <div class="demo-wrapper">
       <p>
-        Icons can be also displayed without any text beside them by setting to true the
-        <span
-          class="code-word"
-        >hideText</span> prop.
+        Icons can be also displayed without any text beside them by setting to
+        true the
+        <span class="code-word">hideText</span> prop.
       </p>
       <br />
       <div class="demo-container">

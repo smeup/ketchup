@@ -1,6 +1,15 @@
-import { Component, Host, Prop, JSX, Element, h } from '@stencil/core';
-import { ComponentGridElement } from './kup-grid-declarations';
-import { errorLogging } from '../../utils/error-logging';
+import {
+    Component,
+    Prop,
+    Element,
+    Host,
+    State,
+    h,
+    JSX,
+    Method,
+} from '@stencil/core';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-grid',
@@ -9,39 +18,55 @@ import { errorLogging } from '../../utils/error-logging';
 })
 export class KupGrid {
     @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
+
     /**
      * The number of columns displayed by the grid, the default behavior is 12.
      */
-    @Prop({ reflect: true }) columns: number = 12;
+    @Prop() columns: number = 12;
     /**
-     * Custom style to be passed to the component.
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
-    /**
-     * The actual data of the grid.
-     */
-    @Prop() data: ComponentGridElement[] = undefined;
-    /**
-     * When set to true, forces the width to 100% for the single line layout.
-     */
-    @Prop({ reflect: true }) fullWidth: boolean = false;
+    @Prop() customStyle: string = undefined;
     /**
      * When set to true, forces the content on a single line.
      */
-    @Prop({ reflect: true }) singleLine: boolean = false;
+    @Prop() singleLine: boolean = false;
 
     private elStyle = undefined;
 
-    render() {
-        if (!this.data || this.data.length === 0) {
-            let message = 'Missing data, not rendering!';
-            errorLogging(this.rootElement.tagName, message);
-            return;
-        }
+    //---- Methods ----
 
-        let customStyle: string = undefined;
-        if (this.customStyle) {
-            customStyle = <style>{this.customStyle}</style>;
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        logLoad(this, false);
+        setThemeCustomStyle(this);
+    }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        logRender(this, true);
+    }
+
+    render() {
+        let slots = this.rootElement.children;
+        if (!slots || slots.length === 0) {
+            let message = 'Missing slots, not rendering!';
+            logMessage(this, message, 'warning');
+            return;
         }
 
         let componentClass = '';
@@ -54,10 +79,6 @@ export class KupGrid {
             contentClass = 'mdc-layout-grid__inner';
         }
 
-        if (this.fullWidth) {
-            contentClass += ' full-width';
-        }
-
         this.elStyle = undefined;
         if (this.columns !== 12) {
             contentClass += ' custom-grid';
@@ -68,27 +89,21 @@ export class KupGrid {
 
         let el: JSX.Element[] = [];
 
-        for (let i = 0; i < this.data.length; i++) {
-            let Tag = this.data[i].tagName;
+        for (let i = 0; i < slots.length; i++) {
             let content = undefined;
 
             if (this.singleLine) {
-                content = (
-                    <Tag {...this.data[i].props}>{this.data[i].content}</Tag>
-                );
+                content = <slot name={`${i}`}></slot>;
             } else {
                 let span: number = 1;
                 let spanClass: string = 'mdc-layout-grid__cell';
-                if (this.data[i].span) {
-                    span = this.data[i].span;
+                if (slots[i]['span']) {
+                    span = slots[i]['span'];
                 }
                 spanClass += ' mdc-layout-grid__cell--span-' + span;
                 content = (
                     <div class={spanClass}>
-                        <Tag
-                            {...this.data[i].props}
-                            innerHTML={this.data[i].content}
-                        ></Tag>
+                        <slot name={`${i}`}></slot>
                     </div>
                 );
             }
@@ -97,7 +112,7 @@ export class KupGrid {
 
         return (
             <Host style={this.elStyle}>
-                {customStyle}
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={componentClass}>
                         <div class={contentClass}>{el}</div>

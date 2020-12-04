@@ -1,19 +1,22 @@
 <template>
   <div>
     <h3>Datatable with images and badges</h3>
-    <kup-data-table :data.prop="boxImagesData"/>
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="boxImagesData"
+    ></kup-lazy>
   </div>
 </template>
 
 <script>
-    import { imgBadgeData, /* boxBadgeData */ } from '@/mock/box';
+import { imgBadgeData } from '@/mock/box';
 
-    export default {
-        name: "DatatableImagesAndBadges",
-        data() {
-            return {
-                boxImagesData: imgBadgeData
-            };
-        }
-    }
+export default {
+  name: 'DatatableImagesAndBadges',
+  data() {
+    return {
+      boxImagesData: { data: imgBadgeData },
+    };
+  },
+};
 </script>

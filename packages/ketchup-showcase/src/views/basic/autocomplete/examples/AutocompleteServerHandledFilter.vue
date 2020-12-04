@@ -1,6 +1,5 @@
 <template>
   <div class="max-width-container">
-
     <h3>With no items set and interchangeable items</h3>
     <div class="example-container">
       <div>
@@ -10,9 +9,10 @@
           :placeholder.prop="'Single selection'"
           server-handled-filter
           @kupAutocompleteFilterUpdate="logFilterUpdate"
-          @kupAutocompleteSelectionUpdate="logEvent"/>
+          @kupAutocompleteSelectionUpdate="logEvent"
+        />
 
-        <br><br>
+        <br /><br />
         <p>Multiple selection</p>
         <kup-autocomplete
           :items.prop="changeableAutocompleteItems"
@@ -20,13 +20,23 @@
           multiple-selection
           server-handled-filter
           @kupAutocompleteFilterUpdate="logFilterUpdate"
-          @kupAutocompleteSelectionUpdate="logEvent"/>
+          @kupAutocompleteSelectionUpdate="logEvent"
+        />
       </div>
       <div>
-        <p>Use these buttons to change the elements which are used by this autocomplete</p>
-        <v-btn @click="changeableAutocompleteItems = setElements">SET elements</v-btn>
-        <v-btn @click="changeableAutocompleteItems = multipleElements">MULTIPLE elements</v-btn>
-        <v-btn @click="changeableAutocompleteItems = testElements">TEST elements</v-btn>
+        <p
+          >Use these buttons to change the elements which are used by this
+          autocomplete</p
+        >
+        <v-btn @click="changeableAutocompleteItems = setElements"
+          >SET elements</v-btn
+        >
+        <v-btn @click="changeableAutocompleteItems = multipleElements"
+          >MULTIPLE elements</v-btn
+        >
+        <v-btn @click="changeableAutocompleteItems = testElements"
+          >TEST elements</v-btn
+        >
         <v-btn @click="changeableAutocompleteItems = []">Empty</v-btn>
       </div>
     </div>
@@ -34,10 +44,10 @@
 </template>
 
 <script>
-import {AutocompleteItemFactory} from '@/mock/autocomplete';
+import { AutocompleteItemFactory } from '@/mock/autocomplete';
 
 export default {
-  name: "AutocompleteServerHandledFilter",
+  name: 'AutocompleteServerHandledFilter',
   data() {
     return {
       items: AutocompleteItemFactory(),
@@ -52,8 +62,8 @@ export default {
       console.log(e.detail);
     },
     logFilterUpdate(e) {
-      console.log("filter updated", e.detail);
-    }
-  }
-}
+      console.log('filter updated', e.detail);
+    },
+  },
+};
 </script>

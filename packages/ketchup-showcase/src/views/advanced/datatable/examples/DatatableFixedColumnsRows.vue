@@ -7,56 +7,58 @@ h3 {
 <template>
   <div>
     <h3>Fixed columns (2 columns and show-grid = Row)</h3>
-    <kup-data-table :data.prop="data" :showFilters.prop="true" fixed-columns="2" />
+    <kup-lazy component-name="kup-data-table" :data.prop="fixedData"></kup-lazy>
 
     <h3>Fixed columns (2 columns and show-grid = Col)</h3>
-    <kup-data-table :data.prop="data" :showFilters.prop="true" fixed-columns="2" show-grid="Col" />
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="fixedData2"
+    ></kup-lazy>
 
     <h3>Fixed rows (3)</h3>
-    <kup-data-table
-      :data.prop="data"
-      :showFilters.prop="true"
-      :style="smallTableStyle"
-      fixed-rows="3"
-    />
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="fixedData3"
+    ></kup-lazy>
 
     <h3>Fixed columns (2) rows (4)</h3>
-    <kup-data-table
-      :data.prop="data"
-      :showFilters.prop="true"
-      :style="smallTableStyle"
-      fixed-columns="2"
-      fixed-rows="4"
-      show-grid="Complete"
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="fixedData4"
+    ></kup-lazy>
+
+    <h3
+      >Fixed columns (2) and rows (3) with multiple selection and actions
+      activated</h3
+    >
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="fixedData5"
+    ></kup-lazy>
+
+    <h3
+      >When there are fixed columns or rows but groups are active, fixed does
+      not work</h3
+    >
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="fixedData6"
+    ></kup-lazy>
+    <kup-lazy
+      component-name="kup-data-table"
+      :data.prop="fixedData7"
+    ></kup-lazy>
+
+    <h3>With totals (fixed columns (4) rows (4))</h3>
+    <kup-lazy
+        component-name="kup-data-table"
+        :data.prop="fixedDataTotals"
     />
 
-    <h3>Fixed columns (2) and rows (3) with multiple selection and actions activated</h3>
-    <kup-data-table
-      :data.prop="data"
-      :rowActions.prop="rowActions"
-      :showFilters.prop="true"
-      :style="smallTableStyle"
-      fixed-columns="2"
-      fixed-rows="3"
-      multi-selection
-    />
-
-    <h3>When there are fixed columns or rows but groups are active, fixed does not work</h3>
-    <kup-data-table
-      :data.prop="data"
-      :groups.prop="group3"
-      :style="smallTableStyle"
-      fixed-columns="2"
-      fixed-rows="3"
-    />
-
-    <kup-data-table
-      :data.prop="data"
-      :groups.prop="group3"
-      :expandGroups.prop="true"
-      :style="smallTableStyle"
-      fixed-columns="2"
-      fixed-rows="3"
+    <h3>With hidden table header (fixed columns (4) rows (4))</h3>
+    <kup-lazy
+        component-name="kup-data-table"
+        :data.prop="fixedDataNoHeaders"
     />
   </div>
 </template>
@@ -68,32 +70,116 @@ export default {
   name: 'DatatableFixedColumnsRows',
   data() {
     return {
-      data: {
-        ...groupDataTable,
+      fixedData: {
+        data: groupDataTable,
+        showFilters: true,
+        fixedColumns: '2',
+        tableHeight: '200px',
+        tableWidth: '400px',
       },
-      group3: [
-        {
-          column: 'FLD0',
+      fixedData2: {
+        data: groupDataTable,
+        showFilters: true,
+        fixedColumns: '2',
+        showGrid: 'Col',
+        tableHeight: '200px',
+        tableWidth: '400px',
+        totals: {
+          FLD0: 'Count',
+          FLD1: 'Count',
         },
-        {
-          column: 'FLD1',
-        },
-      ],
-      smallTableStyle: {
-        '--dtt_table-wrapper-height': '250px',
       },
-      rowActions: [
-        {
-          text: 'Action #1',
-          icon: 'folder',
+      fixedData3: {
+        data: groupDataTable,
+        showFilters: true,
+        fixedRows: '3',
+        tableHeight: '200px',
+        tableWidth: '400px',
+      },
+      fixedData4: {
+        data: groupDataTable,
+        showFilters: true,
+        fixedColumns: '2',
+        fixedRows: '4',
+        showGrid: 'Complete',
+        tableHeight: '200px',
+        tableWidth: '400px',
+      },
+      fixedData5: {
+        data: groupDataTable,
+        showFilters: true,
+        fixedColumns: '2',
+        fixedRows: '3',
+        showGrid: 'Complete',
+        tableHeight: '200px',
+        tableWidth: '400px',
+        rowActions: [
+          {
+            text: 'Action #1',
+            icon: 'folder',
+          },
+          {
+            text: 'Action #2',
+            icon: 'account',
+          },
+        ],
+        multiSelection: true,
+      },
+      fixedData6: {
+        data: groupDataTable,
+        fixedColumns: '2',
+        fixedRows: '3',
+        tableHeight: '200px',
+        tableWidth: '400px',
+        groups: [
+          {
+            column: 'FLD0',
+          },
+          {
+            column: 'FLD1',
+          },
+        ],
+      },
+      fixedData7: {
+        data: groupDataTable,
+        fixedColumns: '2',
+        fixedRows: '3',
+        tableHeight: '200px',
+        tableWidth: '400px',
+        groups: [
+          {
+            column: 'FLD0',
+          },
+          {
+            column: 'FLD1',
+          },
+        ],
+        expandGroups: true,
+      },
+      fixedDataTotals: {
+        data: groupDataTable,
+        showFilters: true,
+        fixedColumns: '4',
+        fixedRows: '4',
+        showGrid: 'Complete',
+        tableHeight: '230px',
+        tableWidth: '450px',
+        totals: {
+          FLD2: 'Count',
+          FLD3: 'Count',
+          FLD4: 'Count',
+          FLD5: 'Count',
         },
-        {
-          text: 'Action #2',
-          icon: 'account',
-        },
-      ],
-      totals1: {
-        FLD2: 'Count',
+      },
+      fixedDataNoHeaders: {
+        data: groupDataTable,
+        showFilters: true,
+        showHeader: false,
+        fixedColumns: '4',
+        fixedRows: '4',
+        showGrid: 'Complete',
+        tableHeight: '230px',
+        tableWidth: '450px',
       },
     };
   },

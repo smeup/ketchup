@@ -1,0 +1,13 @@
+.color-picker {
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+  border-radius: 50%;
+  border: 1.2px solid rgb(115, 130, 132);
+  background-color: transparent;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
+}

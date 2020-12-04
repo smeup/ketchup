@@ -1,12 +1,11 @@
-import { Badge } from '../kup-image/kup-image-declarations';
+import { Identifiable } from '../../types/GenericTypes';
 
 export interface DataTable {
     columns?: Array<Column>;
     rows?: Array<Row>;
 }
 
-export interface CellConfig {
-    badges?: Badge[];
+export interface CellData {
     [index: string]: any;
 }
 
@@ -18,9 +17,11 @@ export interface Cell {
     };
     value: string;
     style?: GenericMap;
-    options?: boolean;
     shape?: string;
-    config?: CellConfig;
+    data?: CellData;
+    cardID?: string;
+    cssClass?: string;
+    icon?: string;
 }
 
 export interface CellsHolder {
@@ -39,18 +40,21 @@ export interface Column {
         p: string;
         k: string;
     };
+    shape?: string;
+    decimals?: number;
+    icon?: string;
 }
 
-export interface Row {
+export interface Row extends Identifiable {
     cells: CellsHolder;
 
     actions?: Array<RowAction>;
 
-    id?: string;
-
     group?: RowGroup;
 
     readOnly?: boolean;
+
+    cssClass?: string;
 }
 
 export interface RowGroup {
@@ -104,7 +108,8 @@ export interface TotalsMap {
 export enum TotalMode {
     COUNT = 'Count',
     SUM = 'Sum',
-    AVARAGE = 'Avarage',
+    AVERAGE = 'Average',
+    MATH = 'MATH',
 }
 
 export enum PaginatorPos {
@@ -166,9 +171,9 @@ export interface KupDataTableSortedColumnIndexes {
  * @readonly
  */
 export enum GroupLabelDisplayMode {
-    BOTH = 'both',
-    LABEL = 'label',
-    VALUE = 'value',
+    BOTH = 'Both',
+    LABEL = 'Label',
+    VALUE = 'Value',
 }
 
 //---- Fixed rows and cells classes ----

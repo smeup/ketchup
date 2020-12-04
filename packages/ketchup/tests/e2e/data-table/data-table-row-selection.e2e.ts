@@ -49,7 +49,7 @@ describe('row selection', () => {
 
         expect(detail.clickedColumn).toEqual('FLD1');
         expect(detail.selectedRows).toHaveLength(1);
-        expect(detail.selectedRows[0]).toEqual(staticData.rows[0]);
+        expect(detail.selectedRows[0].cells).toEqual(staticData.rows[0].cells);
     });
 
     it.skip('multiple selection', async () => {
