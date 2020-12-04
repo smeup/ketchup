@@ -229,7 +229,9 @@ export function colorCheck(color: string) {
     }
 
     //Testing whether the color is "hex" value
+    let hexColor: string = undefined;
     if (color.substr(0, 1) === '#') {
+        hexColor = color;
         let oldColor = color;
         let rgbColor = hexToRgb(color);
         try {
@@ -267,7 +269,23 @@ export function colorCheck(color: string) {
         );
     }
 
-    return { rgbColor: color, rgbValues: rgbValues };
+    if (!hexColor) {
+        try {
+            hexColor = rgbToHex(
+                parseInt(values[1]),
+                parseInt(values[2]),
+                parseInt(values[3])
+            );
+        } catch (error) {
+            logMessage(
+                'theme-manager',
+                'Color not converted to hex value: ' + color + '.',
+                'warning'
+            );
+        }
+    }
+
+    return { hexColor: hexColor, rgbColor: color, rgbValues: rgbValues };
 }
 
 export function hexToRgb(hex: string) {
@@ -279,6 +297,15 @@ export function hexToRgb(hex: string) {
               b: parseInt(result[3], 16),
           }
         : null;
+}
+
+export function rgbToHex(r: number, g: number, b: number) {
+    return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? '0' + hex : hex;
 }
 
 export function codeToHex(color: string) {
