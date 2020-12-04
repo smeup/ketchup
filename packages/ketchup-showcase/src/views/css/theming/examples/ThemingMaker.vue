@@ -513,7 +513,7 @@
                 <td
                   >Sets the fourth color of kup-chart and so on. It is possible
                   to specify an infinite amount of "--kup-chart-color"
-                  variables.</td
+                  variables (use the JSON tab to add as many as you like).</td
                 >
                 <td class="prevent-cr">
                   <span class="code-word">color</span>
@@ -700,6 +700,19 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">KUP-DATE-PICKER</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-date-picker"
+                    @kupTextFieldInput="updateThemeCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">KUP-DRAWER</span>
                 </td>
                 <td class="text-cell">
@@ -720,6 +733,19 @@
                     text-area
                     full-width
                     id="kup-field"
+                    @kupTextFieldInput="updateThemeCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-GAUGE</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-gauge"
                     @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
@@ -876,6 +902,19 @@
                     text-area
                     full-width
                     id="kup-text-field"
+                    @kupTextFieldInput="updateThemeCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-TIME-PICKER</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-time-picker"
                     @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>

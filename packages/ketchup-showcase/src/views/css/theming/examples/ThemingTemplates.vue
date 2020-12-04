@@ -7,7 +7,7 @@
       element. You can try them yourself by clicking on the icons below.
     </p>
     <div class="demo-container">
-      <div id="theme-container" class="kup-container"></div>
+      <kup-grid id="theme-container" class="kup-container"></kup-grid>
     </div>
   </div>
 </template>
@@ -33,12 +33,15 @@ function getThemes() {
   const dom = document.documentElement;
   const themeContainer = document.querySelector('#theme-container');
 
+  let index = 0;
   for (let key in dom.kupThemes) {
     if (key !== 'test' && key !== 'showcaseDemo') {
       var variables = dom.kupThemes[key].cssVariables;
       let themeWrapper = document.createElement('div');
       let themeImage = document.createElement('kup-image');
       let themeText = document.createElement('div');
+      themeWrapper.span = 2;
+      themeWrapper.slot = index++;
       themeWrapper.classList.add('icon-wrapper');
       themeWrapper.classList.add('theme-wrapper');
       themeWrapper.style.backgroundColor = variables['--kup-background-color'];
@@ -63,6 +66,7 @@ function getThemes() {
       themeContainer.append(themeWrapper);
     }
   }
+  themeContainer.customStyle = '';
   document.removeEventListener('kupThemeChange', getThemes);
 }
 </script>
