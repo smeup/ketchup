@@ -177,11 +177,6 @@ export class KupTimePicker {
     @Watch('data')
     watchInitialValue() {
         this.timeValue = this.getTextFieldData().initialValue;
-        let source: PICKER_SOURCE_EVENT = PICKER_SOURCE_EVENT.TIME;
-        if (this.status[source].textfieldEl !== undefined) {
-            this.status[source].textfieldEl.data = this.getTextFieldData();
-            this.setTextFieldInitalValue(source, this.getTimeForOutput());
-        }
     }
 
     @Watch('timeMinutesStep')
@@ -336,13 +331,6 @@ export class KupTimePicker {
         }
     }
 
-    getTextFieldInitalValue(source: PICKER_SOURCE_EVENT): string {
-        if (this.status[source].textfieldEl !== undefined) {
-            return this.status[source].textfieldEl.initialValue;
-        }
-        return null;
-    }
-
     getValueForPickerComponent(source: PICKER_SOURCE_EVENT) {
         if (source == PICKER_SOURCE_EVENT.TIME) {
             return this.timeValue;
@@ -411,13 +399,17 @@ export class KupTimePicker {
         return this.status[source].textfieldEl.id;
     }
 
+    getPickerElId(source: PICKER_SOURCE_EVENT): string {
+        return this.status[source].pickerEl.id;
+    }
+
     prepTimeTextfield(): PICKER_COMPONENT_INFO {
         let source = PICKER_SOURCE_EVENT.TIME;
         let ret: PICKER_COMPONENT_INFO = this.prepTextfield(
             source,
             this.getTextFieldData(),
             this.status[source].elStyle,
-            this.getTextFieldInitalValue(source)
+            this.getTimeForOutput()
         );
         return ret;
     }
@@ -450,13 +442,15 @@ export class KupTimePicker {
             textfieldData['trailingIcon'] = true;
         }
 
+        textfieldData['initialValue'] = initialValue;
+
         let ref: PICKER_COMPONENT_INFO = { type: source };
 
         let comp: HTMLElement = (
             <kup-text-field
                 {...textfieldData}
                 style={elStyle}
-                initial-value={initialValue}
+                /*initial-value={initialValue}*/
                 id={this.rootElement.id + '_text-field'}
                 /* onKupTextFieldBlur={(e: any) => this.onKupBlur(e)} */
                 onKupTextFieldChange={(e: any) => this.onKupChange(e, source)}
@@ -480,6 +474,25 @@ export class KupTimePicker {
         return ref;
     }
 
+    isRelatedTargetInThisComponent(e: any): boolean {
+        if (!e.relatedTarget) {
+            return false;
+        }
+        let id = e.relatedTarget.id;
+        if (id == null || id.trim() == '') {
+            return false;
+        }
+        if (id == this.getTextFieldId(PICKER_SOURCE_EVENT.TIME)) {
+            return true;
+        }
+        if (id == this.getPickerElId(PICKER_SOURCE_EVENT.TIME)) {
+            return true;
+        }
+
+        let idConc = '#time-picker-div#';
+        return idConc.indexOf('#' + id + '#') >= 0;
+    }
+
     prepTimePicker() {
         let source = PICKER_SOURCE_EVENT.TIME;
 
@@ -491,11 +504,8 @@ export class KupTimePicker {
                     (this.status[source].pickerContainerEl = el as any)
                 }
                 onBlur={(e: any) => {
-                    if (e.relatedTarget) {
-                        if (e.relatedTarget.id != this.getTextFieldId(source)) {
-                            this.onKupBlur(e, this.getSourceEvent());
-                        }
-                    } else {
+                    e.stopPropagation();
+                    if (!this.isRelatedTargetInThisComponent(e)) {
                         this.onKupBlur(e, this.getSourceEvent());
                     }
                 }}

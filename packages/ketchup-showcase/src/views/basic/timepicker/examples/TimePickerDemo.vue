@@ -63,12 +63,12 @@ export default {
           try: 'css',
         },
         {
-          prop: 'timeInitialValue',
+          prop: 'data',
           description:
-            'The initial value of the time picker (ISO time format).',
-          type: 'string',
-          default: '""',
-          try: 'field',
+            "Set of props related to the text field. To check the available props visit the Text Field basic component's page.",
+          type: 'Object',
+          default: '{"text-field":{}}',
+          try: 'json',
         },
         {
           prop: 'timeMinutesStep',
@@ -76,14 +76,6 @@ export default {
           type: 'number',
           default: '10',
           try: 'field',
-        },
-        {
-          prop: 'timeTextfieldData',
-          description:
-            "Set of props related to the text field. To check the available props visit the Text Field basic component's page.",
-          type: 'Object',
-          default: '{}',
-          try: 'json',
         },
       ],
     };

@@ -100,8 +100,8 @@ export function formatSize(size: any) {
     }
 }
 
-export function getCurrentLocale(): string {
-    return navigator.language;
+export function getCurrentLocale(suffix?: string): string {
+    return navigator.language + (suffix != null ? suffix : '');
 }
 
 export function getCurrentDateFormatFromBrowserLocale(): string {
@@ -134,7 +134,7 @@ export function getCurrentTimeFormatFromBrowserLocale(): string {
         hour12: false,
     };
     const formatObj = new Intl.DateTimeFormat(
-        getCurrentLocale(),
+        getCurrentLocale('-u-hc-h23'),
         options
     ).formatToParts(new Date());
     let timeFormat = formatObj
@@ -386,7 +386,7 @@ export function formatTime(time: Date): string {
         second: '2-digit',
         hour12: false,
     };
-    return time.toLocaleTimeString(getCurrentLocale(), options);
+    return time.toLocaleTimeString(getCurrentLocale('-u-hc-h23'), options);
 }
 
 /**
@@ -521,7 +521,7 @@ export function unformattedStringToFormattedStringTime(
         value,
         ISO_DEFAULT_TIME_FORMAT,
         valueTimeFormat
-    ).toLocaleTimeString(getCurrentLocale(), options);
+    ).toLocaleTimeString(getCurrentLocale('-u-hc-h23'), options);
 }
 
 export function getMonthAsStringByLocale(
@@ -603,4 +603,22 @@ export function getDaysOfWeekAsStringByLocale(
         days[i] = getDayAsStringByLocale(date);
     }
     return days;
+}
+
+export function fillString(
+    stringIn: string,
+    stringForFill: string,
+    finalLen: number,
+    addBefore: boolean
+): string {
+    let initSize = stringIn.length;
+    let stringOut: string = '';
+    for (let i: number = initSize; i < finalLen; i += stringForFill.length) {
+        stringOut += stringForFill;
+    }
+    if (addBefore) {
+        return stringOut + stringIn;
+    } else {
+        return stringIn + stringOut;
+    }
 }

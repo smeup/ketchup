@@ -23,6 +23,7 @@ import {
     getMonthsAsStringByLocale,
     getDaysOfWeekAsStringByLocale,
     ISO_DEFAULT_DATE_FORMAT,
+    fillString,
 } from '../../utils/utils';
 import {
     PICKER_COMPONENT_INFO,
@@ -194,11 +195,6 @@ export class KupDatePicker {
     @Watch('data')
     watchInitialValue() {
         this.dateValue = this.getTextFieldData().initialValue;
-        let source: PICKER_SOURCE_EVENT = PICKER_SOURCE_EVENT.DATE;
-        if (this.status[source].textfieldEl !== undefined) {
-            this.status[source].textfieldEl.data = this.getTextFieldData();
-            this.setTextFieldInitalValue(source, this.getDateForOutput());
-        }
     }
 
     @Watch('firstDayIndex')
@@ -277,6 +273,7 @@ export class KupDatePicker {
     }
 
     forceUpdate() {
+        this.getTextFieldData()['forceFocus'] = true;
         this.stateSwitcher = !this.stateSwitcher;
     }
 
@@ -351,13 +348,6 @@ export class KupDatePicker {
         if (this.status[source].textfieldEl !== undefined) {
             this.status[source].textfieldEl.initialValue = value;
         }
-    }
-
-    getTextFieldInitalValue(source: PICKER_SOURCE_EVENT): string {
-        if (this.status[source].textfieldEl !== undefined) {
-            return this.status[source].textfieldEl.initialValue;
-        }
-        return null;
     }
 
     getValueForPickerComponent(source: PICKER_SOURCE_EVENT) {
@@ -441,7 +431,7 @@ export class KupDatePicker {
             source,
             this.getTextFieldData(),
             this.status[source].elStyle,
-            this.getTextFieldInitalValue(source)
+            this.getDateForOutput()
         );
         return ret;
     }
@@ -474,13 +464,15 @@ export class KupDatePicker {
             textfieldData['trailingIcon'] = true;
         }
 
+        textfieldData['initialValue'] = initialValue;
+
         let ref: PICKER_COMPONENT_INFO = { type: source };
 
         let comp: HTMLElement = (
             <kup-text-field
                 {...textfieldData}
                 style={elStyle}
-                initial-value={initialValue}
+                /*initial-value={initialValue}*/
                 id={this.rootElement.id + '_text-field'}
                 /* onKupTextFieldBlur={(e: any) => this.onKupBlur(e)} */
                 onKupTextFieldChange={(e: any) => this.onKupChange(e, source)}
@@ -509,6 +501,23 @@ export class KupDatePicker {
         let endYear: number = initYear + 16 - 1;
 
         return { initYear: initYear, endYear: endYear };
+    }
+
+    isRelatedTargetInThisComponent(e: any): boolean {
+        if (!e.relatedTarget) {
+            return false;
+        }
+        let id = e.relatedTarget.id;
+        if (id == null || id.trim() == '') {
+            return false;
+        }
+        if (id == this.getTextFieldId(PICKER_SOURCE_EVENT.DATE)) {
+            return true;
+        }
+
+        let idConc =
+            '#prev-page#next-page#date-picker-div#change-view-button#calendar#';
+        return idConc.indexOf('#' + id + '#') >= 0;
     }
 
     prepDatePicker() {
@@ -540,22 +549,22 @@ export class KupDatePicker {
 
         let prevButtonComp = null;
         let nextButtonComp = null;
-        if (this.calendarView != PICKER_SOURCE_EVENT.MONTH) {
-            prevButtonComp = (
-                <kup-button
-                    id="prev-page"
-                    icon="chevron_left"
-                    onKupButtonClick={() => this.prevPage()}
-                ></kup-button>
-            );
-            nextButtonComp = (
-                <kup-button
-                    id="next-page"
-                    icon="chevron_right"
-                    onKupButtonClick={() => this.nextPage()}
-                ></kup-button>
-            );
-        }
+        //if (this.calendarView != PICKER_SOURCE_EVENT.MONTH) {
+        prevButtonComp = (
+            <kup-button
+                id="prev-page"
+                icon="chevron_left"
+                onKupButtonClick={(e) => this.prevPage(e)}
+            ></kup-button>
+        );
+        nextButtonComp = (
+            <kup-button
+                id="next-page"
+                icon="chevron_right"
+                onKupButtonClick={(e) => this.nextPage(e)}
+            ></kup-button>
+        );
+        //}
 
         return (
             <div
@@ -565,11 +574,8 @@ export class KupDatePicker {
                     (this.status[source].pickerContainerEl = el as any)
                 }
                 onBlur={(e: any) => {
-                    if (e.relatedTarget) {
-                        if (e.relatedTarget.id != this.getTextFieldId(source)) {
-                            this.onKupBlur(e, this.getSourceEvent());
-                        }
-                    } else {
+                    e.stopPropagation();
+                    if (!this.isRelatedTargetInThisComponent(e)) {
                         this.onKupBlur(e, this.getSourceEvent());
                     }
                 }}
@@ -578,10 +584,11 @@ export class KupDatePicker {
                     <div class="sub-1 nav">
                         {prevButtonComp}
                         <kup-button
+                            customStyle="#kup-component button {text-transform:capitalize}"
                             id="change-view-button"
                             styling="flat"
                             label={changeViewButtonLabel}
-                            onKupButtonClick={() => this.changeView()}
+                            onKupButtonClick={(e) => this.changeView(e)}
                         ></kup-button>
                         {nextButtonComp}
                     </div>
@@ -652,9 +659,14 @@ export class KupDatePicker {
                     'data-index':
                         date.getFullYear().toString() +
                         '-' +
-                        (date.getMonth() + 1).toString() +
+                        fillString(
+                            (date.getMonth() + 1).toString(),
+                            '0',
+                            2,
+                            true
+                        ) +
                         '-' +
-                        dayCount,
+                        fillString(dayCount.toString(), '0', 2, true),
                 };
                 if (
                     dayCount === selecteDate.getDate() &&
@@ -819,7 +831,8 @@ export class KupDatePicker {
         );
     }
 
-    private changeView() {
+    private changeView(e: CustomEvent) {
+        e.stopPropagation();
         switch (this.calendarView) {
             case PICKER_SOURCE_EVENT.DATE: {
                 this.calendarView = PICKER_SOURCE_EVENT.MONTH;
@@ -836,7 +849,8 @@ export class KupDatePicker {
         this.forceUpdate();
     }
 
-    private prevPage() {
+    private prevPage(e: CustomEvent) {
+        e.stopPropagation();
         let source = PICKER_SOURCE_EVENT.DATE;
         let date: Date = this.status[source].pickerEl.date;
         let yy: number = date.getFullYear();
@@ -850,6 +864,9 @@ export class KupDatePicker {
                 mm--;
             }
         }
+        if (this.calendarView == PICKER_SOURCE_EVENT.MONTH) {
+            yy--;
+        }
         if (this.calendarView == PICKER_SOURCE_EVENT.YEAR) {
             let yearRange = this.getInitEndYear(yy);
             yy = yearRange.initYear - 1;
@@ -858,11 +875,11 @@ export class KupDatePicker {
         date.setMonth(mm);
         this.status[source].pickerEl.value = date.toISOString();
         this.status[source].pickerEl.date = date;
-        this.getTextFieldData()['forceFocus'] = true;
         this.forceUpdate();
     }
 
-    private nextPage() {
+    private nextPage(e: CustomEvent) {
+        e.stopPropagation();
         let source = PICKER_SOURCE_EVENT.DATE;
         let date: Date = this.status[source].pickerEl.date;
         let yy: number = date.getFullYear();
@@ -875,6 +892,9 @@ export class KupDatePicker {
                 mm++;
             }
         }
+        if (this.calendarView == PICKER_SOURCE_EVENT.MONTH) {
+            yy++;
+        }
         if (this.calendarView == PICKER_SOURCE_EVENT.YEAR) {
             let yearRange = this.getInitEndYear(yy);
             yy = yearRange.endYear + 1;
@@ -883,7 +903,6 @@ export class KupDatePicker {
         date.setMonth(mm);
         this.status[source].pickerEl.value = date.toISOString();
         this.status[source].pickerEl.date = date;
-        this.getTextFieldData()['forceFocus'] = true;
         this.forceUpdate();
     }
 
