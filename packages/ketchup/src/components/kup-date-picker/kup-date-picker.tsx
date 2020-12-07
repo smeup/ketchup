@@ -248,7 +248,7 @@ export class KupDatePicker {
     }
 
     onKupInput(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
-        this.refreshPickerValue(source, e.detail.value, this.kupInput);
+        this.refreshPickerValue(source, e.detail.value, this.kupInput, true);
     }
 
     onKupTextFieldSubmit(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
@@ -284,15 +284,18 @@ export class KupDatePicker {
     refreshPickerValue(
         source: PICKER_SOURCE_EVENT,
         eventDetailValue: string,
-        eventToRaise: EventEmitter
+        eventToRaise: EventEmitter,
+        isOnInputEvent?: boolean
     ) {
         let newValue = null;
         if (source == PICKER_SOURCE_EVENT.DATE) {
             if (isValidFormattedStringDate(eventDetailValue)) {
-                this.dateValue = formattedStringToDefaultUnformattedStringDate(
+                newValue = formattedStringToDefaultUnformattedStringDate(
                     eventDetailValue
                 );
-                newValue = this.dateValue;
+                if (isOnInputEvent != true) {
+                    this.dateValue = newValue;
+                }
             }
         }
 
@@ -355,6 +358,9 @@ export class KupDatePicker {
             return this.dateValue;
         }
         if (source == PICKER_SOURCE_EVENT.MONTH) {
+            return this.status[PICKER_SOURCE_EVENT.DATE].pickerEl.value;
+        }
+        if (source == PICKER_SOURCE_EVENT.YEAR) {
             return this.status[PICKER_SOURCE_EVENT.DATE].pickerEl.value;
         }
         return null;
@@ -616,12 +622,14 @@ export class KupDatePicker {
         let days = getDaysOfWeekAsStringByLocale(this.firstDayIndex);
 
         let date: Date = this.status[PICKER_SOURCE_EVENT.DATE].pickerEl.date;
-        let selecteDate: Date;
+        let selecteDate: Date = new Date(date);
+        /*
         if (this.dateValue == null || this.dateValue.trim() == '') {
             selecteDate = new Date();
         } else {
             selecteDate = new Date(this.dateValue);
-        }
+        }*/
+
         let thead = [];
         let tbody = [];
         for (let index = 0; index < days.length; index++) {

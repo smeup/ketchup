@@ -71,6 +71,13 @@ export default {
           try: 'json',
         },
         {
+          prop: 'manageSeconds',
+          description: 'Flag for set managing seconds too.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'timeMinutesStep',
           description: 'The minutes step for values of the time picker.',
           type: 'number',

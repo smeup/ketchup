@@ -19,8 +19,9 @@ import { ComponentListElement } from '../kup-list/kup-list-declarations';
 
 import {
     ISO_DEFAULT_TIME_FORMAT,
+    ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
     isValidFormattedStringTime,
-    formattedStringToDefaultUnformattedStringTime,
+    formattedStringToCustomUnformattedStringTime,
     unformattedStringToFormattedStringTime,
     unformatDateTime,
     formatTime,
@@ -48,6 +49,10 @@ export class KupTimePicker {
      * Minutes step
      */
     @Prop() timeMinutesStep: number = 10;
+    /**
+     * Manage seconds
+     */
+    @Prop() manageSeconds: boolean = false;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
@@ -244,7 +249,7 @@ export class KupTimePicker {
     }
 
     onKupInput(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
-        this.refreshPickerValue(source, e.detail.value, this.kupInput);
+        this.refreshPickerValue(source, e.detail.value, this.kupInput, true);
     }
 
     onKupTextFieldSubmit(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
@@ -275,15 +280,24 @@ export class KupTimePicker {
     refreshPickerValue(
         source: PICKER_SOURCE_EVENT,
         eventDetailValue: string,
-        eventToRaise: EventEmitter
+        eventToRaise: EventEmitter,
+        isOnInputEvent?: boolean
     ) {
         let newValue = null;
         if (source == PICKER_SOURCE_EVENT.TIME) {
-            if (isValidFormattedStringTime(eventDetailValue)) {
-                this.timeValue = formattedStringToDefaultUnformattedStringTime(
-                    eventDetailValue
+            if (
+                isValidFormattedStringTime(eventDetailValue, this.manageSeconds)
+            ) {
+                newValue = formattedStringToCustomUnformattedStringTime(
+                    eventDetailValue,
+                    this.manageSeconds
+                        ? ISO_DEFAULT_TIME_FORMAT
+                        : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
+                    this.manageSeconds
                 );
-                newValue = this.timeValue;
+                if (isOnInputEvent != true) {
+                    this.timeValue = newValue;
+                }
             }
         }
 
@@ -531,7 +545,12 @@ export class KupTimePicker {
         if (value == null || value.trim() == '') {
             selectedTime = new Date();
         } else {
-            selectedTime = unformatDateTime(value, ISO_DEFAULT_TIME_FORMAT);
+            selectedTime = unformatDateTime(
+                value,
+                this.manageSeconds
+                    ? ISO_DEFAULT_TIME_FORMAT
+                    : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS
+            );
         }
 
         let totalDayMinutes: number = 24 * 60;
@@ -547,8 +566,14 @@ export class KupTimePicker {
             ) {
                 selected = true;
             }
-            let text: string = formatTime(date);
-            let value = formattedStringToDefaultUnformattedStringTime(text);
+            let text: string = formatTime(date, this.manageSeconds);
+            let value = formattedStringToCustomUnformattedStringTime(
+                text,
+                this.manageSeconds
+                    ? ISO_DEFAULT_TIME_FORMAT
+                    : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
+                this.manageSeconds
+            );
             let item: ComponentListElement = {
                 text: text,
                 value: value,
@@ -565,7 +590,10 @@ export class KupTimePicker {
         if (this.timeValue == null || this.timeValue.trim() == '') {
             return '';
         }
-        let v1 = unformattedStringToFormattedStringTime(this.timeValue);
+        let v1 = unformattedStringToFormattedStringTime(
+            this.timeValue,
+            this.manageSeconds
+        );
         return v1;
     }
 

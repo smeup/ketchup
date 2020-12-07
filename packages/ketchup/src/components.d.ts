@@ -1377,6 +1377,10 @@ export namespace Components {
           * Props of the sub-components (time input text field)
          */
         "data": Object;
+        /**
+          * Manage seconds
+         */
+        "manageSeconds": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Minutes step
@@ -3580,6 +3584,10 @@ declare namespace LocalJSX {
           * Props of the sub-components (time input text field)
          */
         "data"?: Object;
+        /**
+          * Manage seconds
+         */
+        "manageSeconds"?: boolean;
         "onKupTimePickerBlur"?: (event: CustomEvent<{
         value: any;
         source: PICKER_SOURCE_EVENT;
