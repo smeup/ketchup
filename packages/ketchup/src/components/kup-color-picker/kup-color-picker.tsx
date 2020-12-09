@@ -23,11 +23,10 @@ import { positionRecalc } from '../../utils/recalc-position';
     styleUrl: 'kup-color-picker.scss',
     shadow: true,
 })
-// TODO: currently is only a simple color output... in future it will open a widget to change color when clicked (if enabled)
 export class KupColorPicker {
     @Element() rootElement: HTMLElement;
-    @State() hexValue: string = undefined;
     @State() customStyleTheme: string = undefined;
+    @State() hexValue: string = undefined;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -43,7 +42,6 @@ export class KupColorPicker {
     @Prop() value: string;
 
     private anchorEl = undefined;
-    private pickerEl = undefined;
 
     @Event({
         eventName: 'kupColorPickerChange',
