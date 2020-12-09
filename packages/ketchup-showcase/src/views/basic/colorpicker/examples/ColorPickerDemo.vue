@@ -35,6 +35,13 @@ export default {
           try: 'css',
         },
         {
+          prop: 'data',
+          description: 'Props of the text field.',
+          type: 'Object',
+          default: 'undefined',
+          try: 'json',
+        },
+        {
           prop: 'disabled',
           description:
             'Sets the component to disabled state, making it not interactable.',
@@ -43,9 +50,16 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'value',
+          prop: 'swatchOnly',
           description:
-            'The value of the color (css name or hex code or rgb code)',
+            "When true, the component's text field will be replaced by a swatch.",
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'value',
+          description: 'The value of the color in CSS format.',
           type: 'string',
           default: '',
           try: 'field',
