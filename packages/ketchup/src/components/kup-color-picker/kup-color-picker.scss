@@ -1,3 +1,11 @@
+:host {
+  display: block;
+}
+
+#kup-component {
+  width: max-content;
+}
+
 .color-picker {
   outline: none;
   height: 1.5rem;
@@ -371,5 +379,10 @@ $color-bg: var(--kup-background-color);
 .picker_wrapper.popup .picker_arrow::before,
 .picker_wrapper.popup .picker_arrow::after {
   box-shadow: var(--kup-box-shadow);
+  margin: 0;
   outline: none;
+}
+
+.dynamic-position:not(.dynamic-position-active) {
+  display: none;
 }
