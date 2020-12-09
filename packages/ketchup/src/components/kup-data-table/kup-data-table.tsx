@@ -3040,13 +3040,15 @@ export class KupDataTable {
                 let title: string = undefined;
                 if (_hasTooltip) {
                     cellClass['is-obj'] = true;
-                    title =
-                        cell.obj.t +
-                        '; ' +
-                        cell.obj.p +
-                        '; ' +
-                        cell.obj.k +
-                        ';';
+                    if (document.documentElement.kupDebug) {
+                        title =
+                            cell.obj.t +
+                            '; ' +
+                            cell.obj.p +
+                            '; ' +
+                            cell.obj.k +
+                            ';';
+                    }
                     eventHandlers = {
                         onMouseEnter: (ev) => {
                             if (this.showTooltipOnRightClick == false) {
