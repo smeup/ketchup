@@ -89,9 +89,9 @@ export class KupColorPicker {
     private prepTextField() {
         let initialValue = undefined;
         let textfieldData = { ...this.data['text-field'] };
-        let customStyle: string = ` #kup-component .icon-container{background-color:${this.hexValue}}`;
+        let customStyle: string = ` #kup-component .icon-container{box-sizing: border-box; border: 3px solid rgba(var(--kup-text-color-rgb),.575); border-radius: 50%; background-color:${this.hexValue}}`;
         if (!textfieldData['icon']) {
-            textfieldData['icon'] = 'color_lens';
+            textfieldData['icon'] = 'brightness-1';
         }
         if (!textfieldData['customStyle']) {
             textfieldData['customStyle'] = customStyle;
