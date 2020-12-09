@@ -67,7 +67,6 @@ export class KupColorPicker {
     setHexValue() {
         if (this.value) {
             this.hexValue = colorCheck(this.value).hexColor;
-            console.log('ews');
             if (
                 this.picker &&
                 this.hexValue &&
