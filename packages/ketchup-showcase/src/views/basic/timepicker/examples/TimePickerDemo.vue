@@ -78,6 +78,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showClock',
+          description:
+            'When set to true, the drop down menu will display a clock.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'timeMinutesStep',
           description: 'The minutes step for values of the time picker.',
           type: 'number',
