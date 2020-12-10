@@ -787,7 +787,7 @@ export class KupTree {
         return visibility;
     }
 
-    private createIconElement(CSSClass: string, icon: string) {
+    private createIconElement(CSSClass: string, icon: string, iconColor: string) {
         if (
             icon.indexOf('.') > -1 ||
             icon.indexOf('/') > -1 ||
@@ -805,6 +805,7 @@ export class KupTree {
             )}') no-repeat center`;
             CSSClass += ' icon-container material-icons';
             let iconStyle = {
+                ...(iconColor ? { background: iconColor } : {}),
                 mask: svg,
                 webkitMask: svg,
             };
@@ -1087,7 +1088,8 @@ export class KupTree {
                 } else {
                     treeNodeIcon = this.createIconElement(
                         'kup-tree__icon icon-container',
-                        treeNodeData.icon
+                        treeNodeData.icon,
+                        treeNodeData.iconColor
                     );
                 }
             } else {
