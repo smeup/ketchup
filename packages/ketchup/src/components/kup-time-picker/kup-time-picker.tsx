@@ -19,8 +19,9 @@ import { ComponentListElement } from '../kup-list/kup-list-declarations';
 
 import {
     ISO_DEFAULT_TIME_FORMAT,
+    ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
     isValidFormattedStringTime,
-    formattedStringToDefaultUnformattedStringTime,
+    formattedStringToCustomUnformattedStringTime,
     unformattedStringToFormattedStringTime,
     unformatDateTime,
     formatTime,
@@ -41,17 +42,17 @@ export class KupTimePicker {
     @State() customStyleTheme: string = undefined;
     @State() timeValue: string = '';
     /**
-     * Props of the time text field.
+     * Props of the sub-components (time input text field)
      */
-    @Prop() timeTextfieldData: Object = {};
-    /**
-     * The initial value of the time picker.
-     */
-    @Prop() timeInitialValue: string = '';
+    @Prop() data: Object = {};
     /**
      * Minutes step
      */
     @Prop() timeMinutesStep: number = 10;
+    /**
+     * Manage seconds
+     */
+    @Prop() manageSeconds: boolean = false;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
@@ -178,13 +179,9 @@ export class KupTimePicker {
         });
     }
 
-    @Watch('timeInitialValue')
-    watchTimeInitialValue() {
-        this.timeValue = this.timeInitialValue;
-        this.setTextFieldInitalValue(
-            PICKER_SOURCE_EVENT.TIME,
-            this.getTimeForOutput()
-        );
+    @Watch('data')
+    watchInitialValue() {
+        this.timeValue = this.getTextFieldData().initialValue;
     }
 
     @Watch('timeMinutesStep')
@@ -252,7 +249,7 @@ export class KupTimePicker {
     }
 
     onKupInput(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
-        this.refreshPickerValue(source, e.detail.value, this.kupInput);
+        this.refreshPickerValue(source, e.detail.value, this.kupInput, true);
     }
 
     onKupTextFieldSubmit(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
@@ -283,15 +280,24 @@ export class KupTimePicker {
     refreshPickerValue(
         source: PICKER_SOURCE_EVENT,
         eventDetailValue: string,
-        eventToRaise: EventEmitter
+        eventToRaise: EventEmitter,
+        isOnInputEvent?: boolean
     ) {
         let newValue = null;
         if (source == PICKER_SOURCE_EVENT.TIME) {
-            if (isValidFormattedStringTime(eventDetailValue)) {
-                this.timeValue = formattedStringToDefaultUnformattedStringTime(
-                    eventDetailValue
+            if (
+                isValidFormattedStringTime(eventDetailValue, this.manageSeconds)
+            ) {
+                newValue = formattedStringToCustomUnformattedStringTime(
+                    eventDetailValue,
+                    this.manageSeconds
+                        ? ISO_DEFAULT_TIME_FORMAT
+                        : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
+                    this.manageSeconds
                 );
-                newValue = this.timeValue;
+                if (isOnInputEvent != true) {
+                    this.timeValue = newValue;
+                }
             }
         }
 
@@ -337,13 +343,6 @@ export class KupTimePicker {
         if (this.status[source].textfieldEl !== undefined) {
             this.status[source].textfieldEl.initialValue = value;
         }
-    }
-
-    getTextFieldInitalValue(source: PICKER_SOURCE_EVENT): string {
-        if (this.status[source].textfieldEl !== undefined) {
-            return this.status[source].textfieldEl.initialValue;
-        }
-        return null;
     }
 
     getValueForPickerComponent(source: PICKER_SOURCE_EVENT) {
@@ -403,17 +402,28 @@ export class KupTimePicker {
         return this.status[source].pickerOpened;
     }
 
+    getTextFieldData() {
+        if (this.data['text-field'] == null) {
+            this.data['text-field'] = {};
+        }
+        return this.data['text-field'];
+    }
+
     getTextFieldId(source: PICKER_SOURCE_EVENT): string {
         return this.status[source].textfieldEl.id;
+    }
+
+    getPickerElId(source: PICKER_SOURCE_EVENT): string {
+        return this.status[source].pickerEl.id;
     }
 
     prepTimeTextfield(): PICKER_COMPONENT_INFO {
         let source = PICKER_SOURCE_EVENT.TIME;
         let ret: PICKER_COMPONENT_INFO = this.prepTextfield(
             source,
-            this.timeTextfieldData,
+            this.getTextFieldData(),
             this.status[source].elStyle,
-            this.getTextFieldInitalValue(source)
+            this.getTimeForOutput()
         );
         return ret;
     }
@@ -446,13 +456,15 @@ export class KupTimePicker {
             textfieldData['trailingIcon'] = true;
         }
 
+        textfieldData['initialValue'] = initialValue;
+
         let ref: PICKER_COMPONENT_INFO = { type: source };
 
         let comp: HTMLElement = (
             <kup-text-field
                 {...textfieldData}
                 style={elStyle}
-                initial-value={initialValue}
+                /*initial-value={initialValue}*/
                 id={this.rootElement.id + '_text-field'}
                 /* onKupTextFieldBlur={(e: any) => this.onKupBlur(e)} */
                 onKupTextFieldChange={(e: any) => this.onKupChange(e, source)}
@@ -476,6 +488,25 @@ export class KupTimePicker {
         return ref;
     }
 
+    isRelatedTargetInThisComponent(e: any): boolean {
+        if (!e.relatedTarget) {
+            return false;
+        }
+        let id = e.relatedTarget.id;
+        if (id == null || id.trim() == '') {
+            return false;
+        }
+        if (id == this.getTextFieldId(PICKER_SOURCE_EVENT.TIME)) {
+            return true;
+        }
+        if (id == this.getPickerElId(PICKER_SOURCE_EVENT.TIME)) {
+            return true;
+        }
+
+        let idConc = '#time-picker-div#';
+        return idConc.indexOf('#' + id + '#') >= 0;
+    }
+
     prepTimePicker() {
         let source = PICKER_SOURCE_EVENT.TIME;
 
@@ -487,11 +518,8 @@ export class KupTimePicker {
                     (this.status[source].pickerContainerEl = el as any)
                 }
                 onBlur={(e: any) => {
-                    if (e.relatedTarget) {
-                        if (e.relatedTarget.id != this.getTextFieldId(source)) {
-                            this.onKupBlur(e, this.getSourceEvent());
-                        }
-                    } else {
+                    e.stopPropagation();
+                    if (!this.isRelatedTargetInThisComponent(e)) {
                         this.onKupBlur(e, this.getSourceEvent());
                     }
                 }}
@@ -517,7 +545,12 @@ export class KupTimePicker {
         if (value == null || value.trim() == '') {
             selectedTime = new Date();
         } else {
-            selectedTime = unformatDateTime(value, ISO_DEFAULT_TIME_FORMAT);
+            selectedTime = unformatDateTime(
+                value,
+                this.manageSeconds
+                    ? ISO_DEFAULT_TIME_FORMAT
+                    : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS
+            );
         }
 
         let totalDayMinutes: number = 24 * 60;
@@ -533,8 +566,14 @@ export class KupTimePicker {
             ) {
                 selected = true;
             }
-            let text: string = formatTime(date);
-            let value = formattedStringToDefaultUnformattedStringTime(text);
+            let text: string = formatTime(date, this.manageSeconds);
+            let value = formattedStringToCustomUnformattedStringTime(
+                text,
+                this.manageSeconds
+                    ? ISO_DEFAULT_TIME_FORMAT
+                    : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
+                this.manageSeconds
+            );
             let item: ComponentListElement = {
                 text: text,
                 value: value,
@@ -551,7 +590,10 @@ export class KupTimePicker {
         if (this.timeValue == null || this.timeValue.trim() == '') {
             return '';
         }
-        let v1 = unformattedStringToFormattedStringTime(this.timeValue);
+        let v1 = unformattedStringToFormattedStringTime(
+            this.timeValue,
+            this.manageSeconds
+        );
         return v1;
     }
 
@@ -577,7 +619,7 @@ export class KupTimePicker {
         };
 
         this.watchTimeMinutesStep();
-        this.watchTimeInitialValue();
+        this.watchInitialValue();
     }
 
     componentDidLoad() {

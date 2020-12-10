@@ -5,12 +5,12 @@
 
 ## Properties
 
-| Property            | Attribute            | Description                                                                                                     | Type     | Default     |
-| ------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
-| `customStyle`       | `custom-style`       | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string` | `undefined` |
-| `timeInitialValue`  | `time-initial-value` | The initial value of the time picker.                                                                           | `string` | `''`        |
-| `timeMinutesStep`   | `time-minutes-step`  | Minutes step                                                                                                    | `number` | `10`        |
-| `timeTextfieldData` | --                   | Props of the time text field.                                                                                   | `Object` | `{}`        |
+| Property          | Attribute           | Description                                                                                                     | Type      | Default     |
+| ----------------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `customStyle`     | `custom-style`      | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `undefined` |
+| `data`            | --                  | Props of the sub-components (time input text field)                                                             | `Object`  | `{}`        |
+| `manageSeconds`   | `manage-seconds`    | Manage seconds                                                                                                  | `boolean` | `false`     |
+| `timeMinutesStep` | `time-minutes-step` | Minutes step                                                                                                    | `number`  | `10`        |
 
 
 ## Events

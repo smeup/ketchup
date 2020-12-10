@@ -23,6 +23,7 @@ import {
     getMonthsAsStringByLocale,
     getDaysOfWeekAsStringByLocale,
     ISO_DEFAULT_DATE_FORMAT,
+    fillString,
 } from '../../utils/utils';
 import {
     PICKER_COMPONENT_INFO,
@@ -42,13 +43,9 @@ export class KupDatePicker {
     @State() dateValue: string = '';
     @State() stateSwitcher: boolean = false;
     /**
-     * Props of the date text field.
+     * Props of the sub-components (date input text field).
      */
-    @Prop() dateTextfieldData: Object = {};
-    /**
-     * The initial value of the date picker.
-     */
-    @Prop() dateInitialValue: string = '';
+    @Prop() data: Object = {};
     /**
      * First day number (0 - sunday, 1 - monday, ...)
      */
@@ -59,6 +56,7 @@ export class KupDatePicker {
     @Prop() customStyle: string = undefined;
 
     private status: PICKER_STATUS = {};
+    private calendarView: PICKER_SOURCE_EVENT = PICKER_SOURCE_EVENT.DATE;
 
     //---- Events ----
 
@@ -179,13 +177,24 @@ export class KupDatePicker {
         });
     }
 
-    @Watch('dateInitialValue')
-    watchDateInitialValue() {
-        this.dateValue = this.dateInitialValue;
-        this.setTextFieldInitalValue(
-            PICKER_SOURCE_EVENT.DATE,
-            this.getDateForOutput()
-        );
+    onKupDatePickerMonthYearItemClick(value: string) {
+        let source = PICKER_SOURCE_EVENT.DATE;
+        switch (this.calendarView) {
+            case PICKER_SOURCE_EVENT.MONTH: {
+                this.calendarView = PICKER_SOURCE_EVENT.DATE;
+                break;
+            }
+            case PICKER_SOURCE_EVENT.YEAR: {
+                this.calendarView = PICKER_SOURCE_EVENT.MONTH;
+                break;
+            }
+        }
+        this.refreshPickerComponentValue(source, value);
+    }
+
+    @Watch('data')
+    watchInitialValue() {
+        this.dateValue = this.getTextFieldData().initialValue;
     }
 
     @Watch('firstDayIndex')
@@ -239,7 +248,7 @@ export class KupDatePicker {
     }
 
     onKupInput(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
-        this.refreshPickerValue(source, e.detail.value, this.kupInput);
+        this.refreshPickerValue(source, e.detail.value, this.kupInput, true);
     }
 
     onKupTextFieldSubmit(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
@@ -264,6 +273,7 @@ export class KupDatePicker {
     }
 
     forceUpdate() {
+        this.getTextFieldData()['forceFocus'] = true;
         this.stateSwitcher = !this.stateSwitcher;
     }
 
@@ -274,24 +284,29 @@ export class KupDatePicker {
     refreshPickerValue(
         source: PICKER_SOURCE_EVENT,
         eventDetailValue: string,
-        eventToRaise: EventEmitter
+        eventToRaise: EventEmitter,
+        isOnInputEvent?: boolean
     ) {
         let newValue = null;
         if (source == PICKER_SOURCE_EVENT.DATE) {
             if (isValidFormattedStringDate(eventDetailValue)) {
-                this.dateValue = formattedStringToDefaultUnformattedStringDate(
+                newValue = formattedStringToDefaultUnformattedStringDate(
                     eventDetailValue
                 );
-                newValue = this.dateValue;
+                if (isOnInputEvent != true) {
+                    this.dateValue = newValue;
+                }
             }
         }
 
         if (newValue != null) {
             this.refreshPickerComponentValue(source, newValue);
-            eventToRaise.emit({
-                value: newValue,
-                source: source,
-            });
+            if (eventToRaise != null) {
+                eventToRaise.emit({
+                    value: newValue,
+                    source: source,
+                });
+            }
         }
     }
 
@@ -338,21 +353,21 @@ export class KupDatePicker {
         }
     }
 
-    getTextFieldInitalValue(source: PICKER_SOURCE_EVENT): string {
-        if (this.status[source].textfieldEl !== undefined) {
-            return this.status[source].textfieldEl.initialValue;
-        }
-        return null;
-    }
-
     getValueForPickerComponent(source: PICKER_SOURCE_EVENT) {
         if (source == PICKER_SOURCE_EVENT.DATE) {
             return this.dateValue;
+        }
+        if (source == PICKER_SOURCE_EVENT.MONTH) {
+            return this.status[PICKER_SOURCE_EVENT.DATE].pickerEl.value;
+        }
+        if (source == PICKER_SOURCE_EVENT.YEAR) {
+            return this.status[PICKER_SOURCE_EVENT.DATE].pickerEl.value;
         }
         return null;
     }
 
     openPicker(source: PICKER_SOURCE_EVENT) {
+        this.calendarView = PICKER_SOURCE_EVENT.DATE;
         let textfieldEl = this.status[source].textfieldEl;
         let containerEl = this.status[source].pickerContainerEl;
         this.status[source].pickerOpened = true;
@@ -382,6 +397,9 @@ export class KupDatePicker {
     }
 
     closePicker(source: PICKER_SOURCE_EVENT, fromOnBlur?: boolean) {
+        if (source == PICKER_SOURCE_EVENT.DATE) {
+            this.closePicker(PICKER_SOURCE_EVENT.MONTH, fromOnBlur);
+        }
         let textfieldEl = this.status[source].textfieldEl;
         let containerEl = this.status[source].pickerContainerEl;
         this.status[source].pickerOpened = false;
@@ -402,6 +420,13 @@ export class KupDatePicker {
         return this.status[source].pickerOpened;
     }
 
+    getTextFieldData() {
+        if (this.data['text-field'] == null) {
+            this.data['text-field'] = {};
+        }
+        return this.data['text-field'];
+    }
+
     getTextFieldId(source: PICKER_SOURCE_EVENT): string {
         return this.status[source].textfieldEl.id;
     }
@@ -410,9 +435,9 @@ export class KupDatePicker {
         let source = PICKER_SOURCE_EVENT.DATE;
         let ret: PICKER_COMPONENT_INFO = this.prepTextfield(
             source,
-            this.dateTextfieldData,
+            this.getTextFieldData(),
             this.status[source].elStyle,
-            this.getTextFieldInitalValue(source)
+            this.getDateForOutput()
         );
         return ret;
     }
@@ -445,13 +470,15 @@ export class KupDatePicker {
             textfieldData['trailingIcon'] = true;
         }
 
+        textfieldData['initialValue'] = initialValue;
+
         let ref: PICKER_COMPONENT_INFO = { type: source };
 
         let comp: HTMLElement = (
             <kup-text-field
                 {...textfieldData}
                 style={elStyle}
-                initial-value={initialValue}
+                /*initial-value={initialValue}*/
                 id={this.rootElement.id + '_text-field'}
                 /* onKupTextFieldBlur={(e: any) => this.onKupBlur(e)} */
                 onKupTextFieldChange={(e: any) => this.onKupChange(e, source)}
@@ -475,10 +502,75 @@ export class KupDatePicker {
         return ref;
     }
 
+    getInitEndYear(curYear: number): { initYear: number; endYear: number } {
+        let initYear: number = curYear - (curYear % 10);
+        let endYear: number = initYear + 16 - 1;
+
+        return { initYear: initYear, endYear: endYear };
+    }
+
+    isRelatedTargetInThisComponent(e: any): boolean {
+        if (!e.relatedTarget) {
+            return false;
+        }
+        let id = e.relatedTarget.id;
+        if (id == null || id.trim() == '') {
+            return false;
+        }
+        if (id == this.getTextFieldId(PICKER_SOURCE_EVENT.DATE)) {
+            return true;
+        }
+
+        let idConc =
+            '#prev-page#next-page#date-picker-div#change-view-button#calendar#';
+        return idConc.indexOf('#' + id + '#') >= 0;
+    }
+
     prepDatePicker() {
         let source = PICKER_SOURCE_EVENT.DATE;
         let date: Date = this.status[source].pickerEl.date;
         let months = getMonthsAsStringByLocale();
+        let curYear: number = date.getFullYear();
+        let yearRange = this.getInitEndYear(curYear);
+        let initYear: number = yearRange.initYear;
+        let endYear: number = yearRange.endYear;
+
+        let changeViewButtonLabel: string = 'not-set';
+        switch (this.calendarView) {
+            case PICKER_SOURCE_EVENT.DATE: {
+                changeViewButtonLabel =
+                    months[date.getMonth()] + ', ' + curYear.toString();
+                break;
+            }
+            case PICKER_SOURCE_EVENT.MONTH: {
+                changeViewButtonLabel = curYear.toString();
+                break;
+            }
+            case PICKER_SOURCE_EVENT.YEAR: {
+                changeViewButtonLabel =
+                    initYear.toString() + ' - ' + endYear.toString();
+                break;
+            }
+        }
+
+        let prevButtonComp = null;
+        let nextButtonComp = null;
+        //if (this.calendarView != PICKER_SOURCE_EVENT.MONTH) {
+        prevButtonComp = (
+            <kup-button
+                id="prev-page"
+                icon="chevron_left"
+                onKupButtonClick={(e) => this.prevPage(e)}
+            ></kup-button>
+        );
+        nextButtonComp = (
+            <kup-button
+                id="next-page"
+                icon="chevron_right"
+                onKupButtonClick={(e) => this.nextPage(e)}
+            ></kup-button>
+        );
+        //}
 
         return (
             <div
@@ -488,36 +580,23 @@ export class KupDatePicker {
                     (this.status[source].pickerContainerEl = el as any)
                 }
                 onBlur={(e: any) => {
-                    if (e.relatedTarget) {
-                        if (e.relatedTarget.id != this.getTextFieldId(source)) {
-                            this.onKupBlur(e, this.getSourceEvent());
-                        }
-                    } else {
+                    e.stopPropagation();
+                    if (!this.isRelatedTargetInThisComponent(e)) {
                         this.onKupBlur(e, this.getSourceEvent());
                     }
                 }}
             >
                 <div class="section-1">
                     <div class="sub-1 nav">
+                        {prevButtonComp}
                         <kup-button
-                            id="prev-month"
-                            icon="chevron_left"
-                            onKupButtonClick={() => this.prevMonth()}
-                        ></kup-button>
-                        <kup-button
-                            id="year-button"
+                            customStyle="#kup-component button {text-transform:capitalize}"
+                            id="change-view-button"
                             styling="flat"
-                            label={
-                                months[date.getMonth()] +
-                                ', ' +
-                                date.getFullYear().toString()
-                            }
+                            label={changeViewButtonLabel}
+                            onKupButtonClick={(e) => this.changeView(e)}
                         ></kup-button>
-                        <kup-button
-                            id="next-month"
-                            icon="chevron_right"
-                            onKupButtonClick={() => this.nextMonth()}
-                        ></kup-button>
+                        {nextButtonComp}
                     </div>
                 </div>
                 <div class="section-2">{this.createCalendar()}</div>
@@ -525,22 +604,38 @@ export class KupDatePicker {
         );
     }
 
-    private createCalendar() {
+    createCalendar() {
+        switch (this.calendarView) {
+            case PICKER_SOURCE_EVENT.DATE: {
+                return this.createDaysCalendar();
+            }
+            case PICKER_SOURCE_EVENT.MONTH: {
+                return this.createMonthsCalendar();
+            }
+            case PICKER_SOURCE_EVENT.YEAR: {
+                return this.createYearsCalendar();
+            }
+        }
+    }
+
+    private createDaysCalendar() {
         let days = getDaysOfWeekAsStringByLocale(this.firstDayIndex);
 
         let date: Date = this.status[PICKER_SOURCE_EVENT.DATE].pickerEl.date;
-        let selecteDate: Date;
+        let selecteDate: Date = new Date(date);
+        /*
         if (this.dateValue == null || this.dateValue.trim() == '') {
             selecteDate = new Date();
         } else {
             selecteDate = new Date(this.dateValue);
-        }
+        }*/
+
         let thead = [];
         let tbody = [];
         for (let index = 0; index < days.length; index++) {
             thead.push(
                 <th>
-                    <span class="day-text">{days[index]}</span>
+                    <span class="item-text">{days[index]}</span>
                 </th>
             );
         }
@@ -557,7 +652,7 @@ export class KupDatePicker {
             if (currentDayIndex == firstMonthDayIndex) {
                 break;
             }
-            row.push(<td class="day empty"></td>);
+            row.push(<td class="item empty"></td>);
             currentDayIndex++;
             daysForRowAdded++;
             if (currentDayIndex > 6) {
@@ -567,14 +662,19 @@ export class KupDatePicker {
         let dayCount = 1;
         while (dayCount <= lastMonthDay.getDate()) {
             for (let i = daysForRowAdded; i < 7; i++) {
-                let dayClass = 'day';
+                let dayClass = 'item';
                 let dataIndex = {
                     'data-index':
                         date.getFullYear().toString() +
                         '-' +
-                        (date.getMonth() + 1).toString() +
+                        fillString(
+                            (date.getMonth() + 1).toString(),
+                            '0',
+                            2,
+                            true
+                        ) +
                         '-' +
-                        dayCount,
+                        fillString(dayCount.toString(), '0', 2, true),
                 };
                 if (
                     dayCount === selecteDate.getDate() &&
@@ -587,7 +687,7 @@ export class KupDatePicker {
                     <td class={dayClass}>
                         <span
                             {...dataIndex}
-                            class="day-number"
+                            class="item-number"
                             onClick={() => {
                                 this.onKupDatePickerItemClick(
                                     dataIndex['data-index']
@@ -618,41 +718,199 @@ export class KupDatePicker {
         );
     }
 
-    private prevMonth() {
+    private createMonthsCalendar() {
+        let months = getMonthsAsStringByLocale('short');
+
+        let date: Date = this.status[PICKER_SOURCE_EVENT.DATE].pickerEl.date;
+        let selecteDate: Date;
+        if (this.dateValue == null || this.dateValue.trim() == '') {
+            selecteDate = new Date();
+        } else {
+            selecteDate = new Date(this.dateValue);
+        }
+        let tbody = [];
+        let row = [];
+        let monthCount = 0;
+        while (monthCount < 12) {
+            for (let i = 0; i < 4; i++) {
+                let monthClass = 'item';
+                let dataIndex = {
+                    'data-index':
+                        date.getFullYear().toString() +
+                        '-' +
+                        (monthCount + 1).toString() +
+                        '-' +
+                        date.getDate(),
+                };
+                if (
+                    monthCount === selecteDate.getMonth() &&
+                    date.getFullYear() == selecteDate.getFullYear()
+                ) {
+                    monthClass += ' selected';
+                }
+                row.push(
+                    <td class={monthClass}>
+                        <span
+                            {...dataIndex}
+                            class="item-number"
+                            onClick={() => {
+                                this.onKupDatePickerMonthYearItemClick(
+                                    dataIndex['data-index']
+                                );
+                            }}
+                        >
+                            {months[monthCount]}
+                        </span>
+                    </td>
+                );
+                monthCount++;
+            }
+            if (row.length > 0) {
+                tbody.push(<tr>{row}</tr>);
+                row = [];
+            }
+        }
+
+        return (
+            <table id="calendar">
+                <tbody>{tbody}</tbody>
+            </table>
+        );
+    }
+
+    private createYearsCalendar() {
         let source = PICKER_SOURCE_EVENT.DATE;
         let date: Date = this.status[source].pickerEl.date;
-        let yy: number = date.getFullYear();
-        let mm: number = date.getMonth();
-        if (mm < 1) {
-            mm = 11;
-            yy--;
+        let curYear: number = date.getFullYear();
+        let yearRange = this.getInitEndYear(curYear);
+        let initYear: number = yearRange.initYear;
+        let endYear: number = yearRange.endYear;
+
+        let selecteDate: Date;
+        if (this.dateValue == null || this.dateValue.trim() == '') {
+            selecteDate = new Date();
         } else {
-            mm--;
+            selecteDate = new Date(this.dateValue);
         }
-        date.setFullYear(yy);
-        date.setMonth(mm);
-        this.status[source].pickerEl.value = date.toISOString();
-        this.status[source].pickerEl.date = date;
-        this.dateTextfieldData['forceFocus'] = true;
+        let tbody = [];
+        let row = [];
+        let yearCount = initYear;
+        while (yearCount <= endYear) {
+            for (let i = 0; i < 4; i++) {
+                let yearClass = 'item';
+                let dataIndex = {
+                    'data-index':
+                        yearCount.toString() +
+                        '-' +
+                        (date.getMonth() + 1).toString() +
+                        '-' +
+                        date.getDate(),
+                };
+                if (yearCount === selecteDate.getFullYear()) {
+                    yearClass += ' selected';
+                }
+                row.push(
+                    <td class={yearClass}>
+                        <span
+                            {...dataIndex}
+                            class="item-number"
+                            onClick={() => {
+                                this.onKupDatePickerMonthYearItemClick(
+                                    dataIndex['data-index']
+                                );
+                            }}
+                        >
+                            {yearCount}
+                        </span>
+                    </td>
+                );
+                yearCount++;
+            }
+            if (row.length > 0) {
+                tbody.push(<tr>{row}</tr>);
+                row = [];
+            }
+        }
+
+        return (
+            <table id="calendar">
+                <tbody>{tbody}</tbody>
+            </table>
+        );
+    }
+
+    private changeView(e: CustomEvent) {
+        e.stopPropagation();
+        switch (this.calendarView) {
+            case PICKER_SOURCE_EVENT.DATE: {
+                this.calendarView = PICKER_SOURCE_EVENT.MONTH;
+                break;
+            }
+            case PICKER_SOURCE_EVENT.MONTH: {
+                this.calendarView = PICKER_SOURCE_EVENT.YEAR;
+                break;
+            }
+            case PICKER_SOURCE_EVENT.YEAR: {
+                this.calendarView = PICKER_SOURCE_EVENT.DATE;
+            }
+        }
         this.forceUpdate();
     }
 
-    private nextMonth() {
+    private prevPage(e: CustomEvent) {
+        e.stopPropagation();
         let source = PICKER_SOURCE_EVENT.DATE;
         let date: Date = this.status[source].pickerEl.date;
         let yy: number = date.getFullYear();
         let mm: number = date.getMonth();
-        if (mm > 10) {
-            mm = 0;
-            yy++;
-        } else {
-            mm++;
+
+        if (this.calendarView == PICKER_SOURCE_EVENT.DATE) {
+            if (mm < 1) {
+                mm = 11;
+                yy--;
+            } else {
+                mm--;
+            }
+        }
+        if (this.calendarView == PICKER_SOURCE_EVENT.MONTH) {
+            yy--;
+        }
+        if (this.calendarView == PICKER_SOURCE_EVENT.YEAR) {
+            let yearRange = this.getInitEndYear(yy);
+            yy = yearRange.initYear - 1;
         }
         date.setFullYear(yy);
         date.setMonth(mm);
         this.status[source].pickerEl.value = date.toISOString();
         this.status[source].pickerEl.date = date;
-        this.dateTextfieldData['forceFocus'] = true;
+        this.forceUpdate();
+    }
+
+    private nextPage(e: CustomEvent) {
+        e.stopPropagation();
+        let source = PICKER_SOURCE_EVENT.DATE;
+        let date: Date = this.status[source].pickerEl.date;
+        let yy: number = date.getFullYear();
+        let mm: number = date.getMonth();
+        if (this.calendarView == PICKER_SOURCE_EVENT.DATE) {
+            if (mm > 10) {
+                mm = 0;
+                yy++;
+            } else {
+                mm++;
+            }
+        }
+        if (this.calendarView == PICKER_SOURCE_EVENT.MONTH) {
+            yy++;
+        }
+        if (this.calendarView == PICKER_SOURCE_EVENT.YEAR) {
+            let yearRange = this.getInitEndYear(yy);
+            yy = yearRange.endYear + 1;
+        }
+        date.setFullYear(yy);
+        date.setMonth(mm);
+        this.status[source].pickerEl.value = date.toISOString();
+        this.status[source].pickerEl.date = date;
         this.forceUpdate();
     }
 
@@ -685,8 +943,12 @@ export class KupDatePicker {
             pickerOpened: false,
             pickerEl: { value: new Date().toISOString(), date: new Date() },
         };
+        this.status[PICKER_SOURCE_EVENT.MONTH] = {
+            pickerOpened: false,
+            pickerEl: { value: new Date().toISOString(), date: new Date() },
+        };
         this.watchFirstDayIndex();
-        this.watchDateInitialValue();
+        this.watchInitialValue();
     }
 
     componentDidLoad() {

@@ -3,6 +3,7 @@
 ## Usage
 
 Currently, this component depends on the two following scripts:
+
 ```javascript
 <script src="https://d3js.org/d3-path.v1.min.js"></script>
 <script src="https://d3js.org/d3-shape.v1.min.js"></script>
@@ -14,38 +15,35 @@ Our intention is to remove these dependencies as soon as possible.
 
 ##### Font size
 
-To specify the font size of the text elements of the SVG it's sufficient to set the `font-size` property on the
-component itself. This property will change the size of both the threshold and value labels.
+To specify the font size of the text elements of the SVG it's sufficient to set the `font-size` property on the component itself. This property will change the size of both the threshold and value labels.
 
 ### Useful references for this component
 
 https://codepen.io/enxaneta/pen/EVYRJJ
 
 ##### Svg syntax
-https://css-tricks.com/transforms-on-svg-elements/
-https://css-tricks.com/svg-path-syntax-illustrated-guide/
-https://developer.mozilla.org/it/docs/Web/SVG/Element
-https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
+
+https://css-tricks.com/transforms-on-svg-elements/ https://css-tricks.com/svg-path-syntax-illustrated-guide/ https://developer.mozilla.org/it/docs/Web/SVG/Element https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
 
 ##### Gauge examples
-https://plnkr.co/edit/LJlKKX1xnVwl2LoFBFoO?p=preview
-https://stackoverflow.com/questions/52373021/d3-js-add-label-along-the-arc
+
+https://plnkr.co/edit/LJlKKX1xnVwl2LoFBFoO?p=preview https://stackoverflow.com/questions/52373021/d3-js-add-label-along-the-arc
 
 ##### D3 library reference
-https://github.com/d3?utf8=%E2%9C%93&q=&type=&language=
-https://github.com/d3/d3-shape#arcs
-https://github.com/d3/d3/blob/master/API.md
+
+https://github.com/d3?utf8=%E2%9C%93&q=&type=&language= https://github.com/d3/d3-shape#arcs https://github.com/d3/d3/blob/master/API.md
 
 ##### React Style syntax
+
 https://stackoverflow.com/questions/26882177/react-js-inline-style-best-practices
 
 ##### Less useful things
-http://www.pindari.com/svg-arc.html
-http://bl.ocks.org/msqr/3202712
+
+http://www.pindari.com/svg-arc.html http://bl.ocks.org/msqr/3202712
 
 ### Idea for creating dynamic margin for correct visualization of the labels
 
-Fundamentally, the main problem here is that that if 
+Fundamentally, the main problem here is that that if
 
 ```javascript
   // Gauge ref
@@ -54,7 +52,7 @@ Fundamentally, the main problem here is that that if
   componentDidLoad() {
     this.setComponentPadding();
   }
-  
+
   componentDidUpdate() {
     this.setComponentPadding();
   }

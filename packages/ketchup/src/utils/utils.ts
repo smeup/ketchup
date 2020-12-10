@@ -100,8 +100,8 @@ export function formatSize(size: any) {
     }
 }
 
-export function getCurrentLocale(): string {
-    return navigator.language;
+export function getCurrentLocale(suffix?: string): string {
+    return navigator.language + (suffix != null ? suffix : '');
 }
 
 export function getCurrentDateFormatFromBrowserLocale(): string {
@@ -126,15 +126,17 @@ export function getCurrentDateFormatFromBrowserLocale(): string {
     return dateFormat;
 }
 
-export function getCurrentTimeFormatFromBrowserLocale(): string {
-    const options = {
+function getCurrentTimeFormatFromBrowserLocale(manageSeconds: boolean): string {
+    const options: Intl.DateTimeFormatOptions = {
         hour: '2-digit',
         minute: '2-digit',
-        second: '2-digit',
         hour12: false,
     };
+    if (manageSeconds == true) {
+        options.second = '2-digit';
+    }
     const formatObj = new Intl.DateTimeFormat(
-        getCurrentLocale(),
+        getCurrentLocale('-u-hc-h23'),
         options
     ).formatToParts(new Date());
     let timeFormat = formatObj
@@ -328,6 +330,7 @@ export function _numberToString(
 
 export const ISO_DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
 export const ISO_DEFAULT_TIME_FORMAT = 'HH:mm:ss';
+export const ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS = 'HH:mm';
 
 /**
  *
@@ -377,16 +380,19 @@ export function formatDate(date: Date): string {
 
 /**
  * @param time time as Date object
+ * @param manageSeconds flag to set seconds managing
  * @return time as string, formatted
  **/
-export function formatTime(time: Date): string {
+export function formatTime(time: Date, manageSeconds: boolean): string {
     const options: Intl.DateTimeFormatOptions = {
         hour: '2-digit',
         minute: '2-digit',
-        second: '2-digit',
         hour12: false,
     };
-    return time.toLocaleTimeString(getCurrentLocale(), options);
+    if (manageSeconds == true) {
+        options.second = '2-digit';
+    }
+    return time.toLocaleTimeString(getCurrentLocale('-u-hc-h23'), options);
 }
 
 /**
@@ -403,8 +409,11 @@ export function isValidFormattedStringDate(value: string): boolean {
  * @param value time string, formatted by actual browser locale
  * @returns true if time string in input is a valid time
  */
-export function isValidFormattedStringTime(value: string): boolean {
-    let format = getCurrentTimeFormatFromBrowserLocale();
+export function isValidFormattedStringTime(
+    value: string,
+    manageSeconds: boolean
+): boolean {
+    let format = getCurrentTimeFormatFromBrowserLocale(manageSeconds);
     let m = moment(value, format);
     return m.isValid();
 }
@@ -429,7 +438,8 @@ export function formattedStringToDefaultUnformattedStringDate(
 export function formattedStringToDefaultUnformattedStringTime(value: string) {
     return formattedStringToCustomUnformattedStringTime(
         value,
-        ISO_DEFAULT_TIME_FORMAT
+        ISO_DEFAULT_TIME_FORMAT,
+        true
     );
 }
 
@@ -452,15 +462,17 @@ export function formattedStringToCustomUnformattedStringDate(
 /**
  * @param value time as string, formatted by actual browser locale
  * @param outputFormat time format to return
+ * @param manageSeconds flag to set seconds managing
  * @returns time as string, formatted
  **/
 export function formattedStringToCustomUnformattedStringTime(
     value: string,
-    outputFormat: string
+    outputFormat: string,
+    manageSeconds: boolean
 ): string {
     return changeDateTimeFormat(
         value,
-        getCurrentTimeFormatFromBrowserLocale(),
+        getCurrentTimeFormatFromBrowserLocale(manageSeconds),
         outputFormat
     );
 }
@@ -496,12 +508,14 @@ export function unformattedStringToFormattedStringDate(
 
 /**
  * @param value time as string, formatted ISO
+ * @param manageSeconds flag to set seconds managing
  * @param valueTimeFormat time format (default ISO)
  * @param customedFormat time format from smeupObject (TODO: must be managed)
  * @returns time as string, formatted by actual browser locale
  **/
 export function unformattedStringToFormattedStringTime(
     value: string,
+    manageSeconds: boolean,
     valueTimeFormat?: string,
     customedFormat?: string
 ): string {
@@ -514,17 +528,22 @@ export function unformattedStringToFormattedStringTime(
     const options: Intl.DateTimeFormatOptions = {
         hour: '2-digit',
         minute: '2-digit',
-        second: '2-digit',
         hour12: false,
     };
+    if (manageSeconds == true) {
+        options.second = '2-digit';
+    }
     return unformatDateTime(
         value,
         ISO_DEFAULT_TIME_FORMAT,
         valueTimeFormat
-    ).toLocaleTimeString(getCurrentLocale(), options);
+    ).toLocaleTimeString(getCurrentLocale('-u-hc-h23'), options);
 }
 
-export function getMonthAsStringByLocale(month: number): string {
+export function getMonthAsStringByLocale(
+    month: number,
+    format: string
+): string {
     if (month == null) {
         return '';
     }
@@ -532,16 +551,19 @@ export function getMonthAsStringByLocale(month: number): string {
     dateTmp.setDate(1);
     dateTmp.setMonth(month - 1);
     const options: Intl.DateTimeFormatOptions = {
-        month: 'long',
+        month: format,
     };
     const dateTimeFormat = new Intl.DateTimeFormat(getCurrentLocale(), options);
     return dateTimeFormat.format(dateTmp);
 }
 
-export function getMonthsAsStringByLocale(): string[] {
+export function getMonthsAsStringByLocale(format?: string): string[] {
+    if (format == null || format.trim() == '') {
+        format = 'long';
+    }
     var months: string[] = [];
     for (var i = 0; i < 12; i++) {
-        months[i] = getMonthAsStringByLocale(i + 1);
+        months[i] = getMonthAsStringByLocale(i + 1, format);
     }
 
     return months;
@@ -597,4 +619,22 @@ export function getDaysOfWeekAsStringByLocale(
         days[i] = getDayAsStringByLocale(date);
     }
     return days;
+}
+
+export function fillString(
+    stringIn: string,
+    stringForFill: string,
+    finalLen: number,
+    addBefore: boolean
+): string {
+    let initSize = stringIn.length;
+    let stringOut: string = '';
+    for (let i: number = initSize; i < finalLen; i += stringForFill.length) {
+        stringOut += stringForFill;
+    }
+    if (addBefore) {
+        return stringOut + stringIn;
+    } else {
+        return stringIn + stringOut;
+    }
 }
