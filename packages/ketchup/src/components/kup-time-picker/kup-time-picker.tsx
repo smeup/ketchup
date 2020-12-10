@@ -31,6 +31,7 @@ import {
     PICKER_SOURCE_EVENT,
     PICKER_STATUS,
 } from './kup-time-picker-declarations';
+import { timepicker } from './kup-time-picker-clock';
 
 @Component({
     tag: 'kup-time-picker',
@@ -41,22 +42,27 @@ export class KupTimePicker {
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
     @State() timeValue: string = '';
+
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = undefined;
     /**
      * Props of the sub-components (time input text field)
      */
     @Prop() data: Object = {};
     /**
-     * Minutes step
-     */
-    @Prop() timeMinutesStep: number = 10;
-    /**
      * Manage seconds
      */
     @Prop() manageSeconds: boolean = false;
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * When set to true, the drop down menu will display a clock.
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() showClock: boolean = false;
+    /**
+     * Minutes step
+     */
+    @Prop() timeMinutesStep: number = 10;
 
     private status: PICKER_STATUS = {};
 
@@ -509,6 +515,40 @@ export class KupTimePicker {
 
     prepTimePicker() {
         let source = PICKER_SOURCE_EVENT.TIME;
+        let widget: HTMLElement = undefined;
+
+        if (this.showClock) {
+            widget = (
+                <div
+                    class="clock"
+                    id={this.rootElement.id + '_clock'}
+                    ref={(el) => (this.status[source].pickerEl = el as any)}
+                >
+                    <div class="top">
+                        <span class="h active">10</span>:
+                        <span class="m">15</span>
+                    </div>
+                    <div class="circle"></div>
+                    <div class="actions">
+                        <div class="action cancel">Annulla</div>
+                        <div class="action ok">OK</div>
+                    </div>
+                </div>
+            );
+        } else {
+            widget = (
+                <kup-list
+                    data={this.createTimeListData(this.timeValue)}
+                    is-menu
+                    menu-visible
+                    onKupListClick={(e) =>
+                        this.onKupTimePickerItemClick(e.detail.selected.value)
+                    }
+                    id={this.rootElement.id + '_list'}
+                    ref={(el) => (this.status[source].pickerEl = el as any)}
+                ></kup-list>
+            );
+        }
 
         return (
             <div
@@ -524,16 +564,7 @@ export class KupTimePicker {
                     }
                 }}
             >
-                <kup-list
-                    data={this.createTimeListData(this.timeValue)}
-                    is-menu
-                    menu-visible
-                    onKupListClick={(e) =>
-                        this.onKupTimePickerItemClick(e.detail.selected.value)
-                    }
-                    id={this.rootElement.id + '_list'}
-                    ref={(el) => (this.status[source].pickerEl = el as any)}
-                ></kup-list>
+                {widget}
             </div>
         );
     }
@@ -631,6 +662,9 @@ export class KupTimePicker {
     }
 
     componentDidRender() {
+        if (this.showClock) {
+            timepicker(this);
+        }
         let source = PICKER_SOURCE_EVENT.TIME;
         this.recalcPosition(source);
         logRender(this, true);

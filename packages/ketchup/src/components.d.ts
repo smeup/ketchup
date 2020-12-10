@@ -1383,6 +1383,10 @@ export namespace Components {
         "manageSeconds": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
+          * When set to true, the drop down menu will display a clock.
+         */
+        "showClock": boolean;
+        /**
           * Minutes step
          */
         "timeMinutesStep": number;
@@ -3620,6 +3624,10 @@ declare namespace LocalJSX {
         value: any;
         source: PICKER_SOURCE_EVENT;
     }>) => void;
+        /**
+          * When set to true, the drop down menu will display a clock.
+         */
+        "showClock"?: boolean;
         /**
           * Minutes step
          */
