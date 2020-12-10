@@ -689,13 +689,9 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * The initial value of the date picker.
+          * Props of the sub-components (date input text field).
          */
-        "dateInitialValue": string;
-        /**
-          * Props of the date text field.
-         */
-        "dateTextfieldData": Object;
+        "data": Object;
         /**
           * First day number (0 - sunday, 1 - monday, ...)
          */
@@ -809,6 +805,10 @@ export namespace Components {
          */
         "colors": string[];
         /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
           * The first threshold, establishing the length of the first and second arc.
          */
         "firstThreshold"?: number;
@@ -829,15 +829,16 @@ export namespace Components {
          */
         "minValue": number;
         /**
-          * if true, shows a rounded needle.
+          * When true, shows a rounded needle.
          */
         "needleCircle": boolean;
         /**
-          * if true, ignore threasholds in gauge and show colored value's arc.
+          * When true, ignore thresholds in gauge and show colored value's arc.
          */
         "onlyValue": boolean;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * If set to true, the colors inside the colors array are used in the reversed order.
+          * When true, the colors inside the colors array are used in the reversed order.
          */
         "reverseColors": boolean;
         /**
@@ -1372,19 +1373,19 @@ export namespace Components {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * The initial value of the time picker.
+          * Props of the sub-components (time input text field)
          */
-        "timeInitialValue": string;
+        "data": Object;
+        /**
+          * Manage seconds
+         */
+        "manageSeconds": boolean;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Minutes step
          */
         "timeMinutesStep": number;
-        /**
-          * Props of the time text field.
-         */
-        "timeTextfieldData": Object;
     }
     interface KupTooltip {
         /**
@@ -2747,13 +2748,9 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * The initial value of the date picker.
+          * Props of the sub-components (date input text field).
          */
-        "dateInitialValue"?: string;
-        /**
-          * Props of the date text field.
-         */
-        "dateTextfieldData"?: Object;
+        "data"?: Object;
         /**
           * First day number (0 - sunday, 1 - monday, ...)
          */
@@ -2900,6 +2897,10 @@ declare namespace LocalJSX {
          */
         "colors"?: string[];
         /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
           * The first threshold, establishing the length of the first and second arc.
          */
         "firstThreshold"?: number;
@@ -2920,15 +2921,15 @@ declare namespace LocalJSX {
          */
         "minValue"?: number;
         /**
-          * if true, shows a rounded needle.
+          * When true, shows a rounded needle.
          */
         "needleCircle"?: boolean;
         /**
-          * if true, ignore threasholds in gauge and show colored value's arc.
+          * When true, ignore thresholds in gauge and show colored value's arc.
          */
         "onlyValue"?: boolean;
         /**
-          * If set to true, the colors inside the colors array are used in the reversed order.
+          * When true, the colors inside the colors array are used in the reversed order.
          */
         "reverseColors"?: boolean;
         /**
@@ -3579,6 +3580,14 @@ declare namespace LocalJSX {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
+        /**
+          * Props of the sub-components (time input text field)
+         */
+        "data"?: Object;
+        /**
+          * Manage seconds
+         */
+        "manageSeconds"?: boolean;
         "onKupTimePickerBlur"?: (event: CustomEvent<{
         value: any;
         source: PICKER_SOURCE_EVENT;
@@ -3612,17 +3621,9 @@ declare namespace LocalJSX {
         source: PICKER_SOURCE_EVENT;
     }>) => void;
         /**
-          * The initial value of the time picker.
-         */
-        "timeInitialValue"?: string;
-        /**
           * Minutes step
          */
         "timeMinutesStep"?: number;
-        /**
-          * Props of the time text field.
-         */
-        "timeTextfieldData"?: Object;
     }
     interface KupTooltip {
         /**

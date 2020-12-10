@@ -63,19 +63,11 @@ export default {
           try: 'css',
         },
         {
-          prop: 'dateInitialValue',
-          description:
-            'The initial value of the date picker (ISO date format).',
-          type: 'string',
-          default: '""',
-          try: 'field',
-        },
-        {
-          prop: 'dateTextfieldData',
+          prop: 'data',
           description:
             "Set of props related to the text field. To check the available props visit the Text Field basic component's page.",
           type: 'Object',
-          default: '{}',
+          default: '{"text-field":{}}',
           try: 'json',
         },
         {

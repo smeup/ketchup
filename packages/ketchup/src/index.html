@@ -120,6 +120,30 @@
         <h4>init on Tuesday</h4>
         <kup-date-picker id="date-picker3" first-day-index="2"></kup-date-picker>
         <kup-time-picker id="time-picker1"></kup-time-picker>
+        <kup-time-picker id="time-picker2" manage-seconds="true"></kup-time-picker>
+
+        <script>
+            let datePicker1 = document.getElementsByTagName('kup-date-picker')[0];
+            datePicker1.data = {
+                "text-field": {
+                    initialValue:'1979-11-13',
+                }
+            }
+
+            let timePicker1 = document.getElementsByTagName('kup-time-picker')[0];
+            timePicker1.data = {
+                "text-field": {
+                    initialValue:'01:00:00',
+                }
+            }
+
+            let timePicker2 = document.getElementsByTagName('kup-time-picker')[1];
+            timePicker2.data = {
+                "text-field": {
+                    initialValue:'03:10:00',
+                }
+            }
+        </script>
         <br/><br/><br/><br/>
         <h1>Simple text field</h1>
         <kup-text-field
@@ -150,6 +174,10 @@
         ></kup-text-field>
 
         <h4>The gauge</h4>
+        <h5>Responsive</h5>
+        <div>
+            <kup-gauge size="300" value="-50"></kup-gauge>
+        </div>
         <h5>Valori positivi e negativi con uno o più thresholds</h5>
         <kup-gauge value="-50" size="300"></kup-gauge>
         <kup-gauge value="0" size="300" first-threshold="-25"></kup-gauge>

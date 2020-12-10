@@ -15000,7 +15000,7 @@ const tempDataTableRadioData = {
                 p: 'B£WAR',
                 t: 'TA',
             },
-            title: 'Selezionato con valore 10',
+            title: 'Selezionato \n con valore 10',
         },
         {
             name: 'RAD_02',

@@ -282,7 +282,7 @@ export class KupDataTable {
     /**
      * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
      */
-    @Prop() lineBreakCharacter: string = '|';
+    @Prop() lineBreakCharacter: string = '\n';
     /**
      * Sets a maximum limit of new records which can be required by the load more functionality.
      */
@@ -3098,13 +3098,15 @@ export class KupDataTable {
                 let title: string = undefined;
                 if (_hasTooltip) {
                     cellClass['is-obj'] = true;
-                    title =
-                        cell.obj.t +
-                        '; ' +
-                        cell.obj.p +
-                        '; ' +
-                        cell.obj.k +
-                        ';';
+                    if (document.documentElement.kupDebug) {
+                        title =
+                            cell.obj.t +
+                            '; ' +
+                            cell.obj.p +
+                            '; ' +
+                            cell.obj.k +
+                            ';';
+                    }
                     eventHandlers = {
                         onMouseEnter: (ev) => {
                             if (this.showTooltipOnRightClick == false) {

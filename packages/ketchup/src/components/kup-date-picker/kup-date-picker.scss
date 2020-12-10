@@ -26,6 +26,10 @@
   height: 22rem;
   width: 22rem;
 
+  &.visible {
+    display: block;
+  }
+
   &.dynamic-position-active {
     display: flex;
   }
@@ -49,17 +53,17 @@
     width: 100%;
   }
 
-  #prev-month {
+  #prev-page {
     margin-left: auto;
   }
 
-  #year-button {
+  #change-view-button {
     margin: auto;
     width: 12rem;
     text-align: center;
   }
 
-  #next-month {
+  #next-page {
     margin-right: auto;
   }
 
@@ -72,23 +76,23 @@
     border-bottom: 1px solid var(--kup-border-color);
   }
 
-  .day-text {
+  .item-text {
     color: rgba(var(--kup-text-color-rgb), 0.5);
   }
 
-  .day {
+  .item {
     text-align: center;
 
-    &:not(.selected) .day-number:hover {
+    &:not(.selected) .item-number:hover {
       background-color: var(--kup-hover-background-color);
     }
-    &.selected .day-number,
-    &.selected .day-number:hover {
+    &.selected .item-number,
+    &.selected .item-number:hover {
       background-color: rgba(var(--kup-main-color-rgb), 0.175);
     }
   }
 
-  .day-number {
+  .item-number {
     border-radius: 50%;
     cursor: pointer;
     display: flex;
@@ -97,5 +101,6 @@
     margin: auto;
     width: 2.5rem;
     transition: background-color 0.25s;
+    text-transform: capitalize;
   }
 }

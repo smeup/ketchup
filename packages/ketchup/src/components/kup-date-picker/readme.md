@@ -5,12 +5,11 @@
 
 ## Properties
 
-| Property            | Attribute            | Description                                                                                                     | Type     | Default     |
-| ------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
-| `customStyle`       | `custom-style`       | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string` | `undefined` |
-| `dateInitialValue`  | `date-initial-value` | The initial value of the date picker.                                                                           | `string` | `''`        |
-| `dateTextfieldData` | --                   | Props of the date text field.                                                                                   | `Object` | `{}`        |
-| `firstDayIndex`     | `first-day-index`    | First day number (0 - sunday, 1 - monday, ...)                                                                  | `number` | `1`         |
+| Property        | Attribute         | Description                                                                                                     | Type     | Default     |
+| --------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
+| `customStyle`   | `custom-style`    | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string` | `undefined` |
+| `data`          | --                | Props of the sub-components (date input text field).                                                            | `Object` | `{}`        |
+| `firstDayIndex` | `first-day-index` | First day number (0 - sunday, 1 - monday, ...)                                                                  | `number` | `1`         |
 
 
 ## Events
