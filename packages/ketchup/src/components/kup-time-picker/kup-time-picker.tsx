@@ -511,12 +511,11 @@ export class KupTimePicker {
             return true;
         }
 
-        let idConc = '#time-picker-div#';
+        let idConc = '#time-picker-div#confirm#';
         return idConc.indexOf('#' + id + '#') >= 0;
     }
 
     private setTimeFromClock() {
-        console.log('ciao');
         this.setPickerValueSelected(
             this.getSourceEvent(),
             this.hoursEl.innerText + ':' + this.minutesEl.innerText
@@ -534,6 +533,12 @@ export class KupTimePicker {
             let currentTime = new Date();
             hh = currentTime.getHours().toString();
             mm = currentTime.getMinutes().toString();
+        }
+        if (hh.length === 1) {
+            hh = '0' + hh;
+        }
+        if (mm.length === 1) {
+            mm = '0' + mm;
         }
 
         return (
@@ -562,6 +567,7 @@ export class KupTimePicker {
                         onKupButtonClick={() => {
                             this.setTimeFromClock();
                         }}
+                        id="confirm"
                         styling="flat"
                         label="Ok"
                     ></kup-button>
