@@ -19,7 +19,12 @@ export function timepicker(component) {
                 if (n + 3 > 12) {
                     div.textContent = n + 3 - 12 + add;
                 } else {
-                    div.textContent = n + 3 + add;
+                    let calc = n + 3 + add;
+                    if (calc !== 24) {
+                        div.textContent = n + 3 + add;
+                    } else {
+                        div.textContent = '00';
+                    }
                 }
             } else {
                 if (n % teilbar == 0) {
@@ -48,7 +53,6 @@ export function timepicker(component) {
                 .appendChild(div);
         }
     }
-    var currentTime = new Date();
     function selectHours() {
         let circle: HTMLElement = root.querySelector('.circle');
         circle.innerHTML = '';
@@ -88,8 +92,6 @@ export function timepicker(component) {
         }
     }
     selectHours();
-    root.querySelector('.clock .top .h').innerText = currentTime.getHours();
-    root.querySelector('.clock .top .m').innerText = currentTime.getMinutes();
 
     let hhmm = root.querySelectorAll('.clock .top span');
     for (let index = 0; index < hhmm.length; index++) {
@@ -103,21 +105,4 @@ export function timepicker(component) {
             }
         });
     }
-    root.querySelector('.clock .action.ok').addEventListener(
-        'click',
-        function (this) {
-            let root = this.closest('#kup-component');
-            var selectedTime =
-                root.querySelector('.clock .top .h').innerText +
-                ':' +
-                root.querySelector('.clock .top .m').innerText;
-            alert(selectedTime);
-        }
-    );
-    root.querySelector('.clock .action.cancel').addEventListener(
-        'click',
-        function (this) {
-            //Cancel
-        }
-    );
 }

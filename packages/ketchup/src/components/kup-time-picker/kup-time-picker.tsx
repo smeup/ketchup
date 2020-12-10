@@ -64,6 +64,8 @@ export class KupTimePicker {
      */
     @Prop() timeMinutesStep: number = 10;
 
+    private hoursEl: HTMLElement = undefined;
+    private minutesEl: HTMLElement = undefined;
     private status: PICKER_STATUS = {};
 
     //---- Events ----
@@ -513,28 +515,67 @@ export class KupTimePicker {
         return idConc.indexOf('#' + id + '#') >= 0;
     }
 
+    private setTimeFromClock() {
+        console.log('ciao');
+        this.setPickerValueSelected(
+            this.getSourceEvent(),
+            this.hoursEl.innerText + ':' + this.minutesEl.innerText
+        );
+        this.closePicker(this.getSourceEvent());
+    }
+
+    createClock() {
+        let hh: string = '00';
+        let mm: string = '00';
+        if (this.timeValue) {
+            hh = this.timeValue.substr(0, 2);
+            mm = this.timeValue.substr(3, 2);
+        } else {
+            let currentTime = new Date();
+            hh = currentTime.getHours().toString();
+            mm = currentTime.getMinutes().toString();
+        }
+
+        return (
+            <div
+                class="clock"
+                id={this.rootElement.id + '_clock'}
+                ref={(el) =>
+                    (this.status[this.getSourceEvent()].pickerEl = el as any)
+                }
+            >
+                <div class="top">
+                    <span
+                        class="h active"
+                        ref={(el) => (this.hoursEl = el as any)}
+                    >
+                        {hh}
+                    </span>
+                    :
+                    <span class="m" ref={(el) => (this.minutesEl = el as any)}>
+                        {mm}
+                    </span>
+                </div>
+                <div class="circle"></div>
+                <div class="actions">
+                    <kup-button
+                        onKupButtonClick={() => {
+                            this.setTimeFromClock();
+                        }}
+                        styling="flat"
+                        label="Ok"
+                    ></kup-button>
+                </div>
+            </div>
+        );
+    }
+
     prepTimePicker() {
         let source = PICKER_SOURCE_EVENT.TIME;
         let widget: HTMLElement = undefined;
 
         if (this.showClock) {
-            widget = (
-                <div
-                    class="clock"
-                    id={this.rootElement.id + '_clock'}
-                    ref={(el) => (this.status[source].pickerEl = el as any)}
-                >
-                    <div class="top">
-                        <span class="h active">10</span>:
-                        <span class="m">15</span>
-                    </div>
-                    <div class="circle"></div>
-                    <div class="actions">
-                        <div class="action cancel">Annulla</div>
-                        <div class="action ok">OK</div>
-                    </div>
-                </div>
-            );
+            widget = this.createClock();
         } else {
             widget = (
                 <kup-list
@@ -552,7 +593,7 @@ export class KupTimePicker {
 
         return (
             <div
-                tabindex="0"
+                tabindex="-1"
                 id="time-picker-div"
                 ref={(el) =>
                     (this.status[source].pickerContainerEl = el as any)
