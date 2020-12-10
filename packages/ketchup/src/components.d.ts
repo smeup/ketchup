@@ -1370,6 +1370,10 @@ export namespace Components {
     }
     interface KupTimePicker {
         /**
+          * When set to true, the drop down menu will display a clock.
+         */
+        "clockVariant": boolean;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
@@ -1382,10 +1386,6 @@ export namespace Components {
          */
         "manageSeconds": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        /**
-          * When set to true, the drop down menu will display a clock.
-         */
-        "showClock": boolean;
         /**
           * Minutes step
          */
@@ -3581,6 +3581,10 @@ declare namespace LocalJSX {
     }
     interface KupTimePicker {
         /**
+          * When set to true, the drop down menu will display a clock.
+         */
+        "clockVariant"?: boolean;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
@@ -3624,10 +3628,6 @@ declare namespace LocalJSX {
         value: any;
         source: PICKER_SOURCE_EVENT;
     }>) => void;
-        /**
-          * When set to true, the drop down menu will display a clock.
-         */
-        "showClock"?: boolean;
         /**
           * Minutes step
          */

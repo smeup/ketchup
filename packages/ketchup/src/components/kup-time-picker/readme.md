@@ -7,10 +7,10 @@
 
 | Property          | Attribute           | Description                                                                                                     | Type      | Default     |
 | ----------------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `clockVariant`    | `clock-variant`     | When set to true, the drop down menu will display a clock.                                                      | `boolean` | `true`      |
 | `customStyle`     | `custom-style`      | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `undefined` |
 | `data`            | --                  | Props of the sub-components (time input text field)                                                             | `Object`  | `{}`        |
 | `manageSeconds`   | `manage-seconds`    | Manage seconds                                                                                                  | `boolean` | `false`     |
-| `showClock`       | `show-clock`        | When set to true, the drop down menu will display a clock.                                                      | `boolean` | `false`     |
 | `timeMinutesStep` | `time-minutes-step` | Minutes step                                                                                                    | `number`  | `10`        |
 
 

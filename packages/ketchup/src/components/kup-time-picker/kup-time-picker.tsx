@@ -44,6 +44,10 @@ export class KupTimePicker {
     @State() timeValue: string = '';
 
     /**
+     * When set to true, the drop down menu will display a clock.
+     */
+    @Prop() clockVariant: boolean = true;
+    /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = undefined;
@@ -55,10 +59,6 @@ export class KupTimePicker {
      * Manage seconds
      */
     @Prop() manageSeconds: boolean = false;
-    /**
-     * When set to true, the drop down menu will display a clock.
-     */
-    @Prop() showClock: boolean = false;
     /**
      * Minutes step
      */
@@ -574,7 +574,7 @@ export class KupTimePicker {
         let source = PICKER_SOURCE_EVENT.TIME;
         let widget: HTMLElement = undefined;
 
-        if (this.showClock) {
+        if (this.clockVariant) {
             widget = this.createClock();
         } else {
             widget = (
@@ -703,7 +703,7 @@ export class KupTimePicker {
     }
 
     componentDidRender() {
-        if (this.showClock) {
+        if (this.clockVariant) {
             timepicker(this);
         }
         let source = PICKER_SOURCE_EVENT.TIME;

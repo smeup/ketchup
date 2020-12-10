@@ -55,6 +55,14 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'clockVariant',
+          description:
+            'When set to true, the drop down menu will display a clock.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
@@ -73,14 +81,6 @@ export default {
         {
           prop: 'manageSeconds',
           description: 'Flag for set managing seconds too.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'showClock',
-          description:
-            'When set to true, the drop down menu will display a clock.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
