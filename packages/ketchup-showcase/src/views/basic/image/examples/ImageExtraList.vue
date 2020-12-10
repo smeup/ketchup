@@ -863,6 +863,14 @@
             ></kup-image>
             <div class="icon-label">folder-outline</div>
           </div>
+          <div class="icon-wrapper" title="folder-star">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="folder-star"
+            ></kup-image>
+            <div class="icon-label">folder-star</div>
+          </div>
           <div class="icon-wrapper" title="format-align-center">
             <kup-image
               size-x="48px"
