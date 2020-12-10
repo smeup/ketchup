@@ -1572,6 +1572,7 @@ export class KupDataTable {
                 newFilter = '';
             }
         }
+        console.log('cacca 3: set checkbox filter newFilter=' + newFilter);
         const newFilters: GenericFilter = { ...this.filterForCheckBox };
         setTextFieldFilterValue(newFilters, column.name, value);
         this.filterForCheckBox = newFilters;
@@ -2315,34 +2316,46 @@ export class KupDataTable {
                             column.name
                         );
 
-                        if (
-                            !filterInitialValue &&
-                            this.getCheckBoxFilter(column.name)
-                        ) {
-                            filterInitialValue = this.getCheckBoxFilter(
+                        console.log(
+                            'cacca: 1 filterInitialValue=' + filterInitialValue
+                        );
+
+                        if (!filterInitialValue) {
+                            let checkBoxFilter = this.getCheckBoxFilter(
                                 column.name
                             );
-                            filterFromCheckBoxFilter = true;
+                            if (checkBoxFilter) {
+                                filterInitialValue = checkBoxFilter;
+                                filterFromCheckBoxFilter = true;
+
+                                console.log(
+                                    'cacca: 2 filterInitialValue=' +
+                                        filterInitialValue
+                                );
+                            }
                         }
 
-                        //if (!filterFromCheckBoxFilter) {
-                        if (
-                            filterInitialValue != '' &&
-                            isNumber(column.obj) &&
-                            isNumberThisString(filterInitialValue)
-                        ) {
-                            filterInitialValue = getCellValueForDisplay(
-                                filterInitialValue,
-                                column
-                            );
+                        if (!filterFromCheckBoxFilter) {
+                            if (
+                                filterInitialValue != '' &&
+                                isNumber(column.obj) &&
+                                isNumberThisString(filterInitialValue)
+                            ) {
+                                filterInitialValue = getCellValueForDisplay(
+                                    filterInitialValue,
+                                    column
+                                );
+                            }
+                            if (
+                                filterInitialValue != '' &&
+                                isDate(column.obj)
+                            ) {
+                                filterInitialValue = getCellValueForDisplay(
+                                    filterInitialValue,
+                                    column
+                                );
+                            }
                         }
-                        if (filterInitialValue != '' && isDate(column.obj)) {
-                            filterInitialValue = getCellValueForDisplay(
-                                filterInitialValue,
-                                column
-                            );
-                        }
-                        //}
                         columnMenuItems.push(
                             <li role="menuitem" class="textfield-row">
                                 <kup-text-field
