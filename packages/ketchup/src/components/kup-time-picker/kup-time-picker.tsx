@@ -66,8 +66,10 @@ export class KupTimePicker {
 
     private hoursEl: HTMLElement = undefined;
     private minutesEl: HTMLElement = undefined;
+    private secondsEl: HTMLElement = undefined;
     private hoursCircleEl: HTMLElement = undefined;
     private minutesCircleEl: HTMLElement = undefined;
+    private secondsCircleEl: HTMLElement = undefined;
     private status: PICKER_STATUS = {};
 
     //---- Events ----
@@ -518,29 +520,148 @@ export class KupTimePicker {
     }
 
     private setTimeFromClock() {
-        this.setPickerValueSelected(
-            this.getSourceEvent(),
-            this.hoursEl.innerText + ':' + this.minutesEl.innerText
-        );
+        let text: string =
+            this.hoursEl.innerText + ':' + this.minutesEl.innerText;
+        if (this.manageSeconds) {
+            text += ':' + this.secondsEl.innerText;
+        }
+        this.setPickerValueSelected(this.getSourceEvent(), text);
         this.closePicker(this.getSourceEvent());
     }
 
     createClock() {
         let hh: string = '00';
         let mm: string = '00';
+        let ss: string = '00';
         if (this.timeValue) {
             hh = this.timeValue.substr(0, 2);
             mm = this.timeValue.substr(3, 2);
+            if (this.manageSeconds) {
+                ss = this.timeValue.substr(6, 2);
+            }
         } else {
             let currentTime = new Date();
             hh = currentTime.getHours().toString();
             mm = currentTime.getMinutes().toString();
+            if (this.manageSeconds) {
+                ss = currentTime.getSeconds().toString();
+            }
         }
         if (hh.length === 1) {
             hh = '0' + hh;
         }
         if (mm.length === 1) {
             mm = '0' + mm;
+        }
+        if (this.manageSeconds && ss.length === 1) {
+            ss = '0' + ss;
+        }
+
+        let hours: HTMLElement = (
+            <div
+                class="circle hours"
+                ref={(el) => (this.hoursCircleEl = el as any)}
+            >
+                {this.createCircleOfDivs(12, 101, 105, 105, 'hour', 0, 1)}
+                {this.createCircleOfDivs(12, 64, 110, 110, 'hour2', 12, 1)}
+                <div class="mid"></div>
+            </div>
+        );
+        let minutes: HTMLElement = (
+            <div
+                class="circle minutes"
+                ref={(el) => (this.minutesCircleEl = el as any)}
+            >
+                {this.createCircleOfDivs(60, 101, 115, 115, 'min unit', 0, 5)}
+                <div class="mid"></div>
+            </div>
+        );
+        let seconds: HTMLElement = undefined;
+        let time: HTMLElement = undefined;
+        if (this.manageSeconds) {
+            seconds = (
+                <div
+                    class="circle seconds"
+                    ref={(el) => (this.secondsCircleEl = el as any)}
+                >
+                    {this.createCircleOfDivs(
+                        60,
+                        101,
+                        115,
+                        115,
+                        'sec unit',
+                        0,
+                        5
+                    )}
+                    <div class="mid"></div>
+                </div>
+            );
+            time = (
+                <div class="top">
+                    <span
+                        class="h"
+                        ref={(el) => (this.hoursEl = el as any)}
+                        onClick={() =>
+                            this.switchView(this.hoursEl, this.hoursCircleEl)
+                        }
+                    >
+                        {hh}
+                    </span>
+                    :
+                    <span
+                        class="m"
+                        ref={(el) => (this.minutesEl = el as any)}
+                        onClick={() =>
+                            this.switchView(
+                                this.minutesEl,
+                                this.minutesCircleEl
+                            )
+                        }
+                    >
+                        {mm}
+                    </span>
+                    :
+                    <span
+                        class="s"
+                        ref={(el) => (this.secondsEl = el as any)}
+                        onClick={() =>
+                            this.switchView(
+                                this.secondsEl,
+                                this.secondsCircleEl
+                            )
+                        }
+                    >
+                        {ss}
+                    </span>
+                </div>
+            );
+        } else {
+            time = (
+                <div class="top">
+                    <span
+                        class="h"
+                        ref={(el) => (this.hoursEl = el as any)}
+                        onClick={() =>
+                            this.switchView(this.hoursEl, this.hoursCircleEl)
+                        }
+                    >
+                        {hh}
+                    </span>
+                    :
+                    <span
+                        class="m"
+                        ref={(el) => (this.minutesEl = el as any)}
+                        onClick={() =>
+                            this.switchView(
+                                this.minutesEl,
+                                this.minutesCircleEl
+                            )
+                        }
+                    >
+                        {mm}
+                    </span>
+                </div>
+            );
         }
 
         return (
@@ -551,37 +672,10 @@ export class KupTimePicker {
                     (this.status[this.getSourceEvent()].pickerEl = el as any)
                 }
             >
-                <div class="top">
-                    <span
-                        class="h"
-                        ref={(el) => (this.hoursEl = el as any)}
-                        onClick={() => this.clockHours()}
-                    >
-                        {hh}
-                    </span>
-                    :
-                    <span
-                        class="m"
-                        ref={(el) => (this.minutesEl = el as any)}
-                        onClick={() => this.clockMinutes()}
-                    >
-                        {mm}
-                    </span>
-                </div>
-                <div
-                    class="circle hours"
-                    ref={(el) => (this.hoursCircleEl = el as any)}
-                >
-                    {this.createCircleOfDivs(12, 101, 105, 105, 'hour', 0, 1)}
-                    {this.createCircleOfDivs(12, 64, 110, 110, 'hour2', 12, 1)}
-                    <div class="mid"></div>
-                </div>
-                <div
-                    class="circle minutes"
-                    ref={(el) => (this.minutesCircleEl = el as any)}
-                >
-                    {this.createCircleOfDivs(60, 101, 115, 115, 'min', 0, 5)}
-                </div>
+                {time}
+                {hours}
+                {minutes}
+                {seconds}
                 <div class="actions">
                     <kup-button
                         onKupButtonClick={() => {
@@ -596,18 +690,17 @@ export class KupTimePicker {
         );
     }
 
-    private clockHours() {
-        this.hoursEl.classList.add('active');
-        this.hoursCircleEl.classList.add('active');
-        this.minutesEl.classList.remove('active');
-        this.minutesCircleEl.classList.remove('active');
-    }
-
-    private clockMinutes() {
-        this.minutesEl.classList.add('active');
-        this.minutesCircleEl.classList.add('active');
+    private switchView(el, elCircle) {
         this.hoursEl.classList.remove('active');
         this.hoursCircleEl.classList.remove('active');
+        this.minutesEl.classList.remove('active');
+        this.minutesCircleEl.classList.remove('active');
+        if (this.secondsEl) {
+            this.secondsEl.classList.remove('active');
+            this.secondsCircleEl.classList.remove('active');
+        }
+        el.classList.add('active');
+        elCircle.classList.add('active');
     }
 
     private createCircleOfDivs(
@@ -685,8 +778,14 @@ export class KupTimePicker {
         }
         if (this.hoursEl.classList.contains('active')) {
             this.hoursEl.innerText = time;
-        } else {
+            this.switchView(this.minutesEl, this.minutesCircleEl);
+        } else if (this.minutesEl.classList.contains('active')) {
             this.minutesEl.innerText = time;
+            if (this.manageSeconds) {
+                this.switchView(this.secondsEl, this.secondsCircleEl);
+            }
+        } else {
+            this.secondsEl.innerText = time;
         }
     }
 
@@ -824,7 +923,7 @@ export class KupTimePicker {
 
     componentDidRender() {
         if (this.clockVariant) {
-            this.clockHours();
+            this.switchView(this.hoursEl, this.hoursCircleEl);
         }
         let source = PICKER_SOURCE_EVENT.TIME;
         this.recalcPosition(source);
