@@ -47,6 +47,10 @@
   top: 25px;
   left: 25px;
   box-sizing: border-box;
+  display: none;
+  &.active {
+    display: block;
+  }
 }
 
 .mid {

@@ -10,6 +10,7 @@ import {
     Listen,
     Method,
     Watch,
+    JSX,
 } from '@stencil/core';
 
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
@@ -31,7 +32,6 @@ import {
     PICKER_SOURCE_EVENT,
     PICKER_STATUS,
 } from './kup-time-picker-declarations';
-import { timepicker } from './kup-time-picker-clock';
 
 @Component({
     tag: 'kup-time-picker',
@@ -66,6 +66,8 @@ export class KupTimePicker {
 
     private hoursEl: HTMLElement = undefined;
     private minutesEl: HTMLElement = undefined;
+    private hoursCircleEl: HTMLElement = undefined;
+    private minutesCircleEl: HTMLElement = undefined;
     private status: PICKER_STATUS = {};
 
     //---- Events ----
@@ -551,17 +553,35 @@ export class KupTimePicker {
             >
                 <div class="top">
                     <span
-                        class="h active"
+                        class="h"
                         ref={(el) => (this.hoursEl = el as any)}
+                        onClick={() => this.clockHours()}
                     >
                         {hh}
                     </span>
                     :
-                    <span class="m" ref={(el) => (this.minutesEl = el as any)}>
+                    <span
+                        class="m"
+                        ref={(el) => (this.minutesEl = el as any)}
+                        onClick={() => this.clockMinutes()}
+                    >
                         {mm}
                     </span>
                 </div>
-                <div class="circle"></div>
+                <div
+                    class="circle hours"
+                    ref={(el) => (this.hoursCircleEl = el as any)}
+                >
+                    {this.createCircleOfDivs(12, 101, 105, 105, 'hour', 0, 1)}
+                    {this.createCircleOfDivs(12, 64, 110, 110, 'hour2', 12, 1)}
+                    <div class="mid"></div>
+                </div>
+                <div
+                    class="circle minutes"
+                    ref={(el) => (this.minutesCircleEl = el as any)}
+                >
+                    {this.createCircleOfDivs(60, 101, 115, 115, 'min', 0, 5)}
+                </div>
                 <div class="actions">
                     <kup-button
                         onKupButtonClick={() => {
@@ -574,6 +594,100 @@ export class KupTimePicker {
                 </div>
             </div>
         );
+    }
+
+    private clockHours() {
+        this.hoursEl.classList.add('active');
+        this.hoursCircleEl.classList.add('active');
+        this.minutesEl.classList.remove('active');
+        this.minutesCircleEl.classList.remove('active');
+    }
+
+    private clockMinutes() {
+        this.minutesEl.classList.add('active');
+        this.minutesCircleEl.classList.add('active');
+        this.hoursEl.classList.remove('active');
+        this.hoursCircleEl.classList.remove('active');
+    }
+
+    private createCircleOfDivs(
+        num,
+        radius,
+        offsetX,
+        offsetY,
+        className,
+        add,
+        teilbar
+    ) {
+        let x, y;
+        let divsArray: JSX.Element[] = [];
+
+        for (var n = 0; n < num; n++) {
+            x = radius * Math.cos((n / num) * 2 * Math.PI);
+            y = radius * Math.sin((n / num) * 2 * Math.PI);
+            let text: string;
+            let dataValue = {};
+            let style = {};
+            if (teilbar == 1) {
+                if (n + 3 > 12) {
+                    text = n + 3 - 12 + add;
+                } else {
+                    let calc = n + 3 + add;
+                    if (calc !== 24) {
+                        text = n + 3 + add;
+                    } else {
+                        text = '00';
+                    }
+                }
+                dataValue['data-value'] = text;
+            } else {
+                if (n % teilbar == 0) {
+                    if (n + 15 >= 60) {
+                        dataValue['data-value'] = n + 15 - 60 + '';
+                        text = n + 15 - 60 + add;
+                    } else {
+                        dataValue['data-value'] = n + 15 + '';
+                        text = n + 15 + add;
+                    }
+                } else {
+                    if (n + 15 >= 60) {
+                        dataValue['data-value'] = n + 15 - 60 + '';
+                        text = '⋅';
+                    } else {
+                        dataValue['data-value'] = n + 15 + '';
+                        text = '\u00B7';
+                    }
+                }
+            }
+            style['left'] = x + offsetX + 'px';
+            style['top'] = y + offsetY + 'px';
+
+            let div: HTMLElement = (
+                <div
+                    class={className}
+                    style={style}
+                    {...dataValue}
+                    onClick={(e) => this.setClockTime(e)}
+                >
+                    {text}
+                </div>
+            );
+            divsArray.push(div);
+        }
+
+        return divsArray;
+    }
+
+    private setClockTime(e) {
+        let time = e.target.getAttribute('data-value');
+        if (time.length === 1) {
+            time = '0' + time;
+        }
+        if (this.hoursEl.classList.contains('active')) {
+            this.hoursEl.innerText = time;
+        } else {
+            this.minutesEl.innerText = time;
+        }
     }
 
     prepTimePicker() {
@@ -710,7 +824,7 @@ export class KupTimePicker {
 
     componentDidRender() {
         if (this.clockVariant) {
-            timepicker(this);
+            this.clockHours();
         }
         let source = PICKER_SOURCE_EVENT.TIME;
         this.recalcPosition(source);
