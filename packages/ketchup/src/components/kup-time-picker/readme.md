@@ -7,6 +7,7 @@
 
 | Property          | Attribute           | Description                                                                                                     | Type      | Default     |
 | ----------------- | ------------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `clockVariant`    | `clock-variant`     | When set to true, the drop down menu will display a clock.                                                      | `boolean` | `true`      |
 | `customStyle`     | `custom-style`      | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `undefined` |
 | `data`            | --                  | Props of the sub-components (time input text field)                                                             | `Object`  | `{}`        |
 | `manageSeconds`   | `manage-seconds`    | Manage seconds                                                                                                  | `boolean` | `false`     |
@@ -45,12 +46,14 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-text-field](../kup-text-field)
+- [kup-button](../kup-button)
 - [kup-list](../kup-list)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-time-picker --> kup-text-field
+  kup-time-picker --> kup-button
   kup-time-picker --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox

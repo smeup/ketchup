@@ -1370,6 +1370,10 @@ export namespace Components {
     }
     interface KupTimePicker {
         /**
+          * When set to true, the drop down menu will display a clock.
+         */
+        "clockVariant": boolean;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
@@ -3576,6 +3580,10 @@ declare namespace LocalJSX {
         "trailingLabel"?: boolean;
     }
     interface KupTimePicker {
+        /**
+          * When set to true, the drop down menu will display a clock.
+         */
+        "clockVariant"?: boolean;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
