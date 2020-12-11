@@ -713,11 +713,16 @@ export namespace Components {
         "toggle": () => Promise<void>;
     }
     interface KupEcharts {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+         */
+        "customStyle": string;
         "graphTitle": string;
         "graphTitleColor": string;
         "graphTitleSize": number;
         "legend": string;
         "objectData": object;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         "types": string;
     }
     interface KupEditor {
@@ -2801,6 +2806,10 @@ declare namespace LocalJSX {
         "opened"?: boolean;
     }
     interface KupEcharts {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+         */
+        "customStyle"?: string;
         "graphTitle"?: string;
         "graphTitleColor"?: string;
         "graphTitleSize"?: number;
