@@ -144,6 +144,9 @@
 .hour,
 .hour2,
 .unit {
+  cursor: pointer;
+  transition: background-color 0.25s;
+
   &:hover {
     background-color: rgba(var(--kup-main-color-rgb), 0.275);
   }
