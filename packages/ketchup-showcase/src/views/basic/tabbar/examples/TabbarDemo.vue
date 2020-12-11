@@ -4,7 +4,6 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
     ></demo>
   </div>
 </template>
@@ -51,33 +50,6 @@ export default {
           type: 'ComponentTabBarElement[]',
           default: '[]',
           try: 'json',
-        },
-      ],
-      demoTabs: [
-        {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
         },
       ],
     };

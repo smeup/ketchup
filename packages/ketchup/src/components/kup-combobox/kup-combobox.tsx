@@ -41,9 +41,13 @@ export class KupCombobox {
      */
     @Prop() listData: Object = {};
     /**
-     * Sets how the return the elected item value. Suported values: "code", "description", "both".
+     * Sets how the return the selected item value. Suported values: "code", "description", "both".
      */
-    @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+    @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
+    /**
+     * Sets how the show the selected item value. Suported values: "code", "description", "both".
+     */
+    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
      * Props of the text field.
      */
@@ -52,6 +56,7 @@ export class KupCombobox {
     private textfieldEl: any = undefined;
     private listEl: any = undefined;
     private value: string = undefined;
+    private displayedValue: string = undefined;
     private elStyle: any = undefined;
 
     /**
@@ -163,17 +168,16 @@ export class KupCombobox {
         this.customStyleTheme = customStyleTheme;
     }
 
-    onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        this.closeList();
-        const { target } = e;
+    onKupBlur() {
+        this.closeList(true);
         this.kupBlur.emit({
-            value: target.value,
+            value: this.value,
         });
     }
 
     onKupChange(e: CustomEvent) {
-        this.value = e.detail.value;
-
+        //this.value = e.detail.value;
+        this.consistencyCheck(null, e.detail.value);
         this.kupChange.emit({
             value: this.value,
         });
@@ -203,9 +207,9 @@ export class KupCombobox {
     }
 
     onKupInput(e: CustomEvent) {
-        this.value = e.detail.value;
-
-        this.kupChange.emit({
+        //this.value = e.detail.value;
+        this.consistencyCheck(null, e.detail.value);
+        this.kupInput.emit({
             value: this.value,
         });
     }
@@ -223,8 +227,8 @@ export class KupCombobox {
         });
     }
 
-    onKupItemClick() {
-        this.consistencyCheck();
+    onKupItemClick(e: CustomEvent) {
+        this.consistencyCheck(e);
         this.closeList();
 
         this.kupChange.emit({
@@ -259,10 +263,13 @@ export class KupCombobox {
         elStyle.minWidth = textFieldWidth + 'px';
     }
 
-    closeList() {
+    closeList(fromOnBlur?: boolean) {
         this.textfieldEl.classList.remove('toggled');
         this.textfieldEl['icon'] = 'arrow_drop_down';
         this.textfieldEl.emitSubmitEventOnEnter = true;
+        if (fromOnBlur != true) {
+            this.textfieldEl.forceFocus = true;
+        }
         this.listEl.menuVisible = false;
         this.listEl.classList.remove('dynamic-position-active');
     }
@@ -271,13 +278,18 @@ export class KupCombobox {
         return this.listEl.menuVisible == true;
     }
 
-    consistencyCheck() {
-        this.value = consistencyCheck(
-            this.value,
+    consistencyCheck(e?: CustomEvent, valueIn?: string) {
+        let ret = consistencyCheck(
+            valueIn,
             this.listData,
             this.textfieldEl,
-            this.selectMode
+            this.listEl,
+            this.selectMode,
+            this.displayMode,
+            e
         );
+        this.value = ret.value;
+        this.displayedValue = ret.displayedValue;
     }
 
     prepTextfield() {
@@ -306,7 +318,7 @@ export class KupCombobox {
             <kup-text-field
                 {...this.textfieldData}
                 style={this.elStyle}
-                initial-value={this.value}
+                initial-value={this.displayedValue}
                 onKupTextFieldChange={(e: any) => this.onKupChange(e)}
                 onKupTextFieldClick={(e: any) => this.onKupClick(e)}
                 onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
@@ -324,8 +336,9 @@ export class KupCombobox {
         let comp: HTMLElement = (
             <kup-list
                 {...this.listData}
+                displayMode={this.displayMode}
                 is-menu
-                onKupListClick={() => this.onKupItemClick()}
+                onKupListClick={(e) => this.onKupItemClick(e)}
                 id={this.rootElement.id + '_list'}
                 ref={(el) => (this.listEl = el as any)}
             ></kup-list>
@@ -360,7 +373,7 @@ export class KupCombobox {
         let listEl = this.prepList();
 
         return (
-            <Host onBlur={(e: any) => this.onKupBlur(e)} style={this.elStyle}>
+            <Host onBlur={() => this.onKupBlur()} style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
                     {textfieldEl}

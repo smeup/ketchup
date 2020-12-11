@@ -9,15 +9,16 @@
 
 .mdc-tab-bar {
   @include mdc-tab-bar-density(-3);
-  @include mdc-tab-text-label-color(var(--kup-main-color));
-  @include mdc-tab-icon-color(var(--kup-main-color));
-
-  & .mdc-tab-scroller__scroll-area--scroll {
+  .mdc-tab-scroller__scroll-area--scroll {
     overflow: auto;
   }
 
-  & button {
+  button {
     font-family: var(--kup-font-family);
+  }
+
+  .mdc-tab__text-label {
+    color: var(--kup-main-color);
   }
 }
 
@@ -25,20 +26,4 @@
   background-color: var(--kup-main-color);
   height: 24px;
   width: 24px;
-}
-
-.material-icons {
-  color: var(--kup-icon-color);
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-smoothing: antialiased;
 }

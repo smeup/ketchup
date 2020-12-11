@@ -50,12 +50,14 @@ Type: `Promise<void>`
  - [kup-card](../kup-card)
  - [kup-crud](../kup-crud)
  - [kup-data-table](../kup-data-table)
+ - [kup-date-picker](../kup-date-picker)
  - [kup-field](../kup-field)
  - [kup-form](../kup-form)
  - [kup-iframe](../kup-iframe)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-paginator](../kup-paginator)
  - [kup-search](../kup-search)
+ - [kup-time-picker](../kup-time-picker)
  - [kup-tooltip](../kup-tooltip)
  - [kup-tree](../kup-tree)
 
@@ -68,12 +70,14 @@ graph TD;
   kup-card --> kup-button
   kup-crud --> kup-button
   kup-data-table --> kup-button
+  kup-date-picker --> kup-button
   kup-field --> kup-button
   kup-form --> kup-button
   kup-iframe --> kup-button
   kup-nav-bar --> kup-button
   kup-paginator --> kup-button
   kup-search --> kup-button
+  kup-time-picker --> kup-button
   kup-tooltip --> kup-button
   kup-tree --> kup-button
   style kup-button fill:#f9f,stroke:#333,stroke-width:4px

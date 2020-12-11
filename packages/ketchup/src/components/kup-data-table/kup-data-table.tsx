@@ -101,7 +101,6 @@ import {
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
-import { unformatDate } from '../../utils/cell-formatter';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 import { KupDataTableState } from './kup-data-table-state';
@@ -281,7 +280,7 @@ export class KupDataTable {
     /**
      * Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.
      */
-    @Prop() lineBreakCharacter: string = '|';
+    @Prop() lineBreakCharacter: string = '\n';
     /**
      * Sets a maximum limit of new records which can be required by the load more functionality.
      */
@@ -3041,13 +3040,15 @@ export class KupDataTable {
                 let title: string = undefined;
                 if (_hasTooltip) {
                     cellClass['is-obj'] = true;
-                    title =
-                        cell.obj.t +
-                        '; ' +
-                        cell.obj.p +
-                        '; ' +
-                        cell.obj.k +
-                        ';';
+                    if (document.documentElement.kupDebug) {
+                        title =
+                            cell.obj.t +
+                            '; ' +
+                            cell.obj.p +
+                            '; ' +
+                            cell.obj.k +
+                            ';';
+                    }
                     eventHandlers = {
                         onMouseEnter: (ev) => {
                             if (this.showTooltipOnRightClick == false) {
@@ -3587,7 +3588,7 @@ export class KupDataTable {
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
                     {!this.lazyLoadRows &&
-                    this.rowsLength >= this.rowsPerPage ? (
+                    this.rowsLength > this.rowsPerPage ? (
                         <kup-paginator
                             id={top ? 'top-paginator' : 'bottom-paginator'}
                             max={this.rowsLength}
@@ -3878,7 +3879,7 @@ export class KupDataTable {
         let paginatorTop = undefined;
         let paginatorBottom = undefined;
         if (
-            (!this.lazyLoadRows && this.rowsLength >= this.rowsPerPage) ||
+            (!this.lazyLoadRows && this.rowsLength > this.rowsPerPage) ||
             this.showCustomization ||
             this.showLoadMore
         ) {

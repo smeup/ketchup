@@ -64,6 +64,7 @@ let treeData = [
                 disabled: false,
                 expandable: false,
                 icon: 'account',
+                iconColor: 'red',
                 id: '00100',
                 isExpanded: false,
                 obj: {

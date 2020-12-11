@@ -19,7 +19,11 @@ export default {
       compChart.asp = '2d';
       compChart.axis = 'Col1';
       compChart.legend = 'right';
-      compChart.series = ['Col2', 'Col3', 'Col4'];
+      compChart.series = [
+        { code: 'Col2', decode: 'Something' },
+        { code: 'Col3', decode: 'Something else' },
+        { code: 'Col4', decode: 'Something else entirely' },
+      ];
       compChart.data = baseData;
       compChart.sizeY = '48px';
       compChart.type = ['Hbar'];
