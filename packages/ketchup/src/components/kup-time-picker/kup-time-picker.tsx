@@ -41,6 +41,7 @@ import {
 export class KupTimePicker {
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
+    @State() stateSwitcher: boolean = false;
     @State() timeValue: string = '';
 
     /**
@@ -285,6 +286,11 @@ export class KupTimePicker {
         });
     }
 
+    forceUpdate() {
+        this.getTextFieldData()['forceFocus'] = true;
+        this.stateSwitcher = !this.stateSwitcher;
+    }
+
     getSourceEvent(): PICKER_SOURCE_EVENT {
         return PICKER_SOURCE_EVENT.TIME;
     }
@@ -391,6 +397,7 @@ export class KupTimePicker {
                 elStyle.minWidth = textFieldWidth + 'px';
             }
         }
+        this.forceUpdate();
     }
 
     closePicker(source: PICKER_SOURCE_EVENT, fromOnBlur?: boolean) {
