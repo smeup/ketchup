@@ -592,7 +592,7 @@ export class KupTimePicker {
                     class="circle seconds"
                     ref={(el) => (this.secondsCircleEl = el as any)}
                 >
-                    {this.buildClock(60, 101, 115, 115, 'sec unit', 0, 5)}
+                    {this.buildClock(60, 101, 115, 115, 'sec unit', 0, 5, ss)}
                     <div class="mid"></div>
                 </div>
             );
@@ -623,15 +623,15 @@ export class KupTimePicker {
                     class="circle hours"
                     ref={(el) => (this.hoursCircleEl = el as any)}
                 >
-                    {this.buildClock(12, 101, 105, 105, 'hour', 0, 1)}
-                    {this.buildClock(12, 64, 110, 110, 'hour2', 12, 1)}
+                    {this.buildClock(12, 101, 105, 105, 'hour', 0, 1, hh)}
+                    {this.buildClock(12, 64, 110, 110, 'hour2', 12, 1, hh)}
                     <div class="mid"></div>
                 </div>
                 <div
                     class="circle minutes"
                     ref={(el) => (this.minutesCircleEl = el as any)}
                 >
-                    {this.buildClock(60, 101, 115, 115, 'min unit', 0, 5)}
+                    {this.buildClock(60, 101, 115, 115, 'min unit', 0, 5, mm)}
                     <div class="mid"></div>
                 </div>
                 {seconds}
@@ -669,7 +669,8 @@ export class KupTimePicker {
         offsetY: number,
         className: string,
         add: number,
-        separator: number
+        separator: number,
+        selectedValue: string
     ) {
         let x: number, y: number;
         let divsArray: JSX.Element[] = [];
@@ -714,9 +715,18 @@ export class KupTimePicker {
             style['left'] = x + offsetX + 'px';
             style['top'] = y + offsetY + 'px';
 
+            if (dataValue['data-value'].length === 1) {
+                dataValue['data-value'] = '0' + dataValue['data-value'];
+            }
+
+            let elClass = className;
+            if (dataValue['data-value'] === selectedValue) {
+                elClass += ' selected';
+            }
+
             let div: HTMLElement = (
                 <div
-                    class={className}
+                    class={elClass}
                     style={style}
                     {...dataValue}
                     onClick={(e) => this.setClockTime(e)}
@@ -732,20 +742,30 @@ export class KupTimePicker {
 
     private setClockTime(e) {
         let time = e.target.getAttribute('data-value');
-        if (time.length === 1) {
-            time = '0' + time;
-        }
         if (this.hoursEl.classList.contains('active')) {
             this.hoursEl.innerText = time;
+            this.hoursCircleEl
+                .querySelector('.selected')
+                .classList.remove('selected');
             this.switchView(this.minutesEl, this.minutesCircleEl);
         } else if (this.minutesEl.classList.contains('active')) {
             this.minutesEl.innerText = time;
+            this.minutesCircleEl
+                .querySelector('.selected')
+                .classList.remove('selected');
             if (this.manageSeconds) {
                 this.switchView(this.secondsEl, this.secondsCircleEl);
+            } else {
+                this.setTimeFromClock();
             }
         } else {
             this.secondsEl.innerText = time;
+            this.secondsCircleEl
+                .querySelector('.selected')
+                .classList.remove('selected');
+            this.setTimeFromClock();
         }
+        e.target.classList.add('selected');
     }
 
     prepTimePicker() {
