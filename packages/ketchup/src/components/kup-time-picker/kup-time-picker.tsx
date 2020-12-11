@@ -332,7 +332,9 @@ export class KupTimePicker {
         if (!this.isPickerOpened(source)) {
             return;
         }
-        this.status[source].pickerEl.data = this.createTimeListData(value);
+        if (this.status[source].pickerEl) {
+            this.status[source].pickerEl.data = this.createTimeListData(value);
+        }
     }
 
     setPickerValueSelected(source: PICKER_SOURCE_EVENT, newValue?: string) {
@@ -537,31 +539,32 @@ export class KupTimePicker {
     }
 
     private createClock() {
-        let hh: string = '00';
-        let mm: string = '00';
-        let ss: string = '00';
+        let date: Date = undefined;
         if (this.timeValue) {
-            hh = this.timeValue.substr(0, 2);
-            mm = this.timeValue.substr(3, 2);
-            if (this.manageSeconds) {
-                ss = this.timeValue.substr(6, 2);
-            }
+            date = unformatDateTime(
+                this.timeValue,
+                this.manageSeconds
+                    ? ISO_DEFAULT_TIME_FORMAT
+                    : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS
+            );
         } else {
-            let currentTime = new Date();
-            hh = currentTime.getHours().toString();
-            mm = currentTime.getMinutes().toString();
-            if (this.manageSeconds) {
-                ss = currentTime.getSeconds().toString();
-            }
+            date = new Date();
         }
+
+        let hh: string = date.getHours().toString();
+        let mm: string = date.getMinutes().toString();
         if (hh.length === 1) {
             hh = '0' + hh;
         }
         if (mm.length === 1) {
             mm = '0' + mm;
         }
-        if (this.manageSeconds && ss.length === 1) {
-            ss = '0' + ss;
+        let ss: string = '';
+        if (this.manageSeconds) {
+            ss = date.getSeconds().toString();
+            if (ss.length === 1) {
+                ss = '0' + ss;
+            }
         }
 
         let seconds: HTMLElement = undefined;
