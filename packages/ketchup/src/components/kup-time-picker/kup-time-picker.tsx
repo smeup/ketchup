@@ -529,7 +529,7 @@ export class KupTimePicker {
         this.closePicker(this.getSourceEvent());
     }
 
-    createClock() {
+    private createClock() {
         let hh: string = '00';
         let mm: string = '00';
         let ss: string = '00';
@@ -557,110 +557,49 @@ export class KupTimePicker {
             ss = '0' + ss;
         }
 
-        let hours: HTMLElement = (
-            <div
-                class="circle hours"
-                ref={(el) => (this.hoursCircleEl = el as any)}
-            >
-                {this.createCircleOfDivs(12, 101, 105, 105, 'hour', 0, 1)}
-                {this.createCircleOfDivs(12, 64, 110, 110, 'hour2', 12, 1)}
-                <div class="mid"></div>
-            </div>
-        );
-        let minutes: HTMLElement = (
-            <div
-                class="circle minutes"
-                ref={(el) => (this.minutesCircleEl = el as any)}
-            >
-                {this.createCircleOfDivs(60, 101, 115, 115, 'min unit', 0, 5)}
-                <div class="mid"></div>
-            </div>
-        );
         let seconds: HTMLElement = undefined;
-        let time: HTMLElement = undefined;
+        let time: JSX.Element[] = [
+            <span
+                class="h"
+                ref={(el) => (this.hoursEl = el as any)}
+                onClick={() =>
+                    this.switchView(this.hoursEl, this.hoursCircleEl)
+                }
+            >
+                {hh}
+            </span>,
+            ':',
+            <span
+                class="m"
+                ref={(el) => (this.minutesEl = el as any)}
+                onClick={() =>
+                    this.switchView(this.minutesEl, this.minutesCircleEl)
+                }
+            >
+                {mm}
+            </span>,
+        ];
         if (this.manageSeconds) {
             seconds = (
                 <div
                     class="circle seconds"
                     ref={(el) => (this.secondsCircleEl = el as any)}
                 >
-                    {this.createCircleOfDivs(
-                        60,
-                        101,
-                        115,
-                        115,
-                        'sec unit',
-                        0,
-                        5
-                    )}
+                    {this.buildClock(60, 101, 115, 115, 'sec unit', 0, 5)}
                     <div class="mid"></div>
                 </div>
             );
-            time = (
-                <div class="top">
-                    <span
-                        class="h"
-                        ref={(el) => (this.hoursEl = el as any)}
-                        onClick={() =>
-                            this.switchView(this.hoursEl, this.hoursCircleEl)
-                        }
-                    >
-                        {hh}
-                    </span>
-                    :
-                    <span
-                        class="m"
-                        ref={(el) => (this.minutesEl = el as any)}
-                        onClick={() =>
-                            this.switchView(
-                                this.minutesEl,
-                                this.minutesCircleEl
-                            )
-                        }
-                    >
-                        {mm}
-                    </span>
-                    :
-                    <span
-                        class="s"
-                        ref={(el) => (this.secondsEl = el as any)}
-                        onClick={() =>
-                            this.switchView(
-                                this.secondsEl,
-                                this.secondsCircleEl
-                            )
-                        }
-                    >
-                        {ss}
-                    </span>
-                </div>
-            );
-        } else {
-            time = (
-                <div class="top">
-                    <span
-                        class="h"
-                        ref={(el) => (this.hoursEl = el as any)}
-                        onClick={() =>
-                            this.switchView(this.hoursEl, this.hoursCircleEl)
-                        }
-                    >
-                        {hh}
-                    </span>
-                    :
-                    <span
-                        class="m"
-                        ref={(el) => (this.minutesEl = el as any)}
-                        onClick={() =>
-                            this.switchView(
-                                this.minutesEl,
-                                this.minutesCircleEl
-                            )
-                        }
-                    >
-                        {mm}
-                    </span>
-                </div>
+            time.push(
+                ':',
+                <span
+                    class="s"
+                    ref={(el) => (this.secondsEl = el as any)}
+                    onClick={() =>
+                        this.switchView(this.secondsEl, this.secondsCircleEl)
+                    }
+                >
+                    {ss}
+                </span>
             );
         }
 
@@ -672,9 +611,22 @@ export class KupTimePicker {
                     (this.status[this.getSourceEvent()].pickerEl = el as any)
                 }
             >
-                {time}
-                {hours}
-                {minutes}
+                <div class="top">{time}</div>
+                <div
+                    class="circle hours"
+                    ref={(el) => (this.hoursCircleEl = el as any)}
+                >
+                    {this.buildClock(12, 101, 105, 105, 'hour', 0, 1)}
+                    {this.buildClock(12, 64, 110, 110, 'hour2', 12, 1)}
+                    <div class="mid"></div>
+                </div>
+                <div
+                    class="circle minutes"
+                    ref={(el) => (this.minutesCircleEl = el as any)}
+                >
+                    {this.buildClock(60, 101, 115, 115, 'min unit', 0, 5)}
+                    <div class="mid"></div>
+                </div>
                 {seconds}
                 <div class="actions">
                     <kup-button
@@ -690,7 +642,7 @@ export class KupTimePicker {
         );
     }
 
-    private switchView(el, elCircle) {
+    private switchView(el: HTMLElement, elCircle: HTMLElement) {
         this.hoursEl.classList.remove('active');
         this.hoursCircleEl.classList.remove('active');
         this.minutesEl.classList.remove('active');
@@ -703,14 +655,14 @@ export class KupTimePicker {
         elCircle.classList.add('active');
     }
 
-    private createCircleOfDivs(
-        num,
-        radius,
-        offsetX,
-        offsetY,
-        className,
-        add,
-        teilbar
+    private buildClock(
+        num: number,
+        radius: number,
+        offsetX: number,
+        offsetY: number,
+        className: string,
+        add: number,
+        teilbar: number
     ) {
         let x, y;
         let divsArray: JSX.Element[] = [];
@@ -723,11 +675,11 @@ export class KupTimePicker {
             let style = {};
             if (teilbar == 1) {
                 if (n + 3 > 12) {
-                    text = n + 3 - 12 + add;
+                    text = n + 3 - 12 + add + '';
                 } else {
                     let calc = n + 3 + add;
                     if (calc !== 24) {
-                        text = n + 3 + add;
+                        text = n + 3 + add + '';
                     } else {
                         text = '00';
                     }
@@ -737,10 +689,10 @@ export class KupTimePicker {
                 if (n % teilbar == 0) {
                     if (n + 15 >= 60) {
                         dataValue['data-value'] = n + 15 - 60 + '';
-                        text = n + 15 - 60 + add;
+                        text = n + 15 - 60 + add + '';
                     } else {
                         dataValue['data-value'] = n + 15 + '';
-                        text = n + 15 + add;
+                        text = n + 15 + add + '';
                     }
                 } else {
                     if (n + 15 >= 60) {
