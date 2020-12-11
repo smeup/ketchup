@@ -539,20 +539,20 @@ export class KupTimePicker {
     }
 
     private createClock() {
-        let date: Date = undefined;
+        let selectedTime: Date;
         if (this.timeValue) {
-            date = unformatDateTime(
+            selectedTime = unformatDateTime(
                 this.timeValue,
                 this.manageSeconds
                     ? ISO_DEFAULT_TIME_FORMAT
                     : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS
             );
         } else {
-            date = new Date();
+            selectedTime = new Date();
         }
 
-        let hh: string = date.getHours().toString();
-        let mm: string = date.getMinutes().toString();
+        let hh: string = selectedTime.getHours().toString();
+        let mm: string = selectedTime.getMinutes().toString();
         if (hh.length === 1) {
             hh = '0' + hh;
         }
@@ -561,13 +561,13 @@ export class KupTimePicker {
         }
         let ss: string = '';
         if (this.manageSeconds) {
-            ss = date.getSeconds().toString();
+            ss = selectedTime.getSeconds().toString();
             if (ss.length === 1) {
                 ss = '0' + ss;
             }
         }
 
-        let seconds: HTMLElement = undefined;
+        let seconds: HTMLElement;
         let time: JSX.Element[] = [
             <span
                 class="h"
