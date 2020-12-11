@@ -60,7 +60,8 @@
         "lodash": "^4.17.19",
         "moment": "^2.29.1",
         "numeral": "^2.0.6",
-        "resize-observer": "^1.0.0"
+        "resize-observer": "^1.0.0",
+        "vanilla-picker": "^2.11.0"
     },
     "devDependencies": {
         "@stencil/core": "^1.14.0",
