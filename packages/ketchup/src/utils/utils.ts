@@ -415,7 +415,7 @@ export function isValidStringDate(
     if (valueDateFormat == null) {
         valueDateFormat = getCurrentDateFormatFromBrowserLocale();
     }
-    let m = moment(value, valueDateFormat);
+    let m = moment(value, valueDateFormat, true);
     return m.isValid();
 }
 

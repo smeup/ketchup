@@ -229,9 +229,9 @@ const mockedRows = [
                 obj: {
                     t: 'NR',
                     p: '',
-                    k: '100.60',
+                    k: '100000.60',
                 },
-                value: '100.60',
+                value: '100,000.60',
             },
             FLD4: {
                 obj: {

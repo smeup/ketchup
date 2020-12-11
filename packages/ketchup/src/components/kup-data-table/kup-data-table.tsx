@@ -1128,28 +1128,27 @@ export class KupDataTable {
         return null;
     }
 
-    private getColumnValues(column: string): Array<string> {
+    private getColumnValues(column: Column): Array<string> {
         /** è necessario estrarre i valori della colonna di tutte le righe
          * filtrate SENZA il filtro della colonna stessa corrente */
         let values = [];
 
         let tmpFilters: GenericFilter = { ...this.filters };
-        if (this.filters[column]) {
-            tmpFilters[column] = {
-                textField: this.filters[column].textField,
-                checkBoxes: [],
-            };
+        let value = "";
+        if (this.filters[column.name]) {
+            value = this.normalizeValue(this.filters[column.name].textField, column);
+        }
+        if (this.getCheckBoxFilter(column.name)) {
+            value =  this.normalizeValue(this.getCheckBoxFilter(column.name), column);
         }
 
-        if (this.getCheckBoxFilter(column)) {
-            tmpFilters[column] = {
-                textField: this.getCheckBoxFilter(column),
-                checkBoxes: [],
-            };
-        }
+        tmpFilters[column.name] = {
+            textField: value,
+            checkBoxes: [],
+        };
 
         let visibleColumns = this.getVisibleColumns();
-        let columnObject = getColumnByName(visibleColumns, column);
+        let columnObject = getColumnByName(visibleColumns, column.name);
 
         let tmpRows = filterRows(
             this.getRows(),
@@ -1160,7 +1159,7 @@ export class KupDataTable {
 
         /** il valore delle righe attualmente filtrate */
         tmpRows.forEach((row) =>
-            this.addColumnValueFromRow(values, column, row)
+            this.addColumnValueFromRow(values, column.name, row)
         );
 
         if (columnObject != null) {
@@ -1499,29 +1498,8 @@ export class KupDataTable {
         this.setCheckBoxFilter(column, '');
         let newFilter = '';
         if (detail.value) {
-            newFilter = detail.value.trim();
+            newFilter = this.normalizeValue(detail.value.trim(), column);
         }
-
-        if (newFilter != '' && isNumber(column.obj)) {
-            let tmpStr = formattedStringToUnformattedStringNumber(
-                newFilter,
-                column.obj ? column.obj.p : ''
-            );
-            if (isNumberThisString(tmpStr)) {
-                newFilter = tmpStr;
-            }
-        }
-
-        if (newFilter != '' && isDate(column.obj)) {
-            if (isValidFormattedStringDate(newFilter)) {
-                newFilter = formattedStringToDefaultUnformattedStringDate(
-                    newFilter
-                );
-            } else {
-                newFilter = '';
-            }
-        }
-
         const newFilters: GenericFilter = { ...this.filters };
         setTextFieldFilterValue(newFilters, column.name, newFilter);
         this.filters = newFilters;
@@ -1549,30 +1527,6 @@ export class KupDataTable {
     }
 
     private setCheckBoxFilter(column: Column, value: string) {
-        let newFilter = '';
-        if (value) {
-            newFilter = value.trim();
-        }
-        if (newFilter != '' && isNumber(column.obj)) {
-            let tmpStr = formattedStringToUnformattedStringNumber(
-                newFilter,
-                column.obj ? column.obj.p : ''
-            );
-            if (isNumberThisString(tmpStr)) {
-                newFilter = tmpStr;
-            }
-        }
-
-        if (newFilter != '' && isDate(column.obj)) {
-            if (isValidFormattedStringDate(newFilter)) {
-                newFilter = formattedStringToDefaultUnformattedStringDate(
-                    newFilter
-                );
-            } else {
-                newFilter = '';
-            }
-        }
-        console.log('cacca 3: set checkbox filter newFilter=' + newFilter);
         const newFilters: GenericFilter = { ...this.filterForCheckBox };
         setTextFieldFilterValue(newFilters, column.name, value);
         this.filterForCheckBox = newFilters;
@@ -1587,6 +1541,25 @@ export class KupDataTable {
             value = this.filterForCheckBox[column].textField;
         }
         return value;
+    }
+
+    private normalizeValue(value: string, column: Column): string{
+        let newValue = value;
+        if (isDate(column.obj)) {
+            if (isValidFormattedStringDate(value)) {
+            newValue = formattedStringToDefaultUnformattedStringDate(value);
+            }
+        }
+        if (isNumber(column.obj)) {
+            let tmpStr = formattedStringToUnformattedStringNumber(
+                value,
+                column.obj ? column.obj.p : ''
+            );
+            if (isNumberThisString(parseFloat(tmpStr))) {
+                newValue = tmpStr;
+            }
+        }
+        return newValue;
     }
 
     private hasFiltersForColumn(column: string): boolean {
@@ -2315,11 +2288,6 @@ export class KupDataTable {
                         let filterInitialValue = this.getTextFieldFilterValue(
                             column.name
                         );
-
-                        console.log(
-                            'cacca: 1 filterInitialValue=' + filterInitialValue
-                        );
-
                         if (!filterInitialValue) {
                             let checkBoxFilter = this.getCheckBoxFilter(
                                 column.name
@@ -2327,11 +2295,6 @@ export class KupDataTable {
                             if (checkBoxFilter) {
                                 filterInitialValue = checkBoxFilter;
                                 filterFromCheckBoxFilter = true;
-
-                                console.log(
-                                    'cacca: 2 filterInitialValue=' +
-                                        filterInitialValue
-                                );
                             }
                         }
 
@@ -2339,7 +2302,7 @@ export class KupDataTable {
                             if (
                                 filterInitialValue != '' &&
                                 isNumber(column.obj) &&
-                                isNumberThisString(filterInitialValue)
+                                isNumberThisString(parseFloat(filterInitialValue))
                             ) {
                                 filterInitialValue = getCellValueForDisplay(
                                     filterInitialValue,
@@ -2387,7 +2350,7 @@ export class KupDataTable {
                             column.name
                         );
                         let columnValues: string[] = this.getColumnValues(
-                            column.name
+                            column
                         );
                         let checkboxItems: JSX.Element[] = [];
                         if (columnValues.length > 0) {

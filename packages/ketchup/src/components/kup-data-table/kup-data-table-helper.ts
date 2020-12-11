@@ -19,12 +19,14 @@ import { isNumber, isDate } from '../../utils/object-utils';
 import {
     isEmpty,
     ISO_DEFAULT_DATE_FORMAT,
-    isValidFormattedStringDate,
     isValidStringDate,
+    getCurrentDateFormatFromBrowserLocale,
     stringToNumber,
+    changeDateTimeFormat,
     unformatDateTime,
     unformattedStringToFormattedStringDate,
     unformattedStringToFormattedStringNumber,
+    isNumber as isNumberThisString,
 } from '../../utils/utils';
 import {
     isFilterCompliantForValue,
@@ -417,7 +419,13 @@ export function isFilterCompliantForCell(cellValue: Cell, filterValue: string) {
     if (!cellValue) {
         return false;
     }
-    return isFilterCompliantForValue(cellValue.value, filterValue);
+    let value = cellValue.value;
+    if(isDate(cellValue.obj)){
+        if(!isValidStringDate(filterValue, ISO_DEFAULT_DATE_FORMAT) && !isValidStringDate(filterValue)){
+            value = changeDateTimeFormat(cellValue.value, ISO_DEFAULT_DATE_FORMAT, getCurrentDateFormatFromBrowserLocale());
+        }
+    }
+    return isFilterCompliantForValue(value, filterValue);
 }
 
 export function isFilterCompliantForCellObj(
