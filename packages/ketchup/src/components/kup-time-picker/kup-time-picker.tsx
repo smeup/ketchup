@@ -662,18 +662,18 @@ export class KupTimePicker {
         offsetY: number,
         className: string,
         add: number,
-        teilbar: number
+        separator: number
     ) {
-        let x, y;
+        let x: number, y: number;
         let divsArray: JSX.Element[] = [];
 
         for (var n = 0; n < num; n++) {
             x = radius * Math.cos((n / num) * 2 * Math.PI);
             y = radius * Math.sin((n / num) * 2 * Math.PI);
             let text: string;
-            let dataValue = {};
-            let style = {};
-            if (teilbar == 1) {
+            let dataValue: { [key: string]: string } = {};
+            let style: { [key: string]: string } = {};
+            if (separator == 1) {
                 if (n + 3 > 12) {
                     text = n + 3 - 12 + add + '';
                 } else {
@@ -686,7 +686,7 @@ export class KupTimePicker {
                 }
                 dataValue['data-value'] = text;
             } else {
-                if (n % teilbar == 0) {
+                if (n % separator == 0) {
                     if (n + 15 >= 60) {
                         dataValue['data-value'] = n + 15 - 60 + '';
                         text = n + 15 - 60 + add + '';
