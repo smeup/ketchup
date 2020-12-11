@@ -22,6 +22,7 @@ export class KupEcharts {
     @State() customStyleTheme: string = undefined;
     @State() themeBorder: string = undefined;
     @State() themeColors: string[] = undefined;
+    @State() themeFont: string = undefined;
     @State() themeText: string = undefined;
 
     /**
@@ -143,22 +144,32 @@ export class KupEcharts {
             legend: {
                 data: this.createlegend(),
                 [tlegend]: 0,
-                textStyle: { color: this.themeText },
+                textStyle: {
+                    color: this.themeText,
+                    fontFamily: this.themeFont,
+                },
             },
             series: this.datajson,
             title: {
                 text: this.graphTitle,
                 textStyle: {
-                    fontSize: this.graphTitleSize,
                     color: this.graphTitleColor,
+                    fontFamily: this.themeFont,
+                    fontSize: this.graphTitleSize,
                 },
             },
             tooltip: {
+                textStyle: {
+                    fontFamily: this.themeFont,
+                },
                 trigger: 'axis',
             },
             xAxis: {
                 axisLine: { lineStyle: { color: this.themeText } },
-                axisLabel: { color: this.themeText },
+                axisLabel: {
+                    color: this.themeText,
+                    fontFamily: this.themeFont,
+                },
                 axisTick: { lineStyle: { color: this.themeBorder } },
                 data: this.x,
                 splitLine: { lineStyle: { color: this.themeBorder } },
@@ -166,7 +177,10 @@ export class KupEcharts {
             },
             yAxis: {
                 axisLine: { lineStyle: { color: this.themeText } },
-                axisLabel: { color: this.themeText },
+                axisLabel: {
+                    color: this.themeText,
+                    fontFamily: this.themeFont,
+                },
                 axisTick: { lineStyle: { color: this.themeBorder } },
                 splitLine: { lineStyle: { color: this.themeBorder } },
                 type: 'value',
@@ -181,18 +195,25 @@ export class KupEcharts {
             title: {
                 text: this.graphTitle,
                 textStyle: {
-                    fontSize: this.graphTitleSize,
                     color: this.graphTitleColor,
+                    fontFamily: this.themeFont,
+                    fontSize: this.graphTitleSize,
                 },
             },
             legend: {
                 data: this.createlegend(),
                 [tlegend]: 0,
-                textStyle: { color: this.themeText },
+                textStyle: {
+                    color: this.themeText,
+                    fontFamily: this.themeFont,
+                },
             },
             tooltip: {
-                trigger: 'item',
                 formatter: '{a} <br/>{b}: {c} ({d}%)',
+                textStyle: {
+                    fontFamily: this.themeFont,
+                },
+                trigger: 'item',
             },
             series: [
                 {
@@ -220,11 +241,14 @@ export class KupEcharts {
                 colorArray.push(color);
             }
         }
-        this.themeText = document.documentElement.style.getPropertyValue(
-            '--kup-text-color'
-        );
         this.themeBorder = document.documentElement.style.getPropertyValue(
             '--kup-border-color'
+        );
+        this.themeFont = document.documentElement.style.getPropertyValue(
+            '--kup-font-family'
+        );
+        this.themeText = document.documentElement.style.getPropertyValue(
+            '--kup-text-color'
         );
 
         this.themeColors = colorArray;
