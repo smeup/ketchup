@@ -465,22 +465,6 @@ export class KupEcharts {
         };
     }
 
-    //---- Lifecycle hooks ----
-
-    componentWillLoad() {
-        setThemeCustomStyle(this);
-        this.fetchThemeColors();
-    }
-
-    componentWillUpdate() {
-        this.resetChart();
-        this.initializeChart();
-    }
-
-    componentDidLoad() {
-        this.initializeChart();
-    }
-
     resetChart() {
         this.objectyvalue = {};
         this.Xaxis = [];
@@ -513,11 +497,27 @@ export class KupEcharts {
         this.CreateEcharts();
     }
 
+    //---- Lifecycle hooks ----
+
+    componentWillLoad() {
+        setThemeCustomStyle(this);
+        this.fetchThemeColors();
+    }
+
+    componentWillUpdate() {
+        this.resetChart();
+        this.initializeChart();
+    }
+
+    componentDidLoad() {
+        this.initializeChart();
+    }
+
     render() {
         return (
             <Host>
                 <div
-                    id="main"
+                    id="kup-component"
                     onClick={() => this.onKupClick()}
                     ref={(chartContainer) =>
                         (this.chartContainer = chartContainer)
