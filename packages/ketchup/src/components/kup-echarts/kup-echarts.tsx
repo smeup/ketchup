@@ -9,6 +9,7 @@ import {
     State,
     Method,
 } from '@stencil/core';
+import { logLoad, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import echarts from 'echarts';
 import { world } from '../../assets/maps/Emaps';
@@ -500,8 +501,14 @@ export class KupEcharts {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        logLoad(this, false);
         setThemeCustomStyle(this);
         this.fetchThemeColors();
+    }
+
+    componentDidLoad() {
+        this.initializeChart();
+        logLoad(this, true);
     }
 
     componentWillUpdate() {
@@ -509,13 +516,18 @@ export class KupEcharts {
         this.initializeChart();
     }
 
-    componentDidLoad() {
-        this.initializeChart();
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        logRender(this, true);
     }
 
     render() {
         return (
             <Host>
+                <style>{setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     onClick={() => this.onKupClick()}
