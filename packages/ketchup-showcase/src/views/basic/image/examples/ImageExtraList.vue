@@ -679,6 +679,14 @@
             ></kup-image>
             <div class="icon-label">factory</div>
           </div>
+          <div class="icon-wrapper" title="fax">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="fax"
+            ></kup-image>
+            <div class="icon-label">fax</div>
+          </div>
           <div class="icon-wrapper" title="file">
             <kup-image size-x="48px" size-y="48px" resource="file"></kup-image>
             <div class="icon-label">file</div>
@@ -1174,6 +1182,14 @@
               resource="monitor"
             ></kup-image>
             <div class="icon-label">monitor</div>
+          </div>
+           <div class="icon-wrapper" title="numeric">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="numeric"
+            ></kup-image>
+            <div class="icon-label">numeric</div>
           </div>
           <div class="icon-wrapper" title="npm">
             <kup-image size-x="48px" size-y="48px" resource="npm"></kup-image>

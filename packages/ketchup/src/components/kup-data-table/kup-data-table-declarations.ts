@@ -43,6 +43,7 @@ export interface Column {
     shape?: string;
     decimals?: number;
     icon?: string;
+    formula?: string;
 }
 
 export interface Row extends Identifiable {

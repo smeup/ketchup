@@ -55,6 +55,14 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'clockVariant',
+          description:
+            'When set to true, the drop down menu will display a clock.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
@@ -92,6 +100,7 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-time-picker');
   comp.id = 'demo-component';
+  comp.clockVariant = true;
   return comp;
 }
 </script>

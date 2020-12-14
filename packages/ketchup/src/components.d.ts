@@ -408,10 +408,18 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Props of the text field.
+         */
+        "data": {};
+        /**
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * When true, the component's text field will be replaced by a swatch.
+         */
+        "swatchOnly": boolean;
         /**
           * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
          */
@@ -1374,6 +1382,10 @@ export namespace Components {
         "trailingLabel": boolean;
     }
     interface KupTimePicker {
+        /**
+          * When set to true, the drop down menu will display a clock.
+         */
+        "clockVariant": boolean;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
@@ -2388,9 +2400,20 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
+          * Props of the text field.
+         */
+        "data"?: {};
+        /**
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled"?: boolean;
+        "onKupColorPickerChange"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        /**
+          * When true, the component's text field will be replaced by a swatch.
+         */
+        "swatchOnly"?: boolean;
         /**
           * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
          */
@@ -3585,6 +3608,10 @@ declare namespace LocalJSX {
         "trailingLabel"?: boolean;
     }
     interface KupTimePicker {
+        /**
+          * When set to true, the drop down menu will display a clock.
+         */
+        "clockVariant"?: boolean;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
