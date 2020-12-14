@@ -14,7 +14,7 @@ import { baseData } from '@/mock/chart';
 export default {
   data() {
     return {
-      types: 'Pie',
+      types: ['Pie'],
       baseData,
     };
   },

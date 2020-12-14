@@ -28,8 +28,8 @@ export default {
   data() {
     return {
       baseData,
-      types: 'Line',
-      types1: 'Pie',
+      types: ['Line'],
+      types1: ['Pie'],
       conta: 0,
       conta1: 0,
     };

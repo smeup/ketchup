@@ -11,6 +11,7 @@ import {
 } from '@stencil/core';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import echarts from 'echarts';
+import { world } from '../../assets/maps/Emaps';
 
 @Component({
     tag: 'kup-echarts',
@@ -24,26 +25,62 @@ export class KupEcharts {
     @State() themeColors: string[] = undefined;
     @State() themeFont: string = undefined;
     @State() themeText: string = undefined;
-
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
      */
     @Prop() customStyle: string = undefined;
-
+    /**
+     * The actual data of the chart.
+     */
     @Prop() objectData: object = {};
-    @Prop() types: string;
+    /**
+     * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+     */
+    @Prop() types: String[] = ['Line'];
+    /**
+     * Title of the graph.
+     */
     @Prop() graphTitle: string = '';
+    /**
+     * Size of title of the graph (in pixels).
+     */
     @Prop() graphTitleSize: number;
+    /**
+     * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+     */
     @Prop() legend: string;
+    /**
+     * Title of the graph's color.
+     */
     @Prop() graphTitleColor: string;
+    /**
+     * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
+     */
+    @Prop() mapType: any;
+    /**
+     * Title position
+     */
+    @Prop() titlePosition: string = 'left';
+    /**
+     * Sets the axis of the chart.
+     */
+    @Prop() axis: string = 'Col1';
+    /**
+     * The data series to be displayed. They must be of the same type.
+     */
+    @Prop() series: string[];
 
     private chartContainer?: HTMLDivElement;
     private myChart: any;
-    private oj = {};
-    private x = [];
-    private rightjson: any;
+    private objectyvalue = {};
+    private Xaxis = [];
+    private echartsjson: any;
     private datajson = [];
     private datapiejson = [];
+    private datamapjson = [];
+    private objectmapyvalue = {};
+    private namemap: any;
+    private jsonmap: any;
 
     @Event() kupEchartsClicked: EventEmitter;
 
@@ -57,112 +94,229 @@ export class KupEcharts {
         this.fetchThemeColors();
     }
 
+    onKupClick() {
+        this.kupEchartsClicked.emit();
+    }
+
     CreateEcharts() {
         if (!this.myChart) {
             this.myChart = echarts.init(this.chartContainer);
         }
+        if (this.types[0].toLowerCase() == 'map') {
+            this.dynamicImport()
+                .then((res) => {
+                    console.log(res);
+                    //  console.log('stoprovando', this.jsonmap, this.namemap);
+                    echarts.registerMap(this.namemap, this.jsonmap);
+                    this.createObjectMapYvalue();
+                    this.objectMap();
+                    this.createEchartsMapJson();
+                    this.myChart.setOption(this.echartsjson, true);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
 
-        this.myChart.setOption(this.rightjson, true);
+            // echarts.registerMap('world', world);
+        } else {
+            this.myChart.setOption(this.echartsjson, true);
+        }
+    }
+    async dynamicImport(): Promise<Boolean> {
+        const charts = this;
+        return new Promise(function (resolve, reject) {
+            if (typeof charts.mapType == 'string') {
+                let total;
+                import('../../assets/maps/Emaps')
+                    .then((res) => {
+                        total = res;
+                        charts.assigne(total, charts).then(() => {
+                            resolve(true);
+                        });
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        reject();
+                    });
+            } else if (typeof charts.mapType == 'object') {
+                let total;
+                import('../../assets/maps/Emaps')
+                    .then((res) => {
+                        total = res;
+                        charts.assigne(total, charts).then(() => {
+                            resolve(true);
+                        });
+
+                        resolve(true);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        reject();
+                    });
+            } else reject();
+        });
     }
 
-    ParseJsonX() {
-        let Xaxis = this.objectData['rows'];
+    async assigne(total, charts) {
+        console.log(charts.mapType);
+        if (typeof (charts.mapType == 'string')) {
+            charts.jsonmap = total[charts.mapType];
 
-        for (let i = 0; i < Xaxis.length; i++) {
-            this.x[i] = Xaxis[i].cells.Col1.obj.k;
+            charts.namemap = charts.mapType;
+            // console.log('originale', charts.jsonmap, charts.namemap);
+        } else if (typeof (charts.mapType == 'object')) {
+            charts.jsnonmap = charts.mapType;
+            charts.namemap = 'custom';
+            //  console.log('originale', charts.jsonmap, charts.namemap);
         }
     }
 
-    ParseJsonY() {
-        let ngraph = this.objectData['columns'];
-        let conta = 0;
-
-        for (let i = 0; i < ngraph.length; i++) {
-            if (ngraph[i].name != 'Col1') {
-                this.oj[ngraph[i].name] = [];
-
-                conta = conta + 1;
+    createXaxis() {
+        //creates an array that contains x-axis values
+        let x = this.objectData['rows'];
+        if (!this.axis) {
+            for (let i = 0; i < x.length; i++) {
+                this.Xaxis[i] = x[i].cells.Col1.value;
+            }
+        } else {
+            for (let i = 0; i < x.length; i++) {
+                this.Xaxis[i] = x[i].cells[this.axis].value;
             }
         }
 
-        let yvalue = this.objectData['rows'];
-        let x = [];
-        for (let i = 0; i < yvalue.length; i++) {
-            for (let key in this.oj) {
-                if (this.oj.hasOwnProperty(key)) {
-                    let value = yvalue[i].cells[key].obj.k;
-                    this.oj[key].push(value);
+        //console.log(this.Xaxis);
+    }
+
+    createObjectYvalue() {
+        //creates an object that contains all the information needed to derive the values ​​and keys needed to create the chart.
+        let rows = this.objectData['rows'];
+
+        if (this.series) {
+            for (const row of rows) {
+                for (const key of Object.keys(row.cells)) {
+                    if (key != this.axis) {
+                        if (this.series.indexOf(key) != -1) {
+                            // Temporary - waiting for axes selection prop.
+                            const cell = row.cells[key];
+                            const value = cell.value;
+                            if (!this.objectyvalue[key])
+                                this.objectyvalue[key] = [];
+                            this.objectyvalue[key].push(value);
+                        }
+                    }
+                }
+            }
+        } else {
+            for (const row of rows) {
+                for (const key of Object.keys(row.cells)) {
+                    if (key != this.axis) {
+                        // Temporary - waiting for axes selection prop.
+                        const cell = row.cells[key];
+                        const value = cell.value;
+                        if (!this.objectyvalue[key])
+                            this.objectyvalue[key] = [];
+                        this.objectyvalue[key].push(value);
+                    }
                 }
             }
         }
     }
+    createObjectMapYvalue() {
+        //creates an object that contains all the information needed to derive the values ​​and keys needed to create the chart map.
+        let rows = this.objectData['rows'];
+        let objetckey;
+        for (const row of rows) {
+            for (const key of Object.keys(row.cells)) {
+                if (key == this.axis) {
+                    objetckey = row.cells[key].value;
+                    if (!this.objectmapyvalue[objetckey])
+                        this.objectmapyvalue[objetckey] = [];
+                } else {
+                    const cell = row.cells[key];
+                    const value = cell.value;
+                    this.objectmapyvalue[objetckey].push(value);
+                }
+            }
+        }
+        // console.log(this.objectmapyvalue);
+    }
 
-    createlegend() {
+    createLegend() {
+        //create the chart legend
         let arr = [];
-        for (let key in this.oj) {
+        for (let key in this.objectyvalue) {
             arr.push(key);
         }
         return arr;
     }
 
-    objectpie() {
-        let somme = [];
-        for (let key in this.oj) {
+    objectPie() {
+        //creates object containing the right data format to pass to pie type
+        for (let key in this.objectyvalue) {
             let somma = 0;
-            for (let j = 0; j < this.oj[key].length; j++) {
-                let d = parseFloat(this.oj[key][j]);
+            const rjson = {};
+            for (let j = 0; j < this.objectyvalue[key].length; j++) {
+                let d = parseFloat(this.objectyvalue[key][j]);
                 somma = somma + d;
             }
-            somme.push(somma);
-        }
-
-        let i = 0;
-        for (let key in this.oj) {
-            let rjson = {};
-            rjson['value'] = somme[i];
+            rjson['value'] = somma;
             rjson['name'] = key;
-
             this.datapiejson.push(rjson);
-            i++;
         }
 
+        // console.log(this.datapiejson);
         return this.datapiejson;
     }
 
-    Createrightjson() {
-        for (let key in this.oj) {
+    objectMap() {
+        //creates object containing the right data format to pass to pie type
+        for (let i in this.objectmapyvalue) {
+            const rjson = {};
+            const item = {};
+            item['color'] = this.objectmapyvalue[i][0];
+            rjson['name'] = i;
+            rjson['itemStyle'] = item;
+            this.datamapjson.push(rjson);
+        }
+        //  console.log(this.datamapjson);
+        return this.datamapjson;
+    }
+
+    createEchartsJson() {
+        //Create the object and the right json format to create line, bar, scatter graphs
+        let i = 0;
+        for (const key in this.objectyvalue) {
             let rjson = {};
-            rjson['data'] = this.oj[key];
+            rjson['data'] = this.objectyvalue[key];
             rjson['name'] = key;
-            rjson['type'] = this.types.toLowerCase();
+            if (this.types[i]) {
+                rjson['type'] = this.types[i].toLowerCase();
+            } else {
+                rjson['type'] = 'line';
+            }
             this.datajson.push(rjson);
+            i++;
         }
 
-        let tlegend = this.legend;
-        this.rightjson = {
+        // console.log(this.datajson);
+        this.echartsjson = {
             color: this.themeColors,
-            legend: {
-                data: this.createlegend(),
-                [tlegend]: 0,
-                textStyle: {
-                    color: this.themeText,
-                    fontFamily: this.themeFont,
-                },
-            },
-            series: this.datajson,
             title: {
                 text: this.graphTitle,
+                [this.titlePosition]: 0,
                 textStyle: {
                     color: this.graphTitleColor,
                     fontFamily: this.themeFont,
                     fontSize: this.graphTitleSize,
                 },
             },
-            tooltip: {
+            legend: {
+                data: this.createLegend(),
+                [this.legend]: 0,
                 textStyle: {
+                    color: this.themeText,
                     fontFamily: this.themeFont,
                 },
-                trigger: 'axis',
             },
             xAxis: {
                 axisLine: { lineStyle: { color: this.themeText } },
@@ -171,9 +325,15 @@ export class KupEcharts {
                     fontFamily: this.themeFont,
                 },
                 axisTick: { lineStyle: { color: this.themeBorder } },
-                data: this.x,
+                data: this.Xaxis,
                 splitLine: { lineStyle: { color: this.themeBorder } },
                 type: 'category',
+            },
+            tooltip: {
+                textStyle: {
+                    fontFamily: this.themeFont,
+                },
+                trigger: 'axis',
             },
             yAxis: {
                 axisLine: { lineStyle: { color: this.themeText } },
@@ -185,15 +345,17 @@ export class KupEcharts {
                 splitLine: { lineStyle: { color: this.themeBorder } },
                 type: 'value',
             },
+            series: this.datajson,
         };
     }
 
-    createpiejson() {
-        let tlegend = this.legend;
-        this.rightjson = {
+    createEchartsPieJson() {
+        //create the right json to create pie type charts
+        this.echartsjson = {
             color: this.themeColors,
             title: {
                 text: this.graphTitle,
+                [this.titlePosition]: 0,
                 textStyle: {
                     color: this.graphTitleColor,
                     fontFamily: this.themeFont,
@@ -201,20 +363,22 @@ export class KupEcharts {
                 },
             },
             legend: {
-                data: this.createlegend(),
-                [tlegend]: 0,
+                data: this.createLegend(),
+                [this.legend]: 0,
                 textStyle: {
                     color: this.themeText,
                     fontFamily: this.themeFont,
                 },
             },
+
             tooltip: {
-                formatter: '{a} <br/>{b}: {c} ({d}%)',
                 textStyle: {
                     fontFamily: this.themeFont,
                 },
                 trigger: 'item',
+                formatter: '{a} <br/>{b}: {c} ({d}%)',
             },
+
             series: [
                 {
                     name: 'echart',
@@ -254,62 +418,111 @@ export class KupEcharts {
         this.themeColors = colorArray;
     }
 
+    createEchartsMapJson() {
+        //create the right json for creating map-like graphics
+        this.echartsjson = {
+            title: {
+                text: this.graphTitle,
+                [this.titlePosition]: 0,
+                textStyle: {
+                    fontSize: this.graphTitleSize,
+                    color: this.graphTitleColor,
+                },
+            },
+            tooltip: {
+                trigger: 'item',
+                showDelay: 0,
+                transitionDuration: 0.2,
+                formatter: function (params) {
+                    let value;
+                    if (params.color != '#c23531') {
+                        value = params.color;
+                    } else {
+                        value = 'no value';
+                    }
+
+                    return (
+                        params.seriesName + '<br/>' + params.name + ': ' + value
+                    );
+                },
+            },
+
+            series: [
+                {
+                    name: 'estimate',
+                    type: 'map',
+                    roam: true,
+                    map: this.namemap,
+                    emphasis: {
+                        label: {
+                            show: true,
+                        },
+                    },
+
+                    data: this.datamapjson,
+                },
+            ],
+        };
+    }
+
+    //---- Lifecycle hooks ----
+
     componentWillLoad() {
         setThemeCustomStyle(this);
         this.fetchThemeColors();
     }
 
     componentWillUpdate() {
-        this.oj = {};
-        this.x = [];
-        this.rightjson = {};
-        this.datajson = [];
-        this.datapiejson = [];
-        this.myChart = '';
-
-        if (this.types.toLowerCase() == 'pie') {
-            this.ParseJsonY();
-            this.objectpie();
-            this.createpiejson();
-        } else {
-            this.ParseJsonX();
-            this.ParseJsonY();
-            this.Createrightjson();
-        }
-
-        this.CreateEcharts();
+        this.resetChart();
+        this.initializeChart();
     }
 
     componentDidLoad() {
-        if (this.types.toLowerCase() == 'pie') {
-            this.ParseJsonY();
-            this.objectpie();
-            this.createpiejson();
-        } else {
-            this.ParseJsonX();
-            this.ParseJsonY();
-            this.Createrightjson();
-        }
-
-        this.CreateEcharts();
+        this.initializeChart();
     }
-    OnKupClick() {
-        this.kupEchartsClicked.emit();
+
+    resetChart() {
+        this.objectyvalue = {};
+        this.Xaxis = [];
+        this.echartsjson = {};
+        this.datajson = [];
+        this.datapiejson = [];
+        this.datamapjson = [];
+        this.objectmapyvalue = {};
+        this.namemap = '';
+    }
+
+    initializeChart() {
+        if (this.types[0] != 'map') {
+            if (this.types[0].toLowerCase() == 'pie') {
+                this.createObjectYvalue();
+                this.objectPie();
+                this.createEchartsPieJson();
+            } else {
+                this.createXaxis();
+                this.createObjectYvalue();
+                this.createEchartsJson();
+            }
+        } else {
+            /*
+            this.createObjectMapYvalue();
+            this.objectMap();
+            this.createEchartsMapJson();
+            */
+        }
+        this.CreateEcharts();
     }
 
     render() {
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
                 <div
-                    id="kup-component"
-                    onClick={() => this.OnKupClick()}
+                    id="main"
+                    onClick={() => this.onKupClick()}
                     ref={(chartContainer) =>
                         (this.chartContainer = chartContainer)
                     }
-                >
-                    {' '}
-                </div>
+                ></div>
             </Host>
         );
     }

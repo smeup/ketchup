@@ -20,7 +20,7 @@ import { singleData } from '@/mock/echarts';
 export default {
   data() {
     return {
-      types: 'Bar',
+      types: ['Bar', 'Bar', 'Bar'],
       baseData,
       singleData,
     };

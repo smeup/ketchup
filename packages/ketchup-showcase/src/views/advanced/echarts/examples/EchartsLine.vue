@@ -21,7 +21,7 @@ import { singleData } from '@/mock/echarts';
 export default {
   data() {
     return {
-      types: 'Line',
+      types: ['Line'],
       baseData,
       singleData,
     };

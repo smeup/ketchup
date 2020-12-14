@@ -18,6 +18,9 @@
     <template v-slot:5>
       <echarts-scatter></echarts-scatter>
     </template>
+    <template v-slot:6>
+      <echarts-map></echarts-map>
+    </template>
   </comp>
 </template>
 
@@ -28,6 +31,7 @@ import EchartsEvents from '@/views/advanced/echarts/examples/EchartsEvents';
 import EchartsLine from '@/views/advanced/echarts/examples/EchartsLine';
 import EchartsPie from '@/views/advanced/echarts/examples/EchartsPie';
 import EchartsScatter from '@/views/advanced/echarts/examples/EchartsScatter';
+import EchartsMap from '@/views/advanced/echarts/examples/EchartsMap';
 import Comp from '@/views/advanced/page/templates/Comp';
 
 export default {
@@ -38,6 +42,7 @@ export default {
     EchartsLine,
     EchartsPie,
     EchartsScatter,
+    EchartsMap,
     Comp,
   },
   data() {
@@ -45,7 +50,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-echarts',
       headtitle: 'Echarts',
-      titles: ['Playground', 'Bar', 'Events', 'Line', 'Pie', 'Scatter'],
+      titles: ['Playground', 'Bar', 'Events', 'Line', 'Pie', 'Scatter', 'Map'],
     };
   },
 };

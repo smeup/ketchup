@@ -20,7 +20,7 @@ import { singleData } from '@/mock/echarts';
 export default {
   data() {
     return {
-      types: 'Scatter',
+      types: ['Scatter', 'Scatter', 'Scatter'],
       baseData,
       singleData,
     };
