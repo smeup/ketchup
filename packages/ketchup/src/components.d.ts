@@ -722,16 +722,50 @@ export namespace Components {
     }
     interface KupEcharts {
         /**
+          * Sets the axis of the chart.
+         */
+        "axis": string;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle": string;
+        /**
+          * Title of the graph.
+         */
         "graphTitle": string;
+        /**
+          * Title of the graph's color.
+         */
         "graphTitleColor": string;
+        /**
+          * Size of title of the graph (in pixels).
+         */
         "graphTitleSize": number;
+        /**
+          * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+         */
         "legend": string;
+        /**
+          * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
+         */
+        "mapType": any;
+        /**
+          * The actual data of the chart.
+         */
         "objectData": object;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        "types": string;
+        /**
+          * The data series to be displayed. They must be of the same type.
+         */
+        "series": string[];
+        /**
+          * Title position
+         */
+        "titlePosition": string;
+        /**
+          * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+         */
+        "types": String[];
     }
     interface KupEditor {
         /**
@@ -2830,16 +2864,50 @@ declare namespace LocalJSX {
     }
     interface KupEcharts {
         /**
+          * Sets the axis of the chart.
+         */
+        "axis"?: string;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle"?: string;
+        /**
+          * Title of the graph.
+         */
         "graphTitle"?: string;
+        /**
+          * Title of the graph's color.
+         */
         "graphTitleColor"?: string;
+        /**
+          * Size of title of the graph (in pixels).
+         */
         "graphTitleSize"?: number;
+        /**
+          * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+         */
         "legend"?: string;
+        /**
+          * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
+         */
+        "mapType"?: any;
+        /**
+          * The actual data of the chart.
+         */
         "objectData"?: object;
         "onKupEchartsClicked"?: (event: CustomEvent<any>) => void;
-        "types"?: string;
+        /**
+          * The data series to be displayed. They must be of the same type.
+         */
+        "series"?: string[];
+        /**
+          * Title position
+         */
+        "titlePosition"?: string;
+        /**
+          * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+         */
+        "types"?: String[];
     }
     interface KupEditor {
         /**
