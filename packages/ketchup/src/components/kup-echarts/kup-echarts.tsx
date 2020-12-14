@@ -4,6 +4,7 @@ import {
     h,
     Prop,
     Element,
+    getAssetPath,
     Event,
     EventEmitter,
     State,
@@ -12,10 +13,10 @@ import {
 import { logLoad, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import echarts from 'echarts';
-import { world } from '../../assets/maps/Emaps';
 
 @Component({
     tag: 'kup-echarts',
+    assetsDirs: ['assets/maps'],
     styleUrl: 'kup-echarts.css',
     shadow: true,
 })
@@ -125,10 +126,12 @@ export class KupEcharts {
     }
     async dynamicImport(): Promise<Boolean> {
         const charts = this;
+        let maps = getAssetPath(`./assets/maps/maps.js`);
+        console.log(maps);
         return new Promise(function (resolve, reject) {
             if (typeof charts.mapType == 'string') {
                 let total;
-                import('../../assets/maps/Emaps')
+                import(maps)
                     .then((res) => {
                         total = res;
                         charts.assigne(total, charts).then(() => {
@@ -141,7 +144,7 @@ export class KupEcharts {
                     });
             } else if (typeof charts.mapType == 'object') {
                 let total;
-                import('../../assets/maps/Emaps')
+                import(maps)
                     .then((res) => {
                         total = res;
                         charts.assigne(total, charts).then(() => {
