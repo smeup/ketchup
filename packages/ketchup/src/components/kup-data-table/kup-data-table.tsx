@@ -66,6 +66,7 @@ import {
     getCheckBoxFilterValues,
     hasFiltersForColumn,
     getCellValueForDisplay,
+    normalizeValue,
 } from './kup-data-table-helper';
 
 import {
@@ -89,12 +90,9 @@ import { GenericObject } from '../../types/GenericTypes';
 
 import {
     stringToNumber,
-    formattedStringToUnformattedStringNumber,
     numberToFormattedStringNumber,
     identify,
     isNumber as isNumberThisString,
-    formattedStringToDefaultUnformattedStringDate,
-    isValidFormattedStringDate,
 } from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 
@@ -1134,12 +1132,19 @@ export class KupDataTable {
         let values = [];
 
         let tmpFilters: GenericFilter = { ...this.filters };
-        let value = "";
+        let value = '';
         if (this.filters[column.name]) {
-            value = this.normalizeValue(this.filters[column.name].textField, column);
+            value = normalizeValue(
+                this.filters[column.name].textField,
+                column.obj
+            );
+            value = this.filters[column.name].textField;
         }
-        if (this.getCheckBoxFilter(column.name)) {
-            value =  this.normalizeValue(this.getCheckBoxFilter(column.name), column);
+        if (this.getCheckBoxFilter(column.name) != null) {
+            value = normalizeValue(
+                this.getCheckBoxFilter(column.name),
+                column.obj
+            );
         }
 
         tmpFilters[column.name] = {
@@ -1495,10 +1500,10 @@ export class KupDataTable {
     private onFilterChange({ detail }, column: Column) {
         // resetting current page
         this.resetCurrentPage();
-        this.setCheckBoxFilter(column, '');
+        this.setCheckBoxFilter(column, null);
         let newFilter = '';
         if (detail.value) {
-            newFilter = this.normalizeValue(detail.value.trim(), column);
+            newFilter = normalizeValue(detail.value.trim(), column.obj);
         }
         const newFilters: GenericFilter = { ...this.filters };
         setTextFieldFilterValue(newFilters, column.name, newFilter);
@@ -1533,33 +1538,14 @@ export class KupDataTable {
     }
 
     private getCheckBoxFilter(column: string): string {
-        var value = '';
+        var value = null;
         if (
             this.filterForCheckBox[column] &&
-            this.filterForCheckBox[column].textField
+            this.filterForCheckBox[column].textField != null
         ) {
             value = this.filterForCheckBox[column].textField;
         }
         return value;
-    }
-
-    private normalizeValue(value: string, column: Column): string{
-        let newValue = value;
-        if (isDate(column.obj)) {
-            if (isValidFormattedStringDate(value)) {
-            newValue = formattedStringToDefaultUnformattedStringDate(value);
-            }
-        }
-        if (isNumber(column.obj)) {
-            let tmpStr = formattedStringToUnformattedStringNumber(
-                value,
-                column.obj ? column.obj.p : ''
-            );
-            if (isNumberThisString(parseFloat(tmpStr))) {
-                newValue = tmpStr;
-            }
-        }
-        return newValue;
     }
 
     private hasFiltersForColumn(column: string): boolean {
@@ -2302,7 +2288,9 @@ export class KupDataTable {
                             if (
                                 filterInitialValue != '' &&
                                 isNumber(column.obj) &&
-                                isNumberThisString(parseFloat(filterInitialValue))
+                                isNumberThisString(
+                                    parseFloat(filterInitialValue)
+                                )
                             ) {
                                 filterInitialValue = getCellValueForDisplay(
                                     filterInitialValue,
@@ -3897,6 +3885,9 @@ export class KupDataTable {
                         label="Search..."
                         icon="magnify"
                         initialValue={this.globalFilterValue}
+                        onKupTextFieldInput={(event) =>
+                            this.onGlobalFilterChange(event)
+                        }
                         onKupTextFieldSubmit={(event) =>
                             this.onGlobalFilterChange(event)
                         }
