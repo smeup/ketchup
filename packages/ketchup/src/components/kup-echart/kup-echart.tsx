@@ -17,7 +17,7 @@ import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import echarts from 'echarts';
+import echarts, { ECharts } from 'echarts';
 
 @Component({
     tag: 'kup-echart',
@@ -80,16 +80,16 @@ export class KupEchart {
     @Prop() types: String[] = ['Line'];
 
     private chartContainer?: HTMLDivElement;
-    private myChart: any;
-    private objectyvalue = {};
-    private Xaxis = [];
-    private echartjson: any;
-    private datajson = [];
-    private datapiejson = [];
-    private datamapjson = [];
-    private objectmapyvalue = {};
-    private namemap: any;
-    private jsonmap: any;
+    private chartEl: ECharts;
+    private yObjValue = {};
+    private yObjValueMap = {};
+    private xAxis = [];
+    private echartJson: any;
+    private dataJson = [];
+    private dataPieJson = [];
+    private dataMapJson = [];
+    private nameMap: any;
+    private jsonMap: any;
     private resObserver: ResizeObserver = undefined;
 
     @Event() kupEchartClicked: EventEmitter;
@@ -113,14 +113,14 @@ export class KupEchart {
     }
 
     private resetChart() {
-        this.objectyvalue = {};
-        this.Xaxis = [];
-        this.echartjson = {};
-        this.datajson = [];
-        this.datapiejson = [];
-        this.datamapjson = [];
-        this.objectmapyvalue = {};
-        this.namemap = '';
+        this.yObjValue = {};
+        this.yObjValueMap = {};
+        this.xAxis = [];
+        this.echartJson = {};
+        this.dataJson = [];
+        this.dataPieJson = [];
+        this.dataMapJson = [];
+        this.nameMap = '';
     }
 
     private initializeChart() {
@@ -130,7 +130,7 @@ export class KupEchart {
                 this.objectPie();
                 this.createEchartPieJson();
             } else {
-                this.createXaxis();
+                this.createXAxis();
                 this.createObjectYvalue();
                 this.createEchartJson();
             }
@@ -139,83 +139,80 @@ export class KupEchart {
     }
 
     private CreateEchart() {
-        if (this.myChart) {
+        if (this.chartEl) {
             echarts.dispose(this.chartContainer);
         }
-        this.myChart = echarts.init(this.chartContainer);
+        this.chartEl = echarts.init(this.chartContainer);
         if (this.types[0].toLowerCase() == 'map') {
             this.dynamicImport()
                 .then(() => {
-                    echarts.registerMap(this.namemap, this.jsonmap);
+                    echarts.registerMap(this.nameMap, this.jsonMap);
                     this.createObjectMapYvalue();
                     this.objectMap();
                     this.createEchartMapJson();
-                    this.myChart.setOption(this.echartjson, true);
+                    this.chartEl.setOption(this.echartJson, true);
                 })
                 .catch((error) => {
-                    logMessage(this, error);
+                    logMessage(this, error, 'error');
                 });
         } else {
-            this.myChart.setOption(this.echartjson, true);
+            this.chartEl.setOption(this.echartJson, true);
         }
     }
 
     async dynamicImport(): Promise<Boolean> {
-        const charts = this;
+        const chart = this;
         let maps = getAssetPath(`./assets/maps/maps.js`);
         return new Promise(function (resolve, reject) {
-            if (typeof charts.mapType == 'string') {
-                let total;
+            if (typeof chart.mapType == 'string') {
+                console.log(this, chart);
                 import(maps)
                     .then((res) => {
-                        total = res;
-                        charts.assigne(total, charts).then(() => {
+                        chart.setMap(res, chart).then(() => {
                             resolve(true);
                         });
                     })
                     .catch((error) => {
-                        logMessage(this, error);
+                        logMessage(this, error, 'error');
                         reject();
                     });
-            } else if (typeof charts.mapType == 'object') {
-                let total;
+            } else if (typeof chart.mapType == 'object') {
                 import(maps)
                     .then((res) => {
-                        total = res;
-                        charts.assigne(total, charts).then(() => {
+                        chart.setMap(res, chart).then(() => {
                             resolve(true);
                         });
 
                         resolve(true);
                     })
                     .catch((error) => {
-                        logMessage(this, error);
+                        logMessage(this, error, 'error');
                         reject();
                     });
             } else reject();
         });
     }
 
-    async assigne(total, charts) {
-        if (typeof (charts.mapType == 'string')) {
-            charts.jsonmap = total[charts.mapType];
-            charts.namemap = charts.mapType;
-        } else if (typeof (charts.mapType == 'object')) {
-            charts.jsnonmap = charts.mapType;
-            charts.namemap = 'custom';
+    async setMap(maps: {}, chart: KupEchart) {
+        if (typeof (chart.mapType == 'string')) {
+            chart.jsonMap = maps[chart.mapType];
+            chart.nameMap = chart.mapType;
+        } else if (typeof (chart.mapType == 'object')) {
+            chart.jsonMap = chart.mapType;
+            chart.nameMap = 'custom';
         }
     }
 
-    private createXaxis() {
+    private createXAxis() {
         // Creates an array that contains x-axis values
         let x = this.data['rows'];
         if (!this.axis) {
             for (let i = 0; i < x.length; i++) {
-                this.Xaxis[i] = x[i].cells.Col1.value;
+                this.xAxis[i] = x[i].cells.Col1.value;
             }
         } else {
             for (let i = 0; i < x.length; i++) {
-                this.Xaxis[i] = x[i].cells[this.axis].value;
+                this.xAxis[i] = x[i].cells[this.axis].value;
             }
         }
     }
@@ -232,9 +229,8 @@ export class KupEchart {
                             // Temporary - waiting for axes selection prop.
                             const cell = row.cells[key];
                             const value = cell.value;
-                            if (!this.objectyvalue[key])
-                                this.objectyvalue[key] = [];
-                            this.objectyvalue[key].push(value);
+                            if (!this.yObjValue[key]) this.yObjValue[key] = [];
+                            this.yObjValue[key].push(value);
                         }
                     }
                 }
@@ -246,9 +242,8 @@ export class KupEchart {
                         // Temporary - waiting for axes selection prop.
                         const cell = row.cells[key];
                         const value = cell.value;
-                        if (!this.objectyvalue[key])
-                            this.objectyvalue[key] = [];
-                        this.objectyvalue[key].push(value);
+                        if (!this.yObjValue[key]) this.yObjValue[key] = [];
+                        this.yObjValue[key].push(value);
                     }
                 }
             }
@@ -258,17 +253,17 @@ export class KupEchart {
     private createObjectMapYvalue() {
         // Creates an object that contains all the information needed to derive the values ​​and keys needed to create the chart map.
         let rows = this.data['rows'];
-        let objetckey;
+        let objKey: string;
         for (const row of rows) {
             for (const key of Object.keys(row.cells)) {
                 if (key == this.axis) {
-                    objetckey = row.cells[key].value;
-                    if (!this.objectmapyvalue[objetckey])
-                        this.objectmapyvalue[objetckey] = [];
+                    objKey = row.cells[key].value;
+                    if (!this.yObjValueMap[objKey])
+                        this.yObjValueMap[objKey] = [];
                 } else {
                     const cell = row.cells[key];
                     const value = cell.value;
-                    this.objectmapyvalue[objetckey].push(value);
+                    this.yObjValueMap[objKey].push(value);
                 }
             }
         }
@@ -276,58 +271,58 @@ export class KupEchart {
 
     private createLegend() {
         let arr = [];
-        for (let key in this.objectyvalue) {
+        for (let key in this.yObjValue) {
             arr.push(key);
         }
         return arr;
     }
 
     private objectPie() {
-        for (let key in this.objectyvalue) {
+        for (let key in this.yObjValue) {
             let somma = 0;
             const rjson = {};
-            for (let j = 0; j < this.objectyvalue[key].length; j++) {
-                let d = parseFloat(this.objectyvalue[key][j]);
+            for (let j = 0; j < this.yObjValue[key].length; j++) {
+                let d = parseFloat(this.yObjValue[key][j]);
                 somma = somma + d;
             }
             rjson['value'] = somma;
             rjson['name'] = key;
-            this.datapiejson.push(rjson);
+            this.dataPieJson.push(rjson);
         }
 
-        return this.datapiejson;
+        return this.dataPieJson;
     }
 
     private objectMap() {
         //creates object containing the right data format to pass to pie type
-        for (let i in this.objectmapyvalue) {
+        for (let i in this.yObjValueMap) {
             const rjson = {};
             const item = {};
-            item['color'] = this.objectmapyvalue[i][0];
+            item['color'] = this.yObjValueMap[i][0];
             rjson['name'] = i;
             rjson['itemStyle'] = item;
-            this.datamapjson.push(rjson);
+            this.dataMapJson.push(rjson);
         }
-        return this.datamapjson;
+        return this.dataMapJson;
     }
 
     private createEchartJson() {
         // Create the object and the right json format to create line, bar, scatter graphs
         let i = 0;
-        for (const key in this.objectyvalue) {
+        for (const key in this.yObjValue) {
             let rjson = {};
-            rjson['data'] = this.objectyvalue[key];
+            rjson['data'] = this.yObjValue[key];
             rjson['name'] = key;
             if (this.types[i]) {
                 rjson['type'] = this.types[i].toLowerCase();
             } else {
                 rjson['type'] = 'line';
             }
-            this.datajson.push(rjson);
+            this.dataJson.push(rjson);
             i++;
         }
 
-        this.echartjson = {
+        this.echartJson = {
             color: this.themeColors,
             title: {
                 text: this.graphTitle,
@@ -353,7 +348,7 @@ export class KupEchart {
                     fontFamily: this.themeFont,
                 },
                 axisTick: { lineStyle: { color: this.themeBorder } },
-                data: this.Xaxis,
+                data: this.xAxis,
                 splitLine: { lineStyle: { color: this.themeBorder } },
                 type: 'category',
             },
@@ -373,13 +368,13 @@ export class KupEchart {
                 splitLine: { lineStyle: { color: this.themeBorder } },
                 type: 'value',
             },
-            series: this.datajson,
+            series: this.dataJson,
         };
     }
 
     private createEchartPieJson() {
         // Create the right json to create pie type charts
-        this.echartjson = {
+        this.echartJson = {
             color: this.themeColors,
             title: {
                 text: this.graphTitle,
@@ -411,7 +406,7 @@ export class KupEchart {
                 {
                     name: 'echart',
                     type: 'pie',
-                    data: this.datapiejson,
+                    data: this.dataPieJson,
                     emphasis: {
                         itemStyle: {
                             shadowBlur: 10,
@@ -448,7 +443,7 @@ export class KupEchart {
 
     private createEchartMapJson() {
         // Create the right json for creating map-like graphics
-        this.echartjson = {
+        this.echartJson = {
             title: {
                 text: this.graphTitle,
                 [this.titlePosition]: 0,
@@ -480,14 +475,14 @@ export class KupEchart {
                     name: 'estimate',
                     type: 'map',
                     roam: true,
-                    map: this.namemap,
+                    map: this.nameMap,
                     emphasis: {
                         label: {
                             show: true,
                         },
                     },
 
-                    data: this.datamapjson,
+                    data: this.dataMapJson,
                 },
             ],
         };
