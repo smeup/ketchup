@@ -11,6 +11,7 @@
     <div id="event">click on the graph to trigger the event</div>
     <div style="width: 580px; height: 400px">
       <kup-echart
+        :axis.prop="axis"
         :data.prop="baseData"
         :types.prop="types1"
         @kupEchartClicked="onPieChartClicked()"
