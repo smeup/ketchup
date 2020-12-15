@@ -918,6 +918,12 @@ table#customstyle-tab kup-text-field {
   }
 }
 
+.v-list__group__items
+  .v-list__tile__content
+  .v-list__tile__title.extra-padding {
+  padding-left: 2rem;
+}
+
 @media screen and (min-width: 1260px) {
   .member-description {
     max-width: calc(100% - 280px);

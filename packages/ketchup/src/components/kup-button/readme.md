@@ -57,6 +57,7 @@ Type: `Promise<void>`
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-paginator](../kup-paginator)
  - [kup-search](../kup-search)
+ - [kup-time-picker](../kup-time-picker)
  - [kup-tooltip](../kup-tooltip)
  - [kup-tree](../kup-tree)
 
@@ -76,6 +77,7 @@ graph TD;
   kup-nav-bar --> kup-button
   kup-paginator --> kup-button
   kup-search --> kup-button
+  kup-time-picker --> kup-button
   kup-tooltip --> kup-button
   kup-tree --> kup-button
   style kup-button fill:#f9f,stroke:#333,stroke-width:4px

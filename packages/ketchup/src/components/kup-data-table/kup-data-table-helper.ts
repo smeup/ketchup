@@ -809,9 +809,15 @@ export function normalizeTotals(
 
     k.forEach((key) => {
         if (key === '*ALL') {
+            console.log('Totals *ALL');
             columns.forEach((c) => {
                 if (isNumber(c.obj)) {
-                    rettotals[c.name] = totals[key];
+                    let colCustomTotal: TotalMode = totals[c.name];
+                    if (colCustomTotal != null) {
+                        rettotals[c.name] = colCustomTotal;
+                    } else {
+                        rettotals[c.name] = totals[key];
+                    }
                 }
             });
         } else {
