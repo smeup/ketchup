@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="margin: auto; width: 600px; height: 400px">
-      <kup-echarts
+      <kup-echart
         :axis.prop="axis"
         :data.prop="baseData"
         :types.prop="types"

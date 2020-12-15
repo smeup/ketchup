@@ -720,7 +720,7 @@ export namespace Components {
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         "toggle": () => Promise<void>;
     }
-    interface KupEcharts {
+    interface KupEchart {
         /**
           * Sets the axis of the chart.
          */
@@ -1656,11 +1656,11 @@ declare global {
         prototype: HTMLKupDrawerElement;
         new (): HTMLKupDrawerElement;
     };
-    interface HTMLKupEchartsElement extends Components.KupEcharts, HTMLStencilElement {
+    interface HTMLKupEchartElement extends Components.KupEchart, HTMLStencilElement {
     }
-    var HTMLKupEchartsElement: {
-        prototype: HTMLKupEchartsElement;
-        new (): HTMLKupEchartsElement;
+    var HTMLKupEchartElement: {
+        prototype: HTMLKupEchartElement;
+        new (): HTMLKupEchartElement;
     };
     interface HTMLKupEditorElement extends Components.KupEditor, HTMLStencilElement {
     }
@@ -1843,7 +1843,7 @@ declare global {
         "kup-data-table": HTMLKupDataTableElement;
         "kup-date-picker": HTMLKupDatePickerElement;
         "kup-drawer": HTMLKupDrawerElement;
-        "kup-echarts": HTMLKupEchartsElement;
+        "kup-echart": HTMLKupEchartElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
@@ -2862,7 +2862,7 @@ declare namespace LocalJSX {
          */
         "opened"?: boolean;
     }
-    interface KupEcharts {
+    interface KupEchart {
         /**
           * Sets the axis of the chart.
          */
@@ -2895,7 +2895,7 @@ declare namespace LocalJSX {
           * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
          */
         "mapType"?: any;
-        "onKupEchartsClicked"?: (event: CustomEvent<any>) => void;
+        "onKupEchartClicked"?: (event: CustomEvent<any>) => void;
         /**
           * The data series to be displayed. They must be of the same type.
          */
@@ -3939,7 +3939,7 @@ declare namespace LocalJSX {
         "kup-data-table": KupDataTable;
         "kup-date-picker": KupDatePicker;
         "kup-drawer": KupDrawer;
-        "kup-echarts": KupEcharts;
+        "kup-echart": KupEchart;
         "kup-editor": KupEditor;
         "kup-field": KupField;
         "kup-form": KupForm;
@@ -3991,7 +3991,7 @@ declare module "@stencil/core" {
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
             "kup-date-picker": LocalJSX.KupDatePicker & JSXBase.HTMLAttributes<HTMLKupDatePickerElement>;
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
-            "kup-echarts": LocalJSX.KupEcharts & JSXBase.HTMLAttributes<HTMLKupEchartsElement>;
+            "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;

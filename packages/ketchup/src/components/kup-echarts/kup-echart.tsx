@@ -15,12 +15,12 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import echarts from 'echarts';
 
 @Component({
-    tag: 'kup-echarts',
+    tag: 'kup-echart',
     assetsDirs: ['assets/maps'],
-    styleUrl: 'kup-echarts.scss',
+    styleUrl: 'kup-echart.scss',
     shadow: true,
 })
-export class KupEcharts {
+export class KupEchart {
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
     @State() themeBorder: string = undefined;
@@ -77,7 +77,7 @@ export class KupEcharts {
     private myChart: any;
     private objectyvalue = {};
     private Xaxis = [];
-    private echartsjson: any;
+    private echartjson: any;
     private datajson = [];
     private datapiejson = [];
     private datamapjson = [];
@@ -85,7 +85,7 @@ export class KupEcharts {
     private namemap: any;
     private jsonmap: any;
 
-    @Event() kupEchartsClicked: EventEmitter;
+    @Event() kupEchartClicked: EventEmitter;
 
     //---- Methods ----
 
@@ -98,13 +98,13 @@ export class KupEcharts {
     }
 
     private onKupClick() {
-        this.kupEchartsClicked.emit();
+        this.kupEchartClicked.emit();
     }
 
     private resetChart() {
         this.objectyvalue = {};
         this.Xaxis = [];
-        this.echartsjson = {};
+        this.echartjson = {};
         this.datajson = [];
         this.datapiejson = [];
         this.datamapjson = [];
@@ -117,17 +117,17 @@ export class KupEcharts {
             if (this.types[0].toLowerCase() == 'pie') {
                 this.createObjectYvalue();
                 this.objectPie();
-                this.createEchartsPieJson();
+                this.createEchartPieJson();
             } else {
                 this.createXaxis();
                 this.createObjectYvalue();
-                this.createEchartsJson();
+                this.createEchartJson();
             }
         }
-        this.CreateEcharts();
+        this.CreateEchart();
     }
 
-    private CreateEcharts() {
+    private CreateEchart() {
         if (!this.myChart) {
             this.myChart = echarts.init(this.chartContainer);
         }
@@ -137,14 +137,14 @@ export class KupEcharts {
                     echarts.registerMap(this.namemap, this.jsonmap);
                     this.createObjectMapYvalue();
                     this.objectMap();
-                    this.createEchartsMapJson();
-                    this.myChart.setOption(this.echartsjson, true);
+                    this.createEchartMapJson();
+                    this.myChart.setOption(this.echartjson, true);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         } else {
-            this.myChart.setOption(this.echartsjson, true);
+            this.myChart.setOption(this.echartjson, true);
         }
     }
 
@@ -299,7 +299,7 @@ export class KupEcharts {
         return this.datamapjson;
     }
 
-    private createEchartsJson() {
+    private createEchartJson() {
         // Create the object and the right json format to create line, bar, scatter graphs
         let i = 0;
         for (const key in this.objectyvalue) {
@@ -315,7 +315,7 @@ export class KupEcharts {
             i++;
         }
 
-        this.echartsjson = {
+        this.echartjson = {
             color: this.themeColors,
             title: {
                 text: this.graphTitle,
@@ -365,9 +365,9 @@ export class KupEcharts {
         };
     }
 
-    private createEchartsPieJson() {
+    private createEchartPieJson() {
         // Create the right json to create pie type charts
-        this.echartsjson = {
+        this.echartjson = {
             color: this.themeColors,
             title: {
                 text: this.graphTitle,
@@ -434,9 +434,9 @@ export class KupEcharts {
         this.themeColors = colorArray;
     }
 
-    private createEchartsMapJson() {
+    private createEchartMapJson() {
         // Create the right json for creating map-like graphics
-        this.echartsjson = {
+        this.echartjson = {
             title: {
                 text: this.graphTitle,
                 [this.titlePosition]: 0,

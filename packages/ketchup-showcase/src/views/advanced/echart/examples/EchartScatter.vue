@@ -2,7 +2,7 @@
   <div>
     <p>Single series chart.</p>
     <div style="margin: auto; width: 600px; height: 400px">
-      <kup-echarts
+      <kup-echart
         :axis.prop="axis"
         :data.prop="singleData"
         :types.prop="types"
@@ -11,11 +11,7 @@
     <br />
     <p>Multi series chart.</p>
     <div style="margin: auto; width: 600px; height: 400px">
-      <kup-echarts
-        :axis.prop="axis"
-        :data.prop="baseData"
-        :types.prop="types"
-      />
+      <kup-echart :axis.prop="axis" :data.prop="baseData" :types.prop="types" />
     </div>
   </div>
 </template>
@@ -28,9 +24,9 @@ export default {
   data() {
     return {
       axis: 'Col1',
-      types: ['Line'],
       baseData,
       singleData,
+      types: ['Scatter', 'Scatter', 'Scatter'],
     };
   },
 };

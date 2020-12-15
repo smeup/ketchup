@@ -24,9 +24,9 @@
 
 ## Events
 
-| Event               | Description | Type               |
-| ------------------- | ----------- | ------------------ |
-| `kupEchartsClicked` |             | `CustomEvent<any>` |
+| Event              | Description | Type               |
+| ------------------ | ----------- | ------------------ |
+| `kupEchartClicked` |             | `CustomEvent<any>` |
 
 
 ## Methods

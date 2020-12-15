@@ -2,7 +2,7 @@
   <div>
     <p>World map chart.</p>
     <div style="margin: auto; width: 1000px; height: 600px">
-      <kup-echarts
+      <kup-echart
         :axis.prop="axis"
         :data.prop="mapData"
         :types.prop="types"
@@ -12,7 +12,7 @@
     <br />
     <p>Europe map chart.</p>
     <div style="margin: auto; width: 1000px; height: 600px">
-      <kup-echarts
+      <kup-echart
         :axis.prop="axis"
         :data.prop="mapData"
         :types.prop="types"

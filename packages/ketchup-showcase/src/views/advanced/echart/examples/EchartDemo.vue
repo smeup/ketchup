@@ -16,13 +16,13 @@ export default {
   components: {
     Demo,
   },
-  name: 'EchartsDemo',
+  name: 'EchartDemo',
   data() {
     return {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupEchartsClicked',
+          name: 'kupEchartClicked',
           type: 'click',
         },
       ],
@@ -107,7 +107,7 @@ export default {
 };
 
 function createComp() {
-  let comp = document.createElement('kup-echarts');
+  let comp = document.createElement('kup-echart');
   comp.data = baseData;
   comp.axis = 'Col1';
   comp.id = 'demo-component';

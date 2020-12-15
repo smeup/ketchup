@@ -1,19 +1,19 @@
 <template>
   <div class="wrapper">
     <div style="width: 580px; height: 400px">
-      <kup-echarts
+      <kup-echart
         :axis.prop="axis"
         :data.prop="baseData"
         :types.prop="types"
-        @kupEchartsClicked="onBarChartClicked"
+        @kupEchartClicked="onBarChartClicked"
       />
     </div>
     <div id="event">click on the graph to trigger the event</div>
     <div style="width: 580px; height: 400px">
-      <kup-echarts
+      <kup-echart
         :data.prop="baseData"
         :types.prop="types1"
-        @kupEchartsClicked="onPieChartClicked()"
+        @kupEchartClicked="onPieChartClicked()"
       />
     </div>
     <div id="event1">click on the graph to trigger the event</div>
@@ -39,13 +39,13 @@ export default {
     onBarChartClicked() {
       this.cnt++;
       document.getElementById('event').innerHTML =
-        'kupEchartsClicked event received' + '<br>' + 'N:' + this.conta;
+        'kupEchartClicked event received' + '<br>' + 'N:' + this.conta;
     },
 
     onPieChartClicked() {
       this.cnt1++;
       document.getElementById('event1').innerHTML =
-        'kupEchartsClicked event received' + '<br>' + 'N:' + this.conta1;
+        'kupEchartClicked event received' + '<br>' + 'N:' + this.conta1;
     },
   },
 };
