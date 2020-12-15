@@ -1,18 +1,16 @@
 <template>
-  <div class="wrapper" style="width: 800px; height: 1000px">
+  <div class="wrapper">
     <div style="width: 580px; height: 400px">
-      <!-- bar -->
       <kup-echarts
-        :objectData.prop="baseData"
+        :data.prop="baseData"
         :types.prop="types"
         @kupEchartsClicked="onBarChartClicked"
       />
     </div>
     <div id="event">click on the graph to trigger the event</div>
     <div style="width: 580px; height: 400px">
-      <!-- pie -->
       <kup-echarts
-        :objectData.prop="baseData"
+        :data.prop="baseData"
         :types.prop="types1"
         @kupEchartsClicked="onPieChartClicked()"
       />

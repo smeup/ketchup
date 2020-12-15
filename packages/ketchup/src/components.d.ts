@@ -730,6 +730,10 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * The actual data of the chart.
+         */
+        "data": object;
+        /**
           * Title of the graph.
          */
         "graphTitle": string;
@@ -749,10 +753,6 @@ export namespace Components {
           * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
          */
         "mapType": any;
-        /**
-          * The actual data of the chart.
-         */
-        "objectData": object;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * The data series to be displayed. They must be of the same type.
@@ -2872,6 +2872,10 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
+          * The actual data of the chart.
+         */
+        "data"?: object;
+        /**
           * Title of the graph.
          */
         "graphTitle"?: string;
@@ -2891,10 +2895,6 @@ declare namespace LocalJSX {
           * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
          */
         "mapType"?: any;
-        /**
-          * The actual data of the chart.
-         */
-        "objectData"?: object;
         "onKupEchartsClicked"?: (event: CustomEvent<any>) => void;
         /**
           * The data series to be displayed. They must be of the same type.

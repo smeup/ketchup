@@ -1,24 +1,22 @@
 <template>
-  <div style="width: 1000px; height: 1200px">
-    <h3>World</h3>
-    <div style="width: 1000px; height: 600px">
+  <div>
+    <p>World map chart.</p>
+    <div style="margin: auto; width: 1000px; height: 600px">
       <kup-echarts
-        :objectData.prop="mapData"
+        :data.prop="mapData"
         :types.prop="types"
         :mapType.prop="mapType"
       />
     </div>
-    <hr />
-
-    <h3> Europe</h3>
-    <div style="width: 1000px; height: 600px">
+    <br />
+    <p>Europe map chart.</p>
+    <div style="margin: auto; width: 1000px; height: 600px">
       <kup-echarts
-        :objectData.prop="mapData"
+        :data.prop="mapData"
         :types.prop="types"
         :mapType.prop="mapType1"
       />
     </div>
-    <hr />
   </div>
 </template>
 

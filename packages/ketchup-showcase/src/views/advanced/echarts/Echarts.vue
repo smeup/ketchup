@@ -4,10 +4,10 @@
       <echarts-demo></echarts-demo>
     </template>
     <template v-slot:1>
-      <echarts-bar></echarts-bar>
+      <echarts-events></echarts-events>
     </template>
     <template v-slot:2>
-      <echarts-events></echarts-events>
+      <echarts-bar></echarts-bar>
     </template>
     <template v-slot:3>
       <echarts-line></echarts-line>
@@ -50,7 +50,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-echarts',
       headtitle: 'Echarts',
-      titles: ['Playground', 'Bar', 'Events', 'Line', 'Pie', 'Scatter', 'Map'],
+      titles: ['Playground', 'Events', 'Bar', 'Line', 'Pie', 'Scatter', 'Map'],
     };
   },
 };

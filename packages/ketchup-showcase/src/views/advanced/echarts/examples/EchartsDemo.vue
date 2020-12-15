@@ -28,6 +28,20 @@ export default {
       ],
       demoProps: [
         {
+          prop: 'axis',
+          description: 'Sets the axis of the chart.',
+          type: 'string',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'data',
+          description: 'The actual data of the chart.',
+          type: 'object',
+          default: '{}',
+          try: 'json',
+        },
+        {
           prop: 'graphTitle',
           description: 'Title of the graph.',
           type: 'string',
@@ -49,27 +63,20 @@ export default {
           try: 'field',
         },
         {
+          prop: 'mapType',
+          description:
+            'It allows you to choose the type of map, between europe, america, asia, oceania, africa, world or pass a custom json to create a map.',
+          type: 'any',
+          default: 'world',
+          try: 'field',
+        },
+        {
           prop: 'legend',
           description:
             'Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types',
           type: 'string',
           default: 'right',
           try: 'field',
-        },
-        {
-          prop: 'objectData',
-          description: 'The actual data of the chart.',
-          type: 'DataTable',
-          default: 'undefined',
-          try: 'json',
-        },
-        {
-          prop: 'types',
-          description:
-            'The type of the chart. Supported formats: Bar, Line, Pie, Scatter, it is possible for line bar and scatter types to pass multiple values ​​to create series of different types',
-          type: 'string[]',
-          default: ['Line'],
-          try: 'array',
         },
         {
           prop: 'series',
@@ -80,13 +87,6 @@ export default {
           try: 'array',
         },
         {
-          prop: 'axis',
-          description: 'Sets the axis of the chart.',
-          type: 'string',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
           prop: 'titlePosition',
           description: 'Sets the position of the Title',
           type: 'string',
@@ -94,12 +94,12 @@ export default {
           try: 'field',
         },
         {
-          prop: 'mapType',
+          prop: 'types',
           description:
-            'It allows you to choose the type of map, between europe, america, asia, oceania, africa, world or pass a custom json to create a map.',
-          type: 'any',
-          default: 'world',
-          try: 'field',
+            'The type of the chart. Supported formats: Bar, Line, Pie, Scatter, it is possible for line bar and scatter types to pass multiple values ​​to create series of different types',
+          type: 'string[]',
+          default: ['Line'],
+          try: 'array',
         },
       ],
     };
@@ -108,7 +108,7 @@ export default {
 
 function createComp() {
   let comp = document.createElement('kup-echarts');
-  comp.objectData = baseData;
+  comp.data = baseData;
   comp.id = 'demo-component';
   comp.graphTitle = 'TitoloProva';
   comp.graphTitleColor = 'orange';
