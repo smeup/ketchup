@@ -39,13 +39,13 @@ export default {
     onBarChartClicked() {
       this.cnt++;
       document.getElementById('event').innerHTML =
-        'kupEchartClicked event received' + '<br>' + 'N:' + this.conta;
+        'kupEchartClicked event received' + '<br>' + 'N:' + this.cnt;
     },
 
     onPieChartClicked() {
       this.cnt1++;
       document.getElementById('event1').innerHTML =
-        'kupEchartClicked event received' + '<br>' + 'N:' + this.conta1;
+        'kupEchartClicked event received' + '<br>' + 'N:' + this.cnt1;
     },
   },
 };
