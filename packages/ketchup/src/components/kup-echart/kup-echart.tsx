@@ -10,7 +10,12 @@ import {
     State,
     Method,
 } from '@stencil/core';
-import { logLoad, logRender } from '../../utils/debug-manager';
+
+import { ResizeObserver } from 'resize-observer';
+import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
+import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
+
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import echarts from 'echarts';
 
@@ -23,6 +28,7 @@ import echarts from 'echarts';
 export class KupEchart {
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
+    @State() stateSwitcher: boolean = false;
     @State() themeBorder: string = undefined;
     @State() themeColors: string[] = undefined;
     @State() themeFont: string = undefined;
@@ -84,6 +90,7 @@ export class KupEchart {
     private objectmapyvalue = {};
     private namemap: any;
     private jsonmap: any;
+    private resObserver: ResizeObserver = undefined;
 
     @Event() kupEchartClicked: EventEmitter;
 
@@ -99,6 +106,10 @@ export class KupEchart {
 
     private onKupClick() {
         this.kupEchartClicked.emit();
+    }
+
+    private forceUpdate() {
+        this.stateSwitcher = !this.stateSwitcher;
     }
 
     private resetChart() {
@@ -128,9 +139,10 @@ export class KupEchart {
     }
 
     private CreateEchart() {
-        if (!this.myChart) {
-            this.myChart = echarts.init(this.chartContainer);
+        if (this.myChart) {
+            echarts.dispose(this.chartContainer);
         }
+        this.myChart = echarts.init(this.chartContainer);
         if (this.types[0].toLowerCase() == 'map') {
             this.dynamicImport()
                 .then(() => {
@@ -141,7 +153,7 @@ export class KupEchart {
                     this.myChart.setOption(this.echartjson, true);
                 })
                 .catch((error) => {
-                    console.log(error);
+                    logMessage(this, error);
                 });
         } else {
             this.myChart.setOption(this.echartjson, true);
@@ -162,7 +174,7 @@ export class KupEchart {
                         });
                     })
                     .catch((error) => {
-                        console.log(error);
+                        logMessage(this, error);
                         reject();
                     });
             } else if (typeof charts.mapType == 'object') {
@@ -177,7 +189,7 @@ export class KupEchart {
                         resolve(true);
                     })
                     .catch((error) => {
-                        console.log(error);
+                        logMessage(this, error);
                         reject();
                     });
             } else reject();
@@ -481,15 +493,37 @@ export class KupEchart {
         };
     }
 
+    private setObserver() {
+        let callback: ResizeObserverCallback = (
+            entries: ResizeObserverEntry[]
+        ) => {
+            entries.forEach((entry) => {
+                logMessage(
+                    this,
+                    'Size changed to x: ' +
+                        entry.contentRect.width +
+                        ', y: ' +
+                        entry.contentRect.height +
+                        '.'
+                );
+                this.forceUpdate();
+            });
+        };
+        this.resObserver = new ResizeObserver(callback);
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
         logLoad(this, false);
+        this.setObserver();
         setThemeCustomStyle(this);
         this.fetchThemeColors();
     }
 
     componentDidLoad() {
+        this.resObserver.observe(this.rootElement);
+
         this.initializeChart();
         logLoad(this, true);
     }
@@ -520,5 +554,9 @@ export class KupEchart {
                 ></div>
             </Host>
         );
+    }
+
+    disconnectedCallBack() {
+        this.resObserver.unobserve(this.rootElement);
     }
 }
