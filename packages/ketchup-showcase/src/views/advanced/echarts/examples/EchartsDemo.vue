@@ -31,7 +31,7 @@ export default {
           prop: 'axis',
           description: 'Sets the axis of the chart.',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'field',
         },
         {
@@ -109,11 +109,12 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-echarts');
   comp.data = baseData;
+  comp.axis = 'Col1';
   comp.id = 'demo-component';
-  comp.graphTitle = 'TitoloProva';
+  comp.graphTitle = 'This is a title.';
   comp.graphTitleColor = 'orange';
   comp.graphTitleSize = 10;
-  comp.legend = 'right';
+  comp.legend = 'bottom';
   comp.types = ['Line'];
   comp.mapType = 'world';
   return comp;

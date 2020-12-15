@@ -31,7 +31,7 @@ export class KupEcharts {
     /**
      * Sets the axis of the chart.
      */
-    @Prop() axis: string = 'Col1';
+    @Prop() axis: string = '';
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
      */

@@ -2,12 +2,20 @@
   <div>
     <p>Single series chart.</p>
     <div style="margin: auto; width: 600px; height: 400px">
-      <kup-echarts :data.prop="singleData" :types.prop="types" />
+      <kup-echarts
+        :axis.prop="axis"
+        :data.prop="singleData"
+        :types.prop="types"
+      />
     </div>
     <br />
     <p>Multi series chart.</p>
     <div style="margin: auto; width: 600px; height: 400px">
-      <kup-echarts :data.prop="baseData" :types.prop="types" />
+      <kup-echarts
+        :axis.prop="axis"
+        :data.prop="baseData"
+        :types.prop="types"
+      />
     </div>
   </div>
 </template>
@@ -19,9 +27,10 @@ import { singleData } from '@/mock/echarts';
 export default {
   data() {
     return {
-      types: ['Scatter', 'Scatter', 'Scatter'],
+      axis: 'Col1',
       baseData,
       singleData,
+      types: ['Scatter', 'Scatter', 'Scatter'],
     };
   },
 };

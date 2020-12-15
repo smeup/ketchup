@@ -2,6 +2,7 @@
   <div class="wrapper">
     <div style="width: 580px; height: 400px">
       <kup-echarts
+        :axis.prop="axis"
         :data.prop="baseData"
         :types.prop="types"
         @kupEchartsClicked="onBarChartClicked"
@@ -25,23 +26,24 @@ import { baseData } from '@/mock/echarts';
 export default {
   data() {
     return {
+      axis: 'Col1',
       baseData,
       types: ['Line'],
       types1: ['Pie'],
-      conta: 0,
-      conta1: 0,
+      cnt: 0,
+      cnt1: 0,
     };
   },
 
   methods: {
     onBarChartClicked() {
-      this.conta = this.conta + 1;
+      this.cnt++;
       document.getElementById('event').innerHTML =
         'kupEchartsClicked event received' + '<br>' + 'N:' + this.conta;
     },
 
     onPieChartClicked() {
-      this.conta1 = this.conta1 + 1;
+      this.cnt1++;
       document.getElementById('event1').innerHTML =
         'kupEchartsClicked event received' + '<br>' + 'N:' + this.conta1;
     },

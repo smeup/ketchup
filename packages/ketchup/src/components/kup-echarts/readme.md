@@ -9,7 +9,7 @@
 
 | Property          | Attribute           | Description                                                                                                                                                            | Type       | Default     |
 | ----------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ----------- |
-| `axis`            | `axis`              | Sets the axis of the chart.                                                                                                                                            | `string`   | `'Col1'`    |
+| `axis`            | `axis`              | Sets the axis of the chart.                                                                                                                                            | `string`   | `''`        |
 | `customStyle`     | `custom-style`      | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.                                                       | `string`   | `undefined` |
 | `data`            | --                  | The actual data of the chart.                                                                                                                                          | `object`   | `{}`        |
 | `graphTitle`      | `graph-title`       | Title of the graph.                                                                                                                                                    | `string`   | `''`        |
