@@ -895,7 +895,7 @@ export function compareValues(
     const sm = sortMode === 'A' ? 1 : -1;
 
     if (obj1 == null || obj2 == null) {
-        return localCompareAsInJava(value1, value2);
+        return sm * localCompareAsInJava(value1, value2);
     }
 
     // If either the type or the parameter of the current object are not equal.
