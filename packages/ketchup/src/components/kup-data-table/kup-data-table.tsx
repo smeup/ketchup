@@ -1703,8 +1703,9 @@ export class KupDataTable {
         }
     }
 
-    private openMenu(column: string) {
-        this.openedMenu = column;
+    private openMenu(column: Column) {
+        this.openedMenu = column.name;
+        this.setCheckBoxFilter(column, null);
     }
 
     private closeMenu() {
@@ -1724,7 +1725,7 @@ export class KupDataTable {
         return this.openedMenu === column;
     }
 
-    private onHeaderCellContextMenuOpen(e: MouseEvent, column: string) {
+    private onHeaderCellContextMenuOpen(e: MouseEvent, column: Column) {
         //if (this.isOpenedMenu()) {
         this.closeMenuAndTooltip();
         //}
@@ -2520,7 +2521,7 @@ export class KupDataTable {
                         class={columnClass}
                         style={thStyle}
                         onContextMenu={(e: MouseEvent) =>
-                            this.onHeaderCellContextMenuOpen(e, column.name)
+                            this.onHeaderCellContextMenuOpen(e, column)
                         }
                         onMouseUp={sortEventHandler}
                         {...dragHandlers}
