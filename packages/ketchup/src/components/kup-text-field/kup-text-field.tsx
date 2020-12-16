@@ -198,6 +198,17 @@ export class KupTextField {
         value: string;
     }>;
 
+    @Event({
+        eventName: 'kupTextFieldRendered',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTextFieldRendered: EventEmitter<{
+        id: any;
+        field: KupTextField;
+    }>;
+
     @Watch('initialValue')
     watchInitialValue() {
         this.value = this.initialValue;
@@ -221,6 +232,11 @@ export class KupTextField {
     }
 
     //---- Methods ----
+
+    @Method()
+    async setFocus() {
+        this.inputEl.focus();
+    }
 
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
@@ -534,6 +550,11 @@ export class KupTextField {
                 );
             }
         }
+
+        this.kupTextFieldRendered.emit({
+            id: this.rootElement.id,
+            field: this,
+        });
         logRender(this, true);
     }
 

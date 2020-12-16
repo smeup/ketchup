@@ -1222,6 +1222,7 @@ const globalFilter = document.getElementById('global-filter');
 if (globalFilter != null) {
     globalFilter.data = defaultData;
     globalFilter.globalFilter = 'true';
+    globalFilter.rowsPerPage= '5';
 }
 
 const filterObjectValue = document.getElementById('filter-object-value');

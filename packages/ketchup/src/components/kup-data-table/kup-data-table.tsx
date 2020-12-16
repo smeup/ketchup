@@ -515,6 +515,8 @@ export class KupDataTable {
 
     private filterForCheckBox: GenericFilter = {};
 
+    private fromGlobalFilterChangeEvent = false;
+
     /**
      * Internal not reactive state used to keep track if a column is being dragged.
      * @private
@@ -1584,6 +1586,14 @@ export class KupDataTable {
         this.resetCurrentPage();
 
         this.globalFilterValue = detail.value;
+        this.fromGlobalFilterChangeEvent = true;
+    }
+
+    private onGlobalFilterRendered({ detail }) {
+        if (detail.field != null && this.fromGlobalFilterChangeEvent == true) {
+            detail.field.setFocus();
+        }
+        this.fromGlobalFilterChangeEvent = false;
     }
 
     private handlePageChanged({ detail }) {
@@ -3893,6 +3903,9 @@ export class KupDataTable {
                         }
                         onKupTextFieldClearIconClick={(event) =>
                             this.onGlobalFilterChange(event)
+                        }
+                        onKupTextFieldRendered={(event) =>
+                            this.onGlobalFilterRendered(event)
                         }
                     />
                 </div>
