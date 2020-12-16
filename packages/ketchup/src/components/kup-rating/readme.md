@@ -40,11 +40,13 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-data-table](../kup-data-table)
+ - [kup-tree](../kup-tree)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-data-table --> kup-rating
+  kup-tree --> kup-rating
   style kup-rating fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
