@@ -17,6 +17,7 @@ import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChang
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
 import { PICKER_SOURCE_EVENT } from "./components/kup-date-picker/kup-date-picker-declarations";
+import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { CssDraw } from "./components/kup-image/kup-image-declarations";
@@ -718,6 +719,10 @@ export namespace Components {
          */
         "axis": string;
         /**
+          * Title of the graph.
+         */
+        "chartTitle": EchartTitle;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle": string;
@@ -725,18 +730,6 @@ export namespace Components {
           * The actual data of the chart.
          */
         "data": object;
-        /**
-          * Title of the graph.
-         */
-        "graphTitle": string;
-        /**
-          * Title of the graph's color.
-         */
-        "graphTitleColor": string;
-        /**
-          * Size of title of the graph (in pixels).
-         */
-        "graphTitleSize": number;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
@@ -750,10 +743,6 @@ export namespace Components {
           * The data series to be displayed. They must be of the same type.
          */
         "series": string[];
-        /**
-          * Title position
-         */
-        "titlePosition": string;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */
@@ -2852,6 +2841,10 @@ declare namespace LocalJSX {
          */
         "axis"?: string;
         /**
+          * Title of the graph.
+         */
+        "chartTitle"?: EchartTitle;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle"?: string;
@@ -2859,18 +2852,6 @@ declare namespace LocalJSX {
           * The actual data of the chart.
          */
         "data"?: object;
-        /**
-          * Title of the graph.
-         */
-        "graphTitle"?: string;
-        /**
-          * Title of the graph's color.
-         */
-        "graphTitleColor"?: string;
-        /**
-          * Size of title of the graph (in pixels).
-         */
-        "graphTitleSize"?: number;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
@@ -2884,10 +2865,6 @@ declare namespace LocalJSX {
           * The data series to be displayed. They must be of the same type.
          */
         "series"?: string[];
-        /**
-          * Title position
-         */
-        "titlePosition"?: string;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */

@@ -10,6 +10,7 @@ import {
     State,
     Method,
 } from '@stencil/core';
+import { EchartTitle } from './kup-echart-declarations';
 
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
@@ -39,6 +40,10 @@ export class KupEchart {
      */
     @Prop() axis: string = '';
     /**
+     * Title of the graph.
+     */
+    @Prop() chartTitle: EchartTitle;
+    /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
      */
     @Prop() customStyle: string = undefined;
@@ -46,18 +51,6 @@ export class KupEchart {
      * The actual data of the chart.
      */
     @Prop() data: object = {};
-    /**
-     * Title of the graph.
-     */
-    @Prop() graphTitle: string = '';
-    /**
-     * Title of the graph's color.
-     */
-    @Prop() graphTitleColor: string;
-    /**
-     * Size of title of the graph (in pixels).
-     */
-    @Prop() graphTitleSize: number;
     /**
      * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
      */
@@ -70,10 +63,6 @@ export class KupEchart {
      * The data series to be displayed. They must be of the same type.
      */
     @Prop() series: string[];
-    /**
-     * Title position
-     */
-    @Prop() titlePosition: string = 'left';
     /**
      * The type of the chart. Supported formats: Line, Pie, Map, Scatter
      */
@@ -362,12 +351,20 @@ export class KupEchart {
         this.echartOption = {
             color: this.themeColors,
             title: {
-                text: this.graphTitle,
-                [this.titlePosition]: 0,
+                text: this.chartTitle ? this.chartTitle.value : undefined,
+                [this.chartTitle && this.chartTitle.position
+                    ? this.chartTitle.position
+                    : 'left']: 0,
                 textStyle: {
-                    color: this.graphTitleColor,
+                    color:
+                        this.chartTitle && this.chartTitle.color
+                            ? this.chartTitle.color
+                            : undefined,
                     fontFamily: this.themeFont,
-                    fontSize: this.graphTitleSize,
+                    fontSize:
+                        this.chartTitle && this.chartTitle.size
+                            ? this.chartTitle.size
+                            : undefined,
                 },
             },
             legend: {
@@ -413,12 +410,20 @@ export class KupEchart {
         this.echartOption = {
             color: this.themeColors,
             title: {
-                text: this.graphTitle,
-                [this.titlePosition]: 0,
+                text: this.chartTitle ? this.chartTitle.value : undefined,
+                [this.chartTitle && this.chartTitle.position
+                    ? this.chartTitle.position
+                    : 'left']: 0,
                 textStyle: {
-                    color: this.graphTitleColor,
+                    color:
+                        this.chartTitle && this.chartTitle.color
+                            ? this.chartTitle.color
+                            : undefined,
                     fontFamily: this.themeFont,
-                    fontSize: this.graphTitleSize,
+                    fontSize:
+                        this.chartTitle && this.chartTitle.size
+                            ? this.chartTitle.size
+                            : undefined,
                 },
             },
             legend: {
@@ -466,11 +471,20 @@ export class KupEchart {
         // Create the right json for creating map-like graphics
         this.echartOption = {
             title: {
-                text: this.graphTitle,
-                [this.titlePosition]: 0,
+                text: this.chartTitle ? this.chartTitle.value : undefined,
+                [this.chartTitle && this.chartTitle.position
+                    ? this.chartTitle.position
+                    : 'left']: 0,
                 textStyle: {
-                    fontSize: this.graphTitleSize,
-                    color: this.graphTitleColor,
+                    color:
+                        this.chartTitle && this.chartTitle.color
+                            ? this.chartTitle.color
+                            : undefined,
+                    fontFamily: this.themeFont,
+                    fontSize:
+                        this.chartTitle && this.chartTitle.size
+                            ? this.chartTitle.size
+                            : undefined,
                 },
             },
             tooltip: {
