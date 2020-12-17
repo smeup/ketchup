@@ -163,9 +163,9 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/chart/Chart.vue`),
   },
   {
-    path: `/echarts`,
-    name: 'echarts',
-    component: () => import(`@/views/advanced/echarts/Echarts.vue`),
+    path: `/echart`,
+    name: 'echart',
+    component: () => import(`@/views/advanced/echart/Echart.vue`),
   },
   {
     path: `/crud`,
