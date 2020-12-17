@@ -87,18 +87,18 @@ export default {
 
 function createComp() {
   let comp = document.createElement('kup-echart');
-  comp.data = baseData;
   comp.axis = 'Col1';
-  comp.id = 'demo-component';
   comp.chartTitle = {
     value: 'This is a title.',
     color: 'red',
     position: 'top',
     size: 16,
   };
+  comp.data = baseData;
+  comp.id = 'demo-component';
   comp.legend = 'bottom';
-  comp.types = ['Line'];
   comp.mapType = 'world';
+  comp.types = ['Line'];
   return comp;
 }
 </script>
