@@ -359,12 +359,12 @@ export class KupEchart {
                     color:
                         this.chartTitle && this.chartTitle.color
                             ? this.chartTitle.color
-                            : undefined,
+                            : 'black',
                     fontFamily: this.themeFont,
                     fontSize:
                         this.chartTitle && this.chartTitle.size
                             ? this.chartTitle.size
-                            : undefined,
+                            : 16,
                 },
             },
             legend: {
@@ -418,12 +418,12 @@ export class KupEchart {
                     color:
                         this.chartTitle && this.chartTitle.color
                             ? this.chartTitle.color
-                            : undefined,
+                            : 'black',
                     fontFamily: this.themeFont,
                     fontSize:
                         this.chartTitle && this.chartTitle.size
                             ? this.chartTitle.size
-                            : undefined,
+                            : 16,
                 },
             },
             legend: {
@@ -479,12 +479,12 @@ export class KupEchart {
                     color:
                         this.chartTitle && this.chartTitle.color
                             ? this.chartTitle.color
-                            : undefined,
+                            : 'black',
                     fontFamily: this.themeFont,
                     fontSize:
                         this.chartTitle && this.chartTitle.size
                             ? this.chartTitle.size
-                            : undefined,
+                            : 16,
                 },
             },
             tooltip: {
