@@ -281,6 +281,8 @@ function TreeNodeFactory(
                     p: '',
                     k: cellValue,
                 },
+                icon: 'widgets',
+                cssClass: 'strong-text',
                 value: cellValue,
                 style: getBooleanOnProbability(0.2)
                     ? TreeDataPool.cellStyles[

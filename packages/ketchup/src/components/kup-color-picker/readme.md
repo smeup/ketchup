@@ -41,6 +41,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-data-table](../kup-data-table)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
@@ -51,6 +52,7 @@ Type: `Promise<void>`
 graph TD;
   kup-color-picker --> kup-text-field
   kup-data-table --> kup-color-picker
+  kup-tree --> kup-color-picker
   style kup-color-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
