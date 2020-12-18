@@ -53,6 +53,18 @@ import {
     paginateRows,
 } from '../kup-data-table/kup-data-table-helper';
 
+import {
+    setDragEffectAllowed,
+    setKetchupDraggable,
+    setKetchupDroppable,
+    DragHandlers,
+    DropHandlers,
+    setDragDropPayload,
+    getDragDropPayload,
+} from '../../utils/drag-and-drop';
+
+const KupBoxDragType = 'text/kup-box-drag';
+
 import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
@@ -812,14 +824,6 @@ export class KupBox {
         event.dataTransfer.setData('text', JSON.stringify(transferData));
 
         event.dataTransfer.dropEffect = 'move';
-
-        this.kupBoxDragStarted.emit({
-            fromId: this.rootElement.id,
-            fromRow: row,
-            ...(this.selectedRows && this.selectedRows.length
-                ? { fromSelectedRows: this.selectedRows }
-                : {}),
-        });
     }
 
     // when the user finishes to drag a box (fired on the draggable target)
@@ -1241,31 +1245,69 @@ export class KupBox {
             column: !horizontal,
         };
 
+        const dragHandlers: DragHandlers = {
+            onDragStart: (e: DragEvent) => {
+                // Sets the type of drag
+                setDragEffectAllowed(e, 'move');
+
+                if (this.multiSelection) {
+                    this.addMultiSelectDragImageToEvent(e); // TODO set it into setKetchupDraggable
+                }
+
+                this.searchParentWithClass(e.target, 'box').classList.add(
+                    'item-dragged'
+                );
+            },
+            onDragEnd: (e: DragEvent) => {
+                this.searchParentWithClass(e.target, 'box').classList.remove(
+                    'item-dragged'
+                );
+            },
+        };
+
+        const dropHandlers: DropHandlers = {
+            onDragOver: (e: DragEvent) => {
+                this.searchParentWithClass(e.target, 'box').classList.add(
+                    'item-dropover'
+                );
+                return true;
+            },
+            onDragLeave: (e: DragEvent) => {
+                this.searchParentWithClass(e.target, 'box').classList.remove(
+                    'item-dropover'
+                );
+            },
+            onDrop: (e: DragEvent) => {
+                this.searchParentWithClass(e.target, 'box').classList.remove(
+                    'item-dropover'
+                );
+
+                return KupBoxDragType;
+            },
+        };
+
         return (
             <div class="box-wrapper">
                 <div
                     class={boxClass}
-                    draggable={this.dragEnabled}
-                    onClick={(e) => this.onBoxClick(e, row)}
-                    onDragStart={
-                        this.dragEnabled
-                            ? (e) => this.onBoxDragStart(e, row)
-                            : null
-                    }
-                    onDragEnd={
-                        this.dragEnabled
-                            ? (e) => this.onBoxDragEnd(e, row)
-                            : null
-                    }
-                    onDragOver={
-                        this.dropEnabled ? (e) => this.onBoxDragOver(e) : null
-                    }
-                    onDragLeave={
-                        this.dropEnabled ? (e) => this.onBoxDragLeave(e) : null
-                    }
-                    onDrop={
-                        this.dropEnabled ? (e) => this.onBoxDrop(e, row) : null
-                    }
+                    {...(this.dragEnabled
+                        ? setKetchupDraggable(dragHandlers, {
+                              [KupBoxDragType]: {
+                                  fromId: this.rootElement.id,
+                                  fromRow: row,
+                                  fromSelectedRows: this.selectedRows,
+                              },
+                              'kup-drag-source-element': { row }, // add row, column and the cell. Source element
+                          })
+                        : {})}
+                    {...(this.dropEnabled
+                        ? setKetchupDroppable(
+                              dropHandlers,
+                              [KupBoxDragType],
+                              this.rootElement,
+                              { row } // add row, column and the cell. Target element
+                          )
+                        : {})}
                 >
                     {multiSel}
                     {boxContent}
@@ -1739,6 +1781,8 @@ export class KupBox {
         };
 
         const tooltip = this.renderTooltip();
+
+        // TODO write here the drop handlers for the section side
 
         return (
             <Host>

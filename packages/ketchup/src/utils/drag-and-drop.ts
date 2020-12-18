@@ -1,9 +1,4 @@
-// TODO: [feat-1]: it can be very important to add a functionality or API which allows us to define
-// for the flag item for the source element of the drag operation.
-// This possibile feature must be detailed very well because the e.target element is not always the
-// element which you want to set the source element flag on.
-
-// TODO: [feat-2]: if acceptedDataTypesFound must be passed to all drag event handler but the dragStart event.a
+// TODO: [feat-1]: if acceptedDataTypesFound must be passed to all drag event handler but the dragStart event.a
 // This could possibly simplify the analysis of the e.dataTransfer.types
 
 // import polyfill for mobile drag and drop
@@ -34,17 +29,16 @@ export interface DragHandlers {
 
 export interface DropHandlers {
     onDragLeave?: (e: DragEvent) => void;
-    onDragOver?: (e: DragEvent) => boolean;
-    onDrop: (e: DragEvent, acceptedDataTypesFound: string[]) => string;
+    onDragOver?: (e: DragEvent) => boolean; // TODO: add description to this function for its return value motivation
+    onDrop: (e: DragEvent, acceptedDataTypesFound: string[]) => string; // TODO: add description to this function for its return value motivation
 }
 
+/**
+ * The drag data interface.
+ * @param kup-drag-source-element - Keeps a reference to the element which started the drag action. This is needed for the server to correctly answer to the client.
+ */
 interface DragData {
-    // ['application/xls']: string | object;
-    // ['text/plain']: string | object;
-    // ['ketchup/tablecolumnsort']: string | object;
-    // ['ketchup/boxdrag']: string | object;
-    // ['ketchup/table']: string | object;
-    'kup-drop-source-element': object;
+    'kup-drag-source-element': object; // TODO: if deemed a necessity, extract into a constant
     [index: string]: string | object;
 }
 
@@ -70,7 +64,7 @@ interface DragDropHolder {
           };
 }
 
-// TODO: payloadstructure to implement or remove
+// TODO: PayloadStructure to implement or remove (implement the TypeScript type lika a generic)
 const dragDropPayloadHolder: DragDropHolder = {
     // fields used only by the D&D wrapper
     // [...]
@@ -161,7 +155,7 @@ export function setKetchupDroppable(
             let sourceElement;
             try {
                 sourceElement = JSON.parse(
-                    e.dataTransfer.getData('kup-drop-source-element')
+                    e.dataTransfer.getData('kup-drag-source-element')
                 );
             } catch (error) {
                 console.log(
@@ -169,7 +163,7 @@ export function setKetchupDroppable(
                     error
                 );
                 sourceElement = e.dataTransfer.getData(
-                    'kup-drop-source-element'
+                    'kup-drag-source-element'
                 );
             }
             const ketchupDropEvent = new CustomEvent('kup-drop', {
@@ -219,7 +213,16 @@ In this way we can specify which event handlers we have to execute and/or merge 
 
 export function setDragEffectAllowed(
     e: DragEvent,
-    effectAllowed: string = 'move'
+    effectAllowed:
+        | 'none'
+        | 'copy'
+        | 'copyLink'
+        | 'copyMove'
+        | 'link'
+        | 'linkMove'
+        | 'move'
+        | 'all'
+        | 'uninitialized' = 'move'
 ) {
     e.dataTransfer.effectAllowed = effectAllowed;
 }
