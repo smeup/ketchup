@@ -29,7 +29,7 @@ export const config: Config = {
             src: 'dash-list.html',
         },
         {
-            src: 'echarts.html',
+            src: 'echart.html',
         },
         {
             src: 'tree.html',

@@ -558,6 +558,7 @@
             "KUP-DATA-TABLE": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-DATE-PICKER": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-DRAWER": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
+            "KUP-ECHART": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-FIELD": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-GAUGE": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",
             "KUP-GRID": "#kup-component {\nborder: 1px solid var(--kup-border-color);\n}\n\n",

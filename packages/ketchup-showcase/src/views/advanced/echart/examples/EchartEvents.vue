@@ -1,20 +1,20 @@
 <template>
-  <div class="wrapper" style="width: 800px; height: 1000px">
+  <div class="wrapper">
     <div style="width: 580px; height: 400px">
-      <!-- bar -->
-      <kup-echarts
-        :objectData.prop="baseData"
+      <kup-echart
+        :axis.prop="axis"
+        :data.prop="baseData"
         :types.prop="types"
-        @kupEchartsClicked="onBarChartClicked"
+        @kupEchartClicked="onBarChartClicked"
       />
     </div>
     <div id="event">click on the graph to trigger the event</div>
     <div style="width: 580px; height: 400px">
-      <!-- pie -->
-      <kup-echarts
-        :objectData.prop="baseData"
+      <kup-echart
+        :axis.prop="axis"
+        :data.prop="baseData"
         :types.prop="types1"
-        @kupEchartsClicked="onPieChartClicked()"
+        @kupEchartClicked="onPieChartClicked()"
       />
     </div>
     <div id="event1">click on the graph to trigger the event</div>
@@ -27,25 +27,26 @@ import { baseData } from '@/mock/echarts';
 export default {
   data() {
     return {
+      axis: 'Col1',
       baseData,
-      types: 'Line',
-      types1: 'Pie',
-      conta: 0,
-      conta1: 0,
+      types: ['Line'],
+      types1: ['Pie'],
+      cnt: 0,
+      cnt1: 0,
     };
   },
 
   methods: {
     onBarChartClicked() {
-      this.conta = this.conta + 1;
+      this.cnt++;
       document.getElementById('event').innerHTML =
-        'kupEchartsClicked event received' + '<br>' + 'N:' + this.conta;
+        'kupEchartClicked event received' + '<br>' + 'N:' + this.cnt;
     },
 
     onPieChartClicked() {
-      this.conta1 = this.conta1 + 1;
+      this.cnt1++;
       document.getElementById('event1').innerHTML =
-        'kupEchartsClicked event received' + '<br>' + 'N:' + this.conta1;
+        'kupEchartClicked event received' + '<br>' + 'N:' + this.cnt1;
     },
   },
 };

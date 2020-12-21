@@ -512,8 +512,8 @@
                 </td>
                 <td
                   >Sets the fourth color of kup-chart and so on. It is possible
-                  to specify an infinite amount of "--kup-chart-color"
-                  variables (use the JSON tab to add as many as you like).</td
+                  to specify an infinite amount of "--kup-chart-color" variables
+                  (use the JSON tab to add as many as you like).</td
                 >
                 <td class="prevent-cr">
                   <span class="code-word">color</span>
@@ -720,6 +720,19 @@
                     text-area
                     full-width
                     id="kup-drawer"
+                    @kupTextFieldInput="updateThemeCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-ECHART</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-echart"
                     @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
