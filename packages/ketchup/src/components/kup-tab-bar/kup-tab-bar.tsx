@@ -14,7 +14,7 @@ import {
 import { MDCTabBar } from '@material/tab-bar';
 import { ComponentTabBarElement } from './kup-tab-bar-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -82,6 +82,11 @@ export class KupTabBar {
     }
 
     onKupClick(i: number, e: Event) {
+        for (let i = 0; i < this.data.length; i++) {
+            this.data[i].active = false;
+        }
+        this.data[i].active = true;
+
         this.kupClick.emit({
             index: i,
             el: e.target,
@@ -95,10 +100,36 @@ export class KupTabBar {
         });
     }
 
+    private consistencyCheck() {
+        let activeTabs: number = 0;
+        let lastActiveOccurrence: number = 0;
+        if (this.data) {
+            for (let i = 0; i < this.data.length; i++) {
+                if (this.data[i].active) {
+                    activeTabs++;
+                    lastActiveOccurrence = i;
+                }
+                this.data[i].active = false;
+            }
+            if (activeTabs > 1) {
+                this.data[lastActiveOccurrence].active = true;
+                let message = 'Too many active tabs, forcing last one.';
+                logMessage(this, message, 'warning');
+            } else if (activeTabs === 0) {
+                this.data[0].active = true;
+                let message = 'No active tabs detected, forcing first one.';
+                logMessage(this, message, 'log');
+            } else {
+                this.data[lastActiveOccurrence].active = true;
+            }
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
         logLoad(this, false);
+        this.consistencyCheck();
         setThemeCustomStyle(this);
     }
 
@@ -120,8 +151,13 @@ export class KupTabBar {
     }
 
     render() {
+        if (!this.data || this.data.length === 0) {
+            let message = 'Empty data.';
+            logMessage(this, message, 'warning');
+        }
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;
+        let title: string = '';
         let componentClass: string = 'mdc-tab-bar';
 
         for (let i = 0; i < this.data.length; i++) {
@@ -129,12 +165,12 @@ export class KupTabBar {
             let indicatorClass: string = 'mdc-tab-indicator';
             let iconEl: HTMLElement = null;
 
-            if (this.data[i].active === true) {
+            if (this.data[i].active) {
                 tabClass += ' mdc-tab--active';
                 indicatorClass += ' mdc-tab-indicator--active';
             }
 
-            if (this.data[i].icon !== '') {
+            if (this.data[i].icon) {
                 let svg: string = `url('${getAssetPath(
                     `./assets/svg/${this.data[i].icon}.svg`
                 )}') no-repeat center`;
@@ -150,12 +186,17 @@ export class KupTabBar {
                 );
             }
 
+            if (this.data[i].title) {
+                title = this.data[i].title;
+            }
+
             tabEl = (
                 <button
                     class={tabClass}
                     role="tab"
                     aria-selected="true"
                     tabindex={i}
+                    title={title}
                     onBlur={(e) => this.onKupBlur(i, e)}
                     onClick={(e) => this.onKupClick(i, e)}
                     onFocus={(e) => this.onKupFocus(i, e)}

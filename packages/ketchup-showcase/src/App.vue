@@ -48,15 +48,42 @@
               </template>
             </v-list-group>
 
-            <v-list-tile
-              v-for="route in group.advancedItems"
-              :key="route.to.name"
-              :to="route.to"
-            >
-              <v-list-tile-content>
-                <v-list-tile-title>{{ route.title }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
+            <v-list dense>
+              <v-list-group
+                v-for="(group, i) in group.componentsItems"
+                :key="i"
+              >
+                <template v-slot:activator>
+                  <v-list-tile>
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{ group.title }}</v-list-tile-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                </template>
+                <v-list-tile
+                  v-for="route in group.basicItems"
+                  :key="route.to.name"
+                  :to="route.to"
+                >
+                  <v-list-tile-content>
+                    <v-list-tile-title class="extra-padding">{{
+                      route.title
+                    }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile
+                  v-for="route in group.advancedItems"
+                  :key="route.to.name"
+                  :to="route.to"
+                >
+                  <v-list-tile-content>
+                    <v-list-tile-title class="extra-padding">{{
+                      route.title
+                    }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list-group>
+            </v-list>
           </v-list>
 
           <v-list dense>
@@ -94,28 +121,6 @@
 
             <v-list-tile
               v-for="route in group.javascriptItems"
-              :key="route.to.name"
-              :to="route.to"
-            >
-              <v-list-tile-content>
-                <v-list-tile-title>{{ route.title }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
-
-          <v-list dense>
-            <v-list-group v-for="(section, j) in group.items" :key="j">
-              <template v-slot:activator>
-                <v-list-tile>
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{ section.title }}</v-list-tile-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-              </template>
-            </v-list-group>
-
-            <v-list-tile
-              v-for="route in group.basicItems"
               :key="route.to.name"
               :to="route.to"
             >
@@ -211,7 +216,7 @@ export default {
       if (e.detail.value === 'on') {
         this.setTheme('dark');
       } else {
-        this.setTheme('default');
+        this.setTheme('ketchup');
       }
     },
     setTheme(themeID) {
@@ -237,228 +242,251 @@ export default {
     drawer: null,
     groupNavigationSections: [
       {
-        title: 'Advanced',
-        advancedItems: [
+        title: 'Components',
+        componentsItems: [
           {
-            title: 'Box',
-            to: {
-              name: 'box',
-            },
+            title: 'Basic',
+            basicItems: [
+              {
+                title: 'Autocomplete',
+                to: {
+                  name: 'autocomplete',
+                },
+              },
+              {
+                title: `Badge`,
+                to: {
+                  name: 'badge',
+                },
+              },
+              {
+                title: `Button`,
+                to: {
+                  name: 'button',
+                },
+              },
+              {
+                title: `Checkbox`,
+                to: {
+                  name: 'checkbox',
+                },
+              },
+              {
+                title: `Chip`,
+                to: {
+                  name: 'chip',
+                },
+              },
+              {
+                title: `Color Picker`,
+                to: {
+                  name: 'colorpicker',
+                },
+              },
+              {
+                title: `Combobox`,
+                to: {
+                  name: 'combobox',
+                },
+              },
+              {
+                title: `Date Picker`,
+                to: {
+                  name: 'datepicker',
+                },
+              },
+              {
+                title: 'Drawer',
+                to: {
+                  name: 'drawer',
+                },
+              },
+              {
+                title: 'Gauge',
+                to: {
+                  name: 'gauge',
+                },
+              },
+              {
+                title: 'Grid',
+                to: {
+                  name: 'grid',
+                },
+              },
+              {
+                title: `Iframe`,
+                to: {
+                  name: 'iframe',
+                },
+              },
+              {
+                title: `Image`,
+                to: {
+                  name: 'image',
+                },
+              },
+              {
+                title: 'Lazy',
+                to: {
+                  name: 'lazy',
+                },
+              },
+              {
+                title: `List`,
+                to: {
+                  name: 'list',
+                },
+              },
+              {
+                title: 'Nav Bar',
+                to: {
+                  name: 'navbar',
+                },
+              },
+              {
+                title: 'Progress bar',
+                to: {
+                  name: 'progressbar',
+                },
+              },
+              {
+                title: `Radio`,
+                to: {
+                  name: 'radio',
+                },
+              },
+              {
+                title: `Rating`,
+                to: {
+                  name: 'rating',
+                },
+              },
+              {
+                title: `Spinner`,
+                to: {
+                  name: 'spinner',
+                },
+              },
+              {
+                title: `Switch`,
+                to: {
+                  name: 'switch',
+                },
+              },
+              {
+                title: `Tab bar`,
+                to: {
+                  name: 'tabbar',
+                },
+              },
+              {
+                title: `Text field`,
+                to: {
+                  name: 'textfield',
+                },
+              },
+              {
+                title: `Time Picker`,
+                to: {
+                  name: 'timepicker',
+                },
+              },
+            ],
           },
           {
-            title: `Button`,
-            to: {
-              name: 'btn',
-            },
-          },
-          {
-            title: `Calendar`,
-            to: {
-              name: 'calendar',
-            },
-          },
-          {
-            title: `Card`,
-            to: {
-              name: 'card',
-            },
-          },
-          {
-            title: `Chart`,
-            to: {
-              name: 'chart',
-            },
-          },
-          {
-            title: 'Crud',
-            to: {
-              name: 'crud',
-            },
-          },
-          {
-            title: `Dash`,
-            to: {
-              name: 'dash',
-            },
-          },
-          {
-            title: `Data Table`,
-            to: {
-              name: 'datatable',
-            },
-          },
-          {
-            title: `Echarts`,
-            to: {
-              name: 'echarts',
-            },
-          },
-          {
-            title: `Field`,
-            to: {
-              name: 'field',
-            },
-          },
-          {
-            title: 'Form',
-            to: {
-              name: 'form',
-            },
-          },
-          {
-            title: `Image button`,
-            to: {
-              name: 'imagebutton',
-            },
-          },
-          {
-            title: 'Search',
-            to: {
-              name: 'search',
-            },
-          },
-          {
-            title: 'Tooltip',
-            to: {
-              name: 'tooltip',
-            },
-          },
-          {
-            title: 'Tree',
-            to: {
-              name: 'tree',
-            },
-          },
-        ],
-      },
-      {
-        title: 'Basic',
-        basicItems: [
-          {
-            title: 'Autocomplete',
-            to: {
-              name: 'autocomplete',
-            },
-          },
-          {
-            title: `Badge`,
-            to: {
-              name: 'badge',
-            },
-          },
-          {
-            title: `Button`,
-            to: {
-              name: 'button',
-            },
-          },
-          {
-            title: `Checkbox`,
-            to: {
-              name: 'checkbox',
-            },
-          },
-          {
-            title: `Chip`,
-            to: {
-              name: 'chip',
-            },
-          },
-          {
-            title: `Color Picker`,
-            to: {
-              name: 'colorpicker',
-            },
-          },
-          {
-            title: `Combobox`,
-            to: {
-              name: 'combobox',
-            },
-          },
-          {
-            title: 'Drawer',
-            to: {
-              name: 'drawer',
-            },
-          },
-          {
-            title: 'Grid',
-            to: {
-              name: 'grid',
-            },
-          },
-          {
-            title: `Iframe`,
-            to: {
-              name: 'iframe',
-            },
-          },
-          {
-            title: `Image`,
-            to: {
-              name: 'image',
-            },
-          },
-          {
-            title: 'Lazy',
-            to: {
-              name: 'lazy',
-            },
-          },
-          {
-            title: `List`,
-            to: {
-              name: 'list',
-            },
-          },
-          {
-            title: 'Nav Bar',
-            to: {
-              name: 'navbar',
-            },
-          },
-          {
-            title: 'Progress bar',
-            to: {
-              name: 'progressbar',
-            },
-          },
-          {
-            title: `Radio`,
-            to: {
-              name: 'radio',
-            },
-          },
-          {
-            title: `Rating`,
-            to: {
-              name: 'rating',
-            },
-          },
-          {
-            title: `Spinner`,
-            to: {
-              name: 'spinner',
-            },
-          },
-          {
-            title: `Switch`,
-            to: {
-              name: 'switch',
-            },
-          },
-          {
-            title: `Tab bar`,
-            to: {
-              name: 'tabbar',
-            },
-          },
-          {
-            title: `Text field`,
-            to: {
-              name: 'textfield',
-            },
+            title: 'Advanced',
+            advancedItems: [
+              {
+                title: 'Box',
+                to: {
+                  name: 'box',
+                },
+              },
+              {
+                title: `Button`,
+                to: {
+                  name: 'btn',
+                },
+              },
+              {
+                title: `Calendar`,
+                to: {
+                  name: 'calendar',
+                },
+              },
+              {
+                title: `Card`,
+                to: {
+                  name: 'card',
+                },
+              },
+              {
+                title: `Chart`,
+                to: {
+                  name: 'chart',
+                },
+              },
+              {
+                title: 'Crud',
+                to: {
+                  name: 'crud',
+                },
+              },
+              {
+                title: `Dash`,
+                to: {
+                  name: 'dash',
+                },
+              },
+              {
+                title: `Data Table`,
+                to: {
+                  name: 'datatable',
+                },
+              },
+              {
+                title: `Echarts`,
+                to: {
+                  name: 'echarts',
+                },
+              },
+              {
+                title: `Field`,
+                to: {
+                  name: 'field',
+                },
+              },
+              {
+                title: 'Form',
+                to: {
+                  name: 'form',
+                },
+              },
+              {
+                title: `Image button`,
+                to: {
+                  name: 'imagebutton',
+                },
+              },
+              {
+                title: 'Search',
+                to: {
+                  name: 'search',
+                },
+              },
+              {
+                title: 'Tooltip',
+                to: {
+                  name: 'tooltip',
+                },
+              },
+              {
+                title: 'Tree',
+                to: {
+                  name: 'tree',
+                },
+              },
+            ],
           },
         ],
       },

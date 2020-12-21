@@ -392,16 +392,7 @@ export class KupTree {
         logLoad(this, false);
         setThemeCustomStyle(this);
 
-        if (this.data) {
-            // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
-            // the default value of the treeExpandedPropName is set to true
-            this.data.forEach((rootNode) => {
-                this.expandCollapseAllNodes(
-                    rootNode,
-                    this.expanded && !this.useDynamicExpansion
-                );
-            });
-        }
+        this.refreshStructureState();
 
         // Initializes the selectedNodeString
         if (Array.isArray(this.selectedNode)) {
@@ -461,6 +452,7 @@ export class KupTree {
     @Watch('data')
     enrichDataWhenChanged(newData, oldData) {
         if (newData !== oldData) {
+            /*
             newData.forEach((rootNode) => {
                 this.expandCollapseAllNodes(
                     rootNode,
@@ -468,6 +460,15 @@ export class KupTree {
                 );
             });
             this.filterNodes();
+            */
+            this.refreshStructureState();
+        }
+    }
+
+    @Watch('expanded')
+    enrichStructureStateWhenChanged(newValue, oldValue) {
+        if (newValue !== oldValue) {
+            this.refreshStructureState();
         }
     }
 
@@ -750,6 +751,20 @@ export class KupTree {
         }
     }
 
+    private refreshStructureState() {
+        if (this.data) {
+            // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
+            // the default value of the treeExpandedPropName is set to true
+            this.data.forEach((rootNode) => {
+                this.expandCollapseAllNodes(
+                    rootNode,
+                    this.expanded && !this.useDynamicExpansion
+                );
+            });
+            this.filterNodes();
+        }
+    }
+
     private setNodeVisibility(node: TreeNode): boolean {
         let visibility: boolean = isFilterCompliantForValue(
             node.value,
@@ -772,7 +787,7 @@ export class KupTree {
         return visibility;
     }
 
-    private createIconElement(CSSClass: string, icon: string) {
+    private createIconElement(CSSClass: string, icon: string, iconColor: string) {
         if (
             icon.indexOf('.') > -1 ||
             icon.indexOf('/') > -1 ||
@@ -790,6 +805,7 @@ export class KupTree {
             )}') no-repeat center`;
             CSSClass += ' icon-container material-icons';
             let iconStyle = {
+                ...(iconColor ? { background: iconColor } : {}),
                 mask: svg,
                 webkitMask: svg,
             };
@@ -1072,7 +1088,8 @@ export class KupTree {
                 } else {
                     treeNodeIcon = this.createIconElement(
                         'kup-tree__icon icon-container',
-                        treeNodeData.icon
+                        treeNodeData.icon,
+                        treeNodeData.iconColor
                     );
                 }
             } else {

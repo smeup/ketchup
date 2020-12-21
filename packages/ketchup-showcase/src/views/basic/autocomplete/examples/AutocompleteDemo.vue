@@ -4,7 +4,6 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
     ></demo>
   </div>
 </template>
@@ -64,6 +63,14 @@ export default {
           try: 'css',
         },
         {
+          prop: 'displayMode',
+          description:
+            'Sets how the show the selected item value. Suported values: "code", "description", "both".',
+          type: 'string',
+          default: 'description',
+          try: 'field',
+        },
+        {
           prop: 'listData',
           description:
             "Set of props related to the list. To check the available props visit the List basic component's page.",
@@ -96,33 +103,6 @@ export default {
           try: 'json',
         },
       ],
-      demoTabs: [
-        {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
-        },
-      ],
     };
   },
 };
@@ -150,6 +130,7 @@ function createComp() {
   };
   comp.minimumChars = '1';
   comp.selectMode = 'description';
+  comp.displayMode = 'description';
   comp.textfieldData = {
     icon: 'arrow_drop_down',
     label: 'demo',

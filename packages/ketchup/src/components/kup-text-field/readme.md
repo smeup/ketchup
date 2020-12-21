@@ -71,10 +71,13 @@ Type: `Promise<void>`
 
  - [kup-autocomplete](../kup-autocomplete)
  - [kup-box](../kup-box)
+ - [kup-color-picker](../kup-color-picker)
  - [kup-combobox](../kup-combobox)
  - [kup-data-table](../kup-data-table)
+ - [kup-date-picker](../kup-date-picker)
  - [kup-form](../kup-form)
  - [kup-search](../kup-search)
+ - [kup-time-picker](../kup-time-picker)
  - [kup-tree](../kup-tree)
 
 ### Graph
@@ -82,10 +85,13 @@ Type: `Promise<void>`
 graph TD;
   kup-autocomplete --> kup-text-field
   kup-box --> kup-text-field
+  kup-color-picker --> kup-text-field
   kup-combobox --> kup-text-field
   kup-data-table --> kup-text-field
+  kup-date-picker --> kup-text-field
   kup-form --> kup-text-field
   kup-search --> kup-text-field
+  kup-time-picker --> kup-text-field
   kup-tree --> kup-text-field
   style kup-text-field fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -377,7 +377,7 @@ export function isRowCompliant(
         let b2 = isFilterCompliantForCellObj(cell, filterValue);
 
         const _filterIsNegative: boolean = filterIsNegative(filterValue);
-        if(_filterIsNegative){
+        if (_filterIsNegative) {
             if (!b1 || !b2) {
                 return false;
             }
@@ -386,7 +386,7 @@ export function isRowCompliant(
                 return false;
             }
         }
-      
+
         let filterValues = getCheckBoxFilterValues(filters, key);
         if (filterValues.length == 0) {
             continue;
@@ -797,9 +797,15 @@ export function normalizeTotals(
 
     k.forEach((key) => {
         if (key === '*ALL') {
+            console.log('Totals *ALL');
             columns.forEach((c) => {
                 if (isNumber(c.obj)) {
-                    rettotals[c.name] = totals[key];
+                    let colCustomTotal: TotalMode = totals[c.name];
+                    if (colCustomTotal != null) {
+                        rettotals[c.name] = colCustomTotal;
+                    } else {
+                        rettotals[c.name] = totals[key];
+                    }
                 }
             });
         } else {

@@ -1,10 +1,6 @@
 <template>
   <div>
-    <demo
-      :demoComp="demoComp"
-      :demoProps="demoProps"
-      :demoTabs="demoTabs"
-    ></demo>
+    <demo :demoComp="demoComp" :demoProps="demoProps"></demo>
   </div>
 </template>
 
@@ -55,28 +51,6 @@ export default {
           type: 'number',
           default: '0',
           try: 'field',
-        },
-      ],
-      demoTabs: [
-        {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
         },
       ],
     };

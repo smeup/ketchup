@@ -2,6 +2,10 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 
 export const config: Config = {
+    /* buildEs5: false,*/
+    extras: {
+        cssVarsShim: true,
+    },
     copy: [
         {
             src: 'box.html',
@@ -53,12 +57,7 @@ export const config: Config = {
     plugins: [
         sass({
             includePaths: ['./node_modules'],
-            injectGlobalPaths: [
-                'src/style/_variables.scss',
-                'src/style/_classes.scss',
-                'src/style/_generic-style.scss',
-                'src/style/global.scss',
-            ],
+            injectGlobalPaths: ['src/style/global.scss'],
         }),
     ],
 };

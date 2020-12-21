@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap');
 
 /* Global */
 html {
@@ -143,6 +144,11 @@ i.v-icon.material-icons {
   color: var(--kup-icon-color);
 }
 
+.v-list__group:after,
+.v-list__group:before {
+  display: none;
+}
+
 .demo-container {
   text-align: center;
   margin: auto;
@@ -161,6 +167,21 @@ i.v-icon.material-icons {
   margin: 2rem 1.5rem;
   max-width: 100%;
   flex-wrap: wrap;
+}
+
+#theme-container,
+#theme-container-demo {
+  margin: 0;
+  width: 100%;
+}
+
+#theme-action-demo {
+  display: none;
+}
+
+#theme-action-demo.visible {
+  display: flex;
+  justify-content: center;
 }
 
 .kup-container-fw {
@@ -515,6 +536,18 @@ table.instruction-table td.switch-cell {
 
 table.instruction-table th {
   font-weight: 600;
+  position: sticky;
+  top: 0;
+  background: var(--kup-background-color);
+  z-index: 1;
+}
+
+table#customstyle-tab td.prevent-cr {
+  width: 200px;
+}
+
+table#customstyle-tab kup-text-field {
+  margin-bottom: 10px;
 }
 
 #sample-wrapper {
@@ -539,7 +572,15 @@ table.instruction-table th {
 }
 
 #sample-wrapper.theming {
-  overflow: auto;
+  height: 75vh;
+}
+
+#sample-wrapper.theming #sample-specs {
+  width: 100%;
+}
+
+#sample-wrapper.theming #sample-comp {
+  height: calc(100% - 36px);
 }
 
 #sample-wrapper.detached {
@@ -788,8 +829,11 @@ table.instruction-table th {
 }
 
 .icon-wrapper {
-  height: 120px;
-  width: 120px;
+  box-sizing: border-box;
+  min-height: 128px;
+  min-width: 128px;
+  height: 128px;
+  width: 128px;
   padding: 0.25rem;
   margin: auto;
 }
@@ -822,17 +866,20 @@ table.instruction-table th {
 
 .icon-wrapper.theme-wrapper {
   border-radius: 20px;
-  border-style: outset;
+  border-style: double;
   border-width: 2px;
   cursor: pointer;
-  margin: 1rem;
+  margin: 0 auto;
   opacity: 1;
-  padding: 0.75rem;
-  transition: opacity 0.175s;
+  padding: 12px 10.5px 10.5px;
+  transition: all 0.25s;
+  z-index: 1;
 }
 
 .icon-wrapper.theme-wrapper:hover {
-  opacity: 0.75;
+  box-shadow: var(--kup-box-shadow);
+  transform: scale(1.25);
+  z-index: 2;
 }
 
 @media screen and (max-width: 767px) {
@@ -869,6 +916,12 @@ table.instruction-table th {
     display: block;
     margin: 3rem 0;
   }
+}
+
+.v-list__group__items
+  .v-list__tile__content
+  .v-list__tile__title.extra-padding {
+  padding-left: 2rem;
 }
 
 @media screen and (min-width: 1260px) {

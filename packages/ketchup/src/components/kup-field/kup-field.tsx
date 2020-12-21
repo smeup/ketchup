@@ -236,7 +236,7 @@ export class KupField {
                     break;
                 case 'itx':
                     comp = 'kup-text-field';
-                    propList.onkupTextfieldChange = this.onChangeInstance;
+                    propList.onkupTextFieldChange = this.onChangeInstance;
                     break;
                 case 'rad':
                     comp = 'kup-radio';
