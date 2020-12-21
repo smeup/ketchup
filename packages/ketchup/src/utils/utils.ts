@@ -213,7 +213,7 @@ export function numberToString(input: number, decimals: number): string {
     if (input == null) {
         return '';
     }
-    return _numberToString(input, decimals, getCurrentLocale());
+    return _numberToString(input, decimals, getCurrentLocale(), true);
 }
 
 /**
@@ -299,7 +299,7 @@ export function formattedStringToUnformattedStringNumber(
     }
     let unf: number = Number(input);
 
-    return _numberToString(unf, -1, 'en-US');
+    return _numberToString(unf, -1, 'en-US', false);
 }
 
 function getDecimalSeparator(locale) {
@@ -312,7 +312,8 @@ function getDecimalSeparator(locale) {
 export function _numberToString(
     input: number,
     decimals: number,
-    locale: string
+    locale: string,
+    useGrouping: boolean
 ): string {
     if (input == null) {
         input = 0;
@@ -323,8 +324,9 @@ export function _numberToString(
             ? {
                   minimumFractionDigits: decimals,
                   maximumFractionDigits: decimals,
+                  useGrouping: useGrouping,
               }
-            : {};
+            : { useGrouping: useGrouping };
     return n.toLocaleString(locale, f);
 }
 

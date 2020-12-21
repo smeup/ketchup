@@ -796,7 +796,7 @@ export function normalizeValue(value: string, smeupObj: any): string {
             value,
             smeupObj ? smeupObj.p : ''
         );
-        if (isNumberThisString(parseFloat(tmpStr))) {
+        if (isNumberThisString(tmpStr)) {
             newValue = tmpStr;
         }
     }
@@ -1175,7 +1175,7 @@ export function styleHasWritingMode(cell: Cell): boolean {
 }
 
 export function getCellValueForDisplay(value, column: Column): string {
-    if (value != '' && isNumber(column.obj)) {
+    if (value != null && value != '' && isNumber(column.obj)) {
         return unformattedStringToFormattedStringNumber(
             value,
             column.decimals ? column.decimals : -1,
@@ -1183,6 +1183,7 @@ export function getCellValueForDisplay(value, column: Column): string {
         );
     }
     if (
+        value != null &&
         value != '' &&
         isDate(column.obj) &&
         isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)

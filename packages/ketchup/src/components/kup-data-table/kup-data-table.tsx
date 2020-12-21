@@ -516,6 +516,7 @@ export class KupDataTable {
     private filterForCheckBox: GenericFilter = {};
 
     private fromGlobalFilterChangeEvent = false;
+    private fromOpenColumnMenuEvent = false;
 
     /**
      * Internal not reactive state used to keep track if a column is being dragged.
@@ -1136,10 +1137,6 @@ export class KupDataTable {
         let tmpFilters: GenericFilter = { ...this.filters };
         let value = '';
         if (this.filters[column.name]) {
-            value = normalizeValue(
-                this.filters[column.name].textField,
-                column.obj
-            );
             value = this.filters[column.name].textField;
         }
         if (this.getCheckBoxFilter(column.name) != null) {
@@ -1589,11 +1586,10 @@ export class KupDataTable {
         this.fromGlobalFilterChangeEvent = true;
     }
 
-    private onGlobalFilterRendered({ detail }) {
-        if (detail.field != null && this.fromGlobalFilterChangeEvent == true) {
+    private onTextFieldRendered({ detail }, doIt: boolean) {
+        if (detail.field != null && doIt == true) {
             detail.field.setFocus();
         }
-        this.fromGlobalFilterChangeEvent = false;
     }
 
     private handlePageChanged({ detail }) {
@@ -1704,6 +1700,7 @@ export class KupDataTable {
     }
 
     private openMenu(column: Column) {
+        this.fromOpenColumnMenuEvent = true;
         this.openedMenu = column.name;
         this.setCheckBoxFilter(column, null);
     }
@@ -2296,27 +2293,10 @@ export class KupDataTable {
                         }
 
                         if (!filterFromCheckBoxFilter) {
-                            if (
-                                filterInitialValue != '' &&
-                                isNumber(column.obj) &&
-                                isNumberThisString(
-                                    parseFloat(filterInitialValue)
-                                )
-                            ) {
-                                filterInitialValue = getCellValueForDisplay(
-                                    filterInitialValue,
-                                    column
-                                );
-                            }
-                            if (
-                                filterInitialValue != '' &&
-                                isDate(column.obj)
-                            ) {
-                                filterInitialValue = getCellValueForDisplay(
-                                    filterInitialValue,
-                                    column
-                                );
-                            }
+                            filterInitialValue = getCellValueForDisplay(
+                                filterInitialValue,
+                                column
+                            );
                         }
                         columnMenuItems.push(
                             <li role="menuitem" class="textfield-row">
@@ -2336,6 +2316,14 @@ export class KupDataTable {
                                     onKupTextFieldClearIconClick={(e) => {
                                         this.onFilterChange(e, column);
                                         this.closeMenuAndTooltip();
+                                    }}
+                                    onKupTextFieldRendered={(event) => {
+                                        /** stange: it doesn't work.... WHY? */
+                                        this.onTextFieldRendered(
+                                            event,
+                                            this.fromOpenColumnMenuEvent
+                                        );
+                                        this.fromOpenColumnMenuEvent = false;
                                     }}
                                 ></kup-text-field>
                             </li>
@@ -3905,9 +3893,13 @@ export class KupDataTable {
                         onKupTextFieldClearIconClick={(event) =>
                             this.onGlobalFilterChange(event)
                         }
-                        onKupTextFieldRendered={(event) =>
-                            this.onGlobalFilterRendered(event)
-                        }
+                        onKupTextFieldRendered={(event) => {
+                            this.onTextFieldRendered(
+                                event,
+                                this.fromGlobalFilterChangeEvent
+                            );
+                            this.fromGlobalFilterChangeEvent = false;
+                        }}
                     />
                 </div>
             );
