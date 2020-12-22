@@ -42,10 +42,6 @@ export class KupTextField {
      */
     @Prop() emitSubmitEventOnEnter: boolean = true;
     /**
-     * Defaults at false. When set to true, the component will be focused.
-     */
-    @Prop({ mutable: true }) forceFocus: boolean = false;
-    /**
      * Defaults at false. When set to true, the component will be rendered at full width.
      */
     @Prop({ reflect: true }) fullWidth: boolean = false;
@@ -211,24 +207,13 @@ export class KupTextField {
 
     @Watch('initialValue')
     watchInitialValue() {
-        this.value = this.initialValue;
-        if (this.inputEl !== undefined) {
-            this.inputEl.value = this.value;
-        }
+        this.setValue(this.initialValue);
     }
 
     @Watch('emitSubmitEventOnEnter')
     watchEmitSubmitEventOnEnter() {
-        // non necessario, se si vuole forzare il focus usare la prop forceFocus
+        // non necessario, se si vuole forzare il focus usare metodo setFocus()
         //this.inputEl.focus();
-    }
-
-    @Watch('forceFocus')
-    watchForceFocus() {
-        if (this.forceFocus == true) {
-            this.inputEl.focus();
-            this.forceFocus = false;
-        }
     }
 
     //---- Methods ----
@@ -236,6 +221,19 @@ export class KupTextField {
     @Method()
     async setFocus() {
         this.inputEl.focus();
+    }
+
+    @Method()
+    async setValue(value: string) {
+        this.value = value;
+        if (this.inputEl !== undefined) {
+            this.inputEl.value = this.value;
+        }
+    }
+
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
     }
 
     @Method()

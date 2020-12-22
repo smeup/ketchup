@@ -430,7 +430,7 @@ export function isValidFormattedStringTime(
     manageSeconds: boolean
 ): boolean {
     let format = getCurrentTimeFormatFromBrowserLocale(manageSeconds);
-    let m = moment(value, format);
+    let m = moment(value, format, true);
     return m.isValid();
 }
 

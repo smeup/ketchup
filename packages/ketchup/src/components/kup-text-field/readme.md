@@ -10,7 +10,6 @@
 | `customStyle`            | `custom-style`               | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                          | `string`  | `undefined` |
 | `disabled`               | `disabled`                   | Defaults at false. When set to true, the component is disabled.                                                                          | `boolean` | `false`     |
 | `emitSubmitEventOnEnter` | `emit-submit-event-on-enter` | When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.         | `boolean` | `true`      |
-| `forceFocus`             | `force-focus`                | Defaults at false. When set to true, the component will be focused.                                                                      | `boolean` | `false`     |
 | `fullWidth`              | `full-width`                 | Defaults at false. When set to true, the component will be rendered at full width.                                                       | `boolean` | `false`     |
 | `helper`                 | `helper`                     | Defaults at null. When set, its content will be shown as a help text below the field.                                                    | `string`  | `null`      |
 | `helperWhenFocused`      | `helper-when-focused`        | Defaults at false. When set, the helper will be shown only when the field is focused.                                                    | `boolean` | `false`     |
@@ -55,6 +54,16 @@ Type: `Promise<boolean>`
 
 
 
+### `getValue() => Promise<string>`
+
+
+
+#### Returns
+
+Type: `Promise<string>`
+
+
+
 ### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
 
 
@@ -66,6 +75,16 @@ Type: `Promise<void>`
 
 
 ### `setFocus() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setValue(value: string) => Promise<void>`
 
 
 

@@ -9,6 +9,7 @@ import {
     h,
     Listen,
     Method,
+    Watch,
 } from '@stencil/core';
 
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
@@ -27,15 +28,24 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 export class KupAutocomplete {
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
+    @State() value: string = '';
 
+    /**
+     * Sets the initial value of the component
+     */
+    @Prop() initialValue: string = '';
+    /**
+     * Defaults at false. When set to true, the component is disabled.
+     */
+    @Prop() disabled: boolean = false;
+    /**
+     * Props of the sub-components (date input text field).
+     */
+    @Prop() data: Object = {};
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = undefined;
-    /**
-     * Props of the list.
-     */
-    @Prop() listData: Object = {};
     /**
      * The minimum number of chars to trigger the autocomplete
      */
@@ -48,16 +58,13 @@ export class KupAutocomplete {
      * Sets how the show the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
-    /**
-     * Props of the text field.
-     */
-    @Prop() textfieldData: Object = {};
 
     private textfieldEl: any = undefined;
     private listEl: any = undefined;
-    private value: string = undefined;
     private displayedValue: string = undefined;
     private elStyle: any = undefined;
+
+    private doConsistencyCheck = true;
 
     /**
      * Event example.
@@ -144,6 +151,16 @@ export class KupAutocomplete {
         matchesMinimumCharsRequired: boolean;
     }>;
 
+    @Event({
+        eventName: 'kupAutocompleteTextFieldSubmit',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTextFieldSubmit: EventEmitter<{
+        value: any;
+    }>;
+
     /**
      * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
      */
@@ -177,6 +194,14 @@ export class KupAutocomplete {
         }
     }
 
+    @Watch('data')
+    watchInitialValue() {
+        this.value = this.getTextFieldData().initialValue;
+        if (this.initialValue != '') {
+            this.value = this.initialValue;
+        }
+    }
+
     //---- Methods ----
 
     @Method()
@@ -184,8 +209,32 @@ export class KupAutocomplete {
         this.customStyleTheme = customStyleTheme;
     }
 
+    @Method()
+    async setFocus() {
+        this.textfieldEl.setFocus();
+    }
+
+    @Method()
+    async setValue(value: string) {
+        this.value = value;
+        if (this.textfieldEl !== undefined) {
+            this.textfieldEl.setValue(this.value);
+        }
+    }
+
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
+
+    private onTextFieldRendered({ detail }, doIt: boolean) {
+        if (detail.field != null && doIt == true) {
+            detail.field.setFocus();
+        }
+    }
+
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
-        this.closeList(true);
+        this.closeList();
         const { target } = e;
         this.kupBlur.emit({
             value: target.value,
@@ -194,6 +243,7 @@ export class KupAutocomplete {
 
     onKupChange(e: CustomEvent) {
         //this.value = e.detail.value;
+        this.doConsistencyCheck = true;
         this.consistencyCheck(null, e.detail.value);
         this.kupChange.emit({
             value: this.value,
@@ -216,9 +266,10 @@ export class KupAutocomplete {
 
     onKupInput(e: CustomEvent) {
         //this.value = e.detail.value;
+        this.doConsistencyCheck = true;
         this.consistencyCheck(null, e.detail.value);
         if (this.openList(false)) {
-            this.handleFilterChange(this.value, e.target);
+            this.handleFilterChange(this.displayedValue, e.target);
         }
 
         this.kupInput.emit({
@@ -240,6 +291,7 @@ export class KupAutocomplete {
     }
 
     onKupItemClick(e: CustomEvent) {
+        this.doConsistencyCheck = true;
         this.consistencyCheck(e);
         this.closeList();
 
@@ -267,7 +319,7 @@ export class KupAutocomplete {
         if (this.serverHandledFilter && this.callBackOnFilterUpdate) {
             this.callBackOnFilterUpdate(detail)
                 .then((items) => {
-                    this.listData['data'] = [...items];
+                    this.getListData()['data'] = [...items];
                     this.kupFilterChanged.emit(detail);
                 })
                 .catch((err) => {
@@ -278,6 +330,33 @@ export class KupAutocomplete {
             this.listEl.resetFilter(newFilter);
             this.kupFilterChanged.emit(detail);
         }
+    }
+
+    onKupTextFieldSubmit(event: CustomEvent) {
+        this.kupChange.emit({
+            value: event.detail.value,
+        });
+        this.kupTextFieldSubmit.emit({
+            value: event.detail.value,
+        });
+    }
+
+    getTextFieldData() {
+        if (this.data['text-field'] == null) {
+            this.data['text-field'] = {};
+        }
+        return this.data['text-field'];
+    }
+
+    getListData() {
+        if (this.data['list'] == null) {
+            this.data['list'] = {};
+        }
+        return this.data['list'];
+    }
+
+    private setListData(listData) {
+        this.data['list'] = listData;
     }
 
     openList(forceOpen: boolean): boolean {
@@ -300,15 +379,12 @@ export class KupAutocomplete {
         return true;
     }
 
-    closeList(fromOnBlur?: boolean) {
+    closeList() {
         this.textfieldEl.classList.remove('toggled');
         if (this.textfieldEl['icon']) {
             this.textfieldEl['icon'] = 'arrow_drop_down';
         }
         this.textfieldEl.emitSubmitEventOnEnter = true;
-        if (fromOnBlur != true) {
-            this.textfieldEl.forceFocus = true;
-        }
         this.listEl.menuVisible = false;
         this.listEl.classList.remove('dynamic-position-active');
     }
@@ -318,9 +394,13 @@ export class KupAutocomplete {
     }
 
     consistencyCheck(e?: CustomEvent, valueIn?: string) {
+        if (this.doConsistencyCheck == false) {
+            return;
+        }
+        this.doConsistencyCheck = false;
         let ret = consistencyCheck(
             valueIn,
-            this.listData,
+            this.getListData(),
             this.textfieldEl,
             this.listEl,
             this.selectMode,
@@ -329,31 +409,35 @@ export class KupAutocomplete {
         );
         this.value = ret.value;
         this.displayedValue = ret.displayedValue;
+
         if (this.listEl != null) {
-            this.listEl.resetFilter(valueIn);
+            //this.listEl.resetFilter(valueIn);
+            this.listEl.resetFilter(this.displayedValue);
         }
     }
 
     prepTextfield() {
-        if (this.textfieldData['fullWidth']) {
+        let textfieldData = this.getTextFieldData();
+        if (textfieldData['fullWidth']) {
             this.elStyle = {
                 ...this.elStyle,
                 width: '100%',
             };
         }
 
-        if (this.textfieldData['fullHeight']) {
+        if (textfieldData['fullHeight']) {
             this.elStyle = {
                 ...this.elStyle,
                 height: '100%',
             };
         }
+        textfieldData['initialValue'] = this.displayedValue;
+        textfieldData['disabled'] = this.disabled;
 
         let comp: HTMLElement = (
             <kup-text-field
-                {...this.textfieldData}
+                {...textfieldData}
                 style={this.elStyle}
-                initial-value={this.displayedValue}
                 id={this.rootElement.id + '_text-field'}
                 /* onKupTextFieldBlur={(e: any) => this.onKupBlur(e)} */
                 onKupTextFieldChange={(e: any) => this.onKupChange(e)}
@@ -361,6 +445,10 @@ export class KupAutocomplete {
                 onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
                 onKupTextFieldInput={(e: any) => this.onKupInput(e)}
                 onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
+                onKupTextFieldSubmit={(e: any) => this.onKupTextFieldSubmit(e)}
+                onKupTextFieldRendered={(event) => {
+                    this.onTextFieldRendered(event, true);
+                }}
                 ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );
@@ -371,7 +459,7 @@ export class KupAutocomplete {
     prepList() {
         let comp: HTMLElement = (
             <kup-list
-                {...this.listData}
+                {...this.getListData()}
                 displayMode={this.displayMode}
                 is-menu
                 onKupListClick={(e) => this.onKupItemClick(e)}
@@ -387,6 +475,8 @@ export class KupAutocomplete {
     componentWillLoad() {
         logLoad(this, false);
         setThemeCustomStyle(this);
+        this.watchInitialValue();
+        this.doConsistencyCheck = true;
     }
 
     componentDidLoad() {
@@ -394,6 +484,7 @@ export class KupAutocomplete {
     }
 
     componentWillRender() {
+        this.consistencyCheck();
         logRender(this, false);
     }
 
@@ -403,7 +494,6 @@ export class KupAutocomplete {
     }
 
     render() {
-        this.consistencyCheck();
         let textfieldEl = this.prepTextfield();
         let listEl = this.prepList();
 

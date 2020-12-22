@@ -224,6 +224,14 @@ export class KupPaginator {
             selectable: true,
         };
 
+        let dataPageSelector = {
+            'text-field': textfieldDataPage,
+            list: listDataPage,
+        };
+        let dataRowsSelector = {
+            'text-field': textfieldDataRows,
+            list: listDataRows,
+        };
         let compCreated = (
             <div id="paginator">
                 <div class="align-left">
@@ -236,8 +244,7 @@ export class KupPaginator {
                         ></kup-button>
                         <kup-combobox
                             class="page-selector"
-                            textfieldData={textfieldDataPage}
-                            listData={listDataPage}
+                            data={dataPageSelector}
                             onKupComboboxItemClick={(e) => this.onPageChange(e)}
                             onKupComboboxTextFieldSubmit={(e) =>
                                 this.onPageChange(e)
@@ -255,8 +262,7 @@ export class KupPaginator {
                         <slot name="more-results" />
                         <kup-combobox
                             class="rows-selector"
-                            textfieldData={textfieldDataRows}
-                            listData={listDataRows}
+                            data={dataRowsSelector}
                             onKupComboboxItemClick={(e) =>
                                 this.onRowsPerPage(e)
                             }

@@ -108,19 +108,25 @@ export function consistencyCheck(
     displayedValue = getValueOfItemByDisplayMode(selected, displayMode, ' - ');
 
     if (textfieldEl) {
-        if (textfieldEl.initialValue === displayedValue) {
-            textfieldEl.initialValue = '';
-            textfieldEl.initialValue = displayedValue;
+        if (textfieldEl.getValue() === displayedValue) {
+            textfieldEl.setValue('');
+            textfieldEl.setValue(displayedValue);
         } else {
-            textfieldEl.initialValue = displayedValue;
+            textfieldEl.setValue(displayedValue);
         }
     }
-    return { value: value, displayedValue: displayedValue };
+    return {
+        value: value,
+        displayedValue: displayedValue,
+    };
 }
 
 export function getFirstItemSelected(listData: Object): ComponentListElement {
     if (listData['data']) {
         for (let i = 0; i < listData['data'].length; i++) {
+            if (listData['data'][i].isSeparator == true) {
+                continue;
+            }
             if (listData['data'][i].selected) {
                 return listData['data'][i];
             }
@@ -138,6 +144,9 @@ export function getItemByValue(
         let found: boolean = false;
         let item: ComponentListElement = null;
         for (let i = 0; i < listData['data'].length; i++) {
+            if (listData['data'][i].isSeparator == true) {
+                continue;
+            }
             if (setSelected == true) {
                 listData['data'][i].selected = false;
             }
@@ -154,6 +163,9 @@ export function getItemByValue(
             return item;
         }
         for (let i = 0; i < listData['data'].length; i++) {
+            if (listData['data'][i].isSeparator == true) {
+                continue;
+            }
             if (listData['data'][i].text.toLowerCase() == value.toLowerCase()) {
                 item = listData['data'][i];
                 item.selected = true;
@@ -178,6 +190,9 @@ export function getItemByDisplayMode(
         let found: boolean = false;
         let item: ComponentListElement = null;
         for (let i = 0; i < listData['data'].length; i++) {
+            if (listData['data'][i].isSeparator == true) {
+                continue;
+            }
             let displayedValue = getValueOfItemByDisplayMode(
                 listData['data'][i],
                 displayMode,

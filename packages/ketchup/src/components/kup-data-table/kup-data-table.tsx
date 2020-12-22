@@ -3700,12 +3700,12 @@ export class KupDataTable {
             label: 'Font size',
             icon: 'arrow_drop_down',
         };
+        let data = { 'text-field': textfieldData, list: listData };
         return (
             <div class="customize-element fontsize-panel">
                 <kup-combobox
                     isSelect={true}
-                    listData={listData}
-                    textfieldData={textfieldData}
+                    data={data}
                     onKupComboboxItemClick={(e: CustomEvent) => {
                         e.stopPropagation();
                         this.fontsize = this.getFontSizeCodeFromDecode(
@@ -3757,13 +3757,14 @@ export class KupDataTable {
             label: 'Row density',
             icon: 'arrow_drop_down',
         };
+
+        let data = { 'text-field': textfieldData, list: listData };
         return (
             <div class="customize-element density-panel">
                 <kup-combobox
                     isSelect={true}
                     selectMode={ItemsDisplayMode.DESCRIPTION}
-                    listData={listData}
-                    textfieldData={textfieldData}
+                    data={data}
                     onKupComboboxItemClick={(e: CustomEvent) => {
                         e.stopPropagation();
                         this.density = this.getDensityCodeFromDecode(
@@ -3810,12 +3811,12 @@ export class KupDataTable {
             label: 'Grid type',
             icon: 'arrow_drop_down',
         };
+        let data = { 'text-field': textfieldData, list: listData };
         return (
             <div class="customize-element grid-panel">
                 <kup-combobox
                     isSelect={true}
-                    listData={listData}
-                    textfieldData={textfieldData}
+                    data={data}
                     onKupComboboxItemClick={(e: CustomEvent) => {
                         e.stopPropagation();
                         let grid: any = this.getGridCodeFromDecode(
