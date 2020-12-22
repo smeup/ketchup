@@ -1298,6 +1298,7 @@ export class KupBox {
                                   fromSelectedRows: this.selectedRows,
                               },
                               'kup-drag-source-element': { row }, // add row, column and the cell. Source element
+                              'kup-drag-source-comp-id': this.rootElement.id, // add row, column and the cell. Source element
                           })
                         : {})}
                     {...(this.dropEnabled
@@ -1305,7 +1306,8 @@ export class KupBox {
                               dropHandlers,
                               [KupBoxDragType],
                               this.rootElement,
-                              { row } // add row, column and the cell. Target element
+                              { row },
+                              this.rootElement.id
                           )
                         : {})}
                 >

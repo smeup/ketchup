@@ -64,6 +64,7 @@ export interface DropHandlers {
  */
 interface DragData {
     'kup-drag-source-element': object; // TODO: if deemed a necessity, extract into a constant
+    'kup-drag-source-comp-id': string;
     [index: string]: string | object;
 }
 
@@ -170,7 +171,8 @@ export function setKetchupDroppable(
     handlers: DropHandlers,
     acceptedDataTypes: string[],
     dispatcherElement: HTMLElement,
-    targetElement: DropTargetElement<any>
+    targetElement: DropTargetElement<any>,
+    targetCompId: string
 ) {
     const onDrop = (e: DragEvent) => {
         // Searches for accepted data types
@@ -184,8 +186,12 @@ export function setKetchupDroppable(
             acceptedDataTypesFound.length >= 1 &&
             !!(processedDataType = handlers.onDrop(e, acceptedDataTypesFound))
         ) {
+            let sourceCompId;
             let sourceElement;
             try {
+                sourceCompId = e.dataTransfer.getData(
+                    'kup-drag-source-comp-id'
+                );
                 sourceElement = JSON.parse(
                     e.dataTransfer.getData('kup-drag-source-element')
                 );
@@ -206,7 +212,9 @@ export function setKetchupDroppable(
                 cancelable: true,
                 detail: {
                     dataType: processedDataType,
+                    sourceCompId,
                     sourceElement,
+                    targetCompId,
                     targetElement,
                 },
             });
