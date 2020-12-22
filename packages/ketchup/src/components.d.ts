@@ -1402,6 +1402,7 @@ export namespace Components {
          */
         "readOnly": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "setFocus": () => Promise<void>;
         /**
           * Defaults at false. When set to true, the component will be rendered as a textarea.
          */
@@ -3646,6 +3647,10 @@ declare namespace LocalJSX {
         "onKupTextFieldInput"?: (event: CustomEvent<{
         id: any;
         value: string;
+    }>) => void;
+        "onKupTextFieldRendered"?: (event: CustomEvent<{
+        id: any;
+        field: KupTextField;
     }>) => void;
         /**
           * When a keydown enter event occurs it generates
