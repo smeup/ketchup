@@ -205,31 +205,7 @@ export class KupTextField {
         field: KupTextField;
     }>;
 
-    @Watch('initialValue')
-    watchInitialValue() {
-        this.setValue(this.initialValue);
-    }
-
-    @Watch('emitSubmitEventOnEnter')
-    watchEmitSubmitEventOnEnter() {
-        // non necessario, se si vuole forzare il focus usare metodo setFocus()
-        //this.inputEl.focus();
-    }
-
     //---- Methods ----
-
-    @Method()
-    async setFocus() {
-        this.inputEl.focus();
-    }
-
-    @Method()
-    async setValue(value: string) {
-        this.value = value;
-        if (this.inputEl !== undefined) {
-            this.inputEl.value = this.value;
-        }
-    }
 
     @Method()
     async getValue(): Promise<string> {
@@ -239,6 +215,23 @@ export class KupTextField {
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+
+    @Method()
+    async setFocus() {
+        this.inputEl.focus();
+    }
+
+    @Method()
+    async setValue(value: string) {
+        this.value = value;
+        try {
+            this.inputEl.value = value;
+        } catch (error) {
+            let message =
+                "Couldn't set value on input element: '" + value + "'";
+            logMessage(this, message, 'warning');
+        }
     }
 
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
@@ -508,7 +501,7 @@ export class KupTextField {
     componentWillLoad() {
         logLoad(this, false);
         setThemeCustomStyle(this);
-        this.watchInitialValue();
+        this.value = this.initialValue;
     }
 
     componentDidLoad() {
