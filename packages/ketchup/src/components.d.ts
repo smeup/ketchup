@@ -417,12 +417,16 @@ export namespace Components {
         /**
           * Props of the text field.
          */
-        "data": {};
+        "data": Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
         "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
+         */
+        "initialValue": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
@@ -430,10 +434,6 @@ export namespace Components {
           * When true, the component's text field will be replaced by a swatch.
          */
         "swatchOnly": boolean;
-        /**
-          * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
-         */
-        "value": string;
     }
     interface KupCombobox {
         /**
@@ -2481,22 +2481,25 @@ declare namespace LocalJSX {
         /**
           * Props of the text field.
          */
-        "data"?: {};
+        "data"?: Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled"?: boolean;
+        /**
+          * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
+         */
+        "initialValue"?: string;
         "onKupColorPickerChange"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupColorPickerInput"?: (event: CustomEvent<{
         value: any;
     }>) => void;
         /**
           * When true, the component's text field will be replaced by a swatch.
          */
         "swatchOnly"?: boolean;
-        /**
-          * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
-         */
-        "value"?: string;
     }
     interface KupCombobox {
         /**
