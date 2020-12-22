@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+
+        <title>Ketchup autocomplete</title>
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+    </head>
+
+    <body>
+        <div>
+            <kup-autocomplete id="ac"></kup-autocomplete>
+            <kup-text-field id="tf"></kup-text-field>
+            <script>
+                window.onload = function () {
+                    let ac = document.getElementsByTagName(
+                        'kup-autocomplete'
+                    )[0];
+                    ac.data = {
+                        'kup-list': {
+                            data: [
+                                {
+                                    text: 'Text 1',
+                                    secondaryText: 'Secondary text 1',
+                                    value: 'txt1',
+                                    icon: '3d_rotation',
+                                },
+                                {
+                                    text: 'Text 2',
+                                    value: 'txt2',
+                                    icon: 'ac_unit',
+                                },
+                                {
+                                    text: 'Text 3',
+                                    value: 'txt3',
+                                    icon: 'accessibility',
+                                },
+                                {
+                                    text: null,
+                                    value: null,
+                                    isSeparator: true,
+                                },
+                                {
+                                    text: 'Text 4',
+                                    value: 'txt4',
+                                    icon: 'account_box',
+                                },
+                                {
+                                    text: 'Text 5',
+                                    value: 'txt5',
+                                    selected: true,
+                                    /*icon: 'add_alert'*/
+                                },
+                            ],
+                        },
+                    };
+                    ac.initialValue = 'txt1';
+                    ac.selectMode = 'code';
+                };
+            </script>
+        </div>
+    </body>
+</html>

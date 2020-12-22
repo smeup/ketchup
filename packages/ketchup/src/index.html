@@ -87,6 +87,8 @@
         <div id="theme-tester">
             <kup-switch leading-label label="Theme tester" id="theme-switch"></kup-switch>
         </div>
+        <a href="autocomplete.html">Ketchup autocomplete</a>
+        <br />
         <a href="box.html">Ketchup box</a>
         <br />
         <a href="chart.html">Ketchup charts</a>
@@ -695,7 +697,8 @@ chipList.data = [
             let autocompleteBox1 = document.getElementsByTagName('kup-autocomplete')[0];
             //autocompleteBox1.textfieldData = {trailingIcon:  true, icon: "arrow_drop_down"};
             //autocompleteBox1.listData = {data: [...itemsForListBox], selectable: true, displayMode: 'both'};
-            autocompleteBox1.data = {'text-field': {...textfieldData}, 'list': {...listData}};
+            autocompleteBox1.data = {'kup-list': {...listData}};
+            autocompleteBox1.initialValue = "txt1";
             autocompleteBox1.selectMode = 'code';
             
             let once = true;

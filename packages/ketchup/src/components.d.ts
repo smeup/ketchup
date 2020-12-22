@@ -44,7 +44,7 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Props of the sub-components (date input text field).
+          * Props of the sub-components.
          */
         "data": Object;
         /**
@@ -57,7 +57,7 @@ export namespace Components {
         "displayMode": ItemsDisplayMode;
         "getValue": () => Promise<string>;
         /**
-          * Sets the initial value of the component
+          * Sets the initial value of the component.
          */
         "initialValue": string;
         /**
@@ -422,7 +422,10 @@ export namespace Components {
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
+        "getValue": () => Promise<string>;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
         /**
           * When true, the component's text field will be replaced by a swatch.
          */
@@ -1923,7 +1926,7 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Props of the sub-components (date input text field).
+          * Props of the sub-components.
          */
         "data"?: Object;
         /**
@@ -1935,7 +1938,7 @@ declare namespace LocalJSX {
          */
         "displayMode"?: ItemsDisplayMode;
         /**
-          * Sets the initial value of the component
+          * Sets the initial value of the component.
          */
         "initialValue"?: string;
         /**

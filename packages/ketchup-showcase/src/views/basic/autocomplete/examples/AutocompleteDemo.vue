@@ -63,6 +63,21 @@ export default {
           try: 'css',
         },
         {
+          prop: 'data',
+          description: 'Props of the sub-components.',
+          type: 'Object',
+          default: '{}',
+          try: 'json',
+        },
+        {
+          prop: 'disabled',
+          description:
+            'Defaults at false. When set to true, the component is disabled.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'displayMode',
           description:
             'Sets how the show the selected item value. Suported values: "code", "description", "both".',
@@ -71,12 +86,11 @@ export default {
           try: 'field',
         },
         {
-          prop: 'listData',
-          description:
-            "Set of props related to the list. To check the available props visit the List basic component's page.",
-          type: 'Object',
-          default: '{}',
-          try: 'json',
+          prop: 'initialValue',
+          description: 'Sets the initial value of the component.',
+          type: 'string',
+          default: '""',
+          try: 'field',
         },
         {
           prop: 'minimumChars',
@@ -110,32 +124,30 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-autocomplete');
   comp.id = 'demo-component';
-  comp.listData = {
-    data: [
-      {
-        text: 'First item',
-        value: 'CODE_1',
-      },
-      {
-        text: 'Second item',
-        value: 'CODE_2',
-      },
-      {
-        text: 'Third item',
-        value: 'CODE_3',
-      },
-    ],
-    displayMode: 'both',
-    selectable: true,
+  comp.data = {
+    'kup-list': {
+      data: [
+        {
+          text: 'First item',
+          value: 'CODE_1',
+        },
+        {
+          text: 'Second item',
+          value: 'CODE_2',
+        },
+        {
+          text: 'Third item',
+          value: 'CODE_3',
+        },
+      ],
+      displayMode: 'both',
+      selectable: true,
+    },
   };
+  comp.displayMode = 'description';
+  comp.initialValue = 'demo';
   comp.minimumChars = '1';
   comp.selectMode = 'description';
-  comp.displayMode = 'description';
-  comp.textfieldData = {
-    icon: 'arrow_drop_down',
-    label: 'demo',
-    trailingIcon: true,
-  };
   return comp;
 }
 </script>
