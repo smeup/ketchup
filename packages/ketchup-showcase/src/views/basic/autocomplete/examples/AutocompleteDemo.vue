@@ -145,7 +145,6 @@ function createComp() {
     },
   };
   comp.displayMode = 'description';
-  comp.initialValue = 'demo';
   comp.minimumChars = '1';
   comp.selectMode = 'description';
   return comp;

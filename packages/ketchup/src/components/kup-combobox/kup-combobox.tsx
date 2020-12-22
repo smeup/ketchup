@@ -18,7 +18,7 @@ import {
     consistencyCheck,
 } from '../kup-list/kup-list-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-combobox',
@@ -31,21 +31,25 @@ export class KupCombobox {
     @State() value: string = '';
 
     /**
-     * Sets the initial value of the component
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() initialValue: string = '';
-    /**
-     * Defaults at false. When set to true, the component is disabled.
-     */
-    @Prop() disabled: boolean = false;
+    @Prop() customStyle: string = undefined;
     /**
      * Props of the sub-components (date input text field).
      */
     @Prop() data: Object = {};
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() disabled: boolean = false;
+    /**
+     * Sets how the show the selected item value. Suported values: "code", "description", "both".
+     */
+    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+    /**
+     * Sets the initial value of the component
+     */
+    @Prop() initialValue: string = '';
     /**
      * Lets the combobox behave as a select element.
      */
@@ -54,15 +58,11 @@ export class KupCombobox {
      * Sets how the return the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
-    /**
-     * Sets how the show the selected item value. Suported values: "code", "description", "both".
-     */
-    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
 
-    private textfieldEl: any = undefined;
+    private elStyle: any = undefined;
     private listEl: any = undefined;
     private displayedValue: string = undefined;
-    private elStyle: any = undefined;
+    private textfieldEl: any = undefined;
 
     /**
      * Event example.
@@ -166,15 +166,12 @@ export class KupCombobox {
         }
     }
 
-    @Watch('data')
-    watchInitialValue() {
-        this.value = this.getTextFieldData().initialValue;
-        if (this.initialValue != '') {
-            this.value = this.initialValue;
-        }
-    }
-
     //---- Methods ----
+
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
 
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
@@ -189,14 +186,7 @@ export class KupCombobox {
     @Method()
     async setValue(value: string) {
         this.value = value;
-        if (this.textfieldEl !== undefined) {
-            this.textfieldEl.setValue(this.value);
-        }
-    }
-
-    @Method()
-    async getValue(): Promise<string> {
-        return this.value;
+        this.textfieldEl.setValue(value);
     }
 
     private onTextFieldRendered({ detail }, doIt: boolean) {
@@ -286,20 +276,6 @@ export class KupCombobox {
         });
     }
 
-    getTextFieldData() {
-        if (this.data['text-field'] == null) {
-            this.data['text-field'] = {};
-        }
-        return this.data['text-field'];
-    }
-
-    getListData() {
-        if (this.data['list'] == null) {
-            this.data['list'] = {};
-        }
-        return this.data['list'];
-    }
-
     openList() {
         let textFieldWidth = this.textfieldEl.shadowRoot.querySelector(
             '.mdc-text-field'
@@ -329,7 +305,7 @@ export class KupCombobox {
     consistencyCheck(e?: CustomEvent, valueIn?: string) {
         let ret = consistencyCheck(
             valueIn,
-            this.getListData(),
+            this.data['kup-list'],
             this.textfieldEl,
             this.listEl,
             this.selectMode,
@@ -341,36 +317,21 @@ export class KupCombobox {
     }
 
     prepTextfield() {
-        let textfieldData = this.getTextFieldData();
-        if (textfieldData['fullWidth']) {
-            this.elStyle = {
-                ...this.elStyle,
-                width: '100%',
-            };
-        }
-
-        if (textfieldData['fullHeight']) {
-            this.elStyle = {
-                ...this.elStyle,
-                height: '100%',
-            };
-        }
+        let textfieldData = { ...this.data['kup-text-field'] };
 
         if (!textfieldData['icon']) {
             textfieldData['icon'] = 'arrow_drop_down';
         }
-
-        if (this.isSelect == true) {
-            textfieldData['readOnly'] = true;
+        if (textfieldData['trailingIcon'] === undefined) {
+            textfieldData['trailingIcon'] = true;
         }
-        textfieldData['initialValue'] = this.value;
-        textfieldData['disabled'] = this.disabled;
 
-        let comp: HTMLElement = (
+        return (
             <kup-text-field
                 {...textfieldData}
-                style={this.elStyle}
-                initial-value={this.displayedValue}
+                disabled={this.disabled}
+                id={this.rootElement.id + '_text-field'}
+                initialValue={this.displayedValue}
                 onKupTextFieldChange={(e: any) => this.onKupChange(e)}
                 onKupTextFieldClick={(e: any) => this.onKupClick(e)}
                 onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
@@ -383,14 +344,12 @@ export class KupCombobox {
                 ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );
-
-        return comp;
     }
 
     prepList() {
-        let comp: HTMLElement = (
+        return (
             <kup-list
-                {...this.getListData()}
+                {...this.data['kup-list']}
                 displayMode={this.displayMode}
                 is-menu
                 onKupListClick={(e) => this.onKupItemClick(e)}
@@ -398,8 +357,6 @@ export class KupCombobox {
                 ref={(el) => (this.listEl = el as any)}
             ></kup-list>
         );
-
-        return comp;
     }
 
     //---- Lifecycle hooks ----
@@ -407,15 +364,21 @@ export class KupCombobox {
     componentWillLoad() {
         logLoad(this, false);
         setThemeCustomStyle(this);
-        this.watchInitialValue();
+        this.value = this.initialValue;
+        if (!this.data) {
+            this.data = {
+                'kup-list': {},
+                'kup-text-field': {},
+            };
+        }
     }
 
     componentDidLoad() {
+        this.consistencyCheck(undefined, this.value);
         logLoad(this, true);
     }
 
     componentWillRender() {
-        this.consistencyCheck();
         logRender(this, false);
     }
 
@@ -425,15 +388,12 @@ export class KupCombobox {
     }
 
     render() {
-        let textfieldEl = this.prepTextfield();
-        let listEl = this.prepList();
-
         return (
             <Host onBlur={() => this.onKupBlur()} style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
-                    {textfieldEl}
-                    {listEl}
+                    {this.prepTextfield()}
+                    {this.prepList()}
                 </div>
             </Host>
         );

@@ -438,6 +438,7 @@ export class KupAutocomplete {
     }
 
     componentDidLoad() {
+        this.consistencyCheck(undefined, this.value);
         logLoad(this, true);
     }
 
@@ -451,15 +452,12 @@ export class KupAutocomplete {
     }
 
     render() {
-        let textfieldEl = this.prepTextfield();
-        let listEl = this.prepList();
-
         return (
             <Host onBlur={(e: any) => this.onKupBlur(e)} style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
-                    {textfieldEl}
-                    {listEl}
+                    {this.prepTextfield()}
+                    {this.prepList()}
                 </div>
             </Host>
         );
