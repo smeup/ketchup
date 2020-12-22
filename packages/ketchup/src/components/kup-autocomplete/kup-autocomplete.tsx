@@ -394,7 +394,7 @@ export class KupAutocomplete {
                 {...textfieldData}
                 disabled={this.disabled}
                 id={this.rootElement.id + '_text-field'}
-                initialValue={this.value}
+                initialValue={this.displayedValue}
                 onKupTextFieldChange={(e: any) => this.onKupChange(e)}
                 onKupTextFieldClick={(e: any) => this.onKupClick(e)}
                 onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
