@@ -804,104 +804,6 @@ export class KupBox {
         });
     }
 
-    // when the user starts to drag a box (fired on the draggable target)
-    private onBoxDragStart(event: DragEvent, row: BoxRow) {
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        if (this.multiSelection) {
-            this.addMultiSelectDragImageToEvent(event);
-        }
-
-        this.searchParentWithClass(target, 'box').classList.add('item-dragged');
-
-        var transferData = {};
-        transferData['fromId'] = this.rootElement.id;
-        transferData['fromRow'] = row;
-        transferData['fromSelectedRows'] = this.selectedRows;
-        event.dataTransfer.setData('text', JSON.stringify(transferData));
-
-        event.dataTransfer.dropEffect = 'move';
-    }
-
-    // when the user finishes to drag a box (fired on the draggable target)
-    private onBoxDragEnd(event: DragEvent, row: BoxRow) {
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box').classList.remove(
-            'item-dragged'
-        );
-
-        this.kupBoxDragEnded.emit({
-            fromId: this.rootElement.id,
-            fromRow: row,
-            ...(this.selectedRows && this.selectedRows.length
-                ? { fromSelectedRows: this.selectedRows }
-                : {}),
-        });
-    }
-
-    // when the dragged box is over the drop box (fired on the drop target)
-    private onBoxDragOver(event: DragEvent) {
-        event.preventDefault();
-
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box').classList.add(
-            'item-dropover'
-        );
-    }
-
-    // when the dragged box leaves the drop box (fired on the drop target)
-    private onBoxDragLeave(event: DragEvent) {
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box').classList.remove(
-            'item-dropover'
-        );
-    }
-
-    //  when the dragged box is dropped on another box (fired on the drop target)
-    private onBoxDrop(event: DragEvent, row: BoxRow) {
-        event.preventDefault();
-
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box').classList.remove(
-            'item-dropover'
-        );
-
-        var jsonData = JSON.parse(event.dataTransfer.getData('text'));
-
-        this.kupBoxDropped.emit({
-            fromId: jsonData['fromId'],
-            fromRow: jsonData['fromRow'],
-            ...(jsonData['fromSelectedRows'] &&
-            jsonData['fromSelectedRows'].length
-                ? { fromSelectedRows: jsonData['fromSelectedRows'] }
-                : {}),
-            toId: this.rootElement.id,
-            toRow: row,
-            ...(this.selectedRows && this.selectedRows.length
-                ? { toSelectedRows: this.selectedRows }
-                : {}),
-        });
-    }
-
     // when the dragged box is over the drop section (fired on the drop target)
     private onSectionDragOver(event: DragEvent) {
         event.preventDefault();
@@ -1297,7 +1199,10 @@ export class KupBox {
                                   fromRow: row,
                                   fromSelectedRows: this.selectedRows,
                               },
-                              'kup-drag-source-element': { fromRow : row, fromId :  this.rootElement.id}, // add row, column and the cell. Source element
+                              'kup-drag-source-element': {
+                                  fromRow: row,
+                                  fromId: this.rootElement.id,
+                              },
                           })
                         : {})}
                     {...(this.dropEnabled
@@ -1305,7 +1210,7 @@ export class KupBox {
                               dropHandlers,
                               [KupBoxDragType],
                               this.rootElement,
-                              { toRow : row, toId :  this.rootElement.id }
+                              { toRow: row, toId: this.rootElement.id }
                           )
                         : {})}
                 >
