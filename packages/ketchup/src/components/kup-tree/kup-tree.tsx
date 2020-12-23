@@ -1367,7 +1367,7 @@ export class KupTree {
 
         const _hasTooltip: boolean = hasTooltip(treeNodeData.obj);
         let title: string = undefined;
-        if (_hasTooltip) {
+        if (_hasTooltip && document.documentElement.kupDebug) {
             title =
                 treeNodeData.obj.t +
                 '; ' +
