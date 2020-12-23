@@ -101,6 +101,9 @@ export function formatSize(size: any) {
 }
 
 export function getCurrentLocale(suffix?: string): string {
+    if (navigator == null || navigator.language == null) {
+        return 'en-US' + (suffix != null ? suffix : '');
+    }
     return navigator.language + (suffix != null ? suffix : '');
 }
 
@@ -188,6 +191,27 @@ export function isEmpty(obj: any) {
     );
 }
 
+/**
+ * @param value number as string, formatted by actual browser locale
+ * @param type - type of number for calculate suffix
+ * @returns true if number string in input is a valid number
+ */
+export function isValidFormattedStringNumber(
+    value: string,
+    type: string
+): boolean {
+    if (value == null || value.trim() == '') {
+        return false;
+    }
+
+    let tmpStr = formattedStringToUnformattedStringNumber(value, type);
+
+    if (isNumber(tmpStr)) {
+        return true;
+    }
+    return false;
+}
+
 export function isNumber(value: any): boolean {
     //return typeof value === 'number';
     return !isNaN(value);
@@ -213,7 +237,7 @@ export function numberToString(input: number, decimals: number): string {
     if (input == null) {
         return '';
     }
-    return _numberToString(input, decimals, getCurrentLocale());
+    return _numberToString(input, decimals, getCurrentLocale(), true);
 }
 
 /**
@@ -278,7 +302,7 @@ export function formattedStringToUnformattedStringNumber(
     type: string
 ): string {
     if (input == null || input.trim() == '') {
-        input = '0';
+        return '';
     }
 
     let suffix = getNumericValueSuffixByType(type);
@@ -299,7 +323,7 @@ export function formattedStringToUnformattedStringNumber(
     }
     let unf: number = Number(input);
 
-    return _numberToString(unf, -1, 'en-US');
+    return _numberToString(unf, -1, 'en-US', false);
 }
 
 function getDecimalSeparator(locale) {
@@ -312,7 +336,8 @@ function getDecimalSeparator(locale) {
 export function _numberToString(
     input: number,
     decimals: number,
-    locale: string
+    locale: string,
+    useGrouping: boolean
 ): string {
     if (input == null) {
         input = 0;
@@ -323,8 +348,9 @@ export function _numberToString(
             ? {
                   minimumFractionDigits: decimals,
                   maximumFractionDigits: decimals,
+                  useGrouping: useGrouping,
               }
-            : {};
+            : { useGrouping: useGrouping };
     return n.toLocaleString(locale, f);
 }
 
@@ -397,11 +423,25 @@ export function formatTime(time: Date, manageSeconds: boolean): string {
 
 /**
  * @param value date string, formatted by actual browser locale
- * @returns true id date string in input is a valid date
+ * @returns true if date string in input is a valid date
  */
 export function isValidFormattedStringDate(value: string): boolean {
-    let format = getCurrentDateFormatFromBrowserLocale();
-    let m = moment(value, format);
+    return isValidStringDate(value);
+}
+
+/**
+ * @param value date string
+ * @param valueDateFormat date format (default actual browser locale)
+ * @returns true if date string in input is a valid date
+ */
+export function isValidStringDate(
+    value: string,
+    valueDateFormat?: string
+): boolean {
+    if (valueDateFormat == null) {
+        valueDateFormat = getCurrentDateFormatFromBrowserLocale();
+    }
+    let m = moment(value, valueDateFormat, true);
     return m.isValid();
 }
 
@@ -414,7 +454,7 @@ export function isValidFormattedStringTime(
     manageSeconds: boolean
 ): boolean {
     let format = getCurrentTimeFormatFromBrowserLocale(manageSeconds);
-    let m = moment(value, format);
+    let m = moment(value, format, true);
     return m.isValid();
 }
 

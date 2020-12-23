@@ -1,5 +1,4 @@
 import numeral from 'numeral';
-import moment from 'moment';
 
 import {
     Row,
@@ -18,15 +17,25 @@ import {
 import { isNumber, isDate } from '../../utils/object-utils';
 import {
     isEmpty,
+    ISO_DEFAULT_DATE_FORMAT,
+    isValidStringDate,
+    getCurrentDateFormatFromBrowserLocale,
     stringToNumber,
+    changeDateTimeFormat,
+    unformatDateTime,
+    unformattedStringToFormattedStringDate,
     unformattedStringToFormattedStringNumber,
+    isNumber as isNumberThisString,
+    isValidFormattedStringDate,
+    formattedStringToDefaultUnformattedStringDate,
+    formattedStringToUnformattedStringNumber,
+    isValidFormattedStringNumber,
 } from '../../utils/utils';
 import {
     isFilterCompliantForValue,
     filterIsNegative,
 } from '../../utils/filters';
 import { logMessage } from '../../utils/debug-manager';
-import { unformatDate } from '../../utils/cell-formatter';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -277,7 +286,7 @@ export function setTextFieldFilterValue(
         filter = { textField: '', checkBoxes: [] };
         filters[column] = filter;
     }
-    filter.textField = newFilter.trim();
+    filter.textField = newFilter != null ? newFilter.trim() : newFilter;
 }
 /**
  * Filters the rows data of a data-table component according to the parameters
@@ -413,7 +422,28 @@ export function isFilterCompliantForCell(cellValue: Cell, filterValue: string) {
     if (!cellValue) {
         return false;
     }
-    return isFilterCompliantForValue(cellValue.value, filterValue);
+
+    filterValue = normalizeValue(filterValue, cellValue.obj);
+    let value = cellValue.value;
+
+    if (isNumber(cellValue.obj)) {
+        value = normalizeValue(value, cellValue.obj);
+    }
+    if (isDate(cellValue.obj)) {
+        if (
+            !isValidStringDate(filterValue, ISO_DEFAULT_DATE_FORMAT) &&
+            !isValidStringDate(filterValue)
+        ) {
+            if (isValidStringDate(cellValue.value, ISO_DEFAULT_DATE_FORMAT)) {
+                value = changeDateTimeFormat(
+                    cellValue.value,
+                    ISO_DEFAULT_DATE_FORMAT,
+                    getCurrentDateFormatFromBrowserLocale()
+                );
+            }
+        }
+    }
+    return isFilterCompliantForValue(value, filterValue);
 }
 
 export function isFilterCompliantForCellObj(
@@ -759,6 +789,27 @@ export function evaluateString(f: string) {
     return Function('"use strict"; return (' + f + ')')();
 }
 
+export function normalizeValue(value: string, smeupObj: any): string {
+    let newValue = value != null ? value.trim() : value;
+    if (newValue == null || newValue == '') {
+        return newValue;
+    }
+    if (isDate(smeupObj)) {
+        if (isValidFormattedStringDate(value)) {
+            newValue = formattedStringToDefaultUnformattedStringDate(value);
+        }
+    }
+    if (isNumber(smeupObj)) {
+        if (isValidFormattedStringNumber(value, smeupObj ? smeupObj.p : '')) {
+            newValue = formattedStringToUnformattedStringNumber(
+                value,
+                smeupObj ? smeupObj.p : ''
+            );
+        }
+    }
+    return newValue;
+}
+
 export function normalizeRows(
     columns: Array<Column>,
     rows: Array<Row>
@@ -797,7 +848,6 @@ export function normalizeTotals(
 
     k.forEach((key) => {
         if (key === '*ALL') {
-            console.log('Totals *ALL');
             columns.forEach((c) => {
                 if (isNumber(c.obj)) {
                     let colCustomTotal: TotalMode = totals[c.name];
@@ -895,7 +945,7 @@ export function compareValues(
     const sm = sortMode === 'A' ? 1 : -1;
 
     if (obj1 == null || obj2 == null) {
-        return localCompareAsInJava(value1, value2);
+        return sm * localCompareAsInJava(value1, value2);
     }
 
     // If either the type or the parameter of the current object are not equal.
@@ -928,8 +978,8 @@ export function compareValues(
         v1 = stringToNumber(s1);
         v2 = stringToNumber(s2);
     } else if (isDate(obj1)) {
-        v1 = unformatDate(s1);
-        v2 = unformatDate(s2);
+        v1 = unformatDateTime(s1, ISO_DEFAULT_DATE_FORMAT);
+        v2 = unformatDateTime(s2, ISO_DEFAULT_DATE_FORMAT);
     }
     if (v1 > v2) {
         return sm * 1;
@@ -1132,11 +1182,23 @@ export function styleHasWritingMode(cell: Cell): boolean {
 }
 
 export function getCellValueForDisplay(value, column: Column): string {
-    if (value != '' && isNumber(column.obj)) {
+    if (value != null && value != '' && isNumber(column.obj)) {
         return unformattedStringToFormattedStringNumber(
             value,
             column.decimals ? column.decimals : -1,
             column.obj ? column.obj.p : ''
+        );
+    }
+    if (
+        value != null &&
+        value != '' &&
+        isDate(column.obj) &&
+        isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)
+    ) {
+        return unformattedStringToFormattedStringDate(
+            value,
+            null,
+            column.obj.p
         );
     }
     return value;

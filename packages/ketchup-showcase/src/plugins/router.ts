@@ -273,6 +273,11 @@ let testRoutes = [
     name: 'testGraphicCells',
     component: () => import(`@/views/test/GraphicCells.vue`),
   },
+  {
+    path: `/test/tree-columns`,
+    name: 'testTreeColumns',
+    component: () => import(`@/views/test/TreeColumns.vue`),
+  },
 ];
 
 const routes = [

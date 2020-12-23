@@ -229,9 +229,9 @@ const mockedRows = [
                 obj: {
                     t: 'NR',
                     p: '',
-                    k: '100.60',
+                    k: '100000.60',
                 },
-                value: '100.60',
+                value: '100,000.60',
             },
             FLD4: {
                 obj: {
@@ -239,7 +239,7 @@ const mockedRows = [
                     p: '*YYMD',
                     k: '20181101',
                 },
-                value: '01/11/2018',
+                value: '2018-11-01',
             },
             FLD5: {
                 obj: {
@@ -283,7 +283,7 @@ const mockedRows = [
                     p: '*YYMD',
                     k: '20180102',
                 },
-                value: '02/01/2018',
+                value: '2018-01-02',
             },
             FLD5: {
                 obj: {
@@ -327,7 +327,7 @@ const mockedRows = [
                     p: '*YYMD',
                     k: '20180103',
                 },
-                value: '03/01/2018',
+                value: '2018-01-03',
             },
             FLD5: {
                 obj: {
@@ -371,7 +371,7 @@ const mockedRows = [
                     p: '*YYMD',
                     k: '20180102',
                 },
-                value: '02/01/2018',
+                value: '2018-01-02',
             },
             FLD5: {
                 obj: {
@@ -415,7 +415,7 @@ const mockedRows = [
                     p: '*YYMD',
                     k: '20180102',
                 },
-                value: '02/01/2018',
+                value: '2018-01-02',
             },
             FLD5: {
                 obj: {
@@ -459,7 +459,7 @@ const mockedRows = [
                     p: '*YYMD',
                     k: '20180102',
                 },
-                value: '02/01/2018',
+                value: '2018-01-02',
             },
             FLD5: {
                 obj: {
@@ -503,7 +503,7 @@ const mockedRows = [
                     p: '*YYMD',
                     k: '20180102',
                 },
-                value: '02/01/2018',
+                value: '2018-01-02',
             },
             FLD5: {
                 obj: {
@@ -547,7 +547,7 @@ const mockedRows = [
                     p: '*YYMD',
                     k: '20180102',
                 },
-                value: '02/01/2018',
+                value: '2018-01-02',
             },
             FLD5: {
                 obj: {
@@ -591,7 +591,7 @@ const mockedRows = [
                     p: '*YYMD',
                     k: '20180102',
                 },
-                value: '02/01/2018',
+                value: '2018-01-02',
             },
             FLD5: {
                 obj: {
@@ -635,7 +635,7 @@ const mockedRows = [
                     p: '*YYMD',
                     k: '20180102',
                 },
-                value: '02/01/2018',
+                value: '2018-01-02',
             },
             FLD5: {
                 obj: {
@@ -683,7 +683,7 @@ const sortRows = [
                     p: '*YYMD',
                     k: '20180101',
                 },
-                value: '01/01/2018',
+                value: '2018-01-01',
             },
             FLD5: {
                 obj: {
@@ -727,7 +727,7 @@ const sortRows = [
                     p: '*YYMD',
                     k: '20180102',
                 },
-                value: '02/01/2018',
+                value: '2018-01-02',
             },
             FLD5: {
                 obj: {
@@ -771,7 +771,7 @@ const sortRows = [
                     p: '*YYMD',
                     k: '20180103',
                 },
-                value: '03/01/2018',
+                value: '2018-01-03',
             },
             FLD5: {
                 obj: {
@@ -815,7 +815,7 @@ const sortRows = [
                     p: '*YYMD',
                     k: '20180101',
                 },
-                value: '01/01/2018',
+                value: '2018-01-01',
             },
             FLD5: {
                 obj: {
@@ -859,7 +859,7 @@ const sortRows = [
                     p: '*YYMD',
                     k: '20180102',
                 },
-                value: '02/01/2018',
+                value: '2018-01-02',
             },
             FLD5: {
                 obj: {
@@ -903,7 +903,7 @@ const sortRows = [
                     p: '*YYMD',
                     k: '20180103',
                 },
-                value: '03/01/2018',
+                value: '2018-01-03',
             },
             FLD5: {
                 obj: {
@@ -1222,6 +1222,7 @@ const globalFilter = document.getElementById('global-filter');
 if (globalFilter != null) {
     globalFilter.data = defaultData;
     globalFilter.globalFilter = 'true';
+    globalFilter.rowsPerPage= '5';
 }
 
 const filterObjectValue = document.getElementById('filter-object-value');
@@ -3418,7 +3419,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '14/10/20',
+                    value: '2020-10-14',
                 },
                 TTANNU: {
                     obj: {
@@ -3436,7 +3437,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '24/08/20',
+                    value: '2020-08-24',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -3572,7 +3573,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '15/09/20',
+                    value: '2020-09-15',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -3659,7 +3660,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '11/09/20',
+                    value: '2020-09-11',
                 },
                 TTANNU: {
                     obj: {
@@ -3677,7 +3678,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '26/08/20',
+                    value: '2020-08-26',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -3813,7 +3814,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '18/09/20',
+                    value: '2020-09-18',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -3900,7 +3901,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '16/09/20',
+                    value: '2020-09-16',
                 },
                 TTANNU: {
                     obj: {
@@ -3918,7 +3919,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '26/08/20',
+                    value: '2020-08-26',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -4054,7 +4055,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '31/12/20',
+                    value: '2020-12-31',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -4141,7 +4142,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 TTANNU: {
                     obj: {
@@ -4159,7 +4160,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '27/08/20',
+                    value: '2020-08-27',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -4295,7 +4296,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -4382,7 +4383,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '11/09/20',
+                    value: '2020-09-11',
                 },
                 TTANNU: {
                     obj: {
@@ -4400,7 +4401,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '02/09/20',
+                    value: '2020-09-02',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -4623,7 +4624,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '03/09/20',
+                    value: '2020-09-03',
                 },
                 TTANNU: {
                     obj: {
@@ -4641,7 +4642,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '03/09/20',
+                    value: '2020-09-03',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -4864,7 +4865,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 TTANNU: {
                     obj: {
@@ -4882,7 +4883,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '07/09/20',
+                    value: '2020-09-07',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -5018,7 +5019,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '15/10/20',
+                    value: '2020-10-15',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -5105,7 +5106,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '16/10/20',
+                    value: '2020-10-16',
                 },
                 TTANNU: {
                     obj: {
@@ -5123,7 +5124,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '14/09/20',
+                    value: '2020-09-14',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -5259,7 +5260,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -5346,7 +5347,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 TTANNU: {
                     obj: {
@@ -5364,7 +5365,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '16/09/20',
+                    value: '2020-09-16',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -5500,7 +5501,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '15/10/20',
+                    value: '2020-10-15',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -5587,7 +5588,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 TTANNU: {
                     obj: {
@@ -5605,7 +5606,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '07/10/19',
+                    value: '2019-10-07',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -5741,7 +5742,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -5828,7 +5829,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '31/07/20',
+                    value: '2020-07-31',
                 },
                 TTANNU: {
                     obj: {
@@ -5846,7 +5847,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '12/10/19',
+                    value: '2019-10-12',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -5982,7 +5983,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '31/03/20',
+                    value: '2020-03-31',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -6069,7 +6070,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '22/07/20',
+                    value: '2020-07-22',
                 },
                 TTANNU: {
                     obj: {
@@ -6087,7 +6088,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '28/11/19',
+                    value: '2019-11-28',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -6223,7 +6224,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '31/03/20',
+                    value: '2020-03-31',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -6310,7 +6311,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/07/20',
+                    value: '2020-07-30',
                 },
                 TTANNU: {
                     obj: {
@@ -6328,7 +6329,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '29/12/19',
+                    value: '2019-12-29',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -6464,7 +6465,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '31/08/20',
+                    value: '2020-08-31',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -6551,7 +6552,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '21/10/20',
+                    value: '2020-10-21',
                 },
                 TTANNU: {
                     obj: {
@@ -6569,7 +6570,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '29/02/20',
+                    value: '2020-02-29',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -6705,7 +6706,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '31/08/20',
+                    value: '2020-08-31',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -6792,7 +6793,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '08/10/20',
+                    value: '2020-10-08',
                 },
                 TTANNU: {
                     obj: {
@@ -6810,7 +6811,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '13/03/20',
+                    value: '2020-03-13',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -6946,7 +6947,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/06/20',
+                    value: '2020-06-30',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -7033,7 +7034,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '10/06/20',
+                    value: '2020-06-10',
                 },
                 TTANNU: {
                     obj: {
@@ -7051,7 +7052,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '16/03/20',
+                    value: '2020-03-16',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -7187,7 +7188,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '27/06/20',
+                    value: '2020-06-27',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -7274,7 +7275,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '28/07/20',
+                    value: '2020-07-28',
                 },
                 TTANNU: {
                     obj: {
@@ -7292,7 +7293,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '20/04/20',
+                    value: '2020-04-20',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -7428,7 +7429,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '15/09/20',
+                    value: '2020-09-15',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -7515,7 +7516,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '15/07/20',
+                    value: '2020-07-15',
                 },
                 TTANNU: {
                     obj: {
@@ -7533,7 +7534,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '12/05/20',
+                    value: '2020-05-12',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -7669,7 +7670,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '15/08/20',
+                    value: '2020-08-15',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -7756,7 +7757,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '16/10/20',
+                    value: '2020-10-16',
                 },
                 TTANNU: {
                     obj: {
@@ -7774,7 +7775,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '13/05/20',
+                    value: '2020-05-13',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -7910,7 +7911,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -7997,7 +7998,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '14/10/20',
+                    value: '2020-10-14',
                 },
                 TTANNU: {
                     obj: {
@@ -8015,7 +8016,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '13/05/20',
+                    value: '2020-05-13',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -8151,7 +8152,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '13/06/20',
+                    value: '2020-06-13',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -8238,7 +8239,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '01/07/20',
+                    value: '2020-07-01',
                 },
                 TTANNU: {
                     obj: {
@@ -8256,7 +8257,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '13/05/20',
+                    value: '2020-05-13',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -8392,7 +8393,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '13/06/20',
+                    value: '2020-06-13',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -8479,7 +8480,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '22/07/20',
+                    value: '2020-07-22',
                 },
                 TTANNU: {
                     obj: {
@@ -8497,7 +8498,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '19/05/20',
+                    value: '2020-05-19',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -8633,7 +8634,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '31/07/20',
+                    value: '2020-07-31',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -8720,7 +8721,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '11/09/20',
+                    value: '2020-09-11',
                 },
                 TTANNU: {
                     obj: {
@@ -8738,7 +8739,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '27/05/20',
+                    value: '2020-05-27',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -8874,7 +8875,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '15/07/20',
+                    value: '2020-07-15',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -8961,7 +8962,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '29/07/20',
+                    value: '2020-07-29',
                 },
                 TTANNU: {
                     obj: {
@@ -8979,7 +8980,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '27/05/20',
+                    value: '2020-05-27',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -9202,7 +9203,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '22/07/20',
+                    value: '2020-07-22',
                 },
                 TTANNU: {
                     obj: {
@@ -9220,7 +9221,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '03/06/20',
+                    value: '2020-06-03',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -9356,7 +9357,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/06/20',
+                    value: '2020-06-30',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -9443,7 +9444,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 TTANNU: {
                     obj: {
@@ -9461,7 +9462,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '11/06/20',
+                    value: '2020-06-11',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -9597,7 +9598,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '15/10/20',
+                    value: '2020-10-15',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -9684,7 +9685,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 TTANNU: {
                     obj: {
@@ -9702,7 +9703,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '11/06/20',
+                    value: '2020-06-11',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -9838,7 +9839,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '15/10/20',
+                    value: '2020-10-15',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -9925,7 +9926,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '15/07/20',
+                    value: '2020-07-15',
                 },
                 TTANNU: {
                     obj: {
@@ -9943,7 +9944,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '12/06/20',
+                    value: '2020-06-12',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -10079,7 +10080,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '15/08/20',
+                    value: '2020-08-15',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -10166,7 +10167,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '20/10/20',
+                    value: '2020-10-20',
                 },
                 TTANNU: {
                     obj: {
@@ -10184,7 +10185,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '15/06/20',
+                    value: '2020-06-15',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -10407,7 +10408,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '26/08/20',
+                    value: '2020-08-26',
                 },
                 TTANNU: {
                     obj: {
@@ -10425,7 +10426,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '16/06/20',
+                    value: '2020-06-16',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -10561,7 +10562,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '31/07/20',
+                    value: '2020-07-31',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -10648,7 +10649,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 TTANNU: {
                     obj: {
@@ -10666,7 +10667,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '25/06/20',
+                    value: '2020-06-25',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -10802,7 +10803,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -10889,7 +10890,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '16/09/20',
+                    value: '2020-09-16',
                 },
                 TTANNU: {
                     obj: {
@@ -10907,7 +10908,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '03/07/20',
+                    value: '2020-07-03',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -11043,7 +11044,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '31/10/20',
+                    value: '2020-10-31',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -11130,7 +11131,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '14/10/20',
+                    value: '2020-10-14',
                 },
                 TTANNU: {
                     obj: {
@@ -11148,7 +11149,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '03/07/20',
+                    value: '2020-07-03',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -11284,7 +11285,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '11/09/20',
+                    value: '2020-09-11',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -11371,7 +11372,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '14/10/20',
+                    value: '2020-10-14',
                 },
                 TTANNU: {
                     obj: {
@@ -11389,7 +11390,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '08/07/20',
+                    value: '2020-07-08',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -11612,7 +11613,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '05/08/20',
+                    value: '2020-08-05',
                 },
                 TTANNU: {
                     obj: {
@@ -11630,7 +11631,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '15/07/20',
+                    value: '2020-07-15',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -11853,7 +11854,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '14/10/20',
+                    value: '2020-10-14',
                 },
                 TTANNU: {
                     obj: {
@@ -11871,7 +11872,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '16/07/20',
+                    value: '2020-07-16',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -12007,7 +12008,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '31/07/20',
+                    value: '2020-07-31',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -12094,7 +12095,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '23/09/20',
+                    value: '2020-09-23',
                 },
                 TTANNU: {
                     obj: {
@@ -12112,7 +12113,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '31/07/20',
+                    value: '2020-07-31',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -12335,7 +12336,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '23/09/20',
+                    value: '2020-09-23',
                 },
                 TTANNU: {
                     obj: {
@@ -12353,7 +12354,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '06/08/20',
+                    value: '2020-08-06',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -12489,7 +12490,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '15/10/20',
+                    value: '2020-10-15',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -12576,7 +12577,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 TTANNU: {
                     obj: {
@@ -12594,7 +12595,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '11/08/20',
+                    value: '2020-08-11',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -12817,7 +12818,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 TTANNU: {
                     obj: {
@@ -12835,7 +12836,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '11/08/20',
+                    value: '2020-08-11',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -12971,7 +12972,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -13058,7 +13059,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '05/10/20',
+                    value: '2020-10-05',
                 },
                 TTANNU: {
                     obj: {
@@ -13076,7 +13077,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '11/08/20',
+                    value: '2020-08-11',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -13212,7 +13213,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '31/10/20',
+                    value: '2020-10-31',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -13299,7 +13300,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '02/10/20',
+                    value: '2020-10-02',
                 },
                 TTANNU: {
                     obj: {
@@ -13317,7 +13318,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '27/08/20',
+                    value: '2020-08-27',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -13540,7 +13541,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '16/10/20',
+                    value: '2020-10-16',
                 },
                 TTANNU: {
                     obj: {
@@ -13558,7 +13559,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '27/08/20',
+                    value: '2020-08-27',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -13694,7 +13695,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 groupingRowColumnCode: {
                     cssClass: 'strong-text',
@@ -13781,7 +13782,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 TTANNU: {
                     obj: {
@@ -13799,7 +13800,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '11/09/20',
+                    value: '2020-09-11',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
@@ -14022,7 +14023,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '30/09/20',
+                    value: '2020-09-30',
                 },
                 TTANNU: {
                     obj: {
@@ -14040,7 +14041,7 @@ const orderGroupTestData = {
                         t: 'D8',
                     },
                     options: true,
-                    value: '16/09/20',
+                    value: '2020-09-16',
                 },
                 ID_LI: {
                     cssClass: 'strong-text',
