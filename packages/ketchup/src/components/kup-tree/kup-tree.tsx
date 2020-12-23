@@ -923,7 +923,10 @@ export class KupTree {
         let title: string = undefined;
         if (_hasTooltip) {
             classObj['is-obj'] = true;
-            title = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+            if (document.documentElement.kupDebug) {
+                title =
+                    cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+            }
         }
 
         let cellClass = undefined;
