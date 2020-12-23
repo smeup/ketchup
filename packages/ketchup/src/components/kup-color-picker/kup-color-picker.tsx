@@ -37,7 +37,7 @@ export class KupColorPicker {
     /**
      * Props of the text field.
      */
-    @Prop() data: Object = {};
+    @Prop() data: Object = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
      */

@@ -10,7 +10,7 @@
 | Property       | Attribute       | Description                                                                                                                           | Type      | Default     |
 | -------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
 | `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                       | `string`  | `undefined` |
-| `data`         | --              | Props of the text field.                                                                                                              | `Object`  | `{}`        |
+| `data`         | --              | Props of the text field.                                                                                                              | `Object`  | `undefined` |
 | `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                                       | `boolean` | `false`     |
 | `initialValue` | `initial-value` | Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ). | `string`  | `''`        |
 | `swatchOnly`   | `swatch-only`   | When true, the component's text field will be replaced by a swatch.                                                                   | `boolean` | `false`     |

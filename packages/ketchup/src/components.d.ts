@@ -714,7 +714,7 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Props of the sub-components (date input text field).
+          * Props of the sub-components.
          */
         "data": Object;
         /**
@@ -2862,7 +2862,7 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Props of the sub-components (date input text field).
+          * Props of the sub-components.
          */
         "data"?: Object;
         /**

@@ -37,7 +37,7 @@ export class KupAutocomplete {
     /**
      * Props of the sub-components.
      */
-    @Prop() data: Object = {};
+    @Prop() data: Object = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
      */

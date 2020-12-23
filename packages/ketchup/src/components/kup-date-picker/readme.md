@@ -8,7 +8,7 @@
 | Property        | Attribute         | Description                                                                                                     | Type      | Default     |
 | --------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
 | `customStyle`   | `custom-style`    | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `undefined` |
-| `data`          | --                | Props of the sub-components (date input text field).                                                            | `Object`  | `{}`        |
+| `data`          | --                | Props of the sub-components.                                                                                    | `Object`  | `undefined` |
 | `disabled`      | `disabled`        | Defaults at false. When set to true, the component is disabled.                                                 | `boolean` | `false`     |
 | `firstDayIndex` | `first-day-index` | First day number (0 - sunday, 1 - monday, ...)                                                                  | `number`  | `1`         |
 | `initialValue`  | `initial-value`   | Sets the initial value of the component                                                                         | `string`  | `''`        |

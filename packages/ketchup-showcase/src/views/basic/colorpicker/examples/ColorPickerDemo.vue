@@ -36,7 +36,7 @@ export default {
         },
         {
           prop: 'data',
-          description: 'Props of the text field.',
+          description: 'Props of the sub-components.',
           type: 'Object',
           default: 'undefined',
           try: 'json',

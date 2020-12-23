@@ -44,28 +44,28 @@ export class KupDatePicker {
     @State() value: string = '';
 
     /**
-     * Sets the initial value of the component
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() initialValue: string = '';
+    @Prop() customStyle: string = undefined;
+    /**
+     * Props of the sub-components.
+     */
+    @Prop() data: Object = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
     @Prop() disabled: boolean = false;
     /**
-     * Props of the sub-components (date input text field).
-     */
-    @Prop() data: Object = {};
-    /**
      * First day number (0 - sunday, 1 - monday, ...)
      */
     @Prop() firstDayIndex: number = 1;
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Sets the initial value of the component
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() initialValue: string = '';
 
-    private status: PICKER_STATUS = {};
     private calendarView: PICKER_SOURCE_EVENT = PICKER_SOURCE_EVENT.DATE;
+    private status: PICKER_STATUS = {};
 
     //---- Events ----
 
@@ -201,14 +201,6 @@ export class KupDatePicker {
         this.refreshPickerComponentValue(source, value);
     }
 
-    @Watch('data')
-    watchInitialValue() {
-        this.value = this.getTextFieldData().initialValue;
-        if (this.initialValue != '') {
-            this.value = this.initialValue;
-        }
-    }
-
     @Watch('firstDayIndex')
     watchFirstDayIndex() {
         if (this.firstDayIndex > 6 || this.firstDayIndex < 0) {
@@ -226,6 +218,11 @@ export class KupDatePicker {
     //---- Methods ----
 
     @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
+
+    @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
@@ -238,14 +235,7 @@ export class KupDatePicker {
     @Method()
     async setValue(value: string) {
         this.value = value;
-        if (this.status[this.getSourceEvent()].textfieldEl !== undefined) {
-            this.status[this.getSourceEvent()].textfieldEl.setValue(this.value);
-        }
-    }
-
-    @Method()
-    async getValue(): Promise<string> {
-        return this.value;
+        this.status[this.getSourceEvent()].textfieldEl.setValue(value);
     }
 
     private onTextFieldRendered({ detail }, doIt: boolean) {
@@ -454,13 +444,6 @@ export class KupDatePicker {
         return this.status[source].pickerOpened;
     }
 
-    getTextFieldData() {
-        if (this.data['text-field'] == null) {
-            this.data['text-field'] = {};
-        }
-        return this.data['text-field'];
-    }
-
     getTextFieldId(source: PICKER_SOURCE_EVENT): string {
         return this.status[source].textfieldEl.id;
     }
@@ -469,8 +452,6 @@ export class KupDatePicker {
         let source = PICKER_SOURCE_EVENT.DATE;
         let ret: PICKER_COMPONENT_INFO = this.prepTextfield(
             source,
-            this.getTextFieldData(),
-            this.status[source].elStyle,
             this.getDateForOutput()
         );
         return ret;
@@ -478,43 +459,26 @@ export class KupDatePicker {
 
     prepTextfield(
         source: PICKER_SOURCE_EVENT,
-        textfieldData,
-        elStyle,
         initialValue: string
     ): PICKER_COMPONENT_INFO {
-        if (textfieldData['fullWidth']) {
-            elStyle = {
-                ...elStyle,
-                width: '100%',
-            };
-        }
-
-        if (textfieldData['fullHeight']) {
-            elStyle = {
-                ...elStyle,
-                height: '100%',
-            };
-        }
+        let textfieldData = { ...this.data['kup-text-field'] };
 
         if (!textfieldData['icon']) {
-            textfieldData['icon'] = 'date_range';
+            textfieldData['icon'] = 'calendar';
         }
 
         if (textfieldData['icon']) {
             textfieldData['trailingIcon'] = true;
         }
 
-        textfieldData['initialValue'] = initialValue;
-        textfieldData['disabled'] = this.disabled;
-
         let ref: PICKER_COMPONENT_INFO = { type: source };
 
         let comp: HTMLElement = (
             <kup-text-field
                 {...textfieldData}
-                style={elStyle}
+                disabled={this.disabled}
                 id={this.rootElement.id + '_text-field'}
-                /* onKupTextFieldBlur={(e: any) => this.onKupBlur(e)} */
+                initialValue={initialValue}
                 onKupTextFieldChange={(e: any) => this.onKupChange(e, source)}
                 onKupTextFieldClick={(e: any) => this.onKupClick(e, source)}
                 onKupTextFieldFocus={(e: any) => this.onKupFocus(e, source)}
@@ -532,9 +496,7 @@ export class KupDatePicker {
             ></kup-text-field>
         );
 
-        this.status[source].elStyle = elStyle;
         ref.kupComponent = comp;
-        ref.style = elStyle;
         ref.type = source;
         return ref;
     }
@@ -985,7 +947,12 @@ export class KupDatePicker {
             pickerEl: { value: new Date().toISOString(), date: new Date() },
         };
         this.watchFirstDayIndex();
-        this.watchInitialValue();
+        this.value = this.initialValue;
+        if (!this.data) {
+            this.data = {
+                'kup-text-field': {},
+            };
+        }
     }
 
     componentDidLoad() {

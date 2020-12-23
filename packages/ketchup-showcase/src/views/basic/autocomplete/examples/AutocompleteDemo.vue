@@ -66,7 +66,7 @@ export default {
           prop: 'data',
           description: 'Props of the sub-components.',
           type: 'Object',
-          default: '{}',
+          default: 'undefined',
           try: 'json',
         },
         {
