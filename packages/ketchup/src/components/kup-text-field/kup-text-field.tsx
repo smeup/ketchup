@@ -194,17 +194,6 @@ export class KupTextField {
         value: string;
     }>;
 
-    @Event({
-        eventName: 'kupTextFieldRendered',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupTextFieldRendered: EventEmitter<{
-        id: any;
-        field: KupTextField;
-    }>;
-
     //---- Methods ----
 
     @Method()
@@ -542,10 +531,6 @@ export class KupTextField {
             }
         }
 
-        this.kupTextFieldRendered.emit({
-            id: this.rootElement.id,
-            field: this,
-        });
         logRender(this, true);
     }
 

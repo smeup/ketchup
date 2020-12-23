@@ -3703,10 +3703,6 @@ declare namespace LocalJSX {
         id: any;
         value: string;
     }>) => void;
-        "onKupTextFieldRendered"?: (event: CustomEvent<{
-        id: any;
-        field: KupTextField;
-    }>) => void;
         /**
           * When a keydown enter event occurs it generates
          */

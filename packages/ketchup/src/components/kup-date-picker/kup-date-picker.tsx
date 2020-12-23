@@ -238,12 +238,6 @@ export class KupDatePicker {
         this.status[this.getSourceEvent()].textfieldEl.setValue(value);
     }
 
-    private onTextFieldRendered({ detail }, doIt: boolean) {
-        if (detail.field != null && doIt == true) {
-            detail.field.setFocus();
-        }
-    }
-
     onKupBlur(e: UIEvent, source: PICKER_SOURCE_EVENT) {
         e.stopPropagation();
         this.closePicker(source);
@@ -489,9 +483,6 @@ export class KupDatePicker {
                 onKupTextFieldSubmit={(e: any) =>
                     this.onKupTextFieldSubmit(e, source)
                 }
-                onKupTextFieldRendered={(event) => {
-                    this.onTextFieldRendered(event, true);
-                }}
                 ref={(el) => (this.status[source].textfieldEl = el as any)}
             ></kup-text-field>
         );

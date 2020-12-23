@@ -189,12 +189,6 @@ export class KupCombobox {
         this.textfieldEl.setValue(value);
     }
 
-    private onTextFieldRendered({ detail }, doIt: boolean) {
-        if (detail.field != null && doIt == true) {
-            detail.field.setFocus();
-        }
-    }
-
     onKupBlur() {
         this.closeList();
         this.kupBlur.emit({
@@ -338,9 +332,6 @@ export class KupCombobox {
                 onKupTextFieldInput={(e: any) => this.onKupInput(e)}
                 onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
                 onKupTextFieldSubmit={(e: any) => this.onKupTextFieldSubmit(e)}
-                onKupTextFieldRendered={(event) => {
-                    this.onTextFieldRendered(event, true);
-                }}
                 ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );

@@ -1586,12 +1586,6 @@ export class KupDataTable {
         this.fromGlobalFilterChangeEvent = true;
     }
 
-    private onTextFieldRendered({ detail }, doIt: boolean) {
-        if (detail.field != null && doIt == true) {
-            detail.field.setFocus();
-        }
-    }
-
     private handlePageChanged({ detail }) {
         this.currentPage = detail.newPage;
     }
@@ -2316,14 +2310,6 @@ export class KupDataTable {
                                     onKupTextFieldClearIconClick={(e) => {
                                         this.onFilterChange(e, column);
                                         this.closeMenuAndTooltip();
-                                    }}
-                                    onKupTextFieldRendered={(event) => {
-                                        /** stange: it doesn't work.... WHY? */
-                                        this.onTextFieldRendered(
-                                            event,
-                                            this.fromOpenColumnMenuEvent
-                                        );
-                                        this.fromOpenColumnMenuEvent = false;
                                     }}
                                 ></kup-text-field>
                             </li>
@@ -3894,13 +3880,6 @@ export class KupDataTable {
                         onKupTextFieldClearIconClick={(event) =>
                             this.onGlobalFilterChange(event)
                         }
-                        onKupTextFieldRendered={(event) => {
-                            this.onTextFieldRendered(
-                                event,
-                                this.fromGlobalFilterChangeEvent
-                            );
-                            this.fromGlobalFilterChangeEvent = false;
-                        }}
                     />
                 </div>
             );
@@ -4028,10 +4007,8 @@ export class KupDataTable {
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
-                    <div class="above-wrapper">
-                        {paginatorTop}
-                        {globalFilter}
-                    </div>
+                    <div class="above-wrapper">{paginatorTop}</div>
+                    {globalFilter}
                     <div
                         style={elStyle}
                         class={belowClass}

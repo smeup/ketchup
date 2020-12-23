@@ -50,10 +50,6 @@ export default {
           type: 'click',
         },
         {
-          name: 'kupTextFieldRendered',
-          type: 'render',
-        },
-        {
           name: 'kupTextFieldSubmit',
           type: 'click',
         },

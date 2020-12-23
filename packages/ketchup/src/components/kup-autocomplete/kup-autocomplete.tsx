@@ -216,12 +216,6 @@ export class KupAutocomplete {
         this.textfieldEl.setValue(value);
     }
 
-    private onTextFieldRendered({ detail }, doIt: boolean) {
-        if (detail.field != null && doIt == true) {
-            this.textfieldEl.setFocus();
-        }
-    }
-
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
         this.closeList();
         const { target } = e;
@@ -401,9 +395,6 @@ export class KupAutocomplete {
                 onKupTextFieldInput={(e: any) => this.onKupInput(e)}
                 onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
                 onKupTextFieldSubmit={(e: any) => this.onKupTextFieldSubmit(e)}
-                onKupTextFieldRendered={(event) => {
-                    this.onTextFieldRendered(event, true);
-                }}
                 ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );
