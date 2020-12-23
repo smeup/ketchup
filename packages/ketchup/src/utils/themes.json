@@ -382,9 +382,9 @@
     },
     "red": {
         "cssVariables": {
-            "--kup-main-color": "#a83530",
+            "--kup-main-color": "#a6192e",
             "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#a83530",
+            "--kup-nav-bar-background-color": "#a6192e",
             "--kup-drawer-background-color": "#f5f5f5",
             "--kup-font-family": "Open Sans, arial, helvatica",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
@@ -408,7 +408,7 @@
             "--kup-chart-color-1": "#735DED",
             "--kup-chart-color-2": "#00B2CB",
             "--kup-chart-color-3": "#EDC900",
-            "--kup-chart-color-4": "#a83530",
+            "--kup-chart-color-4": "#a6192e",
             "--kup-chart-color-5": "yellow",
             "--kup-chart-color-6": "cyan",
             "--kup-chart-color-7": "brown",
