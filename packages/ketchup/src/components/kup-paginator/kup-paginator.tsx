@@ -201,9 +201,7 @@ export class KupPaginator {
         const rowsPerPageItems = this.getRowsPerPageItems();
 
         let textfieldDataPage = {
-            initialValue: this.currentPage,
             label: 'Page',
-            trailingIcon: true,
             helper: `of ${maxNumberOfPage}`,
             helperWhenFocused: true,
         };
@@ -213,9 +211,7 @@ export class KupPaginator {
         };
 
         let textfieldDataRows = {
-            initialValue: this.perPage,
             label: 'Rows / page',
-            trailingIcon: true,
             helper: `Total rows: ${this.max}`,
             helperWhenFocused: true,
         };
@@ -225,12 +221,12 @@ export class KupPaginator {
         };
 
         let dataPageSelector = {
-            'text-field': textfieldDataPage,
-            list: listDataPage,
+            'kup-list': listDataPage,
+            'kup-text-field': textfieldDataPage,
         };
         let dataRowsSelector = {
-            'text-field': textfieldDataRows,
-            list: listDataRows,
+            'kup-list': listDataRows,
+            'kup-text-field': textfieldDataRows,
         };
         let compCreated = (
             <div id="paginator">
@@ -245,6 +241,7 @@ export class KupPaginator {
                         <kup-combobox
                             class="page-selector"
                             data={dataPageSelector}
+                            initialValue={this.currentPage.toString()}
                             onKupComboboxItemClick={(e) => this.onPageChange(e)}
                             onKupComboboxTextFieldSubmit={(e) =>
                                 this.onPageChange(e)
@@ -263,6 +260,7 @@ export class KupPaginator {
                         <kup-combobox
                             class="rows-selector"
                             data={dataRowsSelector}
+                            initialValue={this.perPage.toString()}
                             onKupComboboxItemClick={(e) =>
                                 this.onRowsPerPage(e)
                             }

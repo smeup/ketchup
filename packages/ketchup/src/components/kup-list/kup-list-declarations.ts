@@ -140,7 +140,7 @@ export function getItemByValue(
     value: string,
     setSelected: boolean
 ): ComponentListElement {
-    if (listData['data']) {
+    if (listData && listData['data']) {
         let found: boolean = false;
         let item: ComponentListElement = null;
         for (let i = 0; i < listData['data'].length; i++) {
@@ -186,7 +186,7 @@ export function getItemByDisplayMode(
     displayMode: ItemsDisplayMode,
     setSelected: boolean
 ): ComponentListElement {
-    if (listData['data']) {
+    if (listData && listData['data']) {
         let found: boolean = false;
         let item: ComponentListElement = null;
         for (let i = 0; i < listData['data'].length; i++) {
