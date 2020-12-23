@@ -163,9 +163,9 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/chart/Chart.vue`),
   },
   {
-    path: `/echarts`,
-    name: 'echarts',
-    component: () => import(`@/views/advanced/echarts/Echarts.vue`),
+    path: `/echart`,
+    name: 'echart',
+    component: () => import(`@/views/advanced/echart/Echart.vue`),
   },
   {
     path: `/crud`,
@@ -272,6 +272,11 @@ let testRoutes = [
     path: `/test/graphic-cells`,
     name: 'testGraphicCells',
     component: () => import(`@/views/test/GraphicCells.vue`),
+  },
+  {
+    path: `/test/tree-columns`,
+    name: 'testTreeColumns',
+    component: () => import(`@/views/test/TreeColumns.vue`),
   },
 ];
 

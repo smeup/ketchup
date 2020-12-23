@@ -66,6 +66,7 @@ import {
     getCheckBoxFilterValues,
     hasFiltersForColumn,
     getCellValueForDisplay,
+    normalizeValue,
 } from './kup-data-table-helper';
 
 import {
@@ -89,7 +90,6 @@ import { GenericObject } from '../../types/GenericTypes';
 
 import {
     stringToNumber,
-    formattedStringToUnformattedStringNumber,
     numberToFormattedStringNumber,
     identify,
     isNumber as isNumberThisString,
@@ -514,6 +514,9 @@ export class KupDataTable {
     private scrollOnHoverInstance: scrollOnHover;
 
     private filterForCheckBox: GenericFilter = {};
+
+    private fromGlobalFilterChangeEvent = false;
+    private fromOpenColumnMenuEvent = false;
 
     /**
      * Internal not reactive state used to keep track if a column is being dragged.
@@ -1126,28 +1129,30 @@ export class KupDataTable {
         return null;
     }
 
-    private getColumnValues(column: string): Array<string> {
+    private getColumnValues(column: Column): Array<string> {
         /** è necessario estrarre i valori della colonna di tutte le righe
          * filtrate SENZA il filtro della colonna stessa corrente */
         let values = [];
 
         let tmpFilters: GenericFilter = { ...this.filters };
-        if (this.filters[column]) {
-            tmpFilters[column] = {
-                textField: this.filters[column].textField,
-                checkBoxes: [],
-            };
+        let value = '';
+        if (this.filters[column.name]) {
+            value = this.filters[column.name].textField;
+        }
+        if (this.getCheckBoxFilter(column.name) != null) {
+            value = normalizeValue(
+                this.getCheckBoxFilter(column.name),
+                column.obj
+            );
         }
 
-        if (this.getCheckBoxFilter(column)) {
-            tmpFilters[column] = {
-                textField: this.getCheckBoxFilter(column),
-                checkBoxes: [],
-            };
-        }
+        tmpFilters[column.name] = {
+            textField: value,
+            checkBoxes: [],
+        };
 
         let visibleColumns = this.getVisibleColumns();
-        let columnObject = getColumnByName(visibleColumns, column);
+        let columnObject = getColumnByName(visibleColumns, column.name);
 
         let tmpRows = filterRows(
             this.getRows(),
@@ -1158,7 +1163,7 @@ export class KupDataTable {
 
         /** il valore delle righe attualmente filtrate */
         tmpRows.forEach((row) =>
-            this.addColumnValueFromRow(values, column, row)
+            this.addColumnValueFromRow(values, column.name, row)
         );
 
         if (columnObject != null) {
@@ -1482,11 +1487,11 @@ export class KupDataTable {
         }
     }
 
-    private onRemoveFilter(column: string) {
+    private onRemoveFilter(column: Column) {
         // resetting current page
         this.resetCurrentPage();
         const newFilters: GenericFilter = { ...this.filters };
-        newFilters[column] = { textField: '', checkBoxes: [] };
+        newFilters[column.name] = { textField: '', checkBoxes: [] };
         this.filters = newFilters;
         this.setCheckBoxFilter(column, '');
     }
@@ -1494,22 +1499,11 @@ export class KupDataTable {
     private onFilterChange({ detail }, column: Column) {
         // resetting current page
         this.resetCurrentPage();
-        this.setCheckBoxFilter(column.name, '');
+        this.setCheckBoxFilter(column, null);
         let newFilter = '';
         if (detail.value) {
-            newFilter = detail.value.trim();
+            newFilter = normalizeValue(detail.value.trim(), column.obj);
         }
-
-        if (newFilter != '' && isNumber(column.obj)) {
-            let tmpStr = formattedStringToUnformattedStringNumber(
-                newFilter,
-                column.obj ? column.obj.p : ''
-            );
-            if (isNumberThisString(tmpStr)) {
-                newFilter = tmpStr;
-            }
-        }
-
         const newFilters: GenericFilter = { ...this.filters };
         setTextFieldFilterValue(newFilters, column.name, newFilter);
         this.filters = newFilters;
@@ -1533,20 +1527,20 @@ export class KupDataTable {
     private onCheckBoxFilterChange({ detail }, column: Column) {
         // resetting current page
         this.resetCurrentPage();
-        this.setCheckBoxFilter(column.name, detail.value.trim());
+        this.setCheckBoxFilter(column, detail.value.trim());
     }
 
-    private setCheckBoxFilter(column: string, value: string) {
+    private setCheckBoxFilter(column: Column, value: string) {
         const newFilters: GenericFilter = { ...this.filterForCheckBox };
-        setTextFieldFilterValue(newFilters, column, value);
+        setTextFieldFilterValue(newFilters, column.name, value);
         this.filterForCheckBox = newFilters;
     }
 
     private getCheckBoxFilter(column: string): string {
-        var value = '';
+        var value = null;
         if (
             this.filterForCheckBox[column] &&
-            this.filterForCheckBox[column].textField
+            this.filterForCheckBox[column].textField != null
         ) {
             value = this.filterForCheckBox[column].textField;
         }
@@ -1589,6 +1583,13 @@ export class KupDataTable {
         this.resetCurrentPage();
 
         this.globalFilterValue = detail.value;
+        this.fromGlobalFilterChangeEvent = true;
+    }
+
+    private onTextFieldRendered({ detail }, doIt: boolean) {
+        if (detail.field != null && doIt == true) {
+            detail.field.setFocus();
+        }
     }
 
     private handlePageChanged({ detail }) {
@@ -1698,8 +1699,10 @@ export class KupDataTable {
         }
     }
 
-    private openMenu(column: string) {
-        this.openedMenu = column;
+    private openMenu(column: Column) {
+        this.fromOpenColumnMenuEvent = true;
+        this.openedMenu = column.name;
+        this.setCheckBoxFilter(column, null);
     }
 
     private closeMenu() {
@@ -1719,7 +1722,7 @@ export class KupDataTable {
         return this.openedMenu === column;
     }
 
-    private onHeaderCellContextMenuOpen(e: MouseEvent, column: string) {
+    private onHeaderCellContextMenuOpen(e: MouseEvent, column: Column) {
         //if (this.isOpenedMenu()) {
         this.closeMenuAndTooltip();
         //}
@@ -2178,7 +2181,7 @@ export class KupDataTable {
                             title={svgLabel}
                             class="icon-container filter-remove"
                             onClick={() => {
-                                this.onRemoveFilter(column.name);
+                                this.onRemoveFilter(column);
                             }}
                         ></span>
                     );
@@ -2275,24 +2278,21 @@ export class KupDataTable {
                     );
 
                     if (this.showFilters && isStringObject(column.obj)) {
+                        let filterFromCheckBoxFilter: boolean = false;
                         let filterInitialValue = this.getTextFieldFilterValue(
                             column.name
                         );
-
-                        if (
-                            !filterInitialValue &&
-                            this.getCheckBoxFilter(column.name)
-                        ) {
-                            filterInitialValue = this.getCheckBoxFilter(
+                        if (!filterInitialValue) {
+                            let checkBoxFilter = this.getCheckBoxFilter(
                                 column.name
                             );
+                            if (checkBoxFilter) {
+                                filterInitialValue = checkBoxFilter;
+                                filterFromCheckBoxFilter = true;
+                            }
                         }
 
-                        if (
-                            filterInitialValue != '' &&
-                            isNumber(column.obj) &&
-                            isNumberThisString(filterInitialValue)
-                        ) {
+                        if (!filterFromCheckBoxFilter) {
                             filterInitialValue = getCellValueForDisplay(
                                 filterInitialValue,
                                 column
@@ -2317,6 +2317,14 @@ export class KupDataTable {
                                         this.onFilterChange(e, column);
                                         this.closeMenuAndTooltip();
                                     }}
+                                    onKupTextFieldRendered={(event) => {
+                                        /** stange: it doesn't work.... WHY? */
+                                        this.onTextFieldRendered(
+                                            event,
+                                            this.fromOpenColumnMenuEvent
+                                        );
+                                        this.fromOpenColumnMenuEvent = false;
+                                    }}
                                 ></kup-text-field>
                             </li>
                         );
@@ -2329,7 +2337,7 @@ export class KupDataTable {
                             column.name
                         );
                         let columnValues: string[] = this.getColumnValues(
-                            column.name
+                            column
                         );
                         let checkboxItems: JSX.Element[] = [];
                         if (columnValues.length > 0) {
@@ -2501,7 +2509,7 @@ export class KupDataTable {
                         class={columnClass}
                         style={thStyle}
                         onContextMenu={(e: MouseEvent) =>
-                            this.onHeaderCellContextMenuOpen(e, column.name)
+                            this.onHeaderCellContextMenuOpen(e, column)
                         }
                         onMouseUp={sortEventHandler}
                         {...dragHandlers}
@@ -3279,6 +3287,8 @@ export class KupDataTable {
             return 'chips';
         } else if (isNumber(obj)) {
             return 'number';
+        } else if (isDate(obj)) {
+            return 'date';
         } else {
             return 'string';
         }
@@ -3487,6 +3497,15 @@ export class KupDataTable {
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;
                     }
+                    return cellValue;
+                }
+                return content;
+            case 'date':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(
+                        cell.value,
+                        column
+                    );
                     return cellValue;
                 }
                 return content;
@@ -3865,12 +3884,22 @@ export class KupDataTable {
                         label="Search..."
                         icon="magnify"
                         initialValue={this.globalFilterValue}
+                        onKupTextFieldInput={(event) =>
+                            this.onGlobalFilterChange(event)
+                        }
                         onKupTextFieldSubmit={(event) =>
                             this.onGlobalFilterChange(event)
                         }
                         onKupTextFieldClearIconClick={(event) =>
                             this.onGlobalFilterChange(event)
                         }
+                        onKupTextFieldRendered={(event) => {
+                            this.onTextFieldRendered(
+                                event,
+                                this.fromGlobalFilterChangeEvent
+                            );
+                            this.fromGlobalFilterChangeEvent = false;
+                        }}
                     />
                 </div>
             );

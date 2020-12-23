@@ -445,9 +445,9 @@ export default {
                 },
               },
               {
-                title: `Echarts`,
+                title: `Echart`,
                 to: {
-                  name: 'echarts',
+                  name: 'echart',
                 },
               },
               {

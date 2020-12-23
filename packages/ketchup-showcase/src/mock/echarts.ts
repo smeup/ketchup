@@ -556,3 +556,120 @@ export const ageWeightData = {
     },
   ],
 };
+
+export const mapData = {
+  columns: [
+    {
+      name: 'Col1',
+      title: 'State',
+      size: '10',
+    },
+    {
+      name: 'Col2',
+      title: 'value',
+      size: '10',
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        Col1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Germany',
+          },
+          value: 'Germany',
+        },
+        Col2: {
+          obj: {
+            t: 'Color',
+            p: '',
+            k: 'red',
+          },
+          value: 'red',
+        },
+      },
+    },
+    {
+      cells: {
+        Col1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'United States',
+          },
+          value: 'United States',
+        },
+        Col2: {
+          obj: {
+            t: 'Color',
+            p: '',
+            k: 'Green',
+          },
+          value: 'Green',
+        },
+      },
+    },
+    {
+      cells: {
+        Col1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Brazil',
+          },
+          value: 'Brazil',
+        },
+        Col2: {
+          obj: {
+            t: 'Color',
+            p: '',
+            k: 'purple',
+          },
+          value: 'purple',
+        },
+      },
+    },
+    {
+      cells: {
+        Col1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'Canada',
+          },
+          value: 'Canada',
+        },
+        Col2: {
+          obj: {
+            t: 'Color',
+            p: '',
+            k: 'yellow',
+          },
+          value: 'yellow',
+        },
+      },
+    },
+    {
+      cells: {
+        Col1: {
+          obj: {
+            t: '',
+            p: '',
+            k: 'France',
+          },
+          value: 'France',
+        },
+        Col2: {
+          obj: {
+            t: 'Color',
+            p: '',
+            k: 'orange',
+          },
+          value: 'orange',
+        },
+      },
+    },
+  ],
+};

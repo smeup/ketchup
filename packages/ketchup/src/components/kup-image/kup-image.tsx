@@ -19,7 +19,7 @@ import { KupBadge } from '../kup-badge/kup-badge';
 
 @Component({
     tag: 'kup-image',
-    assetsDirs: ['assets'],
+    assetsDirs: ['assets/svg'],
     styleUrl: 'kup-image.scss',
     shadow: true,
 })

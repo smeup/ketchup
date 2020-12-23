@@ -135,27 +135,36 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-lazy](../kup-lazy)
-- [kup-button](../kup-button)
-- [kup-checkbox](../kup-checkbox)
 - [kup-image](../kup-image)
+- [kup-button](../kup-button)
+- [kup-chart](../kup-chart)
+- [kup-checkbox](../kup-checkbox)
+- [kup-chip](../kup-chip)
+- [kup-color-picker](../kup-color-picker)
+- [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
+- [kup-rating](../kup-rating)
 - [kup-radio](../kup-radio)
 - [kup-text-field](../kup-text-field)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-tree --> kup-lazy
-  kup-tree --> kup-button
-  kup-tree --> kup-checkbox
   kup-tree --> kup-image
+  kup-tree --> kup-button
+  kup-tree --> kup-chart
+  kup-tree --> kup-checkbox
+  kup-tree --> kup-chip
+  kup-tree --> kup-color-picker
+  kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
+  kup-tree --> kup-rating
   kup-tree --> kup-radio
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
+  kup-color-picker --> kup-text-field
   kup-tooltip --> kup-tree
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
