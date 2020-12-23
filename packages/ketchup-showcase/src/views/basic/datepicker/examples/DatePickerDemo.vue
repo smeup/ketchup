@@ -100,6 +100,11 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-date-picker');
   comp.id = 'demo-component';
+  comp.data = {
+    'kup-text-field': {
+      label: 'Demo',
+    },
+  };
   return comp;
 }
 </script>

@@ -32,47 +32,6 @@ export function getValueOfItemByDisplayMode(
     return item.value;
 }
 
-/*
-export function consistencyCheck(
-    value: string,
-    listData: Object,
-    textfieldEl: any,
-    selectMode: ItemsDisplayMode
-): string {
-    var firstSelectedFound = false;
-    if (listData['data']) {
-        for (let i = 0; i < listData['data'].length; i++) {
-            if (listData['data'][i].selected && firstSelectedFound) {
-                listData['data'][i].selected = false;
-                let message =
-                    'Found occurence of data(' +
-                    i +
-                    ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
-
-                logMessage('kup-list-utils', message, 'warning');
-            }
-            if (listData['data'][i].selected && !firstSelectedFound) {
-                firstSelectedFound = true;
-                value = getValueOfItemByDisplayMode(
-                    listData['data'][i],
-                    selectMode,
-                    ' - '
-                );
-                if (textfieldEl) {
-                    if (textfieldEl.initialValue === value) {
-                        textfieldEl.initialValue = '';
-                        textfieldEl.initialValue = value;
-                    } else {
-                        textfieldEl.initialValue = value;
-                    }
-                }
-            }
-        }
-    }
-    return value;
-}
-*/
-
 export function consistencyCheck(
     valueIn: string,
     listData: Object,

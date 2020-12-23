@@ -128,8 +128,8 @@ export class KupPaginator {
         for (let i = 1; i <= maxNumberOfPage; i++) {
             let selected = i == this.currentPage;
             goToPageItems.push({
-                text: i,
-                value: i,
+                text: i.toString(),
+                value: i.toString(),
                 selected: selected,
             });
         }
@@ -150,8 +150,8 @@ export class KupPaginator {
         while (i < this.max) {
             let selected = i == this.selectedPerPage;
             rowsPerPageItems.push({
-                text: i,
-                value: i,
+                text: i.toString(),
+                value: i.toString(),
                 selected: selected,
             });
             i = i * 2;

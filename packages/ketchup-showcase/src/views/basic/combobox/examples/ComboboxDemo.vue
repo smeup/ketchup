@@ -134,9 +134,12 @@ function createComp() {
       displayMode: 'both',
       selectable: true,
     },
+    'kup-text-field': {
+      label: 'Demo',
+    },
   };
   comp.displayMode = 'description';
-  comp.label = 'Demo';
+  comp.initialValue = 'First item';
   comp.selectMode = 'description';
   return comp;
 }

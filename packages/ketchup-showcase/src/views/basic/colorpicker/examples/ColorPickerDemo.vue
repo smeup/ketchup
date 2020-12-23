@@ -73,6 +73,11 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-color-picker');
   comp.id = 'demo-component';
+  comp.data = {
+    'kup-text-field': {
+      label: 'Demo',
+    },
+  };
   comp.name = 'color-picker';
   comp.initialValue = '#d64325';
   return comp;

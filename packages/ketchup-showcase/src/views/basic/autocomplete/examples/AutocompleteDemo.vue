@@ -143,8 +143,12 @@ function createComp() {
       displayMode: 'both',
       selectable: true,
     },
+    'kup-text-field': {
+      label: 'Demo',
+    },
   };
   comp.displayMode = 'description';
+  comp.initialValue = 'First item';
   comp.minimumChars = '1';
   comp.selectMode = 'description';
   return comp;
