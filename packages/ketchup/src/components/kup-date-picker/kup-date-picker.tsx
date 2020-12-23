@@ -971,7 +971,6 @@ export class KupDatePicker {
 
     render() {
         let dateTextfieldEl: PICKER_COMPONENT_INFO = this.prepDateTextfield();
-        let datePickerContainerEl = this.prepDatePicker();
 
         let style = null;
         if (dateTextfieldEl != null && dateTextfieldEl.style != null) {
@@ -988,7 +987,7 @@ export class KupDatePicker {
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={style}>
                     {dateTextfieldEl.kupComponent}
-                    {datePickerContainerEl}
+                    {this.prepDatePicker()}
                 </div>
             </Host>
         );
