@@ -76,7 +76,7 @@ export default {
           description:
             "Set of props related to the text field. To check the available props visit the Text Field basic component's page.",
           type: 'Object',
-          default: '{"text-field":{}}',
+          default: 'undefined',
           try: 'json',
         },
         {
