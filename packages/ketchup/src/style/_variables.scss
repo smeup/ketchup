@@ -13,7 +13,7 @@
 
 // Components
 
-:host(.kup-secondary) {
+:host(.kup-secondary-color) {
   --kup-primary-color: var(--kup-secondary-color);
   --kup-text-on-primary-color: var(--kup-text-on-secondary-color);
   --kup-primary-color-rgb: var(--kup-secondary-color-rgb);
