@@ -253,6 +253,11 @@ export default {
             "Content will be horizontally aligned to section's left.",
         },
         {
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
           class: 'paddingless',
           description: 'Removes padding from box sections.',
         },

@@ -49,6 +49,11 @@ export default {
           class: 'full-width',
           description: 'The grid will fill all the available horizontal space.',
         },
+        {
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
       ],
     };
   },
@@ -63,7 +68,7 @@ function createComp() {
     compImage.data = [
       {
         shape: 'bar',
-        color: 'var(--kup-main-color)',
+        color: 'var(--kup-primary-color)',
         width: '100%',
         height: '100%',
       },

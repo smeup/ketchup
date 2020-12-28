@@ -32,7 +32,7 @@ export class KupImage {
      */
     @Prop() badgeData: KupBadge[] = undefined;
     /**
-     * The color of the icon, defaults to the main color of the app.
+     * The color of the icon, defaults to the CSS variable --kup-icon-color.
      */
     @Prop() color: string = 'var(--kup-icon-color)';
     /**

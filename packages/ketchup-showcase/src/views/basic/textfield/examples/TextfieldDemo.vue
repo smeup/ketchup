@@ -208,6 +208,11 @@ export default {
           description:
             'The text field will fill all the available vertical space.',
         },
+        {
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
       ],
     };
   },

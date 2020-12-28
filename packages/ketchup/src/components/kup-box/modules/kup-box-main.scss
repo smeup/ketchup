@@ -46,7 +46,7 @@
       }
 
       &.selected {
-        background-color: rgba(var(--kup-main-color-rgb), 0.175);
+        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
         & .box-section.titled > h3 {
           background-color: transparent;
         }

@@ -14,16 +14,16 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-card
-            style="margin: 1rem;"
+            style="margin: 1rem"
             :data.prop="data1"
             layout-family="material"
             layout-number="1"
             size-x="300px"
             size-y="300px"
           ></kup-card>
-          <div style="height: 300px; width: 300px;">
+          <div style="height: 300px; width: 300px">
             <kup-card
-              style="margin: 1rem;"
+              style="margin: 1rem"
               :data.prop="data2"
               layout-family="material"
               layout-number="1"

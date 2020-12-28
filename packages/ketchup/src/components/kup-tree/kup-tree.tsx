@@ -1503,20 +1503,22 @@ export class KupTree {
             this.data.length > 0
         ) {
             filterField = (
-                <kup-text-field
-                    class="filter"
-                    fullWidth={true}
-                    isClearable={true}
-                    label="Search..."
-                    icon="magnify"
-                    initialValue={this.filterValue}
-                    onKupTextFieldInput={(e) => {
-                        this.onFilterChange(e);
-                    }}
-                    onKupTextFieldClearIconClick={(e) => {
-                        this.onFilterChange(e);
-                    }}
-                ></kup-text-field>
+                <div id="global-filter">
+                    <kup-text-field
+                        class="filter"
+                        fullWidth={true}
+                        isClearable={true}
+                        label="Search..."
+                        icon="magnify"
+                        initialValue={this.filterValue}
+                        onKupTextFieldInput={(e) => {
+                            this.onFilterChange(e);
+                        }}
+                        onKupTextFieldClearIconClick={(e) => {
+                            this.onFilterChange(e);
+                        }}
+                    ></kup-text-field>
+                </div>
             );
         }
         return (

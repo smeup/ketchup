@@ -166,6 +166,11 @@ export default {
           description: 'The tree will fill all the available horizontal space.',
         },
         {
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
           class: 'shaped',
           description:
             'The right border of the cells will be shaped. It only applies when showColumns prop is set to false. ',

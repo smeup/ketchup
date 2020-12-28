@@ -63,6 +63,11 @@ export default {
             'The badge will be position to the bottom right corner of its container.',
         },
         {
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
           class: 'top-right',
           description:
             'The badge will be position to the top right corner of its container.',
