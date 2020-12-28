@@ -22,6 +22,7 @@ export interface Cell {
     cardID?: string;
     cssClass?: string;
     icon?: string;
+    title?: string;
 }
 
 export interface CellsHolder {

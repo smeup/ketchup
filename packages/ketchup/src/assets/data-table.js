@@ -14785,6 +14785,7 @@ const tempDataTableTestData = {
                     },
                     options: true,
                     value: 'CICCIO',
+                    title: 'colonna 1, title',
                 },
                 COL002: {
                     obj: {
@@ -14794,6 +14795,7 @@ const tempDataTableTestData = {
                     },
                     options: true,
                     value: 'CICCIA',
+                    title: 'colonna 2, title',
                 },
             },
             id: '7',

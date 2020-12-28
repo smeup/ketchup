@@ -2916,6 +2916,7 @@ export class KupDataTable {
                             onKupButtonClick={(e) => {
                                 this.onRowActionExpanderClick(e, row);
                             }}
+                            onClick={(e) => e.stopPropagation()}
                         />
                     );
                 }
@@ -3117,6 +3118,7 @@ export class KupDataTable {
                             type,
                         });
                     }}
+                    onClick={(e) => e.stopPropagation()}
                 />
             );
         });
@@ -3197,8 +3199,12 @@ export class KupDataTable {
             );
         }
 
+        let cellTitle = null;
+        if (cell.title != null && cell.title.trim() != '') {
+            cellTitle = cell.title;
+        }
         return (
-            <span class={classObj} style={style}>
+            <span class={classObj} style={style} title={cellTitle}>
                 {indend}
                 {icon}
                 {content}
