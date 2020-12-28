@@ -4,6 +4,7 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -52,6 +53,13 @@ export default {
           type: 'ComponentNavBarMode',
           default: "''",
           try: 'field',
+        },
+      ],
+      demoClasses: [
+        {
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
       ],
     };
