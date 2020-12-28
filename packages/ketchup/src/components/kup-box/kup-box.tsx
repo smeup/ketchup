@@ -1670,11 +1670,11 @@ export class KupBox {
                 selectable: true,
             };
 
+            let data = { 'text-field': textfieldData, list: listData };
             sortPanel = (
                 <div id="sort-panel">
                     <kup-combobox
-                        textfieldData={textfieldData}
-                        listData={listData}
+                        data={data}
                         onKupComboboxItemClick={(e) => this.onSortChange(e)}
                     />
                 </div>

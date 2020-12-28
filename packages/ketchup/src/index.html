@@ -87,6 +87,8 @@
         <div id="theme-tester">
             <kup-switch leading-label label="Theme tester" id="theme-switch"></kup-switch>
         </div>
+        <a href="autocomplete.html">Ketchup autocomplete</a>
+        <br />
         <a href="box.html">Ketchup box</a>
         <br />
         <a href="chart.html">Ketchup charts</a>
@@ -119,10 +121,19 @@
         <kup-date-picker id="date-picker2" first-day-index="0"></kup-date-picker>
         <h4>init on Tuesday</h4>
         <kup-date-picker id="date-picker3" first-day-index="2"></kup-date-picker>
-        <kup-time-picker id="time-picker1"></kup-time-picker>
-        <kup-time-picker id="time-picker2" manage-seconds></kup-time-picker>
-        <kup-time-picker id="time-picker3" show-clock></kup-time-picker>
-        <kup-time-picker id="time-picker4" show-clock manage-seconds></kup-time-picker>
+        
+        <h4>clock-variant=false</h4>
+        <kup-time-picker initial-value="02:00" id="time-picker1" clock-variant="false"></kup-time-picker>
+        <h4>clock-variant=false && manage-seconds</h4>
+        <kup-time-picker id="time-picker2" clock-variant="false" manage-seconds></kup-time-picker>
+        <h4>clock-variant=false && disabled=true</h4>
+        <kup-time-picker id="time-picker5" clock-variant="false" disabled></kup-time-picker>
+        <h4>clock-variant=true</h4>
+        <kup-time-picker id="time-picker3" clock-variant></kup-time-picker>
+        <h4>clock-variant=true && manage-seconds</h4>
+        <kup-time-picker id="time-picker4" clock-variant manage-seconds></kup-time-picker>
+        <h4>clock-variant=true && disabled=true</h4>
+        <kup-time-picker id="time-picker6" clock-variant disabled></kup-time-picker>
 
         <script>
             let datePicker1 = document.getElementsByTagName('kup-date-picker')[0];
@@ -346,7 +357,7 @@
 
         <h4>Material Select (widget)</h4>
         <kup-combobox is-filterable="false" field-id="pluto1" is-select="true"></kup-combobox>
-        <kup-combobox is-filterable="false" field-id="pluto2" is-select="true" display-mode="description" select-mode="code" ></kup-combobox>
+        <kup-combobox is-filterable="false" field-id="pluto2" is-select="true" display-mode="both" select-mode="code" ></kup-combobox>
 
         <h4>Events testing</h4>
         <kup-tab-bar id="event-tabbar"></kup-tab-bar>
@@ -674,18 +685,22 @@ chipList.data = [
             listBox5.data = [...itemsForListBox];
 
             let selectBox1 = document.getElementsByTagName('kup-combobox')[0];
-            selectBox1.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
-            selectBox1.listData = {data: [...itemsForListBox], selectable: true,};
+            let textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
+            let listData = {data: [...itemsForListBox], selectable: true,};
+            selectBox1.data = {'kup-text-field': {...textfieldData}, 'kup-list': {...listData}};
 
             let selectBox2 = document.getElementsByTagName('kup-combobox')[1];
-            selectBox2.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
-            selectBox2.listData = {data: [...itemsForListBox], selectable: true,};
+            //selectBox2.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
+            //selectBox2.listData = {data: [...itemsForListBox], selectable: true,};
+            selectBox2.data = {'text-field': {...textfieldData}, 'kup-list': {...listData}};
 
             let autocompleteBox1 = document.getElementsByTagName('kup-autocomplete')[0];
-            autocompleteBox1.textfieldData = {trailingIcon:  true, icon: "arrow_drop_down"};
-            autocompleteBox1.listData = {data: [...itemsForListBox], selectable: true, displayMode: 'both'};
+            //autocompleteBox1.textfieldData = {trailingIcon:  true, icon: "arrow_drop_down"};
+            //autocompleteBox1.listData = {data: [...itemsForListBox], selectable: true, displayMode: 'both'};
+            autocompleteBox1.data = {'kup-kup-list': {...listData}};
+            autocompleteBox1.initialValue = "txt1";
             autocompleteBox1.selectMode = 'code';
-
+            
             let once = true;
             // This is a script for testing these elements
             // This is mandatory for testing the passage of complex parameters inside web components

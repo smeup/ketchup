@@ -8,6 +8,9 @@ export const config: Config = {
     },
     copy: [
         {
+            src: 'autocomplete.html',
+        },
+        {
             src: 'box.html',
         },
         {

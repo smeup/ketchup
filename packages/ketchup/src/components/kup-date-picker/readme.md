@@ -5,11 +5,13 @@
 
 ## Properties
 
-| Property        | Attribute         | Description                                                                                                     | Type     | Default     |
-| --------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
-| `customStyle`   | `custom-style`    | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string` | `undefined` |
-| `data`          | --                | Props of the sub-components (date input text field).                                                            | `Object` | `{}`        |
-| `firstDayIndex` | `first-day-index` | First day number (0 - sunday, 1 - monday, ...)                                                                  | `number` | `1`         |
+| Property        | Attribute         | Description                                                                                                     | Type      | Default     |
+| --------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
+| `customStyle`   | `custom-style`    | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `undefined` |
+| `data`          | --                | Props of the sub-components.                                                                                    | `Object`  | `undefined` |
+| `disabled`      | `disabled`        | Defaults at false. When set to true, the component is disabled.                                                 | `boolean` | `false`     |
+| `firstDayIndex` | `first-day-index` | First day number (0 - sunday, 1 - monday, ...)                                                                  | `number`  | `1`         |
+| `initialValue`  | `initial-value`   | Sets the initial value of the component                                                                         | `string`  | `''`        |
 
 
 ## Events
@@ -28,7 +30,37 @@
 
 ## Methods
 
+### `getValue() => Promise<string>`
+
+
+
+#### Returns
+
+Type: `Promise<string>`
+
+
+
 ### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setFocus() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setValue(value: string) => Promise<void>`
 
 
 

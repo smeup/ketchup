@@ -65,11 +65,18 @@ export default {
         },
         {
           prop: 'data',
-          description:
-            "Set of props related to the text field. To check the available props visit the Text Field basic component's page.",
+          description: 'Props of the sub-components.',
           type: 'Object',
-          default: '{"text-field":{}}',
+          default: 'undefined',
           try: 'json',
+        },
+        {
+          prop: 'disabled',
+          description:
+            'Sets the component to disabled state, making it not interactable.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'firstDayIndex',
@@ -77,6 +84,13 @@ export default {
             'The initial day index for calendar (0 - Sunday, 1 - Monday, ...) .',
           type: 'number',
           default: '1',
+          try: 'field',
+        },
+        {
+          prop: 'initialValue',
+          description: 'Sets the initial value of the component.',
+          type: 'string',
+          default: '""',
           try: 'field',
         },
       ],
@@ -94,6 +108,11 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-date-picker');
   comp.id = 'demo-component';
+  comp.data = {
+    'kup-text-field': {
+      label: 'Demo',
+    },
+  };
   return comp;
 }
 </script>
