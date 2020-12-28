@@ -2,7 +2,7 @@
     "bubbles": {
         "cssVariables": {
             "--kup-primary-color": "#c18f00",
-            "--kup-secondary-color": "#ffc107",
+            "--kup-secondary-color": "#beb08d",
             "--kup-background-color": "#ffffff",
             "--kup-nav-bar-background-color": "#beb08d",
             "--kup-drawer-background-color": "#ffffff",
@@ -45,7 +45,7 @@
     "cobalt": {
         "cssVariables": {
             "--kup-primary-color": "#248aff",
-            "--kup-secondary-color": "#ffc107",
+            "--kup-secondary-color": "#65cbe9",
             "--kup-background-color": "#222222",
             "--kup-nav-bar-background-color": "#131313",
             "--kup-drawer-background-color": "#2e2e2e",
@@ -54,7 +54,7 @@
             "--kup-font-size": "14px",
             "--kup-text-color": "#65cbe9",
             "--kup-text-on-primary-color": "#f1f7ff",
-            "--kup-text-on-secondary-color": "#ffffff",
+            "--kup-text-on-secondary-color": "#000000",
             "--kup-disabled-background-color": "#3c3c3c",
             "--kup-disabled-color": "#7e7e7e",
             "--kup-hover-background-color": "#383838",
@@ -87,7 +87,7 @@
     "dark": {
         "cssVariables": {
             "--kup-primary-color": "#82f0e2",
-            "--kup-secondary-color": "#ffc107",
+            "--kup-secondary-color": "#ffe600",
             "--kup-background-color": "#2d2d2d",
             "--kup-nav-bar-background-color": "#2d2d2d",
             "--kup-drawer-background-color": "#1f1f1f",
@@ -96,7 +96,7 @@
             "--kup-font-size": "14px",
             "--kup-text-color": "#f5f5f5",
             "--kup-text-on-primary-color": "#555555",
-            "--kup-text-on-secondary-color": "#ffffff",
+            "--kup-text-on-secondary-color": "#000000",
             "--kup-disabled-background-color": "#3c3c3c",
             "--kup-disabled-color": "#7e7e7e",
             "--kup-hover-background-color": "#3c3c3c",
@@ -171,7 +171,7 @@
     "graphite": {
         "cssVariables": {
             "--kup-primary-color": "#888888",
-            "--kup-secondary-color": "#ffc107",
+            "--kup-secondary-color": "#d91e18",
             "--kup-background-color": "#ffffff",
             "--kup-nav-bar-background-color": "#535353",
             "--kup-drawer-background-color": "#ffffff",
@@ -359,7 +359,7 @@
     "raj": {
         "cssVariables": {
             "--kup-primary-color": "rgb(187, 198, 5)",
-            "--kup-secondary-color": "#ffc107",
+            "--kup-secondary-color": "#ffe600",
             "--kup-background-color": "#000000",
             "--kup-nav-bar-background-color": "#000000",
             "--kup-drawer-background-color": "#000000",
@@ -368,7 +368,7 @@
             "--kup-font-size": "15px",
             "--kup-text-color": "#ffffff",
             "--kup-text-on-primary-color": "#000000",
-            "--kup-text-on-secondary-color": "#ffffff",
+            "--kup-text-on-secondary-color": "#000000",
             "--kup-disabled-background-color": "#151515",
             "--kup-disabled-color": "#7b7b7b",
             "--kup-hover-background-color": "#404040",
