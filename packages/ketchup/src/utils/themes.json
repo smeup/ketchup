@@ -322,7 +322,7 @@
             "--kup-hover-color": "#000000",
             "--kup-title-background-color": "#f1f1f1",
             "--kup-title-color": "#000000",
-            "--kup-icon-color": "#ededed",
+            "--kup-icon-color": "#9d9d9d",
             "--kup-border-color": "#ededed",
             "--kup-box-shadow": "rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px",
             "--kup-field-background-color": "#ffffff",
@@ -344,8 +344,10 @@
         },
         "customStyles": {
             "MASTER": "",
+            "KUP-BOX": "#kup-component #global-filter {\ndisplay: none;\n}\n\n",
             "KUP-BUTTON": "#kup-component {\ndisplay: none;\n}\n\n",
-            "KUP-DATA-TABLE": "#kup-component .paginator-wrapper {\ndisplay: none;\n}\n\n#kup-component .above-wrapper {\ndisplay: none;\n}\n\n#kup-component #global-filter {\ndisplay: none;\n}\n\n#kup-component sticky-header {\ndisplay: none;\n}\n\n#kup-component #group-chips {\ndisplay: none;\n}\n\n"
+            "KUP-DATA-TABLE": "#kup-component .paginator-wrapper {\ndisplay: none;\n}\n\n#kup-component .above-wrapper {\ndisplay: none;\n}\n\n#kup-component #global-filter {\ndisplay: none;\n}\n\n#kup-component sticky-header {\ndisplay: none;\n}\n\n#kup-component #group-chips {\ndisplay: none;\n}\n\n",
+            "KUP-TREE": "#kup-component #global-filter {\ndisplay: none;\n}\n\n"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
