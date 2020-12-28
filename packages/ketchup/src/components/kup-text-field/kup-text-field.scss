@@ -83,7 +83,7 @@ div.mdc-text-field-helper-text {
       border-bottom-color: rgba(var(--kup-text-color-rgb), 0.575);
     }
     &.mdc-line-ripple--active {
-      border-bottom-color: var(--kup-main-color);
+      border-bottom-color: var(--kup-primary-color);
     }
   }
 
@@ -112,7 +112,7 @@ div.mdc-text-field-helper-text {
   }
 
   &.mdc-text-field--fullwidth.mdc-text-field--focused {
-    color: var(--kup-main-color);
+    color: var(--kup-primary-color);
   }
 
   &.mdc-text-field--outlined {
@@ -134,7 +134,7 @@ div.mdc-text-field-helper-text {
     &.mdc-text-field--focused .mdc-notched-outline__leading,
     &.mdc-text-field--focused .mdc-notched-outline__notch,
     &.mdc-text-field--focused .mdc-notched-outline__trailing {
-      border-color: var(--kup-main-color);
+      border-color: var(--kup-primary-color);
     }
 
     &.mdc-text-field--disabled .mdc-notched-outline__leading,
@@ -272,7 +272,7 @@ div.mdc-text-field-helper-text {
 
   &.mdc-text-field--focused:not(.mdc-text-field-disabled)
     .mdc-floating-label--float-above {
-    color: var(--kup-main-color);
+    color: var(--kup-primary-color);
     opacity: 1;
   }
 }

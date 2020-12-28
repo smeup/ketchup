@@ -60,7 +60,7 @@
 
         &:before,
         &:after {
-          background-color: var(--kup-main-color);
+          background-color: var(--kup-primary-color);
         }
       }
 
@@ -134,7 +134,7 @@
       }
 
       &--selected:not(.kup-tree__node--disabled) td {
-        background-color: rgba(var(--kup-main-color-rgb), 0.175);
+        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
         color: var(--kup-text-color);
       }
 

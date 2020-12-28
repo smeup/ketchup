@@ -999,7 +999,7 @@ export const pgbData = {
           },
           data: {
             customStyle:
-              ':host{--kup-disabled-background-color: black; --kup-main-color: green}',
+              ':host{--kup-disabled-background-color: black; --kup-primary-color: green}',
             backgroundColor: 'black',
             value: '33',
           },
@@ -1039,7 +1039,7 @@ export const pgbData = {
           data: {
             value: '45',
             customStyle:
-              ':host{--kup-disabled-background-color: magenta; --kup-main-color: yellow}',
+              ':host{--kup-disabled-background-color: magenta; --kup-primary-color: yellow}',
           },
           value: '45',
         },

@@ -37,10 +37,10 @@
             <tbody>
               <tr>
                 <td class="prevent-cr">
-                  <span class="code-word">--kup-main-color</span>
+                  <span class="code-word">--kup-primary-color</span>
                 </td>
                 <td>
-                  Sets the main color of the app, changing components
+                  Sets the primary color of the app, changing components
                   accordingly.
                 </td>
                 <td class="prevent-cr">
@@ -49,7 +49,26 @@
                 <td class="text-cell">
                   <kup-text-field
                     full-width
-                    id="main-color"
+                    id="primary-color"
+                    @kupTextFieldInput="updateThemeVariable"
+                  ></kup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">--kup-secondary-color</span>
+                </td>
+                <td>
+                  Sets the secondary color of the app, usable by specifying the
+                  .kup-secondary class to kup components.
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">color</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    full-width
+                    id="secondary-color"
                     @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
@@ -180,11 +199,11 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
-                  <span class="code-word">--kup-text-on-main-color</span>
+                  <span class="code-word">--kup-text-on-primary-color</span>
                 </td>
                 <td>
-                  Sets the color of text displayed above the main color, keep in
-                  mind readability when setting this!
+                  Sets the color of text displayed above the primary color, keep
+                  in mind readability when setting this!
                 </td>
                 <td class="prevent-cr">
                   <span class="code-word">color</span>
@@ -192,7 +211,26 @@
                 <td class="text-cell">
                   <kup-text-field
                     full-width
-                    id="text-on-main-color"
+                    id="text-on-primary-color"
+                    @kupTextFieldInput="updateThemeVariable"
+                  ></kup-text-field>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">--kup-text-on-secondary-color</span>
+                </td>
+                <td>
+                  Sets the color of text displayed above the secondary color,
+                  keep in mind readability when setting this!
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">color</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    full-width
+                    id="text-on-secondary-color"
                     @kupTextFieldInput="updateThemeVariable"
                   ></kup-text-field>
                 </td>
@@ -1356,7 +1394,7 @@ function updateTile() {
   if (variables) {
     themeWrapper.style.backgroundColor = variables['--kup-background-color'];
     themeWrapper.style.borderColor = variables['--kup-border-color'];
-    themeImage.color = variables['--kup-main-color'];
+    themeImage.color = variables['--kup-primary-color'];
     themeText.style.color = variables['--kup-text-color'];
     themeText.style.fontFamily = variables['--kup-font-family'];
     themeText.style.fontSize = variables['--kup-font-size'];

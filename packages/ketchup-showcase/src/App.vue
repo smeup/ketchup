@@ -158,7 +158,7 @@
         "
         id="debug-toggler"
         icon="bug"
-        custom-style=":host{--kup-main-color: white}"
+        custom-style=":host{--kup-primary-color: white}"
       ></kup-button>
       <v-toolbar-side-icon :to="{ path: '/' }">
         <v-icon>home</v-icon>
@@ -233,7 +233,7 @@ export default {
         dom['kupDebug'] = true;
       } else {
         console.log('Debug deactivated.');
-        debugToggler.customStyle = ':host{--kup-main-color: white}';
+        debugToggler.customStyle = ':host{--kup-primary-color: white}';
         dom['kupDebug'] = false;
       }
     },

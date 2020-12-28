@@ -1,17 +1,32 @@
+// MDC
+
 :host {
-  --mdc-theme-primary: var(--kup-main-color);
-  --mdc-theme-on-primary: var(--kup-text-on-main-color);
-  --mdc-theme-secondary: var(--kup-main-color);
-  --mdc-theme-on-secondary: var(--kup-text-on-main-color);
+  --mdc-theme-primary: var(--kup-primary-color);
+  --mdc-theme-on-primary: var(--kup-text-on-primary-color);
+  --mdc-theme-secondary: var(--kup-primary-color);
+  --mdc-theme-on-secondary: var(--kup-text-on-primary-color);
   --mdc-theme-surface: var(--kup-background-color);
   --mdc-theme-on-surface: var(--kup-text-color);
   --mdc-theme-background: var(--kup-background-color);
   --mdc-theme-text-primary-on-background: var(--kup-text-color);
 }
 
+// Components
+
+:host(.kup-secondary) {
+  --kup-primary-color: var(--kup-secondary-color);
+  --kup-text-on-primary-color: var(--kup-text-on-secondary-color);
+  --kup-primary-color-rgb: var(--kup-secondary-color-rgb);
+  --kup-text-on-primary-color-rgb: var(--kup-text-on-secondary-color-rgb);
+}
+
+// Cursors
+
 .is-obj {
   cursor: var(--kup-obj-cursor);
 }
+
+// Icons
 
 .icon-container.ascending {
   -webkit-mask: var(--kup-ascending-icon);

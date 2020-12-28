@@ -958,7 +958,7 @@ export namespace Components {
          */
         "badgeData": KupBadge[];
         /**
-          * The color of the icon, defaults to the main color of the app.
+          * The color of the icon, defaults to the CSS variable --kup-icon-color.
          */
         "color": string;
         /**
@@ -3104,7 +3104,7 @@ declare namespace LocalJSX {
          */
         "badgeData"?: KupBadge[];
         /**
-          * The color of the icon, defaults to the main color of the app.
+          * The color of the icon, defaults to the CSS variable --kup-icon-color.
          */
         "color"?: string;
         /**

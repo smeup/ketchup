@@ -11,10 +11,10 @@
 }
 
 .mdc-chip-set--choice .mdc-chip--selected {
-  color: var(--kup-main-color);
+  color: var(--kup-primary-color);
 
   & .mdc-chip__ripple {
-    background-color: var(--kup-main-color);
+    background-color: var(--kup-primary-color);
     opacity: 0.25;
   }
 }
@@ -38,7 +38,7 @@ svg path {
   width: 18px;
   height: 18px;
   .mdc-chip--selected & {
-    background: var(--kup-main-color);
+    background: var(--kup-primary-color);
   }
 }
 

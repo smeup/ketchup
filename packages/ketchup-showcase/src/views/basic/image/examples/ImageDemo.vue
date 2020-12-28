@@ -40,7 +40,7 @@ export default {
         {
           prop: 'color',
           description:
-            'The color of the image, defaults to the main color of the app. Accepts any CSS color format (HEX, RGB, etc.). It works only when the image is in a vector format.',
+            'The color of the image, defaults to the primary color of the app. Accepts any CSS color format (HEX, RGB, etc.). It works only when the image is in a vector format.',
           type: 'string',
           default: 'var(--kup-icon-color)',
           try: 'field',

@@ -23,7 +23,7 @@ export const defaultData = {
     ],
     rows: [
         {
-            id : '0',
+            id: '0',
             cells: {
                 FLD1: {
                     obj: {
@@ -60,7 +60,7 @@ export const defaultData = {
             },
         },
         {
-            id : '1',
+            id: '1',
             cells: {
                 FLD1: {
                     obj: {
@@ -96,8 +96,8 @@ export const defaultData = {
                 },
             },
         },
-        {   
-            id : '2',
+        {
+            id: '2',
             cells: {
                 FLD1: {
                     obj: {
@@ -134,7 +134,7 @@ export const defaultData = {
             },
         },
         {
-            id : '3',
+            id: '3',
             cells: {
                 FLD1: {
                     obj: {
@@ -545,7 +545,7 @@ export const pgbData = {
                     },
                     data: {
                         value: '33',
-                        customStyle: ':host{--kup-main-color: green}',
+                        customStyle: ':host{--kup-primary-color: green}',
                     },
                     value: '33',
                 },

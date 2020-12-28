@@ -159,7 +159,7 @@
           @kupButtonClick="menuTrigger"
           id="menu-trigger"
           toggable
-          style="--kup-main-color: var(--kup-text-on-main-color)"
+          style="--kup-primary-color: var(--kup-text-on-primary-color)"
           icon="last_page"
           icon-off="menu_open"
           title="Open/close side panel"
@@ -168,7 +168,7 @@
           @kupButtonClick="swapView"
           id="view-swapper"
           toggable
-          style="--kup-main-color: var(--kup-text-on-main-color)"
+          style="--kup-primary-color: var(--kup-text-on-primary-color)"
           icon="fullscreen_exit"
           icon-off="fullscreen"
           title="Toggle/disable full screen"
@@ -178,7 +178,7 @@
           id="view-splitter"
           toggable
           style="
-            --kup-main-color: var(--kup-text-on-main-color);
+            --kup-primary-color: var(--kup-text-on-primary-color);
             width: fit-content;
             margin: auto;
           "

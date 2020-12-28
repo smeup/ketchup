@@ -21,8 +21,8 @@
 }
 
 .top {
-  background-color: var(--kup-main-color);
-  color: var(--kup-text-on-main-color);
+  background-color: var(--kup-primary-color);
+  color: var(--kup-text-on-primary-color);
   height: 100px;
   line-height: 100px;
   font-size: 50px;
@@ -76,7 +76,7 @@
     &::after {
       content: '';
       z-index: -1;
-      background-color: rgba(var(--kup-main-color-rgb), 0.5);
+      background-color: rgba(var(--kup-primary-color-rgb), 0.5);
       height: 1px;
       width: 100%;
       position: absolute;
@@ -102,7 +102,7 @@
   &.selected {
     &::after {
       content: '';
-      background-color: rgba(var(--kup-main-color-rgb), 0.5);
+      background-color: rgba(var(--kup-primary-color-rgb), 0.5);
       height: 1px;
       width: 100%;
       position: absolute;
@@ -128,7 +128,7 @@
   &.selected {
     &::after {
       content: '';
-      background-color: rgba(var(--kup-main-color-rgb), 0.5);
+      background-color: rgba(var(--kup-primary-color-rgb), 0.5);
       height: 1px;
       width: 100%;
       position: absolute;
@@ -148,17 +148,17 @@
   transition: background-color 0.25s;
 
   &:hover {
-    background-color: rgba(var(--kup-main-color-rgb), 0.275);
+    background-color: rgba(var(--kup-primary-color-rgb), 0.275);
   }
 
   &.selected {
-    background-color: var(--kup-main-color);
-    color: var(--kup-text-on-main-color);
+    background-color: var(--kup-primary-color);
+    color: var(--kup-text-on-primary-color);
   }
 }
 
 .actions {
-  color: var(--kup-main-color);
+  color: var(--kup-primary-color);
   font-weight: bold;
   font-size: 20px;
   display: flex;
