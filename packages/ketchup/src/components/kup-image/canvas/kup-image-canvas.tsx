@@ -149,7 +149,8 @@ export class imageCanvas {
     }
 
     getNewStarXFromBar(startX: number, elem: GraphicElement): number {
-        const elemWidth = this.getDim(this.canvas.clientWidth, elem.getWidth());
+        const elemWidth =
+            this.getDim(this.canvas.clientWidth, elem.getWidth()) - startX;
         const elemHeight = this.getDim(
             this.canvas.clientHeight,
             elem.getHeight()
