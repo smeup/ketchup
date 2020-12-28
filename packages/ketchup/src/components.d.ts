@@ -44,13 +44,22 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Props of the sub-components.
+         */
+        "data": Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
           * Sets how the show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode": ItemsDisplayMode;
+        "getValue": () => Promise<string>;
         /**
-          * Props of the list.
+          * Sets the initial value of the component.
          */
-        "listData": Object;
+        "initialValue": string;
         /**
           * The minimum number of chars to trigger the autocomplete
          */
@@ -64,10 +73,8 @@ export namespace Components {
           * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
          */
         "serverHandledFilter": boolean;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData": Object;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
     }
     interface KupBadge {
         /**
@@ -410,20 +417,23 @@ export namespace Components {
         /**
           * Props of the text field.
          */
-        "data": {};
+        "data": Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
+         */
+        "initialValue": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
         /**
           * When true, the component's text field will be replaced by a swatch.
          */
         "swatchOnly": boolean;
-        /**
-          * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
-         */
-        "value": string;
     }
     interface KupCombobox {
         /**
@@ -431,26 +441,33 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Props of the sub-components (date input text field).
+         */
+        "data": Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
           * Sets how the show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode": ItemsDisplayMode;
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue": string;
         /**
           * Lets the combobox behave as a select element.
          */
         "isSelect": boolean;
-        /**
-          * Props of the list.
-         */
-        "listData": Object;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData": Object;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
     }
     interface KupCrud {
         "actions": FormActions;
@@ -697,14 +714,25 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Props of the sub-components (date input text field).
+          * Props of the sub-components.
          */
         "data": Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
         /**
           * First day number (0 - sunday, 1 - monday, ...)
          */
         "firstDayIndex": number;
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
     }
     interface KupDrawer {
         "close": () => Promise<void>;
@@ -1350,13 +1378,10 @@ export namespace Components {
          */
         "emitSubmitEventOnEnter": boolean;
         /**
-          * Defaults at false. When set to true, the component will be focused.
-         */
-        "forceFocus": boolean;
-        /**
           * Defaults at false. When set to true, the component will be rendered at full width.
          */
         "fullWidth": boolean;
+        "getValue": () => Promise<string>;
         /**
           * Defaults at null. When set, its content will be shown as a help text below the field.
          */
@@ -1403,6 +1428,7 @@ export namespace Components {
         "readOnly": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
         /**
           * Defaults at false. When set to true, the component will be rendered as a textarea.
          */
@@ -1430,10 +1456,21 @@ export namespace Components {
          */
         "data": Object;
         /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue": string;
+        /**
           * Manage seconds
          */
         "manageSeconds": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
         /**
           * Minutes step
          */
@@ -1889,13 +1926,21 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
+          * Props of the sub-components.
+         */
+        "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
           * Sets how the show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode"?: ItemsDisplayMode;
         /**
-          * Props of the list.
+          * Sets the initial value of the component.
          */
-        "listData"?: Object;
+        "initialValue"?: string;
         /**
           * The minimum number of chars to trigger the autocomplete
          */
@@ -1928,6 +1973,9 @@ declare namespace LocalJSX {
         "onKupAutocompleteItemClick"?: (event: CustomEvent<{
         value: any;
     }>) => void;
+        "onKupAutocompleteTextFieldSubmit"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
         /**
           * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
@@ -1936,10 +1984,6 @@ declare namespace LocalJSX {
           * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
          */
         "serverHandledFilter"?: boolean;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData"?: Object;
     }
     interface KupBadge {
         /**
@@ -2437,22 +2481,25 @@ declare namespace LocalJSX {
         /**
           * Props of the text field.
          */
-        "data"?: {};
+        "data"?: Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled"?: boolean;
+        /**
+          * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
+         */
+        "initialValue"?: string;
         "onKupColorPickerChange"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupColorPickerInput"?: (event: CustomEvent<{
         value: any;
     }>) => void;
         /**
           * When true, the component's text field will be replaced by a swatch.
          */
         "swatchOnly"?: boolean;
-        /**
-          * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
-         */
-        "value"?: string;
     }
     interface KupCombobox {
         /**
@@ -2460,17 +2507,25 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
+          * Props of the sub-components (date input text field).
+         */
+        "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
           * Sets how the show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode"?: ItemsDisplayMode;
         /**
+          * Sets the initial value of the component
+         */
+        "initialValue"?: string;
+        /**
           * Lets the combobox behave as a select element.
          */
         "isSelect"?: boolean;
-        /**
-          * Props of the list.
-         */
-        "listData"?: Object;
         /**
           * Event example.
          */
@@ -2502,10 +2557,6 @@ declare namespace LocalJSX {
           * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData"?: Object;
     }
     interface KupCrud {
         "actions"?: FormActions;
@@ -2811,13 +2862,21 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Props of the sub-components (date input text field).
+          * Props of the sub-components.
          */
         "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
         /**
           * First day number (0 - sunday, 1 - monday, ...)
          */
         "firstDayIndex"?: number;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue"?: string;
         "onKupDatePickerBlur"?: (event: CustomEvent<{
         value: any;
         source: PICKER_SOURCE_EVENT;
@@ -3578,10 +3637,6 @@ declare namespace LocalJSX {
          */
         "emitSubmitEventOnEnter"?: boolean;
         /**
-          * Defaults at false. When set to true, the component will be focused.
-         */
-        "forceFocus"?: boolean;
-        /**
           * Defaults at false. When set to true, the component will be rendered at full width.
          */
         "fullWidth"?: boolean;
@@ -3648,10 +3703,6 @@ declare namespace LocalJSX {
         id: any;
         value: string;
     }>) => void;
-        "onKupTextFieldRendered"?: (event: CustomEvent<{
-        id: any;
-        field: KupTextField;
-    }>) => void;
         /**
           * When a keydown enter event occurs it generates
          */
@@ -3693,6 +3744,14 @@ declare namespace LocalJSX {
           * Props of the sub-components (time input text field)
          */
         "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue"?: string;
         /**
           * Manage seconds
          */

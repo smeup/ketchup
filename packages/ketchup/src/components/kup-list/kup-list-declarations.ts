@@ -32,47 +32,6 @@ export function getValueOfItemByDisplayMode(
     return item.value;
 }
 
-/*
-export function consistencyCheck(
-    value: string,
-    listData: Object,
-    textfieldEl: any,
-    selectMode: ItemsDisplayMode
-): string {
-    var firstSelectedFound = false;
-    if (listData['data']) {
-        for (let i = 0; i < listData['data'].length; i++) {
-            if (listData['data'][i].selected && firstSelectedFound) {
-                listData['data'][i].selected = false;
-                let message =
-                    'Found occurence of data(' +
-                    i +
-                    ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
-
-                logMessage('kup-list-utils', message, 'warning');
-            }
-            if (listData['data'][i].selected && !firstSelectedFound) {
-                firstSelectedFound = true;
-                value = getValueOfItemByDisplayMode(
-                    listData['data'][i],
-                    selectMode,
-                    ' - '
-                );
-                if (textfieldEl) {
-                    if (textfieldEl.initialValue === value) {
-                        textfieldEl.initialValue = '';
-                        textfieldEl.initialValue = value;
-                    } else {
-                        textfieldEl.initialValue = value;
-                    }
-                }
-            }
-        }
-    }
-    return value;
-}
-*/
-
 export function consistencyCheck(
     valueIn: string,
     listData: Object,
@@ -108,19 +67,25 @@ export function consistencyCheck(
     displayedValue = getValueOfItemByDisplayMode(selected, displayMode, ' - ');
 
     if (textfieldEl) {
-        if (textfieldEl.initialValue === displayedValue) {
-            textfieldEl.initialValue = '';
-            textfieldEl.initialValue = displayedValue;
+        if (textfieldEl.getValue() === displayedValue) {
+            textfieldEl.setValue('');
+            textfieldEl.setValue(displayedValue);
         } else {
-            textfieldEl.initialValue = displayedValue;
+            textfieldEl.setValue(displayedValue);
         }
     }
-    return { value: value, displayedValue: displayedValue };
+    return {
+        value: value,
+        displayedValue: displayedValue,
+    };
 }
 
 export function getFirstItemSelected(listData: Object): ComponentListElement {
     if (listData['data']) {
         for (let i = 0; i < listData['data'].length; i++) {
+            if (listData['data'][i].isSeparator == true) {
+                continue;
+            }
             if (listData['data'][i].selected) {
                 return listData['data'][i];
             }
@@ -134,10 +99,13 @@ export function getItemByValue(
     value: string,
     setSelected: boolean
 ): ComponentListElement {
-    if (listData['data']) {
+    if (listData && listData['data']) {
         let found: boolean = false;
         let item: ComponentListElement = null;
         for (let i = 0; i < listData['data'].length; i++) {
+            if (listData['data'][i].isSeparator == true) {
+                continue;
+            }
             if (setSelected == true) {
                 listData['data'][i].selected = false;
             }
@@ -154,6 +122,9 @@ export function getItemByValue(
             return item;
         }
         for (let i = 0; i < listData['data'].length; i++) {
+            if (listData['data'][i].isSeparator == true) {
+                continue;
+            }
             if (listData['data'][i].text.toLowerCase() == value.toLowerCase()) {
                 item = listData['data'][i];
                 item.selected = true;
@@ -174,10 +145,13 @@ export function getItemByDisplayMode(
     displayMode: ItemsDisplayMode,
     setSelected: boolean
 ): ComponentListElement {
-    if (listData['data']) {
+    if (listData && listData['data']) {
         let found: boolean = false;
         let item: ComponentListElement = null;
         for (let i = 0; i < listData['data'].length; i++) {
+            if (listData['data'][i].isSeparator == true) {
+                continue;
+            }
             let displayedValue = getValueOfItemByDisplayMode(
                 listData['data'][i],
                 displayMode,

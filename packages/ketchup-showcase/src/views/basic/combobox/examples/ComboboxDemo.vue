@@ -63,11 +63,33 @@ export default {
           try: 'css',
         },
         {
+          prop: 'data',
+          description: 'Props of the sub-components.',
+          type: 'Object',
+          default: 'undefined',
+          try: 'json',
+        },
+        {
+          prop: 'disabled',
+          description:
+            'Defaults at false. When set to true, the component is disabled.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'displayMode',
           description:
             'Sets how the show the selected item value. Suported values: "code", "description", "both".',
           type: 'string',
           default: 'description',
+          try: 'field',
+        },
+        {
+          prop: 'initialValue',
+          description: 'Sets the initial value of the component.',
+          type: 'string',
+          default: '""',
           try: 'field',
         },
         {
@@ -78,28 +100,12 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'listData',
-          description:
-            "Set of props related to the list. To check the available props visit the List basic component's page.",
-          type: 'Object',
-          default: '{}',
-          try: 'json',
-        },
-        {
           prop: 'selectMode',
           description:
             'Sets how the return the selected item value. Suported values: "code", "description", "both".',
           type: 'string',
           default: 'description',
           try: 'field',
-        },
-        {
-          prop: 'textfieldData',
-          description:
-            "Set of props related to the text field. To check the available props visit the Text Field basic component's page.",
-          type: 'Object',
-          default: '{}',
-          try: 'json',
         },
       ],
     };
@@ -109,38 +115,32 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-combobox');
   comp.id = 'demo-component';
-  comp.label = 'Demo';
-  comp.listData = {
-    data: [
-      {
-        text: 'First choice',
-        value: '1',
-      },
-      {
-        text: 'Selected choice',
-        value: '2',
-        selected: true,
-      },
-      {
-        text: null,
-        value: null,
-        isSeparator: true,
-      },
-      {
-        text: 'Third choice (below a separator)',
-        value: '3',
-      },
-    ],
-    displayMode: 'both',
-    selectable: true,
+  comp.data = {
+    'kup-list': {
+      data: [
+        {
+          text: 'First item',
+          value: 'CODE_1',
+        },
+        {
+          text: 'Second item',
+          value: 'CODE_2',
+        },
+        {
+          text: 'Third item',
+          value: 'CODE_3',
+        },
+      ],
+      displayMode: 'both',
+      selectable: true,
+    },
+    'kup-text-field': {
+      label: 'Demo',
+    },
   };
-  comp.selectMode = 'description';
   comp.displayMode = 'description';
-  comp.textfieldData = {
-    icon: 'arrow_drop_down',
-    label: 'demo',
-    trailingIcon: true,
-  };
+  comp.initialValue = 'First item';
+  comp.selectMode = 'description';
   return comp;
 }
 </script>

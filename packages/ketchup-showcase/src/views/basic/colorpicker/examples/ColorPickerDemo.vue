@@ -36,7 +36,7 @@ export default {
         },
         {
           prop: 'data',
-          description: 'Props of the text field.',
+          description: 'Props of the sub-components.',
           type: 'Object',
           default: 'undefined',
           try: 'json',
@@ -50,19 +50,20 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'initialValue',
+          description:
+            'Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).',
+          type: 'string',
+          default: '""',
+          try: 'field',
+        },
+        {
           prop: 'swatchOnly',
           description:
             "When true, the component's text field will be replaced by a swatch.",
           type: 'boolean',
           default: 'false',
           try: 'switch',
-        },
-        {
-          prop: 'value',
-          description: 'The value of the color in CSS format.',
-          type: 'string',
-          default: '',
-          try: 'field',
         },
       ],
     };
@@ -72,8 +73,13 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-color-picker');
   comp.id = 'demo-component';
+  comp.data = {
+    'kup-text-field': {
+      label: 'Demo',
+    },
+  };
   comp.name = 'color-picker';
-  comp.value = '#d64325';
+  comp.initialValue = '#d64325';
   return comp;
 }
 </script>

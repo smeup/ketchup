@@ -72,11 +72,17 @@ export default {
         },
         {
           prop: 'data',
-          description:
-            "Set of props related to the text field. To check the available props visit the Text Field basic component's page.",
+          description: 'Props of the sub-components.',
           type: 'Object',
-          default: '{"text-field":{}}',
+          default: 'undefined',
           try: 'json',
+        },
+        {
+          prop: 'initialValue',
+          description: 'Sets the initial value of the component.',
+          type: 'string',
+          default: '""',
+          try: 'field',
         },
         {
           prop: 'manageSeconds',
@@ -100,6 +106,11 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-time-picker');
   comp.id = 'demo-component';
+  comp.data = {
+    'kup-text-field': {
+      label: 'Demo',
+    },
+  };
   comp.clockVariant = true;
   return comp;
 }
