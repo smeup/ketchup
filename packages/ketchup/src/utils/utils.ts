@@ -107,6 +107,14 @@ export function getCurrentLocale(suffix?: string): string {
     return navigator.language + (suffix != null ? suffix : '');
 }
 
+export function getSeparator(locale, separatorType) {
+    const numberWithGroupAndDecimalSeparator = 1000.1;
+    return Intl.NumberFormat(locale)
+        .formatToParts(numberWithGroupAndDecimalSeparator)
+        .find(part => part.type === separatorType)
+        .value;
+}
+
 export function getCurrentDateFormatFromBrowserLocale(): string {
     const formatObj = new Intl.DateTimeFormat(getCurrentLocale()).formatToParts(
         new Date()

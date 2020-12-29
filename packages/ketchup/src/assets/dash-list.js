@@ -20,215 +20,296 @@ dashList.iconColor = [
 dashList.data = {
     columns: 
     [
-      {
-        "name": "ICO",
-        "size": 0,
-        "title": "Icona"
-      },
-      {
-        "name": "UM",
-        "size": 0,
-        "title": "Um"
-      },
-      {
-        "name": "TEXT",
-        "size": 0,
-        "title": "Testo"
-      },
-      {
-        "name": "VALUE",
-        "size": 0,
-        "title": "Valore",
-        "obj": {
-          "t": "NR",
-          "p": "",
-          "k": ""
-        },
-      },
-      {
-        "name": "GROUP",
-        "size": 0,
-        "title": "Gruppo"
-      },
-      {
-        "name": "INTVAL",
-        "size": 0,
-        "title": "Valore parte intera"
-      },
-      {
-        "name": "DECVAL",
-        "size": 0,
-        "title": "Valore parte decimale"
-      }
-    ],
+			{
+				"name": "ICO",
+				"title": "Icona"
+			},
+			{
+				"name": "UM",
+				"title": "Um"
+			},
+			{
+				"name": "TEXT",
+				"title": "Testo"
+			},
+			{
+				"name": "VALUE",
+				"title": "Valore"
+			},
+			{
+				"name": "GROUP",
+				"title": "Gruppo"
+			},
+			{
+				"name": "INTVAL",
+				"title": "Valore parte intera"
+			},
+			{
+				"name": "DECVAL",
+				"title": "Valore parte decimale"
+			}
+		],
     rows: 
     [
-      {
-        "cells": {
-          "GROUP": {
-            "obj": {
-              "k": "3"
-            },
-            "options": false,
-            "value": "3"
-          },
-          "ICO": {
-            "obj": {
-              "k": "mdi mdi-trending-up"
-            },
-            "options": false,
-            "value": "mdi mdi-trending-up"
-          },
-          "INTVAL": {
-            "obj": {
-              "k": ""
-            },
-            "options": false,
-            "value": "100,"
-          },
-          "UM": {
-            "obj": {
-              "k": "%"
-            },
-            "options": false,
-            "value": "%"
-          },
-          "TEXT": {
-            "obj": {
-              "k": "GIANCRISTOFARO GIULIANO"
-            },
-            "options": false,
-            "value": "GIANCRISTOFARO GIULIANO"
-          },
-          "DECVAL": {
-            "obj": {
-              "k": ""
-            },
-            "options": false,
-            "value": "3"
-          },
-          "VALUE": {
-            "obj": {
-              "t": "NR",
-              "p": "",
-              "k": "100000,3"
-            },
-            "options": false,
-            "value": "100,000.3"
-          }
-        },
-        "object": "",
-        "readOnly": true
-      },
-      {
-        "cells": {
-          "GROUP": {
-            "obj": {
-              "k": ""
-            },
-            "options": false,
-            "value": ""
-          },
-          "ICO": {
-            "obj": {
-              "k": "mdi mdi-arrow-up-bold"
-            },
-            "options": false,
-            "value": "mdi mdi-arrow-up-bold"
-          },
-          "INTVAL": {
-            "obj": {
-              "k": "10"
-            },
-            "options": false,
-            "value": "10"
-          },
-          "UM": {
-            "obj": {
-              "k": "$"
-            },
-            "options": false,
-            "value": "$"
-          },
-          "TEXT": {
-            "obj": {
-              "k": "VERZELETTI FRANCESCO"
-            },
-            "options": false,
-            "value": "VERZELETTI FRANCESCO"
-          },
-          "DECVAL": {
-            "obj": {
-              "k": ""
-            },
-            "options": false,
-            "value": ""
-          },
-          "VALUE": {
-            "obj": {
-              "k": "10"
-            },
-            "options": false,
-            "value": "10"
-          }
-        },
-        "object": "",
-        "readOnly": true
-      },
-      {
-        "cells": {
-          "GROUP": {
-            "obj": {
-              "k": ""
-            },
-            "options": false,
-            "value": ""
-          },
-          "ICO": {
-            "obj": {
-              "k": "mdi mdi-trending-down"
-            },
-            "options": false,
-            "value": "mdi mdi-trending-down"
-          },
-          "INTVAL": {
-            "obj": {
-              "k": "125"
-            },
-            "options": false,
-            "value": "125"
-          },
-          "UM": {
-            "obj": {
-              "k": "€"
-            },
-            "options": false,
-            "value": "€"
-          },
-          "TEXT": {
-            "obj": {
-              "k": "DEL BONO GIOVANNI"
-            },
-            "options": false,
-            "value": "DEL BONO GIOVANNI"
-          },
-          "DECVAL": {
-            "obj": {
-              "k": ""
-            },
-            "options": false,
-            "value": ""
-          },
-          "VALUE": {
-            "obj": {
-              "k": "125"
-            },
-            "options": false,
-            "value": "125"
-          }
-        },
-        "object": "",
-        "readOnly": true
-      }
-    ],
+			{
+				"cells": {
+					"GROUP": {
+						"obj": {
+							"k": "DELGIO"
+						},
+						"value": "DELGIO"
+					},
+					"ICO": {
+						"obj": {
+							"k": "mdi mdi-star-circle"
+						},
+						"value": "mdi mdi-star-circle"
+					},
+					"INTVAL": {
+						"obj": {
+							"k": "2520,",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2,520"
+					},
+					"UM": {
+						"obj": {
+							"k": "€"
+						},
+						"value": "€"
+					},
+					"TEXT": {
+						"obj": {
+							"k": "CESTANA GIULIETTO"
+						},
+						"value": "CESTANA GIULIETTO"
+					},
+					"DECVAL": {
+						"obj": {
+							"k": "0"
+						},
+						"value": "0"
+					},
+					"VALUE": {
+						"obj": {
+							"k": "2520,0",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "2,520"
+					}
+				},
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"GROUP": {
+						"obj": {
+							"k": "GIAGIU"
+						},
+						"value": "GIAGIU"
+					},
+					"ICO": {
+						"obj": {
+							"k": "mdi mdi-star-circle"
+						},
+						"value": "mdi mdi-star-circle"
+					},
+					"INTVAL": {
+						"obj": {
+							"k": "-2600,",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "-2,600"
+					},
+					"UM": {
+						"obj": {
+							"k": "%"
+						},
+						"value": "%"
+					},
+					"TEXT": {
+						"obj": {
+							"k": "Company Rossi Spa Napoli"
+						},
+						"value": "Company Rossi Spa Napoli"
+					},
+					"DECVAL": {
+						"obj": {
+							"k": "0"
+						},
+						"value": "0"
+					},
+					"VALUE": {
+						"obj": {
+							"k": "-2600,0",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "-2,600"
+					}
+				},
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"GROUP": {
+						"obj": {
+							"k": "MOSPAO"
+						},
+						"value": "MOSPAO"
+					},
+					"ICO": {
+						"obj": {
+							"k": "mdi mdi-star-circle"
+						},
+						"value": "mdi mdi-star-circle"
+					},
+					"INTVAL": {
+						"obj": {
+							"k": "-100,",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "-100"
+					},
+					"UM": {
+						"obj": {
+							"k": "£"
+						},
+						"value": "£"
+					},
+					"TEXT": {
+						"obj": {
+							"k": "MOSPAO"
+						},
+						"value": "MOSPAO"
+					},
+					"DECVAL": {
+						"obj": {
+							"k": "0"
+						},
+						"value": "0"
+					},
+					"VALUE": {
+						"obj": {
+							"k": "-100,0",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "-100"
+					}
+				},
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"GROUP": {
+						"obj": {
+							"k": "PARFRA"
+						},
+						"value": "PARFRA"
+					},
+					"ICO": {
+						"obj": {
+							"k": "mdi mdi-star-circle"
+						},
+						"value": "mdi mdi-star-circle"
+					},
+					"INTVAL": {
+						"obj": {
+							"k": "4000,",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4,000"
+					},
+					"UM": {
+						"obj": {
+							"k": "£"
+						},
+						"value": "£"
+					},
+					"TEXT": {
+						"obj": {
+							"k": "Company Bianchi Sas Palermo"
+						},
+						"value": "Company Bianchi Sas Palermo"
+					},
+					"DECVAL": {
+						"obj": {
+							"k": "0"
+						},
+						"value": "0"
+					},
+					"VALUE": {
+						"obj": {
+							"k": "4000,0",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "4,000"
+					}
+				},
+				"object": "",
+				"readOnly": true
+			},
+			{
+				"cells": {
+					"GROUP": {
+						"obj": {
+							"k": "VERFRA"
+						},
+						"value": "VERFRA"
+					},
+					"ICO": {
+						"obj": {
+							"k": "mdi mdi-star-circle"
+						},
+						"value": "mdi mdi-star-circle"
+					},
+					"INTVAL": {
+						"obj": {
+							"k": "-228,",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "-228"
+					},
+					"UM": {
+						"obj": {
+							"k": "$"
+						},
+						"value": "$"
+					},
+					"TEXT": {
+						"obj": {
+							"k": "BRETTI PAOLO"
+						},
+						"value": "BRETTI PAOLO"
+					},
+					"DECVAL": {
+						"obj": {
+							"k": "1"
+						},
+						"value": "1"
+					},
+					"VALUE": {
+						"obj": {
+							"k": "-228,1",
+							"p": "",
+							"t": "NR"
+						},
+						"value": "-228.1"
+					}
+				},
+				"object": "",
+				"readOnly": true
+			}
+		],
 };
