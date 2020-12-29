@@ -30,6 +30,7 @@ import {
     formattedStringToDefaultUnformattedStringDate,
     formattedStringToUnformattedStringNumber,
     isValidFormattedStringNumber,
+    _numberToString,
 } from '../../utils/utils';
 import {
     isFilterCompliantForValue,
@@ -428,6 +429,7 @@ export function isFilterCompliantForCell(cellValue: Cell, filterValue: string) {
 
     if (isNumber(cellValue.obj)) {
         value = normalizeValue(value, cellValue.obj);
+        //value = _numberToString(Number(value), -1, 'en-US', false);
     }
     if (isDate(cellValue.obj)) {
         if (

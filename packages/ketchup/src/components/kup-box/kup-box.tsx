@@ -94,7 +94,7 @@ export class KupBox {
                 );
                 // *** PROPS ***
                 this.sortBy = this.state.sortBy;
-                this.globalFilterValueState = this.state.globalFilterValueState;
+                this.globalFilterValue = this.state.globalFilterValue;
                 this.selectedRowsState = this.state.selectedRowsState;
                 this.pageSelected = this.state.pageSelected;
                 this.rowsPerPage = this.state.rowsPerPage;
@@ -106,7 +106,7 @@ export class KupBox {
         if (this.store && this.stateId) {
             // *** PROPS ***
             this.state.sortBy = this.sortBy;
-            this.state.globalFilterValueState = this.globalFilterValue;
+            this.state.globalFilterValue = this.globalFilterValue;
             this.state.selectedRowsState = this.selectedRows;
             this.state.pageSelected = this.currentPage;
             this.state.rowsPerPage = this.currentRowsPerPage;
@@ -162,13 +162,13 @@ export class KupBox {
      */
     @Prop() enableRowActions: boolean = false;
     /**
-     * Enable filtering
+     * When set to true it activates the global filter.
      */
-    @Prop() filterEnabled: boolean = false;
+    @Prop() globalFilter: boolean = false;
     /**
-     * Global filter value state
+     * The value of the global filter.
      */
-    @Prop({ mutable: true }) globalFilterValueState: string;
+    @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
     /**
      * How the field will be displayed. If not present, a default one will be created.
      */
@@ -229,9 +229,6 @@ export class KupBox {
      * Defines the timeout for tooltip load
      */
     @Prop() tooltipLoadTimeout: number;
-
-    @State()
-    private globalFilterValue = '';
 
     @State()
     private collapsedSection: CollapsedSectionsState = {};
@@ -394,6 +391,7 @@ export class KupBox {
     private filteredRows: BoxRow[] = [];
 
     private tooltip: KupTooltip;
+    private isRestoringState: boolean = false;
 
     @Watch('pageSize')
     rowsPerPageHandler(newValue: number) {
@@ -407,7 +405,9 @@ export class KupBox {
     @Watch('currentPage')
     @Watch('currentRowsPerPage')
     recalculateRows() {
-        this.initRows();
+        if (!this.isRestoringState) {
+            this.initRows();
+        }
     }
 
     @Watch('data')
@@ -440,11 +440,16 @@ export class KupBox {
     componentWillLoad() {
         logLoad(this, false);
 
+        this.isRestoringState = true;
+        // *** Store
+        this.initWithPersistedState();
+        // ***
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
         } else if (this.pageSize) {
             this.currentRowsPerPage = this.pageSize;
         }
+        this.isRestoringState = false;
         setThemeCustomStyle(this);
         this.onDataChanged();
         this.adjustPaginator();
@@ -456,8 +461,6 @@ export class KupBox {
         // When component is created, then the listener is set. @See clickFunction for more details
         document.addEventListener('click', this.clickFunction.bind(this));
 
-        // Initialize @State from @Prop
-        this.globalFilterValue = this.globalFilterValueState;
         this.currentPage = this.pageSelected;
         //        this.currentRowsPerPage = this.rowsPerPage;
 
@@ -527,7 +530,7 @@ export class KupBox {
     private initRows(): void {
         this.filteredRows = this.getRows();
 
-        if (this.filterEnabled && this.globalFilterValue) {
+        if (this.globalFilter && this.globalFilterValue) {
             const visibleCols = this.visibleColumns;
             let size = visibleCols.length;
             let columnNames = [];
@@ -1690,7 +1693,7 @@ export class KupBox {
         }
 
         let filterPanel = null;
-        if (this.filterEnabled) {
+        if (this.globalFilter) {
             filterPanel = (
                 <div id="global-filter">
                     <kup-text-field
@@ -1698,7 +1701,7 @@ export class KupBox {
                         isClearable={true}
                         label="Search..."
                         icon="magnify"
-                        initialValue={this.globalFilterValueState}
+                        initialValue={this.globalFilterValue}
                         onKupTextFieldInput={(event) =>
                             this.onGlobalFilterChange(event)
                         }

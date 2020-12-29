@@ -515,9 +515,6 @@ export class KupDataTable {
 
     private filterForCheckBox: GenericFilter = {};
 
-    private fromGlobalFilterChangeEvent = false;
-    private fromOpenColumnMenuEvent = false;
-
     /**
      * Internal not reactive state used to keep track if a column is being dragged.
      * @private
@@ -1583,7 +1580,6 @@ export class KupDataTable {
         this.resetCurrentPage();
 
         this.globalFilterValue = detail.value;
-        this.fromGlobalFilterChangeEvent = true;
     }
 
     private handlePageChanged({ detail }) {
@@ -1694,7 +1690,6 @@ export class KupDataTable {
     }
 
     private openMenu(column: Column) {
-        this.fromOpenColumnMenuEvent = true;
         this.openedMenu = column.name;
         this.setCheckBoxFilter(column, null);
     }
