@@ -1,4 +1,7 @@
 import { Component, Prop, Event, h, EventEmitter } from '@stencil/core';
+import {
+    getCellValueForDisplay,
+} from '../kup-data-table/kup-data-table-helper';
 
 import { Row, TableData } from '../kup-data-table/kup-data-table-declarations';
 
@@ -103,9 +106,10 @@ export class KupDashList {
             }
 
             if (this.data.columns[3]) {
+                let newValue = getCellValueForDisplay(r.cells[this.data.columns[3].name].value, this.data.columns[3]);
                 value = (
                     <div slot="value" style={valueColor}>
-                        {r.cells[this.data.columns[3].name].obj.k}
+                        {newValue}
                     </div>
                 );
             } else {
@@ -113,9 +117,10 @@ export class KupDashList {
             }
 
             if (this.data.columns[5]) {
+                let newValue = getCellValueForDisplay(r.cells[this.data.columns[5].name].value, this.data.columns[5]);
                 valueInt = (
                     <div slot="value-int" style={valueColor}>
-                        {r.cells[this.data.columns[5].name].obj.k}
+                        {newValue}
                     </div>
                 );
             } else {

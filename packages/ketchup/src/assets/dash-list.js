@@ -38,7 +38,12 @@ dashList.data = {
       {
         "name": "VALUE",
         "size": 0,
-        "title": "Valore"
+        "title": "Valore",
+        "obj": {
+          "t": "NR",
+          "p": "",
+          "k": ""
+        },
       },
       {
         "name": "GROUP",
@@ -76,7 +81,7 @@ dashList.data = {
           },
           "INTVAL": {
             "obj": {
-              "k": "100,"
+              "k": ""
             },
             "options": false,
             "value": "100,"
@@ -97,17 +102,19 @@ dashList.data = {
           },
           "DECVAL": {
             "obj": {
-              "k": "3"
+              "k": ""
             },
             "options": false,
             "value": "3"
           },
           "VALUE": {
             "obj": {
-              "k": "100,3"
+              "t": "NR",
+              "p": "",
+              "k": "100000,3"
             },
             "options": false,
-            "value": "100,3"
+            "value": "100,000.3"
           }
         },
         "object": "",
