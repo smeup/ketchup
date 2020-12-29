@@ -27,11 +27,6 @@ import {
     unformatDateTime,
     formatTime,
 } from '../../utils/utils';
-import {
-    PICKER_COMPONENT_INFO,
-    PICKER_SOURCE_EVENT,
-    PICKER_STATUS,
-} from './kup-time-picker-declarations';
 
 @Component({
     tag: 'kup-time-picker',
@@ -81,7 +76,11 @@ export class KupTimePicker {
     private hoursActive: boolean = true;
     private minutesActive: boolean = false;
     private secondsActive: boolean = false;
-    private status: PICKER_STATUS = {};
+
+    private textfieldEl: any = undefined;
+    private pickerContainerEl: HTMLElement = undefined;
+    private pickerEl: HTMLElement = undefined;
+    private pickerOpened: boolean = false;
 
     //---- Events ----
 
@@ -93,7 +92,6 @@ export class KupTimePicker {
     })
     kupBlur: EventEmitter<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Event({
@@ -104,7 +102,6 @@ export class KupTimePicker {
     })
     kupChange: EventEmitter<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Event({
@@ -115,7 +112,6 @@ export class KupTimePicker {
     })
     kupClick: EventEmitter<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Event({
@@ -126,7 +122,6 @@ export class KupTimePicker {
     })
     kupFocus: EventEmitter<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Event({
@@ -137,7 +132,6 @@ export class KupTimePicker {
     })
     kupInput: EventEmitter<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Event({
@@ -148,7 +142,6 @@ export class KupTimePicker {
     })
     kupIconClick: EventEmitter<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Event({
@@ -159,7 +152,6 @@ export class KupTimePicker {
     })
     kupItemClick: EventEmitter<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Event({
@@ -170,40 +162,38 @@ export class KupTimePicker {
     })
     kupTextFieldSubmit: EventEmitter<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>;
 
     @Listen('keyup', { target: 'document' })
     listenKeyup(e: KeyboardEvent) {
-        let source: PICKER_SOURCE_EVENT = this.getSourceEvent();
-        if (this.isPickerOpened(source)) {
+        if (this.isPickerOpened()) {
             if (e.key === 'Escape') {
-                this.closePicker(source);
+                this.closePicker();
             }
             if (e.key === 'Enter') {
                 e.stopPropagation();
-                this.setPickerValueSelected(source);
+                this.setPickerValueSelected();
             }
         }
     }
 
     onKupTimePickerItemClick(value: string) {
-        let source = PICKER_SOURCE_EVENT.TIME;
-        this.setPickerValueSelected(source, value);
+        this.setPickerValueSelected(value);
 
         this.kupChange.emit({
             value: this.value,
-            source: source,
         });
 
         this.kupItemClick.emit({
             value: this.value,
-            source: source,
         });
     }
 
     @Watch('timeMinutesStep')
     watchTimeMinutesStep() {
+        if (this.clockVariant) {
+            return;
+        }
         if (this.timeMinutesStep <= 0) {
             logMessage(
                 this,
@@ -244,66 +234,62 @@ export class KupTimePicker {
 
     @Method()
     async setFocus() {
-        this.status[PICKER_SOURCE_EVENT.TIME].textfieldEl.setFocus();
+        if (this.textfieldEl != null) {
+            this.textfieldEl.setFocus();
+        }
     }
 
     @Method()
     async setValue(value: string) {
         this.value = value;
-        this.status[PICKER_SOURCE_EVENT.TIME].textfieldEl.setValue(value);
+        if (this.textfieldEl != null) {
+            this.textfieldEl.setValue(value);
+        }
     }
 
-    onKupBlur(e: UIEvent, source: PICKER_SOURCE_EVENT) {
+    onKupBlur(e: UIEvent) {
         e.stopPropagation();
-        this.closePicker(source);
+        this.closePicker();
         this.kupBlur.emit({
             value: this.value,
-            source: source,
         });
     }
 
-    onKupChange(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
-        this.refreshPickerValue(source, e.detail.value, this.kupChange);
+    onKupChange(e: CustomEvent) {
+        this.refreshPickerValue(e.detail.value, this.kupChange);
     }
 
-    onKupClick(e: UIEvent, source: PICKER_SOURCE_EVENT) {
+    onKupClick(e: UIEvent) {
         e.stopPropagation();
         this.kupClick.emit({
             value: this.value,
-            source: source,
         });
     }
 
-    onKupFocus(e: UIEvent, source: PICKER_SOURCE_EVENT) {
+    onKupFocus(e: UIEvent) {
         e.stopPropagation();
         this.kupFocus.emit({
             value: this.value,
-            source: source,
         });
     }
 
-    onKupInput(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
-        this.refreshPickerValue(source, e.detail.value, this.kupInput);
+    onKupInput(e: CustomEvent) {
+        this.refreshPickerValue(e.detail.value, this.kupInput);
     }
 
-    onKupTextFieldSubmit(e: CustomEvent, source: PICKER_SOURCE_EVENT) {
-        this.refreshPickerValue(
-            source,
-            e.detail.value,
-            this.kupTextFieldSubmit
-        );
+    onKupTextFieldSubmit(e: CustomEvent) {
+        this.refreshPickerValue(e.detail.value, this.kupTextFieldSubmit);
     }
 
-    onKupIconClick(e: UIEvent, source: PICKER_SOURCE_EVENT) {
+    onKupIconClick(e: UIEvent) {
         e.stopPropagation();
-        if (this.isPickerOpened(source)) {
-            this.closePicker(source);
+        if (this.isPickerOpened()) {
+            this.closePicker();
         } else {
-            this.openPicker(source);
+            this.openPicker();
         }
         this.kupIconClick.emit({
             value: this.value,
-            source: source,
         });
     }
 
@@ -311,51 +297,28 @@ export class KupTimePicker {
         this.stateSwitcher = !this.stateSwitcher;
     }
 
-    getSourceEvent(): PICKER_SOURCE_EVENT {
-        return PICKER_SOURCE_EVENT.TIME;
-    }
-
-    refreshPickerValue(
-        source: PICKER_SOURCE_EVENT,
-        eventDetailValue: string,
-        eventToRaise: EventEmitter
-    ) {
+    refreshPickerValue(eventDetailValue: string, eventToRaise: EventEmitter) {
         let newValue = null;
-        if (source == PICKER_SOURCE_EVENT.TIME) {
-            if (
-                isValidFormattedStringTime(eventDetailValue, this.manageSeconds)
-            ) {
-                newValue = formattedStringToCustomUnformattedStringTime(
-                    eventDetailValue,
-                    this.manageSeconds
-                        ? ISO_DEFAULT_TIME_FORMAT
-                        : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
-                    this.manageSeconds
-                );
-                this.value = newValue;
-            }
+        if (isValidFormattedStringTime(eventDetailValue, this.manageSeconds)) {
+            newValue = formattedStringToCustomUnformattedStringTime(
+                eventDetailValue,
+                this.manageSeconds
+                    ? ISO_DEFAULT_TIME_FORMAT
+                    : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
+                this.manageSeconds
+            );
+            this.value = newValue;
         }
 
         if (newValue != null) {
-            this.refreshPickerComponentValue(source, newValue);
             eventToRaise.emit({
                 value: newValue,
-                source: source,
             });
         }
     }
 
-    refreshPickerComponentValue(source: PICKER_SOURCE_EVENT, value: string) {
-        if (!this.isPickerOpened(source)) {
-            return;
-        }
-        if (this.status[source].pickerEl) {
-            this.status[source].pickerEl.data = this.createTimeListData(value);
-        }
-    }
-
-    setPickerValueSelected(source: PICKER_SOURCE_EVENT, newValue?: string) {
-        if (!this.isPickerOpened(source)) {
+    setPickerValueSelected(newValue?: string) {
+        if (!this.isPickerOpened()) {
             return;
         }
         if (this.disabled == true) {
@@ -364,43 +327,33 @@ export class KupTimePicker {
         if (newValue == null) {
             newValue = this.getPickerValueSelected();
         }
-        this.closePicker(source);
+        this.closePicker();
         if (newValue == null) {
             return;
         }
-        if (source == PICKER_SOURCE_EVENT.TIME) {
-            this.value = newValue;
-            this.setTextFieldInitalValue(source, this.getTimeForOutput());
-        }
+        this.value = newValue;
+        this.setTextFieldInitalValue(this.getTimeForOutput());
     }
 
-    getPickerValueSelected(/*source: PICKER_SOURCE_EVENT*/): string {
-        //return this.status[source].pickerEl.value;
+    getPickerValueSelected(): string {
         return this.value;
     }
 
-    setTextFieldInitalValue(source: PICKER_SOURCE_EVENT, value: string) {
-        if (this.status[source].textfieldEl !== undefined) {
-            this.status[source].textfieldEl.setValue(value);
+    setTextFieldInitalValue(value: string) {
+        if (this.textfieldEl !== undefined) {
+            this.textfieldEl.setValue(value);
         }
     }
 
-    getValueForPickerComponent(source: PICKER_SOURCE_EVENT) {
-        if (source == PICKER_SOURCE_EVENT.TIME) {
-            return this.value;
-        }
-        return null;
+    getValueForPickerComponent() {
+        return this.value;
     }
 
-    openPicker(source: PICKER_SOURCE_EVENT) {
-        let textfieldEl = this.status[source].textfieldEl;
-        let containerEl = this.status[source].pickerContainerEl;
-        this.status[source].pickerOpened = true;
+    openPicker() {
+        let textfieldEl = this.textfieldEl;
+        let containerEl = this.pickerContainerEl;
+        this.pickerOpened = true;
         this.setClockViewActive(true, false, false);
-        this.refreshPickerComponentValue(
-            source,
-            this.getValueForPickerComponent(source)
-        );
 
         let textFieldWidth = null;
         if (textfieldEl != null) {
@@ -422,10 +375,10 @@ export class KupTimePicker {
         this.forceUpdate();
     }
 
-    closePicker(source: PICKER_SOURCE_EVENT) {
-        let textfieldEl = this.status[source].textfieldEl;
-        let containerEl = this.status[source].pickerContainerEl;
-        this.status[source].pickerOpened = false;
+    closePicker() {
+        let textfieldEl = this.textfieldEl;
+        let containerEl = this.pickerContainerEl;
+        this.pickerOpened = false;
         if (textfieldEl != null) {
             textfieldEl.classList.remove('toggled');
             textfieldEl.emitSubmitEventOnEnter = true;
@@ -436,25 +389,23 @@ export class KupTimePicker {
         }
     }
 
-    isPickerOpened(source: PICKER_SOURCE_EVENT): boolean {
-        return this.status[source].pickerOpened;
+    isPickerOpened(): boolean {
+        return this.pickerOpened;
     }
 
-    getTextFieldId(source: PICKER_SOURCE_EVENT): string {
-        return this.status[source].textfieldEl.id;
+    getTextFieldId(): string {
+        return this.textfieldEl.id;
     }
 
-    getPickerElId(source: PICKER_SOURCE_EVENT): string {
-        return this.status[source].pickerEl.id;
+    getPickerElId(): string {
+        return this.pickerEl.id;
     }
 
-    prepTimeTextfield(): PICKER_COMPONENT_INFO {
-        let source = PICKER_SOURCE_EVENT.TIME;
-        let ret: PICKER_COMPONENT_INFO = this.prepTextfield(source);
-        return ret;
+    prepTimeTextfield(): any {
+        return this.prepTextfield();
     }
 
-    prepTextfield(source: PICKER_SOURCE_EVENT): PICKER_COMPONENT_INFO {
+    prepTextfield(): any {
         let textfieldData = { ...this.data['kup-text-field'] };
 
         if (!textfieldData['icon']) {
@@ -465,31 +416,23 @@ export class KupTimePicker {
             textfieldData['trailingIcon'] = true;
         }
 
-        let ref: PICKER_COMPONENT_INFO = { type: source };
-
         let comp: HTMLElement = (
             <kup-text-field
                 {...textfieldData}
                 disabled={this.disabled}
                 id={this.rootElement.id + '_text-field'}
                 initialValue={this.value}
-                onKupTextFieldChange={(e: any) => this.onKupChange(e, source)}
-                onKupTextFieldClick={(e: any) => this.onKupClick(e, source)}
-                onKupTextFieldFocus={(e: any) => this.onKupFocus(e, source)}
-                onKupTextFieldInput={(e: any) => this.onKupInput(e, source)}
-                onKupTextFieldIconClick={(e: any) =>
-                    this.onKupIconClick(e, source)
-                }
-                onKupTextFieldSubmit={(e: any) =>
-                    this.onKupTextFieldSubmit(e, source)
-                }
-                ref={(el) => (this.status[source].textfieldEl = el as any)}
+                onKupTextFieldChange={(e: any) => this.onKupChange(e)}
+                onKupTextFieldClick={(e: any) => this.onKupClick(e)}
+                onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
+                onKupTextFieldInput={(e: any) => this.onKupInput(e)}
+                onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
+                onKupTextFieldSubmit={(e: any) => this.onKupTextFieldSubmit(e)}
+                ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );
 
-        ref.kupComponent = comp;
-        ref.type = source;
-        return ref;
+        return comp;
     }
 
     isRelatedTargetInThisComponent(e: any): boolean {
@@ -500,10 +443,10 @@ export class KupTimePicker {
         if (id == null || id.trim() == '') {
             return false;
         }
-        if (id == this.getTextFieldId(PICKER_SOURCE_EVENT.TIME)) {
+        if (id == this.getTextFieldId()) {
             return true;
         }
-        if (id == this.getPickerElId(PICKER_SOURCE_EVENT.TIME)) {
+        if (id == this.getPickerElId()) {
             return true;
         }
 
@@ -517,8 +460,8 @@ export class KupTimePicker {
         if (this.manageSeconds) {
             text += ':' + this.secondsEl.innerText;
         }
-        this.setPickerValueSelected(this.getSourceEvent(), text);
-        this.closePicker(this.getSourceEvent());
+        this.setPickerValueSelected(text);
+        this.closePicker();
     }
 
     private createClock() {
@@ -549,7 +492,6 @@ export class KupTimePicker {
                 ss = '0' + ss;
             }
         }
-
         let seconds: HTMLElement;
         let time: JSX.Element[] = [
             <span
@@ -559,9 +501,8 @@ export class KupTimePicker {
                     this.setClockViewActive(true, false, false);
                     this.switchView(this.hoursEl, this.hoursCircleEl);
                 }}
-            >
-                {hh}
-            </span>,
+                innerHTML={hh}
+            ></span>,
             ':',
             <span
                 class="m"
@@ -570,9 +511,8 @@ export class KupTimePicker {
                     this.setClockViewActive(false, true, false);
                     this.switchView(this.minutesEl, this.minutesCircleEl);
                 }}
-            >
-                {mm}
-            </span>,
+                innerHTML={mm}
+            ></span>,
         ];
         if (this.manageSeconds) {
             seconds = (
@@ -593,9 +533,8 @@ export class KupTimePicker {
                         this.setClockViewActive(false, false, true);
                         this.switchView(this.secondsEl, this.secondsCircleEl);
                     }}
-                >
-                    {ss}
-                </span>
+                    innerHTML={ss}
+                ></span>
             );
         }
 
@@ -603,9 +542,7 @@ export class KupTimePicker {
             <div
                 class="clock"
                 id={this.rootElement.id + '_clock'}
-                ref={(el) =>
-                    (this.status[this.getSourceEvent()].pickerEl = el as any)
-                }
+                ref={(el) => (this.pickerEl = el as any)}
             >
                 <div class="top">{time}</div>
                 <div
@@ -770,7 +707,6 @@ export class KupTimePicker {
     }
 
     prepTimePicker() {
-        let source = PICKER_SOURCE_EVENT.TIME;
         let widget: HTMLElement = undefined;
 
         if (this.clockVariant) {
@@ -785,7 +721,7 @@ export class KupTimePicker {
                         this.onKupTimePickerItemClick(e.detail.selected.value)
                     }
                     id={this.rootElement.id + '_list'}
-                    ref={(el) => (this.status[source].pickerEl = el as any)}
+                    ref={(el) => (this.pickerEl = el as any)}
                 ></kup-list>
             );
         }
@@ -794,13 +730,11 @@ export class KupTimePicker {
             <div
                 tabindex="-1"
                 id="time-picker-div"
-                ref={(el) =>
-                    (this.status[source].pickerContainerEl = el as any)
-                }
+                ref={(el) => (this.pickerContainerEl = el as any)}
                 onBlur={(e: any) => {
                     e.stopPropagation();
                     if (!this.isRelatedTargetInThisComponent(e)) {
-                        this.onKupBlur(e, this.getSourceEvent());
+                        this.onKupBlur(e);
                     }
                 }}
             >
@@ -868,16 +802,9 @@ export class KupTimePicker {
         return v1;
     }
 
-    recalcPosition(source: PICKER_SOURCE_EVENT) {
-        if (
-            this.status[source] &&
-            this.status[source].pickerContainerEl != null &&
-            this.status[source].textfieldEl != null
-        ) {
-            positionRecalc(
-                this.status[source].pickerContainerEl,
-                this.status[source].textfieldEl
-            );
+    recalcPosition() {
+        if (this.pickerContainerEl != null && this.textfieldEl != null) {
+            positionRecalc(this.pickerContainerEl, this.textfieldEl);
         }
     }
     //---- Lifecycle hooks ----
@@ -885,9 +812,6 @@ export class KupTimePicker {
     componentWillLoad() {
         logLoad(this, false);
         setThemeCustomStyle(this);
-        this.status[PICKER_SOURCE_EVENT.TIME] = {
-            pickerOpened: false,
-        };
 
         this.watchTimeMinutesStep();
         this.value = this.initialValue;
@@ -917,29 +841,16 @@ export class KupTimePicker {
                 this.switchView(this.secondsEl, this.secondsCircleEl);
             }
         }
-        let source = PICKER_SOURCE_EVENT.TIME;
-        this.recalcPosition(source);
+        this.recalcPosition();
         logRender(this, true);
     }
 
     render() {
-        let timeTextfieldEl: PICKER_COMPONENT_INFO = this.prepTimeTextfield();
-
-        let style = null;
-        if (timeTextfieldEl != null && timeTextfieldEl.style != null) {
-            style = {
-                ...timeTextfieldEl.style,
-            };
-        }
-
         return (
-            <Host
-                style={style}
-                onBlur={(e) => this.onKupBlur(e, this.getSourceEvent())}
-            >
+            <Host onBlur={(e) => this.onKupBlur(e)}>
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component" style={style}>
-                    {timeTextfieldEl.kupComponent}
+                <div id="kup-component">
+                    {this.prepTimeTextfield()}
                     {this.prepTimePicker()}
                 </div>
             </Host>

@@ -16,7 +16,6 @@ import { ComponentChipElement } from "./components/kup-chip/kup-chip-declaration
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
-import { PICKER_SOURCE_EVENT } from "./components/kup-date-picker/kup-date-picker-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { CssDraw } from "./components/kup-image/kup-image-declarations";
@@ -25,7 +24,6 @@ import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarat
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-import { PICKER_SOURCE_EVENT as PICKER_SOURCE_EVENT1 } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
@@ -2879,35 +2877,27 @@ declare namespace LocalJSX {
         "initialValue"?: string;
         "onKupDatePickerBlur"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerChange"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerFocus"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerIconClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerInput"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerItemClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerTextFieldSubmit"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
     }
     interface KupDrawer {
@@ -3758,35 +3748,27 @@ declare namespace LocalJSX {
         "manageSeconds"?: boolean;
         "onKupTimePickerBlur"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerChange"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerFocus"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerIconClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerInput"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerItemClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerTextFieldSubmit"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         /**
           * Minutes step
