@@ -180,6 +180,8 @@ const sortBox = document.getElementById('sort-box');
 if (sortBox != null) {
     sortBox.data = sortBoxData;
     sortBox.sortEnabled = true;
+    sortBox.globalFilter = true;
+    sortBox.globalFilterValue = "2018";
 }
 
 let graphicsBoxData = {

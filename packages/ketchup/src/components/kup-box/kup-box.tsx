@@ -391,7 +391,6 @@ export class KupBox {
     private filteredRows: BoxRow[] = [];
 
     private tooltip: KupTooltip;
-    private isRestoringState: boolean = false;
 
     @Watch('pageSize')
     rowsPerPageHandler(newValue: number) {
@@ -405,9 +404,7 @@ export class KupBox {
     @Watch('currentPage')
     @Watch('currentRowsPerPage')
     recalculateRows() {
-        if (!this.isRestoringState) {
-            this.initRows();
-        }
+        this.initRows();
     }
 
     @Watch('data')
@@ -440,16 +437,11 @@ export class KupBox {
     componentWillLoad() {
         logLoad(this, false);
 
-        this.isRestoringState = true;
-        // *** Store
-        this.initWithPersistedState();
-        // ***
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
         } else if (this.pageSize) {
             this.currentRowsPerPage = this.pageSize;
         }
-        this.isRestoringState = false;
         setThemeCustomStyle(this);
         this.onDataChanged();
         this.adjustPaginator();
