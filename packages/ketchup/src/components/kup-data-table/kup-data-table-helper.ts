@@ -1181,25 +1181,29 @@ export function styleHasWritingMode(cell: Cell): boolean {
     );
 }
 
-export function getCellValueForDisplay(value, column: Column): string {
-    if (value != null && value != '' && isNumber(column.obj)) {
+export function getValueForDisplay(value, obj, decimals: number): string {
+    if (value != null && value != '' && isNumber(obj)) {
         return unformattedStringToFormattedStringNumber(
             value,
-            column.decimals ? column.decimals : -1,
-            column.obj ? column.obj.p : ''
+            decimals ? decimals : -1,
+            obj ? obj.p : ''
         );
     }
     if (
         value != null &&
         value != '' &&
-        isDate(column.obj) &&
+        isDate(obj) &&
         isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)
     ) {
-        return unformattedStringToFormattedStringDate(
-            value,
-            null,
-            column.obj.p
-        );
+        return unformattedStringToFormattedStringDate(value, null, obj.p);
     }
     return value;
+}
+
+export function getCellValueForDisplay(value, column: Column): string {
+    return getValueForDisplay(
+        value,
+        column != null ? column.obj : null,
+        column != null ? column.decimals : null
+    );
 }

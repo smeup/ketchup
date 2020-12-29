@@ -51,6 +51,7 @@ import {
     filterRows,
     sortRows,
     paginateRows,
+    getValueForDisplay,
 } from '../kup-data-table/kup-data-table-helper';
 
 import { ComponentCardElement } from '../kup-card/kup-card-declarations';
@@ -393,6 +394,7 @@ export class KupBox {
     private filteredRows: BoxRow[] = [];
 
     private tooltip: KupTooltip;
+
     @Watch('pageSize')
     rowsPerPageHandler(newValue: number) {
         this.currentRowsPerPage = newValue;
@@ -1443,10 +1445,11 @@ export class KupBox {
         let boStyle = {};
         //let boInnerHTML = null;
         let cell = null;
+        let column: Column = null;
         let _hasTooltip = false;
         if (boxObject.column) {
             cell = row.cells[boxObject.column];
-
+            column = null;
             if (cell) {
                 _hasTooltip = hasTooltip(cell.obj);
                 // removing column from visibleColumns
@@ -1462,6 +1465,7 @@ export class KupBox {
                 }
 
                 if (index >= 0) {
+                    column = visibleColumns[index];
                     visibleColumns.splice(index, 1);
                 }
 
@@ -1583,7 +1587,11 @@ export class KupBox {
                         boContent = undefined;
                     }
                 } else {
-                    boContent = cell.value;
+                    boContent = getValueForDisplay(
+                        cell.value,
+                        cell.obj,
+                        column != null ? column.decimals : null
+                    );
                 }
             }
         } else if (boxObject.value) {
