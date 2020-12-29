@@ -87,7 +87,7 @@
     "dark": {
         "cssVariables": {
             "--kup-primary-color": "#82f0e2",
-            "--kup-secondary-color": "#ffe600",
+            "--kup-secondary-color": "#f9ff00",
             "--kup-background-color": "#2d2d2d",
             "--kup-nav-bar-background-color": "#2d2d2d",
             "--kup-drawer-background-color": "#1f1f1f",
