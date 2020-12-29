@@ -352,7 +352,8 @@ export default {
         },
         {
           class: 'layout-fixed',
-          description: 'Sets a fixed layout to improve performances.',
+          description:
+            'Sets a fixed layout to improve performances (especially when using Google Chrome).',
         },
       ],
     };

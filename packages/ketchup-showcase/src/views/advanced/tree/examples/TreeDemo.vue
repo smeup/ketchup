@@ -171,6 +171,11 @@ export default {
             'The component will be rendered using the secondary color of the app.',
         },
         {
+          class: 'layout-fixed',
+          description:
+            'Sets a fixed layout to improve performances (especially when using Google Chrome).',
+        },
+        {
           class: 'shaped',
           description:
             'The right border of the cells will be shaped. It only applies when showColumns prop is set to false. ',

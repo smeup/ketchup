@@ -2,8 +2,9 @@
 // Component classes              //
 //--------------------------------//
 :host(.layout-fixed) {
-  table {
+  #kup-component table {
     table-layout: fixed;
+    width: 100%;
   }
 }
 
