@@ -2,7 +2,7 @@
     "bubbles": {
         "cssVariables": {
             "--kup-primary-color": "#c18f00",
-            "--kup-secondary-color": "#beb08d",
+            "--kup-secondary-color": "#1d1d1d",
             "--kup-background-color": "#ffffff",
             "--kup-nav-bar-background-color": "#beb08d",
             "--kup-drawer-background-color": "#ffffff",
