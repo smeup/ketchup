@@ -807,6 +807,7 @@ export class KupTimePicker {
             positionRecalc(this.pickerContainerEl, this.textfieldEl);
         }
     }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -846,8 +847,27 @@ export class KupTimePicker {
     }
 
     render() {
+        let hostClass: Record<string, boolean> = {};
+
+        if (
+            this.data &&
+            this.data['kup-text-field'] &&
+            this.data['kup-text-field']['className'] &&
+            this.data['kup-text-field']['className'].indexOf('full-height') > -1
+        ) {
+            hostClass['full-height'] = true;
+        }
+
+        if (
+            this.data &&
+            this.data['kup-text-field'] &&
+            this.data['kup-text-field']['fullWidth']
+        ) {
+            hostClass['full-width'] = true;
+        }
+
         return (
-            <Host onBlur={(e) => this.onKupBlur(e)}>
+            <Host class={hostClass} onBlur={(e) => this.onKupBlur(e)}>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     {this.prepTimeTextfield()}
