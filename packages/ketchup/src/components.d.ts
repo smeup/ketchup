@@ -11,11 +11,12 @@ import { ComponentCardElement } from "./components/kup-card/kup-card-declaration
 import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
-import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartType } from "./components/kup-chart/kup-chart-declarations";
+import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { ComponentChipElement } from "./components/kup-chip/kup-chip-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
+import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { CssDraw } from "./components/kup-image/kup-image-declarations";
@@ -296,6 +297,10 @@ export namespace Components {
          */
         "axis": string;
         /**
+          * Title of the graph.
+         */
+        "chartTitle": ChartTitle;
+        /**
           * Colors of the chart.
          */
         "colors": string[];
@@ -307,18 +312,6 @@ export namespace Components {
           * The actual data of the chart.
          */
         "data": DataTable;
-        /**
-          * Title of the graph.
-         */
-        "graphTitle": string;
-        /**
-          * Title of the graph's color.
-         */
-        "graphTitleColor": string;
-        /**
-          * Size of title of the graph (in pixels).
-         */
-        "graphTitleSize": number;
         /**
           * Customize the hAxis.
          */
@@ -752,6 +745,10 @@ export namespace Components {
          */
         "axis": string;
         /**
+          * Title of the graph.
+         */
+        "chartTitle": EchartTitle;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle": string;
@@ -759,18 +756,6 @@ export namespace Components {
           * The actual data of the chart.
          */
         "data": object;
-        /**
-          * Title of the graph.
-         */
-        "graphTitle": string;
-        /**
-          * Title of the graph's color.
-         */
-        "graphTitleColor": string;
-        /**
-          * Size of title of the graph (in pixels).
-         */
-        "graphTitleSize": number;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
@@ -784,10 +769,6 @@ export namespace Components {
           * The data series to be displayed. They must be of the same type.
          */
         "series": string[];
-        /**
-          * Title position
-         */
-        "titlePosition": string;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */
@@ -2319,6 +2300,10 @@ declare namespace LocalJSX {
          */
         "axis"?: string;
         /**
+          * Title of the graph.
+         */
+        "chartTitle"?: ChartTitle;
+        /**
           * Colors of the chart.
          */
         "colors"?: string[];
@@ -2330,18 +2315,6 @@ declare namespace LocalJSX {
           * The actual data of the chart.
          */
         "data"?: DataTable;
-        /**
-          * Title of the graph.
-         */
-        "graphTitle"?: string;
-        /**
-          * Title of the graph's color.
-         */
-        "graphTitleColor"?: string;
-        /**
-          * Size of title of the graph (in pixels).
-         */
-        "graphTitleSize"?: number;
         /**
           * Customize the hAxis.
          */
@@ -2918,6 +2891,10 @@ declare namespace LocalJSX {
          */
         "axis"?: string;
         /**
+          * Title of the graph.
+         */
+        "chartTitle"?: EchartTitle;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle"?: string;
@@ -2925,18 +2902,6 @@ declare namespace LocalJSX {
           * The actual data of the chart.
          */
         "data"?: object;
-        /**
-          * Title of the graph.
-         */
-        "graphTitle"?: string;
-        /**
-          * Title of the graph's color.
-         */
-        "graphTitleColor"?: string;
-        /**
-          * Size of title of the graph (in pixels).
-         */
-        "graphTitleSize"?: number;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
@@ -2950,10 +2915,6 @@ declare namespace LocalJSX {
           * The data series to be displayed. They must be of the same type.
          */
         "series"?: string[];
-        /**
-          * Title position
-         */
-        "titlePosition"?: string;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */
