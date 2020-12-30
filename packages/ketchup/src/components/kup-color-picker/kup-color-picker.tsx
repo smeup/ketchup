@@ -109,7 +109,9 @@ export class KupColorPicker {
 
     private setHexValue() {
         if (this.value) {
-            this.value = colorCheck(this.value).hexColor;
+            if (this.value.indexOf('#') < 0) {
+                this.value = colorCheck(this.value).hexColor;
+            }
             if (
                 this.picker &&
                 this.value &&
@@ -128,22 +130,29 @@ export class KupColorPicker {
         if (!textfieldData['icon']) {
             textfieldData['icon'] = 'brightness-1';
         }
-        if (!textfieldData['customStyle']) {
-            textfieldData['customStyle'] = customStyle;
-        } else {
-            textfieldData['customStyle'] += customStyle;
-        }
         if (textfieldData['trailingIcon'] === undefined) {
             textfieldData['trailingIcon'] = true;
         }
-        if (!this.value) {
+
+        if (this.value === '') {
+            initialValue = this.value;
+            textfieldData['icon'] = '';
+        } else if (!this.value) {
             let message = 'Invalid color: ' + this.value;
-            logMessage(this, message, 'warning');
             initialValue = message;
             textfieldData['icon'] = 'warning';
+            textfieldData['title'] = 'Invalid color: ' + this.value;
         } else {
             initialValue = this.value;
+            if (textfieldData['icon'] === 'brightness-1') {
+                if (!textfieldData['customStyle']) {
+                    textfieldData['customStyle'] = customStyle;
+                } else {
+                    textfieldData['customStyle'] += customStyle;
+                }
+            }
         }
+
         return (
             <kup-text-field
                 {...textfieldData}
@@ -173,52 +182,48 @@ export class KupColorPicker {
         const root = this.rootElement.shadowRoot;
 
         if (root) {
-            if (this.value) {
-                this.picker = new Picker({
-                    alpha: false,
-                    color: this.value,
-                    parent: this.anchorEl,
-                });
-                this.picker['kupColorPicker'] = this;
-                this.picker['onChange'] = function (color) {
-                    let colorPicker = this['kupColorPicker'];
-                    colorPicker.setValue(color.hex.substr(0, 7));
+            this.picker = new Picker({
+                alpha: false,
+                color: this.value,
+                parent: this.anchorEl,
+            });
+            this.picker['kupColorPicker'] = this;
+            this.picker['onChange'] = function (color) {
+                let colorPicker = this['kupColorPicker'];
+                colorPicker.setValue(color.hex.substr(0, 7));
 
-                    colorPicker.kupChange.emit({
-                        value: colorPicker.value,
-                    });
-                };
-                this.picker['onClose'] = function (color) {
-                    let colorPicker = this['kupColorPicker'];
-                    colorPicker.setValue(color.hex.substr(0, 7));
-                    colorPicker.dropdownEl.classList.remove(
+                colorPicker.kupChange.emit({
+                    value: colorPicker.value,
+                });
+            };
+            this.picker['onClose'] = function (color) {
+                let colorPicker = this['kupColorPicker'];
+                colorPicker.setValue(color.hex.substr(0, 7));
+                colorPicker.dropdownEl.classList.remove(
+                    'dynamic-position-active'
+                );
+
+                colorPicker.kupChange.emit({
+                    value: colorPicker.value,
+                });
+            };
+            this.picker['onOpen'] = function () {
+                let colorPicker = this['kupColorPicker'];
+                if (!colorPicker.dropdownEl) {
+                    colorPicker.dropdownEl = this[
+                        'kupColorPicker'
+                    ].rootElement.shadowRoot.querySelector('.picker_wrapper');
+                    positionRecalc(
+                        colorPicker.dropdownEl,
+                        colorPicker.anchorEl
+                    );
+                }
+                if (!colorPicker.disabled) {
+                    colorPicker.dropdownEl.classList.add(
                         'dynamic-position-active'
                     );
-
-                    colorPicker.kupChange.emit({
-                        value: colorPicker.value,
-                    });
-                };
-                this.picker['onOpen'] = function () {
-                    let colorPicker = this['kupColorPicker'];
-                    if (!colorPicker.dropdownEl) {
-                        colorPicker.dropdownEl = this[
-                            'kupColorPicker'
-                        ].rootElement.shadowRoot.querySelector(
-                            '.picker_wrapper'
-                        );
-                        positionRecalc(
-                            colorPicker.dropdownEl,
-                            colorPicker.anchorEl
-                        );
-                    }
-                    if (!colorPicker.disabled) {
-                        colorPicker.dropdownEl.classList.add(
-                            'dynamic-position-active'
-                        );
-                    }
-                };
-            }
+                }
+            };
         }
         logLoad(this, true);
     }
@@ -236,6 +241,7 @@ export class KupColorPicker {
     }
 
     render() {
+        let hostClass: Record<string, boolean> = {};
         let widget: HTMLElement = undefined;
         if (this.swatchOnly) {
             widget = (
@@ -251,8 +257,26 @@ export class KupColorPicker {
         } else {
             widget = this.prepTextField();
         }
+
+        if (
+            this.data &&
+            this.data['kup-text-field'] &&
+            this.data['kup-text-field']['className'] &&
+            this.data['kup-text-field']['className'].indexOf('full-height') > -1
+        ) {
+            hostClass['full-height'] = true;
+        }
+
+        if (
+            this.data &&
+            this.data['kup-text-field'] &&
+            this.data['kup-text-field']['fullWidth']
+        ) {
+            hostClass['full-width'] = true;
+        }
+
         return (
-            <Host>
+            <Host class={hostClass}>
                 <style>{setCustomStyle(this)}</style>
                 <div
                     id="kup-component"

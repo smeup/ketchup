@@ -443,8 +443,31 @@ export class KupAutocomplete {
     }
 
     render() {
+        let hostClass: Record<string, boolean> = {};
+
+        if (
+            this.data &&
+            this.data['kup-text-field'] &&
+            this.data['kup-text-field']['className'] &&
+            this.data['kup-text-field']['className'].indexOf('full-height') > -1
+        ) {
+            hostClass['full-height'] = true;
+        }
+
+        if (
+            this.data &&
+            this.data['kup-text-field'] &&
+            this.data['kup-text-field']['fullWidth']
+        ) {
+            hostClass['full-width'] = true;
+        }
+
         return (
-            <Host onBlur={(e: any) => this.onKupBlur(e)} style={this.elStyle}>
+            <Host
+                class={hostClass}
+                onBlur={(e: any) => this.onKupBlur(e)}
+                style={this.elStyle}
+            >
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
                     {this.prepTextfield()}
