@@ -157,7 +157,13 @@ export class imageCanvas {
         const y = this.canvas.clientHeight - elemHeight;
 
         if (!elem.isTrasparent()) {
-            this.drawRect(startX, y, elemWidth, elemHeight, elem.getColor());
+            this.drawRect(
+                startX,
+                y,
+                elemWidth - startX,
+                elemHeight,
+                elem.getColor()
+            );
         }
 
         return elemWidth;

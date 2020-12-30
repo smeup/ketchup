@@ -80,6 +80,11 @@ export default {
             'When the striped class is active, the stripes will be animated.',
         },
         {
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
           class: 'padded',
           description: 'Adds padding to the progress bar.',
         },

@@ -291,7 +291,7 @@ export class KupNavBar {
                 if (action.visible == true) {
                     let button = (
                         <kup-button
-                            customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
+                            customStyle={`:host{ --kup-primary-color: ${this.textColor}; }`}
                             icon={action.icon}
                             title={action.tooltip}
                             onKupButtonClick={() =>
@@ -314,7 +314,7 @@ export class KupNavBar {
         if (optionsButtons.length > 0) {
             let button = (
                 <kup-button
-                    customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
+                    customStyle={`:host{ --kup-primary-color: ${this.textColor}; }`}
                     icon="more_vert"
                     title="Options"
                     onKupButtonClick={() => this.openList(this.optionsListEl)}
@@ -330,7 +330,7 @@ export class KupNavBar {
             let action = this.data.menuAction;
             menuButton = (
                 <kup-button
-                    customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
+                    customStyle={`:host{ --kup-primary-color: ${this.textColor}; }`}
                     icon={action.icon}
                     title={action.tooltip}
                     onKupButtonClick={() =>
@@ -350,7 +350,7 @@ export class KupNavBar {
             }
             menuButton = (
                 <kup-button
-                    customStyle={`:host{ --kup-main-color: ${this.textColor}; }`}
+                    customStyle={`:host{ --kup-primary-color: ${this.textColor}; }`}
                     icon="menu"
                     title="Open navigation menu"
                     disabled={menuButtons.length == 0}

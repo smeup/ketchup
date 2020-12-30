@@ -67,7 +67,7 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-button
-            custom-style="#kup-component button { color: transparent; } #kup-component button:hover { color: var(--kup-text-on-main-color); }"
+            custom-style="#kup-component button { color: transparent; } #kup-component button:hover { color: var(--kup-text-on-primary-color); }"
             label="Now you see me"
           ></kup-button>
         </div>
@@ -196,7 +196,7 @@ export default {
         '#kup-component .mdc-chip:first-child { background-color: blue; color: pink; } #kup-component .mdc-chip:first-child kup-image { --kup-icon-color: pink; }',
 
       markup5:
-        '#kup-component button { color: transparent; } #kup-component button:hover { color: var(--kup-text-on-main-color); }',
+        '#kup-component button { color: transparent; } #kup-component button:hover { color: var(--kup-text-on-primary-color); }',
       markup6:
         '#kup-component .mdc-checkbox.mdc-checkbox--checked .mdc-checkbox__background { animation: rotate 2s infinite; } @-webkit-keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }} @keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }',
       markup7: '#kup-component .mdc-tab__text-label { font-style: italic; }',

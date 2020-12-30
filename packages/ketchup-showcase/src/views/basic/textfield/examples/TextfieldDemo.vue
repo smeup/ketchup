@@ -50,10 +50,6 @@ export default {
           type: 'click',
         },
         {
-          name: 'kupTextFieldRendered',
-          type: 'render',
-        },
-        {
           name: 'kupTextFieldSubmit',
           type: 'click',
         },
@@ -81,14 +77,6 @@ export default {
             "When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.",
           type: 'boolean',
           default: 'true',
-          try: 'switch',
-        },
-        {
-          prop: 'forceFocus',
-          description:
-            'Defaults at false. When set to true, the component will be focused.',
-          type: 'boolean',
-          default: 'false',
           try: 'switch',
         },
         {
@@ -219,6 +207,11 @@ export default {
           class: 'full-height',
           description:
             'The text field will fill all the available vertical space.',
+        },
+        {
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
       ],
     };

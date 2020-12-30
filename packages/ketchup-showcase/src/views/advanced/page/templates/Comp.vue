@@ -11,14 +11,14 @@
         v-if="giturl !== undefined"
       >
         <kup-image
-          color="var(--kup-main-color)"
+          color="var(--kup-primary-color)"
           size-x="32px"
           size-y="32px"
           resource="github"
         ></kup-image>
         <span class="github-text">View on GitHub</span>
         <kup-image
-          color="var(--kup-main-color)"
+          color="var(--kup-primary-color)"
           size-x="16px"
           size-y="16px"
           resource="open-in-new"

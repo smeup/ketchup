@@ -60,18 +60,18 @@
   position: relative;
   width: 100%;
 
-  &.text-color-on-main {
+  &.text-color-on-primary {
     & .progress-bar-percentage {
-      color: var(--kup-text-on-main-color);
+      color: var(--kup-text-on-primary-color);
       & span {
-        color: var(--kup-text-on-main-color);
+        color: var(--kup-text-on-primary-color);
       }
     }
   }
 }
 
 .progress-bar-percentage {
-  background: var(--kup-main-color);
+  background: var(--kup-primary-color);
   border-radius: 4px;
   color: var(--kup-text-color);
   height: 1.25rem;
@@ -93,7 +93,7 @@
     display: block;
     height: 1.25rem;
     &:not(.is-image) {
-      background-color: var(--kup-text-on-main-color);
+      background-color: var(--kup-text-on-primary-color);
     }
     img {
       width: auto;
@@ -136,7 +136,7 @@
 
       &.has-value {
         & .half-circle {
-          border-color: var(--kup-main-color);
+          border-color: var(--kup-primary-color);
           &.left-side {
             transition: transform 0.2s ease;
           }
@@ -190,7 +190,7 @@
         object-fit: cover;
         margin: auto;
         &:not(.is-image) {
-          background-color: var(--kup-main-color);
+          background-color: var(--kup-primary-color);
         }
         img {
           width: auto;

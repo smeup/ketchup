@@ -1,6 +1,10 @@
 <template>
   <div>
-    <demo :demoComp="demoComp" :demoProps="demoProps"></demo>
+    <demo
+      :demoComp="demoComp"
+      :demoProps="demoProps"
+      :demoClasses="demoClasses"
+    ></demo>
   </div>
 </template>
 
@@ -45,6 +49,13 @@ export default {
           type: 'boolean',
           default: 'true',
           try: 'switch',
+        },
+      ],
+      demoClasses: [
+        {
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
       ],
     };

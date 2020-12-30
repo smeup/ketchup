@@ -515,9 +515,6 @@ export class KupDataTable {
 
     private filterForCheckBox: GenericFilter = {};
 
-    private fromGlobalFilterChangeEvent = false;
-    private fromOpenColumnMenuEvent = false;
-
     /**
      * Internal not reactive state used to keep track if a column is being dragged.
      * @private
@@ -1583,13 +1580,6 @@ export class KupDataTable {
         this.resetCurrentPage();
 
         this.globalFilterValue = detail.value;
-        this.fromGlobalFilterChangeEvent = true;
-    }
-
-    private onTextFieldRendered({ detail }, doIt: boolean) {
-        if (detail.field != null && doIt == true) {
-            detail.field.setFocus();
-        }
     }
 
     private handlePageChanged({ detail }) {
@@ -1700,7 +1690,6 @@ export class KupDataTable {
     }
 
     private openMenu(column: Column) {
-        this.fromOpenColumnMenuEvent = true;
         this.openedMenu = column.name;
         this.setCheckBoxFilter(column, null);
     }
@@ -2317,14 +2306,6 @@ export class KupDataTable {
                                         this.onFilterChange(e, column);
                                         this.closeMenuAndTooltip();
                                     }}
-                                    onKupTextFieldRendered={(event) => {
-                                        /** stange: it doesn't work.... WHY? */
-                                        this.onTextFieldRendered(
-                                            event,
-                                            this.fromOpenColumnMenuEvent
-                                        );
-                                        this.fromOpenColumnMenuEvent = false;
-                                    }}
                                 ></kup-text-field>
                             </li>
                         );
@@ -2930,6 +2911,7 @@ export class KupDataTable {
                             onKupButtonClick={(e) => {
                                 this.onRowActionExpanderClick(e, row);
                             }}
+                            onClick={(e) => e.stopPropagation()}
                         />
                     );
                 }
@@ -3131,6 +3113,7 @@ export class KupDataTable {
                             type,
                         });
                     }}
+                    onClick={(e) => e.stopPropagation()}
                 />
             );
         });
@@ -3211,8 +3194,12 @@ export class KupDataTable {
             );
         }
 
+        let cellTitle = null;
+        if (cell.title != null && cell.title.trim() != '') {
+            cellTitle = cell.title;
+        }
         return (
-            <span class={classObj} style={style}>
+            <span class={classObj} style={style} title={cellTitle}>
                 {indend}
                 {icon}
                 {content}
@@ -3700,12 +3687,12 @@ export class KupDataTable {
             label: 'Font size',
             icon: 'arrow_drop_down',
         };
+        let data = { 'text-field': textfieldData, list: listData };
         return (
             <div class="customize-element fontsize-panel">
                 <kup-combobox
                     isSelect={true}
-                    listData={listData}
-                    textfieldData={textfieldData}
+                    data={data}
                     onKupComboboxItemClick={(e: CustomEvent) => {
                         e.stopPropagation();
                         this.fontsize = this.getFontSizeCodeFromDecode(
@@ -3757,13 +3744,14 @@ export class KupDataTable {
             label: 'Row density',
             icon: 'arrow_drop_down',
         };
+
+        let data = { 'text-field': textfieldData, list: listData };
         return (
             <div class="customize-element density-panel">
                 <kup-combobox
                     isSelect={true}
                     selectMode={ItemsDisplayMode.DESCRIPTION}
-                    listData={listData}
-                    textfieldData={textfieldData}
+                    data={data}
                     onKupComboboxItemClick={(e: CustomEvent) => {
                         e.stopPropagation();
                         this.density = this.getDensityCodeFromDecode(
@@ -3810,12 +3798,12 @@ export class KupDataTable {
             label: 'Grid type',
             icon: 'arrow_drop_down',
         };
+        let data = { 'text-field': textfieldData, list: listData };
         return (
             <div class="customize-element grid-panel">
                 <kup-combobox
                     isSelect={true}
-                    listData={listData}
-                    textfieldData={textfieldData}
+                    data={data}
                     onKupComboboxItemClick={(e: CustomEvent) => {
                         e.stopPropagation();
                         let grid: any = this.getGridCodeFromDecode(
@@ -3893,13 +3881,6 @@ export class KupDataTable {
                         onKupTextFieldClearIconClick={(event) =>
                             this.onGlobalFilterChange(event)
                         }
-                        onKupTextFieldRendered={(event) => {
-                            this.onTextFieldRendered(
-                                event,
-                                this.fromGlobalFilterChangeEvent
-                            );
-                            this.fromGlobalFilterChangeEvent = false;
-                        }}
                     />
                 </div>
             );
@@ -4027,10 +4008,8 @@ export class KupDataTable {
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
-                    <div class="above-wrapper">
-                        {paginatorTop}
-                        {globalFilter}
-                    </div>
+                    <div class="above-wrapper">{paginatorTop}</div>
+                    {globalFilter}
                     <div
                         style={elStyle}
                         class={belowClass}

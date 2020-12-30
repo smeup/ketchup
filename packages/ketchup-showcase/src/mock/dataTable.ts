@@ -172,6 +172,7 @@ export const defaultDataTable = {
             k: 'Shareholders module',
           },
           value: 'Shareholders module',
+          title: 'Simple tooltip for cell 1',
           options: true,
         },
         FLD2: {
@@ -181,6 +182,7 @@ export const defaultDataTable = {
             k: '1',
           },
           value: '1',
+          title: 'Simple tooltip for cell 2',
         },
         FLD3: {
           obj: {
@@ -189,6 +191,7 @@ export const defaultDataTable = {
             k: '100.60',
           },
           value: '100.60',
+          title: 'Simple tooltip for cell 3',
         },
         FLD4: {
           obj: {
@@ -197,6 +200,7 @@ export const defaultDataTable = {
             k: '20200101',
           },
           value: '01/01/2020',
+          title: 'Simple tooltip for cell 4',
         },
       },
     },

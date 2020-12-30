@@ -130,10 +130,10 @@ export class KupProgressBar {
         if (!this.centeredLabel) {
             labelStyle = valueStyle;
             if (this.value > 2) {
-                componentClass += ' text-color-on-main';
+                componentClass += ' text-color-on-primary';
             }
         } else if (this.value > 49) {
-            componentClass += ' text-color-on-main';
+            componentClass += ' text-color-on-primary';
         }
 
         let label = null;

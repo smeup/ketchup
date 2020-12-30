@@ -9,7 +9,7 @@
       </p>
       <div class="demo-container">
         <div class="kup-container">
-          <kup-color-picker value="red" disabled></kup-color-picker>
+          <kup-color-picker initial-value="red" disabled></kup-color-picker>
         </div>
         <p class="centered">Disabled sample markup</p>
         <code class="flat">{{ markupDisabled }}</code>

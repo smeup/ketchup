@@ -622,7 +622,7 @@
         "BTN": {
           "data": {
             "icon": "pencil",
-            "customStyle": ":host{--kup-main-color: purple;}"
+            "customStyle": ":host{--kup-primary-color: purple;}"
           },
           "value": "pencil",
           "obj": {
@@ -694,7 +694,7 @@
         },
         "BTN": {
           "data": {
-            "customStyle": ":host{--kup-main-color: purple;}",
+            "customStyle": ":host{--kup-primary-color: purple;}",
             "icon": "pencil",
             "label": "Edit"
           },
@@ -768,7 +768,7 @@
         },
         "BTN": {
           "data": {
-            "customStyle": ":host{--kup-main-color: purple;}",
+            "customStyle": ":host{--kup-primary-color: purple;}",
             "label": "Edit"
           },
           "value": "Edit",

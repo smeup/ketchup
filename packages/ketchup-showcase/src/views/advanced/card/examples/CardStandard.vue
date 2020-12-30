@@ -143,8 +143,8 @@
         <br />
         <span class="code-word">- text1, text2, text3, text4, text5, text6</span
         >: Generic text, check the mock-up below to see how they are positioned.
-        <span class="code-word">text2</span> is colored with the main color of
-        the app.
+        <span class="code-word">text2</span> is colored with the primary color
+        of the app.
         <br />
       </p>
       <br />
@@ -423,7 +423,7 @@ export default {
           data: [
             {
               shape: 'bar',
-              color: 'var(--kup-main-color)',
+              color: 'var(--kup-primary-color)',
               width: '100%',
               height: '100%',
             },
@@ -434,7 +434,7 @@ export default {
           data: [
             {
               shape: 'bar',
-              color: 'var(--kup-main-color)',
+              color: 'var(--kup-primary-color)',
               width: '100%',
               height: '100%',
             },

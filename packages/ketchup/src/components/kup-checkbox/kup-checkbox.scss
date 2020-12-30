@@ -16,15 +16,15 @@
   }
   .mdc-checkbox__checkmark,
   .mdc-checkbox__mixedmark {
-    color: var(--kup-text-on-main-color);
+    color: var(--kup-text-on-primary-color);
   }
   &.mdc-checkbox--checked .mdc-checkbox__background,
   &.mdc-checkbox--indeterminate .mdc-checkbox__background {
-    background-color: var(--kup-main-color);
-    border-color: var(--kup-main-color);
+    background-color: var(--kup-primary-color);
+    border-color: var(--kup-primary-color);
   }
   &.mdc-checkbox--indeterminate .mdc-checkbox__mixedmark {
-    border-color: var(--kup-text-on-main-color);
+    border-color: var(--kup-text-on-primary-color);
   }
   &.mdc-checkbox--disabled .mdc-checkbox__background {
     background-color: transparent;

@@ -51,7 +51,7 @@ function getThemes() {
       themeWrapper.onclick = function () {
         setTheme(themeWrapper.id);
       };
-      themeImage.color = variables['--kup-main-color'];
+      themeImage.color = variables['--kup-primary-color'];
       themeImage.sizeX = '70px';
       themeImage.sizeY = '70px';
       themeImage.resource = 'widgets';
