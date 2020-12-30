@@ -109,7 +109,9 @@ export class KupColorPicker {
 
     private setHexValue() {
         if (this.value) {
-            this.value = colorCheck(this.value).hexColor;
+            if (this.value.indexOf('#') < 0) {
+                this.value = colorCheck(this.value).hexColor;
+            }
             if (
                 this.picker &&
                 this.value &&
@@ -128,22 +130,29 @@ export class KupColorPicker {
         if (!textfieldData['icon']) {
             textfieldData['icon'] = 'brightness-1';
         }
-        if (!textfieldData['customStyle']) {
-            textfieldData['customStyle'] = customStyle;
-        } else {
-            textfieldData['customStyle'] += customStyle;
-        }
         if (textfieldData['trailingIcon'] === undefined) {
             textfieldData['trailingIcon'] = true;
         }
-        if (!this.value) {
+
+        if (this.value === '') {
+            initialValue = this.value;
+            textfieldData['icon'] = '';
+        } else if (!this.value) {
             let message = 'Invalid color: ' + this.value;
-            logMessage(this, message, 'warning');
             initialValue = message;
             textfieldData['icon'] = 'warning';
+            textfieldData['title'] = 'Invalid color: ' + this.value;
         } else {
             initialValue = this.value;
+            if (textfieldData['icon'] === 'brightness-1') {
+                if (!textfieldData['customStyle']) {
+                    textfieldData['customStyle'] = customStyle;
+                } else {
+                    textfieldData['customStyle'] += customStyle;
+                }
+            }
         }
+
         return (
             <kup-text-field
                 {...textfieldData}
