@@ -25,11 +25,11 @@ import {
     unformatDateTime,
     unformattedStringToFormattedStringDate,
     unformattedStringToFormattedStringNumber,
-    isNumber as isNumberThisString,
     isValidFormattedStringDate,
     formattedStringToDefaultUnformattedStringDate,
     formattedStringToUnformattedStringNumber,
     isValidFormattedStringNumber,
+    unformattedStringNumberToNumber,
 } from '../../utils/utils';
 import {
     isFilterCompliantForValue,
@@ -427,7 +427,10 @@ export function isFilterCompliantForCell(cellValue: Cell, filterValue: string) {
     let value = cellValue.value;
 
     if (isNumber(cellValue.obj)) {
-        value = normalizeValue(value, cellValue.obj);
+        value = unformattedStringNumberToNumber(
+            value,
+            cellValue.obj ? cellValue.obj.p : ''
+        );
     }
     if (isDate(cellValue.obj)) {
         if (

@@ -123,13 +123,13 @@ export namespace Components {
          */
         "enableRowActions": boolean;
         /**
-          * Enable filtering
+          * When set to true it activates the global filter.
          */
-        "filterEnabled": boolean;
+        "globalFilter": boolean;
         /**
-          * Global filter value state
+          * The value of the global filter.
          */
-        "globalFilterValueState": string;
+        "globalFilterValue": string;
         /**
           * How the field will be displayed. If not present, a default one will be created.
          */
@@ -1542,9 +1542,13 @@ export namespace Components {
          */
         "expanded": boolean;
         /**
-          * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
+          * When set to true it activates the global filter.
          */
-        "filterValue": string;
+        "globalFilter": boolean;
+        /**
+          * The value of the global filter.
+         */
+        "globalFilterValue": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Activates the scroll on hover function.
@@ -1558,10 +1562,6 @@ export namespace Components {
           * Shows the tree data as a table.
          */
         "showColumns": boolean;
-        /**
-          * When set to true enables the tree nodes filter.
-         */
-        "showFilter": boolean;
         /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns
@@ -2034,13 +2034,13 @@ declare namespace LocalJSX {
          */
         "enableRowActions"?: boolean;
         /**
-          * Enable filtering
+          * When set to true it activates the global filter.
          */
-        "filterEnabled"?: boolean;
+        "globalFilter"?: boolean;
         /**
-          * Global filter value state
+          * The value of the global filter.
          */
-        "globalFilterValueState"?: string;
+        "globalFilterValue"?: string;
         /**
           * How the field will be displayed. If not present, a default one will be created.
          */
@@ -3863,9 +3863,13 @@ declare namespace LocalJSX {
          */
         "expanded"?: boolean;
         /**
-          * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
+          * When set to true it activates the global filter.
          */
-        "filterValue"?: string;
+        "globalFilter"?: boolean;
+        /**
+          * The value of the global filter.
+         */
+        "globalFilterValue"?: string;
         "onKupDidLoad"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when stop propagation event
@@ -3937,10 +3941,6 @@ declare namespace LocalJSX {
           * Shows the tree data as a table.
          */
         "showColumns"?: boolean;
-        /**
-          * When set to true enables the tree nodes filter.
-         */
-        "showFilter"?: boolean;
         /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns

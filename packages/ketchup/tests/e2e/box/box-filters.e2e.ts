@@ -24,11 +24,11 @@ describe('box filters', () => {
 
         const elm = await page.find('kup-box');
         elm.setProperty('data', defaultData);
-        elm.setProperty('filterEnabled', true);
+        elm.setProperty('globalFilter', true);
 
         // await page.$eval('kup-box', (elm: any) => {
         //     elm.setProperty('data', defaultData);
-        //     elm.setProperty('filterEnabled', true);
+        //     elm.setProperty('globalFilter', true);
         // });
 
         await page.waitForChanges();
