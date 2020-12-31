@@ -111,7 +111,8 @@ export function getItemByValue(
             }
             if (
                 !found &&
-                listData['data'][i].value.toLowerCase() == value.toLowerCase()
+                listData['data'][i].value.toString().toLowerCase() ==
+                    value.toString().toLowerCase()
             ) {
                 item = listData['data'][i];
                 item.selected = true;
@@ -125,7 +126,10 @@ export function getItemByValue(
             if (listData['data'][i].isSeparator == true) {
                 continue;
             }
-            if (listData['data'][i].text.toLowerCase() == value.toLowerCase()) {
+            if (
+                listData['data'][i].text.toString().toLowerCase() ==
+                value.toString().toLowerCase()
+            ) {
                 item = listData['data'][i];
                 item.selected = true;
                 found = true;
@@ -160,7 +164,11 @@ export function getItemByDisplayMode(
             if (setSelected == true) {
                 listData['data'][i].selected = false;
             }
-            if (!found && displayedValue.toLowerCase() == value.toLowerCase()) {
+            if (
+                !found &&
+                displayedValue.toString().toLowerCase() ==
+                    value.toString().toLowerCase()
+            ) {
                 item = listData['data'][i];
                 item.selected = true;
                 found = true;
