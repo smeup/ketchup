@@ -391,6 +391,7 @@ export class KupBox {
     private filteredRows: BoxRow[] = [];
 
     private tooltip: KupTooltip;
+    private globalFilterTimeout: number;
 
     @Watch('pageSize')
     rowsPerPageHandler(newValue: number) {
@@ -1664,7 +1665,6 @@ export class KupBox {
             });
             const items = [{ text: '', value: '' }, ...visibleColumnsItems];
             let textfieldData = {
-                initialValue: this.sortBy,
                 label: 'Sort by',
                 trailingIcon: true,
             };
@@ -1673,11 +1673,15 @@ export class KupBox {
                 selectable: true,
             };
 
-            let data = { 'text-field': textfieldData, list: listData };
+            let data = {
+                'kup-text-field': textfieldData,
+                'kup-list': listData,
+            };
             sortPanel = (
                 <div id="sort-panel">
                     <kup-combobox
                         data={data}
+                        initialValue={this.sortBy}
                         onKupComboboxItemClick={(e) => this.onSortChange(e)}
                     />
                 </div>
@@ -1694,9 +1698,13 @@ export class KupBox {
                         label="Search..."
                         icon="magnify"
                         initialValue={this.globalFilterValue}
-                        onKupTextFieldInput={(event) =>
-                            this.onGlobalFilterChange(event)
-                        }
+                        onKupTextFieldInput={(event) => {
+                            window.clearTimeout(this.globalFilterTimeout);
+                            this.globalFilterTimeout = window.setTimeout(
+                                () => this.onGlobalFilterChange(event),
+                                300
+                            );
+                        }}
                         onKupTextFieldClearIconClick={(event) =>
                             this.onGlobalFilterChange(event)
                         }

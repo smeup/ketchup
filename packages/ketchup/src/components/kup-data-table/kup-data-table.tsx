@@ -571,6 +571,8 @@ export class KupDataTable {
     private iconPaths: [{ icon: string; path: string }] = undefined;
     private isSafariBrowser: boolean = false;
     private isRestoringState: boolean = false;
+    private globalFilterTimeout: number;
+    private columnFilterTimeout: number;
 
     /**
      * When component unload is complete
@@ -2296,10 +2298,16 @@ export class KupDataTable {
                                     icon="magnify"
                                     initialValue={filterInitialValue}
                                     onKupTextFieldInput={(e) => {
-                                        this.onCheckBoxFilterChange(e, column);
+                                        window.clearTimeout(
+                                            this.columnFilterTimeout
+                                        );
+                                        this.columnFilterTimeout = window.setTimeout(
+                                            () =>
+                                                this.onFilterChange(e, column),
+                                            300
+                                        );
                                     }}
-                                    onKupTextFieldSubmit={(e) => {
-                                        this.onFilterChange(e, column);
+                                    onKupTextFieldSubmit={() => {
                                         this.closeMenuAndTooltip();
                                     }}
                                     onKupTextFieldClearIconClick={(e) => {
@@ -3872,16 +3880,17 @@ export class KupDataTable {
                         label="Search..."
                         icon="magnify"
                         initialValue={this.globalFilterValue}
-                        onKupTextFieldInput={(event) =>
-                            this.onGlobalFilterChange(event)
-                        }
-                        onKupTextFieldSubmit={(event) =>
-                            this.onGlobalFilterChange(event)
-                        }
+                        onKupTextFieldInput={(event) => {
+                            window.clearTimeout(this.globalFilterTimeout);
+                            this.globalFilterTimeout = window.setTimeout(
+                                () => this.onGlobalFilterChange(event),
+                                300
+                            );
+                        }}
                         onKupTextFieldClearIconClick={(event) =>
                             this.onGlobalFilterChange(event)
                         }
-                    />
+                    ></kup-text-field>
                 </div>
             );
         }
