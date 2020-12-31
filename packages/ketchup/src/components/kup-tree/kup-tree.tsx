@@ -204,6 +204,7 @@ export class KupTree {
     private selectedColumn: string = '';
     private clickTimeout: any[] = [];
     private iconPaths: [{ icon: string; path: string }] = undefined;
+    private globalFilterTimeout: number;
 
     //-------- Events --------
     /**
@@ -740,7 +741,7 @@ export class KupTree {
         return strToRet;
     }
 
-    onFilterChange(event: CustomEvent) {
+    onGlobalFilterChange(event: CustomEvent) {
         this.globalFilterValue = event.detail.value;
     }
 
@@ -1504,18 +1505,21 @@ export class KupTree {
             filterField = (
                 <div id="global-filter">
                     <kup-text-field
-                        class="filter"
                         fullWidth={true}
                         isClearable={true}
                         label="Search..."
                         icon="magnify"
                         initialValue={this.globalFilterValue}
-                        onKupTextFieldInput={(e) => {
-                            this.onFilterChange(e);
+                        onKupTextFieldInput={(event) => {
+                            window.clearTimeout(this.globalFilterTimeout);
+                            this.globalFilterTimeout = window.setTimeout(
+                                () => this.onGlobalFilterChange(event),
+                                300
+                            );
                         }}
-                        onKupTextFieldClearIconClick={(e) => {
-                            this.onFilterChange(e);
-                        }}
+                        onKupTextFieldClearIconClick={(event) =>
+                            this.onGlobalFilterChange(event)
+                        }
                     ></kup-text-field>
                 </div>
             );
