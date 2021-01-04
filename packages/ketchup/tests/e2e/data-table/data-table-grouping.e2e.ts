@@ -10,6 +10,7 @@ import {
 } from './data-table-selectors';
 
 import { GroupLabelDisplayMode } from '../../../src/components/kup-data-table/kup-data-table-declarations';
+import { unformattedStringToFormattedStringNumber } from '../../../src/utils/utils';
 
 const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';
 
@@ -488,8 +489,25 @@ describe('grouping on complex objects', () => {
 
         expect(rows).toHaveLength(3);
 
-        expect(rows[0]).toEqualText('67.80');
-        expect(rows[1]).toEqualText('100.60');
-        expect(rows[2]).toEqualText('120.06');
+        let cellValue: string;
+        cellValue = unformattedStringToFormattedStringNumber('67.80', 2, '');
+        //expect(rows[0]).toEqualText(cellValue);
+        expect(
+            rows[0].textContent == cellValue.replace(RegExp(/\./g), ',') ||
+                rows[0].textContent == cellValue.replace(RegExp(/,/g), '.')
+        ).toBeTruthy();
+
+        cellValue = unformattedStringToFormattedStringNumber('100.60', 2, '');
+        //expect(rows[1]).toEqualText(cellValue);
+        expect(
+            rows[1].textContent == cellValue.replace(RegExp(/\./g), ',') ||
+                rows[1].textContent == cellValue.replace(RegExp(/,/g), '.')
+        ).toBeTruthy();
+        cellValue = unformattedStringToFormattedStringNumber('120.06', 2, '');
+        //expect(rows[2]).toEqualText(cellValue);
+        expect(
+            rows[2].textContent == cellValue.replace(RegExp(/\./g), ',') ||
+                rows[2].textContent == cellValue.replace(RegExp(/,/g), '.')
+        ).toBeTruthy();
     });
 });

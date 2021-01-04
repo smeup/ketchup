@@ -345,7 +345,7 @@ export const calendarData = {
             p: '*YYMD',
             k: '20190101',
           },
-          value: '01/01/2019',
+          value: '2019-01-01',
         },
         Col2: {
           obj: {
@@ -365,7 +365,7 @@ export const calendarData = {
             p: '*YYMD',
             k: '20190603',
           },
-          value: '03/06/2019',
+          value: '2019-06-03',
         },
         Col2: {
           obj: {
@@ -385,7 +385,7 @@ export const calendarData = {
             p: '*YYMD',
             k: '20191212',
           },
-          value: '12/12/2019',
+          value: '2019-12-12',
         },
         Col2: {
           obj: {
@@ -405,7 +405,7 @@ export const calendarData = {
             p: '*YYMD',
             k: '20190725',
           },
-          value: '25/07/2019',
+          value: '2019-07-25',
         },
         Col2: {
           obj: {
@@ -425,7 +425,7 @@ export const calendarData = {
             p: '*YYMD',
             k: '20190903',
           },
-          value: '03/09/2019',
+          value: '2019-09-03',
         },
         Col2: {
           obj: {
@@ -445,7 +445,7 @@ export const calendarData = {
             p: '*YYMD',
             k: '20190518',
           },
-          value: '18/05/2019',
+          value: '2019-05-18',
         },
         Col2: {
           obj: {
@@ -465,7 +465,7 @@ export const calendarData = {
             p: '*YYMD',
             k: '20190415',
           },
-          value: '15/04/2019',
+          value: '2019-04-15',
         },
         Col2: {
           obj: {
