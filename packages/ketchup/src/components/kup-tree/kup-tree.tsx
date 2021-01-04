@@ -741,8 +741,12 @@ export class KupTree {
         return strToRet;
     }
 
-    onGlobalFilterChange(event: CustomEvent) {
-        this.globalFilterValue = event.detail.value;
+    onGlobalFilterChange({ detail }) {
+        let value = '';
+        if (detail && detail.value) {
+            value = detail.value;
+        }
+        this.globalFilterValue = value;
     }
 
     private setAllVisible(items: TreeNode[]) {
@@ -1134,13 +1138,25 @@ export class KupTree {
                     const cellValueNumber: number = stringToNumber(cell.value);
                     const cellValue = getCellValueForDisplay(
                         cell.value,
-                        column
+                        column,
+                        cell
                     );
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;
                     }
                     return <span class="text">{cellValue}</span>;
                 }
+                return content;
+            case 'date':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(
+                        cell.value,
+                        column,
+                        cell
+                    );
+                    return <span class="text">{cellValue}</span>;
+                }
+                return content;
             case 'string':
             default:
                 return <span class="text">{content}</span>;

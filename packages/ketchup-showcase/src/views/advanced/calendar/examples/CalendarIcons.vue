@@ -74,7 +74,7 @@ export default {
                   p: '*YYMD',
                   k: '20190919',
                 },
-                value: '19/09/2019',
+                value: '2019-09-19',
               },
               descr: {
                 obj: {
@@ -124,7 +124,7 @@ export default {
                   p: '*YYMD',
                   k: '20190919',
                 },
-                value: '19/09/2019',
+                value: '2019-09-19',
               },
               descr: {
                 obj: {

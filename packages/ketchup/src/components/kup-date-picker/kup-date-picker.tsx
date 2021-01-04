@@ -660,9 +660,9 @@ export class KupDatePicker {
                     'data-index':
                         date.getFullYear().toString() +
                         '-' +
-                        (monthCount + 1).toString() +
+                        fillString((monthCount + 1).toString(), '0', 2, true) +
                         '-' +
-                        date.getDate(),
+                        fillString(date.getDate().toString(), '0', 2, true),
                 };
                 if (
                     monthCount === selecteDate.getMonth() &&
@@ -723,9 +723,14 @@ export class KupDatePicker {
                     'data-index':
                         yearCount.toString() +
                         '-' +
-                        (date.getMonth() + 1).toString() +
+                        fillString(
+                            (date.getMonth() + 1).toString(),
+                            '0',
+                            2,
+                            true
+                        ) +
                         '-' +
-                        date.getDate(),
+                        fillString(date.getDate().toString(), '0', 2, true),
                 };
                 if (yearCount === selecteDate.getFullYear()) {
                     yearClass += ' selected';
