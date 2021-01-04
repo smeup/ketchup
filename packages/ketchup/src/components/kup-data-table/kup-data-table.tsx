@@ -1581,7 +1581,11 @@ export class KupDataTable {
         // resetting current page
         this.resetCurrentPage();
 
-        this.globalFilterValue = detail.value;
+        let value = '';
+        if (detail && detail.value) {
+            value = detail.value;
+        }
+        this.globalFilterValue = value;
     }
 
     private handlePageChanged({ detail }) {

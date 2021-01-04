@@ -612,7 +612,11 @@ export class KupBox {
     }
 
     private onGlobalFilterChange({ detail }) {
-        this.globalFilterValue = detail.value;
+        let value = '';
+        if (detail && detail.value) {
+            value = detail.value;
+        }
+        this.globalFilterValue = value;
     }
 
     private isSectionExpanded(row: BoxRow, section: Section): boolean {

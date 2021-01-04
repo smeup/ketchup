@@ -741,8 +741,12 @@ export class KupTree {
         return strToRet;
     }
 
-    onGlobalFilterChange(event: CustomEvent) {
-        this.globalFilterValue = event.detail.value;
+    onGlobalFilterChange({ detail }) {
+        let value = '';
+        if (detail && detail.value) {
+            value = detail.value;
+        }
+        this.globalFilterValue = value;
     }
 
     private setAllVisible(items: TreeNode[]) {
