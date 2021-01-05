@@ -468,9 +468,40 @@ describe('grouping on complex objects', () => {
 
         expect(rows).toHaveLength(3);
 
-        expect(rows[0]).toEqualText('01/03/2018');
-        expect(rows[1]).toEqualText('01/06/2018');
-        expect(rows[2]).toEqualText('01/12/2018');
+        let cellValue1: string;
+        let cellValue2: string;
+        let htmlCellValue: string;
+        // workaround problem in formatting dates with the same locale browser/IT
+        // locale it-IT
+        cellValue1 = '01/03/2018';
+        // locale en-US
+        cellValue2 = '03/01/2018';
+        htmlCellValue = rows[0].textContent;
+
+        //expect(rows[0]).toEqualText(cellValue);
+        expect(
+            htmlCellValue == cellValue1 || htmlCellValue == cellValue2
+        ).toBeTruthy();
+        // locale it-IT
+        cellValue1 = '01/06/2018';
+        // locale en-US
+        cellValue2 = '06/01/2018';
+        htmlCellValue = rows[1].textContent;
+
+        //expect(rows[1]).toEqualText(cellValue);
+        expect(
+            htmlCellValue == cellValue1 || htmlCellValue == cellValue2
+        ).toBeTruthy();
+        // locale it-IT
+        cellValue1 = '01/12/2018';
+        // locale en-US
+        cellValue2 = '12/01/2018';
+        htmlCellValue = rows[2].textContent;
+
+        //expect(rows[2]).toEqualText(cellValue);
+        expect(
+            htmlCellValue == cellValue1 || htmlCellValue == cellValue2
+        ).toBeTruthy();
     });
 
     it('group on number', async () => {
