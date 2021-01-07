@@ -112,7 +112,7 @@ export class KupDashList {
                 let col = this.data.columns[3];
                 col.obj = r.cells[this.data.columns[3].name].obj;
 
-                let newValue = getCellValueForDisplay(r.cells[this.data.columns[3].name].value, col);
+                let newValue = getCellValueForDisplay(r.cells[this.data.columns[3].name].value, col, r.cells[this.data.columns[5].name]);
                 value = (
                     <div slot="value" style={valueColor}>
                         {newValue}
@@ -126,7 +126,11 @@ export class KupDashList {
                 let col = this.data.columns[5];
                 col.obj = r.cells[this.data.columns[5].name].obj;
 
-                let newValue = getCellValueForDisplay(r.cells[this.data.columns[5].name].value, col) + getSeparator(getCurrentLocale(), "decimal");
+                let newValue = getCellValueForDisplay(r.cells[this.data.columns[5].name].value, col, r.cells[this.data.columns[5].name]);
+                if(this.data.columns[6] && r.cells[this.data.columns[6].name].obj.k){
+                    newValue = newValue + getSeparator(getCurrentLocale(), "decimal"); 
+                    console.log("Nuovo valore " + newValue);
+                }
                 valueInt = (
                     <div slot="value-int" style={valueColor}>
                         {newValue}
