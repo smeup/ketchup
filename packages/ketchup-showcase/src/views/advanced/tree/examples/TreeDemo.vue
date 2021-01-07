@@ -99,11 +99,17 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'filterValue',
-          description:
-            'Allows to set initial filter for tree nodes, manages the filter on tree nodes',
+          prop: 'globalFilter',
+          description: 'When set to true it activates the global filter.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'globalFilterValue',
+          description: 'The value of the global filter.',
           type: 'string',
-          default: '""',
+          default: '',
           try: 'field',
         },
         {
@@ -125,13 +131,6 @@ export default {
         {
           prop: 'showColumns',
           description: 'Shows the tree data as a table.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'showFilter',
-          description: 'When set to true enables the tree nodes filter.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -169,6 +168,11 @@ export default {
           class: 'kup-secondary-color',
           description:
             'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'layout-fixed',
+          description:
+            'Sets a fixed layout to improve performances (especially when using Google Chrome).',
         },
         {
           class: 'shaped',

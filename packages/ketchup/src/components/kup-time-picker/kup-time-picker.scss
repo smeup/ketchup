@@ -2,6 +2,20 @@
   display: block;
 }
 
+:host(.full-width) {
+  width: 100%;
+  #kup-component {
+    width: 100%;
+  }
+}
+
+:host(.full-height) {
+  height: 100%;
+  #kup-component {
+    height: 100%;
+  }
+}
+
 #time-picker-div {
   display: none;
   outline: none;

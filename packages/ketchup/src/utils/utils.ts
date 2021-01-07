@@ -303,11 +303,35 @@ export function unformattedStringToFormattedStringNumber(
 /**
  * @param input number as string, formatted by actual browser locale
  * @param type - type of number for calculate suffix
- * @returns number as string, formatted by locale US, decimal separator . (like java decimal numbers)
+ * @returns number as string, formatted by locale US, decimal separator . (like java decimal numbers), without group separator
  **/
 export function formattedStringToUnformattedStringNumber(
     input: string,
     type: string
+): string {
+    return numberStringToNumberString(
+        input,
+        type,
+        getDecimalSeparator(getCurrentLocale())
+    );
+}
+
+/**
+ * @param input number as string, formatted by locale US, decimal separator . (like java decimal numbers), with group separator
+ * @param type - type of number for calculate suffix
+ * @returns number as string, formatted by locale US, decimal separator . (like java decimal numbers), without group separator
+ **/
+export function unformattedStringNumberToNumber(
+    input: string,
+    type: string
+): string {
+    return numberStringToNumberString(input, type, '.');
+}
+
+function numberStringToNumberString(
+    input: string,
+    type: string,
+    decFmt: string
 ): string {
     if (input == null || input.trim() == '') {
         return '';
@@ -317,7 +341,6 @@ export function formattedStringToUnformattedStringNumber(
     if (suffix != '') {
         input = input.replace(suffix, '');
     }
-    let decFmt: string = getDecimalSeparator(getCurrentLocale());
     let regExpr: RegExp = null;
     if (decFmt == '.') {
         regExpr = /,/g;

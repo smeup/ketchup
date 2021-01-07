@@ -19,6 +19,7 @@ import {
     ChartAxis,
     ChartOfflineMode,
     ChartSerie,
+    ChartTitle,
 } from './kup-chart-declarations';
 
 import { ResizeObserver } from 'resize-observer';
@@ -81,15 +82,7 @@ export class KupChart {
     /**
      * Title of the graph.
      */
-    @Prop() graphTitle: string;
-    /**
-     * Title of the graph's color.
-     */
-    @Prop() graphTitleColor: string;
-    /**
-     * Size of title of the graph (in pixels).
-     */
-    @Prop() graphTitleSize: number;
+    @Prop() chartTitle: ChartTitle;
     /**
      * Customize the hAxis.
      */
@@ -281,18 +274,18 @@ export class KupChart {
             opts.isStacked = true;
         }
 
-        if (this.graphTitle) {
-            opts.title = this.graphTitle;
+        if (this.chartTitle) {
+            opts.title = this.chartTitle.value;
 
             opts.titleTextStyle = {};
-            if (this.graphTitleColor) {
-                opts.titleTextStyle.color = this.graphTitleColor;
+            if (this.chartTitle.color) {
+                opts.titleTextStyle.color = this.chartTitle.color;
             } else {
                 opts.titleTextStyle.color = this.themeText;
             }
 
-            if (this.graphTitleSize) {
-                opts.titleTextStyle.fontSize = this.graphTitleSize;
+            if (this.chartTitle.size) {
+                opts.titleTextStyle.fontSize = this.chartTitle.size;
             }
         }
 

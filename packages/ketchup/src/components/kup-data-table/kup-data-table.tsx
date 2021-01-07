@@ -515,9 +515,6 @@ export class KupDataTable {
 
     private filterForCheckBox: GenericFilter = {};
 
-    private fromGlobalFilterChangeEvent = false;
-    private fromOpenColumnMenuEvent = false;
-
     /**
      * Internal not reactive state used to keep track if a column is being dragged.
      * @private
@@ -574,6 +571,8 @@ export class KupDataTable {
     private iconPaths: [{ icon: string; path: string }] = undefined;
     private isSafariBrowser: boolean = false;
     private isRestoringState: boolean = false;
+    private globalFilterTimeout: number;
+    private columnFilterTimeout: number;
 
     /**
      * When component unload is complete
@@ -1582,8 +1581,11 @@ export class KupDataTable {
         // resetting current page
         this.resetCurrentPage();
 
-        this.globalFilterValue = detail.value;
-        this.fromGlobalFilterChangeEvent = true;
+        let value = '';
+        if (detail && detail.value) {
+            value = detail.value;
+        }
+        this.globalFilterValue = value;
     }
 
     private handlePageChanged({ detail }) {
@@ -1694,7 +1696,6 @@ export class KupDataTable {
     }
 
     private openMenu(column: Column) {
-        this.fromOpenColumnMenuEvent = true;
         this.openedMenu = column.name;
         this.setCheckBoxFilter(column, null);
     }
@@ -2289,7 +2290,8 @@ export class KupDataTable {
                         if (!filterFromCheckBoxFilter) {
                             filterInitialValue = getCellValueForDisplay(
                                 filterInitialValue,
-                                column
+                                column,
+                                null
                             );
                         }
                         columnMenuItems.push(
@@ -2301,10 +2303,16 @@ export class KupDataTable {
                                     icon="magnify"
                                     initialValue={filterInitialValue}
                                     onKupTextFieldInput={(e) => {
-                                        this.onCheckBoxFilterChange(e, column);
+                                        window.clearTimeout(
+                                            this.columnFilterTimeout
+                                        );
+                                        this.columnFilterTimeout = window.setTimeout(
+                                            () =>
+                                                this.onFilterChange(e, column),
+                                            300
+                                        );
                                     }}
-                                    onKupTextFieldSubmit={(e) => {
-                                        this.onFilterChange(e, column);
+                                    onKupTextFieldSubmit={() => {
                                         this.closeMenuAndTooltip();
                                     }}
                                     onKupTextFieldClearIconClick={(e) => {
@@ -2346,7 +2354,7 @@ export class KupDataTable {
                                     label = '(*unchecked)';
                                 }
                             } else {
-                                label = getCellValueForDisplay(v, column);
+                                label = getCellValueForDisplay(v, column, null);
                             }
 
                             checkboxItems.push(
@@ -3484,7 +3492,8 @@ export class KupDataTable {
                     const cellValueNumber: number = stringToNumber(cell.value);
                     const cellValue = getCellValueForDisplay(
                         cell.value,
-                        column
+                        column,
+                        cell
                     );
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;
@@ -3496,7 +3505,8 @@ export class KupDataTable {
                 if (content && content != '') {
                     const cellValue = getCellValueForDisplay(
                         cell.value,
-                        column
+                        column,
+                        cell
                     );
                     return cellValue;
                 }
@@ -3877,16 +3887,17 @@ export class KupDataTable {
                         label="Search..."
                         icon="magnify"
                         initialValue={this.globalFilterValue}
-                        onKupTextFieldInput={(event) =>
-                            this.onGlobalFilterChange(event)
-                        }
-                        onKupTextFieldSubmit={(event) =>
-                            this.onGlobalFilterChange(event)
-                        }
+                        onKupTextFieldInput={(event) => {
+                            window.clearTimeout(this.globalFilterTimeout);
+                            this.globalFilterTimeout = window.setTimeout(
+                                () => this.onGlobalFilterChange(event),
+                                300
+                            );
+                        }}
                         onKupTextFieldClearIconClick={(event) =>
                             this.onGlobalFilterChange(event)
                         }
-                    />
+                    ></kup-text-field>
                 </div>
             );
         }

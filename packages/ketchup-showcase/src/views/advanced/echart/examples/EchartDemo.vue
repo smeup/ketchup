@@ -35,6 +35,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'chartTitle',
+          description: 'Title of the graph.',
+          type: 'EchartTitle',
+          default: 'undefined',
+          try: 'json',
+        },
+        {
           prop: 'data',
           description: 'The actual data of the chart.',
           type: 'object',
@@ -42,24 +49,11 @@ export default {
           try: 'json',
         },
         {
-          prop: 'graphTitle',
-          description: 'Title of the graph.',
+          prop: 'legend',
+          description:
+            'Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types',
           type: 'string',
-          default: 'TitolaProva',
-          try: 'field',
-        },
-        {
-          prop: 'graphTitleColor',
-          description: "Title of the graph's color.",
-          type: 'string',
-          default: 'orange',
-          try: 'field',
-        },
-        {
-          prop: 'graphTitleSize',
-          description: 'Size of title of the graph (in pixels).',
-          type: 'number',
-          default: 20,
+          default: 'right',
           try: 'field',
         },
         {
@@ -71,27 +65,12 @@ export default {
           try: 'field',
         },
         {
-          prop: 'legend',
-          description:
-            'Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types',
-          type: 'string',
-          default: 'right',
-          try: 'field',
-        },
-        {
           prop: 'series',
           description:
             'The data series to be displayed. They must be of the same type.',
           type: 'string[]',
           default: 'undefined',
           try: 'array',
-        },
-        {
-          prop: 'titlePosition',
-          description: 'Sets the position of the Title',
-          type: 'string',
-          default: 'left',
-          try: 'field',
         },
         {
           prop: 'types',
@@ -108,15 +87,18 @@ export default {
 
 function createComp() {
   let comp = document.createElement('kup-echart');
-  comp.data = baseData;
   comp.axis = 'Col1';
+  comp.chartTitle = {
+    value: 'This is a title.',
+    color: 'red',
+    position: 'top',
+    size: 16,
+  };
+  comp.data = baseData;
   comp.id = 'demo-component';
-  comp.graphTitle = 'This is a title.';
-  comp.graphTitleColor = 'orange';
-  comp.graphTitleSize = 10;
   comp.legend = 'bottom';
-  comp.types = ['Line'];
   comp.mapType = 'world';
+  comp.types = ['Line'];
   return comp;
 }
 </script>

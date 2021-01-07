@@ -43,6 +43,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'chartTitle',
+          description: 'Title of the chart.',
+          type: 'ChartTitle',
+          default: 'undefined',
+          try: 'json',
+        },
+        {
           prop: 'colors',
           description: 'Colors of the chart.',
           type: 'string[]',
@@ -63,27 +70,6 @@ export default {
           type: 'DataTable',
           default: 'undefined',
           try: 'json',
-        },
-        {
-          prop: 'graphTitle',
-          description: 'Title of the graph.',
-          type: 'string',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
-          prop: 'graphTitleColor',
-          description: "Title of the graph's color.",
-          type: 'string',
-          default: 'undefined',
-          try: 'field',
-        },
-        {
-          prop: 'graphTitleSize',
-          description: 'Size of title of the graph (in pixels).',
-          type: 'number',
-          default: 'undefined',
-          try: 'field',
         },
         {
           prop: 'hAxis',
@@ -178,6 +164,11 @@ function createComp() {
   let comp = document.createElement('kup-chart');
   comp.asp = '2D';
   comp.axis = 'Col1';
+  comp.chartTitle = {
+    value: 'This is a title.',
+    color: 'red',
+    size: 16,
+  };
   comp.data = baseData;
   comp.id = 'demo-component';
   comp.legend = 'right';

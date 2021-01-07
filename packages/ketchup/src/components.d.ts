@@ -11,12 +11,12 @@ import { ComponentCardElement } from "./components/kup-card/kup-card-declaration
 import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
-import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartType } from "./components/kup-chart/kup-chart-declarations";
+import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { ComponentChipElement } from "./components/kup-chip/kup-chip-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
-import { PICKER_SOURCE_EVENT } from "./components/kup-date-picker/kup-date-picker-declarations";
+import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { CssDraw } from "./components/kup-image/kup-image-declarations";
@@ -25,7 +25,6 @@ import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarat
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-import { PICKER_SOURCE_EVENT as PICKER_SOURCE_EVENT1 } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
@@ -125,13 +124,13 @@ export namespace Components {
          */
         "enableRowActions": boolean;
         /**
-          * Enable filtering
+          * When set to true it activates the global filter.
          */
-        "filterEnabled": boolean;
+        "globalFilter": boolean;
         /**
-          * Global filter value state
+          * The value of the global filter.
          */
-        "globalFilterValueState": string;
+        "globalFilterValue": string;
         /**
           * How the field will be displayed. If not present, a default one will be created.
          */
@@ -298,6 +297,10 @@ export namespace Components {
          */
         "axis": string;
         /**
+          * Title of the graph.
+         */
+        "chartTitle": ChartTitle;
+        /**
           * Colors of the chart.
          */
         "colors": string[];
@@ -309,18 +312,6 @@ export namespace Components {
           * The actual data of the chart.
          */
         "data": DataTable;
-        /**
-          * Title of the graph.
-         */
-        "graphTitle": string;
-        /**
-          * Title of the graph's color.
-         */
-        "graphTitleColor": string;
-        /**
-          * Size of title of the graph (in pixels).
-         */
-        "graphTitleSize": number;
         /**
           * Customize the hAxis.
          */
@@ -754,6 +745,10 @@ export namespace Components {
          */
         "axis": string;
         /**
+          * Title of the graph.
+         */
+        "chartTitle": EchartTitle;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle": string;
@@ -761,18 +756,6 @@ export namespace Components {
           * The actual data of the chart.
          */
         "data": object;
-        /**
-          * Title of the graph.
-         */
-        "graphTitle": string;
-        /**
-          * Title of the graph's color.
-         */
-        "graphTitleColor": string;
-        /**
-          * Size of title of the graph (in pixels).
-         */
-        "graphTitleSize": number;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
@@ -786,10 +769,6 @@ export namespace Components {
           * The data series to be displayed. They must be of the same type.
          */
         "series": string[];
-        /**
-          * Title position
-         */
-        "titlePosition": string;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */
@@ -1544,9 +1523,13 @@ export namespace Components {
          */
         "expanded": boolean;
         /**
-          * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
+          * When set to true it activates the global filter.
          */
-        "filterValue": string;
+        "globalFilter": boolean;
+        /**
+          * The value of the global filter.
+         */
+        "globalFilterValue": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Activates the scroll on hover function.
@@ -1560,10 +1543,6 @@ export namespace Components {
           * Shows the tree data as a table.
          */
         "showColumns": boolean;
-        /**
-          * When set to true enables the tree nodes filter.
-         */
-        "showFilter": boolean;
         /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns
@@ -2036,13 +2015,13 @@ declare namespace LocalJSX {
          */
         "enableRowActions"?: boolean;
         /**
-          * Enable filtering
+          * When set to true it activates the global filter.
          */
-        "filterEnabled"?: boolean;
+        "globalFilter"?: boolean;
         /**
-          * Global filter value state
+          * The value of the global filter.
          */
-        "globalFilterValueState"?: string;
+        "globalFilterValue"?: string;
         /**
           * How the field will be displayed. If not present, a default one will be created.
          */
@@ -2321,6 +2300,10 @@ declare namespace LocalJSX {
          */
         "axis"?: string;
         /**
+          * Title of the graph.
+         */
+        "chartTitle"?: ChartTitle;
+        /**
           * Colors of the chart.
          */
         "colors"?: string[];
@@ -2332,18 +2315,6 @@ declare namespace LocalJSX {
           * The actual data of the chart.
          */
         "data"?: DataTable;
-        /**
-          * Title of the graph.
-         */
-        "graphTitle"?: string;
-        /**
-          * Title of the graph's color.
-         */
-        "graphTitleColor"?: string;
-        /**
-          * Size of title of the graph (in pixels).
-         */
-        "graphTitleSize"?: number;
         /**
           * Customize the hAxis.
          */
@@ -2879,35 +2850,27 @@ declare namespace LocalJSX {
         "initialValue"?: string;
         "onKupDatePickerBlur"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerChange"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerFocus"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerIconClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerInput"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerItemClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerTextFieldSubmit"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
     }
     interface KupDrawer {
@@ -2928,6 +2891,10 @@ declare namespace LocalJSX {
          */
         "axis"?: string;
         /**
+          * Title of the graph.
+         */
+        "chartTitle"?: EchartTitle;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle"?: string;
@@ -2935,18 +2902,6 @@ declare namespace LocalJSX {
           * The actual data of the chart.
          */
         "data"?: object;
-        /**
-          * Title of the graph.
-         */
-        "graphTitle"?: string;
-        /**
-          * Title of the graph's color.
-         */
-        "graphTitleColor"?: string;
-        /**
-          * Size of title of the graph (in pixels).
-         */
-        "graphTitleSize"?: number;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
@@ -2960,10 +2915,6 @@ declare namespace LocalJSX {
           * The data series to be displayed. They must be of the same type.
          */
         "series"?: string[];
-        /**
-          * Title position
-         */
-        "titlePosition"?: string;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */
@@ -3758,35 +3709,27 @@ declare namespace LocalJSX {
         "manageSeconds"?: boolean;
         "onKupTimePickerBlur"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerChange"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerFocus"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerIconClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerInput"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerItemClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerTextFieldSubmit"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         /**
           * Minutes step
@@ -3881,9 +3824,13 @@ declare namespace LocalJSX {
          */
         "expanded"?: boolean;
         /**
-          * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
+          * When set to true it activates the global filter.
          */
-        "filterValue"?: string;
+        "globalFilter"?: boolean;
+        /**
+          * The value of the global filter.
+         */
+        "globalFilterValue"?: string;
         "onKupDidLoad"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when stop propagation event
@@ -3955,10 +3902,6 @@ declare namespace LocalJSX {
           * Shows the tree data as a table.
          */
         "showColumns"?: boolean;
-        /**
-          * When set to true enables the tree nodes filter.
-         */
-        "showFilter"?: boolean;
         /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns

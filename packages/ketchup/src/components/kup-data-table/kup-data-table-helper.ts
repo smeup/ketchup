@@ -25,11 +25,11 @@ import {
     unformatDateTime,
     unformattedStringToFormattedStringDate,
     unformattedStringToFormattedStringNumber,
-    isNumber as isNumberThisString,
     isValidFormattedStringDate,
     formattedStringToDefaultUnformattedStringDate,
     formattedStringToUnformattedStringNumber,
     isValidFormattedStringNumber,
+    unformattedStringNumberToNumber,
 } from '../../utils/utils';
 import {
     isFilterCompliantForValue,
@@ -427,7 +427,10 @@ export function isFilterCompliantForCell(cellValue: Cell, filterValue: string) {
     let value = cellValue.value;
 
     if (isNumber(cellValue.obj)) {
-        value = normalizeValue(value, cellValue.obj);
+        value = unformattedStringNumberToNumber(
+            value,
+            cellValue.obj ? cellValue.obj.p : ''
+        );
     }
     if (isDate(cellValue.obj)) {
         if (
@@ -506,7 +509,7 @@ export function groupRows(
 
         if (cell) {
             const column = getColumnByName(columns, columnName);
-            const cellValue = getCellValueForDisplay(cell.value, column);
+            const cellValue = getCellValueForDisplay(cell.value, column, cell);
             let groupRow: Row = null;
 
             // check in already in groupedRow
@@ -547,7 +550,8 @@ export function groupRows(
                     const column = getColumnByName(columns, group.column);
                     const tempCellValue = getCellValueForDisplay(
                         tempCell.value,
-                        column
+                        column,
+                        tempCell
                     );
 
                     // check if group already exists
@@ -1181,25 +1185,37 @@ export function styleHasWritingMode(cell: Cell): boolean {
     );
 }
 
-export function getCellValueForDisplay(value, column: Column): string {
-    if (value != null && value != '' && isNumber(column.obj)) {
+export function getValueForDisplay(value, obj, decimals: number): string {
+    if (value != null && value != '' && isNumber(obj)) {
         return unformattedStringToFormattedStringNumber(
             value,
-            column.decimals ? column.decimals : -1,
-            column.obj ? column.obj.p : ''
+            decimals ? decimals : -1,
+            obj ? obj.p : ''
         );
     }
     if (
         value != null &&
         value != '' &&
-        isDate(column.obj) &&
+        isDate(obj) &&
         isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)
     ) {
-        return unformattedStringToFormattedStringDate(
-            value,
-            null,
-            column.obj.p
-        );
+        return unformattedStringToFormattedStringDate(value, null, obj.p);
     }
     return value;
+}
+
+export function getCellValueForDisplay(
+    value,
+    column: Column,
+    cell: Cell
+): string {
+    let obj = column != null ? column.obj : null;
+    if (cell != null) {
+        obj = cell.obj ? cell.obj : obj;
+    }
+    return getValueForDisplay(
+        value,
+        obj,
+        column != null ? column.decimals : null
+    );
 }

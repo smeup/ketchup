@@ -37,7 +37,8 @@ function initThemes() {
                 setupIcons();
                 setupCustomStyle();
 
-                let message = 'Theme ' + dom.kupCurrentTheme + ' refreshed.';
+                let message =
+                    'Theme ' + dom.getAttribute('kup-theme') + ' refreshed.';
                 logMessage('theme manager', message);
                 let event = new CustomEvent('kupThemeRefresh');
                 document.dispatchEvent(event);
@@ -246,11 +247,7 @@ export function colorCheck(color: string) {
                     '.'
             );
         } catch (error) {
-            logMessage(
-                'theme-manager',
-                'Invalid color: ' + color + '.',
-                'warning'
-            );
+            logMessage('theme-manager', 'Invalid color: ' + color + '.');
         }
     }
 
@@ -264,8 +261,7 @@ export function colorCheck(color: string) {
     } catch (error) {
         logMessage(
             'theme-manager',
-            'Color not converted to rgb values: ' + color + '.',
-            'warning'
+            'Color not converted to rgb values: ' + color + '.'
         );
     }
 
@@ -279,8 +275,7 @@ export function colorCheck(color: string) {
         } catch (error) {
             logMessage(
                 'theme-manager',
-                'Color not converted to hex value: ' + color + '.',
-                'warning'
+                'Color not converted to hex value: ' + color + '.'
             );
         }
     }
@@ -462,11 +457,7 @@ export function codeToHex(color: string) {
     if (colorCodes[color.toLowerCase()]) {
         return colorCodes[color.toLowerCase()];
     } else {
-        logMessage(
-            'theme manager',
-            'Could not decode color ' + color + '!',
-            'warning'
-        );
+        logMessage('theme manager', 'Could not decode color ' + color + '!');
         return color;
     }
 }
