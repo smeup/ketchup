@@ -96,8 +96,9 @@ table {
 }
 
 #global-filter {
-  margin-bottom: 0.5rem;
-  text-align: center;
+  margin: 0.5rem 0px;
+  min-width: 140px;
+  width: 100%;
 }
 
 .icon-container {
@@ -502,4 +503,9 @@ tr {
   td[row-action-cell] kup-button {
     display: inline-block;
   }
+}
+
+.above-wrapper {
+  display: inline-flex;
+  width: 100%;
 }
