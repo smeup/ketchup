@@ -347,7 +347,7 @@
             "KUP-BOX": "#kup-component #global-filter {\ndisplay: none;\n}\n\n",
             "KUP-BUTTON": "#kup-component {\ndisplay: none;\n}\n\n",
             "KUP-DATA-TABLE": "#kup-component .paginator-wrapper {\ndisplay: none;\n}\n\n#kup-component .above-wrapper {\ndisplay: none;\n}\n\n#kup-component #global-filter {\ndisplay: none;\n}\n\n#kup-component sticky-header {\ndisplay: none;\n}\n\n#kup-component #group-chips {\ndisplay: none;\n}\n\n",
-            "KUP-TREE": "#kup-component #global-filter {\ndisplay: none;\n}\n\n"
+            "KUP-TREE": "#kup-component #global-filter {\ndisplay: none;\n}\n\n#kup-component .wrapper {\noverflow: hidden;\n}\n\n"
         },
         "icons": {
             "--kup-ascending-icon": "arrow_drop_up",
