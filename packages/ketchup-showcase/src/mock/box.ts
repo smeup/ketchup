@@ -676,7 +676,7 @@ export const imgBadgeData = {
             p: '*YYMD',
             k: '20201231',
           },
-          value: '12/31/2020',
+          value: '2020-12-31',
         },
       },
     },
@@ -825,7 +825,7 @@ export const imgBadgeData = {
             p: '*YYMD',
             k: '20180104',
           },
-          value: '04/01/2018',
+          value: '2018-01-04',
         },
       },
     },
@@ -1152,7 +1152,7 @@ export const boxBadgeData = {
             p: '*YYMD',
             k: '20180101',
           },
-          value: '01/01/2018',
+          value: '2018-01-01',
         },
       },
       badgeData: [
@@ -1199,7 +1199,7 @@ export const boxBadgeData = {
             p: '*YYMD',
             k: '20180102',
           },
-          value: '02/01/2018',
+          value: '2018-01-02',
         },
       },
       badgeData: [
@@ -1247,7 +1247,7 @@ export const boxBadgeData = {
             p: '*YYMD',
             k: '20180103',
           },
-          value: '03/01/2018',
+          value: '2018-01-03',
         },
       },
       badgeData: [
@@ -1506,7 +1506,7 @@ export function createData(rows: number) {
             p: '*YYMD',
             k: '20180101',
           },
-          value: '01/01/2018',
+          value: '2018-01-01',
         },
       },
     });
@@ -1549,7 +1549,7 @@ export function createData(rows: number) {
             p: '*YYMD',
             k: '20180102',
           },
-          value: '02/01/2018',
+          value: '2018-01-02',
         },
       },
     });
@@ -1592,7 +1592,7 @@ export function createData(rows: number) {
             p: '*YYMD',
             k: '20180103',
           },
-          value: '03/01/2018',
+          value: '2018-01-03',
         },
       },
     });
@@ -1633,9 +1633,9 @@ export function createData(rows: number) {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180104',
+            k: '20220104',
           },
-          value: '04/01/2022',
+          value: '2022-01-04',
         },
       },
     });

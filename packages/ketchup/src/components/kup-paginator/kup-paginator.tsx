@@ -29,6 +29,9 @@ export class KupPaginator {
 
     @Prop() selectedPerPage: number = 10;
 
+    private comboPageSelectorEl: any = undefined;
+    private comboRowsSelectorEl: any = undefined;
+
     /**
      * When the current page change
      */
@@ -141,7 +144,7 @@ export class KupPaginator {
         const rowsPerPageItems = [];
 
         /*if (this.currentPage !== this.max) {*/
-        let i = this.perPage;
+        let i = this.selectedPerPage;
 
         if (i === 0) {
             return rowsPerPageItems;
@@ -179,6 +182,7 @@ export class KupPaginator {
 
     componentWillLoad() {
         logLoad(this, false);
+        this.selectedPerPage = this.perPage;
     }
 
     componentDidLoad() {
@@ -191,6 +195,12 @@ export class KupPaginator {
 
     componentDidRender() {
         logRender(this, true);
+        if (this.comboPageSelectorEl) {
+            this.comboPageSelectorEl.setValue(this.currentPage.toString());
+        }
+        if (this.comboRowsSelectorEl) {
+            this.comboRowsSelectorEl.setValue(this.selectedPerPage.toString());
+        }
     }
 
     render() {
@@ -247,6 +257,7 @@ export class KupPaginator {
                                 this.onPageChange(e)
                             }
                             onKupComboboxBlur={(e) => this.onPageChange(e)}
+                            ref={(el) => (this.comboPageSelectorEl = el as any)}
                         />
                         <kup-button
                             icon="chevron_right"
@@ -268,6 +279,7 @@ export class KupPaginator {
                                 this.onRowsPerPage(e)
                             }
                             onKupComboboxBlur={(e) => this.onRowsPerPage(e)}
+                            ref={(el) => (this.comboRowsSelectorEl = el as any)}
                         />
                         <slot name="right" />
                     </div>

@@ -1581,7 +1581,11 @@ export class KupDataTable {
         // resetting current page
         this.resetCurrentPage();
 
-        this.globalFilterValue = detail.value;
+        let value = '';
+        if (detail && detail.value) {
+            value = detail.value;
+        }
+        this.globalFilterValue = value;
     }
 
     private handlePageChanged({ detail }) {
@@ -2286,7 +2290,8 @@ export class KupDataTable {
                         if (!filterFromCheckBoxFilter) {
                             filterInitialValue = getCellValueForDisplay(
                                 filterInitialValue,
-                                column
+                                column,
+                                null
                             );
                         }
                         columnMenuItems.push(
@@ -2349,7 +2354,7 @@ export class KupDataTable {
                                     label = '(*unchecked)';
                                 }
                             } else {
-                                label = getCellValueForDisplay(v, column);
+                                label = getCellValueForDisplay(v, column, null);
                             }
 
                             checkboxItems.push(
@@ -3487,7 +3492,8 @@ export class KupDataTable {
                     const cellValueNumber: number = stringToNumber(cell.value);
                     const cellValue = getCellValueForDisplay(
                         cell.value,
-                        column
+                        column,
+                        cell
                     );
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;
@@ -3499,7 +3505,8 @@ export class KupDataTable {
                 if (content && content != '') {
                     const cellValue = getCellValueForDisplay(
                         cell.value,
-                        column
+                        column,
+                        cell
                     );
                     return cellValue;
                 }
