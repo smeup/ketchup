@@ -1,6 +1,13 @@
 //--------------------------------//
 // Component classes              //
 //--------------------------------//
+:host(.layout-fixed) {
+  #kup-component table {
+    table-layout: fixed;
+    width: 100%;
+  }
+}
+
 :host(.full-width) {
   min-width: 100%;
   table.kup-tree {

@@ -11,12 +11,12 @@ import { ComponentCardElement } from "./components/kup-card/kup-card-declaration
 import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
-import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartType } from "./components/kup-chart/kup-chart-declarations";
+import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { ComponentChipElement } from "./components/kup-chip/kup-chip-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
-import { PICKER_SOURCE_EVENT } from "./components/kup-date-picker/kup-date-picker-declarations";
+import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { CssDraw } from "./components/kup-image/kup-image-declarations";
@@ -25,7 +25,6 @@ import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarat
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
 import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
-import { PICKER_SOURCE_EVENT as PICKER_SOURCE_EVENT1 } from "./components/kup-time-picker/kup-time-picker-declarations";
 import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
@@ -44,13 +43,22 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Props of the sub-components.
+         */
+        "data": Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
           * Sets how the show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode": ItemsDisplayMode;
+        "getValue": () => Promise<string>;
         /**
-          * Props of the list.
+          * Sets the initial value of the component.
          */
-        "listData": Object;
+        "initialValue": string;
         /**
           * The minimum number of chars to trigger the autocomplete
          */
@@ -64,10 +72,8 @@ export namespace Components {
           * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
          */
         "serverHandledFilter": boolean;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData": Object;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
     }
     interface KupBadge {
         /**
@@ -118,13 +124,13 @@ export namespace Components {
          */
         "enableRowActions": boolean;
         /**
-          * Enable filtering
+          * When set to true it activates the global filter.
          */
-        "filterEnabled": boolean;
+        "globalFilter": boolean;
         /**
-          * Global filter value state
+          * The value of the global filter.
          */
-        "globalFilterValueState": string;
+        "globalFilterValue": string;
         /**
           * How the field will be displayed. If not present, a default one will be created.
          */
@@ -291,6 +297,10 @@ export namespace Components {
          */
         "axis": string;
         /**
+          * Title of the graph.
+         */
+        "chartTitle": ChartTitle;
+        /**
           * Colors of the chart.
          */
         "colors": string[];
@@ -302,18 +312,6 @@ export namespace Components {
           * The actual data of the chart.
          */
         "data": DataTable;
-        /**
-          * Title of the graph.
-         */
-        "graphTitle": string;
-        /**
-          * Title of the graph's color.
-         */
-        "graphTitleColor": string;
-        /**
-          * Size of title of the graph (in pixels).
-         */
-        "graphTitleSize": number;
         /**
           * Customize the hAxis.
          */
@@ -410,20 +408,23 @@ export namespace Components {
         /**
           * Props of the text field.
          */
-        "data": {};
+        "data": Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
+         */
+        "initialValue": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
         /**
           * When true, the component's text field will be replaced by a swatch.
          */
         "swatchOnly": boolean;
-        /**
-          * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
-         */
-        "value": string;
     }
     interface KupCombobox {
         /**
@@ -431,26 +432,33 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Props of the sub-components (date input text field).
+         */
+        "data": Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
           * Sets how the show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode": ItemsDisplayMode;
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue": string;
         /**
           * Lets the combobox behave as a select element.
          */
         "isSelect": boolean;
-        /**
-          * Props of the list.
-         */
-        "listData": Object;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData": Object;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
     }
     interface KupCrud {
         "actions": FormActions;
@@ -697,14 +705,25 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Props of the sub-components (date input text field).
+          * Props of the sub-components.
          */
         "data": Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
         /**
           * First day number (0 - sunday, 1 - monday, ...)
          */
         "firstDayIndex": number;
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
     }
     interface KupDrawer {
         "close": () => Promise<void>;
@@ -726,6 +745,10 @@ export namespace Components {
          */
         "axis": string;
         /**
+          * Title of the graph.
+         */
+        "chartTitle": EchartTitle;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle": string;
@@ -733,18 +756,6 @@ export namespace Components {
           * The actual data of the chart.
          */
         "data": object;
-        /**
-          * Title of the graph.
-         */
-        "graphTitle": string;
-        /**
-          * Title of the graph's color.
-         */
-        "graphTitleColor": string;
-        /**
-          * Size of title of the graph (in pixels).
-         */
-        "graphTitleSize": number;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
@@ -758,10 +769,6 @@ export namespace Components {
           * The data series to be displayed. They must be of the same type.
          */
         "series": string[];
-        /**
-          * Title position
-         */
-        "titlePosition": string;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */
@@ -958,7 +965,7 @@ export namespace Components {
          */
         "badgeData": KupBadge[];
         /**
-          * The color of the icon, defaults to the main color of the app.
+          * The color of the icon, defaults to the CSS variable --kup-icon-color.
          */
         "color": string;
         /**
@@ -1350,13 +1357,10 @@ export namespace Components {
          */
         "emitSubmitEventOnEnter": boolean;
         /**
-          * Defaults at false. When set to true, the component will be focused.
-         */
-        "forceFocus": boolean;
-        /**
           * Defaults at false. When set to true, the component will be rendered at full width.
          */
         "fullWidth": boolean;
+        "getValue": () => Promise<string>;
         /**
           * Defaults at null. When set, its content will be shown as a help text below the field.
          */
@@ -1403,6 +1407,7 @@ export namespace Components {
         "readOnly": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
         /**
           * Defaults at false. When set to true, the component will be rendered as a textarea.
          */
@@ -1430,10 +1435,21 @@ export namespace Components {
          */
         "data": Object;
         /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue": string;
+        /**
           * Manage seconds
          */
         "manageSeconds": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
         /**
           * Minutes step
          */
@@ -1507,9 +1523,13 @@ export namespace Components {
          */
         "expanded": boolean;
         /**
-          * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
+          * When set to true it activates the global filter.
          */
-        "filterValue": string;
+        "globalFilter": boolean;
+        /**
+          * The value of the global filter.
+         */
+        "globalFilterValue": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Activates the scroll on hover function.
@@ -1523,10 +1543,6 @@ export namespace Components {
           * Shows the tree data as a table.
          */
         "showColumns": boolean;
-        /**
-          * When set to true enables the tree nodes filter.
-         */
-        "showFilter": boolean;
         /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns
@@ -1889,13 +1905,21 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
+          * Props of the sub-components.
+         */
+        "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
           * Sets how the show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode"?: ItemsDisplayMode;
         /**
-          * Props of the list.
+          * Sets the initial value of the component.
          */
-        "listData"?: Object;
+        "initialValue"?: string;
         /**
           * The minimum number of chars to trigger the autocomplete
          */
@@ -1928,6 +1952,9 @@ declare namespace LocalJSX {
         "onKupAutocompleteItemClick"?: (event: CustomEvent<{
         value: any;
     }>) => void;
+        "onKupAutocompleteTextFieldSubmit"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
         /**
           * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
@@ -1936,10 +1963,6 @@ declare namespace LocalJSX {
           * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
          */
         "serverHandledFilter"?: boolean;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData"?: Object;
     }
     interface KupBadge {
         /**
@@ -1992,13 +2015,13 @@ declare namespace LocalJSX {
          */
         "enableRowActions"?: boolean;
         /**
-          * Enable filtering
+          * When set to true it activates the global filter.
          */
-        "filterEnabled"?: boolean;
+        "globalFilter"?: boolean;
         /**
-          * Global filter value state
+          * The value of the global filter.
          */
-        "globalFilterValueState"?: string;
+        "globalFilterValue"?: string;
         /**
           * How the field will be displayed. If not present, a default one will be created.
          */
@@ -2277,6 +2300,10 @@ declare namespace LocalJSX {
          */
         "axis"?: string;
         /**
+          * Title of the graph.
+         */
+        "chartTitle"?: ChartTitle;
+        /**
           * Colors of the chart.
          */
         "colors"?: string[];
@@ -2288,18 +2315,6 @@ declare namespace LocalJSX {
           * The actual data of the chart.
          */
         "data"?: DataTable;
-        /**
-          * Title of the graph.
-         */
-        "graphTitle"?: string;
-        /**
-          * Title of the graph's color.
-         */
-        "graphTitleColor"?: string;
-        /**
-          * Size of title of the graph (in pixels).
-         */
-        "graphTitleSize"?: number;
         /**
           * Customize the hAxis.
          */
@@ -2437,22 +2452,25 @@ declare namespace LocalJSX {
         /**
           * Props of the text field.
          */
-        "data"?: {};
+        "data"?: Object;
         /**
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled"?: boolean;
+        /**
+          * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
+         */
+        "initialValue"?: string;
         "onKupColorPickerChange"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupColorPickerInput"?: (event: CustomEvent<{
         value: any;
     }>) => void;
         /**
           * When true, the component's text field will be replaced by a swatch.
          */
         "swatchOnly"?: boolean;
-        /**
-          * The html color, can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" )
-         */
-        "value"?: string;
     }
     interface KupCombobox {
         /**
@@ -2460,17 +2478,25 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
+          * Props of the sub-components (date input text field).
+         */
+        "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
           * Sets how the show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode"?: ItemsDisplayMode;
         /**
+          * Sets the initial value of the component
+         */
+        "initialValue"?: string;
+        /**
           * Lets the combobox behave as a select element.
          */
         "isSelect"?: boolean;
-        /**
-          * Props of the list.
-         */
-        "listData"?: Object;
         /**
           * Event example.
          */
@@ -2502,10 +2528,6 @@ declare namespace LocalJSX {
           * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData"?: Object;
     }
     interface KupCrud {
         "actions"?: FormActions;
@@ -2811,44 +2833,44 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Props of the sub-components (date input text field).
+          * Props of the sub-components.
          */
         "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
         /**
           * First day number (0 - sunday, 1 - monday, ...)
          */
         "firstDayIndex"?: number;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue"?: string;
         "onKupDatePickerBlur"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerChange"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerFocus"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerIconClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerInput"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerItemClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupDatePickerTextFieldSubmit"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
     }
     interface KupDrawer {
@@ -2869,6 +2891,10 @@ declare namespace LocalJSX {
          */
         "axis"?: string;
         /**
+          * Title of the graph.
+         */
+        "chartTitle"?: EchartTitle;
+        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle"?: string;
@@ -2876,18 +2902,6 @@ declare namespace LocalJSX {
           * The actual data of the chart.
          */
         "data"?: object;
-        /**
-          * Title of the graph.
-         */
-        "graphTitle"?: string;
-        /**
-          * Title of the graph's color.
-         */
-        "graphTitleColor"?: string;
-        /**
-          * Size of title of the graph (in pixels).
-         */
-        "graphTitleSize"?: number;
         /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
@@ -2901,10 +2915,6 @@ declare namespace LocalJSX {
           * The data series to be displayed. They must be of the same type.
          */
         "series"?: string[];
-        /**
-          * Title position
-         */
-        "titlePosition"?: string;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */
@@ -3104,7 +3114,7 @@ declare namespace LocalJSX {
          */
         "badgeData"?: KupBadge[];
         /**
-          * The color of the icon, defaults to the main color of the app.
+          * The color of the icon, defaults to the CSS variable --kup-icon-color.
          */
         "color"?: string;
         /**
@@ -3578,10 +3588,6 @@ declare namespace LocalJSX {
          */
         "emitSubmitEventOnEnter"?: boolean;
         /**
-          * Defaults at false. When set to true, the component will be focused.
-         */
-        "forceFocus"?: boolean;
-        /**
           * Defaults at false. When set to true, the component will be rendered at full width.
          */
         "fullWidth"?: boolean;
@@ -3648,10 +3654,6 @@ declare namespace LocalJSX {
         id: any;
         value: string;
     }>) => void;
-        "onKupTextFieldRendered"?: (event: CustomEvent<{
-        id: any;
-        field: KupTextField;
-    }>) => void;
         /**
           * When a keydown enter event occurs it generates
          */
@@ -3694,40 +3696,40 @@ declare namespace LocalJSX {
          */
         "data"?: Object;
         /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue"?: string;
+        /**
           * Manage seconds
          */
         "manageSeconds"?: boolean;
         "onKupTimePickerBlur"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerChange"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerFocus"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerIconClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerInput"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerItemClick"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         "onKupTimePickerTextFieldSubmit"?: (event: CustomEvent<{
         value: any;
-        source: PICKER_SOURCE_EVENT;
     }>) => void;
         /**
           * Minutes step
@@ -3822,9 +3824,13 @@ declare namespace LocalJSX {
          */
         "expanded"?: boolean;
         /**
-          * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
+          * When set to true it activates the global filter.
          */
-        "filterValue"?: string;
+        "globalFilter"?: boolean;
+        /**
+          * The value of the global filter.
+         */
+        "globalFilterValue"?: string;
         "onKupDidLoad"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when stop propagation event
@@ -3896,10 +3902,6 @@ declare namespace LocalJSX {
           * Shows the tree data as a table.
          */
         "showColumns"?: boolean;
-        /**
-          * When set to true enables the tree nodes filter.
-         */
-        "showFilter"?: boolean;
         /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns

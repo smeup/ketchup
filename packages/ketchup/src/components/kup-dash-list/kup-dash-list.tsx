@@ -1,4 +1,9 @@
 import { Component, Prop, Event, h, EventEmitter } from '@stencil/core';
+import {
+    getCellValueForDisplay,
+} from '../kup-data-table/kup-data-table-helper';
+
+import { getCurrentLocale, getSeparator } from '../../utils/utils';
 
 import { Row, TableData } from '../kup-data-table/kup-data-table-declarations';
 
@@ -103,9 +108,14 @@ export class KupDashList {
             }
 
             if (this.data.columns[3]) {
+
+                let col = this.data.columns[3];
+                col.obj = r.cells[this.data.columns[3].name].obj;
+
+                let newValue = getCellValueForDisplay(r.cells[this.data.columns[3].name].value, col, r.cells[this.data.columns[5].name]);
                 value = (
                     <div slot="value" style={valueColor}>
-                        {r.cells[this.data.columns[3].name].obj.k}
+                        {newValue}
                     </div>
                 );
             } else {
@@ -113,9 +123,17 @@ export class KupDashList {
             }
 
             if (this.data.columns[5]) {
+                let col = this.data.columns[5];
+                col.obj = r.cells[this.data.columns[5].name].obj;
+
+                let newValue = getCellValueForDisplay(r.cells[this.data.columns[5].name].value, col, r.cells[this.data.columns[5].name]);
+                if(this.data.columns[6] && r.cells[this.data.columns[6].name].obj.k){
+                    newValue = newValue + getSeparator(getCurrentLocale(), "decimal"); 
+                    console.log("Nuovo valore " + newValue);
+                }
                 valueInt = (
                     <div slot="value-int" style={valueColor}>
-                        {r.cells[this.data.columns[5].name].obj.k}
+                        {newValue}
                     </div>
                 );
             } else {

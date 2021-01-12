@@ -29,6 +29,9 @@ export class KupPaginator {
 
     @Prop() selectedPerPage: number = 10;
 
+    private comboPageSelectorEl: any = undefined;
+    private comboRowsSelectorEl: any = undefined;
+
     /**
      * When the current page change
      */
@@ -128,8 +131,8 @@ export class KupPaginator {
         for (let i = 1; i <= maxNumberOfPage; i++) {
             let selected = i == this.currentPage;
             goToPageItems.push({
-                text: i,
-                value: i,
+                text: i.toString(),
+                value: i.toString(),
                 selected: selected,
             });
         }
@@ -141,7 +144,7 @@ export class KupPaginator {
         const rowsPerPageItems = [];
 
         /*if (this.currentPage !== this.max) {*/
-        let i = this.perPage;
+        let i = this.selectedPerPage;
 
         if (i === 0) {
             return rowsPerPageItems;
@@ -150,8 +153,8 @@ export class KupPaginator {
         while (i < this.max) {
             let selected = i == this.selectedPerPage;
             rowsPerPageItems.push({
-                text: i,
-                value: i,
+                text: i.toString(),
+                value: i.toString(),
                 selected: selected,
             });
             i = i * 2;
@@ -179,6 +182,7 @@ export class KupPaginator {
 
     componentWillLoad() {
         logLoad(this, false);
+        this.selectedPerPage = this.perPage;
     }
 
     componentDidLoad() {
@@ -191,6 +195,12 @@ export class KupPaginator {
 
     componentDidRender() {
         logRender(this, true);
+        if (this.comboPageSelectorEl) {
+            this.comboPageSelectorEl.setValue(this.currentPage.toString());
+        }
+        if (this.comboRowsSelectorEl) {
+            this.comboRowsSelectorEl.setValue(this.selectedPerPage.toString());
+        }
     }
 
     render() {
@@ -201,9 +211,7 @@ export class KupPaginator {
         const rowsPerPageItems = this.getRowsPerPageItems();
 
         let textfieldDataPage = {
-            initialValue: this.currentPage,
             label: 'Page',
-            trailingIcon: true,
             helper: `of ${maxNumberOfPage}`,
             helperWhenFocused: true,
         };
@@ -213,9 +221,7 @@ export class KupPaginator {
         };
 
         let textfieldDataRows = {
-            initialValue: this.perPage,
             label: 'Rows / page',
-            trailingIcon: true,
             helper: `Total rows: ${this.max}`,
             helperWhenFocused: true,
         };
@@ -224,6 +230,14 @@ export class KupPaginator {
             selectable: true,
         };
 
+        let dataPageSelector = {
+            'kup-list': listDataPage,
+            'kup-text-field': textfieldDataPage,
+        };
+        let dataRowsSelector = {
+            'kup-list': listDataRows,
+            'kup-text-field': textfieldDataRows,
+        };
         let compCreated = (
             <div id="paginator">
                 <div class="align-left">
@@ -236,13 +250,14 @@ export class KupPaginator {
                         ></kup-button>
                         <kup-combobox
                             class="page-selector"
-                            textfieldData={textfieldDataPage}
-                            listData={listDataPage}
+                            data={dataPageSelector}
+                            initialValue={this.currentPage.toString()}
                             onKupComboboxItemClick={(e) => this.onPageChange(e)}
                             onKupComboboxTextFieldSubmit={(e) =>
                                 this.onPageChange(e)
                             }
                             onKupComboboxBlur={(e) => this.onPageChange(e)}
+                            ref={(el) => (this.comboPageSelectorEl = el as any)}
                         />
                         <kup-button
                             icon="chevron_right"
@@ -255,8 +270,8 @@ export class KupPaginator {
                         <slot name="more-results" />
                         <kup-combobox
                             class="rows-selector"
-                            textfieldData={textfieldDataRows}
-                            listData={listDataRows}
+                            data={dataRowsSelector}
+                            initialValue={this.perPage.toString()}
                             onKupComboboxItemClick={(e) =>
                                 this.onRowsPerPage(e)
                             }
@@ -264,6 +279,7 @@ export class KupPaginator {
                                 this.onRowsPerPage(e)
                             }
                             onKupComboboxBlur={(e) => this.onRowsPerPage(e)}
+                            ref={(el) => (this.comboRowsSelectorEl = el as any)}
                         />
                         <slot name="right" />
                     </div>

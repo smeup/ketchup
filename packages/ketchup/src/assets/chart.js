@@ -105,45 +105,44 @@ const baseData = {
 };
 
 const baseConfig = {
-    type: 'Hbar',
+    types: ['Hbar'],
     axis: 'Col1',
-    series: ['Col2', 'Col3'],
+    series: [{code: 'Col2'}, {code: 'Col3'}],
 };
+const keys = Object.keys(baseConfig);
 
 // HBAR
 const hbar = document.getElementById('hbar');
 hbar.data = baseData;
-hbar.config = baseConfig;
+for (let k of keys) {
+    hbar[k] = baseConfig[k];
+}
 
 // VBAR
 const vbar = document.getElementById('vbar');
 vbar.data = baseData;
-vbar.config = {
-    ...baseConfig,
-    type: 'Vbar',
-};
+for (let k of keys) {
+    vbar[k] = baseConfig[k];
+}
+vbar.types = ['Vbar'];
+
 document
     .getElementById('vbar-stacked')
     .addEventListener('change', ({ target }) => {
-        vbar.config = {
-            ...vbar.config,
-            stacked: target.checked,
-        };
+        vbar.stacked = target.checked;
     });
 
 // PIE
 const pie = document.getElementById('pie');
 pie.data = baseData;
-pie.config = {
-    ...baseConfig,
-    series: ['Col2'],
-    type: 'Pie',
-};
+for (let k of keys) {
+    pie[k] = baseConfig[k];
+}
+pie.types = ['Pie'];
+pie.series = [{code: 'Col2'}];
+
 document.getElementById('pie-aspect').addEventListener('change', (e) => {
-    pie.config = {
-        ...pie.config,
-        asp: e.target.checked ? '3D' : '',
-    };
+    pie.asp = e.target.checked ? '3D' : '';
 });
 
 // custom colors
@@ -151,15 +150,11 @@ document.getElementById('colors').addEventListener('change', ({ target }) => {
     const charts = document.querySelectorAll('kup-chart');
 
     charts.forEach((chart) => {
-        const config = { ...chart.config };
-
         if (target.checked) {
-            config.colors = ['#ccc', '#333', '#666'];
+            chart.colors = ['#ccc', '#333', '#666'];
         } else {
-            delete config['colors'];
+            chart.colors = [];
         }
-
-        chart.config = config;
     });
 });
 
@@ -168,16 +163,13 @@ document.getElementById('size').addEventListener('change', ({ target }) => {
     const charts = document.querySelectorAll('kup-chart');
 
     charts.forEach((chart) => {
-        const config = { ...chart.config };
-
         if (target.checked) {
-            config.width = config.height = 400;
+            chart.sizeX = "400px";
+            chart.sizeY = "400px";
         } else {
-            delete config['width'];
-            delete config['height'];
+            chart.sizeX = "100%";
+            chart.sizeY = "100%";
         }
-
-        chart.config = config;
     });
 });
 
@@ -186,10 +178,7 @@ document.getElementById('legend').addEventListener('change', ({ target }) => {
     const charts = document.querySelectorAll('kup-chart');
 
     charts.forEach((chart) => {
-        chart.config = {
-            ...chart.config,
-            leg: target.checked,
-        };
+        chart.legend = target.checked?'right':'none'
     });
 });
 
@@ -198,10 +187,12 @@ document.getElementById('title').addEventListener('change', ({ target }) => {
     const charts = document.querySelectorAll('kup-chart');
 
     charts.forEach((chart) => {
-        chart.config = {
-            ...chart.config,
-            title: target.value,
-        };
+        let cTitle = chart.chartTitle;
+        if (cTitle == null) {
+            cTitle = {};
+        }
+        cTitle.value = target.value;
+        chart.chartTitle =  {...cTitle};
     });
 });
 
@@ -212,10 +203,12 @@ document
         const charts = document.querySelectorAll('kup-chart');
 
         charts.forEach((chart) => {
-            chart.config = {
-                ...chart.config,
-                titleColor: target.value,
-            };
+            let cTitle = chart.chartTitle;
+            if (cTitle == null) {
+                cTitle = {};
+            }
+            cTitle.color = target.value;
+            chart.chartTitle =  {...cTitle};
         });
     });
 
@@ -232,9 +225,11 @@ document
         const charts = document.querySelectorAll('kup-chart');
 
         charts.forEach((chart) => {
-            chart.config = {
-                ...chart.config,
-                titleSize: target.value,
-            };
+            let cTitle = chart.chartTitle;
+            if (cTitle == null) {
+                cTitle = {};
+            }
+            cTitle.size = Number(target.value);
+            chart.chartTitle = {...cTitle};
         });
     });

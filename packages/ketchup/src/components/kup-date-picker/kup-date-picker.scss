@@ -2,6 +2,20 @@
   display: block;
 }
 
+:host(.full-width) {
+  width: 100%;
+  #kup-component {
+    width: 100%;
+  }
+}
+
+:host(.full-height) {
+  height: 100%;
+  #kup-component {
+    height: 100%;
+  }
+}
+
 #date-picker-div {
   display: none;
 
@@ -88,7 +102,7 @@
     }
     &.selected .item-number,
     &.selected .item-number:hover {
-      background-color: rgba(var(--kup-main-color-rgb), 0.175);
+      background-color: rgba(var(--kup-primary-color-rgb), 0.175);
     }
   }
 

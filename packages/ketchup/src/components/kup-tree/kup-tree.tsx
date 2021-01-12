@@ -43,7 +43,6 @@ import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { isFilterCompliantForValue } from '../../utils/filters';
-import numeral from 'numeral';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import {
     getCellValueForDisplay,
@@ -86,7 +85,7 @@ export class KupTree {
                 );
                 // *** PROPS ***
                 this.density = state.density;
-                this.filterValue = state.filterValue;
+                this.globalFilterValue = state.globalFilterValue;
                 //
             }
         }
@@ -96,7 +95,7 @@ export class KupTree {
         if (this.store && this.stateId) {
             // *** PROPS ***
             this.state.density = this.density;
-            this.state.filterValue = this.filterValue;
+            this.state.globalFilterValue = this.globalFilterValue;
             //
             console.log(
                 'Persisting state for stateId ' + this.stateId + ': ',
@@ -153,9 +152,13 @@ export class KupTree {
      */
     @Prop() expanded: boolean = false;
     /**
-     * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
+     * When set to true it activates the global filter.
      */
-    @Prop() filterValue: string = '';
+    @Prop() globalFilter: boolean = false;
+    /**
+     * The value of the global filter.
+     */
+    @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
     /**
      * Activates the scroll on hover function.
      */
@@ -169,10 +172,6 @@ export class KupTree {
      * Shows the tree data as a table.
      */
     @Prop() showColumns: boolean = false;
-    /**
-     * When set to true enables the tree nodes filter.
-     */
-    @Prop() showFilter: boolean = false;
     /**
      * Flag: shows the header of the tree when the tree is displayed as a table.
      * @see showColumns
@@ -205,6 +204,7 @@ export class KupTree {
     private selectedColumn: string = '';
     private clickTimeout: any[] = [];
     private iconPaths: [{ icon: string; path: string }] = undefined;
+    private globalFilterTimeout: number;
 
     //-------- Events --------
     /**
@@ -741,8 +741,12 @@ export class KupTree {
         return strToRet;
     }
 
-    onFilterChange(event: CustomEvent) {
-        this.filterValue = event.detail.value;
+    onGlobalFilterChange({ detail }) {
+        let value = '';
+        if (detail && detail.value) {
+            value = detail.value;
+        }
+        this.globalFilterValue = value;
     }
 
     private setAllVisible(items: TreeNode[]) {
@@ -756,7 +760,7 @@ export class KupTree {
         if (this.data == null || this.data.length == 0) {
             return;
         }
-        if (this.filterValue.trim() == '') {
+        if (this.globalFilterValue.trim() == '') {
             this.setAllVisible(this.data);
             return;
         }
@@ -783,7 +787,7 @@ export class KupTree {
     private setNodeVisibility(node: TreeNode): boolean {
         let visibility: boolean = isFilterCompliantForValue(
             node.value,
-            this.filterValue
+            this.globalFilterValue
         );
         if (node.disabled != true && node.expandable == true) {
             /** se il ramo è compatibile con il filtro, mostro tutto l'albero sottostante */
@@ -1134,13 +1138,25 @@ export class KupTree {
                     const cellValueNumber: number = stringToNumber(cell.value);
                     const cellValue = getCellValueForDisplay(
                         cell.value,
-                        column
+                        column,
+                        cell
                     );
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;
                     }
                     return <span class="text">{cellValue}</span>;
                 }
+                return content;
+            case 'date':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(
+                        cell.value,
+                        column,
+                        cell
+                    );
+                    return <span class="text">{cellValue}</span>;
+                }
+                return content;
             case 'string':
             default:
                 return <span class="text">{content}</span>;
@@ -1497,26 +1513,31 @@ export class KupTree {
 
         let filterField = null;
         if (
-            this.showFilter &&
+            this.globalFilter &&
             this.data &&
             this.data.length &&
             this.data.length > 0
         ) {
             filterField = (
-                <kup-text-field
-                    class="filter"
-                    fullWidth={true}
-                    isClearable={true}
-                    label="Search..."
-                    icon="magnify"
-                    initialValue={this.filterValue}
-                    onKupTextFieldInput={(e) => {
-                        this.onFilterChange(e);
-                    }}
-                    onKupTextFieldClearIconClick={(e) => {
-                        this.onFilterChange(e);
-                    }}
-                ></kup-text-field>
+                <div id="global-filter">
+                    <kup-text-field
+                        fullWidth={true}
+                        isClearable={true}
+                        label="Search..."
+                        icon="magnify"
+                        initialValue={this.globalFilterValue}
+                        onKupTextFieldInput={(event) => {
+                            window.clearTimeout(this.globalFilterTimeout);
+                            this.globalFilterTimeout = window.setTimeout(
+                                () => this.onGlobalFilterChange(event),
+                                300
+                            );
+                        }}
+                        onKupTextFieldClearIconClick={(event) =>
+                            this.onGlobalFilterChange(event)
+                        }
+                    ></kup-text-field>
+                </div>
             );
         }
         return (

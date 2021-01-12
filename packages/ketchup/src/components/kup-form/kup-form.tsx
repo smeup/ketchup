@@ -426,10 +426,10 @@ export class KupForm {
                         data: field.config.data,
                         selectable: !field.readonly,
                     };
+                    let data = { 'text-field': textfieldData, list: listData };
                     fieldContent = (
                         <kup-combobox
-                            textfieldData={textfieldData}
-                            listData={listData}
+                            data={data}
                             {...field.config}
                             onKupComboboxItemClick={(e) =>
                                 this.onSimpleValueFieldChanged(e, field.key)
@@ -495,10 +495,10 @@ export class KupForm {
                         data: field.config.data,
                         selectable: !field.readonly,
                     };
+                    let data = { 'text-field': textfieldData, list: listData };
                     fieldContent = (
                         <kup-autocomplete
-                            textfieldData={textfieldData}
-                            listData={listData}
+                            data={data}
                             {...field.config}
                             onKupAutocompleteItemClick={(e) =>
                                 this.onAutocompleteFieldChanged(e, field.key)

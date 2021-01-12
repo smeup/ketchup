@@ -75,7 +75,7 @@ h3 {
 }
 
 .page-nav-list {
-  border-left: 1px solid var(--kup-main-color);
+  border-left: 1px solid var(--kup-primary-color);
   min-height: 45px;
 }
 
@@ -91,7 +91,7 @@ h3 {
 }
 
 .page-nav-element.active {
-  color: var(--kup-main-color);
+  color: var(--kup-primary-color);
 }
 
 .page-nav-element:hover {
@@ -197,7 +197,7 @@ code.flat {
   background: none;
   border-radius: 0;
   box-shadow: 0 0 2px 0px rgb(128, 128, 128);
-  color: var(--kup-main-color);
+  color: var(--kup-primary-color);
   display: flex;
   font-family: Roboto Mono, consolas, monospace;
   font-size: 16px;
@@ -209,7 +209,7 @@ code.flat {
 }
 
 .code-word {
-  color: var(--kup-main-color);
+  color: var(--kup-primary-color);
   font-family: Roboto Mono, consolas, monospace;
   font-size: 1.2rem;
   font-weight: 600;
@@ -246,12 +246,12 @@ code.flat {
 
 .github-link-area svg,
 .github-link-area .mdi-open-in-new:before {
-  fill: var(--kup-main-color);
-  color: var(--kup-main-color);
+  fill: var(--kup-primary-color);
+  color: var(--kup-primary-color);
 }
 
 .github-link-area .github-text {
-  color: var(--kup-main-color);
+  color: var(--kup-primary-color);
   font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 0.875rem;
@@ -351,8 +351,8 @@ span.company-text {
 }
 
 .v-input .accent--text {
-  color: var(--kup-main-color) !important;
-  caret-color: var(--kup-main-color) !important;
+  color: var(--kup-primary-color) !important;
+  caret-color: var(--kup-primary-color) !important;
 }
 
 /* Navigation menu and content */
@@ -387,7 +387,7 @@ a.primary--text {
 div.logo svg {
   cursor: pointer;
   display: block;
-  fill: var(--kup-main-color);
+  fill: var(--kup-primary-color);
   margin: 1rem auto 2rem auto;
   height: 70px;
   margin-top: 30px;
@@ -414,7 +414,7 @@ a.v-list__tile.v-list__tile--link:hover {
 }
 
 html a {
-  color: var(--kup-main-color);
+  color: var(--kup-primary-color);
 }
 
 /* About page */
@@ -613,7 +613,7 @@ table#customstyle-tab kup-text-field {
 
 #split-container {
   width: 100%;
-  background: var(--kup-main-color);
+  background: var(--kup-primary-color);
   height: 50px;
   position: absolute;
   bottom: 0;
@@ -819,7 +819,7 @@ table#customstyle-tab kup-text-field {
 
 .sample-section .cm-s-default .cm-string,
 .sample-section .cm-s-default .cm-atom {
-  color: var(--kup-main-color);
+  color: var(--kup-primary-color);
   font-weight: bold;
 }
 

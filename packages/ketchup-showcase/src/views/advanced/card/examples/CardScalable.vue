@@ -246,7 +246,7 @@ export default {
   data() {
     return {
       data: {
-        color1: 'var(--kup-main-color)',
+        color1: 'var(--kup-primary-color)',
         image1: {
           resource: 'widgets',
           title: 'image1',

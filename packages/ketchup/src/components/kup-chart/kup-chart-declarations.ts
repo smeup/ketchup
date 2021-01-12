@@ -1,46 +1,8 @@
 import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 
-export enum ChartType {
-    Area = 'Area',
-    Bubble = 'Bubble',
-    Cal = 'Cal',
-    Candlestick = 'Candlestick',
-    Combo = 'Combo',
-    Geo = 'Geo',
-    Hbar = 'Hbar',
-    Line = 'Line',
-    Ohlc = 'Ohlc',
-    Pie = 'Pie',
-    Sankey = 'Sankey',
-    Scatter = 'Scatter',
-    Unk = 'Unk',
-    ColumnChart = 'ColumnChart',
-    Vbar = 'Vbar',
-}
-
 export enum ChartAspect {
     D2 = '2D',
     D3 = '3D',
-}
-
-export interface ChartOptions {
-    backgroundColor: string;
-    is3D: boolean;
-    colors?: string[];
-    width?: string;
-    height?: string;
-    legend?: { position: string; textStyle?: { color?: string } };
-    isStacked?: boolean;
-    title?: string;
-    titleTextStyle?: { color?: string; fontSize?: number };
-    series?: any;
-    slices?: {
-        color?: string;
-        offset?: number;
-        textStyle?: { color?: string };
-    }[];
-    hAxis?: ChartAxis;
-    vAxis?: ChartAxis;
 }
 
 export interface ChartAxis {
@@ -72,7 +34,51 @@ export interface ChartOfflineMode {
     shape: string;
 }
 
+export interface ChartOptions {
+    backgroundColor: string;
+    is3D: boolean;
+    colors?: string[];
+    width?: string;
+    height?: string;
+    legend?: { position: string; textStyle?: { color?: string } };
+    isStacked?: boolean;
+    title?: string;
+    titleTextStyle?: { color?: string; fontSize?: number };
+    series?: any;
+    slices?: {
+        color?: string;
+        offset?: number;
+        textStyle?: { color?: string };
+    }[];
+    hAxis?: ChartAxis;
+    vAxis?: ChartAxis;
+}
+
 export interface ChartSerie {
     code: string;
     decode?: string;
+}
+
+export interface ChartTitle {
+    value: string;
+    color?: string;
+    size?: number;
+}
+
+export enum ChartType {
+    Area = 'Area',
+    Bubble = 'Bubble',
+    Cal = 'Cal',
+    Candlestick = 'Candlestick',
+    Combo = 'Combo',
+    Geo = 'Geo',
+    Hbar = 'Hbar',
+    Line = 'Line',
+    Ohlc = 'Ohlc',
+    Pie = 'Pie',
+    Sankey = 'Sankey',
+    Scatter = 'Scatter',
+    Unk = 'Unk',
+    ColumnChart = 'ColumnChart',
+    Vbar = 'Vbar',
 }
