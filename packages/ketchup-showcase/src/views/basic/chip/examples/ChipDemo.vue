@@ -4,7 +4,7 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -40,20 +40,20 @@ export default {
       ],
       demoProps: [
         {
-          prop: 'data',
-          description:
-            'Object array containing the data of the chips: value, icon, label to be shown and checked status.',
-          type: 'ComponentChipElement[]',
-          default: '[]',
-          try: 'json',
-        },
-        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
           default: 'undefined',
           try: 'css',
+        },
+        {
+          prop: 'data',
+          description:
+            'Object array containing the data of the chips: value, icon, label to be shown and checked status.',
+          type: 'ComponentChipElement[]',
+          default: '[]',
+          try: 'json',
         },
         {
           prop: 'type',
@@ -64,31 +64,11 @@ export default {
           try: 'field',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
       ],
     };

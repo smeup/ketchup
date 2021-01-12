@@ -17,8 +17,8 @@
 | `dropEnabled`             | `drop-enabled`                | Enable dropping                                                                                                 | `boolean`                                  | `false`     |
 | `dropOnSection`           | `drop-on-section`             | Drop can be done in section                                                                                     | `boolean`                                  | `false`     |
 | `enableRowActions`        | `enable-row-actions`          | If enabled, a button to load / display the row actions will be displayed on the right of every box              | `boolean`                                  | `false`     |
-| `filterEnabled`           | `filter-enabled`              | Enable filtering                                                                                                | `boolean`                                  | `false`     |
-| `globalFilterValueState`  | `global-filter-value-state`   | Global filter value state                                                                                       | `string`                                   | `undefined` |
+| `globalFilter`            | `global-filter`               | When set to true it activates the global filter.                                                                | `boolean`                                  | `false`     |
+| `globalFilterValue`       | `global-filter-value`         | The value of the global filter.                                                                                 | `string`                                   | `''`        |
 | `layout`                  | --                            | How the field will be displayed. If not present, a default one will be created.                                 | `Layout`                                   | `undefined` |
 | `multiSelection`          | `multi-selection`             | Enable multi selection                                                                                          | `boolean`                                  | `false`     |
 | `pageSelected`            | `page-selected`               | Current page number                                                                                             | `number`                                   | `1`         |
@@ -123,13 +123,18 @@ graph TD;
   kup-badge --> kup-image
   kup-tooltip --> kup-button
   kup-tooltip --> kup-tree
-  kup-tree --> kup-lazy
-  kup-tree --> kup-button
-  kup-tree --> kup-checkbox
   kup-tree --> kup-image
+  kup-tree --> kup-button
+  kup-tree --> kup-chart
+  kup-tree --> kup-checkbox
+  kup-tree --> kup-chip
+  kup-tree --> kup-color-picker
+  kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
+  kup-tree --> kup-rating
   kup-tree --> kup-radio
   kup-tree --> kup-text-field
+  kup-color-picker --> kup-text-field
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-list --> kup-radio

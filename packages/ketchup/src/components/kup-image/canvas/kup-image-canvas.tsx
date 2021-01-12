@@ -149,6 +149,10 @@ export class imageCanvas {
     }
 
     getNewStarXFromBar(startX: number, elem: GraphicElement): number {
+        if (Number.isNaN(elem.getWidth())) {
+            //no width
+            return startX;
+        }
         const elemWidth = this.getDim(this.canvas.clientWidth, elem.getWidth());
         const elemHeight = this.getDim(
             this.canvas.clientHeight,
@@ -157,7 +161,13 @@ export class imageCanvas {
         const y = this.canvas.clientHeight - elemHeight;
 
         if (!elem.isTrasparent()) {
-            this.drawRect(startX, y, elemWidth, elemHeight, elem.getColor());
+            this.drawRect(
+                startX,
+                y,
+                elemWidth - startX,
+                elemHeight,
+                elem.getColor()
+            );
         }
 
         return elemWidth;

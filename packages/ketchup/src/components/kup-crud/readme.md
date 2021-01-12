@@ -101,16 +101,21 @@ graph TD;
   kup-data-table --> kup-combobox
   kup-tooltip --> kup-button
   kup-tooltip --> kup-tree
-  kup-tree --> kup-lazy
-  kup-tree --> kup-button
-  kup-tree --> kup-checkbox
   kup-tree --> kup-image
+  kup-tree --> kup-button
+  kup-tree --> kup-chart
+  kup-tree --> kup-checkbox
+  kup-tree --> kup-chip
+  kup-tree --> kup-color-picker
+  kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
+  kup-tree --> kup-rating
   kup-tree --> kup-radio
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
+  kup-color-picker --> kup-text-field
   kup-paginator --> kup-button
   kup-paginator --> kup-combobox
   style kup-crud fill:#f9f,stroke:#333,stroke-width:4px

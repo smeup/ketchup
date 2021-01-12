@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Filter enabled</h3>
-    <kup-box :data.prop="basicData" :filterEnabled.prop="true"></kup-box>
+    <kup-box :data.prop="basicData" :globalFilter.prop="true"></kup-box>
   </div>
 </template>
 

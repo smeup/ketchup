@@ -10,7 +10,6 @@
 | `customStyle`            | `custom-style`               | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                          | `string`  | `undefined` |
 | `disabled`               | `disabled`                   | Defaults at false. When set to true, the component is disabled.                                                                          | `boolean` | `false`     |
 | `emitSubmitEventOnEnter` | `emit-submit-event-on-enter` | When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.         | `boolean` | `true`      |
-| `forceFocus`             | `force-focus`                | Defaults at false. When set to true, the component will be focused.                                                                      | `boolean` | `false`     |
 | `fullWidth`              | `full-width`                 | Defaults at false. When set to true, the component will be rendered at full width.                                                       | `boolean` | `false`     |
 | `helper`                 | `helper`                     | Defaults at null. When set, its content will be shown as a help text below the field.                                                    | `string`  | `null`      |
 | `helperWhenFocused`      | `helper-when-focused`        | Defaults at false. When set, the helper will be shown only when the field is focused.                                                    | `boolean` | `false`     |
@@ -54,7 +53,37 @@ Type: `Promise<boolean>`
 
 
 
+### `getValue() => Promise<string>`
+
+
+
+#### Returns
+
+Type: `Promise<string>`
+
+
+
 ### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setFocus() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setValue(value: string) => Promise<void>`
 
 
 
@@ -71,10 +100,13 @@ Type: `Promise<void>`
 
  - [kup-autocomplete](../kup-autocomplete)
  - [kup-box](../kup-box)
+ - [kup-color-picker](../kup-color-picker)
  - [kup-combobox](../kup-combobox)
  - [kup-data-table](../kup-data-table)
+ - [kup-date-picker](../kup-date-picker)
  - [kup-form](../kup-form)
  - [kup-search](../kup-search)
+ - [kup-time-picker](../kup-time-picker)
  - [kup-tree](../kup-tree)
 
 ### Graph
@@ -82,10 +114,13 @@ Type: `Promise<void>`
 graph TD;
   kup-autocomplete --> kup-text-field
   kup-box --> kup-text-field
+  kup-color-picker --> kup-text-field
   kup-combobox --> kup-text-field
   kup-data-table --> kup-text-field
+  kup-date-picker --> kup-text-field
   kup-form --> kup-text-field
   kup-search --> kup-text-field
+  kup-time-picker --> kup-text-field
   kup-tree --> kup-text-field
   style kup-text-field fill:#f9f,stroke:#333,stroke-width:4px
 ```

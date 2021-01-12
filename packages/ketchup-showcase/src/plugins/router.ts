@@ -30,11 +30,6 @@ let basicRoutes = [
     component: () => import(`@/views/basic/button/Button.vue`),
   },
   {
-    path: `/drawer`,
-    name: 'drawer',
-    component: () => import(`@/views/basic/drawer/Drawer.vue`),
-  },
-  {
     path: `/checkbox`,
     name: 'checkbox',
     component: () => import(`@/views/basic/checkbox/Checkbox.vue`),
@@ -45,9 +40,29 @@ let basicRoutes = [
     component: () => import(`@/views/basic/chip/Chip.vue`),
   },
   {
+    path: `/colorpicker`,
+    name: 'colorpicker',
+    component: () => import(`@/views/basic/colorpicker/ColorPicker.vue`),
+  },
+  {
     path: `/combobox`,
     name: 'combobox',
     component: () => import(`@/views/basic/combobox/Combobox.vue`),
+  },
+  {
+    path: `/drawer`,
+    name: 'drawer',
+    component: () => import(`@/views/basic/drawer/Drawer.vue`),
+  },
+  {
+    path: `/datepicker`,
+    name: 'datepicker',
+    component: () => import(`@/views/basic/datepicker/DatePicker.vue`),
+  },
+  {
+    path: `/gauge`,
+    name: 'gauge',
+    component: () => import(`@/views/basic/gauge/Gauge.vue`),
   },
   {
     path: `/grid`,
@@ -95,11 +110,6 @@ let basicRoutes = [
     component: () => import(`@/views/basic/rating/Rating.vue`),
   },
   {
-    path: `/colorpicker`,
-    name: 'colorpicker',
-    component: () => import(`@/views/basic/colorpicker/ColorPicker.vue`),
-  },
-  {
     path: `/spinner`,
     name: 'spinner',
     component: () => import(`@/views/basic/spinner/Spinner.vue`),
@@ -118,6 +128,11 @@ let basicRoutes = [
     path: `/textfield`,
     name: 'textfield',
     component: () => import(`@/views/basic/textfield/Textfield.vue`),
+  },
+  {
+    path: `/timepicker`,
+    name: 'timepicker',
+    component: () => import(`@/views/basic/timepicker/TimePicker.vue`),
   },
 ];
 
@@ -148,9 +163,9 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/chart/Chart.vue`),
   },
   {
-    path: `/echarts`,
-    name: 'echarts',
-    component: () => import(`@/views/advanced/echarts/Echarts.vue`),
+    path: `/echart`,
+    name: 'echart',
+    component: () => import(`@/views/advanced/echart/Echart.vue`),
   },
   {
     path: `/crud`,
@@ -257,6 +272,11 @@ let testRoutes = [
     path: `/test/graphic-cells`,
     name: 'testGraphicCells',
     component: () => import(`@/views/test/GraphicCells.vue`),
+  },
+  {
+    path: `/test/tree-columns`,
+    name: 'testTreeColumns',
+    component: () => import(`@/views/test/TreeColumns.vue`),
   },
 ];
 

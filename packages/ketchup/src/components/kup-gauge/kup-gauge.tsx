@@ -1,5 +1,14 @@
-import { Component, Element, Prop, h } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Prop,
+    h,
+    State,
+    Method,
+    Host,
+} from '@stencil/core';
 import { logLoad, logRender } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 declare const d3: any;
 
@@ -10,21 +19,26 @@ declare const d3: any;
 })
 export class KupGauge {
     @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
 
     /**
      * Sets how much the arc of the gauge should be thick.
      * @namespace kup-gauge.arcThickness
      * @see kup-gauge.size
      */
-    @Prop() arcThickness = 30;
+    @Prop() arcThickness: number = 30;
     /**
      * Array of three elements to specify the color of the arcs.
      */
     @Prop() colors: string[] = [
-        'var(--gau_first-color)',
-        'var(--gau_second-color)',
-        'var(--gau_third-color)',
+        'var(--kup-success-color)',
+        'var(--kup-warning-color)',
+        'var(--kup-danger-color)',
     ];
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = undefined;
     /**
      * The first threshold, establishing the length of the first and second arc.
      */
@@ -46,16 +60,15 @@ export class KupGauge {
      */
     @Prop() minValue: number = -100;
     /**
-     * if true, shows a rounded needle.
+     * When true, shows a rounded needle.
      */
     @Prop() needleCircle: boolean = false;
     /**
-     * if true, ignore threasholds in gauge and show
-     * colored value's arc.
+     * When true, ignore thresholds in gauge and show colored value's arc.
      */
     @Prop() onlyValue: boolean = false;
     /**
-     * If set to true, the colors inside the colors array are used in the reversed order.
+     * When true, the colors inside the colors array are used in the reversed order.
      */
     @Prop() reverseColors: boolean = false;
     /**
@@ -94,7 +107,7 @@ export class KupGauge {
     /**
      * Set Width gauge.
      */
-    @Prop() widthComponent: string = '22vw';
+    @Prop() widthComponent: string = '100%';
 
     //---- Internal not reactive state ----
     // Arcs generator
@@ -109,6 +122,13 @@ export class KupGauge {
      * @namespace kup-gauge.maxValuePositive
      */
     private maxValuePositive = 0;
+
+    //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
 
     //---- Utility functions ----
     // Manipulates and transforms degrees to percentage and vice versa.
@@ -135,11 +155,17 @@ export class KupGauge {
     }
 
     calculateValueFontSize(): string {
-        if (this.valueSize > 2) return '3vw';
-        if (this.valueSize > 1) return '2.5vw';
-        if (this.valueSize > 0) return '2vw';
-
-        return '1.5vw';
+        switch (this.valueSize) {
+            case 3:
+                return '350%';
+            case 2:
+                return '325%';
+            case 1:
+                return '300%';
+            default:
+            case 0:
+                return '275%';
+        }
     }
 
     //---- Rendering functions ----
@@ -185,6 +211,7 @@ export class KupGauge {
 
     componentWillLoad() {
         logLoad(this, false);
+        setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
@@ -204,11 +231,29 @@ export class KupGauge {
         this.maxValuePositive = Math.abs(this.minValue - this.maxValue);
 
         // Svg constants
+        let yValueMultiplier = 1;
+        switch (this.valueSize) {
+            case 3:
+                yValueMultiplier = 3;
+                break;
+            case 2:
+                yValueMultiplier = 2.75;
+                break;
+            case 1:
+                yValueMultiplier = 2.5;
+                break;
+            default:
+            case 0:
+                yValueMultiplier = 2.25;
+                break;
+        }
         const halvedSize = this.size / 2; // The svg size ratio w : w / 2
         const needleCircleRadius = this.size / 20; // Arbitrary size of the base of the needle
         const needleLength = halvedSize - 2 * this.arcThickness; // Calculates the length of the needle in pure units
         const valueLabelYPosition =
-            halvedSize + needleCircleRadius + this.labelDistance * 1;
+            halvedSize +
+            needleCircleRadius +
+            this.labelDistance * yValueMultiplier;
 
         // User provided thresholds
         // TODO these thresholds will be given to the component by a user prop
@@ -248,10 +293,8 @@ export class KupGauge {
                     : this.value < this.secondThreshold
                     ? computedcolors[1]
                     : computedcolors[2];
-            arcsColors = [valuecolor, 'var(--gau_empty-color)'];
+            arcsColors = [valuecolor, 'rgba(var(--kup-text-color-rgb), .1)'];
         }
-
-        console.log(arcsThresholds.length);
 
         for (let i = 0; i < arcsThresholds.length - 1; i++) {
             const currentArcPath = this.arcGenerator({
@@ -271,8 +314,6 @@ export class KupGauge {
                 />
             );
         }
-
-        console.log(arcsElements.length);
 
         // Composes the threshold label elements, if labels must be displayed
         const textElements =
@@ -337,51 +378,59 @@ export class KupGauge {
                 : [];
 
         const style = { fontSize: this.calculateValueFontSize() };
+        let valueText = undefined;
+        if (this.showValue) {
+            valueText = (
+                <text
+                    class="gauge__label-text value"
+                    text-anchor="middle"
+                    x={halvedSize}
+                    y={valueLabelYPosition}
+                    style={style}
+                >
+                    {this.value + ' ' + this.measurementUnit}
+                </text>
+            );
+        }
+
         const width = { width: this.widthComponent };
         return (
-            <div class="gauge__container">
-                <svg
-                    class="gauge"
-                    style={width}
-                    viewBox={`0 0 ${this.size} ${valueLabelYPosition}`}
-                >
-                    <g
-                        transform={`rotate(-90) translate(-${halvedSize}, ${halvedSize})`}
+            <Host>
+                <style>{setCustomStyle(this)}</style>
+                <div id="kup-component" class="gauge__container">
+                    <svg
+                        class="gauge"
+                        style={width}
+                        viewBox={`0 0 ${this.size} ${valueLabelYPosition}`}
                     >
-                        {arcsElements}
-                    </g>
-                    {this.needleCircle ? (
-                        <circle
-                            class="gauge__needle-base"
-                            cx={halvedSize}
-                            cy={halvedSize}
-                            r={needleCircleRadius}
-                        />
-                    ) : null}
-                    <path
-                        class="gauge__needle"
-                        d={this.paintNeedle(
-                            needleLength,
-                            needleCircleRadius,
-                            halvedSize,
-                            halvedSize,
-                            this.calculateValuePercentage(this.value)
-                        )}
-                    />
-                    {textElements}
-                </svg>
-                <div>
-                    {this.showValue ? (
-                        <div
-                            class="gauge__value-text"
-                            text-anchor="middle"
-                            style={style}
+                        <g
+                            transform={`rotate(-90) translate(-${halvedSize}, ${halvedSize})`}
                         >
-                            {this.value + ' ' + this.measurementUnit}
-                        </div>
-                    ) : null}
+                            {arcsElements}
+                        </g>
+                        {this.needleCircle ? (
+                            <circle
+                                class="gauge__needle-base"
+                                cx={halvedSize}
+                                cy={halvedSize}
+                                r={needleCircleRadius}
+                            />
+                        ) : null}
+                        <path
+                            class="gauge__needle"
+                            d={this.paintNeedle(
+                                needleLength,
+                                needleCircleRadius,
+                                halvedSize,
+                                halvedSize,
+                                this.calculateValuePercentage(this.value)
+                            )}
+                        />
+                        {textElements}
+                        {valueText}
+                    </svg>
                 </div>
-            </div>
+            </Host>
         );
     }
 }

@@ -22,6 +22,7 @@ export interface Cell {
     cardID?: string;
     cssClass?: string;
     icon?: string;
+    title?: string;
 }
 
 export interface CellsHolder {
@@ -43,6 +44,7 @@ export interface Column {
     shape?: string;
     decimals?: number;
     icon?: string;
+    formula?: string;
 }
 
 export interface Row extends Identifiable {

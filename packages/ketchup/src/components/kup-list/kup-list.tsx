@@ -157,6 +157,7 @@ export class KupList {
     @Watch('filter')
     watchFilter() {
         this.focIndex = -1;
+
         this.filteredItems = [];
         let index = 0;
         this.data.map((item) => {
@@ -170,15 +171,17 @@ export class KupList {
         if (this.arrowDown == true) {
             if (this.focIndex < this.listComponent.listElements.length - 1) {
                 if (this.focIndex == -1) {
-                    this.listComponent
+                    let idx = this.listComponent
                         .getDefaultFoundation()
                         .focusFirstElement();
+                    this.focIndex = idx;
                 } else {
-                    this.listComponent
+                    let idx = this.listComponent
                         .getDefaultFoundation()
                         .focusNextElement(this.focIndex);
+                    this.focIndex = idx;
                 }
-                this.focIndex++;
+                //this.focIndex++;
             }
             this.arrowDown = false;
         }
@@ -273,9 +276,9 @@ export class KupList {
 
     @Method()
     async resetFilter(newFilter: string) {
-        if (this.filter == newFilter && newFilter != '') {
+        /*if (this.filter == newFilter && newFilter != '') {
             this.filter = '';
-        }
+        }*/
         this.filter = newFilter;
     }
 
@@ -284,7 +287,12 @@ export class KupList {
     }
 
     renderListItem(item: ComponentListElement, index: number) {
+        let rippleEl: HTMLElement = undefined;
         this.filteredItems[index] = item;
+
+        if (this.selectable) {
+            rippleEl = <span class="mdc-list-item__ripple"></span>;
+        }
 
         if (item.selected != true) {
             item.selected = false;
@@ -424,6 +432,7 @@ export class KupList {
                         : (e: any) => this.onKupInput(e, item, index)
                 }
             >
+                {rippleEl}
                 {innerSpanTag}
             </li>
         );
@@ -441,17 +450,21 @@ export class KupList {
 
     sendInfoToSubComponent(index: number, item: ComponentListElement) {
         if (this.isRadioButtonRule()) {
-            let dataTmp = [
-                {
-                    value: item.value,
-                    label: '',
-                    checked: item.selected == true ? true : false,
-                },
-            ];
-            this.radios[index].data = dataTmp;
+            if (this.radios[index]) {
+                let dataTmp = [
+                    {
+                        value: item.value,
+                        label: '',
+                        checked: item.selected == true ? true : false,
+                    },
+                ];
+                this.radios[index].data = dataTmp;
+            }
         }
         if (this.isCheckBoxRule()) {
-            this.checkboxes[index].checked = item.selected;
+            if (this.checkboxes[index]) {
+                this.checkboxes[index].checked = item.selected;
+            }
         }
     }
 
@@ -524,13 +537,13 @@ export class KupList {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        this.watchFilter();
         logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
         this.listComponent = null;
-        this.focIndex = -1;
         // Called once just after the component fully loaded and the first render() occurs.
         const root = this.rootElement.shadowRoot;
         if (root) {

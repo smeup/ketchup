@@ -4,7 +4,10 @@
       :data.prop="baseData"
       :types.prop="types"
       axis="Col1"
-      :series.prop="['Col3', 'Col4']"
+      :series.prop="[
+        { code: 'Col3', decode: 'Col3' },
+        { code: 'Col4', decode: 'Col4' },
+      ]"
     />
     <hr />
   </div>

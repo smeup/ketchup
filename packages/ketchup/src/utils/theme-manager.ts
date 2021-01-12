@@ -1,431 +1,18 @@
 import { getAssetPath } from '@stencil/core';
 import { logMessage } from './debug-manager';
+import * as themesJson from './themes.json';
 
 declare global {
     interface HTMLElement {
         'kup-theme': any;
         kupCurrentTheme: any;
         kupCustomStyles: any;
+        kupRefreshTheme: any;
         kupThemes: any;
     }
 }
 
-const dom = document.documentElement;
-const kupThemes = JSON.parse(`{
-    "dark": {
-        "cssVariables": {
-            "--kup-main-color": "#82f0e2",
-            "--kup-background-color": "#2d2d2d",
-            "--kup-nav-bar-background-color": "#2d2d2d",
-            "--kup-drawer-background-color": "#1f1f1f",
-            "--kup-font-family": "Lato, sans-serif",
-            "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
-            "--kup-font-size": "14px",
-            "--kup-text-color": "#f5f5f5",
-            "--kup-text-on-main-color": "#555555",
-            "--kup-disabled-background-color": "#3c3c3c",
-            "--kup-disabled-color": "#7e7e7e",
-            "--kup-hover-background-color": "#3c3c3c",
-            "--kup-hover-color": "#dddddd",
-            "--kup-title-background-color": "#111111",
-            "--kup-title-color": "#f5f5f5",
-            "--kup-icon-color": "#e0e0e0",
-            "--kup-border-color": "#535353",
-            "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
-            "--kup-field-background-color": "#2a2a2a",
-            "--kup-success-color": "#4d9f02",
-            "--kup-warning-color": "#ffc107",
-            "--kup-danger-color": "#d91e18",
-            "--kup-spinner-color": "#f2e114",
-            "--kup-chart-color-1": "#60c3fc",
-            "--kup-chart-color-2": "#e268d8",
-            "--kup-chart-color-3": "#860bb5",
-            "--kup-chart-color-4": "#1a83e4",
-            "--kup-obj-cursor": "inherit"
-        },
-        "icons": {
-            "ascending-icon": "arrow_drop_up",
-            "descending-icon": "arrow_drop_down",
-            "expanded-icon": "arrow_drop_down",
-            "collapsed-icon": "menu-right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
-        }
-    },
-    "default": {
-        "cssVariables": {
-            "--kup-main-color": "#d64325",
-            "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#2e2e2e",
-            "--kup-drawer-background-color": "#ffffff",
-            "--kup-font-family": "Roboto, sans-serif",
-            "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
-            "--kup-font-size": "14px",
-            "--kup-text-color": "#2e2e2e",
-            "--kup-text-on-main-color": "#ffffff",
-            "--kup-disabled-background-color": "#eaeaea",
-            "--kup-disabled-color": "#5c5c5c",
-            "--kup-hover-background-color": "#f0f0f0",
-            "--kup-hover-color": "#545454",
-            "--kup-title-background-color": "#f1f3f4",
-            "--kup-title-color": "#2e2e2e",
-            "--kup-icon-color": "#505050",
-            "--kup-border-color": "#e0e0e0",
-            "--kup-box-shadow": "rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px",
-            "--kup-field-background-color": "#fafafa",
-            "--kup-success-color": "#4d9f02",
-            "--kup-warning-color": "#ffc107",
-            "--kup-danger-color": "#d91e18",
-            "--kup-spinner-color": "#eaa710",
-            "--kup-chart-color-1": "#ff5959",
-            "--kup-chart-color-2": "#e0a0a0",
-            "--kup-chart-color-3": "#8e1010",
-            "--kup-chart-color-4": "#f5f5dc",
-            "--kup-obj-cursor": "inherit"
-        },
-        "icons": {
-            "ascending-icon": "sort-ascending",
-            "descending-icon": "sort-descending",
-            "expanded-icon": "chevron-down",
-            "collapsed-icon": "chevron_right",
-            "clear-icon": "clear",
-            "filter-remove-icon": "filter-remove"
-        }
-    },
-    "graphite": {
-        "cssVariables": {
-            "--kup-main-color": "#888888",
-            "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#535353",
-            "--kup-drawer-background-color": "#ffffff",
-            "--kup-font-family": "Roboto, sans-serif",
-            "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
-            "--kup-font-size": "13px",
-            "--kup-text-color": "#545454",
-            "--kup-text-on-main-color": "#ffffff",
-            "--kup-disabled-color": "#5c5c5c",
-            "--kup-disabled-background-color": "#eaeaea",
-            "--kup-hover-background-color": "#f0f0f0",
-            "--kup-hover-color": "#545454",
-            "--kup-title-background-color": "#f0f0f0",
-            "--kup-title-color": "#545454",
-            "--kup-icon-color": "#808080",
-            "--kup-border-color": "#e0e0e0",
-            "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
-            "--kup-field-background-color": "#fafafa",
-            "--kup-success-color": "#4d9f02",
-            "--kup-warning-color": "#ffc107",
-            "--kup-danger-color": "#d91e18",
-            "--kup-spinner-color": "#eaa710",
-            "--kup-chart-color-1": "red",
-            "--kup-chart-color-2": "blue",
-            "--kup-chart-color-3": "orange",
-            "--kup-chart-color-4": "green",
-            "--kup-chart-color-5": "yellow",
-            "--kup-chart-color-6": "cyan",
-            "--kup-chart-color-7": "brown",
-            "--kup-chart-color-8": "magenta",
-            "--kup-chart-color-9": "grey",
-            "--kup-chart-color-10": "indigo",
-            "--kup-obj-cursor": "inherit"
-        },
-        "customStyles": {
-            "KUP-BUTTON": "#kup-component button { text-transform: unset; }"
-        },
-        "icons": {
-            "ascending-icon": "arrow_drop_up",
-            "descending-icon": "arrow_drop_down",
-            "expanded-icon": "arrow_drop_down",
-            "collapsed-icon": "menu-right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
-        }
-    },
-    "IBMh2o": {
-        "cssVariables": {
-            "--kup-main-color": "rgb(187, 198, 5)",
-            "--kup-background-color": "#000000",
-            "--kup-nav-bar-background-color": "#000000",
-            "--kup-drawer-background-color": "#000000",
-            "--kup-font-family": "'Rajdhani', sans-serif",
-            "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
-            "--kup-font-size": "15px",
-            "--kup-text-color": "#ffffff",
-            "--kup-text-on-main-color": "#000000",
-            "--kup-disabled-background-color": "#151515",
-            "--kup-disabled-color": "#7b7b7b",
-            "--kup-hover-background-color": "#404040",
-            "--kup-hover-color": "#ffffff",
-            "--kup-title-background-color": "#ffe600",
-            "--kup-title-color": "#000000",
-            "--kup-icon-color": "#9d9d9d",
-            "--kup-border-color": "#9d9d9d",
-            "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
-            "--kup-field-background-color": "transparent",
-            "--kup-success-color": "#4d9f02",
-            "--kup-warning-color": "#ffc107",
-            "--kup-danger-color": "#d91e18",
-            "--kup-spinner-color": "#ffe600",
-            "--kup-chart-color-1": "#ffffff",
-            "--kup-chart-color-2": "rgb(187, 198, 5)",
-            "--kup-chart-color-3": "#ffe600",
-            "--kup-chart-color-4": "#effd02",
-            "--kup-obj-cursor": "inherit"
-        },
-        "icons": {
-            "ascending-icon": "sort-ascending",
-            "descending-icon": "sort-descending",
-            "expanded-icon": "chevron-down",
-            "collapsed-icon": "chevron_right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
-        }
-    },
-    "ocean": {
-        "cssVariables": {
-            "--kup-main-color": "#0081c5",
-            "--kup-background-color": "#e9f1ff",
-            "--kup-nav-bar-background-color": "#001d3e",
-            "--kup-drawer-background-color": "#e6f1ff",
-            "--kup-font-family": "Lato, sans-serif",
-            "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
-            "--kup-font-size": "16px",
-            "--kup-text-color": "#1b1b1b",
-            "--kup-text-on-main-color": "#ffffff",
-            "--kup-disabled-background-color": "#eaeaea",
-            "--kup-disabled-color": "#5c5c5c",
-            "--kup-hover-background-color": "#cfe8ff",
-            "--kup-hover-color": "#545454",
-            "--kup-title-background-color": "#f1f3f4",
-            "--kup-title-color": "#1b1b1b",
-            "--kup-icon-color": "#505050",
-            "--kup-border-color": "#e0e0e0",
-            "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
-            "--kup-field-background-color": "#dce9ff",
-            "--kup-success-color": "#4d9f02",
-            "--kup-warning-color": "#ffc107",
-            "--kup-danger-color": "#d91e18",
-            "--kup-spinner-color": "#eaa710",
-            "--kup-chart-color-1": "#60c3fc",
-            "--kup-chart-color-2": "#e268d8",
-            "--kup-chart-color-3": "#e48b47",
-            "--kup-chart-color-4": "#81e447",
-            "--kup-obj-cursor": "inherit"
-        },
-        "icons": {
-            "ascending-icon": "arrow_drop_up",
-            "descending-icon": "arrow_drop_down",
-            "expanded-icon": "arrow_drop_down",
-            "collapsed-icon": "menu-right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
-        }
-    },
-    "print": {
-        "cssVariables": {
-            "--kup-main-color": "#000000",
-            "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#000000",
-            "--kup-drawer-background-color": "#ffffff",
-            "--kup-font-family": "Arial, Helvetica, sans-serif",
-            "--kup-font-family-monospace": "Courier New, Courier, monospace",
-            "--kup-font-size": "13px",
-            "--kup-text-color": "#000000",
-            "--kup-text-on-main-color": "#ffffff",
-            "--kup-disabled-background-color": "#f0f0f0",
-            "--kup-disabled-color": "#2e2e2e",
-            "--kup-hover-background-color": "#f0f0f0",
-            "--kup-hover-color": "#000000",
-            "--kup-title-background-color": "#f1f1f1",
-            "--kup-title-color": "#000000",
-            "--kup-icon-color": "#333333",
-            "--kup-border-color": "#2e2e2e",
-            "--kup-box-shadow": "rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px",
-            "--kup-field-background-color": "#ffffff",
-            "--kup-success-color": "#4d9f02",
-            "--kup-warning-color": "#ffc107",
-            "--kup-danger-color": "#A6192E",
-            "--kup-spinner-color": "#eaa710",
-            "--kup-chart-color-1": "#735DED",
-            "--kup-chart-color-2": "#00B2CB",
-            "--kup-chart-color-3": "#EDC900",
-            "--kup-chart-color-4": "green",
-            "--kup-chart-color-5": "yellow",
-            "--kup-chart-color-6": "cyan",
-            "--kup-chart-color-7": "brown",
-            "--kup-chart-color-8": "magenta",
-            "--kup-chart-color-9": "grey",
-            "--kup-chart-color-10": "indigo",
-            "--kup-obj-cursor": "inherit"
-        },
-        "customStyles": {
-            "master": "",
-            "KUP-BUTTON": "#kup-component { display: none; }",
-            "KUP-DATA-TABLE": "#kup-component .paginator-wrapper { display: none; } #kup-component .above-wrapper { display: none; } #kup-component #global-filter { display: none; } #kup-component sticky-header { display: none; } #kup-component #group-chips { display: none; }"
-        },
-        "icons": {
-            "ascending-icon": "arrow_drop_up",
-            "descending-icon": "arrow_drop_down",
-            "expanded-icon": "arrow_drop_down",
-            "collapsed-icon": "menu-right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
-        }
-    },
-    "teal": {
-        "cssVariables": {
-            "--kup-main-color": "#068A9C",
-            "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#068A9C",
-            "--kup-drawer-background-color": "#ffffff",
-            "--kup-font-family": "Roboto, sans-serif",
-            "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
-            "--kup-font-size": "13px",
-            "--kup-text-color": "#000000",
-            "--kup-text-on-main-color": "#ffffff",
-            "--kup-disabled-background-color": "#eaeaea",
-            "--kup-disabled-color": "#909090",
-            "--kup-hover-background-color": "#f0f0f0",
-            "--kup-hover-color": "#000000",
-            "--kup-title-background-color": "#f1f3f4",
-            "--kup-title-color": "#2e2e2e",
-            "--kup-icon-color": "#808080",
-            "--kup-border-color": "#ededed",
-            "--kup-box-shadow": "rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px",
-            "--kup-field-background-color": "#fafafa",
-            "--kup-success-color": "#4d9f02",
-            "--kup-warning-color": "#ffc107",
-            "--kup-danger-color": "#A6192E",
-            "--kup-spinner-color": "#eaa710",
-            "--kup-chart-color-1": "#735DED",
-            "--kup-chart-color-2": "#00B2CB",
-            "--kup-chart-color-3": "#EDC900",
-            "--kup-chart-color-4": "green",
-            "--kup-chart-color-5": "yellow",
-            "--kup-chart-color-6": "cyan",
-            "--kup-chart-color-7": "brown",
-            "--kup-chart-color-8": "magenta",
-            "--kup-chart-color-9": "grey",
-            "--kup-chart-color-10": "indigo",
-            "--kup-obj-cursor": "inherit"
-        },
-        "icons": {
-            "ascending-icon": "arrow_drop_up",
-            "descending-icon": "arrow_drop_down",
-            "expanded-icon": "arrow_drop_down",
-            "collapsed-icon": "menu-right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
-        }
-    },
-    "wildlife": {
-        "cssVariables": {
-            "--kup-main-color": "#0fa918",
-            "--kup-background-color": "#f7fff6",
-            "--kup-nav-bar-background-color": "#095a1f",
-            "--kup-drawer-background-color": "#dbfbd5",
-            "--kup-font-family": "Roboto, sans-serif",
-            "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
-            "--kup-font-size": "16px",
-            "--kup-text-color": "#000000",
-            "--kup-text-on-main-color": "#ffffff",
-            "--kup-disabled-background-color": "#eaeaea",
-            "--kup-disabled-color": "#5c5c5c",
-            "--kup-hover-background-color": "#63ab46",
-            "--kup-hover-color": "#ffffff",
-            "--kup-title-background-color": "#f1f3f4",
-            "--kup-title-color": "#000000",
-            "--kup-icon-color": "#333333",
-            "--kup-border-color": "#e0e0e0",
-            "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
-            "--kup-field-background-color": "transparent",
-            "--kup-success-color": "#4d9f02",
-            "--kup-warning-color": "#ffc107",
-            "--kup-danger-color": "#d91e18",
-            "--kup-spinner-color": "#eaa710",
-            "--kup-chart-color-1": "#60c3fc",
-            "--kup-chart-color-2": "#e268d8",
-            "--kup-chart-color-3": "#e48b47",
-            "--kup-chart-color-4": "#81e447",
-            "--kup-obj-cursor": "inherit"
-        },
-        "icons": {
-            "ascending-icon": "arrow_drop_up",
-            "descending-icon": "arrow_drop_down",
-            "expanded-icon": "arrow_drop_down",
-            "collapsed-icon": "menu-right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "filter-remove"
-        }
-    },
-    "test": {
-        "cssVariables": {
-            "--kup-main-color": "#d64325",
-            "--kup-background-color": "#ffffff",
-            "--kup-nav-bar-background-color": "#f5f5f5",
-            "--kup-drawer-background-color": "#ffffff",
-            "--kup-font-family": "Roboto, sans-serif",
-            "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
-            "--kup-font-size": "14px",
-            "--kup-text-color": "#2e2e2e",
-            "--kup-text-on-main-color": "#ffffff",
-            "--kup-disabled-background-color": "#eaeaea",
-            "--kup-disabled-color": "#5c5c5c",
-            "--kup-hover-background-color": "#f0f0f0",
-            "--kup-hover-color": "#545454",
-            "--kup-title-background-color": "#f1f3f4",
-            "--kup-title-color": "#2e2e2e",
-            "--kup-icon-color": "#505050",
-            "--kup-border-color": "#e0e0e0",
-            "--kup-box-shadow": "0px 0px 7.5px 0px rgba(128, 128, 128, 0.5)",
-            "--kup-field-background-color": "#fafafa",
-            "--kup-success-color": "#4d9f02",
-            "--kup-warning-color": "#ffc107",
-            "--kup-danger-color": "#d91e18",
-            "--kup-spinner-color": "#eaa710",
-            "--kup-chart-color-1": "#60c3fc",
-            "--kup-chart-color-2": "#e268d8",
-            "--kup-chart-color-3": "#e48b47",
-            "--kup-chart-color-4": "#81e447",
-            "--kup-obj-cursor": "alias"
-        },
-        "customStyles": {
-            "master": "#kup-component { background-color: red; }",
-            "KUP-AUTOCOMPLETE": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-BADGE": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-BUTTON": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-BOX": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-CARD": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-CHECKBOX": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-CHIP": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-COLOR-PICKER": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-COMBOBOX": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-DATA-TABLE": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-FIELD": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-GRID": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-IMAGE": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-LAZY": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-LIST": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-NAV-BAR": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-PROGRESS-BAR": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-RADIO": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-RATING": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-SPINNER": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-SWITCH": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-TAB-BAR": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-TEXT-FIELD": "#kup-component { border: 1px solid var(--kup-border-color); }",
-            "KUP-TREE": "#kup-component { border: 1px solid var(--kup-border-color); }"
-        },
-        "icons": {
-            "ascending-icon": "sort-ascending",
-            "descending-icon": "sort-descending",
-            "expanded-icon": "chevron-down",
-            "collapsed-icon": "chevron_right",
-            "clear-icon": "cancel",
-            "filter-remove-icon": "broom"
-        }
-    }
-}`);
+const dom: HTMLElement = document.documentElement;
 
 function initThemes() {
     if (dom.kupCurrentTheme) {
@@ -433,14 +20,33 @@ function initThemes() {
         return;
     }
     if (!dom.kupThemes) {
-        dom['kupThemes'] = kupThemes;
+        //TODO: not sure why themesJson is imported with a "default" prop containing itself...need to investigate, meanwhile set kupThemes to "default" prop
+        dom['kupThemes'] = themesJson['default'];
     } else {
         let message =
             'Ketchup themes were already set by a third party application.';
         logMessage('theme manager', message);
     }
     if (!dom.getAttribute('kup-theme')) {
-        dom.setAttribute('kup-theme', 'default');
+        dom.setAttribute('kup-theme', 'ketchup');
+    }
+    if (!dom.kupRefreshTheme) {
+        dom.kupRefreshTheme = () => {
+            try {
+                setupCssVariables();
+                setupIcons();
+                setupCustomStyle();
+
+                let message =
+                    'Theme ' + dom.getAttribute('kup-theme') + ' refreshed.';
+                logMessage('theme manager', message);
+                let event = new CustomEvent('kupThemeRefresh');
+                document.dispatchEvent(event);
+            } catch (error) {
+                let message = 'Theme not refreshed.';
+                logMessage('theme manager', message, 'warning');
+            }
+        };
     }
     dom.kupCustomStyles = [];
     setTheme();
@@ -463,16 +69,16 @@ function setTheme() {
 
     dom.kupCurrentTheme = dom.kupThemes[themeValue];
     if (!dom.kupCurrentTheme) {
-        message = 'Invalid theme name, falling back to default.';
+        message = 'Invalid theme name, falling back to default ("ketchup").';
         logMessage('theme manager', message);
-        dom.kupCurrentTheme = dom.kupThemes['default'];
+        dom.kupCurrentTheme = dom.kupThemes['ketchup'];
     }
 
     setupCssVariables();
     setupIcons();
     setupCustomStyle();
 
-    var event = new CustomEvent('kupThemeChanged');
+    var event = new CustomEvent('kupThemeChange');
     document.dispatchEvent(event);
 }
 
@@ -509,8 +115,7 @@ function setupCustomStyle() {
     for (let i = 0; i < components.length; i++) {
         if (components[i].isConnected) {
             components[i].refreshCustomStyle(
-                fetchThemeCustomStyle('master') +
-                    fetchThemeCustomStyle(components[i].tagName)
+                fetchThemeCustomStyle(components[i].tagName)
             );
         }
     }
@@ -523,7 +128,7 @@ function setupIcons() {
             let val = `url('${getAssetPath(
                 `./assets/svg/${icons[key]}.svg`
             )}') no-repeat center`;
-            dom.style.setProperty('--kup-' + key, val);
+            dom.style.setProperty(key, val);
         }
     }
 }
@@ -535,19 +140,15 @@ export function fetchThemeCustomStyle(component: string) {
     }
     let completeStyle: string = '';
 
-    if (styles['master']) {
-        completeStyle = styles['master'];
+    if (styles['MASTER']) {
+        completeStyle += styles['MASTER'];
     }
 
     if (styles[component]) {
-        if (completeStyle) {
-            completeStyle += styles[component];
-        } else {
-            completeStyle = styles[component];
-        }
+        completeStyle += ' ' + styles[component];
     }
 
-    return completeStyle;
+    return completeStyle + ' ';
 }
 
 export function setThemeCustomStyle(component: any) {
@@ -629,23 +230,57 @@ export function colorCheck(color: string) {
     }
 
     //Testing whether the color is "hex" value
+    let hexColor: string = undefined;
     if (color.substr(0, 1) === '#') {
+        hexColor = color;
         let oldColor = color;
         let rgbColor = hexToRgb(color);
-        color = 'rgb(' + rgbColor.r + ',' + rgbColor.g + ',' + rgbColor.b + ')';
-        logMessage(
-            'theme manager',
-            'Received HEX color ' + oldColor + ', converted to ' + color + '.'
-        );
+        try {
+            color =
+                'rgb(' + rgbColor.r + ',' + rgbColor.g + ',' + rgbColor.b + ')';
+            logMessage(
+                'theme manager',
+                'Received HEX color ' +
+                    oldColor +
+                    ', converted to ' +
+                    color +
+                    '.'
+            );
+        } catch (error) {
+            logMessage('theme-manager', 'Invalid color: ' + color + '.');
+        }
     }
 
     let rgbValues: string = undefined;
     var values = color.match(
         /rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/
     );
-    rgbValues = values[1] + ',' + values[2] + ',' + values[3];
 
-    return { rgbColor: color, rgbValues: rgbValues };
+    try {
+        rgbValues = values[1] + ',' + values[2] + ',' + values[3];
+    } catch (error) {
+        logMessage(
+            'theme-manager',
+            'Color not converted to rgb values: ' + color + '.'
+        );
+    }
+
+    if (!hexColor) {
+        try {
+            hexColor = rgbToHex(
+                parseInt(values[1]),
+                parseInt(values[2]),
+                parseInt(values[3])
+            );
+        } catch (error) {
+            logMessage(
+                'theme-manager',
+                'Color not converted to hex value: ' + color + '.'
+            );
+        }
+    }
+
+    return { hexColor: hexColor, rgbColor: color, rgbValues: rgbValues };
 }
 
 export function hexToRgb(hex: string) {
@@ -657,6 +292,15 @@ export function hexToRgb(hex: string) {
               b: parseInt(result[3], 16),
           }
         : null;
+}
+
+export function rgbToHex(r: number, g: number, b: number) {
+    return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? '0' + hex : hex;
 }
 
 export function codeToHex(color: string) {
@@ -813,11 +457,7 @@ export function codeToHex(color: string) {
     if (colorCodes[color.toLowerCase()]) {
         return colorCodes[color.toLowerCase()];
     } else {
-        logMessage(
-            'theme manager',
-            'Could not decode color ' + color + '!',
-            'warning'
-        );
+        logMessage('theme manager', 'Could not decode color ' + color + '!');
         return color;
     }
 }

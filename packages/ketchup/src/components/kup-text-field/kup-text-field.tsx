@@ -42,10 +42,6 @@ export class KupTextField {
      */
     @Prop() emitSubmitEventOnEnter: boolean = true;
     /**
-     * Defaults at false. When set to true, the component will be focused.
-     */
-    @Prop({ mutable: true }) forceFocus: boolean = false;
-    /**
      * Defaults at false. When set to true, the component will be rendered at full width.
      */
     @Prop({ reflect: true }) fullWidth: boolean = false;
@@ -198,32 +194,33 @@ export class KupTextField {
         value: string;
     }>;
 
-    @Watch('initialValue')
-    watchInitialValue() {
-        this.value = this.initialValue;
-        if (this.inputEl !== undefined) {
-            this.inputEl.value = this.value;
-        }
-    }
-
-    @Watch('emitSubmitEventOnEnter')
-    watchEmitSubmitEventOnEnter() {
-        this.inputEl.focus();
-    }
-
-    @Watch('forceFocus')
-    watchForceFocus() {
-        if (this.forceFocus == true) {
-            this.inputEl.focus();
-            this.forceFocus = false;
-        }
-    }
-
     //---- Methods ----
+
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
 
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+
+    @Method()
+    async setFocus() {
+        this.inputEl.focus();
+    }
+
+    @Method()
+    async setValue(value: string) {
+        this.value = value;
+        try {
+            this.inputEl.value = value;
+        } catch (error) {
+            let message =
+                "Couldn't set value on input element: '" + value + "'";
+            logMessage(this, message, 'warning');
+        }
     }
 
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
@@ -350,20 +347,22 @@ export class KupTextField {
                 );
             }
             inputEl = (
-                <textarea
-                    id="kup-input"
-                    class="mdc-text-field__input"
-                    disabled={this.disabled}
-                    readOnly={this.readOnly}
-                    maxlength={this.maxLength}
-                    value={this.value}
-                    onBlur={(e: any) => this.onKupBlur(e)}
-                    onChange={(e: any) => this.onKupChange(e)}
-                    onClick={(e: any) => this.onKupClick(e)}
-                    onFocus={(e: any) => this.onKupFocus(e)}
-                    onInput={(e: any) => this.onKupInput(e)}
-                    ref={(el) => (this.inputEl = el as any)}
-                ></textarea>
+                <span class="mdc-text-field__resizer">
+                    <textarea
+                        id="kup-input"
+                        class="mdc-text-field__input"
+                        disabled={this.disabled}
+                        readOnly={this.readOnly}
+                        maxlength={this.maxLength}
+                        value={this.value}
+                        onBlur={(e: any) => this.onKupBlur(e)}
+                        onChange={(e: any) => this.onKupChange(e)}
+                        onClick={(e: any) => this.onKupClick(e)}
+                        onFocus={(e: any) => this.onKupFocus(e)}
+                        onInput={(e: any) => this.onKupInput(e)}
+                        ref={(el) => (this.inputEl = el as any)}
+                    ></textarea>
+                </span>
             );
         } else {
             inputEl = (
@@ -421,6 +420,10 @@ export class KupTextField {
             }
         }
 
+        if (!this.fullWidth) {
+            componentClass += '  mdc-text-field--filled';
+        }
+
         return (
             <div class={componentClass}>
                 {leadingIconEl}
@@ -444,7 +447,7 @@ export class KupTextField {
                 {clearIconEl}
                 {trailingIconEl}
                 {labelEl}
-                <div class="mdc-line-ripple"></div>
+                <span class="mdc-line-ripple"></span>
             </div>
         );
     }
@@ -487,7 +490,7 @@ export class KupTextField {
     componentWillLoad() {
         logLoad(this, false);
         setThemeCustomStyle(this);
-        this.watchInitialValue();
+        this.value = this.initialValue;
     }
 
     componentDidLoad() {
@@ -527,6 +530,7 @@ export class KupTextField {
                 );
             }
         }
+
         logRender(this, true);
     }
 

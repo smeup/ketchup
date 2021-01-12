@@ -1,9 +1,9 @@
 <template>
   <div>
     <demo
-      :demoTabs="demoTabs"
       :demoComp="demoComp"
       :demoProps="demoProps"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -27,14 +27,6 @@ export default {
           type: 'boolean',
           default: 'true',
           try: 'switch',
-        },
-        {
-          prop: 'className',
-          description:
-            'Available classes: padded, striped, animated (works with striped), slim.',
-          type: 'string',
-          default: '""',
-          try: 'field',
         },
         {
           prop: 'customStyle',
@@ -81,21 +73,28 @@ export default {
           try: 'field',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          class: 'animated',
+          description:
+            'When the striped class is active, the stripes will be animated.',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
         {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'padded',
+          description: 'Adds padding to the progress bar.',
+        },
+        {
+          class: 'slim',
+          description: 'Slim version.',
+        },
+        {
+          class: 'striped',
+          description: 'Displays stripes above the progress bar.',
         },
       ],
     };

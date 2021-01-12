@@ -13,8 +13,14 @@
         <br />
         <br />It's possible to select which information should be displayed
         inside the text field by setting up the
-        <span class="code-word">selectMode</span> prop accordingly. It can be
-        set to return the item's <span class="code-word">code</span>, its
+        <span class="code-word">displayMode</span> prop accordingly. This prop
+        will set the <span class="code-word">displayMode</span> for the list
+        items too. <br />It's possible to select which information should be
+        returned to backend by setting up the
+        <span class="code-word">selectMode</span> prop accordingly.
+        <br />
+        These two props can be set to return the item's
+        <span class="code-word">code</span>, its
         <span class="code-word">description</span> or
         <span class="code-word">both</span>.
       </p>

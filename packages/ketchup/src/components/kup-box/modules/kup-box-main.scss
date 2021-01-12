@@ -46,7 +46,7 @@
       }
 
       &.selected {
-        background-color: rgba(var(--kup-main-color-rgb), 0.175);
+        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
         & .box-section.titled > h3 {
           background-color: transparent;
         }
@@ -178,7 +178,7 @@
         svg {
           cursor: pointer;
           opacity: 0;
-          fill: $mainTextColor; // TODO var
+          fill: var(--kup-text-color);
           transition: opacity 500ms ease-out;
         }
 

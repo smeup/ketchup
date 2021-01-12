@@ -27,12 +27,16 @@
       <p>
         In the example below we'll draw a bar which occupies the 50% of its
         container, both vertically and horizontally, and which is colored using
-        the main color of the app.
+        the primary color of the app.
       </p>
       <div class="demo-container">
         <div
           class="kup-container"
-          style="height: 128px; width: 100%; border: 1px solid var(--kup-border-color)"
+          style="
+            height: 128px;
+            width: 100%;
+            border: 1px solid var(--kup-border-color);
+          "
         >
           <kup-image :data.prop="data"></kup-image>
         </div>
@@ -52,7 +56,11 @@
       <div class="demo-container">
         <div
           class="kup-container"
-          style="height: 100px; width: 150px; border: 1px solid var(--kup-border-color)"
+          style="
+            height: 100px;
+            width: 150px;
+            border: 1px solid var(--kup-border-color);
+          "
         >
           <kup-image :data.prop="dataIT"></kup-image>
         </div>
@@ -71,7 +79,7 @@ export default {
       data: [
         {
           shape: 'bar',
-          color: 'var(--kup-main-color)',
+          color: 'var(--kup-primary-color)',
           width: '50%',
           height: '50%',
         },
@@ -97,7 +105,7 @@ export default {
         },
       ],
       markupData:
-        '[ {"shape": "bar", "color": "var(--kup-main-color)", "width": "50%", "height": "50%" } ]',
+        '[ {"shape": "bar", "color": "var(--kup-primary-color)", "width": "50%", "height": "50%" } ]',
       markupDataIT:
         '[ {"shape": "bar", "color": "#539545", "width": "33.3%", "height": "100%" }, {"shape": "bar", "color": "#ffffff", "width": "33.5%", "height": "100%" }, {"shape": "bar", "color": "#d14233", "width": "34%", "height": "100%" } ]',
     };

@@ -5,7 +5,7 @@
       :data.prop="baseData"
       :types.prop="types"
       axis="Col1"
-      :series.prop="['Col2']"
+      :series.prop="[{ code: 'Col2', decode: 'Col2' }]"
     />
     <hr />
 
@@ -15,7 +15,7 @@
       :types.prop="types"
       axis="Col1"
       asp="3D"
-      :series.prop="['Col2']"
+      :series.prop="[{ code: 'Col2', decode: 'Col2' }]"
     />
     <hr />
   </div>

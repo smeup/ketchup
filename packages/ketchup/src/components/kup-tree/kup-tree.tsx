@@ -13,7 +13,11 @@ import {
     getAssetPath,
 } from '@stencil/core';
 
-import { Cell, Column } from './../kup-data-table/kup-data-table-declarations';
+import {
+    Cell,
+    CellData,
+    Column,
+} from './../kup-data-table/kup-data-table-declarations';
 
 import {
     treeExpandedPropName,
@@ -32,21 +36,30 @@ import {
     isChart,
     isNumber,
     hasTooltip,
+    isObjectList,
 } from '../../utils/object-utils';
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { isFilterCompliantForValue } from '../../utils/filters';
-import numeral from 'numeral';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import {
+    getCellValueForDisplay,
     styleHasBorderRadius,
     styleHasWritingMode,
 } from '../kup-data-table/kup-data-table-helper';
 import { KupTreeState } from './kup-tree-state';
 import { KupStore } from '../kup-state/kup-store';
-import { isProgressBar, isRadio } from '../../utils/cell-utils';
+import {
+    isColor,
+    isGauge,
+    isKnob,
+    isProgressBar,
+    isRadio,
+    isRating,
+} from '../../utils/cell-utils';
+import { stringToNumber } from '../../utils/utils';
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -72,7 +85,7 @@ export class KupTree {
                 );
                 // *** PROPS ***
                 this.density = state.density;
-                this.filterValue = state.filterValue;
+                this.globalFilterValue = state.globalFilterValue;
                 //
             }
         }
@@ -82,7 +95,7 @@ export class KupTree {
         if (this.store && this.stateId) {
             // *** PROPS ***
             this.state.density = this.density;
-            this.state.filterValue = this.filterValue;
+            this.state.globalFilterValue = this.globalFilterValue;
             //
             console.log(
                 'Persisting state for stateId ' + this.stateId + ': ',
@@ -139,9 +152,13 @@ export class KupTree {
      */
     @Prop() expanded: boolean = false;
     /**
-     * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
+     * When set to true it activates the global filter.
      */
-    @Prop() filterValue: string = '';
+    @Prop() globalFilter: boolean = false;
+    /**
+     * The value of the global filter.
+     */
+    @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
     /**
      * Activates the scroll on hover function.
      */
@@ -155,10 +172,6 @@ export class KupTree {
      * Shows the tree data as a table.
      */
     @Prop() showColumns: boolean = false;
-    /**
-     * When set to true enables the tree nodes filter.
-     */
-    @Prop() showFilter: boolean = false;
     /**
      * Flag: shows the header of the tree when the tree is displayed as a table.
      * @see showColumns
@@ -190,6 +203,8 @@ export class KupTree {
     private scrollOnHoverInstance: scrollOnHover;
     private selectedColumn: string = '';
     private clickTimeout: any[] = [];
+    private iconPaths: [{ icon: string; path: string }] = undefined;
+    private globalFilterTimeout: number;
 
     //-------- Events --------
     /**
@@ -298,11 +313,53 @@ export class KupTree {
         treeNode: TreeNode;
     }>;
 
+    @Event({
+        eventName: 'kupTreeDynamicMassExpansion',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeDynamicMassExpansion: EventEmitter<{
+        treeNodePath?: TreeNodePath;
+        treeNode?: TreeNode;
+        expandAll?: boolean;
+    }>;
+
     //---- Methods ----
 
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+
+    @Method()
+    async expandAll() {
+        if (!this.useDynamicExpansion) {
+            for (let index = 0; index < this.data.length; index++) {
+                this.data[index][treeExpandedPropName] = true;
+                this.handleChildren(this.data[index], true);
+            }
+        } else {
+            this.kupTreeDynamicMassExpansion.emit({
+                expandAll: true,
+            });
+        }
+        this.forceUpdate();
+    }
+
+    @Method()
+    async collapseAll() {
+        if (!this.useDynamicExpansion) {
+            for (let index = 0; index < this.data.length; index++) {
+                this.data[index][treeExpandedPropName] = false;
+                this.handleChildren(this.data[index], false);
+            }
+        } else {
+            this.kupTreeDynamicMassExpansion.emit({
+                expandAll: false,
+            });
+        }
+        this.forceUpdate();
     }
 
     private setScrollOnHover() {
@@ -350,16 +407,7 @@ export class KupTree {
         logLoad(this, false);
         setThemeCustomStyle(this);
 
-        if (this.data) {
-            // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
-            // the default value of the treeExpandedPropName is set to true
-            this.data.forEach((rootNode) => {
-                this.expandCollapseAllNodes(
-                    rootNode,
-                    this.expanded && !this.useDynamicExpansion
-                );
-            });
-        }
+        this.refreshStructureState();
 
         // Initializes the selectedNodeString
         if (Array.isArray(this.selectedNode)) {
@@ -419,6 +467,7 @@ export class KupTree {
     @Watch('data')
     enrichDataWhenChanged(newData, oldData) {
         if (newData !== oldData) {
+            /*
             newData.forEach((rootNode) => {
                 this.expandCollapseAllNodes(
                     rootNode,
@@ -426,6 +475,15 @@ export class KupTree {
                 );
             });
             this.filterNodes();
+            */
+            this.refreshStructureState();
+        }
+    }
+
+    @Watch('expanded')
+    enrichStructureStateWhenChanged(newValue, oldValue) {
+        if (newValue !== oldValue) {
+            this.refreshStructureState();
         }
     }
 
@@ -556,7 +614,11 @@ export class KupTree {
     }
 
     // When a TreeNode must be expanded or closed.
-    hdlTreeNodeExpanderClicked(treeNodeData: TreeNode, treeNodePath: string) {
+    hdlTreeNodeExpanderClicked(
+        treeNodeData: TreeNode,
+        treeNodePath: string,
+        ctrlKey: boolean
+    ) {
         // If the node is expandable
         if (treeNodeData.expandable) {
             // Always composes the tree node path as an array
@@ -570,6 +632,12 @@ export class KupTree {
                 treeNodeData[treeExpandedPropName] = !treeNodeData[
                     treeExpandedPropName
                 ];
+                if (ctrlKey) {
+                    this.handleChildren(
+                        treeNodeData,
+                        treeNodeData[treeExpandedPropName]
+                    );
+                }
                 this.forceUpdate();
                 if (treeNodeData[treeExpandedPropName]) {
                     // TreeNode is now expanded -> Fires expanded event
@@ -588,6 +656,12 @@ export class KupTree {
                     });
                 }
             } else if (this.useDynamicExpansion) {
+                if (ctrlKey) {
+                    this.kupTreeDynamicMassExpansion.emit({
+                        treeNodePath: arrayTreeNodePath,
+                        treeNode: treeNodeData,
+                    });
+                }
                 // When the component must use the dynamic expansion feature
                 // Currently it does not support the expanded prop
 
@@ -640,6 +714,18 @@ export class KupTree {
         }
     }
 
+    private handleChildren(TreeNode: TreeNode, expand: boolean) {
+        for (let index = 0; index < TreeNode.children.length; index++) {
+            let node = TreeNode.children[index];
+            if (!node.disabled) {
+                node[treeExpandedPropName] = expand;
+                if (node.children) {
+                    this.handleChildren(node, expand);
+                }
+            }
+        }
+    }
+
     /**
      * Given a nodePath, transform that array into
      * @param nodePath
@@ -655,8 +741,12 @@ export class KupTree {
         return strToRet;
     }
 
-    onFilterChange(event: CustomEvent) {
-        this.filterValue = event.detail.value;
+    onGlobalFilterChange({ detail }) {
+        let value = '';
+        if (detail && detail.value) {
+            value = detail.value;
+        }
+        this.globalFilterValue = value;
     }
 
     private setAllVisible(items: TreeNode[]) {
@@ -670,7 +760,7 @@ export class KupTree {
         if (this.data == null || this.data.length == 0) {
             return;
         }
-        if (this.filterValue.trim() == '') {
+        if (this.globalFilterValue.trim() == '') {
             this.setAllVisible(this.data);
             return;
         }
@@ -680,10 +770,24 @@ export class KupTree {
         }
     }
 
+    private refreshStructureState() {
+        if (this.data) {
+            // When the nodes must be expanded upon loading and the tree is not using a dynamicExpansion (and the current TreeNode is not disabled)
+            // the default value of the treeExpandedPropName is set to true
+            this.data.forEach((rootNode) => {
+                this.expandCollapseAllNodes(
+                    rootNode,
+                    this.expanded && !this.useDynamicExpansion
+                );
+            });
+            this.filterNodes();
+        }
+    }
+
     private setNodeVisibility(node: TreeNode): boolean {
         let visibility: boolean = isFilterCompliantForValue(
             node.value,
-            this.filterValue
+            this.globalFilterValue
         );
         if (node.disabled != true && node.expandable == true) {
             /** se il ramo è compatibile con il filtro, mostro tutto l'albero sottostante */
@@ -702,7 +806,11 @@ export class KupTree {
         return visibility;
     }
 
-    private createIconElement(CSSClass: string, icon: string) {
+    private createIconElement(
+        CSSClass: string,
+        icon: string,
+        iconColor: string
+    ) {
         if (
             icon.indexOf('.') > -1 ||
             icon.indexOf('/') > -1 ||
@@ -720,6 +828,7 @@ export class KupTree {
             )}') no-repeat center`;
             CSSClass += ' icon-container material-icons';
             let iconStyle = {
+                ...(iconColor ? { background: iconColor } : {}),
                 mask: svg,
                 webkitMask: svg,
             };
@@ -756,133 +865,27 @@ export class KupTree {
 
         // Sets the default value
         let content: any = valueToDisplay;
+        let cellType: string = this.getCellType(cell);
         let props: any = { ...cell.data };
+        classObj[cellType + '-cell'] = true;
 
-        if (isBar(cell.obj)) {
-            if (props) {
-                if (!props.sizeY) {
-                    props['sizeY'] = '26px';
-                    if (this.density === 'medium') {
-                        props['sizeY'] = '36px';
-                    }
-                    if (this.density === 'wide') {
-                        props['sizeY'] = '50px';
-                    }
-                }
-                content = (
-                    <kup-lazy
-                        class="cell-bar"
-                        componentName="kup-image"
-                        data={...props}
-                    />
-                );
-            } else {
-                content = undefined;
-            }
-        } else if (isButton(cell.obj)) {
-            if (props) {
-                if (cellData.treeNode.hasOwnProperty('readOnly')) {
-                    props['disabled'] = cellData.treeNode.readOnly;
-                }
-                props['onKupButtonClick'] = this.onJ4btnClicked.bind(
-                    cellData.treeNode,
-                    cellData.treeNodePath,
-                    cellData.column,
-                    false
-                );
-                content = (
-                    <kup-button class="cell-button" {...props}></kup-button>
-                );
-            } else {
-                content = undefined;
-            }
-        } else if (isChart(cell.obj)) {
-            if (props) {
-                content = (
-                    <kup-lazy
-                        class="cell-chart"
-                        componentName="kup-chart"
-                        data={...props}
-                    />
-                );
-            } else {
-                content = undefined;
-            }
-        } else if (isCheckbox(cell.obj)) {
-            if (cellData.treeNode.hasOwnProperty('readOnly')) {
-                props['disabled'] = cellData.treeNode.readOnly;
-            }
-            content = (
-                <kup-checkbox class="cell-checkbox" {...props}></kup-checkbox>
+        if (cell.data) {
+            this.setCellSize(cellType, props, cell);
+            content = this.setKupCell(
+                cellType,
+                classObj,
+                props,
+                cell,
+                cellData
             );
-        } else if (isIcon(cell.obj) || isVoCodver(cell.obj)) {
-            if (props) {
-                if (!props.sizeX) {
-                    props['sizeX'] = '18px';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '18px';
-                }
-                if (props.badgeData) {
-                    classObj['has-padding'] = true;
-                }
-                content = <kup-image class="cell-icon" {...props}></kup-image>;
-            } else {
-                content = undefined;
-            }
-        } else if (isImage(cell.obj)) {
-            if (props) {
-                if (!props.sizeX) {
-                    props['sizeX'] = 'auto';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = 'var(--dtt_cell-image_max-height)';
-                }
-                if (props.badgeData) {
-                    classObj['has-padding'] = true;
-                }
-                content = (
-                    <kup-lazy
-                        class="cell-image"
-                        componentName="kup-image"
-                        data={...props}
-                    />
-                );
-            } else {
-                content = undefined;
-            }
-        } else if (isLink(cell.obj)) {
-            content = (
-                <a class="cell-link" href={valueToDisplay} target="_blank">
-                    {valueToDisplay}
-                </a>
+        } else {
+            content = this.setCell(
+                cellType,
+                content,
+                classObj,
+                cell,
+                cellData.column
             );
-        } else if (isNumber(cell.obj)) {
-            const cellValue = numeral(cell.obj.k).value();
-
-            if (cellValue < 0) {
-                classObj['negative-number'] = true;
-            }
-        } else if (isProgressBar(cell, null)) {
-            if (props) {
-                content = (
-                    <kup-progress-bar
-                        class="cell-progress-bar"
-                        {...props}
-                    ></kup-progress-bar>
-                );
-            } else {
-                content = undefined;
-            }
-        } else if (isRadio(cell, null)) {
-            if (props) {
-                if (cellData.treeNode.hasOwnProperty('readOnly')) {
-                    props['disabled'] = cellData.treeNode.readOnly;
-                }
-                content = <kup-radio class="cell-radio" {...props}></kup-radio>;
-            } else {
-                content = undefined;
-            }
         }
 
         // Elements of the cell
@@ -901,27 +904,344 @@ export class KupTree {
             tdStyle = cell.style;
         }
 
+        let icon = undefined;
+
+        if ((cellData.column.icon || cell.icon) && content) {
+            let svg: string = '';
+            if (cell.icon) {
+                svg = cell.icon;
+            } else {
+                svg = cellData.column.icon;
+            }
+            svg = this.getIconPath(svg);
+            let iconStyle = {
+                mask: svg,
+                webkitMask: svg,
+            };
+            icon = (
+                <span style={iconStyle} class="icon-container obj-icon"></span>
+            );
+        }
+
         const _hasTooltip: boolean = hasTooltip(cell.obj);
         let title: string = undefined;
         if (_hasTooltip) {
             classObj['is-obj'] = true;
-            title = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+            if (document.documentElement.kupDebug) {
+                title =
+                    cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+            }
+        }
+
+        let cellClass = undefined;
+        if (cell.cssClass) {
+            cellClass = cell.cssClass;
         }
 
         cellElements.push(
             <span title={title} style={style} class={classObj}>
+                {icon}
                 {content}
             </span>
         );
 
         return (
             <td
+                class={cellClass}
                 onClick={() => (this.selectedColumn = cellData.column.name)}
                 style={tdStyle}
             >
                 {cellElements}
             </td>
         );
+    }
+
+    private getIconPath(icon: string) {
+        let svg: string = '';
+        if (this.iconPaths) {
+            for (
+                let index = 0;
+                index < this.iconPaths.length || svg !== '';
+                index++
+            ) {
+                if (this.iconPaths[index].icon === icon) {
+                    return this.iconPaths[index].path;
+                }
+            }
+        }
+
+        svg = `url('${getAssetPath(
+            `./assets/svg/${icon}.svg`
+        )}') no-repeat center`;
+
+        if (!this.iconPaths) {
+            this.iconPaths = [
+                {
+                    icon: icon,
+                    path: svg,
+                },
+            ];
+        } else {
+            this.iconPaths.push({ icon: icon, path: svg });
+        }
+
+        return svg;
+    }
+
+    // TODO: cell type can depend also from shape (see isRating)
+    // NOTE: keep care to change conditions order... shape wins on object .. -> so if isNumber after shape checks.. ->
+    // TODO: more clear conditions when refactoring...
+    private getCellType(cell: Cell) {
+        let obj = cell.obj;
+        if (isBar(obj)) {
+            return 'bar';
+        } else if (isButton(obj)) {
+            return 'button';
+        } else if (isChart(obj)) {
+            return 'chart';
+        } else if (isCheckbox(obj)) {
+            return 'checkbox';
+        } else if (isColor(cell, null)) {
+            return 'color-picker';
+        } else if (isGauge(cell, null)) {
+            return 'gauge';
+        } else if (isKnob(cell, null)) {
+            return 'knob';
+        } else if (isIcon(obj) || isVoCodver(obj)) {
+            return 'icon';
+        } else if (isImage(obj)) {
+            return 'image';
+        } else if (isLink(obj)) {
+            return 'link';
+        } else if (isProgressBar(cell, null)) {
+            return 'progress-bar';
+        } else if (isRadio(cell, null)) {
+            return 'radio';
+        } else if (isRating(cell, null)) {
+            return 'rating';
+        } else if (isObjectList(obj)) {
+            return 'chips';
+        } else if (isNumber(obj)) {
+            return 'number';
+        } else {
+            return 'string';
+        }
+    }
+
+    private setCellSize(cellType: string, props: any, cell: Cell) {
+        switch (cellType) {
+            case 'bar':
+                if (!props.sizeY) {
+                    props['sizeY'] = '26px';
+                    if (this.density === 'medium') {
+                        props['sizeY'] = '36px';
+                    }
+                    if (this.density === 'wide') {
+                        props['sizeY'] = '50px';
+                    }
+                }
+                break;
+            case 'button':
+                let height: string = '';
+                if (props.label) {
+                    height = '36px';
+                } else {
+                    height = '48px';
+                }
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = height;
+                    }
+                } else {
+                    cell.style = { minHeight: height };
+                }
+                break;
+            case 'chart':
+                if (!props.sizeX) {
+                    props['sizeX'] = '100%';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '100%';
+                }
+                break;
+            case 'checkbox':
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = '40px';
+                    }
+                } else {
+                    cell.style = { minHeight: '40px' };
+                }
+                break;
+            case 'chips':
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = '53px';
+                    }
+                } else {
+                    cell.style = { minHeight: '53px' };
+                }
+                break;
+            case 'icon':
+                if (!props.sizeX) {
+                    props['sizeX'] = '18px';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '18px';
+                }
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = props['sizeY'];
+                    }
+                } else {
+                    cell.style = {
+                        minHeight: props['sizeY'],
+                    };
+                }
+                break;
+            case 'image':
+                if (!props.sizeX) {
+                    props['sizeX'] = 'auto';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '64px';
+                }
+                break;
+            case 'radio':
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = '40px';
+                    }
+                } else {
+                    cell.style = { minHeight: '40px' };
+                }
+                break;
+        }
+    }
+
+    private setCell(
+        cellType: string,
+        content: string,
+        classObj: Record<string, boolean>,
+        cell: Cell,
+        column: Column
+    ) {
+        switch (cellType) {
+            case 'link':
+                return (
+                    <a class="cell-link" href={content} target="_blank">
+                        {content}
+                    </a>
+                );
+            case 'number':
+                if (content && content != '') {
+                    const cellValueNumber: number = stringToNumber(cell.value);
+                    const cellValue = getCellValueForDisplay(
+                        cell.value,
+                        column,
+                        cell
+                    );
+                    if (cellValueNumber < 0) {
+                        classObj['negative-number'] = true;
+                    }
+                    return <span class="text">{cellValue}</span>;
+                }
+                return content;
+            case 'date':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(
+                        cell.value,
+                        column,
+                        cell
+                    );
+                    return <span class="text">{cellValue}</span>;
+                }
+                return content;
+            case 'string':
+            default:
+                return <span class="text">{content}</span>;
+        }
+    }
+
+    private setKupCell(
+        cellType: string,
+        classObj: Record<string, boolean>,
+        props: any,
+        cell: Cell,
+        cellData: CellData
+    ) {
+        switch (cellType) {
+            case 'bar':
+                return <kup-image {...props} />;
+            case 'button':
+                classObj['is-centered'] = true;
+                props['disabled'] = cellData.treeNode.readOnly;
+                props['onKupButtonClick'] = this.onJ4btnClicked.bind(
+                    cellData.treeNode,
+                    cellData.treeNodePath,
+                    cellData.column,
+                    false
+                );
+                return <kup-button {...props}></kup-button>;
+            case 'chart':
+                classObj['is-centered'] = true;
+                return <kup-chart {...props} />;
+            case 'checkbox':
+                classObj['is-centered'] = true;
+                if (props) {
+                    props['disabled'] = cellData.treeNode.readOnly;
+                } else {
+                    props = { disabled: cellData.treeNode.readOnly };
+                }
+                return <kup-checkbox {...props}></kup-checkbox>;
+            case 'chips':
+                return <kup-chip {...props}></kup-chip>;
+            case 'color-picker':
+                return (
+                    <kup-color-picker
+                        value={cell.value}
+                        {...props}
+                        disabled
+                    ></kup-color-picker>
+                );
+            case 'gauge':
+                return (
+                    <kup-gauge
+                        value={stringToNumber(cell.value)}
+                        width-component="100%"
+                        {...props}
+                    ></kup-gauge>
+                );
+            case 'knob':
+                return (
+                    <kup-progress-bar
+                        class="cell-progress-bar"
+                        value={stringToNumber(cell.value)}
+                        {...props}
+                    ></kup-progress-bar>
+                );
+            case 'icon':
+            case 'image':
+                classObj['is-centered'] = true;
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                return <kup-image {...props} />;
+            case 'progress-bar':
+                return <kup-progress-bar {...props}></kup-progress-bar>;
+            case 'rating':
+                return (
+                    <kup-rating
+                        value={stringToNumber(cell.value)}
+                        {...props}
+                        disabled
+                    ></kup-rating>
+                );
+            case 'radio':
+                classObj['is-centered'] = true;
+                props['disabled'] = cellData.treeNode.readOnly;
+                return <kup-radio {...props}></kup-radio>;
+        }
     }
 
     /**
@@ -976,14 +1296,16 @@ export class KupTree {
         }
         let treeExpandIcon = (
             <span
+                title="Expand/collapse children (CTRL + Click) "
                 class={expandClass}
                 onClick={
                     !treeNodeData.disabled
-                        ? (event) => {
+                        ? (event: MouseEvent) => {
                               event.stopPropagation();
                               this.hdlTreeNodeExpanderClicked(
                                   treeNodeData,
-                                  treeNodePath
+                                  treeNodePath,
+                                  event.ctrlKey
                               );
                           }
                         : null
@@ -1000,7 +1322,8 @@ export class KupTree {
                 } else {
                     treeNodeIcon = this.createIconElement(
                         'kup-tree__icon icon-container',
-                        treeNodeData.icon
+                        treeNodeData.icon,
+                        treeNodeData.iconColor
                     );
                 }
             } else {
@@ -1060,7 +1383,7 @@ export class KupTree {
 
         const _hasTooltip: boolean = hasTooltip(treeNodeData.obj);
         let title: string = undefined;
-        if (_hasTooltip) {
+        if (_hasTooltip && document.documentElement.kupDebug) {
             title =
                 treeNodeData.obj.t +
                 '; ' +
@@ -1085,6 +1408,7 @@ export class KupTree {
             >
                 <td
                     class={{
+                        'first-node': treeNodeDepth === 0 ? true : false,
                         'mdc-ripple-surface':
                             !this.showColumns && !treeNodeData.disabled,
                         'is-obj': hasTooltip(treeNodeData.obj),
@@ -1189,26 +1513,31 @@ export class KupTree {
 
         let filterField = null;
         if (
-            this.showFilter &&
+            this.globalFilter &&
             this.data &&
             this.data.length &&
             this.data.length > 0
         ) {
             filterField = (
-                <kup-text-field
-                    class="filter"
-                    fullWidth={true}
-                    isClearable={true}
-                    label="Search..."
-                    icon="magnify"
-                    initialValue={this.filterValue}
-                    onKupTextFieldInput={(e) => {
-                        this.onFilterChange(e);
-                    }}
-                    onKupTextFieldClearIconClick={(e) => {
-                        this.onFilterChange(e);
-                    }}
-                ></kup-text-field>
+                <div id="global-filter">
+                    <kup-text-field
+                        fullWidth={true}
+                        isClearable={true}
+                        label="Search..."
+                        icon="magnify"
+                        initialValue={this.globalFilterValue}
+                        onKupTextFieldInput={(event) => {
+                            window.clearTimeout(this.globalFilterTimeout);
+                            this.globalFilterTimeout = window.setTimeout(
+                                () => this.onGlobalFilterChange(event),
+                                300
+                            );
+                        }}
+                        onKupTextFieldClearIconClick={(event) =>
+                            this.onGlobalFilterChange(event)
+                        }
+                    ></kup-text-field>
+                </div>
             );
         }
         return (

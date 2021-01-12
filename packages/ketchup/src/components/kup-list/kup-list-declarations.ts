@@ -33,40 +33,150 @@ export function getValueOfItemByDisplayMode(
 }
 
 export function consistencyCheck(
-    value: string,
+    valueIn: string,
     listData: Object,
     textfieldEl: any,
-    selectMode: ItemsDisplayMode
-): string {
-    var firstSelectedFound = false;
+    listEl: any,
+    selectMode: ItemsDisplayMode,
+    displayMode: ItemsDisplayMode,
+    e?: CustomEvent
+): { value: string; displayedValue: string } {
+    let value: string = '';
+    let displayedValue: string = '';
+
+    let selected: ComponentListElement = null;
+    if (e != null) {
+        selected = e.detail.selected;
+    }
+    if (selected == null && valueIn != null) {
+        selected = getItemByDisplayMode(listData, valueIn, displayMode, true);
+        listEl.data = [...listData['data']];
+    }
+    if (selected == null && valueIn == null) {
+        selected = getFirstItemSelected(listData);
+    }
+
+    if (selected == null) {
+        selected = {
+            text: valueIn == null ? '' : valueIn,
+            value: valueIn == null ? '' : valueIn,
+        };
+    }
+    value = getValueOfItemByDisplayMode(selected, selectMode, ' - ');
+
+    displayedValue = getValueOfItemByDisplayMode(selected, displayMode, ' - ');
+
+    if (textfieldEl) {
+        if (textfieldEl.getValue() === displayedValue) {
+            textfieldEl.setValue('');
+            textfieldEl.setValue(displayedValue);
+        } else {
+            textfieldEl.setValue(displayedValue);
+        }
+    }
+    return {
+        value: value,
+        displayedValue: displayedValue,
+    };
+}
+
+export function getFirstItemSelected(listData: Object): ComponentListElement {
     if (listData['data']) {
         for (let i = 0; i < listData['data'].length; i++) {
-            if (listData['data'][i].selected && firstSelectedFound) {
-                listData['data'][i].selected = false;
-                let message =
-                    'Found occurence of data(' +
-                    i +
-                    ") to be set on 'selected' when another one was found before! Overriding to false because only 1 'selected' is allowed in this menu.";
-
-                logMessage('kup-list-utils', message, 'warning');
+            if (listData['data'][i].isSeparator == true) {
+                continue;
             }
-            if (listData['data'][i].selected && !firstSelectedFound) {
-                firstSelectedFound = true;
-                value = getValueOfItemByDisplayMode(
-                    listData['data'][i],
-                    selectMode,
-                    ' - '
-                );
-                if (textfieldEl) {
-                    if (textfieldEl.initialValue === value) {
-                        textfieldEl.initialValue = '';
-                        textfieldEl.initialValue = value;
-                    } else {
-                        textfieldEl.initialValue = value;
-                    }
-                }
+            if (listData['data'][i].selected) {
+                return listData['data'][i];
             }
         }
     }
-    return value;
+    return null;
+}
+
+export function getItemByValue(
+    listData: Object,
+    value: string,
+    setSelected: boolean
+): ComponentListElement {
+    if (listData && listData['data']) {
+        let found: boolean = false;
+        let item: ComponentListElement = null;
+        for (let i = 0; i < listData['data'].length; i++) {
+            if (listData['data'][i].isSeparator == true) {
+                continue;
+            }
+            if (setSelected == true) {
+                listData['data'][i].selected = false;
+            }
+            if (
+                !found &&
+                listData['data'][i].value.toString().toLowerCase() ==
+                    value.toString().toLowerCase()
+            ) {
+                item = listData['data'][i];
+                item.selected = true;
+                found = true;
+            }
+        }
+        if (found == true) {
+            return item;
+        }
+        for (let i = 0; i < listData['data'].length; i++) {
+            if (listData['data'][i].isSeparator == true) {
+                continue;
+            }
+            if (
+                listData['data'][i].text.toString().toLowerCase() ==
+                value.toString().toLowerCase()
+            ) {
+                item = listData['data'][i];
+                item.selected = true;
+                found = true;
+                break;
+            }
+        }
+        if (found == true) {
+            return item;
+        }
+    }
+    return null;
+}
+
+export function getItemByDisplayMode(
+    listData: Object,
+    value: string,
+    displayMode: ItemsDisplayMode,
+    setSelected: boolean
+): ComponentListElement {
+    if (listData && listData['data']) {
+        let found: boolean = false;
+        let item: ComponentListElement = null;
+        for (let i = 0; i < listData['data'].length; i++) {
+            if (listData['data'][i].isSeparator == true) {
+                continue;
+            }
+            let displayedValue = getValueOfItemByDisplayMode(
+                listData['data'][i],
+                displayMode,
+                ' - '
+            );
+            if (setSelected == true) {
+                listData['data'][i].selected = false;
+            }
+            if (
+                !found &&
+                displayedValue.toString().toLowerCase() ==
+                    value.toString().toLowerCase()
+            ) {
+                item = listData['data'][i];
+                item.selected = true;
+                found = true;
+            }
+        }
+        if (found == true) {
+            return item;
+        }
+    }
+    return getItemByValue(listData, value, setSelected);
 }

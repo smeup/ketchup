@@ -1,0 +1,33 @@
+div.kup-menu,
+div.mdc-menu {
+  animation: fadeInFromNone 0.25s ease-out;
+  background-color: var(--kup-background-color);
+  box-shadow: var(--kup-box-shadow);
+  color: var(--kup-text-color);
+  display: none;
+  max-height: 40vh;
+  opacity: 0;
+  position: relative;
+  transition: height 0.2s;
+  &.visible {
+    display: block;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInFromNone {
+  0% {
+    display: none;
+    opacity: 0;
+  }
+
+  1% {
+    display: block;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    opacity: 1;
+  }
+}

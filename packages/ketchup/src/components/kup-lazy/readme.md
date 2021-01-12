@@ -28,19 +28,6 @@ Type: `Promise<void>`
 
 
 
-## Dependencies
-
-### Used by
-
- - [kup-tree](../kup-tree)
-
-### Graph
-```mermaid
-graph TD;
-  kup-tree --> kup-lazy
-  style kup-lazy fill:#f9f,stroke:#333,stroke-width:4px
-```
-
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

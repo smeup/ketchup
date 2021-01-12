@@ -3,7 +3,7 @@
     <demo
       :demoComp="demoComp"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -20,13 +20,6 @@ export default {
     return {
       demoComp: createComp(),
       demoProps: [
-        {
-          prop: 'className',
-          description: 'Available classes: full-width.',
-          type: 'string',
-          default: '""',
-          try: 'field',
-        },
         {
           prop: 'columns',
           description:
@@ -51,21 +44,15 @@ export default {
           try: 'switch',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          class: 'full-width',
+          description: 'The grid will fill all the available horizontal space.',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
       ],
     };
@@ -81,7 +68,7 @@ function createComp() {
     compImage.data = [
       {
         shape: 'bar',
-        color: 'var(--kup-main-color)',
+        color: 'var(--kup-primary-color)',
         width: '100%',
         height: '100%',
       },

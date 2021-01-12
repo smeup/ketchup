@@ -68,11 +68,11 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 | `density`                  | `density`                  | The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `string`                                                                          | `'medium'`  |
 | `dynamicExpansionCallback` | --                         | Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change. | `(treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]>` | `undefined` |
 | `expanded`                 | `expanded`                 | Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `boolean`                                                                         | `false`     |
-| `filterValue`              | `filter-value`             | Allows to set initial filter for tree nodes, manages the filter on tree nodes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | `string`                                                                          | `''`        |
+| `globalFilter`             | `global-filter`            | When set to true it activates the global filter.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `boolean`                                                                         | `false`     |
+| `globalFilterValue`        | `global-filter-value`      | The value of the global filter.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `string`                                                                          | `''`        |
 | `scrollOnHover`            | `scroll-on-hover`          | Activates the scroll on hover function.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `boolean`                                                                         | `false`     |
 | `selectedNode`             | --                         | An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `number[]`                                                                        | `[]`        |
 | `showColumns`              | `show-columns`             | Shows the tree data as a table.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `boolean`                                                                         | `false`     |
-| `showFilter`               | `show-filter`              | When set to true enables the tree nodes filter.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `boolean`                                                                         | `false`     |
 | `showHeader`               | `show-header`              | Flag: shows the header of the tree when the tree is displayed as a table.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | `boolean`                                                                         | `false`     |
 | `showIcons`                | `show-icons`               | Shows the icons of the nodes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | `boolean`                                                                         | `true`      |
 | `stateId`                  | `state-id`                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | `string`                                                                          | `''`        |
@@ -82,18 +82,39 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 
 ## Events
 
-| Event                      | Description                                                                                                                       | Type                                                                                                                                                         |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `kupDidLoad`               |                                                                                                                                   | `CustomEvent<void>`                                                                                                                                          |
-| `kupDidUnload`             | Triggered when stop propagation event                                                                                             | `CustomEvent<void>`                                                                                                                                          |
-| `kupTreeNodeButtonClicked` |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; column: Column; columnName: string; auto: boolean; tree: KupTree; }>`                         |
-| `kupTreeNodeCollapse`      | Fired when a TreeNode gets collapsed (closed).                                                                                    | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; tree: KupTree; }>`                                                                            |
-| `kupTreeNodeDblClick`      |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>`                                                                                           |
-| `kupTreeNodeExpand`        | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature. | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; usesDynamicExpansion?: boolean; dynamicExpansionRequireChildren?: boolean; tree: KupTree; }>` |
-| `kupTreeNodeSelected`      | Fired when a node of the tree has been selected                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; columnName: string; auto: boolean; tree: KupTree; }>`                                         |
+| Event                         | Description                                                                                                                       | Type                                                                                                                                                         |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `kupDidLoad`                  |                                                                                                                                   | `CustomEvent<void>`                                                                                                                                          |
+| `kupDidUnload`                | Triggered when stop propagation event                                                                                             | `CustomEvent<void>`                                                                                                                                          |
+| `kupTreeDynamicMassExpansion` |                                                                                                                                   | `CustomEvent<{ treeNodePath?: TreeNodePath; treeNode?: TreeNode; expandAll?: boolean; }>`                                                                    |
+| `kupTreeNodeButtonClicked`    |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; column: Column; columnName: string; auto: boolean; tree: KupTree; }>`                         |
+| `kupTreeNodeCollapse`         | Fired when a TreeNode gets collapsed (closed).                                                                                    | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; tree: KupTree; }>`                                                                            |
+| `kupTreeNodeDblClick`         |                                                                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; }>`                                                                                           |
+| `kupTreeNodeExpand`           | Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature. | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; usesDynamicExpansion?: boolean; dynamicExpansionRequireChildren?: boolean; tree: KupTree; }>` |
+| `kupTreeNodeSelected`         | Fired when a node of the tree has been selected                                                                                   | `CustomEvent<{ treeNodePath: TreeNodePath; treeNode: TreeNode; columnName: string; auto: boolean; tree: KupTree; }>`                                         |
 
 
 ## Methods
+
+### `collapseAll() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `expandAll() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 ### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
 
@@ -114,27 +135,36 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-lazy](../kup-lazy)
-- [kup-button](../kup-button)
-- [kup-checkbox](../kup-checkbox)
 - [kup-image](../kup-image)
+- [kup-button](../kup-button)
+- [kup-chart](../kup-chart)
+- [kup-checkbox](../kup-checkbox)
+- [kup-chip](../kup-chip)
+- [kup-color-picker](../kup-color-picker)
+- [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
+- [kup-rating](../kup-rating)
 - [kup-radio](../kup-radio)
 - [kup-text-field](../kup-text-field)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-tree --> kup-lazy
-  kup-tree --> kup-button
-  kup-tree --> kup-checkbox
   kup-tree --> kup-image
+  kup-tree --> kup-button
+  kup-tree --> kup-chart
+  kup-tree --> kup-checkbox
+  kup-tree --> kup-chip
+  kup-tree --> kup-color-picker
+  kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
+  kup-tree --> kup-rating
   kup-tree --> kup-radio
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-image
+  kup-color-picker --> kup-text-field
   kup-tooltip --> kup-tree
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```

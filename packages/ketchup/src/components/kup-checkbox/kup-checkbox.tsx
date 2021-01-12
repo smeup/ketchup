@@ -119,7 +119,11 @@ export class KupCheckbox {
     }
 
     onKupChange() {
-        if (this.checked == true) {
+        if (this.indeterminate) {
+            this.checked = true;
+            this.indeterminate = false;
+            this.value = 'indeterminate';
+        } else if (this.checked) {
             this.checked = false;
             this.value = 'off';
         } else {
@@ -199,13 +203,19 @@ export class KupCheckbox {
         let formClass: string = 'mdc-form-field';
         let componentClass: string = 'mdc-checkbox';
         let componentLabel: string = this.label;
+        let indeterminateAttr = {};
+
+        if (this.checked) {
+            componentClass += ' mdc-checkbox--checked';
+        }
 
         if (this.disabled) {
             componentClass += ' mdc-checkbox--disabled';
         }
 
-        if (this.checked) {
-            componentClass += ' mdc-checkbox--checked';
+        if (this.indeterminate) {
+            componentClass += ' mdc-checkbox--indeterminate';
+            indeterminateAttr['data-indeterminate'] = 'true';
         }
 
         if (this.leadingLabel) {
@@ -218,14 +228,12 @@ export class KupCheckbox {
                 <div id="kup-component">
                     <div class={formClass}>
                         <div id="checkbox-wrapper" class={componentClass}>
-                            {/* 
-                            // @ts-ignore */}
                             <input
                                 type="checkbox"
                                 class="mdc-checkbox__native-control"
                                 checked={this.checked}
                                 disabled={this.disabled}
-                                indeterminate={this.indeterminate}
+                                {...indeterminateAttr}
                                 value={this.value}
                                 onBlur={() => this.onKupBlur()}
                                 onChange={() => this.onKupChange()}
@@ -248,7 +256,10 @@ export class KupCheckbox {
                             </div>
                             {this.createRippleElement()}
                         </div>
-                        <label htmlFor="checkbox-wrapper">
+                        <label
+                            htmlFor="checkbox-wrapper"
+                            onClick={() => this.onKupChange()}
+                        >
                             {componentLabel}
                         </label>
                     </div>

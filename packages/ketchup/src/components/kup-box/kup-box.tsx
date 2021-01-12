@@ -359,24 +359,6 @@ export class KupBox {
         fromSelectedRows?: BoxRow[];
     }>;
 
-    /**
-     * Triggered when a box is dropped
-     */
-    @Event({
-        eventName: 'kupBoxDropped',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupBoxDropped: EventEmitter<{
-        fromId: string;
-        fromRow: BoxRow;
-        fromSelectedRows?: BoxRow[];
-        toId: string;
-        toRow: BoxRow;
-        toSelectedRows?: BoxRow[];
-    }>;
-
     @Event({
         eventName: 'kupDidLoad',
         composed: true,
@@ -830,32 +812,6 @@ export class KupBox {
         );
     }
 
-    //  when the dragged box is dropped on a section (fired on the drop target)
-    private onSectionDrop(event: DragEvent) {
-        event.preventDefault();
-
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box-component').classList.remove(
-            'component-dropover'
-        );
-
-        var jsonData = JSON.parse(event.dataTransfer.getData('text'));
-
-        this.kupBoxDropped.emit({
-            fromId: jsonData['fromId'],
-            fromRow: jsonData['fromRow'],
-            ...(jsonData['fromSelectedRows'] &&
-            jsonData['fromSelectedRows'].length
-                ? { fromSelectedRows: jsonData['fromSelectedRows'] }
-                : {}),
-            toId: this.rootElement.id,
-            toRow: null,
-        });
-    }
 
     private addMultiSelectDragImageToEvent(event: DragEvent) {
         var dragImage = document.createElement('img');
@@ -1705,12 +1661,6 @@ export class KupBox {
                             this.dropEnabled &&
                             (this.dropOnSection || !this.getRows().length)
                                 ? (e) => this.onSectionDragLeave(e)
-                                : null
-                        }
-                        onDrop={
-                            this.dropEnabled &&
-                            (this.dropOnSection || !this.getRows().length)
-                                ? (e) => this.onSectionDrop(e)
                                 : null
                         }
                     >

@@ -4,7 +4,7 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -65,14 +65,6 @@ export default {
           try: 'json',
         },
         {
-          prop: 'className',
-          description:
-            'Available classes: left-aligned, right-aligned, bottom-aligned, top-aligned, borderless and paddingless. Read below for detailed information.',
-          type: 'string',
-          default: '""',
-          try: 'field',
-        },
-        {
           prop: 'columns',
           description: 'Number of columns.',
           type: 'number',
@@ -124,17 +116,17 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'filterEnabled',
-          description: 'Enable filtering.',
+          prop: 'globalFilter',
+          description: 'When set to true it activates the global filter.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
         },
         {
-          prop: 'globalFilterValueState',
-          description: 'Global filter value state.',
+          prop: 'globalFilterValue',
+          description: 'The value of the global filter.',
           type: 'string',
-          default: 'undefined',
+          default: '',
           try: 'field',
         },
         {
@@ -245,31 +237,38 @@ export default {
           try: 'field',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          class: 'borderless',
+          description: 'Displays boxes without borders.',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          class: 'bottom-aligned',
+          description:
+            "Content will be vertically aligned to section's bottom.",
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          class: 'left-aligned',
+          description:
+            "Content will be horizontally aligned to section's left.",
         },
         {
-          text: 'JSON',
-          icon: '',
-          active: false,
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
         {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'paddingless',
+          description: 'Removes padding from box sections.',
+        },
+        {
+          class: 'right-aligned',
+          description:
+            "Content will be horizontally aligned to section's right.",
+        },
+        {
+          class: 'top-aligned',
+          description: "Content will be vertically aligned to section's top.",
         },
       ],
     };

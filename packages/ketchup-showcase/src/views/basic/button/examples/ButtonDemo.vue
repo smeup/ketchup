@@ -4,7 +4,7 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -42,14 +42,6 @@ export default {
           type: 'boolean',
           default: 'false',
           try: 'switch',
-        },
-        {
-          prop: 'className',
-          description:
-            'Available classes: full-height, full-width, shaped. Read below for detailed information.',
-          type: 'string',
-          default: '""',
-          try: 'field',
         },
         {
           prop: 'customStyle',
@@ -116,26 +108,24 @@ export default {
           try: 'switch',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          class: 'full-height',
+          description: 'The button will fill all the available vertical space.',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          class: 'full-width',
+          description:
+            'The button will fill all the available horizontal space.',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
         {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'shaped',
+          description: 'The borders of the button will be shaped.',
         },
       ],
     };

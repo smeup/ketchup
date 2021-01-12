@@ -4,7 +4,7 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -64,12 +64,34 @@ export default {
           try: 'css',
         },
         {
-          prop: 'listData',
-          description:
-            "Set of props related to the list. To check the available props visit the List basic component's page.",
+          prop: 'data',
+          description: 'Props of the sub-components.',
           type: 'Object',
-          default: '{}',
+          default: 'undefined',
           try: 'json',
+        },
+        {
+          prop: 'disabled',
+          description:
+            'Defaults at false. When set to true, the component is disabled.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'displayMode',
+          description:
+            'Sets how the show the selected item value. Suported values: "code", "description", "both".',
+          type: 'string',
+          default: 'description',
+          try: 'field',
+        },
+        {
+          prop: 'initialValue',
+          description: 'Sets the initial value of the component.',
+          type: 'string',
+          default: '""',
+          try: 'field',
         },
         {
           prop: 'minimumChars',
@@ -96,31 +118,11 @@ export default {
           try: 'json',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
       ],
     };
@@ -130,31 +132,33 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-autocomplete');
   comp.id = 'demo-component';
-  comp.listData = {
-    data: [
-      {
-        text: 'First item',
-        value: 'CODE_1',
-      },
-      {
-        text: 'Second item',
-        value: 'CODE_2',
-      },
-      {
-        text: 'Third item',
-        value: 'CODE_3',
-      },
-    ],
-    displayMode: 'both',
-    selectable: true,
+  comp.data = {
+    'kup-list': {
+      data: [
+        {
+          text: 'First item',
+          value: 'CODE_1',
+        },
+        {
+          text: 'Second item',
+          value: 'CODE_2',
+        },
+        {
+          text: 'Third item',
+          value: 'CODE_3',
+        },
+      ],
+      displayMode: 'both',
+      selectable: true,
+    },
+    'kup-text-field': {
+      label: 'Demo',
+    },
   };
+  comp.displayMode = 'description';
+  comp.initialValue = 'First item';
   comp.minimumChars = '1';
   comp.selectMode = 'description';
-  comp.textfieldData = {
-    icon: 'arrow_drop_down',
-    label: 'demo',
-    trailingIcon: true,
-  };
   return comp;
 }
 </script>
