@@ -60,8 +60,6 @@ import {
     setKetchupDroppable,
     DragHandlers,
     DropHandlers,
-    setDragDropPayload,
-    getDragDropPayload,
 } from '../../utils/drag-and-drop';
 
 const KupBoxDragType = 'text/kup-box-drag';
