@@ -2060,17 +2060,6 @@ declare namespace LocalJSX {
         fromSelectedRows?: BoxRow[];
     }>) => void;
         /**
-          * Triggered when a box is dropped
-         */
-        "onKupBoxDropped"?: (event: CustomEvent<{
-        fromId: string;
-        fromRow: BoxRow;
-        fromSelectedRows?: BoxRow[];
-        toId: string;
-        toRow: BoxRow;
-        toSelectedRows?: BoxRow[];
-    }>) => void;
-        /**
           * Triggered when the multi selection checkbox changes value
          */
         "onKupBoxSelected"?: (event: CustomEvent<{
