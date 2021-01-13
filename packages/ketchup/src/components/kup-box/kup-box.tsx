@@ -60,8 +60,6 @@ import {
     setKetchupDroppable,
     DragHandlers,
     DropHandlers,
-    setDragDropPayload,
-    getDragDropPayload,
 } from '../../utils/drag-and-drop';
 
 const KupBoxDragType = 'text/kup-box-drag';
@@ -815,7 +813,6 @@ export class KupBox {
         );
     }
 
-
     private addMultiSelectDragImageToEvent(event: DragEvent) {
         var dragImage = document.createElement('img');
         dragImage.src = dragMultipleImg;
@@ -1112,7 +1109,7 @@ export class KupBox {
                 setDragEffectAllowed(e, 'move');
 
                 if (this.multiSelection) {
-                    this.addMultiSelectDragImageToEvent(e); // TODO set it into setKetchupDraggable
+                    this.addMultiSelectDragImageToEvent(e);
                 }
 
                 this.searchParentWithClass(e.target, 'box').classList.add(

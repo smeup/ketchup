@@ -170,7 +170,7 @@ export function setKetchupDroppable(
     handlers: DropHandlers,
     acceptedDataTypes: string[],
     dispatcherElement: HTMLElement,
-    targetElement: DropTargetElement<any>,
+    targetElement: DropTargetElement<any>
 ) {
     const onDrop = (e: DragEvent) => {
         // Searches for accepted data types
@@ -184,7 +184,6 @@ export function setKetchupDroppable(
             acceptedDataTypesFound.length >= 1 &&
             !!(processedDataType = handlers.onDrop(e, acceptedDataTypesFound))
         ) {
-            let sourceCompId;
             let sourceElement;
             try {
                 sourceElement = JSON.parse(
