@@ -2512,7 +2512,10 @@ export class KupDataTable {
                         {...(this.enableSortableColumns
                             ? setKetchupDraggable(dragHandlers, {
                                   [KupDataTableColumnDragType]: column,
-                                  'kup-drag-source-element': { fromRow: column, fromId :  this.rootElement.id},
+                                  'kup-drag-source-element': {
+                                      fromColumn: column,
+                                      fromId: this.rootElement.id,
+                                  },
                               })
                             : {})}
                         {...(this.enableSortableColumns
@@ -2520,7 +2523,10 @@ export class KupDataTable {
                                   dropHandlers,
                                   [KupDataTableColumnDragType],
                                   this.rootElement,
-                                  { toRow: column.obj, toId :  this.rootElement.id}
+                                  {
+                                      toColumn: column,
+                                      toId: this.rootElement.id,
+                                  }
                               )
                             : {})}
                     >
