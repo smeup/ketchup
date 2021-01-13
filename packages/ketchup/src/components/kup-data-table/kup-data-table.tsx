@@ -436,12 +436,6 @@ export class KupDataTable {
     @State()
     private openedCustomSettings: boolean = false;
 
-
-
-
-
-
-
     @State()
     private fontsize: string = 'medium';
 
@@ -2264,16 +2258,18 @@ export class KupDataTable {
                     const groupLabel =
                         group != null ? 'Disable grouping' : 'Enable grouping';
 
-                    let actionHideCol = null;    
+                    let actionHideCol = null;
                     if (this.removableColumns) {
-                        actionHideCol = <kup-button
-                        icon="table-column-remove"
-                        title="Hide column"
-                        onKupButtonClick={() => {
-                            column.visible = false;
-                            this.closeMenu();
-                        }}
-                        />;
+                        actionHideCol = (
+                            <kup-button
+                                icon="table-column-remove"
+                                title="Hide column"
+                                onKupButtonClick={() => {
+                                    column.visible = false;
+                                    this.closeMenu();
+                                }}
+                            />
+                        );
                     }
                     columnMenuItems.push(
                         <li role="menuitem" class="button-row">
@@ -2464,7 +2460,6 @@ export class KupDataTable {
                         this.columnsAreBeingDragged = false;
                         //
                         this.hideShowColumnRemoveDropArea(false);
-
                     },
                 };
                 const dropHandlers: DropHandlers = {
@@ -2524,7 +2519,7 @@ export class KupDataTable {
                                 return false;
                             }
                         }
-                    }
+                    },
                 };
 
                 columnClass.number = isNumber(column.obj);
@@ -3690,26 +3685,26 @@ export class KupDataTable {
         /* drop column here to remove */
         const dropHandlersRemoveCols: DropHandlers = {
             onDrop: (e: DragEvent) => {
-               console.log("onDrop", e);
-               console.log("DROPPED COLUMN TO TRASH");
+                console.log('onDrop', e);
+                console.log('DROPPED COLUMN TO TRASH');
                 /**/
                 const transferredData = JSON.parse(
                     e.dataTransfer.getData(KupDataTableColumnDragType)
                 ) as Column;
                 // We are sure the tables have been dropped in a valid location -> starts ...
-                console.log("dropped", transferredData);
+                console.log('dropped', transferredData);
                 this.handleColumnRemove(transferredData);
                 //this.hideShowColumnRemoveDropArea(false);
                 /**/
                 return KupDataTableColumnDragType;
             },
             onDragLeave: (e: DragEvent) => {
-                //console.log("onDragLeave" , e);
+                console.log('onDragLeave', e);
             },
             onDragOver: (e: DragEvent) => {
-                //console.log("onDragOver" , e);
+                console.log('onDragOver', e);
                 return true;
-            }
+            },
         };
         /**
         return (
@@ -3723,55 +3718,58 @@ export class KupDataTable {
         >CESTINO COLONNE</div>);
         slot={isSlotted ? 'more-results' : null}
             class="trash-drop-cols"
-        /**/        
+        /**/
         return (
             <kup-button
-        styling="outlined"
-        label="DROP COLUMN HERE TO REMOVE"
-        icon="delete"
-        class="trash-drop-cols"
-        {...(setKetchupDroppable(
-            dropHandlersRemoveCols,
-              [KupDataTableColumnDragType],
-              this.rootElement,
-              this.rootElement.id
-          ))}
-    />);
+                styling="outlined"
+                label="DROP COLUMN HERE TO REMOVE"
+                icon="delete"
+                class="trash-drop-cols"
+                {...setKetchupDroppable(
+                    dropHandlersRemoveCols,
+                    [KupDataTableColumnDragType],
+                    this.rootElement,
+                    this.rootElement.id
+                )}
+            />
+        );
     }
 
     private hideShowColumnRemoveDropArea(show: boolean) {
         if (!this.removableColumns) {
             return;
         }
-        let droparea: HTMLElement = this.rootElement.shadowRoot.querySelector('.trash-drop-cols');
+        let droparea: HTMLElement = this.rootElement.shadowRoot.querySelector(
+            '.trash-drop-cols'
+        );
         if (droparea) {
-                //The visibility property allows the author to show or hide an element. It is similar to the display property. 
-                //However, the difference is that if you set display:none, it hides the entire element, while visibility:hidden means that the contents of the element will be invisible, 
-                //but the element stays in its original position and size.
-                //droparea.style.display = show ? 'block' : 'none'; //inline
-                droparea.style.visibility = show ? 'visible' : 'hidden'; 
+            //The visibility property allows the author to show or hide an element. It is similar to the display property.
+            //However, the difference is that if you set display:none, it hides the entire element, while visibility:hidden means that the contents of the element will be invisible,
+            //but the element stays in its original position and size.
+            //droparea.style.display = show ? 'block' : 'none'; //inline
+            droparea.style.visibility = show ? 'visible' : 'hidden';
         }
     }
 
     private handleColumnRemove(column2remove: Column) {
         // Get sorted column current position
         /**/
-        this.getVisibleColumns()
-        const columnX = 
-        //this.data.columns.find(
+        this.getVisibleColumns();
+        const columnX =
+            //this.data.columns.find(
             this.getVisibleColumns().find(
-            (col) =>
-                col.name === column2remove.name &&
-                col.title === column2remove.title
-        );
-        console.log("found column", columnX);
+                (col) =>
+                    col.name === column2remove.name &&
+                    col.title === column2remove.title
+            );
+        console.log('found column', columnX);
         if (columnX) {
             columnX.visible = false;
             this.triggerColumnSortRerender = !this.triggerColumnSortRerender;
         }
         /**/
         //column.visible = false;
-            /*
+        /*
         // Moves the sortedColumn into the correct position
         if (this.sortableColumnsMutateData) {
             this.moveSortedColumns(
@@ -3787,7 +3785,6 @@ export class KupDataTable {
         });
         */
     }
-
 
     private transcodeItem(
         item: string | ShowGrid,
@@ -4180,7 +4177,9 @@ export class KupDataTable {
         }
 
         //columns trash can
-        const columnsDropArea = this.removableColumns ? this.renderTrashCanColumns() : null;
+        const columnsDropArea = this.removableColumns
+            ? this.renderTrashCanColumns()
+            : null;
 
         let compCreated = (
             <Host>
