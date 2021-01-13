@@ -622,6 +622,10 @@ export namespace Components {
         /**
           * Sets the actions of the rows.
          */
+        "removableColumns": boolean;
+        /**
+          * Sets the actions of the rows.
+         */
         "rowActions": Array<RowAction>;
         /**
           * Sets the number of rows per page to display.
@@ -2736,6 +2740,10 @@ declare namespace LocalJSX {
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
         "paginatorPos"?: PaginatorPos;
+        /**
+          * Sets the actions of the rows.
+         */
+        "removableColumns"?: boolean;
         /**
           * Sets the actions of the rows.
          */
