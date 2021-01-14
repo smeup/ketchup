@@ -25,7 +25,7 @@ import {
     GroupObject,
     KupDataTableCellButtonClick,
     KupDataTableColumnDragType,
-    KupDataTableSortedColumnIndexes,
+    KupDataTableColumnDragRemoveType,
     LoadMoreMode,
     PaginatorPos,
     Row,
@@ -706,14 +706,6 @@ export class KupDataTable {
         bubbles: true,
     })
     kupCellButtonClicked: EventEmitter<KupDataTableCellButtonClick>;
-
-    @Event({
-        eventName: 'kupDataTableSortedColumn',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupDataTableSortedColumn: EventEmitter<KupDataTableSortedColumnIndexes>;
 
     @Event({
         eventName: 'kupDataTableDblClick',
@@ -1988,11 +1980,6 @@ export class KupDataTable {
                 sortedColIndex
             );
         }
-        // fires event
-        this.kupDataTableSortedColumn.emit({
-            receivingColumnIndex: receivingColIndex,
-            sortedColumnIndex: sortedColIndex,
-        });
     }
 
     /**
@@ -3686,22 +3673,21 @@ export class KupDataTable {
         const dropHandlersRemoveCols: DropHandlers = {
             onDrop: (e: DragEvent) => {
                 console.log('onDrop', e);
-                console.log('DROPPED COLUMN TO TRASH');
-                /**/
                 const transferredData = JSON.parse(
                     e.dataTransfer.getData(KupDataTableColumnDragType)
                 ) as Column;
                 // We are sure the tables have been dropped in a valid location -> starts ...
-                console.log('dropped', transferredData);
+                // console.log('dropped', transferredData);
                 this.handleColumnRemove(transferredData);
                 //this.hideShowColumnRemoveDropArea(false);
-                /**/
-                return KupDataTableColumnDragType;
+                return KupDataTableColumnDragRemoveType;
             },
             onDragLeave: (e: DragEvent) => {
+                // TODO add here some animation
                 console.log('onDragLeave', e);
             },
             onDragOver: (e: DragEvent) => {
+                // TODO add here some animation
                 console.log('onDragOver', e);
                 return true;
             },
@@ -3727,9 +3713,12 @@ export class KupDataTable {
                 class="trash-drop-cols"
                 {...setKetchupDroppable(
                     dropHandlersRemoveCols,
-                    [KupDataTableColumnDragType],
+                    [
+                        KupDataTableColumnDragType,
+                        KupDataTableColumnDragRemoveType,
+                    ],
                     this.rootElement,
-                    this.rootElement.id
+                    {}
                 )}
             />
         );
@@ -3762,28 +3751,12 @@ export class KupDataTable {
                     col.name === column2remove.name &&
                     col.title === column2remove.title
             );
-        console.log('found column', columnX);
+        // console.log('column to remove', columnX);
         if (columnX) {
             columnX.visible = false;
             this.triggerColumnSortRerender = !this.triggerColumnSortRerender;
         }
-        /**/
         //column.visible = false;
-        /*
-        // Moves the sortedColumn into the correct position
-        if (this.sortableColumnsMutateData) {
-            this.moveSortedColumns(
-                this.data.columns,
-                receivingColIndex,
-                sortedColIndex
-            );
-        }
-        // fires event
-        this.kupDataTableSortedColumn.emit({
-            receivingColumnIndex: receivingColIndex,
-            sortedColumnIndex: sortedColIndex,
-        });
-        */
     }
 
     private transcodeItem(
