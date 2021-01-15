@@ -8,7 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { ComponentCardElement } from "./components/kup-card/kup-card-declarations";
-import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
@@ -619,6 +619,10 @@ export namespace Components {
          */
         "paginatorPos": PaginatorPos;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * Sets the actions of the rows.
+         */
+        "removableColumns": boolean;
         /**
           * Sets the actions of the rows.
          */
@@ -2060,17 +2064,6 @@ declare namespace LocalJSX {
         fromSelectedRows?: BoxRow[];
     }>) => void;
         /**
-          * Triggered when a box is dropped
-         */
-        "onKupBoxDropped"?: (event: CustomEvent<{
-        fromId: string;
-        fromRow: BoxRow;
-        fromSelectedRows?: BoxRow[];
-        toId: string;
-        toRow: BoxRow;
-        toSelectedRows?: BoxRow[];
-    }>) => void;
-        /**
           * Triggered when the multi selection checkbox changes value
          */
         "onKupBoxSelected"?: (event: CustomEvent<{
@@ -2700,7 +2693,6 @@ declare namespace LocalJSX {
         "onKupDataTableDblClick"?: (event: CustomEvent<{
         obj: {};
     }>) => void;
-        "onKupDataTableSortedColumn"?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
         /**
           * When component load is complete
          */
@@ -2747,6 +2739,10 @@ declare namespace LocalJSX {
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
         "paginatorPos"?: PaginatorPos;
+        /**
+          * Sets the actions of the rows.
+         */
+        "removableColumns"?: boolean;
         /**
           * Sets the actions of the rows.
          */
