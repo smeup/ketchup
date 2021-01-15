@@ -525,6 +525,10 @@ table.instruction-table td.text-cell {
   padding: 0;
 }
 
+#customstyle-tab td.text-cell {
+  max-width: 0;
+}
+
 table.instruction-table td,
 table.instruction-table th {
   padding: 6px 13px;
