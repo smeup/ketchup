@@ -557,39 +557,6 @@ export class KupTree {
         );
     }
 
-    /**
-     * Returns if the current data table must have the with set to auto to make table as large as the sum
-     * of the table columns fixed width.
-     * Table margin gets set to auto to center it.
-     */
-    private tableHasAutoWidth(): boolean {
-        if (!this.sizedColumns) {
-            return;
-        }
-        const visibleCols = this.getVisibleColumns();
-        // Before checking each column, controls that visible columns are as many as items with custom sizes.
-        // If there are more visible columns, it means that the width of the table will be set to auto.
-        if (visibleCols.length <= this.sizedColumns.length) {
-            let found = false;
-
-            // Each visible column must have its own width for the table to have a auto width
-            for (let i = 0; i < visibleCols.length; i++) {
-                found = false;
-                for (let j = 0; j < this.sizedColumns.length; j++) {
-                    if (visibleCols[i].name === this.sizedColumns[j].name) {
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return false;
-    }
-
     /*
      *For launch the event when selected node
      */
@@ -1329,7 +1296,6 @@ export class KupTree {
                 }
 
                 // Sets the width.
-                // Search for "auto-width" class inside the scss file of this component for more details about this
                 cellStyle['max-width'] = colWidth;
                 cellStyle['min-width'] = colWidth;
                 cellStyle['width'] = colWidth;
@@ -1626,12 +1592,6 @@ export class KupTree {
                 </div>
             );
         }
-        const tableClass = {
-            // Class for specifying if the table should have width: auto.
-            // Mandatory to check with custom column size.
-            'auto-width': this.tableHasAutoWidth(),
-            'kup-tree': true,
-        };
         return (
             <Host>
                 <style>{setCustomStyle(this)}</style>
@@ -1642,7 +1602,7 @@ export class KupTree {
                     >
                         {filterField}
                         <table
-                            class={tableClass}
+                            class="kup-tree"
                             data-show-columns={this.showColumns}
                         >
                             <thead
