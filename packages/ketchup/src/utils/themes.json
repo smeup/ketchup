@@ -346,8 +346,8 @@
             "MASTER": "",
             "KUP-BOX": "#kup-component #global-filter {\ndisplay: none;\n}\n\n#kup-component #box-container .box-wrapper .box:hover {\nbox-shadow: none;\n}\n\n#kup-component #box-container .box-wrapper .box.selected {\nbackground-color: inherit;\n}",
             "KUP-BUTTON": "#kup-component {\ndisplay: none;\n}\n\n",
-            "KUP-DATA-TABLE": "#kup-component .paginator-wrapper {\ndisplay: none;\n}\n\n#kup-component .above-wrapper {\ndisplay: none;\n}\n\n#kup-component #global-filter {\ndisplay: none;\n}\n\n#kup-component sticky-header {\ndisplay: none;\n}\n\n#kup-component #group-chips {\ndisplay: none;\n}\n\n#kup-component tbody tr.selected:hover, #kup-component tbody tr.selected {\nbackground-color: inherit;\n}",
-            "KUP-PROGRESS-BAR": "#kup-component .progress-bar-percentage span{\ntext-shadow: 0px 0px 0px hsl(0deg 0% 100%);;\n}\n\n",
+            "KUP-DATA-TABLE": "#kup-component .paginator-wrapper {\ndisplay: none;\n}\n\n#kup-component .above-wrapper {\ndisplay: none;\n}\n\n#kup-component #global-filter {\ndisplay: none;\n}\n\n#kup-component sticky-header {\ndisplay: none;\n}\n\n#kup-component #group-chips {\ndisplay: none;\n}\n\n#kup-component tbody tr.selected:hover,\n#kup-component tbody tr.selected {\nbackground-color: inherit;\n}\n\n#kup-component tr.selected .fixed-row,\n #kup-component tr.selected .fixed-column {\n background-image: none;\n}",
+            "KUP-PROGRESS-BAR": "#kup-component .progress-bar-percentage span {\ntext-shadow: 0px 0px 0px hsl(0deg 0% 100%);\n}\n\n",
             "KUP-TREE": "#kup-component #global-filter {\ndisplay: none;\n}\n\n#kup-component .wrapper {\noverflow: hidden;\n}\n\n#kup-component tr.mdc-ripple-surface::before, \n#kup-component tr.mdc-ripple-surface::after,\n#kup-component td.mdc-ripple-surface::before, \n#kup-component td.mdc-ripple-surface::after,\n#kup-component .kup-tree__node--selected:not(.kup-tree__node--disabled) td {\nbackground-color: var(--kup-background-color);\n}"
         },
         "icons": {
