@@ -1148,6 +1148,7 @@ export class KupBox {
             <div class="box-wrapper">
                 <div
                     class={boxClass}
+                    onClick={(e) => this.onBoxClick(e, row)}
                     {...(this.dragEnabled
                         ? setKetchupDraggable(dragHandlers, {
                               [KupBoxDragType]: {
