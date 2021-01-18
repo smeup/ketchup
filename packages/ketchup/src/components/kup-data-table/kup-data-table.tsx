@@ -4158,9 +4158,12 @@ export class KupDataTable {
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
-                    <div class="above-wrapper">{paginatorTop}</div>
-                    {globalFilter}
+                    <div class="above-wrapper">
+                        {globalFilter}
+                        {paginatorTop}
+                    </div>
                     {columnsDropArea}
+
                     <div
                         style={elStyle}
                         class={belowClass}
