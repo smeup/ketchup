@@ -256,7 +256,10 @@ export class KupCheckbox {
                             </div>
                             {this.createRippleElement()}
                         </div>
-                        <label htmlFor="checkbox-wrapper">
+                        <label
+                            htmlFor="checkbox-wrapper"
+                            onClick={() => this.onKupChange()}
+                        >
                             {componentLabel}
                         </label>
                     </div>

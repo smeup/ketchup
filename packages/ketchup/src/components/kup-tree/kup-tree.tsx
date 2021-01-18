@@ -194,7 +194,6 @@ export class KupTree {
     @Prop() useDynamicExpansion: boolean = false;
 
     //-------- State --------
-    visibleColumns: Column[] = [];
     @State() selectedNodeString: string = '';
 
     @State() stateSwitcher: boolean = false;
@@ -205,6 +204,8 @@ export class KupTree {
     private clickTimeout: any[] = [];
     private iconPaths: [{ icon: string; path: string }] = undefined;
     private globalFilterTimeout: number;
+
+    private sizedColumns: Column[] = undefined;
 
     //-------- Events --------
     /**
@@ -525,6 +526,35 @@ export class KupTree {
                 }
             }
         }
+    }
+
+    private getColumns(): Array<Column> {
+        return this.columns ? this.columns : [{ title: '', name: '' }];
+    }
+
+    private getSizedColumns() {
+        let columns = this.getColumns();
+        let sizedColumns = [];
+        for (let j = 0; j < columns.length; j++) {
+            if (
+                columns[j].size !== null &&
+                columns[j].size !== undefined &&
+                columns[j].size !== ''
+            ) {
+                sizedColumns.push(columns[j]);
+            }
+        }
+        if (sizedColumns.length > 0) {
+            return sizedColumns;
+        } else {
+            return undefined;
+        }
+    }
+
+    private getVisibleColumns(): Array<Column> {
+        return this.getColumns().filter((column) =>
+            column.hasOwnProperty('visible') ? column.visible : true
+        );
     }
 
     /*
@@ -904,6 +934,8 @@ export class KupTree {
             tdStyle = cell.style;
         }
 
+        tdStyle = this.getCellStyle(cellData.column.name, tdStyle);
+
         let icon = undefined;
 
         if ((cellData.column.icon || cell.icon) && content) {
@@ -1244,13 +1276,42 @@ export class KupTree {
         }
     }
 
+    private getCellStyle(colName: string, cellStyle: any): any {
+        // Controls if there are columns with a specified width
+        if (this.sizedColumns) {
+            let colWidth: string = '';
+
+            // Search if this column has a specified width
+            for (let j = 0; j < this.sizedColumns.length; j++) {
+                if (colName === this.sizedColumns[j].name) {
+                    colWidth = this.sizedColumns[j].size;
+                    break;
+                }
+            }
+
+            // Specific width has been found
+            if (colWidth) {
+                if (!cellStyle) {
+                    cellStyle = {};
+                }
+
+                // Sets the width.
+                cellStyle['max-width'] = colWidth;
+                cellStyle['min-width'] = colWidth;
+                cellStyle['width'] = colWidth;
+                cellStyle['overflow'] = 'hidden';
+            }
+        }
+        return cellStyle;
+    }
+
     /**
      * Renders the header of the tree when it must be displayed as a table.
      * @returns An array of table header cells.
      */
     renderHeader(): JSX.Element[] {
-        return this.visibleColumns.map((column) => (
-            <th>
+        return this.getVisibleColumns().map((column) => (
+            <th style={this.getCellStyle(column.name, null)}>
                 <span class="column-title">{column.title}</span>
             </th>
         ));
@@ -1362,15 +1423,12 @@ export class KupTree {
 
         // When a tree node is displayed as a table
         let treeNodeCells: JSX.Element[] | null = null;
-        if (
-            this.showColumns &&
-            this.visibleColumns &&
-            this.visibleColumns.length
-        ) {
+        let visibleCols = this.getVisibleColumns();
+        if (this.showColumns && visibleCols && visibleCols.length) {
             treeNodeCells = [];
             // Renders all the cells
-            for (let j = 0; j < this.visibleColumns.length; j++) {
-                const column = this.visibleColumns[j];
+            for (let j = 0; j < visibleCols.length; j++) {
+                const column = visibleCols[j];
                 treeNodeCells.push(
                     this.renderCell(treeNodeData.cells[column.name], {
                         column,
@@ -1474,6 +1532,7 @@ export class KupTree {
     }
 
     render() {
+        this.sizedColumns = this.getSizedColumns();
         let wrapperClass: string = 'density-medium';
         switch (this.density) {
             case 'dense':
@@ -1482,13 +1541,6 @@ export class KupTree {
             case 'wide':
                 wrapperClass = 'density-wide';
                 break;
-        }
-
-        // Computes the visible columns for later use
-        if (this.showColumns && this.columns) {
-            this.visibleColumns = this.columns.filter((column) =>
-                column.hasOwnProperty('visible') ? column.visible : true
-            );
         }
 
         // Composes TreeNodes

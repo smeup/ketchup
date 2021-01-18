@@ -58,6 +58,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `multiSelection`            | `multi-selection`              | When set to true enables rows multi selection.                                                                                                                                                                                 | `boolean`                                                                                        | `false`                              |
 | `pageSelected`              | `page-selected`                | Current selected page set on component load                                                                                                                                                                                    | `number`                                                                                         | `-1`                                 |
 | `paginatorPos`              | `paginator-pos`                | Sets the position of the paginator. Available positions: top, bottom or both.                                                                                                                                                  | `PaginatorPos.BOTH \| PaginatorPos.BOTTOM \| PaginatorPos.TOP`                                   | `PaginatorPos.TOP`                   |
+| `removableColumns`          | `removable-columns`            | Sets the actions of the rows.                                                                                                                                                                                                  | `boolean`                                                                                        | `false`                              |
 | `rowActions`                | --                             | Sets the actions of the rows.                                                                                                                                                                                                  | `RowAction[]`                                                                                    | `undefined`                          |
 | `rowsPerPage`               | `rows-per-page`                | Sets the number of rows per page to display.                                                                                                                                                                                   | `number`                                                                                         | `10`                                 |
 | `scrollOnHover`             | `scroll-on-hover`              | Activates the scroll on hover function.                                                                                                                                                                                        | `boolean`                                                                                        | `false`                              |
@@ -83,20 +84,19 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 ## Events
 
-| Event                      | Description                                    | Type                                                                                                          |
-| -------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `kupAddColumn`             | When 'add column' menu item is clicked         | `CustomEvent<{ column: string; }>`                                                                            |
-| `kupAutoRowSelect`         | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
-| `kupCellButtonClicked`     |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
-| `kupDataTableDblClick`     |                                                | `CustomEvent<{ obj: {}; }>`                                                                                   |
-| `kupDataTableSortedColumn` |                                                | `CustomEvent<KupDataTableSortedColumnIndexes>`                                                                |
-| `kupDidLoad`               | When component load is complete                | `CustomEvent<{}>`                                                                                             |
-| `kupDidUnload`             | When component unload is complete              | `CustomEvent<{}>`                                                                                             |
-| `kupLoadMoreClicked`       |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
-| `kupOptionClicked`         | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
-| `kupResetSelectedRows`     | When rows selections reset                     | `CustomEvent<{}>`                                                                                             |
-| `kupRowActionClicked`      | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
-| `kupRowSelected`           | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedColumn: string; }>`                                                |
+| Event                  | Description                                    | Type                                                                                                          |
+| ---------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `kupAddColumn`         | When 'add column' menu item is clicked         | `CustomEvent<{ column: string; }>`                                                                            |
+| `kupAutoRowSelect`     | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
+| `kupCellButtonClicked` |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
+| `kupDataTableDblClick` |                                                | `CustomEvent<{ obj: {}; }>`                                                                                   |
+| `kupDidLoad`           | When component load is complete                | `CustomEvent<{}>`                                                                                             |
+| `kupDidUnload`         | When component unload is complete              | `CustomEvent<{}>`                                                                                             |
+| `kupLoadMoreClicked`   |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
+| `kupOptionClicked`     | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
+| `kupResetSelectedRows` | When rows selections reset                     | `CustomEvent<{}>`                                                                                             |
+| `kupRowActionClicked`  | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
+| `kupRowSelected`       | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedColumn: string; }>`                                                |
 
 
 ## Methods

@@ -54,6 +54,16 @@ import {
     getValueForDisplay,
 } from '../kup-data-table/kup-data-table-helper';
 
+import {
+    setDragEffectAllowed,
+    setKetchupDraggable,
+    setKetchupDroppable,
+    DragHandlers,
+    DropHandlers,
+} from '../../utils/drag-and-drop';
+
+const KupBoxDragType = 'text/kup-box-drag';
+
 import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
@@ -344,24 +354,6 @@ export class KupBox {
         fromId: string;
         fromRow: BoxRow;
         fromSelectedRows?: BoxRow[];
-    }>;
-
-    /**
-     * Triggered when a box is dropped
-     */
-    @Event({
-        eventName: 'kupBoxDropped',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupBoxDropped: EventEmitter<{
-        fromId: string;
-        fromRow: BoxRow;
-        fromSelectedRows?: BoxRow[];
-        toId: string;
-        toRow: BoxRow;
-        toSelectedRows?: BoxRow[];
     }>;
 
     @Event({
@@ -795,112 +787,6 @@ export class KupBox {
         });
     }
 
-    // when the user starts to drag a box (fired on the draggable target)
-    private onBoxDragStart(event: DragEvent, row: BoxRow) {
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        if (this.multiSelection) {
-            this.addMultiSelectDragImageToEvent(event);
-        }
-
-        this.searchParentWithClass(target, 'box').classList.add('item-dragged');
-
-        var transferData = {};
-        transferData['fromId'] = this.rootElement.id;
-        transferData['fromRow'] = row;
-        transferData['fromSelectedRows'] = this.selectedRows;
-        event.dataTransfer.setData('text', JSON.stringify(transferData));
-
-        event.dataTransfer.dropEffect = 'move';
-
-        this.kupBoxDragStarted.emit({
-            fromId: this.rootElement.id,
-            fromRow: row,
-            ...(this.selectedRows && this.selectedRows.length
-                ? { fromSelectedRows: this.selectedRows }
-                : {}),
-        });
-    }
-
-    // when the user finishes to drag a box (fired on the draggable target)
-    private onBoxDragEnd(event: DragEvent, row: BoxRow) {
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box').classList.remove(
-            'item-dragged'
-        );
-
-        this.kupBoxDragEnded.emit({
-            fromId: this.rootElement.id,
-            fromRow: row,
-            ...(this.selectedRows && this.selectedRows.length
-                ? { fromSelectedRows: this.selectedRows }
-                : {}),
-        });
-    }
-
-    // when the dragged box is over the drop box (fired on the drop target)
-    private onBoxDragOver(event: DragEvent) {
-        event.preventDefault();
-
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box').classList.add(
-            'item-dropover'
-        );
-    }
-
-    // when the dragged box leaves the drop box (fired on the drop target)
-    private onBoxDragLeave(event: DragEvent) {
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box').classList.remove(
-            'item-dropover'
-        );
-    }
-
-    //  when the dragged box is dropped on another box (fired on the drop target)
-    private onBoxDrop(event: DragEvent, row: BoxRow) {
-        event.preventDefault();
-
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box').classList.remove(
-            'item-dropover'
-        );
-
-        var jsonData = JSON.parse(event.dataTransfer.getData('text'));
-
-        this.kupBoxDropped.emit({
-            fromId: jsonData['fromId'],
-            fromRow: jsonData['fromRow'],
-            ...(jsonData['fromSelectedRows'] &&
-            jsonData['fromSelectedRows'].length
-                ? { fromSelectedRows: jsonData['fromSelectedRows'] }
-                : {}),
-            toId: this.rootElement.id,
-            toRow: row,
-            ...(this.selectedRows && this.selectedRows.length
-                ? { toSelectedRows: this.selectedRows }
-                : {}),
-        });
-    }
-
     // when the dragged box is over the drop section (fired on the drop target)
     private onSectionDragOver(event: DragEvent) {
         event.preventDefault();
@@ -925,33 +811,6 @@ export class KupBox {
         this.searchParentWithClass(target, 'box-component').classList.remove(
             'component-dropover'
         );
-    }
-
-    //  when the dragged box is dropped on a section (fired on the drop target)
-    private onSectionDrop(event: DragEvent) {
-        event.preventDefault();
-
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box-component').classList.remove(
-            'component-dropover'
-        );
-
-        var jsonData = JSON.parse(event.dataTransfer.getData('text'));
-
-        this.kupBoxDropped.emit({
-            fromId: jsonData['fromId'],
-            fromRow: jsonData['fromRow'],
-            ...(jsonData['fromSelectedRows'] &&
-            jsonData['fromSelectedRows'].length
-                ? { fromSelectedRows: jsonData['fromSelectedRows'] }
-                : {}),
-            toId: this.rootElement.id,
-            toRow: null,
-        });
     }
 
     private addMultiSelectDragImageToEvent(event: DragEvent) {
@@ -1244,31 +1103,73 @@ export class KupBox {
             column: !horizontal,
         };
 
+        const dragHandlers: DragHandlers = {
+            onDragStart: (e: DragEvent) => {
+                // Sets the type of drag
+                setDragEffectAllowed(e, 'move');
+
+                if (this.multiSelection) {
+                    this.addMultiSelectDragImageToEvent(e);
+                }
+
+                this.searchParentWithClass(e.target, 'box').classList.add(
+                    'item-dragged'
+                );
+            },
+            onDragEnd: (e: DragEvent) => {
+                this.searchParentWithClass(e.target, 'box').classList.remove(
+                    'item-dragged'
+                );
+            },
+        };
+
+        const dropHandlers: DropHandlers = {
+            onDragOver: (e: DragEvent) => {
+                this.searchParentWithClass(e.target, 'box').classList.add(
+                    'item-dropover'
+                );
+                return true;
+            },
+            onDragLeave: (e: DragEvent) => {
+                this.searchParentWithClass(e.target, 'box').classList.remove(
+                    'item-dropover'
+                );
+            },
+            onDrop: (e: DragEvent) => {
+                this.searchParentWithClass(e.target, 'box').classList.remove(
+                    'item-dropover'
+                );
+
+                return KupBoxDragType;
+            },
+        };
+
         return (
             <div class="box-wrapper">
                 <div
                     class={boxClass}
-                    draggable={this.dragEnabled}
                     onClick={(e) => this.onBoxClick(e, row)}
-                    onDragStart={
-                        this.dragEnabled
-                            ? (e) => this.onBoxDragStart(e, row)
-                            : null
-                    }
-                    onDragEnd={
-                        this.dragEnabled
-                            ? (e) => this.onBoxDragEnd(e, row)
-                            : null
-                    }
-                    onDragOver={
-                        this.dropEnabled ? (e) => this.onBoxDragOver(e) : null
-                    }
-                    onDragLeave={
-                        this.dropEnabled ? (e) => this.onBoxDragLeave(e) : null
-                    }
-                    onDrop={
-                        this.dropEnabled ? (e) => this.onBoxDrop(e, row) : null
-                    }
+                    {...(this.dragEnabled
+                        ? setKetchupDraggable(dragHandlers, {
+                              [KupBoxDragType]: {
+                                  fromId: this.rootElement.id,
+                                  fromRow: row,
+                                  fromSelectedRows: this.selectedRows,
+                              },
+                              'kup-drag-source-element': {
+                                  fromRow: row,
+                                  fromId: this.rootElement.id,
+                              },
+                          })
+                        : {})}
+                    {...(this.dropEnabled
+                        ? setKetchupDroppable(
+                              dropHandlers,
+                              [KupBoxDragType],
+                              this.rootElement,
+                              { toRow: row, toId: this.rootElement.id }
+                          )
+                        : {})}
                 >
                     {multiSel}
                     {boxContent}
@@ -1772,12 +1673,6 @@ export class KupBox {
                             this.dropEnabled &&
                             (this.dropOnSection || !this.getRows().length)
                                 ? (e) => this.onSectionDragLeave(e)
-                                : null
-                        }
-                        onDrop={
-                            this.dropEnabled &&
-                            (this.dropOnSection || !this.getRows().length)
-                                ? (e) => this.onSectionDrop(e)
                                 : null
                         }
                     >
