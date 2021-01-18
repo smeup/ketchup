@@ -620,7 +620,7 @@ export namespace Components {
         "paginatorPos": PaginatorPos;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * Sets the actions of the rows.
+          * Sets the possibility to remove the selected column.
          */
         "removableColumns": boolean;
         /**
@@ -2740,7 +2740,7 @@ declare namespace LocalJSX {
          */
         "paginatorPos"?: PaginatorPos;
         /**
-          * Sets the actions of the rows.
+          * Sets the possibility to remove the selected column.
          */
         "removableColumns"?: boolean;
         /**

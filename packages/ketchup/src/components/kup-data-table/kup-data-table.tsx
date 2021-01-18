@@ -324,7 +324,7 @@ export class KupDataTable {
      */
     @Prop() paginatorPos: PaginatorPos = PaginatorPos.TOP;
     /**
-     * Sets the actions of the rows.
+     * Sets the possibility to remove the selected column.
      */
     @Prop() removableColumns: boolean = false;
     /**
@@ -3692,19 +3692,6 @@ export class KupDataTable {
                 return true;
             },
         };
-        /**
-        return (
-        <div
-        {...(setKetchupDroppable(
-                dropHandlersRemoveCols,
-                  [KupDataTableColumnDragType],
-                  this.rootElement,
-                  this.rootElement.id
-              ))}
-        >CESTINO COLONNE</div>);
-        slot={isSlotted ? 'more-results' : null}
-            class="trash-drop-cols"
-        /**/
         return (
             <kup-button
                 styling="outlined"
@@ -4152,7 +4139,7 @@ export class KupDataTable {
         //columns trash can
         const columnsDropArea = this.removableColumns
             ? this.renderTrashCanColumns()
-            : null;
+            : {};
 
         let compCreated = (
             <Host>
