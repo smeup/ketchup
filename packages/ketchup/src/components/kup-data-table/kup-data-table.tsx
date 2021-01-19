@@ -118,6 +118,7 @@ import {
     setDragDropPayload,
     getDragDropPayload,
 } from '../../utils/drag-and-drop';
+import { isFilterCompliantForValue } from '../../utils/filters';
 
 @Component({
     tag: 'kup-data-table',
@@ -478,6 +479,7 @@ export class KupDataTable {
     identifyAndInitRows() {
         identify(this.getRows());
         this.expandGroupsHandler();
+        this.resetSelectedRows();
     }
 
     @Watch('groups')
@@ -1137,11 +1139,8 @@ export class KupDataTable {
     }
 
     private getColumnValues(column: Column): Array<string> {
-        /** è necessario estrarre i valori della colonna di tutte le righe
-         * filtrate SENZA il filtro della colonna stessa corrente */
         let values = [];
 
-        let tmpFilters: GenericFilter = { ...this.filters };
         let value = '';
         if (this.filters[column.name]) {
             value = this.filters[column.name].textField;
@@ -1152,6 +1151,26 @@ export class KupDataTable {
                 column.obj
             );
         }
+
+        if (
+            column.valuesForFilter != null &&
+            column.valuesForFilter.length > 0
+        ) {
+            if (value == '') {
+                return column.valuesForFilter;
+            }
+            for (let i = 0; i < column.valuesForFilter.length; i++) {
+                let v = column.valuesForFilter[i];
+                if (isFilterCompliantForValue(v, value)) {
+                    values.push(v);
+                }
+            }
+            return values;
+        }
+
+        /** è necessario estrarre i valori della colonna di tutte le righe
+         * filtrate SENZA il filtro della colonna stessa corrente */
+        let tmpFilters: GenericFilter = { ...this.filters };
 
         tmpFilters[column.name] = {
             textField: value,

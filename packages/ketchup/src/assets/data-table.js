@@ -123842,6 +123842,7 @@ const tempDataTableTestData = {
         {
             name: 'COL002',
             title: 'Tipo',
+            valuesForFilter: ['CICCIA', 'Chiara Zambelli', 'MINCLA'],
         },
     ],
     rows: [

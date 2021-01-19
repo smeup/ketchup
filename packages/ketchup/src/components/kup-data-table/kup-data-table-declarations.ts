@@ -45,6 +45,7 @@ export interface Column {
     decimals?: number;
     icon?: string;
     formula?: string;
+    valuesForFilter?: string[];
 }
 
 export interface Row extends Identifiable {
