@@ -509,3 +509,31 @@ tr {
   display: inline-flex;
   width: 100%;
 }
+
+.bar-cell-content {
+  overflow: hidden;
+  margin: auto;
+  position: relative;
+  transition: color 0.2s ease;
+  height: 100%;
+  width: 100%;
+}
+
+.css-step.bottom-aligned {
+  bottom: 0;
+  position: absolute;
+}
+
+.icon-cell-content {
+  margin: auto;
+  position: relative;
+  transition: color 0.2s ease 0s;
+  height: 100%;
+  width: 100%;
+  display: block;
+  min-height: 18px;
+}
+
+.image-cell-content {
+  margin: auto;
+}

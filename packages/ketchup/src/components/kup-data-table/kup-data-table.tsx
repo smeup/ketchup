@@ -3433,7 +3433,59 @@ export class KupDataTable {
     ) {
         switch (cellType) {
             case 'bar':
-                return <kup-image {...props} />;
+                if (!props.data) {
+                    return <kup-image {...props} />;
+                } else {
+                    //This code replaces <kup-image> because of performance-related issues, but uses its props
+                    const cssDraw = props.data;
+                    let steps: JSX.Element[] = [];
+                    let leftProgression: number = 0;
+
+                    for (let i = 0; i < props.data.length; i++) {
+                        let drawStep: JSX.Element = undefined;
+
+                        if (!cssDraw[i].shape) {
+                            cssDraw[i].shape = 'bar';
+                        }
+                        if (!cssDraw[i].color) {
+                            cssDraw[i].color = 'transparent';
+                        }
+                        if (!cssDraw[i].height) {
+                            cssDraw[i].height = '100%';
+                        }
+                        if (!cssDraw[i].width) {
+                            cssDraw[i].width = '100%';
+                        }
+
+                        let stepId: string = 'step-' + i;
+                        let stepClass: string = 'css-step bottom-aligned';
+                        let stepStyle: any = {
+                            backgroundColor: cssDraw[i].color,
+                            left: leftProgression + '%',
+                            height: cssDraw[i].height,
+                            width: cssDraw[i].width,
+                        };
+
+                        leftProgression += parseFloat(cssDraw[i].width);
+
+                        drawStep = (
+                            <span
+                                id={stepId}
+                                class={stepClass}
+                                style={stepStyle}
+                            ></span>
+                        );
+                        steps.push(drawStep);
+                    }
+                    let barStyle = {
+                        height: props.sizeY,
+                    };
+                    return (
+                        <div class="bar-cell-content" style={barStyle}>
+                            {steps}
+                        </div>
+                    );
+                }
             case 'button':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
@@ -3483,11 +3535,39 @@ export class KupDataTable {
                 );
             case 'icon':
             case 'image':
+                //This code replaces <kup-image> because of performance-related issues, but uses its props
                 classObj['is-centered'] = true;
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                return <kup-image {...props} />;
+                if (
+                    props.resource.indexOf('.') > -1 ||
+                    props.resource.indexOf('/') > -1 ||
+                    props.resource.indexOf('\\') > -1
+                ) {
+                    let iconStyle = {
+                        height: props.sizeY,
+                        width: props.sizeX,
+                    };
+                    return (
+                        <div class="image-cell-content" style={iconStyle}>
+                            <img style={iconStyle} src={props.resource}></img>
+                        </div>
+                    );
+                } else {
+                    let iconStyle = {
+                        mask: `url('${getAssetPath(
+                            `./assets/svg/${props.resource}.svg`
+                        )}') no-repeat center`,
+                        background: props.color,
+                        webkitMask: `url('${getAssetPath(
+                            `./assets/svg/${props.resource}.svg`
+                        )}') no-repeat center`,
+                    };
+                    return (
+                        <div class="icon-cell-content" style={iconStyle}></div>
+                    );
+                }
             case 'progress-bar':
                 return <kup-progress-bar {...props}></kup-progress-bar>;
             case 'rating':
