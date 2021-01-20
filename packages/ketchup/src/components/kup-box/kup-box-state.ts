@@ -4,7 +4,7 @@ import { BoxRow } from './kup-box-declarations';
 export class KupBoxState implements KupState {
     globalFilterValue: string = '';
     sortBy: string = '';
-    selectedRowsState: BoxRow[] = [];
+    selectedRowsState: string = '';
     pageSelected: number = 1;
     rowsPerPage: number = 0;
 

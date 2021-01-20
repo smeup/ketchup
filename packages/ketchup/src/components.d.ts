@@ -164,7 +164,7 @@ export namespace Components {
         /**
           * Multiple selection
          */
-        "selectedRowsState": BoxRow[];
+        "selectedRowsState": string;
         /**
           * If enabled, highlights the selected box/boxes
          */
@@ -2111,7 +2111,7 @@ declare namespace LocalJSX {
         /**
           * Multiple selection
          */
-        "selectedRowsState"?: BoxRow[];
+        "selectedRowsState"?: string;
         /**
           * If enabled, highlights the selected box/boxes
          */
