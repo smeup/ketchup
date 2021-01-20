@@ -111,10 +111,51 @@
         <br />
         <a href="echart.html">Ketchup echart tests</a>
 
-        <h1>Date/time picker</h1>
+        <h1>Dropdown button</h1>
+        <kup-dropdown-button id="ddb1" icon="document" label="Documento"></kup-dropdown-button>
+        <kup-dropdown-button id="ddb2" styling="outlined" icon="document" label="Documento-outlined"></kup-dropdown-button>
+        <kup-dropdown-button id="ddb3" styling="flat" icon="document" label="Documento-flat"></kup-dropdown-button>
+
+        <kup-dropdown-button id="ddb4" label="Documento"></kup-dropdown-button>
+        <kup-dropdown-button id="ddb5" styling="outlined" label="Documento-outlined"></kup-dropdown-button>
+        <kup-dropdown-button id="ddb6" styling="flat" label="Documento-flat"></kup-dropdown-button>
+
+        <kup-dropdown-button id="ddb7" icon="document"></kup-dropdown-button>
+        <kup-dropdown-button id="ddb8" styling="outlined" icon="document"></kup-dropdown-button>
+        <kup-dropdown-button id="ddb9" styling="flat" icon="document"></kup-dropdown-button>
+
         <script>
-            //document.documentElement['kupDebug'] = true;
+            let ilb = [
+                    {
+                        text: 'documento1.txt',
+                        value: 'txt1',
+                        icon: '3d_rotation'
+                    },
+                    {
+                        text: 'document2.pdf',
+                        value: 'txt2',
+                        icon: 'ac_unit'
+                    },
+                    {
+                        text: 'documento3.xls',
+                        value: 'txt3',
+                        icon: 'accessibility'
+                    },
+                ];
+
+            let dropDownData = { data : {'kup-list':{data:{}}}};
+            dropDownData.data['kup-list'].data = ilb;
+
+            let dropDownButtons = document.getElementsByTagName('kup-dropdown-button');
+            if (dropDownButtons != null) {
+                for (let i=0; i<dropDownButtons.length; i++) {
+                    let dropDownButton = dropDownButtons[i];
+                    console.log("set dropDownButton.id=" + dropDownButton.id);
+                    dropDownButton.data = {...dropDownData.data};
+                }
+            }
         </script>
+        <h1>Date/time picker</h1>
         <h4>init on Monday</h4>
         <kup-date-picker id="date-picker1"></kup-date-picker>
         <h4>init on Sunday</h4>

@@ -62,6 +62,7 @@ Type: `Promise<void>`
 
  - [kup-autocomplete](../kup-autocomplete)
  - [kup-combobox](../kup-combobox)
+ - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-time-picker](../kup-time-picker)
 
@@ -77,6 +78,7 @@ graph TD;
   kup-list --> kup-checkbox
   kup-autocomplete --> kup-list
   kup-combobox --> kup-list
+  kup-dropdown-button --> kup-list
   kup-nav-bar --> kup-list
   kup-time-picker --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
