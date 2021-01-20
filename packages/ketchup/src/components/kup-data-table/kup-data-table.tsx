@@ -3578,7 +3578,9 @@ export class KupDataTable {
                         mask: `url('${getAssetPath(
                             `./assets/svg/${props.resource}.svg`
                         )}') no-repeat center`,
-                        background: props.color,
+                        background: props.color
+                            ? props.color
+                            : 'var(--kup-icon-color)',
                         webkitMask: `url('${getAssetPath(
                             `./assets/svg/${props.resource}.svg`
                         )}') no-repeat center`,
