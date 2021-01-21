@@ -33,7 +33,7 @@ export default {
     return {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-dropdown-button',
-      headtitle: 'DropdownButton',
+      headtitle: 'Dropdown Button',
       titles: ['Playground', 'Basic usage', 'Styling', 'Disabled'],
     };
   },

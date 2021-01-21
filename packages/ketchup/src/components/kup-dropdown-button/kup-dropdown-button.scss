@@ -27,6 +27,15 @@
     box-shadow: none;
     font-family: var(--kup-font-family);
 
+    &.mdc-button--outlined {
+      &.action {
+        border-right: none;
+      }
+      &.dropdown {
+        border-left: none;
+      }
+    }
+
     &.mdc-button--outlined:not(:disabled) {
       border-color: var(--kup-primary-color);
     }
@@ -67,7 +76,7 @@
     &.dropdown {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
-      box-shadow: rgba(0, 0, 0, 0.5) -2px 0px 2px -2px;
+      box-shadow: rgb(128, 128, 128) -2px 0px 2px -2px;
       min-width: 32px;
       margin: 0;
       padding: 0;
