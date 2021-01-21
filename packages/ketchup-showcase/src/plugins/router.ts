@@ -60,6 +60,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/datepicker/DatePicker.vue`),
   },
   {
+    path: `/dropdownbutton`,
+    name: 'dropdownbutton',
+    component: () => import(`@/views/basic/dropdownbutton/DropdownButton.vue`),
+  },
+  {
     path: `/gauge`,
     name: 'gauge',
     component: () => import(`@/views/basic/gauge/Gauge.vue`),
