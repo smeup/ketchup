@@ -27,8 +27,8 @@ import {
 })
 export class KupDropdownButton {
     @Element() rootElement: HTMLElement;
-    @State() value: string = '';
     @State() customStyleTheme: string = undefined;
+    @State() value: string = '';
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -349,7 +349,7 @@ export class KupDropdownButton {
         return [
             <button
                 type="button"
-                class={componentClass + ' firstpart'}
+                class={componentClass + ' action'}
                 disabled={this.disabled}
                 onClick={() => this.onKupClick()}
                 onFocus={() => this.onKupFocus()}
