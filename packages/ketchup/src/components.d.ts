@@ -2962,15 +2962,15 @@ declare namespace LocalJSX {
           * Defaults at null. When set, the button will show this text.
          */
         "label"?: string;
-        "onKupButtonBlur"?: (event: CustomEvent<{
+        "onKupDropdownButtonBlur"?: (event: CustomEvent<{
         id: string;
         value: string;
     }>) => void;
-        "onKupButtonClick"?: (event: CustomEvent<{
+        "onKupDropdownButtonClick"?: (event: CustomEvent<{
         id: string;
         value: string;
     }>) => void;
-        "onKupButtonFocus"?: (event: CustomEvent<{
+        "onKupDropdownButtonFocus"?: (event: CustomEvent<{
         id: string;
         value: string;
     }>) => void;

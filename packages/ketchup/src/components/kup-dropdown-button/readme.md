@@ -25,9 +25,9 @@
 
 | Event                           | Description | Type                                          |
 | ------------------------------- | ----------- | --------------------------------------------- |
-| `kupButtonBlur`                 |             | `CustomEvent<{ id: string; value: string; }>` |
-| `kupButtonClick`                |             | `CustomEvent<{ id: string; value: string; }>` |
-| `kupButtonFocus`                |             | `CustomEvent<{ id: string; value: string; }>` |
+| `kupDropdownButtonBlur`         |             | `CustomEvent<{ id: string; value: string; }>` |
+| `kupDropdownButtonClick`        |             | `CustomEvent<{ id: string; value: string; }>` |
+| `kupDropdownButtonFocus`        |             | `CustomEvent<{ id: string; value: string; }>` |
 | `kupDropdownSelectionChange`    |             | `CustomEvent<{ value: any; }>`                |
 | `kupDropdownSelectionItemClick` |             | `CustomEvent<{ value: any; }>`                |
 

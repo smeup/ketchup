@@ -72,7 +72,7 @@ export class KupDropdownButton {
     @Prop() trailingIcon: boolean = false;
 
     @Event({
-        eventName: 'kupButtonBlur',
+        eventName: 'kupDropdownButtonBlur',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -83,7 +83,7 @@ export class KupDropdownButton {
     }>;
 
     @Event({
-        eventName: 'kupButtonClick',
+        eventName: 'kupDropdownButtonClick',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -94,7 +94,7 @@ export class KupDropdownButton {
     }>;
 
     @Event({
-        eventName: 'kupButtonFocus',
+        eventName: 'kupDropdownButtonFocus',
         composed: true,
         cancelable: false,
         bubbles: true,
@@ -173,9 +173,6 @@ export class KupDropdownButton {
 
     onKupClick() {
         this.closeList();
-        console.log(
-            '<kup-dropdown-button.onKupClick() value=[' + this.value + ']'
-        );
         this.kupClick.emit({
             id: this.rootElement.id,
             value: this.value,
@@ -222,11 +219,6 @@ export class KupDropdownButton {
     }
 
     onKupItemClick(e: CustomEvent) {
-        console.log(
-            '<kup-dropdown-button.onKupItemClick() e.selected=[' +
-                JSON.stringify(e.detail.selected) +
-                ']'
-        );
         this.consistencyCheck(e);
         this.closeList();
 
