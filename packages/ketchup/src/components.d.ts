@@ -780,7 +780,7 @@ export namespace Components {
         "selectMode": ItemsDisplayMode;
         "setValue": (value: string) => Promise<void>;
         /**
-          * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
+          * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.
          */
         "styling": string;
         /**
@@ -2985,7 +2985,7 @@ declare namespace LocalJSX {
          */
         "selectMode"?: ItemsDisplayMode;
         /**
-          * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
+          * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.
          */
         "styling"?: string;
         /**

@@ -17,7 +17,7 @@
 | `initialValue` | `initial-value` | Sets the initial value of the component.                                                                        | `string`                                                                                         | `''`                           |
 | `label`        | `label`         | Defaults at null. When set, the button will show this text.                                                     | `string`                                                                                         | `null`                         |
 | `selectMode`   | `select-mode`   | Sets how the return the selected item value. Suported values: "code", "description", "both".                    | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.CODE`        |
-| `styling`      | `styling`       | Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.            | `string`                                                                                         | `''`                           |
+| `styling`      | `styling`       | Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.           | `string`                                                                                         | `''`                           |
 | `trailingIcon` | `trailing-icon` | Defaults at null. When set, the icon will be shown after the text.                                              | `boolean`                                                                                        | `false`                        |
 
 

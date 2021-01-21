@@ -63,9 +63,9 @@ export class KupDropdownButton {
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
     /**
-     * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
+     * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.
      */
-    @Prop() styling: string = '';
+    @Prop({ reflect: true }) styling: string = '';
     /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
