@@ -302,7 +302,7 @@ export default {
                 },
               },
               {
-                title: 'Dropdown button',
+                title: 'Dropdown Button',
                 to: {
                   name: 'dropdownbutton',
                 },

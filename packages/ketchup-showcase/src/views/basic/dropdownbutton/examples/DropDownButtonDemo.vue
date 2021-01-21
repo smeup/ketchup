@@ -108,7 +108,7 @@ export default {
         {
           prop: 'styling',
           description:
-            'Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.',
+            'Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.',
           type: 'string',
           default: '""',
           try: 'field',
@@ -123,15 +123,6 @@ export default {
         },
       ],
       demoClasses: [
-        {
-          class: 'full-height',
-          description: 'The button will fill all the available vertical space.',
-        },
-        {
-          class: 'full-width',
-          description:
-            'The button will fill all the available horizontal space.',
-        },
         {
           class: 'kup-secondary-color',
           description:
@@ -148,9 +139,30 @@ export default {
 
 function createComp() {
   let comp = document.createElement('kup-dropdown-button');
-  comp.icon = 'document';
+  comp.icon = 'widgets';
   comp.id = 'demo-component';
-  comp.label = 'View Document';
+  comp.label = 'Demo';
+  comp.data = {
+    'kup-list': {
+      data: [
+        {
+          text: 'Extra action #1',
+          value: '1',
+          icon: 'filter_1',
+        },
+        {
+          text: 'Extra action #2',
+          value: '2',
+          icon: 'filter_2',
+        },
+        {
+          text: 'Extra action #3',
+          value: '3',
+          icon: 'filter_3',
+        },
+      ],
+    },
+  };
   return comp;
 }
 </script>

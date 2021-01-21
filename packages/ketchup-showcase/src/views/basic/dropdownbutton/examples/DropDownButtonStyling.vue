@@ -15,10 +15,12 @@
           <kup-dropdown-button
             styling="flat"
             label="Flat"
+            :data.prop="data"
           ></kup-dropdown-button>
           <kup-dropdown-button
             styling="outlined"
             label="Outlined"
+            :data.prop="data"
           ></kup-dropdown-button>
         </div>
         <p class="centered">Flat sample markup</p>
@@ -40,45 +42,23 @@
           <kup-dropdown-button
             class="shaped"
             label="Raised"
+            :data.prop="data"
           ></kup-dropdown-button>
           <kup-dropdown-button
             styling="flat"
             class="shaped"
             label="Flat"
+            :data.prop="data"
           ></kup-dropdown-button>
           <kup-dropdown-button
             styling="outlined"
             class="shaped"
             label="Outlined"
+            :data.prop="data"
           ></kup-dropdown-button>
         </div>
         <p class="centered">Shaped sample markup</p>
         <code class="flat">{{ markupRounded }}</code>
-      </div>
-    </div>
-
-    <div class="demo-wrapper">
-      <p>
-        It is possible to set the dropdown button to fill all available space
-        both vertically and horizontally, using the
-        <span class="code-word">full-height</span> and
-        <span class="code-word">full-width</span> classes. You can use them both
-        as in the example below.
-      </p>
-      <div class="demo-container">
-        <div
-          class="kup-container"
-          style="height: 25vh; width: 50vw; margin: auto; margin-bottom: 2rem"
-        >
-          <kup-dropdown-button
-            class="full-height full-width"
-            label="Full height and full width"
-          ></kup-dropdown-button>
-        </div>
-        <p class="centered">Full height sample markup</p>
-        <code class="flat">{{ markupFullheight }}</code>
-        <p class="centered">Full width sample markup</p>
-        <code class="flat">{{ markupFullwidth }}</code>
       </div>
     </div>
 
@@ -94,18 +74,21 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-dropdown-button
-            icon="favorite"
-            label="Favorite"
+            icon="document"
+            label="Document"
+            :data.prop="data"
           ></kup-dropdown-button>
           <kup-dropdown-button
             styling="flat"
-            icon="play_arrow"
-            label="Play"
+            icon="folder"
+            label="Folder"
+            :data.prop="data"
           ></kup-dropdown-button>
           <kup-dropdown-button
             styling="outlined"
-            icon="done"
-            label="Submit"
+            icon="local_phone"
+            label="Contact"
+            :data.prop="data"
           ></kup-dropdown-button>
         </div>
         <p class="centered">Icon sample markup</p>
@@ -117,15 +100,32 @@
 
 <script>
 export default {
-  name: 'ButtonStyling',
+  name: 'DropdownButtonStyling',
   data() {
     return {
+      data: {
+        'kup-list': {
+          data: [
+            {
+              text: 'Extra action #1',
+              value: '1',
+              icon: 'filter_1',
+            },
+            {
+              text: 'Extra action #2',
+              value: '2',
+              icon: 'filter_2',
+            },
+            {
+              text: 'Extra action #3',
+              value: '3',
+              icon: 'filter_3',
+            },
+          ],
+        },
+      },
       markupFlat:
         '<kup-dropdown-button styling="flat" label="Flat"></kup-dropdown-button>',
-      markupFullheight:
-        '<kup-dropdown-button class="full-height" label="Full height"></kup-dropdown-button>',
-      markupFullwidth:
-        '<kup-dropdown-button class="full-width" label="Full width"></kup-dropdown-button>',
       markupOutlined:
         '<kup-dropdown-button styling="outlined" label="Outlined"></kup-dropdown-button>',
       markupRounded:

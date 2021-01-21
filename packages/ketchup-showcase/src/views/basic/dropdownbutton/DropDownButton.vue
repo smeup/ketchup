@@ -16,24 +16,24 @@
 </template>
 
 <script>
-import DropDownButtonDemo from '@/views/basic/dropdownbutton/examples/DropDownButtonDemo';
-import DropDownButtonBasic from '@/views/basic/dropdownbutton/examples/DropDownButtonBasic';
-import DropDownButtonStyling from '@/views/basic/dropdownbutton/examples/DropDownButtonStyling';
-import DropDownButtonDisabled from '@/views/basic/dropdownbutton/examples/DropDownButtonDisabled';
+import DropdownButtonDemo from '@/views/basic/dropdownbutton/examples/DropdownButtonDemo';
+import DropdownButtonBasic from '@/views/basic/dropdownbutton/examples/DropdownButtonBasic';
+import DropdownButtonStyling from '@/views/basic/dropdownbutton/examples/DropdownButtonStyling';
+import DropdownButtonDisabled from '@/views/basic/dropdownbutton/examples/DropdownButtonDisabled';
 import Comp from '@/views/advanced/page/templates/Comp';
 export default {
   components: {
-    DropDownButtonDemo,
-    DropDownButtonBasic,
-    DropDownButtonStyling,
-    DropDownButtonDisabled,
+    DropdownButtonDemo,
+    DropdownButtonBasic,
+    DropdownButtonStyling,
+    DropdownButtonDisabled,
     Comp,
   },
   data() {
     return {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-dropdown-button',
-      headtitle: 'DropDownButton',
+      headtitle: 'DropdownButton',
       titles: ['Playground', 'Basic usage', 'Styling', 'Disabled'],
     };
   },

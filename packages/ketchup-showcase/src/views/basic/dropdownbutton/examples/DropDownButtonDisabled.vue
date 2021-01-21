@@ -20,7 +20,6 @@
             styling="outlined"
             label="Outlined"
           ></kup-dropdown-button>
-          <kup-dropdown-button disabled icon="favorite"></kup-dropdown-button>
         </div>
         <p class="centered">Disabled sample markup</p>
         <code class="flat">{{ markupDisabled }}</code>
