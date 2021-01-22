@@ -386,6 +386,10 @@ tbody {
       word-break: break-all;
       word-wrap: break-word;
 
+      &.selected {
+        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+      }
+
       &.number {
         .cell-content {
           display: block;
