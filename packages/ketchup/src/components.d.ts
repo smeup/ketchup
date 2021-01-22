@@ -8,7 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { ComponentCardElement } from "./components/kup-card/kup-card-declarations";
-import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
@@ -164,7 +164,7 @@ export namespace Components {
         /**
           * Multiple selection
          */
-        "selectedRowsState": BoxRow[];
+        "selectedRowsState": string;
         /**
           * If enabled, highlights the selected box/boxes
          */
@@ -622,6 +622,10 @@ export namespace Components {
         /**
           * Sets the actions of the rows.
          */
+        "removableColumns": boolean;
+        /**
+          * Sets the actions of the rows.
+         */
         "rowActions": Array<RowAction>;
         /**
           * Sets the number of rows per page to display.
@@ -738,6 +742,51 @@ export namespace Components {
         "opened": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         "toggle": () => Promise<void>;
+    }
+    interface KupDropdownButton {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Props of the sub-components.
+         */
+        "data": Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+         */
+        "displayMode": ItemsDisplayMode;
+        "getValue": () => Promise<string>;
+        /**
+          * Defaults at null. When set, the button will show this icon.
+         */
+        "icon": string;
+        /**
+          * Sets the initial value of the component.
+         */
+        "initialValue": string;
+        /**
+          * Defaults at null. When set, the button will show this text.
+         */
+        "label": string;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * Sets how the return the selected item value. Suported values: "code", "description", "both".
+         */
+        "selectMode": ItemsDisplayMode;
+        "setValue": (value: string) => Promise<void>;
+        /**
+          * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.
+         */
+        "styling": string;
+        /**
+          * Defaults at null. When set, the icon will be shown after the text.
+         */
+        "trailingIcon": boolean;
     }
     interface KupEchart {
         /**
@@ -1673,6 +1722,12 @@ declare global {
         prototype: HTMLKupDrawerElement;
         new (): HTMLKupDrawerElement;
     };
+    interface HTMLKupDropdownButtonElement extends Components.KupDropdownButton, HTMLStencilElement {
+    }
+    var HTMLKupDropdownButtonElement: {
+        prototype: HTMLKupDropdownButtonElement;
+        new (): HTMLKupDropdownButtonElement;
+    };
     interface HTMLKupEchartElement extends Components.KupEchart, HTMLStencilElement {
     }
     var HTMLKupEchartElement: {
@@ -1860,6 +1915,7 @@ declare global {
         "kup-data-table": HTMLKupDataTableElement;
         "kup-date-picker": HTMLKupDatePickerElement;
         "kup-drawer": HTMLKupDrawerElement;
+        "kup-dropdown-button": HTMLKupDropdownButtonElement;
         "kup-echart": HTMLKupEchartElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-field": HTMLKupFieldElement;
@@ -2060,17 +2116,6 @@ declare namespace LocalJSX {
         fromSelectedRows?: BoxRow[];
     }>) => void;
         /**
-          * Triggered when a box is dropped
-         */
-        "onKupBoxDropped"?: (event: CustomEvent<{
-        fromId: string;
-        fromRow: BoxRow;
-        fromSelectedRows?: BoxRow[];
-        toId: string;
-        toRow: BoxRow;
-        toSelectedRows?: BoxRow[];
-    }>) => void;
-        /**
           * Triggered when the multi selection checkbox changes value
          */
         "onKupBoxSelected"?: (event: CustomEvent<{
@@ -2118,7 +2163,7 @@ declare namespace LocalJSX {
         /**
           * Multiple selection
          */
-        "selectedRowsState"?: BoxRow[];
+        "selectedRowsState"?: string;
         /**
           * If enabled, highlights the selected box/boxes
          */
@@ -2700,7 +2745,6 @@ declare namespace LocalJSX {
         "onKupDataTableDblClick"?: (event: CustomEvent<{
         obj: {};
     }>) => void;
-        "onKupDataTableSortedColumn"?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
         /**
           * When component load is complete
          */
@@ -2747,6 +2791,10 @@ declare namespace LocalJSX {
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
         "paginatorPos"?: PaginatorPos;
+        /**
+          * Sets the actions of the rows.
+         */
+        "removableColumns"?: boolean;
         /**
           * Sets the actions of the rows.
          */
@@ -2884,6 +2932,66 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the drawer appears.
          */
         "opened"?: boolean;
+    }
+    interface KupDropdownButton {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Props of the sub-components.
+         */
+        "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+         */
+        "displayMode"?: ItemsDisplayMode;
+        /**
+          * Defaults at null. When set, the button will show this icon.
+         */
+        "icon"?: string;
+        /**
+          * Sets the initial value of the component.
+         */
+        "initialValue"?: string;
+        /**
+          * Defaults at null. When set, the button will show this text.
+         */
+        "label"?: string;
+        "onKupDropdownButtonBlur"?: (event: CustomEvent<{
+        id: string;
+        value: string;
+    }>) => void;
+        "onKupDropdownButtonClick"?: (event: CustomEvent<{
+        id: string;
+        value: string;
+    }>) => void;
+        "onKupDropdownButtonFocus"?: (event: CustomEvent<{
+        id: string;
+        value: string;
+    }>) => void;
+        "onKupDropdownSelectionChange"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDropdownSelectionItemClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        /**
+          * Sets how the return the selected item value. Suported values: "code", "description", "both".
+         */
+        "selectMode"?: ItemsDisplayMode;
+        /**
+          * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.
+         */
+        "styling"?: string;
+        /**
+          * Defaults at null. When set, the icon will be shown after the text.
+         */
+        "trailingIcon"?: boolean;
     }
     interface KupEchart {
         /**
@@ -3946,6 +4054,7 @@ declare namespace LocalJSX {
         "kup-data-table": KupDataTable;
         "kup-date-picker": KupDatePicker;
         "kup-drawer": KupDrawer;
+        "kup-dropdown-button": KupDropdownButton;
         "kup-echart": KupEchart;
         "kup-editor": KupEditor;
         "kup-field": KupField;
@@ -3998,6 +4107,7 @@ declare module "@stencil/core" {
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
             "kup-date-picker": LocalJSX.KupDatePicker & JSXBase.HTMLAttributes<HTMLKupDatePickerElement>;
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
+            "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
             "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;

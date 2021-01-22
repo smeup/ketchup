@@ -403,11 +403,23 @@ export function isRowCompliant(
         let retValue = false;
         for (let i = 0; i < filterValues.length; i++) {
             let fv = filterValues[i];
-            if (cell && cell.value != null && fv != null) {
+            if (fv == null) {
+                continue;
+            }
+            if (cell.value != null) {
                 if (
                     cell.value.toLowerCase().trim() == fv.toLowerCase().trim()
                 ) {
                     retValue = true;
+                    break;
+                }
+            }
+            if (cell.obj != null) {
+                if (
+                    cell.obj.k.toLowerCase().trim() == fv.toLowerCase().trim()
+                ) {
+                    retValue = true;
+                    break;
                 }
             }
         }

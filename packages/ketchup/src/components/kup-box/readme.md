@@ -26,7 +26,7 @@
 | `pagination`              | `pagination`                  | Enables pagination                                                                                              | `boolean`                                  | `false`     |
 | `rowsPerPage`             | `rows-per-page`               | Number of current rows per page                                                                                 | `number`                                   | `undefined` |
 | `selectBox`               | `select-box`                  | Automatically selects the box at the specified index                                                            | `number`                                   | `undefined` |
-| `selectedRowsState`       | --                            | Multiple selection                                                                                              | `BoxRow[]`                                 | `[]`        |
+| `selectedRowsState`       | `selected-rows-state`         | Multiple selection                                                                                              | `string`                                   | `undefined` |
 | `showSelection`           | `show-selection`              | If enabled, highlights the selected box/boxes                                                                   | `boolean`                                  | `true`      |
 | `showTooltipOnRightClick` | `show-tooltip-on-right-click` | If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.                | `boolean`                                  | `true`      |
 | `sortBy`                  | `sort-by`                     | If sorting is enabled, specifies which column to sort                                                           | `string`                                   | `undefined` |
@@ -40,18 +40,17 @@
 
 ## Events
 
-| Event                     | Description                                               | Type                                                                                                                                     |
-| ------------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `kupAutoBoxSelect`        | Triggered when a box is auto selected via selectBox prop  | `CustomEvent<{ row: BoxRow; }>`                                                                                                          |
-| `kupBoxClicked`           | Triggered when a box is clicked                           | `CustomEvent<{ row: BoxRow; column?: string; }>`                                                                                         |
-| `kupBoxDragEnded`         | Triggered when a box dragging is ended                    | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; }>`                                                         |
-| `kupBoxDragStarted`       | Triggered when a box dragging is started                  | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; }>`                                                         |
-| `kupBoxDropped`           | Triggered when a box is dropped                           | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; toId: string; toRow: BoxRow; toSelectedRows?: BoxRow[]; }>` |
-| `kupBoxSelected`          | Triggered when the multi selection checkbox changes value | `CustomEvent<{ rows: BoxRow[]; }>`                                                                                                       |
-| `kupDidLoad`              |                                                           | `CustomEvent<void>`                                                                                                                      |
-| `kupDidUnload`            | Triggered when stop propagation event                     | `CustomEvent<void>`                                                                                                                      |
-| `kupRowActionClicked`     | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; action: RowAction; index: number; }>`                                                                        |
-| `kupRowActionMenuClicked` | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; }>`                                                                                                          |
+| Event                     | Description                                               | Type                                                                             |
+| ------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `kupAutoBoxSelect`        | Triggered when a box is auto selected via selectBox prop  | `CustomEvent<{ row: BoxRow; }>`                                                  |
+| `kupBoxClicked`           | Triggered when a box is clicked                           | `CustomEvent<{ row: BoxRow; column?: string; }>`                                 |
+| `kupBoxDragEnded`         | Triggered when a box dragging is ended                    | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; }>` |
+| `kupBoxDragStarted`       | Triggered when a box dragging is started                  | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; }>` |
+| `kupBoxSelected`          | Triggered when the multi selection checkbox changes value | `CustomEvent<{ rows: BoxRow[]; }>`                                               |
+| `kupDidLoad`              |                                                           | `CustomEvent<void>`                                                              |
+| `kupDidUnload`            | Triggered when stop propagation event                     | `CustomEvent<void>`                                                              |
+| `kupRowActionClicked`     | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; action: RowAction; index: number; }>`                |
+| `kupRowActionMenuClicked` | When the row menu action icon is clicked                  | `CustomEvent<{ row: BoxRow; }>`                                                  |
 
 
 ## Methods

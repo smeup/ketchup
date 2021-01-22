@@ -45,6 +45,7 @@ export interface Column {
     decimals?: number;
     icon?: string;
     formula?: string;
+    valuesForFilter?: string[];
 }
 
 export interface Row extends Identifiable {
@@ -157,6 +158,8 @@ export enum LoadMoreMode {
 
 //---- Sortable Columns Functionality ----
 export const KupDataTableColumnDragType = 'text/kup-data-table-column-drag';
+export const KupDataTableColumnDragRemoveType =
+    'text/kup-data-table-column-drag-remove';
 
 export interface KupDataTableSortedColumnIndexes {
     receivingColumnIndex: number;

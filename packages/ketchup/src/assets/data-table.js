@@ -1191,6 +1191,11 @@ if (basicData != null) {
     basicData.data = defaultData;
 }
 
+const basicDataRemCols = document.getElementById('basic-data-rem-cols');
+if (basicDataRemCols != null) {
+    basicDataRemCols.data = defaultData;
+}
+
 const radioButtons = document.getElementById('radio-buttons');
 if (radioButtons != null) {
     radioButtons.data = radioData;
@@ -123837,6 +123842,7 @@ const tempDataTableTestData = {
         {
             name: 'COL002',
             title: 'Tipo',
+            valuesForFilter: ['CICCIA', 'Chiara Zambelli', 'MINCLA'],
         },
     ],
     rows: [

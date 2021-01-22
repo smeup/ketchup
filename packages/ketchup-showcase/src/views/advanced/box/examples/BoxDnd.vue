@@ -20,8 +20,6 @@
           pageSize="10"
           :layout.prop="horizontalLayout"
           drag-enabled="true"
-          @kupBoxDragStarted="onBoxDragStarted"
-          @kupBoxDragEnded="onBoxDragEnded"
         ></kup-box>
       </div>
       <div class="column">
@@ -52,7 +50,7 @@
           :layout.prop="horizontalLayout"
           :dropEnabled.prop="true"
           :dropOnSection.prop="dropOnSection2"
-          @kupBoxDropped="onBoxDropped"
+          @kup-drop="onBoxDrop"
         ></kup-box>
       </div>
     </div>
@@ -62,19 +60,6 @@
           <b>History</b>
         </p>
         <ul id="history" />
-      </div>
-      <div class="column">
-        <p>
-          <b>Last drop</b>
-        </p>
-        <p v-if="fromId">From box id: {{ fromId }}</p>
-        <p v-if="fromRow">From box row: {{ fromRow }}</p>
-        <p v-if="fromSelectedRows"
-          >From selected rows: {{ fromSelectedRows }}</p
-        >
-        <p v-if="toId">To box id: {{ toId }}</p>
-        <p v-if="toRow">To box row: {{ toRow }}</p>
-        <p v-if="toSelectedRows">To selected rows: {{ toSelectedRows }}</p>
       </div>
     </div>
   </div>
@@ -127,15 +112,7 @@ export default {
     changeDropOnSection2(e) {
       this.dropOnSection2 = e.detail.checked;
     },
-    onBoxDragStarted(event) {
-      console.log(event);
-      this.appendEventToHistory('Drag started event', event);
-    },
-    onBoxDragEnded(event) {
-      console.log(event);
-      this.appendEventToHistory('Drag ended event', event);
-    },
-    onBoxDropped(event) {
+    onBoxDrop(event) {
       console.log(event);
       this.appendEventToHistory('Dropped event', event);
       this.fromId = event.detail.fromId;

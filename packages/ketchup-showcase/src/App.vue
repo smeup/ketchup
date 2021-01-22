@@ -302,6 +302,12 @@ export default {
                 },
               },
               {
+                title: 'Dropdown Button',
+                to: {
+                  name: 'dropdownbutton',
+                },
+              },
+              {
                 title: 'Gauge',
                 to: {
                   name: 'gauge',
