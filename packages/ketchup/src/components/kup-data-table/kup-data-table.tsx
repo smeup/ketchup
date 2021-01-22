@@ -426,6 +426,9 @@ export class KupDataTable {
     private selectedRows: Array<Row> = [];
 
     @State()
+    private selectedColumn: string;
+
+    @State()
     private groupState: {
         [index: string]: {
             expanded: boolean;
@@ -1676,6 +1679,7 @@ export class KupDataTable {
         // selecting row
         this.handleRowSelect(target, row, event.ctrlKey);
 
+        // find clicked column
         let clickedColumn: string = null;
         if (target instanceof HTMLElement) {
             if (target.tagName !== 'TR') {
@@ -1685,13 +1689,34 @@ export class KupDataTable {
                 }
 
                 clickedColumn = currentElement.dataset.column;
+
             }
         }
+        
+        // selecting clicked column
+        this.deselectColumn(this.selectedColumn);
+        this.selectedColumn = clickedColumn;
+        this.selectColumn(this.selectedColumn);
 
+        // emit event
         this.kupRowSelected.emit({
             selectedRows: this.selectedRows,
             clickedColumn,
         });
+    }
+
+    private selectColumn (selectedColumn: string) {
+        let columnCells = this.rootElement.shadowRoot.querySelectorAll('tbody > tr > td[data-column="' + selectedColumn +'"]');
+        for (let i = 0; i < columnCells.length; i++) {
+            columnCells[i].classList.add('selected');
+        }
+    }
+
+    private deselectColumn (selectedColumn: string) {
+        let columnCells = this.rootElement.shadowRoot.querySelectorAll('tbody > tr > td[data-column="' + selectedColumn +'"]');
+        for (let i = 0; i < columnCells.length; i++) {
+            columnCells[i].classList.remove('selected');
+        }
     }
 
     private onDefaultRowActionClick(
