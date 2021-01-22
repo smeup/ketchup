@@ -43,8 +43,8 @@ tr:hover .fixed-column {
   background-color: var(--kup-hover-background-color);
 }
 
-tr.selected .fixed-row,
-tr.selected .fixed-column {
+#kup-component tr.selected .fixed-column,
+#kup-component tr.selected .fixed-row {
   background-color: var(--kup-background-color);
   background-image: linear-gradient(
     to right,
@@ -52,6 +52,21 @@ tr.selected .fixed-column {
     rgba(var(--kup-primary-color-rgb), 0.175) 0.1%,
     rgba(var(--kup-primary-color-rgb), 0.175)
   );
+}
+
+#kup-component tr:not(.selected) {
+  td.fixed-column,
+  td.fixed-row {
+    &.selected {
+      background-color: var(--kup-background-color);
+      background-image: linear-gradient(
+        to right,
+        rgba(var(--kup-primary-color-rgb), 0.175) 0%,
+        rgba(var(--kup-primary-color-rgb), 0.175) 0.1%,
+        rgba(var(--kup-primary-color-rgb), 0.175)
+      );
+    }
+  }
 }
 
 // For a fixed row
