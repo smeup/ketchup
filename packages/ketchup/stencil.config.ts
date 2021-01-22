@@ -35,6 +35,9 @@ export const config: Config = {
             src: 'echart.html',
         },
         {
+            src: 'gauge.html',
+        },
+        {
             src: 'tree.html',
         },
         {
