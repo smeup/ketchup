@@ -4,111 +4,117 @@ import { MockedRowsFactory } from './mocked-data';
 const mockedRows = MockedRowsFactory();
 
 const mockedRowsWithEmptyValues = MockedRowsFactory();
-mockedRowsWithEmptyValues[0].cells.FLD1.value = '';
-mockedRowsWithEmptyValues[2].cells.FLD1.value = '';
+mockedRowsWithEmptyValues.rows[0].cells.FLD1.value = '';
+mockedRowsWithEmptyValues.rows[2].cells.FLD1.value = '';
 
-const displayedColumnsNames = ['FLD1', 'FLD2', 'FLD3', 'FLD4'];
+const displayedColumns = mockedRows.columns;
 
 type FilterCompareFunction = (cellValue: string, filterText: string) => boolean;
 
 describe('kup-data-table filters rows', () => {
     it('filter without parameters', () => {
         const filtered = filterRows();
-
         expect(filtered).toEqual([]);
     });
 
     it('filter null rows', () => {
         const filtered = filterRows(null);
-
         expect(filtered).toEqual([]);
     });
 
     it('if no / null / empty filter, return rows as they are', () => {
-        let filtered = filterRows(mockedRows);
+        let filtered = filterRows(mockedRows.rows);
+        expect(filtered).toEqual(mockedRows.rows);
 
-        expect(filtered).toEqual(mockedRows);
+        filtered = filterRows(mockedRows.rows, null);
+        expect(filtered).toEqual(mockedRows.rows);
 
-        filtered = filterRows(mockedRows, null);
-
-        expect(filtered).toEqual(mockedRows);
-
-        filtered = filterRows(mockedRows, {});
-
-        expect(filtered).toEqual(mockedRows);
+        filtered = filterRows(mockedRows.rows, {});
+        expect(filtered).toEqual(mockedRows.rows);
     });
 
     it('returns empty array if no row matches', () => {
-        const filtered = filterRows(mockedRows, {
-            FLD1: { textField: 'clearly fake filter', checkBoxes: [] },
-        });
+        const filtered = filterRows(
+            mockedRows.rows,
+            {
+                FLD1: {
+                    textField: 'clearly fake filter',
+                    checkBoxes: [],
+                    interval: ['', ''],
+                },
+            },
+            '',
+            displayedColumns
+        );
 
-        expect(filtered).not.toEqual(mockedRows);
-
+        expect(filtered).not.toEqual(mockedRows.rows);
         expect(filtered).toHaveLength(0);
     });
 
     it('filter on FLD1', () => {
-        const filtered = filterRows(mockedRows, {
-            FLD1: { textField: 'fra', checkBoxes: [] },
-        });
+        const filtered = filterRows(
+            mockedRows.rows,
+            {
+                FLD1: { textField: 'fra', checkBoxes: [], interval: ['', ''] },
+            },
+            '',
+            displayedColumns
+        );
 
-        expect(filtered).not.toEqual(mockedRows);
-
+        expect(filtered).not.toEqual(mockedRows.rows);
         expect(filtered).toHaveLength(5);
     });
 
     it('filter on FLD1 and FLD2', () => {
-        const filtered = filterRows(mockedRows, {
-            FLD1: { textField: 'fra', checkBoxes: [] },
-            FLD2: { textField: '12', checkBoxes: [] },
-        });
+        const filtered = filterRows(
+            mockedRows.rows,
+            {
+                FLD1: { textField: 'fra', checkBoxes: [], interval: ['', ''] },
+                FLD2: { textField: '', checkBoxes: [], interval: ['12', '12'] },
+            },
+            '',
+            displayedColumns
+        );
 
-        expect(filtered).not.toEqual(mockedRows);
-
+        expect(filtered).not.toEqual(mockedRows.rows);
         expect(filtered).toHaveLength(1);
     });
 
     it('global filter without columns', () => {
-        let filtered = filterRows(mockedRows, null, 'fra');
+        let filtered = filterRows(mockedRows.rows, null, 'fra');
+        expect(filtered).toEqual(mockedRows.rows);
 
-        expect(filtered).toEqual(mockedRows);
+        filtered = filterRows(mockedRows.rows, null, 'fra', null);
+        expect(filtered).toEqual(mockedRows.rows);
 
-        filtered = filterRows(mockedRows, null, 'fra', null);
-
-        expect(filtered).toEqual(mockedRows);
-
-        filtered = filterRows(mockedRows, null, 'fra', []);
-
-        expect(filtered).toEqual(mockedRows);
+        filtered = filterRows(mockedRows.rows, null, 'fra', []);
+        expect(filtered).toEqual(mockedRows.rows);
     });
 
     it('global filter with columns', () => {
-        const filtered = filterRows(mockedRows, null, 'fra', [
-            'FLD1',
-            'FLD2',
-            'FLD3',
-            'FLD4',
-        ]);
+        const filtered = filterRows(
+            mockedRows.rows,
+            null,
+            'fra',
+            displayedColumns
+        );
 
-        expect(filtered).not.toEqual(mockedRows);
-
+        expect(filtered).not.toEqual(mockedRows.rows);
         expect(filtered).toHaveLength(5);
     });
 
     it('global filter + column filter', () => {
         const filtered = filterRows(
-            mockedRows,
+            mockedRows.rows,
             {
-                FLD1: { textField: 'cas', checkBoxes: [] },
-                FLD2: { textField: '12', checkBoxes: [] },
+                FLD1: { textField: 'cas', checkBoxes: [], interval: ['', ''] },
+                FLD2: { textField: '', checkBoxes: [], interval: ['12', '12'] },
             },
             'fra',
-            displayedColumnsNames
+            displayedColumns
         );
 
-        expect(filtered).not.toEqual(mockedRows);
-
+        expect(filtered).not.toEqual(mockedRows.rows);
         expect(filtered).toHaveLength(1);
     });
 
@@ -117,10 +123,18 @@ describe('kup-data-table filters rows', () => {
         const columnToFilterOn = 'FLD1';
 
         it('on column filter', () => {
-            const filtered = filterRows(mockedRowsWithEmptyValues, {
-                [columnToFilterOn]: { textField: "''", checkBoxes: [] },
-            });
-
+            const filtered = filterRows(
+                mockedRowsWithEmptyValues.rows,
+                {
+                    [columnToFilterOn]: {
+                        textField: "''",
+                        checkBoxes: [],
+                        interval: ['', ''],
+                    },
+                },
+                '',
+                displayedColumns
+            );
             expect(filtered).toHaveLength(3);
             filtered.forEach((row) => {
                 expect(row.cells[columnToFilterOn].value).toBe('');
@@ -129,10 +143,10 @@ describe('kup-data-table filters rows', () => {
 
         it('on global column filter', () => {
             const filtered = filterRows(
-                mockedRowsWithEmptyValues,
+                mockedRowsWithEmptyValues.rows,
                 {},
                 "''",
-                displayedColumnsNames
+                displayedColumns
             );
 
             // Expect to match the given number of items
@@ -140,9 +154,10 @@ describe('kup-data-table filters rows', () => {
             filtered.forEach((row) => {
                 // Checks if there is at least a '' value in one of the displayed columns
                 expect(
-                    displayedColumnsNames.reduce(
+                    displayedColumns.reduce(
                         (whiteSpaceFound, col) =>
-                            row.cells[col] && row.cells[col].value === ''
+                            row.cells[col.name] &&
+                            row.cells[col.name].value === ''
                                 ? true
                                 : whiteSpaceFound,
                         false
@@ -189,20 +204,26 @@ describe('kup-data-table filters rows', () => {
                 }'${searchKey.toLowerCase()}'`;
 
                 it('on column filter', () => {
-                    const filtered = filterRows(mockedRowsWithEmptyValues, {
-                        [columnToFilterOn]: {
-                            textField: completeFilter,
-                            checkBoxes: [],
+                    const filtered = filterRows(
+                        mockedRowsWithEmptyValues.rows,
+                        {
+                            [columnToFilterOn]: {
+                                textField: completeFilter,
+                                checkBoxes: [],
+                                interval: ['', ''],
+                            },
                         },
-                    });
+                        '',
+                        displayedColumns
+                    );
 
-                    const filterProofRowsCount = mockedRowsWithEmptyValues.reduce(
+                    const filterProofRowsCount = mockedRowsWithEmptyValues.rows.reduce(
                         (displayedRowsCount, { cells }) => {
                             let compareResult = compareFunction(
                                 cells[columnToFilterOn].value,
                                 filterText
                             );
-                            if(!compareResult && cells[columnToFilterOn].obj){
+                            if (!compareResult && cells[columnToFilterOn].obj) {
                                 compareResult = compareFunction(
                                     cells[columnToFilterOn].obj.k,
                                     filterText
@@ -223,7 +244,7 @@ describe('kup-data-table filters rows', () => {
                             row.cells[columnToFilterOn].value,
                             filterText
                         );
-                        if(!compareResult && row.cells[columnToFilterOn].obj){
+                        if (!compareResult && row.cells[columnToFilterOn].obj) {
                             compareResult = compareFunction(
                                 row.cells[columnToFilterOn].obj.k,
                                 filterText
@@ -238,24 +259,33 @@ describe('kup-data-table filters rows', () => {
 
                 it('on global column filter', () => {
                     const filtered = filterRows(
-                        mockedRowsWithEmptyValues,
+                        mockedRowsWithEmptyValues.rows,
                         {},
                         completeFilter,
-                        displayedColumnsNames
+                        displayedColumns
                     );
 
-                    const filterProofRowsCount = mockedRowsWithEmptyValues.reduce(
+                    const filterProofRowsCount = mockedRowsWithEmptyValues.rows.reduce(
                         (displayedRowsCount, { cells }) => {
                             let foundItem = false;
                             for (
                                 let i = 0;
-                                i < displayedColumnsNames.length && !foundItem;
+                                i < displayedColumns.length && !foundItem;
                                 i++
                             ) {
                                 foundItem = compareFunction(
-                                    cells[displayedColumnsNames[i]].value,
+                                    cells[displayedColumns[i].name].value,
                                     filterText
                                 );
+                                /*if (
+                                    !foundItem &&
+                                    cells[displayedColumns[i].name].obj
+                                ) {
+                                    foundItem = compareFunction(
+                                        cells[displayedColumns[i].name].obj.k,
+                                        filterText
+                                    );
+                                }*/
                             }
 
                             return (displayedRowsCount +=
@@ -275,11 +305,11 @@ describe('kup-data-table filters rows', () => {
                         let foundItem = false;
                         for (
                             let i = 0;
-                            i < displayedColumnsNames.length && !foundItem;
+                            i < displayedColumns.length && !foundItem;
                             i++
                         ) {
                             foundItem = compareFunction(
-                                cells[displayedColumnsNames[i]].value,
+                                cells[displayedColumns[i].name].value,
                                 filterText
                             );
                         }

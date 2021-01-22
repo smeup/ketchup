@@ -20,6 +20,7 @@
 | ------------------------------ | ----------- | ------------------------------ |
 | `kupDatePickerBlur`            |             | `CustomEvent<{ value: any; }>` |
 | `kupDatePickerChange`          |             | `CustomEvent<{ value: any; }>` |
+| `kupDatePickerClearIconClick`  |             | `CustomEvent<{ id: any; }>`    |
 | `kupDatePickerClick`           |             | `CustomEvent<{ value: any; }>` |
 | `kupDatePickerFocus`           |             | `CustomEvent<{ value: any; }>` |
 | `kupDatePickerIconClick`       |             | `CustomEvent<{ value: any; }>` |
@@ -73,6 +74,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [kup-data-table](../kup-data-table)
+
 ### Depends on
 
 - [kup-text-field](../kup-text-field)
@@ -83,6 +88,7 @@ Type: `Promise<void>`
 graph TD;
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
+  kup-data-table --> kup-date-picker
   style kup-date-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

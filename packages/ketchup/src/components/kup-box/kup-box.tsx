@@ -526,22 +526,12 @@ export class KupBox {
         this.filteredRows = this.getRows();
 
         if (this.globalFilter && this.globalFilterValue) {
-            const visibleCols = this.visibleColumns;
-            let size = visibleCols.length;
-            let columnNames = [];
-
-            let cnt = 0;
-
-            while (size-- > 0) {
-                columnNames.push(visibleCols[cnt++].name);
-            }
-
             // filtering rows
             this.filteredRows = filterRows(
                 this.filteredRows,
                 null,
                 this.globalFilterValue,
-                columnNames
+                this.visibleColumns
             );
         }
 
