@@ -1644,10 +1644,9 @@ export class KupDataTable {
                 }
 
                 clickedColumn = currentElement.dataset.column;
-
             }
         }
-        
+
         // selecting clicked column
         this.deselectColumn(this.selectedColumn);
         this.selectedColumn = clickedColumn;
@@ -1660,15 +1659,19 @@ export class KupDataTable {
         });
     }
 
-    private selectColumn (selectedColumn: string) {
-        let columnCells = this.rootElement.shadowRoot.querySelectorAll('tbody > tr > td[data-column="' + selectedColumn +'"]');
+    private selectColumn(selectedColumn: string) {
+        let columnCells = this.rootElement.shadowRoot.querySelectorAll(
+            'tbody > tr > td[data-column="' + selectedColumn + '"]'
+        );
         for (let i = 0; i < columnCells.length; i++) {
             columnCells[i].classList.add('selected');
         }
     }
 
-    private deselectColumn (selectedColumn: string) {
-        let columnCells = this.rootElement.shadowRoot.querySelectorAll('tbody > tr > td[data-column="' + selectedColumn +'"]');
+    private deselectColumn(selectedColumn: string) {
+        let columnCells = this.rootElement.shadowRoot.querySelectorAll(
+            'tbody > tr > td[data-column="' + selectedColumn + '"]'
+        );
         for (let i = 0; i < columnCells.length; i++) {
             columnCells[i].classList.remove('selected');
         }
@@ -3412,15 +3415,6 @@ export class KupDataTable {
                     props['sizeY'] = '100%';
                 }
                 break;
-            case 'checkbox':
-                if (cell.style) {
-                    if (!cell.style.height) {
-                        cell.style['minHeight'] = '40px';
-                    }
-                } else {
-                    cell.style = { minHeight: '40px' };
-                }
-                break;
             case 'chips':
                 if (cell.style) {
                     if (!cell.style.height) {
@@ -3430,6 +3424,7 @@ export class KupDataTable {
                     cell.style = { minHeight: '53px' };
                 }
                 break;
+            case 'checkbox':
             case 'icon':
                 if (!props.sizeX) {
                     props['sizeX'] = '18px';
@@ -3545,12 +3540,28 @@ export class KupDataTable {
                 return <kup-chart {...props} />;
             case 'checkbox':
                 classObj['is-centered'] = true;
-                if (props) {
-                    props['disabled'] = row.readOnly;
-                } else {
-                    props = { disabled: row.readOnly };
-                }
-                return <kup-checkbox {...props}></kup-checkbox>;
+                let iconStyle = {
+                    mask: props.checked
+                        ? `url('${getAssetPath(
+                              `./assets/svg/check_box.svg`
+                          )}') no-repeat center`
+                        : `url('${getAssetPath(
+                              `./assets/svg/check_box_outline_blank.svg`
+                          )}') no-repeat center`,
+                    background: props.color
+                        ? props.color
+                        : 'var(--kup-icon-color)',
+                    webkitMask: props.checked
+                        ? `url('${getAssetPath(
+                              `./assets/svg/check_box.svg`
+                          )}') no-repeat center`
+                        : `url('${getAssetPath(
+                              `./assets/svg/check_box_outline_blank.svg`
+                          )}') no-repeat center`,
+                };
+                return (
+                    <div class="checkbox-cell-content" style={iconStyle}></div>
+                );
             case 'chips':
                 return <kup-chip {...props}></kup-chip>;
             case 'color-picker':
