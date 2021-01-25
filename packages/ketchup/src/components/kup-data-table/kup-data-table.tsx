@@ -3218,6 +3218,7 @@ export class KupDataTable {
                               [KupDataTableRowDragType]: row,
                               'kup-drag-source-element': {
                                   row,
+                                  id: this.rootElement.id,
                               },
                           })
                         : {})}
