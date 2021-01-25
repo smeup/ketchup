@@ -31,6 +31,8 @@ export class KupDataTableState implements KupState {
     pageSelected: number = 1;
     selectRow: number;
     selectRowsById: string;
+    dragEnabled: boolean = false;
+    dropEnabled: boolean = false;
 
     public toDebugString() {
         // TODO

@@ -25,6 +25,7 @@ import {
     GroupObject,
     KupDataTableCellButtonClick,
     KupDataTableColumnDragType,
+    KupDataTableRowDragType,
     KupDataTableColumnDragRemoveType,
     LoadMoreMode,
     PaginatorPos,
@@ -164,6 +165,8 @@ export class KupDataTable {
                     state.sortableColumnsMutateData;
                 this.selectRow = state.selectRow;
                 this.selectRowsById = state.selectRowsById;
+                this.dragEnabled = state.dragEnabled;
+                this.dropEnabled = state.dropEnabled;
                 //
             }
         }
@@ -194,6 +197,8 @@ export class KupDataTable {
             this.state.sort = this.sort;
             this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
             this.state.pageSelected = this.currentPage;
+            this.state.dragEnabled = this.dragEnabled;
+            this.state.dropEnabled = this.dropEnabled;
             this.state.selectRowsById = this.selectedRows.reduce(
                 (accumulator, row, currentIndex) => {
                     const prefix = currentIndex > 0 ? ';' : '';
@@ -405,6 +410,14 @@ export class KupDataTable {
      * Defines the current totals options.
      */
     @Prop() totals: TotalsMap;
+    /**
+     * Enable row dragging
+     */
+    @Prop() dragEnabled: boolean = false;
+    /**
+     * Enable record dropping
+     */
+    @Prop() dropEnabled: boolean = false;
 
     //-------- State --------
 
@@ -2405,7 +2418,7 @@ export class KupDataTable {
                 // https://html.spec.whatwg.org/multipage/dnd.html#concept-dnd-p
                 const dragHandlers: DragHandlers = {
                     onDragStart: (e: DragEvent) => {
-                        //console.log("onDragStart" , e);
+                        console.log('onDragStart', e);
 
                         // Sets the type of drag
                         setDragEffectAllowed(e, 'move');
@@ -3103,8 +3116,56 @@ export class KupDataTable {
                         },
                     };
                 }
+
+                /*
+                const dragHandlersCell: DragHandlers = {
+                    onDragStart: (e: DragEvent) => {
+                        console.log('onDragStart', e.target);
+                        // Sets the type of drag
+                        setDragEffectAllowed(e, 'move');
+                    },
+                    onDragEnd: (e: DragEvent) => {
+                        console.log('onDragEnd', e);
+                    },
+                    onDragLeave: (e: DragEvent) => {
+                        console.log('onDragLeave', e);
+                    },
+                    onDragOver: (e: DragEvent) => {
+                        console.log('onDragOver', e);
+                        return true;
+                    },
+                };
+                */
+
+                const dropHandlersCell: DropHandlers = {
+                    onDragLeave: (e: DragEvent) => {
+                        console.log('onDragLeave', e);
+                    },
+                    onDragOver: (e: DragEvent) => {
+                        console.log('onDragOver', e);
+                        return true;
+                    },
+                    onDrop: (e: DragEvent) => {
+                        console.log('onDrop', e);
+                        return KupDataTableRowDragType;
+                    },
+                };
+
                 return (
                     <td
+                        {...(this.dropEnabled
+                            ? setKetchupDroppable(
+                                  dropHandlersCell,
+                                  [KupDataTableRowDragType],
+                                  this.rootElement,
+                                  {
+                                      row: row,
+                                      cell: cell,
+                                      column: currentColumn,
+                                      toId: this.rootElement.id,
+                                  }
+                              )
+                            : {})}
                         title={title}
                         data-column={name}
                         style={cellStyle}
@@ -3130,8 +3191,37 @@ export class KupDataTable {
                 rowClass[row.cssClass] = true;
             }
 
+            const dragHandlersRow: DragHandlers = {
+                onDragStart: (e: DragEvent) => {
+                    console.log('onDragStart', e.target);
+                    // Sets the type of drag
+                    setDragEffectAllowed(e, 'move');
+                },
+                onDragEnd: (e: DragEvent) => {
+                    console.log('onDragEnd', e);
+                },
+            };
+            /*
+            const dropHandlersRow: DropHandlers = {
+                onDrop: (e: DragEvent) => {
+                    console.log('onDrop', e);
+                    return KupDataTableRowDragType;
+                },
+            }; */
+
             return (
-                <tr class={rowClass} onClick={(e) => this.onRowClick(e, row)}>
+                <tr
+                    class={rowClass}
+                    onClick={(e) => this.onRowClick(e, row)}
+                    {...(this.dragEnabled
+                        ? setKetchupDraggable(dragHandlersRow, {
+                              [KupDataTableRowDragType]: row,
+                              'kup-drag-source-element': {
+                                  row,
+                              },
+                          })
+                        : {})}
+                >
                     {selectRowCell}
                     {rowActionsCell}
                     {cells}
@@ -4136,10 +4226,9 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
-        //columns trash can
         const columnsDropArea = this.removableColumns
             ? this.renderTrashCanColumns()
-            : {};
+            : null;
 
         let compCreated = (
             <Host>

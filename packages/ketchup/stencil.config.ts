@@ -20,6 +20,9 @@ export const config: Config = {
             src: 'data-table.html',
         },
         {
+            src: 'data-table-performance.html',
+        },
+        {
             src: 'rating.html',
         },
         {

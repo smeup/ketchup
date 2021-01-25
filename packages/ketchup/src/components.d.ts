@@ -532,6 +532,14 @@ export namespace Components {
          */
         "density": string;
         /**
+          * Enable row dragging
+         */
+        "dragEnabled": boolean;
+        /**
+          * Enable record dropping
+         */
+        "dropEnabled": boolean;
+        /**
           * Defines the label to show when the table is empty.
          */
         "emptyDataLabel": string;
@@ -2601,6 +2609,14 @@ declare namespace LocalJSX {
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
          */
         "density"?: string;
+        /**
+          * Enable row dragging
+         */
+        "dragEnabled"?: boolean;
+        /**
+          * Enable record dropping
+         */
+        "dropEnabled"?: boolean;
         /**
           * Defines the label to show when the table is empty.
          */
