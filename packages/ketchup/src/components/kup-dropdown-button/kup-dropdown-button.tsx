@@ -243,10 +243,6 @@ export class KupDropdownButton {
         );
         this.value = ret.value;
         this.displayedValue = ret.displayedValue;
-
-        if (this.listEl != null) {
-            //this.listEl.resetFilter(this.displayedValue);
-        }
     }
 
     private createRippleElement() {
