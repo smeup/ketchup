@@ -67,6 +67,7 @@ import {
     hasFiltersForColumn,
     getCellValueForDisplay,
     normalizeValue,
+    getValueForDisplay,
 } from './kup-data-table-helper';
 
 import {
@@ -1190,34 +1191,36 @@ export class KupDataTable {
             visibleColumns.map((c) => c.name)
         );
 
-        /** il valore delle righe attualmente filtrate */
-        tmpRows.forEach((row) =>
-            this.addColumnValueFromRow(values, column.name, row)
-        );
-
         if (columnObject != null) {
-            values = values.sort((n1: string, n2: string) => {
+            tmpRows = tmpRows.sort((n1: Row, n2: Row) => {
                 return compareValues(
                     columnObject.obj,
-                    n1,
+                    n1.cells[column.name].value,
                     columnObject.obj,
-                    n2,
+                    n2.cells[column.name].value,
                     SortMode.A
                 );
             });
         }
+
+        /** il valore delle righe attualmente filtrate, formattato */
+        tmpRows.forEach((row) =>
+            this.addColumnValueFromRow(values, column, row)
+        );
+
         return values;
     }
 
     private addColumnValueFromRow(
         values: Array<string>,
-        column: string,
+        column: Column,
         row: Row
     ) {
-        const cell = row.cells[column];
+        const cell = row.cells[column.name];
         if (cell) {
-            if (values.indexOf(cell.value) < 0) {
-                values[values.length] = cell.value;
+            let formattedValue: string = getCellValueForDisplay(column, cell);
+            if (values.indexOf(formattedValue) < 0) {
+                values[values.length] = formattedValue;
             }
         }
     }
@@ -1644,10 +1647,9 @@ export class KupDataTable {
                 }
 
                 clickedColumn = currentElement.dataset.column;
-
             }
         }
-        
+
         // selecting clicked column
         this.deselectColumn(this.selectedColumn);
         this.selectedColumn = clickedColumn;
@@ -1660,15 +1662,19 @@ export class KupDataTable {
         });
     }
 
-    private selectColumn (selectedColumn: string) {
-        let columnCells = this.rootElement.shadowRoot.querySelectorAll('tbody > tr > td[data-column="' + selectedColumn +'"]');
+    private selectColumn(selectedColumn: string) {
+        let columnCells = this.rootElement.shadowRoot.querySelectorAll(
+            'tbody > tr > td[data-column="' + selectedColumn + '"]'
+        );
         for (let i = 0; i < columnCells.length; i++) {
             columnCells[i].classList.add('selected');
         }
     }
 
-    private deselectColumn (selectedColumn: string) {
-        let columnCells = this.rootElement.shadowRoot.querySelectorAll('tbody > tr > td[data-column="' + selectedColumn +'"]');
+    private deselectColumn(selectedColumn: string) {
+        let columnCells = this.rootElement.shadowRoot.querySelectorAll(
+            'tbody > tr > td[data-column="' + selectedColumn + '"]'
+        );
         for (let i = 0; i < columnCells.length; i++) {
             columnCells[i].classList.remove('selected');
         }
@@ -2341,10 +2347,10 @@ export class KupDataTable {
                         }
 
                         if (!filterFromCheckBoxFilter) {
-                            filterInitialValue = getCellValueForDisplay(
+                            filterInitialValue = getValueForDisplay(
                                 filterInitialValue,
-                                column,
-                                null
+                                column.obj,
+                                column.decimals
                             );
                         }
                         columnMenuItems.push(
@@ -2407,7 +2413,11 @@ export class KupDataTable {
                                     label = '(*unchecked)';
                                 }
                             } else {
-                                label = getCellValueForDisplay(v, column, null);
+                                label = getValueForDisplay(
+                                    v,
+                                    column.obj,
+                                    column.decimals
+                                );
                             }
 
                             checkboxItems.push(
@@ -3648,11 +3658,7 @@ export class KupDataTable {
             case 'number':
                 if (content && content != '') {
                     const cellValueNumber: number = stringToNumber(cell.value);
-                    const cellValue = getCellValueForDisplay(
-                        cell.value,
-                        column,
-                        cell
-                    );
+                    const cellValue = getCellValueForDisplay(column, cell);
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;
                     }
@@ -3661,11 +3667,7 @@ export class KupDataTable {
                 return content;
             case 'date':
                 if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(
-                        cell.value,
-                        column,
-                        cell
-                    );
+                    const cellValue = getCellValueForDisplay(column, cell);
                     return cellValue;
                 }
                 return content;

@@ -521,7 +521,7 @@ export function groupRows(
 
         if (cell) {
             const column = getColumnByName(columns, columnName);
-            const cellValue = getCellValueForDisplay(cell.value, column, cell);
+            const cellValue = getCellValueForDisplay(column, cell);
             let groupRow: Row = null;
 
             // check in already in groupedRow
@@ -561,7 +561,6 @@ export function groupRows(
                 if (tempCell) {
                     const column = getColumnByName(columns, group.column);
                     const tempCellValue = getCellValueForDisplay(
-                        tempCell.value,
                         column,
                         tempCell
                     );
@@ -1216,11 +1215,20 @@ export function getValueForDisplay(value, obj, decimals: number): string {
     return value;
 }
 
-export function getCellValueForDisplay(
-    value,
-    column: Column,
-    cell: Cell
-): string {
+export function getCellValueForDisplay(column: Column, cell: Cell): string {
+    if (cell != null) {
+        if (cell.displayedValue != null) {
+            return cell.displayedValue;
+        }
+    }
+    let formattedValue = _getCellValueForDisplay(cell.value, column, cell);
+    if (cell != null) {
+        cell.displayedValue = formattedValue;
+    }
+    return formattedValue;
+}
+
+function _getCellValueForDisplay(value, column: Column, cell: Cell): string {
     let obj = column != null ? column.obj : null;
     if (cell != null) {
         obj = cell.obj ? cell.obj : obj;

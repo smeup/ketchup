@@ -51,7 +51,7 @@ import {
     filterRows,
     sortRows,
     paginateRows,
-    getValueForDisplay,
+    getCellValueForDisplay,
 } from '../kup-data-table/kup-data-table-helper';
 
 import {
@@ -1498,11 +1498,7 @@ export class KupBox {
                         boContent = undefined;
                     }
                 } else {
-                    boContent = getValueForDisplay(
-                        cell.value,
-                        cell.obj,
-                        column != null ? column.decimals : null
-                    );
+                    boContent = getCellValueForDisplay(column, cell);
                 }
             }
         } else if (boxObject.value) {
