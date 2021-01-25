@@ -553,67 +553,81 @@ export function isFilterCompliantForSimpleValue(
         from = interval[FilterInterval.FROM];
         to = interval[FilterInterval.TO];
     }
-    let checkByRegularExpression = from == '' && to == '';
+    let checkByRegularExpression = true;
     if (isNumber(obj)) {
         value = unformattedStringNumberToNumber(value, obj ? obj.p : '');
         let valueNumber: number = stringToNumber(value);
         if (from != '') {
             if (isNumberThisString(from)) {
+                checkByRegularExpression = false;
                 let fromNumber: number = stringToNumber(from);
                 if (valueNumber < fromNumber) {
                     return false;
                 }
+            } else {
+                filterValue = from;
             }
         }
         if (to != '') {
             if (isNumberThisString(to)) {
+                checkByRegularExpression = false;
                 let toNumber: number = stringToNumber(to);
                 if (valueNumber > toNumber) {
                     return false;
                 }
+            } else {
+                filterValue = to;
             }
         }
     }
     if (isDate(obj)) {
+        let valueDate: Date = null;
         if (isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)) {
-            let valueDate: Date = unformatDateTime(
-                value,
-                ISO_DEFAULT_DATE_FORMAT
-            );
-            if (from != '') {
-                if (isValidStringDate(from, ISO_DEFAULT_DATE_FORMAT)) {
-                    let fromDate: Date = unformatDateTime(
-                        from,
-                        ISO_DEFAULT_DATE_FORMAT
-                    );
-                    if (valueDate < fromDate) {
-                        return false;
-                    }
-                }
-            }
-            if (to != '') {
-                if (isValidStringDate(to, ISO_DEFAULT_DATE_FORMAT)) {
-                    let toDate: Date = unformatDateTime(
-                        to,
-                        ISO_DEFAULT_DATE_FORMAT
-                    );
-                    if (valueDate > toDate) {
-                        return false;
-                    }
-                }
-            }
+            valueDate = unformatDateTime(value, ISO_DEFAULT_DATE_FORMAT);
+        }
+        if (from != '') {
             if (
-                !isValidStringDate(filterValue, ISO_DEFAULT_DATE_FORMAT) &&
-                !isValidStringDate(filterValue)
+                valueDate != null &&
+                isValidStringDate(from, ISO_DEFAULT_DATE_FORMAT)
             ) {
-                value = changeDateTimeFormat(
-                    value,
-                    ISO_DEFAULT_DATE_FORMAT,
-                    getCurrentDateFormatFromBrowserLocale()
+                checkByRegularExpression = false;
+                let fromDate: Date = unformatDateTime(
+                    from,
+                    ISO_DEFAULT_DATE_FORMAT
                 );
+                if (valueDate < fromDate) {
+                    return false;
+                }
+            } else {
+                filterValue = from;
             }
-        } else if (!checkByRegularExpression) {
-            return false;
+        }
+        if (to != '') {
+            if (
+                valueDate != null &&
+                isValidStringDate(to, ISO_DEFAULT_DATE_FORMAT)
+            ) {
+                checkByRegularExpression = false;
+                let toDate: Date = unformatDateTime(
+                    to,
+                    ISO_DEFAULT_DATE_FORMAT
+                );
+                if (valueDate > toDate) {
+                    return false;
+                }
+            } else {
+                filterValue = to;
+            }
+        }
+        if (
+            !isValidStringDate(filterValue, ISO_DEFAULT_DATE_FORMAT) &&
+            !isValidStringDate(filterValue)
+        ) {
+            value = changeDateTimeFormat(
+                value,
+                ISO_DEFAULT_DATE_FORMAT,
+                getCurrentDateFormatFromBrowserLocale()
+            );
         }
     }
     if (checkByRegularExpression) {

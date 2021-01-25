@@ -308,18 +308,18 @@ export class KupDatePicker {
         eventToRaise: EventEmitter,
         isOnInputEvent?: boolean
     ) {
-        let newValue = null;
+        let newValue = eventDetailValue;
         if (isValidFormattedStringDate(eventDetailValue)) {
             newValue = formattedStringToDefaultUnformattedStringDate(
                 eventDetailValue
             );
+            this.refreshPickerComponentValue(newValue);
             if (isOnInputEvent != true) {
                 this.value = newValue;
             }
         }
 
         if (newValue != null) {
-            this.refreshPickerComponentValue(newValue);
             if (eventToRaise != null) {
                 eventToRaise.emit({
                     value: newValue,
