@@ -2902,6 +2902,9 @@ declare namespace LocalJSX {
         "onKupDatePickerChange"?: (event: CustomEvent<{
         value: any;
     }>) => void;
+        "onKupDatePickerClearIconClick"?: (event: CustomEvent<{
+        id: any;
+    }>) => void;
         "onKupDatePickerClick"?: (event: CustomEvent<{
         value: any;
     }>) => void;

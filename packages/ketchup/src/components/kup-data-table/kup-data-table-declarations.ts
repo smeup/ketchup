@@ -93,6 +93,7 @@ export interface GenericFilter {
 export interface Filter {
     textField: string;
     checkBoxes: Array<string>;
+    interval: string[];
 }
 
 export interface SortObject {
@@ -103,6 +104,11 @@ export interface SortObject {
 export enum SortMode {
     A = 'A',
     D = 'D',
+}
+
+export enum FilterInterval {
+    FROM = 0,
+    TO = 1,
 }
 
 export interface TotalsMap {
