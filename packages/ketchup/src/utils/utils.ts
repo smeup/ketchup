@@ -111,8 +111,7 @@ export function getSeparator(locale, separatorType) {
     const numberWithGroupAndDecimalSeparator = 1000.1;
     return Intl.NumberFormat(locale)
         .formatToParts(numberWithGroupAndDecimalSeparator)
-        .find(part => part.type === separatorType)
-        .value;
+        .find((part) => part.type === separatorType).value;
 }
 
 export function getCurrentDateFormatFromBrowserLocale(): string {
@@ -352,7 +351,7 @@ function numberStringToNumberString(
     if (decFmt != '.') {
         input = input.replace(/,/g, '.');
     }
-    let unf: number = Number(input);
+    let unf: number = stringToNumber(input);
 
     return _numberToString(unf, -1, 'en-US', false);
 }
@@ -408,6 +407,7 @@ export function changeDateTimeFormat(
 
 /**
  * @param value date as string
+ * @param defaultValueFormat
  * @param valueDateFormat date format (default ISO)
  * @return Date object
  **/
@@ -424,7 +424,7 @@ export function unformatDateTime(
 
 /**
  * @param date date as Date object
- * @return date as string, formatted
+ * @return date as string, formatted by actual browser locale
  **/
 export function formatDate(date: Date): string {
     const options: Intl.DateTimeFormatOptions = {

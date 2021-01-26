@@ -140,9 +140,10 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-text-field](../kup-text-field)
+- [kup-date-picker](../kup-date-picker)
 - [kup-checkbox](../kup-checkbox)
 - [kup-button](../kup-button)
-- [kup-text-field](../kup-text-field)
 - [kup-tooltip](../kup-tooltip)
 - [kup-image](../kup-image)
 - [kup-chart](../kup-chart)
@@ -158,9 +159,10 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
+  kup-data-table --> kup-text-field
+  kup-data-table --> kup-date-picker
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
-  kup-data-table --> kup-text-field
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-image
   kup-data-table --> kup-chart
@@ -172,6 +174,8 @@ graph TD;
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
+  kup-date-picker --> kup-text-field
+  kup-date-picker --> kup-button
   kup-tooltip --> kup-button
   kup-tooltip --> kup-tree
   kup-tree --> kup-image
