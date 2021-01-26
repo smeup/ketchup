@@ -27,12 +27,14 @@
       min-height: 1.5em;
       display: flex;
       padding: 0.6rem 0.8em 0;
-      font-size: 1em;
       font-weight: bold;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
 
+      div {
+        font-size: 1em;
+      }
       .left {
         text-align: left;
         width: 80%;
