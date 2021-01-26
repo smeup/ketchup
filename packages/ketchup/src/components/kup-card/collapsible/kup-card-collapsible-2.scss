@@ -20,29 +20,29 @@
 
     .sub-1 {
       text-align: left;
-      padding: 0.6rem 0.8rem 0;
-      font-size: 1rem;
+      padding: 0.6em 0.8em 0;
+      font-size: 1em;
       font-weight: bold;
       max-width: 75%;
     }
     .sub-2 {
       text-align: left;
-      padding: 0.6rem 0.8rem;
-      font-size: 0.875rem;
+      padding: 0.6em 0.8em;
+      font-size: 0.875em;
       max-width: 75%;
     }
     .sub-3 {
       color: var(--color-1);
       text-align: center;
-      font-size: 1.25rem;
+      font-size: 1.25em;
       position: absolute;
-      top: 1rem;
-      right: 1rem;
+      top: 1em;
+      right: 1em;
       max-width: 25%;
       text-overflow: ellipsis;
       overflow: hidden;
-      max-height: calc(24px + 2.25rem);
-      padding: 0 1rem;
+      max-height: calc(24px + 2.25em);
+      padding: 0 1em;
       kup-image {
         margin: auto;
       }
