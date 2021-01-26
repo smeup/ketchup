@@ -16,6 +16,7 @@ export interface Cell {
         k: string;
     };
     value: string;
+    displayedValue?: string;
     style?: GenericMap;
     shape?: string;
     data?: CellData;
