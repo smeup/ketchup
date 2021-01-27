@@ -119,6 +119,7 @@ import {
     setDragDropPayload,
     getDragDropPayload,
 } from '../../utils/drag-and-drop';
+import { dragMultipleImg } from '../../assets/images/drag-multiple';
 
 @Component({
     tag: 'kup-data-table',
@@ -1215,6 +1216,12 @@ export class KupDataTable {
 
     private getRows(): Array<Row> {
         return this.data && this.data.rows ? this.data.rows : [];
+    }
+
+    private addMultiSelectDragImageToEvent(event: DragEvent) {
+        var dragImage = document.createElement('img');
+        dragImage.src = dragMultipleImg;
+        event.dataTransfer.setDragImage(dragImage, 0, 0);
     }
 
     private initRows(): void {
@@ -3140,9 +3147,35 @@ export class KupDataTable {
                 const dropHandlersCell: DropHandlers = {
                     onDragLeave: (e: DragEvent) => {
                         console.log('onDragLeave', e);
+                        if (
+                            e.dataTransfer.types.indexOf(
+                                KupDataTableRowDragType
+                            ) >= 0
+                        ) {
+                            (e.target as HTMLElement)
+                                .closest('tr')
+                                .classList.remove('selected');
+                        }
                     },
                     onDragOver: (e: DragEvent) => {
                         console.log('onDragOver', e);
+
+                        if (
+                            e.dataTransfer.types.indexOf(
+                                KupDataTableRowDragType
+                            ) >= 0
+                        ) {
+                            let overElement = e.target as HTMLElement;
+                            if (overElement.tagName !== 'TD') {
+                                overElement = overElement.closest('td');
+                            }
+                            overElement = overElement.closest('tr');
+                            overElement.classList.add('selected');
+                            // TODO do it without using the element but with data like id, etc.
+                            setDragDropPayload({
+                                overElement,
+                            });
+                        }
                         return true;
                     },
                     onDrop: (e: DragEvent) => {
@@ -3194,20 +3227,26 @@ export class KupDataTable {
             const dragHandlersRow: DragHandlers = {
                 onDragStart: (e: DragEvent) => {
                     console.log('onDragStart', e.target);
+                    console.log('onDragStart', e);
+                    console.log('onDragStart', e.composedPath());
                     // Sets the type of drag
                     setDragEffectAllowed(e, 'move');
+
+                    if (this.multiSelection && this.selectedRows.length > 0) {
+                        this.addMultiSelectDragImageToEvent(e);
+                    }
                 },
                 onDragEnd: (e: DragEvent) => {
                     console.log('onDragEnd', e);
+                    // Remove the over class
+                    const dragDropPayload = getDragDropPayload();
+                    if (dragDropPayload && dragDropPayload.overElement) {
+                        dragDropPayload.overElement.classList.remove(
+                            'selected'
+                        );
+                    }
                 },
             };
-            /*
-            const dropHandlersRow: DropHandlers = {
-                onDrop: (e: DragEvent) => {
-                    console.log('onDrop', e);
-                    return KupDataTableRowDragType;
-                },
-            }; */
 
             return (
                 <tr
@@ -3217,8 +3256,9 @@ export class KupDataTable {
                         ? setKetchupDraggable(dragHandlersRow, {
                               [KupDataTableRowDragType]: row,
                               'kup-drag-source-element': {
-                                  row,
                                   id: this.rootElement.id,
+                                  row,
+                                  selectedRows: this.selectedRows,
                               },
                           })
                         : {})}
