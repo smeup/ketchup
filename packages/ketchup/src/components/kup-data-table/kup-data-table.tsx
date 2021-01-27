@@ -1218,8 +1218,9 @@ export class KupDataTable {
         return this.data && this.data.rows ? this.data.rows : [];
     }
 
+    // TODO if is not shared, move this in the third parameter of setKetchupDraggable method
     private addMultiSelectDragImageToEvent(event: DragEvent) {
-        var dragImage = document.createElement('img');
+        let dragImage = document.createElement('img');
         dragImage.src = dragMultipleImg;
         event.dataTransfer.setDragImage(dragImage, 0, 0);
     }
@@ -3232,7 +3233,11 @@ export class KupDataTable {
                     // Sets the type of drag
                     setDragEffectAllowed(e, 'move');
 
-                    if (this.multiSelection && this.selectedRows.length > 0) {
+                    if (
+                        this.selectedRows.length > 1 ||
+                        (this.selectedRows.length == 1 &&
+                            !this.selectedRows.includes(row))
+                    ) {
                         this.addMultiSelectDragImageToEvent(e);
                     }
                 },
