@@ -50,7 +50,6 @@ export async function runRecalc(el: HTMLElement) {
     el.style.bottom = ``;
     el.style.left = ``;
 
-    console.log('we');
     if (window.innerHeight - rect.bottom < offsetH) {
         el.style.bottom = `${
             window.innerHeight - rect.top + el['anchorMargin']
