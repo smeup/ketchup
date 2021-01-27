@@ -50,6 +50,7 @@ export async function runRecalc(el: HTMLElement) {
     el.style.bottom = ``;
     el.style.left = ``;
 
+    console.log('we');
     if (window.innerHeight - rect.bottom < offsetH) {
         el.style.bottom = `${
             window.innerHeight - rect.top + el['anchorMargin']
@@ -58,7 +59,13 @@ export async function runRecalc(el: HTMLElement) {
         el.style.top = `${rect.bottom + el['anchorMargin']}px`;
     }
     if (window.innerWidth - rect.left < offsetW) {
-        el.style.right = `${window.innerWidth - rect.right}px`;
+        //01-27-2021 Experimental: subtracting from window.innerWidth the scrollbar's width - if it's too large something's wrong so it will be set to 0
+        let scrollbarWidth =
+            window.innerWidth - document.documentElement.offsetWidth;
+        if (scrollbarWidth > 10) {
+            scrollbarWidth = 0;
+        }
+        el.style.right = `${window.innerWidth - scrollbarWidth - rect.right}px`;
     } else {
         el.style.left = `${rect.left}px`;
     }
