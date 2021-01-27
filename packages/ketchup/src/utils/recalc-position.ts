@@ -61,7 +61,7 @@ export async function runRecalc(el: HTMLElement) {
         //01-27-2021 Experimental: subtracting from window.innerWidth the scrollbar's width - if it's too large something's wrong so it will be set to 0
         let scrollbarWidth =
             window.innerWidth - document.documentElement.offsetWidth;
-        if (scrollbarWidth > 10) {
+        if (scrollbarWidth > 30) {
             scrollbarWidth = 0;
         }
         el.style.right = `${window.innerWidth - scrollbarWidth - rect.right}px`;
