@@ -551,3 +551,9 @@ tr {
 .image-cell-content {
   margin: auto;
 }
+
+//Temporary removal of borders inside cells: they should be applied only to <td> elements
+//TODO: Improve styling interface with data-table inside client apps
+tbody td > * {
+  border: none !important;
+}
