@@ -1152,13 +1152,13 @@ export class KupBox {
                     {...(this.dragEnabled
                         ? setKetchupDraggable(dragHandlers, {
                               [KupBoxDragType]: {
-                                  fromId: this.rootElement.id,
-                                  fromRow: row,
-                                  fromSelectedRows: this.selectedRows,
+                                  id: this.rootElement.id,
+                                  row,
+                                  selectedRows: this.selectedRows,
                               },
                               'kup-drag-source-element': {
-                                  fromRow: row,
-                                  fromId: this.rootElement.id,
+                                  row,
+                                  id: this.rootElement.id,
                               },
                           })
                         : {})}
@@ -1167,7 +1167,7 @@ export class KupBox {
                               dropHandlers,
                               [KupBoxDragType],
                               this.rootElement,
-                              { toRow: row, toId: this.rootElement.id }
+                              { row, id: this.rootElement.id }
                           )
                         : {})}
                 >

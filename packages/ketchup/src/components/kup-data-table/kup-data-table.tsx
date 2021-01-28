@@ -2426,7 +2426,7 @@ export class KupDataTable {
                 // https://html.spec.whatwg.org/multipage/dnd.html#concept-dnd-p
                 const dragHandlers: DragHandlers = {
                     onDragStart: (e: DragEvent) => {
-                        console.log('onDragStart', e);
+                        // console.log('onDragStart', e);
 
                         // Sets the type of drag
                         setDragEffectAllowed(e, 'move');
@@ -2448,7 +2448,7 @@ export class KupDataTable {
                         // replace the used flags set with attribute
                     },
                     onDragEnd: (e: DragEvent) => {
-                        //console.log("onDragEnd" , e);
+                        // console.log("onDragEnd" , e);
                         // When the drag has ended, checks if the element still exists or it was destroyed by JSX
                         const targetElement = e.target as HTMLElement;
                         if (targetElement) {
@@ -2472,7 +2472,7 @@ export class KupDataTable {
                 };
                 const dropHandlers: DropHandlers = {
                     onDrop: (e: DragEvent) => {
-                        //console.log("onDrop" , e);
+                        // console.log("onDrop" , e);
                         const transferredData = JSON.parse(
                             e.dataTransfer.getData(KupDataTableColumnDragType)
                         ) as Column;
@@ -2482,7 +2482,7 @@ export class KupDataTable {
                         return KupDataTableColumnDragType;
                     },
                     onDragLeave: (e: DragEvent) => {
-                        //console.log("onDragLeave" , e);
+                        // console.log("onDragLeave" , e);
                         if (
                             e.dataTransfer.types.indexOf(
                                 KupDataTableColumnDragType
@@ -2495,7 +2495,7 @@ export class KupDataTable {
                         }
                     },
                     onDragOver: (e: DragEvent) => {
-                        //console.log("onDragOver" , e);
+                        // console.log("onDragOver" , e);
                         if (
                             e.dataTransfer.types.indexOf(
                                 KupDataTableColumnDragType
@@ -3125,29 +3125,9 @@ export class KupDataTable {
                     };
                 }
 
-                /*
-                const dragHandlersCell: DragHandlers = {
-                    onDragStart: (e: DragEvent) => {
-                        console.log('onDragStart', e.target);
-                        // Sets the type of drag
-                        setDragEffectAllowed(e, 'move');
-                    },
-                    onDragEnd: (e: DragEvent) => {
-                        console.log('onDragEnd', e);
-                    },
-                    onDragLeave: (e: DragEvent) => {
-                        console.log('onDragLeave', e);
-                    },
-                    onDragOver: (e: DragEvent) => {
-                        console.log('onDragOver', e);
-                        return true;
-                    },
-                };
-                */
-
                 const dropHandlersCell: DropHandlers = {
                     onDragLeave: (e: DragEvent) => {
-                        console.log('onDragLeave', e);
+                        // console.log('onDragLeave', e);
                         if (
                             e.dataTransfer.types.indexOf(
                                 KupDataTableRowDragType
@@ -3159,8 +3139,7 @@ export class KupDataTable {
                         }
                     },
                     onDragOver: (e: DragEvent) => {
-                        console.log('onDragOver', e);
-
+                        // console.log('onDragOver', e);
                         if (
                             e.dataTransfer.types.indexOf(
                                 KupDataTableRowDragType
@@ -3227,9 +3206,10 @@ export class KupDataTable {
 
             const dragHandlersRow: DragHandlers = {
                 onDragStart: (e: DragEvent) => {
-                    console.log('onDragStart', e.target);
-                    console.log('onDragStart', e);
-                    console.log('onDragStart', e.composedPath());
+                    // console.log('onDragStart', e.target);
+                    // console.log('onDragStart', e);
+                    // console.log('onDragStart', e.composedPath());
+
                     // Sets the type of drag
                     setDragEffectAllowed(e, 'move');
 
@@ -3808,12 +3788,11 @@ export class KupDataTable {
         /* drop column here to remove */
         const dropHandlersRemoveCols: DropHandlers = {
             onDrop: (e: DragEvent) => {
-                console.log('onDrop', e);
+                // console.log('onDrop', e);
                 const transferredData = JSON.parse(
                     e.dataTransfer.getData(KupDataTableColumnDragType)
                 ) as Column;
                 // We are sure the tables have been dropped in a valid location -> starts ...
-                // console.log('dropped', transferredData);
                 this.handleColumnRemove(transferredData);
                 //this.hideShowColumnRemoveDropArea(false);
                 return KupDataTableColumnDragRemoveType;
@@ -3865,21 +3844,16 @@ export class KupDataTable {
 
     private handleColumnRemove(column2remove: Column) {
         // Get sorted column current position
-        /**/
         this.getVisibleColumns();
-        const columnX =
-            //this.data.columns.find(
-            this.getVisibleColumns().find(
-                (col) =>
-                    col.name === column2remove.name &&
-                    col.title === column2remove.title
-            );
-        // console.log('column to remove', columnX);
+        const columnX = this.getVisibleColumns().find(
+            (col) =>
+                col.name === column2remove.name &&
+                col.title === column2remove.title
+        );
         if (columnX) {
             columnX.visible = false;
             this.triggerColumnSortRerender = !this.triggerColumnSortRerender;
         }
-        //column.visible = false;
     }
 
     private transcodeItem(
