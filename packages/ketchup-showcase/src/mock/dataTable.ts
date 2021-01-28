@@ -2688,6 +2688,33 @@ export const performanceDataTable = {
       title: 'Classe\nABC',
     },
     {
+      name: 'COMA02',
+      obj: {
+        k: '',
+        p: 'SI/NO',
+        t: 'V2',
+      },
+      title: 'Modulo\nTecnico',
+    },
+    {
+      name: 'COMA03',
+      obj: {
+        k: '',
+        p: 'SI/NO',
+        t: 'V2',
+      },
+      title: 'Modulo\nServizi',
+    },
+    {
+      name: 'COMA04',
+      obj: {
+        k: '',
+        p: '',
+        t: '',
+      },
+      title: 'Linguaggio',
+    },
+    {
       name: 'COMA11',
       obj: {
         k: '',
@@ -2751,6 +2778,33 @@ export const performanceDataTable = {
       title: 'Esempi',
     },
     {
+      name: 'COMA16',
+      obj: {
+        k: '',
+        p: 'SI/NO',
+        t: 'V2',
+      },
+      title: 'Esempi\nWeb.UP',
+    },
+    {
+      name: 'COMA10',
+      obj: {
+        k: '',
+        p: 'GRA',
+        t: 'JA',
+      },
+      title: 'Sostituito\nda',
+    },
+    {
+      name: 'COMA13',
+      obj: {
+        k: '',
+        p: 'SCP_CFG',
+        t: 'MB',
+      },
+      title: 'Setup\ngrafico',
+    },
+    {
       name: 'COMA14',
       obj: {
         k: '',
@@ -2758,6 +2812,15 @@ export const performanceDataTable = {
         t: '',
       },
       title: 'Responsabile\nSviluppo',
+    },
+    {
+      name: 'COMA15',
+      obj: {
+        k: '',
+        p: '',
+        t: '',
+      },
+      title: 'Responsabile\nCliente',
     },
     {
       name: 'COMA17',
@@ -2833,76 +2896,6 @@ export const performanceDataTable = {
       title: 'Rating',
     },
     {
-      name: 'COMA02',
-      obj: {
-        k: '',
-        p: 'SI/NO',
-        t: 'V2',
-      },
-      title: 'Modulo\nTecnico',
-      visible: false,
-    },
-    {
-      name: 'COMA03',
-      obj: {
-        k: '',
-        p: 'SI/NO',
-        t: 'V2',
-      },
-      title: 'Modulo\nServizi',
-      visible: false,
-    },
-    {
-      name: 'COMA04',
-      obj: {
-        k: '',
-        p: '',
-        t: '',
-      },
-      title: 'Linguaggio',
-      visible: false,
-    },
-    {
-      name: 'COMA16',
-      obj: {
-        k: '',
-        p: 'SI/NO',
-        t: 'V2',
-      },
-      title: 'Esempi\nWeb.UP',
-      visible: false,
-    },
-    {
-      name: 'COMA10',
-      obj: {
-        k: '',
-        p: 'GRA',
-        t: 'JA',
-      },
-      title: 'Sostituito\nda',
-      visible: false,
-    },
-    {
-      name: 'COMA13',
-      obj: {
-        k: '',
-        p: 'SCP_CFG',
-        t: 'MB',
-      },
-      title: 'Setup\ngrafico',
-      visible: false,
-    },
-    {
-      name: 'COMA15',
-      obj: {
-        k: '',
-        p: '',
-        t: '',
-      },
-      title: 'Responsabile\nCliente',
-      visible: false,
-    },
-    {
       name: 'groupingRowColumnCode',
       obj: {
         k: '',
@@ -2910,7 +2903,6 @@ export const performanceDataTable = {
         t: '',
       },
       title: '',
-      visible: false,
     },
     {
       name: 'groupingRowColumnCodeLevel',
@@ -2920,7 +2912,6 @@ export const performanceDataTable = {
         t: '',
       },
       title: '',
-      visible: false,
     },
   ],
   rows: [
@@ -2933,7 +2924,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'ACC',
         },
         groupingRowColumnCodeLevel: {
@@ -2943,7 +2933,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -2953,7 +2942,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -2962,8 +2950,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -2975,8 +2963,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -2988,8 +2978,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -2997,7 +2989,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMA04: {
@@ -3006,7 +2997,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -3015,7 +3005,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -3024,8 +3013,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -3033,7 +3022,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMA09: {
@@ -3046,10 +3034,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -3062,10 +3049,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -3074,7 +3060,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Accordion',
         },
         COMEVE: {
@@ -3106,8 +3091,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;Click;DblClick;Expand;Drop;Init;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -3119,10 +3106,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -3135,10 +3121,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -3164,8 +3149,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -3174,7 +3161,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '33',
         },
         COMA11: {
@@ -3183,7 +3169,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -3198,7 +3183,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -3210,7 +3194,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Armando Scarpa',
         },
         COMA13: {
@@ -3220,7 +3203,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -3233,10 +3215,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -3249,8 +3230,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -3258,7 +3241,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -3271,10 +3253,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -3287,10 +3268,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -3303,10 +3283,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -3324,7 +3303,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'ACT',
         },
         groupingRowColumnCodeLevel: {
@@ -3334,7 +3312,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -3344,7 +3321,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -3353,8 +3329,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -3366,8 +3342,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -3379,8 +3357,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -3388,7 +3368,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -3397,7 +3376,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -3406,7 +3384,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -3415,8 +3392,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '3',
+          displayedValue: '3',
         },
         COMA06: {
           obj: {
@@ -3424,7 +3401,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -3437,10 +3413,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -3453,10 +3428,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -3465,7 +3439,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Azioni virtuali',
         },
         COMEVE: {
@@ -3475,7 +3448,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -3487,10 +3459,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -3503,10 +3474,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -3532,8 +3502,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -3542,7 +3514,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '34',
         },
         COMA11: {
@@ -3551,7 +3522,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -3566,7 +3536,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -3578,7 +3547,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -3588,7 +3556,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -3601,10 +3568,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -3617,8 +3583,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -3626,7 +3594,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -3639,10 +3606,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -3655,10 +3621,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -3671,10 +3636,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -3692,7 +3656,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'ATM',
         },
         groupingRowColumnCodeLevel: {
@@ -3702,7 +3665,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -3712,7 +3674,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -3721,8 +3682,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -3734,8 +3695,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -3747,8 +3710,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -3756,7 +3721,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'ATM',
         },
         COMA04: {
@@ -3765,7 +3729,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -3774,7 +3737,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -3783,8 +3745,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -3792,7 +3754,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'ATM',
         },
         COMA09: {
@@ -3805,10 +3766,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -3821,10 +3781,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -3833,7 +3792,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Activity time Line',
         },
         COMEVE: {
@@ -3850,8 +3808,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -3863,10 +3823,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -3879,10 +3838,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -3905,8 +3863,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -3915,7 +3875,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '35',
         },
         COMA11: {
@@ -3924,7 +3883,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -3939,7 +3897,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -3951,7 +3908,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Paolo Mossini',
         },
         COMA13: {
@@ -3961,7 +3917,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -3974,10 +3929,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -3990,8 +3944,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -3999,7 +3955,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -4012,10 +3967,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -4028,10 +3982,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -4044,10 +3997,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -4065,7 +4017,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'BAS',
         },
         groupingRowColumnCodeLevel: {
@@ -4075,7 +4026,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -4085,7 +4035,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -4094,8 +4043,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -4107,8 +4056,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -4120,8 +4071,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -4129,7 +4082,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -4138,7 +4090,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -4147,7 +4098,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -4156,8 +4106,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '4',
+          displayedValue: '4',
         },
         COMA06: {
           obj: {
@@ -4165,7 +4115,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -4178,10 +4127,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -4194,10 +4142,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -4206,7 +4153,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Modulo base        Ser',
         },
         COMEVE: {
@@ -4216,7 +4162,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -4228,10 +4173,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -4244,10 +4188,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -4264,8 +4207,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -4274,7 +4219,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '62',
         },
         COMA11: {
@@ -4283,7 +4227,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -4298,7 +4241,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -4310,7 +4252,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -4320,7 +4261,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -4333,10 +4273,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -4349,8 +4288,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -4358,7 +4299,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Oliviero Maestrelli',
         },
         COMA18: {
@@ -4371,10 +4311,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -4387,10 +4326,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -4403,10 +4341,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -4424,7 +4361,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'BOX',
         },
         groupingRowColumnCodeLevel: {
@@ -4434,7 +4370,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -4444,7 +4379,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -4453,8 +4387,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -4466,8 +4400,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -4479,8 +4415,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -4488,7 +4426,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'BOX',
         },
         COMA04: {
@@ -4497,7 +4434,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -4506,7 +4442,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -4515,8 +4450,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -4524,7 +4459,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'BOX',
         },
         COMA09: {
@@ -4537,10 +4471,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -4553,10 +4486,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -4565,7 +4497,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'BoxList',
         },
         COMEVE: {
@@ -4588,8 +4519,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;Click;ChangeRow;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -4601,10 +4534,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -4617,10 +4549,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -4643,8 +4574,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -4653,7 +4586,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '1',
         },
         COMA11: {
@@ -4662,7 +4594,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -4677,7 +4608,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -4689,7 +4619,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiara Zambelli',
         },
         COMA13: {
@@ -4699,7 +4628,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -4712,10 +4640,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -4728,8 +4655,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -4737,7 +4666,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -4750,10 +4678,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -4766,10 +4693,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -4782,10 +4708,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -4803,7 +4728,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'BTN',
         },
         groupingRowColumnCodeLevel: {
@@ -4813,7 +4737,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -4823,7 +4746,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -4832,8 +4754,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -4845,8 +4767,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -4858,8 +4782,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -4867,7 +4793,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'BTN',
         },
         COMA04: {
@@ -4876,7 +4801,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -4885,7 +4809,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -4894,8 +4817,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -4903,7 +4826,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'BTN',
         },
         COMA09: {
@@ -4916,10 +4838,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -4932,10 +4853,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -4944,7 +4864,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Bottoniera',
         },
         COMEVE: {
@@ -4964,8 +4883,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Click;Init;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -4977,10 +4898,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -4993,10 +4913,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -5022,8 +4941,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -5032,7 +4953,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '2',
         },
         COMA11: {
@@ -5041,7 +4961,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -5056,7 +4975,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -5068,7 +4986,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Stefano Macconi',
         },
         COMA13: {
@@ -5078,7 +4995,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -5091,10 +5007,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -5107,8 +5022,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -5116,7 +5033,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Dario Foresti',
         },
         COMA18: {
@@ -5129,10 +5045,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -5145,10 +5060,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -5161,10 +5075,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -5182,7 +5095,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'CAL',
         },
         groupingRowColumnCodeLevel: {
@@ -5192,7 +5104,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -5202,7 +5113,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -5211,8 +5121,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -5224,8 +5134,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -5237,8 +5149,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -5246,7 +5160,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'CAL',
         },
         COMA04: {
@@ -5255,7 +5168,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -5264,7 +5176,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -5273,8 +5184,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -5282,7 +5193,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'CAL',
         },
         COMA09: {
@@ -5295,10 +5205,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -5311,10 +5220,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -5323,7 +5231,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Calendario',
         },
         COMEVE: {
@@ -5349,8 +5256,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;Click;Drop;BtnClick;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -5362,10 +5271,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -5378,10 +5286,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -5404,8 +5311,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -5414,7 +5323,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '3',
         },
         COMA11: {
@@ -5423,7 +5331,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -5438,7 +5345,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -5450,7 +5356,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Paolo Mossini',
         },
         COMA13: {
@@ -5460,7 +5365,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -5473,10 +5377,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -5489,8 +5392,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -5498,7 +5403,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -5511,10 +5415,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -5527,10 +5430,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -5543,10 +5445,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -5564,7 +5465,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'CAM',
         },
         groupingRowColumnCodeLevel: {
@@ -5574,7 +5474,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -5584,7 +5483,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -5593,8 +5491,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -5606,8 +5504,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -5619,8 +5519,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -5628,7 +5530,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'CAM',
         },
         COMA04: {
@@ -5637,7 +5538,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -5646,7 +5546,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -5655,8 +5554,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -5664,7 +5563,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'CAM',
         },
         COMA09: {
@@ -5677,10 +5575,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -5693,10 +5590,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -5705,7 +5601,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Camera',
         },
         COMEVE: {
@@ -5715,7 +5610,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -5727,10 +5621,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -5743,10 +5636,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -5769,8 +5661,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -5779,7 +5673,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '36',
         },
         COMA11: {
@@ -5788,7 +5681,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -5803,7 +5695,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -5815,7 +5706,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giuliano Giancristofaro',
         },
         COMA13: {
@@ -5825,7 +5715,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -5838,10 +5727,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -5854,8 +5742,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -5863,7 +5753,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -5876,10 +5765,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -5892,10 +5780,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -5908,10 +5795,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -5929,7 +5815,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'CDE',
         },
         groupingRowColumnCodeLevel: {
@@ -5939,7 +5824,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -5949,7 +5833,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -5958,8 +5841,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -5971,8 +5854,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -5984,8 +5869,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -5993,7 +5880,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'CDE',
         },
         COMA04: {
@@ -6002,7 +5888,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -6011,7 +5896,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'HTM',
         },
         COMRAT: {
@@ -6020,8 +5904,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -6029,7 +5913,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'CDE',
         },
         COMA09: {
@@ -6042,10 +5925,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -6058,10 +5940,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -6070,7 +5951,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Code editor',
         },
         COMEVE: {
@@ -6080,7 +5960,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -6092,10 +5971,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -6108,10 +5986,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -6134,8 +6011,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -6144,7 +6023,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '37',
         },
         COMA11: {
@@ -6153,7 +6031,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -6168,7 +6045,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -6180,7 +6056,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Franco Parodi',
         },
         COMA13: {
@@ -6190,7 +6065,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -6203,10 +6077,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -6219,8 +6092,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -6228,7 +6103,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -6241,10 +6115,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -6257,10 +6130,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -6273,10 +6145,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -6294,7 +6165,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'CHT',
         },
         groupingRowColumnCodeLevel: {
@@ -6304,7 +6174,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -6314,7 +6183,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -6323,8 +6191,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Z',
+          displayedValue: 'Z',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -6336,8 +6204,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -6349,8 +6219,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -6358,7 +6230,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -6367,7 +6238,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -6376,7 +6246,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -6385,8 +6254,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '2',
+          displayedValue: '2',
         },
         COMA06: {
           obj: {
@@ -6394,7 +6263,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -6407,10 +6275,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -6423,10 +6290,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -6435,7 +6301,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Chart              Obs',
         },
         COMEVE: {
@@ -6445,7 +6310,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -6457,10 +6321,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -6473,10 +6336,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -6486,7 +6348,6 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -6495,7 +6356,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '79',
         },
         COMA11: {
@@ -6504,7 +6364,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiuso',
         },
         XDET: {
@@ -6519,7 +6378,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -6531,7 +6389,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -6541,7 +6398,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -6554,10 +6410,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -6570,8 +6425,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -6579,7 +6436,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -6592,10 +6448,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -6608,10 +6463,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -6624,10 +6478,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -6645,7 +6498,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'CMS',
         },
         groupingRowColumnCodeLevel: {
@@ -6655,7 +6507,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -6665,7 +6516,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -6674,8 +6524,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -6687,8 +6537,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -6700,8 +6552,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -6709,7 +6563,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -6718,7 +6571,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -6727,7 +6579,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -6736,8 +6587,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '2',
+          displayedValue: '2',
         },
         COMA06: {
           obj: {
@@ -6745,7 +6596,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -6758,10 +6608,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -6774,10 +6623,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -6786,7 +6634,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Interfaccia CMS',
         },
         COMEVE: {
@@ -6796,7 +6643,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -6808,10 +6654,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -6824,10 +6669,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -6837,7 +6681,6 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -6846,7 +6689,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '63',
         },
         COMA11: {
@@ -6855,7 +6697,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Inattivo',
         },
         XDET: {
@@ -6870,7 +6711,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -6882,7 +6722,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -6892,7 +6731,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -6905,10 +6743,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -6921,8 +6758,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -6930,7 +6769,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -6943,10 +6781,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -6959,10 +6796,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -6975,10 +6811,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -6996,7 +6831,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'CND',
         },
         groupingRowColumnCodeLevel: {
@@ -7006,7 +6840,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -7016,7 +6849,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -7025,8 +6857,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -7038,8 +6870,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -7051,8 +6885,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -7060,7 +6896,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'CND',
         },
         COMA04: {
@@ -7069,7 +6904,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -7078,7 +6912,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -7087,8 +6920,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -7096,7 +6929,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'CND',
         },
         COMA09: {
@@ -7109,10 +6941,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -7125,10 +6956,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -7137,7 +6967,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'CountDown',
         },
         COMEVE: {
@@ -7154,8 +6983,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -7167,10 +6998,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -7183,10 +7013,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -7209,8 +7038,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -7219,7 +7050,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '38',
         },
         COMA11: {
@@ -7228,7 +7058,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -7243,7 +7072,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -7255,7 +7083,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Massimo Sciola',
         },
         COMA13: {
@@ -7265,7 +7092,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -7278,10 +7104,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -7294,8 +7119,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -7303,7 +7130,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -7316,10 +7142,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -7332,10 +7157,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -7348,10 +7172,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -7369,7 +7192,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'COM',
         },
         groupingRowColumnCodeLevel: {
@@ -7379,7 +7201,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -7389,7 +7210,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -7398,8 +7218,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -7411,8 +7231,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -7424,8 +7246,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -7433,7 +7257,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -7442,7 +7265,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -7451,7 +7273,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -7460,8 +7281,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '2',
+          displayedValue: '2',
         },
         COMA06: {
           obj: {
@@ -7469,7 +7290,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -7482,10 +7302,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -7498,10 +7317,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -7510,7 +7328,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Comunicazioni      Ser',
         },
         COMEVE: {
@@ -7520,7 +7337,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -7532,10 +7348,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -7548,10 +7363,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -7571,8 +7385,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;L',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -7581,7 +7397,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '64',
         },
         COMA11: {
@@ -7590,7 +7405,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -7605,7 +7419,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -7617,7 +7430,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -7627,7 +7439,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_COM',
         },
         COMA35: {
@@ -7640,10 +7451,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -7656,8 +7466,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -7665,7 +7477,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -7678,10 +7489,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -7694,10 +7504,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -7710,10 +7519,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -7731,7 +7539,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'CUB',
         },
         groupingRowColumnCodeLevel: {
@@ -7741,7 +7548,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -7751,7 +7557,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -7760,8 +7565,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Z',
+          displayedValue: 'Z',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -7773,8 +7578,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -7786,8 +7593,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -7795,7 +7604,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'CUB',
         },
         COMA04: {
@@ -7804,7 +7612,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -7813,7 +7620,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -7822,8 +7628,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '4',
+          displayedValue: '4',
         },
         COMA06: {
           obj: {
@@ -7831,7 +7637,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -7844,10 +7649,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -7860,10 +7664,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -7872,7 +7675,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Cubo                 Obs',
         },
         COMEVE: {
@@ -7882,7 +7684,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -7894,10 +7695,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -7910,10 +7710,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -7923,7 +7722,6 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -7932,7 +7730,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '80',
         },
         COMA11: {
@@ -7941,7 +7738,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiuso',
         },
         XDET: {
@@ -7956,7 +7752,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -7968,7 +7763,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -7978,7 +7772,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_CUB',
         },
         COMA35: {
@@ -7991,10 +7784,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -8007,8 +7799,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -8016,7 +7810,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -8029,10 +7822,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -8045,10 +7837,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -8061,10 +7852,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -8082,7 +7872,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'DBM',
         },
         groupingRowColumnCodeLevel: {
@@ -8092,7 +7881,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -8102,7 +7890,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -8111,8 +7898,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -8124,8 +7911,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -8137,8 +7926,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -8146,7 +7937,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -8155,7 +7945,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -8164,7 +7953,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -8173,8 +7961,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '3',
+          displayedValue: '3',
         },
         COMA06: {
           obj: {
@@ -8182,7 +7970,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'DBM',
         },
         COMA09: {
@@ -8195,10 +7982,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -8211,10 +7997,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -8223,7 +8008,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Database Migration',
         },
         COMEVE: {
@@ -8233,7 +8017,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -8245,10 +8028,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -8261,10 +8043,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -8274,7 +8055,6 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -8283,7 +8063,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '65',
         },
         COMA11: {
@@ -8292,7 +8071,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -8307,7 +8085,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -8319,7 +8096,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Dario Foresti',
         },
         COMA13: {
@@ -8329,7 +8105,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_DBM',
         },
         COMA35: {
@@ -8342,10 +8117,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -8358,8 +8132,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -8367,7 +8143,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -8380,10 +8155,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -8396,10 +8170,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -8412,10 +8185,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -8433,7 +8205,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'DEV',
         },
         groupingRowColumnCodeLevel: {
@@ -8443,7 +8214,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -8453,7 +8223,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -8462,8 +8231,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -8475,8 +8244,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -8488,8 +8259,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -8497,7 +8270,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'DEV',
         },
         COMA04: {
@@ -8506,7 +8278,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -8515,7 +8286,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -8524,8 +8294,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '2',
+          displayedValue: '2',
         },
         COMA06: {
           obj: {
@@ -8533,7 +8303,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'DEV',
         },
         COMA09: {
@@ -8546,10 +8315,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -8562,10 +8330,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -8574,7 +8341,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Device',
         },
         COMEVE: {
@@ -8584,7 +8350,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -8596,10 +8361,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -8612,10 +8376,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -8632,8 +8395,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -8642,7 +8407,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '39',
         },
         COMA11: {
@@ -8651,7 +8415,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -8666,7 +8429,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -8678,7 +8440,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -8688,7 +8449,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_DEV',
         },
         COMA35: {
@@ -8701,10 +8461,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -8717,8 +8476,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -8726,7 +8487,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -8739,10 +8499,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -8755,10 +8514,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -8771,10 +8529,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -8792,7 +8549,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'DOC',
         },
         groupingRowColumnCodeLevel: {
@@ -8802,7 +8558,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -8812,7 +8567,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -8821,8 +8575,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Z',
+          displayedValue: 'Z',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -8834,8 +8588,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -8847,8 +8603,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -8856,7 +8614,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -8865,7 +8622,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -8874,7 +8630,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -8883,8 +8638,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '1',
+          displayedValue: '1',
         },
         COMA06: {
           obj: {
@@ -8892,7 +8647,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -8905,10 +8659,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -8921,10 +8674,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -8933,7 +8685,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Documenti          Obs',
         },
         COMEVE: {
@@ -8943,7 +8694,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -8955,10 +8705,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -8971,10 +8720,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -8984,7 +8732,6 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -8993,7 +8740,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '81',
         },
         COMA11: {
@@ -9002,7 +8748,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiuso',
         },
         XDET: {
@@ -9017,7 +8762,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -9029,7 +8773,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -9039,7 +8782,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -9052,10 +8794,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -9068,8 +8809,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -9077,7 +8820,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -9090,10 +8832,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -9106,10 +8847,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -9122,10 +8862,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -9143,7 +8882,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'DSH',
         },
         groupingRowColumnCodeLevel: {
@@ -9153,7 +8891,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -9163,7 +8900,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -9172,8 +8908,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -9185,8 +8921,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -9198,8 +8936,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -9207,7 +8947,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'DSH',
         },
         COMA04: {
@@ -9216,7 +8955,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -9225,7 +8963,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -9234,8 +8971,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -9243,7 +8980,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'DSH',
         },
         COMA09: {
@@ -9256,10 +8992,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -9272,10 +9007,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -9284,7 +9018,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Dash',
         },
         COMEVE: {
@@ -9301,8 +9034,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Click;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -9314,10 +9049,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -9330,10 +9064,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -9356,8 +9089,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -9366,7 +9101,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '4',
         },
         COMA11: {
@@ -9375,7 +9109,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -9390,7 +9123,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -9402,7 +9134,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Francesco Verzeletti',
         },
         COMA13: {
@@ -9412,7 +9143,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -9425,10 +9155,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -9441,8 +9170,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -9450,7 +9181,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -9463,10 +9193,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -9479,10 +9208,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -9495,10 +9223,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -9516,7 +9243,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'DSP',
         },
         groupingRowColumnCodeLevel: {
@@ -9526,7 +9252,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -9536,7 +9261,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -9545,8 +9269,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -9558,8 +9282,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -9571,8 +9297,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -9580,7 +9308,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -9589,7 +9316,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -9598,7 +9324,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -9607,8 +9332,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '1',
+          displayedValue: '1',
         },
         COMA06: {
           obj: {
@@ -9616,7 +9341,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -9629,10 +9353,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -9645,10 +9368,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -9657,7 +9379,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Formati video      Ser',
         },
         COMEVE: {
@@ -9667,7 +9388,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -9679,10 +9399,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -9695,10 +9414,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -9718,8 +9436,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;L',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -9728,7 +9448,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '66',
         },
         COMA11: {
@@ -9737,7 +9456,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -9752,7 +9470,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -9764,7 +9481,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -9774,7 +9490,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -9787,10 +9502,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -9803,8 +9517,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -9812,7 +9528,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -9825,10 +9540,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -9841,10 +9555,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -9857,10 +9570,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -9878,7 +9590,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'DYN',
         },
         groupingRowColumnCodeLevel: {
@@ -9888,7 +9599,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -9898,7 +9608,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -9907,8 +9616,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -9920,8 +9629,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -9933,8 +9644,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -9942,7 +9655,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'DYN',
         },
         COMA04: {
@@ -9951,7 +9663,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -9960,7 +9671,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'XML',
         },
         COMRAT: {
@@ -9969,8 +9679,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -9978,7 +9688,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'DYN',
         },
         COMA09: {
@@ -9991,10 +9700,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -10007,10 +9715,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -10019,7 +9726,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Sezione dinamica',
         },
         COMEVE: {
@@ -10029,7 +9735,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -10041,10 +9746,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -10057,10 +9761,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -10086,8 +9789,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -10096,7 +9801,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '5',
         },
         COMA11: {
@@ -10105,7 +9809,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -10120,7 +9823,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -10132,7 +9834,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Francesco Verzeletti',
         },
         COMA13: {
@@ -10142,7 +9843,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -10155,10 +9855,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -10171,8 +9870,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -10180,7 +9881,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -10193,10 +9893,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -10209,10 +9908,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -10225,10 +9923,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -10246,7 +9943,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'EDT',
         },
         groupingRowColumnCodeLevel: {
@@ -10256,7 +9952,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -10266,7 +9961,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -10275,8 +9969,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -10288,8 +9982,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -10301,8 +9997,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -10310,7 +10008,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'EDT',
         },
         COMA04: {
@@ -10319,7 +10016,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -10328,7 +10024,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -10337,8 +10032,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -10346,7 +10041,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'EDT',
         },
         COMA09: {
@@ -10359,10 +10053,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -10375,10 +10068,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -10387,7 +10079,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Editor di testo',
         },
         COMEVE: {
@@ -10397,7 +10088,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -10409,10 +10099,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -10425,10 +10114,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -10451,8 +10139,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -10461,7 +10151,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '40',
         },
         COMA11: {
@@ -10470,7 +10159,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -10485,7 +10173,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -10497,7 +10184,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Franco Parodi',
         },
         COMA13: {
@@ -10507,7 +10193,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -10520,10 +10205,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -10536,8 +10220,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -10545,7 +10231,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Gagliardo Piero',
         },
         COMA18: {
@@ -10558,10 +10243,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -10574,10 +10258,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -10590,10 +10273,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -10611,7 +10293,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'EML',
         },
         groupingRowColumnCodeLevel: {
@@ -10621,7 +10302,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -10631,7 +10311,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -10640,8 +10319,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'B',
+          displayedValue: 'B',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -10653,8 +10332,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -10666,8 +10347,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -10675,7 +10358,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'EML',
         },
         COMA04: {
@@ -10684,7 +10366,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -10693,7 +10374,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -10702,8 +10382,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -10711,7 +10391,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'EML',
         },
         COMA09: {
@@ -10724,10 +10403,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -10740,10 +10418,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -10752,7 +10429,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Email reader',
         },
         COMEVE: {
@@ -10762,7 +10438,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -10774,10 +10449,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -10790,10 +10464,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -10816,8 +10489,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -10826,7 +10501,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '21',
         },
         COMA11: {
@@ -10835,7 +10509,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -10850,7 +10523,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -10862,7 +10534,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -10872,7 +10543,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -10885,10 +10555,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -10901,8 +10570,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -10910,7 +10581,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -10923,10 +10593,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -10939,10 +10608,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -10955,10 +10623,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -10976,7 +10643,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'EMU',
         },
         groupingRowColumnCodeLevel: {
@@ -10986,7 +10652,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -10996,7 +10661,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -11005,8 +10669,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Z',
+          displayedValue: 'Z',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -11018,8 +10682,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -11031,8 +10697,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -11040,7 +10708,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'EMU',
         },
         COMA04: {
@@ -11049,7 +10716,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -11058,7 +10724,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -11067,8 +10732,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '2',
+          displayedValue: '2',
         },
         COMA06: {
           obj: {
@@ -11076,7 +10741,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'EMU',
         },
         COMA09: {
@@ -11089,10 +10753,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -11105,10 +10768,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -11117,7 +10779,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Emulazione 5250      Obs',
         },
         COMEVE: {
@@ -11127,7 +10788,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -11139,10 +10799,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -11155,10 +10814,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -11175,8 +10833,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'L',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -11185,7 +10845,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '82',
         },
         COMA11: {
@@ -11194,7 +10853,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiuso',
         },
         XDET: {
@@ -11209,7 +10867,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -11221,7 +10878,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -11231,7 +10887,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_EMU',
         },
         COMA35: {
@@ -11244,10 +10899,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -11260,8 +10914,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -11269,7 +10925,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -11282,10 +10937,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -11298,10 +10952,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -11314,10 +10967,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -11335,7 +10987,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'EVT',
         },
         groupingRowColumnCodeLevel: {
@@ -11345,7 +10996,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -11355,7 +11005,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -11364,8 +11013,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Z',
+          displayedValue: 'Z',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -11377,8 +11026,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -11390,8 +11041,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -11399,7 +11052,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -11408,7 +11060,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -11417,7 +11068,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -11426,8 +11076,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '2',
+          displayedValue: '2',
         },
         COMA06: {
           obj: {
@@ -11435,7 +11085,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -11448,10 +11097,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -11464,10 +11112,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -11476,7 +11123,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Gestione eventi      Obs',
         },
         COMEVE: {
@@ -11486,7 +11132,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -11498,10 +11143,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -11514,10 +11158,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -11537,8 +11180,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;L',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -11547,7 +11192,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '83',
         },
         COMA11: {
@@ -11556,7 +11200,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiuso',
         },
         XDET: {
@@ -11571,7 +11214,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -11583,7 +11225,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -11593,7 +11234,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -11606,10 +11246,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -11622,8 +11261,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -11631,7 +11272,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -11644,10 +11284,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -11660,10 +11299,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -11676,10 +11314,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -11697,7 +11334,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'EXA',
         },
         groupingRowColumnCodeLevel: {
@@ -11707,7 +11343,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -11717,7 +11352,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -11726,8 +11360,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -11739,8 +11373,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -11752,8 +11388,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -11761,7 +11399,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'CHA',
         },
         COMA04: {
@@ -11770,7 +11407,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -11779,7 +11415,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -11788,8 +11423,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -11797,7 +11432,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'CHA',
         },
         COMA09: {
@@ -11810,10 +11444,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -11826,10 +11459,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -11838,7 +11470,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Grafico',
         },
         COMEVE: {
@@ -11858,8 +11489,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Click;DblClick;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -11871,10 +11504,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -11887,10 +11519,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -11916,8 +11547,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -11926,7 +11559,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '6',
         },
         COMA11: {
@@ -11935,7 +11567,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -11950,7 +11581,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -11962,7 +11592,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giuliano Giancristofaro',
         },
         COMA13: {
@@ -11972,7 +11601,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -11985,10 +11613,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -12001,8 +11628,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -12010,7 +11639,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Federico Fortini',
         },
         COMA18: {
@@ -12023,10 +11651,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -12039,10 +11666,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -12055,10 +11681,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -12076,7 +11701,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'EXB',
         },
         groupingRowColumnCodeLevel: {
@@ -12086,7 +11710,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -12096,7 +11719,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -12105,8 +11727,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -12118,8 +11740,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -12131,8 +11755,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -12140,7 +11766,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'MAT',
         },
         COMA04: {
@@ -12149,7 +11774,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -12158,7 +11782,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -12167,8 +11790,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -12176,7 +11799,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'MAT',
         },
         COMA09: {
@@ -12189,10 +11811,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -12205,10 +11826,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -12217,7 +11837,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Matrice',
         },
         COMEVE: {
@@ -12249,8 +11868,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;Click;DblClick;ChangeRow;ChangeVal;BtnClick;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -12262,10 +11883,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -12278,10 +11898,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -12307,8 +11926,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -12317,7 +11938,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '7',
         },
         COMA11: {
@@ -12326,7 +11946,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -12341,7 +11960,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -12353,7 +11971,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Stefano Macconi',
         },
         COMA13: {
@@ -12363,7 +11980,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_EXB',
         },
         COMA35: {
@@ -12376,10 +11992,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -12392,8 +12007,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -12401,7 +12018,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -12414,10 +12030,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -12430,10 +12045,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -12446,10 +12060,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -12467,7 +12080,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'EXC',
         },
         groupingRowColumnCodeLevel: {
@@ -12477,7 +12089,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -12487,7 +12098,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -12496,8 +12106,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -12509,8 +12119,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -12522,8 +12134,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -12531,7 +12145,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -12540,7 +12153,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -12549,7 +12161,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -12558,8 +12169,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '3',
+          displayedValue: '3',
         },
         COMA06: {
           obj: {
@@ -12567,7 +12178,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'EXC',
         },
         COMA09: {
@@ -12580,10 +12190,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -12596,10 +12205,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -12608,7 +12216,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Foglio EXCEL',
         },
         COMEVE: {
@@ -12618,7 +12225,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -12630,10 +12236,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -12646,10 +12251,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -12675,8 +12279,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -12685,7 +12291,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '41',
         },
         COMA11: {
@@ -12694,7 +12299,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -12709,7 +12313,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -12721,7 +12324,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -12731,7 +12333,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_EXC',
         },
         COMA35: {
@@ -12744,10 +12345,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -12760,8 +12360,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -12769,7 +12371,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Simona Bonomi',
         },
         COMA18: {
@@ -12782,10 +12383,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -12798,10 +12398,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -12814,10 +12413,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -12835,7 +12433,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'EXD',
         },
         groupingRowColumnCodeLevel: {
@@ -12845,7 +12442,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -12855,7 +12451,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -12864,8 +12459,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -12877,8 +12472,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -12890,8 +12487,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -12899,7 +12498,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'SCH',
         },
         COMA04: {
@@ -12908,7 +12506,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -12917,7 +12514,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'SCH',
         },
         COMRAT: {
@@ -12926,8 +12522,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -12935,7 +12531,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'DFT',
         },
         COMA09: {
@@ -12948,10 +12543,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -12964,10 +12558,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -12976,7 +12569,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Scheda oggetto',
         },
         COMEVE: {
@@ -12986,7 +12578,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -12998,10 +12589,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -13014,10 +12604,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -13043,8 +12632,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -13053,7 +12644,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '8',
         },
         COMA11: {
@@ -13062,7 +12652,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -13077,7 +12666,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -13089,7 +12677,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -13099,7 +12686,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_EXD',
         },
         COMA35: {
@@ -13112,10 +12698,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -13128,8 +12713,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -13137,7 +12724,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -13150,10 +12736,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -13166,10 +12751,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -13182,10 +12766,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -13203,7 +12786,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'EXE',
         },
         groupingRowColumnCodeLevel: {
@@ -13213,7 +12795,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -13223,7 +12804,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -13232,8 +12812,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -13245,8 +12825,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -13258,8 +12840,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -13267,7 +12851,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'EXE',
         },
         COMA04: {
@@ -13276,7 +12859,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -13285,7 +12867,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -13294,8 +12875,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '2',
+          displayedValue: '2',
         },
         COMA06: {
           obj: {
@@ -13303,7 +12884,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -13316,10 +12896,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -13332,10 +12911,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -13344,7 +12922,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Esecuzione Programma PC',
         },
         COMEVE: {
@@ -13354,7 +12931,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -13366,10 +12942,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -13382,10 +12957,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -13402,8 +12976,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -13412,7 +12988,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '67',
         },
         COMA11: {
@@ -13421,7 +12996,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -13436,7 +13010,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -13448,7 +13021,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -13458,7 +13030,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -13471,10 +13042,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -13487,8 +13057,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -13496,7 +13068,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -13509,10 +13080,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -13525,10 +13095,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -13541,10 +13110,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -13562,7 +13130,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'EXU',
         },
         groupingRowColumnCodeLevel: {
@@ -13572,7 +13139,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -13582,7 +13148,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -13591,8 +13156,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -13604,8 +13169,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -13617,8 +13184,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -13626,7 +13195,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'EXU',
         },
         COMA04: {
@@ -13635,7 +13203,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -13644,7 +13211,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -13653,8 +13219,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -13662,7 +13228,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'EXU',
         },
         COMA09: {
@@ -13675,10 +13240,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -13691,10 +13255,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -13703,7 +13266,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Matrice modificabile',
         },
         COMEVE: {
@@ -13741,8 +13303,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;Click;DblClick;ChangeRow;ChangeCol;Drop;Update;Init;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -13754,10 +13318,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -13770,10 +13333,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -13799,8 +13361,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -13809,7 +13373,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '9',
         },
         COMA11: {
@@ -13818,7 +13381,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -13833,7 +13395,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -13845,7 +13406,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -13855,7 +13415,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -13868,10 +13427,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -13884,8 +13442,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -13893,7 +13453,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Marco Benetti',
         },
         COMA18: {
@@ -13906,10 +13465,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -13922,10 +13480,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -13938,10 +13495,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -13959,7 +13515,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'FBK',
         },
         groupingRowColumnCodeLevel: {
@@ -13969,7 +13524,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -13979,7 +13533,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -13988,8 +13541,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -14001,8 +13554,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -14014,8 +13569,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -14023,7 +13580,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -14032,7 +13588,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -14041,7 +13596,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -14050,8 +13604,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '3',
+          displayedValue: '3',
         },
         COMA06: {
           obj: {
@@ -14059,7 +13613,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -14072,10 +13625,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -14088,10 +13640,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -14100,7 +13651,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Invio con FeedBack di ritorno',
         },
         COMEVE: {
@@ -14110,7 +13660,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -14122,10 +13671,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -14138,10 +13686,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -14167,8 +13714,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -14177,7 +13726,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '10',
         },
         COMA11: {
@@ -14186,7 +13734,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -14201,7 +13748,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -14213,7 +13759,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -14223,7 +13768,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -14236,10 +13780,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -14252,8 +13795,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -14261,7 +13806,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -14274,10 +13818,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -14290,10 +13833,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -14306,10 +13848,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -14327,7 +13868,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'FLD',
         },
         groupingRowColumnCodeLevel: {
@@ -14337,7 +13877,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -14347,7 +13886,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -14356,8 +13894,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -14369,8 +13907,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -14382,8 +13922,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -14391,7 +13933,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'FLD',
         },
         COMA04: {
@@ -14400,7 +13941,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -14409,7 +13949,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -14418,8 +13957,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -14427,7 +13966,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'FLD',
         },
         COMA09: {
@@ -14440,10 +13978,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -14456,10 +13993,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -14468,7 +14004,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Field',
         },
         COMEVE: {
@@ -14488,8 +14023,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;Click;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -14501,10 +14038,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -14517,10 +14053,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -14543,8 +14078,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -14553,7 +14090,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '11',
         },
         COMA11: {
@@ -14562,7 +14098,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -14577,7 +14112,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -14589,7 +14123,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Armando Scarpa',
         },
         COMA13: {
@@ -14599,7 +14132,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -14612,10 +14144,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -14628,8 +14159,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -14637,7 +14170,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -14650,10 +14182,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -14666,10 +14197,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -14682,10 +14212,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -14703,7 +14232,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'FLU',
         },
         groupingRowColumnCodeLevel: {
@@ -14713,7 +14241,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -14723,7 +14250,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -14732,8 +14258,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -14745,8 +14271,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -14758,8 +14286,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -14767,7 +14297,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -14776,7 +14305,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -14785,7 +14313,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -14794,8 +14321,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '4',
+          displayedValue: '4',
         },
         COMA06: {
           obj: {
@@ -14803,7 +14330,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'FLU',
         },
         COMA09: {
@@ -14816,10 +14342,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -14832,10 +14357,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -14844,7 +14368,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Flusso di funzioni',
         },
         COMEVE: {
@@ -14854,7 +14377,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -14866,10 +14388,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -14882,10 +14403,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -14902,8 +14422,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -14912,7 +14434,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '42',
         },
         COMA11: {
@@ -14921,7 +14442,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -14936,7 +14456,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -14948,7 +14467,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Dario Foresti',
         },
         COMA13: {
@@ -14958,7 +14476,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_FLU',
         },
         COMA35: {
@@ -14971,10 +14488,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -14987,8 +14503,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -14996,7 +14514,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Marco Benetti',
         },
         COMA18: {
@@ -15009,10 +14526,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -15025,10 +14541,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -15041,10 +14556,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -15062,7 +14576,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'FRM',
         },
         groupingRowColumnCodeLevel: {
@@ -15072,7 +14585,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -15082,7 +14594,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -15091,8 +14602,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'B',
+          displayedValue: 'B',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -15104,8 +14615,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -15117,8 +14630,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -15126,7 +14641,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -15135,7 +14649,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -15144,7 +14657,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'FRM',
         },
         COMRAT: {
@@ -15153,8 +14665,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '3',
+          displayedValue: '3',
         },
         COMA06: {
           obj: {
@@ -15162,7 +14674,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'FRM',
         },
         COMA09: {
@@ -15175,10 +14686,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -15191,10 +14701,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -15203,7 +14712,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Form - PDF',
         },
         COMEVE: {
@@ -15213,7 +14721,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -15225,10 +14732,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -15241,10 +14747,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -15261,8 +14766,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -15271,7 +14778,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '22',
         },
         COMA11: {
@@ -15280,7 +14786,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -15295,7 +14800,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -15307,7 +14811,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Oliviero Maestrelli',
         },
         COMA13: {
@@ -15317,7 +14820,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -15330,10 +14832,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -15346,8 +14847,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -15355,7 +14858,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -15368,10 +14870,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -15384,10 +14885,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -15400,10 +14900,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -15421,7 +14920,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'G18',
         },
         groupingRowColumnCodeLevel: {
@@ -15431,7 +14929,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -15441,7 +14938,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -15450,8 +14946,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Z',
+          displayedValue: 'Z',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -15463,8 +14959,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -15476,8 +14974,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -15485,7 +14985,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'G18',
         },
         COMA04: {
@@ -15494,7 +14993,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -15503,7 +15001,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -15512,8 +15009,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '1',
+          displayedValue: '1',
         },
         COMA06: {
           obj: {
@@ -15521,7 +15018,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'G18',
         },
         COMA09: {
@@ -15534,10 +15030,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -15550,10 +15045,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -15562,7 +15056,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Report dinamico      Obs',
         },
         COMEVE: {
@@ -15572,7 +15065,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -15584,10 +15076,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -15600,10 +15091,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -15620,8 +15110,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -15630,7 +15122,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '84',
         },
         COMA11: {
@@ -15639,7 +15130,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiuso',
         },
         XDET: {
@@ -15654,7 +15144,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -15666,7 +15155,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -15676,7 +15164,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -15689,10 +15176,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -15705,8 +15191,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -15714,7 +15202,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -15727,10 +15214,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -15743,10 +15229,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -15759,10 +15244,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -15780,7 +15264,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'G30',
         },
         groupingRowColumnCodeLevel: {
@@ -15790,7 +15273,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -15800,7 +15282,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -15809,8 +15290,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'B',
+          displayedValue: 'B',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -15822,8 +15303,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -15835,8 +15318,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -15844,7 +15329,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -15853,7 +15337,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -15862,7 +15345,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'G30',
         },
         COMRAT: {
@@ -15871,8 +15353,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '5',
+          displayedValue: '5',
         },
         COMA06: {
           obj: {
@@ -15880,7 +15362,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -15893,10 +15374,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -15909,10 +15389,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -15921,7 +15400,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Questionario',
         },
         COMEVE: {
@@ -15931,7 +15409,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -15943,10 +15420,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -15959,10 +15435,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -15988,8 +15463,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -15998,7 +15475,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '23',
         },
         COMA11: {
@@ -16007,7 +15483,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -16022,7 +15497,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -16034,7 +15508,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Dario Foresti',
         },
         COMA13: {
@@ -16044,7 +15517,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_G30',
         },
         COMA35: {
@@ -16057,10 +15529,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -16073,8 +15544,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -16082,7 +15555,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -16095,10 +15567,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -16111,10 +15582,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -16127,10 +15597,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -16148,7 +15617,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'G53',
         },
         groupingRowColumnCodeLevel: {
@@ -16158,7 +15626,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -16168,7 +15635,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -16177,8 +15643,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -16190,8 +15656,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -16203,8 +15671,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -16212,7 +15682,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -16221,7 +15690,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -16230,7 +15698,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'HTM',
         },
         COMRAT: {
@@ -16239,8 +15706,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '5',
+          displayedValue: '5',
         },
         COMA06: {
           obj: {
@@ -16248,7 +15715,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -16261,10 +15727,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -16277,10 +15742,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -16289,7 +15753,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Stampa in PDF',
         },
         COMEVE: {
@@ -16299,7 +15762,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -16311,10 +15773,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -16327,10 +15788,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -16356,8 +15816,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -16366,7 +15828,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '43',
         },
         COMA11: {
@@ -16375,7 +15836,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -16390,7 +15850,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -16402,7 +15861,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Oliviero Maestrelli',
         },
         COMA13: {
@@ -16412,7 +15870,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -16425,10 +15882,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -16441,8 +15897,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -16450,7 +15908,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -16463,10 +15920,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -16479,10 +15935,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -16495,10 +15950,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -16516,7 +15970,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'GAU',
         },
         groupingRowColumnCodeLevel: {
@@ -16526,7 +15979,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -16536,7 +15988,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -16545,8 +15996,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -16558,8 +16009,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -16571,8 +16024,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -16580,7 +16035,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GAU',
         },
         COMA04: {
@@ -16589,7 +16043,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -16598,7 +16051,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'ELE',
         },
         COMRAT: {
@@ -16607,8 +16059,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -16616,7 +16068,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GAU',
         },
         COMA09: {
@@ -16629,10 +16080,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -16645,10 +16095,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -16657,7 +16106,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Cruscotto',
         },
         COMEVE: {
@@ -16667,7 +16115,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -16679,10 +16126,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -16695,10 +16141,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -16724,8 +16169,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -16734,7 +16181,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '12',
         },
         COMA11: {
@@ -16743,7 +16189,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -16758,7 +16203,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -16770,7 +16214,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -16780,7 +16223,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -16793,10 +16235,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -16809,8 +16250,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -16818,7 +16261,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -16831,10 +16273,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -16847,10 +16288,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -16863,10 +16303,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -16884,7 +16323,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'GEO',
         },
         groupingRowColumnCodeLevel: {
@@ -16894,7 +16332,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -16904,7 +16341,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -16913,8 +16349,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'B',
+          displayedValue: 'B',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -16926,8 +16362,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -16939,8 +16377,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -16948,7 +16388,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GEO',
         },
         COMA04: {
@@ -16957,7 +16396,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -16966,7 +16404,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -16975,8 +16412,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -16984,7 +16421,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GEO',
         },
         COMA09: {
@@ -16997,10 +16433,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -17013,10 +16448,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -17025,7 +16459,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Geolocalizzazione',
         },
         COMEVE: {
@@ -17045,8 +16478,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;Click;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -17058,10 +16493,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -17074,10 +16508,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -17100,8 +16533,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -17110,7 +16545,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '24',
         },
         COMA11: {
@@ -17119,7 +16553,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -17134,7 +16567,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -17146,7 +16578,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Bruno Santi',
         },
         COMA13: {
@@ -17156,7 +16587,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -17169,10 +16599,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -17185,8 +16614,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -17194,7 +16625,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -17207,10 +16637,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -17223,10 +16652,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -17239,10 +16667,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -17260,7 +16687,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'GND',
         },
         groupingRowColumnCodeLevel: {
@@ -17270,7 +16696,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -17280,7 +16705,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -17289,8 +16713,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Z',
+          displayedValue: 'Z',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -17302,8 +16726,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -17315,8 +16741,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -17324,7 +16752,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -17333,7 +16760,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -17342,7 +16768,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -17351,8 +16776,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '3',
+          displayedValue: '3',
         },
         COMA06: {
           obj: {
@@ -17360,7 +16785,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -17373,10 +16797,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -17389,10 +16812,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -17401,7 +16823,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Gantt / Distinta     Obs',
         },
         COMEVE: {
@@ -17411,7 +16832,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -17423,10 +16843,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -17439,10 +16858,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -17459,8 +16877,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -17469,7 +16889,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '85',
         },
         COMA11: {
@@ -17478,7 +16897,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiuso',
         },
         XDET: {
@@ -17493,7 +16911,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -17505,7 +16922,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Dario Foresti',
         },
         COMA13: {
@@ -17515,7 +16931,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -17528,10 +16943,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -17544,8 +16958,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -17553,7 +16969,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -17566,10 +16981,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -17582,10 +16996,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -17598,10 +17011,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -17619,7 +17031,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'GNT',
         },
         groupingRowColumnCodeLevel: {
@@ -17629,7 +17040,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -17639,7 +17049,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -17648,8 +17057,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'B',
+          displayedValue: 'B',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -17661,8 +17070,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -17674,8 +17085,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -17683,7 +17096,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GNT',
         },
         COMA04: {
@@ -17692,7 +17104,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -17701,7 +17112,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -17710,8 +17120,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -17719,7 +17129,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GNT',
         },
         COMA09: {
@@ -17732,10 +17141,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -17748,10 +17156,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -17760,7 +17167,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Gantt',
         },
         COMEVE: {
@@ -17770,7 +17176,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -17782,10 +17187,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -17798,10 +17202,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -17818,8 +17221,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -17828,7 +17233,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '25',
         },
         COMA11: {
@@ -17837,7 +17241,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -17852,7 +17255,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -17864,7 +17266,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Dario Foresti',
         },
         COMA13: {
@@ -17874,7 +17275,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -17887,10 +17287,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -17903,8 +17302,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -17912,7 +17313,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -17925,10 +17325,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -17941,10 +17340,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -17957,10 +17355,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -17978,7 +17375,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'GRP',
         },
         groupingRowColumnCodeLevel: {
@@ -17988,7 +17384,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -17998,7 +17393,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -18007,8 +17401,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Z',
+          displayedValue: 'Z',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -18020,8 +17414,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -18033,8 +17429,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -18042,7 +17440,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -18051,7 +17448,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -18060,7 +17456,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -18069,8 +17464,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '3',
+          displayedValue: '3',
         },
         COMA06: {
           obj: {
@@ -18078,7 +17473,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -18091,10 +17485,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -18107,10 +17500,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -18119,7 +17511,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Grafo                Obs',
         },
         COMEVE: {
@@ -18129,7 +17520,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -18141,10 +17531,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -18157,10 +17546,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -18177,8 +17565,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -18187,7 +17577,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '86',
         },
         COMA11: {
@@ -18196,7 +17585,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiuso',
         },
         XDET: {
@@ -18211,7 +17599,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -18223,7 +17610,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -18233,7 +17619,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_GRP',
         },
         COMA35: {
@@ -18246,10 +17631,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -18262,8 +17646,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -18271,7 +17657,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -18284,10 +17669,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -18300,10 +17684,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -18316,10 +17699,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -18337,7 +17719,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'HTM',
         },
         groupingRowColumnCodeLevel: {
@@ -18347,7 +17728,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -18357,7 +17737,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: 'TXT',
         },
         COMA01: {
@@ -18366,8 +17745,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -18379,8 +17758,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -18392,8 +17773,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -18401,7 +17784,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'HTM',
         },
         COMA04: {
@@ -18410,7 +17792,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -18419,7 +17800,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'HTM',
         },
         COMRAT: {
@@ -18428,8 +17808,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -18437,7 +17817,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'HTM',
         },
         COMA09: {
@@ -18450,10 +17829,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -18466,10 +17844,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -18478,7 +17855,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Browser',
         },
         COMEVE: {
@@ -18488,7 +17864,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -18500,10 +17875,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -18516,10 +17890,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -18545,8 +17918,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -18555,7 +17930,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '44',
         },
         COMA11: {
@@ -18564,7 +17938,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -18579,7 +17952,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -18591,7 +17963,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Massimo Sciola',
         },
         COMA13: {
@@ -18601,7 +17972,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_HTM',
         },
         COMA35: {
@@ -18614,10 +17984,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -18630,8 +17999,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -18639,7 +18010,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Massimo Sciola',
         },
         COMA18: {
@@ -18652,10 +18022,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -18668,10 +18037,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -18684,10 +18052,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -18705,7 +18072,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'HTR',
         },
         groupingRowColumnCodeLevel: {
@@ -18715,7 +18081,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -18725,7 +18090,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -18734,8 +18098,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -18747,8 +18111,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -18760,8 +18126,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -18769,7 +18137,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'HTR',
         },
         COMA04: {
@@ -18778,7 +18145,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -18787,7 +18153,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -18796,8 +18161,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -18805,7 +18170,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'HTR',
         },
         COMA09: {
@@ -18818,10 +18182,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -18834,10 +18197,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -18846,7 +18208,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Albero orizzontale',
         },
         COMEVE: {
@@ -18866,8 +18227,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Click;Expand;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -18879,10 +18242,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -18895,10 +18257,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -18918,8 +18279,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -18928,7 +18291,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '45',
         },
         COMA11: {
@@ -18937,7 +18299,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -18952,7 +18313,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -18964,7 +18324,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiara Zambelli',
         },
         COMA13: {
@@ -18974,7 +18333,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -18987,10 +18345,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -19003,8 +18360,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -19012,7 +18371,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -19025,10 +18383,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -19041,10 +18398,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -19057,10 +18413,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -19078,7 +18433,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'IFL',
         },
         groupingRowColumnCodeLevel: {
@@ -19088,7 +18442,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -19098,7 +18451,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -19107,8 +18459,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -19120,8 +18472,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -19133,8 +18487,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -19142,7 +18498,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -19151,7 +18506,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -19160,7 +18514,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -19169,8 +18522,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '3',
+          displayedValue: '3',
         },
         COMA06: {
           obj: {
@@ -19178,7 +18531,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'IFL',
         },
         COMA09: {
@@ -19191,10 +18543,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -19207,10 +18558,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -19219,7 +18569,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Flusso interattivo',
         },
         COMEVE: {
@@ -19229,7 +18578,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -19241,10 +18589,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -19257,10 +18604,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -19283,8 +18629,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -19293,7 +18641,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '46',
         },
         COMA11: {
@@ -19302,7 +18649,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -19317,7 +18663,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -19329,7 +18674,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -19339,7 +18683,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -19352,10 +18695,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -19368,8 +18710,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -19377,7 +18721,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -19390,10 +18733,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -19406,10 +18748,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -19422,10 +18763,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -19443,7 +18783,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'IMD',
         },
         groupingRowColumnCodeLevel: {
@@ -19453,7 +18792,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -19463,7 +18801,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -19472,8 +18809,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -19485,8 +18822,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -19498,8 +18837,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -19507,7 +18848,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -19516,7 +18856,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -19525,7 +18864,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -19534,8 +18872,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '4',
+          displayedValue: '4',
         },
         COMA06: {
           obj: {
@@ -19543,7 +18881,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'IMD',
         },
         COMA09: {
@@ -19556,10 +18893,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -19572,10 +18908,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -19584,7 +18919,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Immagine dinamica',
         },
         COMEVE: {
@@ -19594,7 +18928,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -19606,10 +18939,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -19622,10 +18954,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -19651,8 +18982,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -19661,7 +18994,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '47',
         },
         COMA11: {
@@ -19670,7 +19002,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -19685,7 +19016,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -19697,7 +19027,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Oliviero Maestrelli',
         },
         COMA13: {
@@ -19707,7 +19036,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -19720,10 +19048,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -19736,8 +19063,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -19745,7 +19074,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -19758,10 +19086,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -19774,10 +19101,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -19790,10 +19116,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -19811,7 +19136,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'IMG',
         },
         groupingRowColumnCodeLevel: {
@@ -19821,7 +19145,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -19831,7 +19154,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -19840,8 +19162,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -19853,8 +19175,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -19866,8 +19190,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -19875,7 +19201,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'IMG',
         },
         COMA04: {
@@ -19884,7 +19209,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -19893,7 +19217,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -19902,8 +19225,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -19911,7 +19234,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'IMG',
         },
         COMA09: {
@@ -19924,10 +19246,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -19940,10 +19261,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -19952,7 +19272,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Immagine',
         },
         COMEVE: {
@@ -19975,8 +19294,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;Click;DblClick;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -19988,10 +19309,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -20004,10 +19324,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -20033,8 +19352,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -20043,7 +19364,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '13',
         },
         COMA11: {
@@ -20052,7 +19372,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -20067,7 +19386,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -20079,7 +19397,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Paolo Mossini',
         },
         COMA13: {
@@ -20089,7 +19406,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -20102,10 +19418,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -20118,8 +19433,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -20127,7 +19444,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Federico Fortini',
         },
         COMA18: {
@@ -20140,10 +19456,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -20156,10 +19471,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -20172,10 +19486,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -20193,7 +19506,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'IML',
         },
         groupingRowColumnCodeLevel: {
@@ -20203,7 +19515,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -20213,7 +19524,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -20222,8 +19532,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -20235,8 +19545,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -20248,8 +19560,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -20257,7 +19571,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'IML',
         },
         COMA04: {
@@ -20266,7 +19579,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -20275,7 +19587,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -20284,8 +19595,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -20293,7 +19604,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'IML',
         },
         COMA09: {
@@ -20306,10 +19616,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -20322,10 +19631,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -20334,7 +19642,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Lista immagini',
         },
         COMEVE: {
@@ -20357,8 +19664,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;Click;DblClick;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -20370,10 +19679,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -20386,10 +19694,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -20415,8 +19722,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -20425,7 +19734,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '14',
         },
         COMA11: {
@@ -20434,7 +19742,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -20449,7 +19756,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -20461,7 +19767,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Stefano Macconi',
         },
         COMA13: {
@@ -20471,7 +19776,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -20484,10 +19788,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -20500,8 +19803,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -20509,7 +19814,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Quinto Bellini',
         },
         COMA18: {
@@ -20522,10 +19826,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -20538,10 +19841,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -20554,10 +19856,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -20575,7 +19876,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'INP',
         },
         groupingRowColumnCodeLevel: {
@@ -20585,7 +19885,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -20595,7 +19894,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -20604,8 +19902,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -20617,8 +19915,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -20630,8 +19930,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -20639,7 +19941,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'INP',
         },
         COMA04: {
@@ -20648,7 +19949,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -20657,7 +19957,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -20666,8 +19965,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -20675,7 +19974,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'INP',
         },
         COMA09: {
@@ -20688,10 +19986,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -20704,10 +20001,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -20716,7 +20012,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Input panel',
         },
         COMEVE: {
@@ -20742,8 +20037,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;Click;Update;Init;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -20755,10 +20052,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -20771,10 +20067,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -20800,8 +20095,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -20810,7 +20107,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '15',
         },
         COMA11: {
@@ -20819,7 +20115,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -20834,7 +20129,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -20846,7 +20140,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -20856,7 +20149,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -20869,10 +20161,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -20885,8 +20176,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -20894,7 +20187,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -20907,10 +20199,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -20923,10 +20214,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -20939,10 +20229,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -20960,7 +20249,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'INT',
         },
         groupingRowColumnCodeLevel: {
@@ -20970,7 +20258,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -20980,7 +20267,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -20989,8 +20275,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -21002,8 +20288,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -21015,8 +20303,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -21024,7 +20314,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -21033,7 +20322,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -21042,7 +20330,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'XML',
         },
         COMRAT: {
@@ -21051,8 +20338,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -21060,7 +20347,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -21073,10 +20359,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -21089,10 +20374,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -21101,7 +20385,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Servizi interni    Ser',
         },
         COMEVE: {
@@ -21111,7 +20394,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -21123,10 +20405,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -21139,10 +20420,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -21168,8 +20448,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -21178,7 +20460,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '68',
         },
         COMA11: {
@@ -21187,7 +20468,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -21202,7 +20482,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -21214,7 +20493,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -21224,7 +20502,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -21237,10 +20514,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -21253,8 +20529,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -21262,7 +20540,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Oliviero Maestrelli',
         },
         COMA18: {
@@ -21275,10 +20552,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -21291,10 +20567,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -21307,10 +20582,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -21328,7 +20602,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'JSO',
         },
         groupingRowColumnCodeLevel: {
@@ -21338,7 +20611,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -21348,7 +20620,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -21357,8 +20628,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -21370,8 +20641,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -21383,8 +20656,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -21392,7 +20667,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'JSO',
         },
         COMA04: {
@@ -21401,7 +20675,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -21410,7 +20683,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -21419,8 +20691,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -21428,7 +20700,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'JSO',
         },
         COMA09: {
@@ -21441,10 +20712,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -21457,10 +20727,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -21469,7 +20738,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'JSON',
         },
         COMEVE: {
@@ -21479,7 +20747,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -21491,10 +20758,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -21507,10 +20773,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -21533,8 +20798,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -21543,7 +20810,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '48',
         },
         COMA11: {
@@ -21552,7 +20818,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -21567,7 +20832,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -21579,7 +20843,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Massimo Sciola',
         },
         COMA13: {
@@ -21589,7 +20852,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -21602,10 +20864,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -21618,8 +20879,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -21627,7 +20890,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -21640,10 +20902,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -21656,10 +20917,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -21672,10 +20932,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -21693,7 +20952,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'KNO',
         },
         groupingRowColumnCodeLevel: {
@@ -21703,7 +20961,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -21713,7 +20970,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -21722,8 +20978,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'B',
+          displayedValue: 'B',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -21735,8 +20991,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -21748,8 +21006,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -21757,7 +21017,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'KNO',
         },
         COMA04: {
@@ -21766,7 +21025,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -21775,7 +21033,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'ELE',
         },
         COMRAT: {
@@ -21784,8 +21041,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -21793,7 +21050,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'KNO',
         },
         COMA09: {
@@ -21806,10 +21062,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -21822,10 +21077,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -21834,7 +21088,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Knob',
         },
         COMEVE: {
@@ -21854,8 +21107,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Update;Init;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -21867,10 +21122,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -21883,10 +21137,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -21909,8 +21162,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -21919,7 +21174,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '26',
         },
         COMA11: {
@@ -21928,7 +21182,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -21943,7 +21196,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -21955,7 +21207,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Francesco Verzeletti',
         },
         COMA13: {
@@ -21965,7 +21216,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -21978,10 +21228,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -21994,8 +21243,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -22003,7 +21254,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -22016,10 +21266,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -22032,10 +21281,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -22048,10 +21296,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -22069,7 +21316,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'LAB',
         },
         groupingRowColumnCodeLevel: {
@@ -22079,7 +21325,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -22089,7 +21334,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -22098,8 +21342,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -22111,8 +21355,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -22124,8 +21370,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -22133,7 +21381,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'LAB',
         },
         COMA04: {
@@ -22142,7 +21389,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -22151,7 +21397,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -22160,8 +21405,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -22169,7 +21414,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'LAB',
         },
         COMA09: {
@@ -22182,10 +21426,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -22198,10 +21441,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -22210,7 +21452,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Label',
         },
         COMEVE: {
@@ -22230,8 +21471,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Click;Init;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -22243,10 +21486,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -22259,10 +21501,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -22288,8 +21529,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -22298,7 +21541,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '16',
         },
         COMA11: {
@@ -22307,7 +21549,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -22322,7 +21563,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -22334,7 +21574,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Francesco Verzeletti',
         },
         COMA13: {
@@ -22344,7 +21583,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -22357,10 +21595,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -22373,8 +21610,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -22382,7 +21621,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Federico Fortini',
         },
         COMA18: {
@@ -22395,10 +21633,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -22411,10 +21648,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -22427,10 +21663,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -22448,7 +21683,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'LIN',
         },
         groupingRowColumnCodeLevel: {
@@ -22458,7 +21692,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -22468,7 +21701,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -22477,8 +21709,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -22490,8 +21722,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -22503,8 +21737,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -22512,7 +21748,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'LIN',
         },
         COMA04: {
@@ -22521,7 +21756,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -22530,7 +21764,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -22539,8 +21772,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -22548,7 +21781,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'LIN',
         },
         COMA09: {
@@ -22561,10 +21793,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -22577,10 +21808,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -22589,7 +21819,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Linea',
         },
         COMEVE: {
@@ -22599,7 +21828,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -22611,10 +21839,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -22627,10 +21854,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -22653,8 +21879,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -22663,7 +21891,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '49',
         },
         COMA11: {
@@ -22672,7 +21899,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -22687,7 +21913,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -22699,7 +21924,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Massimo Sciola',
         },
         COMA13: {
@@ -22709,7 +21933,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -22722,10 +21945,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -22738,8 +21960,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -22747,7 +21971,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -22760,10 +21983,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -22776,10 +21998,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -22792,10 +22013,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -22813,7 +22033,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'MAP',
         },
         groupingRowColumnCodeLevel: {
@@ -22823,7 +22042,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -22833,7 +22051,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -22842,8 +22059,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -22855,8 +22072,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -22868,8 +22087,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -22877,7 +22098,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -22886,7 +22106,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -22895,7 +22114,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'MAP',
         },
         COMRAT: {
@@ -22904,8 +22122,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '3',
+          displayedValue: '3',
         },
         COMA06: {
           obj: {
@@ -22913,7 +22131,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -22926,10 +22143,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -22942,10 +22158,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -22954,7 +22169,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Immagine attiva',
         },
         COMEVE: {
@@ -22964,7 +22178,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -22976,10 +22189,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -22992,10 +22204,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -23012,8 +22223,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -23022,7 +22235,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '50',
         },
         COMA11: {
@@ -23031,7 +22243,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -23046,7 +22257,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -23058,7 +22268,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Dario Foresti',
         },
         COMA13: {
@@ -23068,7 +22277,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_MAP',
         },
         COMA35: {
@@ -23081,10 +22289,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -23097,8 +22304,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -23106,7 +22315,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -23119,10 +22327,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -23135,10 +22342,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -23151,10 +22357,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -23172,7 +22377,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'MIN',
         },
         groupingRowColumnCodeLevel: {
@@ -23182,7 +22386,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -23192,7 +22395,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -23201,8 +22403,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'B',
+          displayedValue: 'B',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -23214,8 +22416,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -23227,8 +22431,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -23236,7 +22442,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'MIN',
         },
         COMA04: {
@@ -23245,7 +22450,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -23254,7 +22458,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -23263,8 +22466,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -23272,7 +22475,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'MIN',
         },
         COMA09: {
@@ -23285,10 +22487,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -23301,10 +22502,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -23313,7 +22513,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'MindMap',
         },
         COMEVE: {
@@ -23333,8 +22532,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Click;DblClick;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -23346,10 +22547,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -23362,10 +22562,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -23385,8 +22584,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -23395,7 +22596,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '27',
         },
         COMA11: {
@@ -23404,7 +22604,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -23419,7 +22618,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -23431,7 +22629,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiara Zambelli',
         },
         COMA13: {
@@ -23441,7 +22638,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -23454,10 +22650,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -23470,8 +22665,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -23479,7 +22676,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -23492,10 +22688,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -23508,10 +22703,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -23524,10 +22718,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -23545,7 +22738,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'MSG',
         },
         groupingRowColumnCodeLevel: {
@@ -23555,7 +22747,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -23565,7 +22756,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -23574,8 +22764,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -23587,8 +22777,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -23600,8 +22792,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -23609,7 +22803,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'MSG',
         },
         COMA04: {
@@ -23618,7 +22811,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -23627,7 +22819,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -23636,8 +22827,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '3',
+          displayedValue: '3',
         },
         COMA06: {
           obj: {
@@ -23645,7 +22836,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -23658,10 +22848,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -23674,10 +22863,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -23686,7 +22874,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Messaggio',
         },
         COMEVE: {
@@ -23696,7 +22883,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -23708,10 +22894,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -23724,10 +22909,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -23744,8 +22928,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -23754,7 +22940,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '69',
         },
         COMA11: {
@@ -23763,7 +22948,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -23778,7 +22962,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -23790,7 +22973,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -23800,7 +22982,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_MSG',
         },
         COMA35: {
@@ -23813,10 +22994,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -23829,8 +23009,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -23838,7 +23020,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -23851,10 +23032,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -23867,10 +23047,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -23883,10 +23062,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -23904,7 +23082,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'MSS',
         },
         groupingRowColumnCodeLevel: {
@@ -23914,7 +23091,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -23924,7 +23100,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -23933,8 +23108,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -23946,8 +23121,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -23959,8 +23136,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -23968,7 +23147,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'MSS',
         },
         COMA04: {
@@ -23977,7 +23155,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -23986,7 +23163,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -23995,8 +23171,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -24004,7 +23180,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'MSS',
         },
         COMA09: {
@@ -24017,10 +23192,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -24033,10 +23207,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -24045,7 +23218,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Messaggio',
         },
         COMEVE: {
@@ -24055,7 +23227,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -24067,10 +23238,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -24083,10 +23253,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -24109,8 +23278,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -24119,7 +23290,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '51',
         },
         COMA11: {
@@ -24128,7 +23298,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -24143,7 +23312,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -24155,7 +23323,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Armando Scarpa',
         },
         COMA13: {
@@ -24165,7 +23332,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -24178,10 +23344,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -24194,8 +23359,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -24203,7 +23370,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -24216,10 +23382,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -24232,10 +23397,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -24248,10 +23412,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -24269,7 +23432,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'OCX',
         },
         groupingRowColumnCodeLevel: {
@@ -24279,7 +23441,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -24289,7 +23450,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -24298,8 +23458,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -24311,8 +23471,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -24324,8 +23486,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -24333,7 +23497,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'OCX',
         },
         COMA04: {
@@ -24342,7 +23505,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -24351,7 +23513,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -24360,8 +23521,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '1',
+          displayedValue: '1',
         },
         COMA06: {
           obj: {
@@ -24369,7 +23530,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'OCX',
         },
         COMA09: {
@@ -24382,10 +23542,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -24398,10 +23557,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -24410,7 +23568,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Controllo ActiveX',
         },
         COMEVE: {
@@ -24420,7 +23577,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -24432,10 +23588,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -24448,10 +23603,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -24471,8 +23625,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;L',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -24481,7 +23637,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '70',
         },
         COMA11: {
@@ -24490,7 +23645,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -24505,7 +23659,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -24517,7 +23670,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -24527,7 +23679,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -24540,10 +23691,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -24556,8 +23706,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -24565,7 +23717,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -24578,10 +23729,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -24594,10 +23744,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -24610,10 +23759,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -24631,7 +23779,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'OGN',
         },
         groupingRowColumnCodeLevel: {
@@ -24641,7 +23788,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -24651,7 +23797,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -24660,8 +23805,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -24673,8 +23818,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -24686,8 +23833,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -24695,7 +23844,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'OGN',
         },
         COMA04: {
@@ -24704,7 +23852,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -24713,7 +23860,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -24722,8 +23868,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -24731,7 +23877,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'OGN',
         },
         COMA09: {
@@ -24744,10 +23889,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -24760,10 +23904,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -24772,7 +23915,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Organigramma',
         },
         COMEVE: {
@@ -24789,8 +23931,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Click;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -24802,10 +23946,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -24818,10 +23961,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -24841,8 +23983,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -24851,7 +23995,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '52',
         },
         COMA11: {
@@ -24860,7 +24003,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -24875,7 +24017,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -24887,7 +24028,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiara Zambelli',
         },
         COMA13: {
@@ -24897,7 +24037,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -24910,10 +24049,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -24926,8 +24064,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -24935,7 +24075,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -24948,10 +24087,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -24964,10 +24102,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -24980,10 +24117,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -25001,7 +24137,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'OPN',
         },
         groupingRowColumnCodeLevel: {
@@ -25011,7 +24146,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -25021,7 +24155,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -25030,8 +24163,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -25043,8 +24176,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -25056,8 +24191,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -25065,7 +24202,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -25074,7 +24210,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -25083,7 +24218,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -25092,8 +24226,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -25101,7 +24235,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -25114,10 +24247,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -25130,10 +24262,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -25142,7 +24273,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Open',
         },
         COMEVE: {
@@ -25152,7 +24282,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -25164,10 +24293,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -25180,10 +24308,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -25212,8 +24339,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;L;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -25222,7 +24351,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '17',
         },
         COMA11: {
@@ -25231,7 +24359,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -25246,7 +24373,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -25258,7 +24384,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Franco Parodi',
         },
         COMA13: {
@@ -25268,7 +24393,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -25281,10 +24405,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -25297,8 +24420,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -25306,7 +24431,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -25319,10 +24443,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -25335,10 +24458,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -25351,10 +24473,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -25372,7 +24493,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'OUT',
         },
         groupingRowColumnCodeLevel: {
@@ -25382,7 +24502,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -25392,7 +24511,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -25401,8 +24519,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -25414,8 +24532,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -25427,8 +24547,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -25436,7 +24558,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'OUT',
         },
         COMA04: {
@@ -25445,7 +24566,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -25454,7 +24574,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -25463,8 +24582,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -25472,7 +24591,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'OUT',
         },
         COMA09: {
@@ -25485,10 +24603,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -25501,10 +24618,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -25513,7 +24629,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'OutputPanel',
         },
         COMEVE: {
@@ -25533,8 +24648,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;Click;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -25546,10 +24663,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -25562,10 +24678,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -25591,8 +24706,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -25601,7 +24718,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '18',
         },
         COMA11: {
@@ -25610,7 +24726,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -25625,7 +24740,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -25637,7 +24751,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -25647,7 +24760,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -25660,10 +24772,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -25676,8 +24787,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -25685,7 +24798,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -25698,10 +24810,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -25714,10 +24825,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -25730,10 +24840,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -25751,7 +24860,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'PAT',
         },
         groupingRowColumnCodeLevel: {
@@ -25761,7 +24869,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -25771,7 +24878,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -25780,8 +24886,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -25793,8 +24899,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -25806,8 +24914,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -25815,7 +24925,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'PAT',
         },
         COMA04: {
@@ -25824,7 +24933,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -25833,7 +24941,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -25842,8 +24949,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -25851,7 +24958,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'PAT',
         },
         COMA09: {
@@ -25864,10 +24970,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -25880,10 +24985,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -25892,7 +24996,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Path',
         },
         COMEVE: {
@@ -25909,8 +25012,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Click;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -25922,10 +25027,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -25938,10 +25042,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -25964,8 +25067,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -25974,7 +25079,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '53',
         },
         COMA11: {
@@ -25983,7 +25087,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -25998,7 +25101,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -26010,7 +25112,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Franco Parodi',
         },
         COMA13: {
@@ -26020,7 +25121,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -26033,10 +25133,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -26049,8 +25148,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -26058,7 +25159,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -26071,10 +25171,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -26087,10 +25186,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -26103,10 +25201,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -26124,7 +25221,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'PAY',
         },
         groupingRowColumnCodeLevel: {
@@ -26134,7 +25230,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -26144,7 +25239,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -26153,8 +25247,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'B',
+          displayedValue: 'B',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -26166,8 +25260,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -26179,8 +25275,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -26188,7 +25286,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'PAY',
         },
         COMA04: {
@@ -26197,7 +25294,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -26206,7 +25302,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -26215,8 +25310,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -26224,7 +25319,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'PAY',
         },
         COMA09: {
@@ -26237,10 +25331,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -26253,10 +25346,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -26265,7 +25357,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Paypal',
         },
         COMEVE: {
@@ -26275,7 +25366,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -26287,10 +25377,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -26303,10 +25392,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -26329,8 +25417,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -26339,7 +25429,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '28',
         },
         COMA11: {
@@ -26348,7 +25437,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -26363,7 +25451,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -26375,7 +25462,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -26385,7 +25471,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -26398,10 +25483,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -26414,8 +25498,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -26423,7 +25509,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -26436,10 +25521,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -26452,10 +25536,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -26468,10 +25551,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -26489,7 +25571,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'PDF',
         },
         groupingRowColumnCodeLevel: {
@@ -26499,7 +25580,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -26509,7 +25589,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -26518,8 +25597,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'B',
+          displayedValue: 'B',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -26531,8 +25610,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -26544,8 +25625,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -26553,7 +25636,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'PDF',
         },
         COMA04: {
@@ -26562,7 +25644,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -26571,7 +25652,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'HTM',
         },
         COMRAT: {
@@ -26580,8 +25660,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -26589,7 +25669,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'PDF',
         },
         COMA09: {
@@ -26602,10 +25681,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -26618,10 +25696,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -26630,7 +25707,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Pdf Viewer',
         },
         COMEVE: {
@@ -26640,7 +25716,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -26652,10 +25727,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -26668,10 +25742,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -26697,8 +25770,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -26707,7 +25782,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '29',
         },
         COMA11: {
@@ -26716,7 +25790,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -26731,7 +25804,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -26743,7 +25815,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Massimo Sciola',
         },
         COMA13: {
@@ -26753,7 +25824,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -26766,10 +25836,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -26782,8 +25851,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -26791,7 +25862,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -26804,10 +25874,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -26820,10 +25889,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -26836,10 +25904,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -26857,7 +25924,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'PGB',
         },
         groupingRowColumnCodeLevel: {
@@ -26867,7 +25933,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -26877,7 +25942,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -26886,8 +25950,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -26899,8 +25963,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -26912,8 +25978,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -26921,7 +25989,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'PGB',
         },
         COMA04: {
@@ -26930,7 +25997,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -26939,7 +26005,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -26948,8 +26013,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -26957,7 +26022,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'PGB',
         },
         COMA09: {
@@ -26970,10 +26034,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -26986,10 +26049,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -26998,7 +26060,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'ProgressBar',
         },
         COMEVE: {
@@ -27008,7 +26069,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -27020,10 +26080,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -27036,10 +26095,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -27062,8 +26120,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -27072,7 +26132,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '54',
         },
         COMA11: {
@@ -27081,7 +26140,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -27096,7 +26154,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -27108,7 +26165,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Franco Parodi',
         },
         COMA13: {
@@ -27118,7 +26174,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -27131,10 +26186,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -27147,8 +26201,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -27156,7 +26212,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -27169,10 +26224,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -27185,10 +26239,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -27201,10 +26254,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -27222,7 +26274,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'POP',
         },
         groupingRowColumnCodeLevel: {
@@ -27232,7 +26283,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -27242,7 +26292,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -27251,8 +26300,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -27264,8 +26313,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -27277,8 +26328,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -27286,7 +26339,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -27295,7 +26347,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -27304,7 +26355,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -27313,8 +26363,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '2',
+          displayedValue: '2',
         },
         COMA06: {
           obj: {
@@ -27322,7 +26372,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -27335,10 +26384,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -27351,10 +26399,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -27363,7 +26410,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Popup',
         },
         COMEVE: {
@@ -27373,7 +26419,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -27385,10 +26430,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -27401,10 +26445,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -27433,8 +26476,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;L;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -27443,7 +26488,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '71',
         },
         COMA11: {
@@ -27452,7 +26496,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -27467,7 +26510,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -27479,7 +26521,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -27489,7 +26530,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -27502,10 +26542,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -27518,8 +26557,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -27527,7 +26568,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -27540,10 +26580,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -27556,10 +26595,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -27572,10 +26610,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -27593,7 +26630,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'QRY',
         },
         groupingRowColumnCodeLevel: {
@@ -27603,7 +26639,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -27613,7 +26648,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -27622,8 +26656,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -27635,8 +26669,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -27648,8 +26684,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -27657,7 +26695,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -27666,7 +26703,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -27675,7 +26711,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -27684,8 +26719,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '2',
+          displayedValue: '2',
         },
         COMA06: {
           obj: {
@@ -27693,7 +26728,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -27706,10 +26740,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -27722,10 +26755,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -27734,7 +26766,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Ricerca oggetto',
         },
         COMEVE: {
@@ -27744,7 +26775,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -27756,10 +26786,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -27772,10 +26801,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -27804,8 +26832,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;L;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -27814,7 +26844,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '72',
         },
         COMA11: {
@@ -27823,7 +26852,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -27838,7 +26866,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -27850,7 +26877,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -27860,7 +26886,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -27873,10 +26898,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -27889,8 +26913,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -27898,7 +26924,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -27911,10 +26936,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -27927,10 +26951,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -27943,10 +26966,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -27964,7 +26986,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'REP',
         },
         groupingRowColumnCodeLevel: {
@@ -27974,7 +26995,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -27984,7 +27004,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -27993,8 +27012,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -28006,8 +27025,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -28019,8 +27040,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -28028,7 +27051,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -28037,7 +27059,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -28046,7 +27067,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -28055,8 +27075,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '4',
+          displayedValue: '4',
         },
         COMA06: {
           obj: {
@@ -28064,7 +27084,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'REP',
         },
         COMA09: {
@@ -28077,10 +27096,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -28093,10 +27111,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -28105,7 +27122,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Report',
         },
         COMEVE: {
@@ -28115,7 +27131,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -28127,10 +27142,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -28143,10 +27157,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -28163,8 +27176,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -28173,7 +27188,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '55',
         },
         COMA11: {
@@ -28182,7 +27196,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -28197,7 +27210,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -28209,7 +27221,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Oliviero Maestrelli',
         },
         COMA13: {
@@ -28219,7 +27230,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -28232,10 +27242,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -28248,8 +27257,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -28257,7 +27268,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -28270,10 +27280,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -28286,10 +27295,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -28302,10 +27310,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -28323,7 +27330,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'SEM',
         },
         groupingRowColumnCodeLevel: {
@@ -28333,7 +27339,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -28343,7 +27348,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -28352,8 +27356,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -28365,8 +27369,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -28378,8 +27384,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -28387,7 +27395,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'SEM',
         },
         COMA04: {
@@ -28396,7 +27403,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -28405,7 +27411,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'ELE',
         },
         COMRAT: {
@@ -28414,8 +27419,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -28423,7 +27428,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'SEM',
         },
         COMA09: {
@@ -28436,10 +27440,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -28452,10 +27455,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -28464,7 +27466,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Semaforo',
         },
         COMEVE: {
@@ -28474,7 +27475,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -28486,10 +27486,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -28502,10 +27501,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -28531,8 +27529,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -28541,7 +27541,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '56',
         },
         COMA11: {
@@ -28550,7 +27549,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -28565,7 +27563,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -28577,7 +27574,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -28587,7 +27583,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -28600,10 +27595,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -28616,8 +27610,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -28625,7 +27621,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -28638,10 +27633,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -28654,10 +27648,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -28670,10 +27663,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -28691,7 +27683,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'SET',
         },
         groupingRowColumnCodeLevel: {
@@ -28701,7 +27692,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -28711,7 +27701,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -28720,8 +27709,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -28733,8 +27722,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -28746,8 +27737,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -28755,7 +27748,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -28764,7 +27756,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -28773,7 +27764,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -28782,8 +27772,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '3',
+          displayedValue: '3',
         },
         COMA06: {
           obj: {
@@ -28791,7 +27781,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -28804,10 +27793,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -28820,10 +27808,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -28832,7 +27819,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Setup utente',
         },
         COMEVE: {
@@ -28842,7 +27828,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -28854,10 +27839,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -28870,10 +27854,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -28893,8 +27876,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;L',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -28903,7 +27888,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '73',
         },
         COMA11: {
@@ -28912,7 +27896,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -28927,7 +27910,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -28939,7 +27921,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -28949,7 +27930,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -28962,10 +27942,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -28978,8 +27957,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -28987,7 +27968,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -29000,10 +27980,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -29016,10 +27995,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -29032,10 +28010,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -29053,7 +28030,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'SHE',
         },
         groupingRowColumnCodeLevel: {
@@ -29063,7 +28039,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -29073,7 +28048,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -29082,8 +28056,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -29095,8 +28069,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -29108,8 +28084,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -29117,7 +28095,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'SHE',
         },
         COMA04: {
@@ -29126,7 +28103,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -29135,7 +28111,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -29144,8 +28119,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -29153,7 +28128,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'SHE',
         },
         COMA09: {
@@ -29166,10 +28140,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -29182,10 +28155,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -29194,7 +28166,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Spread Sheet',
         },
         COMEVE: {
@@ -29211,8 +28182,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Update;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -29224,10 +28197,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -29240,10 +28212,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -29266,8 +28237,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -29276,7 +28249,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '57',
         },
         COMA11: {
@@ -29285,7 +28257,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -29300,7 +28271,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -29312,7 +28282,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiara Zambelli',
         },
         COMA13: {
@@ -29322,7 +28291,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -29335,10 +28303,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -29351,8 +28318,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -29360,7 +28329,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -29373,10 +28341,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -29389,10 +28356,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -29405,10 +28371,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -29426,7 +28391,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'SPC',
         },
         groupingRowColumnCodeLevel: {
@@ -29436,7 +28400,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -29446,7 +28409,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -29455,8 +28417,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -29468,8 +28430,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -29481,8 +28445,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -29490,7 +28456,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -29499,7 +28464,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -29508,7 +28472,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -29517,8 +28480,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '4',
+          displayedValue: '4',
         },
         COMA06: {
           obj: {
@@ -29526,7 +28489,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'SPC',
         },
         COMA09: {
@@ -29539,10 +28501,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -29555,10 +28516,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -29568,7 +28528,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'SPC',
         },
         COMEVE: {
@@ -29578,7 +28537,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -29590,10 +28548,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -29606,10 +28563,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -29626,8 +28582,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -29636,7 +28594,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '74',
         },
         COMA11: {
@@ -29645,7 +28602,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -29660,7 +28616,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -29672,7 +28627,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Dario Foresti',
         },
         COMA13: {
@@ -29682,7 +28636,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -29695,10 +28648,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -29711,8 +28663,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -29720,7 +28674,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -29733,10 +28686,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -29749,10 +28701,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -29765,10 +28716,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -29786,7 +28736,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'SPL',
         },
         groupingRowColumnCodeLevel: {
@@ -29796,7 +28745,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -29806,7 +28754,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -29815,8 +28762,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'B',
+          displayedValue: 'B',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -29828,8 +28775,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -29841,8 +28790,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -29850,7 +28801,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'SPL',
         },
         COMA04: {
@@ -29859,7 +28809,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -29868,7 +28817,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -29877,8 +28825,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -29886,7 +28834,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'SPL',
         },
         COMA09: {
@@ -29899,10 +28846,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -29915,10 +28861,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -29927,7 +28872,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'SpotLight',
         },
         COMEVE: {
@@ -29944,8 +28888,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Click;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -29957,10 +28903,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -29973,10 +28918,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -29999,8 +28943,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -30009,7 +28955,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '30',
         },
         COMA11: {
@@ -30018,7 +28963,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -30033,7 +28977,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -30045,7 +28988,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiara Zambelli',
         },
         COMA13: {
@@ -30055,7 +28997,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -30068,10 +29009,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -30084,8 +29024,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -30093,7 +29035,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -30106,10 +29047,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -30122,10 +29062,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -30138,10 +29077,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -30159,7 +29097,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'SRI',
         },
         groupingRowColumnCodeLevel: {
@@ -30169,7 +29106,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -30179,7 +29115,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -30188,8 +29123,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -30201,8 +29136,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -30214,8 +29151,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -30223,7 +29162,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -30232,7 +29170,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -30241,7 +29178,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -30250,8 +29186,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '3',
+          displayedValue: '3',
         },
         COMA06: {
           obj: {
@@ -30259,7 +29195,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -30272,10 +29207,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -30288,10 +29222,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -30300,7 +29233,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Ingressi seriale',
         },
         COMEVE: {
@@ -30310,7 +29242,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -30322,10 +29253,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -30338,10 +29268,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -30361,8 +29290,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;L',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -30371,7 +29302,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '75',
         },
         COMA11: {
@@ -30380,7 +29310,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -30395,7 +29324,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -30407,7 +29335,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -30417,7 +29344,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -30430,10 +29356,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -30446,8 +29371,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -30455,7 +29382,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -30468,10 +29394,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -30484,10 +29409,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -30500,10 +29424,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -30521,7 +29444,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'STR',
         },
         groupingRowColumnCodeLevel: {
@@ -30531,7 +29453,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -30541,7 +29462,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: 'TRE',
         },
         COMA01: {
@@ -30550,8 +29470,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -30563,8 +29483,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -30576,8 +29498,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -30585,7 +29509,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -30594,7 +29517,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -30603,7 +29525,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -30612,8 +29533,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '1',
+          displayedValue: '1',
         },
         COMA06: {
           obj: {
@@ -30621,7 +29542,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'SRI',
         },
         COMA09: {
@@ -30634,10 +29554,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -30650,10 +29569,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -30662,7 +29580,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Stella',
         },
         COMEVE: {
@@ -30672,7 +29589,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -30684,10 +29600,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -30700,10 +29615,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -30720,8 +29634,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -30730,7 +29646,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '76',
         },
         COMA11: {
@@ -30739,7 +29654,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -30754,7 +29668,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -30766,7 +29679,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Dario Foresti',
         },
         COMA13: {
@@ -30776,7 +29688,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -30789,10 +29700,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -30805,8 +29715,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -30814,7 +29726,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -30827,10 +29738,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -30843,10 +29753,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -30859,10 +29768,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -30880,7 +29788,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'SYS',
         },
         groupingRowColumnCodeLevel: {
@@ -30890,7 +29797,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -30900,7 +29806,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -30909,8 +29814,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -30922,8 +29827,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -30935,8 +29842,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -30944,7 +29853,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -30953,7 +29861,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -30962,7 +29869,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -30971,8 +29877,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '2',
+          displayedValue: '2',
         },
         COMA06: {
           obj: {
@@ -30980,7 +29886,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -30993,10 +29898,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -31009,10 +29913,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -31021,7 +29924,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Operazioni AS/400  Ser',
         },
         COMEVE: {
@@ -31031,7 +29933,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -31043,10 +29944,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -31059,10 +29959,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -31082,8 +29981,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;L',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -31092,7 +29993,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '77',
         },
         COMA11: {
@@ -31101,7 +30001,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -31116,7 +30015,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -31128,7 +30026,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -31138,7 +30035,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -31151,10 +30047,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -31167,8 +30062,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -31176,7 +30073,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -31189,10 +30085,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -31205,10 +30100,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -31221,10 +30115,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -31242,7 +30135,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'TCL',
         },
         groupingRowColumnCodeLevel: {
@@ -31252,7 +30144,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -31262,7 +30153,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -31271,8 +30161,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -31284,8 +30174,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -31297,8 +30189,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -31306,7 +30200,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TCL',
         },
         COMA04: {
@@ -31315,7 +30208,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -31324,7 +30216,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -31333,8 +30224,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -31342,7 +30233,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TCL',
         },
         COMA09: {
@@ -31355,10 +30245,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -31371,10 +30260,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -31383,7 +30271,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Tag cloud',
         },
         COMEVE: {
@@ -31400,8 +30287,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Click;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -31413,10 +30302,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -31429,10 +30317,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -31455,8 +30342,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -31465,7 +30354,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '58',
         },
         COMA11: {
@@ -31474,7 +30362,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -31489,7 +30376,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -31501,7 +30387,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiara Zambelli',
         },
         COMA13: {
@@ -31511,7 +30396,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -31524,10 +30408,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -31540,8 +30423,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -31549,7 +30434,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -31562,10 +30446,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -31578,10 +30461,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -31594,10 +30476,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -31615,7 +30496,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'TED',
         },
         groupingRowColumnCodeLevel: {
@@ -31625,7 +30505,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -31635,7 +30514,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -31644,8 +30522,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'B',
+          displayedValue: 'B',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -31657,8 +30535,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -31670,8 +30550,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -31679,7 +30561,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TED',
         },
         COMA04: {
@@ -31688,7 +30569,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -31697,7 +30577,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -31706,8 +30585,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -31715,7 +30594,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TED',
         },
         COMA09: {
@@ -31728,10 +30606,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -31744,10 +30621,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -31756,7 +30632,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Text Editor',
         },
         COMEVE: {
@@ -31766,7 +30641,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -31778,10 +30652,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -31794,10 +30667,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -31817,8 +30689,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -31827,7 +30701,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '31',
         },
         COMA11: {
@@ -31836,7 +30709,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -31851,7 +30723,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -31863,7 +30734,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Franco Parodi',
         },
         COMA13: {
@@ -31873,7 +30743,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -31886,10 +30755,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -31902,8 +30770,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -31911,7 +30781,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -31924,10 +30793,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -31940,10 +30808,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -31956,10 +30823,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -31977,7 +30843,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'TML',
         },
         groupingRowColumnCodeLevel: {
@@ -31987,7 +30852,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -31997,7 +30861,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -32006,8 +30869,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'B',
+          displayedValue: 'B',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -32019,8 +30882,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -32032,8 +30897,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -32041,7 +30908,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TML',
         },
         COMA04: {
@@ -32050,7 +30916,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -32059,7 +30924,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'GRI',
         },
         COMRAT: {
@@ -32068,8 +30932,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -32077,7 +30941,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TML',
         },
         COMA09: {
@@ -32090,10 +30953,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -32106,10 +30968,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -32118,7 +30979,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Timeline',
         },
         COMEVE: {
@@ -32135,8 +30995,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -32148,10 +31010,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -32164,10 +31025,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -32190,8 +31050,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -32200,7 +31062,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '32',
         },
         COMA11: {
@@ -32209,7 +31070,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -32224,7 +31084,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -32236,7 +31095,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiara Zambelli',
         },
         COMA13: {
@@ -32246,7 +31104,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -32259,10 +31116,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -32275,8 +31131,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -32284,7 +31142,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -32297,10 +31154,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -32313,10 +31169,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -32329,10 +31184,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -32350,7 +31204,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'TMP',
         },
         groupingRowColumnCodeLevel: {
@@ -32360,7 +31213,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -32370,7 +31222,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -32379,8 +31230,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -32392,8 +31243,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -32405,8 +31258,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -32414,7 +31269,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TMP',
         },
         COMA04: {
@@ -32423,7 +31277,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Web',
         },
         COMA07: {
@@ -32432,7 +31285,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -32441,8 +31293,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -32450,7 +31302,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TMP',
         },
         COMA09: {
@@ -32463,10 +31314,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -32479,10 +31329,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -32491,7 +31340,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'TreeMap',
         },
         COMEVE: {
@@ -32514,8 +31362,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;Click;DblClick;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -32527,10 +31377,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -32543,10 +31392,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -32569,8 +31417,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -32579,7 +31429,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '59',
         },
         COMA11: {
@@ -32588,7 +31437,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -32603,7 +31451,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -32615,7 +31462,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Francesco Verzeletti',
         },
         COMA13: {
@@ -32625,7 +31471,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -32638,10 +31483,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -32654,8 +31498,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -32663,7 +31509,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -32676,10 +31521,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -32692,10 +31536,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -32708,10 +31551,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -32729,7 +31571,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'TRA',
         },
         groupingRowColumnCodeLevel: {
@@ -32739,7 +31580,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -32749,7 +31589,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: 'TRE',
         },
         COMA01: {
@@ -32758,8 +31597,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'D',
+          displayedValue: 'D',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -32771,8 +31610,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -32784,8 +31625,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -32793,7 +31636,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRA',
         },
         COMA04: {
@@ -32802,7 +31644,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -32811,7 +31652,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -32820,8 +31660,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -32829,7 +31669,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMA09: {
@@ -32842,10 +31681,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -32858,10 +31696,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -32870,7 +31707,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Albero con tab',
         },
         COMEVE: {
@@ -32902,8 +31738,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;Click;DblClick;Expand;Update;Init;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -32915,10 +31753,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -32931,10 +31768,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -32951,8 +31787,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -32961,7 +31799,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '78',
         },
         COMA11: {
@@ -32970,7 +31807,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -32985,7 +31821,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -32997,7 +31832,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giovanni Del Bono',
         },
         COMA13: {
@@ -33007,7 +31841,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -33020,10 +31853,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -33036,8 +31868,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -33045,7 +31879,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -33058,10 +31891,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -33074,10 +31906,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -33090,10 +31921,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -33111,7 +31941,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'TRE',
         },
         groupingRowColumnCodeLevel: {
@@ -33121,7 +31950,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -33131,7 +31959,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -33140,8 +31967,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -33153,8 +31980,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -33166,8 +31995,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -33175,7 +32006,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMA04: {
@@ -33184,7 +32014,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -33193,7 +32022,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMRAT: {
@@ -33202,8 +32030,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '7',
+          displayedValue: '7',
         },
         COMA06: {
           obj: {
@@ -33211,7 +32039,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRE',
         },
         COMA09: {
@@ -33224,10 +32051,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -33240,10 +32066,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -33252,7 +32077,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Albero',
         },
         COMEVE: {
@@ -33284,8 +32108,10 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
           value: 'Change;Click;DblClick;Expand;Update;Init;',
+          style: {
+            minHeight: '53px',
+          },
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -33297,10 +32123,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -33313,10 +32138,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -33342,8 +32166,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -33352,7 +32178,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '19',
         },
         COMA11: {
@@ -33361,7 +32186,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -33376,7 +32200,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -33388,7 +32211,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Giuliano Giancristofaro',
         },
         COMA13: {
@@ -33398,7 +32220,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: 'GRA_TRE',
         },
         COMA35: {
@@ -33411,10 +32232,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -33427,8 +32247,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -33436,7 +32258,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Dario Foresti',
         },
         COMA18: {
@@ -33449,10 +32270,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -33465,10 +32285,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -33481,10 +32300,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -33502,7 +32320,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'TRG',
         },
         groupingRowColumnCodeLevel: {
@@ -33512,7 +32329,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -33522,7 +32338,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -33531,8 +32346,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Z',
+          displayedValue: 'Z',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -33544,8 +32359,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -33557,8 +32374,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -33566,7 +32385,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -33575,7 +32393,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -33584,7 +32401,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -33593,8 +32409,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '1',
+          displayedValue: '1',
         },
         COMA06: {
           obj: {
@@ -33602,7 +32418,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TRG',
         },
         COMA09: {
@@ -33615,10 +32430,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -33631,10 +32445,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -33643,7 +32456,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Albero con griglia Obs',
         },
         COMEVE: {
@@ -33653,7 +32465,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -33665,10 +32476,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -33681,10 +32491,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -33701,8 +32510,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -33711,7 +32522,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '87',
         },
         COMA11: {
@@ -33720,7 +32530,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Chiuso',
         },
         XDET: {
@@ -33735,7 +32544,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -33747,7 +32555,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Sanfilippo Costantino',
         },
         COMA13: {
@@ -33757,7 +32564,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -33770,10 +32576,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -33786,8 +32591,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -33795,7 +32602,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -33808,10 +32614,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -33824,10 +32629,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -33840,10 +32644,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -33861,7 +32664,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'TXT',
         },
         groupingRowColumnCodeLevel: {
@@ -33871,7 +32673,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -33881,7 +32682,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -33890,8 +32690,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -33903,8 +32703,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -33916,8 +32718,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -33925,7 +32729,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TXT',
         },
         COMA04: {
@@ -33934,7 +32737,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Delphi',
         },
         COMA07: {
@@ -33943,7 +32745,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'HTM',
         },
         COMRAT: {
@@ -33952,8 +32753,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '6',
+          displayedValue: '6',
         },
         COMA06: {
           obj: {
@@ -33961,7 +32762,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'TXT',
         },
         COMA09: {
@@ -33974,10 +32774,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -33990,10 +32789,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -34002,7 +32800,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Testo',
         },
         COMEVE: {
@@ -34012,7 +32809,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -34024,10 +32820,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -34040,10 +32835,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -34069,8 +32863,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -34079,7 +32875,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '60',
         },
         COMA11: {
@@ -34088,7 +32883,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -34103,7 +32897,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -34115,7 +32908,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Massimo Sciola',
         },
         COMA13: {
@@ -34125,7 +32917,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -34138,10 +32929,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -34154,8 +32944,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -34163,7 +32955,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Massimo Sciola',
         },
         COMA18: {
@@ -34176,10 +32967,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -34192,10 +32982,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -34208,10 +32997,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -34229,7 +33017,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'WEB',
         },
         groupingRowColumnCodeLevel: {
@@ -34239,7 +33026,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -34249,7 +33035,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -34258,8 +33043,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'A',
+          displayedValue: 'A',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -34271,8 +33056,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -34284,8 +33071,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -34293,7 +33082,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -34302,7 +33090,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -34311,7 +33098,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'HTM',
         },
         COMRAT: {
@@ -34320,8 +33106,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '2',
+          displayedValue: '2',
         },
         COMA06: {
           obj: {
@@ -34329,7 +33115,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA09: {
@@ -34342,10 +33127,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -34358,10 +33142,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -34370,7 +33153,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Browser',
         },
         COMEVE: {
@@ -34380,7 +33162,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -34392,10 +33173,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -34408,10 +33188,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -34437,8 +33216,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -34447,7 +33228,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '20',
         },
         COMA11: {
@@ -34456,7 +33236,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -34471,7 +33250,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -34483,7 +33261,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Oliviero Maestrelli',
         },
         COMA13: {
@@ -34493,7 +33270,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -34506,10 +33282,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -34522,8 +33297,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -34531,7 +33308,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -34544,10 +33320,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -34560,10 +33335,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -34576,10 +33350,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
@@ -34597,7 +33370,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'WFD',
         },
         groupingRowColumnCodeLevel: {
@@ -34607,7 +33379,6 @@ export const performanceDataTable = {
             p: 'HEADER',
             t: 'JG',
           },
-          options: false,
           value: '0',
         },
         COMA10: {
@@ -34617,7 +33388,6 @@ export const performanceDataTable = {
             p: 'GRA',
             t: 'JA',
           },
-          options: false,
           value: '',
         },
         COMA01: {
@@ -34626,8 +33396,8 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'C',
+          displayedValue: 'C',
         },
         COMA03: {
           cssClass: 'strong-text',
@@ -34639,8 +33409,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -34652,8 +33424,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA05: {
           obj: {
@@ -34661,7 +33435,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA04: {
@@ -34670,7 +33443,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Java',
         },
         COMA07: {
@@ -34679,7 +33451,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMRAT: {
@@ -34688,8 +33459,8 @@ export const performanceDataTable = {
             p: '',
             t: 'NR',
           },
-          options: false,
           value: '3',
+          displayedValue: '3',
         },
         COMA06: {
           obj: {
@@ -34697,7 +33468,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'WFD',
         },
         COMA09: {
@@ -34710,10 +33480,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA08: {
@@ -34726,10 +33495,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '1',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMDES: {
@@ -34738,7 +33506,6 @@ export const performanceDataTable = {
             p: 'JAGRA',
             t: 'V2',
           },
-          options: false,
           value: 'Workflow designer',
         },
         COMEVE: {
@@ -34748,7 +33515,6 @@ export const performanceDataTable = {
             p: '**',
             t: 'JL',
           },
-          options: false,
         },
         COMA21: {
           cssClass: 'strong-text',
@@ -34760,10 +33526,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: 'LOC',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA20: {
@@ -34776,10 +33541,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA12: {
@@ -34805,8 +33569,10 @@ export const performanceDataTable = {
             p: 'V2B£CDV',
             t: 'JL',
           },
-          options: false,
           value: 'C;P;T;W',
+          style: {
+            minHeight: '53px',
+          },
         },
         groupingRowColumnCode: {
           cssClass: 'strong-text',
@@ -34815,7 +33581,6 @@ export const performanceDataTable = {
             p: 'ROW',
             t: 'JG',
           },
-          options: false,
           value: '61',
         },
         COMA11: {
@@ -34824,7 +33589,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Attivo',
         },
         XDET: {
@@ -34839,7 +33603,6 @@ export const performanceDataTable = {
             p: 'COD_VER',
             t: 'VO',
           },
-          options: false,
           value: 'magnify',
           style: {
             minHeight: '18px',
@@ -34851,7 +33614,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: 'Dario Foresti',
         },
         COMA13: {
@@ -34861,7 +33623,6 @@ export const performanceDataTable = {
             p: 'SCP_CFG',
             t: 'MB',
           },
-          options: false,
           value: '',
         },
         COMA35: {
@@ -34874,10 +33635,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA16: {
@@ -34890,8 +33650,10 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
+          style: {
+            minHeight: '18px',
+          },
         },
         COMA15: {
           obj: {
@@ -34899,7 +33661,6 @@ export const performanceDataTable = {
             p: '',
             t: '',
           },
-          options: false,
           value: '',
         },
         COMA18: {
@@ -34912,10 +33673,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA17: {
@@ -34928,10 +33688,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
         COMA19: {
@@ -34944,10 +33703,9 @@ export const performanceDataTable = {
             p: 'SI/NO',
             t: 'V2',
           },
-          options: false,
           value: '',
           style: {
-            minHeight: '40px',
+            minHeight: '18px',
           },
         },
       },
