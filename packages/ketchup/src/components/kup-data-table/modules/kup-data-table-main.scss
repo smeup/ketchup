@@ -337,16 +337,16 @@ tbody {
     &.selected:not(.group):hover,
     &.selected:not(.group) {
       td:not(.justincreasingspecificity) {
-        background-color: rgba(var(--kup-primary-color-rgb), 0.075);
+        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
       }
       td.selected {
         background-color: inherit;
-        border: 2px solid rgba(var(--kup-primary-color-rgb), 0.75);
+        box-shadow: inset 0px 0px 3px 1px var(--kup-primary-color);
       }
     }
 
     td.selected {
-      background-color: rgba(var(--kup-primary-color-rgb), 0.075);
+      background-color: rgba(var(--kup-primary-color-rgb), 0.175);
     }
 
     // grouping
@@ -397,6 +397,7 @@ tbody {
       padding: 0.5rem 0.3125rem;
       word-break: break-all;
       word-wrap: break-word;
+      transition: box-shadow 0.1s;
 
       &.number {
         .cell-content {
