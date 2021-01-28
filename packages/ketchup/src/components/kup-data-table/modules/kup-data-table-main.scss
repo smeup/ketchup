@@ -337,12 +337,16 @@ tbody {
     &.selected:not(.group):hover,
     &.selected:not(.group) {
       td:not(.justincreasingspecificity) {
-        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+        background-color: rgba(var(--kup-primary-color-rgb), 0.075);
+      }
+      td.selected {
+        background-color: inherit;
+        border: 2px solid rgba(var(--kup-primary-color-rgb), 0.75);
       }
     }
 
     td.selected {
-      background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+      background-color: rgba(var(--kup-primary-color-rgb), 0.075);
     }
 
     // grouping

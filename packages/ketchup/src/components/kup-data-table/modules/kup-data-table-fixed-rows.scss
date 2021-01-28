@@ -48,10 +48,13 @@ tr:hover .fixed-column {
   background-color: var(--kup-background-color);
   background-image: linear-gradient(
     to right,
-    rgba(var(--kup-primary-color-rgb), 0.175) 0%,
-    rgba(var(--kup-primary-color-rgb), 0.175) 0.1%,
-    rgba(var(--kup-primary-color-rgb), 0.175)
+    rgba(var(--kup-primary-color-rgb), 0.075) 0%,
+    rgba(var(--kup-primary-color-rgb), 0.075) 0.1%,
+    rgba(var(--kup-primary-color-rgb), 0.075)
   );
+  &.selected {
+    background-image: none;
+  }
 }
 
 #kup-component tr:not(.selected) {
@@ -61,9 +64,9 @@ tr:hover .fixed-column {
       background-color: var(--kup-background-color);
       background-image: linear-gradient(
         to right,
-        rgba(var(--kup-primary-color-rgb), 0.175) 0%,
-        rgba(var(--kup-primary-color-rgb), 0.175) 0.1%,
-        rgba(var(--kup-primary-color-rgb), 0.175)
+        rgba(var(--kup-primary-color-rgb), 0.075) 0%,
+        rgba(var(--kup-primary-color-rgb), 0.075) 0.1%,
+        rgba(var(--kup-primary-color-rgb), 0.075)
       );
     }
   }
