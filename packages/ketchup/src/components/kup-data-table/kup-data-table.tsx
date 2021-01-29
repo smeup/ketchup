@@ -3207,8 +3207,22 @@ export class KupDataTable {
             const dragHandlersRow: DragHandlers = {
                 onDragStart: (e: DragEvent) => {
                     // console.log('onDragStart', e.target);
-                    // console.log('onDragStart', e);
-                    // console.log('onDragStart', e.composedPath());
+
+                    /* 
+                    const trElement = e.target as HTMLTableRowElement;
+                    const hover = trElement.querySelectorAll(':hover');
+                    const tdElement = hover[0] as HTMLTableCellElement;
+                    console.log('td dragged', tdElement);
+                    const columnName = tdElement.getAttribute('data-column');
+                    console.log('td data-column', columnName);
+                    console.log('row', row);
+                    console.log('cell dragged', row.cells[columnName]);
+                    const column = getColumnByName(
+                        this.getColumns(),
+                        columnName
+                    );
+                    console.log('column', column);
+                    */
 
                     // Sets the type of drag
                     setDragEffectAllowed(e, 'move');
