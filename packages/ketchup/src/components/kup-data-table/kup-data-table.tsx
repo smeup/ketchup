@@ -3415,8 +3415,7 @@ export class KupDataTable {
                         }
                         return true;
                     },
-                    onDrop: (e: DragEvent) => {
-                        console.log('onDrop', e);
+                    onDrop: (_e: DragEvent) => {
                         return KupDataTableRowDragType;
                     },
                 };
@@ -3465,21 +3464,51 @@ export class KupDataTable {
                 onDragStart: (e: DragEvent) => {
                     // console.log('onDragStart', e.target);
 
-                    /* 
+                    // get the tr tag
                     const trElement = e.target as HTMLTableRowElement;
-                    const hover = trElement.querySelectorAll(':hover');
-                    const tdElement = hover[0] as HTMLTableCellElement;
-                    console.log('td dragged', tdElement);
-                    const columnName = tdElement.getAttribute('data-column');
-                    console.log('td data-column', columnName);
-                    console.log('row', row);
-                    console.log('cell dragged', row.cells[columnName]);
-                    const column = getColumnByName(
-                        this.getColumns(),
-                        columnName
+                    let cell = {};
+                    let column = {};
+                    if (trElement) {
+                        // get the elements inside the row that were touched
+                        const hoverElements = trElement.querySelectorAll(
+                            ':hover'
+                        );
+                        if (hoverElements) {
+                            // the td in position 0 is ALWAYS the last td touched
+                            const tdElement = hoverElements[0] as HTMLTableCellElement;
+                            if (tdElement) {
+                                // get the column name in td element
+                                const columnName = tdElement.getAttribute(
+                                    'data-column'
+                                );
+                                if (columnName) {
+                                    // finally get the cell
+                                    cell = row.cells[columnName];
+                                    // and the column
+                                    column = getColumnByName(
+                                        this.getColumns(),
+                                        columnName
+                                    );
+                                }
+                            }
+                        }
+                    }
+
+                    // because I found the cell and the column inside this method I have to set here the event data
+                    // in this scenario it is not necessary pass the data parameter in setKetchupDraggable method
+                    const sourceElementData = {
+                        id: this.rootElement.id,
+                        row,
+                        selectedRows: this.selectedRows,
+                        cell,
+                        column,
+                    };
+                    // set event data
+                    // this is mandatory in order to add the source element data in the kup drop event
+                    e.dataTransfer.setData(
+                        'kup-drag-source-element',
+                        JSON.stringify(sourceElementData)
                     );
-                    console.log('column', column);
-                    */
 
                     // Sets the type of drag
                     setDragEffectAllowed(e, 'move');
@@ -3492,8 +3521,8 @@ export class KupDataTable {
                         this.addMultiSelectDragImageToEvent(e);
                     }
                 },
-                onDragEnd: (e: DragEvent) => {
-                    console.log('onDragEnd', e);
+                onDragEnd: (_e: DragEvent) => {
+                    // console.log('onDragEnd', e);
                     // Remove the over class
                     const dragDropPayload = getDragDropPayload();
                     if (dragDropPayload && dragDropPayload.overElement) {
@@ -3511,11 +3540,7 @@ export class KupDataTable {
                     {...(this.dragEnabled
                         ? setKetchupDraggable(dragHandlersRow, {
                               [KupDataTableRowDragType]: row,
-                              'kup-drag-source-element': {
-                                  id: this.rootElement.id,
-                                  row,
-                                  selectedRows: this.selectedRows,
-                              },
+                              'kup-drag-source-element': {}, // I put nothing in there because I overwrite the content inside the onDragStart method
                           })
                         : {})}
                 >
@@ -4150,13 +4175,13 @@ export class KupDataTable {
                 //this.hideShowColumnRemoveDropArea(false);
                 return KupDataTableColumnDragRemoveType;
             },
-            onDragLeave: (e: DragEvent) => {
+            onDragLeave: (_e: DragEvent) => {
                 // TODO add here some animation
-                console.log('onDragLeave', e);
+                // console.log('onDragLeave', e);
             },
-            onDragOver: (e: DragEvent) => {
+            onDragOver: (_e: DragEvent) => {
                 // TODO add here some animation
-                console.log('onDragOver', e);
+                // console.log('onDragOver', e);
                 return true;
             },
         };
