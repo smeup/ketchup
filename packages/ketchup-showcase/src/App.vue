@@ -302,6 +302,12 @@ export default {
                 },
               },
               {
+                title: 'Dropdown Button',
+                to: {
+                  name: 'dropdownbutton',
+                },
+              },
+              {
                 title: 'Gauge',
                 to: {
                   name: 'gauge',
@@ -403,12 +409,6 @@ export default {
                 },
               },
               {
-                title: `Button`,
-                to: {
-                  name: 'btn',
-                },
-              },
-              {
                 title: `Calendar`,
                 to: {
                   name: 'calendar',
@@ -424,12 +424,6 @@ export default {
                 title: `Chart`,
                 to: {
                   name: 'chart',
-                },
-              },
-              {
-                title: 'Crud',
-                to: {
-                  name: 'crud',
                 },
               },
               {
@@ -454,18 +448,6 @@ export default {
                 title: `Field`,
                 to: {
                   name: 'field',
-                },
-              },
-              {
-                title: 'Form',
-                to: {
-                  name: 'form',
-                },
-              },
-              {
-                title: `Image button`,
-                to: {
-                  name: 'imagebutton',
                 },
               },
               {

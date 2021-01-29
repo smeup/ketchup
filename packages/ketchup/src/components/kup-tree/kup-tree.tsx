@@ -1168,11 +1168,7 @@ export class KupTree {
             case 'number':
                 if (content && content != '') {
                     const cellValueNumber: number = stringToNumber(cell.value);
-                    const cellValue = getCellValueForDisplay(
-                        cell.value,
-                        column,
-                        cell
-                    );
+                    const cellValue = getCellValueForDisplay(column, cell);
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;
                     }
@@ -1181,11 +1177,7 @@ export class KupTree {
                 return content;
             case 'date':
                 if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(
-                        cell.value,
-                        column,
-                        cell
-                    );
+                    const cellValue = getCellValueForDisplay(column, cell);
                     return <span class="text">{cellValue}</span>;
                 }
                 return content;

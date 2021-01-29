@@ -51,7 +51,7 @@ import {
     filterRows,
     sortRows,
     paginateRows,
-    getValueForDisplay,
+    getCellValueForDisplay,
 } from '../kup-data-table/kup-data-table-helper';
 
 import {
@@ -117,7 +117,13 @@ export class KupBox {
             // *** PROPS ***
             this.state.sortBy = this.sortBy;
             this.state.globalFilterValue = this.globalFilterValue;
-            this.state.selectedRowsState = this.selectedRows;
+            this.state.selectedRowsState = this.selectedRows.reduce(
+                (accumulator, row, currentIndex) => {
+                    const prefix = currentIndex > 0 ? ';' : '';
+                    return accumulator + prefix + row.id;
+                },
+                ''
+            );
             this.state.pageSelected = this.currentPage;
             this.state.rowsPerPage = this.currentRowsPerPage;
             logMessage(
@@ -210,7 +216,7 @@ export class KupBox {
     /**
      * Multiple selection
      */
-    @Prop({ mutable: true }) selectedRowsState: BoxRow[] = [];
+    @Prop({ mutable: true }) selectedRowsState: string;
     /**
      * If enabled, highlights the selected box/boxes
      */
@@ -244,7 +250,7 @@ export class KupBox {
     private collapsedSection: CollapsedSectionsState = {};
 
     @State()
-    private selectedRows: BoxRow[] = [];
+    private selectedRows: Array<BoxRow> = [];
 
     /**
      * Row that has the row object menu open
@@ -449,8 +455,12 @@ export class KupBox {
         this.currentPage = this.pageSelected;
         //        this.currentRowsPerPage = this.rowsPerPage;
 
-        if (this.multiSelection) {
-            this.selectedRows = this.selectedRowsState;
+        if (this.multiSelection && this.selectedRowsState) {
+            this.selectedRows = [];
+            let selectedIds: Array<string> = this.selectedRowsState.split(';');
+            this.selectedRows = this.data.rows.filter((r) => {
+                return selectedIds.indexOf(r.id) >= 0;
+            });
         }
         this.kupDidLoad.emit();
         logLoad(this, true);
@@ -516,22 +526,12 @@ export class KupBox {
         this.filteredRows = this.getRows();
 
         if (this.globalFilter && this.globalFilterValue) {
-            const visibleCols = this.visibleColumns;
-            let size = visibleCols.length;
-            let columnNames = [];
-
-            let cnt = 0;
-
-            while (size-- > 0) {
-                columnNames.push(visibleCols[cnt++].name);
-            }
-
             // filtering rows
             this.filteredRows = filterRows(
                 this.filteredRows,
                 null,
                 this.globalFilterValue,
-                columnNames
+                this.visibleColumns
             );
         }
 
@@ -1488,11 +1488,7 @@ export class KupBox {
                         boContent = undefined;
                     }
                 } else {
-                    boContent = getValueForDisplay(
-                        cell.value,
-                        cell.obj,
-                        column != null ? column.decimals : null
-                    );
+                    boContent = getCellValueForDisplay(column, cell);
                 }
             }
         } else if (boxObject.value) {

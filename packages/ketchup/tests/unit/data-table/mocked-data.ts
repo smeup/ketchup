@@ -1,5 +1,46 @@
+import { Column } from '../../../src/components/kup-data-table/kup-data-table-declarations';
+
+const mockedColumns: Column[] = [
+    {
+        name: 'FLD1',
+        title: 'Column A',
+        size: '',
+    },
+    {
+        name: 'FLD2',
+        title: 'Column B',
+        size: '10',
+        obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+        },
+    },
+    {
+        name: 'FLD3',
+        title: 'Column C',
+        size: '10',
+        obj: {
+            t: 'NR',
+            p: '',
+            k: '',
+        },
+    },
+    {
+        name: 'FLD4',
+        title: 'Column D',
+        size: '10',
+        obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '',
+        },
+        icon: 'calendar',
+    },
+];
+
 export function MockedRowsFactory() {
-    return [
+    let mockedRows = [
         {
             cells: {
                 FLD1: {
@@ -325,4 +366,8 @@ export function MockedRowsFactory() {
             },
         },
     ];
+    return {
+        columns: mockedColumns,
+        rows: mockedRows,
+    };
 }

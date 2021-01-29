@@ -328,12 +328,24 @@ tbody {
     }
 
     &:not(.group):hover {
-      color: var(--kup-hover-color);
-      background-color: var(--kup-hover-background-color);
+      td:not(.selected) {
+        color: var(--kup-hover-color);
+        background-color: var(--kup-hover-background-color);
+      }
     }
 
-    &.selected:hover,
-    &.selected {
+    &.selected:not(.group):hover,
+    &.selected:not(.group) {
+      td:not(.justincreasingspecificity) {
+        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+      }
+      td.selected {
+        background-color: inherit;
+        box-shadow: inset 0px 0px 3px 1px var(--kup-primary-color);
+      }
+    }
+
+    td.selected {
       background-color: rgba(var(--kup-primary-color-rgb), 0.175);
     }
 
@@ -385,6 +397,7 @@ tbody {
       padding: 0.5rem 0.3125rem;
       word-break: break-all;
       word-wrap: break-word;
+      transition: box-shadow 0.1s;
 
       &.number {
         .cell-content {
@@ -508,4 +521,40 @@ tr {
 .above-wrapper {
   display: inline-flex;
   width: 100%;
+}
+
+.bar-cell-content {
+  overflow: hidden;
+  margin: auto;
+  position: relative;
+  transition: color 0.2s ease;
+  height: 100%;
+  width: 100%;
+}
+
+.css-step.bottom-aligned {
+  bottom: 0;
+  position: absolute;
+}
+
+.checkbox-cell-content,
+.icon-cell-content {
+  margin: auto;
+  position: relative;
+  transition: color 0.2s ease 0s;
+  height: 100%;
+  width: 100%;
+  display: block;
+  min-height: 18px;
+  min-width: 18px;
+}
+
+.image-cell-content {
+  margin: auto;
+}
+
+//Temporary removal of borders inside cells: they should be applied only to <td> elements
+//TODO: Improve styling interface with data-table inside client apps
+tbody td > * {
+  border: none !important;
 }

@@ -151,6 +151,16 @@ export class KupDatePicker {
         value: any;
     }>;
 
+    @Event({
+        eventName: 'kupDatePickerClearIconClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClearIconClick: EventEmitter<{
+        id: any;
+    }>;
+
     @Listen('keyup', { target: 'document' })
     listenKeyup(e: KeyboardEvent) {
         if (this.isPickerOpened()) {
@@ -173,6 +183,18 @@ export class KupDatePicker {
 
         this.kupItemClick.emit({
             value: this.value,
+        });
+    }
+
+    onKupClearIconClick() {
+        this.setPickerValueSelected('');
+
+        this.kupChange.emit({
+            value: this.value,
+        });
+
+        this.kupClearIconClick.emit({
+            id: this.rootElement.id,
         });
     }
 
@@ -286,18 +308,18 @@ export class KupDatePicker {
         eventToRaise: EventEmitter,
         isOnInputEvent?: boolean
     ) {
-        let newValue = null;
+        let newValue = eventDetailValue;
         if (isValidFormattedStringDate(eventDetailValue)) {
             newValue = formattedStringToDefaultUnformattedStringDate(
                 eventDetailValue
             );
+            this.refreshPickerComponentValue(newValue);
             if (isOnInputEvent != true) {
                 this.value = newValue;
             }
         }
 
         if (newValue != null) {
-            this.refreshPickerComponentValue(newValue);
             if (eventToRaise != null) {
                 eventToRaise.emit({
                     value: newValue,
@@ -322,9 +344,6 @@ export class KupDatePicker {
     }
 
     setPickerValueSelected(newValue?: string) {
-        if (!this.isPickerOpened()) {
-            return;
-        }
         if (this.disabled == true) {
             return;
         }
@@ -380,6 +399,9 @@ export class KupDatePicker {
     }
 
     closePicker() {
+        if (!this.isPickerOpened()) {
+            return;
+        }
         let textfieldEl = this.textfieldEl;
         let containerEl = this.pickerContainerEl;
         this.pickerOpened = false;
@@ -428,6 +450,7 @@ export class KupDatePicker {
                 onKupTextFieldInput={(e: any) => this.onKupInput(e)}
                 onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
                 onKupTextFieldSubmit={(e: any) => this.onKupTextFieldSubmit(e)}
+                onKupTextFieldClearIconClick={() => this.onKupClearIconClick()}
                 ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );
