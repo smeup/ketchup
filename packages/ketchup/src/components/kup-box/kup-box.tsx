@@ -1151,14 +1151,11 @@ export class KupBox {
                     onClick={(e) => this.onBoxClick(e, row)}
                     {...(this.dragEnabled
                         ? setKetchupDraggable(dragHandlers, {
-                              [KupBoxDragType]: {
+                              [KupBoxDragType]: row,
+                              'kup-drag-source-element': {
                                   id: this.rootElement.id,
                                   row,
                                   selectedRows: this.selectedRows,
-                              },
-                              'kup-drag-source-element': {
-                                  row,
-                                  id: this.rootElement.id,
                               },
                           })
                         : {})}
