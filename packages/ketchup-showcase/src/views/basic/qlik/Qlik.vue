@@ -10,12 +10,6 @@
       <template v-slot:2>
         <qlik-class-name></qlik-class-name>
       </template>
-      <template v-slot:3>
-        <qlik-event></qlik-event>
-      </template>
-      <template v-slot:4>
-        <qlik-toggle></qlik-toggle>
-      </template>
     </comp>
   </div>
 </template>
