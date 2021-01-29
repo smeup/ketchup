@@ -7,8 +7,8 @@
       <template v-slot:1>
         <qlik-how-to-use></qlik-how-to-use>
       </template>
-      <template v-slot:2>
-        <qlik-class-name></qlik-class-name>
+      <template v-slot:3>
+        <qlik-event></qlik-event>
       </template>
     </comp>
   </div>
