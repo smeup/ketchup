@@ -148,11 +148,6 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/box/Box.vue`),
   },
   {
-    path: `/btn`,
-    name: 'btn',
-    component: () => import(`@/views/advanced/button/Button.vue`),
-  },
-  {
     path: `/calendar`,
     name: 'calendar',
     component: () => import(`@/views/advanced/calendar/Calendar.vue`),
@@ -196,11 +191,6 @@ let advancedRoutes = [
     path: `/form`,
     name: 'form',
     component: () => import(`@/views/advanced/form/Form.vue`),
-  },
-  {
-    path: `/imagebutton`,
-    name: 'imagebutton',
-    component: () => import(`@/views/advanced/imagebutton/Imagebutton.vue`),
   },
   {
     path: `/search`,
