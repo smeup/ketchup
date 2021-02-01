@@ -3,6 +3,7 @@
 
 :host {
   display: block;
+  font-size: var(--kup-font-size);
   margin: auto;
   width: max-content;
 }
@@ -36,6 +37,7 @@
 
 #kup-component .mdc-button {
   font-family: var(--kup-font-family);
+  font-size: 0.875em;
 
   &.mdc-button--outlined:not(:disabled) {
     border-color: var(--kup-primary-color);

@@ -3,20 +3,21 @@
 
 :host {
   display: block;
+  font-size: var(--kup-font-size);
 }
 
 .mdc-form-field {
-  line-height: 2rem;
+  line-height: 2em;
 
   &.mdc-form-field--align-end {
     & .mdc-switch {
-      margin: 0 1rem 0 1.5rem;
+      margin: 0 1em 0 1.5em;
     }
   }
 }
 
 #kup-component .mdc-switch {
-  margin: 0 1.5rem 0 1rem;
+  margin: 0 1.5em 0 1em;
   &:not(.mdc-switch--checked) .mdc-switch__thumb {
     background-color: var(--kup-border-color);
     border-color: var(--kup-border-color);

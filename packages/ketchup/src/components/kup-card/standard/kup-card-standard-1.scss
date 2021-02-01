@@ -33,36 +33,42 @@
 
     .sub-2.title {
       color: var(--kup-text-color);
-      font-size: 1.25rem;
-      font-weight: 500;
-      letter-spacing: 0.0125em;
-      padding: 0 1rem;
-      padding-top: 1rem;
+      padding: 0 1em;
+      padding-top: 1em;
       text-align: left;
+      div {
+        font-size: 1.25em;
+        font-weight: 500;
+        letter-spacing: 0.0125em;
+      }
     }
 
     .sub-2.subtitle {
-      font-size: 0.875rem;
-      line-height: 1.375rem;
-      font-weight: 500;
-      letter-spacing: 0.0071428571em;
       opacity: 0.6;
-      padding: 0 1rem;
-      padding-bottom: 1rem;
+      padding: 0 1em;
+      padding-bottom: 1em;
       text-align: left;
+      div {
+        font-size: 0.875em;
+        font-weight: 500;
+        letter-spacing: 0.0071428571em;
+        line-height: 1.375em;
+      }
     }
 
     .sub-2.description {
       -moz-osx-font-smoothing: grayscale;
       -webkit-font-smoothing: antialiased;
-      line-height: 1.25rem;
-      font-weight: 400;
-      font-size: 0.875rem;
-      letter-spacing: 0.0178571429em;
       opacity: 0.6;
-      padding: 0 1rem;
-      padding-bottom: 1rem;
+      padding: 0 1em;
+      padding-bottom: 1em;
       text-align: left;
+      div {
+        font-size: 0.875em;
+        font-weight: 400;
+        letter-spacing: 0.0178571429em;
+        line-height: 1.25em;
+      }
     }
   }
 
@@ -74,13 +80,13 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    padding: 2px 1rem;
+    padding: 2px 1em;
     height: 52px;
     width: 100%;
     text-align: right;
 
     kup-button {
-      margin-left: 0.25rem;
+      margin-left: 0.25em;
     }
   }
 }
