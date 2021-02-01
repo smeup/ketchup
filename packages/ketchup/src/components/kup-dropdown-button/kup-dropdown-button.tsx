@@ -126,8 +126,9 @@ export class KupDropdownButton {
 
     private listEl: any = undefined;
     private buttonEl: any = undefined;
+    private wrapperEl: HTMLElement = undefined;
     private dropdownButtonEl: any = undefined;
-    private displayedValue: string = undefined;
+
     //---- Methods ----
 
     @Method()
@@ -242,7 +243,6 @@ export class KupDropdownButton {
             e
         );
         this.value = ret.value;
-        this.displayedValue = ret.displayedValue;
     }
 
     private createRippleElement() {
@@ -394,7 +394,7 @@ export class KupDropdownButton {
             });
         }
 
-        positionRecalc(this.listEl, this.buttonEl);
+        positionRecalc(this.listEl, this.wrapperEl);
         logRender(this, true);
     }
 
@@ -402,7 +402,10 @@ export class KupDropdownButton {
         return (
             <Host onBlur={() => this.onKupBlur()}>
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component">
+                <div
+                    id="kup-component"
+                    ref={(el) => (this.wrapperEl = el as any)}
+                >
                     {this.renderButton()}
                     {this.prepList()}
                 </div>
