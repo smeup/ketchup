@@ -152,10 +152,6 @@ table {
 }
 
 .density- {
-  kup-lazy.to-be-loaded {
-    height: 36px;
-  }
-
   &dense {
     tbody > tr > td:not(.is-graphic) {
       padding-top: 0.2em;
@@ -164,9 +160,6 @@ table {
     tbody > tr.group > td {
       padding-top: 0.25em;
       padding-bottom: 0.25em;
-    }
-    kup-lazy.to-be-loaded {
-      height: 26px;
     }
   }
 
@@ -178,9 +171,6 @@ table {
     tbody > tr.group > td {
       padding-top: 0.75em;
       padding-bottom: 0.75em;
-    }
-    kup-lazy.to-be-loaded {
-      height: 50px;
     }
   }
 }
@@ -470,11 +460,6 @@ tbody {
         padding: 0 1px;
       }
 
-      kup-lazy {
-        margin: auto;
-      }
-
-      & .indent ~ kup-lazy,
       & .indent ~ kup-image,
       & .indent ~ kup-button {
         margin: 0;
