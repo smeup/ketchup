@@ -4,9 +4,12 @@
 
 :host {
   display: block;
+  font-size: var(--kup-font-size);
 }
 
 #kup-component .mdc-list {
+  font-size: 1em;
+
   .mdc-list-item {
     & .mdc-list-item__text,
     & .mdc-list-item__primary-text,

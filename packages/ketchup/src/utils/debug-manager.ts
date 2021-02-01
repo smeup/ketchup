@@ -179,3 +179,94 @@ export function logCSS(
     let end = window.performance.now();
     console.log('Total time estimated: ' + (end - start) + 'ms.');
 }
+/*
+//
+// Check how many event listeners are defined on a Ketch.UP component and its children.
+// 
+// Copy/paste the code below inside Google Chrome Dev Tools console, then run logEvents() with the following arguments:
+//
+// 1) String - CSS selector of your Ketch.UP component, for example "kup-data-table#my-table"
+// 2) Boolean - Whether you want a detailed log or not
+//
+
+function logEvents(selector, detailedLog) {
+    let element = document.querySelector(selector);
+    let children;
+    if (element.shadowRoot) {
+        children = element.shadowRoot.querySelectorAll('*');
+    } else {
+        children = element.querySelectorAll('*');
+    }
+    let totalEvents = recursiveShadowRoot(children, detailedLog);
+    console.log(
+        '%cNumber of event listeners: ',
+        'font-size:13px;color:green;',
+        totalEvents
+    );
+    console.log(
+        '%cAverage render time estimated: ',
+        'font-size:13px;;color:green;',
+        (totalEvents * 0.02).toString() +
+            'ms (estimated about ~2000ms of render time for ~100000 events).'
+    );
+    console.log(
+        '%cTask finished succesfully.',
+        'font-size:16px;color:white;background-color:green;'
+    );
+}
+
+function recursiveShadowRoot(elements, detailedLog) {
+    let count = 0;
+    for (let i = 0; i < elements.length; i++) {
+        let events;
+        try {
+            events = getEventListeners(elements[i]);
+        } catch (error) {
+            console.error(
+                'This script can only be executed inside Chrome Dev tools!'
+            );
+        }
+        let scopedCount = 0;
+        for (var key in events) {
+            if (events.hasOwnProperty(key)) {
+                count++;
+                scopedCount++;
+            }
+        }
+        if (scopedCount > 0) {
+            if (scopedCount > 1) {
+                if (detailedLog) {
+                    console.log(
+                        'Element: ',
+                        elements[i],
+                        scopedCount.toString() + ' events: ',
+                        events
+                    );
+                }
+            } else {
+                if (detailedLog) {
+                    console.log(
+                        'Element: ',
+                        elements[i],
+                        scopedCount.toString() + ' event: ',
+                        events
+                    );
+                }
+            }
+        }
+        if (elements[i].shadowRoot) {
+            if (detailedLog) {
+                console.log(
+                    '%cNested shadowRoot detected - element: ',
+                    'font-size:12px;color:#b500d6;',
+                    elements[i]
+                );
+            }
+            let ELEMENTS = elements[i].shadowRoot.querySelectorAll('*');
+            count = count + recursiveShadowRoot(ELEMENTS, detailedLog);
+        }
+    }
+    return count;
+}
+
+*/

@@ -1,6 +1,7 @@
 :host {
   #wrapper {
     display: block;
+    font-size: var(--kup-font-size);
 
     #tooltip {
       background: var(--kup-background-color);
@@ -62,14 +63,14 @@
           color: rgba(var(--kup-text-color-rgb), 0.5);
           display: inline-block;
           max-width: 270px;
-          vertical-align: 0.1rem;
+          vertical-align: 0.1em;
         }
 
         .value {
           color: var(--kup-text-color);
           display: inline-block;
           font-size: 120%;
-          margin-left: 0.325rem;
+          margin-left: 0.325em;
           max-width: 270px;
         }
       }
@@ -110,7 +111,7 @@
 
           &__label {
             color: rgba(var(--kup-text-color-rgb), 0.5);
-            margin-top: 0.175rem;
+            margin-top: 0.175em;
             max-width: 320px;
           }
 

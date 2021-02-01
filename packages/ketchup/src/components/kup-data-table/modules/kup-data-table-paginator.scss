@@ -2,7 +2,7 @@
   display: flex;
   flex-flow: wrap;
   min-width: max-content;
-  min-height: 2rem;
+  min-height: 2em;
 }
 
 .paginator-tabs {
@@ -21,21 +21,21 @@
   }
 
   .customize-element {
-    padding: 0 1rem 1rem 1rem;
+    padding: 0 1em 1em 1em;
   }
 
   .customize-element:nth-child(1) {
-    padding-top: 1rem;
+    padding-top: 1em;
   }
 
   kup-button {
     position: relative;
     height: 100%;
-    margin-left: 0.25rem;
+    margin-left: 0.25em;
     float: right;
   }
 
   .load-more-button {
-    margin: 0.5rem 0px 0px;
+    margin: 0.5em 0px 0px;
   }
 }

@@ -1,6 +1,7 @@
 @import '@material/layout-grid/mdc-layout-grid';
 
 :host {
+  font-size: var(--kup-font-size);
   height: 100%;
   width: 100%;
 }
@@ -32,7 +33,7 @@
   width: auto;
   & * {
     display: block;
-    margin: 0 1.5rem;
+    margin: 0 1.5em;
   }
 }
 
