@@ -775,7 +775,6 @@ export class KupDataTable {
     };
 
     private updateStickyHeaderSize() {
-        console.log('here');
         let navBar: Element = document.querySelectorAll('.header')[0];
         if (navBar) {
             this.navBarHeight = navBar.clientHeight;
