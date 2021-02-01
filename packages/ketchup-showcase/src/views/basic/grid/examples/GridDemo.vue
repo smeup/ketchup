@@ -73,6 +73,7 @@ function createComp() {
         height: '100%',
       },
     ];
+    compImage.sizeX = '48px';
     compImage.sizeY = '48px';
     compImage.slot = index;
     comp.appendChild(compImage);

@@ -6,11 +6,11 @@
 .density-dense .wrapper .kup-tree {
   td,
   th {
-    padding: 0 0.5rem;
+    padding: 0 0.5em;
 
     & .kup-tree__icon ~ .cell-content,
     & .kup-tree__icon + .cell-content {
-      vertical-align: 0.4rem;
+      vertical-align: 0.4em;
     }
   }
 }
@@ -19,7 +19,7 @@
 .density-wide .wrapper .kup-tree {
   td,
   th {
-    padding: 0.75rem 0.5rem;
+    padding: 0.75em 0.5em;
   }
 }
 
@@ -27,7 +27,7 @@
   overflow-x: auto;
 
   #global-filter {
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
   }
 
   .kup-tree {
@@ -40,8 +40,8 @@
         display: table-header-group;
 
         th {
-          padding: 0.8rem 0.5rem;
-          font-size: 1.1rem;
+          padding: 0.8em 0.5em;
+          font-size: 1.1em;
         }
       }
 
@@ -52,8 +52,8 @@
 
     tr,
     td {
-      font-size: 1rem;
-      line-height: 1rem;
+      font-size: 1em;
+      line-height: 1em;
 
       &.mdc-ripple-surface {
         --mdc-ripple-fg-opacity: 0.24;
@@ -67,26 +67,26 @@
       & .kup-tree__icon ~ .cell-content,
       & .kup-tree__icon + .cell-content {
         display: inline-block;
-        line-height: 1rem;
-        vertical-align: 0.3rem;
+        line-height: 1em;
+        vertical-align: 0.3em;
       }
     }
 
     td,
     th {
-      padding: 0.4rem 0.5rem;
+      padding: 0.4em 0.5em;
     }
 
     &__indent {
       display: inline-block;
-      width: calc(1.5rem * var(--tree-node_depth, 0));
+      width: calc(1.5em * var(--tree-node_depth, 0));
     }
 
     &__icon {
       display: inline-block;
-      margin-right: 0.4rem;
-      height: 1.5rem;
-      width: 1.5rem;
+      margin-right: 0.4em;
+      height: 1.5em;
+      width: 1.5em;
       transition: transform 0.1s;
     }
 
@@ -141,10 +141,10 @@
       .cell-content .icon-container.obj-icon {
         display: inline-block;
         vertical-align: middle;
-        height: 1.25rem;
-        width: 1.25rem;
+        height: 1.25em;
+        width: 1.25em;
         background-color: rgba(var(--kup-text-color-rgb), 0.375);
-        margin: auto 0.5rem auto 0;
+        margin: auto 0.5em auto 0;
       }
 
       .number-cell {
@@ -169,9 +169,4 @@
 
 .first-node .cell-content {
   font-weight: bold;
-}
-
-kup-lazy.to-be-loaded {
-  display: flex;
-  height: 36px;
 }

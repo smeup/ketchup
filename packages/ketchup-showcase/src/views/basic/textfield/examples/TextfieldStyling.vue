@@ -141,7 +141,7 @@
           <kup-text-field
             helper-when-focused
             label="Discrete helper"
-            helper="I show when asked to"
+            helper="I show up when asked to"
           ></kup-text-field>
         </div>
         <p class="centered">Helper sample markup</p>

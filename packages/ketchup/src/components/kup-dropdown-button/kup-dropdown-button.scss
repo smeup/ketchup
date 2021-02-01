@@ -2,7 +2,9 @@
 
 :host {
   display: block;
+  font-size: var(--kup-font-size);
   margin: auto;
+  width: max-content;
 }
 
 :host([raised]) {
@@ -26,6 +28,7 @@
   .mdc-button {
     box-shadow: none;
     font-family: var(--kup-font-family);
+    font-size: 0.875em;
 
     &.mdc-button--outlined {
       &.action {
