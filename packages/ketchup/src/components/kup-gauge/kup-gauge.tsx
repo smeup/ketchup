@@ -9,6 +9,7 @@ import {
 } from '@stencil/core';
 import { logLoad, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { unformattedStringToFormattedStringNumber } from '../../utils/utils';
 
 declare const d3: any;
 
@@ -99,7 +100,6 @@ export class KupGauge {
      * The gauge's needle points to the percentage based on this prop.
      */
     @Prop() value: number = 0;
-    private showTempValue: number = 0;
     /**
      * The current size of gauge's value.
      * Correct values are: 0,1,2 or 3.
@@ -230,7 +230,7 @@ export class KupGauge {
     render() {
         // mathematical operations
         this.maxValuePositive = Math.abs(this.minValue - this.maxValue);
-        this.showTempValue = this.value;
+        let tempValue = this.value;
         if(this.value > this.maxValue){
             this.value = this.maxValue;
         }
@@ -356,7 +356,7 @@ export class KupGauge {
                                       x={topX}
                                       y={topY}
                                   >
-                                      {threshold}
+                                      {unformattedStringToFormattedStringNumber(String(threshold), -1, '')}
                                   </text>
                               );
                           }
@@ -376,7 +376,7 @@ export class KupGauge {
                                       x={topX}
                                       y={topY}
                                   >
-                                      {threshold}
+                                      {unformattedStringToFormattedStringNumber(String(threshold), -1, '')}
                                   </text>
                               );
                           }
@@ -396,7 +396,7 @@ export class KupGauge {
                     y={valueLabelYPosition}
                     style={style}
                 >
-                    {this.showTempValue + ' ' + this.measurementUnit}
+                    {unformattedStringToFormattedStringNumber(String(tempValue), -1, '') + ' ' + this.measurementUnit}
                 </text>
             );
         }

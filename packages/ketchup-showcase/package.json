@@ -28,7 +28,7 @@
     "@mdi/font": "^2.8.94",
     "@vaadin/vaadin-upload": "^4.2.2",
     "element-ui": "^2.4.8",
-    "ketchup": "^1.0.3-rc",
+    "ketchup": "^1.0.4-rc",
     "style-loader": "^0.23.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",

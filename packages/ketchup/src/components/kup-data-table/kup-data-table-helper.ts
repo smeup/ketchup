@@ -12,6 +12,7 @@ import {
     GenericFilter,
     Filter,
     RowGroup,
+    FilterInterval,
 } from './kup-data-table-declarations';
 
 import { isNumber, isDate } from '../../utils/object-utils';
@@ -30,6 +31,7 @@ import {
     formattedStringToUnformattedStringNumber,
     isValidFormattedStringNumber,
     unformattedStringNumberToNumber,
+    isNumber as isNumberThisString,
 } from '../../utils/utils';
 import {
     isFilterCompliantForValue,
@@ -153,7 +155,7 @@ function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
 }
 
 //-------- FILTER FUNCTIONS --------
-export function hasFilters(filters: GenericFilter = {}) {
+export function hasFilters(filters: GenericFilter = {}, columns: Column[]) {
     if (filters == null) {
         return false;
     }
@@ -163,7 +165,8 @@ export function hasFilters(filters: GenericFilter = {}) {
     }
     for (let i = 0; i < keys.length; i++) {
         let key = keys[i];
-        if (hasFiltersForColumn(filters, key)) {
+        const col = getColumnByName(columns, key);
+        if (hasFiltersForColumn(filters, col)) {
             return true;
         }
     }
@@ -172,13 +175,19 @@ export function hasFilters(filters: GenericFilter = {}) {
 
 export function hasFiltersForColumn(
     filters: GenericFilter = {},
-    column: string
-) {
-    let textfield = getTextFieldFilterValue(filters, column);
+    column: Column
+): boolean {
+    if (!column) {
+        return false;
+    }
+    let textfield = getTextFieldFilterValue(filters, column.name);
     if (textfield != null && textfield.trim() != '') {
         return true;
     }
-    let checkboxes = getCheckBoxFilterValues(filters, column);
+    if (hasIntervalTextFieldFilterValues(filters, column)) {
+        return true;
+    }
+    let checkboxes = getCheckBoxFilterValues(filters, column.name);
     if (checkboxes == null || checkboxes.length < 1) {
         return false;
     }
@@ -214,7 +223,7 @@ export function addCheckBoxFilterValue(
     }
     let filter: Filter = filters[column];
     if (filter == null) {
-        filter = { textField: '', checkBoxes: [] };
+        filter = { textField: '', checkBoxes: [], interval: null };
         filters[column] = filter;
     }
     if (filter.checkBoxes == null) {
@@ -283,11 +292,104 @@ export function setTextFieldFilterValue(
     }
     let filter: Filter = filters[column];
     if (filter == null) {
-        filter = { textField: '', checkBoxes: [] };
+        filter = { textField: '', checkBoxes: [], interval: null };
         filters[column] = filter;
     }
     filter.textField = newFilter != null ? newFilter.trim() : newFilter;
 }
+
+export function setIntervalTextFieldFilterValue(
+    filters: GenericFilter = {},
+    column: string,
+    newFilter: string,
+    index: FilterInterval
+) {
+    if (filters == null) {
+        return;
+    }
+    let filter: Filter = filters[column];
+    if (filter == null) {
+        filter = { textField: '', checkBoxes: [], interval: null };
+        filters[column] = filter;
+    }
+    if (filter.interval == null) {
+        filter.interval = [];
+        filter.interval.push('', '');
+    }
+    filter.interval[index] = newFilter != null ? newFilter.trim() : newFilter;
+}
+
+export function hasIntervalTextFieldFilterValues(
+    filters: GenericFilter = {},
+    column: Column
+): boolean {
+    if (column == null) {
+        return false;
+    }
+    if (!isColumnFiltrableByInterval(column)) {
+        return false;
+    }
+    let intervalFrom = getIntervalTextFieldFilterValue(
+        filters,
+        column.name,
+        FilterInterval.FROM
+    );
+    if (intervalFrom != null && intervalFrom.trim() != '') {
+        return true;
+    }
+    let intervalTo = getIntervalTextFieldFilterValue(
+        filters,
+        column.name,
+        FilterInterval.TO
+    );
+    if (intervalTo != null && intervalTo.trim() != '') {
+        return true;
+    }
+    return false;
+}
+
+export function getIntervalTextFieldFilterValues(
+    filters: GenericFilter = {},
+    column: string
+): Array<string> {
+    let values = [
+        getIntervalTextFieldFilterValue(filters, column, FilterInterval.FROM),
+        getIntervalTextFieldFilterValue(filters, column, FilterInterval.TO),
+    ];
+    return values;
+}
+
+export function getIntervalTextFieldFilterValue(
+    filters: GenericFilter = {},
+    column: string,
+    index: FilterInterval
+): string {
+    let value = '';
+
+    if (filters == null) {
+        return value;
+    }
+    let filter: Filter = filters[column];
+    if (filter == null) {
+        return value;
+    }
+    if (filter.interval == null) {
+        return value;
+    }
+    value = filter.interval[index];
+    return value;
+}
+
+export function isColumnFiltrableByInterval(column: Column): boolean {
+    if (isDate(column.obj)) {
+        return true;
+    }
+    if (isNumber(column.obj)) {
+        return true;
+    }
+    return false;
+}
+
 /**
  * Filters the rows data of a data-table component according to the parameters
  *
@@ -302,7 +404,7 @@ export function filterRows(
     rows: Array<Row> = [],
     filters: GenericFilter = {},
     globalFilter: string = '',
-    columns: Array<string> = []
+    columns: Column[] = []
 ): Array<Row> {
     if (!rows || rows == null) {
         return [];
@@ -312,7 +414,7 @@ export function filterRows(
     let filteredRows: Array<Row> = [];
     const isUsingGlobalFilter: boolean = !!(globalFilter && columns);
 
-    if (hasFilters(filters) || isUsingGlobalFilter) {
+    if (hasFilters(filters, columns) || isUsingGlobalFilter) {
         for (let i = 0; i < rows.length; i++) {
             let r: Row = rows[i];
             if (
@@ -339,7 +441,7 @@ export function isRowCompliant(
     filters: GenericFilter = {},
     globalFilter: string = '',
     isUsingGlobalFilter: boolean = false,
-    columns: Array<string> = []
+    columns: Column[] = []
 ) {
     if (isUsingGlobalFilter) {
         let retValue = true;
@@ -350,8 +452,8 @@ export function isRowCompliant(
 
             // Search among all columns for the global filter
             for (let i = 0; i < columns.length; i++) {
-                const cell = r.cells[columns[i]];
-                retValue = isFilterCompliantForCell(cell, globalFilter);
+                const cell = r.cells[columns[i].name];
+                retValue = isFilterCompliantForValue(cell.value, globalFilter);
                 if (retValue == true && !_filterIsNegative) {
                     break;
                 }
@@ -366,7 +468,7 @@ export function isRowCompliant(
     }
 
     // There are no filters to check -> the element is valid
-    if (!hasFilters(filters)) {
+    if (!hasFilters(filters, columns)) {
         return true;
     }
 
@@ -382,8 +484,10 @@ export function isRowCompliant(
         }
 
         let filterValue = getTextFieldFilterValue(filters, key);
-        let b1 = isFilterCompliantForCell(cell, filterValue);
-        let b2 = isFilterCompliantForCellObj(cell, filterValue);
+        let interval = getIntervalTextFieldFilterValues(filters, key);
+
+        let b1 = isFilterCompliantForCell(cell, filterValue, interval);
+        let b2 = isFilterCompliantForCellObj(cell, filterValue, interval);
 
         const _filterIsNegative: boolean = filterIsNegative(filterValue);
         if (_filterIsNegative) {
@@ -430,40 +534,129 @@ export function isRowCompliant(
     return true;
 }
 
-export function isFilterCompliantForCell(cellValue: Cell, filterValue: string) {
-    if (!cellValue) {
+export function isFilterCompliantForSimpleValue(
+    valueToCheck: string,
+    obj: any,
+    filterValue: string,
+    interval: string[]
+) {
+    if (valueToCheck == null) {
         return false;
     }
 
-    filterValue = normalizeValue(filterValue, cellValue.obj);
-    let value = cellValue.value;
+    filterValue = normalizeValue(filterValue, obj);
+    let value = valueToCheck;
 
-    if (isNumber(cellValue.obj)) {
-        value = unformattedStringNumberToNumber(
-            value,
-            cellValue.obj ? cellValue.obj.p : ''
-        );
+    let from: string = '';
+    let to: string = '';
+    if (interval != null) {
+        from = interval[FilterInterval.FROM];
+        to = interval[FilterInterval.TO];
     }
-    if (isDate(cellValue.obj)) {
+    let checkByRegularExpression = true;
+    if (isNumber(obj)) {
+        value = unformattedStringNumberToNumber(value, obj ? obj.p : '');
+        let valueNumber: number = stringToNumber(value);
+        if (from != '') {
+            if (isNumberThisString(from)) {
+                checkByRegularExpression = false;
+                let fromNumber: number = stringToNumber(from);
+                if (valueNumber < fromNumber) {
+                    return false;
+                }
+            } else {
+                filterValue = from;
+            }
+        }
+        if (to != '') {
+            if (isNumberThisString(to)) {
+                checkByRegularExpression = false;
+                let toNumber: number = stringToNumber(to);
+                if (valueNumber > toNumber) {
+                    return false;
+                }
+            } else {
+                filterValue = to;
+            }
+        }
+    }
+    if (isDate(obj)) {
+        let valueDate: Date = null;
+        if (isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)) {
+            valueDate = unformatDateTime(value, ISO_DEFAULT_DATE_FORMAT);
+        }
+        if (from != '') {
+            if (
+                valueDate != null &&
+                isValidStringDate(from, ISO_DEFAULT_DATE_FORMAT)
+            ) {
+                checkByRegularExpression = false;
+                let fromDate: Date = unformatDateTime(
+                    from,
+                    ISO_DEFAULT_DATE_FORMAT
+                );
+                if (valueDate < fromDate) {
+                    return false;
+                }
+            } else {
+                filterValue = from;
+            }
+        }
+        if (to != '') {
+            if (
+                valueDate != null &&
+                isValidStringDate(to, ISO_DEFAULT_DATE_FORMAT)
+            ) {
+                checkByRegularExpression = false;
+                let toDate: Date = unformatDateTime(
+                    to,
+                    ISO_DEFAULT_DATE_FORMAT
+                );
+                if (valueDate > toDate) {
+                    return false;
+                }
+            } else {
+                filterValue = to;
+            }
+        }
         if (
             !isValidStringDate(filterValue, ISO_DEFAULT_DATE_FORMAT) &&
             !isValidStringDate(filterValue)
         ) {
-            if (isValidStringDate(cellValue.value, ISO_DEFAULT_DATE_FORMAT)) {
-                value = changeDateTimeFormat(
-                    cellValue.value,
-                    ISO_DEFAULT_DATE_FORMAT,
-                    getCurrentDateFormatFromBrowserLocale()
-                );
-            }
+            value = changeDateTimeFormat(
+                value,
+                ISO_DEFAULT_DATE_FORMAT,
+                getCurrentDateFormatFromBrowserLocale()
+            );
         }
     }
-    return isFilterCompliantForValue(value, filterValue);
+    if (checkByRegularExpression) {
+        return isFilterCompliantForValue(value, filterValue);
+    }
+    return true;
+}
+
+export function isFilterCompliantForCell(
+    cellValue: Cell,
+    filterValue: string,
+    interval: string[]
+) {
+    if (!cellValue) {
+        return false;
+    }
+
+    return isFilterCompliantForSimpleValue(
+        cellValue.value,
+        cellValue.obj,
+        filterValue,
+        interval
+    );
 }
 
 export function isFilterCompliantForCellObj(
     cellValue: Cell,
-    filterValue: string
+    filterValue: string,
+    interval: string[]
 ) {
     if (!cellValue) {
         return false;
@@ -471,7 +664,12 @@ export function isFilterCompliantForCellObj(
     if (!cellValue.obj) {
         return false;
     }
-    return isFilterCompliantForValue(cellValue.obj.k, filterValue);
+    return isFilterCompliantForSimpleValue(
+        cellValue.obj.k,
+        cellValue.obj,
+        filterValue,
+        interval
+    );
 }
 
 export function groupRows(
@@ -521,7 +719,7 @@ export function groupRows(
 
         if (cell) {
             const column = getColumnByName(columns, columnName);
-            const cellValue = getCellValueForDisplay(cell.value, column, cell);
+            const cellValue = getCellValueForDisplay(column, cell);
             let groupRow: Row = null;
 
             // check in already in groupedRow
@@ -561,7 +759,6 @@ export function groupRows(
                 if (tempCell) {
                     const column = getColumnByName(columns, group.column);
                     const tempCellValue = getCellValueForDisplay(
-                        tempCell.value,
                         column,
                         tempCell
                     );
@@ -1053,6 +1250,9 @@ function adjustGroupId(row: Row): void {
 }
 
 export function getColumnByName(columns: Column[], name: string): Column {
+    if (columns == null) {
+        return null;
+    }
     for (let column of columns) {
         if (column.name === name) {
             return column;
@@ -1216,11 +1416,20 @@ export function getValueForDisplay(value, obj, decimals: number): string {
     return value;
 }
 
-export function getCellValueForDisplay(
-    value,
-    column: Column,
-    cell: Cell
-): string {
+export function getCellValueForDisplay(column: Column, cell: Cell): string {
+    if (cell != null) {
+        if (cell.displayedValue != null) {
+            return cell.displayedValue;
+        }
+    }
+    let formattedValue = _getCellValueForDisplay(cell.value, column, cell);
+    if (cell != null) {
+        cell.displayedValue = formattedValue;
+    }
+    return formattedValue;
+}
+
+function _getCellValueForDisplay(value, column: Column, cell: Cell): string {
     let obj = column != null ? column.obj : null;
     if (cell != null) {
         obj = cell.obj ? cell.obj : obj;

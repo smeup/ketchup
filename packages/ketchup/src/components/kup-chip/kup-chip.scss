@@ -2,12 +2,17 @@
 
 :host {
   display: block;
+  font-size: var(--kup-font-size);
   --mdc-theme-on-surface: var(--kup-title-color);
 }
 
-.mdc-chip {
-  background-color: var(--kup-title-background-color);
-  color: var(--kup-title-color);
+#kup-component {
+  .mdc-chip {
+    background-color: var(--kup-title-background-color);
+    color: var(--kup-title-color);
+    font-size: 0.875em;
+    line-height: 1.25em;
+  }
 }
 
 .mdc-chip-set--choice .mdc-chip--selected {
