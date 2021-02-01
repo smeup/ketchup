@@ -125,6 +125,10 @@ import {
     getDragDropPayload,
 } from '../../utils/drag-and-drop';
 
+import { ResizeObserver } from 'resize-observer';
+import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
+import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
+
 @Component({
     tag: 'kup-data-table',
     styleUrl: 'kup-data-table.scss',
@@ -448,6 +452,9 @@ export class KupDataTable {
     @State()
     private fontsize: string = 'medium';
 
+    @State()
+    private stateSwitcher: boolean = false;
+
     /**
      * This is a flag to be used for the draggable columns to force rerender
      * by changing the internal state.
@@ -595,6 +602,7 @@ export class KupDataTable {
     private isRestoringState: boolean = false;
     private globalFilterTimeout: number;
     private columnFilterTimeout: number;
+    private resObserver: ResizeObserver = undefined;
 
     /**
      * When component unload is complete
@@ -736,13 +744,13 @@ export class KupDataTable {
         });
     }
 
+    forceUpdate() {
+        this.stateSwitcher = !this.stateSwitcher;
+    }
+
     private stickyHeaderPosition = () => {
         if (this.tableRef) {
-            this.stickyTheadRef.style.top = this.navBarHeight + 'px';
             if (this.tableIntersecting) {
-                let widthTable: number = this.tableAreaRef.offsetWidth;
-                this.stickyTheadRef.style.maxWidth = widthTable + 'px';
-
                 if (!this.theadIntersecting) {
                     this.updateStickyHeaderSize();
                     this.stickyTheadRef.classList.add('activated');
@@ -756,6 +764,16 @@ export class KupDataTable {
     };
 
     private updateStickyHeaderSize() {
+        console.log('here');
+        let navBar: Element = document.querySelectorAll('.header')[0];
+        if (navBar) {
+            this.navBarHeight = navBar.clientHeight;
+        } else {
+            this.navBarHeight = 0;
+        }
+        this.stickyTheadRef.style.top = this.navBarHeight + 'px';
+        let widthTable: number = this.tableAreaRef.offsetWidth;
+        this.stickyTheadRef.style.maxWidth = widthTable + 'px';
         let thCollection: any = this.theadRef.querySelectorAll('th');
         let thStickyCollection: any = this.stickyTheadRef.querySelectorAll(
             'th-sticky'
@@ -819,6 +837,23 @@ export class KupDataTable {
             rootMargin: '-' + this.navBarHeight + 'px 0px 0px 0px',
         };
         this.intObserver = new IntersectionObserver(callback, options);
+
+        let callbackResize: ResizeObserverCallback = (
+            entries: ResizeObserverEntry[]
+        ) => {
+            entries.forEach((entry) => {
+                logMessage(
+                    this,
+                    'Size changed to x: ' +
+                        entry.contentRect.width +
+                        ', y: ' +
+                        entry.contentRect.height +
+                        '.'
+                );
+                this.forceUpdate();
+            });
+        };
+        this.resObserver = new ResizeObserver(callbackResize);
     }
 
     private columnMenuPosition() {
@@ -844,6 +879,7 @@ export class KupDataTable {
     }
 
     private didLoadObservers() {
+        this.resObserver.observe(this.rootElement);
         if (
             this.headerIsPersistent &&
             this.tableHeight === undefined &&
