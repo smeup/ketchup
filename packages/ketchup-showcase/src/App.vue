@@ -475,6 +475,12 @@ export default {
                 },
               },
               {
+                title: 'Qlik',
+                to: {
+                  name: 'qlik',
+                },
+              },
+              {
                 title: 'Search',
                 to: {
                   name: 'search',
