@@ -123,6 +123,16 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 
 
 
+### `performanceCSS(detailedLog: boolean) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
 
 

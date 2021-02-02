@@ -3,13 +3,16 @@
 
 :host {
   display: block;
+  font-size: var(--kup-font-size);
   margin: auto;
 }
 
 #kup-component .mdc-checkbox {
-  label {
+  .mdc-form-field {
     color: var(--kup-text-color);
     font-family: var(--kup-font-family);
+    font-size: 0.875em;
+    line-height: 1.25em;
   }
   .mdc-checkbox__background {
     border-color: rgba(var(--kup-text-color-rgb), 0.575);
