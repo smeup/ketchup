@@ -532,6 +532,14 @@ export namespace Components {
          */
         "density": string;
         /**
+          * Enable row dragging
+         */
+        "dragEnabled": boolean;
+        /**
+          * Enable record dropping
+         */
+        "dropEnabled": boolean;
+        /**
           * Defines the label to show when the table is empty.
          */
         "emptyDataLabel": string;
@@ -621,7 +629,7 @@ export namespace Components {
         "performanceCSS": (detailedLog: boolean) => Promise<void>;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * Sets the actions of the rows.
+          * Sets the possibility to remove the selected column.
          */
         "removableColumns": boolean;
         /**
@@ -2655,6 +2663,14 @@ declare namespace LocalJSX {
          */
         "density"?: string;
         /**
+          * Enable row dragging
+         */
+        "dragEnabled"?: boolean;
+        /**
+          * Enable record dropping
+         */
+        "dropEnabled"?: boolean;
+        /**
           * Defines the label to show when the table is empty.
          */
         "emptyDataLabel"?: string;
@@ -2793,7 +2809,7 @@ declare namespace LocalJSX {
          */
         "paginatorPos"?: PaginatorPos;
         /**
-          * Sets the actions of the rows.
+          * Sets the possibility to remove the selected column.
          */
         "removableColumns"?: boolean;
         /**
