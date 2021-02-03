@@ -3419,9 +3419,7 @@ export class KupDataTable {
                         eventHandlers = {
                             onContextMenu: (ev) => {
                                 ev.preventDefault();
-                                if (this.showTooltipOnRightClick == true) {
-                                    this._setTooltip(ev, cell);
-                                }
+                                this._setTooltip(ev, cell);
                             },
                         };
                     } else {
