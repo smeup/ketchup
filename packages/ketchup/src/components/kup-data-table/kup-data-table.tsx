@@ -3657,9 +3657,12 @@ export class KupDataTable {
 
         if (
             cellType === 'checkbox' ||
+            cellType === 'date' ||
             cellType === 'icon' ||
             cellType === 'image' ||
-            !props.data
+            cellType === 'link' ||
+            cellType === 'number' ||
+            cellType === 'string'
         ) {
             this.setCellSize(cellType, props, cell);
             content = this.setCell(
@@ -3670,7 +3673,7 @@ export class KupDataTable {
                 cell,
                 column
             );
-        } else {
+        } else if (props) {
             this.setCellSizeKup(cellType, props, cell);
             if (!this.lazyLoadCells) {
                 content = this.setLazyKupCell(cellType, props);
@@ -4026,6 +4029,12 @@ export class KupDataTable {
                     ? 'check_box'
                     : 'check_box_outline_blank';
                 return <KupImageFunctional {...props} />;
+            case 'date':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(column, cell);
+                    return cellValue;
+                }
+                return content;
             case 'icon':
             case 'image':
                 classObj['is-centered'] = true;
@@ -4046,12 +4055,6 @@ export class KupDataTable {
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;
                     }
-                    return cellValue;
-                }
-                return content;
-            case 'date':
-                if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(column, cell);
                     return cellValue;
                 }
                 return content;
