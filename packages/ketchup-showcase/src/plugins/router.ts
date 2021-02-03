@@ -217,6 +217,11 @@ let advancedRoutes = [
     name: 'tree',
     component: () => import(`@/views/advanced/tree/Tree.vue`),
   },
+  {
+    path: `/qlik`,
+    name: 'qlik',
+    component: () => import(`@/views/advanced/qlik/Qlik.vue`),
+  },
 ];
 
 let cssRoutes = [

@@ -5,9 +5,6 @@
         <qlik-basic></qlik-basic>
       </template>
       <template v-slot:1>
-        <qlik-how-to-use></qlik-how-to-use>
-      </template>
-      <template v-slot:3>
         <qlik-event></qlik-event>
       </template>
     </comp>
@@ -15,14 +12,12 @@
 </template>
 
 <script>
-import QlikBasic from '@/views/basic/qlik/examples/QlikBasic';
-import QlikHowToUse from '@/views/basic/qlik/examples/QulikHowToUse';
-import QlikEvent from '@/views/basic/qlik/examples/QlikEvent';
-import Comp from '@/views/advanced/page/templates/Comp';
+import QlikBasic from '../qlik/examples/QlikBasic';
+import QlikEvent from '../qlik/examples/QlikEvent';
+import Comp from '../page/templates/Comp';
 export default {
   components: {
     QlikBasic,
-    QlikHowToUse,
     QlikEvent,
     Comp,
   },
@@ -33,7 +28,6 @@ export default {
       headtitle: 'Qlik',
       titles: [
         'Basic usage',
-        'How To Use',
         'Qlik Event',
       ],
     };
