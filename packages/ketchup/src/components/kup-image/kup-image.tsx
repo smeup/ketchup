@@ -16,6 +16,7 @@ import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { imageCanvas } from './canvas/kup-image-canvas';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { KupBadge } from '../kup-badge/kup-badge';
+import { KupImageFunctional } from './kup-image-functional';
 
 @Component({
     tag: 'kup-image',
@@ -130,90 +131,6 @@ export class KupImage {
         );
     }
 
-    renderFromResource() {
-        let svgMask: string = undefined;
-        let svgStyle: any = undefined;
-        let image: Element = undefined;
-        let url: string = getAssetPath(`./assets/svg/${this.resource}.svg`);
-
-        if (!this.isUrl) {
-            svgMask = `url('${url}') no-repeat center`;
-            svgStyle = {
-                mask: svgMask,
-                background: this.color,
-                webkitMask: svgMask,
-            };
-        } else {
-            image = (
-                <img
-                    style={this.elStyle}
-                    src={this.resource}
-                    onLoad={(e) => this.onKupLoad(e)}
-                ></img>
-            );
-        }
-
-        return (
-            <div
-                id="kup-component"
-                class="is-resource"
-                style={svgStyle}
-                onClick={(e) => this.onKupClick(e)}
-            >
-                {image}
-            </div>
-        );
-    }
-
-    renderFromData() {
-        const cssDraw = this.data;
-        let steps: JSX.Element[] = [];
-        let leftProgression: number = 0;
-
-        for (let i = 0; i < this.data.length; i++) {
-            let drawStep: JSX.Element = undefined;
-
-            if (!cssDraw[i].shape) {
-                cssDraw[i].shape = 'bar';
-            }
-            if (!cssDraw[i].color) {
-                cssDraw[i].color = 'transparent';
-            }
-            if (!cssDraw[i].height) {
-                cssDraw[i].height = '100%';
-            }
-            if (!cssDraw[i].width) {
-                cssDraw[i].width = '100%';
-            }
-
-            let stepId: string = 'step-' + i;
-            let stepClass: string = 'css-step bottom-aligned';
-            let stepStyle: any = {
-                backgroundColor: cssDraw[i].color,
-                left: leftProgression + '%',
-                height: cssDraw[i].height,
-                width: cssDraw[i].width,
-            };
-
-            leftProgression += parseFloat(cssDraw[i].width);
-
-            drawStep = (
-                <span id={stepId} class={stepClass} style={stepStyle}></span>
-            );
-            steps.push(drawStep);
-        }
-
-        return (
-            <div
-                id="kup-component"
-                class="is-css"
-                onClick={(e) => this.onKupClick(e)}
-            >
-                {steps}
-            </div>
-        );
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -275,19 +192,20 @@ export class KupImage {
             );
         }
 
-        let badgeCollection: KupBadge[] = [];
-        if (this.badgeData) {
-            for (let index = 0; index < this.badgeData.length; index++) {
-                badgeCollection.push(<kup-badge {...this.badgeData[index]} />);
-            }
-        }
-
+        let props = {
+            badgeData: this.badgeData,
+            color: this.color,
+            data: this.data,
+            resource: this.resource,
+            sizeX: this.sizeX,
+            sizeY: this.sizeY,
+        };
         if (this.isCanvas) {
             el = this.renderCanvas();
         } else if (this.resource) {
-            el = this.renderFromResource();
+            el = <KupImageFunctional {...props}></KupImageFunctional>;
         } else if (this.data) {
-            el = this.renderFromData();
+            el = <KupImageFunctional {...props}></KupImageFunctional>;
         } else {
             let message = 'Resource undefined, not rendering!';
             logMessage(this, message, 'warning');
@@ -298,8 +216,9 @@ export class KupImage {
             <Host style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 {feedback}
-                {el}
-                {...badgeCollection}
+                <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
+                    {el}
+                </div>
             </Host>
         );
     }

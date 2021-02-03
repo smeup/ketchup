@@ -136,7 +136,7 @@ import { dragMultipleImg } from '../../assets/images/drag-multiple';
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
-import { FupImage } from './fup-image';
+import { KupImageFunctional } from '../kup-image/kup-image-functional';
 
 @Component({
     tag: 'kup-data-table',
@@ -4022,22 +4022,17 @@ export class KupDataTable {
         switch (cellType) {
             case 'checkbox':
                 classObj['is-centered'] = true;
-                let imageProps = {
-                    color: 'var(--kup-icon-color)',
-                    resource: props.checked
-                        ? 'check_box'
-                        : 'check_box_outline_blank',
-                    sizeX: props.sizeX,
-                    sizeY: props.sizeY,
-                };
-                return <FupImage {...imageProps} />;
+                props['resource'] = props.checked
+                    ? 'check_box'
+                    : 'check_box_outline_blank';
+                return <KupImageFunctional {...props} />;
             case 'icon':
             case 'image':
                 classObj['is-centered'] = true;
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                return <FupImage {...props} />;
+                return <KupImageFunctional {...props} />;
             case 'link':
                 return (
                     <a class="cell-link" href={content} target="_blank">

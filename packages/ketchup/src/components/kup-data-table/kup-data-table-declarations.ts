@@ -381,9 +381,6 @@ export const CSSArray = [
     'above-wrapper',
     'bar-cell-content',
     '.css-step.bottom-aligned',
-    '.checkbox-cell-content',
-    '.icon-cell-content',
-    '.image-cell-content',
-    '.image-cell-content',
+    '.kup-image--wrapper',
     'tbody td > *',
 ];

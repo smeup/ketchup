@@ -36,11 +36,18 @@ canvas {
   height: 100%;
 }
 
+.kup-image__css,
+.kup-image__icon,
+.kup-image__img {
+  height: 100;
+  width: 100%;
+}
+
+.kup-image__css {
+  overflow: hidden;
+}
+
 .css-step.bottom-aligned {
   bottom: 0;
   position: absolute;
-}
-
-.is-css {
-  overflow: hidden;
 }

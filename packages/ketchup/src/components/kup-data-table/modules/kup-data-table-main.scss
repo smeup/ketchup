@@ -522,19 +522,7 @@ tr {
   position: absolute;
 }
 
-.checkbox-cell-content,
-.icon-cell-content {
-  margin: auto;
-  position: relative;
-  transition: color 0.2s ease 0s;
-  height: 100%;
-  width: 100%;
-  display: block;
-  min-height: 18px;
-  min-width: 18px;
-}
-
-.image-cell-content {
+.kup-image--wrapper {
   margin: auto;
 }
 

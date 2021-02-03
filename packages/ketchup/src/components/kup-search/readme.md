@@ -61,6 +61,7 @@ graph TD;
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-badge
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
   kup-tooltip --> kup-button
