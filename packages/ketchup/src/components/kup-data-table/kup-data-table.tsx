@@ -136,6 +136,7 @@ import { dragMultipleImg } from '../../assets/images/drag-multiple';
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
+import { FupImage } from './fup-image';
 
 @Component({
     tag: 'kup-data-table',
@@ -3654,8 +3655,23 @@ export class KupDataTable {
         let props: any = { ...cell.data };
         classObj[cellType + '-cell'] = true;
 
-        if (cell.data) {
+        if (
+            cellType === 'checkbox' ||
+            cellType === 'icon' ||
+            cellType === 'image' ||
+            !props.data
+        ) {
             this.setCellSize(cellType, props, cell);
+            content = this.setCell(
+                cellType,
+                props,
+                content,
+                classObj,
+                cell,
+                column
+            );
+        } else {
+            this.setCellSizeKup(cellType, props, cell);
             if (!this.lazyLoadCells) {
                 content = this.setLazyKupCell(cellType, props);
             } else {
@@ -3668,8 +3684,6 @@ export class KupDataTable {
                     column
                 );
             }
-        } else {
-            content = this.setCell(cellType, content, classObj, cell, column);
         }
 
         let style = cell.style;
@@ -3792,6 +3806,37 @@ export class KupDataTable {
 
     private setCellSize(cellType: string, props: any, cell: Cell) {
         switch (cellType) {
+            case 'checkbox':
+            case 'icon':
+                if (!props.sizeX) {
+                    props['sizeX'] = '18px';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '18px';
+                }
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = props['sizeY'];
+                    }
+                } else {
+                    cell.style = {
+                        minHeight: props['sizeY'],
+                    };
+                }
+                break;
+            case 'image':
+                if (!props.sizeX) {
+                    props['sizeX'] = 'auto';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '64px';
+                }
+                break;
+        }
+    }
+
+    private setCellSizeKup(cellType: string, props: any, cell: Cell) {
+        switch (cellType) {
             case 'bar':
                 if (!props.sizeY) {
                     props['sizeY'] = '26px';
@@ -3835,32 +3880,8 @@ export class KupDataTable {
                     cell.style = { minHeight: '53px' };
                 }
                 break;
-            case 'checkbox':
-            case 'icon':
-                if (!props.sizeX) {
-                    props['sizeX'] = '18px';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '18px';
-                }
-                if (cell.style) {
-                    if (!cell.style.height) {
-                        cell.style['minHeight'] = props['sizeY'];
-                    }
-                } else {
-                    cell.style = {
-                        minHeight: props['sizeY'],
-                    };
-                }
-                break;
-            case 'image':
-                if (!props.sizeX) {
-                    props['sizeX'] = 'auto';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '64px';
-                }
-                break;
+            case 'progress-bar':
+                return <kup-progress-bar {...props}></kup-progress-bar>;
             case 'radio':
                 if (cell.style) {
                     if (!cell.style.height) {
@@ -3870,6 +3891,14 @@ export class KupDataTable {
                     cell.style = { minHeight: '40px' };
                 }
                 break;
+            case 'rating':
+                return (
+                    <kup-rating
+                        value={stringToNumber(cell.value)}
+                        {...props}
+                        disabled
+                    ></kup-rating>
+                );
         }
     }
 
@@ -3949,30 +3978,6 @@ export class KupDataTable {
             case 'chart':
                 classObj['is-centered'] = true;
                 return <kup-chart {...props} />;
-            case 'checkbox':
-                classObj['is-centered'] = true;
-                let iconStyle = {
-                    mask: props.checked
-                        ? `url('${getAssetPath(
-                              `./assets/svg/check_box.svg`
-                          )}') no-repeat center`
-                        : `url('${getAssetPath(
-                              `./assets/svg/check_box_outline_blank.svg`
-                          )}') no-repeat center`,
-                    background: props.color
-                        ? props.color
-                        : 'var(--kup-icon-color)',
-                    webkitMask: props.checked
-                        ? `url('${getAssetPath(
-                              `./assets/svg/check_box.svg`
-                          )}') no-repeat center`
-                        : `url('${getAssetPath(
-                              `./assets/svg/check_box_outline_blank.svg`
-                          )}') no-repeat center`,
-                };
-                return (
-                    <div class="checkbox-cell-content" style={iconStyle}></div>
-                );
             case 'chips':
                 return <kup-chip {...props}></kup-chip>;
             case 'color-picker':
@@ -3999,53 +4004,6 @@ export class KupDataTable {
                         {...props}
                     ></kup-progress-bar>
                 );
-            case 'icon':
-            case 'image':
-                //This code replaces <kup-image> because of performance-related issues, but uses its props
-                classObj['is-centered'] = true;
-                if (props.badgeData) {
-                    classObj['has-padding'] = true;
-                }
-                if (
-                    props.resource.indexOf('.') > -1 ||
-                    props.resource.indexOf('/') > -1 ||
-                    props.resource.indexOf('\\') > -1
-                ) {
-                    let iconStyle = {
-                        height: props.sizeY,
-                        width: props.sizeX,
-                    };
-                    return (
-                        <div class="image-cell-content" style={iconStyle}>
-                            <img style={iconStyle} src={props.resource}></img>
-                        </div>
-                    );
-                } else {
-                    let iconStyle = {
-                        mask: `url('${getAssetPath(
-                            `./assets/svg/${props.resource}.svg`
-                        )}') no-repeat center`,
-                        background: props.color
-                            ? props.color
-                            : 'var(--kup-icon-color)',
-                        webkitMask: `url('${getAssetPath(
-                            `./assets/svg/${props.resource}.svg`
-                        )}') no-repeat center`,
-                    };
-                    return (
-                        <div class="icon-cell-content" style={iconStyle}></div>
-                    );
-                }
-            case 'progress-bar':
-                return <kup-progress-bar {...props}></kup-progress-bar>;
-            case 'rating':
-                return (
-                    <kup-rating
-                        value={stringToNumber(cell.value)}
-                        {...props}
-                        disabled
-                    ></kup-rating>
-                );
             case 'radio':
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
@@ -4055,12 +4013,31 @@ export class KupDataTable {
 
     private setCell(
         cellType: string,
+        props: any,
         content: string,
         classObj: Record<string, boolean>,
         cell: Cell,
         column: Column
     ) {
         switch (cellType) {
+            case 'checkbox':
+                classObj['is-centered'] = true;
+                let imageProps = {
+                    color: 'var(--kup-icon-color)',
+                    resource: props.checked
+                        ? 'check_box'
+                        : 'check_box_outline_blank',
+                    sizeX: props.sizeX,
+                    sizeY: props.sizeY,
+                };
+                return <FupImage {...imageProps} />;
+            case 'icon':
+            case 'image':
+                classObj['is-centered'] = true;
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                return <FupImage {...props} />;
             case 'link':
                 return (
                     <a class="cell-link" href={content} target="_blank">

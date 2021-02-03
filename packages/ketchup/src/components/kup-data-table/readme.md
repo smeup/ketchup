@@ -157,13 +157,13 @@ Type: `Promise<void>`
 - [kup-checkbox](../kup-checkbox)
 - [kup-button](../kup-button)
 - [kup-tooltip](../kup-tooltip)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-rating](../kup-rating)
 - [kup-image](../kup-image)
 - [kup-chart](../kup-chart)
 - [kup-chip](../kup-chip)
 - [kup-color-picker](../kup-color-picker)
 - [kup-gauge](../kup-gauge)
-- [kup-progress-bar](../kup-progress-bar)
-- [kup-rating](../kup-rating)
 - [kup-radio](../kup-radio)
 - [kup-paginator](../kup-paginator)
 - [kup-combobox](../kup-combobox)
@@ -176,13 +176,13 @@ graph TD;
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
   kup-data-table --> kup-tooltip
+  kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-rating
   kup-data-table --> kup-image
   kup-data-table --> kup-chart
   kup-data-table --> kup-chip
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-gauge
-  kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-rating
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
