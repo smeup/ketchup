@@ -15,7 +15,13 @@ import {
     FilterInterval,
 } from './kup-data-table-declarations';
 
-import { isNumber, isDate } from '../../utils/object-utils';
+import {
+    isNumber,
+    isDate,
+    isTime,
+    isTimeWithSeconds,
+    isTimestamp,
+} from '../../utils/object-utils';
 import {
     isEmpty,
     ISO_DEFAULT_DATE_FORMAT,
@@ -25,6 +31,7 @@ import {
     changeDateTimeFormat,
     unformatDateTime,
     unformattedStringToFormattedStringDate,
+    unformattedStringToFormattedStringTime,
     unformattedStringToFormattedStringNumber,
     isValidFormattedStringDate,
     formattedStringToDefaultUnformattedStringDate,
@@ -32,6 +39,13 @@ import {
     isValidFormattedStringNumber,
     unformattedStringNumberToNumber,
     isNumber as isNumberThisString,
+    unformattedStringToFormattedStringTimestamp,
+    ISO_DEFAULT_TIME_FORMAT,
+    ISO_DEFAULT_DATE_TIME_FORMAT,
+    isValidFormattedStringTime,
+    formattedStringToDefaultUnformattedStringTime,
+    formattedStringToDefaultUnformattedStringTimestamp,
+    ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
 } from '../../utils/utils';
 import {
     isFilterCompliantForValue,
@@ -384,6 +398,12 @@ export function isColumnFiltrableByInterval(column: Column): boolean {
     if (isDate(column.obj)) {
         return true;
     }
+    if (isTime(column.obj)) {
+        return true;
+    }
+    if (isTimestamp(column.obj)) {
+        return true;
+    }
     if (isNumber(column.obj)) {
         return true;
     }
@@ -454,6 +474,12 @@ export function isRowCompliant(
             for (let i = 0; i < columns.length; i++) {
                 const cell = r.cells[columns[i].name];
                 retValue = isFilterCompliantForValue(cell.value, globalFilter);
+                let displayedValue = getCellValueForDisplay(columns[i], cell);
+                if (displayedValue != cell.value) {
+                    retValue =
+                        retValue ||
+                        isFilterCompliantForValue(displayedValue, globalFilter);
+                }
                 if (retValue == true && !_filterIsNegative) {
                     break;
                 }
@@ -580,21 +606,27 @@ export function isFilterCompliantForSimpleValue(
             }
         }
     }
-    if (isDate(obj)) {
+    if (isDate(obj) || isTime(obj) || isTimestamp(obj)) {
         let valueDate: Date = null;
-        if (isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)) {
-            valueDate = unformatDateTime(value, ISO_DEFAULT_DATE_FORMAT);
+
+        let defaultFormat = ISO_DEFAULT_DATE_FORMAT;
+        if (isDate(obj)) {
+            defaultFormat = ISO_DEFAULT_DATE_FORMAT;
+        } else if (isTime(obj)) {
+            defaultFormat = isTimeWithSeconds(obj)
+                ? ISO_DEFAULT_TIME_FORMAT
+                : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS;
+        } else if (isTimestamp(obj)) {
+            defaultFormat = ISO_DEFAULT_DATE_TIME_FORMAT;
+        }
+
+        if (isValidStringDate(value, defaultFormat)) {
+            valueDate = unformatDateTime(value, defaultFormat);
         }
         if (from != '') {
-            if (
-                valueDate != null &&
-                isValidStringDate(from, ISO_DEFAULT_DATE_FORMAT)
-            ) {
+            if (valueDate != null && isValidStringDate(from, defaultFormat)) {
                 checkByRegularExpression = false;
-                let fromDate: Date = unformatDateTime(
-                    from,
-                    ISO_DEFAULT_DATE_FORMAT
-                );
+                let fromDate: Date = unformatDateTime(from, defaultFormat);
                 if (valueDate < fromDate) {
                     return false;
                 }
@@ -603,15 +635,9 @@ export function isFilterCompliantForSimpleValue(
             }
         }
         if (to != '') {
-            if (
-                valueDate != null &&
-                isValidStringDate(to, ISO_DEFAULT_DATE_FORMAT)
-            ) {
+            if (valueDate != null && isValidStringDate(to, defaultFormat)) {
                 checkByRegularExpression = false;
-                let toDate: Date = unformatDateTime(
-                    to,
-                    ISO_DEFAULT_DATE_FORMAT
-                );
+                let toDate: Date = unformatDateTime(to, defaultFormat);
                 if (valueDate > toDate) {
                     return false;
                 }
@@ -620,12 +646,12 @@ export function isFilterCompliantForSimpleValue(
             }
         }
         if (
-            !isValidStringDate(filterValue, ISO_DEFAULT_DATE_FORMAT) &&
+            !isValidStringDate(filterValue, defaultFormat) &&
             !isValidStringDate(filterValue)
         ) {
             value = changeDateTimeFormat(
                 value,
-                ISO_DEFAULT_DATE_FORMAT,
+                defaultFormat,
                 getCurrentDateFormatFromBrowserLocale()
             );
         }
@@ -1004,17 +1030,24 @@ export function evaluateString(f: string) {
 
 export function normalizeValue(value: string, smeupObj: any): string {
     let newValue = value != null ? value.trim() : value;
-    if (newValue == null || newValue == '') {
+    if (newValue == null || newValue == '' || smeupObj == null) {
         return newValue;
     }
     if (isDate(smeupObj)) {
         if (isValidFormattedStringDate(value)) {
-            newValue = formattedStringToDefaultUnformattedStringDate(value);
+            return formattedStringToDefaultUnformattedStringDate(value);
         }
-    }
-    if (isNumber(smeupObj)) {
+    } else if (isTime(smeupObj)) {
+        if (isValidFormattedStringTime(value, isTimeWithSeconds(smeupObj))) {
+            return formattedStringToDefaultUnformattedStringTime(value);
+        }
+    } else if (isTimestamp(smeupObj)) {
+        if (isValidFormattedStringTime(value, true)) {
+            return formattedStringToDefaultUnformattedStringTimestamp(value);
+        }
+    } else if (isNumber(smeupObj)) {
         if (isValidFormattedStringNumber(value, smeupObj ? smeupObj.p : '')) {
-            newValue = formattedStringToUnformattedStringNumber(
+            return formattedStringToUnformattedStringNumber(
                 value,
                 smeupObj ? smeupObj.p : ''
             );
@@ -1193,6 +1226,12 @@ export function compareValues(
     } else if (isDate(obj1)) {
         v1 = unformatDateTime(s1, ISO_DEFAULT_DATE_FORMAT);
         v2 = unformatDateTime(s2, ISO_DEFAULT_DATE_FORMAT);
+    } else if (isTime(obj1)) {
+        v1 = unformatDateTime(s1, ISO_DEFAULT_TIME_FORMAT);
+        v2 = unformatDateTime(s2, ISO_DEFAULT_TIME_FORMAT);
+    } else if (isTimestamp(obj1)) {
+        v1 = unformatDateTime(s1, ISO_DEFAULT_DATE_TIME_FORMAT);
+        v2 = unformatDateTime(s2, ISO_DEFAULT_DATE_TIME_FORMAT);
     }
     if (v1 > v2) {
         return sm * 1;
@@ -1398,20 +1437,33 @@ export function styleHasWritingMode(cell: Cell): boolean {
 }
 
 export function getValueForDisplay(value, obj, decimals: number): string {
-    if (value != null && value != '' && isNumber(obj)) {
+    if (value == null || value.trim() == '') {
+        return value;
+    }
+    if (isNumber(obj)) {
         return unformattedStringToFormattedStringNumber(
             value,
             decimals ? decimals : -1,
             obj ? obj.p : ''
         );
     }
-    if (
-        value != null &&
-        value != '' &&
-        isDate(obj) &&
-        isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)
-    ) {
-        return unformattedStringToFormattedStringDate(value, null, obj.p);
+    if (isDate(obj) && isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)) {
+        return unformattedStringToFormattedStringDate(
+            value,
+            null,
+            obj.t + obj.p
+        );
+    }
+    if (isTime(obj)) {
+        return unformattedStringToFormattedStringTime(
+            value,
+            isTimeWithSeconds(obj),
+            null,
+            obj.t + obj.p
+        );
+    }
+    if (isTimestamp(obj)) {
+        return unformattedStringToFormattedStringTimestamp(value);
     }
     return value;
 }

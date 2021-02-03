@@ -41,6 +41,23 @@ export function isDate(smeupObj: Object): boolean {
     return 'D8' === smeupObj.t;
 }
 
+export function isTime(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'I1' === smeupObj.t || 'I2' === smeupObj.t;
+}
+
+export function isTimeWithSeconds(smeupObj: Object): boolean {
+    if (!isTime(smeupObj)) {
+        return false;
+    }
+    return '2' === smeupObj.p;
+}
+
+export function isTimestamp(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'I3' === smeupObj.t && '2' === smeupObj.p;
+}
+
 export function isIcon(smeupObj: Object): boolean {
     if (smeupObj == null) return false;
     return 'J4' === smeupObj.t && 'ICO' === smeupObj.p;
