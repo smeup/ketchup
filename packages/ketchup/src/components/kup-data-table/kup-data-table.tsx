@@ -623,6 +623,7 @@ export class KupDataTable {
     private isRestoringState: boolean = false;
     private globalFilterTimeout: number;
     private columnFilterTimeout: number;
+    private resizeTimeout: number;
     private resObserver: ResizeObserver = undefined;
 
     /**
@@ -875,7 +876,13 @@ export class KupDataTable {
                         entry.contentRect.height +
                         '.'
                 );
-                this.forceUpdate();
+                if (entry.contentRect.height && entry.contentRect.width) {
+                    window.clearTimeout(this.resizeTimeout);
+                    this.resizeTimeout = window.setTimeout(
+                        () => this.forceUpdate(),
+                        300
+                    );
+                }
             });
         };
         this.resObserver = new ResizeObserver(callbackResize);
