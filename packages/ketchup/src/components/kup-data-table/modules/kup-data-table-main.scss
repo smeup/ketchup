@@ -517,18 +517,6 @@ tr {
   width: 100%;
 }
 
-.css-step.bottom-aligned {
-  bottom: 0;
-  position: absolute;
-}
-
-.kup-image--wrapper {
-  margin: auto;
-  img {
-    display: block;
-  }
-}
-
 //Temporary removal of borders inside cells: they should be applied only to <td> elements
 //TODO: Improve styling interface with data-table inside client apps
 tbody td > * {
