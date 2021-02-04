@@ -136,7 +136,7 @@ import { dragMultipleImg } from '../../assets/images/drag-multiple';
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
-import { FImage } from '../../f-components/image/f-image';
+import { FImage } from '../../utils/components/f-image/f-image';
 
 @Component({
     tag: 'kup-data-table',
@@ -3914,53 +3914,12 @@ export class KupDataTable {
                 if (!props.data) {
                     return <kup-image {...props} />;
                 } else {
-                    //This code replaces <kup-image> because of performance-related issues, but uses its props
-                    const cssDraw = props.data;
-                    let steps: JSX.Element[] = [];
-                    let leftProgression: number = 0;
-
-                    for (let i = 0; i < props.data.length; i++) {
-                        let drawStep: JSX.Element = undefined;
-
-                        if (!cssDraw[i].shape) {
-                            cssDraw[i].shape = 'bar';
-                        }
-                        if (!cssDraw[i].color) {
-                            cssDraw[i].color = 'transparent';
-                        }
-                        if (!cssDraw[i].height) {
-                            cssDraw[i].height = '100%';
-                        }
-                        if (!cssDraw[i].width) {
-                            cssDraw[i].width = '100%';
-                        }
-
-                        let stepId: string = 'step-' + i;
-                        let stepClass: string = 'css-step bottom-aligned';
-                        let stepStyle: any = {
-                            backgroundColor: cssDraw[i].color,
-                            left: leftProgression + '%',
-                            height: cssDraw[i].height,
-                            width: cssDraw[i].width,
-                        };
-
-                        leftProgression += parseFloat(cssDraw[i].width);
-
-                        drawStep = (
-                            <span
-                                id={stepId}
-                                class={stepClass}
-                                style={stepStyle}
-                            ></span>
-                        );
-                        steps.push(drawStep);
-                    }
                     let barStyle = {
                         height: props.sizeY,
                     };
                     return (
                         <div class="bar-cell-content" style={barStyle}>
-                            {steps}
+                            <FImage {...props} />
                         </div>
                     );
                 }

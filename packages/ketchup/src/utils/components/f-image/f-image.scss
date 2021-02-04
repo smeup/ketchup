@@ -2,11 +2,15 @@
   margin: auto;
   position: relative;
 
-  img,
-  canvas {
-    display: block;
-    width: 100%;
+  &.bar {
     height: 100%;
+    width: 100%;
+  }
+
+  img {
+    display: block;
+    height: 100%;
+    width: 100%;
   }
 
   .f-image__css,

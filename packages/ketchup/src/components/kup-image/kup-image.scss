@@ -1,4 +1,4 @@
-@import '../../f-components/image/f-image.scss';
+@import '../../utils/components/f-image/f-image.scss';
 
 :host {
   display: block;
@@ -28,4 +28,10 @@
     height: 100%;
     width: 100%;
   }
+}
+
+canvas {
+  display: block;
+  height: 100%;
+  width: 100%;
 }

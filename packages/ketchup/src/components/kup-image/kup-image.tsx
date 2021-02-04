@@ -2,10 +2,8 @@ import {
     Component,
     Prop,
     Element,
-    JSX,
     Host,
     Event,
-    getAssetPath,
     EventEmitter,
     State,
     h,
@@ -16,7 +14,7 @@ import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { imageCanvas } from './canvas/kup-image-canvas';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { KupBadge } from '../kup-badge/kup-badge';
-import { FImage } from '../../f-components/image/f-image';
+import { FImage } from '../../utils/components/f-image/f-image';
 
 @Component({
     tag: 'kup-image',
