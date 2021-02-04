@@ -5,8 +5,8 @@ import {
     JSX,
     VNode,
 } from '@stencil/core';
-import { KupBadge } from '../kup-badge/kup-badge';
-import { CssDraw } from './kup-image-declarations';
+import { KupBadge } from '../../components/kup-badge/kup-badge';
+import { CssDraw } from '../../components/kup-image/kup-image-declarations';
 
 interface Props {
     badgeData: KupBadge[];
@@ -17,7 +17,7 @@ interface Props {
     sizeY: string;
 }
 
-export const KupImageFunctional: FunctionalComponent<Props> = ({
+export const FImage: FunctionalComponent<Props> = ({
     badgeData,
     color,
     data,
@@ -41,7 +41,7 @@ export const KupImageFunctional: FunctionalComponent<Props> = ({
     }
 
     return (
-        <div class="kup-image--wrapper">
+        <div class="f-image--wrapper">
             {el}
             {...badgeCollection}
         </div>
@@ -88,7 +88,7 @@ function createBar(data: CssDraw[]) {
         steps.push(drawStep);
     }
 
-    return <div class="kup-image__css">{steps}</div>;
+    return <div class="f-image__css">{steps}</div>;
 }
 
 function createImage(
@@ -109,7 +109,7 @@ function createImage(
             width: sizeX ? sizeX : '100%',
         };
         el = (
-            <div class="kup-image__img">
+            <div class="f-image__img">
                 <img style={iconStyle} src={resource}></img>
             </div>
         );
@@ -125,7 +125,7 @@ function createImage(
             height: sizeY ? sizeY : '100%',
             width: sizeX ? sizeX : '100%',
         };
-        el = <div class="kup-image__icon" style={iconStyle}></div>;
+        el = <div class="f-image__icon" style={iconStyle}></div>;
     }
 
     return el;

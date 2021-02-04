@@ -136,7 +136,7 @@ import { dragMultipleImg } from '../../assets/images/drag-multiple';
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
-import { KupImageFunctional } from '../kup-image/kup-image-functional';
+import { FImage } from '../../f-components/image/f-image';
 
 @Component({
     tag: 'kup-data-table',
@@ -3890,8 +3890,6 @@ export class KupDataTable {
                     cell.style = { minHeight: '53px' };
                 }
                 break;
-            case 'progress-bar':
-                return <kup-progress-bar {...props}></kup-progress-bar>;
             case 'radio':
                 if (cell.style) {
                     if (!cell.style.height) {
@@ -3901,14 +3899,6 @@ export class KupDataTable {
                     cell.style = { minHeight: '40px' };
                 }
                 break;
-            case 'rating':
-                return (
-                    <kup-rating
-                        value={stringToNumber(cell.value)}
-                        {...props}
-                        disabled
-                    ></kup-rating>
-                );
         }
     }
 
@@ -4007,12 +3997,15 @@ export class KupDataTable {
                     ></kup-gauge>
                 );
             case 'knob':
+            case 'progress-bar':
+                return <kup-progress-bar {...props}></kup-progress-bar>;
+            case 'rating':
                 return (
-                    <kup-progress-bar
-                        class="cell-progress-bar"
+                    <kup-rating
                         value={stringToNumber(cell.value)}
                         {...props}
-                    ></kup-progress-bar>
+                        disabled
+                    ></kup-rating>
                 );
             case 'radio':
                 classObj['is-centered'] = true;
@@ -4035,7 +4028,7 @@ export class KupDataTable {
                 props['resource'] = props.checked
                     ? 'check_box'
                     : 'check_box_outline_blank';
-                return <KupImageFunctional {...props} />;
+                return <FImage {...props} />;
             case 'date':
                 if (content && content != '') {
                     const cellValue = getCellValueForDisplay(column, cell);
@@ -4048,7 +4041,7 @@ export class KupDataTable {
                 if (props.badgeData) {
                     classObj['has-padding'] = true;
                 }
-                return <KupImageFunctional {...props} />;
+                return <FImage {...props} />;
             case 'link':
                 return (
                     <a class="cell-link" href={content} target="_blank">

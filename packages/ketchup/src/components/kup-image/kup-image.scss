@@ -1,3 +1,5 @@
+@import '../../f-components/image/f-image.scss';
+
 :host {
   display: block;
   position: relative;
@@ -26,28 +28,4 @@
     height: 100%;
     width: 100%;
   }
-}
-
-svg,
-img,
-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.kup-image__css,
-.kup-image__icon,
-.kup-image__img {
-  height: 100;
-  width: 100%;
-}
-
-.kup-image__css {
-  overflow: hidden;
-}
-
-.css-step.bottom-aligned {
-  bottom: 0;
-  position: absolute;
 }

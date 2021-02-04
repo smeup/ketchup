@@ -382,5 +382,11 @@ export const CSSArray = [
     'bar-cell-content',
     '.css-step.bottom-aligned',
     '.kup-image--wrapper',
+    '.kup-image--wrapper img',
+    '.kup-image--wrapper canvas',
+    '.kup-image--wrapper .f-image__css',
+    '.kup-image--wrapper .f-image__icon',
+    '.kup-image--wrapper .f-image__img',
+    '.kup-image--wrapper .css-step.bottom-aligned',
     'tbody td > *',
 ];

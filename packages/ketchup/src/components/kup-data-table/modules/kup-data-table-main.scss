@@ -524,6 +524,9 @@ tr {
 
 .kup-image--wrapper {
   margin: auto;
+  img {
+    display: block;
+  }
 }
 
 //Temporary removal of borders inside cells: they should be applied only to <td> elements

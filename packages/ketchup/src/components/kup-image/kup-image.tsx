@@ -16,7 +16,7 @@ import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { imageCanvas } from './canvas/kup-image-canvas';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { KupBadge } from '../kup-badge/kup-badge';
-import { KupImageFunctional } from './kup-image-functional';
+import { FImage } from '../../f-components/image/f-image';
 
 @Component({
     tag: 'kup-image',
@@ -66,7 +66,6 @@ export class KupImage {
     @Prop() sizeY: string = '100%';
 
     private isUrl: boolean = false;
-    private elStyle = undefined;
     private imageCanvas: imageCanvas;
     canvas: HTMLCanvasElement;
 
@@ -172,11 +171,21 @@ export class KupImage {
         let el: Element = undefined;
         let feedback: HTMLElement = undefined;
         let spinnerLayout: number = undefined;
-        this.elStyle = {
-            height: this.sizeY,
-            minHeight: this.sizeY,
-            width: this.sizeX,
-            minWidth: this.sizeX,
+
+        let props = {
+            badgeData: this.badgeData,
+            color: this.color,
+            data: this.data,
+            resource: this.resource,
+            sizeX: this.sizeX,
+            sizeY: this.sizeY,
+        };
+
+        let elStyle = {
+            height: props.sizeY,
+            minHeight: props.sizeY,
+            width: props.sizeX,
+            minWidth: props.sizeX,
         };
 
         if (this.feedback && this.isUrl) {
@@ -192,20 +201,12 @@ export class KupImage {
             );
         }
 
-        let props = {
-            badgeData: this.badgeData,
-            color: this.color,
-            data: this.data,
-            resource: this.resource,
-            sizeX: this.sizeX,
-            sizeY: this.sizeY,
-        };
         if (this.isCanvas) {
             el = this.renderCanvas();
-        } else if (this.resource) {
-            el = <KupImageFunctional {...props}></KupImageFunctional>;
-        } else if (this.data) {
-            el = <KupImageFunctional {...props}></KupImageFunctional>;
+        } else if (props.resource) {
+            el = <FImage {...props}></FImage>;
+        } else if (props.data) {
+            el = <FImage {...props}></FImage>;
         } else {
             let message = 'Resource undefined, not rendering!';
             logMessage(this, message, 'warning');
@@ -213,7 +214,7 @@ export class KupImage {
         }
 
         return (
-            <Host style={this.elStyle}>
+            <Host style={elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 {feedback}
                 <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
