@@ -30,6 +30,10 @@ export default {
           type: 'change',
         },
         {
+          name: 'kupTimePickerClearIconClick',
+          type: 'click',
+        },
+        {
           name: 'kupTimePickerInput',
           type: 'input',
         },

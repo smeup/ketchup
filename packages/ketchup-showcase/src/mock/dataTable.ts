@@ -93863,3 +93863,231 @@ export const graphicCellsDataTable = {
     },
   ],
 };
+
+export const dataTableDateTime = {
+  columns: [
+    {
+      name: 'STRING',
+      obj: {
+        k: '',
+        p: '',
+        t: '',
+      },
+      title: 'String',
+    },
+    {
+      name: 'NUMBER',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
+      title: 'Number',
+    },
+    {
+      name: 'DECIMALNUMBER',
+      obj: {
+        t: 'NR',
+        p: '',
+        k: '',
+      },
+      title: 'Decimal number',
+      decimals: '5',
+    },
+    {
+      name: 'DATE',
+      obj: {
+        t: 'D8',
+        p: '*YYMD',
+        k: '',
+      },
+      icon: 'calendar',
+      title: 'Date (dd/mm/yyyy)',
+    },
+    {
+      name: 'DATESHORT',
+      obj: {
+        t: 'D8',
+        p: '',
+        k: '',
+      },
+      icon: 'calendar',
+      title: 'Date (dd/mm/yy)',
+    },
+    {
+      name: 'DATE1',
+      obj: {
+        t: 'D8',
+        p: '*YMD',
+        k: '',
+      },
+      icon: 'calendar',
+      title: 'Date (yymmdd)',
+    },
+    {
+      name: 'DATE2',
+      obj: {
+        t: 'D8',
+        p: '*DMY',
+        k: '',
+      },
+      icon: 'calendar',
+      title: 'Date (ddmmyy)',
+    },
+    {
+      name: 'DATE3',
+      obj: {
+        t: 'D8',
+        p: '*DMYY',
+        k: '',
+      },
+      icon: 'calendar',
+      title: 'Date (ddmmyyyy)',
+    },
+    {
+      name: 'DATE4',
+      obj: {
+        t: 'D8',
+        p: '*CYMD',
+        k: '',
+      },
+      icon: 'calendar',
+      title: 'Date (eyymmdd)',
+    },
+    {
+      name: 'TIMESEC',
+      obj: {
+        t: 'I1',
+        p: '2',
+        k: '',
+      },
+      icon: 'clock',
+      title: 'Time (hh:mm:ss)',
+    },
+    {
+      name: 'TIME',
+      obj: {
+        t: 'I1',
+        p: '',
+        k: '',
+      },
+      icon: 'clock',
+      title: 'Time (hh:mm)',
+    },
+    {
+      name: 'TIMESTAMP',
+      obj: {
+        t: 'I3',
+        p: '2',
+        k: '',
+      },
+      icon: 'calendar',
+      title: 'Timestamp',
+    },
+  ],
+  rows: [
+    {
+      cells: {
+        STRING: {
+          obj: {
+            k: 'String value',
+            p: '',
+            t: '',
+          },
+          value: 'String value',
+        },
+        NUMBER: {
+          obj: {
+            k: '12345',
+            p: '',
+            t: 'NR',
+          },
+          value: '12345.0',
+        },
+        DECIMALNUMBER: {
+          obj: {
+            k: '4567.123',
+            p: '',
+            t: 'NR',
+          },
+          value: '4567.123',
+        },
+        DATE: {
+          obj: {
+            t: 'D8',
+            p: '',
+            k: '',
+          },
+          value: '2021-01-02',
+        },
+        DATESHORT: {
+          obj: {
+            t: 'D8',
+            p: '*YYMD',
+            k: '',
+          },
+          value: '2021-01-03',
+        },
+        DATE1: {
+          obj: {
+            t: 'D8',
+            p: '*YMD',
+            k: '',
+          },
+          value: '2021-01-04',
+        },
+        DATE2: {
+          obj: {
+            t: 'D8',
+            p: '*DMY',
+            k: '',
+          },
+          value: '2021-01-05',
+        },
+        DATE3: {
+          obj: {
+            t: 'D8',
+            p: '*DMYY',
+            k: '',
+          },
+          value: '2021-01-06',
+        },
+        DATE4: {
+          obj: {
+            t: 'D8',
+            p: '*CYMD',
+            k: '',
+          },
+          value: '2021-01-07',
+        },
+        TIMESEC: {
+          obj: {
+            t: 'I1',
+            p: '2',
+            k: '',
+          },
+          value: '10:11:22',
+        },
+        TIME: {
+          obj: {
+            t: 'I1',
+            p: '',
+            k: '',
+          },
+          value: '10:55',
+        },
+        TIMESTAMP: {
+          obj: {
+            t: 'I3',
+            p: '2',
+            k: '',
+          },
+          value: '2021-07-19 10:33:44',
+        },
+        id: '7',
+        object: '',
+        readOnly: true,
+      },
+    },
+  ],
+};
