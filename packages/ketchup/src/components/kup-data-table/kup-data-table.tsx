@@ -3416,24 +3416,23 @@ export class KupDataTable {
                             cell.obj.k +
                             ';';
                     }
-                    eventHandlers = {
-                        onMouseEnter: (ev) => {
-                            if (this.showTooltipOnRightClick == false) {
+                    if (this.showTooltipOnRightClick) {
+                        eventHandlers = {
+                            onContextMenu: (ev) => {
+                                ev.preventDefault();
                                 this._setTooltip(ev, cell);
-                            }
-                        },
-                        onMouseLeave: () => {
-                            if (this.showTooltipOnRightClick == false) {
+                            },
+                        };
+                    } else {
+                        eventHandlers = {
+                            onMouseEnter: (ev) => {
+                                this._setTooltip(ev, cell);
+                            },
+                            onMouseLeave: () => {
                                 this._unsetTooltip();
-                            }
-                        },
-                        onContextMenu: (ev) => {
-                            ev.preventDefault();
-                            if (this.showTooltipOnRightClick == true) {
-                                this._setTooltip(ev, cell);
-                            }
-                        },
-                    };
+                            },
+                        };
+                    }
                 }
 
                 const dropHandlersCell: DropHandlers = {
