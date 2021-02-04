@@ -383,7 +383,6 @@ export const CSSArray = [
     '.css-step.bottom-aligned',
     '.kup-image--wrapper',
     '.kup-image--wrapper img',
-    '.kup-image--wrapper canvas',
     '.kup-image--wrapper .f-image__css',
     '.kup-image--wrapper .f-image__icon',
     '.kup-image--wrapper .f-image__img',

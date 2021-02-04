@@ -26,7 +26,6 @@ export const FImage: FunctionalComponent<Props> = ({
     sizeY,
 }) => {
     let el: VNode;
-    let type: string;
 
     if (resource) {
         if (
@@ -34,14 +33,11 @@ export const FImage: FunctionalComponent<Props> = ({
             resource.indexOf('/') > -1 ||
             resource.indexOf('\\') > -1
         ) {
-            type = 'image';
             el = createImage(resource, sizeX, sizeY);
         } else {
-            type = 'icon';
             el = createIcon(color, resource, sizeX, sizeY);
         }
     } else {
-        type = 'bar';
         el = createBar(data);
     }
 
@@ -53,7 +49,7 @@ export const FImage: FunctionalComponent<Props> = ({
     }
 
     return (
-        <div class={`f-image--wrapper ${type}`}>
+        <div class="f-image--wrapper">
             {el}
             {...badgeCollection}
         </div>

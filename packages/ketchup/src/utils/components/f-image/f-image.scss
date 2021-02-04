@@ -1,14 +1,13 @@
 .f-image--wrapper {
+  display: block;
   margin: auto;
   position: relative;
-
-  &.bar {
-    height: 100%;
-    width: 100%;
-  }
+  width: 100%;
+  height: 100%;
 
   img {
     display: block;
+    margin: auto;
     height: 100%;
     width: 100%;
   }
