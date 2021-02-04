@@ -6,6 +6,7 @@
 
 :host {
   display: block;
+  font-size: var(--kup-font-size);
 }
 
 :host([full-width]) {
@@ -44,6 +45,7 @@
 .mdc-form-field {
   & label {
     font-family: var(--kup-font-family);
+    font-size: 1em;
     margin: auto;
   }
   .mdc-text-field__input {
@@ -54,6 +56,7 @@
 
 div.mdc-text-field-helper-text {
   font-family: var(--kup-font-family);
+  font-size: 0.75em;
 }
 
 .icon-container {
@@ -72,6 +75,7 @@ div.mdc-text-field-helper-text {
   input,
   label {
     font-family: var(--kup-font-family);
+    font-size: 1em;
   }
 
   &.mdc-text-field--filled:not(.mdc-text-field--disabled)

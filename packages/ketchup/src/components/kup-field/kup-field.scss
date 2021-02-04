@@ -1,11 +1,12 @@
 :host {
   display: block;
+  font-size: var(--kup-font-size);
 }
 
 label {
   color: var(--kup-text-color);
   font-family: var(--kup-font-family);
-  font-size: var(--kup-font-size);
+  font-size: 1em;
 }
 
 .kup-field__component {
@@ -15,45 +16,45 @@ label {
 .label-top.submit-top {
   & label {
     float: left;
-    margin: auto auto 1rem auto;
+    margin: auto auto 1em auto;
   }
   & kup-button {
     float: right;
-    margin: auto auto 1rem auto;
+    margin: auto auto 1em auto;
   }
 }
 
 .label-right {
   & label {
     display: inline-block;
-    margin: auto auto auto 1rem;
+    margin: auto auto auto 1em;
   }
 }
 
 .submit-right {
   & kup-button {
     display: inline-block;
-    margin: auto auto auto 1rem;
+    margin: auto auto auto 1em;
   }
 }
 
 .label-left {
   & label {
     display: inline-block;
-    margin: auto 1rem auto auto;
+    margin: auto 1em auto auto;
   }
 }
 
 .submit-left {
   & kup-button {
     display: inline-block;
-    margin: auto 1rem auto auto;
+    margin: auto 1em auto auto;
   }
 }
 
 .submit-bottom {
   & kup-button {
     display: block;
-    margin: 1rem auto auto auto;
+    margin: 1em auto auto auto;
   }
 }

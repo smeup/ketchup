@@ -1,5 +1,6 @@
 :host {
   display: block;
+  font-size: var(--kup-font-size);
 }
 
 :host(.full-width) {
@@ -37,8 +38,8 @@
   position: relative;
   flex-direction: column;
   justify-content: center;
-  height: 22rem;
-  width: 22rem;
+  height: 22em;
+  width: 22em;
 
   &.visible {
     display: block;
@@ -73,7 +74,7 @@
 
   #change-view-button {
     margin: auto;
-    width: 12rem;
+    width: 12em;
     text-align: center;
   }
 
@@ -111,9 +112,9 @@
     cursor: pointer;
     display: flex;
     justify-content: center;
-    line-height: 2.5rem;
+    line-height: 2.5em;
     margin: auto;
-    width: 2.5rem;
+    width: 2.5em;
     transition: background-color 0.25s;
     text-transform: capitalize;
   }

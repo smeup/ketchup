@@ -2,11 +2,18 @@
 
 :host {
   --mdc-theme-primary: var(--kup-nav-bar-background-color);
+  font-size: var(--kup-font-size);
   width: 100%;
 }
 
 #kup-component {
   width: 100%;
+
+  .mdc-top-app-bar__title {
+    font-family: var(--kup-font-family);
+    font-size: 1.25em;
+    line-height: 2em;
+  }
 }
 
 kup-button {

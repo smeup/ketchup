@@ -5,12 +5,17 @@
 
 :host {
   display: block;
+  font-size: var(--kup-font-size);
 }
 
 .mdc-tab-bar {
   @include mdc-tab-bar-density(-3);
   .mdc-tab-scroller__scroll-area--scroll {
     overflow: auto;
+  }
+
+  .mdc-tab {
+    font-size: 0.875em;
   }
 
   button {

@@ -133,16 +133,16 @@ td.c-shaped {
 td.c-hor-padded {
   & * {
     box-sizing: border-box;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
   }
 }
 
 td.c-ver-padded {
   & * {
     box-sizing: border-box;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
   }
 }
 

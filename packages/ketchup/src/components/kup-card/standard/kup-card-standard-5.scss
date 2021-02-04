@@ -51,7 +51,7 @@
       margin: auto;
       height: 100%;
       flex-wrap: nowrap;
-      padding: 1rem;
+      padding: 1em;
       text-align: left;
     }
 
@@ -104,7 +104,7 @@
 
     &.text {
       width: 50%;
-      font-size: 0.875rem;
+      font-size: 0.875em;
     }
 
     div {
@@ -113,7 +113,7 @@
 
     .alt-text {
       color: var(--color-1);
-      font-size: 1rem;
+      font-size: 1em;
     }
   }
 
