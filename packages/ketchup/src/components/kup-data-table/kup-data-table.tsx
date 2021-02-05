@@ -871,15 +871,19 @@ export class KupDataTable {
             entries: ResizeObserverEntry[]
         ) => {
             entries.forEach((entry) => {
-                logMessage(
-                    this,
-                    'Size changed to x: ' +
-                        entry.contentRect.width +
-                        ', y: ' +
-                        entry.contentRect.height +
-                        '.'
-                );
-                if (entry.contentRect.height && entry.contentRect.width) {
+                if (
+                    entry.contentRect.height &&
+                    entry.contentRect.width &&
+                    this.lazyLoadCells
+                ) {
+                    logMessage(
+                        this,
+                        'Size changed to x: ' +
+                            entry.contentRect.width +
+                            ', y: ' +
+                            entry.contentRect.height +
+                            '.'
+                    );
                     window.clearTimeout(this.resizeTimeout);
                     this.resizeTimeout = window.setTimeout(
                         () => this.forceUpdate(),

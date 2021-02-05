@@ -9,21 +9,25 @@ import { KupBadge } from '../../../components/kup-badge/kup-badge';
 import { CssDraw } from '../../../components/kup-image/kup-image-declarations';
 
 interface Props {
-    badgeData: KupBadge[];
-    color: string;
-    data: CssDraw[];
-    resource: string;
-    sizeX: string;
-    sizeY: string;
+    badgeData?: KupBadge[];
+    color?: string;
+    data?: CssDraw[];
+    id?: string;
+    resource?: string;
+    sizeX?: string;
+    sizeY?: string;
+    title?: string;
 }
 
 export const FImage: FunctionalComponent<Props> = ({
     badgeData,
     color,
     data,
+    id,
     resource,
     sizeX,
     sizeY,
+    title,
 }) => {
     let el: VNode;
 
@@ -38,7 +42,7 @@ export const FImage: FunctionalComponent<Props> = ({
             el = createIcon(color, resource, sizeX, sizeY);
         }
     } else {
-        el = createBar(data);
+        el = createBar(data, sizeX, sizeY);
     }
 
     let badgeCollection: KupBadge[] = [];
@@ -49,14 +53,14 @@ export const FImage: FunctionalComponent<Props> = ({
     }
 
     return (
-        <div class="f-image--wrapper">
+        <div id={id} class="f-image--wrapper" title={title}>
             {el}
             {...badgeCollection}
         </div>
     );
 };
 
-function createBar(data: CssDraw[]) {
+function createBar(data: CssDraw[], sizeX: string, sizeY: string) {
     let steps: JSX.Element[] = [];
     let leftProgression: number = 0;
 
@@ -93,7 +97,15 @@ function createBar(data: CssDraw[]) {
         steps.push(drawStep);
     }
 
-    return <div class="f-image__css">{steps}</div>;
+    let style = {
+        height: sizeY ? sizeY : '100%',
+        width: sizeX ? sizeX : '100%',
+    };
+    return (
+        <div style={style} class="f-image__css">
+            {steps}
+        </div>
+    );
 }
 
 function createIcon(
@@ -102,14 +114,11 @@ function createIcon(
     sizeX: string,
     sizeY: string
 ) {
+    let path = getAssetPath(`./assets/svg/${resource}.svg`);
     let style = {
         background: color ? color : 'var(--kup-icon-color)',
-        mask: `url('${getAssetPath(
-            `./assets/svg/${resource}.svg`
-        )}') no-repeat center`,
-        webkitMask: `url('${getAssetPath(
-            `./assets/svg/${resource}.svg`
-        )}') no-repeat center`,
+        mask: `url('${path}') no-repeat center`,
+        webkitMask: `url('${path}') no-repeat center`,
         height: sizeY ? sizeY : '100%',
         width: sizeX ? sizeX : '100%',
     };
