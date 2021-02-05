@@ -82,6 +82,17 @@
                     }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
+                <v-list-tile
+                  v-for="route in group.thirdParties"
+                  :key="route.to.name"
+                  :to="route.to"
+                >
+                  <v-list-tile-content>
+                    <v-list-tile-title class="extra-padding">{{
+                      route.title
+                    }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
               </v-list-group>
             </v-list>
           </v-list>
@@ -469,6 +480,17 @@ export default {
                 },
               },
             ],
+          },
+          {
+            title: '3rd Parties',
+            thirdParties: [
+              {
+                title: 'Qlik',
+                to: {
+                  name: 'qlik',
+                },
+              },
+            ]
           },
         ],
       },
