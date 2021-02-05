@@ -164,6 +164,16 @@ export class KupTimePicker {
         value: any;
     }>;
 
+    @Event({
+        eventName: 'kupTimePickerClearIconClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupClearIconClick: EventEmitter<{
+        id: any;
+    }>;
+
     @Listen('keyup', { target: 'document' })
     listenKeyup(e: KeyboardEvent) {
         if (this.isPickerOpened()) {
@@ -172,12 +182,12 @@ export class KupTimePicker {
             }
             if (e.key === 'Enter') {
                 e.stopPropagation();
-                this.setPickerValueSelected();
+                this.onKupTimePickerItemClick();
             }
         }
     }
 
-    onKupTimePickerItemClick(value: string) {
+    onKupTimePickerItemClick(value?: string) {
         this.setPickerValueSelected(value);
 
         this.kupChange.emit({
@@ -186,6 +196,18 @@ export class KupTimePicker {
 
         this.kupItemClick.emit({
             value: this.value,
+        });
+    }
+
+    onKupClearIconClick() {
+        this.setPickerValueSelected('');
+
+        this.kupChange.emit({
+            value: this.value,
+        });
+
+        this.kupClearIconClick.emit({
+            id: this.rootElement.id,
         });
     }
 
@@ -428,6 +450,7 @@ export class KupTimePicker {
                 onKupTextFieldInput={(e: any) => this.onKupInput(e)}
                 onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
                 onKupTextFieldSubmit={(e: any) => this.onKupTextFieldSubmit(e)}
+                onKupTextFieldClearIconClick={() => this.onKupClearIconClick()}
                 ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );
@@ -460,8 +483,7 @@ export class KupTimePicker {
         if (this.manageSeconds) {
             text += ':' + this.secondsEl.innerText;
         }
-        this.setPickerValueSelected(text);
-        this.closePicker();
+        this.onKupTimePickerItemClick(text);
     }
 
     private createClock() {
