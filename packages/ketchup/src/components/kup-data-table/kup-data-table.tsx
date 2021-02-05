@@ -3679,7 +3679,7 @@ export class KupDataTable {
                 cell,
                 column
             );
-        } else if (props) {
+        } else if (cell.data) {
             this.setCellSizeKup(cellType, props, cell);
             if (!this.lazyLoadCells) {
                 content = this.setLazyKupCell(cellType, props);
