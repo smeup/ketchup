@@ -713,6 +713,14 @@ export class KupDataTable {
     })
     kupAddColumn: EventEmitter<{ column: string }>;
 
+    @Event({
+        eventName: 'kupAddCodeDecodeColumn',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAddCodeDecodeColumn: EventEmitter<{ column: string }>;
+
     /**
      * When a row action is clicked
      */
@@ -2770,6 +2778,17 @@ export class KupDataTable {
                                 }}
                             />
                             {actionHideCol}
+                            <kup-button
+                                icon="extension"
+                                title="Add code/decode column"
+                                onKupButtonClick={(e) => {
+                                    e.stopPropagation();
+                                    this.kupAddCodeDecodeColumn.emit({
+                                        column: column.name,
+                                    });
+                                    this.closeMenuAndTooltip();
+                                }}
+                            />
                         </li>
                     );
 

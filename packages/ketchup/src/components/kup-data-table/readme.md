@@ -86,19 +86,20 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 ## Events
 
-| Event                  | Description                                    | Type                                                                                                          |
-| ---------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `kupAddColumn`         | When 'add column' menu item is clicked         | `CustomEvent<{ column: string; }>`                                                                            |
-| `kupAutoRowSelect`     | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
-| `kupCellButtonClicked` |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
-| `kupDataTableDblClick` |                                                | `CustomEvent<{ obj: {}; }>`                                                                                   |
-| `kupDidLoad`           | When component load is complete                | `CustomEvent<{}>`                                                                                             |
-| `kupDidUnload`         | When component unload is complete              | `CustomEvent<{}>`                                                                                             |
-| `kupLoadMoreClicked`   |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
-| `kupOptionClicked`     | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
-| `kupResetSelectedRows` | When rows selections reset                     | `CustomEvent<{}>`                                                                                             |
-| `kupRowActionClicked`  | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
-| `kupRowSelected`       | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedColumn: string; }>`                                                |
+| Event                    | Description                                    | Type                                                                                                          |
+| ------------------------ | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `kupAddCodeDecodeColumn` |                                                | `CustomEvent<{ column: string; }>`                                                                            |
+| `kupAddColumn`           | When 'add column' menu item is clicked         | `CustomEvent<{ column: string; }>`                                                                            |
+| `kupAutoRowSelect`       | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
+| `kupCellButtonClicked`   |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
+| `kupDataTableDblClick`   |                                                | `CustomEvent<{ obj: {}; }>`                                                                                   |
+| `kupDidLoad`             | When component load is complete                | `CustomEvent<{}>`                                                                                             |
+| `kupDidUnload`           | When component unload is complete              | `CustomEvent<{}>`                                                                                             |
+| `kupLoadMoreClicked`     |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
+| `kupOptionClicked`       | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
+| `kupResetSelectedRows`   | When rows selections reset                     | `CustomEvent<{}>`                                                                                             |
+| `kupRowActionClicked`    | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
+| `kupRowSelected`         | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedColumn: string; }>`                                                |
 
 
 ## Methods
