@@ -126,9 +126,5 @@ function createIcon(color: string, resource: string) {
 }
 
 function createImage(resource: string) {
-    return (
-        <div class="f-image__img">
-            <img src={resource}></img>
-        </div>
-    );
+    return <img src={resource}></img>;
 }

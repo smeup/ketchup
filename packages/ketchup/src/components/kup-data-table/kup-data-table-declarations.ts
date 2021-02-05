@@ -385,7 +385,6 @@ export const CSSArray = [
     '.kup-image--wrapper img',
     '.kup-image--wrapper .f-image__css',
     '.kup-image--wrapper .f-image__icon',
-    '.kup-image--wrapper .f-image__img',
     '.kup-image--wrapper .css-step.bottom-aligned',
     'tbody td > *',
 ];
