@@ -47,24 +47,22 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-chip](../kup-chip)
-- [kup-image](../kup-image)
 - [kup-button](../kup-button)
+- [kup-badge](../kup-badge)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-chart](../kup-chart)
-- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-card --> kup-chip
-  kup-card --> kup-image
   kup-card --> kup-button
+  kup-card --> kup-badge
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
-  kup-card --> kup-badge
+  kup-badge --> kup-image
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-badge --> kup-image
   kup-box --> kup-card
   style kup-card fill:#f9f,stroke:#333,stroke-width:4px
 ```

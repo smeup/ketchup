@@ -1,4 +1,5 @@
 import { h } from '@stencil/core';
+import { FImage } from '../../../utils/components/f-image/f-image';
 import { KupCard } from '../kup-card';
 
 export function create1(component: KupCard) {
@@ -33,14 +34,13 @@ export function create2(component: KupCard) {
             <div class="scalable-element">
                 <div class="icon">
                     {component.data['image1'] && (
-                        <kup-image
-                            sizeX="1.25em"
-                            sizeY="1.25em"
+                        <FImage
+                            {...component.data['image1']}
                             color={component.data['color1']}
                             id="image1"
-                            customStyle="img {object-fit: contain;}"
-                            {...component.data['image1']}
-                        ></kup-image>
+                            sizeX="1.25em"
+                            sizeY="1.25em"
+                        ></FImage>
                     )}
                 </div>
                 <div class="value-int">
@@ -89,14 +89,13 @@ export function create4(component: KupCard) {
             <div class="scalable-element">
                 <div class="icon">
                     {component.data['image1'] && (
-                        <kup-image
-                            sizeX="1.25em"
-                            sizeY="1.25em"
+                        <FImage
+                            {...component.data['image1']}
                             color={component.data['color1']}
                             id="image1"
-                            customStyle="img {object-fit: contain;}"
-                            {...component.data['image1']}
-                        ></kup-image>
+                            sizeX="1.25em"
+                            sizeY="1.25em"
+                        ></FImage>
                     )}
                 </div>
 
@@ -144,14 +143,13 @@ export function create5(component: KupCard) {
 
                 <div class="icon">
                     {component.data['image1'] && (
-                        <kup-image
-                            sizeX="1em"
-                            sizeY="1em"
+                        <FImage
+                            {...component.data['image1']}
                             color={component.data['color1']}
                             id="image1"
-                            customStyle="img {object-fit: contain;}"
-                            {...component.data['image1']}
-                        ></kup-image>
+                            sizeX="1em"
+                            sizeY="1em"
+                        ></FImage>
                     )}
                 </div>
             </div>
@@ -171,14 +169,13 @@ export function create6(component: KupCard) {
             <div class="scalable-element">
                 <div class="icon">
                     {component.data['image1'] && (
-                        <kup-image
-                            sizeX="1em"
-                            sizeY="1em"
+                        <FImage
+                            {...component.data['image1']}
                             color={component.data['color1']}
                             id="image1"
-                            customStyle="img {object-fit: contain;}"
-                            {...component.data['image1']}
-                        ></kup-image>
+                            sizeX="1em"
+                            sizeY="1em"
+                        ></FImage>
                     )}
                 </div>
 
@@ -217,14 +214,13 @@ export function create7(component: KupCard) {
 
                 <div class="icon">
                     {component.data['image1'] && (
-                        <kup-image
-                            sizeX="1em"
-                            sizeY="1em"
+                        <FImage
+                            {...component.data['image1']}
                             color={component.data['color1']}
                             id="image1"
-                            customStyle="img {object-fit: contain;}"
-                            {...component.data['image1']}
-                        ></kup-image>
+                            sizeX="1em"
+                            sizeY="1em"
+                        ></FImage>
                     )}
                 </div>
             </div>
@@ -244,14 +240,13 @@ export function create8(component: KupCard) {
             <div class="scalable-element">
                 <div class="icon">
                     {component.data['image1'] && (
-                        <kup-image
-                            sizeX="1em"
-                            sizeY="1em"
+                        <FImage
+                            {...component.data['image1']}
                             color={component.data['color1']}
                             id="image1"
-                            customStyle="img {object-fit: contain;}"
-                            {...component.data['image1']}
-                        ></kup-image>
+                            sizeX="1em"
+                            sizeY="1em"
+                        ></FImage>
                     )}
                 </div>
 
