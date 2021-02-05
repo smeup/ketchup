@@ -2,21 +2,21 @@
   display: block;
   margin: auto;
   position: relative;
-  width: 100%;
-  height: 100%;
+  height: var(--f-image-height, 100%);
+  width: var(--f-image-width, 100%);
 
   img {
     display: block;
     margin: auto;
-    height: 100%;
-    width: 100%;
+    height: var(--f-image-height, 100%);
+    width: var(--f-image-width, 100%);
   }
 
   .f-image__css,
   .f-image__icon,
   .f-image__img {
-    height: 100%;
-    width: 100%;
+    height: var(--f-image-height, 100%);
+    width: var(--f-image-width, 100%);
   }
 
   .f-image__css {

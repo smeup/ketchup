@@ -30,6 +30,10 @@ export const FImage: FunctionalComponent<Props> = ({
     title,
 }) => {
     let el: VNode;
+    let style: {
+        '--f-image-height': string;
+        '--f-image-width': string;
+    };
 
     if (resource) {
         if (
@@ -37,12 +41,24 @@ export const FImage: FunctionalComponent<Props> = ({
             resource.indexOf('/') > -1 ||
             resource.indexOf('\\') > -1
         ) {
-            el = createImage(resource, sizeX, sizeY);
+            style = {
+                '--f-image-height': sizeY ? sizeY : 'auto',
+                '--f-image-width': sizeX ? sizeX : '100%',
+            };
+            el = createImage(resource);
         } else {
-            el = createIcon(color, resource, sizeX, sizeY);
+            style = {
+                '--f-image-height': sizeY ? sizeY : '100%',
+                '--f-image-width': sizeX ? sizeX : '100%',
+            };
+            el = createIcon(color, resource);
         }
     } else {
-        el = createBar(data, sizeX, sizeY);
+        style = {
+            '--f-image-height': sizeY ? sizeY : '100%',
+            '--f-image-width': sizeX ? sizeX : '100%',
+        };
+        el = createBar(data);
     }
 
     let badgeCollection: KupBadge[] = [];
@@ -53,14 +69,14 @@ export const FImage: FunctionalComponent<Props> = ({
     }
 
     return (
-        <div id={id} class="f-image--wrapper" title={title}>
+        <div style={style} id={id} class="f-image--wrapper" title={title}>
             {el}
             {...badgeCollection}
         </div>
     );
 };
 
-function createBar(data: CssDraw[], sizeX: string, sizeY: string) {
+function createBar(data: CssDraw[]) {
     let steps: JSX.Element[] = [];
     let leftProgression: number = 0;
 
@@ -96,43 +112,23 @@ function createBar(data: CssDraw[], sizeX: string, sizeY: string) {
         );
         steps.push(drawStep);
     }
-
-    let style = {
-        height: sizeY ? sizeY : '100%',
-        width: sizeX ? sizeX : '100%',
-    };
-    return (
-        <div style={style} class="f-image__css">
-            {steps}
-        </div>
-    );
+    return <div class="f-image__css">{steps}</div>;
 }
 
-function createIcon(
-    color: string,
-    resource: string,
-    sizeX: string,
-    sizeY: string
-) {
+function createIcon(color: string, resource: string) {
     let path = getAssetPath(`./assets/svg/${resource}.svg`);
     let style = {
         background: color ? color : 'var(--kup-icon-color)',
         mask: `url('${path}') no-repeat center`,
         webkitMask: `url('${path}') no-repeat center`,
-        height: sizeY ? sizeY : '100%',
-        width: sizeX ? sizeX : '100%',
     };
     return <div class="f-image__icon" style={style}></div>;
 }
 
-function createImage(resource: string, sizeX: string, sizeY: string) {
-    let style = {
-        height: sizeY ? sizeY : 'auto',
-        width: sizeX ? sizeX : '100%',
-    };
+function createImage(resource: string) {
     return (
         <div class="f-image__img">
-            <img style={style} src={resource}></img>
+            <img src={resource}></img>
         </div>
     );
 }
