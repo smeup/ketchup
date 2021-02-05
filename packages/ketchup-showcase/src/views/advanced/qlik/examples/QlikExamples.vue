@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'QlikBasic',
+  name: 'QlikExamples',
   data() {
     return {
       schermata: require('../../../../../public/images/kup-qlik_esempio_schermata.png'),

@@ -5,31 +5,34 @@
         <qlik-basic></qlik-basic>
       </template>
       <template v-slot:1>
-        <qlik-event></qlik-event>
+        <qlik-propertys></qlik-propertys>
       </template>
+      <template v-slot:2>
+        <qlik-examples></qlik-examples>
+      </template>  
     </comp>
   </div>
 </template>
 
 <script>
-import QlikBasic from '../qlik/examples/QlikBasic';
-import QlikEvent from '../qlik/examples/QlikEvent';
+import QlikBasic from './examples/QlikBasic';
+import QlikExamples from './examples/QlikExamples';
+import QlikPropertys from './examples/QlikPropertys';
 import Comp from '../page/templates/Comp';
 export default {
   components: {
     QlikBasic,
-    QlikEvent,
-    Comp,
+    QlikExamples,
+    QlikPropertys,
+    Comp
+
   },
   data() {
     return {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-qlik',
       headtitle: 'Qlik',
-      titles: [
-        'Basic usage',
-        'Qlik Event',
-      ],
+      titles: ['Basic usage', 'Examples', 'Propertys'],
     };
   },
 };
