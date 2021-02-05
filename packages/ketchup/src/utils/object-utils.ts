@@ -111,6 +111,27 @@ export function isStringObject(obj: any): boolean {
     );
 }
 
+export function canHaveDerivedColumn(obj: any): boolean {
+    if (!obj) return false;
+    if (obj.t == null || (obj.t as string).trim() == '') return false;
+    return (
+        !isBar(obj) &&
+        !isButton(obj) &&
+        !isCheckbox(obj) &&
+        !isIcon(obj) &&
+        !isImage(obj) &&
+        !isLink(obj) &&
+        !isNumber(obj) &&
+        !isProgressBar(obj) &&
+        !isRadio(obj) &&
+        !isVoCodver(obj) &&
+        !isChart(obj) &&
+        !isDate(obj) &&
+        !isTime(obj) &&
+        !isTimestamp(obj)
+    );
+}
+
 export function hasTooltip(obj: any) {
     if (!obj) return false;
     if (obj.t == null || (obj.t as string).trim() == '') return false;
