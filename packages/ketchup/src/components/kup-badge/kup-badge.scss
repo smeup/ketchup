@@ -1,3 +1,5 @@
+@import '../../utils/components/f-image/f-image.scss';
+
 :host {
   display: block;
   font-size: var(--kup-font-size);
@@ -42,9 +44,13 @@
   transform: translate(-50%, 50%);
 }
 
-kup-image {
+.f-image--wrapper {
+  display: block;
+  position: relative;
   left: 50%;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
+  height: inherit;
+  width: inherit;
 }

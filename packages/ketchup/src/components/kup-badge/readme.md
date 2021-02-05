@@ -36,6 +36,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-badge](.)
  - [kup-box](../kup-box)
  - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
@@ -43,16 +44,16 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-image](../kup-image)
+- [kup-badge](.)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-badge --> kup-image
-  kup-image --> kup-badge
+  kup-badge --> kup-badge
   kup-box --> kup-badge
   kup-card --> kup-badge
   kup-data-table --> kup-badge
+  kup-image --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

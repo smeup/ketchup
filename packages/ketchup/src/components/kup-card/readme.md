@@ -60,9 +60,7 @@ graph TD;
   kup-card --> kup-badge
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
-  kup-badge --> kup-image
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
+  kup-badge --> kup-badge
   kup-box --> kup-card
   style kup-card fill:#f9f,stroke:#333,stroke-width:4px
 ```
