@@ -23,6 +23,11 @@
     overflow: hidden;
   }
 
+  .f-image__icon,
+  .f-image__img {
+    margin: auto;
+  }
+
   .css-step.bottom-aligned {
     bottom: 0;
     position: absolute;
