@@ -522,3 +522,24 @@ tr {
 tbody td > * {
   border: none !important;
 }
+
+.overlay-action {
+  display: none;
+  position: absolute;
+  top: 0.5em;
+  left: calc(50% - 0.625em);
+}
+
+th:hover .overlay-action {
+  display: block;
+}
+
+thead {
+  th {
+    /** it doesn't work with fixed columns... !!! */
+    position: relative;
+  }
+}
+th.obj:hover span:not(.overlay-action) {
+  opacity: 0.5;
+}

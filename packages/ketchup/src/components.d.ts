@@ -2748,6 +2748,7 @@ declare namespace LocalJSX {
           * When set to true enables rows multi selection.
          */
         "multiSelection"?: boolean;
+        "onKupAddCodeDecodeColumn"?: (event: CustomEvent<{ column: string }>) => void;
         /**
           * When 'add column' menu item is clicked
          */

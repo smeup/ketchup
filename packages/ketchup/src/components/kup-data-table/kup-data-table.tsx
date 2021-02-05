@@ -97,6 +97,7 @@ import {
     isTimestamp,
     isTime,
     isTimeWithSeconds,
+    canHaveDerivedColumn,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
 
@@ -713,6 +714,14 @@ export class KupDataTable {
         bubbles: true,
     })
     kupAddColumn: EventEmitter<{ column: string }>;
+
+    @Event({
+        eventName: 'kupAddCodeDecodeColumn',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAddCodeDecodeColumn: EventEmitter<{ column: string }>;
 
     /**
      * When a row action is clicked
@@ -1928,6 +1937,21 @@ export class KupDataTable {
         return (node as HTMLElement).classList !== undefined;
     }
 
+    private hasOverlayActions(column: Column): boolean {
+        if (column == null || column.obj == null) {
+            return false;
+        }
+        return canHaveDerivedColumn(column.obj);
+    }
+
+    private onAddCodeDecodeColumnClick(e: Event, column: Column) {
+        e.stopPropagation();
+        this.kupAddCodeDecodeColumn.emit({
+            column: column.name,
+        });
+        this.closeMenuAndTooltip();
+    }
+
     private onHeaderCellContextMenuClose(event: MouseEvent) {
         // Gets the path of the event (does not work in IE11 or previous)
         const eventPath = event.composedPath();
@@ -2659,6 +2683,29 @@ export class KupDataTable {
                     column
                 );
 
+                //---- AddCodeDecodeColumn ----
+                let overlay = null;
+                if (this.hasOverlayActions(column)) {
+                    columnClass['obj'] = true;
+                    const svgLabel = 'Add code/decode column';
+                    let svg = this.getIconPath('table-column-plus-after');
+                    let iconStyle = {
+                        mask: svg,
+                        webkitMask: svg,
+                    };
+                    overlay = (
+                        <span
+                            title={svgLabel}
+                            style={iconStyle}
+                            class="icon-container overlay-action"
+                            onClick={(e) => {
+                                this.onAddCodeDecodeColumnClick(e, column);
+                            }}
+                            onMouseUp={(e) => e.stopPropagation()}
+                        ></span>
+                    );
+                }
+
                 //---- Filter ----
                 let filter = null;
 
@@ -2775,6 +2822,13 @@ export class KupDataTable {
                                 }}
                             />
                             {actionHideCol}
+                            <kup-button
+                                icon="extension"
+                                title="Add code/decode column"
+                                onKupButtonClick={(e) => {
+                                    this.onAddCodeDecodeColumnClick(e, column);
+                                }}
+                            />
                         </li>
                     );
 
@@ -2989,6 +3043,7 @@ export class KupDataTable {
                         <span class="column-title">
                             {this.applyLineBreaks(column.title)}
                         </span>
+                        {overlay}
                         {sortIcon}
                         {filter}
                         {columnMenu}
