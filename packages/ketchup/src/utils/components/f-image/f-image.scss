@@ -12,20 +12,17 @@
     width: var(--f-image-width, 100%);
   }
 
-  .f-image__css,
-  .f-image__icon,
-  .f-image__img {
-    height: var(--f-image-height, 100%);
-    width: var(--f-image-width, 100%);
-  }
-
   .f-image__css {
     overflow: hidden;
+    height: var(--f-image-height, 100%);
+    width: var(--f-image-width, 100%);
   }
 
   .f-image__icon,
   .f-image__img {
     margin: auto;
+    height: var(--f-image-height, 100%);
+    width: var(--f-image-width, 100%);
   }
 
   .css-step.bottom-aligned {
