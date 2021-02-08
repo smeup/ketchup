@@ -11,14 +11,56 @@
 //TODO: Used "hydrated" because it's always present. Replace with accurate class when this setting will be optional.
 :host(.hydrated) {
   #kup-component {
-    tr.selected {
-      td {
-        background-color: rgba(var(--kup-text-color-rgb), 0.175);
-      }
+    th.selected {
+      box-shadow: inset 0px 4px 0px 0px var(--kup-secondary-color);
     }
 
     td.selected {
-      background-color: rgba(var(--kup-text-color-rgb), 0.175);
+      background-color: rgba(var(--kup-text-color-rgb), 0.075);
+
+      &.fixed-column,
+      &.fixed-row {
+        background-color: var(--kup-background-color);
+        background-image: linear-gradient(
+          to right,
+          rgba(var(--kup-text-color-rgb), 0.075) 0%,
+          rgba(var(--kup-text-color-rgb), 0.075) 0.1%,
+          rgba(var(--kup-text-color-rgb), 0.075)
+        );
+      }
+    }
+
+    tr.selected {
+      td {
+        background-color: rgba(var(--kup-text-color-rgb), 0.075);
+
+        &:first-of-type {
+          box-shadow: inset 4px 0px 0px 0px var(--kup-secondary-color);
+        }
+      }
+
+      td.selected {
+        background-color: rgba(var(--kup-text-color-rgb), 0.15);
+      }
+
+      td.fixed-column,
+      td.fixed-row {
+        background-color: var(--kup-background-color);
+        background-image: linear-gradient(
+          to right,
+          rgba(var(--kup-text-color-rgb), 0.075) 0%,
+          rgba(var(--kup-text-color-rgb), 0.075) 0.1%,
+          rgba(var(--kup-text-color-rgb), 0.075)
+        );
+        &.selected {
+          background-image: linear-gradient(
+            to right,
+            rgba(var(--kup-text-color-rgb), 0.15) 0%,
+            rgba(var(--kup-text-color-rgb), 0.15) 0.1%,
+            rgba(var(--kup-text-color-rgb), 0.15)
+          );
+        }
+      }
     }
   }
 }
