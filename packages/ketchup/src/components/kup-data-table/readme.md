@@ -86,19 +86,20 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 ## Events
 
-| Event                  | Description                                    | Type                                                                                                          |
-| ---------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `kupAddColumn`         | When 'add column' menu item is clicked         | `CustomEvent<{ column: string; }>`                                                                            |
-| `kupAutoRowSelect`     | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
-| `kupCellButtonClicked` |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
-| `kupDataTableDblClick` |                                                | `CustomEvent<{ obj: {}; }>`                                                                                   |
-| `kupDidLoad`           | When component load is complete                | `CustomEvent<{}>`                                                                                             |
-| `kupDidUnload`         | When component unload is complete              | `CustomEvent<{}>`                                                                                             |
-| `kupLoadMoreClicked`   |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
-| `kupOptionClicked`     | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
-| `kupResetSelectedRows` | When rows selections reset                     | `CustomEvent<{}>`                                                                                             |
-| `kupRowActionClicked`  | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
-| `kupRowSelected`       | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedColumn: string; }>`                                                |
+| Event                    | Description                                    | Type                                                                                                          |
+| ------------------------ | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `kupAddCodeDecodeColumn` |                                                | `CustomEvent<{ column: string; }>`                                                                            |
+| `kupAddColumn`           | When 'add column' menu item is clicked         | `CustomEvent<{ column: string; }>`                                                                            |
+| `kupAutoRowSelect`       | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
+| `kupCellButtonClicked`   |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
+| `kupDataTableDblClick`   |                                                | `CustomEvent<{ obj: {}; }>`                                                                                   |
+| `kupDidLoad`             | When component load is complete                | `CustomEvent<{}>`                                                                                             |
+| `kupDidUnload`           | When component unload is complete              | `CustomEvent<{}>`                                                                                             |
+| `kupLoadMoreClicked`     |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
+| `kupOptionClicked`       | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
+| `kupResetSelectedRows`   | When rows selections reset                     | `CustomEvent<{}>`                                                                                             |
+| `kupRowActionClicked`    | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
+| `kupRowSelected`         | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedColumn: string; }>`                                                |
 
 
 ## Methods
@@ -153,6 +154,7 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-text-field](../kup-text-field)
+- [kup-time-picker](../kup-time-picker)
 - [kup-date-picker](../kup-date-picker)
 - [kup-checkbox](../kup-checkbox)
 - [kup-button](../kup-button)
@@ -172,6 +174,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-data-table --> kup-text-field
+  kup-data-table --> kup-time-picker
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
@@ -186,6 +189,11 @@ graph TD;
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
+  kup-time-picker --> kup-text-field
+  kup-time-picker --> kup-button
+  kup-time-picker --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
   kup-tooltip --> kup-button
@@ -209,8 +217,6 @@ graph TD;
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
-  kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -2748,6 +2748,7 @@ declare namespace LocalJSX {
           * When set to true enables rows multi selection.
          */
         "multiSelection"?: boolean;
+        "onKupAddCodeDecodeColumn"?: (event: CustomEvent<{ column: string }>) => void;
         /**
           * When 'add column' menu item is clicked
          */
@@ -3840,6 +3841,9 @@ declare namespace LocalJSX {
     }>) => void;
         "onKupTimePickerChange"?: (event: CustomEvent<{
         value: any;
+    }>) => void;
+        "onKupTimePickerClearIconClick"?: (event: CustomEvent<{
+        id: any;
     }>) => void;
         "onKupTimePickerClick"?: (event: CustomEvent<{
         value: any;

@@ -317,26 +317,17 @@ tbody {
       max-width: max-content;
     }
 
-    &:not(.group):hover {
-      td:not(.selected) {
+    &.selected {
+      td {
+        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+      }
+    }
+
+    &:not(.group):not(.selected):hover {
+      td {
         color: var(--kup-hover-color);
         background-color: var(--kup-hover-background-color);
       }
-    }
-
-    &.selected:not(.group):hover,
-    &.selected:not(.group) {
-      td:not(.justincreasingspecificity) {
-        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
-      }
-      td.selected {
-        background-color: inherit;
-        box-shadow: inset 0px 0px 3px 1px var(--kup-primary-color);
-      }
-    }
-
-    td.selected {
-      background-color: rgba(var(--kup-primary-color-rgb), 0.175);
     }
 
     // grouping
@@ -542,4 +533,25 @@ tr {
 //TODO: Improve styling interface with data-table inside client apps
 tbody td > * {
   border: none !important;
+}
+
+.overlay-action {
+  display: none;
+  position: absolute;
+  top: 0.5em;
+  left: calc(50% - 0.625em);
+}
+
+th:hover .overlay-action {
+  display: block;
+}
+
+thead {
+  th {
+    /** it doesn't work with fixed columns... !!! */
+    position: relative;
+  }
+}
+th.obj:hover span:not(.overlay-action) {
+  opacity: 0.5;
 }
