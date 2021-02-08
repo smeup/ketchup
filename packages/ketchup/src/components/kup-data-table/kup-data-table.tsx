@@ -141,6 +141,7 @@ import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import { FImage } from '../../utils/components/f-image/f-image';
+import { FCheckbox } from '../../utils/components/f-checkbox/f-checkbox';
 
 @Component({
     tag: 'kup-data-table',
@@ -4156,10 +4157,7 @@ export class KupDataTable {
         switch (cellType) {
             case 'checkbox':
                 classObj['is-centered'] = true;
-                props['resource'] = props.checked
-                    ? 'check_box'
-                    : 'check_box_outline_blank';
-                return <FImage {...props} />;
+                return <FCheckbox {...props} />;
             case 'date':
                 if (content && content != '') {
                     const cellValue = getCellValueForDisplay(column, cell);

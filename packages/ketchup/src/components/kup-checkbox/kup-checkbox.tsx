@@ -13,6 +13,7 @@ import { MDCCheckbox } from '@material/checkbox';
 import { MDCFormField } from '@material/form-field';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logRender } from '../../utils/debug-manager';
+import { FCheckbox } from '../../utils/components/f-checkbox/f-checkbox';
 
 @Component({
     tag: 'kup-checkbox',
@@ -157,13 +158,6 @@ export class KupCheckbox {
         });
     }
 
-    private createRippleElement() {
-        if (this.disabled) {
-            return undefined;
-        }
-        return <div class="mdc-checkbox__ripple"></div>;
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -200,69 +194,19 @@ export class KupCheckbox {
     }
 
     render() {
-        let formClass: string = 'mdc-form-field';
-        let componentClass: string = 'mdc-checkbox';
-        let componentLabel: string = this.label;
-        let indeterminateAttr = {};
-
-        if (this.checked) {
-            componentClass += ' mdc-checkbox--checked';
-        }
-
-        if (this.disabled) {
-            componentClass += ' mdc-checkbox--disabled';
-        }
-
-        if (this.indeterminate) {
-            componentClass += ' mdc-checkbox--indeterminate';
-            indeterminateAttr['data-indeterminate'] = 'true';
-        }
-
-        if (this.leadingLabel) {
-            formClass += ' mdc-form-field--align-end';
-        }
-
+        let props = {
+            checked: this.checked,
+            disabled: this.disabled,
+            indeterminate: this.indeterminate,
+            label: this.label,
+            leadingLabel: this.leadingLabel,
+            value: this.value,
+        };
         return (
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
-                    <div class={formClass}>
-                        <div id="checkbox-wrapper" class={componentClass}>
-                            <input
-                                type="checkbox"
-                                class="mdc-checkbox__native-control"
-                                checked={this.checked}
-                                disabled={this.disabled}
-                                {...indeterminateAttr}
-                                value={this.value}
-                                onBlur={() => this.onKupBlur()}
-                                onChange={() => this.onKupChange()}
-                                onClick={() => this.onKupClick()}
-                                onFocus={() => this.onKupFocus()}
-                                onInput={() => this.onKupInput()}
-                            />
-                            <div class="mdc-checkbox__background">
-                                <svg
-                                    class="mdc-checkbox__checkmark"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        class="mdc-checkbox__checkmark-path"
-                                        fill="none"
-                                        d="M1.73,12.91 8.1,19.28 22.79,4.59"
-                                    />
-                                </svg>
-                                <div class="mdc-checkbox__mixedmark"></div>
-                            </div>
-                            {this.createRippleElement()}
-                        </div>
-                        <label
-                            htmlFor="checkbox-wrapper"
-                            onClick={() => this.onKupChange()}
-                        >
-                            {componentLabel}
-                        </label>
-                    </div>
+                    <FCheckbox {...props}></FCheckbox>
                 </div>
             </Host>
         );
