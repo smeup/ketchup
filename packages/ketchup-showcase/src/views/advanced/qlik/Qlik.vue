@@ -18,7 +18,7 @@
 import QlikBasic from './examples/QlikBasic';
 import QlikExamples from './examples/QlikExamples';
 import QlikPropertys from './examples/QlikPropertys';
-import Comp from '../page/templates/Comp';
+import Comp from '../page/templates/Comp'
 export default {
   components: {
     QlikBasic,
@@ -32,7 +32,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-qlik',
       headtitle: 'Qlik',
-      titles: ['Basic usage', 'Examples', 'Propertys'],
+      titles: ['Basic usage', 'Propertys', 'Examples'],
     };
   },
 };
