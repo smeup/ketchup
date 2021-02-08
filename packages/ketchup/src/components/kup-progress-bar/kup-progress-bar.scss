@@ -1,10 +1,59 @@
 :host {
   display: block;
+  font-size: var(--kup-font-size);
   width: 100%;
 }
 
-kup-image {
-  margin: auto;
+:host(.animated) {
+  .progress-bar-percentage {
+    animation: running-stripes 2s linear infinite;
+  }
+}
+
+:host(.padded) {
+  .progress-bar {
+    padding: 0.5em;
+    width: calc(100% - 1em);
+  }
+}
+
+:host(.slim) {
+  #kup-component {
+    .progress-bar {
+      border-radius: 9px;
+
+      & .progress-bar-percentage {
+        border-radius: 9px;
+        padding: 0;
+      }
+    }
+    .pie-wrapper {
+      & .pie {
+        & .half-circle {
+          border-width: 0.05em;
+        }
+      }
+      & .shadow {
+        border-width: 0.05em;
+      }
+    }
+  }
+}
+
+:host(.striped) {
+  .progress-bar-percentage {
+    background-image: linear-gradient(
+      -45deg,
+      rgba(var(--kup-text-color-rgb), 0.125) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(var(--kup-text-color-rgb), 0.125) 50%,
+      rgba(var(--kup-text-color-rgb), 0.125) 75%,
+      transparent 75%,
+      transparent
+    );
+    background-size: 3em 3em;
+  }
 }
 
 .progress-bar {
@@ -14,86 +63,61 @@ kup-image {
   position: relative;
   width: 100%;
 
-  &.has-padding {
-    padding: 0.5rem;
-    width: calc(100% - 1rem);
-  }
-
-  & .progress-bar-percentage {
-    background: var(--kup-main-color);
-    border-radius: 4px;
-    color: var(--kup-text-color);
-    height: 1.25rem;
-    padding: 0.5rem 0;
-    text-align: center;
-    transition: width 0.2s ease;
-
-    & span {
-      color: var(--kup-text-color);
-      display: inline-block;
-      font-size: 1rem;
-      left: 0;
-      line-height: 1.268rem;
-      position: absolute;
-      width: 100%;
-    }
-  }
-
-  &.text-color-on-main {
+  &.text-color-on-primary {
     & .progress-bar-percentage {
-      color: var(--kup-text-on-main-color);
+      color: var(--kup-text-on-primary-color);
       & span {
-        color: var(--kup-text-on-main-color);
+        color: var(--kup-text-on-primary-color);
       }
-    }
-  }
-
-  &.has-stripes {
-    & .progress-bar-percentage {
-      background-image: linear-gradient(
-        -45deg,
-        rgba(var(--kup-text-color-rgb), 0.125) 25%,
-        transparent 25%,
-        transparent 50%,
-        rgba(var(--kup-text-color-rgb), 0.125) 50%,
-        rgba(var(--kup-text-color-rgb), 0.125) 75%,
-        transparent 75%,
-        transparent
-      );
-      background-size: 3rem 3rem;
-    }
-
-    &.is-animated {
-      & .progress-bar-percentage {
-        animation: running-stripes 2s linear infinite;
-      }
-    }
-  }
-
-  &.is-slim {
-    border-radius: 9px;
-
-    & .progress-bar-percentage {
-      border-radius: 9px;
-      padding: 0;
     }
   }
 }
 
-.is-radial {
-  box-sizing: border-box;
-  font-size: 10rem;
-  margin: auto;
-  width: 10rem;
-  height: 10rem;
+.progress-bar-percentage {
+  background: var(--kup-primary-color);
+  border-radius: 4px;
+  color: var(--kup-text-color);
+  height: 1.25em;
+  padding: 0.5em 0;
+  text-align: center;
+  transition: width 0.2s ease;
 
-  & kup-image {
-    margin-top: 2.25rem;
+  & span {
+    color: var(--kup-text-color);
+    display: inline-block;
+    font-size: 1em;
+    left: 0;
+    line-height: 1.268em;
+    position: absolute;
+    width: 100%;
+  }
+
+  & .icon-container {
+    display: block;
+    height: 1.25em;
+    &:not(.is-image) {
+      background-color: var(--kup-text-on-primary-color);
+    }
+    img {
+      width: auto;
+      height: 100%;
+    }
+  }
+}
+
+:host([is-radial]) {
+  box-sizing: border-box;
+  margin: auto;
+
+  #kup-component {
+    display: flex;
+    font-size: 10em;
+    margin: auto;
   }
 
   & .pie-wrapper {
-    height: 10rem;
-    width: 10rem;
+    height: 1em;
+    width: 1em;
     float: left;
     margin: auto;
     position: relative;
@@ -103,8 +127,8 @@ kup-image {
     }
 
     & .pie {
-      height: 10rem;
-      width: 10rem;
+      height: 1em;
+      width: 1em;
       clip: rect(0, 1em, 1em, 0.5em);
       left: 0;
       position: absolute;
@@ -112,7 +136,7 @@ kup-image {
 
       &.has-value {
         & .half-circle {
-          border-color: var(--kup-main-color);
+          border-color: var(--kup-primary-color);
           &.left-side {
             transition: transform 0.2s ease;
           }
@@ -134,8 +158,8 @@ kup-image {
       }
 
       & .half-circle {
-        height: 10rem;
-        width: 10rem;
+        height: 1em;
+        width: 1em;
         border: 0.1em solid var(--kup-disabled-background-color);
         border-radius: 50%;
         clip: rect(0, 0.5em, 1em, 0);
@@ -147,7 +171,6 @@ kup-image {
 
     & .label {
       background: none;
-      border-radius: 50%;
       bottom: 0.4em;
       color: var(--kup-text-color);
       cursor: default;
@@ -160,6 +183,21 @@ kup-image {
       text-align: center;
       top: 0.4em;
 
+      &.icon-container {
+        display: block;
+        height: 1.25em;
+        width: 1.25em;
+        object-fit: cover;
+        margin: auto;
+        &:not(.is-image) {
+          background-color: var(--kup-primary-color);
+        }
+        img {
+          width: auto;
+          height: 100%;
+        }
+      }
+
       & .smaller {
         color: var(--kup-text-color);
         opacity: 0.8;
@@ -170,21 +208,10 @@ kup-image {
     }
 
     & .shadow {
-      height: 10rem;
-      width: 10rem;
+      height: 1em;
+      width: 1em;
       border: 0.1em solid var(--kup-disabled-background-color);
       border-radius: 50%;
-    }
-
-    &.is-slim {
-      & .pie {
-        & .half-circle {
-          border-width: 0.05em;
-        }
-      }
-      & .shadow {
-        border-width: 0.05em;
-      }
     }
   }
 
@@ -200,6 +227,6 @@ kup-image {
     background-position: 0 0;
   }
   100% {
-    background-position: 3rem 3rem;
+    background-position: 3em 3em;
   }
 }

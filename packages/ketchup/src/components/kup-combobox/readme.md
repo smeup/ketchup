@@ -5,13 +5,15 @@
 
 ## Properties
 
-| Property        | Attribute      | Description                                                                                                     | Type                                                                                             | Default                        |
-| --------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
-| `customStyle`   | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                                                                         | `undefined`                    |
-| `isSelect`      | `is-select`    | Lets the combobox behave as a select element.                                                                   | `boolean`                                                                                        | `false`                        |
-| `listData`      | --             | Props of the list.                                                                                              | `Object`                                                                                         | `{}`                           |
-| `selectMode`    | `select-mode`  | Sets how the return the elected item value. Suported values: "code", "description", "both".                     | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
-| `textfieldData` | --             | Props of the text field.                                                                                        | `Object`                                                                                         | `{}`                           |
+| Property       | Attribute       | Description                                                                                                     | Type                                                                                             | Default                        |
+| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
+| `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                                                                         | `undefined`                    |
+| `data`         | --              | Props of the sub-components (date input text field).                                                            | `Object`                                                                                         | `undefined`                    |
+| `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                 | `boolean`                                                                                        | `false`                        |
+| `displayMode`  | `display-mode`  | Sets how the show the selected item value. Suported values: "code", "description", "both".                      | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
+| `initialValue` | `initial-value` | Sets the initial value of the component                                                                         | `string`                                                                                         | `''`                           |
+| `isSelect`     | `is-select`     | Lets the combobox behave as a select element.                                                                   | `boolean`                                                                                        | `false`                        |
+| `selectMode`   | `select-mode`   | Sets how the return the selected item value. Suported values: "code", "description", "both".                    | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.CODE`        |
 
 
 ## Events
@@ -30,7 +32,37 @@
 
 ## Methods
 
+### `getValue() => Promise<string>`
+
+
+
+#### Returns
+
+Type: `Promise<string>`
+
+
+
 ### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setFocus() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setValue(value: string) => Promise<void>`
 
 
 
@@ -60,11 +92,6 @@ Type: `Promise<void>`
 graph TD;
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
-  kup-text-field --> kup-image
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
-  kup-list --> kup-image
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-box --> kup-combobox

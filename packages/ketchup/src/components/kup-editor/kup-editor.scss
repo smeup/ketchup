@@ -1,17 +1,5 @@
-/**
-*/
-
 :host {
-  // Variables
-  
-  // Style
-  display: inline-block;
+  display: block;
+  font-size: var(--kup-font-size);
   width: 100%;
-}
-
-// When behavior is set to button, we automatically set the width to  auto and set display inline-block
-:host([is-button]) {
-  // When the Iframe is in button form
-  display: inline-block;
-  width: auto;
 }

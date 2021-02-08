@@ -1,23 +1,24 @@
 :host {
   display: block;
+  font-size: var(--kup-font-size);
   position: absolute;
   top: 0;
   left: 0;
   transform: translate(-50%, -50%);
-
-  #kup-component {
-    background-color: var(--kup-main-color);
-    border-radius: 30px;
-    color: var(--kup-text-on-main-color);
-    font-size: 0.8rem;
-    min-height: 1.35rem;
-    min-width: 1.35rem;
-    padding: 0.2rem;
-    text-align: center;
-  }
 }
 
-:host([position='TR']) {
+#kup-component {
+  background-color: var(--kup-primary-color);
+  border-radius: 30px;
+  color: var(--kup-text-on-primary-color);
+  font-size: 0.875em;
+  min-height: 1.5em;
+  min-width: 1.5em;
+  padding: 0.25em;
+  text-align: center;
+}
+
+:host(.top-right) {
   top: 0;
   right: 0;
   bottom: unset;
@@ -25,7 +26,7 @@
   transform: translate(50%, -50%);
 }
 
-:host([position='BR']) {
+:host(.bottom-right) {
   top: unset;
   right: 0;
   bottom: 0;
@@ -33,7 +34,7 @@
   transform: translate(50%, 50%);
 }
 
-:host([position='BL']) {
+:host(.bottom-left) {
   top: unset;
   right: unset;
   bottom: 0;

@@ -1,129 +1,118 @@
-import { Component, h, Prop, State, Method } from '@stencil/core';
+import {
+    Component,
+    h,
+    Prop,
+    Method,
+    Host,
+    Element,
+    State,
+    Event,
+    EventEmitter,
+    Watch,
+} from '@stencil/core';
+import { logLoad, logRender } from '../../utils/debug-manager';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
     tag: 'kup-drawer',
-    styleUrl: 'kup-drawer.css',
+    styleUrl: 'kup-drawer.scss',
     shadow: true,
 })
 export class KupDrawer {
-   
-      /**
-     * opened is used to make our drawer appear and disappear
+    @Element() rootElement: HTMLElement;
+    @State() customStyleTheme: string = undefined;
+
+    /**
+     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-     @Prop({ reflect: true, mutable: true })opened: boolean;
+    @Prop() customStyle: string = undefined;
+    /**
+     * Defaults at false. When set to true, the drawer appears.
+     */
+    @Prop({ reflect: true, mutable: true }) opened: boolean = false;
 
-    @Prop({ reflect: true, mutable: true }) right: boolean;
-    @Prop({ reflect: true, mutable: true }) permanent: boolean;
+    //---- Watches ----
 
-    select:boolean;
-    
-    c:string;
+    @Watch('opened')
+    onOpenedChange(newValue: boolean) {
+        if (newValue) {
+            this.kupDrawerOpen.emit();
+        } else {
+            this.kupDrawerClose.emit();
+        }
+    }
 
-    
-    
+    //---- Events ----
 
+    @Event() kupDrawerClose: EventEmitter;
+    @Event() kupDrawerOpen: EventEmitter;
 
-  //---- Methods ----
-    onCloseDrawer() {
+    //---- Methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
+    @Method()
+    async toggle() {
+        if (this.opened) {
+            this.close();
+        } else {
+            this.open();
+        }
+    }
+
+    @Method()
+    async close() {
         this.opened = false;
-        this.right=false;
     }
 
     @Method()
     async open() {
         this.opened = true;
-        this.right=true;
     }
 
-    componentWillLoad()
-   { 
-       if(this.right==true)
-       {
-            this.select=true;
-            this.right=false;
-            if(this.permanent==true)
-            {
+    //---- Lifecycle hooks ----
 
-            }
-            else{
-            
-                this.permanent=true;
-                this.permanent=false;        
-                                                   
-            }
-                
-       }
-       else{
-           this.select=false;
-           this.right=true;
-           this.right=false;
-           if(this.permanent==true)
-           {
-
-           }
-           else{
-               this.permanent=true;
-               this.permanent=false;
-           }
-
-       }
-        
+    componentWillLoad() {
+        logLoad(this, false);
+        setThemeCustomStyle(this);
     }
-    
-   
-    
-   selectclass()
-   {  let c:string;
-       if(this.select==true&&this.permanent==false)
-       {
-           c='rightpos'
-       }
-       else if(this.select==false&&this.permanent==false)
-       {
-           c='leftpos'
-       }
-       
-       else if(this.select==true&&this.permanent==true)
-       {
-           c= 'permanentright'
-       }
-       else{
-           c= 'permanentleft'
-       }
-       
-       return c;
-   }
+
+    componentDidLoad() {
+        logLoad(this, true);
+    }
+
+    componentWillRender() {
+        logRender(this, false);
+    }
+
+    componentDidRender() {
+        logRender(this, true);
+    }
 
     render() {
-        let mainContent = <slot name='MainContent'/>;
-      
-        this.c= this.selectclass();
-        console.log(this.select,this.permanent,this.right,this.c);
-
-        
-       
-
-        return [
-            <div class="backdrop" onClick={() => this.onCloseDrawer()} />,
-            <aside class={this.c} >
-                <div class="header">
-              
-               <div class='title'>
-                   <slot name='title'/>
-               </div>
-
-               
-               <div class='subtitle'>
-                   <slot name='subtitle'/>
-               </div>
-              
-               
+        return (
+            <Host>
+                <style>{setCustomStyle(this)}</style>
+                <div id="kup-component">
+                    <div class="backdrop" onClick={() => this.close()} />
+                    <aside>
+                        <div class="header">
+                            <div class="title">
+                                <slot name="title" />
+                            </div>
+                            <div class="subtitle">
+                                <slot name="subtitle" />
+                            </div>
+                        </div>
+                        <main>
+                            <slot name="main-content" />
+                        </main>
+                    </aside>
                 </div>
-
-                <main>{mainContent}</main>
-                
-                
-            </aside>,
-        ];
+            </Host>
+        );
     }
 }

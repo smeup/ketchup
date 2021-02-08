@@ -9,8 +9,7 @@ import {
     Host,
     Method,
 } from '@stencil/core';
-import { BadgePosition } from './kup-badge-declarations';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
@@ -31,19 +30,9 @@ export class KupBadge {
      */
     @Prop() imageData: {} = undefined;
     /**
-     * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
-     */
-    @Prop({ reflect: true }) position: BadgePosition = BadgePosition.TOP_LEFT;
-    /**
      * The text displayed inside the badge.
      */
     @Prop() text: string = undefined;
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     @Event({
         eventName: 'kupBadgeClick',
@@ -71,28 +60,20 @@ export class KupBadge {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
@@ -104,10 +85,6 @@ export class KupBadge {
 
         let imageEl: HTMLElement = undefined;
 
-        const hostClass = {
-            'handles-custom-style': true,
-        };
-
         if (this.text === undefined && this.imageData !== undefined) {
             if (!this.imageData['sizeX']) {
                 this.imageData['sizeX'] = '1rem';
@@ -116,13 +93,13 @@ export class KupBadge {
                 this.imageData['sizeY'] = '1rem';
             }
             if (!this.imageData['color']) {
-                this.imageData['color'] = 'var(--kup-text-on-main-color)';
+                this.imageData['color'] = 'var(--kup-text-on-primary-color)';
             }
             imageEl = <kup-image {...this.imageData}></kup-image>;
         }
 
         return (
-            <Host class={hostClass}>
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
                     {this.text}

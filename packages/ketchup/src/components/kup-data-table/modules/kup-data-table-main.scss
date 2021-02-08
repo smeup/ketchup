@@ -23,7 +23,9 @@
      */
 
 table {
-  border-collapse: collapse;
+  // [TFixed-1] - This is needed to avoid problems with fixed rows/columns
+  border-spacing: 0; // [TFixed-1]
+  border-collapse: separate; // [TFixed-1]
   color: var(--kup-text-color);
   font-size: var(--kup-font-size);
   min-width: intrinsic; /* Safari/WebKit uses a non-standard name */
@@ -37,18 +39,41 @@ table {
     width: 0; // [mandatory] See [1] [2]
   }
 
-  &.custom-size th {
-    position: sticky;
-    top: 0;
-    z-index: 7;
+  // The common border specification
+  $common-border: 1px solid var(--kup-border-color);
+
+  // By default, since border has been moved to the cells themselves, the first and last cell must always simulate the table border
+  > tbody > tr {
+    > td {
+      &:first-of-type {
+        border-left: $common-border;
+      }
+
+      &:last-of-type {
+        border-right: $common-border;
+      }
+    }
+
+    // ALso the last row must always have the border bottom property
+    &:last-of-type > td {
+      border-bottom: $common-border;
+    }
   }
 
-  &.row-separation > tbody > tr {
-    border-bottom: 1px solid var(--kup-border-color);
+  // When table header is not visible the table needs a border to,
+  // so the first row gets added a border
+  &.border-top > tbody > tr:first-of-type > td {
+    border-top: $common-border;
   }
 
+  // If row separation is specified, all rows gets a border bottom
+  &.row-separation > tbody > tr > td {
+    border-bottom: $common-border;
+  }
+
+  // If column separation is specified, all rows gets a border bottom
   &.column-separation > tbody > tr > td {
-    border-right: 1px solid var(--kup-border-color);
+    border-right: $common-border;
   }
 
   &.noGrid {
@@ -65,21 +90,22 @@ table {
     td {
       text-align: right;
       font-weight: bold;
-      padding: 0.5rem 0.3125rem;
+      padding: 0.5em 0.3125em;
     }
   }
 }
 
 #global-filter {
-  margin-bottom: 0.5rem;
-  text-align: center;
+  margin: 0.5em 0px;
+  min-width: 140px;
+  width: 100%;
 }
 
 .icon-container {
   background-color: var(--kup-title-color);
-  margin: 0 0.25rem;
-  height: 1.25rem;
-  width: 1.25rem;
+  margin: 0 0.25em;
+  height: 1.25em;
+  width: 1.25em;
 
   &.ascending,
   &.descending,
@@ -92,33 +118,19 @@ table {
     float: left;
   }
 
-  &.ascending {
-    mask: var(--drop-up-svg);
-  }
-
-  &.collapsed {
-    mask: var(--menu-right-svg);
-  }
-
-  &.descending,
-  &.expanded {
-    mask: var(--drop-down-svg);
-  }
-
   &.filter-remove {
-    margin: 0 0.25rem;
-    mask: var(--filter-remove-svg);
+    margin: 0 0.25em;
   }
 
   &.obj-icon {
     display: block;
     background-color: rgba(var(--kup-text-color-rgb), 0.375);
-    margin: auto 0.5rem auto 0;
+    margin: auto 0.5em auto 0;
 
     :host([force-one-line]) & {
       display: inline-block;
-      margin: 0 0.5rem 0 0;
-      vertical-align: top;
+      margin: 0 0.5em 0 0;
+      vertical-align: -0.275em;
     }
 
     .number & {
@@ -140,35 +152,25 @@ table {
 }
 
 .density- {
-  kup-lazy.to-be-loaded {
-    height: 36px;
-  }
-
   &dense {
     tbody > tr > td:not(.is-graphic) {
-      padding-top: 0.2rem;
-      padding-bottom: 0.2rem;
+      padding-top: 0.2em;
+      padding-bottom: 0.2em;
     }
     tbody > tr.group > td {
-      padding-top: 0.25rem;
-      padding-bottom: 0.25rem;
-    }
-    kup-lazy.to-be-loaded {
-      height: 26px;
+      padding-top: 0.25em;
+      padding-bottom: 0.25em;
     }
   }
 
   &wide {
     tbody > tr > td:not(.is-graphic) {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
+      padding-top: 1em;
+      padding-bottom: 1em;
     }
     tbody > tr.group > td {
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
-    }
-    kup-lazy.to-be-loaded {
-      height: 50px;
+      padding-top: 0.75em;
+      padding-bottom: 0.75em;
     }
   }
 }
@@ -202,37 +204,29 @@ table {
 }
 
 thead {
-  border: 1px solid var(--kup-border-color);
-
   th {
+    $common-th-border: 1px solid var(--kup-border-color);
+
     background-color: var(--kup-title-background-color);
     color: var(--kup-title-color);
-    border-bottom: 2px solid var(--kup-border-color);
-    border-right: 1px solid var(--kup-border-color);
+    border: $common-th-border;
+    border-left: 0 none; // Important: only the first cell must have the border left, otherwise the th will have a visual 2px border between each other.
+    border-bottom-width: 2px;
     box-sizing: border-box;
-    padding: 0.5rem 0.3125rem;
+    padding: 0.5em 0.3125em;
     text-overflow: ellipsis;
     top: 0;
     vertical-align: middle;
     white-space: nowrap;
     transition: background-color 0.25s ease;
 
-    // On Firefox, things changes
-    @supports (-moz-appearance: none) {
-      // The row separator:
-      &::after {
-        bottom: 0; // Is slightly placed to the bottom
-        left: -1px; // gets slightly bigger to cover the absence of a border-right
-      }
-
-      // The column separator
-      &::before {
-        content: none; // Is not rendered on firefox because it does not render right-border on thead.
-      }
+    // The first cell must have border left to simulate table border.
+    &:first-of-type {
+      border-left: $common-th-border;
     }
 
     //---- Column name container ----
-    $column-sort-margin: 0.5rem;
+    $column-sort-margin: 0.5em;
 
     .column-title {
       display: inline-block;
@@ -288,13 +282,13 @@ thead {
         text-align: left;
 
         > li {
-          padding: 0 0.5rem;
+          padding: 0 0.5em;
           transition: color 0.2s ease-in-out;
           color: var(--kup-text-color);
           transition: color 0.25s, background-color 0.25s, opacity 0.25s;
 
           &.textfield-row {
-            padding: 0.5rem 0.5rem;
+            padding: 0.5em 0.5em;
           }
 
           &.button-row {
@@ -316,7 +310,6 @@ thead {
 }
 
 tbody {
-  border: 1px solid var(--kup-border-color);
   cursor: auto;
 
   tr {
@@ -325,13 +318,25 @@ tbody {
     }
 
     &:not(.group):hover {
-      color: var(--kup-hover-color);
-      background-color: var(--kup-hover-background-color);
+      td:not(.selected) {
+        color: var(--kup-hover-color);
+        background-color: var(--kup-hover-background-color);
+      }
     }
 
-    &.selected:hover,
-    &.selected {
-      background-color: rgba(var(--kup-main-color-rgb), 0.175);
+    &.selected:not(.group):hover,
+    &.selected:not(.group) {
+      td:not(.justincreasingspecificity) {
+        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+      }
+      td.selected {
+        background-color: inherit;
+        box-shadow: inset 0px 0px 3px 1px var(--kup-primary-color);
+      }
+    }
+
+    td.selected {
+      background-color: rgba(var(--kup-primary-color-rgb), 0.175);
     }
 
     // grouping
@@ -348,36 +353,41 @@ tbody {
 
       &.group-total {
         border-top: none;
-        line-height: 0.5rem;
+        line-height: 0.5em;
       }
 
       > td {
-        padding: 0.5rem 0;
+        padding: 0.5em 0;
 
         .group-cell-content {
           .indent {
             float: left;
-            margin-left: 0.25rem;
+            margin-left: 0.25em;
           }
           > span {
             display: inline-flex;
             outline: none;
-            margin-left: 0.25rem;
+            margin-left: 0.25em;
           }
         }
 
         &.total {
           text-align: right;
-          padding: 0.5rem 0.3125rem;
+          padding: 0.5em 0.3125em;
+
+          &.negative-number {
+            color: var(--kup-danger-color);
+          }
         }
       }
     }
 
     > td {
       box-sizing: border-box;
-      padding: 0.5rem 0.3125rem;
+      padding: 0.5em 0.3125em;
       word-break: break-all;
       word-wrap: break-word;
+      transition: box-shadow 0.1s;
 
       &.number {
         .cell-content {
@@ -388,17 +398,17 @@ tbody {
       }
 
       .row-expander {
-        margin-right: 0.5rem;
+        margin-right: 0.5em;
       }
 
       .indent {
         display: inline-block;
-        height: 1rem;
-        width: 2rem;
+        height: 1em;
+        width: 2em;
       }
 
       .row-action {
-        margin-right: 0.2rem;
+        margin-right: 0.2em;
       }
 
       // The container of the effective cell content
@@ -407,7 +417,7 @@ tbody {
 
         &.has-padding {
           box-sizing: border-box;
-          padding: 1rem;
+          padding: 1em;
         }
 
         // When there is the necessity to hide long text
@@ -431,10 +441,11 @@ tbody {
 
         &.is-vertical,
         :host([force-one-line]) &.is-vertical {
-          display: inline-flex;
+          display: block;
+          width: auto;
           margin: auto;
-          width: -webkit-fill-available;
-          align-items: center;
+          min-height: 16px;
+          min-width: 16px;
           & > * {
             margin: auto;
           }
@@ -449,11 +460,6 @@ tbody {
         padding: 0 1px;
       }
 
-      kup-lazy {
-        margin: auto;
-      }
-
-      & .indent ~ kup-lazy,
       & .indent ~ kup-image,
       & .indent ~ kup-button {
         margin: 0;
@@ -464,30 +470,21 @@ tbody {
 }
 
 tr {
-  &:not(:nth-child(1)) {
-    kup-checkbox {
-      display: none;
-      animation: fadeInFromNone 0.25s ease-out;
-    }
+  kup-checkbox,
+  kup-image {
+    display: flex;
   }
 
-  &.in-viewport {
-    kup-checkbox,
-    kup-image {
-      display: flex;
-    }
+  kup-button {
+    display: inline-block;
+  }
 
-    kup-button {
-      display: inline-block;
-    }
+  kup-progress-bar {
+    display: block;
+  }
 
-    kup-progress-bar {
-      display: block;
-    }
-
-    & .indent ~ kup-image {
-      display: inline-block;
-    }
+  & .indent ~ kup-image {
+    display: inline-block;
   }
 
   .indent {
@@ -504,4 +501,66 @@ tr {
   td[row-action-cell] kup-button {
     display: inline-block;
   }
+}
+
+.above-wrapper {
+  display: inline-flex;
+  width: 100%;
+}
+
+.bar-cell-content {
+  overflow: hidden;
+  margin: auto;
+  position: relative;
+  transition: color 0.2s ease;
+  height: 100%;
+  width: 100%;
+}
+
+.css-step.bottom-aligned {
+  bottom: 0;
+  position: absolute;
+}
+
+.checkbox-cell-content,
+.icon-cell-content {
+  margin: auto;
+  position: relative;
+  transition: color 0.2s ease 0s;
+  height: 100%;
+  width: 100%;
+  display: block;
+  min-height: 18px;
+  min-width: 18px;
+}
+
+.image-cell-content {
+  margin: auto;
+}
+
+//Temporary removal of borders inside cells: they should be applied only to <td> elements
+//TODO: Improve styling interface with data-table inside client apps
+tbody td > * {
+  border: none !important;
+}
+
+.overlay-action {
+  display: none;
+  position: absolute;
+  top: 0.5em;
+  left: calc(50% - 0.625em);
+}
+
+th:hover .overlay-action {
+  display: block;
+}
+
+thead {
+  th {
+    /** it doesn't work with fixed columns... !!! */
+    position: relative;
+  }
+}
+th.obj:hover span:not(.overlay-action) {
+  opacity: 0.5;
 }

@@ -150,7 +150,7 @@ export default {
           data: [
             {
               shape: 'bar',
-              color: 'var(--kup-main-color)',
+              color: 'var(--kup-primary-color)',
               width: '100%',
               height: '100%',
             },
@@ -161,7 +161,7 @@ export default {
           data: [
             {
               shape: 'bar',
-              color: 'var(--kup-main-color)',
+              color: 'var(--kup-primary-color)',
               width: '100%',
               height: '100%',
             },

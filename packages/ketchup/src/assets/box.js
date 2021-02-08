@@ -1,5 +1,4 @@
-const sortBox = document.getElementById('sort-box');
-sortBox.data = {
+let sortBoxData = {
     columns: [
         {
             name: 'FLD1',
@@ -22,6 +21,7 @@ sortBox.data = {
                 p: '',
                 k: '',
             },
+            decimals:3,
         },
         {
             name: 'FLD4',
@@ -51,9 +51,9 @@ sortBox.data = {
                     obj: {
                         t: 'NR',
                         p: '',
-                        k: '100.60',
+                        k: '43100.60',
                     },
-                    value: '100.60',
+                    value: '43,100.60',
                 },
                 FLD4: {
                     obj: {
@@ -61,7 +61,7 @@ sortBox.data = {
                         p: '*YYMD',
                         k: '20180101',
                     },
-                    value: '01/01/2018',
+                    value: '2018-01-01',
                 },
             },
         },
@@ -97,7 +97,7 @@ sortBox.data = {
                         p: '*YYMD',
                         k: '20180102',
                     },
-                    value: '02/01/2018',
+                    value: '2018-01-02',
                 },
             },
         },
@@ -133,7 +133,7 @@ sortBox.data = {
                         p: '*YYMD',
                         k: '20180103',
                     },
-                    value: '03/01/2018',
+                    value: '2018-01-03',
                 },
             },
         },
@@ -169,10 +169,244 @@ sortBox.data = {
                         p: '*YYMD',
                         k: '20180104',
                     },
-                    value: '04/01/2018',
+                    value: '2018-01-04',
                 },
             },
         },
     ],
 };
-sortBox.sortEnabled = true;
+
+const sortBox = document.getElementById('sort-box');
+if (sortBox != null) {
+    sortBox.data = sortBoxData;
+    sortBox.sortEnabled = true;
+    sortBox.globalFilter = true;
+    sortBox.globalFilterValue = "2018";
+}
+
+let graphicsBoxData = {
+    "columns": [
+      {
+        "icon": "account",
+        "name": "COL",
+        "obj": {
+          "k": "",
+          "p": "COL",
+          "t": "CN"
+        },
+        "title": "immagine"
+      },
+      {
+        "name": "GREF",
+        "obj": {
+          "k": "",
+          "p": "GRA_PIE",
+          "t": "J4"
+        },
+        "title": "grafico"
+      }
+    ],
+    "rows": [
+      {
+        "cells": {
+          "COL": {
+            "data": {
+              "resource": "/WebUP/javax.faces.resource/CN%253BCOL%253BBERNIC.jsf?ln=smeupImages"
+            },
+            "obj": {
+              "k": "BERNIC",
+              "p": "COL",
+              "t": "CN"
+            },
+            "shape": "Img",
+            "value": "/WebUP/javax.faces.resource/CN%253BCOL%253BBERNIC.jsf?ln=smeupImages"
+          },
+          "GREF": {
+            "data": {
+              "sizeX": "50px",
+              "offlineMode": {
+                "value": "8;4;5"
+              },
+              "id": "i1012_GREF_0",
+              "cellId": "i1012_GREF_0",
+              "sizeY": "50px"
+            },
+            "obj": {
+              "k": "8;4;5",
+              "p": "GRA_PIE",
+              "t": "J4"
+            },
+            "shape": "Gra",
+            "value": "8;4;5"
+          }
+        },
+        "layout": {
+          "horizontal": true,
+          "sections": [
+            {
+              "content": [
+                {
+                  "column": "COL",
+                  "config": {
+                    "width": "64",
+                    "height": "64"
+                  },
+                  "shape": "Img"
+                }
+              ],
+              "dim": "10%",
+              "horizontal": false
+            },
+            {
+              "content": [
+                {
+                  "column": "GREF",
+                  "shape": "Gra"
+                }
+              ],
+              "horizontal": false
+            }
+          ]
+        },
+        "object": "",
+        "readOnly": true,
+        "id": "0"
+      },
+      {
+        "cells": {
+          "COL": {
+            "data": {
+              "resource": "/WebUP/javax.faces.resource/CN%253BCOL%253BSCIMAM.jsf?ln=smeupImages"
+            },
+            "obj": {
+              "k": "SCIMAM",
+              "p": "COL",
+              "t": "CN"
+            },
+            "shape": "Img",
+            "value": "/WebUP/javax.faces.resource/CN%253BCOL%253BSCIMAM.jsf?ln=smeupImages"
+          },
+          "GREF": {
+            "data": {
+              "sizeX": "50px",
+              "offlineMode": {
+                "value": "6;9;6",
+                "shape": "pie"
+              },
+              "id": "i1012_GREF_1",
+              "cellId": "i1012_GREF_1",
+              "sizeY": "50px"
+            },
+            "obj": {
+              "k": "6;9;6",
+              "p": "GRA_PIE",
+              "t": "J4"
+            },
+            "shape": "Gra",
+            "value": "6;9;6"
+          }
+        },
+        "layout": {
+          "horizontal": true,
+          "sections": [
+            {
+              "content": [
+                {
+                  "column": "COL",
+                  "config": {
+                    "width": "64",
+                    "height": "64"
+                  },
+                  "shape": "Img"
+                }
+              ],
+              "dim": "10%",
+              "horizontal": false
+            },
+            {
+              "content": [
+                {
+                  "column": "GREF",
+                  "shape": "Gra"
+                }
+              ],
+              "horizontal": false
+            }
+          ]
+        },
+        "object": "",
+        "readOnly": true,
+        "id": "1"
+      },
+      {
+        "cells": {
+          "COL": {
+            "data": {
+              "resource": "/WebUP/javax.faces.resource/CN%253BCOL%253BVERFRA.jsf?ln=smeupImages"
+            },
+            "obj": {
+              "k": "VERFRA",
+              "p": "COL",
+              "t": "CN"
+            },
+            "shape": "Img",
+            "value": "/WebUP/javax.faces.resource/CN%253BCOL%253BVERFRA.jsf?ln=smeupImages"
+          },
+          "GREF": {
+            "data": {
+              "sizeX": "50px",
+              "offlineMode": {
+                "value": "5;1;5"
+              },
+              "id": "i1012_GREF_2",
+              "cellId": "i1012_GREF_2",
+              "sizeY": "50px"
+            },
+            "obj": {
+              "k": "5;1;5",
+              "p": "GRA_PIE",
+              "t": "J4"
+            },
+            "shape": "Gra",
+            "value": "5;1;5"
+          }
+        },
+        "layout": {
+          "horizontal": true,
+          "sections": [
+            {
+              "content": [
+                {
+                  "column": "COL",
+                  "config": {
+                    "width": "64",
+                    "height": "64"
+                  },
+                  "shape": "Img"
+                }
+              ],
+              "dim": "10%",
+              "horizontal": false
+            },
+            {
+              "content": [
+                {
+                  "column": "GREF",
+                  "shape": "Gra"
+                }
+              ],
+              "horizontal": false
+            }
+          ]
+        },
+        "object": "",
+        "readOnly": true,
+        "id": "2"
+      }
+    ]
+  };
+
+const graphicsBox = document.getElementById('graphics-box');
+if (graphicsBox != null) {
+    graphicsBox.data = graphicsBoxData;
+}

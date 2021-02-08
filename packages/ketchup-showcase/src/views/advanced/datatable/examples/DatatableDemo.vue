@@ -2,8 +2,9 @@
   <div>
     <demo
       :demoComp="demoComp"
+      :demoEvents="demoEvents"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -20,7 +21,21 @@ export default {
   data() {
     return {
       demoComp: createComp(),
+      demoEvents: [
+        {
+          name: 'kupDataTableDblClick',
+          type: 'dblclick',
+        },
+      ],
       demoProps: [
+        {
+          prop: 'customStyle',
+          description:
+            'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
+          type: 'string',
+          default: 'undefined',
+          try: 'css',
+        },
         {
           prop: 'data',
           description: 'The data of the table.',
@@ -31,9 +46,16 @@ export default {
         {
           prop: 'density',
           description:
-            'The density of the rows, defaults at "medium" and can be also set to "large" or "small".',
+            'The density of the rows, defaults at "medium" and can be also set to "wide" or "dense".',
           type: 'string',
-          default: 'small',
+          default: 'dense',
+          try: 'field',
+        },
+        {
+          prop: 'emptyDataLabel',
+          description: 'Defines the label to show when the table is empty.',
+          type: 'string',
+          default: 'Empty data',
           try: 'field',
         },
         {
@@ -57,6 +79,20 @@ export default {
           type: 'GenericMap',
           default: 'undefined',
           try: 'json',
+        },
+        {
+          prop: 'fixedColumns',
+          description: 'Amount of frozen columns.',
+          type: 'number',
+          default: '0',
+          try: 'field',
+        },
+        {
+          prop: 'fixedRows',
+          description: 'Amount of frozen rows.',
+          type: 'number',
+          default: '0',
+          try: 'field',
         },
         {
           prop: 'forceOneLine',
@@ -112,11 +148,27 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'lineBreakCharacter',
+          description:
+            'Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.',
+          type: 'string',
+          default: '\\n',
+          try: 'field',
+        },
+        {
           prop: 'loadMoreLimit',
           description:
             'Sets a maximum limit of new records which can be required by the load more functionality.',
           type: 'number',
           default: '1000',
+          try: 'field',
+        },
+        {
+          prop: 'loadMoreMode',
+          description:
+            'Establish the modality of how many new records will be downloaded.',
+          type: 'LoadMoreMode',
+          default: 'progressive_threshold',
           try: 'field',
         },
         {
@@ -135,18 +187,18 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'pageSelected',
+          description: 'Current selected page set on component load.',
+          type: 'number',
+          default: '-1',
+          try: 'field',
+        },
+        {
           prop: 'paginatorPos',
           description:
             'Sets the position of the paginator. Available values: Top, Bottom or Both.',
           type: 'string',
           default: 'Top',
-          try: 'field',
-        },
-        {
-          prop: 'rowsPerPage',
-          description: 'Sets the number of rows per page to display.',
-          type: 'number',
-          default: '10',
           try: 'field',
         },
         {
@@ -157,9 +209,32 @@ export default {
           try: 'json',
         },
         {
+          prop: 'rowsPerPage',
+          description: 'Sets the number of rows per page to display.',
+          type: 'number',
+          default: '10',
+          try: 'field',
+        },
+
+        {
+          prop: 'scrollOnHover',
+          description:
+            'When the mouse move towards the left or right edge and there is an overflow, the table will automatically scroll.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'selectRow',
           description: 'Selects the specified row.',
           type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'selectRowsById',
+          description: 'Semicolon separated rows id to select.',
+          type: 'string',
           default: 'undefined',
           try: 'field',
         },
@@ -202,6 +277,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showTooltipOnRightClick',
+          description:
+            'If set to true, displays tooltip on right click event; if set to false, displays tooltip on mouseOver event.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'sort',
           description: 'Defines the current sorting options.',
           type: 'SortObject[]',
@@ -240,6 +323,20 @@ export default {
           try: 'field',
         },
         {
+          prop: 'tooltipDetailTimeout',
+          description: 'Defines the timeout for tooltip detail.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'tooltipLoadTimeout',
+          description: 'Defines the timeout for tooltip load.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'totals',
           description: 'Defines the current sorting options.',
           type: 'TotalsMap',
@@ -247,21 +344,16 @@ export default {
           try: 'json',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
+          class: 'layout-fixed',
+          description:
+            'Sets a fixed layout to improve performances (especially when using Google Chrome).',
         },
       ],
     };
@@ -283,6 +375,7 @@ function createComp() {
   comp.showHeader = true;
   comp.sortableColumnsMutateData = true;
   comp.sortEnabled = true;
+  comp.showTooltipOnRightClick = true;
   return comp;
 }
 </script>

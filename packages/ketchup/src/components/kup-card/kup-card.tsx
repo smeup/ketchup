@@ -17,7 +17,7 @@ import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
 import { MDCRipple } from '@material/ripple';
 import { ComponentCardElement } from './kup-card-declarations';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import {
     setThemeCustomStyle,
     setCustomStyle,
@@ -36,7 +36,7 @@ export class KupCard {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * The actual data of the card.
      */
@@ -44,37 +44,34 @@ export class KupCard {
     /**
      * Defines whether the card is a menu or not.
      */
-    @Prop({ reflect: true }) isMenu: boolean = false;
+    @Prop() isMenu: boolean = false;
     /**
      * Sets the type of the card. Currently supported values: "collapsible", "scalable", "standard".
      */
-    @Prop({ reflect: true }) layoutFamily: string = 'standard';
+    @Prop() layoutFamily: string = 'standard';
     /**
      * Sets the number of the layout.
      */
-    @Prop({ reflect: true }) layoutNumber: number = 1;
+    @Prop() layoutNumber: number = 1;
     /**
      * Sets the status of the menu, when false it's hidden otherwise it's visible.
      */
-    @Prop({ reflect: true }) menuVisible: boolean = false;
+    @Prop() menuVisible: boolean = false;
     /**
      * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
      */
-    @Prop({ reflect: true }) sizeX: string = '100%';
+    @Prop() sizeX: string = '100%';
     /**
      * The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
      */
-    @Prop({ reflect: true }) sizeY: string = '100%';
+    @Prop() sizeY: string = '100%';
 
-    private elStyle = undefined;
-    private oldSizeY = undefined;
-    private scalingActive = false;
+    private elStyle: {
+        [key: string]: string;
+    } = undefined;
+    private oldSizeY: string = undefined;
+    private scalingActive: boolean = false;
     private resObserver: ResizeObserver = undefined;
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     @Event({
         eventName: 'kupCardClick',
@@ -322,7 +319,7 @@ export class KupCard {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         this.setObserver();
         setThemeCustomStyle(this);
 
@@ -335,24 +332,16 @@ export class KupCard {
 
     componentDidLoad() {
         this.resObserver.observe(this.rootElement);
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
         this.layoutManager();
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
@@ -387,7 +376,7 @@ export class KupCard {
         let card = this.getLayout();
 
         return (
-            <Host class="handles-custom-style" style={this.elStyle}>
+            <Host style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div
                     id="kup-component"

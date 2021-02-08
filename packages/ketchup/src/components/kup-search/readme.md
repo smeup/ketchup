@@ -46,41 +46,50 @@ graph TD;
   kup-search --> kup-button
   kup-search --> kup-modal
   kup-search --> kup-data-table
-  kup-text-field --> kup-image
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
-  kup-badge --> kup-image
-  kup-button --> kup-image
+  kup-data-table --> kup-text-field
+  kup-data-table --> kup-time-picker
+  kup-data-table --> kup-date-picker
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-button
-  kup-data-table --> kup-text-field
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-image
   kup-data-table --> kup-chart
+  kup-data-table --> kup-chip
+  kup-data-table --> kup-color-picker
+  kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-rating
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
-  kup-data-table --> kup-chip
+  kup-time-picker --> kup-text-field
+  kup-time-picker --> kup-button
+  kup-time-picker --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
+  kup-date-picker --> kup-text-field
+  kup-date-picker --> kup-button
   kup-tooltip --> kup-button
-  kup-tooltip --> kup-image
   kup-tooltip --> kup-tree
-  kup-tree --> kup-lazy
-  kup-tree --> kup-button
-  kup-tree --> kup-checkbox
   kup-tree --> kup-image
+  kup-tree --> kup-button
+  kup-tree --> kup-chart
+  kup-tree --> kup-checkbox
+  kup-tree --> kup-chip
+  kup-tree --> kup-color-picker
+  kup-tree --> kup-gauge
   kup-tree --> kup-progress-bar
+  kup-tree --> kup-rating
   kup-tree --> kup-radio
   kup-tree --> kup-text-field
-  kup-progress-bar --> kup-image
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
+  kup-badge --> kup-image
+  kup-color-picker --> kup-text-field
   kup-paginator --> kup-button
   kup-paginator --> kup-combobox
   kup-combobox --> kup-text-field
   kup-combobox --> kup-list
-  kup-list --> kup-image
-  kup-list --> kup-radio
-  kup-list --> kup-checkbox
-  kup-chip --> kup-image
   kup-form --> kup-search
   style kup-search fill:#f9f,stroke:#333,stroke-width:4px
 ```

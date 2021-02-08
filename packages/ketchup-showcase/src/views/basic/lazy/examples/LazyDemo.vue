@@ -3,7 +3,7 @@
     <demo
       :demoComp="demoComp"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -51,26 +51,11 @@ export default {
           try: 'switch',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
       ],
     };

@@ -3,7 +3,7 @@
     <demo
       :demoComp="demoComp"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -74,14 +74,6 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'isUnclickable',
-          description:
-            'When set to true the area covered by the component will be unclickable and the cursor will be changed to "wait".',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'layout',
           description: 'Sets the layout of the spinner.',
           type: 'number',
@@ -89,21 +81,11 @@ export default {
           try: 'field',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'unclickable',
+          description:
+            'The area covered by the spinner will be unclickable and the cursor will change to "wait".',
         },
       ],
     };

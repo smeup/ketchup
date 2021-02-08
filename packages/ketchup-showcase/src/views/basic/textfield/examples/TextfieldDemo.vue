@@ -4,7 +4,7 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -77,22 +77,6 @@ export default {
             "When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.",
           type: 'boolean',
           default: 'true',
-          try: 'switch',
-        },
-        {
-          prop: 'forceFocus',
-          description:
-            'Defaults at false. When set to true, the component will be focused.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'fullHeight',
-          description:
-            'Sets the height of the component to fill all the available horizontal space provided by its parent.',
-          type: 'boolean',
-          default: 'false',
           try: 'switch',
         },
         {
@@ -218,26 +202,16 @@ export default {
           try: 'switch',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          class: 'full-height',
+          description:
+            'The text field will fill all the available vertical space.',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'HTML',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
       ],
     };

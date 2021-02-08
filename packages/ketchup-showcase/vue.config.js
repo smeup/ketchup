@@ -1,4 +1,6 @@
 module.exports = {
+  // If uncommented, this will disable all linting on all the showcase project. Use it carefully
+  // lintOnSave: false,
   // To correctly use History mode with Vue router, this property must be set to '/'
   // in order to allow webpack to produce correct chunks address when generating the output for the application.
   // However we must check if by setting this prop to '/' il compatible with CI service.
@@ -13,7 +15,6 @@ module.exports = {
   // chainWebpack: config => config.resolve.symlinks(false),
   devServer: {
     port: 4000,
-    progress: false,
   },
   // Used to configure Vue to enable transpiling node_modules
   // https://cli.vuejs.org/config/#transpiledependencies

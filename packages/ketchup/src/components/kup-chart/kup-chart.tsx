@@ -8,6 +8,7 @@ import {
     State,
     h,
     Method,
+    Watch,
 } from '@stencil/core';
 
 import {
@@ -17,19 +18,25 @@ import {
     ChartClickedEvent,
     ChartAxis,
     ChartOfflineMode,
+    ChartSerie,
+    ChartTitle,
 } from './kup-chart-declarations';
 
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 
-import { convertColumns, convertRows } from './kup-chart-builder';
+import {
+    convertColumns,
+    convertRows,
+    getSerieDecode,
+} from './kup-chart-builder';
 
 import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 
 import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import {
     setThemeCustomStyle,
     setCustomStyle,
@@ -52,75 +59,81 @@ export class KupChart {
     @State() themeColors: string[] = undefined;
     @State() themeText: string = undefined;
 
-    @Prop() data: DataTable;
-
-    @Prop()
-    asp: ChartAspect;
-
-    @Prop({ reflect: true })
-    axis: string;
-
-    @Prop()
-    colors: string[] = [];
+    /**
+     * Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.
+     */
+    @Prop() asp: ChartAspect;
+    /**
+     * Sets the axis of the chart.
+     */
+    @Prop() axis: string;
+    /**
+     * Colors of the chart.
+     */
+    @Prop() colors: string[] = [];
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
-
-    @Prop({ reflect: true })
-    graphTitle: string;
-
-    @Prop({ reflect: true })
-    graphTitleColor: string;
-
-    @Prop({ reflect: true })
-    graphTitleSize: number;
-
-    @Prop()
-    hAxis: ChartAxis;
-
+    @Prop() customStyle: string = undefined;
+    /**
+     * The actual data of the chart.
+     */
+    @Prop() data: DataTable;
+    /**
+     * Title of the graph.
+     */
+    @Prop() chartTitle: ChartTitle;
+    /**
+     * Customize the hAxis.
+     */
+    @Prop() hAxis: ChartAxis;
     /**
      * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
      */
-    @Prop({ reflect: true })
-    legend: string = 'right';
-
-    @Prop()
-    series: string[];
-
-    @Prop({ reflect: true })
-    showMarks = false;
-
-    @Prop({ reflect: true })
-    sizeX: string = '100%';
-
-    @Prop({ reflect: true })
-    sizeY: string = '100%';
-
-    @Prop({ reflect: true })
-    offlineMode: ChartOfflineMode = undefined;
-
-    @Prop({ reflect: true })
-    stacked = false;
-
-    @Prop()
-    types: ChartType[] = [ChartType.Hbar];
-
-    @Prop()
-    vAxis: ChartAxis;
-
+    @Prop() legend: string = 'right';
+    /**
+     * Renders charts without the Google API and using jQuery Sparkline.
+     */
+    @Prop() offlineMode: ChartOfflineMode = undefined;
+    /**
+     * The data series to be displayed. They must be of the same type.
+     */
+    @Prop() series: ChartSerie[];
+    /**
+     * Displays the numerical values.
+     */
+    @Prop() showMarks = false;
+    /**
+     * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+     */
+    @Prop() sizeX: string = '100%';
+    /**
+     * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+     */
+    @Prop() sizeY: string = '100%';
+    /**
+     * Displays the data columns of an object on top of each other.
+     */
+    @Prop() stacked = false;
+    /**
+     * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
+     */
+    @Prop() types: ChartType[] = [ChartType.Hbar];
+    /**
+     * Customize the vAxis.
+     */
+    @Prop() vAxis: ChartAxis;
     /**
      * Google chart version to load
      */
-    @Prop()
-    version = '45.2';
+    @Prop() version = '45.2';
 
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
-
+    @Watch('data')
+    identifyRows() {
+        if (this.data) {
+            identify(this.data.rows);
+        }
+    }
     /**
      * Triggered when a chart serie is clicked
      */
@@ -261,16 +274,18 @@ export class KupChart {
             opts.isStacked = true;
         }
 
-        if (this.graphTitle) {
-            opts.title = this.graphTitle;
+        if (this.chartTitle) {
+            opts.title = this.chartTitle.value;
 
             opts.titleTextStyle = {};
-            if (this.graphTitleColor) {
-                opts.titleTextStyle.color = this.graphTitleColor;
+            if (this.chartTitle.color) {
+                opts.titleTextStyle.color = this.chartTitle.color;
+            } else {
+                opts.titleTextStyle.color = this.themeText;
             }
 
-            if (this.graphTitleSize) {
-                opts.titleTextStyle.fontSize = this.graphTitleSize;
+            if (this.chartTitle.size) {
+                opts.titleTextStyle.fontSize = this.chartTitle.size;
             }
         }
 
@@ -333,7 +348,7 @@ export class KupChart {
             const c = tableColumns[i];
 
             dataTableColumns.push({
-                label: c.name,
+                label: getSerieDecode(c.name, this.series),
             });
 
             if (i > 0 && this.showMarks) {
@@ -415,14 +430,14 @@ export class KupChart {
 
                     event.column = getColumnByName(
                         this.data.columns,
-                        this.series[originalColIndex - 1]
+                        this.series[originalColIndex - 1].code
                     );
 
                     event.colindex = originalColIndex;
                 } else {
                     event.column = getColumnByName(
                         this.data.columns,
-                        this.series[0]
+                        this.series[0].code
                     );
                     event.colindex = 0;
                 }
@@ -579,10 +594,8 @@ export class KupChart {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
-        if (this.data) {
-            identify(this.data.rows);
-        }
+        logLoad(this, false);
+        this.identifyRows();
         this.setObserver();
         setThemeCustomStyle(this);
         this.fetchThemeColors();
@@ -618,23 +631,15 @@ export class KupChart {
                 console.error(err);
             }
         }
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     componentWillUpdate() {
@@ -661,7 +666,7 @@ export class KupChart {
         };
 
         return (
-            <Host class="handles-custom-style" style={this.elStyle}>
+            <Host style={this.elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div
                     id="kup-component"

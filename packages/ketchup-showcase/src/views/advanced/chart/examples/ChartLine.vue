@@ -1,11 +1,12 @@
 <template>
   <div>
     <h3>Single serie</h3>
+
     <kup-chart
       :data.prop="baseData"
       :types.prop="types"
       axis="Col1"
-      :series.prop="['Col2']"
+      :series.prop="[{ code: 'Col2', decode: 'Col2' }]"
     />
     <hr />
 
@@ -28,7 +29,11 @@ export default {
     return {
       types: ['Line'],
       baseData,
-      series: ['Col2', 'Col3', 'Col4'],
+      series: [
+        { code: 'Col2', decode: 'Col2' },
+        { code: 'Col3', decode: 'Col3' },
+        { code: 'Col4', decode: 'Col4' },
+      ],
     };
   },
 };

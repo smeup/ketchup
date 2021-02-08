@@ -1,118 +1,122 @@
 <!DOCTYPE html>
-<html dir="ltr"
-      lang="en">
+<html dir="ltr" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+        />
+        <title>Stencil Component Starter</title>
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+            .side-nav ul {
+                list-style: none;
+            }
+            .side-nav li {
+                margin: 1rem 0;
+            }
+            .side-nav a {
+                text-decoration: none;
+                color: black;
+            }
+        </style>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-  <title>Stencil Component Starter</title>
-  <style>
-    body {
-      font-family: sans-serif;
-    }
+        <script type="module" src="/build/ketchup.esm.js"></script>
+        <script nomodule src="/build/ketchup.js"></script>
+    </head>
 
-    .side-nav ul {
-      list-style: none;
-      
-    }
+    <body>
+        <kup-button
+            class="hydrated handles-custom-style"
+            icon
+            label="open drawer"
+            id="side-drawer-btn"
+            icon-off
+        ></kup-button>
 
-    .side-nav li {
-      margin: 1rem 0;
-    }
+        <kup-drawer>
+            <span slot="title">Title</span>
+            <span slot="subtitle">Subtitle</span>
 
-    .side-nav a {
-      text-decoration: none;
-      color: black;
-    }
-  </style>
+            <nav class="side-nav" slot="main-content">
+                <kup-list
+                    show-icons
+                    class="handles-custom-style hydrated"
+                    data
+                    display-mode="description"
+                    filter
+                    role-type="listbox"
+                    selectable
+                ></kup-list>
+                <button onclick="toggle()">Toggle</button>
+                <!-- Just for testing toggle function -->
+            </nav>
+        </kup-drawer>
+        <button onclick="toggle()">Toggle</button>
+        <!-- Just for testing toggle function -->
+        <script>
+            const sideDrawer = document.querySelector('kup-drawer');
+            const list = document.querySelector('kup-list');
+            const button = document.querySelector('kup-button');
 
-  <script type="module"
-          src="/build/ketchup.esm.js"></script>
-  <script nomodule
-          src="/build/ketchup.js"></script>
-</head>
+            list.data = [
+                {
+                    text: 'First choice',
+                    value: '1',
+                    icon: 'add_alert',
+                    trailingIcon: true,
+                    selected: false,
+                },
+                {
+                    text: 'Selected choice',
+                    value: '2',
+                    selected: false,
+                    icon: 'ac_unit',
+                },
+                {
+                    text: 'Third choice',
+                    value: '3',
+                    icon: '3d_rotation',
+                    selected: true,
+                },
+            ];
 
-<body>
- 
-   <kup-button class="hydrated handles-custom-style"  icon label="open drawer" id="side-drawer-btn" icon-off></kup-button>
+            list.addEventListener('kupListClick', (e) => {
+                console.log('Event Received', e);
+                if (e.detail.selected.value == '1') {
+                    console.log('first-choice');
+                }
 
-    <kup-drawer>
-      
-       <span slot="title">Title</span>
-       <span slot="subtitle">subtitle</span>
-  
-      
-     
-      <nav class="side-nav" slot="MainContent">
-      <kup-list show-icons class="handles-custom-style hydrated" data   display-mode="description" filter role-type="listbox" selectable ></kup-list>
-      
-      </nav>
-  </kup-drawer>
+                if (e.detail.selected.value == '2') {
+                    console.log('second-choice');
+                }
 
+                if (e.detail.selected.value == '3') {
+                    console.log('third-choice');
+                }
+            });
 
-  <script>
-    const sideDrawer = document.querySelector('kup-drawer');
-    const list = document.querySelector('kup-list');
-    const bot = document.querySelector('kup-button');
-   
-   list.data=[
-  {
-    "text": "First choice",
-    "value": "1",
-    "icon": "add_alert",
-    "trailingIcon": true,
-    "selected": false
-  },
-  {
-    "text": "Selected choice",
-    "value": "2",
-    "selected": false,
-    "icon": "ac_unit"
-  },
-  
-  {
-    "text": "Third choice",
-    "value": "3",
-    "icon": "3d_rotation",
-    "selected": true
-  }
-];
+            function openDrawer() {
+                if (!sideDrawer.opened) {
+                    sideDrawer.open();
+                }
+            }
 
-list.addEventListener ('kupListClick',  (e)=> { 
-  console.log ('Event Recieved'); 
-  
-      console.log(e);
-      
-      if(e.detail.selected.value=='1')
-      {
-        console.log("first-choice");
-       
-      }
-       
-      if(e.detail.selected.value=='2')
-      {
-        console.log("second-choice");
-     
-      }
-       
-      if(e.detail.selected.value=='3')
-      {
-        console.log("third-choice");
-    
-      }
-    }
-    );
+            button.addEventListener('kupButtonClick', openDrawer);
 
+            function toggle() {
+                sideDrawer.toggle();
+            }
 
-    function openDrawer() {
-      if (!sideDrawer.opened) {
-        sideDrawer.open();
-      }
-    }
+            sideDrawer.addEventListener('kupDrawerClose', (e) => {
+                console.log('Event Received' + ':KupDrawerClose');
+            });
 
-    bot.addEventListener('kupButtonClick',openDrawer);
-  </script>
-</body>
-
+            sideDrawer.addEventListener('kupDrawerOpen', (e) => {
+                console.log('Event Received' + ':KupDrawerOpen');
+            });
+        </script>
+    </body>
 </html>

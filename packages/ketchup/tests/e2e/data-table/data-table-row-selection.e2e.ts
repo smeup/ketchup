@@ -49,7 +49,13 @@ describe('row selection', () => {
 
         expect(detail.clickedColumn).toEqual('FLD1');
         expect(detail.selectedRows).toHaveLength(1);
-        expect(detail.selectedRows[0]).toEqual(staticData.rows[0]);
+        for (let i = 0; i < detail.selectedRows[0].cells.length; i++) {
+            let cellFromEvent = detail.selectedRows[0].cells[i];
+            let cellFromMockedData = staticData.rows[0].cells[i];
+            expect(cellFromEvent.value).toEqual(cellFromMockedData.value);
+            expect(cellFromEvent.obj).toEqual(cellFromMockedData.obj);
+        }
+        //expect(detail.selectedRows[0].cells).toEqual(staticData.rows[0].cells);
     });
 
     it.skip('multiple selection', async () => {
@@ -70,17 +76,13 @@ describe('row selection', () => {
         const headerCells = await page.findAll(headerCellsSelector);
         expect(headerCells).toHaveLength(4);
 
-        const headerCheckbox = await headerCells[0].findAll(
-            'kup-checkbox'
-        );
+        const headerCheckbox = await headerCells[0].findAll('kup-checkbox');
         expect(headerCheckbox).toHaveLength(1);
 
         // getting rows
         const rows = await page.findAll(rowsSelector);
 
-        const checkboxPromises = rows.map((row) =>
-            row.findAll('kup-checkbox')
-        );
+        const checkboxPromises = rows.map((row) => row.findAll('kup-checkbox'));
 
         const checkboxesMatrix = await Promise.all(checkboxPromises);
 

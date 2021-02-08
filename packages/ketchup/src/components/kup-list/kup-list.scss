@@ -4,6 +4,11 @@
 
 :host {
   display: block;
+  font-size: var(--kup-font-size);
+}
+
+#kup-component .mdc-list {
+  font-size: 1em;
 
   .mdc-list-item {
     & .mdc-list-item__text,
@@ -11,6 +16,17 @@
     & .mdc-list-item__secondary-text {
       font-family: var(--kup-font-family);
     }
+  }
+
+  &:not(.mdc-list--non-interactive) .mdc-list-item {
+    &:not(.mdc-list-item--selected):hover {
+      background-color: var(--kup-hover-background-color);
+      color: var(--kup-hover-color);
+    }
+  }
+
+  &.mdc-list--non-interactive .mdc-list-item {
+    cursor: auto;
   }
 }
 
@@ -33,15 +49,17 @@
   opacity: 0.75;
 }
 
-kup-image {
+.icon-container {
+  background-color: var(--kup-icon-color);
+  height: 24px;
+  width: 24px;
   margin-right: 6px;
-  --kup-icon-color: var(--kup-text-color);
 }
 
 kup-checkbox {
   margin: 0;
 }
 
-.mdc-list-item--selected kup-image {
-  --kup-icon-color: var(--kup-main-color);
+.mdc-list-item--selected .icon-container {
+  background-color: var(--kup-primary-color);
 }

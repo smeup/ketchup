@@ -41,6 +41,23 @@ export function isDate(smeupObj: Object): boolean {
     return 'D8' === smeupObj.t;
 }
 
+export function isTime(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'I1' === smeupObj.t || 'I2' === smeupObj.t;
+}
+
+export function isTimeWithSeconds(smeupObj: Object): boolean {
+    if (!isTime(smeupObj)) {
+        return false;
+    }
+    return '2' === smeupObj.p;
+}
+
+export function isTimestamp(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'I3' === smeupObj.t && '2' === smeupObj.p;
+}
+
 export function isIcon(smeupObj: Object): boolean {
     if (smeupObj == null) return false;
     return 'J4' === smeupObj.t && 'ICO' === smeupObj.p;
@@ -71,6 +88,16 @@ export function isVoCodver(smeupObj: Object): boolean {
     return 'VO' === smeupObj.t && 'COD_VER' === smeupObj.p;
 }
 
+export function isColor(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'J1' === smeupObj.t && 'COL' === smeupObj.p;
+}
+
+export function isObjectList(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'JL' === smeupObj.t;
+}
+
 export function isStringObject(obj: any): boolean {
     if (!obj) return true;
 
@@ -81,6 +108,27 @@ export function isStringObject(obj: any): boolean {
         !isCheckbox(obj) &&
         !isRadio(obj) &&
         !isChart(obj)
+    );
+}
+
+export function canHaveDerivedColumn(obj: any): boolean {
+    if (!obj) return false;
+    if (obj.t == null || (obj.t as string).trim() == '') return false;
+    return (
+        !isBar(obj) &&
+        !isButton(obj) &&
+        !isCheckbox(obj) &&
+        !isIcon(obj) &&
+        !isImage(obj) &&
+        !isLink(obj) &&
+        !isNumber(obj) &&
+        !isProgressBar(obj) &&
+        !isRadio(obj) &&
+        !isVoCodver(obj) &&
+        !isChart(obj) &&
+        !isDate(obj) &&
+        !isTime(obj) &&
+        !isTimestamp(obj)
     );
 }
 

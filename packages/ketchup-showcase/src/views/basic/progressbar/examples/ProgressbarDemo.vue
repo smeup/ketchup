@@ -1,9 +1,9 @@
 <template>
   <div>
     <demo
-      :demoTabs="demoTabs"
       :demoComp="demoComp"
       :demoProps="demoProps"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -37,22 +37,6 @@ export default {
           try: 'css',
         },
         {
-          prop: 'hasPadding',
-          description:
-            'Sets a padding between the bar and its container. Not supported for the radial variant.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'hasStripes',
-          description:
-            'Sets a striped background. Not supported for the radial variant.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'hideLabel',
           description: "Flag to show or hide the progress bar's label.",
           type: 'boolean',
@@ -67,23 +51,8 @@ export default {
           try: 'field',
         },
         {
-          prop: 'isAnimated',
-          description:
-            'When striped background is active, it will be animated. Not supported for the radial variant.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'isRadial',
           description: 'Radial version.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'isSlim',
-          description: 'Slim version.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -104,21 +73,28 @@ export default {
           try: 'field',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          class: 'animated',
+          description:
+            'When the striped class is active, the stripes will be animated.',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
         {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'padded',
+          description: 'Adds padding to the progress bar.',
+        },
+        {
+          class: 'slim',
+          description: 'Slim version.',
+        },
+        {
+          class: 'striped',
+          description: 'Displays stripes above the progress bar.',
         },
       ],
     };

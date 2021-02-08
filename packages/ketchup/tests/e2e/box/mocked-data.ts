@@ -23,7 +23,7 @@ export const defaultData = {
     ],
     rows: [
         {
-            id : '0',
+            id: '0',
             cells: {
                 FLD1: {
                     obj: {
@@ -55,12 +55,12 @@ export const defaultData = {
                         p: '*YYMD',
                         k: '20180101',
                     },
-                    value: '01/01/2018',
+                    value: '2018-01-01',
                 },
             },
         },
         {
-            id : '1',
+            id: '1',
             cells: {
                 FLD1: {
                     obj: {
@@ -92,12 +92,12 @@ export const defaultData = {
                         p: '*YYMD',
                         k: '20180102',
                     },
-                    value: '02/01/2018',
+                    value: '2018-01-02',
                 },
             },
         },
-        {   
-            id : '2',
+        {
+            id: '2',
             cells: {
                 FLD1: {
                     obj: {
@@ -129,12 +129,12 @@ export const defaultData = {
                         p: '*YYMD',
                         k: '20180103',
                     },
-                    value: '03/01/2018',
+                    value: '2018-01-03',
                 },
             },
         },
         {
-            id : '3',
+            id: '3',
             cells: {
                 FLD1: {
                     obj: {
@@ -166,7 +166,7 @@ export const defaultData = {
                         p: '*YYMD',
                         k: '20180104',
                     },
-                    value: '04/01/2018',
+                    value: '2018-01-04',
                 },
             },
         },
@@ -545,7 +545,7 @@ export const pgbData = {
                     },
                     data: {
                         value: '33',
-                        customStyle: ':host{--kup-main-color: green}',
+                        customStyle: ':host{--kup-primary-color: green}',
                     },
                     value: '33',
                 },
@@ -611,7 +611,7 @@ export const badgeData = {
                         p: '*YYMD',
                         k: '20180101',
                     },
-                    value: '01/01/2018',
+                    value: '2018-01-01',
                 },
             },
             badges: [
@@ -653,7 +653,7 @@ export const badgeData = {
                         p: '*YYMD',
                         k: '20180102',
                     },
-                    value: '02/01/2018',
+                    value: '2018-01-02',
                 },
             },
             badges: [
@@ -696,7 +696,7 @@ export const badgeData = {
                         p: '*YYMD',
                         k: '20180103',
                     },
-                    value: '03/01/2018',
+                    value: '2018-01-03',
                 },
             },
             badges: [
@@ -771,7 +771,7 @@ export function createData(rows: number) {
                         p: '*YYMD',
                         k: '20180101',
                     },
-                    value: '01/01/2018',
+                    value: '2018-01-01',
                 },
             },
         });
@@ -809,7 +809,7 @@ export function createData(rows: number) {
                         p: '*YYMD',
                         k: '20180102',
                     },
-                    value: '02/01/2018',
+                    value: '2018-01-02',
                 },
             },
         });
@@ -847,7 +847,7 @@ export function createData(rows: number) {
                         p: '*YYMD',
                         k: '20180103',
                     },
-                    value: '03/01/2018',
+                    value: '2018-01-03',
                 },
             },
         });
@@ -885,7 +885,7 @@ export function createData(rows: number) {
                         p: '*YYMD',
                         k: '20180104',
                     },
-                    value: '04/01/2018',
+                    value: '2018-01-04',
                 },
             },
         });

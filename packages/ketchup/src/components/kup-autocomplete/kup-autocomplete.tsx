@@ -9,9 +9,10 @@ import {
     h,
     Listen,
     Method,
+    Watch,
 } from '@stencil/core';
 
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
     ItemsDisplayMode,
@@ -27,37 +28,42 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 export class KupAutocomplete {
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
+    @State() value: string = '';
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = undefined;
     /**
-     * Props of the list.
+     * Props of the sub-components.
      */
-    @Prop() listData: Object = {};
+    @Prop() data: Object = undefined;
     /**
-     * Props of the text field.
+     * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop() textfieldData: Object = {};
+    @Prop() disabled: boolean = false;
+    /**
+     * Sets how the show the selected item value. Suported values: "code", "description", "both".
+     */
+    @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
+    /**
+     * Sets the initial value of the component.
+     */
+    @Prop() initialValue: string = '';
     /**
      * The minimum number of chars to trigger the autocomplete
      */
     @Prop() minimumChars: number = 1;
     /**
-     * Sets how the return the selected item value
+     * Sets how the return the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
 
-    private textfieldEl: any = undefined;
-    private listEl: any = undefined;
-    private value: string = undefined;
+    private doConsistencyCheck = true;
     private elStyle: any = undefined;
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
+    private displayedValue: string = undefined;
+    private listEl: any = undefined;
+    private textfieldEl: any = undefined;
 
     /**
      * Event example.
@@ -144,6 +150,16 @@ export class KupAutocomplete {
         matchesMinimumCharsRequired: boolean;
     }>;
 
+    @Event({
+        eventName: 'kupAutocompleteTextFieldSubmit',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTextFieldSubmit: EventEmitter<{
+        value: any;
+    }>;
+
     /**
      * Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.
      */
@@ -180,8 +196,24 @@ export class KupAutocomplete {
     //---- Methods ----
 
     @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
+
+    @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+
+    @Method()
+    async setFocus() {
+        this.textfieldEl.setFocus();
+    }
+
+    @Method()
+    async setValue(value: string) {
+        this.value = value;
+        this.textfieldEl.setValue(value);
     }
 
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
@@ -193,7 +225,8 @@ export class KupAutocomplete {
     }
 
     onKupChange(e: CustomEvent) {
-        this.value = e.detail.value;
+        this.doConsistencyCheck = true;
+        this.consistencyCheck(undefined, e.detail.value);
         this.kupChange.emit({
             value: this.value,
         });
@@ -214,10 +247,10 @@ export class KupAutocomplete {
     }
 
     onKupInput(e: CustomEvent) {
-        this.value = e.detail.value;
-
+        this.doConsistencyCheck = true;
+        this.consistencyCheck(undefined, e.detail.value);
         if (this.openList(false)) {
-            this.handleFilterChange(this.value, e.target);
+            this.handleFilterChange(this.displayedValue, e.target);
         }
 
         this.kupInput.emit({
@@ -238,8 +271,9 @@ export class KupAutocomplete {
         });
     }
 
-    onKupItemClick() {
-        this.consistencyCheck();
+    onKupItemClick(e: CustomEvent) {
+        this.doConsistencyCheck = true;
+        this.consistencyCheck(e);
         this.closeList();
 
         this.kupChange.emit({
@@ -251,11 +285,7 @@ export class KupAutocomplete {
         });
     }
 
-    onKupFilterChanged(e: CustomEvent) {
-        this.handleFilterChange(e.detail.value, e.target);
-    }
-
-    handleFilterChange(newFilter: string, eventTarget: EventTarget) {
+    private handleFilterChange(newFilter: string, eventTarget: EventTarget) {
         let detail = {
             filter: newFilter,
             matchesMinimumCharsRequired:
@@ -265,7 +295,7 @@ export class KupAutocomplete {
         if (this.serverHandledFilter && this.callBackOnFilterUpdate) {
             this.callBackOnFilterUpdate(detail)
                 .then((items) => {
-                    this.listData['data'] = [...items];
+                    this.data['kup-list']['data'] = [...items];
                     this.kupFilterChanged.emit(detail);
                 })
                 .catch((err) => {
@@ -278,7 +308,16 @@ export class KupAutocomplete {
         }
     }
 
-    openList(forceOpen: boolean): boolean {
+    private onKupTextFieldSubmit(event: CustomEvent) {
+        this.kupChange.emit({
+            value: event.detail.value,
+        });
+        this.kupTextFieldSubmit.emit({
+            value: event.detail.value,
+        });
+    }
+
+    private openList(forceOpen: boolean): boolean {
         if (forceOpen != true && this.value.length < this.minimumChars) {
             return false;
         }
@@ -298,7 +337,7 @@ export class KupAutocomplete {
         return true;
     }
 
-    closeList() {
+    private closeList() {
         this.textfieldEl.classList.remove('toggled');
         if (this.textfieldEl['icon']) {
             this.textfieldEl['icon'] = 'arrow_drop_down';
@@ -308,109 +347,131 @@ export class KupAutocomplete {
         this.listEl.classList.remove('dynamic-position-active');
     }
 
-    isListOpened(): boolean {
+    private isListOpened(): boolean {
         return this.listEl.menuVisible == true;
     }
 
-    consistencyCheck() {
-        this.value = consistencyCheck(
-            this.value,
-            this.listData,
+    private consistencyCheck(e?: CustomEvent, valueIn?: string) {
+        if (!this.doConsistencyCheck) {
+            return;
+        }
+        this.doConsistencyCheck = false;
+        let ret = consistencyCheck(
+            valueIn,
+            this.data['kup-list'],
             this.textfieldEl,
-            this.selectMode
+            this.listEl,
+            this.selectMode,
+            this.displayMode,
+            e
         );
+        this.value = ret.value;
+        this.displayedValue = ret.displayedValue;
+
+        if (this.listEl != null) {
+            this.listEl.resetFilter(this.displayedValue);
+        }
     }
 
-    prepTextfield() {
-        if (this.textfieldData['fullWidth']) {
-            this.elStyle = {
-                ...this.elStyle,
-                width: '100%',
-            };
+    private prepTextfield() {
+        let textfieldData = { ...this.data['kup-text-field'] };
+
+        if (!textfieldData['icon']) {
+            textfieldData['icon'] = 'arrow_drop_down';
+        }
+        if (textfieldData['trailingIcon'] === undefined) {
+            textfieldData['trailingIcon'] = true;
         }
 
-        if (this.textfieldData['fullHeight']) {
-            this.elStyle = {
-                ...this.elStyle,
-                height: '100%',
-            };
-        }
-
-        let comp: HTMLElement = (
+        return (
             <kup-text-field
-                {...this.textfieldData}
-                style={this.elStyle}
-                initial-value={this.value}
+                {...textfieldData}
+                disabled={this.disabled}
                 id={this.rootElement.id + '_text-field'}
-                /* onKupTextFieldBlur={(e: any) => this.onKupBlur(e)} */
+                initialValue={this.displayedValue}
                 onKupTextFieldChange={(e: any) => this.onKupChange(e)}
                 onKupTextFieldClick={(e: any) => this.onKupClick(e)}
                 onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
                 onKupTextFieldInput={(e: any) => this.onKupInput(e)}
                 onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
+                onKupTextFieldSubmit={(e: any) => this.onKupTextFieldSubmit(e)}
                 ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );
-
-        return comp;
     }
 
-    prepList() {
-        let comp: HTMLElement = (
+    private prepList() {
+        return (
             <kup-list
-                {...this.listData}
-                is-menu
-                onKupListClick={() => this.onKupItemClick()}
+                {...this.data['kup-list']}
+                displayMode={this.displayMode}
+                isMenu={true}
+                onKupListClick={(e) => this.onKupItemClick(e)}
                 id={this.rootElement.id + '_list'}
                 ref={(el) => (this.listEl = el as any)}
             ></kup-list>
         );
-
-        return comp;
     }
 
     //---- Lifecycle hooks ----
+
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
+        this.doConsistencyCheck = true;
+        this.value = this.initialValue;
+        if (!this.data) {
+            this.data = {
+                'kup-list': {},
+                'kup-text-field': {},
+            };
+        }
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        this.consistencyCheck(undefined, this.value);
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
         positionRecalc(this.listEl, this.textfieldEl);
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
-        this.consistencyCheck();
-        let textfieldEl = this.prepTextfield();
-        let listEl = this.prepList();
+        let hostClass: Record<string, boolean> = {};
+
+        if (
+            this.data &&
+            this.data['kup-text-field'] &&
+            this.data['kup-text-field']['className'] &&
+            this.data['kup-text-field']['className'].indexOf('full-height') > -1
+        ) {
+            hostClass['full-height'] = true;
+        }
+
+        if (
+            this.data &&
+            this.data['kup-text-field'] &&
+            this.data['kup-text-field']['fullWidth']
+        ) {
+            hostClass['full-width'] = true;
+        }
 
         return (
             <Host
-                class="handles-custom-style"
+                class={hostClass}
                 onBlur={(e: any) => this.onKupBlur(e)}
                 style={this.elStyle}
             >
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
-                    {textfieldEl}
-                    {listEl}
+                    {this.prepTextfield()}
+                    {this.prepList()}
                 </div>
             </Host>
         );

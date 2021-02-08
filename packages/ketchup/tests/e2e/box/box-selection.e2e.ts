@@ -36,7 +36,13 @@ describe('box selection', () => {
 
         let event = kupBoxClicked.events[kupBoxClicked.events.length - 1];
 
-        expect(event.detail.row).toEqual(defaultData.rows[0]);
+        for (let i = 0; i < event.detail.row.cells.length; i++) {
+            let cellFromEvent = event.detail.row.cells[i];
+            let cellFromMockedData = defaultData.rows[0].cells[i];
+            expect(cellFromEvent.value).toEqual(cellFromMockedData.value);
+            expect(cellFromEvent.obj).toEqual(cellFromMockedData.obj);
+        }
+        //expect(event.detail.row).toEqual(defaultData.rows[0]);
 
         expect(event.detail.column).toBe('FLD1');
 
@@ -47,7 +53,13 @@ describe('box selection', () => {
 
         event = kupBoxClicked.events[kupBoxClicked.events.length - 1];
 
-        expect(event.detail.row).toEqual(defaultData.rows[0]);
+        for (let i = 0; i < event.detail.row.cells.length; i++) {
+            let cellFromEvent = event.detail.row.cells[i];
+            let cellFromMockedData = defaultData.rows[0].cells[i];
+            expect(cellFromEvent.value).toEqual(cellFromMockedData.value);
+            expect(cellFromEvent.obj).toEqual(cellFromMockedData.obj);
+        }
+        //expect(event.detail.row).toEqual(defaultData.rows[0]);
 
         expect(event.detail.column).toBe('FLD2');
 
@@ -73,8 +85,7 @@ describe('box selection', () => {
         const kupBoxSelected = await page.spyOnEvent('kupBoxSelected');
 
         //const checkboxSelector = '.box-selection input[type="checkbox"]';
-        const checkboxSelector =
-            'div > div > kup-checkbox';
+        const checkboxSelector = 'div > div > kup-checkbox';
 
         // selecting first row
         let chk = await boxes[0].find(checkboxSelector);
@@ -91,8 +102,22 @@ describe('box selection', () => {
         let detail = kupBoxSelected.lastEvent.detail;
 
         expect(detail.rows).toHaveLength(2);
-        expect(detail.rows[0]).toEqual(defaultData.rows[0]);
-        expect(detail.rows[1]).toEqual(defaultData.rows[2]);
+
+        for (let i = 0; i < detail.rows[0].cells.length; i++) {
+            let cellFromEvent = detail.rows[0].cells[i];
+            let cellFromMockedData = defaultData.rows[0].cells[i];
+            expect(cellFromEvent.value).toEqual(cellFromMockedData.value);
+            expect(cellFromEvent.obj).toEqual(cellFromMockedData.obj);
+        }
+        //expect(detail.rows[0]).toEqual(defaultData.rows[0]);
+
+        for (let i = 0; i < detail.rows[1].cells.length; i++) {
+            let cellFromEvent = detail.rows[1].cells[i];
+            let cellFromMockedData = defaultData.rows[2].cells[i];
+            expect(cellFromEvent.value).toEqual(cellFromMockedData.value);
+            expect(cellFromEvent.obj).toEqual(cellFromMockedData.obj);
+        }
+        //expect(detail.rows[1]).toEqual(defaultData.rows[2]);
 
         // testing selected class
         boxes = await page.findAll(boxSelector + '.selected');
@@ -109,7 +134,14 @@ describe('box selection', () => {
         detail = kupBoxSelected.lastEvent.detail;
 
         expect(detail.rows).toHaveLength(1);
-        expect(detail.rows[0]).toEqual(defaultData.rows[2]);
+
+        for (let i = 0; i < detail.rows[0].cells.length; i++) {
+            let cellFromEvent = detail.rows[0].cells[i];
+            let cellFromMockedData = defaultData.rows[2].cells[i];
+            expect(cellFromEvent.value).toEqual(cellFromMockedData.value);
+            expect(cellFromEvent.obj).toEqual(cellFromMockedData.obj);
+        }
+        //expect(detail.rows[0]).toEqual(defaultData.rows[2]);
 
         // testing selected class
         boxes = await page.findAll(boxSelector + '.selected');

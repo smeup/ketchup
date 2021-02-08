@@ -8,12 +8,13 @@ import {
     State,
     h,
     Method,
+    getAssetPath,
 } from '@stencil/core';
 
 import { MDCTabBar } from '@material/tab-bar';
 import { ComponentTabBarElement } from './kup-tab-bar-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -27,17 +28,11 @@ export class KupTabBar {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * List of elements.
      */
     @Prop() data: ComponentTabBarElement[] = [];
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     @Event({
         eventName: 'kupTabBarBlur',
@@ -87,6 +82,11 @@ export class KupTabBar {
     }
 
     onKupClick(i: number, e: Event) {
+        for (let i = 0; i < this.data.length; i++) {
+            this.data[i].active = false;
+        }
+        this.data[i].active = true;
+
         this.kupClick.emit({
             index: i,
             el: e.target,
@@ -100,22 +100,45 @@ export class KupTabBar {
         });
     }
 
+    private consistencyCheck() {
+        let activeTabs: number = 0;
+        let lastActiveOccurrence: number = 0;
+        if (this.data) {
+            for (let i = 0; i < this.data.length; i++) {
+                if (this.data[i].active) {
+                    activeTabs++;
+                    lastActiveOccurrence = i;
+                }
+                this.data[i].active = false;
+            }
+            if (activeTabs > 1) {
+                this.data[lastActiveOccurrence].active = true;
+                let message = 'Too many active tabs, forcing last one.';
+                logMessage(this, message, 'warning');
+            } else if (activeTabs === 0) {
+                this.data[0].active = true;
+                let message = 'No active tabs detected, forcing first one.';
+                logMessage(this, message, 'log');
+            } else {
+                this.data[lastActiveOccurrence].active = true;
+            }
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
+        this.consistencyCheck();
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
@@ -124,17 +147,17 @@ export class KupTabBar {
         if (root) {
             MDCTabBar.attachTo(root.querySelector('.mdc-tab-bar'));
         }
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
+        if (!this.data || this.data.length === 0) {
+            let message = 'Empty data.';
+            logMessage(this, message, 'warning');
+        }
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;
+        let title: string = '';
         let componentClass: string = 'mdc-tab-bar';
 
         for (let i = 0; i < this.data.length; i++) {
@@ -142,21 +165,29 @@ export class KupTabBar {
             let indicatorClass: string = 'mdc-tab-indicator';
             let iconEl: HTMLElement = null;
 
-            if (this.data[i].active === true) {
+            if (this.data[i].active) {
                 tabClass += ' mdc-tab--active';
                 indicatorClass += ' mdc-tab-indicator--active';
             }
 
-            if (this.data[i].icon !== '') {
+            if (this.data[i].icon) {
+                let svg: string = `url('${getAssetPath(
+                    `./assets/svg/${this.data[i].icon}.svg`
+                )}') no-repeat center`;
+                let iconStyle = {
+                    mask: svg,
+                    webkitMask: svg,
+                };
                 iconEl = (
-                    <kup-image
-                        color="var(--kup-main-color)"
-                        class="mdc-tab__icon material-icons"
-                        sizeX="24px"
-                        sizeY="24px"
-                        resource={this.data[i].icon}
-                    ></kup-image>
+                    <span
+                        style={iconStyle}
+                        class="mdc-tab__icon material-icons icon-container"
+                    ></span>
                 );
+            }
+
+            if (this.data[i].title) {
+                title = this.data[i].title;
             }
 
             tabEl = (
@@ -165,6 +196,7 @@ export class KupTabBar {
                     role="tab"
                     aria-selected="true"
                     tabindex={i}
+                    title={title}
                     onBlur={(e) => this.onKupBlur(i, e)}
                     onClick={(e) => this.onKupClick(i, e)}
                     onFocus={(e) => this.onKupFocus(i, e)}
@@ -185,7 +217,7 @@ export class KupTabBar {
         }
 
         return (
-            <Host class="handles-custom-style">
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={componentClass} role="tablist">

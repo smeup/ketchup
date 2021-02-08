@@ -11,7 +11,7 @@ import {
 import { formatToMomentDate } from '../../utils/cell-formatter';
 import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 import moment from 'moment';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-calendar',
@@ -30,12 +30,6 @@ export class KupCalendar {
     @Prop({ reflect: true }) weekView = false;
     @Prop({ reflect: true }) hideNavigation = false;
     @Prop({ reflect: true }) initialDate: string;
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
 
     /**
      * When an event is clicked
@@ -184,7 +178,7 @@ export class KupCalendar {
 
     // ---- Lifecycle ----
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
     }
 
     componentDidLoad() {
@@ -275,23 +269,15 @@ export class KupCalendar {
         });
 
         this.calendar.render();
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
@@ -300,17 +286,14 @@ export class KupCalendar {
                 {this.hideNavigation ? null : (
                     <div id="kup-calendar__menu">
                         <kup-button
-                            flat
                             icon="chevron_left"
                             onKupButtonClick={() => this.onPrev()}
                         ></kup-button>
                         <kup-button
-                            flat
                             icon="calendar"
                             onKupButtonClick={() => this.onToday()}
                         ></kup-button>
                         <kup-button
-                            flat
                             icon="chevron_right"
                             onKupButtonClick={() => this.onNext()}
                         ></kup-button>

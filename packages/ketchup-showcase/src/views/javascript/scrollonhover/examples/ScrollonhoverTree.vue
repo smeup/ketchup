@@ -1,10 +1,11 @@
 <template>
   <div>
-    <div style="width: 70px;">
+    <div style="width: 70px">
       <kup-tree
         :columns.prop="basicData.columns"
         :data.prop="basicData.data"
         :showIcons.prop="false"
+        scroll-on-hover
       />
     </div>
   </div>

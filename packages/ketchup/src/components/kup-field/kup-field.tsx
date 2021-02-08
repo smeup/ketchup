@@ -12,7 +12,7 @@ import {
 
 import { KupFldChangeEvent, KupFldSubmitEvent } from './kup-field-declarations';
 
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
@@ -27,48 +27,35 @@ export class KupField {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
-
+    @Prop() customStyle: string = undefined;
     /**
      * Effective data to pass to the component.
      */
     @Prop() data: Object = {};
-
     /**
      * The text of the label. If set to empty or has only white space chars, the label will be removed.
      */
-    @Prop({ reflect: true }) label: string = '';
-
+    @Prop() label: string = '';
     /**
      * Sets the label's position, left right or top.
      */
-    @Prop({ reflect: true }) labelPos: string = 'left';
-
+    @Prop() labelPos: string = 'left';
     /**
      * Sets whether the submit button must be displayed or not.
      */
-    @Prop({ reflect: true }) showSubmit: boolean = false;
-
+    @Prop() showSubmit: boolean = false;
     /**
      * Sets the submit button's label.
      */
-    @Prop({ reflect: true }) submitLabel: string = '';
-
+    @Prop() submitLabel: string = '';
     /**
      * Sets the submit button's position, top right bottom or left.
      */
-    @Prop({ reflect: true }) submitPos: string = 'right';
-
+    @Prop() submitPos: string = 'right';
     /**
      * The type of the FLD
      */
-    @Prop({ reflect: true }) type: string = undefined;
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
+    @Prop() type: string = undefined;
 
     //-- Not reactive --
     currentValue: object | string = null;
@@ -152,28 +139,20 @@ export class KupField {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
@@ -257,7 +236,7 @@ export class KupField {
                     break;
                 case 'itx':
                     comp = 'kup-text-field';
-                    propList.onkupTextfieldChange = this.onChangeInstance;
+                    propList.onkupTextFieldChange = this.onChangeInstance;
                     break;
                 case 'rad':
                     comp = 'kup-radio';
@@ -284,7 +263,7 @@ export class KupField {
         }
 
         return (
-            <Host class="handles-custom-style">
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     {toRender}

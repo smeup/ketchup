@@ -13600,3 +13600,34752 @@ export const performanceTreeData = [
     visible: true,
   },
 ];
+
+export const treeColumns = [
+  {
+    cells: {
+      '£DIBF2': {
+        obj: {
+          k: '',
+          p: 'BRDIST0F02',
+          t: 'FL',
+        },
+        value: '',
+      },
+      '£DIBF3': {
+        obj: {
+          k: '',
+          p: 'BRDIST0F03',
+          t: 'FL',
+        },
+        value: '',
+      },
+      '£DIBIS': {
+        obj: {
+          k: '',
+          p: 'B£WDB',
+          t: 'TA',
+        },
+        value: '',
+      },
+      '£DIBIT': {
+        obj: {
+          k: 'ART',
+          p: 'BRL',
+          t: 'TA',
+        },
+        value: 'ART',
+      },
+      '£DIBF1': {
+        obj: {
+          k: '',
+          p: 'BRDIST0F01',
+          t: 'FL',
+        },
+        value: '',
+      },
+      '£DIBIQ': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      $OP: {
+        data: {
+          sizeX: '18px',
+          resource: 'chevron-down',
+          sizeY: '18px',
+        },
+        obj: {
+          k: '000201',
+          p: 'COD_VER',
+          t: 'VO',
+        },
+        value: 'chevron-down',
+      },
+      '£DIBIR': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0',
+      },
+      '£DIBMS': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIV11': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIV12': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIBAS': {
+        obj: {
+          k: '00901151',
+          p: '',
+          t: '',
+        },
+        value: '00901151',
+      },
+      '£DIV10': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIBNA': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIBF4': {
+        obj: {
+          k: '',
+          p: 'BRDIST0F04',
+          t: 'FL',
+        },
+        value: '',
+      },
+      '£DIBF5': {
+        obj: {
+          k: '',
+          p: 'BRDIST0F05',
+          t: 'FL',
+        },
+        value: '',
+      },
+      '£DIV19': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIV17': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIV18': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIV15': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIV16': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIBEO_I': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIV13': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIV14': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIBNR': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0',
+      },
+      '£DIBFI': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIBNL': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0',
+      },
+      '£DIBS1': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIBFD': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIBS2': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIBFP': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIV20': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIBFU': {
+        obj: {
+          k: 'ED',
+          p: '',
+          t: '',
+        },
+        value: 'ED',
+      },
+      '£DIBSP': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIBCG': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIB35': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIBCF': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIB36': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIBST': {
+        obj: {
+          k: '',
+          p: 'B£WDB',
+          t: 'TA',
+        },
+        value: '',
+      },
+      '£DIBSQ': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIBCO': {
+        obj: {
+          k: '00901151',
+          p: '',
+          t: '',
+        },
+        value: '00901151',
+      },
+      '£DIBSZ': {
+        obj: {
+          k: '',
+          p: 'BRS',
+          t: 'TA',
+        },
+        value: '',
+      },
+      '£DIBLA': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0',
+      },
+      '£DIBTD': {
+        obj: {
+          k: '',
+          p: 'BRL',
+          t: 'TA',
+        },
+        value: '',
+      },
+      '£DIBU1': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIBU2': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIBDI': {
+        obj: {
+          k: '00000000',
+          p: '*YYMD',
+          t: 'D8',
+        },
+        value: '',
+      },
+      '£DIBDF': {
+        obj: {
+          k: '00000000',
+          p: '*YYMD',
+          t: 'D8',
+        },
+        value: '',
+      },
+      '£DIBPR': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000',
+      },
+      '£DIBLM': {
+        obj: {
+          k: '3.000000000',
+          p: '',
+          t: 'NR',
+        },
+        value: '3',
+      },
+      '£DIBPO': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIBDC': {
+        obj: {
+          k: '00000000',
+          p: '*YYMD',
+          t: 'D8',
+        },
+        value: '',
+      },
+      '£DIBUA': {
+        obj: {
+          k: '',
+          p: '',
+          t: 'UP',
+        },
+        value: '',
+      },
+      '£DIBLV': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0',
+      },
+      '£DIBI1': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIBI2': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIV01': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIBDT': {
+        obj: {
+          k: '00000000',
+          p: '*YYMD',
+          t: 'D8',
+        },
+        value: '',
+      },
+      '£DIBDU': {
+        obj: {
+          k: '00000000',
+          p: '*YYMD',
+          t: 'D8',
+        },
+        value: '',
+      },
+      '£DIBDV_I': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0',
+      },
+      '£DIBDS': {
+        obj: {
+          k: '',
+          p: '',
+          t: '',
+        },
+        value: '',
+      },
+      '£DIV08': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIV09': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIBIC': {
+        obj: {
+          k: '00901151',
+          p: '',
+          t: '',
+        },
+        value: '00901151',
+      },
+      '£DIV06': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIBQL': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000',
+      },
+      '£DIV07': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIBME': {
+        obj: {
+          k: '3',
+          p: '',
+          t: '',
+        },
+        value: '3',
+      },
+      '£DIV04': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIV05': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIV02': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIV03': {
+        obj: {
+          k: '0E-9',
+          p: '',
+          t: 'NR',
+        },
+        value: '0.000000',
+      },
+      '£DIBQT': {
+        obj: {
+          k: '10.000000000',
+          p: '',
+          t: 'NR',
+        },
+        value: '10.000',
+      },
+    },
+    children: [
+      {
+        cells: {
+          '£DIBF2': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F02',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIBF3': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F03',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIBIS': {
+            obj: {
+              k: '',
+              p: 'B£WDB',
+              t: 'TA',
+            },
+            value: '',
+          },
+          '£DIBIT': {
+            obj: {
+              k: '',
+              p: 'BRL',
+              t: 'TA',
+            },
+            value: '',
+          },
+          '£DIBF1': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F01',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIBIQ': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          $OP: {
+            data: {
+              sizeX: '18px',
+              resource: 'chevron-down',
+              sizeY: '18px',
+            },
+            obj: {
+              k: '000102',
+              p: 'COD_VER',
+              t: 'VO',
+            },
+            value: 'chevron-down',
+          },
+          '£DIBIR': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0',
+          },
+          '£DIBMS': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV11': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV12': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBAS': {
+            obj: {
+              k: '00901151',
+              p: '',
+              t: '',
+            },
+            value: '00901151',
+          },
+          '£DIV10': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBNA': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBF4': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F04',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIBF5': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F05',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIV19': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV17': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV18': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV15': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV16': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBEO_I': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV13': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV14': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBNR': {
+            obj: {
+              k: '1.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '1',
+          },
+          '£DIBFI': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBNL': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0',
+          },
+          '£DIBS1': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBFD': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBS2': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBFP': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV20': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBFU': {
+            obj: {
+              k: 'ED',
+              p: '',
+              t: '',
+            },
+            value: 'ED',
+          },
+          '£DIBSP': {
+            obj: {
+              k: '1',
+              p: '',
+              t: '',
+            },
+            value: '1',
+          },
+          '£DIBCG': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIB35': {
+            obj: {
+              k: '0',
+              p: '',
+              t: '',
+            },
+            value: '0',
+          },
+          '£DIBCF': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIB36': {
+            obj: {
+              k: '0',
+              p: '',
+              t: '',
+            },
+            value: '0',
+          },
+          '£DIBST': {
+            obj: {
+              k: '10',
+              p: 'B£WDB',
+              t: 'TA',
+            },
+            value: '10',
+          },
+          '£DIBSQ': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBCO': {
+            obj: {
+              k: 'DF100901151',
+              p: '',
+              t: '',
+            },
+            value: 'DF100901151',
+          },
+          '£DIBSZ': {
+            obj: {
+              k: '',
+              p: 'BRS',
+              t: 'TA',
+            },
+            value: '',
+          },
+          '£DIBLA': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0',
+          },
+          '£DIBTD': {
+            obj: {
+              k: 'ART',
+              p: 'BRL',
+              t: 'TA',
+            },
+            value: 'ART',
+          },
+          '£DIBU1': {
+            obj: {
+              k: '0010',
+              p: '',
+              t: '',
+            },
+            value: '0010',
+          },
+          '£DIBU2': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBDI': {
+            obj: {
+              k: '00000000',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '',
+          },
+          '£DIBDF': {
+            obj: {
+              k: '00000000',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '',
+          },
+          '£DIBPR': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000',
+          },
+          '£DIBLM': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0',
+          },
+          '£DIBPO': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBDC': {
+            obj: {
+              k: '20170331',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '2017-03-31',
+          },
+          '£DIBUA': {
+            obj: {
+              k: 'SMEMD',
+              p: '',
+              t: 'UP',
+            },
+            value: 'SMEMD',
+          },
+          '£DIBLV': {
+            obj: {
+              k: '1.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '1',
+          },
+          '£DIBI1': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBI2': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV01': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBDT': {
+            obj: {
+              k: '00000000',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '',
+          },
+          '£DIBDU': {
+            obj: {
+              k: '20170331',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '2017-03-31',
+          },
+          '£DIBDV_I': {
+            obj: {
+              k: '20170524.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '20,170,524',
+          },
+          '£DIBDS': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV08': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV09': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBIC': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV06': {
+            obj: {
+              k: '1.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '1.000000',
+          },
+          '£DIBQL': {
+            obj: {
+              k: '1.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '1.000',
+          },
+          '£DIV07': {
+            obj: {
+              k: '0.100000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.100000',
+          },
+          '£DIBME': {
+            obj: {
+              k: '3',
+              p: '',
+              t: '',
+            },
+            value: '3',
+          },
+          '£DIV04': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV05': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV02': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV03': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBQT': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000',
+          },
+        },
+        children: [],
+        disabled: false,
+        expandable: true,
+        icon: 'insert_drive_file',
+        id: 'DF100901151',
+        isExpanded: true,
+        obj: {
+          k: 'DF100901151',
+          p: '',
+          t: 'AR',
+        },
+        options: false,
+        style: {},
+        value: 'DF100901151',
+        visible: true,
+      },
+      {
+        cells: {
+          '£DIBF2': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F02',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIBF3': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F03',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIBIS': {
+            obj: {
+              k: '',
+              p: 'B£WDB',
+              t: 'TA',
+            },
+            value: '',
+          },
+          '£DIBIT': {
+            obj: {
+              k: '',
+              p: 'BRL',
+              t: 'TA',
+            },
+            value: '',
+          },
+          '£DIBF1': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F01',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIBIQ': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          $OP: {
+            data: {
+              sizeX: '18px',
+              resource: 'chevron-down',
+              sizeY: '18px',
+            },
+            obj: {
+              k: '000102',
+              p: 'COD_VER',
+              t: 'VO',
+            },
+            value: 'chevron-down',
+          },
+          '£DIBIR': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0',
+          },
+          '£DIBMS': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV11': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV12': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBAS': {
+            obj: {
+              k: '00901151',
+              p: '',
+              t: '',
+            },
+            value: '00901151',
+          },
+          '£DIV10': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBNA': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBF4': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F04',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIBF5': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F05',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIV19': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV17': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV18': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV15': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV16': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBEO_I': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV13': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV14': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBNR': {
+            obj: {
+              k: '134.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '134',
+          },
+          '£DIBFI': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBNL': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0',
+          },
+          '£DIBS1': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBFD': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBS2': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBFP': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV20': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBFU': {
+            obj: {
+              k: 'ED',
+              p: '',
+              t: '',
+            },
+            value: 'ED',
+          },
+          '£DIBSP': {
+            obj: {
+              k: '1',
+              p: '',
+              t: '',
+            },
+            value: '1',
+          },
+          '£DIBCG': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIB35': {
+            obj: {
+              k: '0',
+              p: '',
+              t: '',
+            },
+            value: '0',
+          },
+          '£DIBCF': {
+            obj: {
+              k: '0.004000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.004000',
+          },
+          '£DIB36': {
+            obj: {
+              k: '0',
+              p: '',
+              t: '',
+            },
+            value: '0',
+          },
+          '£DIBST': {
+            obj: {
+              k: '10',
+              p: 'B£WDB',
+              t: 'TA',
+            },
+            value: '10',
+          },
+          '£DIBSQ': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBCO': {
+            obj: {
+              k: 'B040.50',
+              p: '',
+              t: '',
+            },
+            value: 'B040.50',
+          },
+          '£DIBSZ': {
+            obj: {
+              k: '',
+              p: 'BRS',
+              t: 'TA',
+            },
+            value: '',
+          },
+          '£DIBLA': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0',
+          },
+          '£DIBTD': {
+            obj: {
+              k: 'ART',
+              p: 'BRL',
+              t: 'TA',
+            },
+            value: 'ART',
+          },
+          '£DIBU1': {
+            obj: {
+              k: '0020',
+              p: '',
+              t: '',
+            },
+            value: '0020',
+          },
+          '£DIBU2': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBDI': {
+            obj: {
+              k: '00000000',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '',
+          },
+          '£DIBDF': {
+            obj: {
+              k: '00000000',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '',
+          },
+          '£DIBPR': {
+            obj: {
+              k: '25.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '25.000',
+          },
+          '£DIBLM': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0',
+          },
+          '£DIBPO': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBDC': {
+            obj: {
+              k: '20170331',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '2017-03-31',
+          },
+          '£DIBUA': {
+            obj: {
+              k: 'SMEMD',
+              p: '',
+              t: 'UP',
+            },
+            value: 'SMEMD',
+          },
+          '£DIBLV': {
+            obj: {
+              k: '1.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '1',
+          },
+          '£DIBI1': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBI2': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV01': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBDT': {
+            obj: {
+              k: '00000000',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '',
+          },
+          '£DIBDU': {
+            obj: {
+              k: '20170331',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '2017-03-31',
+          },
+          '£DIBDV_I': {
+            obj: {
+              k: '20170524.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '20,170,524',
+          },
+          '£DIBDS': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV08': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV09': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBIC': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV06': {
+            obj: {
+              k: '0.050000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.050000',
+          },
+          '£DIBQL': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000',
+          },
+          '£DIV07': {
+            obj: {
+              k: '0.005000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.005000',
+          },
+          '£DIBME': {
+            obj: {
+              k: '3',
+              p: '',
+              t: '',
+            },
+            value: '3',
+          },
+          '£DIV04': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV05': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV02': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV03': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBQT': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000',
+          },
+        },
+        children: [],
+        disabled: false,
+        expandable: true,
+        icon: 'insert_drive_file',
+        id: 'B040.50',
+        isExpanded: true,
+        obj: {
+          k: 'B040.50',
+          p: '',
+          t: 'AR',
+        },
+        options: false,
+        style: {},
+        value: 'B040.50',
+        visible: true,
+      },
+      {
+        cells: {
+          '£DIBF2': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F02',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIBF3': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F03',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIBIS': {
+            obj: {
+              k: '',
+              p: 'B£WDB',
+              t: 'TA',
+            },
+            value: '',
+          },
+          '£DIBIT': {
+            obj: {
+              k: '',
+              p: 'BRL',
+              t: 'TA',
+            },
+            value: '',
+          },
+          '£DIBF1': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F01',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIBIQ': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          $OP: {
+            data: {
+              sizeX: '18px',
+              resource: 'chevron-down',
+              sizeY: '18px',
+            },
+            obj: {
+              k: '000102',
+              p: 'COD_VER',
+              t: 'VO',
+            },
+            value: 'chevron-down',
+          },
+          '£DIBIR': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0',
+          },
+          '£DIBMS': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV11': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV12': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBAS': {
+            obj: {
+              k: '00901151',
+              p: '',
+              t: '',
+            },
+            value: '00901151',
+          },
+          '£DIV10': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBNA': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBF4': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F04',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIBF5': {
+            obj: {
+              k: '',
+              p: 'BRDIST0F05',
+              t: 'FL',
+            },
+            value: '',
+          },
+          '£DIV19': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV17': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV18': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV15': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV16': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBEO_I': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV13': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV14': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBNR': {
+            obj: {
+              k: '135.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '135',
+          },
+          '£DIBFI': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBNL': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0',
+          },
+          '£DIBS1': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBFD': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBS2': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBFP': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV20': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBFU': {
+            obj: {
+              k: 'ED',
+              p: '',
+              t: '',
+            },
+            value: 'ED',
+          },
+          '£DIBSP': {
+            obj: {
+              k: '0',
+              p: '',
+              t: '',
+            },
+            value: '0',
+          },
+          '£DIBCG': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIB35': {
+            obj: {
+              k: '0',
+              p: '',
+              t: '',
+            },
+            value: '0',
+          },
+          '£DIBCF': {
+            obj: {
+              k: '1.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '1.000000',
+          },
+          '£DIB36': {
+            obj: {
+              k: '0',
+              p: '',
+              t: '',
+            },
+            value: '0',
+          },
+          '£DIBST': {
+            obj: {
+              k: '10',
+              p: 'B£WDB',
+              t: 'TA',
+            },
+            value: '10',
+          },
+          '£DIBSQ': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBCO': {
+            obj: {
+              k: 'DUC-00901151',
+              p: '',
+              t: '',
+            },
+            value: 'DUC-00901151',
+          },
+          '£DIBSZ': {
+            obj: {
+              k: '',
+              p: 'BRS',
+              t: 'TA',
+            },
+            value: '',
+          },
+          '£DIBLA': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0',
+          },
+          '£DIBTD': {
+            obj: {
+              k: 'ART',
+              p: 'BRL',
+              t: 'TA',
+            },
+            value: 'ART',
+          },
+          '£DIBU1': {
+            obj: {
+              k: '0030',
+              p: '',
+              t: '',
+            },
+            value: '0030',
+          },
+          '£DIBU2': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBDI': {
+            obj: {
+              k: '00000000',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '',
+          },
+          '£DIBDF': {
+            obj: {
+              k: '00000000',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '',
+          },
+          '£DIBPR': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000',
+          },
+          '£DIBLM': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0',
+          },
+          '£DIBPO': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBDC': {
+            obj: {
+              k: '20170331',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '2017-03-31',
+          },
+          '£DIBUA': {
+            obj: {
+              k: 'SMEMD',
+              p: '',
+              t: 'UP',
+            },
+            value: 'SMEMD',
+          },
+          '£DIBLV': {
+            obj: {
+              k: '1.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '1',
+          },
+          '£DIBI1': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIBI2': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV01': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBDT': {
+            obj: {
+              k: '00000000',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '',
+          },
+          '£DIBDU': {
+            obj: {
+              k: '20170331',
+              p: '*YYMD',
+              t: 'D8',
+            },
+            value: '2017-03-31',
+          },
+          '£DIBDV_I': {
+            obj: {
+              k: '20170524.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '20,170,524',
+          },
+          '£DIBDS': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV08': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV09': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBIC': {
+            obj: {
+              k: '',
+              p: '',
+              t: '',
+            },
+            value: '',
+          },
+          '£DIV06': {
+            obj: {
+              k: '10.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '10.000000',
+          },
+          '£DIBQL': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000',
+          },
+          '£DIV07': {
+            obj: {
+              k: '1.000000000',
+              p: '',
+              t: 'NR',
+            },
+            value: '1.000000',
+          },
+          '£DIBME': {
+            obj: {
+              k: '3',
+              p: '',
+              t: '',
+            },
+            value: '3',
+          },
+          '£DIV04': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV05': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV02': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIV03': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000000',
+          },
+          '£DIBQT': {
+            obj: {
+              k: '0E-9',
+              p: '',
+              t: 'NR',
+            },
+            value: '0.000',
+          },
+        },
+        children: [
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '82.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '82',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PN1-567',
+                  p: '',
+                  t: '',
+                },
+                value: 'PN1-567',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0010',
+                  p: '',
+                  t: '',
+                },
+                value: '0010',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '01',
+                  p: '',
+                  t: '',
+                },
+                value: '01',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000100000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000100',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PN1-567',
+            isExpanded: true,
+            obj: {
+              k: 'PN1-567',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PN1-567',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '83.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '83',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BG1-62',
+                  p: '',
+                  t: '',
+                },
+                value: 'BG1-62',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0011',
+                  p: '',
+                  t: '',
+                },
+                value: '0011',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '01',
+                  p: '',
+                  t: '',
+                },
+                value: '01',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BG1-62',
+            isExpanded: true,
+            obj: {
+              k: 'BG1-62',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BG1-62',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '84.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '84',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'MA1-934',
+                  p: '',
+                  t: '',
+                },
+                value: 'MA1-934',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0012',
+                  p: '',
+                  t: '',
+                },
+                value: '0012',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '01',
+                  p: '',
+                  t: '',
+                },
+                value: '01',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000100000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000100',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'MA1-934',
+            isExpanded: true,
+            obj: {
+              k: 'MA1-934',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'MA1-934',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '85.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '85',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BG1-40',
+                  p: '',
+                  t: '',
+                },
+                value: 'BG1-40',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0013',
+                  p: '',
+                  t: '',
+                },
+                value: '0013',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '01',
+                  p: '',
+                  t: '',
+                },
+                value: '01',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BG1-40',
+            isExpanded: true,
+            obj: {
+              k: 'BG1-40',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BG1-40',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '86.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '86',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PN1-567',
+                  p: '',
+                  t: '',
+                },
+                value: 'PN1-567',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0021',
+                  p: '',
+                  t: '',
+                },
+                value: '0021',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '02',
+                  p: '',
+                  t: '',
+                },
+                value: '02',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000100000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000100',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PN1-567',
+            isExpanded: true,
+            obj: {
+              k: 'PN1-567',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PN1-567',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '87.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '87',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BG1-62',
+                  p: '',
+                  t: '',
+                },
+                value: 'BG1-62',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0022',
+                  p: '',
+                  t: '',
+                },
+                value: '0022',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '02',
+                  p: '',
+                  t: '',
+                },
+                value: '02',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BG1-62',
+            isExpanded: true,
+            obj: {
+              k: 'BG1-62',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BG1-62',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '88.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '88',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'MA1-934',
+                  p: '',
+                  t: '',
+                },
+                value: 'MA1-934',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0023',
+                  p: '',
+                  t: '',
+                },
+                value: '0023',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '02',
+                  p: '',
+                  t: '',
+                },
+                value: '02',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000100000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000100',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'MA1-934',
+            isExpanded: true,
+            obj: {
+              k: 'MA1-934',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'MA1-934',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '89.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '89',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BG1-40',
+                  p: '',
+                  t: '',
+                },
+                value: 'BG1-40',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0024',
+                  p: '',
+                  t: '',
+                },
+                value: '0024',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '02',
+                  p: '',
+                  t: '',
+                },
+                value: '02',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BG1-40',
+            isExpanded: true,
+            obj: {
+              k: 'BG1-40',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BG1-40',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '90.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '90',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PN1-567',
+                  p: '',
+                  t: '',
+                },
+                value: 'PN1-567',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0030',
+                  p: '',
+                  t: '',
+                },
+                value: '0030',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '03',
+                  p: '',
+                  t: '',
+                },
+                value: '03',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000100000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000100',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PN1-567',
+            isExpanded: true,
+            obj: {
+              k: 'PN1-567',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PN1-567',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '91.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '91',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BG1-62',
+                  p: '',
+                  t: '',
+                },
+                value: 'BG1-62',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0031',
+                  p: '',
+                  t: '',
+                },
+                value: '0031',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '03',
+                  p: '',
+                  t: '',
+                },
+                value: '03',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BG1-62',
+            isExpanded: true,
+            obj: {
+              k: 'BG1-62',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BG1-62',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '92.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '92',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'MA1-934',
+                  p: '',
+                  t: '',
+                },
+                value: 'MA1-934',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0032',
+                  p: '',
+                  t: '',
+                },
+                value: '0032',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '03',
+                  p: '',
+                  t: '',
+                },
+                value: '03',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000100000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000100',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'MA1-934',
+            isExpanded: true,
+            obj: {
+              k: 'MA1-934',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'MA1-934',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '93.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '93',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BG1-40',
+                  p: '',
+                  t: '',
+                },
+                value: 'BG1-40',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0033',
+                  p: '',
+                  t: '',
+                },
+                value: '0033',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '03',
+                  p: '',
+                  t: '',
+                },
+                value: '03',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BG1-40',
+            isExpanded: true,
+            obj: {
+              k: 'BG1-40',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BG1-40',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '94.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '94',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PN1-567',
+                  p: '',
+                  t: '',
+                },
+                value: 'PN1-567',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0041',
+                  p: '',
+                  t: '',
+                },
+                value: '0041',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '04',
+                  p: '',
+                  t: '',
+                },
+                value: '04',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000100000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000100',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PN1-567',
+            isExpanded: true,
+            obj: {
+              k: 'PN1-567',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PN1-567',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '95.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '95',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BG1-62',
+                  p: '',
+                  t: '',
+                },
+                value: 'BG1-62',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0042',
+                  p: '',
+                  t: '',
+                },
+                value: '0042',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '04',
+                  p: '',
+                  t: '',
+                },
+                value: '04',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BG1-62',
+            isExpanded: true,
+            obj: {
+              k: 'BG1-62',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BG1-62',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '96.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '96',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'MA1-934',
+                  p: '',
+                  t: '',
+                },
+                value: 'MA1-934',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0043',
+                  p: '',
+                  t: '',
+                },
+                value: '0043',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '04',
+                  p: '',
+                  t: '',
+                },
+                value: '04',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000100000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000100',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'MA1-934',
+            isExpanded: true,
+            obj: {
+              k: 'MA1-934',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'MA1-934',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '97.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '97',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BG1-40',
+                  p: '',
+                  t: '',
+                },
+                value: 'BG1-40',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0044',
+                  p: '',
+                  t: '',
+                },
+                value: '0044',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '04',
+                  p: '',
+                  t: '',
+                },
+                value: '04',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BG1-40',
+            isExpanded: true,
+            obj: {
+              k: 'BG1-40',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BG1-40',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '98.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '98',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PL1-81',
+                  p: '',
+                  t: '',
+                },
+                value: 'PL1-81',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0051',
+                  p: '',
+                  t: '',
+                },
+                value: '0051',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '2',
+                  p: '',
+                  t: '',
+                },
+                value: '2',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '05',
+                  p: '',
+                  t: '',
+                },
+                value: '05',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '8.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '8.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000200000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000200',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PL1-81',
+            isExpanded: true,
+            obj: {
+              k: 'PL1-81',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PL1-81',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '99.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '99',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BG1-62',
+                  p: '',
+                  t: '',
+                },
+                value: 'BG1-62',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0052',
+                  p: '',
+                  t: '',
+                },
+                value: '0052',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '2',
+                  p: '',
+                  t: '',
+                },
+                value: '2',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '05',
+                  p: '',
+                  t: '',
+                },
+                value: '05',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BG1-62',
+            isExpanded: true,
+            obj: {
+              k: 'BG1-62',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BG1-62',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '100.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '100',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'MP1-108',
+                  p: '',
+                  t: '',
+                },
+                value: 'MP1-108',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0053',
+                  p: '',
+                  t: '',
+                },
+                value: '0053',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '2',
+                  p: '',
+                  t: '',
+                },
+                value: '2',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '05',
+                  p: '',
+                  t: '',
+                },
+                value: '05',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000200000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000200',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'MP1-108',
+            isExpanded: true,
+            obj: {
+              k: 'MP1-108',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'MP1-108',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '101.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '101',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PL1-81',
+                  p: '',
+                  t: '',
+                },
+                value: 'PL1-81',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0061',
+                  p: '',
+                  t: '',
+                },
+                value: '0061',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '2',
+                  p: '',
+                  t: '',
+                },
+                value: '2',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '06',
+                  p: '',
+                  t: '',
+                },
+                value: '06',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '8.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '8.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000200000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000200',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PL1-81',
+            isExpanded: true,
+            obj: {
+              k: 'PL1-81',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PL1-81',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '102.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '102',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BG1-62',
+                  p: '',
+                  t: '',
+                },
+                value: 'BG1-62',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0062',
+                  p: '',
+                  t: '',
+                },
+                value: '0062',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '2',
+                  p: '',
+                  t: '',
+                },
+                value: '2',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '06',
+                  p: '',
+                  t: '',
+                },
+                value: '06',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BG1-62',
+            isExpanded: true,
+            obj: {
+              k: 'BG1-62',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BG1-62',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '103.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '103',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'MP1-108',
+                  p: '',
+                  t: '',
+                },
+                value: 'MP1-108',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0063',
+                  p: '',
+                  t: '',
+                },
+                value: '0063',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '2',
+                  p: '',
+                  t: '',
+                },
+                value: '2',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '06',
+                  p: '',
+                  t: '',
+                },
+                value: '06',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000200000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000200',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'MP1-108',
+            isExpanded: true,
+            obj: {
+              k: 'MP1-108',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'MP1-108',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '104.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '104',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PL1-81',
+                  p: '',
+                  t: '',
+                },
+                value: 'PL1-81',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0071',
+                  p: '',
+                  t: '',
+                },
+                value: '0071',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '2',
+                  p: '',
+                  t: '',
+                },
+                value: '2',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '07',
+                  p: '',
+                  t: '',
+                },
+                value: '07',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '8.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '8.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000200000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000200',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PL1-81',
+            isExpanded: true,
+            obj: {
+              k: 'PL1-81',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PL1-81',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '105.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '105',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BG1-62',
+                  p: '',
+                  t: '',
+                },
+                value: 'BG1-62',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0072',
+                  p: '',
+                  t: '',
+                },
+                value: '0072',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '2',
+                  p: '',
+                  t: '',
+                },
+                value: '2',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '07',
+                  p: '',
+                  t: '',
+                },
+                value: '07',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BG1-62',
+            isExpanded: true,
+            obj: {
+              k: 'BG1-62',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BG1-62',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '106.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '106',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'MP1-108',
+                  p: '',
+                  t: '',
+                },
+                value: 'MP1-108',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0073',
+                  p: '',
+                  t: '',
+                },
+                value: '0073',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '2',
+                  p: '',
+                  t: '',
+                },
+                value: '2',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '07',
+                  p: '',
+                  t: '',
+                },
+                value: '07',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000200000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000200',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'MP1-108',
+            isExpanded: true,
+            obj: {
+              k: 'MP1-108',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'MP1-108',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '107.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '107',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PL1-81',
+                  p: '',
+                  t: '',
+                },
+                value: 'PL1-81',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0081',
+                  p: '',
+                  t: '',
+                },
+                value: '0081',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '2',
+                  p: '',
+                  t: '',
+                },
+                value: '2',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '08',
+                  p: '',
+                  t: '',
+                },
+                value: '08',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '8.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '8.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000200000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000200',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PL1-81',
+            isExpanded: true,
+            obj: {
+              k: 'PL1-81',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PL1-81',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '108.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '108',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BG1-62',
+                  p: '',
+                  t: '',
+                },
+                value: 'BG1-62',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0082',
+                  p: '',
+                  t: '',
+                },
+                value: '0082',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '2',
+                  p: '',
+                  t: '',
+                },
+                value: '2',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '08',
+                  p: '',
+                  t: '',
+                },
+                value: '08',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BG1-62',
+            isExpanded: true,
+            obj: {
+              k: 'BG1-62',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BG1-62',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '109.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '109',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'MP1-108',
+                  p: '',
+                  t: '',
+                },
+                value: 'MP1-108',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0083',
+                  p: '',
+                  t: '',
+                },
+                value: '0083',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '2',
+                  p: '',
+                  t: '',
+                },
+                value: '2',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '08',
+                  p: '',
+                  t: '',
+                },
+                value: '08',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000200000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000200',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000020000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000020',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'MP1-108',
+            isExpanded: true,
+            obj: {
+              k: 'MP1-108',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'MP1-108',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '-110.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '-110',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000030000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000030',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PR1-113',
+                  p: '',
+                  t: '',
+                },
+                value: 'PR1-113',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0091',
+                  p: '',
+                  t: '',
+                },
+                value: '0091',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '09',
+                  p: '',
+                  t: '',
+                },
+                value: '09',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '-1.650000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '-1.650000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000300000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000300',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000030000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000030',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PR1-113',
+            isExpanded: true,
+            obj: {
+              k: 'PR1-113',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PR1-113',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '111.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '111',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BS2-64',
+                  p: '',
+                  t: '',
+                },
+                value: 'BS2-64',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0092',
+                  p: '',
+                  t: '',
+                },
+                value: '0092',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '09',
+                  p: '',
+                  t: '',
+                },
+                value: '09',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BS2-64',
+            isExpanded: true,
+            obj: {
+              k: 'BS2-64',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BS2-64',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '112.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '112',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'DL1-38',
+                  p: '',
+                  t: '',
+                },
+                value: 'DL1-38',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0093',
+                  p: '',
+                  t: '',
+                },
+                value: '0093',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '09',
+                  p: '',
+                  t: '',
+                },
+                value: '09',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'DL1-38',
+            isExpanded: true,
+            obj: {
+              k: 'DL1-38',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'DL1-38',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '113.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '113',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000030000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000030',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PR1-113',
+                  p: '',
+                  t: '',
+                },
+                value: 'PR1-113',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0101',
+                  p: '',
+                  t: '',
+                },
+                value: '0101',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '10',
+                  p: '',
+                  t: '',
+                },
+                value: '10',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '-1.650000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '-1.650000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000300000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000300',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000030000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000030',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PR1-113',
+            isExpanded: true,
+            obj: {
+              k: 'PR1-113',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PR1-113',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '114.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '114',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BS2-64',
+                  p: '',
+                  t: '',
+                },
+                value: 'BS2-64',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0102',
+                  p: '',
+                  t: '',
+                },
+                value: '0102',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '10',
+                  p: '',
+                  t: '',
+                },
+                value: '10',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BS2-64',
+            isExpanded: true,
+            obj: {
+              k: 'BS2-64',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BS2-64',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '115.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '115',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'DL1-38',
+                  p: '',
+                  t: '',
+                },
+                value: 'DL1-38',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0103',
+                  p: '',
+                  t: '',
+                },
+                value: '0103',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '10',
+                  p: '',
+                  t: '',
+                },
+                value: '10',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'DL1-38',
+            isExpanded: true,
+            obj: {
+              k: 'DL1-38',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'DL1-38',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '116.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '116',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000030000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000030',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PR1-113',
+                  p: '',
+                  t: '',
+                },
+                value: 'PR1-113',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0111',
+                  p: '',
+                  t: '',
+                },
+                value: '0111',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '11',
+                  p: '',
+                  t: '',
+                },
+                value: '11',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '-1.650000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '-1.650000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000300000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000300',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000030000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000030',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PR1-113',
+            isExpanded: true,
+            obj: {
+              k: 'PR1-113',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PR1-113',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '117.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '117',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BS2-64',
+                  p: '',
+                  t: '',
+                },
+                value: 'BS2-64',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0112',
+                  p: '',
+                  t: '',
+                },
+                value: '0112',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '11',
+                  p: '',
+                  t: '',
+                },
+                value: '11',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BS2-64',
+            isExpanded: true,
+            obj: {
+              k: 'BS2-64',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BS2-64',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '118.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '118',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'DL1-38',
+                  p: '',
+                  t: '',
+                },
+                value: 'DL1-38',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0113',
+                  p: '',
+                  t: '',
+                },
+                value: '0113',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '11',
+                  p: '',
+                  t: '',
+                },
+                value: '11',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'DL1-38',
+            isExpanded: true,
+            obj: {
+              k: 'DL1-38',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'DL1-38',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '119.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '119',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000030000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000030',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PR1-113',
+                  p: '',
+                  t: '',
+                },
+                value: 'PR1-113',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0121',
+                  p: '',
+                  t: '',
+                },
+                value: '0121',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '12',
+                  p: '',
+                  t: '',
+                },
+                value: '12',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '-1.650000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '-1.650000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000300000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000300',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000030000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000030',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PR1-113',
+            isExpanded: true,
+            obj: {
+              k: 'PR1-113',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PR1-113',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '120.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '120',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'BS2-64',
+                  p: '',
+                  t: '',
+                },
+                value: 'BS2-64',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0122',
+                  p: '',
+                  t: '',
+                },
+                value: '0122',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '12',
+                  p: '',
+                  t: '',
+                },
+                value: '12',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'BS2-64',
+            isExpanded: true,
+            obj: {
+              k: 'BS2-64',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'BS2-64',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '121.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '121',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'DL1-38',
+                  p: '',
+                  t: '',
+                },
+                value: 'DL1-38',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0123',
+                  p: '',
+                  t: '',
+                },
+                value: '0123',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '12',
+                  p: '',
+                  t: '',
+                },
+                value: '12',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000010000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000010',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000001000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000001',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'DL1-38',
+            isExpanded: true,
+            obj: {
+              k: 'DL1-38',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'DL1-38',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '122.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '122',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PN2-259',
+                  p: '',
+                  t: '',
+                },
+                value: 'PN2-259',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0131',
+                  p: '',
+                  t: '',
+                },
+                value: '0131',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '4',
+                  p: '',
+                  t: '',
+                },
+                value: '4',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '13',
+                  p: '',
+                  t: '',
+                },
+                value: '13',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '2.500000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2.500000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000400000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000400',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PN2-259',
+            isExpanded: true,
+            obj: {
+              k: 'PN2-259',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PN2-259',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '123.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '123',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PL2-622',
+                  p: '',
+                  t: '',
+                },
+                value: 'PL2-622',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0132',
+                  p: '',
+                  t: '',
+                },
+                value: '0132',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '4',
+                  p: '',
+                  t: '',
+                },
+                value: '4',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '13',
+                  p: '',
+                  t: '',
+                },
+                value: '13',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000400000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000400',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PL2-622',
+            isExpanded: true,
+            obj: {
+              k: 'PL2-622',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PL2-622',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '124.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '124',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'MA1-935',
+                  p: '',
+                  t: '',
+                },
+                value: 'MA1-935',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0133',
+                  p: '',
+                  t: '',
+                },
+                value: '0133',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '4',
+                  p: '',
+                  t: '',
+                },
+                value: '4',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '13',
+                  p: '',
+                  t: '',
+                },
+                value: '13',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000400000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000400',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'MA1-935',
+            isExpanded: true,
+            obj: {
+              k: 'MA1-935',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'MA1-935',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '125.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '125',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PN2-259',
+                  p: '',
+                  t: '',
+                },
+                value: 'PN2-259',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0141',
+                  p: '',
+                  t: '',
+                },
+                value: '0141',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '4',
+                  p: '',
+                  t: '',
+                },
+                value: '4',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '14',
+                  p: '',
+                  t: '',
+                },
+                value: '14',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '2.500000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2.500000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000400000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000400',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PN2-259',
+            isExpanded: true,
+            obj: {
+              k: 'PN2-259',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PN2-259',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '126.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '126',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PL2-622',
+                  p: '',
+                  t: '',
+                },
+                value: 'PL2-622',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0142',
+                  p: '',
+                  t: '',
+                },
+                value: '0142',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '4',
+                  p: '',
+                  t: '',
+                },
+                value: '4',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '14',
+                  p: '',
+                  t: '',
+                },
+                value: '14',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000400000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000400',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PL2-622',
+            isExpanded: true,
+            obj: {
+              k: 'PL2-622',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PL2-622',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '127.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '127',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'MA1-935',
+                  p: '',
+                  t: '',
+                },
+                value: 'MA1-935',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0143',
+                  p: '',
+                  t: '',
+                },
+                value: '0143',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '4',
+                  p: '',
+                  t: '',
+                },
+                value: '4',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '14',
+                  p: '',
+                  t: '',
+                },
+                value: '14',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000400000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000400',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'MA1-935',
+            isExpanded: true,
+            obj: {
+              k: 'MA1-935',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'MA1-935',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '128.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '128',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PN2-259',
+                  p: '',
+                  t: '',
+                },
+                value: 'PN2-259',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0151',
+                  p: '',
+                  t: '',
+                },
+                value: '0151',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '4',
+                  p: '',
+                  t: '',
+                },
+                value: '4',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '15',
+                  p: '',
+                  t: '',
+                },
+                value: '15',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '2.500000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2.500000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000400000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000400',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PN2-259',
+            isExpanded: true,
+            obj: {
+              k: 'PN2-259',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PN2-259',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '129.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '129',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PL2-622',
+                  p: '',
+                  t: '',
+                },
+                value: 'PL2-622',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0152',
+                  p: '',
+                  t: '',
+                },
+                value: '0152',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '4',
+                  p: '',
+                  t: '',
+                },
+                value: '4',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '15',
+                  p: '',
+                  t: '',
+                },
+                value: '15',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000400000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000400',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PL2-622',
+            isExpanded: true,
+            obj: {
+              k: 'PL2-622',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PL2-622',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '130.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '130',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'MA1-935',
+                  p: '',
+                  t: '',
+                },
+                value: 'MA1-935',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0153',
+                  p: '',
+                  t: '',
+                },
+                value: '0153',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '4',
+                  p: '',
+                  t: '',
+                },
+                value: '4',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '15',
+                  p: '',
+                  t: '',
+                },
+                value: '15',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000400000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000400',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'MA1-935',
+            isExpanded: true,
+            obj: {
+              k: 'MA1-935',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'MA1-935',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '1',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '1',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '131.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '131',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PN2-259',
+                  p: '',
+                  t: '',
+                },
+                value: 'PN2-259',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0161',
+                  p: '',
+                  t: '',
+                },
+                value: '0161',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '4',
+                  p: '',
+                  t: '',
+                },
+                value: '4',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '16',
+                  p: '',
+                  t: '',
+                },
+                value: '16',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '2.500000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2.500000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000400000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000400',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PN2-259',
+            isExpanded: true,
+            obj: {
+              k: 'PN2-259',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PN2-259',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '132.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '132',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'PL2-622',
+                  p: '',
+                  t: '',
+                },
+                value: 'PL2-622',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0162',
+                  p: '',
+                  t: '',
+                },
+                value: '0162',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '4',
+                  p: '',
+                  t: '',
+                },
+                value: '4',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '16',
+                  p: '',
+                  t: '',
+                },
+                value: '16',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000400000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000400',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'PL2-622',
+            isExpanded: true,
+            obj: {
+              k: 'PL2-622',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'PL2-622',
+            visible: true,
+          },
+          {
+            cells: {
+              '£DIBF2': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F02',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF3': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F03',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIS': {
+                obj: {
+                  k: '',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBIT': {
+                obj: {
+                  k: '',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBF1': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F01',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBIQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              $OP: {
+                data: {
+                  sizeX: '18px',
+                  resource: 'chevron-down',
+                  sizeY: '18px',
+                },
+                obj: {
+                  k: '000102',
+                  p: 'COD_VER',
+                  t: 'VO',
+                },
+                value: 'chevron-down',
+              },
+              '£DIBIR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBMS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV11': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV12': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBAS': {
+                obj: {
+                  k: 'DUC-00901151',
+                  p: '',
+                  t: '',
+                },
+                value: 'DUC-00901151',
+              },
+              '£DIV10': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNA': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBF4': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F04',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIBF5': {
+                obj: {
+                  k: '',
+                  p: 'BRDIST0F05',
+                  t: 'FL',
+                },
+                value: '',
+              },
+              '£DIV19': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV17': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV18': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV15': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV16': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBEO_I': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV13': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV14': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBNR': {
+                obj: {
+                  k: '133.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '133',
+              },
+              '£DIBFI': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBNL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBS1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFD': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBS2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBFP': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV20': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBFU': {
+                obj: {
+                  k: 'ED',
+                  p: '',
+                  t: '',
+                },
+                value: 'ED',
+              },
+              '£DIBSP': {
+                obj: {
+                  k: '1',
+                  p: '',
+                  t: '',
+                },
+                value: '1',
+              },
+              '£DIBCG': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIB35': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBCF': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIB36': {
+                obj: {
+                  k: '0',
+                  p: '',
+                  t: '',
+                },
+                value: '0',
+              },
+              '£DIBST': {
+                obj: {
+                  k: '10',
+                  p: 'B£WDB',
+                  t: 'TA',
+                },
+                value: '10',
+              },
+              '£DIBSQ': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBCO': {
+                obj: {
+                  k: 'MA1-935',
+                  p: '',
+                  t: '',
+                },
+                value: 'MA1-935',
+              },
+              '£DIBSZ': {
+                obj: {
+                  k: '',
+                  p: 'BRS',
+                  t: 'TA',
+                },
+                value: '',
+              },
+              '£DIBLA': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBTD': {
+                obj: {
+                  k: 'ART',
+                  p: 'BRL',
+                  t: 'TA',
+                },
+                value: 'ART',
+              },
+              '£DIBU1': {
+                obj: {
+                  k: '0163',
+                  p: '',
+                  t: '',
+                },
+                value: '0163',
+              },
+              '£DIBU2': {
+                obj: {
+                  k: '4',
+                  p: '',
+                  t: '',
+                },
+                value: '4',
+              },
+              '£DIBDI': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDF': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBPR': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIBLM': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0',
+              },
+              '£DIBPO': {
+                obj: {
+                  k: '16',
+                  p: '',
+                  t: '',
+                },
+                value: '16',
+              },
+              '£DIBDC': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBUA': {
+                obj: {
+                  k: 'SMEMD',
+                  p: '',
+                  t: 'UP',
+                },
+                value: 'SMEMD',
+              },
+              '£DIBLV': {
+                obj: {
+                  k: '2.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '2',
+              },
+              '£DIBI1': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIBI2': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV01': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBDT': {
+                obj: {
+                  k: '00000000',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '',
+              },
+              '£DIBDU': {
+                obj: {
+                  k: '20170331',
+                  p: '*YYMD',
+                  t: 'D8',
+                },
+                value: '2017-03-31',
+              },
+              '£DIBDV_I': {
+                obj: {
+                  k: '20170524.000000000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '20,170,524',
+              },
+              '£DIBDS': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV08': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV09': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBIC': {
+                obj: {
+                  k: '',
+                  p: '',
+                  t: '',
+                },
+                value: '',
+              },
+              '£DIV06': {
+                obj: {
+                  k: '0.000400000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000400',
+              },
+              '£DIBQL': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+              '£DIV07': {
+                obj: {
+                  k: '0.000040000',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000040',
+              },
+              '£DIBME': {
+                obj: {
+                  k: '3',
+                  p: '',
+                  t: '',
+                },
+                value: '3',
+              },
+              '£DIV04': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV05': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV02': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIV03': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000000',
+              },
+              '£DIBQT': {
+                obj: {
+                  k: '0E-9',
+                  p: '',
+                  t: 'NR',
+                },
+                value: '0.000',
+              },
+            },
+            children: [],
+            disabled: false,
+            expandable: true,
+            icon: 'insert_drive_file',
+            id: 'MA1-935',
+            isExpanded: true,
+            obj: {
+              k: 'MA1-935',
+              p: '',
+              t: 'AR',
+            },
+            options: false,
+            style: {},
+            value: 'MA1-935',
+            visible: true,
+          },
+        ],
+        disabled: false,
+        expandable: true,
+        icon: 'insert_drive_file',
+        id: 'DUC-00901151',
+        isExpanded: true,
+        obj: {
+          k: 'DUC-00901151',
+          p: '',
+          t: 'AR',
+        },
+        options: false,
+        style: {},
+        value: 'DUC-00901151',
+        visible: true,
+      },
+    ],
+    disabled: false,
+    expandable: true,
+    icon: 'insert_drive_file',
+    id: '00901151',
+    isExpanded: true,
+    obj: {
+      k: '00901151',
+      p: '',
+      t: 'AR',
+    },
+    options: false,
+    style: {},
+    value: '00901151',
+    visible: true,
+  },
+];
+
+export const treeColumnsColumns = [
+  {
+    name: '$OP',
+    obj: {
+      k: '',
+      p: 'COD_VER',
+      t: 'VO',
+    },
+    title: 'Op',
+  },
+  {
+    name: '£DIBFU',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Funzione',
+  },
+  {
+    name: '£DIBME',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Metodo',
+  },
+  {
+    name: '£DIBSP',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Start/Prosec',
+  },
+  {
+    name: '£DIBIT',
+    obj: {
+      k: '',
+      p: 'BRL',
+      t: 'TA',
+    },
+    title: 'Tipo dist.',
+  },
+  {
+    name: '£DIBIC',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Cod.Scans.',
+  },
+  {
+    name: '£DIBCG',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Configuraz.',
+  },
+  {
+    decimals: 3,
+    name: '£DIBQT',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Quantità',
+  },
+  {
+    icon: 'calendar',
+    name: '£DIBDT',
+    obj: {
+      k: '',
+      p: '*YYMD',
+      t: 'D8',
+    },
+    title: 'Data valid.',
+  },
+  {
+    decimals: 0,
+    name: '£DIBLM',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Liv. massimo',
+  },
+  {
+    name: '£DIBIS',
+    obj: {
+      k: '',
+      p: 'B£WDB',
+      t: 'TA',
+    },
+    title: 'Stato',
+  },
+  {
+    name: '£DIBIQ',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Sequenza cic',
+  },
+  {
+    decimals: 0,
+    name: '£DIBIR',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'N.Record',
+  },
+  {
+    name: '£DIBI1',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Param.sel.1',
+  },
+  {
+    name: '£DIBI2',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Param.sel.2',
+  },
+  {
+    name: '£DIBTD',
+    obj: {
+      k: '',
+      p: 'BRL',
+      t: 'TA',
+    },
+    title: 'Tipo dist.',
+  },
+  {
+    name: '£DIBAS',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Cod.Assieme',
+  },
+  {
+    name: '£DIBCO',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Cod.Compon.',
+  },
+  {
+    name: '£DIBST',
+    obj: {
+      k: '',
+      p: 'B£WDB',
+      t: 'TA',
+    },
+    title: 'Stato',
+  },
+  {
+    name: '£DIBSQ',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Sequenza cic',
+  },
+  {
+    decimals: 0,
+    name: '£DIBNR',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'N.Record',
+  },
+  {
+    decimals: 0,
+    name: '£DIBLV',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Livello  (2)',
+  },
+  {
+    decimals: 0,
+    name: '£DIBNL',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'N.Legami (3)',
+  },
+  {
+    name: '£DIBU1',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Posiz.1',
+  },
+  {
+    name: '£DIBU2',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Posiz.2',
+  },
+  {
+    decimals: 0,
+    name: '£DIBLA',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'T.rettifica',
+  },
+  {
+    icon: 'calendar',
+    name: '£DIBDI',
+    obj: {
+      k: '',
+      p: '*YYMD',
+      t: 'D8',
+    },
+    title: 'Data iniz.',
+  },
+  {
+    icon: 'calendar',
+    name: '£DIBDF',
+    obj: {
+      k: '',
+      p: '*YYMD',
+      t: 'D8',
+    },
+    title: 'Data finale',
+  },
+  {
+    name: '£DIBSZ',
+    obj: {
+      k: '',
+      p: 'BRS',
+      t: 'TA',
+    },
+    title: 'Criterio Sel',
+  },
+  {
+    name: '£DIBS1',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Par.Selez. 1',
+  },
+  {
+    name: '£DIBS2',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Par.Selez. 2',
+  },
+  {
+    decimals: 6,
+    name: '£DIBCF',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Coeff.imp.',
+  },
+  {
+    decimals: 3,
+    name: '£DIBQL',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Qtà lotto',
+  },
+  {
+    decimals: 3,
+    name: '£DIBPR',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: '% Rettifica',
+  },
+  {
+    decimals: 6,
+    name: '£DIV01',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 01',
+  },
+  {
+    decimals: 6,
+    name: '£DIV02',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 02',
+  },
+  {
+    decimals: 6,
+    name: '£DIV03',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 03',
+  },
+  {
+    decimals: 6,
+    name: '£DIV04',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 04',
+  },
+  {
+    decimals: 6,
+    name: '£DIV05',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 05',
+  },
+  {
+    decimals: 6,
+    name: '£DIV06',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 06',
+  },
+  {
+    decimals: 6,
+    name: '£DIV07',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 07',
+  },
+  {
+    decimals: 6,
+    name: '£DIV08',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 08',
+  },
+  {
+    decimals: 6,
+    name: '£DIV09',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 09',
+  },
+  {
+    decimals: 6,
+    name: '£DIV10',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 10',
+  },
+  {
+    decimals: 6,
+    name: '£DIV11',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 11',
+  },
+  {
+    decimals: 6,
+    name: '£DIV12',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 12',
+  },
+  {
+    decimals: 6,
+    name: '£DIV13',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 13',
+  },
+  {
+    decimals: 6,
+    name: '£DIV14',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 14',
+  },
+  {
+    decimals: 6,
+    name: '£DIV15',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 15',
+  },
+  {
+    decimals: 6,
+    name: '£DIV16',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 16',
+  },
+  {
+    decimals: 6,
+    name: '£DIV17',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 17',
+  },
+  {
+    decimals: 6,
+    name: '£DIV18',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 18',
+  },
+  {
+    decimals: 6,
+    name: '£DIV19',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 19',
+  },
+  {
+    decimals: 6,
+    name: '£DIV20',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Valore 20',
+  },
+  {
+    name: '£DIBF1',
+    obj: {
+      k: '',
+      p: 'BRDIST0F01',
+      t: 'FL',
+    },
+    title: 'Interno/Esterno',
+  },
+  {
+    name: '£DIBF2',
+    obj: {
+      k: '',
+      p: 'BRDIST0F02',
+      t: 'FL',
+    },
+    title: 'Tipo quantità',
+  },
+  {
+    name: '£DIBF3',
+    obj: {
+      k: '',
+      p: 'BRDIST0F03',
+      t: 'FL',
+    },
+    title: 'Rilevanza per ricambi',
+  },
+  {
+    name: '£DIBF4',
+    obj: {
+      k: '',
+      p: 'BRDIST0F04',
+      t: 'FL',
+    },
+    title: 'Tipo legame',
+  },
+  {
+    name: '£DIBF5',
+    obj: {
+      k: '',
+      p: 'BRDIST0F05',
+      t: 'FL',
+    },
+    title: 'Tipo coefficiente',
+  },
+  {
+    name: '£DIBNA',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Nota aggiunt',
+  },
+  {
+    name: '£DIBDS',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Disegno',
+  },
+  {
+    name: '£DIBPO',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Pos.nel dis.',
+  },
+  {
+    icon: 'calendar',
+    name: '£DIBDC',
+    obj: {
+      k: '',
+      p: '*YYMD',
+      t: 'D8',
+    },
+    title: 'Data creaz.',
+  },
+  {
+    icon: 'calendar',
+    name: '£DIBDU',
+    obj: {
+      k: '',
+      p: '*YYMD',
+      t: 'D8',
+    },
+    title: 'Data ul.agg.',
+  },
+  {
+    name: '£DIBUA',
+    obj: {
+      k: '',
+      p: '',
+      t: 'UP',
+    },
+    title: 'Utente agg.',
+  },
+  {
+    name: '£DIBFD',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Fl. x date',
+  },
+  {
+    name: '£DIBFP',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Fl. x param.',
+  },
+  {
+    name: '£DIB35',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Ind. errore',
+  },
+  {
+    name: '£DIB36',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Ind. ricerca',
+  },
+  {
+    name: '£DIBMS',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Mess. errore',
+  },
+  {
+    name: '£DIBFI',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'File messaggi',
+  },
+  {
+    name: '£DIBEO_I',
+    obj: {
+      k: '',
+      p: '',
+      t: '',
+    },
+    title: 'Esponente Comp.',
+  },
+  {
+    decimals: 0,
+    name: '£DIBDV_I',
+    obj: {
+      k: '',
+      p: '',
+      t: 'NR',
+    },
+    title: 'Data Validità',
+  },
+];

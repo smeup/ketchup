@@ -59,9 +59,9 @@ export function setTooltip(event: MouseEvent, cell: Cell, tooltip: KupTooltip) {
             return;
         }
     }
-    tooltip.relatedObject = related;
+    tooltip.setTooltipInfo(related);
 }
 
-export function unsetTooltip(tooltip: KupTooltip, event?: MouseEvent) {
-    setTooltip(event, null, tooltip);
+export function unsetTooltip(tooltip: KupTooltip) {
+    tooltip.unsetTooltipInfo();
 }

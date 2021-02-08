@@ -4,7 +4,7 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -72,14 +72,6 @@ export default {
           try: 'field',
         },
         {
-          prop: 'contentAlign',
-          description:
-            'Alignment of the content. Can be set to left, right or center.',
-          type: 'string',
-          default: 'center',
-          try: 'field',
-        },
-        {
           prop: 'customStyle',
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
@@ -124,11 +116,18 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'filterEnabled',
-          description: 'Enable filtering.',
+          prop: 'globalFilter',
+          description: 'When set to true it activates the global filter.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
+        },
+        {
+          prop: 'globalFilterValue',
+          description: 'The value of the global filter.',
+          type: 'string',
+          default: '',
+          try: 'field',
         },
         {
           prop: 'layout',
@@ -146,18 +145,11 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'noBorder',
-          description: 'Removes border.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'noPadding',
-          description: 'Removes padding.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
+          prop: 'pageSelected',
+          description: 'Current page number.',
+          type: 'number',
+          default: '1',
+          try: 'field',
         },
         {
           prop: 'pageSize',
@@ -174,6 +166,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'rowsPerPage',
+          description: 'Number of current rows per page.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'selectBox',
           description: 'Automatically selects the box at the specified index.',
           type: 'number',
@@ -181,8 +180,23 @@ export default {
           try: 'field',
         },
         {
+          prop: 'selectedRowsState',
+          description: 'Multiple selection.',
+          type: 'BoxRow[]',
+          default: '[]',
+          try: 'array',
+        },
+        {
           prop: 'showSelection',
           description: 'If enabled, highlights the selected box/boxes.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'showTooltipOnRightClick',
+          description:
+            'If set to true, displays tooltip on right click event; if set to false, displays tooltip on mouseOver event.',
           type: 'boolean',
           default: 'true',
           try: 'switch',
@@ -201,32 +215,60 @@ export default {
           default: 'false',
           try: 'switch',
         },
+        {
+          prop: 'swipeDisabled',
+          description: 'Disable swipe.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'tooltipDetailTimeout',
+          description: 'Defines the timeout for tooltip detail.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'tooltipLoadTimeout',
+          description: 'Defines the timeout for tooltip load.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          class: 'borderless',
+          description: 'Displays boxes without borders.',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          class: 'bottom-aligned',
+          description:
+            "Content will be vertically aligned to section's bottom.",
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          class: 'left-aligned',
+          description:
+            "Content will be horizontally aligned to section's left.",
         },
         {
-          text: 'JSON',
-          icon: '',
-          active: false,
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
         {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'paddingless',
+          description: 'Removes padding from box sections.',
+        },
+        {
+          class: 'right-aligned',
+          description:
+            "Content will be horizontally aligned to section's right.",
+        },
+        {
+          class: 'top-aligned',
+          description: "Content will be vertically aligned to section's top.",
         },
       ],
     };
@@ -236,10 +278,9 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-box');
   comp.columns = '4';
-  comp.contentAlign = 'center';
   comp.data = defaultData;
   comp.id = 'demo-component';
-  comp.noBorder = true;
+  comp.showTooltipOnRightClick = true;
   return comp;
 }
 </script>

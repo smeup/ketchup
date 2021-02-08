@@ -6,19 +6,18 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
-import { BadgePosition } from "./components/kup-badge/kup-badge-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
 import { ComponentCardElement } from "./components/kup-card/kup-card-declarations";
-import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableSortedColumnIndexes, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
-import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartType } from "./components/kup-chart/kup-chart-declarations";
+import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { ComponentChipElement } from "./components/kup-chip/kup-chip-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
+import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
-import { ComponentGridElement } from "./components/kup-grid/kup-grid-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { CssDraw } from "./components/kup-image/kup-image-declarations";
 import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
@@ -44,26 +43,37 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Props of the list.
+          * Props of the sub-components.
          */
-        "listData": Object;
+        "data": Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+         */
+        "displayMode": ItemsDisplayMode;
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component.
+         */
+        "initialValue": string;
         /**
           * The minimum number of chars to trigger the autocomplete
          */
         "minimumChars": number;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * Sets how the return the selected item value
+          * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
         /**
           * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
          */
         "serverHandledFilter": boolean;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData": Object;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
     }
     interface KupBadge {
         /**
@@ -74,10 +84,6 @@ export namespace Components {
           * The data of the image displayed inside the badge.
          */
         "imageData": {};
-        /**
-          * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
-         */
-        "position": BadgePosition;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * The text displayed inside the badge.
@@ -93,10 +99,6 @@ export namespace Components {
           * Number of columns
          */
         "columns": number;
-        /**
-          * Alignment of the content. Can be set to left, right or center.
-         */
-        "contentAlign": string;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
@@ -116,19 +118,19 @@ export namespace Components {
         /**
           * Drop can be done in section
          */
-        "dropOnSection": false;
+        "dropOnSection": boolean;
         /**
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
          */
         "enableRowActions": boolean;
         /**
-          * Enable filtering
+          * When set to true it activates the global filter.
          */
-        "filterEnabled": boolean;
+        "globalFilter": boolean;
         /**
-          * Global filter value state
+          * The value of the global filter.
          */
-        "globalFilterValueState": string;
+        "globalFilterValue": string;
         /**
           * How the field will be displayed. If not present, a default one will be created.
          */
@@ -139,15 +141,7 @@ export namespace Components {
          */
         "multiSelection": boolean;
         /**
-          * Removes border
-         */
-        "noBorder": boolean;
-        /**
-          * Removes padding
-         */
-        "noPadding": boolean;
-        /**
-          * current number page
+          * Current page number
          */
         "pageSelected": number;
         /**
@@ -160,7 +154,7 @@ export namespace Components {
         "pagination": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * current rows per page
+          * Number of current rows per page
          */
         "rowsPerPage": number;
         /**
@@ -170,11 +164,15 @@ export namespace Components {
         /**
           * Multiple selection
          */
-        "selectedRowsState": BoxRow[];
+        "selectedRowsState": string;
         /**
           * If enabled, highlights the selected box/boxes
          */
         "showSelection": boolean;
+        /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick": boolean;
         /**
           * If sorting is enabled, specifies which column to sort
          */
@@ -216,25 +214,9 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Defaults at false. When set to true, the button will be rendered flat.
-         */
-        "flat": boolean;
-        /**
-          * Defaults at false. When set to true fill all the available horizontal space.
-         */
-        "fullHeight": boolean;
-        /**
-          * Defaults at false. When set to true fill all the available horizontal space.
-         */
-        "fullWidth": boolean;
-        /**
           * Defaults at null. When set, the button will show this icon.
          */
         "icon": string;
-        /**
-          * If not set, it will be managed by the component.
-         */
-        "iconColor": string;
         /**
           * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
          */
@@ -243,15 +225,11 @@ export namespace Components {
           * Defaults at null. When set, the button will show this text.
          */
         "label": string;
-        /**
-          * Defaults at false. When set to true, the button will be rendered with a colored outline.
-         */
-        "outlined": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * Defaults at false. When set to true, the button will be rendered with rounded edges.
+          * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
          */
-        "shaped": boolean;
+        "styling": string;
         /**
           * Defaults at false. When set to true, the icon button will be toggable on/off.
          */
@@ -310,30 +288,70 @@ export namespace Components {
         "sizeY": string;
     }
     interface KupChart {
+        /**
+          * Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.
+         */
         "asp": ChartAspect;
+        /**
+          * Sets the axis of the chart.
+         */
         "axis": string;
+        /**
+          * Title of the graph.
+         */
+        "chartTitle": ChartTitle;
+        /**
+          * Colors of the chart.
+         */
         "colors": string[];
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle": string;
+        /**
+          * The actual data of the chart.
+         */
         "data": DataTable;
-        "graphTitle": string;
-        "graphTitleColor": string;
-        "graphTitleSize": number;
+        /**
+          * Customize the hAxis.
+         */
         "hAxis": ChartAxis;
         /**
           * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
         "legend": string;
+        /**
+          * Renders charts without the Google API and using jQuery Sparkline.
+         */
         "offlineMode": ChartOfflineMode;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        "series": string[];
+        /**
+          * The data series to be displayed. They must be of the same type.
+         */
+        "series": ChartSerie[];
+        /**
+          * Displays the numerical values.
+         */
         "showMarks": boolean;
+        /**
+          * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+         */
         "sizeX": string;
+        /**
+          * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
         "sizeY": string;
+        /**
+          * Displays the data columns of an object on top of each other.
+         */
         "stacked": boolean;
+        /**
+          * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
+         */
         "types": ChartType[];
+        /**
+          * Customize the vAxis.
+         */
         "vAxis": ChartAxis;
         /**
           * Google chart version to load
@@ -382,28 +400,65 @@ export namespace Components {
          */
         "type": string;
     }
+    interface KupColorPicker {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Props of the text field.
+         */
+        "data": Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
+         */
+        "initialValue": string;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
+        /**
+          * When true, the component's text field will be replaced by a swatch.
+         */
+        "swatchOnly": boolean;
+    }
     interface KupCombobox {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
+          * Props of the sub-components (date input text field).
+         */
+        "data": Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+         */
+        "displayMode": ItemsDisplayMode;
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue": string;
+        /**
           * Lets the combobox behave as a select element.
          */
         "isSelect": boolean;
-        /**
-          * Props of the list.
-         */
-        "listData": Object;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * Sets how the return the elected item value. Suported values: "code", "description", "both".
+          * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData": Object;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
     }
     interface KupCrud {
         "actions": FormActions;
@@ -433,9 +488,21 @@ export namespace Components {
         "sections": FormSection;
     }
     interface KupDash {
+        /**
+          * The component can be clicked.
+         */
         "active": boolean;
+        /**
+          * Sets the font size of the component.
+         */
         "fontsize": string;
+        /**
+          * No idea what this is about.
+         */
         "index": number;
+        /**
+          * Sets the layout of the component.
+         */
         "layout": string;
     }
     interface KupDashList {
@@ -452,6 +519,10 @@ export namespace Components {
     }
     interface KupDataTable {
         /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
           * The data of the table.
          */
         "data": TableData;
@@ -460,6 +531,18 @@ export namespace Components {
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
          */
         "density": string;
+        /**
+          * Enable row dragging
+         */
+        "dragEnabled": boolean;
+        /**
+          * Enable record dropping
+         */
+        "dropEnabled": boolean;
+        /**
+          * Defines the label to show when the table is empty.
+         */
+        "emptyDataLabel": string;
         /**
           * Enables the sorting of columns by dragging them into different columns.
          */
@@ -543,6 +626,12 @@ export namespace Components {
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
         "paginatorPos": PaginatorPos;
+        "performanceCSS": (detailedLog: boolean) => Promise<void>;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * Sets the possibility to remove the selected column.
+         */
+        "removableColumns": boolean;
         /**
           * Sets the actions of the rows.
          */
@@ -551,6 +640,10 @@ export namespace Components {
           * Sets the number of rows per page to display.
          */
         "rowsPerPage": number;
+        /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover": boolean;
         /**
           * Selects the row at the specified rendered rows prosition (base 1).
          */
@@ -580,6 +673,10 @@ export namespace Components {
           * If set to true, displays the button to load more records.
          */
         "showLoadMore": boolean;
+        /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick": boolean;
         /**
           * Defines the current sorting options.
          */
@@ -615,14 +712,125 @@ export namespace Components {
          */
         "totals": TotalsMap;
     }
+    interface KupDatePicker {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Props of the sub-components.
+         */
+        "data": Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * First day number (0 - sunday, 1 - monday, ...)
+         */
+        "firstDayIndex": number;
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue": string;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
+    }
     interface KupDrawer {
+        "close": () => Promise<void>;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
         "open": () => Promise<void>;
         /**
-          * opened is used to make our drawer appear and disappear
+          * Defaults at false. When set to true, the drawer appears.
          */
         "opened": boolean;
-        "permanent": boolean;
-        "right": boolean;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "toggle": () => Promise<void>;
+    }
+    interface KupDropdownButton {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Props of the sub-components.
+         */
+        "data": Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+         */
+        "displayMode": ItemsDisplayMode;
+        "getValue": () => Promise<string>;
+        /**
+          * Defaults at null. When set, the button will show this icon.
+         */
+        "icon": string;
+        /**
+          * Sets the initial value of the component.
+         */
+        "initialValue": string;
+        /**
+          * Defaults at null. When set, the button will show this text.
+         */
+        "label": string;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * Sets how the return the selected item value. Suported values: "code", "description", "both".
+         */
+        "selectMode": ItemsDisplayMode;
+        "setValue": (value: string) => Promise<void>;
+        /**
+          * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.
+         */
+        "styling": string;
+        /**
+          * Defaults at null. When set, the icon will be shown after the text.
+         */
+        "trailingIcon": boolean;
+    }
+    interface KupEchart {
+        /**
+          * Sets the axis of the chart.
+         */
+        "axis": string;
+        /**
+          * Title of the graph.
+         */
+        "chartTitle": EchartTitle;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+         */
+        "customStyle": string;
+        /**
+          * The actual data of the chart.
+         */
+        "data": object;
+        /**
+          * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+         */
+        "legend": string;
+        /**
+          * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
+         */
+        "mapType": any;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * The data series to be displayed. They must be of the same type.
+         */
+        "series": string[];
+        /**
+          * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+         */
+        "types": String[];
     }
     interface KupEditor {
         /**
@@ -709,6 +917,10 @@ export namespace Components {
          */
         "colors": string[];
         /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
           * The first threshold, establishing the length of the first and second arc.
          */
         "firstThreshold"?: number;
@@ -729,15 +941,16 @@ export namespace Components {
          */
         "minValue": number;
         /**
-          * if true, shows a rounded needle.
+          * When true, shows a rounded needle.
          */
         "needleCircle": boolean;
         /**
-          * if true, ignore threasholds in gauge and show colored value's arc.
+          * When true, ignore thresholds in gauge and show colored value's arc.
          */
         "onlyValue": boolean;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * If set to true, the colors inside the colors array are used in the reversed order.
+          * When true, the colors inside the colors array are used in the reversed order.
          */
         "reverseColors": boolean;
         /**
@@ -784,14 +997,6 @@ export namespace Components {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
-        /**
-          * The actual data of the grid.
-         */
-        "data": ComponentGridElement[];
-        /**
-          * When set to true, forces the width to 100% for the single line layout.
-         */
-        "fullWidth": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * When set to true, forces the content on a single line.
@@ -818,7 +1023,7 @@ export namespace Components {
          */
         "badgeData": KupBadge[];
         /**
-          * The color of the icon, defaults to the main color of the app.
+          * The color of the icon, defaults to the CSS variable --kup-icon-color.
          */
         "color": string;
         /**
@@ -995,14 +1200,6 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Sets a padding between the bar and its container. Not supported for the radial variant.
-         */
-        "hasPadding": boolean;
-        /**
-          * Sets a striped background. Not supported for the radial variant.
-         */
-        "hasStripes": boolean;
-        /**
           * Flag to show or hide the progress bar's label.
          */
         "hideLabel": boolean;
@@ -1011,17 +1208,9 @@ export namespace Components {
          */
         "icon": string;
         /**
-          * When striped background is active, it will be animated. Not supported for the radial variant.
-         */
-        "isAnimated": boolean;
-        /**
           * Radial version.
          */
         "isRadial": boolean;
-        /**
-          * Slim version.
-         */
-        "isSlim": boolean;
         /**
           * Specifies a text for the bar's label.
          */
@@ -1034,6 +1223,10 @@ export namespace Components {
     }
     interface KupQlik {
         /**
+          * Set Qlik App's istance would you like to use (!!!ALLERT!!! if you have already set appid app's istance will be NOT generated again)
+         */
+        "app": any;
+        /**
           * Set Qlik App's id would you like to use How to find app id --> https://support.qlik.com/articles/000026239
          */
         "appid": string;
@@ -1042,31 +1235,35 @@ export namespace Components {
          */
         "bordered": boolean;
         /**
-          * Set Qlik Server's connection parameters {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
+          * Set Qlik Server's connection parameters MUST be delcared to open apps {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
          */
         "config": QlikServer;
+        /**
+          * Activate logging  Default false
+         */
+        "debug": boolean;
         /**
           * Set default obj's container pixel height
          */
         "defobjsize": string;
         /**
-          * Do connection to Qlik Sever, if you have more component only one must have doconnection = "true"
-         */
-        "doconnection": boolean;
-        /**
           * Define width of grid, with true width = 100% responsive, false 1200px
          */
         "fluid": boolean;
         /**
-          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 10 where 10 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL   Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L'         },         {             obj:'JjSaVm', colDim:5, size:'S'         }     ]   } ] }
+          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 12 where 12 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL         noSelections --> define if selections in object are disable (default: false) Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L', noSelections:<true/flase>         },         {             obj:'JjSaVm', colDim:5, size:'S', noSelections:<true/flase>         }     ]   } ] }
          */
         "grid": Array<KupQlikGrid>;
         /**
-          * System prop
+          * Set Qlik Server istance would you like to use after connection
          */
         "qlik": any;
     }
     interface KupRadio {
+        /**
+          * Number of columns. When undefined, radio fields will be displayed inline.
+         */
+        "columns": number;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
@@ -1088,6 +1285,25 @@ export namespace Components {
          */
         "name": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+    }
+    interface KupRating {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Max number of stars (default 5)
+         */
+        "maxValue": number;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * Rated stars
+         */
+        "value": number;
     }
     interface KupSearch {
         "data": TableData;
@@ -1138,10 +1354,6 @@ export namespace Components {
           * When set to true the component will fill the whole viewport.
          */
         "fullScreen": boolean;
-        /**
-          * When set to true the area covered by the component will be unclickable and the cursor will be changed to "wait".
-         */
-        "isUnclickable": boolean;
         /**
           * Sets the layout of the spinner.
          */
@@ -1203,17 +1415,10 @@ export namespace Components {
          */
         "emitSubmitEventOnEnter": boolean;
         /**
-          * Defaults at false. When set to true, the component will be focused.
-         */
-        "forceFocus": boolean;
-        /**
-          * Defaults at false. When set to true, the component will be rendered at full height.
-         */
-        "fullHeight": boolean;
-        /**
           * Defaults at false. When set to true, the component will be rendered at full width.
          */
         "fullWidth": boolean;
+        "getValue": () => Promise<string>;
         /**
           * Defaults at null. When set, its content will be shown as a help text below the field.
          */
@@ -1259,10 +1464,8 @@ export namespace Components {
          */
         "readOnly": boolean;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        /**
-          * Defaults at false. When set to true, the button will be rendered with shaped edges.
-         */
-        "shaped": boolean;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
         /**
           * Defaults at false. When set to true, the component will be rendered as a textarea.
          */
@@ -1275,6 +1478,40 @@ export namespace Components {
           * Defaults at false. When set to true, the label will be on the right of the component.
          */
         "trailingLabel": boolean;
+    }
+    interface KupTimePicker {
+        /**
+          * When set to true, the drop down menu will display a clock.
+         */
+        "clockVariant": boolean;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Props of the sub-components (time input text field)
+         */
+        "data": Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled": boolean;
+        "getValue": () => Promise<string>;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue": string;
+        /**
+          * Manage seconds
+         */
+        "manageSeconds": boolean;
+        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "setFocus": () => Promise<void>;
+        "setValue": (value: string) => Promise<void>;
+        /**
+          * Minutes step
+         */
+        "timeMinutesStep": number;
     }
     interface KupTooltip {
         /**
@@ -1301,17 +1538,19 @@ export namespace Components {
           * Timeout for tooltip
          */
         "loadTimeout": number;
-        "mouseIsOn": () => Promise<boolean>;
         /**
           * Container element for tooltip
          */
         "relatedObject": TooltipRelatedObject;
+        "setTooltipInfo": (relatedObject: TooltipRelatedObject) => Promise<void>;
+        "unsetTooltipInfo": () => Promise<void>;
     }
     interface KupTree {
         /**
           * Auto select programmatic selectic node
          */
         "autoSelectionNodeMode": boolean;
+        "collapseAll": () => Promise<void>;
         /**
           * The columns of the tree when tree visualization is active.
          */
@@ -1336,19 +1575,24 @@ export namespace Components {
         treeNodeToExpand: TreeNode,
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined;
+        "expandAll": () => Promise<void>;
         /**
           * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
          */
         "expanded": boolean;
         /**
-          * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
+          * When set to true it activates the global filter.
          */
-        "filterValue": string;
+        "globalFilter": boolean;
         /**
-          * Activates the scroll on hover function
+          * The value of the global filter.
          */
-        "hoverScroll": boolean;
+        "globalFilterValue": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover": boolean;
         /**
           * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
          */
@@ -1357,10 +1601,6 @@ export namespace Components {
           * Shows the tree data as a table.
          */
         "showColumns": boolean;
-        /**
-          * When set to true enables the tree nodes filter.
-         */
-        "showFilter": boolean;
         /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns
@@ -1443,6 +1683,12 @@ declare global {
         prototype: HTMLKupChipElement;
         new (): HTMLKupChipElement;
     };
+    interface HTMLKupColorPickerElement extends Components.KupColorPicker, HTMLStencilElement {
+    }
+    var HTMLKupColorPickerElement: {
+        prototype: HTMLKupColorPickerElement;
+        new (): HTMLKupColorPickerElement;
+    };
     interface HTMLKupComboboxElement extends Components.KupCombobox, HTMLStencilElement {
     }
     var HTMLKupComboboxElement: {
@@ -1473,11 +1719,29 @@ declare global {
         prototype: HTMLKupDataTableElement;
         new (): HTMLKupDataTableElement;
     };
+    interface HTMLKupDatePickerElement extends Components.KupDatePicker, HTMLStencilElement {
+    }
+    var HTMLKupDatePickerElement: {
+        prototype: HTMLKupDatePickerElement;
+        new (): HTMLKupDatePickerElement;
+    };
     interface HTMLKupDrawerElement extends Components.KupDrawer, HTMLStencilElement {
     }
     var HTMLKupDrawerElement: {
         prototype: HTMLKupDrawerElement;
         new (): HTMLKupDrawerElement;
+    };
+    interface HTMLKupDropdownButtonElement extends Components.KupDropdownButton, HTMLStencilElement {
+    }
+    var HTMLKupDropdownButtonElement: {
+        prototype: HTMLKupDropdownButtonElement;
+        new (): HTMLKupDropdownButtonElement;
+    };
+    interface HTMLKupEchartElement extends Components.KupEchart, HTMLStencilElement {
+    }
+    var HTMLKupEchartElement: {
+        prototype: HTMLKupEchartElement;
+        new (): HTMLKupEchartElement;
     };
     interface HTMLKupEditorElement extends Components.KupEditor, HTMLStencilElement {
     }
@@ -1581,6 +1845,12 @@ declare global {
         prototype: HTMLKupRadioElement;
         new (): HTMLKupRadioElement;
     };
+    interface HTMLKupRatingElement extends Components.KupRating, HTMLStencilElement {
+    }
+    var HTMLKupRatingElement: {
+        prototype: HTMLKupRatingElement;
+        new (): HTMLKupRatingElement;
+    };
     interface HTMLKupSearchElement extends Components.KupSearch, HTMLStencilElement {
     }
     var HTMLKupSearchElement: {
@@ -1611,6 +1881,12 @@ declare global {
         prototype: HTMLKupTextFieldElement;
         new (): HTMLKupTextFieldElement;
     };
+    interface HTMLKupTimePickerElement extends Components.KupTimePicker, HTMLStencilElement {
+    }
+    var HTMLKupTimePickerElement: {
+        prototype: HTMLKupTimePickerElement;
+        new (): HTMLKupTimePickerElement;
+    };
     interface HTMLKupTooltipElement extends Components.KupTooltip, HTMLStencilElement {
     }
     var HTMLKupTooltipElement: {
@@ -1640,12 +1916,16 @@ declare global {
         "kup-chart": HTMLKupChartElement;
         "kup-checkbox": HTMLKupCheckboxElement;
         "kup-chip": HTMLKupChipElement;
+        "kup-color-picker": HTMLKupColorPickerElement;
         "kup-combobox": HTMLKupComboboxElement;
         "kup-crud": HTMLKupCrudElement;
         "kup-dash": HTMLKupDashElement;
         "kup-dash-list": HTMLKupDashListElement;
         "kup-data-table": HTMLKupDataTableElement;
+        "kup-date-picker": HTMLKupDatePickerElement;
         "kup-drawer": HTMLKupDrawerElement;
+        "kup-dropdown-button": HTMLKupDropdownButtonElement;
+        "kup-echart": HTMLKupEchartElement;
         "kup-editor": HTMLKupEditorElement;
         "kup-field": HTMLKupFieldElement;
         "kup-form": HTMLKupFormElement;
@@ -1663,11 +1943,13 @@ declare global {
         "kup-progress-bar": HTMLKupProgressBarElement;
         "kup-qlik": HTMLKupQlikElement;
         "kup-radio": HTMLKupRadioElement;
+        "kup-rating": HTMLKupRatingElement;
         "kup-search": HTMLKupSearchElement;
         "kup-spinner": HTMLKupSpinnerElement;
         "kup-switch": HTMLKupSwitchElement;
         "kup-tab-bar": HTMLKupTabBarElement;
         "kup-text-field": HTMLKupTextFieldElement;
+        "kup-time-picker": HTMLKupTimePickerElement;
         "kup-tooltip": HTMLKupTooltipElement;
         "kup-tree": HTMLKupTreeElement;
         "kup-upload": HTMLKupUploadElement;
@@ -1688,9 +1970,21 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Props of the list.
+          * Props of the sub-components.
          */
-        "listData"?: Object;
+        "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+         */
+        "displayMode"?: ItemsDisplayMode;
+        /**
+          * Sets the initial value of the component.
+         */
+        "initialValue"?: string;
         /**
           * The minimum number of chars to trigger the autocomplete
          */
@@ -1723,18 +2017,17 @@ declare namespace LocalJSX {
         "onKupAutocompleteItemClick"?: (event: CustomEvent<{
         value: any;
     }>) => void;
+        "onKupAutocompleteTextFieldSubmit"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
         /**
-          * Sets how the return the selected item value
+          * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
         /**
           * When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled.
          */
         "serverHandledFilter"?: boolean;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData"?: Object;
     }
     interface KupBadge {
         /**
@@ -1749,10 +2042,6 @@ declare namespace LocalJSX {
         el: EventTarget;
     }>) => void;
         /**
-          * The position of the badge relative to its parent. Supported values: "TL" (top left), "TR" (top right), "BL" (bottom left), "BR" (bottom left).
-         */
-        "position"?: BadgePosition;
-        /**
           * The text displayed inside the badge.
          */
         "text"?: string;
@@ -1766,10 +2055,6 @@ declare namespace LocalJSX {
           * Number of columns
          */
         "columns"?: number;
-        /**
-          * Alignment of the content. Can be set to left, right or center.
-         */
-        "contentAlign"?: string;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
@@ -1789,19 +2074,19 @@ declare namespace LocalJSX {
         /**
           * Drop can be done in section
          */
-        "dropOnSection"?: false;
+        "dropOnSection"?: boolean;
         /**
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
          */
         "enableRowActions"?: boolean;
         /**
-          * Enable filtering
+          * When set to true it activates the global filter.
          */
-        "filterEnabled"?: boolean;
+        "globalFilter"?: boolean;
         /**
-          * Global filter value state
+          * The value of the global filter.
          */
-        "globalFilterValueState"?: string;
+        "globalFilterValue"?: string;
         /**
           * How the field will be displayed. If not present, a default one will be created.
          */
@@ -1810,14 +2095,6 @@ declare namespace LocalJSX {
           * Enable multi selection
          */
         "multiSelection"?: boolean;
-        /**
-          * Removes border
-         */
-        "noBorder"?: boolean;
-        /**
-          * Removes padding
-         */
-        "noPadding"?: boolean;
         /**
           * Triggered when a box is auto selected via selectBox prop
          */
@@ -1848,17 +2125,6 @@ declare namespace LocalJSX {
         fromSelectedRows?: BoxRow[];
     }>) => void;
         /**
-          * Triggered when a box is dropped
-         */
-        "onKupBoxDropped"?: (event: CustomEvent<{
-        fromId: string;
-        fromRow: BoxRow;
-        fromSelectedRows?: BoxRow[];
-        toId: string;
-        toRow: BoxRow;
-        toSelectedRows?: BoxRow[];
-    }>) => void;
-        /**
           * Triggered when the multi selection checkbox changes value
          */
         "onKupBoxSelected"?: (event: CustomEvent<{
@@ -1884,7 +2150,7 @@ declare namespace LocalJSX {
         row: BoxRow;
     }>) => void;
         /**
-          * current number page
+          * Current page number
          */
         "pageSelected"?: number;
         /**
@@ -1896,7 +2162,7 @@ declare namespace LocalJSX {
          */
         "pagination"?: boolean;
         /**
-          * current rows per page
+          * Number of current rows per page
          */
         "rowsPerPage"?: number;
         /**
@@ -1906,11 +2172,15 @@ declare namespace LocalJSX {
         /**
           * Multiple selection
          */
-        "selectedRowsState"?: BoxRow[];
+        "selectedRowsState"?: string;
         /**
           * If enabled, highlights the selected box/boxes
          */
         "showSelection"?: boolean;
+        /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick"?: boolean;
         /**
           * If sorting is enabled, specifies which column to sort
          */
@@ -1955,25 +2225,9 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Defaults at false. When set to true, the button will be rendered flat.
-         */
-        "flat"?: boolean;
-        /**
-          * Defaults at false. When set to true fill all the available horizontal space.
-         */
-        "fullHeight"?: boolean;
-        /**
-          * Defaults at false. When set to true fill all the available horizontal space.
-         */
-        "fullWidth"?: boolean;
-        /**
           * Defaults at null. When set, the button will show this icon.
          */
         "icon"?: string;
-        /**
-          * If not set, it will be managed by the component.
-         */
-        "iconColor"?: string;
         /**
           * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
          */
@@ -1995,13 +2249,9 @@ declare namespace LocalJSX {
         value: string;
     }>) => void;
         /**
-          * Defaults at false. When set to true, the button will be rendered with a colored outline.
+          * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
          */
-        "outlined"?: boolean;
-        /**
-          * Defaults at false. When set to true, the button will be rendered with rounded edges.
-         */
-        "shaped"?: boolean;
+        "styling"?: string;
         /**
           * Defaults at false. When set to true, the icon button will be toggable on/off.
          */
@@ -2095,33 +2345,73 @@ declare namespace LocalJSX {
         "sizeY"?: string;
     }
     interface KupChart {
+        /**
+          * Sets the chart to a 2D or 3D aspect. 3D only works for Pie graphs.
+         */
         "asp"?: ChartAspect;
+        /**
+          * Sets the axis of the chart.
+         */
         "axis"?: string;
+        /**
+          * Title of the graph.
+         */
+        "chartTitle"?: ChartTitle;
+        /**
+          * Colors of the chart.
+         */
         "colors"?: string[];
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
          */
         "customStyle"?: string;
+        /**
+          * The actual data of the chart.
+         */
         "data"?: DataTable;
-        "graphTitle"?: string;
-        "graphTitleColor"?: string;
-        "graphTitleSize"?: number;
+        /**
+          * Customize the hAxis.
+         */
         "hAxis"?: ChartAxis;
         /**
           * Sets the position of the legend. Supported values: bottom, labeled, left, none, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
         "legend"?: string;
+        /**
+          * Renders charts without the Google API and using jQuery Sparkline.
+         */
         "offlineMode"?: ChartOfflineMode;
         /**
           * Triggered when a chart serie is clicked
          */
         "onKupChartClicked"?: (event: CustomEvent<ChartClickedEvent>) => void;
-        "series"?: string[];
+        /**
+          * The data series to be displayed. They must be of the same type.
+         */
+        "series"?: ChartSerie[];
+        /**
+          * Displays the numerical values.
+         */
         "showMarks"?: boolean;
+        /**
+          * The width of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+         */
         "sizeX"?: string;
+        /**
+          * The height of the chart, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+         */
         "sizeY"?: string;
+        /**
+          * Displays the data columns of an object on top of each other.
+         */
         "stacked"?: boolean;
+        /**
+          * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
+         */
         "types"?: ChartType[];
+        /**
+          * Customize the vAxis.
+         */
         "vAxis"?: ChartAxis;
         /**
           * Google chart version to load
@@ -2208,19 +2498,59 @@ declare namespace LocalJSX {
          */
         "type"?: string;
     }
+    interface KupColorPicker {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Props of the text field.
+         */
+        "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
+         */
+        "initialValue"?: string;
+        "onKupColorPickerChange"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupColorPickerInput"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        /**
+          * When true, the component's text field will be replaced by a swatch.
+         */
+        "swatchOnly"?: boolean;
+    }
     interface KupCombobox {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
+          * Props of the sub-components (date input text field).
+         */
+        "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+         */
+        "displayMode"?: ItemsDisplayMode;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue"?: string;
+        /**
           * Lets the combobox behave as a select element.
          */
         "isSelect"?: boolean;
-        /**
-          * Props of the list.
-         */
-        "listData"?: Object;
         /**
           * Event example.
          */
@@ -2249,13 +2579,9 @@ declare namespace LocalJSX {
         value: any;
     }>) => void;
         /**
-          * Sets how the return the elected item value. Suported values: "code", "description", "both".
+          * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
-        /**
-          * Props of the text field.
-         */
-        "textfieldData"?: Object;
     }
     interface KupCrud {
         "actions"?: FormActions;
@@ -2288,9 +2614,21 @@ declare namespace LocalJSX {
         "sections"?: FormSection;
     }
     interface KupDash {
+        /**
+          * The component can be clicked.
+         */
         "active"?: boolean;
+        /**
+          * Sets the font size of the component.
+         */
         "fontsize"?: string;
+        /**
+          * No idea what this is about.
+         */
         "index"?: number;
+        /**
+          * Sets the layout of the component.
+         */
         "layout"?: string;
         "onKetchupDashClicked"?: (event: CustomEvent<{
         id: number;
@@ -2313,6 +2651,10 @@ declare namespace LocalJSX {
     }
     interface KupDataTable {
         /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
           * The data of the table.
          */
         "data"?: TableData;
@@ -2320,6 +2662,18 @@ declare namespace LocalJSX {
           * The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.
          */
         "density"?: string;
+        /**
+          * Enable row dragging
+         */
+        "dragEnabled"?: boolean;
+        /**
+          * Enable record dropping
+         */
+        "dropEnabled"?: boolean;
+        /**
+          * Defines the label to show when the table is empty.
+         */
+        "emptyDataLabel"?: string;
         /**
           * Enables the sorting of columns by dragging them into different columns.
          */
@@ -2394,6 +2748,7 @@ declare namespace LocalJSX {
           * When set to true enables rows multi selection.
          */
         "multiSelection"?: boolean;
+        "onKupAddCodeDecodeColumn"?: (event: CustomEvent<{ column: string }>) => void;
         /**
           * When 'add column' menu item is clicked
          */
@@ -2405,7 +2760,9 @@ declare namespace LocalJSX {
         selectedRow: Row;
     }>) => void;
         "onKupCellButtonClicked"?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
-        "onKupDataTableSortedColumn"?: (event: CustomEvent<KupDataTableSortedColumnIndexes>) => void;
+        "onKupDataTableDblClick"?: (event: CustomEvent<{
+        obj: {};
+    }>) => void;
         /**
           * When component load is complete
          */
@@ -2453,6 +2810,10 @@ declare namespace LocalJSX {
          */
         "paginatorPos"?: PaginatorPos;
         /**
+          * Sets the possibility to remove the selected column.
+         */
+        "removableColumns"?: boolean;
+        /**
           * Sets the actions of the rows.
          */
         "rowActions"?: Array<RowAction>;
@@ -2460,6 +2821,10 @@ declare namespace LocalJSX {
           * Sets the number of rows per page to display.
          */
         "rowsPerPage"?: number;
+        /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover"?: boolean;
         /**
           * Selects the row at the specified rendered rows prosition (base 1).
          */
@@ -2489,6 +2854,10 @@ declare namespace LocalJSX {
           * If set to true, displays the button to load more records.
          */
         "showLoadMore"?: boolean;
+        /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick"?: boolean;
         /**
           * Defines the current sorting options.
          */
@@ -2524,13 +2893,161 @@ declare namespace LocalJSX {
          */
         "totals"?: TotalsMap;
     }
+    interface KupDatePicker {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Props of the sub-components.
+         */
+        "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * First day number (0 - sunday, 1 - monday, ...)
+         */
+        "firstDayIndex"?: number;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue"?: string;
+        "onKupDatePickerBlur"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDatePickerChange"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDatePickerClearIconClick"?: (event: CustomEvent<{
+        id: any;
+    }>) => void;
+        "onKupDatePickerClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDatePickerFocus"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDatePickerIconClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDatePickerInput"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDatePickerItemClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDatePickerTextFieldSubmit"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+    }
     interface KupDrawer {
         /**
-          * opened is used to make our drawer appear and disappear
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        "onKupDrawerClose"?: (event: CustomEvent<any>) => void;
+        "onKupDrawerOpen"?: (event: CustomEvent<any>) => void;
+        /**
+          * Defaults at false. When set to true, the drawer appears.
          */
         "opened"?: boolean;
-        "permanent"?: boolean;
-        "right"?: boolean;
+    }
+    interface KupDropdownButton {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Props of the sub-components.
+         */
+        "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+         */
+        "displayMode"?: ItemsDisplayMode;
+        /**
+          * Defaults at null. When set, the button will show this icon.
+         */
+        "icon"?: string;
+        /**
+          * Sets the initial value of the component.
+         */
+        "initialValue"?: string;
+        /**
+          * Defaults at null. When set, the button will show this text.
+         */
+        "label"?: string;
+        "onKupDropdownButtonBlur"?: (event: CustomEvent<{
+        id: string;
+        value: string;
+    }>) => void;
+        "onKupDropdownButtonClick"?: (event: CustomEvent<{
+        id: string;
+        value: string;
+    }>) => void;
+        "onKupDropdownButtonFocus"?: (event: CustomEvent<{
+        id: string;
+        value: string;
+    }>) => void;
+        "onKupDropdownSelectionChange"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupDropdownSelectionItemClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        /**
+          * Sets how the return the selected item value. Suported values: "code", "description", "both".
+         */
+        "selectMode"?: ItemsDisplayMode;
+        /**
+          * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.
+         */
+        "styling"?: string;
+        /**
+          * Defaults at null. When set, the icon will be shown after the text.
+         */
+        "trailingIcon"?: boolean;
+    }
+    interface KupEchart {
+        /**
+          * Sets the axis of the chart.
+         */
+        "axis"?: string;
+        /**
+          * Title of the graph.
+         */
+        "chartTitle"?: EchartTitle;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+         */
+        "customStyle"?: string;
+        /**
+          * The actual data of the chart.
+         */
+        "data"?: object;
+        /**
+          * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
+         */
+        "legend"?: string;
+        /**
+          * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
+         */
+        "mapType"?: any;
+        "onKupEchartClicked"?: (event: CustomEvent<any>) => void;
+        /**
+          * The data series to be displayed. They must be of the same type.
+         */
+        "series"?: string[];
+        /**
+          * The type of the chart. Supported formats: Line, Pie, Map, Scatter
+         */
+        "types"?: String[];
     }
     interface KupEditor {
         /**
@@ -2620,6 +3137,10 @@ declare namespace LocalJSX {
          */
         "colors"?: string[];
         /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
           * The first threshold, establishing the length of the first and second arc.
          */
         "firstThreshold"?: number;
@@ -2640,15 +3161,15 @@ declare namespace LocalJSX {
          */
         "minValue"?: number;
         /**
-          * if true, shows a rounded needle.
+          * When true, shows a rounded needle.
          */
         "needleCircle"?: boolean;
         /**
-          * if true, ignore threasholds in gauge and show colored value's arc.
+          * When true, ignore thresholds in gauge and show colored value's arc.
          */
         "onlyValue"?: boolean;
         /**
-          * If set to true, the colors inside the colors array are used in the reversed order.
+          * When true, the colors inside the colors array are used in the reversed order.
          */
         "reverseColors"?: boolean;
         /**
@@ -2696,14 +3217,6 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * The actual data of the grid.
-         */
-        "data"?: ComponentGridElement[];
-        /**
-          * When set to true, forces the width to 100% for the single line layout.
-         */
-        "fullWidth"?: boolean;
-        /**
           * When set to true, forces the content on a single line.
          */
         "singleLine"?: boolean;
@@ -2730,7 +3243,7 @@ declare namespace LocalJSX {
          */
         "badgeData"?: KupBadge[];
         /**
-          * The color of the icon, defaults to the main color of the app.
+          * The color of the icon, defaults to the CSS variable --kup-icon-color.
          */
         "color"?: string;
         /**
@@ -2949,14 +3462,6 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Sets a padding between the bar and its container. Not supported for the radial variant.
-         */
-        "hasPadding"?: boolean;
-        /**
-          * Sets a striped background. Not supported for the radial variant.
-         */
-        "hasStripes"?: boolean;
-        /**
           * Flag to show or hide the progress bar's label.
          */
         "hideLabel"?: boolean;
@@ -2965,17 +3470,9 @@ declare namespace LocalJSX {
          */
         "icon"?: string;
         /**
-          * When striped background is active, it will be animated. Not supported for the radial variant.
-         */
-        "isAnimated"?: boolean;
-        /**
           * Radial version.
          */
         "isRadial"?: boolean;
-        /**
-          * Slim version.
-         */
-        "isSlim"?: boolean;
         /**
           * Specifies a text for the bar's label.
          */
@@ -2987,6 +3484,10 @@ declare namespace LocalJSX {
     }
     interface KupQlik {
         /**
+          * Set Qlik App's istance would you like to use (!!!ALLERT!!! if you have already set appid app's istance will be NOT generated again)
+         */
+        "app"?: any;
+        /**
           * Set Qlik App's id would you like to use How to find app id --> https://support.qlik.com/articles/000026239
          */
         "appid"?: string;
@@ -2995,31 +3496,35 @@ declare namespace LocalJSX {
          */
         "bordered"?: boolean;
         /**
-          * Set Qlik Server's connection parameters {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
+          * Set Qlik Server's connection parameters MUST be delcared to open apps {host:'<server host>', port:'<server port http default:80 https default:443 >', prefix:'<virtual proxy prefix dafault: blank>', isSecure:<true/false>}
          */
         "config"?: QlikServer;
+        /**
+          * Activate logging  Default false
+         */
+        "debug"?: boolean;
         /**
           * Set default obj's container pixel height
          */
         "defobjsize"?: string;
         /**
-          * Do connection to Qlik Sever, if you have more component only one must have doconnection = "true"
-         */
-        "doconnection"?: boolean;
-        /**
           * Define width of grid, with true width = 100% responsive, false 1200px
          */
         "fluid"?: boolean;
         /**
-          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 10 where 10 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL   Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L'         },         {             obj:'JjSaVm', colDim:5, size:'S'         }     ]   } ] }
+          * Set the grid structure (JSON) selections --> Data selection array     field   --> Qlik field on which to make the selection     values  --> Array of int or string value which to select rows     colums --> they define the structure of grid       obj     --> Qlik Object id would you like to render (How to find Qlik obj id --> https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm)       colDim  --> define column's dimension, it could have values from 1 to 12 where 12 is 100%       size    --> define size height of obj's div container, it colud have this values XS|S|M|L|XL         noSelections --> define if selections in object are disable (default: false) Example: { selections:[   {       field: 'Anno',       values:[2020]   } ], rows:[   {     columns:[         {             obj:'KvqdmD', colDim:5, size:'L', noSelections:<true/flase>         },         {             obj:'JjSaVm', colDim:5, size:'S', noSelections:<true/flase>         }     ]   } ] }
          */
         "grid"?: Array<KupQlikGrid>;
         /**
-          * System prop
+          * Set Qlik Server istance would you like to use after connection
          */
         "qlik"?: any;
     }
     interface KupRadio {
+        /**
+          * Number of columns. When undefined, radio fields will be displayed inline.
+         */
+        "columns"?: number;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
@@ -3060,6 +3565,25 @@ declare namespace LocalJSX {
         value: string;
         checked: boolean;
     }>) => void;
+    }
+    interface KupRating {
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Max number of stars (default 5)
+         */
+        "maxValue"?: number;
+        "onKupRatingClicked"?: (event: CustomEvent<any>) => void;
+        /**
+          * Rated stars
+         */
+        "value"?: number;
     }
     interface KupSearch {
         "data"?: TableData;
@@ -3115,10 +3639,6 @@ declare namespace LocalJSX {
           * When set to true the component will fill the whole viewport.
          */
         "fullScreen"?: boolean;
-        /**
-          * When set to true the area covered by the component will be unclickable and the cursor will be changed to "wait".
-         */
-        "isUnclickable"?: boolean;
         /**
           * Sets the layout of the spinner.
          */
@@ -3196,14 +3716,6 @@ declare namespace LocalJSX {
           * When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.
          */
         "emitSubmitEventOnEnter"?: boolean;
-        /**
-          * Defaults at false. When set to true, the component will be focused.
-         */
-        "forceFocus"?: boolean;
-        /**
-          * Defaults at false. When set to true, the component will be rendered at full height.
-         */
-        "fullHeight"?: boolean;
         /**
           * Defaults at false. When set to true, the component will be rendered at full width.
          */
@@ -3287,10 +3799,6 @@ declare namespace LocalJSX {
          */
         "readOnly"?: boolean;
         /**
-          * Defaults at false. When set to true, the button will be rendered with shaped edges.
-         */
-        "shaped"?: boolean;
-        /**
           * Defaults at false. When set to true, the component will be rendered as a textarea.
          */
         "textArea"?: boolean;
@@ -3302,6 +3810,63 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the label will be on the right of the component.
          */
         "trailingLabel"?: boolean;
+    }
+    interface KupTimePicker {
+        /**
+          * When set to true, the drop down menu will display a clock.
+         */
+        "clockVariant"?: boolean;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Props of the sub-components (time input text field)
+         */
+        "data"?: Object;
+        /**
+          * Defaults at false. When set to true, the component is disabled.
+         */
+        "disabled"?: boolean;
+        /**
+          * Sets the initial value of the component
+         */
+        "initialValue"?: string;
+        /**
+          * Manage seconds
+         */
+        "manageSeconds"?: boolean;
+        "onKupTimePickerBlur"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupTimePickerChange"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupTimePickerClearIconClick"?: (event: CustomEvent<{
+        id: any;
+    }>) => void;
+        "onKupTimePickerClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupTimePickerFocus"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupTimePickerIconClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupTimePickerInput"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupTimePickerItemClick"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        "onKupTimePickerTextFieldSubmit"?: (event: CustomEvent<{
+        value: any;
+    }>) => void;
+        /**
+          * Minutes step
+         */
+        "timeMinutesStep"?: number;
     }
     interface KupTooltip {
         /**
@@ -3391,18 +3956,23 @@ declare namespace LocalJSX {
          */
         "expanded"?: boolean;
         /**
-          * Allows to set initial filter for tree nodes, manages the filter on tree nodes.
+          * When set to true it activates the global filter.
          */
-        "filterValue"?: string;
+        "globalFilter"?: boolean;
         /**
-          * Activates the scroll on hover function
+          * The value of the global filter.
          */
-        "hoverScroll"?: boolean;
+        "globalFilterValue"?: string;
         "onKupDidLoad"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when stop propagation event
          */
         "onKupDidUnload"?: (event: CustomEvent<void>) => void;
+        "onKupTreeDynamicMassExpansion"?: (event: CustomEvent<{
+        treeNodePath?: TreeNodePath;
+        treeNode?: TreeNode;
+        expandAll?: boolean;
+    }>) => void;
         "onKupTreeNodeButtonClicked"?: (event: CustomEvent<{
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
@@ -3418,6 +3988,10 @@ declare namespace LocalJSX {
         treeNodePath: TreeNodePath;
         treeNode: TreeNode;
         tree: KupTree;
+    }>) => void;
+        "onKupTreeNodeDblClick"?: (event: CustomEvent<{
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
     }>) => void;
         /**
           * Fired when a node expansion ion has been triggered. Contains additional data when the tree is using the dynamicExpansion feature.
@@ -3449,6 +4023,10 @@ declare namespace LocalJSX {
         tree: KupTree;
     }>) => void;
         /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover"?: boolean;
+        /**
           * An array of integers containing the path to a selected child.\ Groups up the properties SelFirst, SelItem, SelName.
          */
         "selectedNode"?: TreeNodePath;
@@ -3456,10 +4034,6 @@ declare namespace LocalJSX {
           * Shows the tree data as a table.
          */
         "showColumns"?: boolean;
-        /**
-          * When set to true enables the tree nodes filter.
-         */
-        "showFilter"?: boolean;
         /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns
@@ -3496,12 +4070,16 @@ declare namespace LocalJSX {
         "kup-chart": KupChart;
         "kup-checkbox": KupCheckbox;
         "kup-chip": KupChip;
+        "kup-color-picker": KupColorPicker;
         "kup-combobox": KupCombobox;
         "kup-crud": KupCrud;
         "kup-dash": KupDash;
         "kup-dash-list": KupDashList;
         "kup-data-table": KupDataTable;
+        "kup-date-picker": KupDatePicker;
         "kup-drawer": KupDrawer;
+        "kup-dropdown-button": KupDropdownButton;
+        "kup-echart": KupEchart;
         "kup-editor": KupEditor;
         "kup-field": KupField;
         "kup-form": KupForm;
@@ -3519,11 +4097,13 @@ declare namespace LocalJSX {
         "kup-progress-bar": KupProgressBar;
         "kup-qlik": KupQlik;
         "kup-radio": KupRadio;
+        "kup-rating": KupRating;
         "kup-search": KupSearch;
         "kup-spinner": KupSpinner;
         "kup-switch": KupSwitch;
         "kup-tab-bar": KupTabBar;
         "kup-text-field": KupTextField;
+        "kup-time-picker": KupTimePicker;
         "kup-tooltip": KupTooltip;
         "kup-tree": KupTree;
         "kup-upload": KupUpload;
@@ -3543,12 +4123,16 @@ declare module "@stencil/core" {
             "kup-chart": LocalJSX.KupChart & JSXBase.HTMLAttributes<HTMLKupChartElement>;
             "kup-checkbox": LocalJSX.KupCheckbox & JSXBase.HTMLAttributes<HTMLKupCheckboxElement>;
             "kup-chip": LocalJSX.KupChip & JSXBase.HTMLAttributes<HTMLKupChipElement>;
+            "kup-color-picker": LocalJSX.KupColorPicker & JSXBase.HTMLAttributes<HTMLKupColorPickerElement>;
             "kup-combobox": LocalJSX.KupCombobox & JSXBase.HTMLAttributes<HTMLKupComboboxElement>;
             "kup-crud": LocalJSX.KupCrud & JSXBase.HTMLAttributes<HTMLKupCrudElement>;
             "kup-dash": LocalJSX.KupDash & JSXBase.HTMLAttributes<HTMLKupDashElement>;
             "kup-dash-list": LocalJSX.KupDashList & JSXBase.HTMLAttributes<HTMLKupDashListElement>;
             "kup-data-table": LocalJSX.KupDataTable & JSXBase.HTMLAttributes<HTMLKupDataTableElement>;
+            "kup-date-picker": LocalJSX.KupDatePicker & JSXBase.HTMLAttributes<HTMLKupDatePickerElement>;
             "kup-drawer": LocalJSX.KupDrawer & JSXBase.HTMLAttributes<HTMLKupDrawerElement>;
+            "kup-dropdown-button": LocalJSX.KupDropdownButton & JSXBase.HTMLAttributes<HTMLKupDropdownButtonElement>;
+            "kup-echart": LocalJSX.KupEchart & JSXBase.HTMLAttributes<HTMLKupEchartElement>;
             "kup-editor": LocalJSX.KupEditor & JSXBase.HTMLAttributes<HTMLKupEditorElement>;
             "kup-field": LocalJSX.KupField & JSXBase.HTMLAttributes<HTMLKupFieldElement>;
             "kup-form": LocalJSX.KupForm & JSXBase.HTMLAttributes<HTMLKupFormElement>;
@@ -3566,11 +4150,13 @@ declare module "@stencil/core" {
             "kup-progress-bar": LocalJSX.KupProgressBar & JSXBase.HTMLAttributes<HTMLKupProgressBarElement>;
             "kup-qlik": LocalJSX.KupQlik & JSXBase.HTMLAttributes<HTMLKupQlikElement>;
             "kup-radio": LocalJSX.KupRadio & JSXBase.HTMLAttributes<HTMLKupRadioElement>;
+            "kup-rating": LocalJSX.KupRating & JSXBase.HTMLAttributes<HTMLKupRatingElement>;
             "kup-search": LocalJSX.KupSearch & JSXBase.HTMLAttributes<HTMLKupSearchElement>;
             "kup-spinner": LocalJSX.KupSpinner & JSXBase.HTMLAttributes<HTMLKupSpinnerElement>;
             "kup-switch": LocalJSX.KupSwitch & JSXBase.HTMLAttributes<HTMLKupSwitchElement>;
             "kup-tab-bar": LocalJSX.KupTabBar & JSXBase.HTMLAttributes<HTMLKupTabBarElement>;
             "kup-text-field": LocalJSX.KupTextField & JSXBase.HTMLAttributes<HTMLKupTextFieldElement>;
+            "kup-time-picker": LocalJSX.KupTimePicker & JSXBase.HTMLAttributes<HTMLKupTimePickerElement>;
             "kup-tooltip": LocalJSX.KupTooltip & JSXBase.HTMLAttributes<HTMLKupTooltipElement>;
             "kup-tree": LocalJSX.KupTree & JSXBase.HTMLAttributes<HTMLKupTreeElement>;
             "kup-upload": LocalJSX.KupUpload & JSXBase.HTMLAttributes<HTMLKupUploadElement>;

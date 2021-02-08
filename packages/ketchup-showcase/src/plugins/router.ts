@@ -40,9 +40,34 @@ let basicRoutes = [
     component: () => import(`@/views/basic/chip/Chip.vue`),
   },
   {
+    path: `/colorpicker`,
+    name: 'colorpicker',
+    component: () => import(`@/views/basic/colorpicker/ColorPicker.vue`),
+  },
+  {
     path: `/combobox`,
     name: 'combobox',
     component: () => import(`@/views/basic/combobox/Combobox.vue`),
+  },
+  {
+    path: `/drawer`,
+    name: 'drawer',
+    component: () => import(`@/views/basic/drawer/Drawer.vue`),
+  },
+  {
+    path: `/datepicker`,
+    name: 'datepicker',
+    component: () => import(`@/views/basic/datepicker/DatePicker.vue`),
+  },
+  {
+    path: `/dropdownbutton`,
+    name: 'dropdownbutton',
+    component: () => import(`@/views/basic/dropdownbutton/DropdownButton.vue`),
+  },
+  {
+    path: `/gauge`,
+    name: 'gauge',
+    component: () => import(`@/views/basic/gauge/Gauge.vue`),
   },
   {
     path: `/grid`,
@@ -85,6 +110,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/radio/Radio.vue`),
   },
   {
+    path: `/rating`,
+    name: 'rating',
+    component: () => import(`@/views/basic/rating/Rating.vue`),
+  },
+  {
     path: `/spinner`,
     name: 'spinner',
     component: () => import(`@/views/basic/spinner/Spinner.vue`),
@@ -104,6 +134,11 @@ let basicRoutes = [
     name: 'textfield',
     component: () => import(`@/views/basic/textfield/Textfield.vue`),
   },
+  {
+    path: `/timepicker`,
+    name: 'timepicker',
+    component: () => import(`@/views/basic/timepicker/TimePicker.vue`),
+  },
 ];
 
 let advancedRoutes = [
@@ -111,11 +146,6 @@ let advancedRoutes = [
     path: `/box`,
     name: 'box',
     component: () => import(`@/views/advanced/box/Box.vue`),
-  },
-  {
-    path: `/btn`,
-    name: 'btn',
-    component: () => import(`@/views/advanced/button/Button.vue`),
   },
   {
     path: `/calendar`,
@@ -131,6 +161,11 @@ let advancedRoutes = [
     path: `/chart`,
     name: 'chart',
     component: () => import(`@/views/advanced/chart/Chart.vue`),
+  },
+  {
+    path: `/echart`,
+    name: 'echart',
+    component: () => import(`@/views/advanced/echart/Echart.vue`),
   },
   {
     path: `/crud`,
@@ -158,11 +193,6 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/form/Form.vue`),
   },
   {
-    path: `/imagebutton`,
-    name: 'imagebutton',
-    component: () => import(`@/views/advanced/imagebutton/Imagebutton.vue`),
-  },
-  {
     path: `/search`,
     name: 'search',
     component: () => import(`@/views/advanced/search/Search.vue`),
@@ -176,6 +206,11 @@ let advancedRoutes = [
     path: `/tree`,
     name: 'tree',
     component: () => import(`@/views/advanced/tree/Tree.vue`),
+  },
+  {
+    path: `/qlik`,
+    name: 'qlik',
+    component: () => import(`@/views/advanced/qlik/Qlik.vue`),
   },
 ];
 
@@ -219,6 +254,16 @@ let testRoutes = [
     component: () => import(`@/views/test/Performance.vue`),
   },
   {
+    path: `/test/performance-autocomplete`,
+    name: 'testPerformanceAutocomplete',
+    component: () => import(`@/views/test/PerformanceAutocomplete.vue`),
+  },
+  {
+    path: `/test/performance-grid`,
+    name: 'testPerformanceGrid',
+    component: () => import(`@/views/test/PerformanceGrid.vue`),
+  },
+  {
     path: `/test/performance-tree`,
     name: 'testPerformanceTree',
     component: () => import(`@/views/test/PerformanceTree.vue`),
@@ -227,6 +272,11 @@ let testRoutes = [
     path: `/test/graphic-cells`,
     name: 'testGraphicCells',
     component: () => import(`@/views/test/GraphicCells.vue`),
+  },
+  {
+    path: `/test/tree-columns`,
+    name: 'testTreeColumns',
+    component: () => import(`@/views/test/TreeColumns.vue`),
   },
 ];
 

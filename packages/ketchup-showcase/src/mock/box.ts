@@ -70,7 +70,7 @@ export const defaultData = {
             p: '*YYMD',
             k: '20200301',
           },
-          value: '03/01/2020',
+          value: '2020-03-01',
         },
       },
     },
@@ -112,7 +112,7 @@ export const defaultData = {
             p: '*YYMD',
             k: '20200205',
           },
-          value: '02/05/2020',
+          value: '2020-02-05',
         },
       },
     },
@@ -154,7 +154,7 @@ export const defaultData = {
             p: '*YYMD',
             k: '20211231',
           },
-          value: '12/31/2021',
+          value: '2021-12-31',
         },
       },
     },
@@ -196,7 +196,7 @@ export const defaultData = {
             p: '*YYMD',
             k: '20200606',
           },
-          value: '06/06/2020',
+          value: '2020-06-06',
         },
       },
     },
@@ -648,7 +648,7 @@ export const imgBadgeData = {
             badgeData: [
               {
                 text: '12',
-                position: 'TR',
+                className: 'top-right',
               },
             ],
           },
@@ -676,7 +676,7 @@ export const imgBadgeData = {
             p: '*YYMD',
             k: '20201231',
           },
-          value: '12/31/2020',
+          value: '2020-12-31',
         },
       },
     },
@@ -695,7 +695,7 @@ export const imgBadgeData = {
             badgeData: [
               {
                 imageData: { resource: 'account' },
-                position: 'BR',
+                className: 'bottom-right',
               },
             ],
           },
@@ -742,11 +742,11 @@ export const imgBadgeData = {
             badgeData: [
               {
                 text: '33',
-                position: 'TR',
+                className: 'top-right',
               },
               {
                 imageData: { resource: 'widgets' },
-                position: 'BR',
+                className: 'bottom-right',
               },
             ],
           },
@@ -793,11 +793,11 @@ export const imgBadgeData = {
             badgeData: [
               {
                 text: '23',
-                position: 'TL',
+                className: 'top-left',
               },
               {
                 imageData: { resource: 'account' },
-                position: 'BL',
+                className: 'bottom-left',
               },
             ],
           },
@@ -825,7 +825,7 @@ export const imgBadgeData = {
             p: '*YYMD',
             k: '20180104',
           },
-          value: '04/01/2018',
+          value: '2018-01-04',
         },
       },
     },
@@ -999,7 +999,7 @@ export const pgbData = {
           },
           data: {
             customStyle:
-              ':host{--kup-disabled-background-color: black; --kup-main-color: green}',
+              ':host{--kup-disabled-background-color: black; --kup-primary-color: green}',
             backgroundColor: 'black',
             value: '33',
           },
@@ -1039,7 +1039,7 @@ export const pgbData = {
           data: {
             value: '45',
             customStyle:
-              ':host{--kup-disabled-background-color: magenta; --kup-main-color: yellow}',
+              ':host{--kup-disabled-background-color: magenta; --kup-primary-color: yellow}',
           },
           value: '45',
         },
@@ -1152,7 +1152,7 @@ export const boxBadgeData = {
             p: '*YYMD',
             k: '20180101',
           },
-          value: '01/01/2018',
+          value: '2018-01-01',
         },
       },
       badgeData: [
@@ -1199,13 +1199,13 @@ export const boxBadgeData = {
             p: '*YYMD',
             k: '20180102',
           },
-          value: '02/01/2018',
+          value: '2018-01-02',
         },
       },
       badgeData: [
         {
           imageData: { resource: 'account' },
-          position: 'TL',
+          className: 'top-left',
         },
       ],
     },
@@ -1247,7 +1247,7 @@ export const boxBadgeData = {
             p: '*YYMD',
             k: '20180103',
           },
-          value: '03/01/2018',
+          value: '2018-01-03',
         },
       },
       badgeData: [
@@ -1304,7 +1304,7 @@ export const shapeData = {
             badgeData: [
               {
                 imageData: { resource: 'account' },
-                position: 'BR',
+                className: 'bottom-right',
               },
             ],
             width: 20,
@@ -1378,7 +1378,7 @@ export const shapeData = {
             badgeData: [
               {
                 imageData: { resource: 'account' },
-                position: 'TL',
+                className: 'top-left',
               },
             ],
           },
@@ -1506,7 +1506,7 @@ export function createData(rows: number) {
             p: '*YYMD',
             k: '20180101',
           },
-          value: '01/01/2018',
+          value: '2018-01-01',
         },
       },
     });
@@ -1549,7 +1549,7 @@ export function createData(rows: number) {
             p: '*YYMD',
             k: '20180102',
           },
-          value: '02/01/2018',
+          value: '2018-01-02',
         },
       },
     });
@@ -1592,7 +1592,7 @@ export function createData(rows: number) {
             p: '*YYMD',
             k: '20180103',
           },
-          value: '03/01/2018',
+          value: '2018-01-03',
         },
       },
     });
@@ -1633,9 +1633,9 @@ export function createData(rows: number) {
           obj: {
             t: 'D8',
             p: '*YYMD',
-            k: '20180104',
+            k: '20220104',
           },
-          value: '04/01/2022',
+          value: '2022-01-04',
         },
       },
     });

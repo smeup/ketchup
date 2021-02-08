@@ -4,6 +4,7 @@ import {
     Element,
     Host,
     Event,
+    getAssetPath,
     EventEmitter,
     State,
     h,
@@ -12,7 +13,7 @@ import {
 import { MDCRipple } from '@material/ripple';
 import { MDCIconButtonToggle } from '@material/icon-button';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-button',
@@ -27,65 +28,39 @@ export class KupButton {
     /**
      * Defaults at false. When set to true, the icon button state will be on.
      */
-    @Prop({ reflect: true }) checked: boolean = false;
+    @Prop() checked: boolean = false;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop({ reflect: true }) disabled: boolean = false;
-    /**
-     * Defaults at false. When set to true, the button will be rendered flat.
-     */
-    @Prop({ reflect: true }) flat: boolean = false;
-    /**
-     * Defaults at false. When set to true fill all the available horizontal space.
-     */
-    @Prop({ reflect: true }) fullHeight = false;
-    /**
-     * Defaults at false. When set to true fill all the available horizontal space.
-     */
-    @Prop({ reflect: true }) fullWidth = false;
+    @Prop() disabled: boolean = false;
     /**
      * Defaults at null. When set, the button will show this icon.
      */
-    @Prop({ reflect: true }) icon: string = null;
-    /**
-     * If not set, it will be managed by the component.
-     */
-    @Prop({ reflect: true }) iconColor: string = null;
+    @Prop() icon: string = null;
     /**
      * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
      */
-    @Prop({ reflect: true }) iconOff: string = null;
+    @Prop() iconOff: string = null;
     /**
      * Defaults at null. When set, the button will show this text.
      */
-    @Prop({ reflect: true }) label: string = null;
+    @Prop() label: string = null;
     /**
-     * Defaults at false. When set to true, the button will be rendered with a colored outline.
+     * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
      */
-    @Prop({ reflect: true }) outlined: boolean = false;
-    /**
-     * Defaults at false. When set to true, the button will be rendered with rounded edges.
-     */
-    @Prop({ reflect: true }) shaped: boolean = false;
+    @Prop() styling: string = '';
     /**
      * Defaults at false. When set to true, the icon button will be toggable on/off.
      */
-    @Prop({ reflect: true }) toggable: boolean = false;
+    @Prop() toggable: boolean = false;
     /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
-    @Prop({ reflect: true }) trailingIcon: boolean = false;
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
+    @Prop() trailingIcon: boolean = false;
 
     @Event({
         eventName: 'kupButtonBlur',
@@ -159,22 +134,158 @@ export class KupButton {
         });
     }
 
+    private createRippleElement() {
+        if (this.disabled) {
+            return undefined;
+        }
+        return <div class="mdc-button__ripple"></div>;
+    }
+
+    private createLabelElement() {
+        if (!this.label) {
+            return undefined;
+        }
+        return <span class="mdc-button__label">{this.label}</span>;
+    }
+
+    private createIconElement(CSSClass: string, icon: string) {
+        if (!this.icon) {
+            return undefined;
+        }
+
+        if (
+            this.icon.indexOf('.') > -1 ||
+            this.icon.indexOf('/') > -1 ||
+            this.icon.indexOf('\\') > -1
+        ) {
+            return (
+                <span class={CSSClass}>
+                    <img src={this.icon}></img>
+                </span>
+            );
+        } else {
+            let svg: string = `url('${getAssetPath(
+                `./assets/svg/${icon}.svg`
+            )}') no-repeat center`;
+            CSSClass += ' icon-container material-icons';
+            let iconStyle = {
+                mask: svg,
+                webkitMask: svg,
+            };
+            return <span style={iconStyle} class={CSSClass}></span>;
+        }
+    }
+
+    private renderButton() {
+        let componentClass: string = 'mdc-button';
+        let leadingEl: HTMLElement = undefined;
+        let trailingEl: HTMLElement = undefined;
+
+        if (this.disabled) {
+            componentClass += ' mdc-button--disabled';
+        }
+
+        if (this.label) {
+            if (this.styling === 'outlined') {
+                componentClass += ' mdc-button--outlined';
+            } else if (this.styling !== 'flat') {
+                componentClass += ' mdc-button--raised';
+            }
+
+            if (this.trailingIcon && this.icon) {
+                leadingEl = this.createLabelElement();
+                trailingEl = this.createIconElement(
+                    'mdc-button__icon',
+                    this.icon
+                );
+            } else {
+                leadingEl = this.createIconElement(
+                    'mdc-button__icon',
+                    this.icon
+                );
+                trailingEl = this.createLabelElement();
+            }
+            return (
+                <button
+                    type="button"
+                    class={componentClass}
+                    disabled={this.disabled}
+                    onBlur={() => this.onKupBlur()}
+                    onClick={() => this.onKupClick()}
+                    onFocus={() => this.onKupFocus()}
+                >
+                    {this.createRippleElement()}
+                    {leadingEl}
+                    {trailingEl}
+                </button>
+            );
+        }
+    }
+
+    private renderIconButton() {
+        let componentClass: string = 'mdc-icon-button';
+        let leadingEl: HTMLElement = undefined;
+        let trailingEl: HTMLElement = undefined;
+
+        if (this.disabled) {
+            componentClass += ' mdc-button--disabled';
+        }
+
+        trailingEl = this.createIconElement('mdc-icon-button__icon', this.icon);
+        if (this.toggable) {
+            componentClass += ' toggable';
+            trailingEl = this.createIconElement(
+                'mdc-icon-button__icon mdc-icon-button__icon--on',
+                this.icon
+            );
+            if (this.checked) {
+                componentClass += ' mdc-icon-button--on';
+            }
+            let iconOff: string;
+
+            if (this.iconOff) {
+                iconOff = this.iconOff;
+            } else {
+                iconOff = this.icon + '_border';
+            }
+
+            leadingEl = this.createIconElement(
+                'mdc-icon-button__icon',
+                iconOff
+            );
+        }
+        return (
+            <button
+                type="button"
+                class={componentClass}
+                // @ts-ignore
+                checked={this.checked}
+                disabled={this.disabled}
+                value={this.value}
+                onBlur={() => this.onKupBlur()}
+                onClick={() => this.onKupClick()}
+                onFocus={() => this.onKupFocus()}
+            >
+                {this.createRippleElement()}
+                {leadingEl}
+                {trailingEl}
+            </button>
+        );
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
         if (this.label === null && this.icon !== null) {
             if (this.checked) {
                 this.value = 'on';
@@ -190,7 +301,7 @@ export class KupButton {
         const root = this.rootElement.shadowRoot;
 
         if (root && !this.disabled) {
-            let button = root.querySelector('.kup-button');
+            let button = root.querySelector('button');
             if (button != undefined) {
                 const buttonRipple = MDCRipple.attachTo(button);
                 if (button.classList.contains('mdc-icon-button')) {
@@ -201,175 +312,23 @@ export class KupButton {
                 }
             }
         }
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
         // It renders in two different ways because two different Material layouts are used.
         // If only the icon is present, with no text, an "icon button" will be rendered.
-        let componentClass: string = 'kup-button';
-        let iconEl: HTMLElement = null;
-        let labelEl: HTMLElement = null;
-        let leadingEl: HTMLElement = null;
-        let trailingEl: HTMLElement = null;
-        let elStyle = undefined;
-        let iconColor = undefined;
-
-        if (this.disabled) {
-            componentClass += ' mdc-button--disabled';
-            iconColor = 'var(--kup-disabled-color)';
-        } else {
-            iconColor = this.iconColor;
-        }
-
+        let comp: HTMLElement = undefined;
         if (this.label) {
-            componentClass += ' mdc-button';
-            labelEl = <span class="mdc-button__label">{this.label}</span>;
-            if (this.icon) {
-                if (!iconColor) {
-                    if (this.flat || this.outlined) {
-                        iconColor = 'var(--kup-main-color)';
-                    } else {
-                        iconColor = 'var(--kup-text-on-main-color)';
-                    }
-                }
-                iconEl = (
-                    <kup-image
-                        color={iconColor}
-                        class="material-icons mdc-button__icon"
-                        sizeX="18px"
-                        sizeY="18px"
-                        resource={this.icon}
-                    ></kup-image>
-                );
-            }
-
-            if (this.outlined) {
-                componentClass += ' mdc-button--outlined';
-            } else if (!this.flat) {
-                componentClass += ' mdc-button--raised';
-            }
-
-            if (this.shaped) {
-                componentClass += ' button-shaped';
-            }
-
-            if (this.fullWidth) {
-                componentClass += ' fullwidth';
-                elStyle = {
-                    width: '100%',
-                };
-            }
-
-            if (this.fullHeight) {
-                componentClass += ' fullheight';
-                elStyle = {
-                    ...elStyle,
-                    height: '100%',
-                };
-            }
-
-            if (this.trailingIcon && this.icon) {
-                leadingEl = labelEl;
-                trailingEl = iconEl;
-            } else {
-                leadingEl = iconEl;
-                trailingEl = labelEl;
-            }
-            return (
-                <Host class="handles-custom-style" style={elStyle}>
-                    <style>{setCustomStyle(this)}</style>
-                    <div id="kup-component" style={elStyle}>
-                        <button
-                            type="button"
-                            class={componentClass}
-                            disabled={this.disabled}
-                            onBlur={() => this.onKupBlur()}
-                            onClick={() => this.onKupClick()}
-                            onFocus={() => this.onKupFocus()}
-                        >
-                            <div class="mdc-button__ripple"></div>
-                            {leadingEl}
-                            {trailingEl}
-                        </button>
-                    </div>
-                </Host>
-            );
-        } else if (this.icon) {
-            if (!iconColor) {
-                iconColor = 'var(--kup-main-color)';
-            }
-            componentClass += ' mdc-icon-button';
-            trailingEl = (
-                <kup-image
-                    color={iconColor}
-                    class="material-icons mdc-icon-button__icon"
-                    sizeX="24px"
-                    sizeY="24px"
-                    resource={this.icon}
-                ></kup-image>
-            );
-            if (this.toggable) {
-                componentClass += ' toggable';
-                trailingEl = (
-                    <kup-image
-                        color={iconColor}
-                        class="material-icons mdc-icon-button__icon  mdc-icon-button__icon--on"
-                        sizeX="24px"
-                        sizeY="24px"
-                        resource={this.icon}
-                    ></kup-image>
-                );
-                if (this.checked) {
-                    componentClass += ' mdc-icon-button--on';
-                }
-                let iconOff: string;
-
-                if (this.iconOff) {
-                    iconOff = this.iconOff;
-                } else {
-                    iconOff = this.icon + '_border';
-                }
-
-                leadingEl = (
-                    <kup-image
-                        color={iconColor}
-                        class="material-icons mdc-icon-button__icon"
-                        sizeX="24px"
-                        sizeY="24px"
-                        resource={iconOff}
-                    ></kup-image>
-                );
-            }
-            return (
-                <Host class="handles-custom-style">
-                    <style>{setCustomStyle(this)}</style>
-                    <div id="kup-component">
-                        {/* 
-                            // @ts-ignore */}
-                        <button
-                            type="button"
-                            class={componentClass}
-                            // @ts-ignore
-                            checked={this.checked}
-                            disabled={this.disabled}
-                            value={this.value}
-                            onBlur={() => this.onKupBlur()}
-                            onClick={() => this.onKupClick()}
-                            onFocus={() => this.onKupFocus()}
-                        >
-                            <div class="mdc-button__ripple"></div>
-                            {leadingEl}
-                            {trailingEl}
-                        </button>
-                    </div>
-                </Host>
-            );
+            comp = this.renderButton();
+        } else {
+            comp = this.renderIconButton();
         }
+        return (
+            <Host>
+                <style>{setCustomStyle(this)}</style>
+                <div id="kup-component">{comp}</div>
+            </Host>
+        );
     }
 }

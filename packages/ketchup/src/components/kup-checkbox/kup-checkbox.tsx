@@ -12,7 +12,7 @@ import {
 import { MDCCheckbox } from '@material/checkbox';
 import { MDCFormField } from '@material/form-field';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-checkbox',
@@ -27,33 +27,27 @@ export class KupCheckbox {
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
      */
-    @Prop({ reflect: true }) checked: boolean = false;
+    @Prop() checked: boolean = false;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
-    @Prop({ reflect: true }) disabled: boolean = false;
+    @Prop() disabled: boolean = false;
     /**
      * Defaults at false. When set to true, the component will be set to 'indeterminate'.
      */
-    @Prop({ reflect: true }) indeterminate: boolean = false;
+    @Prop() indeterminate: boolean = false;
     /**
      * Defaults at null. When specified, its content will be shown as a label.
      */
-    @Prop({ reflect: true }) label: string = null;
+    @Prop() label: string = null;
     /**
      * Defaults at false. When set to true, the label will be on the left of the component.
      */
-    @Prop({ reflect: true }) leadingLabel: boolean = false;
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
+    @Prop() leadingLabel: boolean = false;
 
     @Event({
         eventName: 'kupCheckboxBlur',
@@ -125,7 +119,11 @@ export class KupCheckbox {
     }
 
     onKupChange() {
-        if (this.checked == true) {
+        if (this.indeterminate) {
+            this.checked = true;
+            this.indeterminate = false;
+            this.value = 'indeterminate';
+        } else if (this.checked) {
             this.checked = false;
             this.value = 'off';
         } else {
@@ -159,22 +157,26 @@ export class KupCheckbox {
         });
     }
 
+    private createRippleElement() {
+        if (this.disabled) {
+            return undefined;
+        }
+        return <div class="mdc-checkbox__ripple"></div>;
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
         if (this.checked) {
             this.value = 'on';
         } else {
@@ -194,28 +196,26 @@ export class KupCheckbox {
             );
             formField.input = component;
         }
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
         let formClass: string = 'mdc-form-field';
         let componentClass: string = 'mdc-checkbox';
         let componentLabel: string = this.label;
-        let ripple: HTMLElement = undefined;
-
-        if (this.disabled) {
-            componentClass += ' mdc-checkbox--disabled';
-        } else {
-            ripple = <div class="mdc-checkbox__ripple"></div>;
-        }
+        let indeterminateAttr = {};
 
         if (this.checked) {
             componentClass += ' mdc-checkbox--checked';
+        }
+
+        if (this.disabled) {
+            componentClass += ' mdc-checkbox--disabled';
+        }
+
+        if (this.indeterminate) {
+            componentClass += ' mdc-checkbox--indeterminate';
+            indeterminateAttr['data-indeterminate'] = 'true';
         }
 
         if (this.leadingLabel) {
@@ -223,19 +223,17 @@ export class KupCheckbox {
         }
 
         return (
-            <Host class="handles-custom-style">
+            <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={formClass}>
                         <div id="checkbox-wrapper" class={componentClass}>
-                            {/* 
-                            // @ts-ignore */}
                             <input
                                 type="checkbox"
                                 class="mdc-checkbox__native-control"
                                 checked={this.checked}
                                 disabled={this.disabled}
-                                indeterminate={this.indeterminate}
+                                {...indeterminateAttr}
                                 value={this.value}
                                 onBlur={() => this.onKupBlur()}
                                 onChange={() => this.onKupChange()}
@@ -256,9 +254,12 @@ export class KupCheckbox {
                                 </svg>
                                 <div class="mdc-checkbox__mixedmark"></div>
                             </div>
-                            {ripple}
+                            {this.createRippleElement()}
                         </div>
-                        <label htmlFor="checkbox-wrapper">
+                        <label
+                            htmlFor="checkbox-wrapper"
+                            onClick={() => this.onKupChange()}
+                        >
                             {componentLabel}
                         </label>
                     </div>

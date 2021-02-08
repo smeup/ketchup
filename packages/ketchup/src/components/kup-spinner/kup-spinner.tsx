@@ -8,7 +8,7 @@ import {
     Method,
 } from '@stencil/core';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logMessage } from '../../utils/debug-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 
 @Component({
     tag: 'kup-spinner',
@@ -27,41 +27,31 @@ export class KupSpinner {
     /**
      * Decides whether the component is a bar or a spinner.
      */
-    @Prop({ reflect: true }) barVariant: boolean = false;
+    @Prop() barVariant: boolean = false;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop({ reflect: true }) customStyle: string = undefined;
+    @Prop() customStyle: string = undefined;
     /**
      * Width and height of the spinner. For the bar variant, only height.
      */
-    @Prop({ reflect: true }) dimensions: string = undefined;
+    @Prop() dimensions: string = undefined;
     /**
      * Places a blend modal over the wrapper to darken the view (or lighten, when the theme is dark).
      */
-    @Prop({ reflect: true }) fader: boolean = false;
+    @Prop() fader: boolean = false;
     /**
      * The time required for the "fader" to trigger.
      */
-    @Prop({ reflect: true }) faderTimeout: number = 3500;
+    @Prop() faderTimeout: number = 3500;
     /**
      * When set to true the component will fill the whole viewport.
      */
     @Prop({ reflect: true }) fullScreen: boolean = false;
     /**
-     * When set to true the area covered by the component will be unclickable and the cursor will be changed to "wait".
-     */
-    @Prop({ reflect: true }) isUnclickable: boolean = false;
-    /**
      * Sets the layout of the spinner.
      */
-    @Prop({ reflect: true }) layout: number = 1;
-
-    private startTime: number = 0;
-    private endTime: number = 0;
-    private renderCount: number = 0;
-    private renderStart: number = 0;
-    private renderEnd: number = 0;
+    @Prop() layout: number = 1;
 
     //---- Methods ----
 
@@ -73,14 +63,12 @@ export class KupSpinner {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.startTime = performance.now();
+        logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.endTime = performance.now();
-        let timeDiff: number = this.endTime - this.startTime;
-        logMessage(this, 'Component ready after ' + timeDiff + 'ms.');
+        logLoad(this, true);
     }
 
     componentDidUpdate() {
@@ -93,8 +81,7 @@ export class KupSpinner {
     }
 
     componentWillRender() {
-        this.renderCount++;
-        this.renderStart = performance.now();
+        logRender(this, false);
     }
 
     componentDidRender() {
@@ -109,12 +96,7 @@ export class KupSpinner {
                 }, this.faderTimeout);
             }
         }
-        this.renderEnd = performance.now();
-        let timeDiff: number = this.renderEnd - this.renderStart;
-        logMessage(
-            this,
-            'Render #' + this.renderCount + ' took ' + timeDiff + 'ms.'
-        );
+        logRender(this, true);
     }
 
     render() {
@@ -123,14 +105,6 @@ export class KupSpinner {
         let spinnerClass = '';
         let spinnerEl: any = '';
         let elStyle = undefined;
-
-        if (this.active) {
-            masterClass += ' loading-wrapper-visible';
-        }
-
-        if (this.isUnclickable) {
-            masterClass += ' is-unclickable';
-        }
 
         if (this.barVariant) {
             masterClass += ' bar-version';
@@ -199,9 +173,7 @@ export class KupSpinner {
             }
         }
 
-        if (this.fullScreen) {
-            masterClass += ' full-screen';
-        } else {
+        if (!this.fullScreen) {
             elStyle = {
                 height: '100%',
                 width: '100%',
@@ -226,7 +198,7 @@ export class KupSpinner {
         }
 
         return (
-            <Host class="handles-custom-style" style={elStyle}>
+            <Host style={elStyle}>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={elStyle}>
                     <div

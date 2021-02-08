@@ -1,57 +1,102 @@
 @import '@material/form-field/mdc-form-field';
 @import '@material/textfield/mdc-text-field';
-@import '@material/textfield/helper-text/mdc-text-field-helper-text';
-@import '@material/textfield/character-counter/mdc-text-field-character-counter';
-@import '@material/textfield/icon/mdc-text-field-icon';
+@import '@material/floating-label/mdc-floating-label';
+@import '@material/line-ripple/mdc-line-ripple';
+@import '@material/notched-outline/mdc-notched-outline';
 
-:host([full-height]) {
+:host {
+  display: block;
+  font-size: var(--kup-font-size);
+}
+
+:host([full-width]) {
+  width: 100%;
+  #kup-component {
+    width: 100%;
+  }
+  .mdc-text-field--fullwidth {
+    width: 100%;
+  }
+}
+
+:host(.full-height) {
   height: 100%;
-
-  & #kup-component {
-    &.full-height {
+  #kup-component {
+    height: 100%;
+    .mdc-text-field {
       height: 100%;
-      & .mdc-text-field {
+      overflow-y: hidden;
+      &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
         height: 100%;
-        overflow-y: hidden;
-        &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
-          height: 100%;
-        }
-        & .mdc-text-field__input {
-          height: 100%;
-        }
+      }
+      .mdc-text-field__input {
+        height: 100%;
       }
     }
   }
 }
 
-:host {
-  display: block;
+:host(.shaped) {
+  .mdc-text-field {
+    border-radius: 16px 16px 0 0;
+  }
 }
 
 .mdc-form-field {
   & label {
     font-family: var(--kup-font-family);
+    font-size: 1em;
     margin: auto;
+  }
+  .mdc-text-field__input {
+    box-sizing: border-box;
+    padding: 6px 0px;
   }
 }
 
 div.mdc-text-field-helper-text {
   font-family: var(--kup-font-family);
+  font-size: 0.75em;
 }
 
-.mdc-text-field {
+.icon-container {
+  background-color: var(--kup-icon-color);
+  cursor: pointer;
+  height: 24px;
+  outline: none;
+  padding: 0 7px;
+  width: 24px;
+  &.clear-icon:hover {
+    background-color: var(--kup-danger-color);
+  }
+}
+
+#kup-component .mdc-text-field {
   input,
   label {
     font-family: var(--kup-font-family);
+    font-size: 1em;
   }
 
-  & kup-image {
-    cursor: pointer;
-    outline: none;
+  &.mdc-text-field--filled:not(.mdc-text-field--disabled)
+    .mdc-line-ripple:before,
+  &.mdc-text-field--fullwidth:not(.mdc-text-field--disabled)
+    .mdc-line-ripple:before {
+    border-bottom-color: rgba(var(--kup-text-color-rgb), 0.325);
+    &:hover {
+      border-bottom-color: rgba(var(--kup-text-color-rgb), 0.575);
+    }
+    &.mdc-line-ripple--active {
+      border-bottom-color: var(--kup-primary-color);
+    }
+  }
+
+  &.mdc-text-field--with-leading-icon .mdc-floating-label {
+    left: 36px;
   }
 
   & .mdc-text-field__icon.clear-icon {
-    right: 16px;
+    right: 0px;
     left: initial;
     position: absolute;
     top: 50%;
@@ -59,7 +104,7 @@ div.mdc-text-field-helper-text {
   }
 
   &.mdc-text-field--with-trailing-icon input ~ .clear-icon {
-    right: 40px;
+    right: 26px;
   }
 
   &.is-clearable .mdc-text-field__input {
@@ -70,42 +115,78 @@ div.mdc-text-field-helper-text {
     padding-right: 72px;
   }
 
-  @include mdc-text-field-textarea-stroke-color(var(--kup-border-color));
-  @include mdc-text-field-fullwidth-bottom-line-color(var(--kup-text-color));
+  &.mdc-text-field--fullwidth.mdc-text-field--focused {
+    color: var(--kup-primary-color);
+  }
+
+  &.mdc-text-field--outlined {
+    &.mdc-text-field--with-leading-icon
+      label:not(.mdc-floating-label--float-above) {
+      left: 20px;
+    }
+
+    & .mdc-notched-outline__leading,
+    & .mdc-notched-outline__notch,
+    & .mdc-notched-outline__trailing {
+      border-color: rgba(var(--kup-text-color-rgb), 0.575);
+      border-bottom-style: inset;
+    }
+
+    &:hover .mdc-notched-outline__leading,
+    &:hover .mdc-notched-outline__notch,
+    &:hover .mdc-notched-outline__trailing,
+    &.mdc-text-field--focused .mdc-notched-outline__leading,
+    &.mdc-text-field--focused .mdc-notched-outline__notch,
+    &.mdc-text-field--focused .mdc-notched-outline__trailing {
+      border-color: var(--kup-primary-color);
+    }
+
+    &.mdc-text-field--disabled .mdc-notched-outline__leading,
+    &.mdc-text-field--disabled .mdc-notched-outline__notch,
+    &.mdc-text-field--disabled .mdc-notched-outline__trailing {
+      border-color: rgba(var(--kup-text-color-rgb), 0.325);
+    }
+
+    &.mdc-text-field--disabled {
+      color: rgba(var(--kup-text-color-rgb), 0.5);
+
+      & .mdc-text-field__input {
+        color: rgba(var(--kup-text-color-rgb), 0.5);
+      }
+
+      & label {
+        color: rgba(var(--kup-text-color-rgb), 0.5);
+      }
+    }
+
+    &.mdc-text-field--textarea .mdc-floating-label--float-above {
+      transform: translateY(-160%) scale(0.75);
+    }
+  }
 
   &:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) {
     @include mdc-text-field-density(-4);
-    @include mdc-text-field-fill-color(var(--kup-field-background-color));
-    @include mdc-text-field-bottom-line-color(var(--kup-text-color));
+
+    label.mdc-floating-label {
+      display: block;
+    }
   }
 
   &.mdc-text-field--outlined:not(.mdc-text-field--textarea) {
     @include mdc-text-field-outlined-density(-4);
-    @include mdc-text-field-outline-color(var(--kup-border-color));
-    @include mdc-text-field-focused-outline-color(var(--kup-main-color));
 
-    //Fixed floating label position when outlined field has a leading icon
+    label.mdc-floating-label {
+      display: block;
+      &.mdc-floating-label--float-above {
+        overflow: visible;
+      }
+    }
+
+    transition: border-color 0.25s;
+
     &.mdc-text-field--with-leading-icon .mdc-floating-label--float-above {
       transform: translateY(-26px) scale(0.75) translateX(-42px);
     }
-  }
-
-  &.mdc-text-field--fullwidth .mdc-text-field__input {
-    padding: 0 10px;
-  }
-
-  &.mdc-text-field--fullwidth.mdc-text-field--with-leading-icon
-    .mdc-text-field__input {
-    padding-left: 50px;
-  }
-
-  &.mdc-text-field--fullwidth.mdc-text-field--with-trailing-icon
-    .mdc-text-field__input {
-    padding-right: 50px;
-  }
-
-  &.shaped {
-    border-radius: 16px 16px 0 0;
   }
 
   &.mdc-text-field--outlined.shaped
@@ -120,6 +201,23 @@ div.mdc-text-field-helper-text {
     .mdc-notched-outline__trailing {
     border-radius: 0 28px 28px 0;
     width: 28px;
+  }
+
+  &.mdc-text-field--filled {
+    &.mdc-text-field--with-leading-icon label,
+    &.mdc-text-field--with-leading-icon input {
+      left: 34px;
+    }
+    .mdc-floating-label--float-above {
+      transform: translateY(-111%) scale(0.75);
+    }
+    &:not(.mdc-text-field--no-label) input {
+      box-sizing: border-box;
+      padding-top: 9px;
+    }
+    &:not(.mdc-text-field--disabled) {
+      background-color: var(--kup-field-background-color);
+    }
   }
 
   & .mdc-notched-outline {
@@ -142,9 +240,15 @@ div.mdc-text-field-helper-text {
     & + .mdc-text-field-helper-line .mdc-text-field-helper-text {
       opacity: 0.7;
     }
+
+    &.mdc-text-field--textarea .mdc-text-field-character-counter {
+      position: absolute;
+      bottom: 9px;
+      right: 15px;
+    }
   }
 
-  &.mdc-text-field--disabled {
+  &.mdc-text-field--disabled:not(.mdc-text-field--outlined) {
     color: var(--kup-disabled-color);
     background: var(--kup-disabled-background-color);
 
@@ -167,24 +271,7 @@ div.mdc-text-field-helper-text {
 
   &.mdc-text-field--focused:not(.mdc-text-field-disabled)
     .mdc-floating-label--float-above {
-    color: var(--kup-main-color);
+    color: var(--kup-primary-color);
     opacity: 1;
   }
-}
-
-.material-icons {
-  color: var(--kup-icon-color);
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  font-feature-settings: 'liga';
-  -webkit-font-smoothing: antialiased;
 }

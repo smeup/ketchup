@@ -80,26 +80,131 @@
                 z-index: 100;
             }
         </style>
+
     </head>
     <body>
+
         <div id="theme-tester">
             <kup-switch leading-label label="Theme tester" id="theme-switch"></kup-switch>
         </div>
+        <a href="autocomplete.html">Ketchup autocomplete</a>
+        <br />
+        <a href="box.html">Ketchup box</a>
+        <br />
         <a href="chart.html">Ketchup charts</a>
         <br />
         <a href="data-table.html">Ketchup data table</a>
         <br />
+        <a href="data-table-performance.html">Ketchup data table test performance</a>
+        <br />
+        <a href="rating.html">Ketchup rating</a>
+        <br />      
+        <a href="color-picker.html">Ketchup color picker</a>
+        <br />            
         <a href="dash-list.html">Ketchup dash list</a>
         <br />
         <a href="tree.html">Ketchup tree</a>
         <br />
         <a href="nav-bar.html">Ketchup nav bar</a>
         <br />
-        <a href="tooltip.html">Tooltip tests</a>
+        <a href="tooltip.html">Ketchup tooltip tests</a>
         <br />
+        <a href="drawer.html">Ketchup drawer tests</a>
         <br />
-        <a href="drawer.html">Drawer tests</a>
+        <a href="echart.html">Ketchup echart tests</a>
         <br />
+        <a href="gauge.html">Ketchup gauge tests</a>
+        <br />
+
+        <h1>Dropdown button</h1>
+        <kup-dropdown-button id="ddb1" icon="document" label="Documento"></kup-dropdown-button>
+        <kup-dropdown-button id="ddb2" styling="outlined" icon="document" label="Documento-outlined"></kup-dropdown-button>
+        <kup-dropdown-button id="ddb3" styling="flat" icon="document" label="Documento-flat"></kup-dropdown-button>
+
+        <kup-dropdown-button id="ddb4" label="Documento"></kup-dropdown-button>
+        <kup-dropdown-button id="ddb5" styling="outlined" label="Documento-outlined"></kup-dropdown-button>
+        <kup-dropdown-button id="ddb6" styling="flat" label="Documento-flat"></kup-dropdown-button>
+
+        <kup-dropdown-button id="ddb7" icon="document"></kup-dropdown-button>
+        <kup-dropdown-button id="ddb8" styling="outlined" icon="document"></kup-dropdown-button>
+        <kup-dropdown-button id="ddb9" styling="flat" icon="document"></kup-dropdown-button>
+
+        <script>
+            let ilb = [
+                    {
+                        text: 'documento1.txt',
+                        value: 'txt1',
+                        icon: '3d_rotation'
+                    },
+                    {
+                        text: 'document2.pdf',
+                        value: 'txt2',
+                        icon: 'ac_unit'
+                    },
+                    {
+                        text: 'documento3.xls',
+                        value: 'txt3',
+                        icon: 'accessibility'
+                    },
+                ];
+
+            let dropDownData = { data : {'kup-list':{data:{}}}};
+            dropDownData.data['kup-list'].data = ilb;
+
+            let dropDownButtons = document.getElementsByTagName('kup-dropdown-button');
+            if (dropDownButtons != null) {
+                for (let i=0; i<dropDownButtons.length; i++) {
+                    let dropDownButton = dropDownButtons[i];
+                    console.log("set dropDownButton.id=" + dropDownButton.id);
+                    dropDownButton.data = {...dropDownData.data};
+                }
+            }
+        </script>
+        <h1>Date/time picker</h1>
+        <h4>init on Monday</h4>
+        <kup-date-picker id="date-picker1"></kup-date-picker>
+        <h4>init on Sunday</h4>
+        <kup-date-picker id="date-picker2" first-day-index="0"></kup-date-picker>
+        <h4>init on Tuesday</h4>
+        <kup-date-picker id="date-picker3" first-day-index="2"></kup-date-picker>
+        
+        <h4>clock-variant=false</h4>
+        <kup-time-picker initial-value="02:00" id="time-picker1" clock-variant="false"></kup-time-picker>
+        <h4>clock-variant=false && manage-seconds</h4>
+        <kup-time-picker id="time-picker2" clock-variant="false" manage-seconds></kup-time-picker>
+        <h4>clock-variant=false && disabled=true</h4>
+        <kup-time-picker id="time-picker5" clock-variant="false" disabled></kup-time-picker>
+        <h4>clock-variant=true</h4>
+        <kup-time-picker id="time-picker3" clock-variant></kup-time-picker>
+        <h4>clock-variant=true && manage-seconds</h4>
+        <kup-time-picker id="time-picker4" clock-variant manage-seconds></kup-time-picker>
+        <h4>clock-variant=true && disabled=true</h4>
+        <kup-time-picker id="time-picker6" clock-variant disabled></kup-time-picker>
+
+        <script>
+            let datePicker1 = document.getElementsByTagName('kup-date-picker')[0];
+            datePicker1.data = {
+                "text-field": {
+                    initialValue:'1979-11-13',
+                }
+            }
+
+            let timePicker1 = document.getElementsByTagName('kup-time-picker')[0];
+            timePicker1.data = {
+                "text-field": {
+                    initialValue:'01:00:00',
+                }
+            }
+
+            let timePicker2 = document.getElementsByTagName('kup-time-picker')[1];
+            timePicker2.data = {
+                "text-field": {
+                    initialValue:'03:10:00',
+                }
+            }
+        </script>
+        <br/><br/><br/><br/>
+        <h1>Simple text field</h1>
         <kup-text-field
             id="int1"
             is-clearable
@@ -126,88 +231,6 @@
             initial-value="pippo"
             is-clearable
         ></kup-text-field>
-
-        <h4>The gauge</h4>
-        <h5>Valori positivi e negativi con uno o più thresholds</h5>
-        <kup-gauge value="-50" size="300"></kup-gauge>
-        <kup-gauge value="0" size="300" first-threshold="-25"></kup-gauge>
-        <kup-gauge
-            value="50"
-            size="300"
-            first-threshold="-25"
-            second-threshold="50"
-        ></kup-gauge>
-        <h5>Valori positivi</h5>
-        <kup-gauge
-            value="150"
-            min-value="80"
-            max-value="350"
-            first-threshold="150"
-            second-threshold="275"
-            value-size="3"
-        ></kup-gauge>
-        <h5>Valori negativi</h5>
-        <kup-gauge
-            value="-257"
-            min-value="-500"
-            max-value="-100"
-            first-threshold="-300"
-            second-threshold="-200"
-            measurement-unit="°F"
-        ></kup-gauge>
-        <h5>Casi di errore</h5>
-        <kup-gauge
-            value="-257"
-            min-value="-500"
-            max-value="-100"
-            first-threshold="-300"
-            second-threshold="-200"
-            measurement-unit=""
-        ></kup-gauge>
-        <h5>Valori negativi e colori invertiti</h5>
-        <kup-gauge
-            value="-257"
-            min-value="-500"
-            max-value="-100"
-            first-threshold="-300"
-            second-threshold="-200"
-            measurement-unit="°F"
-            reverse-colors
-        ></kup-gauge>
-        <h5>Arc thickness</h5>
-        <kup-gauge value="50" arc-thickness="40"></kup-gauge>
-        <kup-gauge value="50" arc-thickness="20"></kup-gauge>
-        <h5>Colors</h5>
-        <kup-gauge
-            id="gaucolor"
-            value="150"
-            min-value="80"
-            max-value="350"
-            first-threshold="150"
-            second-threshold="275"
-            value-size="3"
-        ></kup-gauge>
-        <h5>OnlyValue</h5>
-        <kup-gauge
-            only-value="true"
-            value="220"
-            min-value="80"
-            max-value="350"
-            first-threshold="150"
-            second-threshold="275"
-            value-size="3"
-        ></kup-gauge>
-        <h5>OnlyValue reverted colors</h5>
-        <kup-gauge
-            reverse-colors="true"
-            only-value="true"
-            value="100"
-            min-value="80"
-            max-value="350"
-            first-threshold="150"
-            second-threshold="275"
-            value-size="3"
-        ></kup-gauge>
 
         <h4>The Checkbox</h4>
         <kup-checkbox></kup-checkbox>
@@ -294,6 +317,7 @@
 
         <h4>Material Select (widget)</h4>
         <kup-combobox is-filterable="false" field-id="pluto1" is-select="true"></kup-combobox>
+        <kup-combobox is-filterable="false" field-id="pluto2" is-select="true" display-mode="both" select-mode="code" ></kup-combobox>
 
         <h4>Events testing</h4>
         <kup-tab-bar id="event-tabbar"></kup-tab-bar>
@@ -335,7 +359,7 @@
         value: '#1f1f1f',
       },
       {
-        name: '--kup-main-color',
+        name: '--kup-primary-color',
         value: '#82f0e2',
       },
       {
@@ -363,7 +387,7 @@
         value: '#dddddd',
       },
       {
-        name: '--kup-text-on-main-color',
+        name: '--kup-text-on-primary-color',
         value: '#555555',
       },
       {
@@ -621,14 +645,22 @@ chipList.data = [
             listBox5.data = [...itemsForListBox];
 
             let selectBox1 = document.getElementsByTagName('kup-combobox')[0];
-            selectBox1.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
-            selectBox1.listData = {data: [...itemsForListBox], selectable: true,};
+            let textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
+            let listData = {data: [...itemsForListBox], selectable: true,};
+            selectBox1.data = {'kup-text-field': {...textfieldData}, 'kup-list': {...listData}};
+
+            let selectBox2 = document.getElementsByTagName('kup-combobox')[1];
+            //selectBox2.textfieldData = {trailingIcon: true, icon: "arrow_drop_down",};
+            //selectBox2.listData = {data: [...itemsForListBox], selectable: true,};
+            selectBox2.data = {'text-field': {...textfieldData}, 'kup-list': {...listData}};
 
             let autocompleteBox1 = document.getElementsByTagName('kup-autocomplete')[0];
-            autocompleteBox1.textfieldData = {trailingIcon:  true, icon: "arrow_drop_down"};
-            autocompleteBox1.listData = {data: [...itemsForListBox], selectable: true, displayMode: 'both'};
+            //autocompleteBox1.textfieldData = {trailingIcon:  true, icon: "arrow_drop_down"};
+            //autocompleteBox1.listData = {data: [...itemsForListBox], selectable: true, displayMode: 'both'};
+            autocompleteBox1.data = {'kup-list': {...listData}};
+            autocompleteBox1.initialValue = "txt1";
             autocompleteBox1.selectMode = 'code';
-
+            
             let once = true;
             // This is a script for testing these elements
             // This is mandatory for testing the passage of complex parameters inside web components
@@ -1234,10 +1266,10 @@ chipList.data = [
             --kup-background-color: #ffffff;
             --kup-nav-bar-background-color: #2e2e2e;
             --kup-drawer-background-color: #ffffff;
-            --kup-main-color: #d64325;
+            --kup-primary-color: #d64325;
             --kup-font-family: 'Oswald', sans-serif;
             --kup-font-size: 16px;
-            --kup-text-on-main-color: #ffffff;
+            --kup-text-on-primary-color: #ffffff;
             --kup-text-color: #2e2e2e;
             --kup-icon-color: #505050;
             --kup-hover-background-color: #f0f0f0;
@@ -1252,6 +1284,7 @@ chipList.data = [
         }
         </style>
 
+<!--
         <kup-qlik id="qlik-obj" appid = "c9f6a87b-0027-40dc-b439-8171b7457031" doconnection = "true" bordered = "true" fluid = "true"></kup-qlik>
         <kup-qlik id="qlik-obj2" appid = "52cb8ec5-f27c-4125-830a-3cb8c1c3b376" bordered = "true" fluid = "true"></kup-qlik>
         
@@ -1274,23 +1307,23 @@ chipList.data = [
                     {
                         columns:[
                             {
-                                obj:'KvqdmD', colDim:5, size:'M'
+                                obj:'KvqdmD', colDim:6, size:'M'
                             },
                             {
-                                obj:'JjSaVm', colDim:5, size:'S'
+                                obj:'JjSaVm', colDim:6, size:'S'
                             }
                         ]
                     },
                     {
                         columns:[                            
                             {
-                                obj:'Hmmt', colDim:4, size:'S'
+                                obj:'Hmmt', colDim:5, size:'S'
                             },
                             {
                                 obj:'', colDim:2, size:'S'
                             },
                             {
-                                obj:'KePGxSd', colDim:4, size:'S'
+                                obj:'KePGxSd', colDim:5, size:'S'
                             }
                         ]
                     }
@@ -1307,15 +1340,15 @@ chipList.data = [
                     {
                         columns:[
                             {
-                                obj:'ctyCCb', colDim:5, size:'M'
+                                obj:'ctyCCb', colDim:6, size:'M'
                             },
                             {
-                                obj:'mXMdMVJ', colDim:5, size:'M'
+                                obj:'mXMdMVJ', colDim:6, size:'M'
                             }
                         ]
                     }
                 ]
             }
-        </script>
+        </script>-->
     </body>
 </html>

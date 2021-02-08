@@ -3,8 +3,8 @@
     <div id="sample-modal"></div>
     <div id="sample-specs">
       <kup-tab-bar
+        id="demo-tab-bar"
         @kupTabBarClick="tabSelection"
-        :data.prop="demoTabs"
       ></kup-tab-bar>
       <div id="sample-specs-container">
         <table
@@ -66,9 +66,36 @@
           </tbody>
         </table>
         <table
+          id="classes-tab"
+          v-if="demoClasses !== null"
+          class="instruction-table sample-section"
+        >
+          <thead>
+            <tr>
+              <th>Class</th>
+              <th>Description</th>
+              <th>Try it!</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(classList, i) in demoClasses" :key="i">
+              <td class="prevent-cr">
+                <span class="code-word">{{ classList.class }}</span>
+              </td>
+              <td>{{ classList.description }}</td>
+              <td class="switch-cell">
+                <kup-switch
+                  v-bind:id="classList.class"
+                  @kupSwitchChange="updateDemoClass"
+                ></kup-switch>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
           v-if="demoEvents !== null"
           id="events-tab"
-          style="display: none;"
+          style="display: none"
           class="instruction-table sample-section events-section"
         >
           <thead>
@@ -93,17 +120,8 @@
             </tr>
           </tbody>
         </table>
-        <div id="html-tab" class="sample-section" style="display: none;">
-          <div class="code-word sample-html"></div>
-          <kup-button
-            @kupButtonClick="copyHtml"
-            id="copy-html"
-            icon="file_copy"
-            title="Copy HTML markup"
-          ></kup-button>
-        </div>
-        <div id="json-tab" class="sample-section padded" style="display: none;">
-          <textarea id="json-textarea" style="display: none;"></textarea>
+        <div id="json-tab" class="sample-section padded" style="display: none">
+          <textarea id="json-textarea" style="display: none"></textarea>
           <kup-text-field
             class="visible"
             label="Prop"
@@ -127,25 +145,8 @@
             title="Invalid JSON. You can ignore this warning if the prop you're changing isn't an object."
           ></kup-button>
         </div>
-        <div id="css-tab" class="sample-section padded" style="display: none;">
-          <textarea id="css-textarea" style="display: none;"></textarea>
-          <kup-text-field
-            class="visible"
-            label="Prop"
-            helper="i.e.: customStyle"
-            id="css-setter"
-            icon="arrow-collapse"
-            trailing-icon
-            helper-when-focused
-            @kupTextFieldIconClick="cssSetSwitch"
-            @kupTextFieldInput="cssSet"
-          ></kup-text-field>
-          <kup-button
-            @kupButtonClick="cssSetSwitch"
-            id="css-setter-opener"
-            icon="settings"
-            title="Show prop field"
-          ></kup-button>
+        <div id="css-tab" class="sample-section" style="display: none">
+          <textarea id="css-textarea" style="display: none"></textarea>
         </div>
       </div>
     </div>
@@ -158,7 +159,7 @@
           @kupButtonClick="menuTrigger"
           id="menu-trigger"
           toggable
-          style="--kup-main-color: var(--kup-text-on-main-color);"
+          style="--kup-primary-color: var(--kup-text-on-primary-color)"
           icon="last_page"
           icon-off="menu_open"
           title="Open/close side panel"
@@ -167,7 +168,7 @@
           @kupButtonClick="swapView"
           id="view-swapper"
           toggable
-          style="--kup-main-color: var(--kup-text-on-main-color);"
+          style="--kup-primary-color: var(--kup-text-on-primary-color)"
           icon="fullscreen_exit"
           icon-off="fullscreen"
           title="Toggle/disable full screen"
@@ -176,7 +177,11 @@
           @kupButtonClick="splitView"
           id="view-splitter"
           toggable
-          style="--kup-main-color: var(--kup-text-on-main-color); width: fit-content; margin: auto;"
+          style="
+            --kup-primary-color: var(--kup-text-on-primary-color);
+            width: fit-content;
+            margin: auto;
+          "
           icon="view_agenda"
           icon-off="flip"
           title="Split/detach view"
@@ -189,9 +194,9 @@
 <script>
 export default {
   props: {
-    demoTabs: Array,
     demoComp: HTMLElement,
     demoProps: Array,
+    demoClasses: Array,
     demoEvents: Array,
   },
   methods: {
@@ -207,15 +212,57 @@ export default {
         }
       }
     },
+    initTabs() {
+      let demoComponent = document.querySelector('#demo-component');
+      let tabBar = document.querySelector('#demo-tab-bar');
+      let data = [];
+
+      if (this.demoProps) {
+        data.push({
+          text: 'Props',
+          title: 'List of props available to the component.',
+        });
+      }
+      if (this.demoClasses) {
+        data.push({
+          text: 'Classes',
+          title: 'List of classes available to the component.',
+        });
+      }
+      if (this.demoEvents) {
+        data.push({
+          text: 'Events',
+          title: 'List of events available to the component.',
+        });
+      }
+      data.push({
+        text: 'JSON',
+        icon: 'json',
+        title: 'Here you can change props values manually.',
+      });
+      if (this.demoProps) {
+        for (let i = 0; i < this.demoProps.length; i++) {
+          if (this.demoProps[i].prop === 'customStyle') {
+            data.push({
+              text: 'CSS',
+              icon: 'style',
+              title:
+                'Here you can write CSS code used by the customStyle prop.',
+            });
+          }
+        }
+      }
+      if (data.length === 0) {
+        console.error("Couldn't initialize playground: missing data.");
+      } else {
+        tabBar.data = data;
+        data[0]['active'] = true;
+        this.handleTab(demoComponent, 0);
+      }
+    },
 
     initDefaults() {
       let demoComponent = document.querySelector('#demo-component');
-
-      for (let i = 0; i < this.demoTabs.length; i++) {
-        if (this.demoTabs[i].status === 'Active') {
-          this.handleTab(demoComponent, i);
-        }
-      }
 
       for (let i = 0; i < this.demoProps.length; i++) {
         switch (this.demoProps[i].try) {
@@ -267,6 +314,7 @@ export default {
                   .addEventListener('kupButtonClick', (e) => {
                     this.updateDemoFieldArrayRemove(e);
                   });
+                document.querySelector('#' + newEntryId).styling = 'flat';
               }
             }
             break;
@@ -285,11 +333,6 @@ export default {
         d.getMinutes() +
         ':' +
         d.getSeconds();
-    },
-
-    copyHtml(e) {
-      let text = document.querySelector('.code-word.sample-html').innerText;
-      navigator.clipboard.writeText(text);
     },
 
     swapView(e) {
@@ -317,6 +360,15 @@ export default {
         document.querySelector('#sample-comp').classList.remove('full');
         document.querySelector('#sample-dynamic').classList.remove('full');
         document.querySelector('#sample-specs').classList.remove('closed');
+      }
+    },
+
+    updateDemoClass(e) {
+      let demoComponent = document.querySelector('#demo-component');
+      if (e.detail.value === 'on') {
+        demoComponent.classList.add(e.target.id);
+      } else {
+        demoComponent.classList.remove(e.target.id);
       }
     },
 
@@ -399,44 +451,35 @@ export default {
     },
 
     handleTab(demoComponent, i) {
+      let tabBar = document.querySelector('#demo-tab-bar');
       let propsTab = document.querySelector('#props-tab');
+      let classesTab = document.querySelector('#classes-tab');
       let eventsTab = document.querySelector('#events-tab');
-      let htmlTab = document.querySelector('#html-tab');
       let jsonTab = document.querySelector('#json-tab');
       let cssTab = document.querySelector('#css-tab');
 
       propsTab.setAttribute('style', 'display: none;');
+      classesTab.setAttribute('style', 'display: none;');
       eventsTab.setAttribute('style', 'display: none;');
-      htmlTab.setAttribute('style', 'display: none;');
       jsonTab.setAttribute('style', 'display: none;');
       cssTab.setAttribute('style', 'display: none;');
 
-      switch (this.demoTabs[i].text) {
+      switch (tabBar.data[i].text) {
         case 'Props':
           propsTab.setAttribute('style', '');
           break;
+        case 'Classes':
+          classesTab.setAttribute('style', '');
+          break;
         case 'Events':
           eventsTab.setAttribute('style', '');
-          break;
-        case 'HTML':
-          htmlTab.setAttribute('style', '');
-          htmlTab.querySelector('.code-word').innerText =
-            demoComponent.outerHTML;
-          htmlTab.querySelector('.code-word').innerText = htmlTab
-            .querySelector('.code-word')
-            .innerText.replace('id="demo-component"', '');
-          htmlTab.querySelector('.code-word').innerText = htmlTab
-            .querySelector('.code-word')
-            .innerText.replace('class="hydrated"', '');
-          htmlTab.querySelector('.code-word').innerText = htmlTab
-            .querySelector('.code-word')
-            .innerText.replace(/=""/g, '');
           break;
         case 'JSON':
           jsonTab.setAttribute('style', '');
           break;
         case 'CSS':
           cssTab.setAttribute('style', '');
+          this.cssSet();
           break;
       }
     },
@@ -457,17 +500,11 @@ export default {
     },
 
     cssSetSwitch() {
-      let cssSetter = document.querySelector('#css-setter');
-      let cssSetterOpener = document.querySelector('#css-setter-opener');
       let cssTab = document.querySelector('#css-tab');
       if (cssSetter.classList.contains('visible')) {
-        cssSetter.classList.remove('visible');
         cssTab.classList.remove('padded');
-        cssSetterOpener.classList.add('visible');
       } else {
-        cssSetter.classList.add('visible');
         cssTab.classList.add('padded');
-        cssSetterOpener.classList.remove('visible');
       }
     },
 
@@ -490,7 +527,7 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function(cm) {
+      }).on('change', function (cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
         let prop = demoComponent.currentJSONprop;
@@ -505,14 +542,11 @@ export default {
       });
     },
 
-    cssSet(e) {
-      let cssProp = e.detail.value;
+    cssSet() {
       let demoComponent = document.querySelector('#demo-component');
-      demoComponent.currentCSSprop = cssProp;
-      let cssData = demoComponent[cssProp];
       let cssTextarea = document.querySelector('#css-textarea');
       let codemirrorTextarea = document.querySelector('#css-tab .CodeMirror');
-      cssTextarea.value = cssData;
+      cssTextarea.value = demoComponent['customStyle'];
       if (codemirrorTextarea) {
         codemirrorTextarea.remove();
       }
@@ -522,17 +556,17 @@ export default {
         lineWrapping: true,
         foldGutter: true,
         gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-      }).on('change', function(cm) {
+      }).on('change', function (cm) {
         cm.save();
         let demoComponent = document.querySelector('#demo-component');
-        let prop = demoComponent.currentCSSprop;
-        demoComponent[prop] = cssTextarea.value;
+        demoComponent['customStyle'] = cssTextarea.value;
       });
     },
   },
 
   mounted() {
     this.initEvents();
+    this.initTabs();
     this.initDefaults();
   },
 };

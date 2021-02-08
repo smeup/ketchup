@@ -4,7 +4,7 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
-      :demoTabs="demoTabs"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -32,6 +32,14 @@ export default {
         },
         {
           name: 'kupTreeNodeSelected',
+          type: 'custom',
+        },
+        {
+          name: 'kupTreeNodeDblClick',
+          type: 'dblclick',
+        },
+        {
+          name: 'kupTreeDynamicMassExpansion',
           type: 'custom',
         },
       ],
@@ -91,18 +99,25 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'filterValue',
-          description:
-            'Allows to set initial filter for tree nodes, manages the filter on tree nodes',
+          prop: 'globalFilter',
+          description: 'When set to true it activates the global filter.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'globalFilterValue',
+          description: 'The value of the global filter.',
           type: 'string',
-          default: '""',
+          default: '',
           try: 'field',
         },
         {
-          prop: 'hoverScroll',
-          description: 'Activates the scroll on hover function.',
+          prop: 'scrollOnHover',
+          description:
+            'When the mouse move towards the left or right edge and there is an overflow, the tree will automatically scroll.',
           type: 'boolean',
-          default: 'true',
+          default: 'false',
           try: 'switch',
         },
         {
@@ -116,13 +131,6 @@ export default {
         {
           prop: 'showColumns',
           description: 'Shows the tree data as a table.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
-          prop: 'showFilter',
-          description: 'When set to true enables the tree nodes filter.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -151,31 +159,25 @@ export default {
           try: 'switch',
         },
       ],
-      demoTabs: [
+      demoClasses: [
         {
-          text: 'Props',
-          icon: '',
-          active: true,
+          class: 'full-width',
+          description: 'The tree will fill all the available horizontal space.',
         },
         {
-          text: 'Events',
-          icon: '',
-          active: false,
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
         {
-          text: 'HTML',
-          icon: '',
-          active: false,
+          class: 'layout-fixed',
+          description:
+            'Sets a fixed layout to improve performances (especially when using Google Chrome).',
         },
         {
-          text: 'JSON',
-          icon: '',
-          active: false,
-        },
-        {
-          text: 'CSS',
-          icon: '',
-          active: false,
+          class: 'shaped',
+          description:
+            'The right border of the cells will be shaped. It only applies when showColumns prop is set to false. ',
         },
       ],
     };

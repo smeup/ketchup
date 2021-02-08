@@ -2,19 +2,24 @@
 
 :host {
   display: block;
+  font-size: var(--kup-font-size);
   --mdc-theme-on-surface: var(--kup-title-color);
 }
 
-.mdc-chip {
-  background-color: var(--kup-title-background-color);
-  color: var(--kup-title-color);
+#kup-component {
+  .mdc-chip {
+    background-color: var(--kup-title-background-color);
+    color: var(--kup-title-color);
+    font-size: 0.875em;
+    line-height: 1.25em;
+  }
 }
 
 .mdc-chip-set--choice .mdc-chip--selected {
-  color: var(--kup-main-color);
+  color: var(--kup-primary-color);
 
   & .mdc-chip__ripple {
-    background-color: var(--kup-main-color);
+    background-color: var(--kup-primary-color);
     opacity: 0.25;
   }
 }
@@ -32,7 +37,17 @@ svg path {
   display: none;
 }
 
-.remove-icon {
+.icon-container {
+  background: var(--kup-title-color);
+  display: block;
+  width: 18px;
+  height: 18px;
+  .mdc-chip--selected & {
+    background: var(--kup-primary-color);
+  }
+}
+
+.clear {
   margin-left: 4px;
   margin-right: -4px;
   &:hover {
