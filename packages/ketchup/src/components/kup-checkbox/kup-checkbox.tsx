@@ -197,6 +197,7 @@ export class KupCheckbox {
         let props = {
             checked: this.checked,
             disabled: this.disabled,
+            events: true,
             indeterminate: this.indeterminate,
             label: this.label,
             leadingLabel: this.leadingLabel,
