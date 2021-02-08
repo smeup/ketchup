@@ -1804,19 +1804,31 @@ export class KupDataTable {
 
     private selectColumn(selectedColumn: string) {
         let columnCells = this.rootElement.shadowRoot.querySelectorAll(
-            'tbody > tr > td[data-column="' + selectedColumn + '"]'
+            'td[data-column="' + selectedColumn + '"]'
         );
         for (let i = 0; i < columnCells.length; i++) {
             columnCells[i].classList.add('selected');
+        }
+        let column = this.rootElement.shadowRoot.querySelector(
+            'th[data-column="' + selectedColumn + '"]'
+        );
+        if (column) {
+            column.classList.add('selected');
         }
     }
 
     private deselectColumn(selectedColumn: string) {
         let columnCells = this.rootElement.shadowRoot.querySelectorAll(
-            'tbody > tr > td[data-column="' + selectedColumn + '"]'
+            'td[data-column="' + selectedColumn + '"]'
         );
         for (let i = 0; i < columnCells.length; i++) {
             columnCells[i].classList.remove('selected');
+        }
+        let column = this.rootElement.shadowRoot.querySelector(
+            'th[data-column="' + selectedColumn + '"]'
+        );
+        if (column) {
+            column.classList.remove('selected');
         }
     }
 
@@ -3008,6 +3020,7 @@ export class KupDataTable {
 
                 return (
                     <th
+                        data-column={column.name}
                         class={columnClass}
                         style={thStyle}
                         onContextMenu={(e: MouseEvent) =>
