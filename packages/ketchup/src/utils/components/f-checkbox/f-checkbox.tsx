@@ -3,7 +3,6 @@ import { FunctionalComponent, h } from '@stencil/core';
 interface Props {
     checked?: boolean;
     disabled?: boolean;
-    events?: boolean;
     indeterminate?: boolean;
     label?: string;
     leadingLabel?: boolean;
@@ -13,7 +12,6 @@ interface Props {
 export const FCheckbox: FunctionalComponent<Props> = ({
     checked,
     disabled,
-    events,
     indeterminate,
     label,
     leadingLabel,
@@ -21,9 +19,7 @@ export const FCheckbox: FunctionalComponent<Props> = ({
 }) => {
     let formClass: string = 'mdc-form-field';
     let componentClass: string = 'mdc-checkbox';
-    let componentLabel: string = label;
     let indeterminateAttr = {};
-    let eHandlers;
 
     if (checked) {
         componentClass += ' mdc-checkbox--checked';
@@ -42,23 +38,6 @@ export const FCheckbox: FunctionalComponent<Props> = ({
         formClass += ' mdc-form-field--align-end';
     }
 
-    if (events) {
-        eHandlers = {
-            onBlur: (e: Event) => {
-                console.log(e);
-            },
-            onChange: (e: Event) => {
-                console.log(e);
-            },
-            onClick: (e: Event) => {
-                console.log(e);
-            },
-            onFocus: (e: Event) => {
-                console.log(e);
-            },
-        };
-    }
-
     return (
         <div class="f-checkbox--wrapper">
             <div class={formClass}>
@@ -70,7 +49,6 @@ export const FCheckbox: FunctionalComponent<Props> = ({
                         disabled={disabled}
                         {...indeterminateAttr}
                         value={value}
-                        {...eHandlers}
                     />
                     <div class="mdc-checkbox__background">
                         <svg
@@ -87,11 +65,18 @@ export const FCheckbox: FunctionalComponent<Props> = ({
                     </div>
                     {createRippleElement(disabled)}
                 </div>
-                <label htmlFor="checkbox-wrapper">{componentLabel}</label>
+                {createLabelElement(label)}
             </div>
         </div>
     );
 };
+
+function createLabelElement(label: string) {
+    if (!label) {
+        return undefined;
+    }
+    return <label htmlFor="checkbox-wrapper">{label}</label>;
+}
 
 function createRippleElement(disabled: boolean) {
     if (disabled) {
