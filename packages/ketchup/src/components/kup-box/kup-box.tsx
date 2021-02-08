@@ -790,12 +790,7 @@ export class KupBox {
     // when the dragged box is over the drop section (fired on the drop target)
     private onSectionDragOver(event: DragEvent) {
         event.preventDefault();
-
         let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
         this.searchParentWithClass(target, 'box-component').classList.add(
             'component-dropover'
         );
@@ -804,10 +799,6 @@ export class KupBox {
     // when the dragged box leaves the drop section (fired on the drop target)
     private onSectionDragLeave(event: DragEvent) {
         let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
         this.searchParentWithClass(target, 'box-component').classList.remove(
             'component-dropover'
         );
@@ -1650,24 +1641,42 @@ export class KupBox {
 
         const tooltip = this.renderTooltip();
 
+        const dropHandlers: DropHandlers = {
+            onDragOver: (e: DragEvent) => {
+                if (!(e.target instanceof HTMLElement)) {
+                    return false;
+                }
+                this.onSectionDragOver(e);
+                return true;
+            },
+            onDragLeave: (e: DragEvent) => {
+                this.onSectionDragLeave(e);
+            },
+            onDrop: (e: DragEvent) => {
+                this.searchParentWithClass(
+                    e.target,
+                    'box-component'
+                ).classList.remove('component-dropover');
+
+                return KupBoxDragType;
+            },
+        };
+
         return (
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div
                         class="box-component"
-                        onDragOver={
-                            this.dropEnabled &&
-                            (this.dropOnSection || !this.getRows().length)
-                                ? (e) => this.onSectionDragOver(e)
-                                : null
-                        }
-                        onDragLeave={
-                            this.dropEnabled &&
-                            (this.dropOnSection || !this.getRows().length)
-                                ? (e) => this.onSectionDragLeave(e)
-                                : null
-                        }
+                        {...(this.dropEnabled &&
+                        (this.dropOnSection || !this.getRows().length)
+                            ? setKetchupDroppable(
+                                  dropHandlers,
+                                  [KupBoxDragType],
+                                  this.rootElement,
+                                  { row: null, id: this.rootElement.id }
+                              )
+                            : {})}
                     >
                         {sortPanel}
                         {filterPanel}
