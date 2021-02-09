@@ -43,9 +43,15 @@ Type: `Promise<void>`
  - [kup-data-table](../kup-data-table)
  - [kup-tree](../kup-tree)
 
+### Depends on
+
+- [kup-badge](../kup-badge)
+
 ### Graph
 ```mermaid
 graph TD;
+  kup-chip --> kup-badge
+  kup-badge --> kup-badge
   kup-card --> kup-chip
   kup-data-table --> kup-chip
   kup-tree --> kup-chip

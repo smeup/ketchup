@@ -2,6 +2,8 @@
 @import '@material/form-field/mdc-form-field';
 
 .f-checkbox--wrapper {
+  font-size: var(--kup-font-size);
+
   .mdc-checkbox {
     .mdc-form-field {
       color: var(--kup-text-color);

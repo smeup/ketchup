@@ -17,6 +17,7 @@ interface Props {
     sizeX?: string;
     sizeY?: string;
     title?: string;
+    wrapperClass?: string;
 }
 
 export const FImage: FunctionalComponent<Props> = ({
@@ -28,6 +29,7 @@ export const FImage: FunctionalComponent<Props> = ({
     sizeX,
     sizeY,
     title,
+    wrapperClass,
 }) => {
     let el: VNode;
     let style: {
@@ -69,7 +71,12 @@ export const FImage: FunctionalComponent<Props> = ({
     }
 
     return (
-        <div style={style} id={id} class="f-image--wrapper" title={title}>
+        <div
+            style={style}
+            id={id}
+            class={`f-image--wrapper ${wrapperClass}`}
+            title={title}
+        >
             {el}
             {...badgeCollection}
         </div>

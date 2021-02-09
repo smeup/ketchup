@@ -214,6 +214,7 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-badge
+  kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
   kup-paginator --> kup-button
   kup-paginator --> kup-combobox
