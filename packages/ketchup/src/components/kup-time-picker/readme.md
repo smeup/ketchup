@@ -22,6 +22,7 @@
 | ------------------------------ | ----------- | ------------------------------ |
 | `kupTimePickerBlur`            |             | `CustomEvent<{ value: any; }>` |
 | `kupTimePickerChange`          |             | `CustomEvent<{ value: any; }>` |
+| `kupTimePickerClearIconClick`  |             | `CustomEvent<{ id: any; }>`    |
 | `kupTimePickerClick`           |             | `CustomEvent<{ value: any; }>` |
 | `kupTimePickerFocus`           |             | `CustomEvent<{ value: any; }>` |
 | `kupTimePickerIconClick`       |             | `CustomEvent<{ value: any; }>` |
@@ -75,6 +76,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [kup-data-table](../kup-data-table)
+
 ### Depends on
 
 - [kup-text-field](../kup-text-field)
@@ -89,6 +94,7 @@ graph TD;
   kup-time-picker --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-data-table --> kup-time-picker
   style kup-time-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

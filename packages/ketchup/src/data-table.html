@@ -94,6 +94,12 @@
             <h1>temp test</h1>
             <kup-data-table lazy-load-rows="false" id="temp-data-table-test" show-filters></kup-data-table>
 
+            <h1>temp test data type</h1>
+            <kup-data-table lazy-load-rows="false" id="temp-data-table-test-data-type" show-filters></kup-data-table>
+
+            <h1>temp test data type 2</h1>
+            <kup-data-table lazy-load-rows="false" id="temp-data-table-test-data-type2" rowsPerPage="100" show-filters></kup-data-table>
+
             <h1>No data</h1>
             <kup-data-table lazy-load-rows="false" density="small" show-load-more></kup-data-table>
 
@@ -102,24 +108,28 @@
                 id="only-cols"
                 paginator-pos="Both"
                 lazy-load-rows="false"
+                drop-enabled
+                drag-enabled
             ></kup-data-table>
 
             <h1>Columns and rows</h1>
-            <div style="width: 300px;">
+            <div style="width: 800px;">
                 <kup-data-table
                     id="basic-data"
                     enable-sortable-columns
+                    drag-enabled
                     lazy-load-rows="false"
                 ></kup-data-table
             ></div>
 
             <h1>Columns and rows with removable columns</h1>
-            <div style="width: 300px;">
+            <div style="width: 800px;">
                 <kup-data-table
                     id="basic-data-rem-cols"
                     enable-sortable-columns
                     lazy-load-rows="false"
                     removable-columns="true"
+                    drop-enabled
                 ></kup-data-table
             ></div>
 

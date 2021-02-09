@@ -8,8 +8,7 @@
             content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
         />
 
-        <title>Ketchup box</title>
-
+        <title>Ketchup data table - Test Performance</title>
         <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -85,32 +84,24 @@
     </head>
 
     <body>
-        <h1> Graphic Box</h1>
-        <kup-box id="graphics-box"></kup-box>
-        <h1> Sort Box</h1>
-        <kup-box id="sort-box"></kup-box>
+        <div class="data-examples">
 
-        <h1> D&D Box</h1>
-        <kup-box
-          id="dd1-box"
-          sortEnabled="true"
-          multiSelection="multi1"
-          pagination
-          pageSize="10"
-          layout="horizontalLayout"
-          drag-enabled="true"
-        ></kup-box>
-        <kup-box
-          id="dd2-box"
-          sortEnabled="true"
-          multiSelection="multi1"
-          pagination
-          pageSize="10"
-          layout="horizontalLayout"
-          drop-enabled="true"
-        ></kup-box>
+            <h1>Test Performance</h1>
+            <script>
+                document.documentElement['kupDebug'] = true;
+            </script>
+            <div>
+                <kup-data-table
+                    id="basic-data"
+                    enable-sortable-columns
+                    lazy-load-rows="false"
+                    drag-enabled
+                    drop-enabled
+                    rows-per-page=200
+                ></kup-data-table
+            ></div>
 
-        <script src="/assets/box.js"></script>
+        <script src="/assets/data-table-performance.js"></script>
 
         <style>
             :root {

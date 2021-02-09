@@ -532,6 +532,14 @@ export namespace Components {
          */
         "density": string;
         /**
+          * Enable row dragging
+         */
+        "dragEnabled": boolean;
+        /**
+          * Enable record dropping
+         */
+        "dropEnabled": boolean;
+        /**
           * Defines the label to show when the table is empty.
          */
         "emptyDataLabel": string;
@@ -618,9 +626,10 @@ export namespace Components {
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
         "paginatorPos": PaginatorPos;
+        "performanceCSS": (detailedLog: boolean) => Promise<void>;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * Sets the actions of the rows.
+          * Sets the possibility to remove the selected column.
          */
         "removableColumns": boolean;
         /**
@@ -2654,6 +2663,14 @@ declare namespace LocalJSX {
          */
         "density"?: string;
         /**
+          * Enable row dragging
+         */
+        "dragEnabled"?: boolean;
+        /**
+          * Enable record dropping
+         */
+        "dropEnabled"?: boolean;
+        /**
           * Defines the label to show when the table is empty.
          */
         "emptyDataLabel"?: string;
@@ -2731,6 +2748,7 @@ declare namespace LocalJSX {
           * When set to true enables rows multi selection.
          */
         "multiSelection"?: boolean;
+        "onKupAddCodeDecodeColumn"?: (event: CustomEvent<{ column: string }>) => void;
         /**
           * When 'add column' menu item is clicked
          */
@@ -2792,7 +2810,7 @@ declare namespace LocalJSX {
          */
         "paginatorPos"?: PaginatorPos;
         /**
-          * Sets the actions of the rows.
+          * Sets the possibility to remove the selected column.
          */
         "removableColumns"?: boolean;
         /**
@@ -3823,6 +3841,9 @@ declare namespace LocalJSX {
     }>) => void;
         "onKupTimePickerChange"?: (event: CustomEvent<{
         value: any;
+    }>) => void;
+        "onKupTimePickerClearIconClick"?: (event: CustomEvent<{
+        id: any;
     }>) => void;
         "onKupTimePickerClick"?: (event: CustomEvent<{
         value: any;

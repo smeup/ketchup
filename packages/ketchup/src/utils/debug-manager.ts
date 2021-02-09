@@ -100,14 +100,14 @@ export function logMessage(comp: any, message: string, type?: string) {
 export function logLoad(comp: any, didLoad: boolean) {
     if (!didLoad) {
         comp['debugInfo'] = {
-            startTime: performance.now(),
+            startTime: window.performance.now(),
             endTime: 0,
             renderCount: 0,
             renderStart: 0,
             renderEnd: 0,
         };
     } else {
-        comp.debugInfo.endTime = performance.now();
+        comp.debugInfo.endTime = window.performance.now();
         let timeDiff: number =
             comp.debugInfo.endTime - comp.debugInfo.startTime;
         if (dom.kupDebug) {
@@ -119,9 +119,9 @@ export function logLoad(comp: any, didLoad: boolean) {
 export function logRender(comp: any, didRender: boolean) {
     if (!didRender) {
         comp.debugInfo.renderCount++;
-        comp.debugInfo.renderStart = performance.now();
+        comp.debugInfo.renderStart = window.performance.now();
     } else {
-        comp.debugInfo.renderEnd = performance.now();
+        comp.debugInfo.renderEnd = window.performance.now();
         let timeDiff: number =
             comp.debugInfo.renderEnd - comp.debugInfo.renderStart;
         if (dom.kupDebug) {
@@ -137,6 +137,48 @@ export function logRender(comp: any, didRender: boolean) {
     }
 }
 
+//
+// Utility to test CSS selectors performances.
+// Detailed log will inflate time because of console.logs, useful to check individual entries only.
+//
+export function logCSS(
+    comp: any,
+    selectors: Array<string>,
+    detailedLog?: boolean
+) {
+    let start = window.performance.now();
+    for (let index = 0; index < selectors.length; index++) {
+        let s = window.performance.now();
+        let q = comp.rootElement.shadowRoot.querySelectorAll(selectors[index]);
+        let e = window.performance.now();
+        if (detailedLog) {
+            let t = e - s;
+            let color = 'color:';
+            if (t > 3) {
+                color += 'red';
+            } else if (t > 2) {
+                color += 'orange';
+            } else if (t > 1) {
+                color += 'yellow';
+            } else {
+                color += 'white';
+            }
+            console.log(
+                '%c' +
+                    selectors[index] +
+                    ': ' +
+                    t +
+                    'ms.' +
+                    '[' +
+                    q.length +
+                    ' elements]',
+                color
+            );
+        }
+    }
+    let end = window.performance.now();
+    console.log('Total time estimated: ' + (end - start) + 'ms.');
+}
 /*
 //
 // Check how many event listeners are defined on a Ketch.UP component and its children.

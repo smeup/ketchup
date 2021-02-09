@@ -50,8 +50,12 @@ export class GraphicElement {
 
             try {
                 this.height = parseFloat(toBeParsed);
+                if (Number.isNaN(this.height)) {
+                    this.height = 100;
+                }
             } catch (err) {
                 console.error(err);
+                this.height = 100;
             }
         }
     }

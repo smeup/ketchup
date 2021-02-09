@@ -25,6 +25,7 @@ import {
     GroupObject,
     KupDataTableCellButtonClick,
     KupDataTableColumnDragType,
+    KupDataTableRowDragType,
     KupDataTableColumnDragRemoveType,
     LoadMoreMode,
     PaginatorPos,
@@ -37,6 +38,7 @@ import {
     TotalsMap,
     GenericFilter,
     FilterInterval,
+    CSSArray,
 } from './kup-data-table-declarations';
 
 import {
@@ -74,6 +76,7 @@ import {
     getIntervalTextFieldFilterValues,
     hasIntervalTextFieldFilterValues,
     getValueForDisplay,
+    dropHandlersCell,
 } from './kup-data-table-helper';
 
 import {
@@ -92,6 +95,10 @@ import {
     isCheckbox,
     hasTooltip,
     isRadio as isRadioObj,
+    isTimestamp,
+    isTime,
+    isTimeWithSeconds,
+    canHaveDerivedColumn,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
 
@@ -106,7 +113,12 @@ import {
     ComponentListElement,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import {
+    logCSS,
+    logLoad,
+    logMessage,
+    logRender,
+} from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 import { KupDataTableState } from './kup-data-table-state';
@@ -124,6 +136,7 @@ import {
     setDragDropPayload,
     getDragDropPayload,
 } from '../../utils/drag-and-drop';
+import { dragMultipleImg } from '../../assets/images/drag-multiple';
 
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
@@ -174,6 +187,8 @@ export class KupDataTable {
                     state.sortableColumnsMutateData;
                 this.selectRow = state.selectRow;
                 this.selectRowsById = state.selectRowsById;
+                this.dragEnabled = state.dragEnabled;
+                this.dropEnabled = state.dropEnabled;
                 //
             }
         }
@@ -204,6 +219,8 @@ export class KupDataTable {
             this.state.sort = this.sort;
             this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
             this.state.pageSelected = this.currentPage;
+            this.state.dragEnabled = this.dragEnabled;
+            this.state.dropEnabled = this.dropEnabled;
             this.state.selectRowsById = this.selectedRows.reduce(
                 (accumulator, row, currentIndex) => {
                     const prefix = currentIndex > 0 ? ';' : '';
@@ -334,7 +351,7 @@ export class KupDataTable {
      */
     @Prop() paginatorPos: PaginatorPos = PaginatorPos.TOP;
     /**
-     * Sets the actions of the rows.
+     * Sets the possibility to remove the selected column.
      */
     @Prop() removableColumns: boolean = false;
     /**
@@ -415,6 +432,14 @@ export class KupDataTable {
      * Defines the current totals options.
      */
     @Prop() totals: TotalsMap;
+    /**
+     * Enable row dragging
+     */
+    @Prop() dragEnabled: boolean = false;
+    /**
+     * Enable record dropping
+     */
+    @Prop() dropEnabled: boolean = false;
 
     //-------- State --------
 
@@ -690,6 +715,14 @@ export class KupDataTable {
     })
     kupAddColumn: EventEmitter<{ column: string }>;
 
+    @Event({
+        eventName: 'kupAddCodeDecodeColumn',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAddCodeDecodeColumn: EventEmitter<{ column: string }>;
+
     /**
      * When a row action is clicked
      */
@@ -737,6 +770,11 @@ export class KupDataTable {
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+
+    @Method()
+    async performanceCSS(detailedLog: boolean) {
+        logCSS(this, CSSArray, detailedLog);
     }
 
     onKupDataTableDblClick(obj: { t: string; p: string; k: string }) {
@@ -1271,6 +1309,13 @@ export class KupDataTable {
         return this.data && this.data.rows ? this.data.rows : [];
     }
 
+    // TODO if is not shared, move this in the third parameter of setKetchupDraggable method
+    private addMultiSelectDragImageToEvent(event: DragEvent) {
+        let dragImage = document.createElement('img');
+        dragImage.src = dragMultipleImg;
+        event.dataTransfer.setDragImage(dragImage, 0, 0);
+    }
+
     private initRows(): void {
         this.filterRows();
 
@@ -1604,7 +1649,8 @@ export class KupDataTable {
         { detail },
         column: Column,
         index: FilterInterval,
-        needNormalize: boolean
+        needNormalize: boolean,
+        suffixToAdd?: string
     ) {
         // resetting current page
         this.resetCurrentPage();
@@ -1614,6 +1660,9 @@ export class KupDataTable {
             if (needNormalize) {
                 newFilter = normalizeValue(newFilter, column.obj);
             }
+        }
+        if (suffixToAdd != null) {
+            newFilter = newFilter + suffixToAdd;
         }
         const newFilters: GenericFilter = { ...this.filters };
         setIntervalTextFieldFilterValue(
@@ -1756,19 +1805,31 @@ export class KupDataTable {
 
     private selectColumn(selectedColumn: string) {
         let columnCells = this.rootElement.shadowRoot.querySelectorAll(
-            'tbody > tr > td[data-column="' + selectedColumn + '"]'
+            'td[data-column="' + selectedColumn + '"]'
         );
         for (let i = 0; i < columnCells.length; i++) {
             columnCells[i].classList.add('selected');
+        }
+        let column = this.rootElement.shadowRoot.querySelector(
+            'th[data-column="' + selectedColumn + '"]'
+        );
+        if (column) {
+            column.classList.add('selected');
         }
     }
 
     private deselectColumn(selectedColumn: string) {
         let columnCells = this.rootElement.shadowRoot.querySelectorAll(
-            'tbody > tr > td[data-column="' + selectedColumn + '"]'
+            'td[data-column="' + selectedColumn + '"]'
         );
         for (let i = 0; i < columnCells.length; i++) {
             columnCells[i].classList.remove('selected');
+        }
+        let column = this.rootElement.shadowRoot.querySelector(
+            'th[data-column="' + selectedColumn + '"]'
+        );
+        if (column) {
+            column.classList.remove('selected');
         }
     }
 
@@ -1882,6 +1943,21 @@ export class KupDataTable {
         node: EventTarget
     ): node is HTMLElement {
         return (node as HTMLElement).classList !== undefined;
+    }
+
+    private hasOverlayActions(column: Column): boolean {
+        if (column == null || column.obj == null) {
+            return false;
+        }
+        return canHaveDerivedColumn(column.obj);
+    }
+
+    private onAddCodeDecodeColumnClick(e: Event, column: Column) {
+        e.stopPropagation();
+        this.kupAddCodeDecodeColumn.emit({
+            column: column.name,
+        });
+        this.closeMenuAndTooltip();
     }
 
     private onHeaderCellContextMenuClose(event: MouseEvent) {
@@ -2224,166 +2300,276 @@ export class KupDataTable {
         textFieldData['fullWidth'] = true;
         textFieldData['isClearable'] = true;
         textFieldData['label'] = 'Search...';
-        textFieldData['helper'] = 'From...';
         textFieldData['helperWhenFocused'] = true;
 
         let interval = this.getIntervalTextFieldFilterValues(column);
         let initialValueFrom = interval[FilterInterval.FROM];
         let initialValueTo = interval[FilterInterval.TO];
 
+        let comps = [];
         if (isNumber(column.obj)) {
-            return (
-                <li role="menuitem" class="textfield-row">
-                    <kup-text-field
-                        {...textFieldData}
-                        initialValue={initialValueFrom}
-                        onKupTextFieldInput={(e) => {
-                            window.clearTimeout(this.columnFilterTimeout);
-                            this.columnFilterTimeout = window.setTimeout(
-                                () =>
-                                    this.onIntervalFilterChange(
-                                        e,
-                                        column,
-                                        FilterInterval.FROM,
-                                        true
-                                    ),
-                                300
-                            );
-                        }}
-                        onKupTextFieldSubmit={() => {
-                            this.closeMenuAndTooltip();
-                        }}
-                        onKupTextFieldClearIconClick={(e) => {
-                            this.onIntervalFilterChange(
-                                e,
-                                column,
-                                FilterInterval.FROM,
-                                false
-                            );
-                        }}
-                    ></kup-text-field>
-
-                    <kup-text-field
-                        {...textFieldData}
-                        initialValue={initialValueTo}
-                        onKupTextFieldInput={(e) => {
-                            window.clearTimeout(this.columnFilterTimeout);
-                            this.columnFilterTimeout = window.setTimeout(
-                                () =>
-                                    this.onIntervalFilterChange(
-                                        e,
-                                        column,
-                                        FilterInterval.TO,
-                                        true
-                                    ),
-                                300
-                            );
-                        }}
-                        onKupTextFieldSubmit={() => {
-                            this.closeMenuAndTooltip();
-                        }}
-                        onKupTextFieldClearIconClick={(e) => {
-                            this.onIntervalFilterChange(
-                                e,
-                                column,
-                                FilterInterval.TO,
-                                false
-                            );
-                        }}
-                    ></kup-text-field>
-                </li>
+            textFieldData['helper'] = 'From...';
+            comps.push(
+                <kup-text-field
+                    {...textFieldData}
+                    initialValue={initialValueFrom}
+                    onKupTextFieldInput={(e) => {
+                        window.clearTimeout(this.columnFilterTimeout);
+                        this.columnFilterTimeout = window.setTimeout(
+                            () =>
+                                this.onIntervalFilterChange(
+                                    e,
+                                    column,
+                                    FilterInterval.FROM,
+                                    true
+                                ),
+                            300
+                        );
+                    }}
+                    onKupTextFieldSubmit={() => {
+                        this.closeMenuAndTooltip();
+                    }}
+                    onKupTextFieldClearIconClick={(e) => {
+                        this.onIntervalFilterChange(
+                            e,
+                            column,
+                            FilterInterval.FROM,
+                            false
+                        );
+                    }}
+                ></kup-text-field>
             );
-        }
-        if (isDate(column.obj)) {
+
+            textFieldData['helper'] = 'To...';
+            comps.push(
+                <kup-text-field
+                    {...textFieldData}
+                    initialValue={initialValueTo}
+                    onKupTextFieldInput={(e) => {
+                        window.clearTimeout(this.columnFilterTimeout);
+                        this.columnFilterTimeout = window.setTimeout(
+                            () =>
+                                this.onIntervalFilterChange(
+                                    e,
+                                    column,
+                                    FilterInterval.TO,
+                                    true
+                                ),
+                            300
+                        );
+                    }}
+                    onKupTextFieldSubmit={() => {
+                        this.closeMenuAndTooltip();
+                    }}
+                    onKupTextFieldClearIconClick={(e) => {
+                        this.onIntervalFilterChange(
+                            e,
+                            column,
+                            FilterInterval.TO,
+                            false
+                        );
+                    }}
+                ></kup-text-field>
+            );
+        } else if (isTime(column.obj)) {
+            textFieldData['helper'] = 'From...';
             let data = { 'kup-text-field': { ...textFieldData } };
-            return (
-                <li role="menuitem" class="textfield-row">
-                    <kup-date-picker
-                        data={data}
-                        initialValue={initialValueFrom}
-                        onKupDatePickerItemClick={(e) => {
-                            window.clearTimeout(this.columnFilterTimeout);
-                            this.columnFilterTimeout = window.setTimeout(
-                                () =>
-                                    this.onIntervalFilterChange(
-                                        e,
-                                        column,
-                                        FilterInterval.FROM,
-                                        false
-                                    ),
-                                300
-                            );
-                        }}
-                        onKupDatePickerInput={(e) => {
-                            window.clearTimeout(this.columnFilterTimeout);
-                            this.columnFilterTimeout = window.setTimeout(
-                                () =>
-                                    this.onIntervalFilterChange(
-                                        e,
-                                        column,
-                                        FilterInterval.FROM,
-                                        true
-                                    ),
-                                300
-                            );
-                        }}
-                        onKupDatePickerTextFieldSubmit={() => {
-                            this.closeMenuAndTooltip();
-                        }}
-                        onKupDatePickerClearIconClick={(e) => {
-                            this.onIntervalFilterChange(
-                                e,
-                                column,
-                                FilterInterval.FROM,
-                                false
-                            );
-                        }}
-                    ></kup-date-picker>
-
-                    <kup-date-picker
-                        data={data}
-                        initialValue={initialValueTo}
-                        onKupDatePickerItemClick={(e) => {
-                            window.clearTimeout(this.columnFilterTimeout);
-                            this.columnFilterTimeout = window.setTimeout(
-                                () =>
-                                    this.onIntervalFilterChange(
-                                        e,
-                                        column,
-                                        FilterInterval.TO,
-                                        false
-                                    ),
-                                300
-                            );
-                        }}
-                        onKupDatePickerInput={(e) => {
-                            window.clearTimeout(this.columnFilterTimeout);
-                            this.columnFilterTimeout = window.setTimeout(
-                                () =>
-                                    this.onIntervalFilterChange(
-                                        e,
-                                        column,
-                                        FilterInterval.TO,
-                                        true
-                                    ),
-                                300
-                            );
-                        }}
-                        onKupDatePickerTextFieldSubmit={() => {
-                            this.closeMenuAndTooltip();
-                        }}
-                        onKupDatePickerClearIconClick={(e) => {
-                            this.onIntervalFilterChange(
-                                e,
-                                column,
-                                FilterInterval.TO,
-                                false
-                            );
-                        }}
-                    ></kup-date-picker>
-                </li>
+            comps.push(
+                <kup-time-picker
+                    data={data}
+                    initialValue={initialValueFrom}
+                    manageSeconds={isTimeWithSeconds(column.obj)}
+                    onKupTimePickerItemClick={(e) => {
+                        window.clearTimeout(this.columnFilterTimeout);
+                        this.columnFilterTimeout = window.setTimeout(
+                            () =>
+                                this.onIntervalFilterChange(
+                                    e,
+                                    column,
+                                    FilterInterval.FROM,
+                                    false
+                                ),
+                            300
+                        );
+                    }}
+                    onKupTimePickerInput={(e) => {
+                        window.clearTimeout(this.columnFilterTimeout);
+                        this.columnFilterTimeout = window.setTimeout(
+                            () =>
+                                this.onIntervalFilterChange(
+                                    e,
+                                    column,
+                                    FilterInterval.FROM,
+                                    true
+                                ),
+                            300
+                        );
+                    }}
+                    onKupTimePickerTextFieldSubmit={() => {
+                        this.closeMenuAndTooltip();
+                    }}
+                    onKupTimePickerClearIconClick={(e) => {
+                        this.onIntervalFilterChange(
+                            e,
+                            column,
+                            FilterInterval.FROM,
+                            false
+                        );
+                    }}
+                ></kup-time-picker>
+            );
+            textFieldData['helper'] = 'To...';
+            data = { 'kup-text-field': { ...textFieldData } };
+            comps.push(
+                <kup-time-picker
+                    data={data}
+                    initialValue={initialValueTo}
+                    manageSeconds={isTimeWithSeconds(column.obj)}
+                    onKupTimePickerItemClick={(e) => {
+                        window.clearTimeout(this.columnFilterTimeout);
+                        this.columnFilterTimeout = window.setTimeout(
+                            () =>
+                                this.onIntervalFilterChange(
+                                    e,
+                                    column,
+                                    FilterInterval.TO,
+                                    false
+                                ),
+                            300
+                        );
+                    }}
+                    onKupTimePickerInput={(e) => {
+                        window.clearTimeout(this.columnFilterTimeout);
+                        this.columnFilterTimeout = window.setTimeout(
+                            () =>
+                                this.onIntervalFilterChange(
+                                    e,
+                                    column,
+                                    FilterInterval.TO,
+                                    true
+                                ),
+                            300
+                        );
+                    }}
+                    onKupTimePickerTextFieldSubmit={() => {
+                        this.closeMenuAndTooltip();
+                    }}
+                    onKupTimePickerClearIconClick={(e) => {
+                        this.onIntervalFilterChange(
+                            e,
+                            column,
+                            FilterInterval.TO,
+                            false
+                        );
+                    }}
+                ></kup-time-picker>
+            );
+        } else if (isDate(column.obj) || isTimestamp(column.obj)) {
+            textFieldData['helper'] = 'From...';
+            let suffix = isTimestamp(column.obj) ? ' 00:00:00' : null;
+            let data = { 'kup-text-field': { ...textFieldData } };
+            comps.push(
+                <kup-date-picker
+                    data={data}
+                    initialValue={initialValueFrom}
+                    onKupDatePickerItemClick={(e) => {
+                        window.clearTimeout(this.columnFilterTimeout);
+                        this.columnFilterTimeout = window.setTimeout(
+                            () =>
+                                this.onIntervalFilterChange(
+                                    e,
+                                    column,
+                                    FilterInterval.FROM,
+                                    false,
+                                    suffix
+                                ),
+                            300
+                        );
+                    }}
+                    onKupDatePickerInput={(e) => {
+                        window.clearTimeout(this.columnFilterTimeout);
+                        this.columnFilterTimeout = window.setTimeout(
+                            () =>
+                                this.onIntervalFilterChange(
+                                    e,
+                                    column,
+                                    FilterInterval.FROM,
+                                    true,
+                                    suffix
+                                ),
+                            300
+                        );
+                    }}
+                    onKupDatePickerTextFieldSubmit={() => {
+                        this.closeMenuAndTooltip();
+                    }}
+                    onKupDatePickerClearIconClick={(e) => {
+                        this.onIntervalFilterChange(
+                            e,
+                            column,
+                            FilterInterval.FROM,
+                            false,
+                            suffix
+                        );
+                    }}
+                ></kup-date-picker>
+            );
+            textFieldData['helper'] = 'To...';
+            suffix = isTimestamp(column.obj) ? ' 23:59:59' : null;
+            data = { 'kup-text-field': { ...textFieldData } };
+            comps.push(
+                <kup-date-picker
+                    data={data}
+                    initialValue={initialValueTo}
+                    onKupDatePickerItemClick={(e) => {
+                        window.clearTimeout(this.columnFilterTimeout);
+                        this.columnFilterTimeout = window.setTimeout(
+                            () =>
+                                this.onIntervalFilterChange(
+                                    e,
+                                    column,
+                                    FilterInterval.TO,
+                                    false,
+                                    suffix
+                                ),
+                            300
+                        );
+                    }}
+                    onKupDatePickerInput={(e) => {
+                        window.clearTimeout(this.columnFilterTimeout);
+                        this.columnFilterTimeout = window.setTimeout(
+                            () =>
+                                this.onIntervalFilterChange(
+                                    e,
+                                    column,
+                                    FilterInterval.TO,
+                                    true,
+                                    suffix
+                                ),
+                            300
+                        );
+                    }}
+                    onKupDatePickerTextFieldSubmit={() => {
+                        this.closeMenuAndTooltip();
+                    }}
+                    onKupDatePickerClearIconClick={(e) => {
+                        this.onIntervalFilterChange(
+                            e,
+                            column,
+                            FilterInterval.TO,
+                            false,
+                            suffix
+                        );
+                    }}
+                ></kup-date-picker>
             );
         }
+
+        return (
+            <li role="menuitem" class="textfield-row">
+                {comps}
+            </li>
+        );
     }
 
     private getTextualFilter(column: Column) {
@@ -2505,6 +2691,29 @@ export class KupDataTable {
                     column
                 );
 
+                //---- AddCodeDecodeColumn ----
+                let overlay = null;
+                if (this.hasOverlayActions(column)) {
+                    columnClass['obj'] = true;
+                    const svgLabel = 'Add code/decode column';
+                    let svg = this.getIconPath('table-column-plus-after');
+                    let iconStyle = {
+                        mask: svg,
+                        webkitMask: svg,
+                    };
+                    overlay = (
+                        <span
+                            title={svgLabel}
+                            style={iconStyle}
+                            class="icon-container overlay-action"
+                            onClick={(e) => {
+                                this.onAddCodeDecodeColumnClick(e, column);
+                            }}
+                            onMouseUp={(e) => e.stopPropagation()}
+                        ></span>
+                    );
+                }
+
                 //---- Filter ----
                 let filter = null;
 
@@ -2621,6 +2830,13 @@ export class KupDataTable {
                                 }}
                             />
                             {actionHideCol}
+                            <kup-button
+                                icon="extension"
+                                title="Add code/decode column"
+                                onKupButtonClick={(e) => {
+                                    this.onAddCodeDecodeColumnClick(e, column);
+                                }}
+                            />
                         </li>
                     );
 
@@ -2657,14 +2873,7 @@ export class KupDataTable {
                                 } else {
                                     label = '(*unchecked)';
                                 }
-                            } else {
-                                label = getValueForDisplay(
-                                    v,
-                                    column.obj,
-                                    column.decimals
-                                );
                             }
-
                             checkboxItems.push(
                                 <kup-checkbox
                                     label={label}
@@ -2704,7 +2913,7 @@ export class KupDataTable {
                 // https://html.spec.whatwg.org/multipage/dnd.html#concept-dnd-p
                 const dragHandlers: DragHandlers = {
                     onDragStart: (e: DragEvent) => {
-                        //console.log("onDragStart" , e);
+                        // console.log('onDragStart', e);
 
                         // Sets the type of drag
                         setDragEffectAllowed(e, 'move');
@@ -2726,7 +2935,7 @@ export class KupDataTable {
                         // replace the used flags set with attribute
                     },
                     onDragEnd: (e: DragEvent) => {
-                        //console.log("onDragEnd" , e);
+                        // console.log("onDragEnd" , e);
                         // When the drag has ended, checks if the element still exists or it was destroyed by JSX
                         const targetElement = e.target as HTMLElement;
                         if (targetElement) {
@@ -2750,7 +2959,7 @@ export class KupDataTable {
                 };
                 const dropHandlers: DropHandlers = {
                     onDrop: (e: DragEvent) => {
-                        //console.log("onDrop" , e);
+                        // console.log("onDrop" , e);
                         const transferredData = JSON.parse(
                             e.dataTransfer.getData(KupDataTableColumnDragType)
                         ) as Column;
@@ -2760,7 +2969,7 @@ export class KupDataTable {
                         return KupDataTableColumnDragType;
                     },
                     onDragLeave: (e: DragEvent) => {
-                        //console.log("onDragLeave" , e);
+                        // console.log("onDragLeave" , e);
                         if (
                             e.dataTransfer.types.indexOf(
                                 KupDataTableColumnDragType
@@ -2773,7 +2982,7 @@ export class KupDataTable {
                         }
                     },
                     onDragOver: (e: DragEvent) => {
-                        //console.log("onDragOver" , e);
+                        // console.log("onDragOver" , e);
                         if (
                             e.dataTransfer.types.indexOf(
                                 KupDataTableColumnDragType
@@ -2812,6 +3021,7 @@ export class KupDataTable {
 
                 return (
                     <th
+                        data-column={column.name}
                         class={columnClass}
                         style={thStyle}
                         onContextMenu={(e: MouseEvent) =>
@@ -2822,8 +3032,8 @@ export class KupDataTable {
                             ? setKetchupDraggable(dragHandlers, {
                                   [KupDataTableColumnDragType]: column,
                                   'kup-drag-source-element': {
-                                      fromColumn: column,
-                                      fromId: this.rootElement.id,
+                                      column: column,
+                                      id: this.rootElement.id,
                                   },
                               })
                             : {})}
@@ -2833,8 +3043,8 @@ export class KupDataTable {
                                   [KupDataTableColumnDragType],
                                   this.rootElement,
                                   {
-                                      toColumn: column,
-                                      toId: this.rootElement.id,
+                                      column: column,
+                                      id: this.rootElement.id,
                                   }
                               )
                             : {})}
@@ -2842,6 +3052,7 @@ export class KupDataTable {
                         <span class="column-title">
                             {this.applyLineBreaks(column.title)}
                         </span>
+                        {overlay}
                         {sortIcon}
                         {filter}
                         {columnMenu}
@@ -3383,27 +3594,40 @@ export class KupDataTable {
                             cell.obj.k +
                             ';';
                     }
-                    eventHandlers = {
-                        onMouseEnter: (ev) => {
-                            if (this.showTooltipOnRightClick == false) {
+                    if (this.showTooltipOnRightClick) {
+                        eventHandlers = {
+                            onContextMenu: (ev) => {
+                                ev.preventDefault();
                                 this._setTooltip(ev, cell);
-                            }
-                        },
-                        onMouseLeave: () => {
-                            if (this.showTooltipOnRightClick == false) {
+                            },
+                        };
+                    } else {
+                        eventHandlers = {
+                            onMouseEnter: (ev) => {
+                                this._setTooltip(ev, cell);
+                            },
+                            onMouseLeave: () => {
                                 this._unsetTooltip();
-                            }
-                        },
-                        onContextMenu: (ev) => {
-                            ev.preventDefault();
-                            if (this.showTooltipOnRightClick == true) {
-                                this._setTooltip(ev, cell);
-                            }
-                        },
-                    };
+                            },
+                        };
+                    }
                 }
+
                 return (
                     <td
+                        {...(this.dropEnabled
+                            ? setKetchupDroppable(
+                                  dropHandlersCell,
+                                  [KupDataTableRowDragType],
+                                  this.rootElement,
+                                  {
+                                      row: row,
+                                      cell: cell,
+                                      column: currentColumn,
+                                      id: this.rootElement.id,
+                                  }
+                              )
+                            : {})}
                         title={title}
                         data-column={name}
                         style={cellStyle}
@@ -3429,8 +3653,90 @@ export class KupDataTable {
                 rowClass[row.cssClass] = true;
             }
 
+            const dragHandlersRow: DragHandlers = {
+                onDragStart: (e: DragEvent) => {
+                    // console.log('onDragStart', e.target);
+
+                    // get the tr tag
+                    const trElement = e.target as HTMLTableRowElement;
+                    let cell = {};
+                    let column = {};
+                    if (trElement) {
+                        // get the elements inside the row that were touched
+                        const hoverElements = trElement.querySelectorAll(
+                            ':hover'
+                        );
+                        if (hoverElements) {
+                            // the td in position 0 is ALWAYS the last td touched
+                            const tdElement = hoverElements[0] as HTMLTableCellElement;
+                            if (tdElement) {
+                                // get the column name in td element
+                                const columnName = tdElement.getAttribute(
+                                    'data-column'
+                                );
+                                if (columnName) {
+                                    // finally get the cell
+                                    cell = row.cells[columnName];
+                                    // and the column
+                                    column = getColumnByName(
+                                        this.getColumns(),
+                                        columnName
+                                    );
+                                }
+                            }
+                        }
+                    }
+
+                    // because I found the cell and the column inside this method I have to set here the event data
+                    // in this scenario it is not necessary pass the data parameter in setKetchupDraggable method
+                    const sourceElementData = {
+                        id: this.rootElement.id,
+                        row,
+                        selectedRows: this.selectedRows,
+                        cell,
+                        column,
+                    };
+                    // set event data
+                    // this is mandatory in order to add the source element data in the kup drop event
+                    e.dataTransfer.setData(
+                        'kup-drag-source-element',
+                        JSON.stringify(sourceElementData)
+                    );
+
+                    // Sets the type of drag
+                    setDragEffectAllowed(e, 'move');
+
+                    if (
+                        this.selectedRows.length > 1 ||
+                        (this.selectedRows.length == 1 &&
+                            !this.selectedRows.includes(row))
+                    ) {
+                        this.addMultiSelectDragImageToEvent(e);
+                    }
+                },
+                onDragEnd: (_e: DragEvent) => {
+                    // console.log('onDragEnd', e);
+                    // Remove the over class
+                    const dragDropPayload = getDragDropPayload();
+                    if (dragDropPayload && dragDropPayload.overElement) {
+                        dragDropPayload.overElement.classList.remove(
+                            'selected'
+                        );
+                    }
+                },
+            };
+
             return (
-                <tr class={rowClass} onClick={(e) => this.onRowClick(e, row)}>
+                <tr
+                    class={rowClass}
+                    onClick={(e) => this.onRowClick(e, row)}
+                    {...(this.dragEnabled
+                        ? setKetchupDraggable(dragHandlersRow, {
+                              [KupDataTableRowDragType]: row,
+                              'kup-drag-source-element': {}, // I put nothing in there because I overwrite the content inside the onDragStart method
+                          })
+                        : {})}
+                >
                     {selectRowCell}
                     {rowActionsCell}
                     {cells}
@@ -3620,6 +3926,10 @@ export class KupDataTable {
             return 'number';
         } else if (isDate(obj)) {
             return 'date';
+        } else if (isTimestamp(obj)) {
+            return 'datetime';
+        } else if (isTime(obj)) {
+            return 'time';
         } else {
             return 'string';
         }
@@ -3924,6 +4234,18 @@ export class KupDataTable {
                     return cellValue;
                 }
                 return content;
+            case 'datetime':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(column, cell);
+                    return cellValue;
+                }
+                return content;
+            case 'time':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(column, cell);
+                    return cellValue;
+                }
+                return content;
             case 'string':
             default:
                 return content;
@@ -4053,39 +4375,25 @@ export class KupDataTable {
         /* drop column here to remove */
         const dropHandlersRemoveCols: DropHandlers = {
             onDrop: (e: DragEvent) => {
-                console.log('onDrop', e);
+                // console.log('onDrop', e);
                 const transferredData = JSON.parse(
                     e.dataTransfer.getData(KupDataTableColumnDragType)
                 ) as Column;
                 // We are sure the tables have been dropped in a valid location -> starts ...
-                // console.log('dropped', transferredData);
                 this.handleColumnRemove(transferredData);
                 //this.hideShowColumnRemoveDropArea(false);
                 return KupDataTableColumnDragRemoveType;
             },
-            onDragLeave: (e: DragEvent) => {
+            onDragLeave: (_e: DragEvent) => {
                 // TODO add here some animation
-                console.log('onDragLeave', e);
+                // console.log('onDragLeave', e);
             },
-            onDragOver: (e: DragEvent) => {
+            onDragOver: (_e: DragEvent) => {
                 // TODO add here some animation
-                console.log('onDragOver', e);
+                // console.log('onDragOver', e);
                 return true;
             },
         };
-        /**
-        return (
-        <div
-        {...(setKetchupDroppable(
-                dropHandlersRemoveCols,
-                  [KupDataTableColumnDragType],
-                  this.rootElement,
-                  this.rootElement.id
-              ))}
-        >CESTINO COLONNE</div>);
-        slot={isSlotted ? 'more-results' : null}
-            class="trash-drop-cols"
-        /**/
         return (
             <kup-button
                 styling="outlined"
@@ -4123,21 +4431,16 @@ export class KupDataTable {
 
     private handleColumnRemove(column2remove: Column) {
         // Get sorted column current position
-        /**/
         this.getVisibleColumns();
-        const columnX =
-            //this.data.columns.find(
-            this.getVisibleColumns().find(
-                (col) =>
-                    col.name === column2remove.name &&
-                    col.title === column2remove.title
-            );
-        // console.log('column to remove', columnX);
+        const columnX = this.getVisibleColumns().find(
+            (col) =>
+                col.name === column2remove.name &&
+                col.title === column2remove.title
+        );
         if (columnX) {
             columnX.visible = false;
             this.triggerColumnSortRerender = !this.triggerColumnSortRerender;
         }
-        //column.visible = false;
     }
 
     private transcodeItem(
@@ -4350,7 +4653,22 @@ export class KupDataTable {
         if (this.paginatedRowsLength === 0) {
             rows = (
                 <tr>
-                    <td colSpan={this.calculateColspan()}>
+                    <td
+                        {...(this.dropEnabled
+                            ? setKetchupDroppable(
+                                  dropHandlersCell,
+                                  [KupDataTableRowDragType],
+                                  this.rootElement,
+                                  {
+                                      row: null,
+                                      cell: null,
+                                      column: null,
+                                      id: this.rootElement.id,
+                                  }
+                              )
+                            : {})}
+                        colSpan={this.calculateColspan()}
+                    >
                         {this.emptyDataLabel}
                     </td>
                 </tr>
@@ -4530,7 +4848,6 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
-        //columns trash can
         const columnsDropArea = this.removableColumns
             ? this.renderTrashCanColumns()
             : null;
