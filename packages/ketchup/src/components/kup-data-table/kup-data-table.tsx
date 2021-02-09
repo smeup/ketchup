@@ -142,6 +142,7 @@ import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallba
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import { FImage } from '../../utils/components/f-image/f-image';
 import { FCheckbox } from '../../utils/components/f-checkbox/f-checkbox';
+import { FChip } from '../../utils/components/f-chip/f-chip';
 
 @Component({
     tag: 'kup-data-table',
@@ -4126,7 +4127,7 @@ export class KupDataTable {
                 props['disabled'] = true;
                 return <FCheckbox {...props} />;
             case 'chips':
-                return <kup-chip {...props}></kup-chip>;
+                return <FChip {...props} />;
             case 'color-picker':
                 return (
                     <kup-color-picker

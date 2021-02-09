@@ -161,7 +161,6 @@ Type: `Promise<void>`
 - [kup-tooltip](../kup-tooltip)
 - [kup-image](../kup-image)
 - [kup-chart](../kup-chart)
-- [kup-chip](../kup-chip)
 - [kup-color-picker](../kup-color-picker)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
@@ -169,6 +168,7 @@ Type: `Promise<void>`
 - [kup-radio](../kup-radio)
 - [kup-paginator](../kup-paginator)
 - [kup-combobox](../kup-combobox)
+- [kup-chip](../kup-chip)
 - [kup-badge](../kup-badge)
 
 ### Graph
@@ -182,7 +182,6 @@ graph TD;
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-image
   kup-data-table --> kup-chart
-  kup-data-table --> kup-chip
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
@@ -190,6 +189,7 @@ graph TD;
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-chip
   kup-data-table --> kup-badge
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
