@@ -12,7 +12,7 @@ import {
 import { MDCCheckbox } from '@material/checkbox';
 import { MDCFormField } from '@material/form-field';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { logLoad, logRender } from '../../utils/debug-manager';
 import { FCheckbox } from '../../utils/components/f-checkbox/f-checkbox';
 
 @Component({
@@ -166,21 +166,6 @@ export class KupCheckbox {
     }
 
     componentDidLoad() {
-        let root = this.rootElement.shadowRoot;
-        try {
-            let inputEl = root.querySelector('input');
-            inputEl.addEventListener('blur', () => this.onKupBlur());
-            inputEl.addEventListener('change', () => this.onKupChange());
-            inputEl.addEventListener('click', () => this.onKupClick());
-            inputEl.addEventListener('focus', () => this.onKupFocus());
-            inputEl.addEventListener('input', () => this.onKupInput());
-            let labelEl = root.querySelector('label');
-            if (labelEl) {
-                labelEl.addEventListener('click', () => this.onKupClick());
-            }
-        } catch (error) {
-            logMessage(this, 'Failed to setup event listeners.', 'warning');
-        }
         logLoad(this, true);
     }
 
@@ -197,6 +182,19 @@ export class KupCheckbox {
         const root = this.rootElement.shadowRoot;
 
         if (root && !this.disabled) {
+            let inputEl = root.querySelector('input');
+            if (inputEl) {
+                inputEl.onblur = () => this.onKupBlur();
+                inputEl.onchange = () => this.onKupChange();
+                inputEl.onclick = () => this.onKupClick();
+                inputEl.onfocus = () => this.onKupFocus();
+                inputEl.oninput = () => this.onKupInput();
+            }
+            let labelEl = root.querySelector('label');
+            if (labelEl) {
+                labelEl.onclick = () => this.onKupClick();
+            }
+
             const component = MDCCheckbox.attachTo(
                 root.querySelector('.mdc-checkbox')
             );
@@ -212,7 +210,6 @@ export class KupCheckbox {
         let props = {
             checked: this.checked,
             disabled: this.disabled,
-            events: true,
             indeterminate: this.indeterminate,
             label: this.label,
             leadingLabel: this.leadingLabel,
