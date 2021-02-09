@@ -535,6 +535,8 @@ tbody td > * {
   border: none !important;
 }
 
+/** disabled on release, for now... */
+/*
 .overlay-action {
   display: none;
   position: absolute;
@@ -545,13 +547,16 @@ tbody td > * {
 th:hover .overlay-action {
   display: block;
 }
+*/
 
-thead {
-  th {
-    /** it doesn't work with fixed columns... !!! */
-    position: relative;
-  }
-}
+//thead {
+//  th {
+/** it doesn't work with fixed columns... !!! */
+//    position: relative;
+//  }
+//}
+/*
 th.obj:hover span:not(.overlay-action) {
   opacity: 0.5;
 }
+*/
