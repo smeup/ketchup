@@ -199,28 +199,32 @@ export class KupChip {
         const root = this.rootElement.shadowRoot;
 
         if (root) {
-            let chips = root.querySelectorAll('.f-chip--wrapper .mdc-chip');
+            let chips = root.querySelectorAll('.f-chip--wrapper');
             for (let index = 0; index < chips.length; index++) {
-                let i: number = parseInt(chips[index].getAttribute('tabindex'));
-                // @ts-ignore (onclick doesn't exist on every Element type, but here it does)
-                chips[index].onclick = () => this.onKupClick(i);
+                let chip = root.querySelectorAll('.mdc-chip');
+                for (let j = 0; j < chip.length; j++) {
+                    let primaryEl: HTMLElement = chip[j].querySelector(
+                        '.mdc-chip__primary-action'
+                    );
+                    primaryEl.onblur = () => this.onKupBlur(j);
+                    primaryEl.onfocus = () => this.onKupFocus(j);
 
-                let primaryAction: HTMLElement = chips[index].querySelector(
-                    '.mdc-chip__primary-action'
-                );
-                primaryAction.onblur = () => this.onKupBlur(i);
-                primaryAction.onfocus = () => this.onKupFocus(i);
+                    let cancelIcon: HTMLElement = chip[j].querySelector(
+                        '.mdc-chip__icon.clear'
+                    );
+                    if (cancelIcon) {
+                        cancelIcon.onclick = () => this.onKupIconClick(j);
+                    }
 
-                let cancelIcon: HTMLElement = chips[index].querySelector(
-                    '.mdc-chip__icon clear'
-                );
-                if (cancelIcon) {
-                    cancelIcon.onclick = () => this.onKupIconClick(i);
+                    // @ts-ignore (onclick doesn't exist on every Element type, but here it does)
+                    chip[j].onclick = () => this.onKupClick(j);
                 }
             }
 
             const chipSetEl = root.querySelector('.mdc-chip-set');
-            new MDCChipSet(chipSetEl);
+            if (chipSetEl) {
+                new MDCChipSet(chipSetEl);
+            }
         }
         logRender(this, true);
     }

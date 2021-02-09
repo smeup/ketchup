@@ -38,6 +38,16 @@ function createChipList(data: ComponentChipElement[], type: string) {
             }
         }
 
+        if (data[i].icon) {
+            let props = {
+                resource: data[i].icon,
+                sizeX: '18px',
+                sizeY: '18px',
+                wrapperClass: iconClass,
+            };
+            iconEl.push(<FImage {...props} />);
+        }
+
         if (type == 'filter') {
             iconEl.push(
                 <span class="mdc-chip__checkmark">
@@ -53,7 +63,7 @@ function createChipList(data: ComponentChipElement[], type: string) {
             );
         }
 
-        if (type === 'input') {
+        if (type == 'input') {
             cancelIcon = (
                 <span role="gridcell">
                     <span
@@ -62,16 +72,6 @@ function createChipList(data: ComponentChipElement[], type: string) {
                     ></span>
                 </span>
             );
-        }
-
-        if (data[i].icon) {
-            let props = {
-                resource: data[i].icon,
-                sizeX: '18px',
-                sizeY: '18px',
-                wrapperClass: iconClass,
-            };
-            iconEl.push(<FImage {...props} />);
         }
 
         chipEl = (
