@@ -188,14 +188,6 @@ export class KupColorPicker {
                 parent: this.anchorEl,
             });
             this.picker['kupColorPicker'] = this;
-            this.picker['onChange'] = function (color) {
-                let colorPicker = this['kupColorPicker'];
-                colorPicker.setValue(color.hex.substr(0, 7));
-
-                colorPicker.kupChange.emit({
-                    value: colorPicker.value,
-                });
-            };
             this.picker['onClose'] = function (color) {
                 let colorPicker = this['kupColorPicker'];
                 colorPicker.setValue(color.hex.substr(0, 7));
