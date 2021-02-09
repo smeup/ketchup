@@ -2693,6 +2693,8 @@ export class KupDataTable {
 
                 //---- AddCodeDecodeColumn ----
                 let overlay = null;
+                /** disabled on release, for now... */
+                /*
                 if (this.hasOverlayActions(column)) {
                     columnClass['obj'] = true;
                     const svgLabel = 'Add code/decode column';
@@ -2713,7 +2715,7 @@ export class KupDataTable {
                         ></span>
                     );
                 }
-
+                */
                 //---- Filter ----
                 let filter = null;
 
