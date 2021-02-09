@@ -76,6 +76,7 @@ import {
     getIntervalTextFieldFilterValues,
     hasIntervalTextFieldFilterValues,
     getValueForDisplay,
+    dropHandlersCell,
 } from './kup-data-table-helper';
 
 import {
@@ -3038,8 +3039,8 @@ export class KupDataTable {
                             ? setKetchupDraggable(dragHandlers, {
                                   [KupDataTableColumnDragType]: column,
                                   'kup-drag-source-element': {
-                                      fromColumn: column,
-                                      fromId: this.rootElement.id,
+                                      column: column,
+                                      id: this.rootElement.id,
                                   },
                               })
                             : {})}
@@ -3049,8 +3050,8 @@ export class KupDataTable {
                                   [KupDataTableColumnDragType],
                                   this.rootElement,
                                   {
-                                      toColumn: column,
-                                      toId: this.rootElement.id,
+                                      column: column,
+                                      id: this.rootElement.id,
                                   }
                               )
                             : {})}
@@ -3619,44 +3620,6 @@ export class KupDataTable {
                     }
                 }
 
-                const dropHandlersCell: DropHandlers = {
-                    onDragLeave: (e: DragEvent) => {
-                        // console.log('onDragLeave', e);
-                        if (
-                            e.dataTransfer.types.indexOf(
-                                KupDataTableRowDragType
-                            ) >= 0
-                        ) {
-                            (e.target as HTMLElement)
-                                .closest('tr')
-                                .classList.remove('selected');
-                        }
-                    },
-                    onDragOver: (e: DragEvent) => {
-                        // console.log('onDragOver', e);
-                        if (
-                            e.dataTransfer.types.indexOf(
-                                KupDataTableRowDragType
-                            ) >= 0
-                        ) {
-                            let overElement = e.target as HTMLElement;
-                            if (overElement.tagName !== 'TD') {
-                                overElement = overElement.closest('td');
-                            }
-                            overElement = overElement.closest('tr');
-                            overElement.classList.add('selected');
-                            // TODO do it without using the element but with data like id, etc.
-                            setDragDropPayload({
-                                overElement,
-                            });
-                        }
-                        return true;
-                    },
-                    onDrop: (_e: DragEvent) => {
-                        return KupDataTableRowDragType;
-                    },
-                };
-
                 return (
                     <td
                         {...(this.dropEnabled
@@ -3668,7 +3631,7 @@ export class KupDataTable {
                                       row: row,
                                       cell: cell,
                                       column: currentColumn,
-                                      toId: this.rootElement.id,
+                                      id: this.rootElement.id,
                                   }
                               )
                             : {})}
@@ -4619,7 +4582,22 @@ export class KupDataTable {
         if (this.paginatedRowsLength === 0) {
             rows = (
                 <tr>
-                    <td colSpan={this.calculateColspan()}>
+                    <td
+                        {...(this.dropEnabled
+                            ? setKetchupDroppable(
+                                  dropHandlersCell,
+                                  [KupDataTableRowDragType],
+                                  this.rootElement,
+                                  {
+                                      row: null,
+                                      cell: null,
+                                      column: null,
+                                      id: this.rootElement.id,
+                                  }
+                              )
+                            : {})}
+                        colSpan={this.calculateColspan()}
+                    >
                         {this.emptyDataLabel}
                     </td>
                 </tr>

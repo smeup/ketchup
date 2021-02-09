@@ -13,6 +13,7 @@ import {
     Filter,
     RowGroup,
     FilterInterval,
+    KupDataTableRowDragType,
 } from './kup-data-table-declarations';
 
 import {
@@ -52,6 +53,7 @@ import {
     filterIsNegative,
 } from '../../utils/filters';
 import { logMessage } from '../../utils/debug-manager';
+import { DropHandlers, setDragDropPayload } from '../../utils/drag-and-drop';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -1492,3 +1494,33 @@ function _getCellValueForDisplay(value, column: Column, cell: Cell): string {
         column != null ? column.decimals : null
     );
 }
+
+export const dropHandlersCell: DropHandlers = {
+    onDragLeave: (e: DragEvent) => {
+        // console.log('onDragLeave', e);
+        if (e.dataTransfer.types.indexOf(KupDataTableRowDragType) >= 0) {
+            (e.target as HTMLElement)
+                .closest('tr')
+                .classList.remove('selected');
+        }
+    },
+    onDragOver: (e: DragEvent) => {
+        // console.log('onDragOver', e);
+        if (e.dataTransfer.types.indexOf(KupDataTableRowDragType) >= 0) {
+            let overElement = e.target as HTMLElement;
+            if (overElement.tagName !== 'TD') {
+                overElement = overElement.closest('td');
+            }
+            overElement = overElement.closest('tr');
+            overElement.classList.add('selected');
+            // TODO do it without using the element but with data like id, etc.
+            setDragDropPayload({
+                overElement,
+            });
+        }
+        return true;
+    },
+    onDrop: (_e: DragEvent) => {
+        return KupDataTableRowDragType;
+    },
+};

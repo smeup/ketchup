@@ -85,8 +85,31 @@
     </head>
 
     <body>
+        <h1> Graphic Box</h1>
         <kup-box id="graphics-box"></kup-box>
+        <h1> Sort Box</h1>
         <kup-box id="sort-box"></kup-box>
+
+        <h1> D&D Box</h1>
+        <kup-box
+          id="dd1-box"
+          sortEnabled="true"
+          multiSelection="multi1"
+          pagination
+          pageSize="10"
+          layout="horizontalLayout"
+          drag-enabled="true"
+        ></kup-box>
+        <kup-box
+          id="dd2-box"
+          sortEnabled="true"
+          multiSelection="multi1"
+          pagination
+          pageSize="10"
+          layout="horizontalLayout"
+          drop-enabled="true"
+        ></kup-box>
+
         <script src="/assets/box.js"></script>
 
         <style>
