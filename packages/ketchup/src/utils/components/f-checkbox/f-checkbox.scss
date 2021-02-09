@@ -3,7 +3,6 @@
 
 .f-checkbox--wrapper {
   font-size: var(--kup-font-size);
-
   .mdc-checkbox {
     .mdc-form-field {
       color: var(--kup-text-color);
@@ -11,24 +10,32 @@
       font-size: 0.875em;
       line-height: 1.25em;
     }
-    .mdc-checkbox__background {
-      border-color: rgba(var(--kup-text-color-rgb), 0.575);
-    }
     .mdc-checkbox__checkmark,
     .mdc-checkbox__mixedmark {
       color: var(--kup-text-on-primary-color);
+      path {
+        color: var(--kup-text-on-primary-color);
+        stroke: var(--kup-text-on-primary-color);
+      }
     }
     &.mdc-checkbox--checked .mdc-checkbox__background,
     &.mdc-checkbox--indeterminate .mdc-checkbox__background {
       background-color: var(--kup-primary-color);
       border-color: var(--kup-primary-color);
     }
-    &.mdc-checkbox--indeterminate .mdc-checkbox__mixedmark {
+    .mdc-checkbox__native-control:enabled
+      ~ .mdc-checkbox__background
+      .mdc-checkbox__mixedmark {
       border-color: var(--kup-text-on-primary-color);
     }
-    &.mdc-checkbox--disabled .mdc-checkbox__background {
+    .mdc-checkbox__native-control[disabled]:not(:checked):not(:indeterminate):not([data-indeterminate='true'])
+      ~ .mdc-checkbox__background {
       background-color: transparent;
       border-color: rgba(var(--kup-text-color-rgb), 0.325);
+    }
+    .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate='true'])
+      ~ .mdc-checkbox__background {
+      border-color: rgba(var(--kup-text-color-rgb), 0.575);
     }
     &.mdc-checkbox--disabled.mdc-checkbox--checked .mdc-checkbox__background,
     &.mdc-checkbox--disabled.mdc-checkbox--indeterminate
