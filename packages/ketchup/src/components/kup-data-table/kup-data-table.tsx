@@ -141,9 +141,8 @@ import { dragMultipleImg } from '../../assets/images/drag-multiple';
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
-import { FImage } from '../../utils/components/f-image/f-image';
-import { FCheckbox } from '../../utils/components/f-checkbox/f-checkbox';
-import { FChip } from '../../utils/components/f-chip/f-chip';
+import { FChip } from '../../f-components/f-chip/f-chip';
+import { FImage } from '../../f-components/f-image/f-image';
 
 @Component({
     tag: 'kup-data-table',
@@ -4087,8 +4086,10 @@ export class KupDataTable {
                 return <kup-chart {...props} />;
             case 'checkbox':
                 classObj['is-centered'] = true;
-                props['disabled'] = true;
-                return <FCheckbox {...props} />;
+                props['resource'] = props.checked
+                    ? 'check_box'
+                    : 'check_box_outline_blank';
+                return <FImage {...props} />;
             case 'chips':
                 return <FChip {...props} />;
             case 'color-picker':

@@ -514,14 +514,14 @@ tbody td > * {
   border: none !important;
 }
 
-.overlay-action {
+.icon-container.overlay-action {
   display: none;
   position: absolute;
   top: 0.5em;
   left: calc(50% - 0.625em);
 }
 
-th:hover .overlay-action {
+th:hover .icon-container.overlay-action {
   display: block;
 }
 

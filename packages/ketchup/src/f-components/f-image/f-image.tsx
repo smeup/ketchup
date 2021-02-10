@@ -5,8 +5,8 @@ import {
     JSX,
     VNode,
 } from '@stencil/core';
-import { KupBadge } from '../../../components/kup-badge/kup-badge';
-import { CssDraw } from '../../../components/kup-image/kup-image-declarations';
+import { KupBadge } from '../../components/kup-badge/kup-badge';
+import { CssDraw } from '../../components/kup-image/kup-image-declarations';
 
 interface Props {
     badgeData?: KupBadge[];

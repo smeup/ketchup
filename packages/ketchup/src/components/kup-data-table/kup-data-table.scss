@@ -4,9 +4,8 @@
 @import 'modules/kup-data-table-fixed-rows';
 @import 'modules/kup-data-table-drag-drop';
 @import 'modules/kup-data-table-classes';
-@import '../../utils/components/f-checkbox/f-checkbox.scss';
-@import '../../utils/components/f-chip/f-chip.scss';
-@import '../../utils/components/f-image/f-image.scss';
+@import '../../f-components/f-chip/f-chip.scss';
+@import '../../f-components/f-image/f-image.scss';
 
 :host {
   display: block;

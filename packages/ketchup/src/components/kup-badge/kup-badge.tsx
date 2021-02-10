@@ -9,7 +9,7 @@ import {
     Host,
     Method,
 } from '@stencil/core';
-import { FImage } from '../../utils/components/f-image/f-image';
+import { FImage } from '../../f-components/f-image/f-image';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 

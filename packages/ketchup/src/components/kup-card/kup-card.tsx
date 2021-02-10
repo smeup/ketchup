@@ -23,7 +23,7 @@ import {
     setCustomStyle,
     colorContrast,
 } from '../../utils/theme-manager';
-import { FImage } from '../../utils/components/f-image/f-image';
+import { FImage } from '../../f-components/f-image/f-image';
 
 @Component({
     tag: 'kup-card',

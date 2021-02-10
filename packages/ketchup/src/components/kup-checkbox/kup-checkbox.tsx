@@ -13,7 +13,7 @@ import { MDCCheckbox } from '@material/checkbox';
 import { MDCFormField } from '@material/form-field';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logRender } from '../../utils/debug-manager';
-import { FCheckbox } from '../../utils/components/f-checkbox/f-checkbox';
+import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 
 @Component({
     tag: 'kup-checkbox',

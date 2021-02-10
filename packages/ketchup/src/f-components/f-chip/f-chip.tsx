@@ -1,5 +1,5 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { ComponentChipElement } from '../../../components/kup-chip/kup-chip-declarations';
+import { ComponentChipElement } from '../../components/kup-chip/kup-chip-declarations';
 import { FImage } from '../f-image/f-image';
 
 interface Props {

@@ -14,7 +14,7 @@ import { MDCChipSet } from '@material/chips';
 import { ComponentChipElement } from './kup-chip-declarations';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { FChip } from '../../utils/components/f-chip/f-chip';
+import { FChip } from '../../f-components/f-chip/f-chip';
 
 @Component({
     tag: 'kup-chip',
