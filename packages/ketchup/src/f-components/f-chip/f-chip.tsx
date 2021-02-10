@@ -4,14 +4,15 @@ import { FImage } from '../f-image/f-image';
 
 interface Props {
     data?: ComponentChipElement[];
+    id?: string;
     type?: string;
 }
 
-export const FChip: FunctionalComponent<Props> = ({ data, type }) => {
+export const FChip: FunctionalComponent<Props> = ({ data, id, type }) => {
     let MDCClass: string = setMDCClass(type);
 
     return (
-        <div class="f-chip--wrapper">
+        <div id={id} class="f-chip--wrapper">
             <div class={MDCClass} role="grid">
                 {createChipList(data, type)}
             </div>

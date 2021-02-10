@@ -168,7 +168,6 @@ Type: `Promise<void>`
 - [kup-radio](../kup-radio)
 - [kup-paginator](../kup-paginator)
 - [kup-combobox](../kup-combobox)
-- [kup-chip](../kup-chip)
 - [kup-badge](../kup-badge)
 
 ### Graph
@@ -189,7 +188,6 @@ graph TD;
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
-  kup-data-table --> kup-chip
   kup-data-table --> kup-badge
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button

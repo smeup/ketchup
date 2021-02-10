@@ -143,6 +143,7 @@ import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallba
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FImage } from '../../f-components/f-image/f-image';
+import { MDCChipSet } from '@material/chips';
 
 @Component({
     tag: 'kup-data-table',
@@ -1028,6 +1029,28 @@ export class KupDataTable {
         return count;
     }
 
+    private setChipEvents() {
+        const root = this.rootElement.shadowRoot;
+        if (root) {
+            let groupChip = root.querySelector('#group-chips');
+            if (groupChip) {
+                const chipSetEl = groupChip.querySelector('.mdc-chip-set');
+                if (chipSetEl) {
+                    new MDCChipSet(chipSetEl);
+                }
+                let chips = root.querySelectorAll('.mdc-chip');
+                for (let index = 0; index < chips.length; index++) {
+                    let cancelIcon: HTMLElement = chips[index].querySelector(
+                        '.mdc-chip__icon.clear'
+                    );
+                    if (cancelIcon) {
+                        cancelIcon.onclick = () => this.removeGroup(index);
+                    }
+                }
+            }
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -1073,6 +1096,7 @@ export class KupDataTable {
         this.columnMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
+        this.setChipEvents();
 
         if (
             this.headerIsPersistent &&
@@ -4701,16 +4725,12 @@ export class KupDataTable {
                 }
             });
             if (chipsData.length > 0) {
-                groupChips = (
-                    <kup-chip
-                        id="group-chips"
-                        type="input"
-                        onKupChipIconClick={(e: CustomEvent) =>
-                            this.removeGroup(e.detail.index)
-                        }
-                        data={chipsData}
-                    ></kup-chip>
-                );
+                let props = {
+                    data: chipsData,
+                    id: 'group-chips',
+                    type: 'input',
+                };
+                groupChips = <FChip {...props}></FChip>;
             }
         }
         const tableClass = {
