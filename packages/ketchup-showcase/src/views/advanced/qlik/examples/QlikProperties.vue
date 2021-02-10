@@ -1,26 +1,26 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <div v-for="propertys in qlikProps" :key="propertys.property">
+      <div v-for="prop in qlikProps" :key="prop.property">
         <ul>
           <li>
-            <span class="code-word">{{propertys.property}}</span>: {{propertys.description}}
+            <span class="code-word">{{prop.property}}</span>: {{prop.description}}
             <br>
             <a 
-              v-if="propertys.property == 'appid'" 
+              v-if="prop.property == 'appid'" 
               href="https://support.qlik.com/articles/000026239" 
               target="_blank">
               For more information
             </a>
             <a 
-              v-if="propertys.property == 'grid'" 
+              v-if="prop.property == 'grid'" 
               href="https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm"
               target="_blank">
-              For mor information
+              For more information
             </a>
             <br>
-            <span class="code-word" v-if="propertys.type !== ''">Type: {{ propertys.type }}</span>
-            <div v-if="propertys.property == 'config'">
+            <span class="code-word" v-if="prop.type !== ''">Type: {{ prop.type }}</span>
+            <div v-if="prop.property == 'config'">
               <br>
               <p class="centered">Sample config</p>
               <code class="flat">{{ configCode }}<br /></code>
@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: 'QlikPropertys',
+  name: 'QlikProperties',
   data() {
     return {
       qlikProps: [
