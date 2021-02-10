@@ -3808,6 +3808,7 @@ export class KupDataTable {
         classObj[cellType + '-cell'] = true;
 
         if (
+            cellType === 'checkbox' ||
             cellType === 'date' ||
             cellType === 'icon' ||
             cellType === 'image' ||
@@ -3964,6 +3965,7 @@ export class KupDataTable {
 
     private setCellSize(cellType: string, props: any, cell: Cell) {
         switch (cellType) {
+            case 'checkbox':
             case 'icon':
                 if (!props.sizeX) {
                     props['sizeX'] = '18px';
@@ -4084,12 +4086,6 @@ export class KupDataTable {
             case 'chart':
                 classObj['is-centered'] = true;
                 return <kup-chart {...props} />;
-            case 'checkbox':
-                classObj['is-centered'] = true;
-                props['resource'] = props.checked
-                    ? 'check_box'
-                    : 'check_box_outline_blank';
-                return <FImage {...props} />;
             case 'chips':
                 return <FChip {...props} />;
             case 'color-picker':
@@ -4135,6 +4131,12 @@ export class KupDataTable {
         column: Column
     ) {
         switch (cellType) {
+            case 'checkbox':
+                classObj['is-centered'] = true;
+                props['resource'] = props.checked
+                    ? 'check_box'
+                    : 'check_box_outline_blank';
+                return <FImage {...props} />;
             case 'date':
                 if (content && content != '') {
                     const cellValue = getCellValueForDisplay(column, cell);
