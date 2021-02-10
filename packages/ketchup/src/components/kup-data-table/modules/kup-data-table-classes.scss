@@ -1,15 +1,7 @@
 //--------------------------------//
 // Component classes              //
 //--------------------------------//
-:host(.layout-fixed) {
-  #kup-component table {
-    table-layout: fixed;
-    width: 100%;
-  }
-}
-
-//TODO: Used "hydrated" because it's always present. Replace with accurate class when this setting will be optional.
-:host(.hydrated) {
+:host(.cross-selection) {
   #kup-component {
     th.selected {
       box-shadow: inset 0px 4px 0px 0px var(--kup-secondary-color);
@@ -62,6 +54,13 @@
         }
       }
     }
+  }
+}
+
+:host(.layout-fixed) {
+  #kup-component table {
+    table-layout: fixed;
+    width: 100%;
   }
 }
 
