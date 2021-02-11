@@ -10,17 +10,17 @@
       </p>
       <br />
       <div class="demo-container">
-        <div class="kup-container" style="width: 100%; margin: 2rem 0;">
+        <div class="kup-container" style="width: 100%; margin: 2rem 0">
           <kup-progress-bar
             icon="widgets"
             is-radial
             value="0.1"
-            style="width: 25%; margin: auto;"
+            style="width: 25%; margin: auto"
           ></kup-progress-bar>
           <kup-progress-bar
             is-radial
             value="99.9"
-            style="width: 25%; margin: auto;"
+            style="width: 25%; margin: auto"
           ></kup-progress-bar>
         </div>
         <p class="centered">Sample radial markup</p>

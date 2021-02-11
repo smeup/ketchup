@@ -2,13 +2,13 @@
   <div>
     <div class="demo-wrapper">
       <p> The Qlik component output: </p>
-      <img :src="schermata" style="width: 606px"/>
-      <br>
-      <br>
+      <img :src="schermata" style="width: 606px" />
+      <br />
+      <br />
       <p> Large Graph: </p>
       <img :src="graficoLarge" />
-      <br>
-      <br>
+      <br />
+      <br />
       <p> Grid: </p>
       <img :src="griglia" />
     </div>

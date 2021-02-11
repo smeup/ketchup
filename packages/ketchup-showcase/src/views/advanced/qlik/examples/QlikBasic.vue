@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p>
-        Coming Soon...
-      </p>
+      <p> Coming Soon... </p>
       <br />
       <br />
     </div>
@@ -14,8 +12,7 @@
 export default {
   name: 'QlikBasic',
   data() {
-    return {
-    };
+    return {};
   },
 };
 </script>

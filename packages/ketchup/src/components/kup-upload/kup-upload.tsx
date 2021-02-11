@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, h , Prop} from '@stencil/core';
+import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import { UploadProps } from './kup-upload-declarations';
 
 /**
@@ -13,7 +13,6 @@ import { UploadProps } from './kup-upload-declarations';
     shadow: true,
 })
 export class KupUpload {
-
     /**
      */
     @Prop() typeOptions: UploadProps;
@@ -82,10 +81,10 @@ export class KupUpload {
      * @todo Remove the usage of innerHTML and use the document create element API to create the structure, even if it means more code.
      */
     componentWillLoad() {
-      const moduleName = 'vaadin-upload-module-name';
-      if (!document.getElementById(moduleName)) {
-        const elem = document.createElement('div');
-        elem.innerHTML = `<dom-module id="${moduleName}" theme-for="vaadin-upload">
+        const moduleName = 'vaadin-upload-module-name';
+        if (!document.getElementById(moduleName)) {
+            const elem = document.createElement('div');
+            elem.innerHTML = `<dom-module id="${moduleName}" theme-for="vaadin-upload">
           <template>
             <style>
               [part="upload-button"] {
@@ -97,45 +96,50 @@ export class KupUpload {
             </style>
           </template>
         </dom-module>`;
-        document.body.insertBefore(elem, document.body.firstChild);
-      }
-    };
+            document.body.insertBefore(elem, document.body.firstChild);
+        }
+    }
 
     render() {
         const $DynamicComponent = 'vaadin-upload' as any;
         let confObj: { [key: string]: any } = {};
-        if (this.typeOptions.formDataName && this.typeOptions.formDataName.trim() != '') {
-            confObj.formDataName=this.typeOptions.formDataName;
+        if (
+            this.typeOptions.formDataName &&
+            this.typeOptions.formDataName.trim() != ''
+        ) {
+            confObj.formDataName = this.typeOptions.formDataName;
         }
         if (this.typeOptions.accept && this.typeOptions.accept.trim() != '') {
             //file extension must start with a dot
-            if (this.typeOptions.accept.indexOf('/') < 0 //mime
-                && !this.typeOptions.accept.startsWith('.')) {
-                confObj.accept= '.' + this.typeOptions.accept.trim();
+            if (
+                this.typeOptions.accept.indexOf('/') < 0 && //mime
+                !this.typeOptions.accept.startsWith('.')
+            ) {
+                confObj.accept = '.' + this.typeOptions.accept.trim();
             } else {
-                confObj.accept=this.typeOptions.accept.trim();
+                confObj.accept = this.typeOptions.accept.trim();
             }
         }
         //const droppable : any = this.typeOptions.drop;
         //if (!droppable || droppable=='false') {
         if (!this.typeOptions.drop) {
-            confObj.nodrop='true';
+            confObj.nodrop = 'true';
         }
         //const multiFile : any = this.typeOptions.multi;
         //if (!multiFile || multiFile=='false') {
         if (!this.typeOptions.multi) {
-            confObj.maxFiles='1';
+            confObj.maxFiles = '1';
         }
         //const confirmUpl : any = this.typeOptions.confirm;
         //if (confirmUpl || confirmUpl=='true') {
         if (this.typeOptions.confirm) {
-            confObj.noAuto='true'; //manually confirm upload
+            confObj.noAuto = 'true'; //manually confirm upload
         }
         if (this.typeOptions.maxSize && this.typeOptions.maxSize > 0) {
-            confObj.maxFileSize= this.typeOptions.maxSize * 1000; // KB -> Bytes
+            confObj.maxFileSize = this.typeOptions.maxSize * 1000; // KB -> Bytes
         }
         if (this.typeOptions.service && this.typeOptions.service.trim() != '') {
-            confObj.target=this.typeOptions.service.trim();
+            confObj.target = this.typeOptions.service.trim();
         }
         if (this.typeOptions.label && this.typeOptions.label.trim() != '') {
             //confObj.i18n={"dropFiles":{"one":"Trascina qui","many":"Trascina qui"},"addFiles":{"one":"Sfoglia...","many":"Sfoglia..."},"cancel":"Annulla","error":{"tooManyFiles":"Too Many Files.","fileIsTooBig":"File is Too Big.","incorrectFileType":"Incorrect File Type."},"uploading":{"status":{"connecting":"Connecting...","stalled":"Bloccato.","processing":"Processing File...","held":"In coda"},"remainingTime":{"prefix":"remaining time: ","unknown":"unknown remaining time"},"error":{"serverUnavailable":"Server non raggiungibile","unexpectedServerError":"Errore nel caricamento","forbidden":"Permesso negato"}},"units":{"size":["B","kB","MB","GB","TB","PB","EB","ZB","YB"]}};
@@ -173,7 +177,7 @@ export class KupUpload {
                 },
                 units: {
                     size: ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-                }
+                },
             };
         }
         /*
@@ -204,25 +208,23 @@ export class KupUpload {
             ]
             }
         */
-       /*
+        /*
        file-reject
                     {
                     message: ev.detail.xhr.response,
                 }
        */
         return (
-          <$DynamicComponent
-            {...confObj}
-            onUpload-error={(ev) => {
-                //console.log('upload error', ev);
-                this.ketchupFileRejected.emit(ev.detail.xhr.response);
-                }
-            }
-            onUpload-success={(ev) => {
-                //console.log('upload success', ev);
-                this.ketchupFileUploaded.emit(ev.detail.xhr.response);
-                }
-            }
+            <$DynamicComponent
+                {...confObj}
+                onUpload-error={(ev) => {
+                    //console.log('upload error', ev);
+                    this.ketchupFileRejected.emit(ev.detail.xhr.response);
+                }}
+                onUpload-success={(ev) => {
+                    //console.log('upload success', ev);
+                    this.ketchupFileUploaded.emit(ev.detail.xhr.response);
+                }}
             />
         );
     }

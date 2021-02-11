@@ -43,7 +43,7 @@
       this button to reflect your needs? The most basic approach is this one:
       <br />
     </p>
-    <div class="demo-container" style="padding: 3rem 0;">
+    <div class="demo-container" style="padding: 3rem 0">
       <code class="flat">{{ markupBlueButtonImportant }}</code>
     </div>
     <p>
@@ -58,7 +58,7 @@
       !important notations (almost every Ketch.UP component wrap its content
       inside a <span class="code-word">#kup-component</span> element):
     </p>
-    <div class="demo-container" style="padding: 3rem 0;">
+    <div class="demo-container" style="padding: 3rem 0">
       <code class="flat">{{ markupBlueButton }}</code>
     </div>
     <p>

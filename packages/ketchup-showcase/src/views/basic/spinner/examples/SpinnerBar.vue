@@ -8,7 +8,7 @@
       </p>
       <br />
       <div class="demo-container">
-        <div class="kup-container" style="height: 10vh; width: 100%;">
+        <div class="kup-container" style="height: 10vh; width: 100%">
           <kup-spinner active bar-variant disabled></kup-spinner>
         </div>
         <p class="centered">Disabled sample markup</p>
