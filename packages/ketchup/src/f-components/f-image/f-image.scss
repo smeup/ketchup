@@ -1,31 +1,33 @@
-.f-image--wrapper {
-  display: block;
-  margin: auto;
-  position: relative;
-  height: var(--f-image-height, 100%);
-  width: var(--f-image-width, 100%);
-
-  img {
+#kup-component {
+  .f-image--wrapper {
     display: block;
     margin: auto;
+    position: relative;
     height: var(--f-image-height, 100%);
     width: var(--f-image-width, 100%);
-  }
 
-  .f-image__css {
-    overflow: hidden;
-    height: var(--f-image-height, 100%);
-    width: var(--f-image-width, 100%);
-  }
+    img {
+      display: block;
+      margin: auto;
+      height: var(--f-image-height, 100%);
+      width: var(--f-image-width, 100%);
+    }
 
-  .f-image__icon {
-    margin: auto;
-    height: var(--f-image-height, 100%);
-    width: var(--f-image-width, 100%);
-  }
+    .f-image__css {
+      overflow: hidden;
+      height: var(--f-image-height, 100%);
+      width: var(--f-image-width, 100%);
+    }
 
-  .css-step.bottom-aligned {
-    bottom: 0;
-    position: absolute;
+    .f-image__icon {
+      margin: auto;
+      height: var(--f-image-height, 100%);
+      width: var(--f-image-width, 100%);
+    }
+
+    .css-step.bottom-aligned {
+      bottom: 0;
+      position: absolute;
+    }
   }
 }
