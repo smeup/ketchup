@@ -66,8 +66,8 @@ export class KupQlik {
     @Prop({ reflect: true }) grid: Array<KupQlikGrid> = [];
 
     /**
-     * Activate logging 
-     * Default false 
+     * Activate logging
+     * Default false
      */
     @Prop() debug: boolean = false;
 
@@ -198,15 +198,14 @@ export class KupQlik {
     }
 
     componentDidRender() {
-        if(this.debug){
+        if (this.debug) {
             console.log('Grid', this.grid);
         }
         if (this.qlik) {
             if (this.appid != '' && !this.app) {
                 this.app = this.qlik.openApp(this.appid, this.config);
-            }
-            else{
-                if(this.debug){
+            } else {
+                if (this.debug) {
                     console.log('App already open:', this.app);
                 }
             }

@@ -141,6 +141,9 @@ import { dragMultipleImg } from '../../assets/images/drag-multiple';
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
+import { FChip } from '../../f-components/f-chip/f-chip';
+import { FImage } from '../../f-components/f-image/f-image';
+import { MDCChipSet } from '@material/chips';
 
 @Component({
     tag: 'kup-data-table',
@@ -880,15 +883,19 @@ export class KupDataTable {
             entries: ResizeObserverEntry[]
         ) => {
             entries.forEach((entry) => {
-                logMessage(
-                    this,
-                    'Size changed to x: ' +
-                        entry.contentRect.width +
-                        ', y: ' +
-                        entry.contentRect.height +
-                        '.'
-                );
-                if (entry.contentRect.height && entry.contentRect.width) {
+                if (
+                    entry.contentRect.height &&
+                    entry.contentRect.width &&
+                    this.lazyLoadCells
+                ) {
+                    logMessage(
+                        this,
+                        'Size changed to x: ' +
+                            entry.contentRect.width +
+                            ', y: ' +
+                            entry.contentRect.height +
+                            '.'
+                    );
                     window.clearTimeout(this.resizeTimeout);
                     this.resizeTimeout = window.setTimeout(
                         () => this.forceUpdate(),
@@ -1022,6 +1029,28 @@ export class KupDataTable {
         return count;
     }
 
+    private setChipEvents() {
+        const root = this.rootElement.shadowRoot;
+        if (root) {
+            let groupChip = root.querySelector('#group-chips');
+            if (groupChip) {
+                const chipSetEl = groupChip.querySelector('.mdc-chip-set');
+                if (chipSetEl) {
+                    new MDCChipSet(chipSetEl);
+                }
+                let chips = root.querySelectorAll('.mdc-chip');
+                for (let index = 0; index < chips.length; index++) {
+                    let cancelIcon: HTMLElement = chips[index].querySelector(
+                        '.mdc-chip__icon.clear'
+                    );
+                    if (cancelIcon) {
+                        cancelIcon.onclick = () => this.removeGroup(index);
+                    }
+                }
+            }
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -1067,6 +1096,7 @@ export class KupDataTable {
         this.columnMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
+        this.setChipEvents();
 
         if (
             this.headerIsPersistent &&
@@ -3801,8 +3831,26 @@ export class KupDataTable {
         let props: any = { ...cell.data };
         classObj[cellType + '-cell'] = true;
 
-        if (cell.data) {
+        if (
+            cellType === 'checkbox' ||
+            cellType === 'date' ||
+            cellType === 'icon' ||
+            cellType === 'image' ||
+            cellType === 'link' ||
+            cellType === 'number' ||
+            cellType === 'string'
+        ) {
             this.setCellSize(cellType, props, cell);
+            content = this.setCell(
+                cellType,
+                props,
+                content,
+                classObj,
+                cell,
+                column
+            );
+        } else if (cell.data) {
+            this.setCellSizeKup(cellType, props, cell);
             if (!this.lazyLoadCells) {
                 content = this.setLazyKupCell(cellType, props);
             } else {
@@ -3815,8 +3863,6 @@ export class KupDataTable {
                     column
                 );
             }
-        } else {
-            content = this.setCell(cellType, content, classObj, cell, column);
         }
 
         let style = cell.style;
@@ -3943,6 +3989,37 @@ export class KupDataTable {
 
     private setCellSize(cellType: string, props: any, cell: Cell) {
         switch (cellType) {
+            case 'checkbox':
+            case 'icon':
+                if (!props.sizeX) {
+                    props['sizeX'] = '18px';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '18px';
+                }
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = props['sizeY'];
+                    }
+                } else {
+                    cell.style = {
+                        minHeight: props['sizeY'],
+                    };
+                }
+                break;
+            case 'image':
+                if (!props.sizeX) {
+                    props['sizeX'] = 'auto';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '64px';
+                }
+                break;
+        }
+    }
+
+    private setCellSizeKup(cellType: string, props: any, cell: Cell) {
+        switch (cellType) {
             case 'bar':
                 if (!props.sizeY) {
                     props['sizeY'] = '26px';
@@ -3986,32 +4063,6 @@ export class KupDataTable {
                     cell.style = { minHeight: '53px' };
                 }
                 break;
-            case 'checkbox':
-            case 'icon':
-                if (!props.sizeX) {
-                    props['sizeX'] = '18px';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '18px';
-                }
-                if (cell.style) {
-                    if (!cell.style.height) {
-                        cell.style['minHeight'] = props['sizeY'];
-                    }
-                } else {
-                    cell.style = {
-                        minHeight: props['sizeY'],
-                    };
-                }
-                break;
-            case 'image':
-                if (!props.sizeX) {
-                    props['sizeX'] = 'auto';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '64px';
-                }
-                break;
             case 'radio':
                 if (cell.style) {
                     if (!cell.style.height) {
@@ -4037,53 +4088,12 @@ export class KupDataTable {
                 if (!props.data) {
                     return <kup-image {...props} />;
                 } else {
-                    //This code replaces <kup-image> because of performance-related issues, but uses its props
-                    const cssDraw = props.data;
-                    let steps: JSX.Element[] = [];
-                    let leftProgression: number = 0;
-
-                    for (let i = 0; i < props.data.length; i++) {
-                        let drawStep: JSX.Element = undefined;
-
-                        if (!cssDraw[i].shape) {
-                            cssDraw[i].shape = 'bar';
-                        }
-                        if (!cssDraw[i].color) {
-                            cssDraw[i].color = 'transparent';
-                        }
-                        if (!cssDraw[i].height) {
-                            cssDraw[i].height = '100%';
-                        }
-                        if (!cssDraw[i].width) {
-                            cssDraw[i].width = '100%';
-                        }
-
-                        let stepId: string = 'step-' + i;
-                        let stepClass: string = 'css-step bottom-aligned';
-                        let stepStyle: any = {
-                            backgroundColor: cssDraw[i].color,
-                            left: leftProgression + '%',
-                            height: cssDraw[i].height,
-                            width: cssDraw[i].width,
-                        };
-
-                        leftProgression += parseFloat(cssDraw[i].width);
-
-                        drawStep = (
-                            <span
-                                id={stepId}
-                                class={stepClass}
-                                style={stepStyle}
-                            ></span>
-                        );
-                        steps.push(drawStep);
-                    }
                     let barStyle = {
                         height: props.sizeY,
                     };
                     return (
                         <div class="bar-cell-content" style={barStyle}>
-                            {steps}
+                            <FImage {...props} />
                         </div>
                     );
                 }
@@ -4100,32 +4110,8 @@ export class KupDataTable {
             case 'chart':
                 classObj['is-centered'] = true;
                 return <kup-chart {...props} />;
-            case 'checkbox':
-                classObj['is-centered'] = true;
-                let iconStyle = {
-                    mask: props.checked
-                        ? `url('${getAssetPath(
-                              `./assets/svg/check_box.svg`
-                          )}') no-repeat center`
-                        : `url('${getAssetPath(
-                              `./assets/svg/check_box_outline_blank.svg`
-                          )}') no-repeat center`,
-                    background: props.color
-                        ? props.color
-                        : 'var(--kup-icon-color)',
-                    webkitMask: props.checked
-                        ? `url('${getAssetPath(
-                              `./assets/svg/check_box.svg`
-                          )}') no-repeat center`
-                        : `url('${getAssetPath(
-                              `./assets/svg/check_box_outline_blank.svg`
-                          )}') no-repeat center`,
-                };
-                return (
-                    <div class="checkbox-cell-content" style={iconStyle}></div>
-                );
             case 'chips':
-                return <kup-chip {...props}></kup-chip>;
+                return <FChip {...props} />;
             case 'color-picker':
                 return (
                     <kup-color-picker
@@ -4143,50 +4129,6 @@ export class KupDataTable {
                     ></kup-gauge>
                 );
             case 'knob':
-                return (
-                    <kup-progress-bar
-                        class="cell-progress-bar"
-                        value={stringToNumber(cell.value)}
-                        {...props}
-                    ></kup-progress-bar>
-                );
-            case 'icon':
-            case 'image':
-                //This code replaces <kup-image> because of performance-related issues, but uses its props
-                classObj['is-centered'] = true;
-                if (props.badgeData) {
-                    classObj['has-padding'] = true;
-                }
-                if (
-                    props.resource.indexOf('.') > -1 ||
-                    props.resource.indexOf('/') > -1 ||
-                    props.resource.indexOf('\\') > -1
-                ) {
-                    let iconStyle = {
-                        height: props.sizeY,
-                        width: props.sizeX,
-                    };
-                    return (
-                        <div class="image-cell-content" style={iconStyle}>
-                            <img style={iconStyle} src={props.resource}></img>
-                        </div>
-                    );
-                } else {
-                    let iconStyle = {
-                        mask: `url('${getAssetPath(
-                            `./assets/svg/${props.resource}.svg`
-                        )}') no-repeat center`,
-                        background: props.color
-                            ? props.color
-                            : 'var(--kup-icon-color)',
-                        webkitMask: `url('${getAssetPath(
-                            `./assets/svg/${props.resource}.svg`
-                        )}') no-repeat center`,
-                    };
-                    return (
-                        <div class="icon-cell-content" style={iconStyle}></div>
-                    );
-                }
             case 'progress-bar':
                 return <kup-progress-bar {...props}></kup-progress-bar>;
             case 'rating':
@@ -4206,12 +4148,38 @@ export class KupDataTable {
 
     private setCell(
         cellType: string,
+        props: any,
         content: string,
         classObj: Record<string, boolean>,
         cell: Cell,
         column: Column
     ) {
         switch (cellType) {
+            case 'checkbox':
+                classObj['is-centered'] = true;
+                props['resource'] = props.checked
+                    ? 'check_box'
+                    : 'check_box_outline_blank';
+                return <FImage {...props} />;
+            case 'date':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(column, cell);
+                    return cellValue;
+                }
+                return content;
+            case 'datetime':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(column, cell);
+                    return cellValue;
+                }
+                return content;
+            case 'icon':
+            case 'image':
+                classObj['is-centered'] = true;
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                return <FImage {...props} />;
             case 'link':
                 return (
                     <a class="cell-link" href={content} target="_blank">
@@ -4225,18 +4193,6 @@ export class KupDataTable {
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;
                     }
-                    return cellValue;
-                }
-                return content;
-            case 'date':
-                if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(column, cell);
-                    return cellValue;
-                }
-                return content;
-            case 'datetime':
-                if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(column, cell);
                     return cellValue;
                 }
                 return content;
@@ -4769,16 +4725,12 @@ export class KupDataTable {
                 }
             });
             if (chipsData.length > 0) {
-                groupChips = (
-                    <kup-chip
-                        id="group-chips"
-                        type="input"
-                        onKupChipIconClick={(e: CustomEvent) =>
-                            this.removeGroup(e.detail.index)
-                        }
-                        data={chipsData}
-                    ></kup-chip>
-                );
+                let props = {
+                    data: chipsData,
+                    id: 'group-chips',
+                    type: 'input',
+                };
+                groupChips = <FChip {...props}></FChip>;
             }
         }
         const tableClass = {

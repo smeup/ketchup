@@ -508,41 +508,20 @@ tr {
   width: 100%;
 }
 
-.css-step.bottom-aligned {
-  bottom: 0;
-  position: absolute;
-}
-
-.checkbox-cell-content,
-.icon-cell-content {
-  margin: auto;
-  position: relative;
-  transition: color 0.2s ease 0s;
-  height: 100%;
-  width: 100%;
-  display: block;
-  min-height: 18px;
-  min-width: 18px;
-}
-
-.image-cell-content {
-  margin: auto;
-}
-
 //Temporary removal of borders inside cells: they should be applied only to <td> elements
 //TODO: Improve styling interface with data-table inside client apps
 tbody td > * {
   border: none !important;
 }
 
-.overlay-action {
+.icon-container.overlay-action {
   display: none;
   position: absolute;
   top: 0.5em;
   left: calc(50% - 0.625em);
 }
 
-th:hover .overlay-action {
+th:hover .icon-container.overlay-action {
   display: block;
 }
 

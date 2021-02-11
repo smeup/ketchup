@@ -1,4 +1,5 @@
 import { h } from '@stencil/core';
+import { FImage } from '../../../f-components/f-image/f-image';
 import { KupCard } from '../kup-card';
 
 export function create1(component: KupCard) {
@@ -17,11 +18,12 @@ export function create1(component: KupCard) {
             <div class="mdc-ripple-surface">
                 <div class="section-1">
                     {component.data['image1'] && (
-                        <kup-image
-                            customStyle="img {border-radius: 4px 4px 0 0; object-fit: cover;}"
-                            id="image1"
+                        <FImage
                             {...component.data['image1']}
-                        ></kup-image>
+                            id="image1"
+                            sizeX="100%"
+                            sizeY="100%"
+                        ></FImage>
                     )}
                 </div>
                 <div class="section-2">
@@ -65,11 +67,12 @@ export function create2(component: KupCard) {
             <div class="mdc-ripple-surface">
                 <div class="section-2">
                     {component.data['image1'] && (
-                        <kup-image
-                            customStyle="img {object-fit: cover;}"
-                            id="image1"
+                        <FImage
                             {...component.data['image1']}
-                        ></kup-image>
+                            id="image1"
+                            sizeX="100%"
+                            sizeY="100%"
+                        ></FImage>
                     )}
                 </div>
                 <div class="section-3">
@@ -100,11 +103,12 @@ export function create3(component: KupCard) {
                 <div class="section-1">
                     <div class="media">
                         {component.data['image1'] && (
-                            <kup-image
-                                customStyle="img {object-fit: cover;}"
-                                id="image1"
+                            <FImage
                                 {...component.data['image1']}
-                            ></kup-image>
+                                id="image1"
+                                sizeX="100%"
+                                sizeY="100%"
+                            ></FImage>
                         )}
                         <div class="text-on-media">
                             <div class="sub-1 title">
@@ -144,11 +148,12 @@ export function create4(component: KupCard) {
                 <div class="section-1">
                     <div class="sub-1 image">
                         {component.data['image1'] && (
-                            <kup-image
-                                customStyle="img {object-fit: cover;}"
-                                id="image1"
+                            <FImage
                                 {...component.data['image1']}
-                            ></kup-image>
+                                id="image1"
+                                sizeX="100%"
+                                sizeY="100%"
+                            ></FImage>
                         )}
                     </div>
                     <div class="text">
@@ -178,11 +183,12 @@ export function create5(component: KupCard) {
             <div class="section-2">
                 <div class="sub-2 icon">
                     {component.data['image1'] && (
-                        <kup-image
-                            id="image1"
-                            customStyle="img {object-fit: contain;}"
+                        <FImage
                             {...component.data['image1']}
-                        ></kup-image>
+                            id="image1"
+                            sizeX="100%"
+                            sizeY="100%"
+                        ></FImage>
                     )}
                 </div>
                 <div class="sub-2 text">
@@ -191,11 +197,12 @@ export function create5(component: KupCard) {
                 </div>
                 <div class="sub-2 image">
                     {component.data['image2'] && (
-                        <kup-image
-                            id="image2"
-                            customStyle="img {object-fit: contain;}"
+                        <FImage
                             {...component.data['image2']}
-                        ></kup-image>
+                            id="image2"
+                            sizeX="100%"
+                            sizeY="100%"
+                        ></FImage>
                     )}
                 </div>
             </div>
@@ -278,11 +285,12 @@ export function create7(component: KupCard) {
             <div class="section-2">
                 <div class="sub-2 image">
                     {component.data['image1'] && (
-                        <kup-image
-                            id="image1"
-                            customStyle="img { object-fit: contain; margin: auto;}"
+                        <FImage
                             {...component.data['image1']}
-                        ></kup-image>
+                            id="image1"
+                            sizeX="100%"
+                            sizeY="100%"
+                        ></FImage>
                     )}
                 </div>
                 <div class="sub-2 text">
@@ -315,13 +323,13 @@ export function create8(component: KupCard) {
                 <div class="sub-3">
                     <div class="image">
                         {component.data['image1'] && (
-                            <kup-image
-                                id="image1"
+                            <FImage
+                                {...component.data['image1']}
                                 color={component.data['color1']}
+                                id="image1"
                                 sizeX="24px"
                                 sizeY="24px"
-                                {...component.data['image1']}
-                            ></kup-image>
+                            ></FImage>
                         )}
                     </div>
                     <div class="text">{component.data['text3']}</div>
@@ -355,14 +363,13 @@ export function create9(component: KupCard) {
                 <div class="sub-2">
                     <div class="icon">
                         {component.data['image1'] && (
-                            <kup-image
-                                sizeX="3rem"
-                                sizeY="3rem"
+                            <FImage
+                                {...component.data['image1']}
                                 color={component.data['color1']}
                                 id="image1"
-                                customStyle="img {object-fit: contain;}"
-                                {...component.data['image1']}
-                            ></kup-image>
+                                sizeX="3em"
+                                sizeY="3em"
+                            ></FImage>
                         )}
                     </div>
                     <div class="text-wrapper">
@@ -411,14 +418,13 @@ export function create10(component: KupCard) {
                 <div class="sub-2">
                     <div class="icon">
                         {component.data['image1'] && (
-                            <kup-image
-                                sizeX="3rem"
-                                sizeY="3rem"
+                            <FImage
+                                {...component.data['image1']}
                                 color={component.data['color1']}
                                 id="image1"
-                                customStyle="img {object-fit: contain;}"
-                                {...component.data['image1']}
-                            ></kup-image>
+                                sizeX="3em"
+                                sizeY="3em"
+                            ></FImage>
                         )}
                     </div>
                     <div class="text-wrapper">
@@ -463,14 +469,13 @@ export function create11(component: KupCard) {
                 <div class="sub-2">
                     <div class="icon">
                         {component.data['image1'] && (
-                            <kup-image
-                                sizeX="3rem"
-                                sizeY="3rem"
+                            <FImage
+                                {...component.data['image1']}
                                 color={component.data['color1']}
                                 id="image1"
-                                customStyle="img {object-fit: contain;}"
-                                {...component.data['image1']}
-                            ></kup-image>
+                                sizeX="3em"
+                                sizeY="3em"
+                            ></FImage>
                         )}
                     </div>
                     <div class="text-wrapper">

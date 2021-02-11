@@ -231,10 +231,10 @@ export class KupGauge {
         // mathematical operations
         this.maxValuePositive = Math.abs(this.minValue - this.maxValue);
         let tempValue = this.value;
-        if(this.value > this.maxValue){
+        if (this.value > this.maxValue) {
             this.value = this.maxValue;
         }
-        if(this.value < this.minValue){
+        if (this.value < this.minValue) {
             this.value = this.minValue;
         }
 
@@ -356,7 +356,11 @@ export class KupGauge {
                                       x={topX}
                                       y={topY}
                                   >
-                                      {unformattedStringToFormattedStringNumber(String(threshold), -1, '')}
+                                      {unformattedStringToFormattedStringNumber(
+                                          String(threshold),
+                                          -1,
+                                          ''
+                                      )}
                                   </text>
                               );
                           }
@@ -376,7 +380,11 @@ export class KupGauge {
                                       x={topX}
                                       y={topY}
                                   >
-                                      {unformattedStringToFormattedStringNumber(String(threshold), -1, '')}
+                                      {unformattedStringToFormattedStringNumber(
+                                          String(threshold),
+                                          -1,
+                                          ''
+                                      )}
                                   </text>
                               );
                           }
@@ -396,7 +404,13 @@ export class KupGauge {
                     y={valueLabelYPosition}
                     style={style}
                 >
-                    {unformattedStringToFormattedStringNumber(String(tempValue), -1, '') + ' ' + this.measurementUnit}
+                    {unformattedStringToFormattedStringNumber(
+                        String(tempValue),
+                        -1,
+                        ''
+                    ) +
+                        ' ' +
+                        this.measurementUnit}
                 </text>
             );
         }

@@ -38,10 +38,13 @@
       flex: 0 0 10%;
       max-width: 10%;
 
-      kup-image {
+      #image1 {
         box-sizing: border-box;
         margin: auto;
         padding: 0 20%;
+        img {
+          object-fit: contain;
+        }
       }
     }
 
@@ -61,10 +64,13 @@
       padding: 1.5vh 0;
       max-width: 20%;
 
-      kup-image {
+      #image2 {
         box-sizing: border-box;
         margin: auto;
         padding: 0 10%;
+        img {
+          object-fit: contain;
+        }
       }
     }
 

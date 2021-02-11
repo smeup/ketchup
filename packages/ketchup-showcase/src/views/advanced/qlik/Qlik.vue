@@ -9,7 +9,7 @@
       </template>
       <template v-slot:2>
         <qlik-examples></qlik-examples>
-      </template>  
+      </template>
     </comp>
   </div>
 </template>
@@ -18,14 +18,13 @@
 import QlikBasic from './examples/QlikBasic';
 import QlikExamples from './examples/QlikExamples';
 import QlikPropertys from './examples/QlikPropertys';
-import Comp from '../page/templates/Comp'
+import Comp from '../page/templates/Comp';
 export default {
   components: {
     QlikBasic,
     QlikExamples,
     QlikPropertys,
-    Comp
-
+    Comp,
   },
   data() {
     return {
