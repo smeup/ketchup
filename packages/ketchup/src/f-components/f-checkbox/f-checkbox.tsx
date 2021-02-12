@@ -6,7 +6,6 @@ interface Props {
     indeterminate?: boolean;
     label?: string;
     leadingLabel?: boolean;
-    value?: string;
 }
 
 export const FCheckbox: FunctionalComponent<Props> = ({
@@ -15,7 +14,6 @@ export const FCheckbox: FunctionalComponent<Props> = ({
     indeterminate,
     label,
     leadingLabel,
-    value,
 }) => {
     let formClass: string = 'mdc-form-field';
     let componentClass: string = 'mdc-checkbox';
@@ -48,7 +46,7 @@ export const FCheckbox: FunctionalComponent<Props> = ({
                         checked={checked}
                         disabled={disabled}
                         {...indeterminateAttr}
-                        value={value}
+                        value={checked ? 'on' : 'off'}
                     />
                     <div class="mdc-checkbox__background">
                         <svg

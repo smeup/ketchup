@@ -1239,7 +1239,7 @@ export namespace Components {
          */
         "config": QlikServer;
         /**
-          * Activate logging  Default false
+          * Activate logging Default false
          */
         "debug": boolean;
         /**
@@ -3512,7 +3512,7 @@ declare namespace LocalJSX {
          */
         "config"?: QlikServer;
         /**
-          * Activate logging  Default false
+          * Activate logging Default false
          */
         "debug"?: boolean;
         /**

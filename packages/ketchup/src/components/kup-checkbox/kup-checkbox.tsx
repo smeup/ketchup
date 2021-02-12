@@ -213,7 +213,6 @@ export class KupCheckbox {
             indeterminate: this.indeterminate,
             label: this.label,
             leadingLabel: this.leadingLabel,
-            value: this.value,
         };
         return (
             <Host>

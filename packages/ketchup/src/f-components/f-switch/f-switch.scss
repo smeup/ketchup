@@ -1,0 +1,33 @@
+@import '@material/switch/mdc-switch';
+@import '@material/form-field/mdc-form-field';
+
+#kup-component {
+  .f-switch--wrapper {
+    .mdc-form-field {
+      line-height: 2em;
+
+      &.mdc-form-field--align-end {
+        & .mdc-switch {
+          margin: 0 1em 0 1.5em;
+        }
+      }
+    }
+    .mdc-switch {
+      margin: 0 1.5em 0 1em;
+      &:not(.mdc-switch--checked) .mdc-switch__thumb {
+        background-color: var(--kup-border-color);
+        border-color: var(--kup-border-color);
+      }
+      &:not(.mdc-switch--checked) .mdc-switch__track {
+        background-color: rgba(var(--kup-border-color-rgb), 0.75);
+      }
+      &.mdc-switch--disabled {
+        opacity: 0.5;
+      }
+    }
+    label {
+      color: var(--kup-text-color);
+      font-family: var(--kup-font-family);
+    }
+  }
+}

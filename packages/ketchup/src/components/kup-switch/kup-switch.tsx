@@ -13,6 +13,7 @@ import { MDCSwitch } from '@material/switch';
 import { MDCFormField } from '@material/form-field';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logRender } from '../../utils/debug-manager';
+import { FSwitch } from '../../f-components/f-switch/f-switch';
 
 @Component({
     tag: 'kup-switch',
@@ -23,7 +24,6 @@ export class KupSwitch {
     @Element() rootElement: HTMLElement;
     @State() value: string = '';
     @State() customStyleTheme: string = undefined;
-
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
      */
@@ -163,6 +163,19 @@ export class KupSwitch {
         const root = this.rootElement.shadowRoot;
 
         if (root && !this.disabled) {
+            let inputEl = root.querySelector('input');
+            if (inputEl) {
+                inputEl.onblur = () => this.onKupBlur();
+                inputEl.onchange = () => this.onKupChange();
+                inputEl.onclick = () => this.onKupClick();
+                inputEl.onfocus = () => this.onKupFocus();
+                inputEl.oninput = () => this.onKupInput();
+            }
+            let labelEl = root.querySelector('label');
+            if (labelEl) {
+                labelEl.onclick = () => this.onKupClick();
+            }
+
             const component = MDCSwitch.attachTo(
                 root.querySelector('.mdc-switch')
             );
@@ -175,49 +188,18 @@ export class KupSwitch {
     }
 
     render() {
-        let formClass: string = 'mdc-form-field';
-        let componentClass: string = 'mdc-switch';
-        let componentLabel: string = this.label;
-        if (this.disabled) {
-            componentClass += ' mdc-switch--disabled';
-        }
-
-        if (this.checked) {
-            componentClass += ' mdc-switch--checked';
-        }
-
-        if (this.leadingLabel) {
-            formClass += ' mdc-form-field--align-end';
-        }
+        let props = {
+            checked: this.checked,
+            disabled: this.disabled,
+            label: this.label,
+            leadingLabel: this.leadingLabel,
+        };
 
         return (
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
-                    <div class={formClass}>
-                        <div class={componentClass}>
-                            <div class="mdc-switch__track"></div>
-                            <div class="mdc-switch__thumb-underlay">
-                                <div class="mdc-switch__thumb">
-                                    <input
-                                        type="checkbox"
-                                        id="switch-id"
-                                        class="mdc-switch__native-control"
-                                        role="switch"
-                                        checked={this.checked}
-                                        disabled={this.disabled}
-                                        value={this.value}
-                                        onBlur={() => this.onKupBlur()}
-                                        onChange={() => this.onKupChange()}
-                                        onClick={() => this.onKupClick()}
-                                        onFocus={() => this.onKupFocus()}
-                                        onInput={() => this.onKupInput()}
-                                    ></input>
-                                </div>
-                            </div>
-                        </div>
-                        <label htmlFor="switch-id">{componentLabel}</label>
-                    </div>
+                    <FSwitch {...props}></FSwitch>
                 </div>
             </Host>
         );
