@@ -182,6 +182,7 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-rating
   kup-tree --> kup-radio
+  kup-tree --> kup-tooltip
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
