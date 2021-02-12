@@ -5,7 +5,6 @@ interface Props {
     disabled?: boolean;
     label?: string;
     leadingLabel?: boolean;
-    value?: string;
 }
 
 export const FSwitch: FunctionalComponent<Props> = ({
@@ -13,7 +12,6 @@ export const FSwitch: FunctionalComponent<Props> = ({
     disabled,
     label,
     leadingLabel,
-    value,
 }) => {
     let formClass: string = 'mdc-form-field';
     let componentClass: string = 'mdc-switch';
@@ -32,24 +30,26 @@ export const FSwitch: FunctionalComponent<Props> = ({
     }
 
     return (
-        <div class={formClass}>
-        <div class={componentClass}>
-            <div class="mdc-switch__track"></div>
-            <div class="mdc-switch__thumb-underlay">
-                <div class="mdc-switch__thumb">
-                    <input
-                        type="checkbox"
-                        id="switch-id"
-                        class="mdc-switch__native-control"
-                        role="switch"
-                        checked={checked}
-                        disabled={disabled}
-                        value={value}
-                    ></input>
+        <div class="f-switch--wrapper">
+            <div class={formClass}>
+                <div class={componentClass}>
+                    <div class="mdc-switch__track"></div>
+                    <div class="mdc-switch__thumb-underlay">
+                        <div class="mdc-switch__thumb">
+                            <input
+                                type="checkbox"
+                                id="switch-id"
+                                class="mdc-switch__native-control"
+                                role="switch"
+                                checked={checked}
+                                disabled={disabled}
+                                value={checked ? 'on' : 'off'}
+                            ></input>
+                        </div>
+                    </div>
                 </div>
+                <label htmlFor="switch-id">{componentLabel}</label>
             </div>
         </div>
-        <label htmlFor="switch-id">{componentLabel}</label>
-    </div>
     );
 };
