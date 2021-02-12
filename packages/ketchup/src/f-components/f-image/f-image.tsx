@@ -55,7 +55,7 @@ export const FImage: FunctionalComponent<Props> = ({
             };
             el = createIcon(color, resource);
         }
-    } else {
+    } else if (data) {
         style = {
             '--f-image-height': sizeY ? sizeY : '100%',
             '--f-image-width': sizeX ? sizeX : '100%',
