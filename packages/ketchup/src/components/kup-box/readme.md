@@ -133,6 +133,7 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-rating
   kup-tree --> kup-radio
+  kup-tree --> kup-tooltip
   kup-tree --> kup-text-field
   kup-color-picker --> kup-text-field
   kup-combobox --> kup-text-field

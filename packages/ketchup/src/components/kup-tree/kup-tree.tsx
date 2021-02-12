@@ -51,6 +51,10 @@ import {
 } from '../kup-data-table/kup-data-table-helper';
 import { KupTreeState } from './kup-tree-state';
 import { KupStore } from '../kup-state/kup-store';
+
+import { KupTooltip } from '../kup-tooltip/kup-tooltip';
+import { setTooltip, unsetTooltip } from '../../utils/helpers';
+
 import {
     isColor,
     isGauge,
@@ -60,6 +64,8 @@ import {
     isRating,
 } from '../../utils/cell-utils';
 import { stringToNumber } from '../../utils/utils';
+import { ceil } from 'lodash';
+import { clearLine } from 'readline';
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -193,6 +199,19 @@ export class KupTree {
      */
     @Prop() useDynamicExpansion: boolean = false;
 
+    /**
+     * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+     */
+    @Prop() showTooltipOnRightClick: boolean = true;
+    /**
+     * Defines the timeout for tooltip detail
+     */
+    @Prop() tooltipDetailTimeout: number;
+    /**
+     * Defines the timeout for tooltip load
+     */
+    @Prop() tooltipLoadTimeout: number;
+
     //-------- State --------
     @State() selectedNodeString: string = '';
 
@@ -206,6 +225,8 @@ export class KupTree {
     private globalFilterTimeout: number;
 
     private sizedColumns: Column[] = undefined;
+
+    private tooltip: KupTooltip;
 
     //-------- Events --------
     /**
@@ -557,6 +578,14 @@ export class KupTree {
         );
     }
 
+    private _setTooltip(event: MouseEvent, cell: Cell) {
+        setTooltip(event, cell, this.tooltip);
+    }
+
+    private _unsetTooltip() {
+        unsetTooltip(this.tooltip);
+    }
+
     /*
      *For launch the event when selected node
      */
@@ -622,7 +651,8 @@ export class KupTree {
         treeNodeData: TreeNode,
         treeNodePath: string,
         auto: boolean
-    ) {
+    ) {        
+        this._unsetTooltip();
         // If this TreeNode is not disabled, then it can be selected and an event is emitted
         if (treeNodeData && !treeNodeData.disabled) {
             if (this.autoSelectionNodeMode)
@@ -630,7 +660,7 @@ export class KupTree {
                     .split(',')
                     .map((treeNodeIndex) => parseInt(treeNodeIndex));
 
-            this.kupTreeNodeSelected.emit({
+            this.kupTreeNodeSelected.emit({                
                 treeNodePath: treeNodePath
                     .split(',')
                     .map((treeNodeIndex) => parseInt(treeNodeIndex)),
@@ -649,6 +679,7 @@ export class KupTree {
         treeNodePath: string,
         ctrlKey: boolean
     ) {
+        this._unsetTooltip();
         // If the node is expandable
         if (treeNodeData.expandable) {
             // Always composes the tree node path as an array
@@ -965,6 +996,7 @@ export class KupTree {
             }
         }
 
+                    
         let cellClass = undefined;
         if (cell.cssClass) {
             cellClass = cell.cssClass;
@@ -975,18 +1007,47 @@ export class KupTree {
                 {icon}
                 {content}
             </span>
-        );
+        );        
 
         return (
             <td
                 class={cellClass}
                 onClick={() => (this.selectedColumn = cellData.column.name)}
                 style={tdStyle}
+                {...this.getToolTipEventHandlers(cell, _hasTooltip)}
             >
                 {cellElements}
             </td>
         );
     }
+
+    /**
+     * Controls if current cell needs a tooltip and eventually adds it.
+     * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
+     */    
+    private getToolTipEventHandlers(cell: Cell, hasTooltip: boolean) {        
+        let eventHandlers = undefined;  
+        if (hasTooltip) {
+            if (this.showTooltipOnRightClick) {
+                eventHandlers = {
+                    onContextMenu: (ev) => {
+                        ev.preventDefault();
+                        this._setTooltip(ev, cell);
+                    },
+                };
+            } else {
+                eventHandlers = {
+                    onMouseEnter: (ev) => {
+                        this._setTooltip(ev, cell);
+                    },
+                    onMouseLeave: () => {
+                        this._unsetTooltip();
+                    },
+                };
+            }
+        }
+        return eventHandlers;
+    } 
 
     private getIconPath(icon: string) {
         let svg: string = '';
@@ -1297,6 +1358,21 @@ export class KupTree {
         return cellStyle;
     }
 
+    renderTooltip() {
+        return (
+            <kup-tooltip
+                class="datatable-tooltip"
+                loadTimeout={
+                    this.showTooltipOnRightClick == true
+                        ? 0
+                        : this.tooltipLoadTimeout
+                }
+                detailTimeout={this.tooltipDetailTimeout}
+                ref={(el: any) => (this.tooltip = el as KupTooltip)}
+            ></kup-tooltip>
+        );
+    }
+
     /**
      * Renders the header of the tree when it must be displayed as a table.
      * @returns An array of table header cells.
@@ -1354,7 +1430,7 @@ export class KupTree {
                 onClick={
                     !treeNodeData.disabled
                         ? (event: MouseEvent) => {
-                              event.stopPropagation();
+                              event.stopPropagation();                              
                               this.hdlTreeNodeExpanderClicked(
                                   treeNodeData,
                                   treeNodePath,
@@ -1398,7 +1474,7 @@ export class KupTree {
 
         // When can be expanded OR selected
         if (!treeNodeData.disabled) {
-            treeNodeOptions['onClick'] = () => {
+            treeNodeOptions['onClick'] = () => {                
                 this.clickTimeout.push(
                     setTimeout(
                         () =>
@@ -1441,8 +1517,12 @@ export class KupTree {
                 '; ' +
                 treeNodeData.obj.k +
                 ';';
+        }        
+        const cell: Cell = {
+            obj: treeNodeData.obj,
+            value: treeNodeData.value     
         }
-
+        
         return (
             <tr
                 class={{
@@ -1468,11 +1548,13 @@ export class KupTree {
                     onDblClick={() => {
                         this.onKupTreeNodeDblClick(treeNodeData, treeNodePath);
                     }}
+                    {...this.getToolTipEventHandlers(cell, _hasTooltip)}
                 >
                     {indent}
                     {treeExpandIcon}
-                    {treeNodeIcon}
-                    <span class="cell-content">{treeNodeData.value}</span>
+                    {treeNodeIcon}                    
+                    <span class="cell-content">{treeNodeData.value}</span>  
+                    
                 </td>
                 {treeNodeCells}
             </tr>
@@ -1524,6 +1606,8 @@ export class KupTree {
     }
 
     render() {
+        const tooltip = this.renderTooltip();
+
         this.sizedColumns = this.getSizedColumns();
         let wrapperClass: string = 'density-medium';
         switch (this.density) {
@@ -1586,7 +1670,7 @@ export class KupTree {
         }
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{setCustomStyle(this)}</style>                
                 <div id="kup-component" class={wrapperClass}>
                     <div
                         class="wrapper"
@@ -1610,6 +1694,7 @@ export class KupTree {
                             <tbody>{treeNodes}</tbody>
                         </table>
                     </div>
+                    {tooltip}
                 </div>
             </Host>
         );
