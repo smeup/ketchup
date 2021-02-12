@@ -41,14 +41,7 @@ import {
     CSSArray,
 } from './kup-data-table-declarations';
 
-import {
-    isRating,
-    isColor,
-    isGauge,
-    isKnob,
-    isRadio,
-    isProgressBar,
-} from '../../utils/cell-utils';
+import { isRating, isGauge, isKnob, getCellType } from '../../utils/cell-utils';
 
 import {
     calcTotals,
@@ -85,12 +78,10 @@ import {
     isButton,
     isIcon,
     isImage,
-    isLink,
     isNumber,
     isDate,
     isProgressBar as isProgressBarObj,
     isVoCodver,
-    isObjectList,
     isStringObject,
     isCheckbox,
     hasTooltip,
@@ -3834,6 +3825,8 @@ export class KupDataTable {
         if (
             cellType === 'checkbox' ||
             cellType === 'date' ||
+            cellType === 'time' ||
+            cellType === 'datetime' ||
             cellType === 'icon' ||
             cellType === 'image' ||
             cellType === 'link' ||
@@ -3939,46 +3932,7 @@ export class KupDataTable {
     // NOTE: keep care to change conditions order... shape wins on object .. -> so if isNumber after shape checks.. ->
     // TODO: more clear conditions when refactoring...
     private getCellType(cell: Cell) {
-        let obj = cell.obj;
-        if (isBar(obj)) {
-            return 'bar';
-        } else if (isButton(obj)) {
-            return 'button';
-        } else if (isChart(obj)) {
-            return 'chart';
-        } else if (isCheckbox(obj)) {
-            return 'checkbox';
-        } else if (isColor(cell, null)) {
-            return 'color-picker';
-        } else if (isGauge(cell, null)) {
-            return 'gauge';
-        } else if (isKnob(cell, null)) {
-            return 'knob';
-        } else if (isIcon(obj) || isVoCodver(obj)) {
-            return 'icon';
-        } else if (isImage(obj)) {
-            return 'image';
-        } else if (isLink(obj)) {
-            return 'link';
-        } else if (isProgressBar(cell, null)) {
-            return 'progress-bar';
-        } else if (isRadio(cell, null)) {
-            return 'radio';
-        } else if (isRating(cell, null)) {
-            return 'rating';
-        } else if (isObjectList(obj)) {
-            return 'chips';
-        } else if (isNumber(obj)) {
-            return 'number';
-        } else if (isDate(obj)) {
-            return 'date';
-        } else if (isTimestamp(obj)) {
-            return 'datetime';
-        } else if (isTime(obj)) {
-            return 'time';
-        } else {
-            return 'string';
-        }
+        return getCellType(cell);
     }
 
     private setLazyKupCell(cellType: string, props: any) {
