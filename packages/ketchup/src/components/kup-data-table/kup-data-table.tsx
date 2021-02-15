@@ -138,12 +138,18 @@ import {
 } from '../../utils/drag-and-drop';
 import { dragMultipleImg } from '../../assets/images/drag-multiple';
 
+import { MDCTextField } from '@material/textfield';
+import { MDCFormField } from '@material/form-field';
+import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
+import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
+import { MDCTextFieldIcon } from '@material/textfield/icon';
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FImage } from '../../f-components/f-image/f-image';
 import { MDCChipSet } from '@material/chips';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
 
 @Component({
     tag: 'kup-data-table',
@@ -1051,6 +1057,43 @@ export class KupDataTable {
         }
     }
 
+    private setEvents(root: ShadowRoot) {
+        const globalFilter: HTMLElement = root.querySelector('#global-filter');
+        if (globalFilter) {
+            const globalFilterInput: HTMLInputElement = globalFilter.querySelector(
+                'input'
+            );
+            globalFilterInput.oninput = (event) => {
+                const t = event.target;
+                window.clearTimeout(this.globalFilterTimeout);
+                this.globalFilterTimeout = window.setTimeout(
+                    () => this.onGlobalFilterChange(t),
+                    300,
+                    t
+                );
+            };
+            const globalFilterClear: HTMLElement = globalFilter.querySelector(
+                '.clear-icon'
+            );
+            if (globalFilterClear) {
+                globalFilterClear.onclick = () =>
+                    this.onGlobalFilterChange(null);
+            }
+        }
+    }
+
+    private setMDC(root: ShadowRoot) {
+        const globalFilter = root.querySelector('#global-filter');
+        if (globalFilter) {
+            new MDCTextField(globalFilter.querySelector('.mdc-text-field'));
+            if (globalFilter.querySelector('.mdc-text-field-icon')) {
+                new MDCTextFieldIcon(
+                    document.querySelector('.mdc-text-field-icon')
+                );
+            }
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -1090,6 +1133,11 @@ export class KupDataTable {
     }
 
     componentDidRender() {
+        const root = this.rootElement.shadowRoot;
+        if (root) {
+            this.setEvents(root);
+            this.setMDC(root);
+        }
         if (this.showCustomization) {
             this.customizePanelPosition();
         }
@@ -1781,15 +1829,14 @@ export class KupDataTable {
         return ris;
     }
 
-    private onGlobalFilterChange({ detail }) {
-        // resetting current page
+    private onGlobalFilterChange(inputEl: EventTarget) {
         this.resetCurrentPage();
-
-        let value = '';
-        if (detail && detail.value) {
-            value = detail.value;
+        if (inputEl) {
+            let el = inputEl as HTMLInputElement;
+            this.globalFilterValue = el.value;
+        } else {
+            this.globalFilterValue = '';
         }
-        this.globalFilterValue = value;
     }
 
     private handlePageChanged({ detail }) {
@@ -4665,23 +4712,13 @@ export class KupDataTable {
         if (this.globalFilter) {
             globalFilter = (
                 <div id="global-filter">
-                    <kup-text-field
+                    <FTextField
                         fullWidth={true}
+                        icon="magnify"
                         isClearable={true}
                         label="Search..."
-                        icon="magnify"
-                        initialValue={this.globalFilterValue}
-                        onKupTextFieldInput={(event) => {
-                            window.clearTimeout(this.globalFilterTimeout);
-                            this.globalFilterTimeout = window.setTimeout(
-                                () => this.onGlobalFilterChange(event),
-                                300
-                            );
-                        }}
-                        onKupTextFieldClearIconClick={(event) =>
-                            this.onGlobalFilterChange(event)
-                        }
-                    ></kup-text-field>
+                        value={this.globalFilterValue}
+                    />
                 </div>
             );
         }
