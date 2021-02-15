@@ -25,19 +25,7 @@ import {
     TreeNodePath,
 } from './kup-tree-declarations';
 
-import {
-    isBar,
-    isCheckbox,
-    isIcon,
-    isImage,
-    isLink,
-    isVoCodver,
-    isButton,
-    isChart,
-    isNumber,
-    hasTooltip,
-    isObjectList,
-} from '../../utils/object-utils';
+import { hasTooltip } from '../../utils/object-utils';
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
@@ -55,17 +43,9 @@ import { KupStore } from '../kup-state/kup-store';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 
-import {
-    isColor,
-    isGauge,
-    isKnob,
-    isProgressBar,
-    isRadio,
-    isRating,
-} from '../../utils/cell-utils';
+import { getCellType } from '../../utils/cell-utils';
 import { stringToNumber } from '../../utils/utils';
-import { ceil } from 'lodash';
-import { clearLine } from 'readline';
+
 @Component({
     tag: 'kup-tree',
     styleUrl: 'kup-tree.scss',
@@ -651,7 +631,7 @@ export class KupTree {
         treeNodeData: TreeNode,
         treeNodePath: string,
         auto: boolean
-    ) {        
+    ) {
         this._unsetTooltip();
         // If this TreeNode is not disabled, then it can be selected and an event is emitted
         if (treeNodeData && !treeNodeData.disabled) {
@@ -660,7 +640,7 @@ export class KupTree {
                     .split(',')
                     .map((treeNodeIndex) => parseInt(treeNodeIndex));
 
-            this.kupTreeNodeSelected.emit({                
+            this.kupTreeNodeSelected.emit({
                 treeNodePath: treeNodePath
                     .split(',')
                     .map((treeNodeIndex) => parseInt(treeNodeIndex)),
@@ -996,7 +976,6 @@ export class KupTree {
             }
         }
 
-                    
         let cellClass = undefined;
         if (cell.cssClass) {
             cellClass = cell.cssClass;
@@ -1007,7 +986,7 @@ export class KupTree {
                 {icon}
                 {content}
             </span>
-        );        
+        );
 
         return (
             <td
@@ -1024,9 +1003,9 @@ export class KupTree {
     /**
      * Controls if current cell needs a tooltip and eventually adds it.
      * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
-     */    
-    private getToolTipEventHandlers(cell: Cell, hasTooltip: boolean) {        
-        let eventHandlers = undefined;  
+     */
+    private getToolTipEventHandlers(cell: Cell, hasTooltip: boolean) {
+        let eventHandlers = undefined;
         if (hasTooltip) {
             if (this.showTooltipOnRightClick) {
                 eventHandlers = {
@@ -1047,7 +1026,7 @@ export class KupTree {
             }
         }
         return eventHandlers;
-    } 
+    }
 
     private getIconPath(icon: string) {
         let svg: string = '';
@@ -1085,40 +1064,7 @@ export class KupTree {
     // NOTE: keep care to change conditions order... shape wins on object .. -> so if isNumber after shape checks.. ->
     // TODO: more clear conditions when refactoring...
     private getCellType(cell: Cell) {
-        let obj = cell.obj;
-        if (isBar(obj)) {
-            return 'bar';
-        } else if (isButton(obj)) {
-            return 'button';
-        } else if (isChart(obj)) {
-            return 'chart';
-        } else if (isCheckbox(obj)) {
-            return 'checkbox';
-        } else if (isColor(cell, null)) {
-            return 'color-picker';
-        } else if (isGauge(cell, null)) {
-            return 'gauge';
-        } else if (isKnob(cell, null)) {
-            return 'knob';
-        } else if (isIcon(obj) || isVoCodver(obj)) {
-            return 'icon';
-        } else if (isImage(obj)) {
-            return 'image';
-        } else if (isLink(obj)) {
-            return 'link';
-        } else if (isProgressBar(cell, null)) {
-            return 'progress-bar';
-        } else if (isRadio(cell, null)) {
-            return 'radio';
-        } else if (isRating(cell, null)) {
-            return 'rating';
-        } else if (isObjectList(obj)) {
-            return 'chips';
-        } else if (isNumber(obj)) {
-            return 'number';
-        } else {
-            return 'string';
-        }
+        return getCellType(cell);
     }
 
     private setCellSize(cellType: string, props: any, cell: Cell) {
@@ -1237,6 +1183,18 @@ export class KupTree {
                 }
                 return content;
             case 'date':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(column, cell);
+                    return <span class="text">{cellValue}</span>;
+                }
+                return content;
+            case 'datetime':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(column, cell);
+                    return <span class="text">{cellValue}</span>;
+                }
+                return content;
+            case 'time':
                 if (content && content != '') {
                     const cellValue = getCellValueForDisplay(column, cell);
                     return <span class="text">{cellValue}</span>;
@@ -1430,7 +1388,7 @@ export class KupTree {
                 onClick={
                     !treeNodeData.disabled
                         ? (event: MouseEvent) => {
-                              event.stopPropagation();                              
+                              event.stopPropagation();
                               this.hdlTreeNodeExpanderClicked(
                                   treeNodeData,
                                   treeNodePath,
@@ -1474,7 +1432,7 @@ export class KupTree {
 
         // When can be expanded OR selected
         if (!treeNodeData.disabled) {
-            treeNodeOptions['onClick'] = () => {                
+            treeNodeOptions['onClick'] = () => {
                 this.clickTimeout.push(
                     setTimeout(
                         () =>
@@ -1517,12 +1475,12 @@ export class KupTree {
                 '; ' +
                 treeNodeData.obj.k +
                 ';';
-        }        
+        }
         const cell: Cell = {
             obj: treeNodeData.obj,
-            value: treeNodeData.value     
-        }
-        
+            value: treeNodeData.value,
+        };
+
         return (
             <tr
                 class={{
@@ -1552,9 +1510,8 @@ export class KupTree {
                 >
                     {indent}
                     {treeExpandIcon}
-                    {treeNodeIcon}                    
-                    <span class="cell-content">{treeNodeData.value}</span>  
-                    
+                    {treeNodeIcon}
+                    <span class="cell-content">{treeNodeData.value}</span>
                 </td>
                 {treeNodeCells}
             </tr>
@@ -1670,7 +1627,7 @@ export class KupTree {
         }
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>                
+                <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <div
                         class="wrapper"
