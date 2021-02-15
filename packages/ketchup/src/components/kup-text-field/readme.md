@@ -29,29 +29,19 @@
 
 ## Events
 
-| Event                        | Description                                    | Type                                       |
-| ---------------------------- | ---------------------------------------------- | ------------------------------------------ |
-| `kupTextFieldBlur`           |                                                | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldChange`         |                                                | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldClearIconClick` |                                                | `CustomEvent<{ id: any; }>`                |
-| `kupTextFieldClick`          |                                                | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldFocus`          |                                                | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldIconClick`      |                                                | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldInput`          |                                                | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldSubmit`         | When a keydown enter event occurs it generates | `CustomEvent<{ id: any; value: string; }>` |
+| Event                        | Description | Type                                       |
+| ---------------------------- | ----------- | ------------------------------------------ |
+| `kupTextFieldBlur`           |             | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldChange`         |             | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldClearIconClick` |             | `CustomEvent<{ id: any; }>`                |
+| `kupTextFieldClick`          |             | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldFocus`          |             | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldIconClick`      |             | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldInput`          |             | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldSubmit`         |             | `CustomEvent<{ id: any; value: string; }>` |
 
 
 ## Methods
-
-### `changeValue(newValue: string, emitEvent?: boolean) => Promise<boolean>`
-
-Imperatively sets a new value of the input.
-
-#### Returns
-
-Type: `Promise<boolean>`
-
-
 
 ### `getValue() => Promise<string>`
 

@@ -2,6 +2,7 @@ import { FunctionalComponent, getAssetPath, h } from '@stencil/core';
 
 interface Props {
     disabled?: boolean;
+    fullHeight?: boolean;
     fullWidth?: boolean;
     helper?: string;
     helperWhenFocused?: boolean;
@@ -14,19 +15,21 @@ interface Props {
     maxLength?: number;
     outlined?: boolean;
     readOnly?: boolean;
+    shaped?: boolean;
     textArea?: boolean;
     trailingIcon?: boolean;
     trailingLabel?: boolean;
     value?: string;
-    wrapperClass?: string;
 }
 
 export const FTextField: FunctionalComponent<Props> = (props) => {
     return (
         <div
             class={`f-text-field--wrapper ${
-                props.fullWidth ? 'full-width' : ''
-            } ${props.wrapperClass ? props.wrapperClass : ''}`}
+                props.fullHeight ? 'full-height' : ''
+            } ${props.fullWidth ? 'full-width' : ''} ${
+                props.shaped ? 'shaped' : ''
+            }`}
         >
             {props.leadingLabel || props.trailingLabel ? (
                 <div

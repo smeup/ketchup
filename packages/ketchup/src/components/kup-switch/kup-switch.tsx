@@ -1,10 +1,10 @@
 import {
     Component,
+    Event,
+    EventEmitter,
     Prop,
     Element,
     Host,
-    Event,
-    EventEmitter,
     State,
     h,
     Method,
@@ -139,6 +139,29 @@ export class KupSwitch {
         });
     }
 
+    private setEvents(root: ShadowRoot) {
+        let inputEl = root.querySelector('input');
+        if (inputEl) {
+            inputEl.onblur = () => this.onKupBlur();
+            inputEl.onchange = () => this.onKupChange();
+            inputEl.onclick = () => this.onKupClick();
+            inputEl.onfocus = () => this.onKupFocus();
+            inputEl.oninput = () => this.onKupInput();
+        }
+        let labelEl = root.querySelector('label');
+        if (labelEl) {
+            labelEl.onclick = () => this.onKupClick();
+        }
+    }
+
+    private setMDC(root: ShadowRoot) {
+        const component = MDCSwitch.attachTo(root.querySelector('.mdc-switch'));
+        const formField = MDCFormField.attachTo(
+            root.querySelector('.mdc-form-field')
+        );
+        formField.input = component;
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -161,28 +184,9 @@ export class KupSwitch {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
-
-        if (root && !this.disabled) {
-            let inputEl = root.querySelector('input');
-            if (inputEl) {
-                inputEl.onblur = () => this.onKupBlur();
-                inputEl.onchange = () => this.onKupChange();
-                inputEl.onclick = () => this.onKupClick();
-                inputEl.onfocus = () => this.onKupFocus();
-                inputEl.oninput = () => this.onKupInput();
-            }
-            let labelEl = root.querySelector('label');
-            if (labelEl) {
-                labelEl.onclick = () => this.onKupClick();
-            }
-
-            const component = MDCSwitch.attachTo(
-                root.querySelector('.mdc-switch')
-            );
-            const formField = MDCFormField.attachTo(
-                root.querySelector('.mdc-form-field')
-            );
-            formField.input = component;
+        if (root) {
+            this.setEvents(root);
+            this.setMDC(root);
         }
         logRender(this, true);
     }
@@ -199,7 +203,7 @@ export class KupSwitch {
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
-                    <FSwitch {...props}></FSwitch>
+                    <FSwitch {...props} />
                 </div>
             </Host>
         );

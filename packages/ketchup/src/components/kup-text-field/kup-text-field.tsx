@@ -1,10 +1,10 @@
 import {
     Component,
+    Event,
+    EventEmitter,
     Prop,
     Element,
     Host,
-    Event,
-    EventEmitter,
     State,
     h,
     Method,
@@ -179,9 +179,6 @@ export class KupTextField {
         id: any;
     }>;
 
-    /**
-     * When a keydown enter event occurs it generates
-     */
     @Event({
         eventName: 'kupTextFieldSubmit',
         composed: true,
@@ -222,7 +219,7 @@ export class KupTextField {
         }
     }
 
-    onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
+    onKupBlur(event: FocusEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupBlur.emit({
             id: this.rootElement.id,
@@ -238,7 +235,7 @@ export class KupTextField {
         });
     }
 
-    onKupClick(event: UIEvent & { target: HTMLInputElement }) {
+    onKupClick(event: MouseEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupClick.emit({
             id: this.rootElement.id,
@@ -246,7 +243,7 @@ export class KupTextField {
         });
     }
 
-    onKupFocus(event: UIEvent & { target: HTMLInputElement }) {
+    onKupFocus(event: FocusEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupFocus.emit({
             id: this.rootElement.id,
@@ -262,7 +259,7 @@ export class KupTextField {
         });
     }
 
-    onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
+    onKupIconClick(event: MouseEvent & { target: HTMLInputElement }) {
         const { target } = event;
         this.kupIconClick.emit({
             id: this.rootElement.id,
@@ -278,9 +275,6 @@ export class KupTextField {
         });
     }
 
-    /**
-     * Listens for keydown events to get when 'Enter' is pressed, firing a submit event.
-     */
     onKeyDown(event: KeyboardEvent) {
         if (event.key === 'Enter') {
             if (this.emitSubmitEventOnEnter == true) {
@@ -293,25 +287,62 @@ export class KupTextField {
         }
     }
 
-    /**
-     * Imperatively sets a new value of the input.
-     * @method changeValue
-     * @param newValue - the new value to be set inside the input
-     * @param emitEvent - If true, then also forces the component to emit an updated event
-     */
-    @Method()
-    async changeValue(newValue: string, emitEvent: boolean = false) {
-        if (typeof newValue === 'string') {
-            if (emitEvent) {
-                this.kupInput.emit({
-                    id: this.rootElement.id,
-                    value: newValue,
-                });
-            }
-            this.value = newValue;
-            return true;
+    private setEvents(root: ShadowRoot) {
+        let inputEl:
+            | HTMLInputElement
+            | HTMLTextAreaElement = root.querySelector(
+            '.mdc-text-field__input'
+        );
+        if (inputEl) {
+            inputEl.onblur = (e: FocusEvent & { target: HTMLInputElement }) =>
+                this.onKupBlur(e);
+            inputEl.onchange = (e: UIEvent & { target: HTMLInputElement }) =>
+                this.onKupChange(e);
+            inputEl.onclick = (e: MouseEvent & { target: HTMLInputElement }) =>
+                this.onKupClick(e);
+            inputEl.onfocus = (e: FocusEvent & { target: HTMLInputElement }) =>
+                this.onKupFocus(e);
+            inputEl.oninput = (e: UIEvent & { target: HTMLInputElement }) =>
+                this.onKupInput(e);
+            inputEl.onkeydown = (e: KeyboardEvent) => this.onKeyDown(e);
+            this.inputEl = inputEl;
         }
-        throw new Error(`The value ${newValue} is not a valid string.`);
+        let icon: HTMLElement = root.querySelector('.mdc-text-field__icon');
+        if (icon) {
+            icon.onclick = (e: MouseEvent & { target: HTMLInputElement }) =>
+                this.onKupIconClick(e);
+        }
+        let clearIcon: HTMLElement = root.querySelector('.clear-icon');
+        if (clearIcon) {
+            clearIcon.onclick = () => this.onKupClearIconClick();
+        }
+    }
+
+    private setMDC(root: ShadowRoot) {
+        const component = new MDCTextField(
+            root.querySelector('.mdc-text-field')
+        );
+        if (root.querySelector('.mdc-form-field')) {
+            const formField = MDCFormField.attachTo(
+                root.querySelector('.mdc-form-field')
+            );
+            formField.input = component;
+        }
+        if (root.querySelector('.mdc-text-field-helper-text')) {
+            new MDCTextFieldHelperText(
+                document.querySelector('.mdc-text-field-helper-text')
+            );
+        }
+        if (root.querySelector('.mdc-text-field-character-counter')) {
+            new MDCTextFieldCharacterCounter(
+                document.querySelector('.mdc-text-field-character-counter')
+            );
+        }
+        if (root.querySelector('.mdc-text-field-icon')) {
+            new MDCTextFieldIcon(
+                document.querySelector('.mdc-text-field-icon')
+            );
+        }
     }
 
     //---- Lifecycle hooks ----
@@ -332,40 +363,19 @@ export class KupTextField {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
-
         if (root) {
-            const component = new MDCTextField(
-                root.querySelector('.mdc-text-field')
-            );
-            if (root.querySelector('.mdc-form-field')) {
-                const formField = MDCFormField.attachTo(
-                    root.querySelector('.mdc-form-field')
-                );
-                formField.input = component;
-            }
-            if (root.querySelector('.mdc-text-field-helper-text')) {
-                new MDCTextFieldHelperText(
-                    document.querySelector('.mdc-text-field-helper-text')
-                );
-            }
-            if (root.querySelector('.mdc-text-field-character-counter')) {
-                new MDCTextFieldCharacterCounter(
-                    document.querySelector('.mdc-text-field-character-counter')
-                );
-            }
-            if (root.querySelector('.mdc-text-field-icon')) {
-                new MDCTextFieldIcon(
-                    document.querySelector('.mdc-text-field-icon')
-                );
-            }
+            this.setEvents(root);
+            this.setMDC(root);
         }
-
         logRender(this, true);
     }
 
     render() {
         let props = {
             disabled: this.disabled,
+            fullHeight: this.rootElement.classList.contains('full-height')
+                ? true
+                : false,
             fullWidth: this.fullWidth,
             helper: this.helper,
             helperWhenFocused: this.helperWhenFocused,
@@ -378,13 +388,13 @@ export class KupTextField {
             maxLength: this.maxLength,
             outlined: this.outlined,
             readOnly: this.readOnly,
+            shaped: this.rootElement.classList.contains('shaped')
+                ? true
+                : false,
             textArea: this.textArea,
             trailingIcon: this.trailingIcon,
             trailingLabel: this.trailingLabel,
             value: this.value,
-            wrapperClass: this.rootElement.classList.contains('shaped')
-                ? 'shaped'
-                : undefined,
         };
 
         return (

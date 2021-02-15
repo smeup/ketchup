@@ -158,6 +158,31 @@ export class KupCheckbox {
         });
     }
 
+    private setEvents(root: ShadowRoot) {
+        let inputEl = root.querySelector('input');
+        if (inputEl) {
+            inputEl.onblur = () => this.onKupBlur();
+            inputEl.onchange = () => this.onKupChange();
+            inputEl.onclick = () => this.onKupClick();
+            inputEl.onfocus = () => this.onKupFocus();
+            inputEl.oninput = () => this.onKupInput();
+        }
+        let labelEl = root.querySelector('label');
+        if (labelEl) {
+            labelEl.onclick = () => this.onKupClick();
+        }
+    }
+
+    private setMDC(root: ShadowRoot) {
+        const component = MDCCheckbox.attachTo(
+            root.querySelector('.mdc-checkbox')
+        );
+        const formField = MDCFormField.attachTo(
+            root.querySelector('.mdc-form-field')
+        );
+        formField.input = component;
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -180,28 +205,9 @@ export class KupCheckbox {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
-
-        if (root && !this.disabled) {
-            let inputEl = root.querySelector('input');
-            if (inputEl) {
-                inputEl.onblur = () => this.onKupBlur();
-                inputEl.onchange = () => this.onKupChange();
-                inputEl.onclick = () => this.onKupClick();
-                inputEl.onfocus = () => this.onKupFocus();
-                inputEl.oninput = () => this.onKupInput();
-            }
-            let labelEl = root.querySelector('label');
-            if (labelEl) {
-                labelEl.onclick = () => this.onKupClick();
-            }
-
-            const component = MDCCheckbox.attachTo(
-                root.querySelector('.mdc-checkbox')
-            );
-            const formField = MDCFormField.attachTo(
-                root.querySelector('.mdc-form-field')
-            );
-            formField.input = component;
+        if (root) {
+            this.setEvents(root);
+            this.setMDC(root);
         }
         logRender(this, true);
     }
@@ -218,7 +224,7 @@ export class KupCheckbox {
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
-                    <FCheckbox {...props}></FCheckbox>
+                    <FCheckbox {...props} />
                 </div>
             </Host>
         );

@@ -1,19 +1,18 @@
 import {
     Component,
+    Event,
+    EventEmitter,
     Prop,
     Element,
     Host,
-    Event,
-    EventEmitter,
     State,
     h,
     Method,
-    getAssetPath,
 } from '@stencil/core';
 import { MDCChipSet } from '@material/chips';
 import { ComponentChipElement } from './kup-chip-declarations';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { FChip } from '../../f-components/f-chip/f-chip';
 
 @Component({
@@ -160,6 +159,40 @@ export class KupChip {
         });
     }
 
+    private setEvents(root: ShadowRoot) {
+        let chips: NodeListOf<HTMLElement> = root.querySelectorAll(
+            '.f-chip--wrapper'
+        );
+        for (let index = 0; index < chips.length; index++) {
+            let chip: NodeListOf<HTMLElement> = root.querySelectorAll(
+                '.mdc-chip'
+            );
+            for (let j = 0; j < chip.length; j++) {
+                let primaryEl: HTMLElement = chip[j].querySelector(
+                    '.mdc-chip__primary-action'
+                );
+                primaryEl.onblur = () => this.onKupBlur(j);
+                primaryEl.onfocus = () => this.onKupFocus(j);
+
+                let cancelIcon: HTMLElement = chip[j].querySelector(
+                    '.mdc-chip__icon.clear'
+                );
+                if (cancelIcon) {
+                    cancelIcon.onclick = () => this.onKupIconClick(j);
+                }
+
+                chip[j].onclick = () => this.onKupClick(j);
+            }
+        }
+    }
+
+    private setMDC(root: ShadowRoot) {
+        const chipSetEl = root.querySelector('.mdc-chip-set');
+        if (chipSetEl) {
+            new MDCChipSet(chipSetEl);
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -197,34 +230,9 @@ export class KupChip {
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
-
         if (root) {
-            let chips = root.querySelectorAll('.f-chip--wrapper');
-            for (let index = 0; index < chips.length; index++) {
-                let chip = root.querySelectorAll('.mdc-chip');
-                for (let j = 0; j < chip.length; j++) {
-                    let primaryEl: HTMLElement = chip[j].querySelector(
-                        '.mdc-chip__primary-action'
-                    );
-                    primaryEl.onblur = () => this.onKupBlur(j);
-                    primaryEl.onfocus = () => this.onKupFocus(j);
-
-                    let cancelIcon: HTMLElement = chip[j].querySelector(
-                        '.mdc-chip__icon.clear'
-                    );
-                    if (cancelIcon) {
-                        cancelIcon.onclick = () => this.onKupIconClick(j);
-                    }
-
-                    // @ts-ignore (onclick doesn't exist on every Element type, but here it does)
-                    chip[j].onclick = () => this.onKupClick(j);
-                }
-            }
-
-            const chipSetEl = root.querySelector('.mdc-chip-set');
-            if (chipSetEl) {
-                new MDCChipSet(chipSetEl);
-            }
+            this.setEvents(root);
+            this.setMDC(root);
         }
         logRender(this, true);
     }
@@ -245,7 +253,7 @@ export class KupChip {
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
-                    <FChip {...props}></FChip>
+                    <FChip {...props} />
                 </div>
             </Host>
         );

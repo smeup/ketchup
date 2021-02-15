@@ -1396,13 +1396,6 @@ export namespace Components {
     }
     interface KupTextField {
         /**
-          * Imperatively sets a new value of the input.
-          * @method changeValue
-          * @param newValue - the new value to be set inside the input
-          * @param emitEvent - If true, then also forces the component to emit an updated event
-         */
-        "changeValue": (newValue: string, emitEvent?: boolean) => Promise<boolean>;
-        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
@@ -3795,9 +3788,6 @@ declare namespace LocalJSX {
         id: any;
         value: string;
     }>) => void;
-        /**
-          * When a keydown enter event occurs it generates
-         */
         "onKupTextFieldSubmit"?: (event: CustomEvent<{
         id: any;
         value: string;
