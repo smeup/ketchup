@@ -18,11 +18,16 @@ interface Props {
     trailingIcon?: boolean;
     trailingLabel?: boolean;
     value?: string;
+    wrapperClass?: string;
 }
 
 export const FTextField: FunctionalComponent<Props> = (props) => {
     return (
-        <div class="f-text-field--wrapper">
+        <div
+            class={`f-text-field--wrapper ${
+                props.fullWidth ? 'full-width' : ''
+            } ${props.wrapperClass ? props.wrapperClass : ''}`}
+        >
             {props.leadingLabel || props.trailingLabel ? (
                 <div
                     class={`mdc-form-field ${

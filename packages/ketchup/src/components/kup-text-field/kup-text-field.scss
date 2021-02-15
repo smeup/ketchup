@@ -10,9 +10,6 @@
   #kup-component {
     width: 100%;
   }
-  .mdc-text-field--fullwidth {
-    width: 100%;
-  }
 }
 
 :host(.full-height) {
@@ -29,11 +26,5 @@
         height: 100%;
       }
     }
-  }
-}
-
-:host(.shaped) {
-  .mdc-text-field {
-    border-radius: 16px 16px 0 0;
   }
 }

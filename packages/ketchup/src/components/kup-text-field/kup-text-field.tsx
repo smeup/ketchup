@@ -382,6 +382,9 @@ export class KupTextField {
             trailingIcon: this.trailingIcon,
             trailingLabel: this.trailingLabel,
             value: this.value,
+            wrapperClass: this.rootElement.classList.contains('shaped')
+                ? 'shaped'
+                : undefined,
         };
 
         return (
