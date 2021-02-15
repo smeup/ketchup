@@ -90,7 +90,6 @@ graph TD;
   kup-color-picker --> kup-text-field
   kup-paginator --> kup-button
   kup-paginator --> kup-combobox
-  kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-form --> kup-search
   style kup-search fill:#f9f,stroke:#333,stroke-width:4px

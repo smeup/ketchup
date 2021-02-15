@@ -120,9 +120,19 @@ export default {
       ],
       demoClasses: [
         {
+          class: 'full-height',
+          description:
+            'The autocomplete will fill all the available vertical space.',
+        },
+        {
           class: 'kup-secondary-color',
           description:
             'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'full-width',
+          description:
+            'The autocomplete will fill all the available horizontal space.',
         },
       ],
     };

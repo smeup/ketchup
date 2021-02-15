@@ -7,9 +7,8 @@ import {
     Host,
     State,
     h,
-    Listen,
     Method,
-    Watch,
+    Listen,
 } from '@stencil/core';
 
 import { MDCTextField } from '@material/textfield';
@@ -17,13 +16,13 @@ import { MDCFormField } from '@material/form-field';
 import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
 import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
 import { MDCTextFieldIcon } from '@material/textfield/icon';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
     ItemsDisplayMode,
     consistencyCheck,
 } from '../kup-list/kup-list-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 
 @Component({
@@ -380,8 +379,6 @@ export class KupAutocomplete {
             '.mdc-text-field__input'
         );
         if (inputEl) {
-            inputEl.onblur = (e: FocusEvent & { target: HTMLInputElement }) =>
-                this.onKupBlur(e);
             inputEl.onchange = (e: UIEvent & { target: HTMLInputElement }) =>
                 this.onKupChange(e);
             inputEl.onclick = (e: MouseEvent & { target: HTMLInputElement }) =>
@@ -462,28 +459,18 @@ export class KupAutocomplete {
     }
 
     render() {
-        let hostClass: Record<string, boolean> = {};
-
-        if (
-            this.data &&
-            this.data['kup-text-field'] &&
-            this.data['kup-text-field']['className'] &&
-            this.data['kup-text-field']['className'].indexOf('full-height') > -1
-        ) {
-            hostClass['full-height'] = true;
-        }
-
-        if (
-            this.data &&
-            this.data['kup-text-field'] &&
-            this.data['kup-text-field']['fullWidth']
-        ) {
-            hostClass['full-width'] = true;
-        }
+        let fullHeight: boolean = this.rootElement.classList.contains(
+            'full-height'
+        );
+        let fullWidth: boolean = this.rootElement.classList.contains(
+            'full-width'
+        );
 
         return (
             <Host
-                class={hostClass}
+                class={`${fullHeight ? 'full-height' : ''} ${
+                    fullWidth ? 'full-width' : ''
+                }`}
                 onBlur={(e: any) => this.onKupBlur(e)}
                 style={this.elStyle}
             >
@@ -492,6 +479,8 @@ export class KupAutocomplete {
                     <FTextField
                         {...this.data['kup-text-field']}
                         disabled={this.disabled}
+                        fullHeight={fullHeight}
+                        fullWidth={fullWidth}
                         icon="--kup-expanded-icon"
                         trailingIcon={true}
                         value={this.displayedValue}

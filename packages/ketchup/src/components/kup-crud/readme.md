@@ -75,7 +75,6 @@ graph TD;
   kup-crud --> kup-modal
   kup-crud --> kup-form
   kup-form --> kup-crud
-  kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox

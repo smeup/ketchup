@@ -136,7 +136,6 @@ graph TD;
   kup-tree --> kup-tooltip
   kup-tree --> kup-text-field
   kup-color-picker --> kup-text-field
-  kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
