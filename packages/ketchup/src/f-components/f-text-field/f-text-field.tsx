@@ -42,12 +42,8 @@ function setContent(props: Props) {
     let isOutlined: boolean = props.textArea || props.outlined;
     let labelEl: HTMLElement;
     let iconEl: HTMLElement;
-    let inputEl: HTMLElement;
-    let placeholderLabel: string;
 
-    if (props.fullWidth) {
-        placeholderLabel = props.label;
-    } else if (props.label && !props.leadingLabel && !props.trailingLabel) {
+    if (props.label && !props.leadingLabel && !props.trailingLabel) {
         labelEl = (
             <label class="mdc-floating-label" htmlFor="kup-input">
                 {props.label}
@@ -72,47 +68,6 @@ function setContent(props: Props) {
         );
     }
 
-    if (isOutlined) {
-        if (props.textArea) {
-            inputEl = (
-                <span class="mdc-text-field__resizer">
-                    <textarea
-                        class="mdc-text-field__input"
-                        disabled={props.disabled}
-                        readOnly={props.readOnly}
-                        maxlength={props.maxLength}
-                        value={props.value}
-                    ></textarea>
-                </span>
-            );
-        } else {
-            inputEl = (
-                <input
-                    type={props.inputType}
-                    class="mdc-text-field__input"
-                    disabled={props.disabled}
-                    readOnly={props.readOnly}
-                    placeholder={placeholderLabel}
-                    maxlength={props.maxLength}
-                    value={props.value}
-                ></input>
-            );
-        }
-    } else {
-        inputEl = (
-            <input
-                type={props.inputType}
-                id="kup-input"
-                class="mdc-text-field__input"
-                disabled={props.disabled}
-                readOnly={props.readOnly}
-                placeholder={placeholderLabel}
-                maxlength={props.maxLength}
-                value={props.value}
-            ></input>
-        );
-    }
-
     const classObj: Record<string, boolean> = {
         'is-clearable': props.isClearable,
         'mdc-text-field': true,
@@ -134,7 +89,27 @@ function setContent(props: Props) {
                 </div>
             ) : undefined}
             {!props.trailingIcon ? iconEl : undefined}
-            {inputEl}
+            {props.textArea ? (
+                <span class="mdc-text-field__resizer">
+                    <textarea
+                        class="mdc-text-field__input"
+                        disabled={props.disabled}
+                        readOnly={props.readOnly}
+                        maxlength={props.maxLength}
+                        value={props.value}
+                    ></textarea>
+                </span>
+            ) : (
+                <input
+                    type={props.inputType}
+                    class="mdc-text-field__input"
+                    disabled={props.disabled}
+                    readOnly={props.readOnly}
+                    placeholder={props.fullWidth ? props.label : undefined}
+                    maxlength={props.maxLength}
+                    value={props.value}
+                ></input>
+            )}
             {props.isClearable ? (
                 <span
                     tabindex="1"
@@ -154,7 +129,7 @@ function setContent(props: Props) {
             )}
             {setHelper(props)}
             {props.leadingLabel || props.trailingLabel ? (
-                <label htmlFor="kup-input">{props.label}</label>
+                <label>{props.label}</label>
             ) : undefined}
         </div>
     );
