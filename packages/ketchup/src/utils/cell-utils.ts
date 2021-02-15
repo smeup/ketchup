@@ -1,12 +1,22 @@
 // Box and datatables cells utils functions
 
 import get from 'lodash/get';
-import {
-    Cell,
-    Column,
-} from '../components/kup-data-table/kup-data-table-declarations';
+import { Cell } from '../components/kup-data-table/kup-data-table-declarations';
 import { BoxObject } from '../components/kup-box/kup-box-declarations';
-import { isProgressBar as isProgressBarObj } from './object-utils';
+import {
+    isBar,
+    isButton,
+    isCheckbox,
+    isDate,
+    isIcon,
+    isLink,
+    isNumber,
+    isObjectList,
+    isProgressBar as isProgressBarObj,
+    isTime,
+    isTimestamp,
+    isVoCodver,
+} from './object-utils';
 import { isColor as isColorObj } from './object-utils';
 import { isRadio as isRadioObj } from './object-utils';
 import { isChart as isChartObj } from './object-utils';
@@ -276,4 +286,47 @@ export function isGauge(cell: Cell, boxObject: BoxObject) {
 export function isKnob(cell: Cell, boxObject: BoxObject) {
     let shape = getShape(cell, boxObject);
     return 'KNB' === shape;
+}
+
+export function getCellType(cell: Cell) {
+    let obj = cell.obj;
+    if (isBar(obj)) {
+        return 'bar';
+    } else if (isButton(obj)) {
+        return 'button';
+    } else if (isChartObj(obj)) {
+        return 'chart';
+    } else if (isCheckbox(obj)) {
+        return 'checkbox';
+    } else if (isColor(cell, null)) {
+        return 'color-picker';
+    } else if (isGauge(cell, null)) {
+        return 'gauge';
+    } else if (isKnob(cell, null)) {
+        return 'knob';
+    } else if (isIcon(obj) || isVoCodver(obj)) {
+        return 'icon';
+    } else if (isImageObj(obj)) {
+        return 'image';
+    } else if (isLink(obj)) {
+        return 'link';
+    } else if (isProgressBar(cell, null)) {
+        return 'progress-bar';
+    } else if (isRadio(cell, null)) {
+        return 'radio';
+    } else if (isRating(cell, null)) {
+        return 'rating';
+    } else if (isObjectList(obj)) {
+        return 'chips';
+    } else if (isNumber(obj)) {
+        return 'number';
+    } else if (isDate(obj)) {
+        return 'date';
+    } else if (isTimestamp(obj)) {
+        return 'datetime';
+    } else if (isTime(obj)) {
+        return 'time';
+    } else {
+        return 'string';
+    }
 }
