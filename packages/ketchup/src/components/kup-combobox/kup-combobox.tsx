@@ -300,7 +300,6 @@ export class KupCombobox {
         let ret = consistencyCheck(
             valueIn,
             this.data['kup-list'],
-            this.textfieldEl,
             this.listEl,
             this.selectMode,
             this.displayMode,

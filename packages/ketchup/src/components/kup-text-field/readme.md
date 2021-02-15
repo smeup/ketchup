@@ -88,7 +88,6 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-autocomplete](../kup-autocomplete)
  - [kup-box](../kup-box)
  - [kup-color-picker](../kup-color-picker)
  - [kup-combobox](../kup-combobox)
@@ -102,7 +101,6 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
-  kup-autocomplete --> kup-text-field
   kup-box --> kup-text-field
   kup-color-picker --> kup-text-field
   kup-combobox --> kup-text-field

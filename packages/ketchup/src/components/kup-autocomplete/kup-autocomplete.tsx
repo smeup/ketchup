@@ -12,6 +12,11 @@ import {
     Watch,
 } from '@stencil/core';
 
+import { MDCTextField } from '@material/textfield';
+import { MDCFormField } from '@material/form-field';
+import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
+import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
+import { MDCTextFieldIcon } from '@material/textfield/icon';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
@@ -19,6 +24,7 @@ import {
     consistencyCheck,
 } from '../kup-list/kup-list-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -28,6 +34,7 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 export class KupAutocomplete {
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
+    @State() displayedValue: string = undefined;
     @State() value: string = '';
 
     /**
@@ -59,11 +66,11 @@ export class KupAutocomplete {
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
 
-    private doConsistencyCheck = true;
+    private doConsistencyCheck: boolean = true;
     private elStyle: any = undefined;
-    private displayedValue: string = undefined;
     private listEl: any = undefined;
-    private textfieldEl: any = undefined;
+    private textfieldWrapper: HTMLElement = undefined;
+    private textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
 
     /**
      * Event example.
@@ -207,13 +214,14 @@ export class KupAutocomplete {
 
     @Method()
     async setFocus() {
-        this.textfieldEl.setFocus();
+        this.textfieldEl.focus();
     }
 
     @Method()
     async setValue(value: string) {
         this.value = value;
-        this.textfieldEl.setValue(value);
+        this.doConsistencyCheck = true;
+        this.consistencyCheck(undefined, value);
     }
 
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
@@ -224,9 +232,9 @@ export class KupAutocomplete {
         });
     }
 
-    onKupChange(e: CustomEvent) {
+    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
         this.doConsistencyCheck = true;
-        this.consistencyCheck(undefined, e.detail.value);
+        this.consistencyCheck(undefined, e.target.value);
         this.kupChange.emit({
             value: this.value,
         });
@@ -246,9 +254,9 @@ export class KupAutocomplete {
         });
     }
 
-    onKupInput(e: CustomEvent) {
+    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
         this.doConsistencyCheck = true;
-        this.consistencyCheck(undefined, e.detail.value);
+        this.consistencyCheck(undefined, e.target.value);
         if (this.openList(false)) {
             this.handleFilterChange(this.displayedValue, e.target);
         }
@@ -261,7 +269,7 @@ export class KupAutocomplete {
     onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
 
-        if (this.textfieldEl.classList.contains('toggled')) {
+        if (this.textfieldWrapper.classList.contains('toggled')) {
             this.closeList();
         } else {
             this.openList(true);
@@ -308,41 +316,21 @@ export class KupAutocomplete {
         }
     }
 
-    private onKupTextFieldSubmit(event: CustomEvent) {
-        this.kupChange.emit({
-            value: event.detail.value,
-        });
-        this.kupTextFieldSubmit.emit({
-            value: event.detail.value,
-        });
-    }
-
     private openList(forceOpen: boolean): boolean {
         if (forceOpen != true && this.value.length < this.minimumChars) {
             return false;
         }
-        let textFieldWidth = this.textfieldEl.shadowRoot.querySelector(
-            '.mdc-text-field'
-        ).clientWidth;
-        this.textfieldEl.classList.add('toggled');
-        if (this.textfieldEl['icon']) {
-            this.textfieldEl['icon'] = 'arrow_drop_up';
-        }
-        this.textfieldEl.emitSubmitEventOnEnter = false;
+        this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
         this.listEl.classList.add('dynamic-position-active');
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
-        elStyle.minWidth = textFieldWidth + 'px';
+        elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
         return true;
     }
 
     private closeList() {
-        this.textfieldEl.classList.remove('toggled');
-        if (this.textfieldEl['icon']) {
-            this.textfieldEl['icon'] = 'arrow_drop_down';
-        }
-        this.textfieldEl.emitSubmitEventOnEnter = true;
+        this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
         this.listEl.classList.remove('dynamic-position-active');
     }
@@ -359,7 +347,6 @@ export class KupAutocomplete {
         let ret = consistencyCheck(
             valueIn,
             this.data['kup-list'],
-            this.textfieldEl,
             this.listEl,
             this.selectMode,
             this.displayMode,
@@ -373,33 +360,6 @@ export class KupAutocomplete {
         }
     }
 
-    private prepTextfield() {
-        let textfieldData = { ...this.data['kup-text-field'] };
-
-        if (!textfieldData['icon']) {
-            textfieldData['icon'] = 'arrow_drop_down';
-        }
-        if (textfieldData['trailingIcon'] === undefined) {
-            textfieldData['trailingIcon'] = true;
-        }
-
-        return (
-            <kup-text-field
-                {...textfieldData}
-                disabled={this.disabled}
-                id={this.rootElement.id + '_text-field'}
-                initialValue={this.displayedValue}
-                onKupTextFieldChange={(e: any) => this.onKupChange(e)}
-                onKupTextFieldClick={(e: any) => this.onKupClick(e)}
-                onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
-                onKupTextFieldInput={(e: any) => this.onKupInput(e)}
-                onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
-                onKupTextFieldSubmit={(e: any) => this.onKupTextFieldSubmit(e)}
-                ref={(el) => (this.textfieldEl = el as any)}
-            ></kup-text-field>
-        );
-    }
-
     private prepList() {
         return (
             <kup-list
@@ -411,6 +371,60 @@ export class KupAutocomplete {
                 ref={(el) => (this.listEl = el as any)}
             ></kup-list>
         );
+    }
+
+    private setEvents(root: ShadowRoot) {
+        let inputEl:
+            | HTMLInputElement
+            | HTMLTextAreaElement = root.querySelector(
+            '.mdc-text-field__input'
+        );
+        if (inputEl) {
+            inputEl.onblur = (e: FocusEvent & { target: HTMLInputElement }) =>
+                this.onKupBlur(e);
+            inputEl.onchange = (e: UIEvent & { target: HTMLInputElement }) =>
+                this.onKupChange(e);
+            inputEl.onclick = (e: MouseEvent & { target: HTMLInputElement }) =>
+                this.onKupClick(e);
+            inputEl.onfocus = (e: FocusEvent & { target: HTMLInputElement }) =>
+                this.onKupFocus(e);
+            inputEl.oninput = (e: UIEvent & { target: HTMLInputElement }) =>
+                this.onKupInput(e);
+            this.textfieldWrapper = inputEl.closest('.f-text-field--wrapper');
+            this.textfieldEl = inputEl;
+        }
+        let icon: HTMLElement = root.querySelector('.mdc-text-field__icon');
+        if (icon) {
+            icon.onclick = (e: MouseEvent & { target: HTMLInputElement }) =>
+                this.onKupIconClick(e);
+        }
+    }
+
+    private setMDC(root: ShadowRoot) {
+        const component = new MDCTextField(
+            root.querySelector('.mdc-text-field')
+        );
+        if (root.querySelector('.mdc-form-field')) {
+            const formField = MDCFormField.attachTo(
+                root.querySelector('.mdc-form-field')
+            );
+            formField.input = component;
+        }
+        if (root.querySelector('.mdc-text-field-helper-text')) {
+            new MDCTextFieldHelperText(
+                document.querySelector('.mdc-text-field-helper-text')
+            );
+        }
+        if (root.querySelector('.mdc-text-field-character-counter')) {
+            new MDCTextFieldCharacterCounter(
+                document.querySelector('.mdc-text-field-character-counter')
+            );
+        }
+        if (root.querySelector('.mdc-text-field-icon')) {
+            new MDCTextFieldIcon(
+                document.querySelector('.mdc-text-field-icon')
+            );
+        }
     }
 
     //---- Lifecycle hooks ----
@@ -438,7 +452,12 @@ export class KupAutocomplete {
     }
 
     componentDidRender() {
-        positionRecalc(this.listEl, this.textfieldEl);
+        const root = this.rootElement.shadowRoot;
+        if (root) {
+            this.setEvents(root);
+            this.setMDC(root);
+        }
+        positionRecalc(this.listEl, this.textfieldWrapper);
         logRender(this, true);
     }
 
@@ -470,7 +489,13 @@ export class KupAutocomplete {
             >
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
-                    {this.prepTextfield()}
+                    <FTextField
+                        {...this.data['kup-text-field']}
+                        disabled={this.disabled}
+                        icon="--kup-expanded-icon"
+                        trailingIcon={true}
+                        value={this.displayedValue}
+                    />
                     {this.prepList()}
                 </div>
             </Host>

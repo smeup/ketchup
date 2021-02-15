@@ -236,7 +236,6 @@ export class KupDropdownButton {
         let ret = consistencyCheck(
             valueIn,
             this.data['kup-list'],
-            null,
             this.listEl,
             this.selectMode,
             this.displayMode,

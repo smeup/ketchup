@@ -64,18 +64,27 @@ function setContent(props: Props) {
     }
 
     if (props.icon) {
-        let svg: string = `url('${getAssetPath(
-            `./assets/svg/${props.icon}.svg`
-        )}') no-repeat center`;
-        let iconStyle = {
-            mask: svg,
-            webkitMask: svg,
+        let iconStyle: {
+            [key: string]: string;
         };
+        let iconClass: string = '';
+        if (props.icon.indexOf('--kup') > -1) {
+            iconClass = props.icon.replace('--kup-', '');
+            iconClass = iconClass.replace('-icon', '');
+        } else {
+            let svg: string = `url('${getAssetPath(
+                `./assets/svg/${props.icon}.svg`
+            )}') no-repeat center`;
+            iconStyle = {
+                mask: svg,
+                webkitMask: svg,
+            };
+        }
         iconEl = (
             <span
                 tabindex="0"
                 style={iconStyle}
-                class="material-icons mdc-text-field__icon icon-container"
+                class={`material-icons mdc-text-field__icon icon-container ${iconClass}`}
             ></span>
         );
     }
