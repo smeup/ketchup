@@ -1681,10 +1681,11 @@ export class KupDataTable {
             if (needNormalize) {
                 newFilter = normalizeValue(newFilter, column.obj);
             }
+            if (suffixToAdd != null && newFilter != '') {
+                newFilter = newFilter + suffixToAdd;
+            }
         }
-        if (suffixToAdd != null) {
-            newFilter = newFilter + suffixToAdd;
-        }
+
         const newFilters: GenericFilter = { ...this.filters };
         setIntervalTextFieldFilterValue(
             newFilters,
