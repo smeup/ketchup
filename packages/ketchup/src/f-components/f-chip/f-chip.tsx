@@ -8,48 +8,52 @@ interface Props {
     type?: string;
 }
 
-export const FChip: FunctionalComponent<Props> = ({ data, id, type }) => {
-    let MDCClass: string = setMDCClass(type);
+export const FChip: FunctionalComponent<Props> = (props) => {
+    const classObj: Record<string, boolean> = {
+        'mdc-chip-set': true,
+        'mdc-chip-set--choice': props.type == 'choice' ? true : false,
+        'mdc-chip-set--filter': props.type == 'filter' ? true : false,
+        'mdc-chip-set--input': props.type == 'input' ? true : false,
+    };
 
     return (
-        <div id={id} class="f-chip--wrapper">
-            <div class={MDCClass} role="grid">
-                {createChipList(data, type)}
+        <div id={props.id} class="f-chip--wrapper">
+            <div class={classObj} role="grid">
+                {createChipList(props)}
             </div>
         </div>
     );
 };
 
-function createChipList(data: ComponentChipElement[], type: string) {
+function createChipList(props: Props) {
     let chipList: Array<HTMLElement> = [];
     let chipEl: HTMLElement;
 
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < props.data.length; i++) {
         let componentClass: string = 'mdc-chip';
         let iconEl = [];
         let iconClass = 'mdc-chip__icon mdc-chip__icon--leading';
-        let cancelIcon = undefined;
 
-        if (type == 'filter' || type == 'choice') {
-            if (data[i].checked) {
+        if (props.type == 'filter' || props.type == 'choice') {
+            if (props.data[i].checked) {
                 componentClass += ' mdc-chip--selected';
-                if (type === 'filter') {
+                if (props.type === 'filter') {
                     iconClass += ' mdc-chip__icon--leading-hidden';
                 }
             }
         }
 
-        if (data[i].icon) {
-            let props = {
-                resource: data[i].icon,
+        if (props.data[i].icon) {
+            let p = {
+                resource: props.data[i].icon,
                 sizeX: '18px',
                 sizeY: '18px',
                 wrapperClass: iconClass,
             };
-            iconEl.push(<FImage {...props} />);
+            iconEl.push(<FImage {...p} />);
         }
 
-        if (type == 'filter') {
+        if (props.type == 'filter') {
             iconEl.push(
                 <span class="mdc-chip__checkmark">
                     <svg class="mdc-chip__checkmark-svg" viewBox="-2 -3 30 30">
@@ -64,17 +68,6 @@ function createChipList(data: ComponentChipElement[], type: string) {
             );
         }
 
-        if (type == 'input') {
-            cancelIcon = (
-                <span role="gridcell">
-                    <span
-                        tabindex="-1"
-                        class="icon-container material-icons mdc-chip__icon clear"
-                    ></span>
-                </span>
-            );
-        }
-
         chipEl = (
             <div class={componentClass} role="row">
                 <div class="mdc-chip__ripple"></div>
@@ -85,34 +78,26 @@ function createChipList(data: ComponentChipElement[], type: string) {
                         tabindex={i}
                         class="mdc-chip__primary-action"
                         // @ts-ignore
-                        value={data[i].value}
-                        checked={data[i].checked}
+                        value={props.data[i].value}
+                        checked={props.data[i].checked}
                     >
-                        <span class="mdc-chip__text">{data[i].label}</span>
+                        <span class="mdc-chip__text">
+                            {props.data[i].label}
+                        </span>
                     </span>
                 </span>
-                {cancelIcon}
+                {props.type == 'input' ? (
+                    <span role="gridcell">
+                        <span
+                            tabindex="-1"
+                            class="icon-container material-icons mdc-chip__icon clear"
+                        ></span>
+                    </span>
+                ) : undefined}
             </div>
         );
         chipList.push(chipEl);
     }
 
     return chipList;
-}
-
-function setMDCClass(type: string) {
-    if (type) {
-        switch (type) {
-            case 'choice':
-                return 'mdc-chip-set mdc-chip-set--choice';
-            case 'filter':
-                return 'mdc-chip-set mdc-chip-set--filter';
-            case 'input':
-                return 'mdc-chip-set mdc-chip-set--input';
-            default:
-                return 'mdc-chip-set';
-        }
-    } else {
-        return 'mdc-chip-set';
-    }
 }

@@ -7,48 +7,36 @@ interface Props {
     leadingLabel?: boolean;
 }
 
-export const FSwitch: FunctionalComponent<Props> = ({
-    checked,
-    disabled,
-    label,
-    leadingLabel,
-}) => {
-    let formClass: string = 'mdc-form-field';
-    let componentClass: string = 'mdc-switch';
-    let componentLabel: string = label;
-
-    if (disabled) {
-        componentClass += ' mdc-switch--disabled';
-    }
-
-    if (checked) {
-        componentClass += ' mdc-switch--checked';
-    }
-
-    if (leadingLabel) {
-        formClass += ' mdc-form-field--align-end';
-    }
+export const FSwitch: FunctionalComponent<Props> = (props) => {
+    const classObj: Record<string, boolean> = {
+        'mdc-switch': true,
+        'mdc-switch--checked': props.checked,
+        'mdc-switch--disabled': props.disabled,
+    };
 
     return (
         <div class="f-switch--wrapper">
-            <div class={formClass}>
-                <div class={componentClass}>
+            <div
+                class={`mdc-form-field ${
+                    props.leadingLabel ? 'mdc-form-field--align-end' : ''
+                }`}
+            >
+                <div class={classObj}>
                     <div class="mdc-switch__track"></div>
                     <div class="mdc-switch__thumb-underlay">
                         <div class="mdc-switch__thumb">
                             <input
                                 type="checkbox"
-                                id="switch-id"
                                 class="mdc-switch__native-control"
                                 role="switch"
-                                checked={checked}
-                                disabled={disabled}
-                                value={checked ? 'on' : 'off'}
+                                checked={props.checked}
+                                disabled={props.disabled}
+                                value={props.checked ? 'on' : 'off'}
                             ></input>
                         </div>
                     </div>
                 </div>
-                <label htmlFor="switch-id">{componentLabel}</label>
+                <label>{props.label}</label>
             </div>
         </div>
     );

@@ -29,10 +29,14 @@ export const FTextField: FunctionalComponent<Props> = (props) => {
                         props.leadingLabel ? 'mdc-form-field--align-end' : ''
                     }`}
                 >
-                    {setContent(props)}
+                    {[
+                        setContent(props),
+                        setHelper(props),
+                        <label>{props.label}</label>,
+                    ]}
                 </div>
             ) : (
-                setContent(props)
+                [setContent(props), setHelper(props)]
             )}
         </div>
     );
@@ -77,8 +81,8 @@ function setContent(props: Props) {
         'mdc-text-field--fullwidth': props.fullWidth,
         'mdc-text-field--outlined': isOutlined,
         'mdc-text-field--textarea': props.textArea,
-        'mdc-text-field--with-leading-icon': !props.trailingIcon,
-        'mdc-text-field--with-trailing-icon': props.trailingIcon,
+        'mdc-text-field--with-leading-icon': props.icon && !props.trailingIcon,
+        'mdc-text-field--with-trailing-icon': props.icon && props.trailingIcon,
     };
 
     return (
@@ -117,7 +121,7 @@ function setContent(props: Props) {
                 ></span>
             ) : undefined}
             {props.trailingIcon ? iconEl : undefined}
-            {!isOutlined ? labelEl : undefined}
+            {!props.fullWidth && !isOutlined ? labelEl : undefined}
             {isOutlined ? (
                 <div class="mdc-notched-outline">
                     <div class="mdc-notched-outline__leading"></div>
@@ -127,10 +131,6 @@ function setContent(props: Props) {
             ) : (
                 <span class="mdc-line-ripple"></span>
             )}
-            {setHelper(props)}
-            {props.leadingLabel || props.trailingLabel ? (
-                <label>{props.label}</label>
-            ) : undefined}
         </div>
     );
 }
