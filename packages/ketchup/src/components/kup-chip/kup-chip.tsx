@@ -162,9 +162,7 @@ export class KupChip {
     private setEvents() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const f: HTMLElement = root.querySelector(
-                '.f-chip--wrapper:not([data-events])'
-            );
+            const f: HTMLElement = root.querySelector('.f-chip--wrapper');
             if (f) {
                 const chips: NodeListOf<HTMLElement> = f.querySelectorAll(
                     '.mdc-chip'
@@ -186,7 +184,6 @@ export class KupChip {
                     chips[j].onclick = () => this.onKupClick(j);
                 }
                 FChipMDC(f);
-                f.setAttribute('data-events', '');
             }
         }
     }

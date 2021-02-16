@@ -160,9 +160,7 @@ export class KupCheckbox {
     private setEvents() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const f: HTMLElement = root.querySelector(
-                '.f-checkbox--wrapper:not([data-events])'
-            );
+            const f: HTMLElement = root.querySelector('.f-checkbox--wrapper');
             if (f) {
                 const inputEl: HTMLInputElement = f.querySelector('input');
                 const labelEl: HTMLElement = f.querySelector('label');
@@ -177,7 +175,6 @@ export class KupCheckbox {
                     labelEl.onclick = () => this.onKupClick();
                 }
                 FCheckboxMDC(f);
-                f.setAttribute('data-events', '');
             }
         }
     }

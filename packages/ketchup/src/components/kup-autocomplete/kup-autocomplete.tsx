@@ -369,9 +369,7 @@ export class KupAutocomplete {
     private setEvents() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const f: HTMLElement = root.querySelector(
-                '.f-text-field--wrapper:not([data-events]'
-            );
+            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
             if (f) {
                 const inputEl:
                     | HTMLInputElement
@@ -405,7 +403,6 @@ export class KupAutocomplete {
                     ) => this.onKupIconClick(e);
                 }
                 FTextFieldMDC(f);
-                f.setAttribute('data-events', '');
             }
         }
     }
@@ -417,7 +414,6 @@ export class KupAutocomplete {
         setThemeCustomStyle(this);
         this.doConsistencyCheck = true;
         this.value = this.initialValue;
-        this.displayedValue = this.initialValue;
         if (!this.data) {
             this.data = {
                 'kup-list': {},

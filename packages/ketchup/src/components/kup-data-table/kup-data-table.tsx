@@ -1026,10 +1026,10 @@ export class KupDataTable {
 
         if (root) {
             const groupChip: HTMLElement = root.querySelector(
-                '#group-chips .f-chip--wrapper:not([data-events])'
+                '#group-chips .f-chip--wrapper'
             );
             const globalFilter: HTMLElement = root.querySelector(
-                '#global-filter .f-text-field--wrapper:not([data-events])'
+                '#global-filter .f-text-field--wrapper'
             );
             if (groupChip) {
                 const chips: NodeListOf<HTMLElement> = root.querySelectorAll(
@@ -1044,7 +1044,6 @@ export class KupDataTable {
                     }
                 }
                 FChipMDC(groupChip);
-                groupChip.setAttribute('data-events', '');
             }
             if (globalFilter) {
                 const globalFilterInput: HTMLInputElement = globalFilter.querySelector(
@@ -1067,7 +1066,6 @@ export class KupDataTable {
                         this.onGlobalFilterChange(null);
                 }
                 FTextFieldMDC(globalFilter);
-                globalFilter.setAttribute('data-events', '');
             }
         }
     }

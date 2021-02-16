@@ -307,9 +307,7 @@ export class KupCombobox {
     private setEvents() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const f: HTMLElement = root.querySelector(
-                '.f-text-field--wrapper:not([data-events])'
-            );
+            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
             if (f) {
                 const inputEl:
                     | HTMLInputElement
@@ -343,7 +341,6 @@ export class KupCombobox {
                     ) => this.onKupIconClick(e);
                 }
                 FTextFieldMDC(f);
-                f.setAttribute('data-events', '');
             }
         }
     }
@@ -354,7 +351,6 @@ export class KupCombobox {
         logLoad(this, false);
         setThemeCustomStyle(this);
         this.value = this.initialValue;
-        this.displayedValue = this.initialValue;
         if (!this.data) {
             this.data = {
                 'kup-list': {},

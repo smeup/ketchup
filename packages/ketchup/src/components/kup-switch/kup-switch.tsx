@@ -141,9 +141,7 @@ export class KupSwitch {
     private setEvents() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const f: HTMLElement = root.querySelector(
-                '.f-switch--wrapper:not([data-events])'
-            );
+            const f: HTMLElement = root.querySelector('.f-switch--wrapper');
             if (f) {
                 const inputEl: HTMLInputElement = f.querySelector('input');
                 const labelEl: HTMLElement = f.querySelector('label');
@@ -158,7 +156,6 @@ export class KupSwitch {
                     labelEl.onclick = () => this.onKupClick();
                 }
                 FSwitchMDC(f);
-                f.setAttribute('data-events', '');
             }
         }
     }

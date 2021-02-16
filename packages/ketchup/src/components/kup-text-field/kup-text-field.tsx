@@ -286,9 +286,7 @@ export class KupTextField {
     private setEvents() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
-            const f: HTMLElement = root.querySelector(
-                '.f-text-field--wrapper:not([data-events])'
-            );
+            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
             if (f) {
                 const inputEl:
                     | HTMLInputElement
@@ -327,7 +325,6 @@ export class KupTextField {
                     clearIcon.onclick = () => this.onKupClearIconClick();
                 }
                 FTextFieldMDC(f);
-                f.setAttribute('data-events', '');
             }
         }
     }
