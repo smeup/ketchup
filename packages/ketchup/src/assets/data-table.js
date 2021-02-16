@@ -126806,6 +126806,26 @@ const tempDataTableTestTypeData = {
           icon: 'calendar',
           title: 'Timestamp',
       },
+      {
+        name: 'TIMESTAMP2',
+        obj: {
+          t: 'I3',
+          p: '2',
+          k: '',
+        },
+        icon: 'calendar',
+        title: 'Timestamp 2',
+      },
+      {
+        name: 'TIMESTAMP3',
+        obj: {
+          t: 'I3',
+          p: '2',
+          k: '',
+        },
+        icon: 'calendar',
+        title: 'Timestamp 3',
+    },
   ],
   rows: [
       {
@@ -126866,11 +126886,106 @@ const tempDataTableTestTypeData = {
                   },
                   value: '2021-07-19 10:33:44',
               },
+              TIMESTAMP2: {
+                obj: {
+                    t: 'I3',
+                    p: '2',
+                    k: '',
+                },
+                value: '2021-07-20 10:33:44',
+              },
+              TIMESTAMP3: {
+                obj: {
+                    t: 'I3',
+                    p: '2',
+                    k: '',
+                },
+                value: '2021-07-21 10:33:44',
+              },
           id: '7',
           object: '',
           readOnly: true,
       },
-    }
+    },
+    {
+      cells: {
+          STRING: {
+              obj: {
+                  k: 'String value',
+                  p: '',
+                  t: '',
+              },
+              value: 'String value',
+          },
+          NUMBER: {
+              obj: {
+                  k: '12345',
+                  p: '',
+                  t: 'NR',
+              },
+              value: '12345.0',
+          },
+          DECIMALNUMBER: {
+            obj: {
+                k: '10.123',
+                p: '',
+                t: 'NR',
+            },
+            value: '10.123',
+        },
+          DATE: {
+              obj: {
+                  t: 'D8',
+                  p: '*YYMD',
+                  k: '',
+              },
+              value: '2021-01-02',
+          },
+          TIMESEC: {
+              obj: {
+                  t: 'I1',
+                  p: '2',
+                  k: '',
+              },
+              value: '10:11:22',
+          },
+          TIME: {
+              obj: {
+                  t: 'I1',
+                  p: '',
+                  k: '',
+              },
+              value: '10:55',
+          },
+          TIMESTAMP: {
+              obj: {
+                  t: 'I3',
+                  p: '2',
+                  k: '',
+              },
+              value: '2021-07-21 11:33:44',
+          },
+          TIMESTAMP2: {
+            obj: {
+                t: 'I3',
+                p: '2',
+                k: '',
+            },
+            value: '2021-07-25 10:33:44',
+          },
+          TIMESTAMP3: {
+            obj: {
+                t: 'I3',
+                p: '2',
+                k: '',
+            },
+            value: '2021-07-26 10:33:44',
+          },
+      id: '8',
+      object: '',
+      readOnly: true,
+  },
+}
   ]
 };
 
