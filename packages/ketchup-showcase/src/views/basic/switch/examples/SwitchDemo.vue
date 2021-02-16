@@ -30,10 +30,6 @@ export default {
           type: 'change',
         },
         {
-          name: 'kupSwitchInput',
-          type: 'input',
-        },
-        {
           name: 'kupSwitchFocus',
           type: 'focus',
         },

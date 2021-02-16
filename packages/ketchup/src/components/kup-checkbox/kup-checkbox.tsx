@@ -21,8 +21,13 @@ import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 })
 export class KupCheckbox {
     @Element() rootElement: HTMLElement;
+
+    //---- States ----
+
     @State() value: string = '';
     @State() customStyleTheme: string = undefined;
+
+    //---- Props ----
 
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
@@ -49,6 +54,11 @@ export class KupCheckbox {
      */
     @Prop() leadingLabel: boolean = false;
 
+    //---- Events ----
+
+    /**
+     * Triggered when the input element loses focus.
+     */
     @Event({
         eventName: 'kupCheckboxBlur',
         composed: true,
@@ -59,7 +69,9 @@ export class KupCheckbox {
         value: string;
         checked: boolean;
     }>;
-
+    /**
+     * Triggered when the input element's value changes.
+     */
     @Event({
         eventName: 'kupCheckboxChange',
         composed: true,
@@ -70,7 +82,9 @@ export class KupCheckbox {
         value: string;
         checked: boolean;
     }>;
-
+    /**
+     * Triggered when the input element is clicked.
+     */
     @Event({
         eventName: 'kupCheckboxClick',
         composed: true,
@@ -81,7 +95,9 @@ export class KupCheckbox {
         value: string;
         checked: boolean;
     }>;
-
+    /**
+     * Triggered when the input element gets focused.
+     */
     @Event({
         eventName: 'kupCheckboxFocus',
         composed: true,
@@ -92,24 +108,6 @@ export class KupCheckbox {
         value: string;
         checked: boolean;
     }>;
-
-    @Event({
-        eventName: 'kupCheckboxInput',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupInput: EventEmitter<{
-        value: string;
-        checked: boolean;
-    }>;
-
-    //---- Methods ----
-
-    @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     onKupBlur() {
         this.kupBlur.emit({
@@ -150,12 +148,14 @@ export class KupCheckbox {
         });
     }
 
-    onKupInput() {
-        this.kupInput.emit({
-            value: this.value,
-            checked: this.checked == true ? true : false,
-        });
+    //---- Public methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
+
+    //---- Private methods ----
 
     private setEvents() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
@@ -169,7 +169,6 @@ export class KupCheckbox {
                     inputEl.onchange = () => this.onKupChange();
                     inputEl.onclick = () => this.onKupClick();
                     inputEl.onfocus = () => this.onKupFocus();
-                    inputEl.oninput = () => this.onKupInput();
                 }
                 if (labelEl) {
                     labelEl.onclick = () => this.onKupClick();

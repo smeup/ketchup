@@ -21,8 +21,14 @@ import { FSwitchMDC } from '../../f-components/f-switch/f-switch-mdc';
 })
 export class KupSwitch {
     @Element() rootElement: HTMLElement;
+
+    //---- States ----
+
     @State() value: string = '';
     @State() customStyleTheme: string = undefined;
+
+    //---- Props ----
+
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
      */
@@ -44,6 +50,11 @@ export class KupSwitch {
      */
     @Prop() leadingLabel: boolean = false;
 
+    //---- Events ----
+
+    /**
+     * Triggered when the input element loses focus.
+     */
     @Event({
         eventName: 'kupSwitchBlur',
         composed: true,
@@ -53,7 +64,9 @@ export class KupSwitch {
     kupBlur: EventEmitter<{
         value: string;
     }>;
-
+    /**
+     * Triggered when the input element's value changes.
+     */
     @Event({
         eventName: 'kupSwitchChange',
         composed: true,
@@ -63,7 +76,9 @@ export class KupSwitch {
     kupChange: EventEmitter<{
         value: string;
     }>;
-
+    /**
+     * Triggered when the input element is clicked.
+     */
     @Event({
         eventName: 'kupSwitchClick',
         composed: true,
@@ -73,7 +88,9 @@ export class KupSwitch {
     kupClick: EventEmitter<{
         value: string;
     }>;
-
+    /**
+     * Triggered when the input element gets focused.
+     */
     @Event({
         eventName: 'kupSwitchFocus',
         composed: true,
@@ -83,23 +100,6 @@ export class KupSwitch {
     kupFocus: EventEmitter<{
         value: string;
     }>;
-
-    @Event({
-        eventName: 'kupSwitchInput',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupInput: EventEmitter<{
-        value: string;
-    }>;
-
-    //---- Methods ----
-
-    @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     onKupBlur() {
         this.kupBlur.emit({
@@ -132,11 +132,14 @@ export class KupSwitch {
         });
     }
 
-    onKupInput() {
-        this.kupInput.emit({
-            value: this.value,
-        });
+    //---- Public methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
+
+    //---- Private methods ----
 
     private setEvents() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
@@ -150,7 +153,6 @@ export class KupSwitch {
                     inputEl.onchange = () => this.onKupChange();
                     inputEl.onclick = () => this.onKupClick();
                     inputEl.onfocus = () => this.onKupFocus();
-                    inputEl.oninput = () => this.onKupInput();
                 }
                 if (labelEl) {
                     labelEl.onclick = () => this.onKupClick();

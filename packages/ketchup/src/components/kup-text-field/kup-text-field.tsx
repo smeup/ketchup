@@ -21,8 +21,13 @@ import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc'
 })
 export class KupTextField {
     @Element() rootElement: HTMLElement;
+
+    //---- States ----
+
     @State() value: string = '';
     @State() customStyleTheme: string = undefined;
+
+    //---- Props ----
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -97,8 +102,15 @@ export class KupTextField {
      */
     @Prop() trailingLabel: boolean = false;
 
+    //---- Internal variables ----
+
     private inputEl = undefined;
 
+    //---- Events ----
+
+    /**
+     * Triggered when the input element loses focus.
+     */
     @Event({
         eventName: 'kupTextFieldBlur',
         composed: true,
@@ -109,7 +121,9 @@ export class KupTextField {
         id: any;
         value: string;
     }>;
-
+    /**
+     * Triggered when the input element changes.
+     */
     @Event({
         eventName: 'kupTextFieldChange',
         composed: true,
@@ -120,7 +134,9 @@ export class KupTextField {
         id: any;
         value: string;
     }>;
-
+    /**
+     * Triggered when the input element is clicked.
+     */
     @Event({
         eventName: 'kupTextFieldClick',
         composed: true,
@@ -131,7 +147,9 @@ export class KupTextField {
         id: any;
         value: string;
     }>;
-
+    /**
+     * Triggered when the input element gets focused.
+     */
     @Event({
         eventName: 'kupTextFieldFocus',
         composed: true,
@@ -142,7 +160,9 @@ export class KupTextField {
         id: any;
         value: string;
     }>;
-
+    /**
+     * Triggered when the input element receives an input.
+     */
     @Event({
         eventName: 'kupTextFieldInput',
         composed: true,
@@ -153,7 +173,9 @@ export class KupTextField {
         id: any;
         value: string;
     }>;
-
+    /**
+     * Triggered when the text field's icon is clicked.
+     */
     @Event({
         eventName: 'kupTextFieldIconClick',
         composed: true,
@@ -164,7 +186,9 @@ export class KupTextField {
         id: any;
         value: string;
     }>;
-
+    /**
+     * Triggered when the text field's clear icon is clicked.
+     */
     @Event({
         eventName: 'kupTextFieldClearIconClick',
         composed: true,
@@ -174,7 +198,9 @@ export class KupTextField {
     kupClearIconClick: EventEmitter<{
         id: any;
     }>;
-
+    /**
+     * Triggered when the Enter key is pressed.
+     */
     @Event({
         eventName: 'kupTextFieldSubmit',
         composed: true,
@@ -185,35 +211,6 @@ export class KupTextField {
         id: any;
         value: string;
     }>;
-
-    //---- Methods ----
-
-    @Method()
-    async getValue(): Promise<string> {
-        return this.value;
-    }
-
-    @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
-
-    @Method()
-    async setFocus() {
-        this.inputEl.focus();
-    }
-
-    @Method()
-    async setValue(value: string) {
-        this.value = value;
-        try {
-            this.inputEl.value = value;
-        } catch (error) {
-            let message =
-                "Couldn't set value on input element: '" + value + "'";
-            logMessage(this, message, 'warning');
-        }
-    }
 
     onKupBlur(event: FocusEvent & { target: HTMLInputElement }) {
         const { target } = event;
@@ -282,6 +279,37 @@ export class KupTextField {
             }
         }
     }
+
+    //---- Public methods ----
+
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
+    @Method()
+    async setFocus() {
+        this.inputEl.focus();
+    }
+
+    @Method()
+    async setValue(value: string) {
+        this.value = value;
+        try {
+            this.inputEl.value = value;
+        } catch (error) {
+            let message =
+                "Couldn't set value on input element: '" + value + "'";
+            logMessage(this, message, 'warning');
+        }
+    }
+
+    //---- Private methods ----
 
     private setEvents() {
         const root: ShadowRoot = this.rootElement.shadowRoot;

@@ -22,7 +22,12 @@ import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
 })
 export class KupChip {
     @Element() rootElement: HTMLElement;
+
+    //---- States ----
+
     @State() customStyleTheme: string = undefined;
+
+    //---- Props ----
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -37,6 +42,11 @@ export class KupChip {
      */
     @Prop() type: string = undefined;
 
+    //---- Events ----
+
+    /**
+     * Triggered when a chip loses focus.
+     */
     @Event({
         eventName: 'kupChipBlur',
         composed: true,
@@ -48,7 +58,9 @@ export class KupChip {
         index: number;
         value: string;
     }>;
-
+    /**
+     * Triggered when a chip is clicked.
+     */
     @Event({
         eventName: 'kupChipClick',
         composed: true,
@@ -60,7 +72,9 @@ export class KupChip {
         index: number;
         value: string;
     }>;
-
+    /**
+     * Triggered when a chip gets focused.
+     */
     @Event({
         eventName: 'kupChipFocus',
         composed: true,
@@ -72,7 +86,9 @@ export class KupChip {
         index: number;
         value: string;
     }>;
-
+    /**
+     * Triggered when the removal icon on input chips is clicked.
+     */
     @Event({
         eventName: 'kupChipIconClick',
         composed: true,
@@ -84,13 +100,6 @@ export class KupChip {
         index: number;
         value: string;
     }>;
-
-    //---- Methods ----
-
-    @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     onKupBlur(i: number) {
         let value: string = undefined;
@@ -159,6 +168,15 @@ export class KupChip {
         });
     }
 
+    //---- Public methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
+    //---- Private methods ----
+
     private setEvents() {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
@@ -187,6 +205,7 @@ export class KupChip {
             }
         }
     }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
