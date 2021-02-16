@@ -10,12 +10,6 @@ import {
     Method,
     Listen,
 } from '@stencil/core';
-
-import { MDCTextField } from '@material/textfield';
-import { MDCFormField } from '@material/form-field';
-import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
-import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
-import { MDCTextFieldIcon } from '@material/textfield/icon';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
     ItemsDisplayMode,
