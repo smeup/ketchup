@@ -56,7 +56,8 @@ describe('kup-data-table with hide repetitions active', () => {
                                 const cellValue = _numberToString(
                                     cellValueNumber,
                                     _column.decimals ? _column.decimals : -1,
-                                    'it-IT'
+                                    'it-IT',
+                                    true
                                 );
 
                                 /*

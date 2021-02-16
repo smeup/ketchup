@@ -1610,8 +1610,20 @@ export namespace Components {
           * Shows the icons of the nodes.
          */
         "showIcons": boolean;
+        /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick": boolean;
         "stateId": string;
         "store": KupStore;
+        /**
+          * Defines the timeout for tooltip detail
+         */
+        "tooltipDetailTimeout": number;
+        /**
+          * Defines the timeout for tooltip load
+         */
+        "tooltipLoadTimeout": number;
         /**
           * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
           * @see dynamicExpansionCallback
@@ -4043,8 +4055,20 @@ declare namespace LocalJSX {
           * Shows the icons of the nodes.
          */
         "showIcons"?: boolean;
+        /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick"?: boolean;
         "stateId"?: string;
         "store"?: KupStore;
+        /**
+          * Defines the timeout for tooltip detail
+         */
+        "tooltipDetailTimeout"?: number;
+        /**
+          * Defines the timeout for tooltip load
+         */
+        "tooltipLoadTimeout"?: number;
         /**
           * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
           * @see dynamicExpansionCallback

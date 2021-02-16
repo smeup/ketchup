@@ -193,14 +193,13 @@ export class KupSwitch {
             disabled: this.disabled,
             label: this.label,
             leadingLabel: this.leadingLabel,
-            value: this.value,
         };
 
         return (
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
-                <FSwitch {...props}></FSwitch>
+                    <FSwitch {...props}></FSwitch>
                 </div>
             </Host>
         );

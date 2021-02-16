@@ -60,6 +60,7 @@ Type: `Promise<void>`
 
  - [kup-box](../kup-box)
  - [kup-data-table](../kup-data-table)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
@@ -71,17 +72,7 @@ Type: `Promise<void>`
 graph TD;
   kup-tooltip --> kup-button
   kup-tooltip --> kup-tree
-  kup-tree --> kup-image
-  kup-tree --> kup-button
-  kup-tree --> kup-chart
-  kup-tree --> kup-checkbox
-  kup-tree --> kup-chip
-  kup-tree --> kup-color-picker
-  kup-tree --> kup-gauge
-  kup-tree --> kup-progress-bar
-  kup-tree --> kup-rating
-  kup-tree --> kup-radio
-  kup-tree --> kup-text-field
+  kup-tree --> kup-tooltip
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-badge
