@@ -370,7 +370,7 @@ export class KupCombobox {
 
     componentDidRender() {
         this.setEvents();
-        positionRecalc(this.listEl, this.textfieldEl);
+        positionRecalc(this.listEl, this.textfieldWrapper);
         logRender(this, true);
     }
 
