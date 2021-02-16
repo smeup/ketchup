@@ -9,11 +9,10 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { MDCSwitch } from '@material/switch';
-import { MDCFormField } from '@material/form-field';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logRender } from '../../utils/debug-manager';
 import { FSwitch } from '../../f-components/f-switch/f-switch';
+import { FSwitchMDC } from '../../f-components/f-switch/f-switch-mdc';
 
 @Component({
     tag: 'kup-switch',
@@ -139,27 +138,29 @@ export class KupSwitch {
         });
     }
 
-    private setEvents(root: ShadowRoot) {
-        let inputEl = root.querySelector('input');
-        if (inputEl) {
-            inputEl.onblur = () => this.onKupBlur();
-            inputEl.onchange = () => this.onKupChange();
-            inputEl.onclick = () => this.onKupClick();
-            inputEl.onfocus = () => this.onKupFocus();
-            inputEl.oninput = () => this.onKupInput();
+    private setEvents() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector(
+                '.f-switch--wrapper:not([data-events])'
+            );
+            if (f) {
+                const inputEl: HTMLInputElement = f.querySelector('input');
+                const labelEl: HTMLElement = f.querySelector('label');
+                if (inputEl) {
+                    inputEl.onblur = () => this.onKupBlur();
+                    inputEl.onchange = () => this.onKupChange();
+                    inputEl.onclick = () => this.onKupClick();
+                    inputEl.onfocus = () => this.onKupFocus();
+                    inputEl.oninput = () => this.onKupInput();
+                }
+                if (labelEl) {
+                    labelEl.onclick = () => this.onKupClick();
+                }
+                FSwitchMDC(f);
+                f.setAttribute('data-events', '');
+            }
         }
-        let labelEl = root.querySelector('label');
-        if (labelEl) {
-            labelEl.onclick = () => this.onKupClick();
-        }
-    }
-
-    private setMDC(root: ShadowRoot) {
-        const component = MDCSwitch.attachTo(root.querySelector('.mdc-switch'));
-        const formField = MDCFormField.attachTo(
-            root.querySelector('.mdc-form-field')
-        );
-        formField.input = component;
     }
 
     //---- Lifecycle hooks ----
@@ -183,11 +184,7 @@ export class KupSwitch {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-        if (root) {
-            this.setEvents(root);
-            this.setMDC(root);
-        }
+        this.setEvents();
         logRender(this, true);
     }
 

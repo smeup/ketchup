@@ -128,19 +128,14 @@ import {
     getDragDropPayload,
 } from '../../utils/drag-and-drop';
 import { dragMultipleImg } from '../../assets/images/drag-multiple';
-
-import { MDCTextField } from '@material/textfield';
-import { MDCFormField } from '@material/form-field';
-import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
-import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
-import { MDCTextFieldIcon } from '@material/textfield/icon';
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FImage } from '../../f-components/f-image/f-image';
-import { MDCChipSet } from '@material/chips';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
+import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 
 @Component({
     tag: 'kup-data-table',
@@ -1026,61 +1021,53 @@ export class KupDataTable {
         return count;
     }
 
-    private setChipEvents() {
-        const root = this.rootElement.shadowRoot;
+    private setEvents() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+
         if (root) {
-            let groupChip = root.querySelector('#group-chips');
+            const groupChip: HTMLElement = root.querySelector(
+                '#group-chips .f-chip--wrapper:not([data-events])'
+            );
+            const globalFilter: HTMLElement = root.querySelector(
+                '#global-filter .f-text-field--wrapper:not([data-events])'
+            );
             if (groupChip) {
-                const chipSetEl = groupChip.querySelector('.mdc-chip-set');
-                if (chipSetEl) {
-                    new MDCChipSet(chipSetEl);
-                }
-                let chips = root.querySelectorAll('.mdc-chip');
+                const chips: NodeListOf<HTMLElement> = root.querySelectorAll(
+                    '.mdc-chip'
+                );
                 for (let index = 0; index < chips.length; index++) {
-                    let cancelIcon: HTMLElement = chips[index].querySelector(
+                    const cancelIcon: HTMLElement = chips[index].querySelector(
                         '.mdc-chip__icon.clear'
                     );
                     if (cancelIcon) {
                         cancelIcon.onclick = () => this.removeGroup(index);
                     }
                 }
+                FChipMDC(groupChip);
+                groupChip.setAttribute('data-events', '');
             }
-        }
-    }
-
-    private setEvents(root: ShadowRoot) {
-        const globalFilter: HTMLElement = root.querySelector('#global-filter');
-        if (globalFilter) {
-            const globalFilterInput: HTMLInputElement = globalFilter.querySelector(
-                'input'
-            );
-            globalFilterInput.oninput = (event) => {
-                const t = event.target;
-                window.clearTimeout(this.globalFilterTimeout);
-                this.globalFilterTimeout = window.setTimeout(
-                    () => this.onGlobalFilterChange(t),
-                    300,
-                    t
+            if (globalFilter) {
+                const globalFilterInput: HTMLInputElement = globalFilter.querySelector(
+                    'input'
                 );
-            };
-            const globalFilterClear: HTMLElement = globalFilter.querySelector(
-                '.clear-icon'
-            );
-            if (globalFilterClear) {
-                globalFilterClear.onclick = () =>
-                    this.onGlobalFilterChange(null);
-            }
-        }
-    }
-
-    private setMDC(root: ShadowRoot) {
-        const globalFilter = root.querySelector('#global-filter');
-        if (globalFilter) {
-            new MDCTextField(globalFilter.querySelector('.mdc-text-field'));
-            if (globalFilter.querySelector('.mdc-text-field-icon')) {
-                new MDCTextFieldIcon(
-                    document.querySelector('.mdc-text-field-icon')
+                const globalFilterClear: HTMLElement = globalFilter.querySelector(
+                    '.clear-icon'
                 );
+                globalFilterInput.oninput = (event) => {
+                    const t = event.target;
+                    window.clearTimeout(this.globalFilterTimeout);
+                    this.globalFilterTimeout = window.setTimeout(
+                        () => this.onGlobalFilterChange(t),
+                        300,
+                        t
+                    );
+                };
+                if (globalFilterClear) {
+                    globalFilterClear.onclick = () =>
+                        this.onGlobalFilterChange(null);
+                }
+                FTextFieldMDC(globalFilter);
+                globalFilter.setAttribute('data-events', '');
             }
         }
     }
@@ -1124,18 +1111,13 @@ export class KupDataTable {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-        if (root) {
-            this.setEvents(root);
-            this.setMDC(root);
-        }
         if (this.showCustomization) {
             this.customizePanelPosition();
         }
         this.columnMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
-        this.setChipEvents();
+        this.setEvents();
 
         if (
             this.headerIsPersistent &&

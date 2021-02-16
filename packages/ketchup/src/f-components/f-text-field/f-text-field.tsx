@@ -51,7 +51,7 @@ export const FTextField: FunctionalComponent<Props> = (props) => {
 };
 
 function setContent(props: Props) {
-    let isOutlined: boolean = props.textArea || props.outlined;
+    const isOutlined: boolean = props.textArea || props.outlined;
     let labelEl: HTMLElement;
     let iconEl: HTMLElement;
 

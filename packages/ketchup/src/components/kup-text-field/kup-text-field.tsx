@@ -9,14 +9,10 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { MDCTextField } from '@material/textfield';
-import { MDCFormField } from '@material/form-field';
-import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
-import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
-import { MDCTextFieldIcon } from '@material/textfield/icon';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 
 @Component({
     tag: 'kup-text-field',
@@ -287,61 +283,52 @@ export class KupTextField {
         }
     }
 
-    private setEvents(root: ShadowRoot) {
-        let inputEl:
-            | HTMLInputElement
-            | HTMLTextAreaElement = root.querySelector(
-            '.mdc-text-field__input'
-        );
-        if (inputEl) {
-            inputEl.onblur = (e: FocusEvent & { target: HTMLInputElement }) =>
-                this.onKupBlur(e);
-            inputEl.onchange = (e: UIEvent & { target: HTMLInputElement }) =>
-                this.onKupChange(e);
-            inputEl.onclick = (e: MouseEvent & { target: HTMLInputElement }) =>
-                this.onKupClick(e);
-            inputEl.onfocus = (e: FocusEvent & { target: HTMLInputElement }) =>
-                this.onKupFocus(e);
-            inputEl.oninput = (e: UIEvent & { target: HTMLInputElement }) =>
-                this.onKupInput(e);
-            inputEl.onkeydown = (e: KeyboardEvent) => this.onKeyDown(e);
-            this.inputEl = inputEl;
-        }
-        let icon: HTMLElement = root.querySelector('.mdc-text-field__icon');
-        if (icon) {
-            icon.onclick = (e: MouseEvent & { target: HTMLInputElement }) =>
-                this.onKupIconClick(e);
-        }
-        let clearIcon: HTMLElement = root.querySelector('.clear-icon');
-        if (clearIcon) {
-            clearIcon.onclick = () => this.onKupClearIconClick();
-        }
-    }
-
-    private setMDC(root: ShadowRoot) {
-        const component = new MDCTextField(
-            root.querySelector('.mdc-text-field')
-        );
-        if (root.querySelector('.mdc-form-field')) {
-            const formField = MDCFormField.attachTo(
-                root.querySelector('.mdc-form-field')
+    private setEvents() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector(
+                '.f-text-field--wrapper:not([data-events])'
             );
-            formField.input = component;
-        }
-        if (root.querySelector('.mdc-text-field-helper-text')) {
-            new MDCTextFieldHelperText(
-                document.querySelector('.mdc-text-field-helper-text')
-            );
-        }
-        if (root.querySelector('.mdc-text-field-character-counter')) {
-            new MDCTextFieldCharacterCounter(
-                document.querySelector('.mdc-text-field-character-counter')
-            );
-        }
-        if (root.querySelector('.mdc-text-field-icon')) {
-            new MDCTextFieldIcon(
-                document.querySelector('.mdc-text-field-icon')
-            );
+            if (f) {
+                const inputEl:
+                    | HTMLInputElement
+                    | HTMLTextAreaElement = f.querySelector(
+                    '.mdc-text-field__input'
+                );
+                const icon: HTMLElement = f.querySelector(
+                    '.mdc-text-field__icon'
+                );
+                const clearIcon: HTMLElement = f.querySelector('.clear-icon');
+                if (inputEl) {
+                    inputEl.onblur = (
+                        e: FocusEvent & { target: HTMLInputElement }
+                    ) => this.onKupBlur(e);
+                    inputEl.onchange = (
+                        e: UIEvent & { target: HTMLInputElement }
+                    ) => this.onKupChange(e);
+                    inputEl.onclick = (
+                        e: MouseEvent & { target: HTMLInputElement }
+                    ) => this.onKupClick(e);
+                    inputEl.onfocus = (
+                        e: FocusEvent & { target: HTMLInputElement }
+                    ) => this.onKupFocus(e);
+                    inputEl.oninput = (
+                        e: UIEvent & { target: HTMLInputElement }
+                    ) => this.onKupInput(e);
+                    inputEl.onkeydown = (e: KeyboardEvent) => this.onKeyDown(e);
+                    this.inputEl = inputEl;
+                }
+                if (icon) {
+                    icon.onclick = (
+                        e: MouseEvent & { target: HTMLInputElement }
+                    ) => this.onKupIconClick(e);
+                }
+                if (clearIcon) {
+                    clearIcon.onclick = () => this.onKupClearIconClick();
+                }
+                FTextFieldMDC(f);
+                f.setAttribute('data-events', '');
+            }
         }
     }
 
@@ -362,11 +349,7 @@ export class KupTextField {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-        if (root) {
-            this.setEvents(root);
-            this.setMDC(root);
-        }
+        this.setEvents();
         logRender(this, true);
     }
 

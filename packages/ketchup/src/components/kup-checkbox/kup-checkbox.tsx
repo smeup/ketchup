@@ -9,11 +9,10 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { MDCCheckbox } from '@material/checkbox';
-import { MDCFormField } from '@material/form-field';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logRender } from '../../utils/debug-manager';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
+import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 
 @Component({
     tag: 'kup-checkbox',
@@ -158,29 +157,29 @@ export class KupCheckbox {
         });
     }
 
-    private setEvents(root: ShadowRoot) {
-        let inputEl = root.querySelector('input');
-        if (inputEl) {
-            inputEl.onblur = () => this.onKupBlur();
-            inputEl.onchange = () => this.onKupChange();
-            inputEl.onclick = () => this.onKupClick();
-            inputEl.onfocus = () => this.onKupFocus();
-            inputEl.oninput = () => this.onKupInput();
+    private setEvents() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector(
+                '.f-checkbox--wrapper:not([data-events])'
+            );
+            if (f) {
+                const inputEl: HTMLInputElement = f.querySelector('input');
+                const labelEl: HTMLElement = f.querySelector('label');
+                if (inputEl) {
+                    inputEl.onblur = () => this.onKupBlur();
+                    inputEl.onchange = () => this.onKupChange();
+                    inputEl.onclick = () => this.onKupClick();
+                    inputEl.onfocus = () => this.onKupFocus();
+                    inputEl.oninput = () => this.onKupInput();
+                }
+                if (labelEl) {
+                    labelEl.onclick = () => this.onKupClick();
+                }
+                FCheckboxMDC(f);
+                f.setAttribute('data-events', '');
+            }
         }
-        let labelEl = root.querySelector('label');
-        if (labelEl) {
-            labelEl.onclick = () => this.onKupClick();
-        }
-    }
-
-    private setMDC(root: ShadowRoot) {
-        const component = MDCCheckbox.attachTo(
-            root.querySelector('.mdc-checkbox')
-        );
-        const formField = MDCFormField.attachTo(
-            root.querySelector('.mdc-form-field')
-        );
-        formField.input = component;
     }
 
     //---- Lifecycle hooks ----
@@ -204,11 +203,7 @@ export class KupCheckbox {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-        if (root) {
-            this.setEvents(root);
-            this.setMDC(root);
-        }
+        this.setEvents();
         logRender(this, true);
     }
 
