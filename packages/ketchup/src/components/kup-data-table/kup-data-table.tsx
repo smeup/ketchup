@@ -39,6 +39,7 @@ import {
     GenericFilter,
     FilterInterval,
     CSSArray,
+    TotalMode,
 } from './kup-data-table-declarations';
 
 import {
@@ -141,6 +142,7 @@ import { dragMultipleImg } from '../../assets/images/drag-multiple';
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
+import { deserialize } from 'v8';
 
 @Component({
     tag: 'kup-data-table',
@@ -3174,6 +3176,77 @@ export class KupDataTable {
         );
     }
 
+    renderTotalsComboBox(column: Column) {
+        // TODO Manage the label with different languages
+        let menus = {
+            [TotalMode.COUNT]: {
+                label: 'Conta',
+            },
+            [TotalMode.SUM]: {
+                label: 'Somma',
+            },
+            [TotalMode.AVERAGE]: {
+                label: 'Media',
+            },
+        };
+
+        if (this.totals[column.name] == null) {
+            if (isNumber(column.obj)) {
+                menus['Calcola'] = {
+                    label: 'Calcola',
+                    selected: true,
+                };
+            } else {
+                return null;
+            }
+        } else {
+            this.setSelectedMenu(menus, column.name);
+        }
+
+        return (
+            <select
+                name="calc"
+                id="calc"
+                onInput={(event) => this.onTotalsChange(event, column)}
+            >
+                {Object.keys(menus).map((key) => {
+                    const menu = menus[key];
+                    return (
+                        <option
+                            value={key}
+                            selected={menu.selected ? true : false}
+                        >
+                            {menu.label}
+                        </option>
+                    );
+                })}
+            </select>
+        );
+    }
+
+    // TODO replace any with the correct type using TotalMode
+    setSelectedMenu(menus: any, name: string) {
+        const totalValue = this.totals[name];
+        if (totalValue.startsWith(TotalMode.MATH)) {
+            menus[TotalMode.MATH] = {
+                label: 'Formula',
+                selected: true,
+            };
+        } else if (menus[totalValue]) {
+            menus[totalValue].selected = true;
+        }
+    }
+
+    onTotalsChange(event, column) {
+        if (column) {
+            // must do this
+            // otherwise the watcher does not fire
+            const totalsCopy = { ...this.totals };
+            totalsCopy[column.name] = event.target.value;
+            this.totals = totalsCopy;
+        }
+    }
+
     renderFooter() {
         if (!this.hasTotals()) {
             // no footer
@@ -3205,16 +3278,6 @@ export class KupDataTable {
         }
 
         let groupingCell = null;
-        // if (this.isGrouping() && this.hasTotals()) {
-        //     extraCells++;
-        //     const fixedCellStyle = this.composeFixedCellStyleAndClass(
-        //         extraCells,
-        //         0,
-        //         extraCells
-        //     );
-        //     groupingCell = <td class={fixedCellStyle ? fixedCellStyle.fixedCellClasses : null}
-        //                             style={fixedCellStyle ? fixedCellStyle.fixedCellStyle : null}/>;
-        // }
 
         const footerCells = this.getVisibleColumns().map(
             (column: Column, columnIndex) => {
@@ -3237,6 +3300,7 @@ export class KupDataTable {
                                 : null
                         }
                     >
+                        {this.renderTotalsComboBox(column)}
                         {numberToFormattedStringNumber(
                             this.footer[column.name],
                             column.decimals,
