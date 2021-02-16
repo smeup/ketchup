@@ -5,7 +5,7 @@
         <qlik-basic></qlik-basic>
       </template>
       <template v-slot:1>
-        <qlik-propertys></qlik-propertys>
+        <qlik-properties></qlik-properties>
       </template>
       <template v-slot:2>
         <qlik-examples></qlik-examples>
@@ -17,21 +17,22 @@
 <script>
 import QlikBasic from './examples/QlikBasic';
 import QlikExamples from './examples/QlikExamples';
-import QlikPropertys from './examples/QlikPropertys';
-import Comp from '../page/templates/Comp';
+import QlikProperties from './examples/QlikProperties';
+import Comp from '../page/templates/Comp'
 export default {
   components: {
     QlikBasic,
     QlikExamples,
-    QlikPropertys,
-    Comp,
+    QlikProperties,
+    Comp
+
   },
   data() {
     return {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-qlik',
       headtitle: 'Qlik',
-      titles: ['Basic usage', 'Propertys', 'Examples'],
+      titles: ['Basic usage', 'Properties', 'Examples'],
     };
   },
 };
