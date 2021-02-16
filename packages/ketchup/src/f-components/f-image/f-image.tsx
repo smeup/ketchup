@@ -20,68 +20,72 @@ interface Props {
     wrapperClass?: string;
 }
 
-export const FImage: FunctionalComponent<Props> = ({
-    badgeData,
-    color,
-    data,
-    id,
-    resource,
-    sizeX,
-    sizeY,
-    title,
-    wrapperClass,
-}) => {
+export const FImage: FunctionalComponent<Props> = (props) => {
     let el: VNode;
     let style: {
         '--f-image-height': string;
         '--f-image-width': string;
     };
 
-    if (resource) {
+    if (props.resource) {
         if (
-            resource.indexOf('.') > -1 ||
-            resource.indexOf('/') > -1 ||
-            resource.indexOf('\\') > -1
+            props.resource.indexOf('.') > -1 ||
+            props.resource.indexOf('/') > -1 ||
+            props.resource.indexOf('\\') > -1
         ) {
             style = {
-                '--f-image-height': sizeY ? sizeY : 'auto',
-                '--f-image-width': sizeX ? sizeX : '100%',
+                '--f-image-height': props.sizeY ? props.sizeY : 'auto',
+                '--f-image-width': props.sizeX ? props.sizeX : '100%',
             };
-            el = createImage(resource);
+            el = createImage(props.resource);
         } else {
             style = {
-                '--f-image-height': sizeY ? sizeY : '100%',
-                '--f-image-width': sizeX ? sizeX : '100%',
+                '--f-image-height': props.sizeY ? props.sizeY : '100%',
+                '--f-image-width': props.sizeX ? props.sizeX : '100%',
             };
-            el = createIcon(color, resource);
+            el = createIcon(props);
         }
-    } else if (data) {
+    } else if (props.data) {
         style = {
-            '--f-image-height': sizeY ? sizeY : '100%',
-            '--f-image-width': sizeX ? sizeX : '100%',
+            '--f-image-height': props.sizeY ? props.sizeY : '100%',
+            '--f-image-width': props.sizeX ? props.sizeX : '100%',
         };
-        el = createBar(data);
+        el = createBar(props.data);
     }
 
     let badgeCollection: KupBadge[] = [];
-    if (badgeData) {
-        for (let index = 0; index < badgeData.length; index++) {
-            badgeCollection.push(<kup-badge {...badgeData[index]} />);
+    if (props.badgeData) {
+        for (let index = 0; index < props.badgeData.length; index++) {
+            badgeCollection.push(<kup-badge {...props.badgeData[index]} />);
         }
     }
 
     return (
         <div
             style={style}
-            id={id}
-            class={`f-image--wrapper ${wrapperClass}`}
-            title={title}
+            id={props.id}
+            class={`f-image--wrapper ${props.wrapperClass}`}
+            title={props.title}
         >
             {el}
             {...badgeCollection}
         </div>
     );
 };
+
+function createIcon(props: Props) {
+    let path = getAssetPath(`./assets/svg/${props.resource}.svg`);
+    let style = {
+        background: props.color ? props.color : 'var(--kup-icon-color)',
+        mask: `url('${path}') no-repeat center`,
+        webkitMask: `url('${path}') no-repeat center`,
+    };
+    return <div class="f-image__icon" style={style}></div>;
+}
+
+function createImage(resource: string) {
+    return <img src={resource}></img>;
+}
 
 function createBar(data: CssDraw[]) {
     let steps: JSX.Element[] = [];
@@ -120,18 +124,4 @@ function createBar(data: CssDraw[]) {
         steps.push(drawStep);
     }
     return <div class="f-image__css">{steps}</div>;
-}
-
-function createIcon(color: string, resource: string) {
-    let path = getAssetPath(`./assets/svg/${resource}.svg`);
-    let style = {
-        background: color ? color : 'var(--kup-icon-color)',
-        mask: `url('${path}') no-repeat center`,
-        webkitMask: `url('${path}') no-repeat center`,
-    };
-    return <div class="f-image__icon" style={style}></div>;
-}
-
-function createImage(resource: string) {
-    return <img src={resource}></img>;
 }

@@ -8,45 +8,33 @@ interface Props {
     leadingLabel?: boolean;
 }
 
-export const FCheckbox: FunctionalComponent<Props> = ({
-    checked,
-    disabled,
-    indeterminate,
-    label,
-    leadingLabel,
-}) => {
-    let formClass: string = 'mdc-form-field';
-    let componentClass: string = 'mdc-checkbox';
-    let indeterminateAttr = {};
+export const FCheckbox: FunctionalComponent<Props> = (props) => {
+    const indeterminateAttr = {
+        'data-indeterminate': props.indeterminate ? true : false,
+    };
 
-    if (checked) {
-        componentClass += ' mdc-checkbox--checked';
-    }
-
-    if (disabled) {
-        componentClass += ' mdc-checkbox--disabled';
-    }
-
-    if (indeterminate) {
-        componentClass += ' mdc-checkbox--indeterminate';
-        indeterminateAttr['data-indeterminate'] = 'true';
-    }
-
-    if (leadingLabel) {
-        formClass += ' mdc-form-field--align-end';
-    }
+    const classObj: Record<string, boolean> = {
+        'mdc-checkbox': true,
+        'mdc-checkbox--checked': props.checked,
+        'mdc-checkbox--disabled': props.disabled,
+        'mdc-checkbox--indeterminate': props.indeterminate,
+    };
 
     return (
         <div class="f-checkbox--wrapper">
-            <div class={formClass}>
-                <div id="checkbox-wrapper" class={componentClass}>
+            <div
+                class={`mdc-form-field ${
+                    props.leadingLabel ? 'mdc-form-field--align-end' : ''
+                }`}
+            >
+                <div id="checkbox-wrapper" class={classObj}>
                     <input
                         type="checkbox"
                         class="mdc-checkbox__native-control"
-                        checked={checked}
-                        disabled={disabled}
+                        checked={props.checked}
+                        disabled={props.disabled}
                         {...indeterminateAttr}
-                        value={checked ? 'on' : 'off'}
+                        value={props.checked ? 'on' : 'off'}
                     />
                     <div class="mdc-checkbox__background">
                         <svg
@@ -61,24 +49,12 @@ export const FCheckbox: FunctionalComponent<Props> = ({
                         </svg>
                         <div class="mdc-checkbox__mixedmark"></div>
                     </div>
-                    {createRippleElement(disabled)}
+                    {!props.disabled ? (
+                        <div class="mdc-checkbox__ripple"></div>
+                    ) : undefined}
                 </div>
-                {createLabelElement(label)}
+                {props.label ? <label>{props.label}</label> : undefined}
             </div>
         </div>
     );
 };
-
-function createLabelElement(label: string) {
-    if (!label) {
-        return undefined;
-    }
-    return <label htmlFor="checkbox-wrapper">{label}</label>;
-}
-
-function createRippleElement(disabled: boolean) {
-    if (disabled) {
-        return undefined;
-    }
-    return <div class="mdc-checkbox__ripple"></div>;
-}

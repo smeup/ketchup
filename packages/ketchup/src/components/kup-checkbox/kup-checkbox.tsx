@@ -9,11 +9,10 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { MDCCheckbox } from '@material/checkbox';
-import { MDCFormField } from '@material/form-field';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logRender } from '../../utils/debug-manager';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
+import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 
 @Component({
     tag: 'kup-checkbox',
@@ -22,8 +21,13 @@ import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 })
 export class KupCheckbox {
     @Element() rootElement: HTMLElement;
+
+    //---- States ----
+
     @State() value: string = '';
     @State() customStyleTheme: string = undefined;
+
+    //---- Props ----
 
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
@@ -50,6 +54,11 @@ export class KupCheckbox {
      */
     @Prop() leadingLabel: boolean = false;
 
+    //---- Events ----
+
+    /**
+     * Triggered when the input element loses focus.
+     */
     @Event({
         eventName: 'kupCheckboxBlur',
         composed: true,
@@ -60,7 +69,9 @@ export class KupCheckbox {
         value: string;
         checked: boolean;
     }>;
-
+    /**
+     * Triggered when the input element's value changes.
+     */
     @Event({
         eventName: 'kupCheckboxChange',
         composed: true,
@@ -71,7 +82,9 @@ export class KupCheckbox {
         value: string;
         checked: boolean;
     }>;
-
+    /**
+     * Triggered when the input element is clicked.
+     */
     @Event({
         eventName: 'kupCheckboxClick',
         composed: true,
@@ -82,7 +95,9 @@ export class KupCheckbox {
         value: string;
         checked: boolean;
     }>;
-
+    /**
+     * Triggered when the input element gets focused.
+     */
     @Event({
         eventName: 'kupCheckboxFocus',
         composed: true,
@@ -93,24 +108,6 @@ export class KupCheckbox {
         value: string;
         checked: boolean;
     }>;
-
-    @Event({
-        eventName: 'kupCheckboxInput',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupInput: EventEmitter<{
-        value: string;
-        checked: boolean;
-    }>;
-
-    //---- Methods ----
-
-    @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     onKupBlur() {
         this.kupBlur.emit({
@@ -151,11 +148,34 @@ export class KupCheckbox {
         });
     }
 
-    onKupInput() {
-        this.kupInput.emit({
-            value: this.value,
-            checked: this.checked == true ? true : false,
-        });
+    //---- Public methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
+    //---- Private methods ----
+
+    private setEvents() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector('.f-checkbox--wrapper');
+            if (f) {
+                const inputEl: HTMLInputElement = f.querySelector('input');
+                const labelEl: HTMLElement = f.querySelector('label');
+                if (inputEl) {
+                    inputEl.onblur = () => this.onKupBlur();
+                    inputEl.onchange = () => this.onKupChange();
+                    inputEl.onclick = () => this.onKupClick();
+                    inputEl.onfocus = () => this.onKupFocus();
+                }
+                if (labelEl) {
+                    labelEl.onclick = () => this.onKupClick();
+                }
+                FCheckboxMDC(f);
+            }
+        }
     }
 
     //---- Lifecycle hooks ----
@@ -179,30 +199,7 @@ export class KupCheckbox {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        if (root && !this.disabled) {
-            let inputEl = root.querySelector('input');
-            if (inputEl) {
-                inputEl.onblur = () => this.onKupBlur();
-                inputEl.onchange = () => this.onKupChange();
-                inputEl.onclick = () => this.onKupClick();
-                inputEl.onfocus = () => this.onKupFocus();
-                inputEl.oninput = () => this.onKupInput();
-            }
-            let labelEl = root.querySelector('label');
-            if (labelEl) {
-                labelEl.onclick = () => this.onKupClick();
-            }
-
-            const component = MDCCheckbox.attachTo(
-                root.querySelector('.mdc-checkbox')
-            );
-            const formField = MDCFormField.attachTo(
-                root.querySelector('.mdc-form-field')
-            );
-            formField.input = component;
-        }
+        this.setEvents();
         logRender(this, true);
     }
 
@@ -218,7 +215,7 @@ export class KupCheckbox {
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
-                    <FCheckbox {...props}></FCheckbox>
+                    <FCheckbox {...props} />
                 </div>
             </Host>
         );

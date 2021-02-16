@@ -1396,13 +1396,6 @@ export namespace Components {
     }
     interface KupTextField {
         /**
-          * Imperatively sets a new value of the input.
-          * @method changeValue
-          * @param newValue - the new value to be set inside the input
-          * @param emitEvent - If true, then also forces the component to emit an updated event
-         */
-        "changeValue": (newValue: string, emitEvent?: boolean) => Promise<boolean>;
-        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
@@ -2455,23 +2448,31 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the label will be on the left of the component.
          */
         "leadingLabel"?: boolean;
+        /**
+          * Triggered when the input element loses focus.
+         */
         "onKupCheckboxBlur"?: (event: CustomEvent<{
         value: string;
         checked: boolean;
     }>) => void;
+        /**
+          * Triggered when the input element's value changes.
+         */
         "onKupCheckboxChange"?: (event: CustomEvent<{
         value: string;
         checked: boolean;
     }>) => void;
+        /**
+          * Triggered when the input element is clicked.
+         */
         "onKupCheckboxClick"?: (event: CustomEvent<{
         value: string;
         checked: boolean;
     }>) => void;
+        /**
+          * Triggered when the input element gets focused.
+         */
         "onKupCheckboxFocus"?: (event: CustomEvent<{
-        value: string;
-        checked: boolean;
-    }>) => void;
-        "onKupCheckboxInput"?: (event: CustomEvent<{
         value: string;
         checked: boolean;
     }>) => void;
@@ -2485,21 +2486,33 @@ declare namespace LocalJSX {
           * List of elements.
          */
         "data"?: ComponentChipElement[];
+        /**
+          * Triggered when a chip loses focus.
+         */
         "onKupChipBlur"?: (event: CustomEvent<{
         id: string;
         index: number;
         value: string;
     }>) => void;
+        /**
+          * Triggered when a chip is clicked.
+         */
         "onKupChipClick"?: (event: CustomEvent<{
         id: string;
         index: number;
         value: string;
     }>) => void;
+        /**
+          * Triggered when a chip gets focused.
+         */
         "onKupChipFocus"?: (event: CustomEvent<{
         id: string;
         index: number;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the removal icon on input chips is clicked.
+         */
         "onKupChipIconClick"?: (event: CustomEvent<{
         id: string;
         index: number;
@@ -3677,19 +3690,28 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the label will be on the left of the component.
          */
         "leadingLabel"?: boolean;
+        /**
+          * Triggered when the input element loses focus.
+         */
         "onKupSwitchBlur"?: (event: CustomEvent<{
         value: string;
     }>) => void;
+        /**
+          * Triggered when the input element's value changes.
+         */
         "onKupSwitchChange"?: (event: CustomEvent<{
         value: string;
     }>) => void;
+        /**
+          * Triggered when the input element is clicked.
+         */
         "onKupSwitchClick"?: (event: CustomEvent<{
         value: string;
     }>) => void;
+        /**
+          * Triggered when the input element gets focused.
+         */
         "onKupSwitchFocus"?: (event: CustomEvent<{
-        value: string;
-    }>) => void;
-        "onKupSwitchInput"?: (event: CustomEvent<{
         value: string;
     }>) => void;
     }
@@ -3768,35 +3790,56 @@ declare namespace LocalJSX {
           * Defaults at null. When set, the helper will display a character counter.
          */
         "maxLength"?: number;
+        /**
+          * Triggered when the input element loses focus.
+         */
         "onKupTextFieldBlur"?: (event: CustomEvent<{
         id: any;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the input element changes.
+         */
         "onKupTextFieldChange"?: (event: CustomEvent<{
         id: any;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the text field's clear icon is clicked.
+         */
         "onKupTextFieldClearIconClick"?: (event: CustomEvent<{
         id: any;
     }>) => void;
+        /**
+          * Triggered when the input element is clicked.
+         */
         "onKupTextFieldClick"?: (event: CustomEvent<{
         id: any;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the input element gets focused.
+         */
         "onKupTextFieldFocus"?: (event: CustomEvent<{
         id: any;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the text field's icon is clicked.
+         */
         "onKupTextFieldIconClick"?: (event: CustomEvent<{
         id: any;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the input element receives an input.
+         */
         "onKupTextFieldInput"?: (event: CustomEvent<{
         id: any;
         value: string;
     }>) => void;
         /**
-          * When a keydown enter event occurs it generates
+          * Triggered when the Enter key is pressed.
          */
         "onKupTextFieldSubmit"?: (event: CustomEvent<{
         id: any;

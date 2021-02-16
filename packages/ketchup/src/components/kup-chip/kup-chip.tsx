@@ -1,20 +1,19 @@
 import {
     Component,
+    Event,
+    EventEmitter,
     Prop,
     Element,
     Host,
-    Event,
-    EventEmitter,
     State,
     h,
     Method,
-    getAssetPath,
 } from '@stencil/core';
-import { MDCChipSet } from '@material/chips';
 import { ComponentChipElement } from './kup-chip-declarations';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { FChip } from '../../f-components/f-chip/f-chip';
+import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
 
 @Component({
     tag: 'kup-chip',
@@ -23,7 +22,12 @@ import { FChip } from '../../f-components/f-chip/f-chip';
 })
 export class KupChip {
     @Element() rootElement: HTMLElement;
+
+    //---- States ----
+
     @State() customStyleTheme: string = undefined;
+
+    //---- Props ----
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -38,6 +42,11 @@ export class KupChip {
      */
     @Prop() type: string = undefined;
 
+    //---- Events ----
+
+    /**
+     * Triggered when a chip loses focus.
+     */
     @Event({
         eventName: 'kupChipBlur',
         composed: true,
@@ -49,7 +58,9 @@ export class KupChip {
         index: number;
         value: string;
     }>;
-
+    /**
+     * Triggered when a chip is clicked.
+     */
     @Event({
         eventName: 'kupChipClick',
         composed: true,
@@ -61,7 +72,9 @@ export class KupChip {
         index: number;
         value: string;
     }>;
-
+    /**
+     * Triggered when a chip gets focused.
+     */
     @Event({
         eventName: 'kupChipFocus',
         composed: true,
@@ -73,7 +86,9 @@ export class KupChip {
         index: number;
         value: string;
     }>;
-
+    /**
+     * Triggered when the removal icon on input chips is clicked.
+     */
     @Event({
         eventName: 'kupChipIconClick',
         composed: true,
@@ -85,13 +100,6 @@ export class KupChip {
         index: number;
         value: string;
     }>;
-
-    //---- Methods ----
-
-    @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     onKupBlur(i: number) {
         let value: string = undefined;
@@ -160,6 +168,44 @@ export class KupChip {
         });
     }
 
+    //---- Public methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
+    //---- Private methods ----
+
+    private setEvents() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector('.f-chip--wrapper');
+            if (f) {
+                const chips: NodeListOf<HTMLElement> = f.querySelectorAll(
+                    '.mdc-chip'
+                );
+                for (let j = 0; j < chips.length; j++) {
+                    const primaryEl: HTMLElement = chips[j].querySelector(
+                        '.mdc-chip__primary-action'
+                    );
+                    primaryEl.onblur = () => this.onKupBlur(j);
+                    primaryEl.onfocus = () => this.onKupFocus(j);
+
+                    const cancelIcon: HTMLElement = chips[j].querySelector(
+                        '.mdc-chip__icon.clear'
+                    );
+                    if (cancelIcon) {
+                        cancelIcon.onclick = () => this.onKupIconClick(j);
+                    }
+
+                    chips[j].onclick = () => this.onKupClick(j);
+                }
+                FChipMDC(f);
+            }
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -196,36 +242,7 @@ export class KupChip {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        if (root) {
-            let chips = root.querySelectorAll('.f-chip--wrapper');
-            for (let index = 0; index < chips.length; index++) {
-                let chip = root.querySelectorAll('.mdc-chip');
-                for (let j = 0; j < chip.length; j++) {
-                    let primaryEl: HTMLElement = chip[j].querySelector(
-                        '.mdc-chip__primary-action'
-                    );
-                    primaryEl.onblur = () => this.onKupBlur(j);
-                    primaryEl.onfocus = () => this.onKupFocus(j);
-
-                    let cancelIcon: HTMLElement = chip[j].querySelector(
-                        '.mdc-chip__icon.clear'
-                    );
-                    if (cancelIcon) {
-                        cancelIcon.onclick = () => this.onKupIconClick(j);
-                    }
-
-                    // @ts-ignore (onclick doesn't exist on every Element type, but here it does)
-                    chip[j].onclick = () => this.onKupClick(j);
-                }
-            }
-
-            const chipSetEl = root.querySelector('.mdc-chip-set');
-            if (chipSetEl) {
-                new MDCChipSet(chipSetEl);
-            }
-        }
+        this.setEvents();
         logRender(this, true);
     }
 
@@ -245,7 +262,7 @@ export class KupChip {
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
-                    <FChip {...props}></FChip>
+                    <FChip {...props} />
                 </div>
             </Host>
         );

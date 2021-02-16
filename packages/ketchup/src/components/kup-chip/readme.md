@@ -14,12 +14,12 @@
 
 ## Events
 
-| Event              | Description | Type                                                         |
-| ------------------ | ----------- | ------------------------------------------------------------ |
-| `kupChipBlur`      |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
-| `kupChipClick`     |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
-| `kupChipFocus`     |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
-| `kupChipIconClick` |             | `CustomEvent<{ id: string; index: number; value: string; }>` |
+| Event              | Description                                                | Type                                                         |
+| ------------------ | ---------------------------------------------------------- | ------------------------------------------------------------ |
+| `kupChipBlur`      | Triggered when a chip loses focus.                         | `CustomEvent<{ id: string; index: number; value: string; }>` |
+| `kupChipClick`     | Triggered when a chip is clicked.                          | `CustomEvent<{ id: string; index: number; value: string; }>` |
+| `kupChipFocus`     | Triggered when a chip gets focused.                        | `CustomEvent<{ id: string; index: number; value: string; }>` |
+| `kupChipIconClick` | Triggered when the removal icon on input chips is clicked. | `CustomEvent<{ id: string; index: number; value: string; }>` |
 
 
 ## Methods

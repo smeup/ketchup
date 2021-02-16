@@ -29,29 +29,19 @@
 
 ## Events
 
-| Event                        | Description                                    | Type                                       |
-| ---------------------------- | ---------------------------------------------- | ------------------------------------------ |
-| `kupTextFieldBlur`           |                                                | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldChange`         |                                                | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldClearIconClick` |                                                | `CustomEvent<{ id: any; }>`                |
-| `kupTextFieldClick`          |                                                | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldFocus`          |                                                | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldIconClick`      |                                                | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldInput`          |                                                | `CustomEvent<{ id: any; value: string; }>` |
-| `kupTextFieldSubmit`         | When a keydown enter event occurs it generates | `CustomEvent<{ id: any; value: string; }>` |
+| Event                        | Description                                            | Type                                       |
+| ---------------------------- | ------------------------------------------------------ | ------------------------------------------ |
+| `kupTextFieldBlur`           | Triggered when the input element loses focus.          | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldChange`         | Triggered when the input element changes.              | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldClearIconClick` | Triggered when the text field's clear icon is clicked. | `CustomEvent<{ id: any; }>`                |
+| `kupTextFieldClick`          | Triggered when the input element is clicked.           | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldFocus`          | Triggered when the input element gets focused.         | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldIconClick`      | Triggered when the text field's icon is clicked.       | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldInput`          | Triggered when the input element receives an input.    | `CustomEvent<{ id: any; value: string; }>` |
+| `kupTextFieldSubmit`         | Triggered when the Enter key is pressed.               | `CustomEvent<{ id: any; value: string; }>` |
 
 
 ## Methods
-
-### `changeValue(newValue: string, emitEvent?: boolean) => Promise<boolean>`
-
-Imperatively sets a new value of the input.
-
-#### Returns
-
-Type: `Promise<boolean>`
-
-
 
 ### `getValue() => Promise<string>`
 
@@ -98,10 +88,8 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-autocomplete](../kup-autocomplete)
  - [kup-box](../kup-box)
  - [kup-color-picker](../kup-color-picker)
- - [kup-combobox](../kup-combobox)
  - [kup-data-table](../kup-data-table)
  - [kup-date-picker](../kup-date-picker)
  - [kup-form](../kup-form)
@@ -112,10 +100,8 @@ Type: `Promise<void>`
 ### Graph
 ```mermaid
 graph TD;
-  kup-autocomplete --> kup-text-field
   kup-box --> kup-text-field
   kup-color-picker --> kup-text-field
-  kup-combobox --> kup-text-field
   kup-data-table --> kup-text-field
   kup-date-picker --> kup-text-field
   kup-form --> kup-text-field

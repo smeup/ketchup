@@ -138,12 +138,10 @@ graph TD;
   kup-form --> kup-progress-bar
   kup-form --> kup-text-field
   kup-form --> kup-button
-  kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-crud --> kup-form
-  kup-autocomplete --> kup-text-field
   kup-autocomplete --> kup-list
   kup-search --> kup-text-field
   kup-search --> kup-button
