@@ -1,8 +1,10 @@
-import { MDCTextField } from '@material/textfield';
+import {
+    MDCTextField,
+    MDCTextFieldCharacterCounter,
+    MDCTextFieldHelperText,
+    MDCTextFieldIcon,
+} from '@material/textfield';
 import { MDCFormField } from '@material/form-field';
-import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
-import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
-import { MDCTextFieldIcon } from '@material/textfield/icon';
 
 export function FTextFieldMDC(el: HTMLElement): void {
     const component = new MDCTextField(el.querySelector('.mdc-text-field'));
