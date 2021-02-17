@@ -90,6 +90,10 @@ export class KupTextField {
      */
     @Prop() readOnly: boolean = false;
     /**
+     * The HTML step of the input element. It has effect only with number input type.
+     */
+    @Prop() step: number = null;
+    /**
      * Defaults at false. When set to true, the component will be rendered as a textarea.
      */
     @Prop() textArea: boolean = false;
@@ -397,6 +401,7 @@ export class KupTextField {
             shaped: this.rootElement.classList.contains('shaped')
                 ? true
                 : false,
+            step: this.step,
             textArea: this.textArea,
             trailingIcon: this.trailingIcon,
             trailingLabel: this.trailingLabel,

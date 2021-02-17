@@ -173,6 +173,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'step',
+          description:
+            'The HTML step of the input element. It has effect only with number input type.',
+          type: 'number',
+          default: '',
+          try: 'field',
+        },
+        {
           prop: 'textArea',
           description: 'The component will render as a textarea.',
           type: 'boolean',

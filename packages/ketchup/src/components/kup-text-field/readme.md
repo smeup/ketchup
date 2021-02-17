@@ -22,6 +22,7 @@
 | `maxLength`              | `max-length`                 | Defaults at null. When set, the helper will display a character counter.                                                                 | `number`  | `null`      |
 | `outlined`               | `outlined`                   | Defaults at false. When set to true, the component will be rendered as an outlined field.                                                | `boolean` | `false`     |
 | `readOnly`               | `read-only`                  | Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select. | `boolean` | `false`     |
+| `step`                   | `step`                       | The HTML step of the input element. It has effect only with number input type.                                                           | `number`  | `null`      |
 | `textArea`               | `text-area`                  | Defaults at false. When set to true, the component will be rendered as a textarea.                                                       | `boolean` | `false`     |
 | `trailingIcon`           | `trailing-icon`              | Defaults at null. When set, the icon will be shown after the text.                                                                       | `boolean` | `false`     |
 | `trailingLabel`          | `trailing-label`             | Defaults at false. When set to true, the label will be on the right of the component.                                                    | `boolean` | `false`     |

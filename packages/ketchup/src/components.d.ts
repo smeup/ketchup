@@ -1460,6 +1460,10 @@ export namespace Components {
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
         /**
+          * The HTML step of the input element. It has effect only with number input type.
+         */
+        "step": number;
+        /**
           * Defaults at false. When set to true, the component will be rendered as a textarea.
          */
         "textArea": boolean;
@@ -3853,6 +3857,10 @@ declare namespace LocalJSX {
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
          */
         "readOnly"?: boolean;
+        /**
+          * The HTML step of the input element. It has effect only with number input type.
+         */
+        "step"?: number;
         /**
           * Defaults at false. When set to true, the component will be rendered as a textarea.
          */

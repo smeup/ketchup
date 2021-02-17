@@ -9,6 +9,7 @@ interface Props {
     icon?: string;
     initialValue?: string;
     inputType?: string;
+    step?: number;
     isClearable?: boolean;
     label?: string;
     leadingLabel?: boolean;
@@ -123,6 +124,7 @@ function setContent(props: Props) {
             ) : (
                 <input
                     type={props.inputType}
+                    step={props.step}
                     class="mdc-text-field__input"
                     disabled={props.disabled}
                     readOnly={props.readOnly}
