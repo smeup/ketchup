@@ -31,7 +31,7 @@
         outline: none;
         padding: 0 7px;
         width: 24px;
-        &.clear-icon:hover {
+        &.clear:hover {
           background-color: var(--kup-danger-color);
         }
       }
@@ -59,7 +59,7 @@
         left: 36px;
       }
 
-      & .mdc-text-field__icon.clear-icon {
+      & .mdc-text-field__icon.clear {
         right: 0px;
         left: initial;
         position: absolute;
@@ -67,7 +67,7 @@
         transform: translateY(-50%);
       }
 
-      &.mdc-text-field--with-trailing-icon input ~ .clear-icon {
+      &.mdc-text-field--with-trailing-icon input ~ .clear {
         right: 26px;
       }
 
