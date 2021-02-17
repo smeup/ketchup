@@ -3183,29 +3183,36 @@ export class KupDataTable {
 
     renderTotalsComboBox(column: Column) {
         // TODO Manage the label with different languages
-        let menus = {
-            [TotalMode.COUNT]: {
-                label: 'Conta',
-            },
-            [TotalMode.SUM]: {
-                label: 'Somma',
-            },
-            [TotalMode.AVERAGE]: {
-                label: 'Media',
-            },
-        };
+        // and move this object into declaration
+        let menu;
+        if (isNumber(column.obj)) {
+            menu = {
+                [TotalMode.COUNT]: {
+                    label: 'Conta',
+                },
+                [TotalMode.SUM]: {
+                    label: 'Somma',
+                },
+                [TotalMode.AVERAGE]: {
+                    label: 'Media',
+                },
+            };
+        } else {
+            menu = {
+                [TotalMode.COUNT]: {
+                    label: 'Conta',
+                },
+            };
+        }
 
         if (!this.totals || this.totals[column.name] == null) {
-            if (isNumber(column.obj)) {
-                menus['Calcola'] = {
-                    label: 'Calcola',
-                    selected: true,
-                };
-            } else {
-                return null;
-            }
+            menu['Calcola'] = {
+                label: 'Calcola',
+                selected: true,
+                hidden: true,
+            };
         } else {
-            this.setSelectedMenu(menus, column.name);
+            this.setSelectedMenu(menu, column.name);
         }
 
         return (
@@ -3213,14 +3220,15 @@ export class KupDataTable {
                 class="totals-select"
                 onInput={(event) => this.onTotalsChange(event, column)}
             >
-                {Object.keys(menus).map((key) => {
-                    const menu = menus[key];
+                {Object.keys(menu).map((key) => {
+                    const m = menu[key];
                     return (
                         <option
                             value={key}
-                            selected={menu.selected ? true : false}
+                            selected={m.selected ? true : false}
+                            hidden={m.hidden ? true : false}
                         >
-                            {menu.label}
+                            {m.label}
                         </option>
                     );
                 })}
@@ -3229,16 +3237,16 @@ export class KupDataTable {
     }
 
     // TODO replace any with the correct type using TotalMode
-    setSelectedMenu(menus: any, name: string) {
+    setSelectedMenu(menu: any, name: string) {
         const totalValue = this.totals[name];
         if (totalValue) {
             if (totalValue.startsWith(TotalMode.MATH)) {
-                menus[TotalMode.MATH] = {
+                menu[TotalMode.MATH] = {
                     label: 'Formula',
                     selected: true,
                 };
-            } else if (menus[totalValue]) {
-                menus[totalValue].selected = true;
+            } else if (menu[totalValue]) {
+                menu[totalValue].selected = true;
             }
         }
     }
