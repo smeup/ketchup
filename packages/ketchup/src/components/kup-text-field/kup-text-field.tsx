@@ -321,10 +321,8 @@ export class KupTextField {
                     | HTMLTextAreaElement = f.querySelector(
                     '.mdc-text-field__input'
                 );
-                const icon: HTMLElement = f.querySelector(
-                    '.mdc-text-field__icon'
-                );
-                const clearIcon: HTMLElement = f.querySelector('.clear-icon');
+                const icon: HTMLElement = f.querySelector('.action');
+                const clearIcon: HTMLElement = f.querySelector('.clear');
                 if (inputEl) {
                     inputEl.onblur = (
                         e: FocusEvent & { target: HTMLInputElement }

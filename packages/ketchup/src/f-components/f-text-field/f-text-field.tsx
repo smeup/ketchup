@@ -84,7 +84,7 @@ function setContent(props: Props) {
             <span
                 tabindex="0"
                 style={iconStyle}
-                class={`material-icons mdc-text-field__icon icon-container ${iconClass}`}
+                class={`material-icons mdc-text-field__icon icon-container action ${iconClass}`}
             ></span>
         );
     }
@@ -134,7 +134,7 @@ function setContent(props: Props) {
             {props.isClearable ? (
                 <span
                     tabindex="1"
-                    class="material-icons mdc-text-field__icon clear-icon icon-container clear"
+                    class="material-icons mdc-text-field__icon icon-container clear"
                 ></span>
             ) : undefined}
             {props.trailingIcon ? iconEl : undefined}
