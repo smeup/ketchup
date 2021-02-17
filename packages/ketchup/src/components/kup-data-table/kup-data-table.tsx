@@ -3205,8 +3205,7 @@ export class KupDataTable {
 
         return (
             <select
-                name="calc"
-                id="calc"
+                class="totals-select"
                 onInput={(event) => this.onTotalsChange(event, column)}
             >
                 {Object.keys(menus).map((key) => {
