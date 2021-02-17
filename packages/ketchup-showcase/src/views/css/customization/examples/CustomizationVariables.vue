@@ -23,7 +23,7 @@
       set these variables inside the
       <span class="code-word">customStyle</span> prop:
     </p>
-    <div class="demo-container" style="padding: 3rem 0;">
+    <div class="demo-container" style="padding: 3rem 0">
       <code class="flat">{{ markupVariable }}</code>
     </div>
     <br />
@@ -31,7 +31,7 @@
     <div class="demo-container">
       <div class="kup-container">
         <kup-button
-          custom-style=":host { --kup-main-color: blue; --kup-text-on-main-color: yellow; }"
+          custom-style=":host { --kup-primary-color: blue; --kup-text-on-primary-color: yellow; }"
           label="Your button with variables"
         ></kup-button>
       </div>
@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       markupVariable:
-        ':host { --kup-main-color: blue; --kup-text-on-main-color: yellow; }',
+        ':host { --kup-primary-color: blue; --kup-text-on-primary-color: yellow; }',
     };
   },
 };

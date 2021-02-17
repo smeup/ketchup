@@ -51,7 +51,18 @@ import {
     filterRows,
     sortRows,
     paginateRows,
+    getCellValueForDisplay,
 } from '../kup-data-table/kup-data-table-helper';
+
+import {
+    setDragEffectAllowed,
+    setKetchupDraggable,
+    setKetchupDroppable,
+    DragHandlers,
+    DropHandlers,
+} from '../../utils/drag-and-drop';
+
+const KupBoxDragType = 'text/kup-box-drag';
 
 import { ComponentCardElement } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
@@ -63,6 +74,7 @@ import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { identify, stringToNumber } from '../../utils/utils';
+import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 
 @Component({
     tag: 'kup-box',
@@ -92,7 +104,7 @@ export class KupBox {
                 );
                 // *** PROPS ***
                 this.sortBy = this.state.sortBy;
-                this.globalFilterValueState = this.state.globalFilterValueState;
+                this.globalFilterValue = this.state.globalFilterValue;
                 this.selectedRowsState = this.state.selectedRowsState;
                 this.pageSelected = this.state.pageSelected;
                 this.rowsPerPage = this.state.rowsPerPage;
@@ -104,8 +116,14 @@ export class KupBox {
         if (this.store && this.stateId) {
             // *** PROPS ***
             this.state.sortBy = this.sortBy;
-            this.state.globalFilterValueState = this.globalFilterValue;
-            this.state.selectedRowsState = this.selectedRows;
+            this.state.globalFilterValue = this.globalFilterValue;
+            this.state.selectedRowsState = this.selectedRows.reduce(
+                (accumulator, row, currentIndex) => {
+                    const prefix = currentIndex > 0 ? ';' : '';
+                    return accumulator + prefix + row.id;
+                },
+                ''
+            );
             this.state.pageSelected = this.currentPage;
             this.state.rowsPerPage = this.currentRowsPerPage;
             logMessage(
@@ -160,13 +178,13 @@ export class KupBox {
      */
     @Prop() enableRowActions: boolean = false;
     /**
-     * Enable filtering
+     * When set to true it activates the global filter.
      */
-    @Prop() filterEnabled: boolean = false;
+    @Prop() globalFilter: boolean = false;
     /**
-     * Global filter value state
+     * The value of the global filter.
      */
-    @Prop({ mutable: true }) globalFilterValueState: string;
+    @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
     /**
      * How the field will be displayed. If not present, a default one will be created.
      */
@@ -198,7 +216,7 @@ export class KupBox {
     /**
      * Multiple selection
      */
-    @Prop({ mutable: true }) selectedRowsState: BoxRow[] = [];
+    @Prop({ mutable: true }) selectedRowsState: string;
     /**
      * If enabled, highlights the selected box/boxes
      */
@@ -229,13 +247,10 @@ export class KupBox {
     @Prop() tooltipLoadTimeout: number;
 
     @State()
-    private globalFilterValue = '';
-
-    @State()
     private collapsedSection: CollapsedSectionsState = {};
 
     @State()
-    private selectedRows: BoxRow[] = [];
+    private selectedRows: Array<BoxRow> = [];
 
     /**
      * Row that has the row object menu open
@@ -347,24 +362,6 @@ export class KupBox {
         fromSelectedRows?: BoxRow[];
     }>;
 
-    /**
-     * Triggered when a box is dropped
-     */
-    @Event({
-        eventName: 'kupBoxDropped',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupBoxDropped: EventEmitter<{
-        fromId: string;
-        fromRow: BoxRow;
-        fromSelectedRows?: BoxRow[];
-        toId: string;
-        toRow: BoxRow;
-        toSelectedRows?: BoxRow[];
-    }>;
-
     @Event({
         eventName: 'kupDidLoad',
         composed: true,
@@ -392,6 +389,8 @@ export class KupBox {
     private filteredRows: BoxRow[] = [];
 
     private tooltip: KupTooltip;
+    private globalFilterTimeout: number;
+
     @Watch('pageSize')
     rowsPerPageHandler(newValue: number) {
         this.currentRowsPerPage = newValue;
@@ -453,13 +452,15 @@ export class KupBox {
         // When component is created, then the listener is set. @See clickFunction for more details
         document.addEventListener('click', this.clickFunction.bind(this));
 
-        // Initialize @State from @Prop
-        this.globalFilterValue = this.globalFilterValueState;
         this.currentPage = this.pageSelected;
         //        this.currentRowsPerPage = this.rowsPerPage;
 
-        if (this.multiSelection) {
-            this.selectedRows = this.selectedRowsState;
+        if (this.multiSelection && this.selectedRowsState) {
+            this.selectedRows = [];
+            let selectedIds: Array<string> = this.selectedRowsState.split(';');
+            this.selectedRows = this.data.rows.filter((r) => {
+                return selectedIds.indexOf(r.id) >= 0;
+            });
         }
         this.kupDidLoad.emit();
         logLoad(this, true);
@@ -524,23 +525,13 @@ export class KupBox {
     private initRows(): void {
         this.filteredRows = this.getRows();
 
-        if (this.filterEnabled && this.globalFilterValue) {
-            const visibleCols = this.visibleColumns;
-            let size = visibleCols.length;
-            let columnNames = [];
-
-            let cnt = 0;
-
-            while (size-- > 0) {
-                columnNames.push(visibleCols[cnt++].name);
-            }
-
+        if (this.globalFilter && this.globalFilterValue) {
             // filtering rows
             this.filteredRows = filterRows(
                 this.filteredRows,
                 null,
                 this.globalFilterValue,
-                columnNames
+                this.visibleColumns
             );
         }
 
@@ -608,12 +599,16 @@ export class KupBox {
     }
 
     private onSortChange(e: CustomEvent) {
-        let column = this.getColumnByDesc(this.visibleColumns, e.detail.value);
+        let column = getColumnByName(this.visibleColumns, e.detail.value);
         this.sortBy = column.name;
     }
 
     private onGlobalFilterChange({ detail }) {
-        this.globalFilterValue = detail.value;
+        let value = '';
+        if (detail && detail.value) {
+            value = detail.value;
+        }
+        this.globalFilterValue = value;
     }
 
     private isSectionExpanded(row: BoxRow, section: Section): boolean {
@@ -792,121 +787,10 @@ export class KupBox {
         });
     }
 
-    // when the user starts to drag a box (fired on the draggable target)
-    private onBoxDragStart(event: DragEvent, row: BoxRow) {
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        if (this.multiSelection) {
-            this.addMultiSelectDragImageToEvent(event);
-        }
-
-        this.searchParentWithClass(target, 'box').classList.add('item-dragged');
-
-        var transferData = {};
-        transferData['fromId'] = this.rootElement.id;
-        transferData['fromRow'] = row;
-        transferData['fromSelectedRows'] = this.selectedRows;
-        event.dataTransfer.setData('text', JSON.stringify(transferData));
-
-        event.dataTransfer.dropEffect = 'move';
-
-        this.kupBoxDragStarted.emit({
-            fromId: this.rootElement.id,
-            fromRow: row,
-            ...(this.selectedRows && this.selectedRows.length
-                ? { fromSelectedRows: this.selectedRows }
-                : {}),
-        });
-    }
-
-    // when the user finishes to drag a box (fired on the draggable target)
-    private onBoxDragEnd(event: DragEvent, row: BoxRow) {
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box').classList.remove(
-            'item-dragged'
-        );
-
-        this.kupBoxDragEnded.emit({
-            fromId: this.rootElement.id,
-            fromRow: row,
-            ...(this.selectedRows && this.selectedRows.length
-                ? { fromSelectedRows: this.selectedRows }
-                : {}),
-        });
-    }
-
-    // when the dragged box is over the drop box (fired on the drop target)
-    private onBoxDragOver(event: DragEvent) {
-        event.preventDefault();
-
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box').classList.add(
-            'item-dropover'
-        );
-    }
-
-    // when the dragged box leaves the drop box (fired on the drop target)
-    private onBoxDragLeave(event: DragEvent) {
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box').classList.remove(
-            'item-dropover'
-        );
-    }
-
-    //  when the dragged box is dropped on another box (fired on the drop target)
-    private onBoxDrop(event: DragEvent, row: BoxRow) {
-        event.preventDefault();
-
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box').classList.remove(
-            'item-dropover'
-        );
-
-        var jsonData = JSON.parse(event.dataTransfer.getData('text'));
-
-        this.kupBoxDropped.emit({
-            fromId: jsonData['fromId'],
-            fromRow: jsonData['fromRow'],
-            ...(jsonData['fromSelectedRows'] &&
-            jsonData['fromSelectedRows'].length
-                ? { fromSelectedRows: jsonData['fromSelectedRows'] }
-                : {}),
-            toId: this.rootElement.id,
-            toRow: row,
-            ...(this.selectedRows && this.selectedRows.length
-                ? { toSelectedRows: this.selectedRows }
-                : {}),
-        });
-    }
-
     // when the dragged box is over the drop section (fired on the drop target)
     private onSectionDragOver(event: DragEvent) {
         event.preventDefault();
-
         let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
         this.searchParentWithClass(target, 'box-component').classList.add(
             'component-dropover'
         );
@@ -915,40 +799,9 @@ export class KupBox {
     // when the dragged box leaves the drop section (fired on the drop target)
     private onSectionDragLeave(event: DragEvent) {
         let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
         this.searchParentWithClass(target, 'box-component').classList.remove(
             'component-dropover'
         );
-    }
-
-    //  when the dragged box is dropped on a section (fired on the drop target)
-    private onSectionDrop(event: DragEvent) {
-        event.preventDefault();
-
-        let target = event.target;
-        if (!(target instanceof HTMLElement)) {
-            return;
-        }
-
-        this.searchParentWithClass(target, 'box-component').classList.remove(
-            'component-dropover'
-        );
-
-        var jsonData = JSON.parse(event.dataTransfer.getData('text'));
-
-        this.kupBoxDropped.emit({
-            fromId: jsonData['fromId'],
-            fromRow: jsonData['fromRow'],
-            ...(jsonData['fromSelectedRows'] &&
-            jsonData['fromSelectedRows'].length
-                ? { fromSelectedRows: jsonData['fromSelectedRows'] }
-                : {}),
-            toId: this.rootElement.id,
-            toRow: null,
-        });
     }
 
     private addMultiSelectDragImageToEvent(event: DragEvent) {
@@ -1241,31 +1094,70 @@ export class KupBox {
             column: !horizontal,
         };
 
+        const dragHandlers: DragHandlers = {
+            onDragStart: (e: DragEvent) => {
+                // Sets the type of drag
+                setDragEffectAllowed(e, 'move');
+
+                if (this.multiSelection) {
+                    this.addMultiSelectDragImageToEvent(e);
+                }
+
+                this.searchParentWithClass(e.target, 'box').classList.add(
+                    'item-dragged'
+                );
+            },
+            onDragEnd: (e: DragEvent) => {
+                this.searchParentWithClass(e.target, 'box').classList.remove(
+                    'item-dragged'
+                );
+            },
+        };
+
+        const dropHandlers: DropHandlers = {
+            onDragOver: (e: DragEvent) => {
+                this.searchParentWithClass(e.target, 'box').classList.add(
+                    'item-dropover'
+                );
+                return true;
+            },
+            onDragLeave: (e: DragEvent) => {
+                this.searchParentWithClass(e.target, 'box').classList.remove(
+                    'item-dropover'
+                );
+            },
+            onDrop: (e: DragEvent) => {
+                this.searchParentWithClass(e.target, 'box').classList.remove(
+                    'item-dropover'
+                );
+
+                return KupBoxDragType;
+            },
+        };
+
         return (
             <div class="box-wrapper">
                 <div
                     class={boxClass}
-                    draggable={this.dragEnabled}
                     onClick={(e) => this.onBoxClick(e, row)}
-                    onDragStart={
-                        this.dragEnabled
-                            ? (e) => this.onBoxDragStart(e, row)
-                            : null
-                    }
-                    onDragEnd={
-                        this.dragEnabled
-                            ? (e) => this.onBoxDragEnd(e, row)
-                            : null
-                    }
-                    onDragOver={
-                        this.dropEnabled ? (e) => this.onBoxDragOver(e) : null
-                    }
-                    onDragLeave={
-                        this.dropEnabled ? (e) => this.onBoxDragLeave(e) : null
-                    }
-                    onDrop={
-                        this.dropEnabled ? (e) => this.onBoxDrop(e, row) : null
-                    }
+                    {...(this.dragEnabled
+                        ? setKetchupDraggable(dragHandlers, {
+                              [KupBoxDragType]: row,
+                              'kup-drag-source-element': {
+                                  id: this.rootElement.id,
+                                  row,
+                                  selectedRows: this.selectedRows,
+                              },
+                          })
+                        : {})}
+                    {...(this.dropEnabled
+                        ? setKetchupDroppable(
+                              dropHandlers,
+                              [KupBoxDragType],
+                              this.rootElement,
+                              { row, id: this.rootElement.id }
+                          )
+                        : {})}
                 >
                     {multiSel}
                     {boxContent}
@@ -1442,10 +1334,11 @@ export class KupBox {
         let boStyle = {};
         //let boInnerHTML = null;
         let cell = null;
+        let column: Column = null;
         let _hasTooltip = false;
         if (boxObject.column) {
             cell = row.cells[boxObject.column];
-
+            column = null;
             if (cell) {
                 _hasTooltip = hasTooltip(cell.obj);
                 // removing column from visibleColumns
@@ -1461,6 +1354,7 @@ export class KupBox {
                 }
 
                 if (index >= 0) {
+                    column = visibleColumns[index];
                     visibleColumns.splice(index, 1);
                 }
 
@@ -1582,7 +1476,7 @@ export class KupBox {
                         boContent = undefined;
                     }
                 } else {
-                    boContent = cell.value;
+                    boContent = getCellValueForDisplay(column, cell);
                 }
             }
         } else if (boxObject.value) {
@@ -1660,7 +1554,6 @@ export class KupBox {
             });
             const items = [{ text: '', value: '' }, ...visibleColumnsItems];
             let textfieldData = {
-                initialValue: this.sortBy,
                 label: 'Sort by',
                 trailingIcon: true,
             };
@@ -1669,11 +1562,15 @@ export class KupBox {
                 selectable: true,
             };
 
+            let data = {
+                'kup-text-field': textfieldData,
+                'kup-list': listData,
+            };
             sortPanel = (
                 <div id="sort-panel">
                     <kup-combobox
-                        textfieldData={textfieldData}
-                        listData={listData}
+                        data={data}
+                        initialValue={this.sortBy}
                         onKupComboboxItemClick={(e) => this.onSortChange(e)}
                     />
                 </div>
@@ -1681,7 +1578,7 @@ export class KupBox {
         }
 
         let filterPanel = null;
-        if (this.filterEnabled) {
+        if (this.globalFilter) {
             filterPanel = (
                 <div id="global-filter">
                     <kup-text-field
@@ -1689,10 +1586,14 @@ export class KupBox {
                         isClearable={true}
                         label="Search..."
                         icon="magnify"
-                        initialValue={this.globalFilterValueState}
-                        onKupTextFieldInput={(event) =>
-                            this.onGlobalFilterChange(event)
-                        }
+                        initialValue={this.globalFilterValue}
+                        onKupTextFieldInput={(event) => {
+                            window.clearTimeout(this.globalFilterTimeout);
+                            this.globalFilterTimeout = window.setTimeout(
+                                () => this.onGlobalFilterChange(event),
+                                300
+                            );
+                        }}
                         onKupTextFieldClearIconClick={(event) =>
                             this.onGlobalFilterChange(event)
                         }
@@ -1740,30 +1641,42 @@ export class KupBox {
 
         const tooltip = this.renderTooltip();
 
+        const dropHandlers: DropHandlers = {
+            onDragOver: (e: DragEvent) => {
+                if (!(e.target instanceof HTMLElement)) {
+                    return false;
+                }
+                this.onSectionDragOver(e);
+                return true;
+            },
+            onDragLeave: (e: DragEvent) => {
+                this.onSectionDragLeave(e);
+            },
+            onDrop: (e: DragEvent) => {
+                this.searchParentWithClass(
+                    e.target,
+                    'box-component'
+                ).classList.remove('component-dropover');
+
+                return KupBoxDragType;
+            },
+        };
+
         return (
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div
                         class="box-component"
-                        onDragOver={
-                            this.dropEnabled &&
-                            (this.dropOnSection || !this.getRows().length)
-                                ? (e) => this.onSectionDragOver(e)
-                                : null
-                        }
-                        onDragLeave={
-                            this.dropEnabled &&
-                            (this.dropOnSection || !this.getRows().length)
-                                ? (e) => this.onSectionDragLeave(e)
-                                : null
-                        }
-                        onDrop={
-                            this.dropEnabled &&
-                            (this.dropOnSection || !this.getRows().length)
-                                ? (e) => this.onSectionDrop(e)
-                                : null
-                        }
+                        {...(this.dropEnabled &&
+                        (this.dropOnSection || !this.getRows().length)
+                            ? setKetchupDroppable(
+                                  dropHandlers,
+                                  [KupBoxDragType],
+                                  this.rootElement,
+                                  { row: null, id: this.rootElement.id }
+                              )
+                            : {})}
                     >
                         {sortPanel}
                         {filterPanel}

@@ -82,6 +82,17 @@
                     }}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
+                <v-list-tile
+                  v-for="route in group.thirdParties"
+                  :key="route.to.name"
+                  :to="route.to"
+                >
+                  <v-list-tile-content>
+                    <v-list-tile-title class="extra-padding">{{
+                      route.title
+                    }}</v-list-tile-title>
+                  </v-list-tile-content>
+                </v-list-tile>
               </v-list-group>
             </v-list>
           </v-list>
@@ -158,7 +169,7 @@
         "
         id="debug-toggler"
         icon="bug"
-        custom-style=":host{--kup-main-color: white}"
+        custom-style=":host{--kup-primary-color: white}"
       ></kup-button>
       <v-toolbar-side-icon :to="{ path: '/' }">
         <v-icon>home</v-icon>
@@ -233,7 +244,7 @@ export default {
         dom['kupDebug'] = true;
       } else {
         console.log('Debug deactivated.');
-        debugToggler.customStyle = ':host{--kup-main-color: white}';
+        debugToggler.customStyle = ':host{--kup-primary-color: white}';
         dom['kupDebug'] = false;
       }
     },
@@ -299,6 +310,12 @@ export default {
                 title: 'Drawer',
                 to: {
                   name: 'drawer',
+                },
+              },
+              {
+                title: 'Dropdown Button',
+                to: {
+                  name: 'dropdownbutton',
                 },
               },
               {
@@ -403,12 +420,6 @@ export default {
                 },
               },
               {
-                title: `Button`,
-                to: {
-                  name: 'btn',
-                },
-              },
-              {
                 title: `Calendar`,
                 to: {
                   name: 'calendar',
@@ -427,12 +438,6 @@ export default {
                 },
               },
               {
-                title: 'Crud',
-                to: {
-                  name: 'crud',
-                },
-              },
-              {
                 title: `Dash`,
                 to: {
                   name: 'dash',
@@ -445,27 +450,15 @@ export default {
                 },
               },
               {
-                title: `Echarts`,
+                title: `Echart`,
                 to: {
-                  name: 'echarts',
+                  name: 'echart',
                 },
               },
               {
                 title: `Field`,
                 to: {
                   name: 'field',
-                },
-              },
-              {
-                title: 'Form',
-                to: {
-                  name: 'form',
-                },
-              },
-              {
-                title: `Image button`,
-                to: {
-                  name: 'imagebutton',
                 },
               },
               {
@@ -487,6 +480,17 @@ export default {
                 },
               },
             ],
+          },
+          {
+            title: '3rd Parties',
+            thirdParties: [
+              {
+                title: 'Qlik',
+                to: {
+                  name: 'qlik',
+                },
+              },
+            ]
           },
         ],
       },

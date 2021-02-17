@@ -15,7 +15,7 @@
       <span class="code-word" style="margin-left: 2rem">"cssVariables"</span>,
       <br />
       <span class="code-word" style="margin-left: 3.5rem"
-        >"--kup-main-color"</span
+        >"--kup-primary-color"</span
       >,
       <br />
       <span class="code-word" style="margin-left: 3.5rem"

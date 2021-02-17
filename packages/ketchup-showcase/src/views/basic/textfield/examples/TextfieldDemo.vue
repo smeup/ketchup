@@ -80,14 +80,6 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'forceFocus',
-          description:
-            'Defaults at false. When set to true, the component will be focused.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
-        },
-        {
           prop: 'fullWidth',
           description:
             'Sets the width of the component to fill all the available horizontal space provided by its parent.',
@@ -215,6 +207,11 @@ export default {
           class: 'full-height',
           description:
             'The text field will fill all the available vertical space.',
+        },
+        {
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
       ],
     };

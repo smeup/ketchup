@@ -32,6 +32,7 @@
     "ksc:test:e2e:run": "lerna run test:e2e:run --scope ketchup-showcase --stream"
   },
   "dependencies": {
+    "@justinribeiro/html5-dragdroptouch-shim": "^0.1.2",
     "@types/echarts": "^4.8.0",
     "@types/jest": "^25.2.1",
     "echarts": "^4.9.0",

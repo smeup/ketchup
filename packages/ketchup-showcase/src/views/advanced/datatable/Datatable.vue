@@ -16,63 +16,66 @@
       <datatable-graphic-cell></datatable-graphic-cell>
     </template>
     <template v-slot:5>
-      <datatable-chart-cell></datatable-chart-cell>
+      <datatable-date-time-number-cell></datatable-date-time-number-cell>
     </template>
     <template v-slot:6>
-      <datatable-groups></datatable-groups>
+      <datatable-chart-cell></datatable-chart-cell>
     </template>
     <template v-slot:7>
-      <datatable-fixed-columns-rows />
+      <datatable-groups></datatable-groups>
     </template>
     <template v-slot:8>
-      <datatable-j4btn></datatable-j4btn>
+      <datatable-fixed-columns-rows />
     </template>
     <template v-slot:9>
-      <datatable-pagination></datatable-pagination>
+      <datatable-j4btn></datatable-j4btn>
     </template>
     <template v-slot:10>
-      <datatable-progressbar></datatable-progressbar>
+      <datatable-pagination></datatable-pagination>
     </template>
     <template v-slot:11>
-      <datatable-radio></datatable-radio>
+      <datatable-progressbar></datatable-progressbar>
     </template>
     <template v-slot:12>
-      <datatable-row-actions></datatable-row-actions>
+      <datatable-radio></datatable-radio>
     </template>
     <template v-slot:13>
-      <datatable-row-selection></datatable-row-selection>
+      <datatable-row-actions></datatable-row-actions>
     </template>
     <template v-slot:14>
-      <datatable-rows-repetition></datatable-rows-repetition>
+      <datatable-row-selection></datatable-row-selection>
     </template>
     <template v-slot:15>
-      <datatable-sort></datatable-sort>
+      <datatable-rows-repetition></datatable-rows-repetition>
     </template>
     <template v-slot:16>
-      <datatable-sortable-columns></datatable-sortable-columns>
+      <datatable-sort></datatable-sort>
     </template>
     <template v-slot:17>
-      <datatable-tooltip></datatable-tooltip>
+      <datatable-sortable-columns></datatable-sortable-columns>
     </template>
     <template v-slot:18>
-      <datatable-total></datatable-total>
+      <datatable-tooltip></datatable-tooltip>
     </template>
     <template v-slot:19>
-      <datatable-j4ico></datatable-j4ico>
+      <datatable-total></datatable-total>
     </template>
     <template v-slot:20>
-      <datatable-images-and-badges />
+      <datatable-j4ico></datatable-j4ico>
     </template>
     <template v-slot:21>
-      <datatable-shapes></datatable-shapes>
+      <datatable-images-and-badges />
     </template>
     <template v-slot:22>
-      <datatable-cell-classes></datatable-cell-classes>
+      <datatable-shapes></datatable-shapes>
     </template>
     <template v-slot:23>
-      <datatable-j1col></datatable-j1col>
+      <datatable-cell-classes></datatable-cell-classes>
     </template>
     <template v-slot:24>
+      <datatable-j1col></datatable-j1col>
+    </template>
+    <template v-slot:25>
       <datatable-jl></datatable-jl>
     </template>
   </comp>
@@ -91,6 +94,7 @@ import DatatableBasic from '@/views/advanced/datatable/examples/DatatableBasic';
 import DatatableCheckbox from '@/views/advanced/datatable/examples/DatatableCheckbox';
 import DatatableFilters from '@/views/advanced/datatable/examples/DatatableFilters';
 import DatatableGraphicCell from '@/views/advanced/datatable/examples/DatatableGraphicCell';
+import DatatableDateTimeNumberCell from '@/views/advanced/datatable/examples/DatatableDateTimeNumberCell';
 import DatatableChartCell from '@/views/advanced/datatable/examples/DatatableChartCell';
 import DatatableFixedColumnsRows from '@/views/advanced/datatable/examples/DatatableFixedColumnsRows';
 import DatatableGroups from '@/views/advanced/datatable/examples/DatatableGroups';
@@ -121,6 +125,7 @@ export default {
     DatatableCheckbox,
     DatatableFilters,
     DatatableGraphicCell,
+    DatatableDateTimeNumberCell,
     DatatableChartCell,
     DatatableFixedColumnsRows,
     DatatableGroups,
@@ -154,6 +159,7 @@ export default {
         'With checkboxes',
         'With filters',
         'Graphic cells',
+        'Date, time, timestamp, number cells',
         'Chart cells',
         'Groups',
         'With Fixed columns and rows',

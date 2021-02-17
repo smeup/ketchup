@@ -116,17 +116,17 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'filterEnabled',
-          description: 'Enable filtering.',
+          prop: 'globalFilter',
+          description: 'When set to true it activates the global filter.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
         },
         {
-          prop: 'globalFilterValueState',
-          description: 'Global filter value state.',
+          prop: 'globalFilterValue',
+          description: 'The value of the global filter.',
           type: 'string',
-          default: 'undefined',
+          default: '',
           try: 'field',
         },
         {
@@ -251,6 +251,11 @@ export default {
           class: 'left-aligned',
           description:
             "Content will be horizontally aligned to section's left.",
+        },
+        {
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
         },
         {
           class: 'paddingless',

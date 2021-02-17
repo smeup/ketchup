@@ -4,6 +4,7 @@
       :demoComp="demoComp"
       :demoEvents="demoEvents"
       :demoProps="demoProps"
+      :demoClasses="demoClasses"
     ></demo>
   </div>
 </template>
@@ -27,6 +28,10 @@ export default {
         {
           name: 'kupTimePickerChange',
           type: 'change',
+        },
+        {
+          name: 'kupTimePickerClearIconClick',
+          type: 'click',
         },
         {
           name: 'kupTimePickerInput',
@@ -72,11 +77,17 @@ export default {
         },
         {
           prop: 'data',
-          description:
-            "Set of props related to the text field. To check the available props visit the Text Field basic component's page.",
+          description: 'Props of the sub-components.',
           type: 'Object',
-          default: '{"text-field":{}}',
+          default: 'undefined',
           try: 'json',
+        },
+        {
+          prop: 'initialValue',
+          description: 'Sets the initial value of the component.',
+          type: 'string',
+          default: '""',
+          try: 'field',
         },
         {
           prop: 'manageSeconds',
@@ -93,6 +104,13 @@ export default {
           try: 'field',
         },
       ],
+      demoClasses: [
+        {
+          class: 'kup-secondary-color',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+      ],
     };
   },
 };
@@ -100,6 +118,11 @@ export default {
 function createComp() {
   let comp = document.createElement('kup-time-picker');
   comp.id = 'demo-component';
+  comp.data = {
+    'kup-text-field': {
+      label: 'Demo',
+    },
+  };
   comp.clockVariant = true;
   return comp;
 }

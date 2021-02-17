@@ -101,7 +101,17 @@ export function formatSize(size: any) {
 }
 
 export function getCurrentLocale(suffix?: string): string {
+    if (navigator == null || navigator.language == null) {
+        return 'en-US' + (suffix != null ? suffix : '');
+    }
     return navigator.language + (suffix != null ? suffix : '');
+}
+
+export function getSeparator(locale, separatorType) {
+    const numberWithGroupAndDecimalSeparator = 1000.1;
+    return Intl.NumberFormat(locale)
+        .formatToParts(numberWithGroupAndDecimalSeparator)
+        .find((part) => part.type === separatorType).value;
 }
 
 export function getCurrentDateFormatFromBrowserLocale(): string {
@@ -188,6 +198,27 @@ export function isEmpty(obj: any) {
     );
 }
 
+/**
+ * @param value number as string, formatted by actual browser locale
+ * @param type - type of number for calculate suffix
+ * @returns true if number string in input is a valid number
+ */
+export function isValidFormattedStringNumber(
+    value: string,
+    type: string
+): boolean {
+    if (value == null || value.trim() == '') {
+        return false;
+    }
+
+    let tmpStr = formattedStringToUnformattedStringNumber(value, type);
+
+    if (isNumber(tmpStr)) {
+        return true;
+    }
+    return false;
+}
+
 export function isNumber(value: any): boolean {
     //return typeof value === 'number';
     return !isNaN(value);
@@ -213,7 +244,7 @@ export function numberToString(input: number, decimals: number): string {
     if (input == null) {
         return '';
     }
-    return _numberToString(input, decimals, getCurrentLocale());
+    return _numberToString(input, decimals, getCurrentLocale(), true);
 }
 
 /**
@@ -271,21 +302,44 @@ export function unformattedStringToFormattedStringNumber(
 /**
  * @param input number as string, formatted by actual browser locale
  * @param type - type of number for calculate suffix
- * @returns number as string, formatted by locale US, decimal separator . (like java decimal numbers)
+ * @returns number as string, formatted by locale US, decimal separator . (like java decimal numbers), without group separator
  **/
 export function formattedStringToUnformattedStringNumber(
     input: string,
     type: string
 ): string {
+    return numberStringToNumberString(
+        input,
+        type,
+        getDecimalSeparator(getCurrentLocale())
+    );
+}
+
+/**
+ * @param input number as string, formatted by locale US, decimal separator . (like java decimal numbers), with group separator
+ * @param type - type of number for calculate suffix
+ * @returns number as string, formatted by locale US, decimal separator . (like java decimal numbers), without group separator
+ **/
+export function unformattedStringNumberToNumber(
+    input: string,
+    type: string
+): string {
+    return numberStringToNumberString(input, type, '.');
+}
+
+function numberStringToNumberString(
+    input: string,
+    type: string,
+    decFmt: string
+): string {
     if (input == null || input.trim() == '') {
-        input = '0';
+        return '';
     }
 
     let suffix = getNumericValueSuffixByType(type);
     if (suffix != '') {
         input = input.replace(suffix, '');
     }
-    let decFmt: string = getDecimalSeparator(getCurrentLocale());
     let regExpr: RegExp = null;
     if (decFmt == '.') {
         regExpr = /,/g;
@@ -297,25 +351,36 @@ export function formattedStringToUnformattedStringNumber(
     if (decFmt != '.') {
         input = input.replace(/,/g, '.');
     }
-    let unf: number = Number(input);
+    let unf: number = stringToNumber(input);
 
-    return _numberToString(unf, -1, 'en-US');
+    return _numberToString(unf, -1, 'en-US', false);
 }
 
 function getDecimalSeparator(locale) {
-    const numberWithDecimalSeparator = 1.1;
-    return Intl.NumberFormat(locale)
-        .formatToParts(numberWithDecimalSeparator)
-        .find((part) => part.type === 'decimal').value;
+    return getSeparator(locale, 'decimal');
+}
+
+function countDecimals(value: number): number {
+    if (Math.floor(value) === value) return 0;
+    let stringValue = value.toString().split('.')[1];
+    if (stringValue) {
+        return stringValue.length ? stringValue.length : 0;
+    } else {
+        return 0;
+    }
 }
 
 export function _numberToString(
     input: number,
     decimals: number,
-    locale: string
+    locale: string,
+    useGrouping: boolean
 ): string {
     if (input == null) {
         input = 0;
+    }
+    if (decimals == null || decimals == -1) {
+        decimals = countDecimals(input);
     }
     let n: Number = Number(input);
     let f: Intl.NumberFormatOptions =
@@ -323,14 +388,16 @@ export function _numberToString(
             ? {
                   minimumFractionDigits: decimals,
                   maximumFractionDigits: decimals,
+                  useGrouping: useGrouping,
               }
-            : {};
+            : { useGrouping: useGrouping };
     return n.toLocaleString(locale, f);
 }
 
 export const ISO_DEFAULT_DATE_FORMAT = 'YYYY-MM-DD';
 export const ISO_DEFAULT_TIME_FORMAT = 'HH:mm:ss';
 export const ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS = 'HH:mm';
+export const ISO_DEFAULT_DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';
 
 /**
  *
@@ -351,6 +418,7 @@ export function changeDateTimeFormat(
 
 /**
  * @param value date as string
+ * @param defaultValueFormat
  * @param valueDateFormat date format (default ISO)
  * @return Date object
  **/
@@ -367,7 +435,7 @@ export function unformatDateTime(
 
 /**
  * @param date date as Date object
- * @return date as string, formatted
+ * @return date as string, formatted by actual browser locale
  **/
 export function formatDate(date: Date): string {
     const options: Intl.DateTimeFormatOptions = {
@@ -397,11 +465,25 @@ export function formatTime(time: Date, manageSeconds: boolean): string {
 
 /**
  * @param value date string, formatted by actual browser locale
- * @returns true id date string in input is a valid date
+ * @returns true if date string in input is a valid date
  */
 export function isValidFormattedStringDate(value: string): boolean {
-    let format = getCurrentDateFormatFromBrowserLocale();
-    let m = moment(value, format);
+    return isValidStringDate(value);
+}
+
+/**
+ * @param value date string
+ * @param valueDateFormat date format (default actual browser locale)
+ * @returns true if date string in input is a valid date
+ */
+export function isValidStringDate(
+    value: string,
+    valueDateFormat?: string
+): boolean {
+    if (valueDateFormat == null) {
+        valueDateFormat = getCurrentDateFormatFromBrowserLocale();
+    }
+    let m = moment(value, valueDateFormat, true);
     return m.isValid();
 }
 
@@ -414,7 +496,7 @@ export function isValidFormattedStringTime(
     manageSeconds: boolean
 ): boolean {
     let format = getCurrentTimeFormatFromBrowserLocale(manageSeconds);
-    let m = moment(value, format);
+    let m = moment(value, format, true);
     return m.isValid();
 }
 
@@ -439,6 +521,20 @@ export function formattedStringToDefaultUnformattedStringTime(value: string) {
     return formattedStringToCustomUnformattedStringTime(
         value,
         ISO_DEFAULT_TIME_FORMAT,
+        true
+    );
+}
+
+/**
+ * @param value date/time as string, formatted by actual browser locale
+ * @returns date/time as string, formatted ISO
+ **/
+export function formattedStringToDefaultUnformattedStringTimestamp(
+    value: string
+) {
+    return formattedStringToCustomUnformattedStringTime(
+        value,
+        ISO_DEFAULT_DATE_TIME_FORMAT,
         true
     );
 }
@@ -480,7 +576,7 @@ export function formattedStringToCustomUnformattedStringTime(
 /**
  * @param value date as string, formatted ISO
  * @param valueDateFormat date format (default ISO)
- * @param customedFormat date format from smeupObject (TODO: must be managed)
+ * @param customedFormat date format from smeupObject
  * @returns date as string, formatted by actual browser locale
  **/
 export function unformattedStringToFormattedStringDate(
@@ -488,29 +584,68 @@ export function unformattedStringToFormattedStringDate(
     valueDateFormat?: string,
     customedFormat?: string
 ): string {
-    logMessage(
-        'DATE-FIELD-VALUE',
-        'unformattedStringToFormattedStringDate() - customedFormat param [' +
-            customedFormat +
-            '] not managed yet!!!'
-    );
     const options: Intl.DateTimeFormatOptions = {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric',
     };
-    return unformatDateTime(
+
+    let date = unformatDateTime(
         value,
         ISO_DEFAULT_DATE_FORMAT,
         valueDateFormat
-    ).toLocaleDateString(getCurrentLocale(), options);
+    );
+
+    return formatByCustomedOutputDateFormat(date, options, customedFormat);
+}
+
+function formatByCustomedOutputDateFormat(
+    date: Date,
+    options: Intl.DateTimeFormatOptions,
+    customedFormat: string
+): string {
+    if (customedFormat == null) {
+        return date.toLocaleDateString(getCurrentLocale(), options);
+    }
+
+    switch (customedFormat) {
+        case 'D8*YYMD': {
+            options.year = '2-digit';
+            break;
+        }
+        case 'D8*YMD': {
+            return moment(date).format('YYMMDD');
+        }
+        case 'D8*DMY': {
+            return moment(date).format('DDMMYY');
+        }
+        case 'D8*DMYY': {
+            return moment(date).format('DDMMYYYY');
+        }
+        case 'D8*CYMD': {
+            return moment(date).format('EYYMMDD');
+        }
+        case 'D8*ODETTE': {
+            //???
+            break;
+        }
+        case 'D8*JULY': {
+            //???
+            break;
+        }
+        case 'D8*JULYY': {
+            //???
+            break;
+        }
+    }
+    return date.toLocaleDateString(getCurrentLocale(), options);
 }
 
 /**
  * @param value time as string, formatted ISO
  * @param manageSeconds flag to set seconds managing
  * @param valueTimeFormat time format (default ISO)
- * @param customedFormat time format from smeupObject (TODO: must be managed)
+ * @param customedFormat time format from smeupObject
  * @returns time as string, formatted by actual browser locale
  **/
 export function unformattedStringToFormattedStringTime(
@@ -519,12 +654,6 @@ export function unformattedStringToFormattedStringTime(
     valueTimeFormat?: string,
     customedFormat?: string
 ): string {
-    logMessage(
-        'TIME-FIELD-VALUE',
-        'unformattedStringToFormattedStringTime() - customedFormat param [' +
-            customedFormat +
-            '] not managed yet!!!'
-    );
     const options: Intl.DateTimeFormatOptions = {
         hour: '2-digit',
         minute: '2-digit',
@@ -533,11 +662,124 @@ export function unformattedStringToFormattedStringTime(
     if (manageSeconds == true) {
         options.second = '2-digit';
     }
-    return unformatDateTime(
+    let date = unformatDateTime(
         value,
         ISO_DEFAULT_TIME_FORMAT,
         valueTimeFormat
-    ).toLocaleTimeString(getCurrentLocale('-u-hc-h23'), options);
+    );
+
+    return formatByCustomedOutputTimeFormat(
+        value,
+        date,
+        options,
+        customedFormat
+    );
+}
+
+function formatByCustomedOutputTimeFormat(
+    valueStr: string,
+    date: Date,
+    options: Intl.DateTimeFormatOptions,
+    customedFormat: string
+): string {
+    if (customedFormat == null) {
+        return date.toLocaleTimeString(getCurrentLocale('-u-hc-h23'), options);
+    }
+
+    switch (customedFormat) {
+        case 'I13': {
+            //hh:mm
+            break;
+        }
+        case 'I12': {
+            //hh:mm:ss
+            break;
+        }
+        case 'I11': {
+            //???
+            //hh:dddd
+            //return moment(date).format('HH:DDDD');
+            return valueStr;
+        }
+        case 'I14': {
+            //???
+            //sssss
+            //return moment(date).format('SSSSS');
+            return valueStr;
+        }
+        case 'I1H': {
+            //???
+            //Ora,Cen/Min HH,xx
+            return valueStr;
+        }
+        case 'I1M': {
+            //???
+            //Min,Cen/Sec  MMMM,xx
+            return valueStr;
+        }
+        case 'I21': {
+            //???
+            //Giorni,(4 decim)
+            return valueStr;
+        }
+        case 'I22': {
+            //???
+            //Ore,(4 decim)
+            return valueStr;
+        }
+        case 'I23': {
+            //???
+            //Minuti,(4 decim)
+            return valueStr;
+        }
+        case 'I24': {
+            //???
+            //Secondi
+            return valueStr;
+        }
+        case 'I2H': {
+            //???
+            //Ora,Cen/Min HHHH,xx
+            return valueStr;
+        }
+        case 'I2D': {
+            //???
+            //Ore Minuti Secondi HHMMS
+            return valueStr;
+        }
+        case 'I2M': {
+            //???
+            //Min,Cen/Sec MMMM,xx
+            return valueStr;
+        }
+    }
+
+    return date.toLocaleTimeString(getCurrentLocale('-u-hc-h23'), options);
+}
+
+/**
+ * @param value date/time as string, formatted ISO
+ * @param valueDateFormat date/time format (default ISO)
+ * @returns date/time as string, formatted by actual browser locale
+ **/
+export function unformattedStringToFormattedStringTimestamp(
+    value: string,
+    valueDateFormat?: string
+) {
+    const options: Intl.DateTimeFormatOptions = {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+    };
+    return unformatDateTime(
+        value,
+        ISO_DEFAULT_DATE_TIME_FORMAT,
+        valueDateFormat
+    ).toLocaleString(getCurrentLocale('-u-hc-h23'), options);
 }
 
 export function getMonthAsStringByLocale(

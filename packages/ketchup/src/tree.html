@@ -85,6 +85,16 @@
     </head>
 
     <body>
+        <div class="utility-examples">
+            <h1>Tree layout-fixed</h1>
+            <kup-tree
+                id="tree-layout-fixed"
+                show-columns
+                show-header
+                show-icons
+            ></kup-tree>
+        </div>
+
         <div class="data-examples">
             <h1>Tree</h1>
             <kup-tree id="tree" show-columns></kup-tree>
@@ -93,8 +103,8 @@
         <div class="filter-examples">
             <h1>Filters</h1>
             <kup-tree
-                show-filter
-                filter-value="24"
+                global-filter
+                global-filter-value="24"
                 id="tree-show-filter"
             ></kup-tree>
         </div>
@@ -107,10 +117,10 @@
                 --kup-background-color: #ffffff;
                 --kup-nav-bar-background-color: #2e2e2e;
                 --kup-drawer-background-color: #ffffff;
-                --kup-main-color: #d64325;
+                --kup-primary-color: #d64325;
                 --kup-font-family: 'Oswald', sans-serif;
                 --kup-font-size: 16px;
-                --kup-text-on-main-color: #ffffff;
+                --kup-text-on-primary-color: #ffffff;
                 --kup-text-color: #2e2e2e;
                 --kup-icon-color: #505050;
                 --kup-hover-background-color: #f0f0f0;
@@ -123,10 +133,10 @@
                 --kup-spinner-color: #eaa710;
                 --kup-title-background-color: #f1f3f4;
 
-                --mdc-theme-primary: var(--kup-main-color);
-                --mdc-theme-on-primary: var(--kup-text-on-main-color);
-                --mdc-theme-secondary: var(--kup-main-color);
-                --mdc-theme-on-secondary: var(--kup-text-on-main-color);
+                --mdc-theme-primary: var(--kup-primary-color);
+                --mdc-theme-on-primary: var(--kup-text-on-primary-color);
+                --mdc-theme-secondary: var(--kup-primary-color);
+                --mdc-theme-on-secondary: var(--kup-text-on-primary-color);
                 --mdc-theme-surface: var(--kup-background-color);
                 --mdc-theme-on-surface: var(--kup-text-color);
                 --mdc-theme-background: var(--kup-background-color);

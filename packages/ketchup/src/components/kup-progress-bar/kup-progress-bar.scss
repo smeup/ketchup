@@ -1,5 +1,6 @@
 :host {
   display: block;
+  font-size: var(--kup-font-size);
   width: 100%;
 }
 
@@ -11,28 +12,30 @@
 
 :host(.padded) {
   .progress-bar {
-    padding: 0.5rem;
-    width: calc(100% - 1rem);
+    padding: 0.5em;
+    width: calc(100% - 1em);
   }
 }
 
 :host(.slim) {
-  .progress-bar {
-    border-radius: 9px;
-
-    & .progress-bar-percentage {
+  #kup-component {
+    .progress-bar {
       border-radius: 9px;
-      padding: 0;
-    }
-  }
-  .is-radial .pie-wrapper {
-    & .pie {
-      & .half-circle {
-        border-width: 0.05em;
+
+      & .progress-bar-percentage {
+        border-radius: 9px;
+        padding: 0;
       }
     }
-    & .shadow {
-      border-width: 0.05em;
+    .pie-wrapper {
+      & .pie {
+        & .half-circle {
+          border-width: 0.05em;
+        }
+      }
+      & .shadow {
+        border-width: 0.05em;
+      }
     }
   }
 }
@@ -49,7 +52,7 @@
       transparent 75%,
       transparent
     );
-    background-size: 3rem 3rem;
+    background-size: 3em 3em;
   }
 }
 
@@ -60,40 +63,40 @@
   position: relative;
   width: 100%;
 
-  &.text-color-on-main {
+  &.text-color-on-primary {
     & .progress-bar-percentage {
-      color: var(--kup-text-on-main-color);
+      color: var(--kup-text-on-primary-color);
       & span {
-        color: var(--kup-text-on-main-color);
+        color: var(--kup-text-on-primary-color);
       }
     }
   }
 }
 
 .progress-bar-percentage {
-  background: var(--kup-main-color);
+  background: var(--kup-primary-color);
   border-radius: 4px;
   color: var(--kup-text-color);
-  height: 1.25rem;
-  padding: 0.5rem 0;
+  height: 1.25em;
+  padding: 0.5em 0;
   text-align: center;
   transition: width 0.2s ease;
 
   & span {
     color: var(--kup-text-color);
     display: inline-block;
-    font-size: 1rem;
+    font-size: 1em;
     left: 0;
-    line-height: 1.268rem;
+    line-height: 1.268em;
     position: absolute;
     width: 100%;
   }
 
   & .icon-container {
     display: block;
-    height: 1.25rem;
+    height: 1.25em;
     &:not(.is-image) {
-      background-color: var(--kup-text-on-main-color);
+      background-color: var(--kup-text-on-primary-color);
     }
     img {
       width: auto;
@@ -104,20 +107,17 @@
 
 :host([is-radial]) {
   box-sizing: border-box;
-  font-size: 10rem;
   margin: auto;
-  width: 10rem;
-  height: 10rem;
 
   #kup-component {
     display: flex;
-    height: 100%;
-    width: 100%;
+    font-size: 10em;
+    margin: auto;
   }
 
   & .pie-wrapper {
-    height: 10rem;
-    width: 10rem;
+    height: 1em;
+    width: 1em;
     float: left;
     margin: auto;
     position: relative;
@@ -127,8 +127,8 @@
     }
 
     & .pie {
-      height: 10rem;
-      width: 10rem;
+      height: 1em;
+      width: 1em;
       clip: rect(0, 1em, 1em, 0.5em);
       left: 0;
       position: absolute;
@@ -136,7 +136,7 @@
 
       &.has-value {
         & .half-circle {
-          border-color: var(--kup-main-color);
+          border-color: var(--kup-primary-color);
           &.left-side {
             transition: transform 0.2s ease;
           }
@@ -158,8 +158,8 @@
       }
 
       & .half-circle {
-        height: 10rem;
-        width: 10rem;
+        height: 1em;
+        width: 1em;
         border: 0.1em solid var(--kup-disabled-background-color);
         border-radius: 50%;
         clip: rect(0, 0.5em, 1em, 0);
@@ -185,12 +185,12 @@
 
       &.icon-container {
         display: block;
-        height: 3rem;
-        width: 3rem;
+        height: 1.25em;
+        width: 1.25em;
         object-fit: cover;
         margin: auto;
         &:not(.is-image) {
-          background-color: var(--kup-main-color);
+          background-color: var(--kup-primary-color);
         }
         img {
           width: auto;
@@ -208,8 +208,8 @@
     }
 
     & .shadow {
-      height: 10rem;
-      width: 10rem;
+      height: 1em;
+      width: 1em;
       border: 0.1em solid var(--kup-disabled-background-color);
       border-radius: 50%;
     }
@@ -227,6 +227,6 @@
     background-position: 0 0;
   }
   100% {
-    background-position: 3rem 3rem;
+    background-position: 3em 3em;
   }
 }

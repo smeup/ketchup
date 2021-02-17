@@ -8,6 +8,9 @@ export const config: Config = {
     },
     copy: [
         {
+            src: 'autocomplete.html',
+        },
+        {
             src: 'box.html',
         },
         {
@@ -15,6 +18,9 @@ export const config: Config = {
         },
         {
             src: 'data-table.html',
+        },
+        {
+            src: 'data-table-performance.html',
         },
         {
             src: 'rating.html',
@@ -29,7 +35,10 @@ export const config: Config = {
             src: 'dash-list.html',
         },
         {
-            src: 'echarts.html',
+            src: 'echart.html',
+        },
+        {
+            src: 'gauge.html',
         },
         {
             src: 'tree.html',

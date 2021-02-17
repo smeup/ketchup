@@ -3,7 +3,9 @@
 
 :host {
   display: block;
+  font-size: var(--kup-font-size);
   margin: auto;
+  width: max-content;
 }
 
 :host(.full-height) {
@@ -35,9 +37,10 @@
 
 #kup-component .mdc-button {
   font-family: var(--kup-font-family);
+  font-size: 0.875em;
 
   &.mdc-button--outlined:not(:disabled) {
-    border-color: var(--kup-main-color);
+    border-color: var(--kup-primary-color);
   }
 
   &.mdc-button--outlined:disabled {
@@ -50,7 +53,7 @@
 
   &.mdc-button--raised {
     .icon-container {
-      background: var(--kup-text-on-main-color);
+      background: var(--kup-text-on-primary-color);
     }
   }
 
@@ -63,7 +66,7 @@
 }
 
 .icon-container {
-  background: var(--kup-main-color);
+  background: var(--kup-primary-color);
   display: block;
   width: 18px;
   height: 18px;
@@ -81,7 +84,7 @@ img {
 .mdc-icon-button {
   &::after,
   &::before {
-    background-color: var(--kup-main-color);
+    background-color: var(--kup-primary-color);
   }
 
   &:disabled {

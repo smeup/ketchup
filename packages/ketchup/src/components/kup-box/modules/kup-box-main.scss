@@ -12,7 +12,7 @@
 
 #box-container {
   display: grid;
-  grid-gap: 1rem;
+  grid-gap: 1em;
   color: var(--kup-text-color);
 
   * {
@@ -46,7 +46,7 @@
       }
 
       &.selected {
-        background-color: rgba(var(--kup-main-color-rgb), 0.175);
+        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
         & .box-section.titled > h3 {
           background-color: transparent;
         }
@@ -97,7 +97,7 @@
           min-height: 16px;
 
           &.has-padding {
-            padding: 1rem;
+            padding: 1em;
           }
 
           img {
@@ -115,7 +115,7 @@
             width: 100%;
 
             .header-content {
-              margin: 0.5rem;
+              margin: 0.5em;
               display: flex;
               align-items: center;
             }
@@ -154,15 +154,15 @@
 
       .box-selection {
         position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
+        top: 0.5em;
+        right: 0.5em;
         z-index: 1;
       }
 
       .box-drag-handler {
         position: absolute;
-        bottom: 0.5rem;
-        right: 0.5rem;
+        bottom: 0.5em;
+        right: 0.5em;
         cursor: grab;
         display: none;
       }
@@ -232,5 +232,5 @@
 
 #sort-panel,
 #global-filter {
-  margin-bottom: 1rem;
+  margin-bottom: 1em;
 }

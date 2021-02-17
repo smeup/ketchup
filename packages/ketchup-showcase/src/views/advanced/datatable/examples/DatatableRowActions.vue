@@ -62,6 +62,7 @@ export default {
                 icon: 'pencil',
               },
             ];
+            e.target.data = { ...e.target.data };
           }
         },
       },

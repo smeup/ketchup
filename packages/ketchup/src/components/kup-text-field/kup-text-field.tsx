@@ -42,10 +42,6 @@ export class KupTextField {
      */
     @Prop() emitSubmitEventOnEnter: boolean = true;
     /**
-     * Defaults at false. When set to true, the component will be focused.
-     */
-    @Prop({ mutable: true }) forceFocus: boolean = false;
-    /**
      * Defaults at false. When set to true, the component will be rendered at full width.
      */
     @Prop({ reflect: true }) fullWidth: boolean = false;
@@ -198,33 +194,33 @@ export class KupTextField {
         value: string;
     }>;
 
-    @Watch('initialValue')
-    watchInitialValue() {
-        this.value = this.initialValue;
-        if (this.inputEl !== undefined) {
-            this.inputEl.value = this.value;
-        }
-    }
-
-    @Watch('emitSubmitEventOnEnter')
-    watchEmitSubmitEventOnEnter() {
-        // non necessario, se si vuole forzare il focus usare la prop forceFocus
-        //this.inputEl.focus();
-    }
-
-    @Watch('forceFocus')
-    watchForceFocus() {
-        if (this.forceFocus == true) {
-            this.inputEl.focus();
-            this.forceFocus = false;
-        }
-    }
-
     //---- Methods ----
+
+    @Method()
+    async getValue(): Promise<string> {
+        return this.value;
+    }
 
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+
+    @Method()
+    async setFocus() {
+        this.inputEl.focus();
+    }
+
+    @Method()
+    async setValue(value: string) {
+        this.value = value;
+        try {
+            this.inputEl.value = value;
+        } catch (error) {
+            let message =
+                "Couldn't set value on input element: '" + value + "'";
+            logMessage(this, message, 'warning');
+        }
     }
 
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
@@ -494,7 +490,7 @@ export class KupTextField {
     componentWillLoad() {
         logLoad(this, false);
         setThemeCustomStyle(this);
-        this.watchInitialValue();
+        this.value = this.initialValue;
     }
 
     componentDidLoad() {
@@ -534,6 +530,7 @@ export class KupTextField {
                 );
             }
         }
+
         logRender(this, true);
     }
 

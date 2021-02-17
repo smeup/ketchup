@@ -85,8 +85,31 @@
     </head>
 
     <body>
+        <h1> Graphic Box</h1>
         <kup-box id="graphics-box"></kup-box>
+        <h1> Sort Box</h1>
         <kup-box id="sort-box"></kup-box>
+
+        <h1> D&D Box</h1>
+        <kup-box
+          id="dd1-box"
+          sortEnabled="true"
+          multiSelection="multi1"
+          pagination
+          pageSize="10"
+          layout="horizontalLayout"
+          drag-enabled="true"
+        ></kup-box>
+        <kup-box
+          id="dd2-box"
+          sortEnabled="true"
+          multiSelection="multi1"
+          pagination
+          pageSize="10"
+          layout="horizontalLayout"
+          drop-enabled="true"
+        ></kup-box>
+
         <script src="/assets/box.js"></script>
 
         <style>
@@ -94,10 +117,10 @@
                 --kup-background-color: #ffffff;
                 --kup-nav-bar-background-color: #2e2e2e;
                 --kup-drawer-background-color: #ffffff;
-                --kup-main-color: #d64325;
+                --kup-primary-color: #d64325;
                 --kup-font-family: 'Oswald', sans-serif;
                 --kup-font-size: 16px;
-                --kup-text-on-main-color: #ffffff;
+                --kup-text-on-primary-color: #ffffff;
                 --kup-text-color: #2e2e2e;
                 --kup-icon-color: #505050;
                 --kup-hover-background-color: #f0f0f0;
@@ -110,10 +133,10 @@
                 --kup-spinner-color: #eaa710;
                 --kup-title-background-color: #f1f3f4;
 
-                --mdc-theme-primary: var(--kup-main-color);
-                --mdc-theme-on-primary: var(--kup-text-on-main-color);
-                --mdc-theme-secondary: var(--kup-main-color);
-                --mdc-theme-on-secondary: var(--kup-text-on-main-color);
+                --mdc-theme-primary: var(--kup-primary-color);
+                --mdc-theme-on-primary: var(--kup-text-on-primary-color);
+                --mdc-theme-secondary: var(--kup-primary-color);
+                --mdc-theme-on-secondary: var(--kup-text-on-primary-color);
                 --mdc-theme-surface: var(--kup-background-color);
                 --mdc-theme-on-surface: var(--kup-text-color);
                 --mdc-theme-background: var(--kup-background-color);

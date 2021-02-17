@@ -10,6 +10,7 @@ import {
 } from './data-table-selectors';
 
 import { GroupLabelDisplayMode } from '../../../src/components/kup-data-table/kup-data-table-declarations';
+import { unformattedStringToFormattedStringNumber } from '../../../src/utils/utils';
 
 const sortIconSelector = 'kup-data-table >>> table thead .column-sort span';
 
@@ -467,9 +468,41 @@ describe('grouping on complex objects', () => {
 
         expect(rows).toHaveLength(3);
 
-        expect(rows[0]).toEqualText('01/03/2018');
-        expect(rows[1]).toEqualText('01/06/2018');
-        expect(rows[2]).toEqualText('01/12/2018');
+        let cellValue1: string;
+        let cellValue2: string;
+        let htmlCellValue: string;
+        // workaround problem in formatting dates with the same locale browser/IT
+        // locale it-IT
+        cellValue1 = '01/03/18';
+        // locale en-US
+        cellValue2 = '03/01/18';
+        htmlCellValue = rows[0].textContent;
+        console.log('1: htmlCellValue=' + htmlCellValue);
+        //expect(rows[0]).toEqualText(cellValue);
+        expect(
+            htmlCellValue == cellValue1 || htmlCellValue == cellValue2
+        ).toBeTruthy();
+        // locale it-IT
+        cellValue1 = '01/06/18';
+        // locale en-US
+        cellValue2 = '06/01/18';
+        htmlCellValue = rows[1].textContent;
+
+        //expect(rows[1]).toEqualText(cellValue);
+        expect(
+            htmlCellValue == cellValue1 || htmlCellValue == cellValue2
+        ).toBeTruthy();
+        // locale it-IT
+        cellValue1 = '01/12/18';
+        // locale en-US
+        cellValue2 = '12/01/18';
+        htmlCellValue = rows[2].textContent;
+        console.log('3: htmlCellValue=' + htmlCellValue);
+
+        //expect(rows[2]).toEqualText(cellValue);
+        expect(
+            htmlCellValue == cellValue1 || htmlCellValue == cellValue2
+        ).toBeTruthy();
     });
 
     it('group on number', async () => {
@@ -488,8 +521,25 @@ describe('grouping on complex objects', () => {
 
         expect(rows).toHaveLength(3);
 
-        expect(rows[0]).toEqualText('67.80');
-        expect(rows[1]).toEqualText('100.60');
-        expect(rows[2]).toEqualText('120.06');
+        let cellValue: string;
+        cellValue = unformattedStringToFormattedStringNumber('67.80', 2, '');
+        //expect(rows[0]).toEqualText(cellValue);
+        expect(
+            rows[0].textContent == cellValue.replace(RegExp(/\./g), ',') ||
+                rows[0].textContent == cellValue.replace(RegExp(/,/g), '.')
+        ).toBeTruthy();
+
+        cellValue = unformattedStringToFormattedStringNumber('100.60', 2, '');
+        //expect(rows[1]).toEqualText(cellValue);
+        expect(
+            rows[1].textContent == cellValue.replace(RegExp(/\./g), ',') ||
+                rows[1].textContent == cellValue.replace(RegExp(/,/g), '.')
+        ).toBeTruthy();
+        cellValue = unformattedStringToFormattedStringNumber('120.06', 2, '');
+        //expect(rows[2]).toEqualText(cellValue);
+        expect(
+            rows[2].textContent == cellValue.replace(RegExp(/\./g), ',') ||
+                rows[2].textContent == cellValue.replace(RegExp(/,/g), '.')
+        ).toBeTruthy();
     });
 });

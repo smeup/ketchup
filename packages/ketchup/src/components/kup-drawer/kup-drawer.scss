@@ -1,5 +1,6 @@
 :host {
   display: block;
+  font-size: var(--kup-font-size);
 
   aside {
     left: -100%;
@@ -50,20 +51,20 @@ aside {
 }
 
 .header {
-  padding: 1rem;
-  background-color: var(--kup-main-color);
+  padding: 1em;
+  background-color: var(--kup-primary-color);
   position: relative;
 }
 
 .title {
   font-size: 1.5rem;
-  color: var(--kup-text-on-main-color);
+  color: var(--kup-text-on-primary-color);
   margin: 0;
 }
 
 .subtitle {
-  font-size: 0.75rem;
-  color: var(--kup-text-on-main-color);
+  font-size: 0.75em;
+  color: var(--kup-text-on-primary-color);
   margin: 0;
 }
 

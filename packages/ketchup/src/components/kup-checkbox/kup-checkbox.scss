@@ -3,28 +3,31 @@
 
 :host {
   display: block;
+  font-size: var(--kup-font-size);
   margin: auto;
 }
 
 #kup-component .mdc-checkbox {
-  label {
+  .mdc-form-field {
     color: var(--kup-text-color);
     font-family: var(--kup-font-family);
+    font-size: 0.875em;
+    line-height: 1.25em;
   }
   .mdc-checkbox__background {
     border-color: rgba(var(--kup-text-color-rgb), 0.575);
   }
   .mdc-checkbox__checkmark,
   .mdc-checkbox__mixedmark {
-    color: var(--kup-text-on-main-color);
+    color: var(--kup-text-on-primary-color);
   }
   &.mdc-checkbox--checked .mdc-checkbox__background,
   &.mdc-checkbox--indeterminate .mdc-checkbox__background {
-    background-color: var(--kup-main-color);
-    border-color: var(--kup-main-color);
+    background-color: var(--kup-primary-color);
+    border-color: var(--kup-primary-color);
   }
   &.mdc-checkbox--indeterminate .mdc-checkbox__mixedmark {
-    border-color: var(--kup-text-on-main-color);
+    border-color: var(--kup-text-on-primary-color);
   }
   &.mdc-checkbox--disabled .mdc-checkbox__background {
     background-color: transparent;

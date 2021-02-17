@@ -1,5 +1,20 @@
 :host {
   display: block;
+  font-size: var(--kup-font-size);
+}
+
+:host(.full-width) {
+  width: 100%;
+  #kup-component {
+    width: 100%;
+  }
+}
+
+:host(.full-height) {
+  height: 100%;
+  #kup-component {
+    height: 100%;
+  }
 }
 
 #kup-component {
@@ -8,11 +23,11 @@
 
 .color-picker {
   outline: none;
-  height: 1.5rem;
-  width: 1.5rem;
-  margin: 0.25rem;
+  height: 1.5em;
+  width: 1.5em;
+  margin: 0.25em;
   border-radius: 50%;
-  border: 0.1rem solid var(--kup-border-color);
+  border: 0.1em solid var(--kup-border-color);
   background-color: transparent;
   cursor: pointer;
 
@@ -150,7 +165,7 @@ $color-bg: var(--kup-background-color);
     //Since we use "em"s for layout here, restore the correct font-size on elements with text:
     input,
     button {
-      font-size: 1rem;
+      font-size: 1em;
     }
 
     padding: $width-gutter/2;
@@ -195,7 +210,7 @@ $color-bg: var(--kup-background-color);
   .picker_editor {
     order: 1;
     //width: 100%;
-    width: 6.5rem;
+    width: 6.5em;
 
     input {
       width: 100%;

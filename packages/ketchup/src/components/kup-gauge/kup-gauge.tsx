@@ -9,6 +9,7 @@ import {
 } from '@stencil/core';
 import { logLoad, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { unformattedStringToFormattedStringNumber } from '../../utils/utils';
 
 declare const d3: any;
 
@@ -229,6 +230,13 @@ export class KupGauge {
     render() {
         // mathematical operations
         this.maxValuePositive = Math.abs(this.minValue - this.maxValue);
+        let tempValue = this.value;
+        if(this.value > this.maxValue){
+            this.value = this.maxValue;
+        }
+        if(this.value < this.minValue){
+            this.value = this.minValue;
+        }
 
         // Svg constants
         let yValueMultiplier = 1;
@@ -348,7 +356,7 @@ export class KupGauge {
                                       x={topX}
                                       y={topY}
                                   >
-                                      {threshold}
+                                      {unformattedStringToFormattedStringNumber(String(threshold), -1, '')}
                                   </text>
                               );
                           }
@@ -368,7 +376,7 @@ export class KupGauge {
                                       x={topX}
                                       y={topY}
                                   >
-                                      {threshold}
+                                      {unformattedStringToFormattedStringNumber(String(threshold), -1, '')}
                                   </text>
                               );
                           }
@@ -388,7 +396,7 @@ export class KupGauge {
                     y={valueLabelYPosition}
                     style={style}
                 >
-                    {this.value + ' ' + this.measurementUnit}
+                    {unformattedStringToFormattedStringNumber(String(tempValue), -1, '') + ' ' + this.measurementUnit}
                 </text>
             );
         }

@@ -1,9 +1,66 @@
 //--------------------------------//
 // Component classes              //
 //--------------------------------//
+:host(.cross-selection) {
+  #kup-component {
+    th.selected {
+      box-shadow: inset 0px 4px 0px 0px var(--kup-secondary-color);
+    }
+
+    td.selected {
+      background-color: rgba(var(--kup-text-color-rgb), 0.075);
+
+      &.fixed-column,
+      &.fixed-row {
+        background-color: var(--kup-background-color);
+        background-image: linear-gradient(
+          to right,
+          rgba(var(--kup-text-color-rgb), 0.075) 0%,
+          rgba(var(--kup-text-color-rgb), 0.075) 0.1%,
+          rgba(var(--kup-text-color-rgb), 0.075)
+        );
+      }
+    }
+
+    tr.selected {
+      td {
+        background-color: rgba(var(--kup-text-color-rgb), 0.075);
+
+        &:first-of-type {
+          box-shadow: inset 4px 0px 0px 0px var(--kup-secondary-color);
+        }
+      }
+
+      td.selected {
+        background-color: rgba(var(--kup-text-color-rgb), 0.15);
+      }
+
+      td.fixed-column,
+      td.fixed-row {
+        background-color: var(--kup-background-color);
+        background-image: linear-gradient(
+          to right,
+          rgba(var(--kup-text-color-rgb), 0.075) 0%,
+          rgba(var(--kup-text-color-rgb), 0.075) 0.1%,
+          rgba(var(--kup-text-color-rgb), 0.075)
+        );
+        &.selected {
+          background-image: linear-gradient(
+            to right,
+            rgba(var(--kup-text-color-rgb), 0.15) 0%,
+            rgba(var(--kup-text-color-rgb), 0.15) 0.1%,
+            rgba(var(--kup-text-color-rgb), 0.15)
+          );
+        }
+      }
+    }
+  }
+}
+
 :host(.layout-fixed) {
-  table {
+  #kup-component table {
     table-layout: fixed;
+    width: 100%;
   }
 }
 
@@ -19,7 +76,7 @@ tr.clickable {
 //--------------------------------//
 
 // TD styles
-// These styles are appplied to the whole cell
+// These styles are applied to the whole cell
 td.clickable {
   cursor: pointer;
 }
@@ -132,16 +189,16 @@ td.c-shaped {
 td.c-hor-padded {
   & * {
     box-sizing: border-box;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
   }
 }
 
 td.c-ver-padded {
   & * {
     box-sizing: border-box;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
   }
 }
 

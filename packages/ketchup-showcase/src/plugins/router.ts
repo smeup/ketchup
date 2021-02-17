@@ -60,6 +60,11 @@ let basicRoutes = [
     component: () => import(`@/views/basic/datepicker/DatePicker.vue`),
   },
   {
+    path: `/dropdownbutton`,
+    name: 'dropdownbutton',
+    component: () => import(`@/views/basic/dropdownbutton/DropdownButton.vue`),
+  },
+  {
     path: `/gauge`,
     name: 'gauge',
     component: () => import(`@/views/basic/gauge/Gauge.vue`),
@@ -143,11 +148,6 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/box/Box.vue`),
   },
   {
-    path: `/btn`,
-    name: 'btn',
-    component: () => import(`@/views/advanced/button/Button.vue`),
-  },
-  {
     path: `/calendar`,
     name: 'calendar',
     component: () => import(`@/views/advanced/calendar/Calendar.vue`),
@@ -163,9 +163,9 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/chart/Chart.vue`),
   },
   {
-    path: `/echarts`,
-    name: 'echarts',
-    component: () => import(`@/views/advanced/echarts/Echarts.vue`),
+    path: `/echart`,
+    name: 'echart',
+    component: () => import(`@/views/advanced/echart/Echart.vue`),
   },
   {
     path: `/crud`,
@@ -193,11 +193,6 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/form/Form.vue`),
   },
   {
-    path: `/imagebutton`,
-    name: 'imagebutton',
-    component: () => import(`@/views/advanced/imagebutton/Imagebutton.vue`),
-  },
-  {
     path: `/search`,
     name: 'search',
     component: () => import(`@/views/advanced/search/Search.vue`),
@@ -211,6 +206,11 @@ let advancedRoutes = [
     path: `/tree`,
     name: 'tree',
     component: () => import(`@/views/advanced/tree/Tree.vue`),
+  },
+  {
+    path: `/qlik`,
+    name: 'qlik',
+    component: () => import(`@/views/advanced/qlik/Qlik.vue`),
   },
 ];
 
@@ -272,6 +272,11 @@ let testRoutes = [
     path: `/test/graphic-cells`,
     name: 'testGraphicCells',
     component: () => import(`@/views/test/GraphicCells.vue`),
+  },
+  {
+    path: `/test/tree-columns`,
+    name: 'testTreeColumns',
+    component: () => import(`@/views/test/TreeColumns.vue`),
   },
 ];
 

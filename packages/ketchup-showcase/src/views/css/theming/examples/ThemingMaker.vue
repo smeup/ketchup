@@ -37,21 +37,42 @@
             <tbody>
               <tr>
                 <td class="prevent-cr">
-                  <span class="code-word">--kup-main-color</span>
+                  <span class="code-word">--kup-primary-color</span>
                 </td>
                 <td>
-                  Sets the main color of the app, changing components
+                  Sets the primary color of the app, changing components
                   accordingly.
                 </td>
                 <td class="prevent-cr">
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
-                    id="main-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                  <kup-color-picker
+                    id="primary-color"
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">--kup-secondary-color</span>
+                </td>
+                <td>
+                  Sets the secondary color of the app, usable by specifying the
+                  .kup-secondary-color class to kup components.
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">color</span>
+                </td>
+                <td class="text-cell">
+                  <kup-color-picker
+                    id="secondary-color"
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -63,11 +84,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="background-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -79,11 +101,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="nav-bar-background-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -95,11 +118,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="drawer-background-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -171,30 +195,52 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="text-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
                 <td class="prevent-cr">
-                  <span class="code-word">--kup-text-on-main-color</span>
+                  <span class="code-word">--kup-text-on-primary-color</span>
                 </td>
                 <td>
-                  Sets the color of text displayed above the main color, keep in
-                  mind readability when setting this!
+                  Sets the color of text displayed above the primary color, keep
+                  in mind readability when setting this!
                 </td>
                 <td class="prevent-cr">
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
-                    id="text-on-main-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                  <kup-color-picker
+                    id="text-on-primary-color"
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">--kup-text-on-secondary-color</span>
+                </td>
+                <td>
+                  Sets the color of text displayed above the secondary color,
+                  keep in mind readability when setting this!
+                </td>
+                <td class="prevent-cr">
+                  <span class="code-word">color</span>
+                </td>
+                <td class="text-cell">
+                  <kup-color-picker
+                    id="text-on-secondary-color"
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -210,11 +256,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="disabled-background-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -226,11 +273,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="disabled-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -242,11 +290,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="hover-background-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -262,11 +311,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="hover-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -281,11 +331,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="title-background-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -297,11 +348,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="title-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -316,11 +368,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="icon-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -332,11 +385,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="border-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -367,11 +421,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="field-background-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -386,11 +441,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="success-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -405,11 +461,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="warning-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -424,11 +481,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="danger-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -440,11 +498,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="spinner-color"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -460,11 +519,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="chart-color-1"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -480,11 +540,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="chart-color-2"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -499,11 +560,12 @@
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="chart-color-3"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -512,18 +574,19 @@
                 </td>
                 <td
                   >Sets the fourth color of kup-chart and so on. It is possible
-                  to specify an infinite amount of "--kup-chart-color"
-                  variables (use the JSON tab to add as many as you like).</td
+                  to specify an infinite amount of "--kup-chart-color" variables
+                  (use the JSON tab to add as many as you like).</td
                 >
                 <td class="prevent-cr">
                   <span class="code-word">color</span>
                 </td>
                 <td class="text-cell">
-                  <kup-text-field
-                    full-width
+                  <kup-color-picker
                     id="chart-color-4"
-                    @kupTextFieldInput="updateThemeVariable"
-                  ></kup-text-field>
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
                 </td>
               </tr>
               <tr>
@@ -720,6 +783,19 @@
                     text-area
                     full-width
                     id="kup-drawer"
+                    @kupTextFieldInput="updateThemeCustomStyles"
+                  ></kup-text-field
+                ></td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
+                  <span class="code-word">KUP-ECHART</span>
+                </td>
+                <td class="text-cell">
+                  <kup-text-field
+                    text-area
+                    full-width
+                    id="kup-echart"
                     @kupTextFieldInput="updateThemeCustomStyles"
                   ></kup-text-field
                 ></td>
@@ -1038,6 +1114,7 @@ export default {
   name: 'ThemingMaker',
   data() {
     return {
+      colorPickerData: { 'kup-text-field': { fullWidth: true } },
       tabs: [
         {
           text: 'CSS variables',
@@ -1262,25 +1339,12 @@ function initDemo() {
     createTile();
   }
 
-  for (let index = 0; index < fields.length; index++) {
-    fields[index].customStyle = undefined;
-    fields[index].icon = undefined;
-    fields[index].initialValue = '';
-  }
-
   let cssVariablesTab = document.querySelector('#css-variables-tab');
   for (let key in theme.cssVariables) {
     let variable = key.replace('--kup-', '');
     let field = cssVariablesTab.querySelector('#' + variable);
     try {
-      if (key.indexOf('color') > -1) {
-        field.icon = 'color_lens';
-        field.customStyle =
-          '#kup-component .icon-container { background-color: ' +
-          theme.cssVariables[key] +
-          ' }';
-      }
-      field.initialValue = theme.cssVariables[key];
+      field.setValue(theme.cssVariables[key]);
     } catch (error) {
       console.warn("Couldn't set field for variable '" + key + "'.");
     }
@@ -1290,7 +1354,7 @@ function initDemo() {
   for (let key in theme.customStyles) {
     let field = customStyleTab.querySelector('#' + key.toLowerCase());
     try {
-      field.initialValue = theme.customStyles[key];
+      field.setValue(theme.customStyles[key]);
     } catch (error) {
       console.warn("Couldn't set field set customStyle '" + key + "'.");
     }
@@ -1302,7 +1366,7 @@ function initDemo() {
     let field = iconsTab.querySelector('#' + variable);
     try {
       field.icon = theme.icons[key];
-      field.initialValue = theme.icons[key];
+      field.setValue(theme.icons[key]);
     } catch (error) {
       console.warn("Couldn't set field for icon '" + key + "'.");
     }
@@ -1343,7 +1407,7 @@ function updateTile() {
   if (variables) {
     themeWrapper.style.backgroundColor = variables['--kup-background-color'];
     themeWrapper.style.borderColor = variables['--kup-border-color'];
-    themeImage.color = variables['--kup-main-color'];
+    themeImage.color = variables['--kup-primary-color'];
     themeText.style.color = variables['--kup-text-color'];
     themeText.style.fontFamily = variables['--kup-font-family'];
     themeText.style.fontSize = variables['--kup-font-size'];
