@@ -661,6 +661,10 @@ export namespace Components {
          */
         "showFilters": boolean;
         /**
+          * When set to true shows the footer.
+         */
+        "showFooter": boolean;
+        /**
           * Can be used to customize the grid view of the table.
          */
         "showGrid": ShowGrid;
@@ -2841,6 +2845,10 @@ declare namespace LocalJSX {
           * When set to true enables the column filters.
          */
         "showFilters"?: boolean;
+        /**
+          * When set to true shows the footer.
+         */
+        "showFooter"?: boolean;
         /**
           * Can be used to customize the grid view of the table.
          */

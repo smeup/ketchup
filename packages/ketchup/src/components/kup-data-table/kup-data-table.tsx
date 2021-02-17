@@ -142,7 +142,6 @@ import { dragMultipleImg } from '../../assets/images/drag-multiple';
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
-import { deserialize } from 'v8';
 
 @Component({
     tag: 'kup-data-table',
@@ -191,6 +190,7 @@ export class KupDataTable {
                 this.selectRowsById = state.selectRowsById;
                 this.dragEnabled = state.dragEnabled;
                 this.dropEnabled = state.dropEnabled;
+                this.showFooter = state.showFooter;
                 //
             }
         }
@@ -223,6 +223,7 @@ export class KupDataTable {
             this.state.pageSelected = this.currentPage;
             this.state.dragEnabled = this.dragEnabled;
             this.state.dropEnabled = this.dropEnabled;
+            this.state.showFooter = this.showFooter;
             this.state.selectRowsById = this.selectedRows.reduce(
                 (accumulator, row, currentIndex) => {
                     const prefix = currentIndex > 0 ? ';' : '';
@@ -384,6 +385,10 @@ export class KupDataTable {
      * When set to true enables the column filters.
      */
     @Prop() showFilters: boolean = false;
+    /**
+     * When set to true shows the footer.
+     */
+    @Prop() showFooter: boolean = false;
     /**
      * Can be used to customize the grid view of the table.
      */
@@ -3190,7 +3195,7 @@ export class KupDataTable {
             },
         };
 
-        if (this.totals[column.name] == null) {
+        if (!this.totals || this.totals[column.name] == null) {
             if (isNumber(column.obj)) {
                 menus['Calcola'] = {
                     label: 'Calcola',
@@ -3226,13 +3231,15 @@ export class KupDataTable {
     // TODO replace any with the correct type using TotalMode
     setSelectedMenu(menus: any, name: string) {
         const totalValue = this.totals[name];
-        if (totalValue.startsWith(TotalMode.MATH)) {
-            menus[TotalMode.MATH] = {
-                label: 'Formula',
-                selected: true,
-            };
-        } else if (menus[totalValue]) {
-            menus[totalValue].selected = true;
+        if (totalValue) {
+            if (totalValue.startsWith(TotalMode.MATH)) {
+                menus[TotalMode.MATH] = {
+                    label: 'Formula',
+                    selected: true,
+                };
+            } else if (menus[totalValue]) {
+                menus[totalValue].selected = true;
+            }
         }
     }
 
@@ -3247,7 +3254,7 @@ export class KupDataTable {
     }
 
     renderFooter() {
-        if (!this.hasTotals()) {
+        if (!this.showFooter && !this.hasTotals()) {
             // no footer
             return null;
         }
