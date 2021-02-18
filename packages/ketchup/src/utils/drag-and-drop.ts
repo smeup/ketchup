@@ -25,23 +25,23 @@ In this way we can specify which event handlers we have to execute and/or merge 
 
 // TODO test this polyfill in mobile mode
 // import polyfill for mobile drag and drop
-if ('ontouchstart' in document) {
-    // TODO: verify if this causes drag & drop delay at runtime
-    import('@justinribeiro/html5-dragdroptouch-shim/dist/esm.js').then(
-        (DdtShim) => {
-            new DdtShim({
-                threshold: 5,
-                opacity: 0.8,
-                dblClick: 500,
-                ctxMenu: 900,
-                isPressHoldMode: 400,
-                pressHoldAwait: 400,
-                pressHoldMargin: 25,
-                pressHoldThreshold: 0,
-            });
-        }
-    );
-}
+// if ('ontouchstart' in document) {
+//     // TODO: verify if this causes drag & drop delay at runtime
+//     import('@justinribeiro/html5-dragdroptouch-shim/dist/esm.js').then(
+//         (DdtShim) => {
+//             new DdtShim({
+//                 threshold: 5,
+//                 opacity: 0.8,
+//                 dblClick: 500,
+//                 ctxMenu: 900,
+//                 isPressHoldMode: 400,
+//                 pressHoldAwait: 400,
+//                 pressHoldMargin: 25,
+//                 pressHoldThreshold: 0,
+//             });
+//         }
+//     );
+// }
 
 // DragHandlers
 export interface DragHandlers {
