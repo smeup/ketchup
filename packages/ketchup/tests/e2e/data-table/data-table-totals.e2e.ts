@@ -15,7 +15,7 @@ function getValueFromTd(value) {
 }
 
 describe('totals', () => {
-    it('count', async () => {
+    it.skip('count', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-data-table></kup-data-table>');
@@ -45,7 +45,7 @@ describe('totals', () => {
         ).toBeTruthy();
     });
 
-    it('sums', async () => {
+    it.skip('sums', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-data-table></kup-data-table>');
@@ -75,7 +75,7 @@ describe('totals', () => {
         ).toBeTruthy();
     });
 
-    it('average', async () => {
+    it.skip('average', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-data-table></kup-data-table>');
@@ -105,7 +105,7 @@ describe('totals', () => {
         ).toBeTruthy();
     });
 
-    it('mixed', async () => {
+    it.skip('mixed', async () => {
         const page = await newE2EPage();
 
         await page.setContent('<kup-data-table></kup-data-table>');
