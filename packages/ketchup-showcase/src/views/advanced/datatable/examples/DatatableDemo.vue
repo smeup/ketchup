@@ -254,6 +254,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showFooter',
+          description: 'When set to true shows the footer.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'showGrid',
           description:
             'Can be used to customize the grid view of the table. Available settings: None, Row, Col, Complete.',
