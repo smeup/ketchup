@@ -12,24 +12,11 @@
   #kup-component {
     height: 100%;
   }
-  .mdc-button {
-    height: 100%;
-  }
 }
 
 :host(.full-width) {
   width: 100%;
   #kup-component {
     width: 100%;
-  }
-  .mdc-button {
-    width: 100%;
-  }
-}
-
-:host(.shaped) {
-  .mdc-button,
-  .mdc-button__ripple {
-    border-radius: 18px;
   }
 }

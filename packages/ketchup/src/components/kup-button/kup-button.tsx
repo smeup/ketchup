@@ -1,19 +1,21 @@
 import {
     Component,
+    Event,
+    EventEmitter,
     Prop,
     Element,
     Host,
-    Event,
-    getAssetPath,
-    EventEmitter,
     State,
     h,
     Method,
 } from '@stencil/core';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
-import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
-import { FButton } from '../../f-components/f-button/f-button';
+import {
+    FButton,
+    FButtonMDC,
+    FButtonProps,
+} from '../../f-components/f-button/f-button';
 
 @Component({
     tag: 'kup-button',
@@ -22,8 +24,13 @@ import { FButton } from '../../f-components/f-button/f-button';
 })
 export class KupButton {
     @Element() rootElement: HTMLElement;
+
+    //---- States ----
+
     @State() value: string = '';
     @State() customStyleTheme: string = undefined;
+
+    //---- Props ----
 
     /**
      * Defaults at false. When set to true, the icon button state will be on.
@@ -62,6 +69,8 @@ export class KupButton {
      */
     @Prop() trailingIcon: boolean = false;
 
+    //---- Events ----
+
     @Event({
         eventName: 'kupButtonBlur',
         composed: true,
@@ -95,13 +104,6 @@ export class KupButton {
         value: string;
     }>;
 
-    //---- Methods ----
-
-    @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
-
     onKupBlur() {
         this.kupBlur.emit({
             id: this.rootElement.id,
@@ -110,7 +112,7 @@ export class KupButton {
     }
 
     onKupClick() {
-        if (this.label === null && this.icon !== null) {
+        if (!this.label && this.icon) {
             if (this.checked) {
                 this.checked = false;
                 this.value = 'off';
@@ -134,143 +136,29 @@ export class KupButton {
         });
     }
 
-    private createRippleElement() {
-        if (this.disabled) {
-            return undefined;
-        }
-        return <div class="mdc-button__ripple"></div>;
+    //---- Public methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
-    private createLabelElement() {
-        if (!this.label) {
-            return undefined;
-        }
-        return <span class="mdc-button__label">{this.label}</span>;
-    }
+    //---- Private methods ----
 
-    private createIconElement(CSSClass: string, icon: string) {
-        if (!this.icon) {
-            return undefined;
-        }
-
-        if (
-            this.icon.indexOf('.') > -1 ||
-            this.icon.indexOf('/') > -1 ||
-            this.icon.indexOf('\\') > -1
-        ) {
-            return (
-                <span class={CSSClass}>
-                    <img src={this.icon}></img>
-                </span>
-            );
-        } else {
-            let svg: string = `url('${getAssetPath(
-                `./assets/svg/${icon}.svg`
-            )}') no-repeat center`;
-            CSSClass += ' icon-container material-icons';
-            let iconStyle = {
-                mask: svg,
-                webkitMask: svg,
-            };
-            return <span style={iconStyle} class={CSSClass}></span>;
-        }
-    }
-
-    private renderButton() {
-        let componentClass: string = 'mdc-button';
-        let leadingEl: HTMLElement = undefined;
-        let trailingEl: HTMLElement = undefined;
-
-        if (this.disabled) {
-            componentClass += ' mdc-button--disabled';
-        }
-
-        if (this.label) {
-            if (this.styling === 'outlined') {
-                componentClass += ' mdc-button--outlined';
-            } else if (this.styling !== 'flat') {
-                componentClass += ' mdc-button--raised';
+    private setEvents() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector('.f-button--wrapper');
+            if (f) {
+                const buttonEl: HTMLButtonElement = f.querySelector('button');
+                if (buttonEl) {
+                    buttonEl.onblur = () => this.onKupBlur();
+                    buttonEl.onclick = () => this.onKupClick();
+                    buttonEl.onfocus = () => this.onKupFocus();
+                }
+                FButtonMDC(f);
             }
-
-            if (this.trailingIcon && this.icon) {
-                leadingEl = this.createLabelElement();
-                trailingEl = this.createIconElement(
-                    'mdc-button__icon',
-                    this.icon
-                );
-            } else {
-                leadingEl = this.createIconElement(
-                    'mdc-button__icon',
-                    this.icon
-                );
-                trailingEl = this.createLabelElement();
-            }
-            return (
-                <button
-                    type="button"
-                    class={componentClass}
-                    disabled={this.disabled}
-                    onBlur={() => this.onKupBlur()}
-                    onClick={() => this.onKupClick()}
-                    onFocus={() => this.onKupFocus()}
-                >
-                    {this.createRippleElement()}
-                    {leadingEl}
-                    {trailingEl}
-                </button>
-            );
         }
-    }
-
-    private renderIconButton() {
-        let componentClass: string = 'mdc-icon-button';
-        let leadingEl: HTMLElement = undefined;
-        let trailingEl: HTMLElement = undefined;
-
-        if (this.disabled) {
-            componentClass += ' mdc-button--disabled';
-        }
-
-        trailingEl = this.createIconElement('mdc-icon-button__icon', this.icon);
-        if (this.toggable) {
-            componentClass += ' toggable';
-            trailingEl = this.createIconElement(
-                'mdc-icon-button__icon mdc-icon-button__icon--on',
-                this.icon
-            );
-            if (this.checked) {
-                componentClass += ' mdc-icon-button--on';
-            }
-            let iconOff: string;
-
-            if (this.iconOff) {
-                iconOff = this.iconOff;
-            } else {
-                iconOff = this.icon + '_border';
-            }
-
-            leadingEl = this.createIconElement(
-                'mdc-icon-button__icon',
-                iconOff
-            );
-        }
-        return (
-            <button
-                type="button"
-                class={componentClass}
-                // @ts-ignore
-                checked={this.checked}
-                disabled={this.disabled}
-                value={this.value}
-                onBlur={() => this.onKupBlur()}
-                onClick={() => this.onKupClick()}
-                onFocus={() => this.onKupFocus()}
-            >
-                {this.createRippleElement()}
-                {leadingEl}
-                {trailingEl}
-            </button>
-        );
     }
 
     //---- Lifecycle hooks ----
@@ -286,7 +174,7 @@ export class KupButton {
 
     componentWillRender() {
         logRender(this, false);
-        if (this.label === null && this.icon !== null) {
+        if (!this.label && this.icon) {
             if (this.checked) {
                 this.value = 'on';
             } else {
@@ -298,7 +186,7 @@ export class KupButton {
     }
 
     componentDidRender() {
-        //FButtonMDC();
+        this.setEvents();
         logRender(this, true);
     }
 
@@ -306,9 +194,18 @@ export class KupButton {
         let props: FButtonProps = {
             checked: this.checked,
             disabled: this.disabled,
+            fullHeight: this.rootElement.classList.contains('full-height')
+                ? true
+                : false,
+            fullWidth: this.rootElement.classList.contains('full-width')
+                ? true
+                : false,
             icon: this.icon,
             iconOff: this.iconOff,
             label: this.label,
+            shaped: this.rootElement.classList.contains('shaped')
+                ? true
+                : false,
             styling: this.styling,
             toggable: this.toggable,
             trailingIcon: this.trailingIcon,
