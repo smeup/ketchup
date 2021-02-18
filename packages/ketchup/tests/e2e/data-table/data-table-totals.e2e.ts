@@ -4,6 +4,16 @@ import { multiSortMockData } from './mocked-data';
 
 const footerCellsSelector = 'kup-data-table >>> table > tfoot > tr > td';
 
+// TODO when the footer is considered stable, please remove this function
+// and maybe use a tag (ex.span) to encapsulate the td value and use that tag to do the comparison
+function getValueFromTd(value) {
+    try {
+        return value.match(/\d+\,?\d*/g)[0];
+    } catch (error) {
+        return '';
+    }
+}
+
 describe('totals', () => {
     it('count', async () => {
         const page = await newE2EPage();
@@ -23,14 +33,14 @@ describe('totals', () => {
         const footerCells = await page.findAll(footerCellsSelector);
         expect(footerCells).toHaveLength(3);
 
-        expect(footerCells[0]).toEqualText('9');
-        expect(footerCells[1]).toEqualText('9');
-        //expect(footerCells[2]).toEqualText('9,00');
+        expect(getValueFromTd(footerCells[0].innerText)).toEqualText('9');
+        expect(getValueFromTd(footerCells[1].innerText)).toEqualText('9');
+        // expect(getValueFromTd(footerCells[2].innerText)).toEqualText('9,00');
         const cellValue = '9,00';
         expect(
-            footerCells[2].textContent ==
+            getValueFromTd(footerCells[2].textContent) ==
                 cellValue.replace(RegExp(/\./g), ',') ||
-                footerCells[2].textContent ==
+                getValueFromTd(footerCells[2].textContent) ==
                     cellValue.replace(RegExp(/,/g), '.')
         ).toBeTruthy();
     });
@@ -53,14 +63,14 @@ describe('totals', () => {
         const footerCells = await page.findAll(footerCellsSelector);
         expect(footerCells).toHaveLength(3);
 
-        expect(footerCells[0]).toEqualText('');
-        expect(footerCells[1]).toEqualText('72');
+        expect(getValueFromTd(footerCells[0].innerText)).toEqualText('');
+        expect(getValueFromTd(footerCells[1].innerText)).toEqualText('72');
         //expect(footerCells[2]).toEqualText('865,38');
         const cellValue = '865,38';
         expect(
-            footerCells[2].textContent ==
+            getValueFromTd(footerCells[2].textContent) ==
                 cellValue.replace(RegExp(/\./g), ',') ||
-                footerCells[2].textContent ==
+                getValueFromTd(footerCells[2].textContent) ==
                     cellValue.replace(RegExp(/,/g), '.')
         ).toBeTruthy();
     });
@@ -83,14 +93,14 @@ describe('totals', () => {
         const footerCells = await page.findAll(footerCellsSelector);
         expect(footerCells).toHaveLength(3);
 
-        expect(footerCells[0]).toEqualText('');
-        expect(footerCells[1]).toEqualText('8');
+        expect(getValueFromTd(footerCells[0].innerText)).toEqualText('');
+        expect(getValueFromTd(footerCells[1].innerText)).toEqualText('8');
         //expect(footerCells[2]).toEqualText('96,15');
         const cellValue = '96,15';
         expect(
-            footerCells[2].textContent ==
+            getValueFromTd(footerCells[2].textContent) ==
                 cellValue.replace(RegExp(/\./g), ',') ||
-                footerCells[2].textContent ==
+                getValueFromTd(footerCells[2].textContent) ==
                     cellValue.replace(RegExp(/,/g), '.')
         ).toBeTruthy();
     });
@@ -113,14 +123,14 @@ describe('totals', () => {
         const footerCells = await page.findAll(footerCellsSelector);
         expect(footerCells).toHaveLength(3);
 
-        expect(footerCells[0]).toEqualText('9');
-        expect(footerCells[1]).toEqualText('72');
+        expect(getValueFromTd(footerCells[0].innerText)).toEqualText('9');
+        expect(getValueFromTd(footerCells[1].innerText)).toEqualText('72');
         //expect(footerCells[2]).toEqualText('96,15');
         const cellValue = '96,15';
         expect(
-            footerCells[2].textContent ==
+            getValueFromTd(footerCells[2].textContent) ==
                 cellValue.replace(RegExp(/\./g), ',') ||
-                footerCells[2].textContent ==
+                getValueFromTd(footerCells[2].textContent) ==
                     cellValue.replace(RegExp(/,/g), '.')
         ).toBeTruthy();
     });
