@@ -192,6 +192,8 @@ graph TD;
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
+  kup-button --> kup-badge
+  kup-badge --> kup-badge
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-date-picker --> kup-text-field
@@ -212,7 +214,6 @@ graph TD;
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-badge --> kup-badge
   kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
   kup-paginator --> kup-button

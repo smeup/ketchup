@@ -1,5 +1,4 @@
-@import '@material/button/mdc-button';
-@import '@material/icon-button/mdc-icon-button';
+@import '../../f-components/f-button/f-button.scss';
 
 :host {
   display: block;
@@ -32,65 +31,5 @@
   .mdc-button,
   .mdc-button__ripple {
     border-radius: 18px;
-  }
-}
-
-#kup-component .mdc-button {
-  font-family: var(--kup-font-family);
-  font-size: 0.875em;
-
-  &.mdc-button--outlined:not(:disabled) {
-    border-color: var(--kup-primary-color);
-  }
-
-  &.mdc-button--outlined:disabled {
-    border-color: var(--kup-disabled-color);
-  }
-
-  &.mdc-button--raised:disabled {
-    background: var(--kup-disabled-background-color);
-  }
-
-  &.mdc-button--raised {
-    .icon-container {
-      background: var(--kup-text-on-primary-color);
-    }
-  }
-
-  &:disabled {
-    color: var(--kup-disabled-color);
-    .icon-container {
-      background: var(--kup-disabled-color);
-    }
-  }
-}
-
-.icon-container {
-  background: var(--kup-primary-color);
-  display: block;
-  width: 18px;
-  height: 18px;
-  .mdc-icon-button & {
-    width: 24px;
-    height: 24px;
-  }
-}
-
-img {
-  height: auto;
-  width: 100%;
-}
-
-.mdc-icon-button {
-  &::after,
-  &::before {
-    background-color: var(--kup-primary-color);
-  }
-
-  &:disabled {
-    .icon-container {
-      background-color: var(--kup-disabled-color);
-      opacity: 0.75;
-    }
   }
 }

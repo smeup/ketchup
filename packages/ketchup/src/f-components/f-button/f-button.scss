@@ -1,0 +1,28 @@
+@import '@material/button/mdc-button';
+@import '@material/icon-button/mdc-icon-button';
+@import '../../f-components/f-image/f-image.scss';
+
+#kup-component {
+  .f-button--wrapper {
+    .mdc-button {
+      font-family: var(--kup-font-family);
+      font-size: 0.875em;
+
+      &.mdc-button--outlined:not(:disabled) {
+        border-color: var(--kup-primary-color);
+      }
+
+      &.mdc-button--outlined:disabled {
+        border-color: var(--kup-disabled-color);
+      }
+
+      &.mdc-button--raised:disabled {
+        background: var(--kup-disabled-background-color);
+      }
+
+      &:disabled {
+        color: var(--kup-disabled-color);
+      }
+    }
+  }
+}

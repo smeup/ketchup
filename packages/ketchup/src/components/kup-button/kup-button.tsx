@@ -10,10 +10,10 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { MDCRipple } from '@material/ripple';
-import { MDCIconButtonToggle } from '@material/icon-button';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
+import { FButton } from '../../f-components/f-button/f-button';
 
 @Component({
     tag: 'kup-button',
@@ -298,36 +298,34 @@ export class KupButton {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        if (root && !this.disabled) {
-            let button = root.querySelector('button');
-            if (button != undefined) {
-                const buttonRipple = MDCRipple.attachTo(button);
-                if (button.classList.contains('mdc-icon-button')) {
-                    buttonRipple.unbounded = true;
-                    if (button.classList.contains('toggable')) {
-                        new MDCIconButtonToggle(button);
-                    }
-                }
-            }
-        }
+        //FButtonMDC();
         logRender(this, true);
     }
 
     render() {
-        // It renders in two different ways because two different Material layouts are used.
-        // If only the icon is present, with no text, an "icon button" will be rendered.
-        let comp: HTMLElement = undefined;
-        if (this.label) {
-            comp = this.renderButton();
-        } else {
-            comp = this.renderIconButton();
+        let props: FButtonProps = {
+            checked: this.checked,
+            disabled: this.disabled,
+            icon: this.icon,
+            iconOff: this.iconOff,
+            label: this.label,
+            styling: this.styling,
+            toggable: this.toggable,
+            trailingIcon: this.trailingIcon,
+        };
+
+        if (!this.label && !this.icon) {
+            let message = 'Empty button.';
+            logMessage(this, message, 'warning');
+            return;
         }
+
         return (
             <Host>
                 <style>{setCustomStyle(this)}</style>
-                <div id="kup-component">{comp}</div>
+                <div id="kup-component">
+                    <FButton {...props} />
+                </div>
             </Host>
         );
     }

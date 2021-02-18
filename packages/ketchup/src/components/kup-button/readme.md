@@ -61,9 +61,15 @@ Type: `Promise<void>`
  - [kup-tooltip](../kup-tooltip)
  - [kup-tree](../kup-tree)
 
+### Depends on
+
+- [kup-badge](../kup-badge)
+
 ### Graph
 ```mermaid
 graph TD;
+  kup-button --> kup-badge
+  kup-badge --> kup-badge
   kup-box --> kup-button
   kup-btn --> kup-button
   kup-calendar --> kup-button
