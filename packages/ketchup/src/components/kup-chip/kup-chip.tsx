@@ -9,11 +9,14 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { ComponentChipElement } from './kup-chip-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
+import {
+    FChipData,
+    FChipsProps,
+} from '../../f-components/f-chip/f-chip-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -36,7 +39,7 @@ export class KupChip {
     /**
      * List of elements.
      */
-    @Prop() data: ComponentChipElement[] = [];
+    @Prop() data: FChipData[] = [];
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
      */
@@ -177,7 +180,7 @@ export class KupChip {
 
     //---- Private methods ----
 
-    private setEvents() {
+    private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const f: HTMLElement = root.querySelector('.f-chip--wrapper');
@@ -247,7 +250,7 @@ export class KupChip {
     }
 
     render() {
-        let props = {
+        let props: FChipsProps = {
             data: this.data,
             type: this.type,
         };

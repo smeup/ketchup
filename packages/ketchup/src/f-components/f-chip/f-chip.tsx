@@ -1,14 +1,10 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { ComponentChipElement } from '../../components/kup-chip/kup-chip-declarations';
+import { FChipsProps } from './f-chip-declarations';
 import { FImage } from '../f-image/f-image';
 
-interface Props {
-    data?: ComponentChipElement[];
-    id?: string;
-    type?: string;
-}
+//---- Component ----
 
-export const FChip: FunctionalComponent<Props> = (props) => {
+export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
     const classObj: Record<string, boolean> = {
         'mdc-chip-set': true,
         'mdc-chip-set--choice': props.type == 'choice' ? true : false,
@@ -25,7 +21,9 @@ export const FChip: FunctionalComponent<Props> = (props) => {
     );
 };
 
-function createChipList(props: Props) {
+//---- Methods ----
+
+function createChipList(props: FChipsProps): HTMLElement[] {
     let chipList: Array<HTMLElement> = [];
     let chipEl: HTMLElement;
 

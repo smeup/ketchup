@@ -12,14 +12,14 @@ import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, K
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
-import { ComponentChipElement } from "./components/kup-chip/kup-chip-declarations";
+import { FChipData } from "./f-components/f-chip/f-chip-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
 import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
-import { CssDraw } from "./components/kup-image/kup-image-declarations";
+import { FImageData } from "./f-components/f-image/f-image-declarations";
 import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
@@ -393,7 +393,7 @@ export namespace Components {
         /**
           * List of elements.
          */
-        "data": ComponentChipElement[];
+        "data": FChipData[];
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * The type of chip. Available types: input, filter, choice or empty for default.
@@ -1033,7 +1033,7 @@ export namespace Components {
         /**
           * When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.
          */
-        "data": CssDraw[];
+        "data": FImageData[];
         /**
           * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
          */
@@ -2489,7 +2489,7 @@ declare namespace LocalJSX {
         /**
           * List of elements.
          */
-        "data"?: ComponentChipElement[];
+        "data"?: FChipData[];
         /**
           * Triggered when a chip loses focus.
          */
@@ -3282,7 +3282,7 @@ declare namespace LocalJSX {
         /**
           * When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.
          */
-        "data"?: CssDraw[];
+        "data"?: FImageData[];
         /**
           * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
          */
@@ -3292,9 +3292,6 @@ declare namespace LocalJSX {
          */
         "isCanvas"?: boolean;
         "onKupImageClick"?: (event: CustomEvent<{
-        el: EventTarget;
-    }>) => void;
-        "onKupImageLoad"?: (event: CustomEvent<{
         el: EventTarget;
     }>) => void;
         /**

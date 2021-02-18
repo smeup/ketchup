@@ -22,9 +22,6 @@
         background-color: var(--kup-primary-color);
         border-color: var(--kup-primary-color);
       }
-      &.mdc-checkbox--indeterminate .mdc-checkbox__mixedmark {
-        border-color: var(--kup-text-on-primary-color);
-      }
       &.mdc-checkbox--disabled .mdc-checkbox__background {
         background-color: transparent;
         border-color: rgba(var(--kup-text-color-rgb), 0.325);
@@ -42,6 +39,11 @@
       &.mdc-checkbox--disabled.mdc-checkbox--indeterminate
         .mdc-checkbox__mixedmark {
         border-color: var(--kup-background-color);
+      }
+      &.mdc-checkbox--indeterminate .mdc-checkbox__mixedmark {
+        border-color: var(--kup-text-on-primary-color);
+        transform: scaleX(1) rotate(0deg);
+        opacity: 1;
       }
     }
   }

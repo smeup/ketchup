@@ -101,7 +101,6 @@ import {
     ISO_DEFAULT_DATE_FORMAT,
     changeDateTimeFormat,
 } from '../../utils/utils';
-import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 
 import {
     ComponentListElement,
@@ -139,6 +138,7 @@ import { FImage } from '../../f-components/f-image/f-image';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { FChipData } from '../../f-components/f-chip/f-chip-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -4741,7 +4741,7 @@ export class KupDataTable {
                 const column = getColumnByName(this.getColumns(), group.column);
 
                 if (column) {
-                    let a: ComponentChipElement = {
+                    let a: FChipData = {
                         label: column.title,
                         value: column.name,
                         checked: true,

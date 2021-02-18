@@ -1,36 +1,6 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { MDCRipple } from '@material/ripple';
-import { MDCIconButtonToggle } from '@material/icon-button';
+import { FButtonProps } from './f-button-declarations';
 import { FImage } from '../f-image/f-image';
-
-//---- Declarations ----
-
-export interface FButtonProps {
-    checked?: boolean;
-    disabled?: boolean;
-    fullHeight?: boolean;
-    fullWidth?: boolean;
-    icon?: string;
-    iconOff?: string;
-    label?: string;
-    shaped?: boolean;
-    styling?: string;
-    toggable?: boolean;
-    trailingIcon?: boolean;
-}
-
-//---- Material Design ----
-
-export function FButtonMDC(el: HTMLElement): void {
-    const button = el.querySelector('button');
-    const ripple = MDCRipple.attachTo(button);
-    if (button.classList.contains('mdc-icon-button')) {
-        ripple.unbounded = true;
-        if (button.classList.contains('toggable')) {
-            new MDCIconButtonToggle(button);
-        }
-    }
-}
 
 //---- Component ----
 
@@ -50,7 +20,7 @@ export const FButton: FunctionalComponent<FButtonProps> = (
     );
 };
 
-//---- Private methods ----
+//---- Methods ----
 
 function renderButton(props: FButtonProps): HTMLButtonElement {
     const propsFImage = {

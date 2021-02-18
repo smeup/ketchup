@@ -13,6 +13,7 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 
 @Component({
     tag: 'kup-text-field',
@@ -315,7 +316,7 @@ export class KupTextField {
 
     //---- Private methods ----
 
-    private setEvents() {
+    private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
@@ -381,7 +382,7 @@ export class KupTextField {
     }
 
     render() {
-        let props = {
+        let props: FTextFieldProps = {
             disabled: this.disabled,
             fullHeight: this.rootElement.classList.contains('full-height')
                 ? true

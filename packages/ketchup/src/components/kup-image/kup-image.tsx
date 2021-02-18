@@ -1,20 +1,23 @@
 import {
     Component,
+    Event,
+    EventEmitter,
     Prop,
     Element,
     Host,
-    Event,
-    EventEmitter,
     State,
     h,
     Method,
 } from '@stencil/core';
-import { CssDraw } from './kup-image-declarations';
+import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { imageCanvas } from './canvas/kup-image-canvas';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { KupBadge } from '../kup-badge/kup-badge';
 import { FImage } from '../../f-components/f-image/f-image';
+import {
+    FImageProps,
+    FImageData,
+} from '../../f-components/f-image/f-image-declarations';
 
 @Component({
     tag: 'kup-image',
@@ -24,7 +27,12 @@ import { FImage } from '../../f-components/f-image/f-image';
 })
 export class KupImage {
     @Element() rootElement: HTMLElement;
+
+    //---- States ----
+
     @State() customStyleTheme: string = undefined;
+
+    //---- Props ----
 
     /**
      * Sets the data of badges.
@@ -41,7 +49,7 @@ export class KupImage {
     /**
      * When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.
      */
-    @Prop() data: CssDraw[] = undefined;
+    @Prop() data: FImageData[] = undefined;
     /**
      * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
      */
@@ -63,9 +71,13 @@ export class KupImage {
      */
     @Prop() sizeY: string = '100%';
 
+    //---- Internal variables ----
+
     private isUrl: boolean = false;
     private imageCanvas: imageCanvas;
     canvas: HTMLCanvasElement;
+
+    //---- Events ----
 
     @Event({
         eventName: 'kupImageClick',
@@ -77,44 +89,22 @@ export class KupImage {
         el: EventTarget;
     }>;
 
-    @Event({
-        eventName: 'kupImageLoad',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupLoad: EventEmitter<{
-        el: EventTarget;
-    }>;
-
-    //---- Methods ----
-
-    @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
-
     onKupClick(e: Event) {
         this.kupClick.emit({
             el: e.target,
         });
     }
 
-    onKupLoad(e: Event) {
-        if (this.feedback && this.isUrl) {
-            if (this.rootElement.shadowRoot !== undefined) {
-                let spinner = this.rootElement.shadowRoot.querySelector(
-                    '#feedback'
-                );
-                spinner.remove();
-            }
-        }
-        this.kupLoad.emit({
-            el: e.target,
-        });
+    //---- Public methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
     }
 
-    renderCanvas() {
+    //---- Private methods ----
+
+    private renderCanvas(): HTMLDivElement {
         return (
             <div
                 id="kup-component"
@@ -166,11 +156,11 @@ export class KupImage {
     }
 
     render() {
-        let el: Element = undefined;
-        let feedback: HTMLElement = undefined;
-        let spinnerLayout: number = undefined;
+        let el: Element;
+        let feedback: HTMLElement;
+        let spinnerLayout: number;
 
-        let props = {
+        let props: FImageProps = {
             badgeData: this.badgeData,
             color: this.color,
             data: this.data,
@@ -179,7 +169,12 @@ export class KupImage {
             sizeY: this.sizeY,
         };
 
-        let elStyle = {
+        let elStyle: {
+            height: string;
+            minHeight: string;
+            width: string;
+            minWidth: string;
+        } = {
             height: props.sizeY,
             minHeight: props.sizeY,
             width: props.sizeX,
@@ -201,9 +196,7 @@ export class KupImage {
 
         if (this.isCanvas) {
             el = this.renderCanvas();
-        } else if (props.resource) {
-            el = <FImage {...props}></FImage>;
-        } else if (props.data) {
+        } else if (props.resource || props.data) {
             el = <FImage {...props}></FImage>;
         } else {
             let message = 'Resource undefined, not rendering!';

@@ -13,6 +13,7 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logRender } from '../../utils/debug-manager';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
+import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
 
 @Component({
     tag: 'kup-checkbox',
@@ -157,7 +158,7 @@ export class KupCheckbox {
 
     //---- Private methods ----
 
-    private setEvents() {
+    private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const f: HTMLElement = root.querySelector('.f-checkbox--wrapper');
@@ -204,7 +205,7 @@ export class KupCheckbox {
     }
 
     render() {
-        let props = {
+        let props: FCheckboxProps = {
             checked: this.checked,
             disabled: this.disabled,
             indeterminate: this.indeterminate,

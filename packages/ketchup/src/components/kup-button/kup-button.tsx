@@ -11,11 +11,9 @@ import {
 } from '@stencil/core';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
-import {
-    FButton,
-    FButtonMDC,
-    FButtonProps,
-} from '../../f-components/f-button/f-button';
+import { FButton } from '../../f-components/f-button/f-button';
+import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
+import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
 
 @Component({
     tag: 'kup-button',
@@ -145,7 +143,7 @@ export class KupButton {
 
     //---- Private methods ----
 
-    private setEvents() {
+    private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const f: HTMLElement = root.querySelector('.f-button--wrapper');

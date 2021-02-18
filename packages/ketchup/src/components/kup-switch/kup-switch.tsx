@@ -13,6 +13,7 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logRender } from '../../utils/debug-manager';
 import { FSwitch } from '../../f-components/f-switch/f-switch';
 import { FSwitchMDC } from '../../f-components/f-switch/f-switch-mdc';
+import { FSwitchProps } from '../../f-components/f-switch/f-switch-declarations';
 
 @Component({
     tag: 'kup-switch',
@@ -141,7 +142,7 @@ export class KupSwitch {
 
     //---- Private methods ----
 
-    private setEvents() {
+    private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const f: HTMLElement = root.querySelector('.f-switch--wrapper');
@@ -188,7 +189,7 @@ export class KupSwitch {
     }
 
     render() {
-        let props = {
+        let props: FSwitchProps = {
             checked: this.checked,
             disabled: this.disabled,
             label: this.label,
