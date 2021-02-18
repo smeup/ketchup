@@ -1,23 +1,18 @@
 import {
     Component,
+    Event,
+    EventEmitter,
     Prop,
     Element,
     Host,
-    Event,
-    EventEmitter,
     State,
     h,
-    Watch,
     Method,
-    getAssetPath,
 } from '@stencil/core';
-import { MDCTextField } from '@material/textfield';
-import { MDCFormField } from '@material/form-field';
-import { MDCTextFieldHelperText } from '@material/textfield/helper-text';
-import { MDCTextFieldCharacterCounter } from '@material/textfield/character-counter';
-import { MDCTextFieldIcon } from '@material/textfield/icon';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 
 @Component({
     tag: 'kup-text-field',
@@ -26,8 +21,13 @@ import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 })
 export class KupTextField {
     @Element() rootElement: HTMLElement;
+
+    //---- States ----
+
     @State() value: string = '';
     @State() customStyleTheme: string = undefined;
+
+    //---- Props ----
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -90,6 +90,10 @@ export class KupTextField {
      */
     @Prop() readOnly: boolean = false;
     /**
+     * The HTML step of the input element. It has effect only with number input type.
+     */
+    @Prop() step: number = null;
+    /**
      * Defaults at false. When set to true, the component will be rendered as a textarea.
      */
     @Prop() textArea: boolean = false;
@@ -102,8 +106,15 @@ export class KupTextField {
      */
     @Prop() trailingLabel: boolean = false;
 
+    //---- Internal variables ----
+
     private inputEl = undefined;
 
+    //---- Events ----
+
+    /**
+     * Triggered when the input element loses focus.
+     */
     @Event({
         eventName: 'kupTextFieldBlur',
         composed: true,
@@ -114,7 +125,9 @@ export class KupTextField {
         id: any;
         value: string;
     }>;
-
+    /**
+     * Triggered when the input element changes.
+     */
     @Event({
         eventName: 'kupTextFieldChange',
         composed: true,
@@ -125,7 +138,9 @@ export class KupTextField {
         id: any;
         value: string;
     }>;
-
+    /**
+     * Triggered when the input element is clicked.
+     */
     @Event({
         eventName: 'kupTextFieldClick',
         composed: true,
@@ -136,7 +151,9 @@ export class KupTextField {
         id: any;
         value: string;
     }>;
-
+    /**
+     * Triggered when the input element gets focused.
+     */
     @Event({
         eventName: 'kupTextFieldFocus',
         composed: true,
@@ -147,7 +164,9 @@ export class KupTextField {
         id: any;
         value: string;
     }>;
-
+    /**
+     * Triggered when the input element receives an input.
+     */
     @Event({
         eventName: 'kupTextFieldInput',
         composed: true,
@@ -158,7 +177,9 @@ export class KupTextField {
         id: any;
         value: string;
     }>;
-
+    /**
+     * Triggered when the text field's icon is clicked.
+     */
     @Event({
         eventName: 'kupTextFieldIconClick',
         composed: true,
@@ -169,7 +190,9 @@ export class KupTextField {
         id: any;
         value: string;
     }>;
-
+    /**
+     * Triggered when the text field's clear icon is clicked.
+     */
     @Event({
         eventName: 'kupTextFieldClearIconClick',
         composed: true,
@@ -179,9 +202,8 @@ export class KupTextField {
     kupClearIconClick: EventEmitter<{
         id: any;
     }>;
-
     /**
-     * When a keydown enter event occurs it generates
+     * Triggered when the Enter key is pressed.
      */
     @Event({
         eventName: 'kupTextFieldSubmit',
@@ -194,7 +216,75 @@ export class KupTextField {
         value: string;
     }>;
 
-    //---- Methods ----
+    onKupBlur(event: FocusEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupBlur.emit({
+            id: this.rootElement.id,
+            value: target.value,
+        });
+    }
+
+    onKupChange(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupChange.emit({
+            id: this.rootElement.id,
+            value: target.value,
+        });
+    }
+
+    onKupClick(event: MouseEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupClick.emit({
+            id: this.rootElement.id,
+            value: target.value,
+        });
+    }
+
+    onKupFocus(event: FocusEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupFocus.emit({
+            id: this.rootElement.id,
+            value: target.value,
+        });
+    }
+
+    onKupInput(event: UIEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupInput.emit({
+            id: this.rootElement.id,
+            value: target.value,
+        });
+    }
+
+    onKupIconClick(event: MouseEvent & { target: HTMLInputElement }) {
+        const { target } = event;
+        this.kupIconClick.emit({
+            id: this.rootElement.id,
+            value: target.value,
+        });
+    }
+
+    onKupClearIconClick() {
+        this.value = '';
+        this.inputEl.value = '';
+        this.kupClearIconClick.emit({
+            id: this.rootElement.id,
+        });
+    }
+
+    onKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
+            if (this.emitSubmitEventOnEnter == true) {
+                event.preventDefault();
+                this.kupTextFieldSubmit.emit({
+                    id: this.rootElement.id,
+                    value: this.inputEl.value,
+                });
+            }
+        }
+    }
+
+    //---- Public methods ----
 
     @Method()
     async getValue(): Promise<string> {
@@ -223,266 +313,50 @@ export class KupTextField {
         }
     }
 
-    onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
-        this.kupBlur.emit({
-            id: this.rootElement.id,
-            value: target.value,
-        });
-    }
+    //---- Private methods ----
 
-    onKupChange(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
-        this.kupChange.emit({
-            id: this.rootElement.id,
-            value: target.value,
-        });
-    }
-
-    onKupClick(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
-        this.kupClick.emit({
-            id: this.rootElement.id,
-            value: target.value,
-        });
-    }
-
-    onKupFocus(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
-        this.kupFocus.emit({
-            id: this.rootElement.id,
-            value: target.value,
-        });
-    }
-
-    onKupInput(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
-        this.kupInput.emit({
-            id: this.rootElement.id,
-            value: target.value,
-        });
-    }
-
-    onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
-        const { target } = event;
-        this.kupIconClick.emit({
-            id: this.rootElement.id,
-            value: target.value,
-        });
-    }
-
-    onKupClearIconClick() {
-        this.value = '';
-        this.inputEl.value = '';
-        this.kupClearIconClick.emit({
-            id: this.rootElement.id,
-        });
-    }
-
-    /**
-     * Listens for keydown events to get when 'Enter' is pressed, firing a submit event.
-     */
-    onKeyDown(event: KeyboardEvent) {
-        if (event.key === 'Enter') {
-            if (this.emitSubmitEventOnEnter == true) {
-                event.preventDefault();
-                this.kupTextFieldSubmit.emit({
-                    id: this.rootElement.id,
-                    value: this.inputEl.value,
-                });
-            }
-        }
-    }
-
-    /**
-     * Imperatively sets a new value of the input.
-     * @method changeValue
-     * @param newValue - the new value to be set inside the input
-     * @param emitEvent - If true, then also forces the component to emit an updated event
-     */
-    @Method()
-    async changeValue(newValue: string, emitEvent: boolean = false) {
-        if (typeof newValue === 'string') {
-            if (emitEvent) {
-                this.kupInput.emit({
-                    id: this.rootElement.id,
-                    value: newValue,
-                });
-            }
-            this.value = newValue;
-            return true;
-        }
-        throw new Error(`The value ${newValue} is not a valid string.`);
-    }
-
-    outlinedStyling(
-        componentClass: string,
-        labelEl: HTMLElement,
-        placeholderLabel: string,
-        iconEl: HTMLElement,
-        clearIconEl: HTMLElement
-    ) {
-        let charEl: HTMLElement = null;
-        let inputEl: HTMLElement = null;
-        let leadingIconEl: HTMLElement = null;
-        let trailingIconEl: HTMLElement = null;
-        componentClass += '  mdc-text-field--outlined';
-
-        if (this.icon) {
-            if (this.trailingIcon) {
-                trailingIconEl = iconEl;
-            } else {
-                leadingIconEl = iconEl;
-            }
-        }
-
-        if (this.textArea) {
-            componentClass += ' mdc-text-field--textarea';
-            if (this.maxLength) {
-                let charString = '0 / ' + this.maxLength;
-                charEl = (
-                    <div class="mdc-text-field-character-counter">
-                        {charString}
-                    </div>
+    private setEvents() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
+            if (f) {
+                const inputEl:
+                    | HTMLInputElement
+                    | HTMLTextAreaElement = f.querySelector(
+                    '.mdc-text-field__input'
                 );
-            }
-            inputEl = (
-                <span class="mdc-text-field__resizer">
-                    <textarea
-                        id="kup-input"
-                        class="mdc-text-field__input"
-                        disabled={this.disabled}
-                        readOnly={this.readOnly}
-                        maxlength={this.maxLength}
-                        value={this.value}
-                        onBlur={(e: any) => this.onKupBlur(e)}
-                        onChange={(e: any) => this.onKupChange(e)}
-                        onClick={(e: any) => this.onKupClick(e)}
-                        onFocus={(e: any) => this.onKupFocus(e)}
-                        onInput={(e: any) => this.onKupInput(e)}
-                        ref={(el) => (this.inputEl = el as any)}
-                    ></textarea>
-                </span>
-            );
-        } else {
-            inputEl = (
-                <input
-                    type={this.inputType}
-                    id="kup-input"
-                    class="mdc-text-field__input"
-                    disabled={this.disabled}
-                    readOnly={this.readOnly}
-                    placeholder={placeholderLabel}
-                    maxlength={this.maxLength}
-                    value={this.value}
-                    onBlur={(e: any) => this.onKupBlur(e)}
-                    onChange={(e: any) => this.onKupChange(e)}
-                    onClick={(e: any) => this.onKupClick(e)}
-                    onFocus={(e: any) => this.onKupFocus(e)}
-                    onInput={(e: any) => this.onKupInput(e)}
-                    onKeyDown={(e: any) => this.onKeyDown(e)}
-                    ref={(el) => (this.inputEl = el as any)}
-                ></input>
-            );
-        }
-
-        return (
-            <div class={componentClass}>
-                {charEl}
-                {leadingIconEl}
-                {inputEl}
-                {clearIconEl}
-                {trailingIconEl}
-                <div class="mdc-notched-outline">
-                    <div class="mdc-notched-outline__leading"></div>
-                    <div class="mdc-notched-outline__notch">{labelEl}</div>
-                    <div class="mdc-notched-outline__trailing"></div>
-                </div>
-            </div>
-        );
-    }
-
-    defaultStyling(
-        componentClass: string,
-        labelEl: HTMLElement,
-        placeholderLabel: string,
-        iconEl: HTMLElement,
-        clearIconEl: HTMLElement
-    ) {
-        let leadingIconEl: HTMLElement = null;
-        let trailingIconEl: HTMLElement = null;
-
-        if (this.icon) {
-            if (this.trailingIcon) {
-                trailingIconEl = iconEl;
-            } else {
-                leadingIconEl = iconEl;
+                const icon: HTMLElement = f.querySelector('.action');
+                const clearIcon: HTMLElement = f.querySelector('.clear');
+                if (inputEl) {
+                    inputEl.onblur = (
+                        e: FocusEvent & { target: HTMLInputElement }
+                    ) => this.onKupBlur(e);
+                    inputEl.onchange = (
+                        e: UIEvent & { target: HTMLInputElement }
+                    ) => this.onKupChange(e);
+                    inputEl.onclick = (
+                        e: MouseEvent & { target: HTMLInputElement }
+                    ) => this.onKupClick(e);
+                    inputEl.onfocus = (
+                        e: FocusEvent & { target: HTMLInputElement }
+                    ) => this.onKupFocus(e);
+                    inputEl.oninput = (
+                        e: UIEvent & { target: HTMLInputElement }
+                    ) => this.onKupInput(e);
+                    inputEl.onkeydown = (e: KeyboardEvent) => this.onKeyDown(e);
+                    this.inputEl = inputEl;
+                }
+                if (icon) {
+                    icon.onclick = (
+                        e: MouseEvent & { target: HTMLInputElement }
+                    ) => this.onKupIconClick(e);
+                }
+                if (clearIcon) {
+                    clearIcon.onclick = () => this.onKupClearIconClick();
+                }
+                FTextFieldMDC(f);
             }
         }
-
-        if (!this.fullWidth) {
-            componentClass += '  mdc-text-field--filled';
-        }
-
-        return (
-            <div class={componentClass}>
-                {leadingIconEl}
-                <input
-                    type={this.inputType}
-                    id="kup-input"
-                    class="mdc-text-field__input"
-                    disabled={this.disabled}
-                    readOnly={this.readOnly}
-                    placeholder={placeholderLabel}
-                    maxlength={this.maxLength}
-                    value={this.value}
-                    onBlur={(e: any) => this.onKupBlur(e)}
-                    onChange={(e: any) => this.onKupChange(e)}
-                    onClick={(e: any) => this.onKupClick(e)}
-                    onFocus={(e: any) => this.onKupFocus(e)}
-                    onInput={(e: any) => this.onKupInput(e)}
-                    onKeyDown={(e: any) => this.onKeyDown(e)}
-                    ref={(el) => (this.inputEl = el as any)}
-                ></input>
-                {clearIconEl}
-                {trailingIconEl}
-                {labelEl}
-                <span class="mdc-line-ripple"></span>
-            </div>
-        );
-    }
-
-    renderForm(widgetEl: HTMLElement, helperEl: HTMLElement) {
-        let formClass: string = 'mdc-form-field';
-
-        if (this.leadingLabel) {
-            formClass += ' mdc-form-field--align-end';
-        }
-
-        return (
-            <Host>
-                <style>{setCustomStyle(this)}</style>
-                <div id="kup-component">
-                    <div class={formClass}>
-                        {widgetEl}
-                        {helperEl}
-                        <label htmlFor="kup-input">{this.label}</label>
-                    </div>
-                </div>
-            </Host>
-        );
-    }
-
-    renderTextField(widgetEl: HTMLElement, helperEl: HTMLElement) {
-        return (
-            <Host>
-                <style>{setCustomStyle(this)}</style>
-                <div id="kup-component">
-                    {widgetEl}
-                    {helperEl}
-                </div>
-            </Host>
-        );
     }
 
     //---- Lifecycle hooks ----
@@ -502,160 +376,45 @@ export class KupTextField {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        if (root) {
-            const component = new MDCTextField(
-                root.querySelector('.mdc-text-field')
-            );
-            if (root.querySelector('.mdc-form-field')) {
-                const formField = MDCFormField.attachTo(
-                    root.querySelector('.mdc-form-field')
-                );
-                formField.input = component;
-            }
-            if (root.querySelector('.mdc-text-field-helper-text')) {
-                new MDCTextFieldHelperText(
-                    document.querySelector('.mdc-text-field-helper-text')
-                );
-            }
-            if (root.querySelector('.mdc-text-field-character-counter')) {
-                new MDCTextFieldCharacterCounter(
-                    document.querySelector('.mdc-text-field-character-counter')
-                );
-            }
-            if (root.querySelector('.mdc-text-field-icon')) {
-                new MDCTextFieldIcon(
-                    document.querySelector('.mdc-text-field-icon')
-                );
-            }
-        }
-
+        this.setEvents();
         logRender(this, true);
     }
 
     render() {
-        let componentClass: string = 'mdc-text-field';
-        let labelEl: HTMLElement = null;
-        let helperEl: HTMLElement = null;
-        let iconEl: HTMLElement = null;
-        let clearIconEl: HTMLElement = null;
-        let charEl: HTMLElement = null;
-        let widgetEl: HTMLElement = null;
-        let placeholderLabel: string = null;
+        let props = {
+            disabled: this.disabled,
+            fullHeight: this.rootElement.classList.contains('full-height')
+                ? true
+                : false,
+            fullWidth: this.fullWidth,
+            helper: this.helper,
+            helperWhenFocused: this.helperWhenFocused,
+            icon: this.icon,
+            initialValue: this.initialValue,
+            inputType: this.inputType,
+            isClearable: this.isClearable,
+            label: this.label,
+            leadingLabel: this.leadingLabel,
+            maxLength: this.maxLength,
+            outlined: this.outlined,
+            readOnly: this.readOnly,
+            shaped: this.rootElement.classList.contains('shaped')
+                ? true
+                : false,
+            step: this.step,
+            textArea: this.textArea,
+            trailingIcon: this.trailingIcon,
+            trailingLabel: this.trailingLabel,
+            value: this.value,
+        };
 
-        if (!this.label) {
-            componentClass += ' mdc-text-field--no-label';
-        }
-
-        if (this.disabled) {
-            componentClass += ' mdc-text-field--disabled';
-        }
-
-        if (this.fullWidth) {
-            componentClass += ' mdc-text-field--fullwidth';
-            placeholderLabel = this.label;
-        } else if (this.label && !this.leadingLabel && !this.trailingLabel) {
-            labelEl = (
-                <label class="mdc-floating-label" htmlFor="kup-input">
-                    {this.label}
-                </label>
-            );
-        }
-
-        if (this.isClearable) {
-            clearIconEl = (
-                <span
-                    tabindex="1"
-                    class="material-icons mdc-text-field__icon clear-icon icon-container clear"
-                    onClick={() => this.onKupClearIconClick()}
-                ></span>
-            );
-            componentClass += ' is-clearable';
-        }
-
-        if (this.icon) {
-            let svg: string = `url('${getAssetPath(
-                `./assets/svg/${this.icon}.svg`
-            )}') no-repeat center`;
-            let iconStyle = {
-                mask: svg,
-                webkitMask: svg,
-            };
-            iconEl = (
-                <span
-                    tabindex="0"
-                    style={iconStyle}
-                    class="material-icons mdc-text-field__icon icon-container"
-                    onClick={(e: any) => this.onKupIconClick(e)}
-                ></span>
-            );
-            if (this.trailingIcon) {
-                componentClass += ' mdc-text-field--with-trailing-icon';
-            } else {
-                componentClass += ' mdc-text-field--with-leading-icon';
-            }
-        }
-
-        if (this.helper) {
-            let helperClass: string = 'mdc-text-field-helper-text';
-
-            if (!this.helperWhenFocused) {
-                helperClass += ' mdc-text-field-helper-text--persistent';
-            }
-
-            if (this.maxLength && !this.textArea) {
-                let charString = '0 / ' + this.maxLength;
-                charEl = (
-                    <div class="mdc-text-field-character-counter">
-                        {charString}
-                    </div>
-                );
-            }
-
-            helperEl = (
-                <div class="mdc-text-field-helper-line">
-                    <div class={helperClass}>{this.helper}</div>
-                    {charEl}
+        return (
+            <Host>
+                <style>{setCustomStyle(this)}</style>
+                <div id="kup-component">
+                    <FTextField {...props} />
                 </div>
-            );
-        } else {
-            if (this.maxLength && !this.textArea) {
-                let charString = '0 / ' + this.maxLength;
-                charEl = (
-                    <div class="mdc-text-field-character-counter">
-                        {charString}
-                    </div>
-                );
-                helperEl = (
-                    <div class="mdc-text-field-helper-line">{charEl}</div>
-                );
-            }
-        }
-
-        if (this.textArea || this.outlined) {
-            widgetEl = this.outlinedStyling(
-                componentClass,
-                labelEl,
-                placeholderLabel,
-                iconEl,
-                clearIconEl
-            );
-        } else {
-            widgetEl = this.defaultStyling(
-                componentClass,
-                labelEl,
-                placeholderLabel,
-                iconEl,
-                clearIconEl
-            );
-        }
-
-        if (this.leadingLabel || this.trailingLabel) {
-            widgetEl = this.renderForm(widgetEl, helperEl);
-        } else {
-            widgetEl = this.renderTextField(widgetEl, helperEl);
-        }
-        return widgetEl;
+            </Host>
+        );
     }
 }

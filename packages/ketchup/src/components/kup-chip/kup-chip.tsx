@@ -1,19 +1,19 @@
 import {
     Component,
+    Event,
+    EventEmitter,
     Prop,
     Element,
     Host,
-    Event,
-    EventEmitter,
     State,
     h,
     Method,
-    getAssetPath,
 } from '@stencil/core';
-import { MDCChipSet } from '@material/chips';
 import { ComponentChipElement } from './kup-chip-declarations';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { FChip } from '../../f-components/f-chip/f-chip';
+import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
 
 @Component({
     tag: 'kup-chip',
@@ -22,7 +22,12 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 })
 export class KupChip {
     @Element() rootElement: HTMLElement;
+
+    //---- States ----
+
     @State() customStyleTheme: string = undefined;
+
+    //---- Props ----
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -37,6 +42,11 @@ export class KupChip {
      */
     @Prop() type: string = undefined;
 
+    //---- Events ----
+
+    /**
+     * Triggered when a chip loses focus.
+     */
     @Event({
         eventName: 'kupChipBlur',
         composed: true,
@@ -48,7 +58,9 @@ export class KupChip {
         index: number;
         value: string;
     }>;
-
+    /**
+     * Triggered when a chip is clicked.
+     */
     @Event({
         eventName: 'kupChipClick',
         composed: true,
@@ -60,7 +72,9 @@ export class KupChip {
         index: number;
         value: string;
     }>;
-
+    /**
+     * Triggered when a chip gets focused.
+     */
     @Event({
         eventName: 'kupChipFocus',
         composed: true,
@@ -72,7 +86,9 @@ export class KupChip {
         index: number;
         value: string;
     }>;
-
+    /**
+     * Triggered when the removal icon on input chips is clicked.
+     */
     @Event({
         eventName: 'kupChipIconClick',
         composed: true,
@@ -84,13 +100,6 @@ export class KupChip {
         index: number;
         value: string;
     }>;
-
-    //---- Methods ----
-
-    @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     onKupBlur(i: number) {
         let value: string = undefined;
@@ -159,6 +168,44 @@ export class KupChip {
         });
     }
 
+    //---- Public methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
+    //---- Private methods ----
+
+    private setEvents() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector('.f-chip--wrapper');
+            if (f) {
+                const chips: NodeListOf<HTMLElement> = f.querySelectorAll(
+                    '.mdc-chip'
+                );
+                for (let j = 0; j < chips.length; j++) {
+                    const primaryEl: HTMLElement = chips[j].querySelector(
+                        '.mdc-chip__primary-action'
+                    );
+                    primaryEl.onblur = () => this.onKupBlur(j);
+                    primaryEl.onfocus = () => this.onKupFocus(j);
+
+                    const cancelIcon: HTMLElement = chips[j].querySelector(
+                        '.mdc-chip__icon.clear'
+                    );
+                    if (cancelIcon) {
+                        cancelIcon.onclick = () => this.onKupIconClick(j);
+                    }
+
+                    chips[j].onclick = () => this.onKupClick(j);
+                }
+                FChipMDC(f);
+            }
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -195,139 +242,27 @@ export class KupChip {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        if (root != null) {
-            const chipSetEl = root.querySelector('.mdc-chip-set');
-            new MDCChipSet(chipSetEl);
-        }
+        this.setEvents();
         logRender(this, true);
     }
 
     render() {
-        let wrapperClass = 'mdc-chip-set';
-        let chipList: Array<HTMLElement> = [];
-        let chipEl: HTMLElement;
+        let props = {
+            data: this.data,
+            type: this.type,
+        };
 
-        if (this.type) {
-            switch (this.type) {
-                case 'choice':
-                    wrapperClass += ' mdc-chip-set--choice';
-                    break;
-                case 'filter':
-                    wrapperClass += ' mdc-chip-set--filter';
-                    break;
-                case 'input':
-                    wrapperClass += ' mdc-chip-set--input';
-                    break;
-                default:
-                    let message =
-                        'The value received for prop "type" is not supported(' +
-                        this.type +
-                        ').';
-                    logMessage(this, message, 'warning');
-            }
-        }
         if (this.data.length === 0) {
             let message = 'Empty data.';
             logMessage(this, message, 'warning');
-        }
-        for (let i = 0; i < this.data.length; i++) {
-            let componentClass: string = 'mdc-chip';
-            let iconEl = [];
-            let iconClass =
-                'icon-container material-icons mdc-chip__icon mdc-chip__icon--leading';
-            let cancelIcon = undefined;
-
-            if (this.type === 'filter' || this.type === 'choice') {
-                if (this.data[i].checked) {
-                    componentClass += ' mdc-chip--selected';
-                    if (this.type === 'filter') {
-                        iconClass += ' mdc-chip__icon--leading-hidden';
-                    }
-                }
-            }
-
-            if (this.data[i].icon) {
-                let svg: string = `url('${getAssetPath(
-                    `./assets/svg/${this.data[i].icon}.svg`
-                )}') no-repeat center`;
-                let iconStyle = {
-                    mask: svg,
-                    webkitMask: svg,
-                };
-                iconEl.push(<span style={iconStyle} class={iconClass}></span>);
-            }
-
-            if (this.type === 'filter') {
-                iconEl.push(
-                    <span class="mdc-chip__checkmark">
-                        <svg
-                            class="mdc-chip__checkmark-svg"
-                            viewBox="-2 -3 30 30"
-                        >
-                            <path
-                                class="mdc-chip__checkmark-path"
-                                fill="none"
-                                stroke="black"
-                                d="M1.73,12.91 8.1,19.28 22.79,4.59"
-                            />
-                        </svg>
-                    </span>
-                );
-            }
-
-            if (this.type === 'input') {
-                cancelIcon = (
-                    <span role="gridcell">
-                        <span
-                            onClick={() => this.onKupIconClick(i)}
-                            tabindex="-1"
-                            class="icon-container material-icons mdc-chip__icon clear"
-                        ></span>
-                    </span>
-                );
-            }
-
-            chipEl = (
-                <div
-                    class={componentClass}
-                    role="row"
-                    onClick={() => this.onKupClick(i)}
-                >
-                    <div class="mdc-chip__ripple"></div>
-                    {iconEl}
-                    <span role="gridcell">
-                        {/* 
-                            // @ts-ignore */}
-                        <span
-                            role="button"
-                            tabindex={i}
-                            class="mdc-chip__primary-action"
-                            // @ts-ignore
-                            value={this.data[i].value}
-                            checked={this.data[i].checked}
-                            onBlur={() => this.onKupBlur(i)}
-                            onFocus={() => this.onKupFocus(i)}
-                        >
-                            <span class="mdc-chip__text">
-                                {this.data[i].label}
-                            </span>
-                        </span>
-                    </span>
-                    {cancelIcon}
-                </div>
-            );
-            chipList.push(chipEl);
+            return;
         }
 
         return (
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
-                    <div class={wrapperClass} role="grid">
-                        {chipList}
-                    </div>
+                    <FChip {...props} />
                 </div>
             </Host>
         );

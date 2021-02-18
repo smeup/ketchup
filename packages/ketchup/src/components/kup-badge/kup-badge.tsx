@@ -9,6 +9,7 @@ import {
     Host,
     Method,
 } from '@stencil/core';
+import { FImage } from '../../f-components/f-image/f-image';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
@@ -87,15 +88,15 @@ export class KupBadge {
 
         if (this.text === undefined && this.imageData !== undefined) {
             if (!this.imageData['sizeX']) {
-                this.imageData['sizeX'] = '1rem';
+                this.imageData['sizeX'] = '1em';
             }
             if (!this.imageData['sizeY']) {
-                this.imageData['sizeY'] = '1rem';
+                this.imageData['sizeY'] = '1em';
             }
             if (!this.imageData['color']) {
                 this.imageData['color'] = 'var(--kup-text-on-primary-color)';
             }
-            imageEl = <kup-image {...this.imageData}></kup-image>;
+            imageEl = <FImage {...this.imageData}></FImage>;
         }
 
         return (

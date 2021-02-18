@@ -1,4 +1,8 @@
 .scalable-layout-7 {
+  #image1 img {
+    object-fit: contain;
+  }
+
   .scalable-element {
     display: flex;
   }

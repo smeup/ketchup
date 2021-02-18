@@ -1,18 +1,18 @@
 import {
     Component,
+    Event,
+    EventEmitter,
     Prop,
     Element,
     Host,
-    Event,
-    EventEmitter,
     State,
     h,
     Method,
 } from '@stencil/core';
-import { MDCSwitch } from '@material/switch';
-import { MDCFormField } from '@material/form-field';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logRender } from '../../utils/debug-manager';
+import { FSwitch } from '../../f-components/f-switch/f-switch';
+import { FSwitchMDC } from '../../f-components/f-switch/f-switch-mdc';
 
 @Component({
     tag: 'kup-switch',
@@ -21,8 +21,13 @@ import { logLoad, logRender } from '../../utils/debug-manager';
 })
 export class KupSwitch {
     @Element() rootElement: HTMLElement;
+
+    //---- States ----
+
     @State() value: string = '';
     @State() customStyleTheme: string = undefined;
+
+    //---- Props ----
 
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
@@ -45,6 +50,11 @@ export class KupSwitch {
      */
     @Prop() leadingLabel: boolean = false;
 
+    //---- Events ----
+
+    /**
+     * Triggered when the input element loses focus.
+     */
     @Event({
         eventName: 'kupSwitchBlur',
         composed: true,
@@ -54,7 +64,9 @@ export class KupSwitch {
     kupBlur: EventEmitter<{
         value: string;
     }>;
-
+    /**
+     * Triggered when the input element's value changes.
+     */
     @Event({
         eventName: 'kupSwitchChange',
         composed: true,
@@ -64,7 +76,9 @@ export class KupSwitch {
     kupChange: EventEmitter<{
         value: string;
     }>;
-
+    /**
+     * Triggered when the input element is clicked.
+     */
     @Event({
         eventName: 'kupSwitchClick',
         composed: true,
@@ -74,7 +88,9 @@ export class KupSwitch {
     kupClick: EventEmitter<{
         value: string;
     }>;
-
+    /**
+     * Triggered when the input element gets focused.
+     */
     @Event({
         eventName: 'kupSwitchFocus',
         composed: true,
@@ -84,23 +100,6 @@ export class KupSwitch {
     kupFocus: EventEmitter<{
         value: string;
     }>;
-
-    @Event({
-        eventName: 'kupSwitchInput',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupInput: EventEmitter<{
-        value: string;
-    }>;
-
-    //---- Methods ----
-
-    @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
 
     onKupBlur() {
         this.kupBlur.emit({
@@ -133,10 +132,34 @@ export class KupSwitch {
         });
     }
 
-    onKupInput() {
-        this.kupInput.emit({
-            value: this.value,
-        });
+    //---- Public methods ----
+
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string) {
+        this.customStyleTheme = customStyleTheme;
+    }
+
+    //---- Private methods ----
+
+    private setEvents() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector('.f-switch--wrapper');
+            if (f) {
+                const inputEl: HTMLInputElement = f.querySelector('input');
+                const labelEl: HTMLElement = f.querySelector('label');
+                if (inputEl) {
+                    inputEl.onblur = () => this.onKupBlur();
+                    inputEl.onchange = () => this.onKupChange();
+                    inputEl.onclick = () => this.onKupClick();
+                    inputEl.onfocus = () => this.onKupFocus();
+                }
+                if (labelEl) {
+                    labelEl.onclick = () => this.onKupClick();
+                }
+                FSwitchMDC(f);
+            }
+        }
     }
 
     //---- Lifecycle hooks ----
@@ -160,64 +183,23 @@ export class KupSwitch {
     }
 
     componentDidRender() {
-        const root = this.rootElement.shadowRoot;
-
-        if (root && !this.disabled) {
-            const component = MDCSwitch.attachTo(
-                root.querySelector('.mdc-switch')
-            );
-            const formField = MDCFormField.attachTo(
-                root.querySelector('.mdc-form-field')
-            );
-            formField.input = component;
-        }
+        this.setEvents();
         logRender(this, true);
     }
 
     render() {
-        let formClass: string = 'mdc-form-field';
-        let componentClass: string = 'mdc-switch';
-        let componentLabel: string = this.label;
-        if (this.disabled) {
-            componentClass += ' mdc-switch--disabled';
-        }
-
-        if (this.checked) {
-            componentClass += ' mdc-switch--checked';
-        }
-
-        if (this.leadingLabel) {
-            formClass += ' mdc-form-field--align-end';
-        }
+        let props = {
+            checked: this.checked,
+            disabled: this.disabled,
+            label: this.label,
+            leadingLabel: this.leadingLabel,
+        };
 
         return (
             <Host>
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
-                    <div class={formClass}>
-                        <div class={componentClass}>
-                            <div class="mdc-switch__track"></div>
-                            <div class="mdc-switch__thumb-underlay">
-                                <div class="mdc-switch__thumb">
-                                    <input
-                                        type="checkbox"
-                                        id="switch-id"
-                                        class="mdc-switch__native-control"
-                                        role="switch"
-                                        checked={this.checked}
-                                        disabled={this.disabled}
-                                        value={this.value}
-                                        onBlur={() => this.onKupBlur()}
-                                        onChange={() => this.onKupChange()}
-                                        onClick={() => this.onKupClick()}
-                                        onFocus={() => this.onKupFocus()}
-                                        onInput={() => this.onKupInput()}
-                                    ></input>
-                                </div>
-                            </div>
-                        </div>
-                        <label htmlFor="switch-id">{componentLabel}</label>
-                    </div>
+                    <FSwitch {...props} />
                 </div>
             </Host>
         );
