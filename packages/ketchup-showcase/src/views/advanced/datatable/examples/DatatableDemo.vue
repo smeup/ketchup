@@ -353,6 +353,11 @@ export default {
       ],
       demoClasses: [
         {
+          class: 'cross-selection',
+          description:
+            'The selected cell will be highlighted by a cross-selection between its row and its column.',
+        },
+        {
           class: 'kup-secondary-color',
           description:
             'The component will be rendered using the secondary color of the app.',

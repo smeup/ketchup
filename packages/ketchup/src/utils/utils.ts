@@ -357,10 +357,17 @@ function numberStringToNumberString(
 }
 
 function getDecimalSeparator(locale) {
-    const numberWithDecimalSeparator = 1.1;
-    return Intl.NumberFormat(locale)
-        .formatToParts(numberWithDecimalSeparator)
-        .find((part) => part.type === 'decimal').value;
+    return getSeparator(locale, 'decimal');
+}
+
+function countDecimals(value: number): number {
+    if (Math.floor(value) === value) return 0;
+    let stringValue = value.toString().split('.')[1];
+    if (stringValue) {
+        return stringValue.length ? stringValue.length : 0;
+    } else {
+        return 0;
+    }
 }
 
 export function _numberToString(
@@ -371,6 +378,9 @@ export function _numberToString(
 ): string {
     if (input == null) {
         input = 0;
+    }
+    if (decimals == null || decimals == -1) {
+        decimals = countDecimals(input);
     }
     let n: Number = Number(input);
     let f: Intl.NumberFormatOptions =

@@ -33,18 +33,18 @@ export default {
     var el = document.querySelector('kup-chip');
     var anchorEl = document.querySelector('kup-image.anchor-point');
     var triggerEl = document.querySelector('#test-image-button');
-    triggerEl.addEventListener('click', function() {
+    triggerEl.addEventListener('click', function () {
       el.classList.add('dynamic-position');
       anchorEl.classList.add('dynamic-position-anchor');
       let margin = -25;
       el['anchorEl'] = anchorEl;
       el['anchorMargin'] = margin;
 
-      var observer = new MutationObserver(function(mutations) {
+      var observer = new MutationObserver(function (mutations) {
         let target = mutations[0].target;
         if (target.classList.contains('dynamic-position-active')) {
           el['anchorInterval'] = setInterval(
-            function() {
+            function () {
               let offsetH = el.clientHeight;
               let offsetW = el.clientWidth;
               const rect = el.anchorEl.getBoundingClientRect();
@@ -55,9 +55,9 @@ export default {
               el.style.left = ``;
 
               if (window.innerHeight - rect.bottom < offsetH) {
-                el.style.bottom = `${window.innerHeight -
-                  rect.top +
-                  el['anchorMargin']}px`;
+                el.style.bottom = `${
+                  window.innerHeight - rect.top + el['anchorMargin']
+                }px`;
               } else {
                 el.style.top = `${rect.bottom + el['anchorMargin']}px`;
               }

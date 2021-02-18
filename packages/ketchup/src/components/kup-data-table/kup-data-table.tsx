@@ -42,14 +42,7 @@ import {
     TotalMode,
 } from './kup-data-table-declarations';
 
-import {
-    isRating,
-    isColor,
-    isGauge,
-    isKnob,
-    isRadio,
-    isProgressBar,
-} from '../../utils/cell-utils';
+import { isRating, isGauge, isKnob, getCellType } from '../../utils/cell-utils';
 
 import {
     calcTotals,
@@ -86,12 +79,10 @@ import {
     isButton,
     isIcon,
     isImage,
-    isLink,
     isNumber,
     isDate,
     isProgressBar as isProgressBarObj,
     isVoCodver,
-    isObjectList,
     isStringObject,
     isCheckbox,
     hasTooltip,
@@ -107,6 +98,9 @@ import {
     stringToNumber,
     numberToFormattedStringNumber,
     identify,
+    ISO_DEFAULT_DATE_TIME_FORMAT,
+    ISO_DEFAULT_DATE_FORMAT,
+    changeDateTimeFormat,
 } from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 
@@ -138,10 +132,14 @@ import {
     getDragDropPayload,
 } from '../../utils/drag-and-drop';
 import { dragMultipleImg } from '../../assets/images/drag-multiple';
-
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
+import { FChip } from '../../f-components/f-chip/f-chip';
+import { FImage } from '../../f-components/f-image/f-image';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
+import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 
 @Component({
     tag: 'kup-data-table',
@@ -887,15 +885,19 @@ export class KupDataTable {
             entries: ResizeObserverEntry[]
         ) => {
             entries.forEach((entry) => {
-                logMessage(
-                    this,
-                    'Size changed to x: ' +
-                        entry.contentRect.width +
-                        ', y: ' +
-                        entry.contentRect.height +
-                        '.'
-                );
-                if (entry.contentRect.height && entry.contentRect.width) {
+                if (
+                    entry.contentRect.height &&
+                    entry.contentRect.width &&
+                    this.lazyLoadCells
+                ) {
+                    logMessage(
+                        this,
+                        'Size changed to x: ' +
+                            entry.contentRect.width +
+                            ', y: ' +
+                            entry.contentRect.height +
+                            '.'
+                    );
                     window.clearTimeout(this.resizeTimeout);
                     this.resizeTimeout = window.setTimeout(
                         () => this.forceUpdate(),
@@ -1029,6 +1031,55 @@ export class KupDataTable {
         return count;
     }
 
+    private setEvents() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+
+        if (root) {
+            const groupChip: HTMLElement = root.querySelector(
+                '#group-chips .f-chip--wrapper'
+            );
+            const globalFilter: HTMLElement = root.querySelector(
+                '#global-filter .f-text-field--wrapper'
+            );
+            if (groupChip) {
+                const chips: NodeListOf<HTMLElement> = root.querySelectorAll(
+                    '.mdc-chip'
+                );
+                for (let index = 0; index < chips.length; index++) {
+                    const cancelIcon: HTMLElement = chips[index].querySelector(
+                        '.mdc-chip__icon.clear'
+                    );
+                    if (cancelIcon) {
+                        cancelIcon.onclick = () => this.removeGroup(index);
+                    }
+                }
+                FChipMDC(groupChip);
+            }
+            if (globalFilter) {
+                const globalFilterInput: HTMLInputElement = globalFilter.querySelector(
+                    'input'
+                );
+                const globalFilterClear: HTMLElement = globalFilter.querySelector(
+                    '.clear-icon'
+                );
+                globalFilterInput.oninput = (event) => {
+                    const t = event.target;
+                    window.clearTimeout(this.globalFilterTimeout);
+                    this.globalFilterTimeout = window.setTimeout(
+                        () => this.onGlobalFilterChange(t),
+                        300,
+                        t
+                    );
+                };
+                if (globalFilterClear) {
+                    globalFilterClear.onclick = () =>
+                        this.onGlobalFilterChange(null);
+                }
+                FTextFieldMDC(globalFilter);
+            }
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -1074,6 +1125,7 @@ export class KupDataTable {
         this.columnMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
+        this.setEvents();
 
         if (
             this.headerIsPersistent &&
@@ -1149,7 +1201,6 @@ export class KupDataTable {
     }
 
     private _setTooltip(event: MouseEvent, cell: Cell) {
-        this.closeMenu();
         setTooltip(event, cell, this.tooltip);
     }
 
@@ -1230,8 +1281,10 @@ export class KupDataTable {
         return null;
     }
 
-    private getColumnValues(column: Column): Array<string> {
-        let values = [];
+    private getColumnValues(
+        column: Column
+    ): { value: string; displayedValue: string }[] {
+        let values: { value: string; displayedValue: string }[] = new Array();
 
         let value = this.getTextFieldFilterValue(column.name);
         let interval = this.getIntervalTextFieldFilterValues(column);
@@ -1239,12 +1292,10 @@ export class KupDataTable {
             column.valuesForFilter != null &&
             column.valuesForFilter.length > 0
         ) {
-            if (value == '') {
-                return column.valuesForFilter;
-            }
-            for (let i = 0; i < column.valuesForFilter.length; i++) {
-                let v = column.valuesForFilter[i];
+            column.valuesForFilter.forEach((element) => {
+                let v = element;
                 if (
+                    value == '' ||
                     isFilterCompliantForSimpleValue(
                         v,
                         column.obj,
@@ -1252,9 +1303,16 @@ export class KupDataTable {
                         interval
                     )
                 ) {
-                    values.push(v);
+                    values.push({
+                        value: v,
+                        displayedValue: getValueForDisplay(
+                            v,
+                            column.obj,
+                            column.decimals
+                        ),
+                    });
                 }
-            }
+            });
             return values;
         }
 
@@ -1299,17 +1357,35 @@ export class KupDataTable {
     }
 
     private addColumnValueFromRow(
-        values: Array<string>,
+        values: { value: string; displayedValue: string }[],
         column: Column,
         row: Row
     ) {
         const cell = row.cells[column.name];
         if (cell) {
-            let formattedValue: string = getCellValueForDisplay(column, cell);
-            if (values.indexOf(formattedValue) < 0) {
-                values[values.length] = formattedValue;
+            let item: { value: string; displayedValue: string } = {
+                value: cell.value,
+                displayedValue: getCellValueForDisplay(column, cell),
+            };
+            if (!this.columnValuesContainsValue(values, item)) {
+                values.push(item);
             }
         }
+    }
+
+    private columnValuesContainsValue(
+        values: { value: string; displayedValue: string }[],
+        value: { value: string; displayedValue: string }
+    ): boolean {
+        if (values == null || values.length < 1) {
+            return false;
+        }
+        for (let i = 0; i < values.length; i++) {
+            if (values[i].value == value.value) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private getRows(): Array<Row> {
@@ -1667,10 +1743,11 @@ export class KupDataTable {
             if (needNormalize) {
                 newFilter = normalizeValue(newFilter, column.obj);
             }
+            if (suffixToAdd != null && newFilter != '') {
+                newFilter = newFilter + suffixToAdd;
+            }
         }
-        if (suffixToAdd != null) {
-            newFilter = newFilter + suffixToAdd;
-        }
+
         const newFilters: GenericFilter = { ...this.filters };
         setIntervalTextFieldFilterValue(
             newFilters,
@@ -1758,15 +1835,14 @@ export class KupDataTable {
         return ris;
     }
 
-    private onGlobalFilterChange({ detail }) {
-        // resetting current page
+    private onGlobalFilterChange(inputEl: EventTarget) {
         this.resetCurrentPage();
-
-        let value = '';
-        if (detail && detail.value) {
-            value = detail.value;
+        if (inputEl) {
+            let el = inputEl as HTMLInputElement;
+            this.globalFilterValue = el.value;
+        } else {
+            this.globalFilterValue = '';
         }
-        this.globalFilterValue = value;
     }
 
     private handlePageChanged({ detail }) {
@@ -2306,7 +2382,6 @@ export class KupDataTable {
         let textFieldData = {};
         textFieldData['fullWidth'] = true;
         textFieldData['isClearable'] = true;
-        textFieldData['label'] = 'Search...';
         textFieldData['helperWhenFocused'] = true;
 
         let interval = this.getIntervalTextFieldFilterValues(column);
@@ -2315,6 +2390,7 @@ export class KupDataTable {
 
         let comps = [];
         if (isNumber(column.obj)) {
+            textFieldData['label'] = 'Search from...';
             textFieldData['helper'] = 'From...';
             comps.push(
                 <kup-text-field
@@ -2347,6 +2423,7 @@ export class KupDataTable {
                 ></kup-text-field>
             );
 
+            textFieldData['label'] = 'Search to...';
             textFieldData['helper'] = 'To...';
             comps.push(
                 <kup-text-field
@@ -2379,6 +2456,7 @@ export class KupDataTable {
                 ></kup-text-field>
             );
         } else if (isTime(column.obj)) {
+            textFieldData['label'] = 'Search from...';
             textFieldData['helper'] = 'From...';
             let data = { 'kup-text-field': { ...textFieldData } };
             comps.push(
@@ -2425,6 +2503,7 @@ export class KupDataTable {
                     }}
                 ></kup-time-picker>
             );
+            textFieldData['label'] = 'Search to...';
             textFieldData['helper'] = 'To...';
             data = { 'kup-text-field': { ...textFieldData } };
             comps.push(
@@ -2472,8 +2551,28 @@ export class KupDataTable {
                 ></kup-time-picker>
             );
         } else if (isDate(column.obj) || isTimestamp(column.obj)) {
+            let suffixFrom = null;
+            let suffixTo = null;
+            if (isTimestamp(column.obj)) {
+                suffixFrom = ' 00:00:00';
+                suffixTo = ' 23:59:59';
+                if (initialValueFrom != '') {
+                    initialValueFrom = changeDateTimeFormat(
+                        initialValueFrom,
+                        ISO_DEFAULT_DATE_TIME_FORMAT,
+                        ISO_DEFAULT_DATE_FORMAT
+                    );
+                }
+                if (initialValueTo != '') {
+                    initialValueTo = changeDateTimeFormat(
+                        initialValueTo,
+                        ISO_DEFAULT_DATE_TIME_FORMAT,
+                        ISO_DEFAULT_DATE_FORMAT
+                    );
+                }
+            }
+            textFieldData['label'] = 'Search from...';
             textFieldData['helper'] = 'From...';
-            let suffix = isTimestamp(column.obj) ? ' 00:00:00' : null;
             let data = { 'kup-text-field': { ...textFieldData } };
             comps.push(
                 <kup-date-picker
@@ -2488,7 +2587,7 @@ export class KupDataTable {
                                     column,
                                     FilterInterval.FROM,
                                     false,
-                                    suffix
+                                    suffixFrom
                                 ),
                             300
                         );
@@ -2502,7 +2601,7 @@ export class KupDataTable {
                                     column,
                                     FilterInterval.FROM,
                                     true,
-                                    suffix
+                                    suffixFrom
                                 ),
                             300
                         );
@@ -2516,13 +2615,13 @@ export class KupDataTable {
                             column,
                             FilterInterval.FROM,
                             false,
-                            suffix
+                            suffixFrom
                         );
                     }}
                 ></kup-date-picker>
             );
+            textFieldData['label'] = 'Search to...';
             textFieldData['helper'] = 'To...';
-            suffix = isTimestamp(column.obj) ? ' 23:59:59' : null;
             data = { 'kup-text-field': { ...textFieldData } };
             comps.push(
                 <kup-date-picker
@@ -2537,7 +2636,7 @@ export class KupDataTable {
                                     column,
                                     FilterInterval.TO,
                                     false,
-                                    suffix
+                                    suffixTo
                                 ),
                             300
                         );
@@ -2551,7 +2650,7 @@ export class KupDataTable {
                                     column,
                                     FilterInterval.TO,
                                     true,
-                                    suffix
+                                    suffixTo
                                 ),
                             300
                         );
@@ -2565,7 +2664,7 @@ export class KupDataTable {
                             column,
                             FilterInterval.TO,
                             false,
-                            suffix
+                            suffixTo
                         );
                     }}
                 ></kup-date-picker>
@@ -2857,9 +2956,10 @@ export class KupDataTable {
                         let checkBoxesFilter = this.getCheckBoxFilterValues(
                             column.name
                         );
-                        let columnValues: string[] = this.getColumnValues(
-                            column
-                        );
+                        let columnValues: {
+                            value: string;
+                            displayedValue: string;
+                        }[] = this.getColumnValues(column);
                         let checkboxItems: JSX.Element[] = [];
                         if (columnValues.length > 0) {
                             checkboxItems.push(
@@ -2873,9 +2973,9 @@ export class KupDataTable {
                             );
                         }
                         columnValues.forEach((v) => {
-                            let label = v;
+                            let label = v.displayedValue;
                             if (isCheckbox(column.obj)) {
-                                if (v == '1') {
+                                if (v.value == '1') {
                                     label = '(*checked)';
                                 } else {
                                     label = '(*unchecked)';
@@ -2884,9 +2984,13 @@ export class KupDataTable {
                             checkboxItems.push(
                                 <kup-checkbox
                                     label={label}
-                                    checked={checkBoxesFilter.includes(v)}
+                                    checked={checkBoxesFilter.includes(v.value)}
                                     onKupCheckboxChange={(e) => {
-                                        this.onFilterChange2(e, column, v);
+                                        this.onFilterChange2(
+                                            e,
+                                            column,
+                                            v.value
+                                        );
                                     }}
                                 ></kup-checkbox>
                             );
@@ -3879,8 +3983,28 @@ export class KupDataTable {
         let props: any = { ...cell.data };
         classObj[cellType + '-cell'] = true;
 
-        if (cell.data) {
+        if (
+            cellType === 'checkbox' ||
+            cellType === 'date' ||
+            cellType === 'time' ||
+            cellType === 'datetime' ||
+            cellType === 'icon' ||
+            cellType === 'image' ||
+            cellType === 'link' ||
+            cellType === 'number' ||
+            cellType === 'string'
+        ) {
             this.setCellSize(cellType, props, cell);
+            content = this.setCell(
+                cellType,
+                props,
+                content,
+                classObj,
+                cell,
+                column
+            );
+        } else if (cell.data) {
+            this.setCellSizeKup(cellType, props, cell);
             if (!this.lazyLoadCells) {
                 content = this.setLazyKupCell(cellType, props);
             } else {
@@ -3893,8 +4017,6 @@ export class KupDataTable {
                     column
                 );
             }
-        } else {
-            content = this.setCell(cellType, content, classObj, cell, column);
         }
 
         let style = cell.style;
@@ -3971,46 +4093,7 @@ export class KupDataTable {
     // NOTE: keep care to change conditions order... shape wins on object .. -> so if isNumber after shape checks.. ->
     // TODO: more clear conditions when refactoring...
     private getCellType(cell: Cell) {
-        let obj = cell.obj;
-        if (isBar(obj)) {
-            return 'bar';
-        } else if (isButton(obj)) {
-            return 'button';
-        } else if (isChart(obj)) {
-            return 'chart';
-        } else if (isCheckbox(obj)) {
-            return 'checkbox';
-        } else if (isColor(cell, null)) {
-            return 'color-picker';
-        } else if (isGauge(cell, null)) {
-            return 'gauge';
-        } else if (isKnob(cell, null)) {
-            return 'knob';
-        } else if (isIcon(obj) || isVoCodver(obj)) {
-            return 'icon';
-        } else if (isImage(obj)) {
-            return 'image';
-        } else if (isLink(obj)) {
-            return 'link';
-        } else if (isProgressBar(cell, null)) {
-            return 'progress-bar';
-        } else if (isRadio(cell, null)) {
-            return 'radio';
-        } else if (isRating(cell, null)) {
-            return 'rating';
-        } else if (isObjectList(obj)) {
-            return 'chips';
-        } else if (isNumber(obj)) {
-            return 'number';
-        } else if (isDate(obj)) {
-            return 'date';
-        } else if (isTimestamp(obj)) {
-            return 'datetime';
-        } else if (isTime(obj)) {
-            return 'time';
-        } else {
-            return 'string';
-        }
+        return getCellType(cell);
     }
 
     private setLazyKupCell(cellType: string, props: any) {
@@ -4020,6 +4103,37 @@ export class KupDataTable {
     }
 
     private setCellSize(cellType: string, props: any, cell: Cell) {
+        switch (cellType) {
+            case 'checkbox':
+            case 'icon':
+                if (!props.sizeX) {
+                    props['sizeX'] = '18px';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '18px';
+                }
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = props['sizeY'];
+                    }
+                } else {
+                    cell.style = {
+                        minHeight: props['sizeY'],
+                    };
+                }
+                break;
+            case 'image':
+                if (!props.sizeX) {
+                    props['sizeX'] = 'auto';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '64px';
+                }
+                break;
+        }
+    }
+
+    private setCellSizeKup(cellType: string, props: any, cell: Cell) {
         switch (cellType) {
             case 'bar':
                 if (!props.sizeY) {
@@ -4064,32 +4178,6 @@ export class KupDataTable {
                     cell.style = { minHeight: '53px' };
                 }
                 break;
-            case 'checkbox':
-            case 'icon':
-                if (!props.sizeX) {
-                    props['sizeX'] = '18px';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '18px';
-                }
-                if (cell.style) {
-                    if (!cell.style.height) {
-                        cell.style['minHeight'] = props['sizeY'];
-                    }
-                } else {
-                    cell.style = {
-                        minHeight: props['sizeY'],
-                    };
-                }
-                break;
-            case 'image':
-                if (!props.sizeX) {
-                    props['sizeX'] = 'auto';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '64px';
-                }
-                break;
             case 'radio':
                 if (cell.style) {
                     if (!cell.style.height) {
@@ -4115,53 +4203,12 @@ export class KupDataTable {
                 if (!props.data) {
                     return <kup-image {...props} />;
                 } else {
-                    //This code replaces <kup-image> because of performance-related issues, but uses its props
-                    const cssDraw = props.data;
-                    let steps: JSX.Element[] = [];
-                    let leftProgression: number = 0;
-
-                    for (let i = 0; i < props.data.length; i++) {
-                        let drawStep: JSX.Element = undefined;
-
-                        if (!cssDraw[i].shape) {
-                            cssDraw[i].shape = 'bar';
-                        }
-                        if (!cssDraw[i].color) {
-                            cssDraw[i].color = 'transparent';
-                        }
-                        if (!cssDraw[i].height) {
-                            cssDraw[i].height = '100%';
-                        }
-                        if (!cssDraw[i].width) {
-                            cssDraw[i].width = '100%';
-                        }
-
-                        let stepId: string = 'step-' + i;
-                        let stepClass: string = 'css-step bottom-aligned';
-                        let stepStyle: any = {
-                            backgroundColor: cssDraw[i].color,
-                            left: leftProgression + '%',
-                            height: cssDraw[i].height,
-                            width: cssDraw[i].width,
-                        };
-
-                        leftProgression += parseFloat(cssDraw[i].width);
-
-                        drawStep = (
-                            <span
-                                id={stepId}
-                                class={stepClass}
-                                style={stepStyle}
-                            ></span>
-                        );
-                        steps.push(drawStep);
-                    }
                     let barStyle = {
                         height: props.sizeY,
                     };
                     return (
                         <div class="bar-cell-content" style={barStyle}>
-                            {steps}
+                            <FImage {...props} />
                         </div>
                     );
                 }
@@ -4178,32 +4225,8 @@ export class KupDataTable {
             case 'chart':
                 classObj['is-centered'] = true;
                 return <kup-chart {...props} />;
-            case 'checkbox':
-                classObj['is-centered'] = true;
-                let iconStyle = {
-                    mask: props.checked
-                        ? `url('${getAssetPath(
-                              `./assets/svg/check_box.svg`
-                          )}') no-repeat center`
-                        : `url('${getAssetPath(
-                              `./assets/svg/check_box_outline_blank.svg`
-                          )}') no-repeat center`,
-                    background: props.color
-                        ? props.color
-                        : 'var(--kup-icon-color)',
-                    webkitMask: props.checked
-                        ? `url('${getAssetPath(
-                              `./assets/svg/check_box.svg`
-                          )}') no-repeat center`
-                        : `url('${getAssetPath(
-                              `./assets/svg/check_box_outline_blank.svg`
-                          )}') no-repeat center`,
-                };
-                return (
-                    <div class="checkbox-cell-content" style={iconStyle}></div>
-                );
             case 'chips':
-                return <kup-chip {...props}></kup-chip>;
+                return <FChip {...props} />;
             case 'color-picker':
                 return (
                     <kup-color-picker
@@ -4221,50 +4244,6 @@ export class KupDataTable {
                     ></kup-gauge>
                 );
             case 'knob':
-                return (
-                    <kup-progress-bar
-                        class="cell-progress-bar"
-                        value={stringToNumber(cell.value)}
-                        {...props}
-                    ></kup-progress-bar>
-                );
-            case 'icon':
-            case 'image':
-                //This code replaces <kup-image> because of performance-related issues, but uses its props
-                classObj['is-centered'] = true;
-                if (props.badgeData) {
-                    classObj['has-padding'] = true;
-                }
-                if (
-                    props.resource.indexOf('.') > -1 ||
-                    props.resource.indexOf('/') > -1 ||
-                    props.resource.indexOf('\\') > -1
-                ) {
-                    let iconStyle = {
-                        height: props.sizeY,
-                        width: props.sizeX,
-                    };
-                    return (
-                        <div class="image-cell-content" style={iconStyle}>
-                            <img style={iconStyle} src={props.resource}></img>
-                        </div>
-                    );
-                } else {
-                    let iconStyle = {
-                        mask: `url('${getAssetPath(
-                            `./assets/svg/${props.resource}.svg`
-                        )}') no-repeat center`,
-                        background: props.color
-                            ? props.color
-                            : 'var(--kup-icon-color)',
-                        webkitMask: `url('${getAssetPath(
-                            `./assets/svg/${props.resource}.svg`
-                        )}') no-repeat center`,
-                    };
-                    return (
-                        <div class="icon-cell-content" style={iconStyle}></div>
-                    );
-                }
             case 'progress-bar':
                 return <kup-progress-bar {...props}></kup-progress-bar>;
             case 'rating':
@@ -4284,12 +4263,38 @@ export class KupDataTable {
 
     private setCell(
         cellType: string,
+        props: any,
         content: string,
         classObj: Record<string, boolean>,
         cell: Cell,
         column: Column
     ) {
         switch (cellType) {
+            case 'checkbox':
+                classObj['is-centered'] = true;
+                props['resource'] = props.checked
+                    ? 'check_box'
+                    : 'check_box_outline_blank';
+                return <FImage {...props} />;
+            case 'date':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(column, cell);
+                    return cellValue;
+                }
+                return content;
+            case 'datetime':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(column, cell);
+                    return cellValue;
+                }
+                return content;
+            case 'icon':
+            case 'image':
+                classObj['is-centered'] = true;
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                return <FImage {...props} />;
             case 'link':
                 return (
                     <a class="cell-link" href={content} target="_blank">
@@ -4303,18 +4308,6 @@ export class KupDataTable {
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;
                     }
-                    return cellValue;
-                }
-                return content;
-            case 'date':
-                if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(column, cell);
-                    return cellValue;
-                }
-                return content;
-            case 'datetime':
-                if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(column, cell);
                     return cellValue;
                 }
                 return content;
@@ -4787,23 +4780,13 @@ export class KupDataTable {
         if (this.globalFilter) {
             globalFilter = (
                 <div id="global-filter">
-                    <kup-text-field
+                    <FTextField
                         fullWidth={true}
+                        icon="magnify"
                         isClearable={true}
                         label="Search..."
-                        icon="magnify"
-                        initialValue={this.globalFilterValue}
-                        onKupTextFieldInput={(event) => {
-                            window.clearTimeout(this.globalFilterTimeout);
-                            this.globalFilterTimeout = window.setTimeout(
-                                () => this.onGlobalFilterChange(event),
-                                300
-                            );
-                        }}
-                        onKupTextFieldClearIconClick={(event) =>
-                            this.onGlobalFilterChange(event)
-                        }
-                    ></kup-text-field>
+                        value={this.globalFilterValue}
+                    />
                 </div>
             );
         }
@@ -4847,16 +4830,12 @@ export class KupDataTable {
                 }
             });
             if (chipsData.length > 0) {
-                groupChips = (
-                    <kup-chip
-                        id="group-chips"
-                        type="input"
-                        onKupChipIconClick={(e: CustomEvent) =>
-                            this.removeGroup(e.detail.index)
-                        }
-                        data={chipsData}
-                    ></kup-chip>
-                );
+                let props = {
+                    data: chipsData,
+                    id: 'group-chips',
+                    type: 'input',
+                };
+                groupChips = <FChip {...props}></FChip>;
             }
         }
         const tableClass = {

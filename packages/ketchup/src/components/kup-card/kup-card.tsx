@@ -23,6 +23,7 @@ import {
     setCustomStyle,
     colorContrast,
 } from '../../utils/theme-manager';
+import { FImage } from '../../f-components/f-image/f-image';
 
 @Component({
     tag: 'kup-card',
@@ -111,13 +112,6 @@ export class KupCard {
     onKupEvent(e) {
         const root = this.rootElement.shadowRoot;
 
-        if (e.type === 'kupImageLoad') {
-            let rippleEl: any = root.querySelector('.mdc-ripple-surface');
-            if (rippleEl) {
-                MDCRipple.attachTo(rippleEl);
-            }
-        }
-
         if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
             let collapsibleCard = root.querySelector('.collapsible-card');
             if (!collapsibleCard.classList.contains('expanded')) {
@@ -161,12 +155,11 @@ export class KupCard {
                 }
             }
         } catch (error) {
-            card = (
-                <kup-image
-                    resource="warning"
-                    title="Layout not yet implemented!"
-                ></kup-image>
-            );
+            let props = {
+                resource: 'warning',
+                title: 'Layout not yet implemented!',
+            };
+            card = <FImage {...props}></FImage>;
         }
 
         return card;
@@ -228,9 +221,9 @@ export class KupCard {
         if (multiplier < 0.1) {
             multiplier = 1;
         }
-        let cardHeight: number = (75 / 100) * scalableCard.clientHeight;
+        let cardHeight: number = (90 / 100) * scalableCard.clientHeight;
         let cardWidthLow: number = (40 / 100) * scalableCard.clientWidth;
-        let cardWidthHigh: number = (60 / 100) * scalableCard.clientWidth;
+        let cardWidthHigh: number = (75 / 100) * scalableCard.clientWidth;
         let tooManyAttempts: number = 2000;
         //Cycle to adjust width
         do {
@@ -288,15 +281,6 @@ export class KupCard {
         });
     }
 
-    listenImageEvents(root: ShadowRoot) {
-        root.addEventListener('kupImageClick', (e) => {
-            this.onKupEvent(e);
-        });
-        root.addEventListener('kupImageLoad', (e) => {
-            this.onKupEvent(e);
-        });
-    }
-
     setObserver() {
         let callback: ResizeObserverCallback = (
             entries: ResizeObserverEntry[]
@@ -319,19 +303,26 @@ export class KupCard {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
+        const root = this.rootElement.shadowRoot;
+
         logLoad(this, false);
         this.setObserver();
         setThemeCustomStyle(this);
 
-        const root = this.rootElement.shadowRoot;
-
         this.listenButtonEvents(root);
         this.listenChipEvents(root);
-        this.listenImageEvents(root);
     }
 
     componentDidLoad() {
         this.resObserver.observe(this.rootElement);
+
+        let rippleEl: any = this.rootElement.shadowRoot.querySelector(
+            '.mdc-ripple-surface'
+        );
+        if (rippleEl) {
+            MDCRipple.attachTo(rippleEl);
+        }
+
         logLoad(this, true);
     }
 

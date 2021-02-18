@@ -35,7 +35,6 @@ export function getValueOfItemByDisplayMode(
 export function consistencyCheck(
     valueIn: string,
     listData: Object,
-    textfieldEl: any,
     listEl: any,
     selectMode: ItemsDisplayMode,
     displayMode: ItemsDisplayMode,
@@ -65,15 +64,6 @@ export function consistencyCheck(
     value = getValueOfItemByDisplayMode(selected, selectMode, ' - ');
 
     displayedValue = getValueOfItemByDisplayMode(selected, displayMode, ' - ');
-
-    if (textfieldEl) {
-        if (textfieldEl.getValue() === displayedValue) {
-            textfieldEl.setValue('');
-            textfieldEl.setValue(displayedValue);
-        } else {
-            textfieldEl.setValue(displayedValue);
-        }
-    }
     return {
         value: value,
         displayedValue: displayedValue,

@@ -41,7 +41,6 @@
 graph TD;
   kup-paginator --> kup-button
   kup-paginator --> kup-combobox
-  kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox

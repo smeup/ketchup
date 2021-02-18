@@ -2,14 +2,16 @@
   <div>
     <div class="demo-wrapper">
       <p> The Qlik component output: </p>
+      <br>
+      <p> Page with qlik components: </p>
       <img :src="schermata" style="width: 606px"/>
       <br>
       <br>
-      <p> Large Graph: </p>
+      <p> 1x1 grid qlik component bordered: </p>
       <img :src="graficoLarge" />
       <br>
       <br>
-      <p> Grid: </p>
+      <p> 2x4 grid qlik component bordered: </p>
       <img :src="griglia" />
     </div>
   </div>

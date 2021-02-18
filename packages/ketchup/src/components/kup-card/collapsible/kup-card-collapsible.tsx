@@ -1,4 +1,5 @@
 import { h } from '@stencil/core';
+import { FImage } from '../../../f-components/f-image/f-image';
 import { KupCard } from '../kup-card';
 
 export function create1(component: KupCard) {
@@ -51,13 +52,13 @@ export function create2(component: KupCard) {
                 <div class="sub-3">
                     <div class="image">
                         {component.data['image1'] && (
-                            <kup-image
-                                id="image1"
+                            <FImage
+                                {...component.data['image1']}
                                 color={component.data['color1']}
+                                id="image1"
                                 sizeX="24px"
                                 sizeY="24px"
-                                {...component.data['image1']}
-                            ></kup-image>
+                            ></FImage>
                         )}
                     </div>
                     <div class="text">{component.data['text3']}</div>

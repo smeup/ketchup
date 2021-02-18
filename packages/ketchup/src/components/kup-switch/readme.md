@@ -16,13 +16,12 @@
 
 ## Events
 
-| Event             | Description | Type                              |
-| ----------------- | ----------- | --------------------------------- |
-| `kupSwitchBlur`   |             | `CustomEvent<{ value: string; }>` |
-| `kupSwitchChange` |             | `CustomEvent<{ value: string; }>` |
-| `kupSwitchClick`  |             | `CustomEvent<{ value: string; }>` |
-| `kupSwitchFocus`  |             | `CustomEvent<{ value: string; }>` |
-| `kupSwitchInput`  |             | `CustomEvent<{ value: string; }>` |
+| Event             | Description                                       | Type                              |
+| ----------------- | ------------------------------------------------- | --------------------------------- |
+| `kupSwitchBlur`   | Triggered when the input element loses focus.     | `CustomEvent<{ value: string; }>` |
+| `kupSwitchChange` | Triggered when the input element's value changes. | `CustomEvent<{ value: string; }>` |
+| `kupSwitchClick`  | Triggered when the input element is clicked.      | `CustomEvent<{ value: string; }>` |
+| `kupSwitchFocus`  | Triggered when the input element gets focused.    | `CustomEvent<{ value: string; }>` |
 
 
 ## Methods

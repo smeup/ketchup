@@ -30,10 +30,6 @@ export default {
           type: 'change',
         },
         {
-          name: 'kupCheckboxInput',
-          type: 'input',
-        },
-        {
           name: 'kupCheckboxFocus',
           type: 'focus',
         },

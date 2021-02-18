@@ -173,11 +173,12 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'shaped',
-          description: 'The text field will be rendered with shaped borders.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
+          prop: 'step',
+          description:
+            'The HTML step of the input element. It has effect only with number input type.',
+          type: 'number',
+          default: '',
+          try: 'field',
         },
         {
           prop: 'textArea',
@@ -212,6 +213,10 @@ export default {
           class: 'kup-secondary-color',
           description:
             'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'shaped',
+          description: 'The text field will be rendered with shaped borders.',
         },
       ],
     };

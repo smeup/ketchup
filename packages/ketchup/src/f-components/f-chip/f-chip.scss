@@ -1,0 +1,59 @@
+@import '@material/chips/mdc-chips';
+@import '../f-image/f-image.scss';
+
+#kup-component {
+  .f-chip--wrapper {
+    --mdc-theme-on-surface: var(--kup-title-color);
+
+    .mdc-chip {
+      background-color: var(--kup-title-background-color);
+      color: var(--kup-title-color);
+      font-size: 0.875em;
+      line-height: 1.25em;
+    }
+
+    .mdc-chip-set--choice .mdc-chip--selected {
+      color: var(--kup-primary-color);
+
+      & .mdc-chip__ripple {
+        background-color: var(--kup-primary-color);
+        opacity: 0.25;
+      }
+    }
+
+    .mdc-chip__primary-action {
+      outline: none;
+    }
+
+    svg path {
+      color: var(--kup-title-color);
+      stroke: var(--kup-title-color);
+    }
+
+    .mdc-chip__icon--leading-hidden {
+      display: none;
+    }
+
+    .icon-container {
+      background: var(--kup-title-color);
+      display: block;
+      width: 18px;
+      height: 18px;
+      .mdc-chip--selected & {
+        background: var(--kup-primary-color);
+      }
+    }
+
+    .clear {
+      margin-left: 4px;
+      margin-right: -4px;
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+
+    .mdc-chip__text {
+      font-family: var(--kup-font-family);
+    }
+  }
+}

@@ -1243,7 +1243,7 @@ export namespace Components {
          */
         "config": QlikServer;
         /**
-          * Activate logging  Default false
+          * Activate logging Default false
          */
         "debug": boolean;
         /**
@@ -1400,13 +1400,6 @@ export namespace Components {
     }
     interface KupTextField {
         /**
-          * Imperatively sets a new value of the input.
-          * @method changeValue
-          * @param newValue - the new value to be set inside the input
-          * @param emitEvent - If true, then also forces the component to emit an updated event
-         */
-        "changeValue": (newValue: string, emitEvent?: boolean) => Promise<boolean>;
-        /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
@@ -1470,6 +1463,10 @@ export namespace Components {
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
+        /**
+          * The HTML step of the input element. It has effect only with number input type.
+         */
+        "step": number;
         /**
           * Defaults at false. When set to true, the component will be rendered as a textarea.
          */
@@ -1614,8 +1611,20 @@ export namespace Components {
           * Shows the icons of the nodes.
          */
         "showIcons": boolean;
+        /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick": boolean;
         "stateId": string;
         "store": KupStore;
+        /**
+          * Defines the timeout for tooltip detail
+         */
+        "tooltipDetailTimeout": number;
+        /**
+          * Defines the timeout for tooltip load
+         */
+        "tooltipLoadTimeout": number;
         /**
           * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
           * @see dynamicExpansionCallback
@@ -2447,23 +2456,31 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the label will be on the left of the component.
          */
         "leadingLabel"?: boolean;
+        /**
+          * Triggered when the input element loses focus.
+         */
         "onKupCheckboxBlur"?: (event: CustomEvent<{
         value: string;
         checked: boolean;
     }>) => void;
+        /**
+          * Triggered when the input element's value changes.
+         */
         "onKupCheckboxChange"?: (event: CustomEvent<{
         value: string;
         checked: boolean;
     }>) => void;
+        /**
+          * Triggered when the input element is clicked.
+         */
         "onKupCheckboxClick"?: (event: CustomEvent<{
         value: string;
         checked: boolean;
     }>) => void;
+        /**
+          * Triggered when the input element gets focused.
+         */
         "onKupCheckboxFocus"?: (event: CustomEvent<{
-        value: string;
-        checked: boolean;
-    }>) => void;
-        "onKupCheckboxInput"?: (event: CustomEvent<{
         value: string;
         checked: boolean;
     }>) => void;
@@ -2477,21 +2494,33 @@ declare namespace LocalJSX {
           * List of elements.
          */
         "data"?: ComponentChipElement[];
+        /**
+          * Triggered when a chip loses focus.
+         */
         "onKupChipBlur"?: (event: CustomEvent<{
         id: string;
         index: number;
         value: string;
     }>) => void;
+        /**
+          * Triggered when a chip is clicked.
+         */
         "onKupChipClick"?: (event: CustomEvent<{
         id: string;
         index: number;
         value: string;
     }>) => void;
+        /**
+          * Triggered when a chip gets focused.
+         */
         "onKupChipFocus"?: (event: CustomEvent<{
         id: string;
         index: number;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the removal icon on input chips is clicked.
+         */
         "onKupChipIconClick"?: (event: CustomEvent<{
         id: string;
         index: number;
@@ -3508,7 +3537,7 @@ declare namespace LocalJSX {
          */
         "config"?: QlikServer;
         /**
-          * Activate logging  Default false
+          * Activate logging Default false
          */
         "debug"?: boolean;
         /**
@@ -3673,19 +3702,28 @@ declare namespace LocalJSX {
           * Defaults at false. When set to true, the label will be on the left of the component.
          */
         "leadingLabel"?: boolean;
+        /**
+          * Triggered when the input element loses focus.
+         */
         "onKupSwitchBlur"?: (event: CustomEvent<{
         value: string;
     }>) => void;
+        /**
+          * Triggered when the input element's value changes.
+         */
         "onKupSwitchChange"?: (event: CustomEvent<{
         value: string;
     }>) => void;
+        /**
+          * Triggered when the input element is clicked.
+         */
         "onKupSwitchClick"?: (event: CustomEvent<{
         value: string;
     }>) => void;
+        /**
+          * Triggered when the input element gets focused.
+         */
         "onKupSwitchFocus"?: (event: CustomEvent<{
-        value: string;
-    }>) => void;
-        "onKupSwitchInput"?: (event: CustomEvent<{
         value: string;
     }>) => void;
     }
@@ -3764,35 +3802,56 @@ declare namespace LocalJSX {
           * Defaults at null. When set, the helper will display a character counter.
          */
         "maxLength"?: number;
+        /**
+          * Triggered when the input element loses focus.
+         */
         "onKupTextFieldBlur"?: (event: CustomEvent<{
         id: any;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the input element changes.
+         */
         "onKupTextFieldChange"?: (event: CustomEvent<{
         id: any;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the text field's clear icon is clicked.
+         */
         "onKupTextFieldClearIconClick"?: (event: CustomEvent<{
         id: any;
     }>) => void;
+        /**
+          * Triggered when the input element is clicked.
+         */
         "onKupTextFieldClick"?: (event: CustomEvent<{
         id: any;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the input element gets focused.
+         */
         "onKupTextFieldFocus"?: (event: CustomEvent<{
         id: any;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the text field's icon is clicked.
+         */
         "onKupTextFieldIconClick"?: (event: CustomEvent<{
         id: any;
         value: string;
     }>) => void;
+        /**
+          * Triggered when the input element receives an input.
+         */
         "onKupTextFieldInput"?: (event: CustomEvent<{
         id: any;
         value: string;
     }>) => void;
         /**
-          * When a keydown enter event occurs it generates
+          * Triggered when the Enter key is pressed.
          */
         "onKupTextFieldSubmit"?: (event: CustomEvent<{
         id: any;
@@ -3806,6 +3865,10 @@ declare namespace LocalJSX {
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
          */
         "readOnly"?: boolean;
+        /**
+          * The HTML step of the input element. It has effect only with number input type.
+         */
+        "step"?: number;
         /**
           * Defaults at false. When set to true, the component will be rendered as a textarea.
          */
@@ -4051,8 +4114,20 @@ declare namespace LocalJSX {
           * Shows the icons of the nodes.
          */
         "showIcons"?: boolean;
+        /**
+          * If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.
+         */
+        "showTooltipOnRightClick"?: boolean;
         "stateId"?: string;
         "store"?: KupStore;
+        /**
+          * Defines the timeout for tooltip detail
+         */
+        "tooltipDetailTimeout"?: number;
+        /**
+          * Defines the timeout for tooltip load
+         */
+        "tooltipLoadTimeout"?: number;
         /**
           * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
           * @see dynamicExpansionCallback

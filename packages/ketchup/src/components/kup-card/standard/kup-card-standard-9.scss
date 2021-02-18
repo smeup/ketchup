@@ -9,6 +9,10 @@
   box-sizing: border-box;
   position: relative;
 
+  #image1 img {
+    object-fit: contain;
+  }
+
   .section-1 {
     margin-top: auto;
     margin-right: 18px;
