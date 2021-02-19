@@ -140,7 +140,7 @@ export function logRender(comp: any, didRender: boolean) {
 /*
 //
 // Utility to test CSS selectors performances.
-// 
+//
 // Copy/paste the code below inside Google Chrome Dev Tools console, then run logCSS() with the following arguments:
 //
 // 1) String - CSS selector of your Ketch.UP component, for example "kup-data-table#my-table"
@@ -160,6 +160,10 @@ function logCSS(selector, detailedLog) {
         }
     }
 
+    let redObj = {};
+    let orangeObj = {};
+    let yellowObj = {};
+    let greenObj = {};
     let start = window.performance.now();
     for (let index = 0; index < CSSArray.length; index++) {
         let s = window.performance.now();
@@ -167,41 +171,74 @@ function logCSS(selector, detailedLog) {
         let e = window.performance.now();
         if (detailedLog) {
             let t = e - s;
-            let color = 'color:';
-            if (t > 3) {
-                color += 'red';
+            if (t > 10) {
+                redObj[index] = {
+                    selector: CSSArray[index],
+                    time: t,
+                    occurences: q.length,
+                };
+            } else if (t > 5) {
+                orangeObj[index] = {
+                    selector: CSSArray[index],
+                    time: t,
+                    occurences: q.length,
+                };
             } else if (t > 2) {
-                color += 'orange';
-            } else if (t > 1) {
-                color += 'yellow';
+                yellowObj[index] = {
+                    selector: CSSArray[index],
+                    time: t,
+                    occurences: q.length,
+                };
             } else {
-                color += 'white';
+                greenObj[index] = {
+                    selector: CSSArray[index],
+                    time: t,
+                    occurences: q.length,
+                };
             }
-            console.log(
-                '%c' +
-                    CSSArray[index] +
-                    ': ' +
-                    t +
-                    'ms.' +
-                    '[' +
-                    q.length +
-                    ' elements]',
-                color
-            );
         }
+    }
+    if (detailedLog) {
+        console.groupCollapsed(
+            '%c  %c' + 'Very slow ' + '(' + Object.keys(redObj).length + ')',
+            'background-color: red; margin-right: 10px; border-radius: 50%',
+            'background-color: transparent'
+        );
+        console.table(redObj);
+        console.groupEnd();
+        console.groupCollapsed(
+            '%c  %c' + 'Slow ' + '(' + Object.keys(orangeObj).length + ')',
+            'background-color: orange; margin-right: 10px; border-radius: 50%',
+            'background-color: transparent'
+        );
+        console.table(orangeObj);
+        console.groupEnd();
+        console.groupCollapsed(
+            '%c  %c' + 'Average ' + '(' + Object.keys(yellowObj).length + ')',
+            'background-color: yellow; margin-right: 10px; border-radius: 50%',
+            'background-color: transparent'
+        );
+        console.table(yellowObj);
+        console.groupEnd();
+        console.groupCollapsed(
+            '%c  %c' + 'Fast ' + '(' + Object.keys(greenObj).length + ')',
+            'background-color: green; margin-right: 10px; border-radius: 50%',
+            'background-color: transparent'
+        );
+        console.table(greenObj);
+        console.groupEnd();
     }
     let end = window.performance.now();
     console.log('Total time estimated: ' + (end - start) + 'ms.');
 }
 //
 // Check how many event listeners are defined on a Ketch.UP component and its children.
-// 
+//
 // Copy/paste the code below inside Google Chrome Dev Tools console, then run logEvents() with the following arguments:
 //
 // 1) String - CSS selector of your Ketch.UP component, for example "kup-data-table#my-table"
 // 2) Boolean - Whether you want a detailed log or not
 //
-
 function logEvents(selector, detailedLog) {
     let element = document.querySelector(selector);
     let children;
