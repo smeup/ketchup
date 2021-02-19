@@ -929,7 +929,6 @@ export class KupDataTable {
         if (this.paginatedRowsLength < this.rowsLength && this.lazyLoadRows) {
             this.intObserver.observe(rows[this.paginatedRowsLength - 1]);
         }
-        this.hideShowColumnRemoveDropArea(false);
     }
 
     private didLoadObservers() {
@@ -1126,6 +1125,7 @@ export class KupDataTable {
         this.columnMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
+        this.hideShowColumnRemoveDropArea(false);
         this.setEvents();
 
         if (
@@ -4416,8 +4416,6 @@ export class KupDataTable {
                 </div>
             );
         }
-        //
-        //{this.removableColumns ? this.renderTrashCanColumns() : null}
         return (
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
@@ -4443,21 +4441,14 @@ export class KupDataTable {
         );
     }
 
-    private renderTrashCanColumns() {
-        //TODO proprietà distinta per abilitare questa eliminazione e quella con tasto destro
-        //TODO far comparire il trash solo a inizio drag
-        //TODO slegare da paginazione
-
-        /* drop column here to remove */
+    private columnRemoveArea(): HTMLDivElement {
         const dropHandlersRemoveCols: DropHandlers = {
             onDrop: (e: DragEvent) => {
-                // console.log('onDrop', e);
                 const transferredData = JSON.parse(
                     e.dataTransfer.getData(KupDataTableColumnDragType)
                 ) as Column;
                 // We are sure the tables have been dropped in a valid location -> starts ...
                 this.handleColumnRemove(transferredData);
-                //this.hideShowColumnRemoveDropArea(false);
                 return KupDataTableColumnDragRemoveType;
             },
             onDragOver: (e: DragEvent) => {
@@ -4931,10 +4922,6 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
-        const columnsDropArea = this.removableColumns
-            ? this.renderTrashCanColumns()
-            : null;
-
         let compCreated = (
             <Host>
                 <style>{setCustomStyle(this)}</style>
@@ -4943,8 +4930,6 @@ export class KupDataTable {
                         {globalFilter}
                         {paginatorTop}
                     </div>
-                    {columnsDropArea}
-
                     <div
                         style={elStyle}
                         class={belowClass}
@@ -4968,10 +4953,12 @@ export class KupDataTable {
                             <tbody>{rows}</tbody>
                             {footer}
                         </table>
-
                         {stickyEl}
                     </div>
                     {tooltip}
+                    {this.removableColumns
+                        ? this.columnRemoveArea()
+                        : undefined}
                     {paginatorBottom}
                 </div>
             </Host>
