@@ -3419,11 +3419,13 @@ export class KupDataTable {
                         }
                     >
                         {this.renderTotalsComboBox(column)}
-                        {numberToFormattedStringNumber(
-                            this.footer[column.name],
-                            column.decimals,
-                            column.obj ? column.obj.p : ''
-                        )}
+                        <span>
+                            {numberToFormattedStringNumber(
+                                this.footer[column.name],
+                                column.decimals,
+                                column.obj ? column.obj.p : ''
+                            )}
+                        </span>
                     </td>
                 );
             }
