@@ -626,7 +626,6 @@ export namespace Components {
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
         "paginatorPos": PaginatorPos;
-        "performanceCSS": (detailedLog: boolean) => Promise<void>;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Sets the possibility to remove the selected column.

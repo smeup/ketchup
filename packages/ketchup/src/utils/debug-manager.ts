@@ -137,19 +137,33 @@ export function logRender(comp: any, didRender: boolean) {
     }
 }
 
+/*
 //
 // Utility to test CSS selectors performances.
-// Detailed log will inflate time because of console.logs, useful to check individual entries only.
+// 
+// Copy/paste the code below inside Google Chrome Dev Tools console, then run logCSS() with the following arguments:
 //
-export function logCSS(
-    comp: any,
-    selectors: Array<string>,
-    detailedLog?: boolean
-) {
+// 1) String - CSS selector of your Ketch.UP component, for example "kup-data-table#my-table"
+// 2) Boolean - Whether you want a detailed log or not
+//
+// Note: detailedLog will inflate time because of console.logs, useful to check individual entries only.
+//
+function logCSS(selector, detailedLog) {
+    let element = document.querySelector(selector);
+    const shadowCSS = element.shadowRoot.adoptedStyleSheets[0].rules;
+    let CSSArray = [];
+    for (let index = 0; index < shadowCSS.length; index++) {
+        const cssRule = shadowCSS[index].cssText;
+        if (cssRule.indexOf('@') < 0) {
+            let selectorEnd = shadowCSS[index].cssText.indexOf('{');
+            CSSArray.push(cssRule.substr(0, selectorEnd));
+        }
+    }
+
     let start = window.performance.now();
-    for (let index = 0; index < selectors.length; index++) {
+    for (let index = 0; index < CSSArray.length; index++) {
         let s = window.performance.now();
-        let q = comp.rootElement.shadowRoot.querySelectorAll(selectors[index]);
+        let q = element.shadowRoot.querySelectorAll(CSSArray[index]);
         let e = window.performance.now();
         if (detailedLog) {
             let t = e - s;
@@ -165,7 +179,7 @@ export function logCSS(
             }
             console.log(
                 '%c' +
-                    selectors[index] +
+                    CSSArray[index] +
                     ': ' +
                     t +
                     'ms.' +
@@ -179,7 +193,6 @@ export function logCSS(
     let end = window.performance.now();
     console.log('Total time estimated: ' + (end - start) + 'ms.');
 }
-/*
 //
 // Check how many event listeners are defined on a Ketch.UP component and its children.
 // 
