@@ -1,3 +1,6 @@
+/**
+ * Props of the f-text-field component.
+ */
 export interface FTextFieldProps {
     disabled?: boolean;
     fullHeight?: boolean;
