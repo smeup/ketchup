@@ -1,6 +1,6 @@
 import { FunctionalComponent, getAssetPath, h, JSX } from '@stencil/core';
 import { KupBadge } from '../../components/kup-badge/kup-badge';
-import { FImageProps, FImageData } from './f-image-declarations';
+import { FImageProps, FImageData, FImageShape } from './f-image-declarations';
 
 //---- Component ----
 
@@ -83,7 +83,7 @@ function createBar(data: FImageData[]): HTMLDivElement {
         let drawStep: JSX.Element = undefined;
 
         if (!data[i].shape) {
-            data[i].shape = 'bar';
+            data[i].shape = FImageShape.BAR;
         }
         if (!data[i].color) {
             data[i].color = 'transparent';

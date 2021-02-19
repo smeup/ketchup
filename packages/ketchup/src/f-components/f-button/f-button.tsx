@@ -1,5 +1,5 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { FButtonProps } from './f-button-declarations';
+import { FButtonProps, FButtonStyling } from './f-button-declarations';
 import { FImage } from '../f-image/f-image';
 
 //---- Component ----
@@ -39,10 +39,12 @@ function renderButton(props: FButtonProps): HTMLButtonElement {
         'mdc-button': true,
         'mdc-button--disabled': props.disabled ? true : false,
         'mdc-button--outlined':
-            props.styling.toLowerCase() === 'outlined' ? true : false,
+            props.styling.toLowerCase() === FButtonStyling.OUTLINED
+                ? true
+                : false,
         'mdc-button--raised':
-            props.styling.toLowerCase() !== 'flat' &&
-            props.styling.toLowerCase() !== 'outlined'
+            props.styling.toLowerCase() !== FButtonStyling.FLAT &&
+            props.styling.toLowerCase() !== FButtonStyling.OUTLINED
                 ? true
                 : false,
     };

@@ -26,58 +26,91 @@ import {
     shadow: true,
 })
 export class KupImage {
+    /**
+     * References the root HTML element of the component (<kup-image>).
+     */
     @Element() rootElement: HTMLElement;
 
-    //---- States ----
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
 
-    @State() customStyleTheme: string = undefined;
+    /**
+     * The component-specific CSS set by the current Ketch.UP theme.
+     * @default ""
+     */
+    @State() customStyleTheme: string = '';
 
-    //---- Props ----
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
     /**
      * Sets the data of badges.
+     * @default null
      */
-    @Prop() badgeData: KupBadge[] = undefined;
+    @Prop() badgeData: KupBadge[] = null;
     /**
      * The color of the icon, defaults to the CSS variable --kup-icon-color.
+     * @default 'var(--kup-icon-color)'
      */
     @Prop() color: string = 'var(--kup-icon-color)';
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @default ''
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.
+     * @default null
      */
-    @Prop() data: FImageData[] = undefined;
+    @Prop() data: FImageData[] = null;
     /**
      * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
+     * @default false
      */
     @Prop() feedback: boolean = false;
     /**
      * The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future.
+     * @default false
      */
     @Prop() isCanvas: boolean = false;
     /**
      * The resource used to fetch the image.
+     * @default null
      */
-    @Prop() resource: string = undefined;
+    @Prop() resource: string = null;
     /**
      * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+     * @default '100%'
      */
     @Prop() sizeX: string = '100%';
     /**
      * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+     * @default '100%'
      */
     @Prop() sizeY: string = '100%';
 
-    //---- Internal variables ----
+    /*-------------------------------------------------*/
+    /*        I n t e r n a l   V a r i a b l e s      */
+    /*-------------------------------------------------*/
 
+    /**
+     * True when the resource is an URL.
+     */
     private isUrl: boolean = false;
+    /**
+     * Instance of the imageCanvas class.
+     */
     private imageCanvas: imageCanvas;
-    canvas: HTMLCanvasElement;
+    /**
+     * Reference to the canvas element.
+     */
+    private canvas: HTMLCanvasElement;
 
-    //---- Events ----
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     @Event({
         eventName: 'kupImageClick',
@@ -95,15 +128,30 @@ export class KupImage {
         });
     }
 
-    //---- Public methods ----
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
-    //---- Private methods ----
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
+    /**
+     * Render the canvas variant of kup-image.
+     * @todo should be handled inside f-image.
+     */
     private renderCanvas(): HTMLDivElement {
         return (
             <div
@@ -118,7 +166,9 @@ export class KupImage {
         );
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         logLoad(this, false);

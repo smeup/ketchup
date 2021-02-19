@@ -139,7 +139,11 @@ import { FImage } from '../../f-components/f-image/f-image';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
-import { FChipData } from '../../f-components/f-chip/f-chip-declarations';
+import {
+    FChipData,
+    FChipType,
+} from '../../f-components/f-chip/f-chip-declarations';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -4326,7 +4330,7 @@ export class KupDataTable {
     private renderLoadMoreButton(isSlotted: boolean = true) {
         return (
             <kup-button
-                styling="flat"
+                styling={FButtonStyling.FLAT}
                 class="load-more-button"
                 label="Show more data"
                 icon="plus"
@@ -4467,7 +4471,7 @@ export class KupDataTable {
         };
         return (
             <kup-button
-                styling="outlined"
+                styling={FButtonStyling.OUTLINED}
                 label="DROP COLUMN HERE TO REMOVE"
                 icon="delete"
                 class="trash-drop-cols"
@@ -4833,7 +4837,7 @@ export class KupDataTable {
                 let props = {
                     data: chipsData,
                     id: 'group-chips',
-                    type: 'input',
+                    type: FChipType.INPUT,
                 };
                 groupChips = <FChip {...props}></FChip>;
             }

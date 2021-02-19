@@ -1,3 +1,6 @@
+/**
+ * Props of the f-checkbox component.
+ */
 export interface FCheckboxProps {
     checked?: boolean;
     disabled?: boolean;

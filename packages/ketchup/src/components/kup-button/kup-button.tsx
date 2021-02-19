@@ -13,7 +13,10 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
-import { FButtonProps } from '../../f-components/f-button/f-button-declarations';
+import {
+    FButtonProps,
+    FButtonStyling,
+} from '../../f-components/f-button/f-button-declarations';
 
 @Component({
     tag: 'kup-button',
@@ -21,53 +24,79 @@ import { FButtonProps } from '../../f-components/f-button/f-button-declarations'
     shadow: true,
 })
 export class KupButton {
+    /**
+     * References the root HTML element of the component (<kup-button>).
+     */
     @Element() rootElement: HTMLElement;
 
-    //---- States ----
-
-    @State() value: string = '';
-    @State() customStyleTheme: string = undefined;
-
-    //---- Props ----
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
 
     /**
-     * Defaults at false. When set to true, the icon button state will be on.
+     * The value of the component.
+     * @default ""
+     */
+    @State() value: string = '';
+    /**
+     * The component-specific CSS set by the current Ketch.UP theme.
+     * @default ""
+     */
+    @State() customStyleTheme: string = '';
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
+    /**
+     * When set to true, the icon button state will be on.
+     * @default false
      */
     @Prop() checked: boolean = false;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @default ""
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Defaults at false. When set to true, the component is disabled.
+     * @default false
      */
     @Prop() disabled: boolean = false;
     /**
-     * Defaults at null. When set, the button will show this icon.
+     * When set, the button will show this icon.
+     * @default null
      */
     @Prop() icon: string = null;
     /**
-     * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+     * When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+     * @default null
      */
     @Prop() iconOff: string = null;
     /**
-     * Defaults at null. When set, the button will show this text.
+     * When set, the button will show this text.
+     * @default null
      */
     @Prop() label: string = null;
     /**
-     * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
+     * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
+     * @default FButtonStyling.RAISED
      */
-    @Prop() styling: string = '';
+    @Prop() styling: FButtonStyling = FButtonStyling.RAISED;
     /**
-     * Defaults at false. When set to true, the icon button will be toggable on/off.
+     * When set to true, the icon button will be toggable on/off.
+     * @default false
      */
     @Prop() toggable: boolean = false;
     /**
-     * Defaults at null. When set, the icon will be shown after the text.
+     * When set, the icon will be shown after the text.
+     * @default false
      */
     @Prop() trailingIcon: boolean = false;
 
-    //---- Events ----
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     @Event({
         eventName: 'kupButtonBlur',
@@ -134,15 +163,29 @@ export class KupButton {
         });
     }
 
-    //---- Public methods ----
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
-    //---- Private methods ----
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
+    /**
+     * Set the events of the component and instantiates Material Design.
+     */
     private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
@@ -159,7 +202,9 @@ export class KupButton {
         }
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         logLoad(this, false);

@@ -11,8 +11,9 @@ import { ComponentCardElement } from "./components/kup-card/kup-card-declaration
 import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
+import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
-import { FChipData } from "./f-components/f-chip/f-chip-declarations";
+import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
 import { FormActionEventDetail, FormActions, FormCells, FormConfig, FormFieldEventDetail, FormFields, FormMessage, FormSection } from "./components/kup-form/kup-form-declarations";
 import { SearchFilterSubmittedEventDetail, SearchSelectionUpdatedEventDetail } from "./components/kup-search/kup-search-declarations";
@@ -202,40 +203,55 @@ export namespace Components {
     }
     interface KupButton {
         /**
-          * Defaults at false. When set to true, the icon button state will be on.
+          * When set to true, the icon button state will be on.
+          * @default false
          */
         "checked": boolean;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @default ""
          */
         "customStyle": string;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
-          * Defaults at null. When set, the button will show this icon.
+          * When set, the button will show this icon.
+          * @default null
          */
         "icon": string;
         /**
-          * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+          * When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+          * @default null
          */
         "iconOff": string;
         /**
-          * Defaults at null. When set, the button will show this text.
+          * When set, the button will show this text.
+          * @default null
          */
         "label": string;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
-          * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
+          * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
+          * @default FButtonStyling.RAISED
          */
-        "styling": string;
+        "styling": FButtonStyling;
         /**
-          * Defaults at false. When set to true, the icon button will be toggable on/off.
+          * When set to true, the icon button will be toggable on/off.
+          * @default false
          */
         "toggable": boolean;
         /**
-          * Defaults at null. When set, the icon will be shown after the text.
+          * When set, the icon will be shown after the text.
+          * @default false
          */
         "trailingIcon": boolean;
     }
@@ -361,44 +377,65 @@ export namespace Components {
     interface KupCheckbox {
         /**
           * Defaults at false. When set to true, the component will be set to 'checked'.
+          * @default false
          */
         "checked": boolean;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @default ""
          */
         "customStyle": string;
         /**
-          * Defaults at false. When set to true, the component is disabled.
+          * When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
-          * Defaults at false. When set to true, the component will be set to 'indeterminate'.
+          * When set to true, the component will be set to 'indeterminate'.
+          * @default false
          */
         "indeterminate": boolean;
         /**
-          * Defaults at null. When specified, its content will be shown as a label.
+          * When specified, its content will be shown as a label.
+          * @default null
          */
         "label": string;
         /**
-          * Defaults at false. When set to true, the label will be on the left of the component.
+          * When set to true, the label will be on the left of the component.
+          * @default false
          */
         "leadingLabel": boolean;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
     }
     interface KupChip {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @default ""
          */
         "customStyle": string;
         /**
           * List of elements.
+          * @default []
          */
         "data": FChipData[];
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * The type of chip. Available types: input, filter, choice or empty for default.
+          * @default FChipType.STANDARD
          */
-        "type": string;
+        "type": FChipType;
     }
     interface KupColorPicker {
         /**
@@ -1024,39 +1061,54 @@ export namespace Components {
     interface KupImage {
         /**
           * Sets the data of badges.
+          * @default null
          */
         "badgeData": KupBadge[];
         /**
           * The color of the icon, defaults to the CSS variable --kup-icon-color.
+          * @default 'var(--kup-icon-color)'
          */
         "color": string;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @default ''
          */
         "customStyle": string;
         /**
           * When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.
+          * @default null
          */
         "data": FImageData[];
         /**
           * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
+          * @default false
          */
         "feedback": boolean;
         /**
           * The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future.
+          * @default false
          */
         "isCanvas": boolean;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * The resource used to fetch the image.
+          * @default null
          */
         "resource": string;
         /**
           * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default '100%'
          */
         "sizeX": string;
         /**
           * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default '100%'
          */
         "sizeY": string;
     }
@@ -1367,24 +1419,35 @@ export namespace Components {
     interface KupSwitch {
         /**
           * Defaults at false. When set to true, the component will be set to 'checked'.
+          * @default false
          */
         "checked": boolean;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @default ""
          */
         "customStyle": string;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
           * Defaults at null. When specified, its content will be shown as a label.
+          * @default null
          */
         "label": string;
         /**
           * Defaults at false. When set to true, the label will be on the left of the component.
+          * @default false
          */
         "leadingLabel": boolean;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
     }
     interface KupTabBar {
@@ -1401,82 +1464,116 @@ export namespace Components {
     interface KupTextField {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @default ""
          */
         "customStyle": string;
         /**
-          * Defaults at false. When set to true, the component is disabled.
+          * When set to true, the component is disabled.
+          * @default false
          */
         "disabled": boolean;
         /**
           * When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.
+          * @default true
          */
         "emitSubmitEventOnEnter": boolean;
         /**
-          * Defaults at false. When set to true, the component will be rendered at full width.
+          * When set to true, the component will be rendered at full width.
+          * @default false
          */
         "fullWidth": boolean;
+        /**
+          * Returns the component's internal value.
+         */
         "getValue": () => Promise<string>;
         /**
-          * Defaults at null. When set, its content will be shown as a help text below the field.
+          * When set, its content will be shown as a help text below the field.
+          * @default null
          */
         "helper": string;
         /**
-          * Defaults at false. When set, the helper will be shown only when the field is focused.
+          * When set, the helper will be shown only when the field is focused.
+          * @default false
          */
         "helperWhenFocused": boolean;
         /**
-          * Defaults at null. When set, the text-field will show this icon.
+          * When set, the text-field will show this icon.
+          * @default null
          */
         "icon": string;
         /**
           * Sets the initial value of the component
+          * @default ""
          */
         "initialValue": string;
         /**
           * The HTML type of the input element. It has no effect on text areas.
+          * @default "text"
          */
         "inputType": string;
         /**
           * Enables a clear trailing icon.
+          * @default false
          */
         "isClearable": boolean;
         /**
-          * Defaults at null. When set, its content will be shown as a label.
+          * When set, its content will be shown as a label.
+          * @default null
          */
         "label": string;
         /**
-          * Defaults at false. When set to true, the label will be on the left of the component.
+          * When set to true, the label will be on the left of the component.
+          * @default false
          */
         "leadingLabel": boolean;
         /**
-          * Defaults at null. When set, the helper will display a character counter.
+          * When set, the helper will display a character counter.
+          * @default null
          */
         "maxLength": number;
         /**
-          * Defaults at false. When set to true, the component will be rendered as an outlined field.
+          * When set to true, the component will be rendered as an outlined field.
+          * @default false
          */
         "outlined": boolean;
         /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+          * @default false
          */
         "readOnly": boolean;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * Focuses the input element.
+         */
         "setFocus": () => Promise<void>;
+        /**
+          * Sets the internal value of the component.
+         */
         "setValue": (value: string) => Promise<void>;
         /**
           * The HTML step of the input element. It has effect only with number input type.
+          * @default null
          */
         "step": number;
         /**
-          * Defaults at false. When set to true, the component will be rendered as a textarea.
+          * When set to true, the component will be rendered as a textarea.
+          * @default false
          */
         "textArea": boolean;
         /**
-          * Defaults at null. When set, the icon will be shown after the text.
+          * When set, the icon will be shown after the text.
+          * @default false
          */
         "trailingIcon": boolean;
         /**
-          * Defaults at false. When set to true, the label will be on the right of the component.
+          * When set to true, the label will be on the right of the component.
+          * @default false
          */
         "trailingLabel": boolean;
     }
@@ -2226,27 +2323,33 @@ declare namespace LocalJSX {
     }
     interface KupButton {
         /**
-          * Defaults at false. When set to true, the icon button state will be on.
+          * When set to true, the icon button state will be on.
+          * @default false
          */
         "checked"?: boolean;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @default ""
          */
         "customStyle"?: string;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
-          * Defaults at null. When set, the button will show this icon.
+          * When set, the button will show this icon.
+          * @default null
          */
         "icon"?: string;
         /**
-          * Defaults at null. When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+          * When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed.
+          * @default null
          */
         "iconOff"?: string;
         /**
-          * Defaults at null. When set, the button will show this text.
+          * When set, the button will show this text.
+          * @default null
          */
         "label"?: string;
         "onKupButtonBlur"?: (event: CustomEvent<{
@@ -2262,15 +2365,18 @@ declare namespace LocalJSX {
         value: string;
     }>) => void;
         /**
-          * Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.
+          * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
+          * @default FButtonStyling.RAISED
          */
-        "styling"?: string;
+        "styling"?: FButtonStyling;
         /**
-          * Defaults at false. When set to true, the icon button will be toggable on/off.
+          * When set to true, the icon button will be toggable on/off.
+          * @default false
          */
         "toggable"?: boolean;
         /**
-          * Defaults at null. When set, the icon will be shown after the text.
+          * When set, the icon will be shown after the text.
+          * @default false
          */
         "trailingIcon"?: boolean;
     }
@@ -2434,26 +2540,32 @@ declare namespace LocalJSX {
     interface KupCheckbox {
         /**
           * Defaults at false. When set to true, the component will be set to 'checked'.
+          * @default false
          */
         "checked"?: boolean;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @default ""
          */
         "customStyle"?: string;
         /**
-          * Defaults at false. When set to true, the component is disabled.
+          * When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
-          * Defaults at false. When set to true, the component will be set to 'indeterminate'.
+          * When set to true, the component will be set to 'indeterminate'.
+          * @default false
          */
         "indeterminate"?: boolean;
         /**
-          * Defaults at null. When specified, its content will be shown as a label.
+          * When specified, its content will be shown as a label.
+          * @default null
          */
         "label"?: string;
         /**
-          * Defaults at false. When set to true, the label will be on the left of the component.
+          * When set to true, the label will be on the left of the component.
+          * @default false
          */
         "leadingLabel"?: boolean;
         /**
@@ -2488,10 +2600,12 @@ declare namespace LocalJSX {
     interface KupChip {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @default ""
          */
         "customStyle"?: string;
         /**
           * List of elements.
+          * @default []
          */
         "data"?: FChipData[];
         /**
@@ -2528,8 +2642,9 @@ declare namespace LocalJSX {
     }>) => void;
         /**
           * The type of chip. Available types: input, filter, choice or empty for default.
+          * @default FChipType.STANDARD
          */
-        "type"?: string;
+        "type"?: FChipType;
     }
     interface KupColorPicker {
         /**
@@ -3277,26 +3392,32 @@ declare namespace LocalJSX {
     interface KupImage {
         /**
           * Sets the data of badges.
+          * @default null
          */
         "badgeData"?: KupBadge[];
         /**
           * The color of the icon, defaults to the CSS variable --kup-icon-color.
+          * @default 'var(--kup-icon-color)'
          */
         "color"?: string;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @default ''
          */
         "customStyle"?: string;
         /**
           * When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.
+          * @default null
          */
         "data"?: FImageData[];
         /**
           * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
+          * @default false
          */
         "feedback"?: boolean;
         /**
           * The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future.
+          * @default false
          */
         "isCanvas"?: boolean;
         "onKupImageClick"?: (event: CustomEvent<{
@@ -3304,14 +3425,17 @@ declare namespace LocalJSX {
     }>) => void;
         /**
           * The resource used to fetch the image.
+          * @default null
          */
         "resource"?: string;
         /**
           * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default '100%'
          */
         "sizeX"?: string;
         /**
           * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default '100%'
          */
         "sizeY"?: string;
     }
@@ -3681,22 +3805,27 @@ declare namespace LocalJSX {
     interface KupSwitch {
         /**
           * Defaults at false. When set to true, the component will be set to 'checked'.
+          * @default false
          */
         "checked"?: boolean;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @default ""
          */
         "customStyle"?: string;
         /**
           * Defaults at false. When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * Defaults at null. When specified, its content will be shown as a label.
+          * @default null
          */
         "label"?: string;
         /**
           * Defaults at false. When set to true, the label will be on the left of the component.
+          * @default false
          */
         "leadingLabel"?: boolean;
         /**
@@ -3749,54 +3878,67 @@ declare namespace LocalJSX {
     interface KupTextField {
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @default ""
          */
         "customStyle"?: string;
         /**
-          * Defaults at false. When set to true, the component is disabled.
+          * When set to true, the component is disabled.
+          * @default false
          */
         "disabled"?: boolean;
         /**
           * When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.
+          * @default true
          */
         "emitSubmitEventOnEnter"?: boolean;
         /**
-          * Defaults at false. When set to true, the component will be rendered at full width.
+          * When set to true, the component will be rendered at full width.
+          * @default false
          */
         "fullWidth"?: boolean;
         /**
-          * Defaults at null. When set, its content will be shown as a help text below the field.
+          * When set, its content will be shown as a help text below the field.
+          * @default null
          */
         "helper"?: string;
         /**
-          * Defaults at false. When set, the helper will be shown only when the field is focused.
+          * When set, the helper will be shown only when the field is focused.
+          * @default false
          */
         "helperWhenFocused"?: boolean;
         /**
-          * Defaults at null. When set, the text-field will show this icon.
+          * When set, the text-field will show this icon.
+          * @default null
          */
         "icon"?: string;
         /**
           * Sets the initial value of the component
+          * @default ""
          */
         "initialValue"?: string;
         /**
           * The HTML type of the input element. It has no effect on text areas.
+          * @default "text"
          */
         "inputType"?: string;
         /**
           * Enables a clear trailing icon.
+          * @default false
          */
         "isClearable"?: boolean;
         /**
-          * Defaults at null. When set, its content will be shown as a label.
+          * When set, its content will be shown as a label.
+          * @default null
          */
         "label"?: string;
         /**
-          * Defaults at false. When set to true, the label will be on the left of the component.
+          * When set to true, the label will be on the left of the component.
+          * @default false
          */
         "leadingLabel"?: boolean;
         /**
-          * Defaults at null. When set, the helper will display a character counter.
+          * When set, the helper will display a character counter.
+          * @default null
          */
         "maxLength"?: number;
         /**
@@ -3855,27 +3997,33 @@ declare namespace LocalJSX {
         value: string;
     }>) => void;
         /**
-          * Defaults at false. When set to true, the component will be rendered as an outlined field.
+          * When set to true, the component will be rendered as an outlined field.
+          * @default false
          */
         "outlined"?: boolean;
         /**
           * Sets the component to read only state, making it not editable, but interactable. Used in combobox component when it behaves as a select.
+          * @default false
          */
         "readOnly"?: boolean;
         /**
           * The HTML step of the input element. It has effect only with number input type.
+          * @default null
          */
         "step"?: number;
         /**
-          * Defaults at false. When set to true, the component will be rendered as a textarea.
+          * When set to true, the component will be rendered as a textarea.
+          * @default false
          */
         "textArea"?: boolean;
         /**
-          * Defaults at null. When set, the icon will be shown after the text.
+          * When set, the icon will be shown after the text.
+          * @default false
          */
         "trailingIcon"?: boolean;
         /**
-          * Defaults at false. When set to true, the label will be on the right of the component.
+          * When set to true, the label will be on the right of the component.
+          * @default false
          */
         "trailingLabel"?: boolean;
     }
