@@ -126,7 +126,7 @@ export class KupColorPicker {
     private prepTextField() {
         let initialValue = undefined;
         let textfieldData = { ...this.data['kup-text-field'] };
-        let customStyle: string = ` #kup-component .icon-container{box-sizing: border-box; border: 3px solid rgba(var(--kup-text-color-rgb),.575); border-radius: 50%; background-color:${this.value}}`;
+        let customStyle: string = ` #kup-component .icon-container{box-sizing: border-box; border: 3px solid rgba(var(--kup-text-color-rgb),.575); border-radius: 50%; background-color:${this.value}!important;}`;
         if (!textfieldData['icon']) {
             textfieldData['icon'] = 'brightness-1';
         }
