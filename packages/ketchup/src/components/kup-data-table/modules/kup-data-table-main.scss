@@ -534,3 +534,10 @@ thead {
 th.obj:hover span:not(.overlay-action) {
   opacity: 0.5;
 }
+
+.totals-select {
+  background: none;
+  border: none;
+  color: var(--kup-text-color);
+  outline: none;
+}

@@ -39,6 +39,7 @@ import {
     GenericFilter,
     FilterInterval,
     CSSArray,
+    TotalMode,
 } from './kup-data-table-declarations';
 
 import { isRating, isGauge, isKnob, getCellType } from '../../utils/cell-utils';
@@ -187,6 +188,7 @@ export class KupDataTable {
                 this.selectRowsById = state.selectRowsById;
                 this.dragEnabled = state.dragEnabled;
                 this.dropEnabled = state.dropEnabled;
+                this.showFooter = state.showFooter;
                 //
             }
         }
@@ -219,6 +221,7 @@ export class KupDataTable {
             this.state.pageSelected = this.currentPage;
             this.state.dragEnabled = this.dragEnabled;
             this.state.dropEnabled = this.dropEnabled;
+            this.state.showFooter = this.showFooter;
             this.state.selectRowsById = this.selectedRows.reduce(
                 (accumulator, row, currentIndex) => {
                     const prefix = currentIndex > 0 ? ';' : '';
@@ -380,6 +383,10 @@ export class KupDataTable {
      * When set to true enables the column filters.
      */
     @Prop() showFilters: boolean = false;
+    /**
+     * When set to true shows the footer.
+     */
+    @Prop() showFooter: boolean = false;
     /**
      * Can be used to customize the grid view of the table.
      */
@@ -3278,8 +3285,88 @@ export class KupDataTable {
         );
     }
 
+    renderTotalsComboBox(column: Column) {
+        // TODO Manage the label with different languages
+        // and move this object into declaration
+        let menu;
+        if (isNumber(column.obj)) {
+            menu = {
+                [TotalMode.COUNT]: {
+                    label: 'Conta',
+                },
+                [TotalMode.SUM]: {
+                    label: 'Somma',
+                },
+                [TotalMode.AVERAGE]: {
+                    label: 'Media',
+                },
+            };
+        } else {
+            menu = {
+                [TotalMode.COUNT]: {
+                    label: 'Conta',
+                },
+            };
+        }
+
+        if (!this.totals || this.totals[column.name] == null) {
+            menu['Calcola'] = {
+                label: 'Calcola',
+                selected: true,
+                hidden: true,
+            };
+        } else {
+            this.setSelectedMenu(menu, column.name);
+        }
+
+        return (
+            <select
+                class="totals-select"
+                onInput={(event) => this.onTotalsChange(event, column)}
+            >
+                {Object.keys(menu).map((key) => {
+                    const m = menu[key];
+                    return (
+                        <option
+                            value={key}
+                            selected={m.selected ? true : false}
+                            hidden={m.hidden ? true : false}
+                        >
+                            {m.label}
+                        </option>
+                    );
+                })}
+            </select>
+        );
+    }
+
+    // TODO replace any with the correct type using TotalMode
+    setSelectedMenu(menu: any, name: string) {
+        const totalValue = this.totals[name];
+        if (totalValue) {
+            if (totalValue.startsWith(TotalMode.MATH)) {
+                menu[TotalMode.MATH] = {
+                    label: 'Formula',
+                    selected: true,
+                };
+            } else if (menu[totalValue]) {
+                menu[totalValue].selected = true;
+            }
+        }
+    }
+
+    onTotalsChange(event, column) {
+        if (column) {
+            // must do this
+            // otherwise the watcher does not fire
+            const totalsCopy = { ...this.totals };
+            totalsCopy[column.name] = event.target.value;
+            this.totals = totalsCopy;
+        }
+    }
+
     renderFooter() {
-        if (!this.hasTotals()) {
+        if (!this.showFooter && !this.hasTotals()) {
             // no footer
             return null;
         }
@@ -3309,16 +3396,6 @@ export class KupDataTable {
         }
 
         let groupingCell = null;
-        // if (this.isGrouping() && this.hasTotals()) {
-        //     extraCells++;
-        //     const fixedCellStyle = this.composeFixedCellStyleAndClass(
-        //         extraCells,
-        //         0,
-        //         extraCells
-        //     );
-        //     groupingCell = <td class={fixedCellStyle ? fixedCellStyle.fixedCellClasses : null}
-        //                             style={fixedCellStyle ? fixedCellStyle.fixedCellStyle : null}/>;
-        // }
 
         const footerCells = this.getVisibleColumns().map(
             (column: Column, columnIndex) => {
@@ -3341,6 +3418,7 @@ export class KupDataTable {
                                 : null
                         }
                     >
+                        {this.renderTotalsComboBox(column)}
                         {numberToFormattedStringNumber(
                             this.footer[column.name],
                             column.decimals,
