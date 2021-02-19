@@ -18,3 +18,33 @@
     background-color: rgba(var(--kup-danger-color-rgb), 0.25);
   }
 }
+
+#remove-column-area {
+  background: var(--kup-danger-color);
+  border-radius: 4px;
+  display: none;
+  height: 32px;
+  &.visible {
+    display: block;
+  }
+  .f-image--wrapper {
+    width: 100%;
+    position: absolute;
+    &:first-of-type {
+      opacity: 1;
+    }
+    &:last-of-type {
+      opacity: 0;
+    }
+  }
+  &[drag-over] {
+    .f-image--wrapper {
+      &:first-of-type {
+        opacity: 0;
+      }
+      &:last-of-type {
+        opacity: 1;
+      }
+    }
+  }
+}
