@@ -137,7 +137,6 @@ export function logRender(comp: any, didRender: boolean) {
     }
 }
 
-/*
 //
 // Utility to test CSS selectors performances.
 //
@@ -148,6 +147,7 @@ export function logRender(comp: any, didRender: boolean) {
 //
 // Note: detailedLog will inflate time because of console.logs, useful to check individual entries only.
 //
+/*
 function logCSS(selector, detailedLog) {
     let element = document.querySelector(selector);
     const shadowCSS = element.shadowRoot.adoptedStyleSheets[0].rules;
@@ -263,60 +263,59 @@ function logEvents(selector, detailedLog) {
         '%cTask finished succesfully.',
         'font-size:16px;color:white;background-color:green;'
     );
-}
 
-function recursiveShadowRoot(elements, detailedLog) {
-    let count = 0;
-    for (let i = 0; i < elements.length; i++) {
-        let events;
-        try {
-            events = getEventListeners(elements[i]);
-        } catch (error) {
-            console.error(
-                'This script can only be executed inside Chrome Dev tools!'
-            );
-        }
-        let scopedCount = 0;
-        for (var key in events) {
-            if (events.hasOwnProperty(key)) {
-                count++;
-                scopedCount++;
-            }
-        }
-        if (scopedCount > 0) {
-            if (scopedCount > 1) {
-                if (detailedLog) {
-                    console.log(
-                        'Element: ',
-                        elements[i],
-                        scopedCount.toString() + ' events: ',
-                        events
-                    );
-                }
-            } else {
-                if (detailedLog) {
-                    console.log(
-                        'Element: ',
-                        elements[i],
-                        scopedCount.toString() + ' event: ',
-                        events
-                    );
-                }
-            }
-        }
-        if (elements[i].shadowRoot) {
-            if (detailedLog) {
-                console.log(
-                    '%cNested shadowRoot detected - element: ',
-                    'font-size:12px;color:#b500d6;',
-                    elements[i]
+    function recursiveShadowRoot(elements, detailedLog) {
+        let count = 0;
+        for (let i = 0; i < elements.length; i++) {
+            let events;
+            try {
+                events = getEventListeners(elements[i]);
+            } catch (error) {
+                console.error(
+                    'This script can only be executed inside Chrome Dev tools!'
                 );
             }
-            let ELEMENTS = elements[i].shadowRoot.querySelectorAll('*');
-            count = count + recursiveShadowRoot(ELEMENTS, detailedLog);
+            let scopedCount = 0;
+            for (var key in events) {
+                if (events.hasOwnProperty(key)) {
+                    count++;
+                    scopedCount++;
+                }
+            }
+            if (scopedCount > 0) {
+                if (scopedCount > 1) {
+                    if (detailedLog) {
+                        console.log(
+                            'Element: ',
+                            elements[i],
+                            scopedCount.toString() + ' events: ',
+                            events
+                        );
+                    }
+                } else {
+                    if (detailedLog) {
+                        console.log(
+                            'Element: ',
+                            elements[i],
+                            scopedCount.toString() + ' event: ',
+                            events
+                        );
+                    }
+                }
+            }
+            if (elements[i].shadowRoot) {
+                if (detailedLog) {
+                    console.log(
+                        '%cNested shadowRoot detected - element: ',
+                        'font-size:12px;color:#b500d6;',
+                        elements[i]
+                    );
+                }
+                let ELEMENTS = elements[i].shadowRoot.querySelectorAll('*');
+                count = count + recursiveShadowRoot(ELEMENTS, detailedLog);
+            }
         }
+        return count;
     }
-    return count;
 }
-
 */
