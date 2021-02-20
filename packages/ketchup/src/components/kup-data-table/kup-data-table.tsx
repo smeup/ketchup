@@ -38,7 +38,6 @@ import {
     TotalsMap,
     GenericFilter,
     FilterInterval,
-    CSSArray,
     TotalMode,
 } from './kup-data-table-declarations';
 
@@ -107,12 +106,7 @@ import {
     ComponentListElement,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
-import {
-    logCSS,
-    logLoad,
-    logMessage,
-    logRender,
-} from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 import { KupDataTableState } from './kup-data-table-state';
@@ -779,11 +773,6 @@ export class KupDataTable {
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
-    }
-
-    @Method()
-    async performanceCSS(detailedLog: boolean) {
-        logCSS(this, CSSArray, detailedLog);
     }
 
     onKupDataTableDblClick(obj: { t: string; p: string; k: string }) {

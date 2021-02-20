@@ -155,56 +155,106 @@ export function logRender(comp: any, didRender: boolean) : void {
 
 //
 // Utility to test CSS selectors performances.
-// Detailed log will inflate time because of console.logs, useful to check individual entries only.
 //
-export function logCSS(
-    comp: any,
-    selectors: Array<string>,
-    detailedLog?: boolean
-) {
+// Copy/paste the code below inside Google Chrome Dev Tools console, then run logCSS() with the following arguments:
+//
+// 1) String - CSS selector of your Ketch.UP component, for example "kup-data-table#my-table"
+// 2) Boolean - Whether you want a detailed log or not
+//
+// Note: detailedLog will inflate time because of console.logs, useful to check individual entries only.
+//
+/*
+function logCSS(selector, detailedLog) {
+    let element = document.querySelector(selector);
+    const shadowCSS = element.shadowRoot.adoptedStyleSheets[0].rules;
+    let CSSArray = [];
+    for (let index = 0; index < shadowCSS.length; index++) {
+        const cssRule = shadowCSS[index].cssText;
+        if (cssRule.indexOf('@') < 0) {
+            let selectorEnd = shadowCSS[index].cssText.indexOf('{');
+            CSSArray.push(cssRule.substr(0, selectorEnd));
+        }
+    }
+
+    let redObj = {};
+    let orangeObj = {};
+    let yellowObj = {};
+    let greenObj = {};
     let start = window.performance.now();
-    for (let index = 0; index < selectors.length; index++) {
+    for (let index = 0; index < CSSArray.length; index++) {
         let s = window.performance.now();
-        let q = comp.rootElement.shadowRoot.querySelectorAll(selectors[index]);
+        let q = element.shadowRoot.querySelectorAll(CSSArray[index]);
         let e = window.performance.now();
         if (detailedLog) {
             let t = e - s;
-            let color = 'color:';
-            if (t > 3) {
-                color += 'red';
+            if (t > 10) {
+                redObj[index] = {
+                    selector: CSSArray[index],
+                    time: t,
+                    occurences: q.length,
+                };
+            } else if (t > 5) {
+                orangeObj[index] = {
+                    selector: CSSArray[index],
+                    time: t,
+                    occurences: q.length,
+                };
             } else if (t > 2) {
-                color += 'orange';
-            } else if (t > 1) {
-                color += 'yellow';
+                yellowObj[index] = {
+                    selector: CSSArray[index],
+                    time: t,
+                    occurences: q.length,
+                };
             } else {
-                color += 'white';
+                greenObj[index] = {
+                    selector: CSSArray[index],
+                    time: t,
+                    occurences: q.length,
+                };
             }
-            console.log(
-                '%c' +
-                    selectors[index] +
-                    ': ' +
-                    t +
-                    'ms.' +
-                    '[' +
-                    q.length +
-                    ' elements]',
-                color
-            );
         }
+    }
+    if (detailedLog) {
+        console.groupCollapsed(
+            '%c  %c' + 'Very slow ' + '(' + Object.keys(redObj).length + ')',
+            'background-color: red; margin-right: 10px; border-radius: 50%',
+            'background-color: transparent'
+        );
+        console.table(redObj);
+        console.groupEnd();
+        console.groupCollapsed(
+            '%c  %c' + 'Slow ' + '(' + Object.keys(orangeObj).length + ')',
+            'background-color: orange; margin-right: 10px; border-radius: 50%',
+            'background-color: transparent'
+        );
+        console.table(orangeObj);
+        console.groupEnd();
+        console.groupCollapsed(
+            '%c  %c' + 'Average ' + '(' + Object.keys(yellowObj).length + ')',
+            'background-color: yellow; margin-right: 10px; border-radius: 50%',
+            'background-color: transparent'
+        );
+        console.table(yellowObj);
+        console.groupEnd();
+        console.groupCollapsed(
+            '%c  %c' + 'Fast ' + '(' + Object.keys(greenObj).length + ')',
+            'background-color: green; margin-right: 10px; border-radius: 50%',
+            'background-color: transparent'
+        );
+        console.table(greenObj);
+        console.groupEnd();
     }
     let end = window.performance.now();
     console.log('Total time estimated: ' + (end - start) + 'ms.');
 }
-/*
 //
 // Check how many event listeners are defined on a Ketch.UP component and its children.
-// 
+//
 // Copy/paste the code below inside Google Chrome Dev Tools console, then run logEvents() with the following arguments:
 //
 // 1) String - CSS selector of your Ketch.UP component, for example "kup-data-table#my-table"
 // 2) Boolean - Whether you want a detailed log or not
 //
-
 function logEvents(selector, detailedLog) {
     let element = document.querySelector(selector);
     let children;
@@ -229,60 +279,59 @@ function logEvents(selector, detailedLog) {
         '%cTask finished succesfully.',
         'font-size:16px;color:white;background-color:green;'
     );
-}
 
-function recursiveShadowRoot(elements, detailedLog) {
-    let count = 0;
-    for (let i = 0; i < elements.length; i++) {
-        let events;
-        try {
-            events = getEventListeners(elements[i]);
-        } catch (error) {
-            console.error(
-                'This script can only be executed inside Chrome Dev tools!'
-            );
-        }
-        let scopedCount = 0;
-        for (var key in events) {
-            if (events.hasOwnProperty(key)) {
-                count++;
-                scopedCount++;
-            }
-        }
-        if (scopedCount > 0) {
-            if (scopedCount > 1) {
-                if (detailedLog) {
-                    console.log(
-                        'Element: ',
-                        elements[i],
-                        scopedCount.toString() + ' events: ',
-                        events
-                    );
-                }
-            } else {
-                if (detailedLog) {
-                    console.log(
-                        'Element: ',
-                        elements[i],
-                        scopedCount.toString() + ' event: ',
-                        events
-                    );
-                }
-            }
-        }
-        if (elements[i].shadowRoot) {
-            if (detailedLog) {
-                console.log(
-                    '%cNested shadowRoot detected - element: ',
-                    'font-size:12px;color:#b500d6;',
-                    elements[i]
+    function recursiveShadowRoot(elements, detailedLog) {
+        let count = 0;
+        for (let i = 0; i < elements.length; i++) {
+            let events;
+            try {
+                events = getEventListeners(elements[i]);
+            } catch (error) {
+                console.error(
+                    'This script can only be executed inside Chrome Dev tools!'
                 );
             }
-            let ELEMENTS = elements[i].shadowRoot.querySelectorAll('*');
-            count = count + recursiveShadowRoot(ELEMENTS, detailedLog);
+            let scopedCount = 0;
+            for (var key in events) {
+                if (events.hasOwnProperty(key)) {
+                    count++;
+                    scopedCount++;
+                }
+            }
+            if (scopedCount > 0) {
+                if (scopedCount > 1) {
+                    if (detailedLog) {
+                        console.log(
+                            'Element: ',
+                            elements[i],
+                            scopedCount.toString() + ' events: ',
+                            events
+                        );
+                    }
+                } else {
+                    if (detailedLog) {
+                        console.log(
+                            'Element: ',
+                            elements[i],
+                            scopedCount.toString() + ' event: ',
+                            events
+                        );
+                    }
+                }
+            }
+            if (elements[i].shadowRoot) {
+                if (detailedLog) {
+                    console.log(
+                        '%cNested shadowRoot detected - element: ',
+                        'font-size:12px;color:#b500d6;',
+                        elements[i]
+                    );
+                }
+                let ELEMENTS = elements[i].shadowRoot.querySelectorAll('*');
+                count = count + recursiveShadowRoot(ELEMENTS, detailedLog);
+            }
         }
+        return count;
     }
-    return count;
 }
-
 */
