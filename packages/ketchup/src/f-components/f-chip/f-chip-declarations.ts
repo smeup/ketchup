@@ -21,7 +21,8 @@ export interface FChipData {
     checked: boolean;
 }
 /**
- * Chip types.
+ * Types of the f-chip component.
+ * @enum {string}
  * @property {string} CHOICE - Only 1 chip may be selected at a time.
  * @property {string} FILTER - Multiple chips may be selected at a time.
  * @property {string} INPUT - Chips can be deleted by clicking on the rightmost icon.

@@ -18,9 +18,6 @@
         background-color: var(--kup-border-color);
         border-color: var(--kup-border-color);
       }
-      &:not(.mdc-switch--checked) .mdc-switch__track {
-        background-color: rgba(var(--kup-border-color-rgb), 0.75);
-      }
       &.mdc-switch--disabled {
         opacity: 0.5;
       }

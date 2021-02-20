@@ -5,8 +5,14 @@ declare global {
 }
 
 const dom = document.documentElement;
-
-export function logMessage(comp: any, message: string, type?: string) {
+/**
+ * Displays a timestamped message in the browser's console.
+ *
+ * @param comp - The component calling this function or a string.
+ * @param message - The actual message that will be printed.
+ * @param type - The type of console message, defaults to "log" but "warning" and "error" can be used as well.
+ */
+export function logMessage(comp: any, message: string, type?: string) : void {
     if ((!type || type === 'log') && !document.documentElement['kupDebug']) {
         return;
     }
@@ -96,8 +102,13 @@ export function logMessage(comp: any, message: string, type?: string) {
             break;
     }
 }
-
-export function logLoad(comp: any, didLoad: boolean) {
+/**
+ * Function used to time the loading times of a component.
+ *
+ * @param comp - The component calling this function or a string.
+ * @param didLoad - Must be set to false when called inside a componentWillLoad() lifecycle hook and true when called inside componentDidLoad().
+ */
+export function logLoad(comp: any, didLoad: boolean) : void {
     if (!didLoad) {
         comp['debugInfo'] = {
             startTime: window.performance.now(),
@@ -115,8 +126,13 @@ export function logLoad(comp: any, didLoad: boolean) {
         }
     }
 }
-
-export function logRender(comp: any, didRender: boolean) {
+/**
+ * Function used to time the render times of a component.
+ *
+ * @param comp - The component calling this function or a string.
+ * @param didRender - Must be set to false when called inside a componentWillRender() lifecycle hook and true when called inside componentDidRender().
+ */
+export function logRender(comp: any, didRender: boolean) : void {
     if (!didRender) {
         comp.debugInfo.renderCount++;
         comp.debugInfo.renderStart = window.performance.now();

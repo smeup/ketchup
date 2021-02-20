@@ -15,7 +15,8 @@ export interface FButtonProps {
     trailingIcon?: boolean;
 }
 /**
- * Styling prop of the button component.
+ * Styling options for the f-button component.
+ * @enum {string}
  * @property {string} FLAT - Flat style: no background nor borders.
  * @property {string} OUTLINED - Outlined style: no background with border.
  * @property {string} RAISED - Raised style: no border with solid background.
