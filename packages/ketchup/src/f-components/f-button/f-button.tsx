@@ -7,13 +7,18 @@ import { FImage } from '../f-image/f-image';
 export const FButton: FunctionalComponent<FButtonProps> = (
     props: FButtonProps
 ) => {
+    if (!props.styling) {
+        props.styling === FButtonStyling.RAISED;
+    }
     return (
         <div
             class={`f-button--wrapper ${
                 props.fullHeight ? 'full-height' : ''
             } ${props.fullWidth ? 'full-width' : ''} ${
                 props.shaped ? 'shaped' : ''
-            }`}
+            } ${props.wrapperClass ? props.wrapperClass : ''}`}
+            id={props.id}
+            title={props.title}
         >
             {props.label ? renderButton(props) : renderIconButton(props)}
         </div>
@@ -23,11 +28,13 @@ export const FButton: FunctionalComponent<FButtonProps> = (
 //---- Methods ----
 
 function renderButton(props: FButtonProps): HTMLButtonElement {
+    const isFlat = props.styling.toLowerCase() === FButtonStyling.FLAT;
+    const isOutlined = props.styling.toLowerCase() === FButtonStyling.OUTLINED;
+
     const propsFImage = {
         color: props.disabled
             ? 'var(--kup-disabled-color)'
-            : props.styling.toLowerCase() === 'outlined' ||
-              props.styling.toLowerCase() === 'flat'
+            : isOutlined || isFlat
             ? 'var(--kup-primary-color)'
             : 'var(--kup-text-on-primary-color)',
         resource: props.icon,
@@ -38,15 +45,8 @@ function renderButton(props: FButtonProps): HTMLButtonElement {
     const classObj: Record<string, boolean> = {
         'mdc-button': true,
         'mdc-button--disabled': props.disabled ? true : false,
-        'mdc-button--outlined':
-            props.styling.toLowerCase() === FButtonStyling.OUTLINED
-                ? true
-                : false,
-        'mdc-button--raised':
-            props.styling.toLowerCase() !== FButtonStyling.FLAT &&
-            props.styling.toLowerCase() !== FButtonStyling.OUTLINED
-                ? true
-                : false,
+        'mdc-button--outlined': isOutlined ? true : false,
+        'mdc-button--raised': !isFlat && !isOutlined ? true : false,
     };
 
     return (

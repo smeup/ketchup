@@ -207,8 +207,8 @@ graph TD;
   kup-image --> kup-badge
   kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
-  kup-paginator --> kup-button
   kup-paginator --> kup-combobox
+  kup-paginator --> kup-badge
   kup-combobox --> kup-list
   kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px

@@ -48,9 +48,11 @@ export const FImage: FunctionalComponent<FImageProps> = (
 
     return (
         <div
-            style={style}
+            class={`f-image--wrapper ${
+                props.wrapperClass ? props.wrapperClass : ''
+            }`}
             id={props.id}
-            class={`f-image--wrapper ${props.wrapperClass}`}
+            style={style}
             title={props.title}
         >
             {el}

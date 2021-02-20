@@ -1,7 +1,9 @@
+import { FComponent } from '../../types/GenericTypes';
+
 /**
  * Props of the f-text-field component.
  */
-export interface FTextFieldProps {
+export interface FTextFieldProps extends FComponent {
     disabled?: boolean;
     fullHeight?: boolean;
     fullWidth?: boolean;

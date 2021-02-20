@@ -1,7 +1,9 @@
+import { FComponent } from '../../types/GenericTypes';
+
 /**
  * Props of the f-button component.
  */
-export interface FButtonProps {
+export interface FButtonProps extends FComponent {
     checked?: boolean;
     disabled?: boolean;
     fullHeight?: boolean;

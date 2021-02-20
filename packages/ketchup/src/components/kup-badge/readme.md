@@ -43,6 +43,7 @@ Type: `Promise<void>`
  - [kup-chip](../kup-chip)
  - [kup-data-table](../kup-data-table)
  - [kup-image](../kup-image)
+ - [kup-paginator](../kup-paginator)
 
 ### Depends on
 
@@ -58,6 +59,7 @@ graph TD;
   kup-chip --> kup-badge
   kup-data-table --> kup-badge
   kup-image --> kup-badge
+  kup-paginator --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

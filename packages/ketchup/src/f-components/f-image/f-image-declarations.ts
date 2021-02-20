@@ -1,17 +1,15 @@
+import { FComponent } from '../../types/GenericTypes';
 import { KupBadge } from '../../components/kup-badge/kup-badge';
 /**
  * Props of the f-image component.
  */
-export interface FImageProps {
+export interface FImageProps extends FComponent {
     badgeData?: KupBadge[];
     color?: string;
     data?: FImageData[];
-    id?: string;
     resource?: string;
     sizeX?: string;
     sizeY?: string;
-    title?: string;
-    wrapperClass?: string;
 }
 /**
  * The object of a single step of CSS when the f-image is in CSS-drawing mode.

@@ -12,7 +12,9 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
                 props.fullHeight ? 'full-height' : ''
             } ${props.fullWidth ? 'full-width' : ''} ${
                 props.shaped ? 'shaped' : ''
-            }`}
+            } ${props.wrapperClass ? props.wrapperClass : ''}`}
+            id={props.id}
+            title={props.title}
         >
             {props.leadingLabel || props.trailingLabel ? (
                 <div

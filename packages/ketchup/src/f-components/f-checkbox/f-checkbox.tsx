@@ -19,7 +19,13 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
     };
 
     return (
-        <div class="f-checkbox--wrapper">
+        <div
+            class={`f-checkbox--wrapper ${
+                props.wrapperClass ? props.wrapperClass : ''
+            }`}
+            id={props.id}
+            title={props.title}
+        >
             <div
                 class={`mdc-form-field ${
                     props.leadingLabel ? 'mdc-form-field--align-end' : ''

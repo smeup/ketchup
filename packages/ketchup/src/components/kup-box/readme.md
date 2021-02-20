@@ -140,8 +140,8 @@ graph TD;
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
-  kup-paginator --> kup-button
   kup-paginator --> kup-combobox
+  kup-paginator --> kup-badge
   style kup-box fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

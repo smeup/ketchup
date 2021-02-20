@@ -13,7 +13,13 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
     };
 
     return (
-        <div class="f-switch--wrapper">
+        <div
+            class={`f-switch--wrapper ${
+                props.wrapperClass ? props.wrapperClass : ''
+            }`}
+            id={props.id}
+            title={props.title}
+        >
             <div
                 class={`mdc-form-field ${
                     props.leadingLabel ? 'mdc-form-field--align-end' : ''

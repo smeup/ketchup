@@ -1,9 +1,10 @@
+import { FComponent } from '../../types/GenericTypes';
+
 /**
  * Props of the f-chip component.
  */
-export interface FChipsProps {
+export interface FChipsProps extends FComponent {
     data?: FChipData[];
-    id?: string;
     type?: FChipType;
 }
 

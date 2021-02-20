@@ -5,6 +5,10 @@ import { FImage } from '../f-image/f-image';
 //---- Component ----
 
 export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
+    if (!props.type) {
+        props.type === FChipType.STANDARD;
+    }
+
     const isChoice = props.type.toLowerCase() === FChipType.CHOICE;
     const isFilter = props.type.toLowerCase() === FChipType.FILTER;
     const isInput = props.type.toLowerCase() === FChipType.INPUT;
@@ -16,7 +20,13 @@ export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
     };
 
     return (
-        <div id={props.id} class="f-chip--wrapper">
+        <div
+            class={`f-chip--wrapper ${
+                props.wrapperClass ? props.wrapperClass : ''
+            }`}
+            id={props.id}
+            title={props.title}
+        >
             <div class={classObj} role="grid">
                 {createChipList(props, isChoice, isFilter, isInput)}
             </div>

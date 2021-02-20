@@ -5,3 +5,11 @@ export interface GenericObject {
 export interface Identifiable {
     id?: string;
 }
+/**
+ * Props in common with every f-component.
+ */
+export interface FComponent {
+    id?: string;
+    title?: string;
+    wrapperClass?: string;
+}
