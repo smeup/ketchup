@@ -11,6 +11,7 @@ import {
     Method,
     Watch,
 } from '@stencil/core';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { positionRecalc } from '../../utils/recalc-position';
@@ -543,7 +544,7 @@ export class KupDatePicker {
                         <kup-button
                             customStyle="#kup-component button {text-transform:capitalize}"
                             id="change-view-button"
-                            styling="flat"
+                            styling={FButtonStyling.FLAT}
                             label={changeViewButtonLabel}
                             onKupButtonClick={(e) => this.changeView(e)}
                         ></kup-button>

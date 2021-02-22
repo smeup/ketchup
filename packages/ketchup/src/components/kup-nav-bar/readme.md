@@ -47,6 +47,8 @@ graph TD;
   kup-nav-bar --> kup-button
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-button --> kup-badge
+  kup-badge --> kup-badge
   style kup-nav-bar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

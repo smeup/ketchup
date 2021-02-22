@@ -169,6 +169,7 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-badge
+  kup-button --> kup-badge
   kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
   kup-tooltip --> kup-tree

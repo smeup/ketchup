@@ -125,16 +125,6 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 
 
 
-### `performanceCSS(detailedLog: boolean) => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 ### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
 
 
@@ -193,6 +183,8 @@ graph TD;
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
+  kup-button --> kup-badge
+  kup-badge --> kup-badge
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-date-picker --> kup-text-field
@@ -213,11 +205,10 @@ graph TD;
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-badge --> kup-badge
   kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
-  kup-paginator --> kup-button
   kup-paginator --> kup-combobox
+  kup-paginator --> kup-badge
   kup-combobox --> kup-list
   kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px

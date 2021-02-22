@@ -38,7 +38,6 @@ import {
     TotalsMap,
     GenericFilter,
     FilterInterval,
-    CSSArray,
     TotalMode,
 } from './kup-data-table-declarations';
 
@@ -102,18 +101,12 @@ import {
     ISO_DEFAULT_DATE_FORMAT,
     changeDateTimeFormat,
 } from '../../utils/utils';
-import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 
 import {
     ComponentListElement,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
-import {
-    logCSS,
-    logLoad,
-    logMessage,
-    logRender,
-} from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 import { KupDataTableState } from './kup-data-table-state';
@@ -140,6 +133,14 @@ import { FImage } from '../../f-components/f-image/f-image';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import {
+    FChipData,
+    FChipType,
+} from '../../f-components/f-chip/f-chip-declarations';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import { FButton } from '../../f-components/f-button/f-button';
+import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
+import { Mouse } from 'puppeteer';
 
 @Component({
     tag: 'kup-data-table',
@@ -777,11 +778,6 @@ export class KupDataTable {
         this.customStyleTheme = customStyleTheme;
     }
 
-    @Method()
-    async performanceCSS(detailedLog: boolean) {
-        logCSS(this, CSSArray, detailedLog);
-    }
-
     onKupDataTableDblClick(obj: { t: string; p: string; k: string }) {
         this.kupDataTableDblClick.emit({
             obj: obj,
@@ -1035,14 +1031,54 @@ export class KupDataTable {
         const root: ShadowRoot = this.rootElement.shadowRoot;
 
         if (root) {
-            const groupChip: HTMLElement = root.querySelector(
-                '#group-chips .f-chip--wrapper'
+            //Column menu button: add group
+            const columnMenuGroup: HTMLElement = root.querySelector(
+                '.column-menu .f-button--wrapper.group'
             );
-            const globalFilter: HTMLElement = root.querySelector(
-                '#global-filter .f-text-field--wrapper'
+            if (columnMenuGroup) {
+                const buttonEl: HTMLButtonElement = columnMenuGroup.querySelector(
+                    'button'
+                );
+                if (buttonEl) {
+                    buttonEl.onclick = (e: MouseEvent) =>
+                        this.switchColumnGroup(e.target);
+                }
+                FButtonMDC(columnMenuGroup);
+            }
+            //Column menu button: add column
+            const columnMenuAdd: HTMLElement = root.querySelector(
+                '.column-menu .f-button--wrapper.add'
+            );
+            if (columnMenuAdd) {
+                const buttonEl: HTMLButtonElement = columnMenuAdd.querySelector(
+                    'button'
+                );
+                if (buttonEl) {
+                    buttonEl.onclick = (e: MouseEvent) =>
+                        this.addColumn(e.target);
+                }
+                FButtonMDC(columnMenuAdd);
+            }
+            //Column menu button: add code/description
+            const columnMenuDescription: HTMLElement = root.querySelector(
+                '.column-menu .f-button--wrapper.description'
+            );
+            if (columnMenuDescription) {
+                const buttonEl: HTMLButtonElement = columnMenuDescription.querySelector(
+                    'button'
+                );
+                if (buttonEl) {
+                    buttonEl.onclick = (e: MouseEvent) =>
+                        this.onAddCodeDecodeColumnClick(e);
+                }
+                FButtonMDC(columnMenuDescription);
+            }
+            //Groups chip set
+            const groupChip: HTMLElement = root.querySelector(
+                '#group-chips.f-chip--wrapper'
             );
             if (groupChip) {
-                const chips: NodeListOf<HTMLElement> = root.querySelectorAll(
+                const chips: NodeListOf<HTMLElement> = groupChip.querySelectorAll(
                     '.mdc-chip'
                 );
                 for (let index = 0; index < chips.length; index++) {
@@ -1055,6 +1091,10 @@ export class KupDataTable {
                 }
                 FChipMDC(groupChip);
             }
+            //Global filter text field
+            const globalFilter: HTMLElement = root.querySelector(
+                '#global-filter .f-text-field--wrapper'
+            );
             if (globalFilter) {
                 const globalFilterInput: HTMLInputElement = globalFilter.querySelector(
                     'input'
@@ -2035,10 +2075,16 @@ export class KupDataTable {
         return canHaveDerivedColumn(column.obj);
     }
 
-    private onAddCodeDecodeColumnClick(e: Event, column: Column) {
+    private onAddCodeDecodeColumnClick(e: Event, column?: Column) {
         e.stopPropagation();
+        let columnName: string;
+        if (!column) {
+            columnName = (e.target as HTMLElement).closest('th').dataset.column;
+        } else {
+            columnName = column.name;
+        }
         this.kupAddCodeDecodeColumn.emit({
-            column: column.name,
+            column: columnName,
         });
         this.closeMenuAndTooltip();
     }
@@ -2073,7 +2119,17 @@ export class KupDataTable {
         }
     }
 
-    private switchColumnGroup(group: GroupObject, column: string) {
+    private addColumn(el: EventTarget) {
+        const column: string = (el as HTMLElement).closest('th').dataset.column;
+        this.kupAddColumn.emit({
+            column: column,
+        });
+        this.closeMenuAndTooltip();
+    }
+
+    private switchColumnGroup(el: EventTarget): void {
+        const column: string = (el as HTMLElement).closest('th').dataset.column;
+        const group: GroupObject = this.getGroupByName(column);
         // resetting opened menu
         this.closeMenuAndTooltip();
 
@@ -2898,11 +2954,6 @@ export class KupDataTable {
                     const columnMenuItems: JSX.Element[] = [];
                     let checkboxWrapper: JSX.Element[] = [];
 
-                    //---- adding grouping ----
-                    const group = this.getGroupByName(column.name);
-                    const groupLabel =
-                        group != null ? 'Disable grouping' : 'Enable grouping';
-
                     let actionHideCol = null;
                     if (this.removableColumns) {
                         actionHideCol = (
@@ -2918,30 +2969,25 @@ export class KupDataTable {
                     }
                     columnMenuItems.push(
                         <li role="menuitem" class="button-row">
-                            <kup-button
+                            <FButton
                                 icon="book"
-                                title={groupLabel}
-                                onKupButtonClick={() =>
-                                    this.switchColumnGroup(group, column.name)
+                                title={
+                                    this.getGroupByName(column.name) != null
+                                        ? 'Disable grouping'
+                                        : 'Enable grouping'
                                 }
+                                wrapperClass="group"
                             />
-                            <kup-button
+                            <FButton
                                 icon="table-column-plus-after"
                                 title="Add column"
-                                onKupButtonClick={() => {
-                                    this.kupAddColumn.emit({
-                                        column: column.name,
-                                    });
-                                    this.closeMenuAndTooltip();
-                                }}
+                                wrapperClass="add"
                             />
                             {actionHideCol}
-                            <kup-button
-                                icon="extension"
-                                title="Add code/decode column"
-                                onKupButtonClick={(e) => {
-                                    this.onAddCodeDecodeColumnClick(e, column);
-                                }}
+                            <FButton
+                                icon="label"
+                                title="Add code/description column"
+                                wrapperClass="description"
                             />
                         </li>
                     );
@@ -4328,7 +4374,7 @@ export class KupDataTable {
     private renderLoadMoreButton(isSlotted: boolean = true) {
         return (
             <kup-button
-                styling="flat"
+                styling={FButtonStyling.FLAT}
                 class="load-more-button"
                 label="Show more data"
                 icon="plus"
@@ -4469,7 +4515,7 @@ export class KupDataTable {
         };
         return (
             <kup-button
-                styling="outlined"
+                styling={FButtonStyling.OUTLINED}
                 label="DROP COLUMN HERE TO REMOVE"
                 icon="delete"
                 class="trash-drop-cols"
@@ -4821,7 +4867,7 @@ export class KupDataTable {
                 const column = getColumnByName(this.getColumns(), group.column);
 
                 if (column) {
-                    let a: ComponentChipElement = {
+                    let a: FChipData = {
                         label: column.title,
                         value: column.name,
                         checked: true,
@@ -4835,7 +4881,7 @@ export class KupDataTable {
                 let props = {
                     data: chipsData,
                     id: 'group-chips',
-                    type: 'input',
+                    type: FChipType.INPUT,
                 };
                 groupChips = <FChip {...props}></FChip>;
             }
