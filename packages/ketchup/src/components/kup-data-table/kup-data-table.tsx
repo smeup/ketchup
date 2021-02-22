@@ -106,6 +106,9 @@ import {
     stringToNumber,
     numberToFormattedStringNumber,
     identify,
+    changeDateTimeFormat,
+    ISO_DEFAULT_DATE_TIME_FORMAT,
+    ISO_DEFAULT_DATE_FORMAT,
 } from '../../utils/utils';
 import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 
@@ -1142,7 +1145,6 @@ export class KupDataTable {
     }
 
     private _setTooltip(event: MouseEvent, cell: Cell) {
-        this.closeMenu();
         setTooltip(event, cell, this.tooltip);
     }
 
@@ -1223,8 +1225,10 @@ export class KupDataTable {
         return null;
     }
 
-    private getColumnValues(column: Column): Array<string> {
-        let values = [];
+    private getColumnValues(
+        column: Column
+    ): { value: string; displayedValue: string }[] {
+        let values: { value: string; displayedValue: string }[] = new Array();
 
         let value = this.getTextFieldFilterValue(column.name);
         let interval = this.getIntervalTextFieldFilterValues(column);
@@ -1232,12 +1236,10 @@ export class KupDataTable {
             column.valuesForFilter != null &&
             column.valuesForFilter.length > 0
         ) {
-            if (value == '') {
-                return column.valuesForFilter;
-            }
-            for (let i = 0; i < column.valuesForFilter.length; i++) {
-                let v = column.valuesForFilter[i];
+            column.valuesForFilter.forEach((element) => {
+                let v = element;
                 if (
+                    value == '' ||
                     isFilterCompliantForSimpleValue(
                         v,
                         column.obj,
@@ -1245,9 +1247,16 @@ export class KupDataTable {
                         interval
                     )
                 ) {
-                    values.push(v);
+                    values.push({
+                        value: v,
+                        displayedValue: getValueForDisplay(
+                            v,
+                            column.obj,
+                            column.decimals
+                        ),
+                    });
                 }
-            }
+            });
             return values;
         }
 
@@ -1292,17 +1301,35 @@ export class KupDataTable {
     }
 
     private addColumnValueFromRow(
-        values: Array<string>,
+        values: { value: string; displayedValue: string }[],
         column: Column,
         row: Row
     ) {
         const cell = row.cells[column.name];
         if (cell) {
-            let formattedValue: string = getCellValueForDisplay(column, cell);
-            if (values.indexOf(formattedValue) < 0) {
-                values[values.length] = formattedValue;
+            let item: { value: string; displayedValue: string } = {
+                value: cell.value,
+                displayedValue: getCellValueForDisplay(column, cell),
+            };
+            if (!this.columnValuesContainsValue(values, item)) {
+                values.push(item);
             }
         }
+    }
+
+    private columnValuesContainsValue(
+        values: { value: string; displayedValue: string }[],
+        value: { value: string; displayedValue: string }
+    ): boolean {
+        if (values == null || values.length < 1) {
+            return false;
+        }
+        for (let i = 0; i < values.length; i++) {
+            if (values[i].value == value.value) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private getRows(): Array<Row> {
@@ -2299,7 +2326,6 @@ export class KupDataTable {
         let textFieldData = {};
         textFieldData['fullWidth'] = true;
         textFieldData['isClearable'] = true;
-        textFieldData['label'] = 'Search...';
         textFieldData['helperWhenFocused'] = true;
 
         let interval = this.getIntervalTextFieldFilterValues(column);
@@ -2308,7 +2334,7 @@ export class KupDataTable {
 
         let comps = [];
         if (isNumber(column.obj)) {
-            textFieldData['helper'] = 'From...';
+            textFieldData['label'] = 'Search from...';
             comps.push(
                 <kup-text-field
                     {...textFieldData}
@@ -2340,7 +2366,7 @@ export class KupDataTable {
                 ></kup-text-field>
             );
 
-            textFieldData['helper'] = 'To...';
+            textFieldData['label'] = 'Search to...';
             comps.push(
                 <kup-text-field
                     {...textFieldData}
@@ -2372,7 +2398,7 @@ export class KupDataTable {
                 ></kup-text-field>
             );
         } else if (isTime(column.obj)) {
-            textFieldData['helper'] = 'From...';
+            textFieldData['label'] = 'Search from...';
             let data = { 'kup-text-field': { ...textFieldData } };
             comps.push(
                 <kup-time-picker
@@ -2418,7 +2444,7 @@ export class KupDataTable {
                     }}
                 ></kup-time-picker>
             );
-            textFieldData['helper'] = 'To...';
+            textFieldData['label'] = 'Search to...';
             data = { 'kup-text-field': { ...textFieldData } };
             comps.push(
                 <kup-time-picker
@@ -2465,8 +2491,27 @@ export class KupDataTable {
                 ></kup-time-picker>
             );
         } else if (isDate(column.obj) || isTimestamp(column.obj)) {
-            textFieldData['helper'] = 'From...';
-            let suffix = isTimestamp(column.obj) ? ' 00:00:00' : null;
+            let suffixFrom = null;
+            let suffixTo = null;
+            if (isTimestamp(column.obj)) {
+                suffixFrom = ' 00:00:00';
+                suffixTo = ' 23:59:59';
+                if (initialValueFrom != '') {
+                    initialValueFrom = changeDateTimeFormat(
+                        initialValueFrom,
+                        ISO_DEFAULT_DATE_TIME_FORMAT,
+                        ISO_DEFAULT_DATE_FORMAT
+                    );
+                }
+                if (initialValueTo != '') {
+                    initialValueTo = changeDateTimeFormat(
+                        initialValueTo,
+                        ISO_DEFAULT_DATE_TIME_FORMAT,
+                        ISO_DEFAULT_DATE_FORMAT
+                    );
+                }
+            }
+            textFieldData['label'] = 'Search from...';
             let data = { 'kup-text-field': { ...textFieldData } };
             comps.push(
                 <kup-date-picker
@@ -2481,7 +2526,7 @@ export class KupDataTable {
                                     column,
                                     FilterInterval.FROM,
                                     false,
-                                    suffix
+                                    suffixFrom
                                 ),
                             300
                         );
@@ -2495,7 +2540,7 @@ export class KupDataTable {
                                     column,
                                     FilterInterval.FROM,
                                     true,
-                                    suffix
+                                    suffixFrom
                                 ),
                             300
                         );
@@ -2509,13 +2554,12 @@ export class KupDataTable {
                             column,
                             FilterInterval.FROM,
                             false,
-                            suffix
+                            suffixFrom
                         );
                     }}
                 ></kup-date-picker>
             );
-            textFieldData['helper'] = 'To...';
-            suffix = isTimestamp(column.obj) ? ' 23:59:59' : null;
+            textFieldData['label'] = 'Search to...';
             data = { 'kup-text-field': { ...textFieldData } };
             comps.push(
                 <kup-date-picker
@@ -2530,7 +2574,7 @@ export class KupDataTable {
                                     column,
                                     FilterInterval.TO,
                                     false,
-                                    suffix
+                                    suffixTo
                                 ),
                             300
                         );
@@ -2544,7 +2588,7 @@ export class KupDataTable {
                                     column,
                                     FilterInterval.TO,
                                     true,
-                                    suffix
+                                    suffixTo
                                 ),
                             300
                         );
@@ -2558,7 +2602,7 @@ export class KupDataTable {
                             column,
                             FilterInterval.TO,
                             false,
-                            suffix
+                            suffixTo
                         );
                     }}
                 ></kup-date-picker>
@@ -2852,9 +2896,10 @@ export class KupDataTable {
                         let checkBoxesFilter = this.getCheckBoxFilterValues(
                             column.name
                         );
-                        let columnValues: string[] = this.getColumnValues(
-                            column
-                        );
+                        let columnValues: {
+                            value: string;
+                            displayedValue: string;
+                        }[] = this.getColumnValues(column);
                         let checkboxItems: JSX.Element[] = [];
                         if (columnValues.length > 0) {
                             checkboxItems.push(
@@ -2868,9 +2913,9 @@ export class KupDataTable {
                             );
                         }
                         columnValues.forEach((v) => {
-                            let label = v;
+                            let label = v.displayedValue;
                             if (isCheckbox(column.obj)) {
-                                if (v == '1') {
+                                if (v.value == '1') {
                                     label = '(*checked)';
                                 } else {
                                     label = '(*unchecked)';
@@ -2879,9 +2924,13 @@ export class KupDataTable {
                             checkboxItems.push(
                                 <kup-checkbox
                                     label={label}
-                                    checked={checkBoxesFilter.includes(v)}
+                                    checked={checkBoxesFilter.includes(v.value)}
                                     onKupCheckboxChange={(e) => {
-                                        this.onFilterChange2(e, column, v);
+                                        this.onFilterChange2(
+                                            e,
+                                            column,
+                                            v.value
+                                        );
                                     }}
                                 ></kup-checkbox>
                             );
