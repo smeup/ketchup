@@ -8,7 +8,7 @@ export const FButton: FunctionalComponent<FButtonProps> = (
     props: FButtonProps
 ) => {
     if (!props.styling) {
-        props.styling === FButtonStyling.RAISED;
+        props.styling = FButtonStyling.RAISED;
     }
     return (
         <div

@@ -6,7 +6,7 @@ import { FImage } from '../f-image/f-image';
 
 export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
     if (!props.type) {
-        props.type === FChipType.STANDARD;
+        props.type = FChipType.STANDARD;
     }
 
     const isChoice = props.type.toLowerCase() === FChipType.CHOICE;
