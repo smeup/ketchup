@@ -468,7 +468,7 @@ export function formatTime(time: Date, manageSeconds: boolean): string {
  * @returns true if date string in input is a valid date
  */
 export function isValidFormattedStringDate(value: string): boolean {
-    return isValidStringDate(value);
+    return isValidStringDate(value, null, false);
 }
 
 /**
@@ -478,12 +478,16 @@ export function isValidFormattedStringDate(value: string): boolean {
  */
 export function isValidStringDate(
     value: string,
-    valueDateFormat?: string
+    valueDateFormat?: string,
+    strictValidation?: boolean
 ): boolean {
     if (valueDateFormat == null) {
         valueDateFormat = getCurrentDateFormatFromBrowserLocale();
     }
-    let m = moment(value, valueDateFormat, true);
+    if (strictValidation == undefined) {
+        strictValidation = true;
+    }
+    let m = moment(value, valueDateFormat, strictValidation);
     return m.isValid();
 }
 
@@ -576,13 +580,13 @@ export function formattedStringToCustomUnformattedStringTime(
 /**
  * @param value date as string, formatted ISO
  * @param valueDateFormat date format (default ISO)
- * @param customedFormat date format from smeupObject
+ * @param _customedFormat date format from smeupObject
  * @returns date as string, formatted by actual browser locale
  **/
 export function unformattedStringToFormattedStringDate(
     value: string,
     valueDateFormat?: string,
-    customedFormat?: string
+    _customedFormat?: string
 ): string {
     const options: Intl.DateTimeFormatOptions = {
         day: '2-digit',
@@ -596,7 +600,9 @@ export function unformattedStringToFormattedStringDate(
         valueDateFormat
     );
 
-    return formatByCustomedOutputDateFormat(date, options, customedFormat);
+    // disabled manage of customedOutputFormat
+    //return formatByCustomedOutputDateFormat(date, options, customedFormat);
+    return formatByCustomedOutputDateFormat(date, options, null);
 }
 
 function formatByCustomedOutputDateFormat(

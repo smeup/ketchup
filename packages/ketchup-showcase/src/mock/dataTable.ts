@@ -93124,61 +93124,11 @@ export const dataTableDateTime = {
       name: 'DATE',
       obj: {
         t: 'D8',
-        p: '*YYMD',
-        k: '',
-      },
-      icon: 'calendar',
-      title: 'Date (dd/mm/yyyy)',
-    },
-    {
-      name: 'DATESHORT',
-      obj: {
-        t: 'D8',
         p: '',
         k: '',
       },
       icon: 'calendar',
-      title: 'Date (dd/mm/yy)',
-    },
-    {
-      name: 'DATE1',
-      obj: {
-        t: 'D8',
-        p: '*YMD',
-        k: '',
-      },
-      icon: 'calendar',
-      title: 'Date (yymmdd)',
-    },
-    {
-      name: 'DATE2',
-      obj: {
-        t: 'D8',
-        p: '*DMY',
-        k: '',
-      },
-      icon: 'calendar',
-      title: 'Date (ddmmyy)',
-    },
-    {
-      name: 'DATE3',
-      obj: {
-        t: 'D8',
-        p: '*DMYY',
-        k: '',
-      },
-      icon: 'calendar',
-      title: 'Date (ddmmyyyy)',
-    },
-    {
-      name: 'DATE4',
-      obj: {
-        t: 'D8',
-        p: '*CYMD',
-        k: '',
-      },
-      icon: 'calendar',
-      title: 'Date (eyymmdd)',
+      title: 'Date (dd/mm/yyyy)',
     },
     {
       name: 'TIMESEC',
@@ -93245,46 +93195,6 @@ export const dataTableDateTime = {
             k: '',
           },
           value: '2021-01-02',
-        },
-        DATESHORT: {
-          obj: {
-            t: 'D8',
-            p: '*YYMD',
-            k: '',
-          },
-          value: '2021-01-03',
-        },
-        DATE1: {
-          obj: {
-            t: 'D8',
-            p: '*YMD',
-            k: '',
-          },
-          value: '2021-01-04',
-        },
-        DATE2: {
-          obj: {
-            t: 'D8',
-            p: '*DMY',
-            k: '',
-          },
-          value: '2021-01-05',
-        },
-        DATE3: {
-          obj: {
-            t: 'D8',
-            p: '*DMYY',
-            k: '',
-          },
-          value: '2021-01-06',
-        },
-        DATE4: {
-          obj: {
-            t: 'D8',
-            p: '*CYMD',
-            k: '',
-          },
-          value: '2021-01-07',
         },
         TIMESEC: {
           obj: {
