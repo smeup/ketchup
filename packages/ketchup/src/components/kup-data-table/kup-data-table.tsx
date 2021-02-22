@@ -4447,6 +4447,11 @@ export class KupDataTable {
                 const transferredData = JSON.parse(
                     e.dataTransfer.getData(KupDataTableColumnDragType)
                 ) as Column;
+                let overElement = e.target as HTMLElement;
+                if (overElement.id !== 'remove-column-area') {
+                    overElement = overElement.closest('#remove-column-area');
+                }
+                overElement.removeAttribute(this.dragOverAttribute);
                 // We are sure the tables have been dropped in a valid location -> starts ...
                 this.handleColumnRemove(transferredData);
                 return KupDataTableColumnDragRemoveType;
@@ -4483,15 +4488,15 @@ export class KupDataTable {
             >
                 <FImage
                     resource="delete"
-                    color="white"
+                    color="var(--kup-danger-color)"
                     sizeX="30px"
-                    sizeY="30px"
+                    sizeY="50px"
                 />
                 <FImage
                     resource="delete-empty"
-                    color="white"
+                    color="var(--kup-danger-color)"
                     sizeX="30px"
-                    sizeY="30px"
+                    sizeY="50px"
                 />
             </div>
         );
@@ -4506,9 +4511,10 @@ export class KupDataTable {
         );
 
         if (show) {
-            dropArea.style.width = th.clientWidth + 'px';
+            dropArea.style.marginLeft =
+                'calc(' + th.clientWidth / 2 + 'px - 25px)';
             this.tableAreaRef.appendChild(dropArea);
-            positionRecalc(dropArea, th, null, true);
+            positionRecalc(dropArea, th, 10, true);
             dropArea.classList.add('dynamic-position-active');
             dropArea.classList.add('visible');
         } else {
