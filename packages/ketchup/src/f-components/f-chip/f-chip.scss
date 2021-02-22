@@ -6,7 +6,13 @@
     --mdc-theme-on-surface: var(--kup-title-color);
 
     .mdc-chip {
-      background-color: var(--kup-title-background-color);
+      background-color: var(--kup-background-color);
+      background-image: linear-gradient(
+        to right,
+        rgba(var(--kup-text-color-rgb), 0.1) 0%,
+        rgba(var(--kup-text-color-rgb), 0.1) 0.1%,
+        rgba(var(--kup-text-color-rgb), 0.1)
+      );
       color: var(--kup-title-color);
       font-size: 0.875em;
       line-height: 1.25em;
