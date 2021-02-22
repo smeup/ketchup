@@ -57,6 +57,8 @@
 ```mermaid
 graph TD;
   kup-calendar --> kup-button
+  kup-button --> kup-badge
+  kup-badge --> kup-badge
   style kup-calendar fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

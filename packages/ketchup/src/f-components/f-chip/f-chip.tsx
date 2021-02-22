@@ -1,31 +1,47 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { ComponentChipElement } from '../../components/kup-chip/kup-chip-declarations';
+import { FChipsProps, FChipType } from './f-chip-declarations';
 import { FImage } from '../f-image/f-image';
 
-interface Props {
-    data?: ComponentChipElement[];
-    id?: string;
-    type?: string;
-}
+//---- Component ----
 
-export const FChip: FunctionalComponent<Props> = (props) => {
+export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
+    if (!props.type) {
+        props.type = FChipType.STANDARD;
+    }
+
+    const isChoice = props.type.toLowerCase() === FChipType.CHOICE;
+    const isFilter = props.type.toLowerCase() === FChipType.FILTER;
+    const isInput = props.type.toLowerCase() === FChipType.INPUT;
     const classObj: Record<string, boolean> = {
         'mdc-chip-set': true,
-        'mdc-chip-set--choice': props.type == 'choice' ? true : false,
-        'mdc-chip-set--filter': props.type == 'filter' ? true : false,
-        'mdc-chip-set--input': props.type == 'input' ? true : false,
+        'mdc-chip-set--choice': isChoice ? true : false,
+        'mdc-chip-set--filter': isFilter ? true : false,
+        'mdc-chip-set--input': isInput ? true : false,
     };
 
     return (
-        <div id={props.id} class="f-chip--wrapper">
+        <div
+            class={`f-chip--wrapper ${
+                props.wrapperClass ? props.wrapperClass : ''
+            }`}
+            id={props.id}
+            title={props.title}
+        >
             <div class={classObj} role="grid">
-                {createChipList(props)}
+                {createChipList(props, isChoice, isFilter, isInput)}
             </div>
         </div>
     );
 };
 
-function createChipList(props: Props) {
+//---- Methods ----
+
+function createChipList(
+    props: FChipsProps,
+    isChoice: boolean,
+    isFilter: boolean,
+    isInput: boolean
+): HTMLElement[] {
     let chipList: Array<HTMLElement> = [];
     let chipEl: HTMLElement;
 
@@ -34,10 +50,10 @@ function createChipList(props: Props) {
         let iconEl = [];
         let iconClass = 'mdc-chip__icon mdc-chip__icon--leading';
 
-        if (props.type == 'filter' || props.type == 'choice') {
+        if (isFilter || isChoice) {
             if (props.data[i].checked) {
                 componentClass += ' mdc-chip--selected';
-                if (props.type === 'filter') {
+                if (isFilter) {
                     iconClass += ' mdc-chip__icon--leading-hidden';
                 }
             }
@@ -53,7 +69,7 @@ function createChipList(props: Props) {
             iconEl.push(<FImage {...p} />);
         }
 
-        if (props.type == 'filter') {
+        if (isFilter) {
             iconEl.push(
                 <span class="mdc-chip__checkmark">
                     <svg class="mdc-chip__checkmark-svg" viewBox="-2 -3 30 30">
@@ -86,7 +102,7 @@ function createChipList(props: Props) {
                         </span>
                     </span>
                 </span>
-                {props.type == 'input' ? (
+                {isInput ? (
                     <span role="gridcell">
                         <span
                             tabindex="-1"

@@ -10,6 +10,8 @@ import {
 import { PaginatorMode } from './kup-paginator-declarations';
 import { isNumber } from '../../utils/utils';
 import { logLoad, logRender } from '../../utils/debug-manager';
+import { FButton } from '../../f-components/f-button/f-button';
+import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 
 @Component({
     tag: 'kup-paginator',
@@ -178,6 +180,37 @@ export class KupPaginator {
         return rowsPerPageItems;
     }
 
+    private setEvents(): void {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+
+        if (root) {
+            const nextButton: HTMLElement = root.querySelector(
+                '.f-button--wrapper.next-page'
+            );
+            const prevButton: HTMLElement = root.querySelector(
+                '.f-button--wrapper.prev-page'
+            );
+            if (nextButton) {
+                const buttonEl: HTMLButtonElement = nextButton.querySelector(
+                    'button'
+                );
+                if (buttonEl) {
+                    buttonEl.onclick = () => this.onNextPage();
+                }
+                FButtonMDC(nextButton);
+            }
+            if (prevButton) {
+                const buttonEl: HTMLButtonElement = prevButton.querySelector(
+                    'button'
+                );
+                if (buttonEl) {
+                    buttonEl.onclick = () => this.onPrevPage();
+                }
+                FButtonMDC(prevButton);
+            }
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -194,13 +227,14 @@ export class KupPaginator {
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.setEvents();
         if (this.comboPageSelectorEl) {
             this.comboPageSelectorEl.setValue(this.currentPage.toString());
         }
         if (this.comboRowsSelectorEl) {
             this.comboRowsSelectorEl.setValue(this.selectedPerPage.toString());
         }
+        logRender(this, true);
     }
 
     render() {
@@ -242,12 +276,11 @@ export class KupPaginator {
             <div id="paginator">
                 <div class="align-left">
                     <div class="nav-section">
-                        <kup-button
+                        <FButton
                             icon="chevron_left"
                             disabled={this.isPrevPageDisabled()}
-                            class="prev-page"
-                            onKupButtonClick={() => this.onPrevPage()}
-                        ></kup-button>
+                            wrapperClass="prev-page"
+                        />
                         <kup-combobox
                             class="page-selector"
                             data={dataPageSelector}
@@ -259,12 +292,11 @@ export class KupPaginator {
                             onKupComboboxBlur={(e) => this.onPageChange(e)}
                             ref={(el) => (this.comboPageSelectorEl = el as any)}
                         />
-                        <kup-button
+                        <FButton
                             icon="chevron_right"
                             disabled={this.isNextPageDisabled()}
-                            class="next-page"
-                            onKupButtonClick={() => this.onNextPage()}
-                        ></kup-button>
+                            wrapperClass="next-page"
+                        />
                     </div>
                     <div class="tot-section">
                         <slot name="more-results" />

@@ -27,6 +27,7 @@ import {
     unformatDateTime,
     formatTime,
 } from '../../utils/utils';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
 @Component({
     tag: 'kup-time-picker',
@@ -589,7 +590,7 @@ export class KupTimePicker {
                             this.setTimeFromClock();
                         }}
                         id="confirm"
-                        styling="flat"
+                        styling={FButtonStyling.FLAT}
                         label="Ok"
                     ></kup-button>
                 </div>

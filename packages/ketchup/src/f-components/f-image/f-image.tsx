@@ -1,27 +1,13 @@
-import {
-    FunctionalComponent,
-    getAssetPath,
-    h,
-    JSX,
-    VNode,
-} from '@stencil/core';
+import { FunctionalComponent, getAssetPath, h, JSX } from '@stencil/core';
 import { KupBadge } from '../../components/kup-badge/kup-badge';
-import { CssDraw } from '../../components/kup-image/kup-image-declarations';
+import { FImageProps, FImageData, FImageShape } from './f-image-declarations';
 
-interface Props {
-    badgeData?: KupBadge[];
-    color?: string;
-    data?: CssDraw[];
-    id?: string;
-    resource?: string;
-    sizeX?: string;
-    sizeY?: string;
-    title?: string;
-    wrapperClass?: string;
-}
+//---- Component ----
 
-export const FImage: FunctionalComponent<Props> = (props) => {
-    let el: VNode;
+export const FImage: FunctionalComponent<FImageProps> = (
+    props: FImageProps
+) => {
+    let el: HTMLImageElement | HTMLDivElement;
     let style: {
         '--f-image-height': string;
         '--f-image-width': string;
@@ -62,9 +48,11 @@ export const FImage: FunctionalComponent<Props> = (props) => {
 
     return (
         <div
-            style={style}
+            class={`f-image--wrapper ${
+                props.wrapperClass ? props.wrapperClass : ''
+            }`}
             id={props.id}
-            class={`f-image--wrapper ${props.wrapperClass}`}
+            style={style}
             title={props.title}
         >
             {el}
@@ -73,7 +61,9 @@ export const FImage: FunctionalComponent<Props> = (props) => {
     );
 };
 
-function createIcon(props: Props) {
+//---- Methods ----
+
+function createIcon(props: FImageProps): HTMLDivElement {
     let path = getAssetPath(`./assets/svg/${props.resource}.svg`);
     let style = {
         background: props.color ? props.color : 'var(--kup-icon-color)',
@@ -83,11 +73,11 @@ function createIcon(props: Props) {
     return <div class="f-image__icon" style={style}></div>;
 }
 
-function createImage(resource: string) {
+function createImage(resource: string): HTMLImageElement {
     return <img src={resource}></img>;
 }
 
-function createBar(data: CssDraw[]) {
+function createBar(data: FImageData[]): HTMLDivElement {
     let steps: JSX.Element[] = [];
     let leftProgression: number = 0;
 
@@ -95,7 +85,7 @@ function createBar(data: CssDraw[]) {
         let drawStep: JSX.Element = undefined;
 
         if (!data[i].shape) {
-            data[i].shape = 'bar';
+            data[i].shape = FImageShape.BAR;
         }
         if (!data[i].color) {
             data[i].color = 'transparent';

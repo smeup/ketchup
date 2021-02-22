@@ -46,6 +46,8 @@ graph TD;
   kup-search --> kup-button
   kup-search --> kup-modal
   kup-search --> kup-data-table
+  kup-button --> kup-badge
+  kup-badge --> kup-badge
   kup-data-table --> kup-text-field
   kup-data-table --> kup-time-picker
   kup-data-table --> kup-date-picker
@@ -85,11 +87,10 @@ graph TD;
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-badge --> kup-badge
   kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
-  kup-paginator --> kup-button
   kup-paginator --> kup-combobox
+  kup-paginator --> kup-badge
   kup-combobox --> kup-list
   kup-form --> kup-search
   style kup-search fill:#f9f,stroke:#333,stroke-width:4px

@@ -1,4 +1,5 @@
 import { Component, Prop, State, h, Event, EventEmitter } from '@stencil/core';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
 import { ButtonConfig } from './kup-btn-declarations';
 
@@ -73,7 +74,9 @@ export class KupBtn {
                             : {}),
                         ...(this.config.showtext ? { label: btn.value } : {}),
                         ...(this.config.showicon ? { icon: btn.icon } : {}),
-                        ...(this.config.flat ? { styling: 'flat' } : {}),
+                        ...(this.config.flat
+                            ? { styling: FButtonStyling.FLAT }
+                            : {}),
                         'data-id': id++,
                         onKupButtonClick: (ev) => this.onBtnClicked(ev),
                     };

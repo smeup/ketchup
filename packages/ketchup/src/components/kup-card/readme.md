@@ -62,6 +62,7 @@ graph TD;
   kup-card --> kup-chart
   kup-chip --> kup-badge
   kup-badge --> kup-badge
+  kup-button --> kup-badge
   kup-box --> kup-card
   style kup-card fill:#f9f,stroke:#333,stroke-width:4px
 ```

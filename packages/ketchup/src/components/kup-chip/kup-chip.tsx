@@ -9,11 +9,15 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { ComponentChipElement } from './kup-chip-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
+import {
+    FChipData,
+    FChipsProps,
+    FChipType,
+} from '../../f-components/f-chip/f-chip-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -21,28 +25,44 @@ import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
     shadow: true,
 })
 export class KupChip {
+    /**
+     * References the root HTML element of the component (<kup-image>).
+     */
     @Element() rootElement: HTMLElement;
 
-    //---- States ----
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
 
-    @State() customStyleTheme: string = undefined;
+    /**
+     * The component-specific CSS set by the current Ketch.UP theme.
+     * @default ""
+     */
+    @State() customStyleTheme: string = '';
 
-    //---- Props ----
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @default ""
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * List of elements.
+     * @default []
      */
-    @Prop() data: ComponentChipElement[] = [];
+    @Prop() data: FChipData[] = [];
     /**
      * The type of chip. Available types: input, filter, choice or empty for default.
+     * @default FChipType.STANDARD
      */
-    @Prop() type: string = undefined;
+    @Prop() type: FChipType = FChipType.STANDARD;
 
-    //---- Events ----
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     /**
      * Triggered when a chip loses focus.
@@ -114,18 +134,20 @@ export class KupChip {
     }
 
     onKupClick(i: number) {
-        let value: string = undefined;
+        const isChoice = this.type.toLowerCase() === FChipType.CHOICE;
+        const isFilter = this.type.toLowerCase() === FChipType.FILTER;
+        let value: string;
         if (this.data[i]) {
             value = this.data[i].value;
         }
-        if (this.type === 'choice') {
+        if (isChoice) {
             for (let j = 0; j < this.data.length; j++) {
                 if (j !== i && this.data[j].checked) {
                     this.data[j].checked = false;
                 }
             }
         }
-        if (this.type === 'choice' || this.type === 'filter') {
+        if (isChoice || isFilter) {
             if (this.data[i].checked) {
                 this.data[i].checked = false;
             } else {
@@ -168,16 +190,30 @@ export class KupChip {
         });
     }
 
-    //---- Public methods ----
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
-    //---- Private methods ----
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
-    private setEvents() {
+    /**
+     * Set the events of the component and instantiates Material Design.
+     */
+    private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const f: HTMLElement = root.querySelector('.f-chip--wrapper');
@@ -206,7 +242,9 @@ export class KupChip {
         }
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         logLoad(this, false);
@@ -218,15 +256,16 @@ export class KupChip {
     }
 
     componentWillUpdate() {
-        var firstCheckedFound = false;
-        if (this.type === 'choice') {
+        const isChoice = this.type.toLowerCase() === FChipType.CHOICE;
+        let firstCheckedFound: boolean = false;
+        if (isChoice) {
             for (let j = 0; j < this.data.length; j++) {
                 if (this.data[j].checked && firstCheckedFound) {
                     this.data[j].checked = false;
                     let message =
                         'Found occurence of data(' +
                         j +
-                        ") to be set on 'checked' when another one was found before! Overriding to false because the type='choice' allows only 1 'checked'.";
+                        ") to be set on 'checked' when another one was found before! Overriding to false because the 'choice' type only allows 1 'checked'.";
 
                     logMessage(this, message, 'warning');
                 }
@@ -247,7 +286,7 @@ export class KupChip {
     }
 
     render() {
-        let props = {
+        let props: FChipsProps = {
             data: this.data,
             type: this.type,
         };

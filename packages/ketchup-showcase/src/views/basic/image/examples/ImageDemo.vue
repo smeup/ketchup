@@ -51,15 +51,15 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
           prop: 'data',
           description:
             'When present, the component will be drawn using CSS. Check the "Drawing with CSS" section of the image showcase for more information.',
-          type: 'CssDraw[]',
-          default: 'undefined',
+          type: 'FImageData[]',
+          default: 'null',
           try: 'json',
         },
         {
@@ -83,7 +83,7 @@ export default {
           description:
             'The name of the image. It can also contain an URL or a path.',
           type: 'string',
-          default: 'undefined',
+          default: 'null',
           try: 'field',
         },
         {

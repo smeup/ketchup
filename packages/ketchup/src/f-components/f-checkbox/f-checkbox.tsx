@@ -1,27 +1,31 @@
 import { FunctionalComponent, h } from '@stencil/core';
+import { FCheckboxProps } from './f-checkbox-declarations';
 
-interface Props {
-    checked?: boolean;
-    disabled?: boolean;
-    indeterminate?: boolean;
-    label?: string;
-    leadingLabel?: boolean;
-}
+//---- Component ----
 
-export const FCheckbox: FunctionalComponent<Props> = (props) => {
+export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
+    props: FCheckboxProps
+) => {
     const indeterminateAttr = {
         'data-indeterminate': props.indeterminate ? true : false,
     };
 
     const classObj: Record<string, boolean> = {
         'mdc-checkbox': true,
-        'mdc-checkbox--checked': props.checked,
-        'mdc-checkbox--disabled': props.disabled,
-        'mdc-checkbox--indeterminate': props.indeterminate,
+        'mdc-checkbox--checked':
+            props.checked && !props.indeterminate ? true : false,
+        'mdc-checkbox--disabled': props.disabled ? true : false,
+        'mdc-checkbox--indeterminate': props.indeterminate ? true : false,
     };
 
     return (
-        <div class="f-checkbox--wrapper">
+        <div
+            class={`f-checkbox--wrapper ${
+                props.wrapperClass ? props.wrapperClass : ''
+            }`}
+            id={props.id}
+            title={props.title}
+        >
             <div
                 class={`mdc-form-field ${
                     props.leadingLabel ? 'mdc-form-field--align-end' : ''
