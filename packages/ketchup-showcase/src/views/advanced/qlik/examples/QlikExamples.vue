@@ -1,16 +1,20 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p> The Qlik component output: </p>
-      <br>
+      <p>
+        The Qlik component is able to display graphs which show the data
+        analyzed by a qlik server.
+      </p>
+      <p> The following examples show some outputs of this components. </p>
+      <br />
       <p> Page with qlik components: </p>
-      <img :src="schermata" style="width: 606px"/>
-      <br>
-      <br>
+      <img :src="schermata" style="width: 606px" />
+      <br />
+      <br />
       <p> 1x1 grid qlik component bordered: </p>
       <img :src="graficoLarge" />
-      <br>
-      <br>
+      <br />
+      <br />
       <p> 2x4 grid qlik component bordered: </p>
       <img :src="griglia" />
     </div>
@@ -22,9 +26,9 @@ export default {
   name: 'QlikExamples',
   data() {
     return {
-      schermata: require('../../../../../public/images/kup-qlik_esempio_schermata.png'),
-      graficoLarge: require('../../../../../public/images/kup-qlik_esempio_grafico_large.png'),
-      griglia: require('../../../../../public/images/kup-qlik_esempio_griglia.png'),
+      schermata: 'images/qlik/kup-qlik_esempio_schermata.PNG',
+      graficoLarge: 'images/qlik/kup-qlik_esempio_grafico_large.PNG',
+      griglia: 'images/qlik/kup-qlik_esempio_grid.png',
     };
   },
 };
