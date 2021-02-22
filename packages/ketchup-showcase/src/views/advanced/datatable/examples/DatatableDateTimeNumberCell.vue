@@ -17,28 +17,8 @@
         ></tr
       >
       <tr
-        ><td>Date (dd/mm/yyyy)&nbsp;</td
+        ><td>Date formatted by browser locale settings (dd/mm/yyyy)&nbsp;</td
         ><td><code>obj: { t: 'D8', p: '', k: '', }</code></td></tr
-      >
-      <tr
-        ><td>Date (dd/mm/yy)&nbsp;</td
-        ><td><code>obj: { t: 'D8', p: '*YYMD', k: '', }</code></td></tr
-      >
-      <tr
-        ><td>Date (yymmdd)&nbsp;</td
-        ><td><code>obj: { t: 'D8', p: '*YMD', k: '', }</code></td></tr
-      >
-      <tr
-        ><td>Date (ddmmyy)&nbsp;</td
-        ><td><code>obj: { t: 'D8', p: '*DMY', k: '', }</code></td></tr
-      >
-      <tr
-        ><td>Date (ddmmyyyy)&nbsp;</td
-        ><td><code>obj: { t: 'D8', p: '*DMYY', k: '', }</code></td></tr
-      >
-      <tr
-        ><td>Date (eyymmdd)&nbsp;</td
-        ><td><code>obj: { t: 'D8', p: '*CYMD', k: '', }</code></td></tr
       >
       <tr
         ><td>Time (hh:mm:ss)&nbsp;</td
