@@ -249,9 +249,7 @@ export class KupDatePicker {
     @Method()
     async setValue(value: string) {
         this.value = value;
-        if (this.textfieldEl != null) {
-            this.textfieldEl.setValue(value);
-        }
+        this.setTextFieldInitalValue(this.getDateForOutput());
     }
 
     onKupBlur(e: UIEvent) {
@@ -316,7 +314,7 @@ export class KupDatePicker {
             );
             this.refreshPickerComponentValue(newValue);
             if (isOnInputEvent != true) {
-                this.value = newValue;
+                this.setValue(newValue);
             }
         }
 
@@ -355,8 +353,7 @@ export class KupDatePicker {
         if (newValue == null) {
             return;
         }
-        this.value = newValue;
-        this.setTextFieldInitalValue(this.getDateForOutput());
+        this.setValue(newValue);
     }
 
     getPickerValueSelected(): string {

@@ -2447,7 +2447,6 @@ export class KupDataTable {
         let comps = [];
         if (isNumber(column.obj)) {
             textFieldData['label'] = 'Search from...';
-            textFieldData['helper'] = 'From...';
             comps.push(
                 <kup-text-field
                     {...textFieldData}
@@ -2480,7 +2479,6 @@ export class KupDataTable {
             );
 
             textFieldData['label'] = 'Search to...';
-            textFieldData['helper'] = 'To...';
             comps.push(
                 <kup-text-field
                     {...textFieldData}
@@ -2513,7 +2511,6 @@ export class KupDataTable {
             );
         } else if (isTime(column.obj)) {
             textFieldData['label'] = 'Search from...';
-            textFieldData['helper'] = 'From...';
             let data = { 'kup-text-field': { ...textFieldData } };
             comps.push(
                 <kup-time-picker
@@ -2560,7 +2557,6 @@ export class KupDataTable {
                 ></kup-time-picker>
             );
             textFieldData['label'] = 'Search to...';
-            textFieldData['helper'] = 'To...';
             data = { 'kup-text-field': { ...textFieldData } };
             comps.push(
                 <kup-time-picker
@@ -2628,7 +2624,6 @@ export class KupDataTable {
                 }
             }
             textFieldData['label'] = 'Search from...';
-            textFieldData['helper'] = 'From...';
             let data = { 'kup-text-field': { ...textFieldData } };
             comps.push(
                 <kup-date-picker
@@ -2677,7 +2672,6 @@ export class KupDataTable {
                 ></kup-date-picker>
             );
             textFieldData['label'] = 'Search to...';
-            textFieldData['helper'] = 'To...';
             data = { 'kup-text-field': { ...textFieldData } };
             comps.push(
                 <kup-date-picker
