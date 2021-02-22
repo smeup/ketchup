@@ -1098,7 +1098,7 @@ export class KupDataTable {
                     'input'
                 );
                 const globalFilterClear: HTMLElement = globalFilter.querySelector(
-                    '.clear-icon'
+                    '.clear'
                 );
                 globalFilterInput.oninput = (event) => {
                     const t = event.target;
