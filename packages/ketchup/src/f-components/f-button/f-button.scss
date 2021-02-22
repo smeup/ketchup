@@ -25,8 +25,8 @@
     }
 
     .mdc-icon-button {
-      &::after,
-      &::before {
+      &:after,
+      &:before {
         background-color: var(--kup-primary-color);
       }
     }

@@ -273,7 +273,7 @@ export class KupPaginator {
             'kup-text-field': textfieldDataRows,
         };
         let compCreated = (
-            <div id="paginator">
+            <div id="kup-component">
                 <div class="align-left">
                     <div class="nav-section">
                         <FButton
