@@ -149,8 +149,8 @@ Type: `Promise<void>`
 - [kup-date-picker](../kup-date-picker)
 - [kup-checkbox](../kup-checkbox)
 - [kup-tooltip](../kup-tooltip)
-- [kup-button](../kup-button)
 - [kup-image](../kup-image)
+- [kup-button](../kup-button)
 - [kup-chart](../kup-chart)
 - [kup-color-picker](../kup-color-picker)
 - [kup-gauge](../kup-gauge)
@@ -169,8 +169,8 @@ graph TD;
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
-  kup-data-table --> kup-button
   kup-data-table --> kup-image
+  kup-data-table --> kup-button
   kup-data-table --> kup-chart
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-gauge

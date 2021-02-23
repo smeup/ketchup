@@ -137,7 +137,10 @@ import {
     FChipData,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
-import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import {
+    FButtonProps,
+    FButtonStyling,
+} from '../../f-components/f-button/f-button-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 
@@ -1085,6 +1088,48 @@ export class KupDataTable {
                 }
                 FButtonMDC(columnMenuDescription);
             }
+            //Row actions: expander
+            const expanderRowActions: NodeListOf<Element> = root.querySelectorAll(
+                '[row-action-cell] .f-button--wrapper.expander'
+            );
+            if (expanderRowActions) {
+                for (
+                    let index = 0;
+                    index < expanderRowActions.length;
+                    index++
+                ) {
+                    const buttonEl: HTMLButtonElement = expanderRowActions[
+                        index
+                    ].querySelector('button');
+                    if (buttonEl) {
+                        buttonEl.onclick = (e: MouseEvent) =>
+                            this.onRowActionExpanderClick(
+                                e,
+                                expanderRowActions[index]['data-row']
+                            );
+                    }
+                    FButtonMDC(expanderRowActions[index] as HTMLElement);
+                }
+            }
+            //Row actions: actions
+            const rowActions: NodeListOf<Element> = root.querySelectorAll(
+                '[row-action-cell] .f-button--wrapper.action'
+            );
+            if (rowActions) {
+                for (let index = 0; index < rowActions.length; index++) {
+                    const buttonEl: HTMLButtonElement = rowActions[
+                        index
+                    ].querySelector('button');
+                    if (buttonEl) {
+                        buttonEl.onclick = (e: MouseEvent) =>
+                            this.onDefaultRowActionClick(
+                                e,
+                                rowActions[index]['data-action']
+                            );
+                    }
+                    FButtonMDC(rowActions[index] as HTMLElement);
+                }
+            }
             //Groups chip set
             const groupChip: HTMLElement = root.querySelector(
                 '#group-chips.f-chip--wrapper'
@@ -1970,7 +2015,7 @@ export class KupDataTable {
     }
 
     private onDefaultRowActionClick(
-        e: CustomEvent,
+        e: MouseEvent,
         { action, row, type, index }
     ) {
         e.stopPropagation();
@@ -1983,7 +2028,7 @@ export class KupDataTable {
         });
     }
 
-    private onRowActionExpanderClick(e: CustomEvent, row: Row) {
+    private onRowActionExpanderClick(e: MouseEvent, row: Row) {
         e.stopPropagation();
 
         this.kupRowActionClicked.emit({
@@ -3712,16 +3757,15 @@ export class KupDataTable {
                     );
                 } else {
                     // adding expander
-                    rowActionExpander = (
-                        <kup-button
-                            icon="chevron-right"
-                            title="Expand items"
-                            onKupButtonClick={(e) => {
-                                this.onRowActionExpanderClick(e, row);
-                            }}
-                            onClick={(e) => e.stopPropagation()}
-                        />
-                    );
+                    const props: FButtonProps = {
+                        dataSet: {
+                            'data-row': row,
+                        },
+                        icon: 'chevron-right',
+                        title: 'Expand items',
+                        wrapperClass: 'expander',
+                    };
+                    rowActionExpander = <FButton {...props} />;
                 }
 
                 rowActionsCell = (
@@ -4004,21 +4048,20 @@ export class KupDataTable {
         type: string
     ): JSX.Element[] {
         return actions.map((action, index) => {
-            return (
-                <kup-button
-                    icon={action.icon}
-                    title={action.text}
-                    onKupButtonClick={(e) => {
-                        this.onDefaultRowActionClick(e, {
-                            action,
-                            index,
-                            row,
-                            type,
-                        });
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                />
-            );
+            const props: FButtonProps = {
+                dataSet: {
+                    'data-action': {
+                        action,
+                        index,
+                        row,
+                        type,
+                    },
+                },
+                icon: action.icon,
+                title: action.text,
+                wrapperClass: 'action',
+            };
+            return <FButton {...props} />;
         });
     }
 
