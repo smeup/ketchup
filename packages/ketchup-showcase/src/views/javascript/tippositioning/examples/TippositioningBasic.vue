@@ -10,10 +10,12 @@
       >. The anchoring will be placed below
       <span class="code-word">anchorEl</span>, unless there is no available
       space: in this case it will be placed above. <br />You can also set a
-      margin in pixels by using a third optional argument. The way this scripts
-      work is pretty straightforward: every time a class is added/removed
-      to/from the element( <span class="code-word">el</span>), the script will
-      check whether the element's class list contains the
+      margin in pixels by using a third optional argument, or you can choose to
+      place the element above its container unconditionally by setting to true
+      the fourth optional argument. The way this scripts work is pretty
+      straightforward: every time a class is added/removed to/from the element(
+      <span class="code-word">el</span>), the script will check whether the
+      element's class list contains the
       <span class="code-word">dynamic-position-active</span> class. <br />If it
       was added, a <span class="code-word">setInterval</span> function will be
       launched, which will update the coordinates of
@@ -48,7 +50,7 @@ export default {
         },
       ],
       codeSample:
-        'positionRecalc(el: HTMLElement, anchorEl: HTMLElement, margin? : number) {...}',
+        'positionRecalc(el: HTMLElement, anchorEl: HTMLElement, margin?: number, above?: boolean) {...}',
     };
   },
 };
