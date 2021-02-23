@@ -25,7 +25,9 @@
   box-shadow: var(--kup-box-shadow);
   display: none;
   height: 50px;
+  opacity: 0.5;
   width: 50px;
+  transition: opacity 0.25s;
   &.visible {
     display: block;
   }
@@ -40,6 +42,7 @@
     }
   }
   &[drag-over] {
+    opacity: 1;
     .f-image--wrapper {
       &:first-of-type {
         opacity: 0;
