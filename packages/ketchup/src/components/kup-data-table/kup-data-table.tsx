@@ -1057,6 +1057,20 @@ export class KupDataTable {
                 }
                 FButtonMDC(columnMenuAdd);
             }
+            //Column menu button: remove column
+            const columnMenuRemove: HTMLElement = root.querySelector(
+                '.column-menu .f-button--wrapper.remove'
+            );
+            if (columnMenuRemove) {
+                const buttonEl: HTMLButtonElement = columnMenuRemove.querySelector(
+                    'button'
+                );
+                if (buttonEl) {
+                    buttonEl.onclick = (e: MouseEvent) =>
+                        this.removeColumn(e.target);
+                }
+                FButtonMDC(columnMenuRemove);
+            }
             //Column menu button: add code/description
             const columnMenuDescription: HTMLElement = root.querySelector(
                 '.column-menu .f-button--wrapper.description'
@@ -2126,6 +2140,14 @@ export class KupDataTable {
         this.closeMenuAndTooltip();
     }
 
+    private removeColumn(el: EventTarget) {
+        const columnName: string = (el as HTMLElement).closest('th').dataset
+            .column;
+        let column = getColumnByName(this.getColumns(), columnName);
+        column.visible = false;
+        this.closeMenu();
+    }
+
     private switchColumnGroup(el: EventTarget): void {
         const column: string = (el as HTMLElement).closest('th').dataset.column;
         const group: GroupObject = this.getGroupByName(column);
@@ -2950,13 +2972,10 @@ export class KupDataTable {
                     let actionHideCol = null;
                     if (this.removableColumns) {
                         actionHideCol = (
-                            <kup-button
+                            <FButton
                                 icon="table-column-remove"
                                 title="Hide column"
-                                onKupButtonClick={() => {
-                                    column.visible = false;
-                                    this.closeMenu();
-                                }}
+                                wrapperClass="remove"
                             />
                         );
                     }
