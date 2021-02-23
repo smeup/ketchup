@@ -3347,8 +3347,8 @@ export class KupDataTable {
         );
     }
 
-    isTotalsNotSelected(column: Column): boolean {
-        return !this.totals || this.totals[column.name] == null;
+    areTotalsSelected(column: Column): boolean {
+        return this.totals && this.totals[column.name] ? true : false;
     }
 
     renderTotalsComboBox(column: Column) {
@@ -3375,7 +3375,7 @@ export class KupDataTable {
             };
         }
 
-        if (this.isTotalsNotSelected(column)) {
+        if (!this.areTotalsSelected(column)) {
             menu['Calcola'] = {
                 label: 'Calcola',
                 selected: true,
@@ -3477,9 +3477,9 @@ export class KupDataTable {
                             fixedCellStyle
                                 ? fixedCellStyle.fixedCellClasses
                                 : null +
-                                  (this.isTotalsNotSelected(column)
-                                      ? ' hidden'
-                                      : '')
+                                  (this.areTotalsSelected(column)
+                                      ? ''
+                                      : ' hidden')
                         }
                         style={
                             fixedCellStyle
