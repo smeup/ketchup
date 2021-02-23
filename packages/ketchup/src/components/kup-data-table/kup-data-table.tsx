@@ -3347,6 +3347,10 @@ export class KupDataTable {
         );
     }
 
+    isTotalsNotSelected(column: Column): boolean {
+        return !this.totals || this.totals[column.name] == null;
+    }
+
     renderTotalsComboBox(column: Column) {
         // TODO Manage the label with different languages
         // and move this object into declaration
@@ -3371,7 +3375,7 @@ export class KupDataTable {
             };
         }
 
-        if (!this.totals || this.totals[column.name] == null) {
+        if (this.isTotalsNotSelected(column)) {
             menu['Calcola'] = {
                 label: 'Calcola',
                 selected: true,
@@ -3472,7 +3476,10 @@ export class KupDataTable {
                         class={
                             fixedCellStyle
                                 ? fixedCellStyle.fixedCellClasses
-                                : null
+                                : null +
+                                  (this.isTotalsNotSelected(column)
+                                      ? ' hidden'
+                                      : '')
                         }
                         style={
                             fixedCellStyle
