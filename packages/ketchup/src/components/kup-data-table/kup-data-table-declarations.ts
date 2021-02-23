@@ -156,6 +156,12 @@ export interface KupDataTableCellButtonClick {
     row: Row;
 }
 
+export interface KupDataTableCellTextFieldInput {
+    cell: Cell;
+    column: Column;
+    row: Row;
+}
+
 //---- *NEXT functionality AKA load more ----
 export enum LoadMoreMode {
     CONSTANT = 'constant',

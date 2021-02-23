@@ -39,6 +39,7 @@ import {
     GenericFilter,
     FilterInterval,
     TotalMode,
+    KupDataTableCellTextFieldInput,
 } from './kup-data-table-declarations';
 
 import { isRating, isGauge, isKnob, getCellType } from '../../utils/cell-utils';
@@ -772,6 +773,14 @@ export class KupDataTable {
         obj: {};
     }>;
 
+    @Event({
+        eventName: 'kupCellTextFieldInput',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupCellTextFieldInput: EventEmitter<KupDataTableCellTextFieldInput>;
+
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
@@ -780,6 +789,24 @@ export class KupDataTable {
     onKupDataTableDblClick(obj: { t: string; p: string; k: string }) {
         this.kupDataTableDblClick.emit({
             obj: obj,
+        });
+    }
+
+    private onJ4TextFieldInput(row, column, cell) {
+        // Since this function is called with bind, the event from the kup-button gets passed into the arguments array
+        const textFieldEvent = arguments[3] as UIEvent;
+        if (textFieldEvent) {
+            // Prevents double events to be fired.
+            textFieldEvent.stopPropagation();
+        } else {
+            throw 'kup-data-table error: missing event';
+        }
+        cell.value = arguments[3].detail.value;
+        cell.element = arguments[3].currentTarget;
+        this.kupCellTextFieldInput.emit({
+            cell,
+            column,
+            row,
         });
     }
 
@@ -4267,6 +4294,23 @@ export class KupDataTable {
                     cell
                 );
                 return <kup-button {...props}></kup-button>;
+            case 'text-field':
+                classObj['is-centered'] = true;
+                props['disabled'] = row.readOnly;
+                props['onKupTextFieldInput'] = this.onJ4TextFieldInput.bind(
+                    this,
+                    row,
+                    column,
+                    cell
+                );
+                return (
+                    <kup-text-field
+                        {...props}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                        }}
+                    ></kup-text-field>
+                );
             case 'chart':
                 classObj['is-centered'] = true;
                 return <kup-chart {...props} />;

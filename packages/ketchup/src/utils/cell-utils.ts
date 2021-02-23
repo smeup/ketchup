@@ -13,6 +13,7 @@ import {
     isNumber,
     isObjectList,
     isProgressBar as isProgressBarObj,
+    isTextField,
     isTime,
     isTimestamp,
     isVoCodver,
@@ -326,6 +327,8 @@ export function getCellType(cell: Cell) {
         return 'datetime';
     } else if (isTime(obj)) {
         return 'time';
+    } else if (isTextField(obj)) {
+        return 'text-field';
     } else {
         return 'string';
     }
