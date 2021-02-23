@@ -8,19 +8,20 @@
             >: {{ prop.description }}
             <br />
             <span class="code-word" v-if="prop.type !== ''"
-              >Type: {{ prop.type }}</span>
+              >Type: {{ prop.type }}</span
+            >
             <br />
             <a
               v-if="prop.property == 'appid'"
               href="https://support.qlik.com/articles/000026239"
               target="_blank"
             >
-              For more information
+              More information
             </a>
 
             <div
               v-if="prop.property == 'grid'"
-              style="padding-left: 30px; display:block"
+              style="padding-left: 30px; display: block"
             >
               <div v-for="prm in gridStructure" :key="prm.parameter">
                 <li>
@@ -29,25 +30,26 @@
                 </li>
               </div>
             </div>
-
-            <div v-if="prop.property == 'grid'" >
+            <br />
+            <div v-if="prop.property == 'grid'">
               <div>
                 <code class="flat"
                   >{{ markupBasic1 }}<br />{{ markupBasic2 }}<br />{{
-                    markupBasic3}}<br />{{ markupBasic4 }}<br />{{ markupBasic5 }}</code
+                    markupBasic3
+                  }}<br />{{ markupBasic4 }}<br />{{ markupBasic5 }}</code
                 >
               </div>
               <p> Output: </p>
-              <img :src="gridOutput" style="width: 606px"/>
+              <img :src="gridOutput" style="width: 606px" />
             </div>
             <a
               v-if="prop.property == 'grid'"
               href="https://help.qlik.com/en-US/sense-developer/June2020/Subsystems/Mashups/Content/Sense_Mashups/Howtos/mashups-obtain-app-object-id.htm"
               target="_blank"
             >
-              For more information
+              More information
             </a>
-            
+
             <br />
 
             <div v-if="prop.property == 'config'">
@@ -93,13 +95,14 @@ export default {
         },
         {
           property: 'bordered',
-          description: 'Property of type boolean if it is true each qlik object is outlined',
+          description:
+            'Property of type boolean if it is true each qlik object is outlined',
           type: 'boolean',
         },
         {
           property: 'config',
           description:
-            "JSON property that identifies the connection parameters to the qlik server, the basic format is as follows:",
+            'JSON property that identifies the connection parameters to the qlik server, the basic format is as follows:',
           type: 'QlikServer',
         },
         {
@@ -169,9 +172,9 @@ export default {
             'define if selections in object are disable (default: false)',
         },
       ],
-      borderedTrue: require('../../../../../public/images/kup-qlik_bordered_true.png'),
-      borderedFalse: require('../../../../../public/images/kup-qlik_bordered_false.png'),
-      gridOutput: require('../../../../../public/images/kup-qlik_esempio_grid.png'),
+      borderedTrue: 'images/qlik/kup-qlik_bordered_true.png',
+      borderedFalse: 'images/qlik/kup-qlik_bordered_false.png',
+      gridOutput: 'images/qlik/kup-qlik_esempio_grid.png',
       markupBasic1: "{selections:[{field: 'Anno',values:[2020]}],",
       markupBasic2: ' rows:[',
       markupBasic3:
