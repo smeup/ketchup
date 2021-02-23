@@ -202,6 +202,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'removableColumns',
+          description: 'Sets the possibility to remove the selected column.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'rowActions',
           description: 'Sets the actions of the rows.',
           type: 'rowAction[]',
