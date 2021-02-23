@@ -5,6 +5,7 @@
 // - el       = element to reposition
 // - anchorEl = "el" position will be anchored to this element
 // - margin   = "el" distance from its parent in pixels
+// - above   = when true "el" will be always placed above its wrapper
 //
 declare global {
     interface HTMLElement {
@@ -15,7 +16,8 @@ declare global {
 export function positionRecalc(
     el: any,
     anchorEl: HTMLElement,
-    margin?: number
+    margin?: number,
+    above?: boolean
 ) {
     el.classList.add('dynamic-position');
     anchorEl.classList.add('dynamic-position-anchor');
@@ -28,7 +30,7 @@ export function positionRecalc(
     var mutObserver = new MutationObserver(function (mutations) {
         let target: any = mutations[0].target;
         if (target.classList.contains('dynamic-position-active')) {
-            runRecalc(el);
+            runRecalc(el, above);
         }
     });
     mutObserver.observe(el, {
@@ -37,7 +39,7 @@ export function positionRecalc(
     });
 }
 
-export async function runRecalc(el: HTMLElement) {
+export async function runRecalc(el: HTMLElement, above?: boolean) {
     if (!el.isConnected || !el.classList.contains('dynamic-position-active')) {
         return;
     }
@@ -50,7 +52,7 @@ export async function runRecalc(el: HTMLElement) {
     el.style.bottom = ``;
     el.style.left = ``;
 
-    if (window.innerHeight - rect.bottom < offsetH) {
+    if (window.innerHeight - rect.bottom < offsetH || above) {
         el.style.bottom = `${
             window.innerHeight - rect.top + el['anchorMargin']
         }px`;
@@ -68,5 +70,5 @@ export async function runRecalc(el: HTMLElement) {
     } else {
         el.style.left = `${rect.left}px`;
     }
-    setTimeout(runRecalc, 10, el);
+    setTimeout(runRecalc, 10, el, above);
 }
