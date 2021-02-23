@@ -9,6 +9,7 @@ export interface Identifiable {
  * Props in common with every f-component.
  */
 export interface FComponent {
+    dataSet?: GenericObject;
     id?: string;
     title?: string;
     wrapperClass?: string;
