@@ -2018,7 +2018,6 @@ export class KupDataTable {
         e: MouseEvent,
         { action, row, type, index }
     ) {
-        console.log(action, row, type, index);
         e.stopPropagation();
 
         this.kupRowActionClicked.emit({
@@ -2030,7 +2029,6 @@ export class KupDataTable {
     }
 
     private onRowActionExpanderClick(e: MouseEvent, row: Row) {
-        console.log(row);
         e.stopPropagation();
 
         this.kupRowActionClicked.emit({
