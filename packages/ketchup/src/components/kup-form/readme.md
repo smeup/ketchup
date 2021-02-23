@@ -154,8 +154,8 @@ graph TD;
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
-  kup-data-table --> kup-button
   kup-data-table --> kup-image
+  kup-data-table --> kup-button
   kup-data-table --> kup-chart
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-gauge
