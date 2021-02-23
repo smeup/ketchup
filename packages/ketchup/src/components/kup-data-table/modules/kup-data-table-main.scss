@@ -541,3 +541,11 @@ th.obj:hover span:not(.overlay-action) {
   color: var(--kup-text-color);
   outline: none;
 }
+
+.hidden {
+  opacity: 0;
+  transition: opacity 200ms;
+  &:hover {
+    opacity: 1;
+  }
+}
