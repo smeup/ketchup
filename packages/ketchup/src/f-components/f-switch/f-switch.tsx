@@ -17,6 +17,7 @@ export const FSwitch: FunctionalComponent<FSwitchProps> = (
             class={`f-switch--wrapper ${
                 props.wrapperClass ? props.wrapperClass : ''
             }`}
+            {...props.dataSet}
             id={props.id}
             title={props.title}
         >

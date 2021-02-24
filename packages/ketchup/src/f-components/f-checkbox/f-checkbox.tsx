@@ -23,6 +23,7 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
             class={`f-checkbox--wrapper ${
                 props.wrapperClass ? props.wrapperClass : ''
             }`}
+            {...props.dataSet}
             id={props.id}
             title={props.title}
         >
@@ -31,7 +32,7 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
                     props.leadingLabel ? 'mdc-form-field--align-end' : ''
                 }`}
             >
-                <div id="checkbox-wrapper" class={classObj}>
+                <div class={classObj}>
                     <input
                         type="checkbox"
                         class="mdc-checkbox__native-control"
