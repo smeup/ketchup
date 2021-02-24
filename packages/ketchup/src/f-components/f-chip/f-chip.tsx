@@ -24,6 +24,7 @@ export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
             class={`f-chip--wrapper ${
                 props.wrapperClass ? props.wrapperClass : ''
             }`}
+            {...props.dataSet}
             id={props.id}
             title={props.title}
         >

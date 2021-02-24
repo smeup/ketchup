@@ -23,6 +23,7 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
             class={`f-checkbox--wrapper ${
                 props.wrapperClass ? props.wrapperClass : ''
             }`}
+            {...props.dataSet}
             id={props.id}
             title={props.title}
         >
