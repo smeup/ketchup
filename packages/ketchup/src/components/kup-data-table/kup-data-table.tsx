@@ -1976,7 +1976,6 @@ export class KupDataTable {
 
         // selecting row
         this.selectedRows = [row];
-
         // find clicked column
         let clickedColumn: string = null;
         if (target instanceof HTMLElement) {
@@ -2066,6 +2065,11 @@ export class KupDataTable {
             this.selectedRows.splice(index, 1);
             this.selectedRows = [...this.selectedRows];
         }
+
+        this.kupRowSelected.emit({
+            selectedRows: this.selectedRows,
+            clickedColumn: null,
+        });
     }
 
     private onRowExpand(row: Row) {
