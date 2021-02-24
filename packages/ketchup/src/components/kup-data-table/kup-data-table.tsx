@@ -3526,12 +3526,10 @@ export class KupDataTable {
                 return (
                     <td
                         class={
-                            fixedCellStyle
+                            (fixedCellStyle
                                 ? fixedCellStyle.fixedCellClasses
-                                : null +
-                                  (this.areTotalsSelected(column)
-                                      ? ''
-                                      : ' hidden')
+                                : '') +
+                            (this.areTotalsSelected(column) ? '' : ' hidden')
                         }
                         style={
                             fixedCellStyle
