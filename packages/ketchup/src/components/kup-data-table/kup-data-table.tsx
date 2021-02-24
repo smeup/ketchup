@@ -1126,7 +1126,6 @@ export class KupDataTable {
                             expanderRowActions[index]['data-row']
                         );
                 }
-                FButtonMDC(expanderRowActions[index] as HTMLElement);
             }
 
             //Row actions: actions
@@ -1145,7 +1144,6 @@ export class KupDataTable {
                                 rowActions[index]['data-action']
                             );
                     }
-                    FButtonMDC(rowActions[index] as HTMLElement);
                 }
             }
             //Groups chip set
