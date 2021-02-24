@@ -143,6 +143,9 @@ import {
 } from '../../f-components/f-button/f-button-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
+import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
+import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
+import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1088,29 +1091,44 @@ export class KupDataTable {
                 }
                 FButtonMDC(columnMenuDescription);
             }
+            //Row multiselection checkboxex
+            const multiselectionCheckboxes: NodeListOf<Element> = root.querySelectorAll(
+                'td[row-select-cell] .f-checkbox--wrapper'
+            );
+            for (
+                let index = 0;
+                index < multiselectionCheckboxes.length;
+                index++
+            ) {
+                const checkboxEl: HTMLButtonElement = multiselectionCheckboxes[
+                    index
+                ].querySelector('input');
+                if (checkboxEl) {
+                    checkboxEl.onchange = () =>
+                        this.handleRowSelect(
+                            multiselectionCheckboxes[index]['data-row']
+                        );
+                }
+                FCheckboxMDC(multiselectionCheckboxes[index] as HTMLElement);
+            }
             //Row actions: expander
             const expanderRowActions: NodeListOf<Element> = root.querySelectorAll(
                 '[row-action-cell] .f-button--wrapper.expander'
             );
-            if (expanderRowActions) {
-                for (
-                    let index = 0;
-                    index < expanderRowActions.length;
-                    index++
-                ) {
-                    const buttonEl: HTMLButtonElement = expanderRowActions[
-                        index
-                    ].querySelector('button');
-                    if (buttonEl) {
-                        buttonEl.onclick = (e: MouseEvent) =>
-                            this.onRowActionExpanderClick(
-                                e,
-                                expanderRowActions[index]['data-row']
-                            );
-                    }
-                    FButtonMDC(expanderRowActions[index] as HTMLElement);
+            for (let index = 0; index < expanderRowActions.length; index++) {
+                const buttonEl: HTMLButtonElement = expanderRowActions[
+                    index
+                ].querySelector('button');
+                if (buttonEl) {
+                    buttonEl.onclick = (e: MouseEvent) =>
+                        this.onRowActionExpanderClick(
+                            e,
+                            expanderRowActions[index]['data-row']
+                        );
                 }
+                FButtonMDC(expanderRowActions[index] as HTMLElement);
             }
+
             //Row actions: actions
             const rowActions: NodeListOf<Element> = root.querySelectorAll(
                 '[row-action-cell] .f-button--wrapper.action'
@@ -1957,7 +1975,7 @@ export class KupDataTable {
         const target = event.target;
 
         // selecting row
-        this.handleRowSelect(target, row, event.ctrlKey);
+        this.selectedRows = [row];
 
         // find clicked column
         let clickedColumn: string = null;
@@ -2037,27 +2055,16 @@ export class KupDataTable {
         });
     }
 
-    private handleRowSelect(target: any, row: Row, ctrlKey: boolean) {
-        if (this.multiSelection) {
-            if (
-                (ctrlKey && this.selectedRows) ||
-                target.tagName === 'KUP-CHECKBOX'
-            ) {
-                const index = this.selectedRows.indexOf(row);
+    private handleRowSelect(row: Row) {
+        const index = this.selectedRows.indexOf(row);
 
-                if (index < 0) {
-                    // adding
-                    this.selectedRows = [...this.selectedRows, row];
-                } else {
-                    // removing
-                    this.selectedRows.splice(index, 1);
-                    this.selectedRows = [...this.selectedRows];
-                }
-            } else {
-                this.selectedRows = [row];
-            }
+        if (index < 0) {
+            // adding
+            this.selectedRows = [...this.selectedRows, row];
         } else {
-            this.selectedRows = [row];
+            // removing
+            this.selectedRows.splice(index, 1);
+            this.selectedRows = [...this.selectedRows];
         }
     }
 
@@ -3706,6 +3713,13 @@ export class KupDataTable {
                     specialExtraCellsCount - 1
                 );
 
+                let props: FCheckboxProps = {
+                    checked: this.selectedRows.includes(row),
+                    dataSet: {
+                        'data-row': row,
+                    },
+                };
+
                 selectRowCell = (
                     <td
                         row-select-cell
@@ -3720,10 +3734,7 @@ export class KupDataTable {
                                 : null
                         }
                     >
-                        <kup-checkbox
-                            onKupCheckboxClick={(e) => e.stopPropagation()}
-                            checked={this.selectedRows.includes(row)}
-                        />
+                        <FCheckbox {...props} />
                     </td>
                 );
             }
@@ -4026,7 +4037,11 @@ export class KupDataTable {
             return (
                 <tr
                     class={rowClass}
-                    onClick={(e) => this.onRowClick(e, row)}
+                    onClick={
+                        this.multiSelection
+                            ? null
+                            : (e) => this.onRowClick(e, row)
+                    }
                     {...(this.dragEnabled
                         ? setKetchupDraggable(dragHandlersRow, {
                               [KupDataTableRowDragType]: row,
