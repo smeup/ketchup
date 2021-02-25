@@ -14,6 +14,9 @@ export const config: Config = {
             src: 'box.html',
         },
         {
+            src: 'card.html',
+        },
+        {
             src: 'chart.html',
         },
         {

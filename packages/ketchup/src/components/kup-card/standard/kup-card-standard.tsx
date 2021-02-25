@@ -1,5 +1,9 @@
 import { h } from '@stencil/core';
+import { JSX } from '@stencil/core/internal';
+import { FCheckbox } from '../../../f-components/f-checkbox/f-checkbox';
+import { FCheckboxProps } from '../../../f-components/f-checkbox/f-checkbox-declarations';
 import { FImage } from '../../../f-components/f-image/f-image';
+import { FTextField } from '../../../f-components/f-text-field/f-text-field';
 import { KupCard } from '../kup-card';
 
 export function create1(component: KupCard) {
@@ -500,6 +504,38 @@ export function create11(component: KupCard) {
     );
 }
 
+export function create12(component: KupCard) {
+    let componentClass = 'standard-layout-' + component.layoutNumber;
+    if (
+        component.data['button1'] ||
+        component.data['button2'] ||
+        component.data['button3'] ||
+        component.data['button4'] ||
+        component.data['button5']
+    ) {
+        componentClass += ' has-actions';
+    }
+    return (
+        <div class={componentClass}>
+            {actionBar(component, 'section-1')}
+            <div class="section-2">
+                {component.data.textfield ? (
+                    <kup-text-field
+                        class="full-width"
+                        id="textfield1"
+                        {...component.data.textfield[0]}
+                    ></kup-text-field>
+                ) : null}
+            </div>
+            <div class="section-3">
+                {component.data.checkbox
+                    ? checkboxList(component.data.checkbox)
+                    : null}
+            </div>
+        </div>
+    );
+}
+
 function actionBar(component: KupCard, section: string) {
     return (
         <div class={section}>
@@ -535,4 +571,14 @@ function actionBar(component: KupCard, section: string) {
             )}
         </div>
     );
+}
+
+function checkboxList(checkboxes: [FCheckboxProps]): JSX.Element[] {
+    let checkboxList: JSX.Element[] = [];
+    for (let index = 0; index < checkboxes.length; index++) {
+        checkboxList.push(
+            <kup-checkbox id={'checkbox' + index} {...checkboxes[index]} />
+        );
+    }
+    return checkboxList;
 }

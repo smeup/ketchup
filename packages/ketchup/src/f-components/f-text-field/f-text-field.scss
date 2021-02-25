@@ -244,6 +244,10 @@
       }
     }
 
+    &.full-width {
+      width: 100%;
+    }
+
     &.shaped {
       .mdc-text-field.mdc-text-field--filled {
         border-radius: 16px 16px 0 0;

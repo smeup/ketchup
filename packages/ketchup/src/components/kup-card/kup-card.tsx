@@ -24,6 +24,7 @@ import {
     colorContrast,
 } from '../../utils/theme-manager';
 import { FImage } from '../../f-components/f-image/f-image';
+import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 
 @Component({
     tag: 'kup-card',
@@ -145,11 +146,8 @@ export class KupCard {
                     card = scalableLayouts[method](this);
                     break;
                 }
+                default:
                 case 'standard': {
-                    card = standardLayouts[method](this);
-                    break;
-                }
-                default: {
                     card = standardLayouts[method](this);
                     break;
                 }
@@ -255,28 +253,34 @@ export class KupCard {
     }
 
     listenButtonEvents(root: ShadowRoot) {
-        root.addEventListener('kupButtonBlur', (e) => {
-            this.onKupEvent(e);
-        });
         root.addEventListener('kupButtonClick', (e) => {
             this.onKupEvent(e);
         });
-        root.addEventListener('kupButtonFocus', (e) => {
+    }
+
+    listenCheckboxEvents(root: ShadowRoot) {
+        root.addEventListener('kupCheckboxClick', (e) => {
             this.onKupEvent(e);
         });
     }
 
     listenChipEvents(root: ShadowRoot) {
-        root.addEventListener('kupChipBlur', (e) => {
-            this.onKupEvent(e);
-        });
         root.addEventListener('kupChipClick', (e) => {
             this.onKupEvent(e);
         });
-        root.addEventListener('kupChipFocus', (e) => {
+        root.addEventListener('kupChipIconClick', (e) => {
             this.onKupEvent(e);
         });
-        root.addEventListener('kupChipIconClick', (e) => {
+    }
+
+    listenTextFieldEvents(root: ShadowRoot) {
+        root.addEventListener('kupTextFieldClearIconClick', (e) => {
+            this.onKupEvent(e);
+        });
+        root.addEventListener('kupTextFieldInput', (e) => {
+            this.onKupEvent(e);
+        });
+        root.addEventListener('kupTextFieldSubmit', (e) => {
             this.onKupEvent(e);
         });
     }
@@ -310,7 +314,9 @@ export class KupCard {
         setThemeCustomStyle(this);
 
         this.listenButtonEvents(root);
+        this.listenCheckboxEvents(root);
         this.listenChipEvents(root);
+        this.listenTextFieldEvents(root);
     }
 
     componentDidLoad() {

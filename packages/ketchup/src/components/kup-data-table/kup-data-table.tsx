@@ -912,14 +912,14 @@ export class KupDataTable {
 
     private columnMenuPosition() {
         if (this.rootElement.shadowRoot) {
-            let menu: HTMLElement = this.rootElement.shadowRoot.querySelector(
-                '.column-menu'
+            const menu: any = this.rootElement.shadowRoot.querySelector(
+                '#column-menu'
             );
             if (menu) {
                 let wrapper: HTMLElement = menu.closest('th');
                 positionRecalc(menu, wrapper);
                 menu.classList.add('dynamic-position-active');
-                menu.classList.add('visible');
+                menu.menuVisible = true;
             }
         }
     }
@@ -1044,8 +1044,8 @@ export class KupDataTable {
                     'button'
                 );
                 if (buttonEl) {
-                    buttonEl.onclick = (e: MouseEvent) =>
-                        this.switchColumnGroup(e.target);
+                    // buttonEl.onclick = (e: MouseEvent) =>
+                    //     this.switchColumnGroup(e.target);
                 }
                 FButtonMDC(columnMenuGroup);
             }
@@ -1760,6 +1760,48 @@ export class KupDataTable {
     }
 
     //======== Event Listeners ========
+    private columnMenuEvents(e: CustomEvent) {
+        const card: any = this.rootElement.shadowRoot.querySelector(
+            '#column-menu'
+        );
+        const cardData = card.data;
+        const eventType = e.detail.event.type;
+        const compID = e.detail.value.id;
+        switch (eventType) {
+            case 'kupButtonClick':
+                switch (compID) {
+                    case 'add':
+                        this.addColumn(e.target);
+                        break;
+                    case 'description':
+                        this.onAddCodeDecodeColumnClick(e);
+                        break;
+                    case 'group':
+                        this.switchColumnGroup(
+                            cardData['button1']['data-storage'][
+                                'data-column-name'
+                            ]
+                        );
+                        break;
+                }
+                break;
+            case 'kupTextFieldInput':
+                window.clearTimeout(this.columnFilterTimeout);
+                this.columnFilterTimeout = window.setTimeout(
+                    () =>
+                        this.onFilterChange(
+                            e.detail.value.value,
+                            cardData['textfield'][0]['data-storage'][
+                                'data-column'
+                            ]
+                        ),
+                    300
+                );
+                console.log(e);
+                break;
+        }
+    }
+
     private onColumnSort({ ctrlKey }: MouseEvent, columnName: string) {
         // check if columnName is already in sort array
         let i = 0;
@@ -1815,12 +1857,12 @@ export class KupDataTable {
         this.filters = newFilters;
     }
 
-    private onFilterChange({ detail }, column: Column) {
+    private onFilterChange(value: string, column: Column) {
         // resetting current page
         this.resetCurrentPage();
         let newFilter = '';
-        if (detail.value) {
-            newFilter = normalizeValue(detail.value.trim(), column.obj);
+        if (value) {
+            newFilter = normalizeValue(value.trim(), column.obj);
         }
         const newFilters: GenericFilter = { ...this.filters };
         setTextFieldFilterValue(newFilters, column.name, newFilter);
@@ -2173,8 +2215,7 @@ export class KupDataTable {
             // If the event comes from a menu of the table header
             if (
                 this.isHTMLElementFromEventTarget(elem) &&
-                elem.classList &&
-                elem.classList.contains('column-menu')
+                elem.id === 'column-menu'
             ) {
                 fromMenu = true;
             }
@@ -2202,8 +2243,7 @@ export class KupDataTable {
         this.closeMenu();
     }
 
-    private switchColumnGroup(el: EventTarget): void {
-        const column: string = (el as HTMLElement).closest('th').dataset.column;
+    private switchColumnGroup(column: string): void {
         const group: GroupObject = this.getGroupByName(column);
         // resetting opened menu
         this.closeMenuAndTooltip();
@@ -2812,8 +2852,9 @@ export class KupDataTable {
             filterInitialValue,
             column.obj,
             column.decimals
-        );
+        ); /*
         return (
+        
             <li role="menuitem" class="textfield-row">
                 <kup-text-field
                     fullWidth={true}
@@ -2837,7 +2878,7 @@ export class KupDataTable {
                     }}
                 ></kup-text-field>
             </li>
-        );
+        );*/
     }
 
     private renderHeader() {
@@ -2990,7 +3031,8 @@ export class KupDataTable {
                             e.button === 0 &&
                             !(e.target as HTMLTableCellElement).hasAttribute(
                                 this.dragStarterAttribute
-                            )
+                            ) &&
+                            (e.target as HTMLElement).tagName !== 'KUP-CARD'
                         ) {
                             this.onColumnSort(e, column.name);
                         }
@@ -3058,6 +3100,8 @@ export class KupDataTable {
                         </li>
                     );
 
+                    let checkboxProps = [];
+
                     if (this.showFilters && isStringObject(column.obj)) {
                         columnMenuItems.push(this.getTextualFilter(column));
                     }
@@ -3074,6 +3118,10 @@ export class KupDataTable {
                         }[] = this.getColumnValues(column);
                         let checkboxItems: JSX.Element[] = [];
                         if (columnValues.length > 0) {
+                            checkboxProps.push({
+                                checked: checkBoxesFilter.length == 0,
+                                label: '(*All)',
+                            });
                             checkboxItems.push(
                                 <kup-checkbox
                                     label={'(*All)'}
@@ -3093,6 +3141,14 @@ export class KupDataTable {
                                     label = '(*unchecked)';
                                 }
                             }
+                            checkboxProps.push({
+                                checked: checkBoxesFilter.includes(v.value),
+                                'data-storage': {
+                                    'data-column': column,
+                                    'data-value': v.value,
+                                },
+                                label: label,
+                            });
                             checkboxItems.push(
                                 <kup-checkbox
                                     label={label}
@@ -3117,17 +3173,62 @@ export class KupDataTable {
                         }
                     }
 
+                    let cardData = {
+                        button1: {
+                            'data-storage': {
+                                'data-column-name': column.name,
+                            },
+                            icon: 'book',
+                            id: 'group',
+                            title:
+                                this.getGroupByName(column.name) != null
+                                    ? 'Disable grouping'
+                                    : 'Enable grouping',
+                        },
+                        button2: {
+                            icon: 'table-column-plus-after',
+                            id: 'add',
+                            title: 'Add column',
+                        },
+                        button3: {
+                            icon: 'label',
+                            id: 'description',
+                            title: 'Add code/description column',
+                        },
+                        checkbox: checkboxProps,
+                        textfield: [
+                            {
+                                'data-storage': {
+                                    'data-column': column,
+                                },
+                                fullWidth: true,
+                                icon: 'magnify',
+                                id: 'thanos',
+                                isClearable: true,
+                                label: 'Search...',
+                            },
+                        ],
+                    };
+
+                    let style = {
+                        position: 'fixed',
+                    };
+
                     if (columnMenuItems.length !== 0) {
                         columnMenu = (
-                            <div class={`kup-menu column-menu`}>
-                                <ul
-                                    role="menubar"
-                                    onMouseUp={(e) => e.stopPropagation()}
-                                >
-                                    {columnMenuItems}
-                                    {checkboxWrapper}
-                                </ul>
-                            </div>
+                            <kup-card
+                                data={cardData}
+                                id="column-menu"
+                                isMenu={true}
+                                layoutNumber={12}
+                                onMouseUp={(e) => e.stopPropagation()}
+                                onKupCardEvent={(e) => {
+                                    this.columnMenuEvents(e);
+                                }}
+                                sizeX="auto"
+                                sizeY="auto"
+                                style={style}
+                            ></kup-card>
                         );
                     }
                 }
