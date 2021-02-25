@@ -1,4 +1,5 @@
-@import './variables';
-@import './menus';
-@import './recalc-position';
-@import './scroll-on-hover';
+@use './variables';
+@use './menus';
+@use './recalc-position';
+@use './scroll-on-hover';
+@use '../f-components/f-image/f-image.scss';

@@ -2,13 +2,13 @@
   <div>
     <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
       <template v-slot:0>
-        <qlik-basic></qlik-basic>
+        <qlik-examples></qlik-examples>
       </template>
       <template v-slot:1>
-        <qlik-properties></qlik-properties>
+        <qlik-basic></qlik-basic>
       </template>
       <template v-slot:2>
-        <qlik-examples></qlik-examples>
+        <qlik-properties></qlik-properties>
       </template>
     </comp>
   </div>
@@ -18,21 +18,20 @@
 import QlikBasic from './examples/QlikBasic';
 import QlikExamples from './examples/QlikExamples';
 import QlikProperties from './examples/QlikProperties';
-import Comp from '../page/templates/Comp'
+import Comp from '../page/templates/Comp';
 export default {
   components: {
     QlikBasic,
     QlikExamples,
     QlikProperties,
-    Comp
-
+    Comp,
   },
   data() {
     return {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-qlik',
       headtitle: 'Qlik',
-      titles: ['Basic usage', 'Properties', 'Examples'],
+      titles: ['Examples', 'Basic usage', 'Properties'],
     };
   },
 };

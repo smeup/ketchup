@@ -72,10 +72,11 @@ Type: `Promise<void>`
 graph TD;
   kup-tooltip --> kup-button
   kup-tooltip --> kup-tree
+  kup-button --> kup-badge
+  kup-badge --> kup-badge
   kup-tree --> kup-tooltip
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-badge --> kup-badge
   kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
   kup-box --> kup-tooltip

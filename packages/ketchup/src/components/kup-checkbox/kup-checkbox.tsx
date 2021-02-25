@@ -13,6 +13,7 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logRender } from '../../utils/debug-manager';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
+import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
 
 @Component({
     tag: 'kup-checkbox',
@@ -20,41 +21,64 @@ import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
     shadow: true,
 })
 export class KupCheckbox {
+    /**
+     * References the root HTML element of the component (<kup-checkbox>).
+     */
     @Element() rootElement: HTMLElement;
 
-    //---- States ----
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
 
+    /**
+     * The value of the component.
+     * @default ""
+     */
     @State() value: string = '';
-    @State() customStyleTheme: string = undefined;
+    /**
+     * The component-specific CSS set by the current Ketch.UP theme.
+     * @default ""
+     */
+    @State() customStyleTheme: string = '';
 
-    //---- Props ----
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
     /**
      * Defaults at false. When set to true, the component will be set to 'checked'.
+     * @default false
      */
     @Prop() checked: boolean = false;
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @default ""
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
-     * Defaults at false. When set to true, the component is disabled.
+     * When set to true, the component is disabled.
+     * @default false
      */
     @Prop() disabled: boolean = false;
     /**
-     * Defaults at false. When set to true, the component will be set to 'indeterminate'.
+     * When set to true, the component will be set to 'indeterminate'.
+     * @default false
      */
     @Prop() indeterminate: boolean = false;
     /**
-     * Defaults at null. When specified, its content will be shown as a label.
+     * When specified, its content will be shown as a label.
+     * @default null
      */
     @Prop() label: string = null;
     /**
-     * Defaults at false. When set to true, the label will be on the left of the component.
+     * When set to true, the label will be on the left of the component.
+     * @default false
      */
     @Prop() leadingLabel: boolean = false;
 
-    //---- Events ----
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     /**
      * Triggered when the input element loses focus.
@@ -148,16 +172,30 @@ export class KupCheckbox {
         });
     }
 
-    //---- Public methods ----
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
 
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
-    //---- Private methods ----
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
 
-    private setEvents() {
+    /**
+     * Set the events of the component and instantiates Material Design.
+     */
+    private setEvents(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const f: HTMLElement = root.querySelector('.f-checkbox--wrapper');
@@ -178,7 +216,9 @@ export class KupCheckbox {
         }
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
         logLoad(this, false);
@@ -204,7 +244,7 @@ export class KupCheckbox {
     }
 
     render() {
-        let props = {
+        let props: FCheckboxProps = {
             checked: this.checked,
             disabled: this.disabled,
             indeterminate: this.indeterminate,

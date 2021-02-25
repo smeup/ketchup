@@ -11,14 +11,15 @@
         </ul>
       </div>
       <br />
+      <code class="flat">{{ markupBasic }}</code>
+      <br />
       <code class="flat"
-        >{{ markupBasic }}<br />{{ markupBasic2 }}<br />{{ markupBasic3
-        }}<br />{{ markupBasic4 }}<br />{{ markupBasic5 }}<br />{{ markupBasic6
-        }}<br />{{ markupBasic7 }}<br />{{ markupBasic8 }}</code
+        >{{ markupBasic2 }}<br />{{ markupBasic3 }}<br />{{ markupBasic4
+        }}<br />{{ markupBasic5 }}<br />{{ markupBasic6 }}</code
       >
       <br />
       <p> Output: </p>
-      <img :src="borderedFalse" />
+      <img src="images/qlik/kup-qlik_bordered_false.png" />
     </div>
   </div>
 </template>
@@ -54,17 +55,13 @@ export default {
       ],
       markupBasic:
         '<kup-qlik id="qlik-obj" appid = "c9f6a87b-0027-40dc-b439-8171b7457031" qlik="qlik"></kup-qlik>',
-      markupBasic2: '<script type="text/javascript">',
-      markupBasic3: "  let ele = document.getElementById('qlik-obj')",
-      markupBasic4:
-        "  ele.config = { host:'itcldsrv017', port:'80', prefix:'hdr', isSecure:false }",
-      markupBasic5: '  ele.grid = {',
-      markupBasic6:
+      markupBasic2: "  let element = document.getElementById('qlik-obj')",
+      markupBasic3:
+        "  element.config = { host:'itcldsrv017', port:'80', prefix:'hdr', isSecure:false }",
+      markupBasic4: '  element.grid = {',
+      markupBasic5:
         "      rows:[{columns:[{ obj:'KvqdmD', colDim:12, size:'M'}]}]",
-      markupBasic7: '  }',
-      // eslint-disable-next-line no-useless-escape
-      markupBasic8: '<\/script>',
-      borderedFalse: require('../../../../../public/images/kup-qlik_bordered_false.png'),
+      markupBasic6: '  }',
     };
   },
 };

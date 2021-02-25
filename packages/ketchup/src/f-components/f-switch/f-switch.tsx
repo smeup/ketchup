@@ -1,13 +1,11 @@
 import { FunctionalComponent, h } from '@stencil/core';
+import { FSwitchProps } from './f-switch-declarations';
 
-interface Props {
-    checked?: boolean;
-    disabled?: boolean;
-    label?: string;
-    leadingLabel?: boolean;
-}
+//---- Component ----
 
-export const FSwitch: FunctionalComponent<Props> = (props) => {
+export const FSwitch: FunctionalComponent<FSwitchProps> = (
+    props: FSwitchProps
+) => {
     const classObj: Record<string, boolean> = {
         'mdc-switch': true,
         'mdc-switch--checked': props.checked,
@@ -15,7 +13,14 @@ export const FSwitch: FunctionalComponent<Props> = (props) => {
     };
 
     return (
-        <div class="f-switch--wrapper">
+        <div
+            class={`f-switch--wrapper ${
+                props.wrapperClass ? props.wrapperClass : ''
+            }`}
+            {...props.dataSet}
+            id={props.id}
+            title={props.title}
+        >
             <div
                 class={`mdc-form-field ${
                     props.leadingLabel ? 'mdc-form-field--align-end' : ''

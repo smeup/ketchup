@@ -38,10 +38,12 @@ Type: `Promise<void>`
 
  - [kup-badge](.)
  - [kup-box](../kup-box)
+ - [kup-button](../kup-button)
  - [kup-card](../kup-card)
  - [kup-chip](../kup-chip)
  - [kup-data-table](../kup-data-table)
  - [kup-image](../kup-image)
+ - [kup-paginator](../kup-paginator)
 
 ### Depends on
 
@@ -52,10 +54,12 @@ Type: `Promise<void>`
 graph TD;
   kup-badge --> kup-badge
   kup-box --> kup-badge
+  kup-button --> kup-badge
   kup-card --> kup-badge
   kup-chip --> kup-badge
   kup-data-table --> kup-badge
   kup-image --> kup-badge
+  kup-paginator --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

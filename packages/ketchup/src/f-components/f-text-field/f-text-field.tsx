@@ -1,36 +1,21 @@
 import { FunctionalComponent, getAssetPath, h } from '@stencil/core';
+import { FTextFieldProps } from './f-text-field-declarations';
 
-interface Props {
-    disabled?: boolean;
-    fullHeight?: boolean;
-    fullWidth?: boolean;
-    helper?: string;
-    helperWhenFocused?: boolean;
-    icon?: string;
-    initialValue?: string;
-    inputType?: string;
-    step?: number;
-    isClearable?: boolean;
-    label?: string;
-    leadingLabel?: boolean;
-    maxLength?: number;
-    outlined?: boolean;
-    readOnly?: boolean;
-    shaped?: boolean;
-    textArea?: boolean;
-    trailingIcon?: boolean;
-    trailingLabel?: boolean;
-    value?: string;
-}
+//---- Component ----
 
-export const FTextField: FunctionalComponent<Props> = (props) => {
+export const FTextField: FunctionalComponent<FTextFieldProps> = (
+    props: FTextFieldProps
+) => {
     return (
         <div
             class={`f-text-field--wrapper ${
                 props.fullHeight ? 'full-height' : ''
             } ${props.fullWidth ? 'full-width' : ''} ${
                 props.shaped ? 'shaped' : ''
-            }`}
+            } ${props.wrapperClass ? props.wrapperClass : ''}`}
+            {...props.dataSet}
+            id={props.id}
+            title={props.title}
         >
             {props.leadingLabel || props.trailingLabel ? (
                 <div
@@ -51,7 +36,9 @@ export const FTextField: FunctionalComponent<Props> = (props) => {
     );
 };
 
-function setContent(props: Props) {
+//---- Methods ----
+
+function setContent(props: FTextFieldProps): HTMLDivElement {
     const isOutlined: boolean = props.textArea || props.outlined;
     let labelEl: HTMLElement;
     let iconEl: HTMLElement;
@@ -154,7 +141,7 @@ function setContent(props: Props) {
     );
 }
 
-function setHelper(props: Props) {
+function setHelper(props: FTextFieldProps): HTMLDivElement {
     if (props.helper) {
         const classObj: Record<string, boolean> = {
             'mdc-text-field-helper-text': true,

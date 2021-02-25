@@ -13,8 +13,10 @@ declare global {
 }
 
 const dom: HTMLElement = document.documentElement;
-
-function initThemes() {
+/**
+ * Initializes Ketch.UP theme.
+ */
+function initThemes() : void {
     if (dom.kupCurrentTheme) {
         //In case multiple initializing instances are launched
         return;
@@ -60,8 +62,10 @@ function initThemes() {
         attributeFilter: ['kup-theme'],
     });
 }
-
-function setTheme() {
+/**
+ * Sets the theme using the value of "kup-theme" attribute on document.documentElement.
+ */
+function setTheme() : void {
     let message = '';
     let themeValue = dom.getAttribute('kup-theme');
     message = 'Setting theme to: ' + themeValue + '.';
@@ -81,8 +85,10 @@ function setTheme() {
     var event = new CustomEvent('kupThemeChange');
     document.dispatchEvent(event);
 }
-
-function setupCssVariables() {
+/**
+ * Sets the CSS variables of the theme.
+ */
+function setupCssVariables() : void {
     let variables = dom.kupCurrentTheme.cssVariables;
     let rgbVariables: [{ rgbKey: string; rgbVal: string }] = undefined;
     for (var key in variables) {
@@ -109,8 +115,10 @@ function setupCssVariables() {
         }
     }
 }
-
-function setupCustomStyle() {
+/**
+ * Sets the customStyle of the theme on existing components.
+ */
+function setupCustomStyle() : void {
     let components: any = dom.kupCustomStyles;
     for (let i = 0; i < components.length; i++) {
         if (components[i].isConnected) {
@@ -120,8 +128,10 @@ function setupCustomStyle() {
         }
     }
 }
-
-function setupIcons() {
+/**
+ * Sets the icon variables of the theme.
+ */
+function setupIcons() : void {
     let icons = dom.kupCurrentTheme.icons;
     for (var key in icons) {
         if (icons.hasOwnProperty(key)) {
@@ -132,8 +142,13 @@ function setupIcons() {
         }
     }
 }
-
-export function fetchThemeCustomStyle(component: string) {
+/**
+ * Sets the customStyleTheme property on the component, which contains the combination of "MASTER" and component-specific styles of the current theme.
+ *
+ * @param {string} component - The component's tagName.
+ * @returns {string} Complete custom CSS of the component.
+ */
+export function fetchThemeCustomStyle(component: string) : string {
     let styles = dom.kupCurrentTheme.customStyles;
     if (!styles) {
         return '';
@@ -150,8 +165,12 @@ export function fetchThemeCustomStyle(component: string) {
 
     return completeStyle + ' ';
 }
-
-export function setThemeCustomStyle(component: any) {
+/**
+ * Called by every component having a customStyle prop, invokes theme's initialization when no current theme is detected and calls fetchThemeCustomStyle which return the complete CSS of the component
+ *
+ * @param component - The component calling this function.
+ */
+export function setThemeCustomStyle(component: any) : void {
     if (!dom.kupCurrentTheme) {
         initThemes();
     }
@@ -160,7 +179,11 @@ export function setThemeCustomStyle(component: any) {
         component.rootElement.tagName
     );
 }
-
+/**
+ * Combines the component's customStyle and customStyleTheme properties, returning the result.
+ *
+ * @param component - The component calling this function.
+ */
 export function setCustomStyle(component: any) {
     if (component.customStyleTheme) {
         if (component.customStyle) {
@@ -171,11 +194,16 @@ export function setCustomStyle(component: any) {
     } else if (component.customStyle) {
         return component.customStyle;
     } else {
-        return undefined;
+        return "";
     }
 }
-
-export function colorContrast(color: string) {
+/**
+ * Checks whether on a given color the text should be white or black.
+ *
+ * @param {string} color - Color used to check the contrast.
+ * @returns {string} "white" or "black".
+ */
+export function colorContrast(color: string) : string{
     color = colorCheck(color).rgbColor;
     const colorValues = color.replace(/[^\d,.]/g, '').split(',');
     const brightness = Math.round(
@@ -187,8 +215,13 @@ export function colorContrast(color: string) {
     const textColor = brightness > 125 ? 'black' : 'white';
     return textColor;
 }
-
-export function randomColor(brightness: number) {
+/**
+ * Generates a random HEX color.
+ *
+ * @param {number} brightness - Brightness of the color generated (0-255).
+ * @returns {string} Random HEX color.
+ */
+export function randomColor(brightness: number) : string {
     function randomChannel(brightness: number) {
         var r = 255 - brightness;
         var n = 0 | (Math.random() * r + brightness);
@@ -202,8 +235,13 @@ export function randomColor(brightness: number) {
         randomChannel(brightness)
     );
 }
-
-export function colorCheck(color: string) {
+/**
+ * Returns HEX, RGB and RGB values from a given color.
+ *
+ * @param {string} color - Color.
+ * @returns {{string, string, string}} Object of color values: hexColor ("#ffffff"), rgbColor ("rgb(255,255,255)"") and rgbValues ("255,255,255").
+ */
+export function colorCheck(color: string) :  { hexColor: string, rgbColor: string, rgbValues: string } {
     //Testing whether the color is transparent, if it is a fall back value will be returned matching the background-color
     if (color === 'transparent') {
         color = dom.kupCurrentTheme.cssVariables['--kup-background-color'];
@@ -282,8 +320,13 @@ export function colorCheck(color: string) {
 
     return { hexColor: hexColor, rgbColor: color, rgbValues: rgbValues };
 }
-
-export function hexToRgb(hex: string) {
+/**
+ * Converts an HEX color to its RGB values.
+ *
+ * @param {string} hex - Hex code.
+ * @returns {{number, number, number}} Object of color values: hexColor ("#ffffff"), rgbColor ("rgb(255,255,255)"") and rgbValues ("255,255,255").
+ */
+export function hexToRgb(hex: string) : {r: number, g: number, b: number} {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result
         ? {
@@ -293,17 +336,34 @@ export function hexToRgb(hex: string) {
           }
         : null;
 }
-
-export function rgbToHex(r: number, g: number, b: number) {
+/**
+ * Converts a color in RGB format to the corresponding HEX color.
+ *
+ * @param {number} r - Red channel value.
+ * @param {number} g - Green channel value.
+ * @param {number} b - Blue channel value.
+ * @returns {string} HEX color.
+ */
+export function rgbToHex(r: number, g: number, b: number) : string {
     return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
-
-function componentToHex(c) {
+/**
+ * Converts a single RGB value to the corresponding HEX value.
+ *
+ * @param {number} c - Color value.
+ * @returns {string} HEX value.
+ */
+function componentToHex(c : number) : string {
     var hex = c.toString(16);
     return hex.length == 1 ? '0' + hex : hex;
 }
-
-export function codeToHex(color: string) {
+/**
+ * Converts a color code word to the corresponding HEX value.
+ *
+ * @param {string} color - Color code word.
+ * @returns {string} HEX value.
+ */
+export function codeToHex(color: string) : string {
     const colorCodes = {
         aliceblue: '#f0f8ff',
         antiquewhite: '#faebd7',

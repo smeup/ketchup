@@ -11,6 +11,7 @@ import {
     Method,
     Watch,
 } from '@stencil/core';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { positionRecalc } from '../../utils/recalc-position';
@@ -248,9 +249,7 @@ export class KupDatePicker {
     @Method()
     async setValue(value: string) {
         this.value = value;
-        if (this.textfieldEl != null) {
-            this.textfieldEl.setValue(value);
-        }
+        this.setTextFieldInitalValue(this.getDateForOutput());
     }
 
     onKupBlur(e: UIEvent) {
@@ -315,7 +314,7 @@ export class KupDatePicker {
             );
             this.refreshPickerComponentValue(newValue);
             if (isOnInputEvent != true) {
-                this.value = newValue;
+                this.setValue(newValue);
             }
         }
 
@@ -354,8 +353,7 @@ export class KupDatePicker {
         if (newValue == null) {
             return;
         }
-        this.value = newValue;
-        this.setTextFieldInitalValue(this.getDateForOutput());
+        this.setValue(newValue);
     }
 
     getPickerValueSelected(): string {
@@ -543,7 +541,7 @@ export class KupDatePicker {
                         <kup-button
                             customStyle="#kup-component button {text-transform:capitalize}"
                             id="change-view-button"
-                            styling="flat"
+                            styling={FButtonStyling.FLAT}
                             label={changeViewButtonLabel}
                             onKupButtonClick={(e) => this.changeView(e)}
                         ></kup-button>

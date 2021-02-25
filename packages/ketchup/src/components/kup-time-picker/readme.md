@@ -92,6 +92,8 @@ graph TD;
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
+  kup-button --> kup-badge
+  kup-badge --> kup-badge
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-data-table --> kup-time-picker
