@@ -4642,7 +4642,6 @@ export class KupDataTable {
         let dropArea: HTMLElement = this.rootElement.shadowRoot.querySelector(
             '#remove-column-area'
         );
-
         if (show) {
             dropArea.style.marginLeft =
                 'calc(' + th.clientWidth / 2 + 'px - 25px)';
