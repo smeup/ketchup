@@ -513,9 +513,13 @@ export class KupDataTable {
         }
     }
 
-    @Watch('sort')
     @Watch('filters')
     @Watch('globalFilterValue')
+    filtersChanged() {
+        this.expandGroupsHandler();
+    }
+
+    @Watch('sort')
     @Watch('rowsPerPage')
     @Watch('totals')
     @Watch('currentPage')
@@ -537,6 +541,9 @@ export class KupDataTable {
     recalculateRowsAndUndoSelections() {
         if (!this.isRestoringState) {
             this.recalculateRows();
+            // reset group state
+            this.groupState = {};
+            this.forceGroupExpansion();
             this.resetSelectedRows();
         }
     }
@@ -1447,7 +1454,7 @@ export class KupDataTable {
             this.getRows(),
             tmpFilters,
             this.globalFilterValue,
-            visibleColumns
+            this.getColumns()
         );
 
         if (columnObject != null) {
@@ -1540,7 +1547,7 @@ export class KupDataTable {
             this.getRows(),
             this.filters,
             this.globalFilterValue,
-            this.getVisibleColumns()
+            this.getColumns()
         );
         this.rowsLength = this.rowsPointLength();
     }
