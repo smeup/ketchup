@@ -199,3 +199,5 @@ export const FixedCellsCSSVarsBase = {
     columns: '--ddt_column-left-',
     rows: '--ddt_row-top-',
 };
+
+export const totalMenuOpenID = 'TOMEOPID';

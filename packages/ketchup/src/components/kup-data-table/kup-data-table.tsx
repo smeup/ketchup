@@ -39,6 +39,7 @@ import {
     GenericFilter,
     FilterInterval,
     TotalMode,
+    totalMenuOpenID,
 } from './kup-data-table-declarations';
 
 import { isRating, isGauge, isKnob, getCellType } from '../../utils/cell-utils';
@@ -481,6 +482,12 @@ export class KupDataTable {
      */
     @State()
     private openedMenu: string = null;
+
+    /**
+     * name of the column with the opened total menu
+     */
+    @State()
+    private openedTotalMenu: string = null;
 
     @State()
     private openedCustomSettings: boolean = false;
@@ -1238,6 +1245,7 @@ export class KupDataTable {
             this.customizePanelPosition();
         }
         this.columnMenuPosition();
+        this.totalMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
         this.hideShowColumnRemoveDropArea(false);
@@ -2102,6 +2110,14 @@ export class KupDataTable {
         this.openedMenu = null;
     }
 
+    private openTotalMenu(column: Column) {
+        this.openedTotalMenu = column.name;
+    }
+
+    private closeTotalMenu() {
+        this.openedTotalMenu = null;
+    }
+
     private closeMenuAndTooltip() {
         this.closeMenu();
         unsetTooltip(this.tooltip);
@@ -2111,8 +2127,16 @@ export class KupDataTable {
         return this.openedMenu != null;
     }
 
+    private isOpenedTotalMenu(): boolean {
+        return this.openedTotalMenu != null;
+    }
+
     private isOpenedMenuForColumn(column: string): boolean {
         return this.openedMenu === column;
+    }
+
+    private isOpenedTotalMenuForColumn(column: string): boolean {
+        return this.openedTotalMenu === column;
     }
 
     private onHeaderCellContextMenuOpen(e: MouseEvent, column: Column) {
@@ -2158,10 +2182,17 @@ export class KupDataTable {
         // Gets the path of the event (does not work in IE11 or previous)
         const eventPath = event.composedPath();
         let fromMenu = false;
+        let fromTotalMenu = false;
         let fromSameTable = false;
 
         // Examine the path
         for (let elem of eventPath) {
+            // TODO When the footer is considered stable please do this in another dedicated method
+            // check if is the open menu button the element which fired the event
+            if ((elem as HTMLElement).id == totalMenuOpenID) {
+                return;
+            }
+
             // If we encounter our table we can stop looping the elements
             if (elem === this.tableAreaRef) {
                 fromSameTable = true;
@@ -2176,11 +2207,26 @@ export class KupDataTable {
             ) {
                 fromMenu = true;
             }
+
+            // TODO When the footer is considered stable please do this in another dedicated method
+            // If the event comes from a menu of the table footer
+            if (
+                this.isHTMLElementFromEventTarget(elem) &&
+                elem.classList &&
+                elem.classList.contains('total-menu')
+            ) {
+                fromTotalMenu = true;
+            }
         }
 
         // When we have an open menu and the event does NOT come from the same table, we close the menu.
         if (this.isOpenedMenu() && !(fromMenu && fromSameTable)) {
             this.closeMenuAndTooltip();
+        }
+
+        // TODO When the footer is considered stable please do this in another dedicated method
+        if (this.isOpenedTotalMenu() && !(fromTotalMenu && fromSameTable)) {
+            this.closeTotalMenu();
         }
     }
 
@@ -3134,8 +3180,6 @@ export class KupDataTable {
                 // https://html.spec.whatwg.org/multipage/dnd.html#concept-dnd-p
                 const dragHandlers: DragHandlers = {
                     onDragStart: (e: DragEvent) => {
-                        // console.log('onDragStart', e);
-
                         // Sets the type of drag
                         setDragEffectAllowed(e, 'move');
 
@@ -3160,7 +3204,6 @@ export class KupDataTable {
                         // replace the used flags set with attribute
                     },
                     onDragEnd: (e: DragEvent) => {
-                        // console.log("onDragEnd" , e);
                         // When the drag has ended, checks if the element still exists or it was destroyed by JSX
                         const targetElement = e.target as HTMLElement;
                         if (targetElement) {
@@ -3184,7 +3227,6 @@ export class KupDataTable {
                 };
                 const dropHandlers: DropHandlers = {
                     onDrop: (e: DragEvent) => {
-                        // console.log("onDrop" , e);
                         const transferredData = JSON.parse(
                             e.dataTransfer.getData(KupDataTableColumnDragType)
                         ) as Column;
@@ -3194,7 +3236,6 @@ export class KupDataTable {
                         return KupDataTableColumnDragType;
                     },
                     onDragLeave: (e: DragEvent) => {
-                        // console.log("onDragLeave" , e);
                         if (
                             e.dataTransfer.types.indexOf(
                                 KupDataTableColumnDragType
@@ -3207,7 +3248,6 @@ export class KupDataTable {
                         }
                     },
                     onDragOver: (e: DragEvent) => {
-                        // console.log("onDragOver" , e);
                         if (
                             e.dataTransfer.types.indexOf(
                                 KupDataTableColumnDragType
@@ -3483,6 +3523,26 @@ export class KupDataTable {
         }
     }
 
+    private totalMenuPosition() {
+        if (this.rootElement.shadowRoot) {
+            let menu: HTMLElement = this.rootElement.shadowRoot.querySelector(
+                '.total-menu'
+            );
+            if (menu) {
+                let wrapper: HTMLElement = menu.closest('td');
+                positionRecalc(menu, wrapper, 0, true);
+                menu.classList.add('dynamic-position-active');
+                menu.classList.add('visible');
+            }
+        }
+    }
+
+    private onTotalMenuOpen(column: Column) {
+        this.closeMenuAndTooltip();
+        this.closeTotalMenu();
+        this.openTotalMenu(column);
+    }
+
     renderFooter() {
         if (!this.showFooter && !this.hasTotals()) {
             // no footer
@@ -3523,13 +3583,26 @@ export class KupDataTable {
                     extraCells
                 );
 
+                let totalMenu = undefined;
+                if (this.isOpenedTotalMenuForColumn(column.name)) {
+                    // creare gli elementi della lista
+                    totalMenu = (
+                        <div class={`kup-menu total-menu`}>
+                            <p>Prova di menu</p>
+                            <p>Prova di menu</p>
+                            <p>Prova di menu</p>
+                            <p>Prova di menu</p>
+                        </div>
+                    );
+                }
+
                 return (
                     <td
                         class={
                             (fixedCellStyle
                                 ? fixedCellStyle.fixedCellClasses
                                 : '') +
-                            (this.areTotalsSelected(column) ? '' : ' hidden')
+                            (this.areTotalsSelected(column) ? '' : ' ') // TODO rimettere hidden
                         }
                         style={
                             fixedCellStyle
@@ -3537,6 +3610,13 @@ export class KupDataTable {
                                 : null
                         }
                     >
+                        <span
+                            id={totalMenuOpenID}
+                            onClick={() => this.onTotalMenuOpen(column)}
+                        >
+                            Apri menu
+                        </span>
+                        {totalMenu}
                         {this.renderTotalsComboBox(column)}
                         <span>
                             {numberToFormattedStringNumber(
@@ -3961,8 +4041,6 @@ export class KupDataTable {
 
             const dragHandlersRow: DragHandlers = {
                 onDragStart: (e: DragEvent) => {
-                    // console.log('onDragStart', e.target);
-
                     // get the tr tag
                     const trElement = e.target as HTMLTableRowElement;
                     let cell = {};
@@ -4021,7 +4099,6 @@ export class KupDataTable {
                     }
                 },
                 onDragEnd: (_e: DragEvent) => {
-                    // console.log('onDragEnd', e);
                     // Remove the over class
                     const dragDropPayload = getDragDropPayload();
                     if (dragDropPayload && dragDropPayload.overElement) {
