@@ -42,9 +42,13 @@
   transform: translate(-50%, 50%);
 }
 
-kup-image {
+.f-image--wrapper {
+  display: block;
+  position: relative;
   left: 50%;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
+  height: inherit;
+  width: inherit;
 }

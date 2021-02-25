@@ -4,7 +4,6 @@ import { EventEmitter } from '@stencil/core';
 import { TooltipRelatedObject } from '../components/kup-tooltip/kup-tooltip-declarations';
 import { Cell } from '../components/kup-data-table/kup-data-table-declarations';
 import { KupTooltip } from '../components/kup-tooltip/kup-tooltip';
-import { smeupObjectEquals } from './object-utils';
 
 // shamelessy copyed from https://github.com/ionic-team/ionic/blob/master/core/src/utils/helpers.ts
 export function debounceEvent(event: EventEmitter, wait: number): EventEmitter {

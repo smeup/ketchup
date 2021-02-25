@@ -38,17 +38,10 @@ import {
     TotalsMap,
     GenericFilter,
     FilterInterval,
-    CSSArray,
+    TotalMode,
 } from './kup-data-table-declarations';
 
-import {
-    isRating,
-    isColor,
-    isGauge,
-    isKnob,
-    isRadio,
-    isProgressBar,
-} from '../../utils/cell-utils';
+import { isRating, isGauge, isKnob, getCellType } from '../../utils/cell-utils';
 
 import {
     calcTotals,
@@ -85,12 +78,10 @@ import {
     isButton,
     isIcon,
     isImage,
-    isLink,
     isNumber,
     isDate,
     isProgressBar as isProgressBarObj,
     isVoCodver,
-    isObjectList,
     isStringObject,
     isCheckbox,
     hasTooltip,
@@ -106,22 +97,16 @@ import {
     stringToNumber,
     numberToFormattedStringNumber,
     identify,
-    changeDateTimeFormat,
     ISO_DEFAULT_DATE_TIME_FORMAT,
     ISO_DEFAULT_DATE_FORMAT,
+    changeDateTimeFormat,
 } from '../../utils/utils';
-import { ComponentChipElement } from '../kup-chip/kup-chip-declarations';
 
 import {
     ComponentListElement,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
-import {
-    logCSS,
-    logLoad,
-    logMessage,
-    logRender,
-} from '../../utils/debug-manager';
+import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 import { KupDataTableState } from './kup-data-table-state';
@@ -140,10 +125,27 @@ import {
     getDragDropPayload,
 } from '../../utils/drag-and-drop';
 import { dragMultipleImg } from '../../assets/images/drag-multiple';
-
 import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
+import { FChip } from '../../f-components/f-chip/f-chip';
+import { FImage } from '../../f-components/f-image/f-image';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
+import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import {
+    FChipData,
+    FChipType,
+} from '../../f-components/f-chip/f-chip-declarations';
+import {
+    FButtonProps,
+    FButtonStyling,
+} from '../../f-components/f-button/f-button-declarations';
+import { FButton } from '../../f-components/f-button/f-button';
+import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
+import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
+import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
+import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -192,6 +194,7 @@ export class KupDataTable {
                 this.selectRowsById = state.selectRowsById;
                 this.dragEnabled = state.dragEnabled;
                 this.dropEnabled = state.dropEnabled;
+                this.showFooter = state.showFooter;
                 //
             }
         }
@@ -224,6 +227,7 @@ export class KupDataTable {
             this.state.pageSelected = this.currentPage;
             this.state.dragEnabled = this.dragEnabled;
             this.state.dropEnabled = this.dropEnabled;
+            this.state.showFooter = this.showFooter;
             this.state.selectRowsById = this.selectedRows.reduce(
                 (accumulator, row, currentIndex) => {
                     const prefix = currentIndex > 0 ? ';' : '';
@@ -385,6 +389,10 @@ export class KupDataTable {
      * When set to true enables the column filters.
      */
     @Prop() showFilters: boolean = false;
+    /**
+     * When set to true shows the footer.
+     */
+    @Prop() showFooter: boolean = false;
     /**
      * Can be used to customize the grid view of the table.
      */
@@ -775,11 +783,6 @@ export class KupDataTable {
         this.customStyleTheme = customStyleTheme;
     }
 
-    @Method()
-    async performanceCSS(detailedLog: boolean) {
-        logCSS(this, CSSArray, detailedLog);
-    }
-
     onKupDataTableDblClick(obj: { t: string; p: string; k: string }) {
         this.kupDataTableDblClick.emit({
             obj: obj,
@@ -883,15 +886,19 @@ export class KupDataTable {
             entries: ResizeObserverEntry[]
         ) => {
             entries.forEach((entry) => {
-                logMessage(
-                    this,
-                    'Size changed to x: ' +
-                        entry.contentRect.width +
-                        ', y: ' +
-                        entry.contentRect.height +
-                        '.'
-                );
-                if (entry.contentRect.height && entry.contentRect.width) {
+                if (
+                    entry.contentRect.height &&
+                    entry.contentRect.width &&
+                    this.lazyLoadCells
+                ) {
+                    logMessage(
+                        this,
+                        'Size changed to x: ' +
+                            entry.contentRect.width +
+                            ', y: ' +
+                            entry.contentRect.height +
+                            '.'
+                    );
                     window.clearTimeout(this.resizeTimeout);
                     this.resizeTimeout = window.setTimeout(
                         () => this.forceUpdate(),
@@ -922,7 +929,6 @@ export class KupDataTable {
         if (this.paginatedRowsLength < this.rowsLength && this.lazyLoadRows) {
             this.intObserver.observe(rows[this.paginatedRowsLength - 1]);
         }
-        this.hideShowColumnRemoveDropArea(false);
     }
 
     private didLoadObservers() {
@@ -1025,6 +1031,168 @@ export class KupDataTable {
         return count;
     }
 
+    private setEvents() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+
+        if (root) {
+            //Column menu button: add group
+            const columnMenuGroup: HTMLElement = root.querySelector(
+                '.column-menu .f-button--wrapper.group'
+            );
+            if (columnMenuGroup) {
+                const buttonEl: HTMLButtonElement = columnMenuGroup.querySelector(
+                    'button'
+                );
+                if (buttonEl) {
+                    buttonEl.onclick = (e: MouseEvent) =>
+                        this.switchColumnGroup(e.target);
+                }
+                FButtonMDC(columnMenuGroup);
+            }
+            //Column menu button: add column
+            const columnMenuAdd: HTMLElement = root.querySelector(
+                '.column-menu .f-button--wrapper.add'
+            );
+            if (columnMenuAdd) {
+                const buttonEl: HTMLButtonElement = columnMenuAdd.querySelector(
+                    'button'
+                );
+                if (buttonEl) {
+                    buttonEl.onclick = (e: MouseEvent) =>
+                        this.addColumn(e.target);
+                }
+                FButtonMDC(columnMenuAdd);
+            }
+            //Column menu button: remove column
+            const columnMenuRemove: HTMLElement = root.querySelector(
+                '.column-menu .f-button--wrapper.remove'
+            );
+            if (columnMenuRemove) {
+                const buttonEl: HTMLButtonElement = columnMenuRemove.querySelector(
+                    'button'
+                );
+                if (buttonEl) {
+                    buttonEl.onclick = (e: MouseEvent) =>
+                        this.removeColumn(e.target);
+                }
+                FButtonMDC(columnMenuRemove);
+            }
+            //Column menu button: add code/description
+            const columnMenuDescription: HTMLElement = root.querySelector(
+                '.column-menu .f-button--wrapper.description'
+            );
+            if (columnMenuDescription) {
+                const buttonEl: HTMLButtonElement = columnMenuDescription.querySelector(
+                    'button'
+                );
+                if (buttonEl) {
+                    buttonEl.onclick = (e: MouseEvent) =>
+                        this.onAddCodeDecodeColumnClick(e);
+                }
+                FButtonMDC(columnMenuDescription);
+            }
+            //Row multiselection checkboxex
+            const multiselectionCheckboxes: NodeListOf<Element> = root.querySelectorAll(
+                'td[row-select-cell] .f-checkbox--wrapper'
+            );
+            for (
+                let index = 0;
+                index < multiselectionCheckboxes.length;
+                index++
+            ) {
+                const checkboxEl: HTMLButtonElement = multiselectionCheckboxes[
+                    index
+                ].querySelector('input');
+                if (checkboxEl) {
+                    checkboxEl.onchange = () =>
+                        this.handleRowSelect(
+                            multiselectionCheckboxes[index]['data-row']
+                        );
+                }
+                FCheckboxMDC(multiselectionCheckboxes[index] as HTMLElement);
+            }
+            //Row actions: expander
+            const expanderRowActions: NodeListOf<Element> = root.querySelectorAll(
+                '[row-action-cell] .f-button--wrapper.expander'
+            );
+            for (let index = 0; index < expanderRowActions.length; index++) {
+                const buttonEl: HTMLButtonElement = expanderRowActions[
+                    index
+                ].querySelector('button');
+                if (buttonEl) {
+                    buttonEl.onclick = (e: MouseEvent) =>
+                        this.onRowActionExpanderClick(
+                            e,
+                            expanderRowActions[index]['data-row']
+                        );
+                }
+            }
+
+            //Row actions: actions
+            const rowActions: NodeListOf<Element> = root.querySelectorAll(
+                '[row-action-cell] .f-button--wrapper.action'
+            );
+            if (rowActions) {
+                for (let index = 0; index < rowActions.length; index++) {
+                    const buttonEl: HTMLButtonElement = rowActions[
+                        index
+                    ].querySelector('button');
+                    if (buttonEl) {
+                        buttonEl.onclick = (e: MouseEvent) =>
+                            this.onDefaultRowActionClick(
+                                e,
+                                rowActions[index]['data-action']
+                            );
+                    }
+                }
+            }
+            //Groups chip set
+            const groupChip: HTMLElement = root.querySelector(
+                '#group-chips.f-chip--wrapper'
+            );
+            if (groupChip) {
+                const chips: NodeListOf<HTMLElement> = groupChip.querySelectorAll(
+                    '.mdc-chip'
+                );
+                for (let index = 0; index < chips.length; index++) {
+                    const cancelIcon: HTMLElement = chips[index].querySelector(
+                        '.mdc-chip__icon.clear'
+                    );
+                    if (cancelIcon) {
+                        cancelIcon.onclick = () => this.removeGroup(index);
+                    }
+                }
+                FChipMDC(groupChip);
+            }
+            //Global filter text field
+            const globalFilter: HTMLElement = root.querySelector(
+                '#global-filter .f-text-field--wrapper'
+            );
+            if (globalFilter) {
+                const globalFilterInput: HTMLInputElement = globalFilter.querySelector(
+                    'input'
+                );
+                const globalFilterClear: HTMLElement = globalFilter.querySelector(
+                    '.clear'
+                );
+                globalFilterInput.oninput = (event) => {
+                    const t = event.target;
+                    window.clearTimeout(this.globalFilterTimeout);
+                    this.globalFilterTimeout = window.setTimeout(
+                        () => this.onGlobalFilterChange(t),
+                        300,
+                        t
+                    );
+                };
+                if (globalFilterClear) {
+                    globalFilterClear.onclick = () =>
+                        this.onGlobalFilterChange(null);
+                }
+                FTextFieldMDC(globalFilter);
+            }
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
@@ -1070,6 +1238,8 @@ export class KupDataTable {
         this.columnMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
+        this.hideShowColumnRemoveDropArea(false);
+        this.setEvents();
 
         if (
             this.headerIsPersistent &&
@@ -1687,10 +1857,11 @@ export class KupDataTable {
             if (needNormalize) {
                 newFilter = normalizeValue(newFilter, column.obj);
             }
+            if (suffixToAdd != null && newFilter != '') {
+                newFilter = newFilter + suffixToAdd;
+            }
         }
-        if (suffixToAdd != null) {
-            newFilter = newFilter + suffixToAdd;
-        }
+
         const newFilters: GenericFilter = { ...this.filters };
         setIntervalTextFieldFilterValue(
             newFilters,
@@ -1778,15 +1949,14 @@ export class KupDataTable {
         return ris;
     }
 
-    private onGlobalFilterChange({ detail }) {
-        // resetting current page
+    private onGlobalFilterChange(inputEl: EventTarget) {
         this.resetCurrentPage();
-
-        let value = '';
-        if (detail && detail.value) {
-            value = detail.value;
+        if (inputEl) {
+            let el = inputEl as HTMLInputElement;
+            this.globalFilterValue = el.value;
+        } else {
+            this.globalFilterValue = '';
         }
-        this.globalFilterValue = value;
     }
 
     private handlePageChanged({ detail }) {
@@ -1803,8 +1973,7 @@ export class KupDataTable {
         const target = event.target;
 
         // selecting row
-        this.handleRowSelect(target, row, event.ctrlKey);
-
+        this.selectedRows = [row];
         // find clicked column
         let clickedColumn: string = null;
         if (target instanceof HTMLElement) {
@@ -1861,7 +2030,7 @@ export class KupDataTable {
     }
 
     private onDefaultRowActionClick(
-        e: CustomEvent,
+        e: MouseEvent,
         { action, row, type, index }
     ) {
         e.stopPropagation();
@@ -1874,7 +2043,7 @@ export class KupDataTable {
         });
     }
 
-    private onRowActionExpanderClick(e: CustomEvent, row: Row) {
+    private onRowActionExpanderClick(e: MouseEvent, row: Row) {
         e.stopPropagation();
 
         this.kupRowActionClicked.emit({
@@ -1883,28 +2052,22 @@ export class KupDataTable {
         });
     }
 
-    private handleRowSelect(target: any, row: Row, ctrlKey: boolean) {
-        if (this.multiSelection) {
-            if (
-                (ctrlKey && this.selectedRows) ||
-                target.tagName === 'KUP-CHECKBOX'
-            ) {
-                const index = this.selectedRows.indexOf(row);
+    private handleRowSelect(row: Row) {
+        const index = this.selectedRows.indexOf(row);
 
-                if (index < 0) {
-                    // adding
-                    this.selectedRows = [...this.selectedRows, row];
-                } else {
-                    // removing
-                    this.selectedRows.splice(index, 1);
-                    this.selectedRows = [...this.selectedRows];
-                }
-            } else {
-                this.selectedRows = [row];
-            }
+        if (index < 0) {
+            // adding
+            this.selectedRows = [...this.selectedRows, row];
         } else {
-            this.selectedRows = [row];
+            // removing
+            this.selectedRows.splice(index, 1);
+            this.selectedRows = [...this.selectedRows];
         }
+
+        this.kupRowSelected.emit({
+            selectedRows: this.selectedRows,
+            clickedColumn: null,
+        });
     }
 
     private onRowExpand(row: Row) {
@@ -1979,10 +2142,16 @@ export class KupDataTable {
         return canHaveDerivedColumn(column.obj);
     }
 
-    private onAddCodeDecodeColumnClick(e: Event, column: Column) {
+    private onAddCodeDecodeColumnClick(e: Event, column?: Column) {
         e.stopPropagation();
+        let columnName: string;
+        if (!column) {
+            columnName = (e.target as HTMLElement).closest('th').dataset.column;
+        } else {
+            columnName = column.name;
+        }
         this.kupAddCodeDecodeColumn.emit({
-            column: column.name,
+            column: columnName,
         });
         this.closeMenuAndTooltip();
     }
@@ -2017,7 +2186,25 @@ export class KupDataTable {
         }
     }
 
-    private switchColumnGroup(group: GroupObject, column: string) {
+    private addColumn(el: EventTarget) {
+        const column: string = (el as HTMLElement).closest('th').dataset.column;
+        this.kupAddColumn.emit({
+            column: column,
+        });
+        this.closeMenuAndTooltip();
+    }
+
+    private removeColumn(el: EventTarget) {
+        const columnName: string = (el as HTMLElement).closest('th').dataset
+            .column;
+        let column = getColumnByName(this.getColumns(), columnName);
+        column.visible = false;
+        this.closeMenu();
+    }
+
+    private switchColumnGroup(el: EventTarget): void {
+        const column: string = (el as HTMLElement).closest('th').dataset.column;
+        const group: GroupObject = this.getGroupByName(column);
         // resetting opened menu
         this.closeMenuAndTooltip();
 
@@ -2838,50 +3025,37 @@ export class KupDataTable {
                     const columnMenuItems: JSX.Element[] = [];
                     let checkboxWrapper: JSX.Element[] = [];
 
-                    //---- adding grouping ----
-                    const group = this.getGroupByName(column.name);
-                    const groupLabel =
-                        group != null ? 'Disable grouping' : 'Enable grouping';
-
                     let actionHideCol = null;
                     if (this.removableColumns) {
                         actionHideCol = (
-                            <kup-button
+                            <FButton
                                 icon="table-column-remove"
                                 title="Hide column"
-                                onKupButtonClick={() => {
-                                    column.visible = false;
-                                    this.closeMenu();
-                                }}
+                                wrapperClass="remove"
                             />
                         );
                     }
                     columnMenuItems.push(
                         <li role="menuitem" class="button-row">
-                            <kup-button
+                            <FButton
                                 icon="book"
-                                title={groupLabel}
-                                onKupButtonClick={() =>
-                                    this.switchColumnGroup(group, column.name)
+                                title={
+                                    this.getGroupByName(column.name) != null
+                                        ? 'Disable grouping'
+                                        : 'Enable grouping'
                                 }
+                                wrapperClass="group"
                             />
-                            <kup-button
+                            <FButton
                                 icon="table-column-plus-after"
                                 title="Add column"
-                                onKupButtonClick={() => {
-                                    this.kupAddColumn.emit({
-                                        column: column.name,
-                                    });
-                                    this.closeMenuAndTooltip();
-                                }}
+                                wrapperClass="add"
                             />
                             {actionHideCol}
-                            <kup-button
-                                icon="extension"
-                                title="Add code/decode column"
-                                onKupButtonClick={(e) => {
-                                    this.onAddCodeDecodeColumnClick(e, column);
-                                }}
+                            <FButton
+                                icon="label"
+                                title="Add code/description column"
+                                wrapperClass="description"
                             />
                         </li>
                     );
@@ -2975,10 +3149,14 @@ export class KupDataTable {
                             this.dragStarterAttribute,
                             ''
                         );
+
                         this.theadRef.setAttribute(this.dragFlagAttribute, '');
                         this.columnsAreBeingDragged = true;
 
-                        this.hideShowColumnRemoveDropArea(true);
+                        this.hideShowColumnRemoveDropArea(
+                            true,
+                            e.target as HTMLElement
+                        );
 
                         // TODO set drag payload and get it in the other methods when need it
                         // setDragDropPayload
@@ -3225,8 +3403,92 @@ export class KupDataTable {
         );
     }
 
+    areTotalsSelected(column: Column): boolean {
+        return this.totals && this.totals[column.name] ? true : false;
+    }
+
+    renderTotalsComboBox(column: Column) {
+        // TODO Manage the label with different languages
+        // and move this object into declaration
+        let menu;
+        if (isNumber(column.obj)) {
+            menu = {
+                [TotalMode.COUNT]: {
+                    label: 'Conta',
+                },
+                [TotalMode.SUM]: {
+                    label: 'Somma',
+                },
+                [TotalMode.AVERAGE]: {
+                    label: 'Media',
+                },
+            };
+        } else {
+            menu = {
+                [TotalMode.COUNT]: {
+                    label: 'Conta',
+                },
+            };
+        }
+
+        if (!this.areTotalsSelected(column)) {
+            menu['Calcola'] = {
+                label: 'Calcola',
+                selected: true,
+                hidden: true,
+            };
+        } else {
+            this.setSelectedMenu(menu, column.name);
+        }
+
+        return (
+            <select
+                class="totals-select"
+                onInput={(event) => this.onTotalsChange(event, column)}
+            >
+                {Object.keys(menu).map((key) => {
+                    const m = menu[key];
+                    return (
+                        <option
+                            value={key}
+                            selected={m.selected ? true : false}
+                            hidden={m.hidden ? true : false}
+                        >
+                            {m.label}
+                        </option>
+                    );
+                })}
+            </select>
+        );
+    }
+
+    // TODO replace any with the correct type using TotalMode
+    setSelectedMenu(menu: any, name: string) {
+        const totalValue = this.totals[name];
+        if (totalValue) {
+            if (totalValue.startsWith(TotalMode.MATH)) {
+                menu[TotalMode.MATH] = {
+                    label: 'Formula',
+                    selected: true,
+                };
+            } else if (menu[totalValue]) {
+                menu[totalValue].selected = true;
+            }
+        }
+    }
+
+    onTotalsChange(event, column) {
+        if (column) {
+            // must do this
+            // otherwise the watcher does not fire
+            const totalsCopy = { ...this.totals };
+            totalsCopy[column.name] = event.target.value;
+            this.totals = totalsCopy;
+        }
+    }
+
     renderFooter() {
-        if (!this.hasTotals()) {
+        if (!this.showFooter && !this.hasTotals()) {
             // no footer
             return null;
         }
@@ -3256,16 +3518,6 @@ export class KupDataTable {
         }
 
         let groupingCell = null;
-        // if (this.isGrouping() && this.hasTotals()) {
-        //     extraCells++;
-        //     const fixedCellStyle = this.composeFixedCellStyleAndClass(
-        //         extraCells,
-        //         0,
-        //         extraCells
-        //     );
-        //     groupingCell = <td class={fixedCellStyle ? fixedCellStyle.fixedCellClasses : null}
-        //                             style={fixedCellStyle ? fixedCellStyle.fixedCellStyle : null}/>;
-        // }
 
         const footerCells = this.getVisibleColumns().map(
             (column: Column, columnIndex) => {
@@ -3278,9 +3530,10 @@ export class KupDataTable {
                 return (
                     <td
                         class={
-                            fixedCellStyle
+                            (fixedCellStyle
                                 ? fixedCellStyle.fixedCellClasses
-                                : null
+                                : '') +
+                            (this.areTotalsSelected(column) ? '' : ' hidden')
                         }
                         style={
                             fixedCellStyle
@@ -3288,11 +3541,14 @@ export class KupDataTable {
                                 : null
                         }
                     >
-                        {numberToFormattedStringNumber(
-                            this.footer[column.name],
-                            column.decimals,
-                            column.obj ? column.obj.p : ''
-                        )}
+                        {this.renderTotalsComboBox(column)}
+                        <span>
+                            {numberToFormattedStringNumber(
+                                this.footer[column.name],
+                                column.decimals,
+                                column.obj ? column.obj.p : ''
+                            )}
+                        </span>
                     </td>
                 );
             }
@@ -3459,6 +3715,13 @@ export class KupDataTable {
                     specialExtraCellsCount - 1
                 );
 
+                let props: FCheckboxProps = {
+                    checked: this.selectedRows.includes(row),
+                    dataSet: {
+                        'data-row': row,
+                    },
+                };
+
                 selectRowCell = (
                     <td
                         row-select-cell
@@ -3473,10 +3736,7 @@ export class KupDataTable {
                                 : null
                         }
                     >
-                        <kup-checkbox
-                            onKupCheckboxClick={(e) => e.stopPropagation()}
-                            checked={this.selectedRows.includes(row)}
-                        />
+                        <FCheckbox {...props} />
                     </td>
                 );
             }
@@ -3510,16 +3770,15 @@ export class KupDataTable {
                     );
                 } else {
                     // adding expander
-                    rowActionExpander = (
-                        <kup-button
-                            icon="chevron-right"
-                            title="Expand items"
-                            onKupButtonClick={(e) => {
-                                this.onRowActionExpanderClick(e, row);
-                            }}
-                            onClick={(e) => e.stopPropagation()}
-                        />
-                    );
+                    const props: FButtonProps = {
+                        dataSet: {
+                            'data-row': row,
+                        },
+                        icon: 'chevron-right',
+                        title: 'Expand items',
+                        wrapperClass: 'expander',
+                    };
+                    rowActionExpander = <FButton {...props} />;
                 }
 
                 rowActionsCell = (
@@ -3780,7 +4039,11 @@ export class KupDataTable {
             return (
                 <tr
                     class={rowClass}
-                    onClick={(e) => this.onRowClick(e, row)}
+                    onClick={
+                        this.multiSelection
+                            ? null
+                            : (e) => this.onRowClick(e, row)
+                    }
                     {...(this.dragEnabled
                         ? setKetchupDraggable(dragHandlersRow, {
                               [KupDataTableRowDragType]: row,
@@ -3802,21 +4065,20 @@ export class KupDataTable {
         type: string
     ): JSX.Element[] {
         return actions.map((action, index) => {
-            return (
-                <kup-button
-                    icon={action.icon}
-                    title={action.text}
-                    onKupButtonClick={(e) => {
-                        this.onDefaultRowActionClick(e, {
-                            action,
-                            index,
-                            row,
-                            type,
-                        });
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                />
-            );
+            const props: FButtonProps = {
+                dataSet: {
+                    'data-action': {
+                        action,
+                        index,
+                        row,
+                        type,
+                    },
+                },
+                icon: action.icon,
+                title: action.text,
+                wrapperClass: 'action',
+            };
+            return <FButton {...props} />;
         });
     }
 
@@ -3852,8 +4114,28 @@ export class KupDataTable {
         let props: any = { ...cell.data };
         classObj[cellType + '-cell'] = true;
 
-        if (cell.data) {
+        if (
+            cellType === 'checkbox' ||
+            cellType === 'date' ||
+            cellType === 'time' ||
+            cellType === 'datetime' ||
+            cellType === 'icon' ||
+            cellType === 'image' ||
+            cellType === 'link' ||
+            cellType === 'number' ||
+            cellType === 'string'
+        ) {
             this.setCellSize(cellType, props, cell);
+            content = this.setCell(
+                cellType,
+                props,
+                content,
+                classObj,
+                cell,
+                column
+            );
+        } else if (cell.data) {
+            this.setCellSizeKup(cellType, props, cell);
             if (!this.lazyLoadCells) {
                 content = this.setLazyKupCell(cellType, props);
             } else {
@@ -3866,8 +4148,6 @@ export class KupDataTable {
                     column
                 );
             }
-        } else {
-            content = this.setCell(cellType, content, classObj, cell, column);
         }
 
         let style = cell.style;
@@ -3944,46 +4224,7 @@ export class KupDataTable {
     // NOTE: keep care to change conditions order... shape wins on object .. -> so if isNumber after shape checks.. ->
     // TODO: more clear conditions when refactoring...
     private getCellType(cell: Cell) {
-        let obj = cell.obj;
-        if (isBar(obj)) {
-            return 'bar';
-        } else if (isButton(obj)) {
-            return 'button';
-        } else if (isChart(obj)) {
-            return 'chart';
-        } else if (isCheckbox(obj)) {
-            return 'checkbox';
-        } else if (isColor(cell, null)) {
-            return 'color-picker';
-        } else if (isGauge(cell, null)) {
-            return 'gauge';
-        } else if (isKnob(cell, null)) {
-            return 'knob';
-        } else if (isIcon(obj) || isVoCodver(obj)) {
-            return 'icon';
-        } else if (isImage(obj)) {
-            return 'image';
-        } else if (isLink(obj)) {
-            return 'link';
-        } else if (isProgressBar(cell, null)) {
-            return 'progress-bar';
-        } else if (isRadio(cell, null)) {
-            return 'radio';
-        } else if (isRating(cell, null)) {
-            return 'rating';
-        } else if (isObjectList(obj)) {
-            return 'chips';
-        } else if (isNumber(obj)) {
-            return 'number';
-        } else if (isDate(obj)) {
-            return 'date';
-        } else if (isTimestamp(obj)) {
-            return 'datetime';
-        } else if (isTime(obj)) {
-            return 'time';
-        } else {
-            return 'string';
-        }
+        return getCellType(cell);
     }
 
     private setLazyKupCell(cellType: string, props: any) {
@@ -3993,6 +4234,37 @@ export class KupDataTable {
     }
 
     private setCellSize(cellType: string, props: any, cell: Cell) {
+        switch (cellType) {
+            case 'checkbox':
+            case 'icon':
+                if (!props.sizeX) {
+                    props['sizeX'] = '18px';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '18px';
+                }
+                if (cell.style) {
+                    if (!cell.style.height) {
+                        cell.style['minHeight'] = props['sizeY'];
+                    }
+                } else {
+                    cell.style = {
+                        minHeight: props['sizeY'],
+                    };
+                }
+                break;
+            case 'image':
+                if (!props.sizeX) {
+                    props['sizeX'] = 'auto';
+                }
+                if (!props.sizeY) {
+                    props['sizeY'] = '64px';
+                }
+                break;
+        }
+    }
+
+    private setCellSizeKup(cellType: string, props: any, cell: Cell) {
         switch (cellType) {
             case 'bar':
                 if (!props.sizeY) {
@@ -4037,32 +4309,6 @@ export class KupDataTable {
                     cell.style = { minHeight: '53px' };
                 }
                 break;
-            case 'checkbox':
-            case 'icon':
-                if (!props.sizeX) {
-                    props['sizeX'] = '18px';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '18px';
-                }
-                if (cell.style) {
-                    if (!cell.style.height) {
-                        cell.style['minHeight'] = props['sizeY'];
-                    }
-                } else {
-                    cell.style = {
-                        minHeight: props['sizeY'],
-                    };
-                }
-                break;
-            case 'image':
-                if (!props.sizeX) {
-                    props['sizeX'] = 'auto';
-                }
-                if (!props.sizeY) {
-                    props['sizeY'] = '64px';
-                }
-                break;
             case 'radio':
                 if (cell.style) {
                     if (!cell.style.height) {
@@ -4088,53 +4334,12 @@ export class KupDataTable {
                 if (!props.data) {
                     return <kup-image {...props} />;
                 } else {
-                    //This code replaces <kup-image> because of performance-related issues, but uses its props
-                    const cssDraw = props.data;
-                    let steps: JSX.Element[] = [];
-                    let leftProgression: number = 0;
-
-                    for (let i = 0; i < props.data.length; i++) {
-                        let drawStep: JSX.Element = undefined;
-
-                        if (!cssDraw[i].shape) {
-                            cssDraw[i].shape = 'bar';
-                        }
-                        if (!cssDraw[i].color) {
-                            cssDraw[i].color = 'transparent';
-                        }
-                        if (!cssDraw[i].height) {
-                            cssDraw[i].height = '100%';
-                        }
-                        if (!cssDraw[i].width) {
-                            cssDraw[i].width = '100%';
-                        }
-
-                        let stepId: string = 'step-' + i;
-                        let stepClass: string = 'css-step bottom-aligned';
-                        let stepStyle: any = {
-                            backgroundColor: cssDraw[i].color,
-                            left: leftProgression + '%',
-                            height: cssDraw[i].height,
-                            width: cssDraw[i].width,
-                        };
-
-                        leftProgression += parseFloat(cssDraw[i].width);
-
-                        drawStep = (
-                            <span
-                                id={stepId}
-                                class={stepClass}
-                                style={stepStyle}
-                            ></span>
-                        );
-                        steps.push(drawStep);
-                    }
                     let barStyle = {
                         height: props.sizeY,
                     };
                     return (
                         <div class="bar-cell-content" style={barStyle}>
-                            {steps}
+                            <FImage {...props} />
                         </div>
                     );
                 }
@@ -4151,32 +4356,8 @@ export class KupDataTable {
             case 'chart':
                 classObj['is-centered'] = true;
                 return <kup-chart {...props} />;
-            case 'checkbox':
-                classObj['is-centered'] = true;
-                let iconStyle = {
-                    mask: props.checked
-                        ? `url('${getAssetPath(
-                              `./assets/svg/check_box.svg`
-                          )}') no-repeat center`
-                        : `url('${getAssetPath(
-                              `./assets/svg/check_box_outline_blank.svg`
-                          )}') no-repeat center`,
-                    background: props.color
-                        ? props.color
-                        : 'var(--kup-icon-color)',
-                    webkitMask: props.checked
-                        ? `url('${getAssetPath(
-                              `./assets/svg/check_box.svg`
-                          )}') no-repeat center`
-                        : `url('${getAssetPath(
-                              `./assets/svg/check_box_outline_blank.svg`
-                          )}') no-repeat center`,
-                };
-                return (
-                    <div class="checkbox-cell-content" style={iconStyle}></div>
-                );
             case 'chips':
-                return <kup-chip {...props}></kup-chip>;
+                return <FChip {...props} />;
             case 'color-picker':
                 return (
                     <kup-color-picker
@@ -4194,50 +4375,6 @@ export class KupDataTable {
                     ></kup-gauge>
                 );
             case 'knob':
-                return (
-                    <kup-progress-bar
-                        class="cell-progress-bar"
-                        value={stringToNumber(cell.value)}
-                        {...props}
-                    ></kup-progress-bar>
-                );
-            case 'icon':
-            case 'image':
-                //This code replaces <kup-image> because of performance-related issues, but uses its props
-                classObj['is-centered'] = true;
-                if (props.badgeData) {
-                    classObj['has-padding'] = true;
-                }
-                if (
-                    props.resource.indexOf('.') > -1 ||
-                    props.resource.indexOf('/') > -1 ||
-                    props.resource.indexOf('\\') > -1
-                ) {
-                    let iconStyle = {
-                        height: props.sizeY,
-                        width: props.sizeX,
-                    };
-                    return (
-                        <div class="image-cell-content" style={iconStyle}>
-                            <img style={iconStyle} src={props.resource}></img>
-                        </div>
-                    );
-                } else {
-                    let iconStyle = {
-                        mask: `url('${getAssetPath(
-                            `./assets/svg/${props.resource}.svg`
-                        )}') no-repeat center`,
-                        background: props.color
-                            ? props.color
-                            : 'var(--kup-icon-color)',
-                        webkitMask: `url('${getAssetPath(
-                            `./assets/svg/${props.resource}.svg`
-                        )}') no-repeat center`,
-                    };
-                    return (
-                        <div class="icon-cell-content" style={iconStyle}></div>
-                    );
-                }
             case 'progress-bar':
                 return <kup-progress-bar {...props}></kup-progress-bar>;
             case 'rating':
@@ -4257,12 +4394,38 @@ export class KupDataTable {
 
     private setCell(
         cellType: string,
+        props: any,
         content: string,
         classObj: Record<string, boolean>,
         cell: Cell,
         column: Column
     ) {
         switch (cellType) {
+            case 'checkbox':
+                classObj['is-centered'] = true;
+                props['resource'] = props.checked
+                    ? 'check_box'
+                    : 'check_box_outline_blank';
+                return <FImage {...props} />;
+            case 'date':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(column, cell);
+                    return cellValue;
+                }
+                return content;
+            case 'datetime':
+                if (content && content != '') {
+                    const cellValue = getCellValueForDisplay(column, cell);
+                    return cellValue;
+                }
+                return content;
+            case 'icon':
+            case 'image':
+                classObj['is-centered'] = true;
+                if (props.badgeData) {
+                    classObj['has-padding'] = true;
+                }
+                return <FImage {...props} />;
             case 'link':
                 return (
                     <a class="cell-link" href={content} target="_blank">
@@ -4276,18 +4439,6 @@ export class KupDataTable {
                     if (cellValueNumber < 0) {
                         classObj['negative-number'] = true;
                     }
-                    return cellValue;
-                }
-                return content;
-            case 'date':
-                if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(column, cell);
-                    return cellValue;
-                }
-                return content;
-            case 'datetime':
-                if (content && content != '') {
-                    const cellValue = getCellValueForDisplay(column, cell);
                     return cellValue;
                 }
                 return content;
@@ -4306,7 +4457,7 @@ export class KupDataTable {
     private renderLoadMoreButton(isSlotted: boolean = true) {
         return (
             <kup-button
-                styling="flat"
+                styling={FButtonStyling.FLAT}
                 class="load-more-button"
                 label="Show more data"
                 icon="plus"
@@ -4391,8 +4542,6 @@ export class KupDataTable {
                 </div>
             );
         }
-        //
-        //{this.removableColumns ? this.renderTrashCanColumns() : null}
         return (
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
@@ -4418,39 +4567,41 @@ export class KupDataTable {
         );
     }
 
-    private renderTrashCanColumns() {
-        //TODO proprietà distinta per abilitare questa eliminazione e quella con tasto destro
-        //TODO far comparire il trash solo a inizio drag
-        //TODO slegare da paginazione
-
-        /* drop column here to remove */
+    private columnRemoveArea(): HTMLDivElement {
         const dropHandlersRemoveCols: DropHandlers = {
             onDrop: (e: DragEvent) => {
-                // console.log('onDrop', e);
                 const transferredData = JSON.parse(
                     e.dataTransfer.getData(KupDataTableColumnDragType)
                 ) as Column;
+                let overElement = e.target as HTMLElement;
+                if (overElement.id !== 'remove-column-area') {
+                    overElement = overElement.closest('#remove-column-area');
+                }
+                overElement.removeAttribute(this.dragOverAttribute);
                 // We are sure the tables have been dropped in a valid location -> starts ...
                 this.handleColumnRemove(transferredData);
-                //this.hideShowColumnRemoveDropArea(false);
                 return KupDataTableColumnDragRemoveType;
             },
-            onDragLeave: (_e: DragEvent) => {
-                // TODO add here some animation
-                // console.log('onDragLeave', e);
+            onDragOver: (e: DragEvent) => {
+                let overElement = e.target as HTMLElement;
+                if (overElement.id !== 'remove-column-area') {
+                    overElement = overElement.closest('#remove-column-area');
+                }
+                overElement.setAttribute(this.dragOverAttribute, '');
+                return true;
             },
-            onDragOver: (_e: DragEvent) => {
-                // TODO add here some animation
-                // console.log('onDragOver', e);
+            onDragLeave: (e: DragEvent) => {
+                let overElement = e.target as HTMLElement;
+                if (overElement.id !== 'remove-column-area') {
+                    overElement = overElement.closest('#remove-column-area');
+                }
+                overElement.removeAttribute(this.dragOverAttribute);
                 return true;
             },
         };
         return (
-            <kup-button
-                styling="outlined"
-                label="DROP COLUMN HERE TO REMOVE"
-                icon="delete"
-                class="trash-drop-cols"
+            <div
+                id="remove-column-area"
                 {...setKetchupDroppable(
                     dropHandlersRemoveCols,
                     [
@@ -4460,23 +4611,41 @@ export class KupDataTable {
                     this.rootElement,
                     {}
                 )}
-            />
+            >
+                <FImage
+                    resource="delete"
+                    color="var(--kup-danger-color)"
+                    sizeX="30px"
+                    sizeY="50px"
+                />
+                <FImage
+                    resource="delete-empty"
+                    color="var(--kup-danger-color)"
+                    sizeX="30px"
+                    sizeY="50px"
+                />
+            </div>
         );
     }
 
-    private hideShowColumnRemoveDropArea(show: boolean) {
+    private hideShowColumnRemoveDropArea(show: boolean, th?: HTMLElement) {
         if (!this.removableColumns) {
             return;
         }
-        let droparea: HTMLElement = this.rootElement.shadowRoot.querySelector(
-            '.trash-drop-cols'
+        let dropArea: HTMLElement = this.rootElement.shadowRoot.querySelector(
+            '#remove-column-area'
         );
-        if (droparea) {
-            //The visibility property allows the author to show or hide an element. It is similar to the display property.
-            //However, the difference is that if you set display:none, it hides the entire element, while visibility:hidden means that the contents of the element will be invisible,
-            //but the element stays in its original position and size.
-            //droparea.style.display = show ? 'block' : 'none'; //inline
-            droparea.style.visibility = show ? 'visible' : 'hidden';
+
+        if (show) {
+            dropArea.style.marginLeft =
+                'calc(' + th.clientWidth / 2 + 'px - 25px)';
+            this.tableAreaRef.appendChild(dropArea);
+            positionRecalc(dropArea, th, 10, true);
+            dropArea.classList.add('dynamic-position-active');
+            dropArea.classList.add('visible');
+        } else {
+            dropArea.classList.remove('visible');
+            dropArea.classList.remove('dynamic-position-active');
         }
     }
 
@@ -4760,23 +4929,13 @@ export class KupDataTable {
         if (this.globalFilter) {
             globalFilter = (
                 <div id="global-filter">
-                    <kup-text-field
+                    <FTextField
                         fullWidth={true}
+                        icon="magnify"
                         isClearable={true}
                         label="Search..."
-                        icon="magnify"
-                        initialValue={this.globalFilterValue}
-                        onKupTextFieldInput={(event) => {
-                            window.clearTimeout(this.globalFilterTimeout);
-                            this.globalFilterTimeout = window.setTimeout(
-                                () => this.onGlobalFilterChange(event),
-                                300
-                            );
-                        }}
-                        onKupTextFieldClearIconClick={(event) =>
-                            this.onGlobalFilterChange(event)
-                        }
-                    ></kup-text-field>
+                        value={this.globalFilterValue}
+                    />
                 </div>
             );
         }
@@ -4809,7 +4968,7 @@ export class KupDataTable {
                 const column = getColumnByName(this.getColumns(), group.column);
 
                 if (column) {
-                    let a: ComponentChipElement = {
+                    let a: FChipData = {
                         label: column.title,
                         value: column.name,
                         checked: true,
@@ -4820,16 +4979,12 @@ export class KupDataTable {
                 }
             });
             if (chipsData.length > 0) {
-                groupChips = (
-                    <kup-chip
-                        id="group-chips"
-                        type="input"
-                        onKupChipIconClick={(e: CustomEvent) =>
-                            this.removeGroup(e.detail.index)
-                        }
-                        data={chipsData}
-                    ></kup-chip>
-                );
+                let props = {
+                    data: chipsData,
+                    id: 'group-chips',
+                    type: FChipType.INPUT,
+                };
+                groupChips = <FChip {...props}></FChip>;
             }
         }
         const tableClass = {
@@ -4899,10 +5054,6 @@ export class KupDataTable {
             belowClass += ' custom-size';
         }
 
-        const columnsDropArea = this.removableColumns
-            ? this.renderTrashCanColumns()
-            : null;
-
         let compCreated = (
             <Host>
                 <style>{setCustomStyle(this)}</style>
@@ -4911,8 +5062,6 @@ export class KupDataTable {
                         {globalFilter}
                         {paginatorTop}
                     </div>
-                    {columnsDropArea}
-
                     <div
                         style={elStyle}
                         class={belowClass}
@@ -4936,10 +5085,12 @@ export class KupDataTable {
                             <tbody>{rows}</tbody>
                             {footer}
                         </table>
-
                         {stickyEl}
                     </div>
                     {tooltip}
+                    {this.removableColumns
+                        ? this.columnRemoveArea()
+                        : undefined}
                     {paginatorBottom}
                 </div>
             </Host>

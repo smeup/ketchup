@@ -68,6 +68,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `selectRowsById`            | `select-rows-by-id`            | Semicolon separated rows id to select.                                                                                                                                                                                         | `string`                                                                                         | `undefined`                          |
 | `showCustomization`         | `show-customization`           | If set to true, displays the button to open the customization panel.                                                                                                                                                           | `boolean`                                                                                        | `false`                              |
 | `showFilters`               | `show-filters`                 | When set to true enables the column filters.                                                                                                                                                                                   | `boolean`                                                                                        | `false`                              |
+| `showFooter`                | `show-footer`                  | When set to true shows the footer.                                                                                                                                                                                             | `boolean`                                                                                        | `false`                              |
 | `showGrid`                  | `show-grid`                    | Can be used to customize the grid view of the table.                                                                                                                                                                           | `ShowGrid.COL \| ShowGrid.COMPLETE \| ShowGrid.NONE \| ShowGrid.ROW`                             | `ShowGrid.ROW`                       |
 | `showHeader`                | `show-header`                  | Enables rendering of the table header.                                                                                                                                                                                         | `boolean`                                                                                        | `true`                               |
 | `showLoadMore`              | `show-load-more`               | If set to true, displays the button to load more records.                                                                                                                                                                      | `boolean`                                                                                        | `false`                              |
@@ -124,16 +125,6 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 
 
 
-### `performanceCSS(detailedLog: boolean) => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 ### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
 
 
@@ -157,11 +148,10 @@ Type: `Promise<void>`
 - [kup-time-picker](../kup-time-picker)
 - [kup-date-picker](../kup-date-picker)
 - [kup-checkbox](../kup-checkbox)
-- [kup-button](../kup-button)
 - [kup-tooltip](../kup-tooltip)
 - [kup-image](../kup-image)
+- [kup-button](../kup-button)
 - [kup-chart](../kup-chart)
-- [kup-chip](../kup-chip)
 - [kup-color-picker](../kup-color-picker)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
@@ -169,6 +159,7 @@ Type: `Promise<void>`
 - [kup-radio](../kup-radio)
 - [kup-paginator](../kup-paginator)
 - [kup-combobox](../kup-combobox)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
@@ -177,11 +168,10 @@ graph TD;
   kup-data-table --> kup-time-picker
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-button
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-image
+  kup-data-table --> kup-button
   kup-data-table --> kup-chart
-  kup-data-table --> kup-chip
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
@@ -189,9 +179,12 @@ graph TD;
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-badge
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
+  kup-button --> kup-badge
+  kup-badge --> kup-badge
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-date-picker --> kup-text-field
@@ -208,14 +201,14 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-rating
   kup-tree --> kup-radio
+  kup-tree --> kup-tooltip
   kup-tree --> kup-text-field
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-badge --> kup-image
+  kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
-  kup-paginator --> kup-button
   kup-paginator --> kup-combobox
-  kup-combobox --> kup-text-field
+  kup-paginator --> kup-badge
   kup-combobox --> kup-list
   kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px

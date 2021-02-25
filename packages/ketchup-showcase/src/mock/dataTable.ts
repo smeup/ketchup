@@ -2688,33 +2688,6 @@ export const performanceDataTable = {
       title: 'Classe\nABC',
     },
     {
-      name: 'COMA02',
-      obj: {
-        k: '',
-        p: 'SI/NO',
-        t: 'V2',
-      },
-      title: 'Modulo\nTecnico',
-    },
-    {
-      name: 'COMA03',
-      obj: {
-        k: '',
-        p: 'SI/NO',
-        t: 'V2',
-      },
-      title: 'Modulo\nServizi',
-    },
-    {
-      name: 'COMA04',
-      obj: {
-        k: '',
-        p: '',
-        t: '',
-      },
-      title: 'Linguaggio',
-    },
-    {
       name: 'COMA11',
       obj: {
         k: '',
@@ -2778,33 +2751,6 @@ export const performanceDataTable = {
       title: 'Esempi',
     },
     {
-      name: 'COMA16',
-      obj: {
-        k: '',
-        p: 'SI/NO',
-        t: 'V2',
-      },
-      title: 'Esempi\nWeb.UP',
-    },
-    {
-      name: 'COMA10',
-      obj: {
-        k: '',
-        p: 'GRA',
-        t: 'JA',
-      },
-      title: 'Sostituito\nda',
-    },
-    {
-      name: 'COMA13',
-      obj: {
-        k: '',
-        p: 'SCP_CFG',
-        t: 'MB',
-      },
-      title: 'Setup\ngrafico',
-    },
-    {
       name: 'COMA14',
       obj: {
         k: '',
@@ -2812,15 +2758,6 @@ export const performanceDataTable = {
         t: '',
       },
       title: 'Responsabile\nSviluppo',
-    },
-    {
-      name: 'COMA15',
-      obj: {
-        k: '',
-        p: '',
-        t: '',
-      },
-      title: 'Responsabile\nCliente',
     },
     {
       name: 'COMA17',
@@ -2896,6 +2833,76 @@ export const performanceDataTable = {
       title: 'Rating',
     },
     {
+      name: 'COMA02',
+      obj: {
+        k: '',
+        p: 'SI/NO',
+        t: 'V2',
+      },
+      title: 'Modulo\nTecnico',
+      visible: false,
+    },
+    {
+      name: 'COMA03',
+      obj: {
+        k: '',
+        p: 'SI/NO',
+        t: 'V2',
+      },
+      title: 'Modulo\nServizi',
+      visible: false,
+    },
+    {
+      name: 'COMA04',
+      obj: {
+        k: '',
+        p: '',
+        t: '',
+      },
+      title: 'Linguaggio',
+      visible: false,
+    },
+    {
+      name: 'COMA16',
+      obj: {
+        k: '',
+        p: 'SI/NO',
+        t: 'V2',
+      },
+      title: 'Esempi\nWeb.UP',
+      visible: false,
+    },
+    {
+      name: 'COMA10',
+      obj: {
+        k: '',
+        p: 'GRA',
+        t: 'JA',
+      },
+      title: 'Sostituito\nda',
+      visible: false,
+    },
+    {
+      name: 'COMA13',
+      obj: {
+        k: '',
+        p: 'SCP_CFG',
+        t: 'MB',
+      },
+      title: 'Setup\ngrafico',
+      visible: false,
+    },
+    {
+      name: 'COMA15',
+      obj: {
+        k: '',
+        p: '',
+        t: '',
+      },
+      title: 'Responsabile\nCliente',
+      visible: false,
+    },
+    {
       name: 'groupingRowColumnCode',
       obj: {
         k: '',
@@ -2903,6 +2910,7 @@ export const performanceDataTable = {
         t: '',
       },
       title: '',
+      visible: false,
     },
     {
       name: 'groupingRowColumnCodeLevel',
@@ -2912,6 +2920,7 @@ export const performanceDataTable = {
         t: '',
       },
       title: '',
+      visible: false,
     },
   ],
   rows: [
@@ -2964,9 +2973,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -2979,9 +2985,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -3231,9 +3234,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -3290,9 +3290,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '0',
       object: '',
       readOnly: true,
-      id: '0',
     },
     {
       cells: {
@@ -3343,9 +3343,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -3358,9 +3355,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -3584,9 +3578,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -3643,9 +3634,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '1',
       object: '',
       readOnly: true,
-      id: '1',
     },
     {
       cells: {
@@ -3696,9 +3687,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -3711,9 +3699,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -3945,9 +3930,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -4004,9 +3986,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '2',
       object: '',
       readOnly: true,
-      id: '2',
     },
     {
       cells: {
@@ -4057,9 +4039,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -4072,9 +4051,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -4289,9 +4265,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -4348,9 +4321,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '3',
       object: '',
       readOnly: true,
-      id: '3',
     },
     {
       cells: {
@@ -4401,9 +4374,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -4416,9 +4386,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -4656,9 +4623,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -4715,9 +4679,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '4',
       object: '',
       readOnly: true,
-      id: '4',
     },
     {
       cells: {
@@ -4768,9 +4732,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -4783,9 +4744,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -5023,9 +4981,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -5082,9 +5037,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '5',
       object: '',
       readOnly: true,
-      id: '5',
     },
     {
       cells: {
@@ -5135,9 +5090,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -5150,9 +5102,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -5393,9 +5342,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -5452,9 +5398,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '6',
       object: '',
       readOnly: true,
-      id: '6',
     },
     {
       cells: {
@@ -5505,9 +5451,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -5520,9 +5463,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -5743,9 +5683,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -5802,9 +5739,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '7',
       object: '',
       readOnly: true,
-      id: '7',
     },
     {
       cells: {
@@ -5855,9 +5792,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -5870,9 +5804,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -6093,9 +6024,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -6152,9 +6080,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '8',
       object: '',
       readOnly: true,
-      id: '8',
     },
     {
       cells: {
@@ -6205,9 +6133,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -6220,9 +6145,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -6426,9 +6348,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -6485,9 +6404,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '9',
       object: '',
       readOnly: true,
-      id: '9',
     },
     {
       cells: {
@@ -6538,9 +6457,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -6553,9 +6469,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -6759,9 +6672,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -6818,9 +6728,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '10',
       object: '',
       readOnly: true,
-      id: '10',
     },
     {
       cells: {
@@ -6871,9 +6781,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -6886,9 +6793,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -7120,9 +7024,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -7179,9 +7080,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '11',
       object: '',
       readOnly: true,
-      id: '11',
     },
     {
       cells: {
@@ -7232,9 +7133,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -7247,9 +7145,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -7467,9 +7362,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -7526,9 +7418,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '12',
       object: '',
       readOnly: true,
-      id: '12',
     },
     {
       cells: {
@@ -7579,9 +7471,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -7594,9 +7483,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -7800,9 +7686,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -7859,9 +7742,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '13',
       object: '',
       readOnly: true,
-      id: '13',
     },
     {
       cells: {
@@ -7912,9 +7795,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -7927,9 +7807,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -8133,9 +8010,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -8192,9 +8066,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '14',
       object: '',
       readOnly: true,
-      id: '14',
     },
     {
       cells: {
@@ -8245,9 +8119,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -8260,9 +8131,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -8477,9 +8345,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -8536,9 +8401,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '15',
       object: '',
       readOnly: true,
-      id: '15',
     },
     {
       cells: {
@@ -8589,9 +8454,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -8604,9 +8466,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -8810,9 +8669,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -8869,9 +8725,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '16',
       object: '',
       readOnly: true,
-      id: '16',
     },
     {
       cells: {
@@ -8922,9 +8778,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -8937,9 +8790,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -9171,9 +9021,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -9230,9 +9077,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '17',
       object: '',
       readOnly: true,
-      id: '17',
     },
     {
       cells: {
@@ -9283,9 +9130,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -9298,9 +9142,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -9518,9 +9359,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -9577,9 +9415,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '18',
       object: '',
       readOnly: true,
-      id: '18',
     },
     {
       cells: {
@@ -9630,9 +9468,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -9645,9 +9480,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -9871,9 +9703,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -9930,9 +9759,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '19',
       object: '',
       readOnly: true,
-      id: '19',
     },
     {
       cells: {
@@ -9983,9 +9812,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -9998,9 +9824,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -10221,9 +10044,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -10280,9 +10100,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '20',
       object: '',
       readOnly: true,
-      id: '20',
     },
     {
       cells: {
@@ -10333,9 +10153,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -10348,9 +10165,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -10571,9 +10385,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -10630,9 +10441,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '21',
       object: '',
       readOnly: true,
-      id: '21',
     },
     {
       cells: {
@@ -10683,9 +10494,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -10698,9 +10506,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -10915,9 +10720,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -10974,9 +10776,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '22',
       object: '',
       readOnly: true,
-      id: '22',
     },
     {
       cells: {
@@ -11027,9 +10829,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -11042,9 +10841,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -11262,9 +11058,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -11321,9 +11114,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '23',
       object: '',
       readOnly: true,
-      id: '23',
     },
     {
       cells: {
@@ -11374,9 +11167,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -11389,9 +11179,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -11629,9 +11416,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -11688,9 +11472,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '24',
       object: '',
       readOnly: true,
-      id: '24',
     },
     {
       cells: {
@@ -11741,9 +11525,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -11756,9 +11537,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -12008,9 +11786,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -12067,9 +11842,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '25',
       object: '',
       readOnly: true,
-      id: '25',
     },
     {
       cells: {
@@ -12120,9 +11895,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -12135,9 +11907,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -12361,9 +12130,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -12420,9 +12186,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '26',
       object: '',
       readOnly: true,
-      id: '26',
     },
     {
       cells: {
@@ -12473,9 +12239,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -12488,9 +12251,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -12714,9 +12474,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -12773,9 +12530,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '27',
       object: '',
       readOnly: true,
-      id: '27',
     },
     {
       cells: {
@@ -12826,9 +12583,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -12841,9 +12595,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -13058,9 +12809,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -13117,9 +12865,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '28',
       object: '',
       readOnly: true,
-      id: '28',
     },
     {
       cells: {
@@ -13170,9 +12918,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -13185,9 +12930,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -13443,9 +13185,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -13502,9 +13241,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '29',
       object: '',
       readOnly: true,
-      id: '29',
     },
     {
       cells: {
@@ -13555,9 +13294,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -13570,9 +13306,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -13796,9 +13529,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -13855,9 +13585,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '30',
       object: '',
       readOnly: true,
-      id: '30',
     },
     {
       cells: {
@@ -13908,9 +13638,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -13923,9 +13650,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -14160,9 +13884,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -14219,9 +13940,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '31',
       object: '',
       readOnly: true,
-      id: '31',
     },
     {
       cells: {
@@ -14272,9 +13993,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -14287,9 +14005,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -14504,9 +14219,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -14563,9 +14275,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '32',
       object: '',
       readOnly: true,
-      id: '32',
     },
     {
       cells: {
@@ -14616,9 +14328,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -14631,9 +14340,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -14848,9 +14554,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -14907,9 +14610,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '33',
       object: '',
       readOnly: true,
-      id: '33',
     },
     {
       cells: {
@@ -14960,9 +14663,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -14975,9 +14675,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -15192,9 +14889,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -15251,9 +14945,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '34',
       object: '',
       readOnly: true,
-      id: '34',
     },
     {
       cells: {
@@ -15304,9 +14998,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -15319,9 +15010,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -15545,9 +15233,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -15604,9 +15289,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '35',
       object: '',
       readOnly: true,
-      id: '35',
     },
     {
       cells: {
@@ -15657,9 +15342,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -15672,9 +15354,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -15898,9 +15577,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -15957,9 +15633,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '36',
       object: '',
       readOnly: true,
-      id: '36',
     },
     {
       cells: {
@@ -16010,9 +15686,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -16025,9 +15698,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -16251,9 +15921,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -16310,9 +15977,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '37',
       object: '',
       readOnly: true,
-      id: '37',
     },
     {
       cells: {
@@ -16363,9 +16030,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -16378,9 +16042,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -16615,9 +16276,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -16674,9 +16332,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '38',
       object: '',
       readOnly: true,
-      id: '38',
     },
     {
       cells: {
@@ -16727,9 +16385,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -16742,9 +16397,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -16959,9 +16611,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -17018,9 +16667,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '39',
       object: '',
       readOnly: true,
-      id: '39',
     },
     {
       cells: {
@@ -17071,9 +16720,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -17086,9 +16732,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -17303,9 +16946,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -17362,9 +17002,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '40',
       object: '',
       readOnly: true,
-      id: '40',
     },
     {
       cells: {
@@ -17415,9 +17055,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -17430,9 +17067,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -17647,9 +17281,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -17706,9 +17337,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '41',
       object: '',
       readOnly: true,
-      id: '41',
     },
     {
       cells: {
@@ -17759,9 +17390,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -17774,9 +17402,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -18000,9 +17625,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -18059,9 +17681,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '42',
       object: '',
       readOnly: true,
-      id: '42',
     },
     {
       cells: {
@@ -18112,9 +17734,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -18127,9 +17746,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -18361,9 +17977,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -18420,9 +18033,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '43',
       object: '',
       readOnly: true,
-      id: '43',
     },
     {
       cells: {
@@ -18473,9 +18086,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -18488,9 +18098,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -18711,9 +18318,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -18770,9 +18374,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '44',
       object: '',
       readOnly: true,
-      id: '44',
     },
     {
       cells: {
@@ -18823,9 +18427,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -18838,9 +18439,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -19064,9 +18662,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -19123,9 +18718,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '45',
       object: '',
       readOnly: true,
-      id: '45',
     },
     {
       cells: {
@@ -19176,9 +18771,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -19191,9 +18783,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -19434,9 +19023,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -19493,9 +19079,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '46',
       object: '',
       readOnly: true,
-      id: '46',
     },
     {
       cells: {
@@ -19546,9 +19132,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -19561,9 +19144,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -19804,9 +19384,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -19863,9 +19440,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '47',
       object: '',
       readOnly: true,
-      id: '47',
     },
     {
       cells: {
@@ -19916,9 +19493,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -19931,9 +19505,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -20177,9 +19748,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -20236,9 +19804,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '48',
       object: '',
       readOnly: true,
-      id: '48',
     },
     {
       cells: {
@@ -20289,9 +19857,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -20304,9 +19869,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -20530,9 +20092,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -20589,9 +20148,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '49',
       object: '',
       readOnly: true,
-      id: '49',
     },
     {
       cells: {
@@ -20642,9 +20201,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -20657,9 +20213,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -20880,9 +20433,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -20939,9 +20489,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '50',
       object: '',
       readOnly: true,
-      id: '50',
     },
     {
       cells: {
@@ -20992,9 +20542,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -21007,9 +20554,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -21244,9 +20788,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -21303,9 +20844,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '51',
       object: '',
       readOnly: true,
-      id: '51',
     },
     {
       cells: {
@@ -21356,9 +20897,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -21371,9 +20909,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -21611,9 +21146,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -21670,9 +21202,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '52',
       object: '',
       readOnly: true,
-      id: '52',
     },
     {
       cells: {
@@ -21723,9 +21255,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -21738,9 +21267,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -21961,9 +21487,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -22020,9 +21543,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '53',
       object: '',
       readOnly: true,
-      id: '53',
     },
     {
       cells: {
@@ -22073,9 +21596,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -22088,9 +21608,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -22305,9 +21822,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -22364,9 +21878,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '54',
       object: '',
       readOnly: true,
-      id: '54',
     },
     {
       cells: {
@@ -22417,9 +21931,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -22432,9 +21943,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -22666,9 +22174,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -22725,9 +22230,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '55',
       object: '',
       readOnly: true,
-      id: '55',
     },
     {
       cells: {
@@ -22778,9 +22283,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -22793,9 +22295,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -23010,9 +22509,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -23069,9 +22565,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '56',
       object: '',
       readOnly: true,
-      id: '56',
     },
     {
       cells: {
@@ -23122,9 +22618,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -23137,9 +22630,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -23360,9 +22850,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -23419,9 +22906,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '57',
       object: '',
       readOnly: true,
-      id: '57',
     },
     {
       cells: {
@@ -23472,9 +22959,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -23487,9 +22971,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -23707,9 +23188,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -23766,9 +23244,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '58',
       object: '',
       readOnly: true,
-      id: '58',
     },
     {
       cells: {
@@ -23819,9 +23297,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -23834,9 +23309,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -24065,9 +23537,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -24124,9 +23593,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '59',
       object: '',
       readOnly: true,
-      id: '59',
     },
     {
       cells: {
@@ -24177,9 +23646,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -24192,9 +23658,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -24421,9 +23884,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -24480,9 +23940,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '60',
       object: '',
       readOnly: true,
-      id: '60',
     },
     {
       cells: {
@@ -24533,9 +23993,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -24548,9 +24005,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -24788,9 +24242,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -24847,9 +24298,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '61',
       object: '',
       readOnly: true,
-      id: '61',
     },
     {
       cells: {
@@ -24900,9 +24351,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -24915,9 +24363,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -25149,9 +24594,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -25208,9 +24650,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '62',
       object: '',
       readOnly: true,
-      id: '62',
     },
     {
       cells: {
@@ -25261,9 +24703,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -25276,9 +24715,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -25499,9 +24935,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -25558,9 +24991,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '63',
       object: '',
       readOnly: true,
-      id: '63',
     },
     {
       cells: {
@@ -25611,9 +25044,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -25626,9 +25056,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -25852,9 +25279,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -25911,9 +25335,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '64',
       object: '',
       readOnly: true,
-      id: '64',
     },
     {
       cells: {
@@ -25964,9 +25388,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -25979,9 +25400,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -26202,9 +25620,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -26261,9 +25676,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '65',
       object: '',
       readOnly: true,
-      id: '65',
     },
     {
       cells: {
@@ -26314,9 +25729,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -26329,9 +25741,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -26558,9 +25967,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -26617,9 +26023,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '66',
       object: '',
       readOnly: true,
-      id: '66',
     },
     {
       cells: {
@@ -26670,9 +26076,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -26685,9 +26088,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -26914,9 +26314,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -26973,9 +26370,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '67',
       object: '',
       readOnly: true,
-      id: '67',
     },
     {
       cells: {
@@ -27026,9 +26423,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -27041,9 +26435,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -27258,9 +26649,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -27317,9 +26705,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '68',
       object: '',
       readOnly: true,
-      id: '68',
     },
     {
       cells: {
@@ -27370,9 +26758,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -27385,9 +26770,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -27611,9 +26993,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -27670,9 +27049,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '69',
       object: '',
       readOnly: true,
-      id: '69',
     },
     {
       cells: {
@@ -27723,9 +27102,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -27738,9 +27114,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -27958,9 +27331,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -28017,9 +27387,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '70',
       object: '',
       readOnly: true,
-      id: '70',
     },
     {
       cells: {
@@ -28070,9 +27440,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -28085,9 +27452,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -28319,9 +27683,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -28378,9 +27739,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '71',
       object: '',
       readOnly: true,
-      id: '71',
     },
     {
       cells: {
@@ -28431,9 +27792,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -28446,9 +27804,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -28664,9 +28019,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -28723,9 +28075,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '72',
       object: '',
       readOnly: true,
-      id: '72',
     },
     {
       cells: {
@@ -28776,9 +28128,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -28791,9 +28140,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -29025,9 +28371,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -29084,9 +28427,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '73',
       object: '',
       readOnly: true,
-      id: '73',
     },
     {
       cells: {
@@ -29137,9 +28480,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -29152,9 +28492,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -29372,9 +28709,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -29431,9 +28765,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '74',
       object: '',
       readOnly: true,
-      id: '74',
     },
     {
       cells: {
@@ -29484,9 +28818,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -29499,9 +28830,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -29716,9 +29044,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -29775,9 +29100,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '75',
       object: '',
       readOnly: true,
-      id: '75',
     },
     {
       cells: {
@@ -29828,9 +29153,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -29843,9 +29165,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -30063,9 +29382,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -30122,9 +29438,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '76',
       object: '',
       readOnly: true,
-      id: '76',
     },
     {
       cells: {
@@ -30175,9 +29491,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -30190,9 +29503,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -30424,9 +29734,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -30483,9 +29790,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '77',
       object: '',
       readOnly: true,
-      id: '77',
     },
     {
       cells: {
@@ -30536,9 +29843,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -30551,9 +29855,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -30771,9 +30072,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -30830,9 +30128,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '78',
       object: '',
       readOnly: true,
-      id: '78',
     },
     {
       cells: {
@@ -30883,9 +30181,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -30898,9 +30193,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -31132,9 +30424,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -31191,9 +30480,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '79',
       object: '',
       readOnly: true,
-      id: '79',
     },
     {
       cells: {
@@ -31244,9 +30533,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -31259,9 +30545,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -31499,9 +30782,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -31558,9 +30838,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '80',
       object: '',
       readOnly: true,
-      id: '80',
     },
     {
       cells: {
@@ -31611,9 +30891,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -31626,9 +30903,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -31869,9 +31143,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -31928,9 +31199,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '81',
       object: '',
       readOnly: true,
-      id: '81',
     },
     {
       cells: {
@@ -31981,9 +31252,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -31996,9 +31264,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -32248,9 +31513,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '1',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -32307,9 +31569,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '82',
       object: '',
       readOnly: true,
-      id: '82',
     },
     {
       cells: {
@@ -32360,9 +31622,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -32375,9 +31634,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -32592,9 +31848,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -32651,9 +31904,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '83',
       object: '',
       readOnly: true,
-      id: '83',
     },
     {
       cells: {
@@ -32704,9 +31957,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -32719,9 +31969,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -32945,9 +32192,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -33004,9 +32248,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '84',
       object: '',
       readOnly: true,
-      id: '84',
     },
     {
       cells: {
@@ -33057,9 +32301,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -33072,9 +32313,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -33298,9 +32536,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -33357,9 +32592,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '85',
       object: '',
       readOnly: true,
-      id: '85',
     },
     {
       cells: {
@@ -33410,9 +32645,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA02: {
           cssClass: 'strong-text',
@@ -33425,9 +32657,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA05: {
           obj: {
@@ -33651,9 +32880,6 @@ export const performanceDataTable = {
             t: 'V2',
           },
           value: '',
-          style: {
-            minHeight: '18px',
-          },
         },
         COMA15: {
           obj: {
@@ -33710,9 +32936,9 @@ export const performanceDataTable = {
         },
       },
       cssClass: 'clickable',
+      id: '86',
       object: '',
       readOnly: true,
-      id: '86',
     },
   ],
 };
@@ -93898,61 +93124,11 @@ export const dataTableDateTime = {
       name: 'DATE',
       obj: {
         t: 'D8',
-        p: '*YYMD',
-        k: '',
-      },
-      icon: 'calendar',
-      title: 'Date (dd/mm/yyyy)',
-    },
-    {
-      name: 'DATESHORT',
-      obj: {
-        t: 'D8',
         p: '',
         k: '',
       },
       icon: 'calendar',
-      title: 'Date (dd/mm/yy)',
-    },
-    {
-      name: 'DATE1',
-      obj: {
-        t: 'D8',
-        p: '*YMD',
-        k: '',
-      },
-      icon: 'calendar',
-      title: 'Date (yymmdd)',
-    },
-    {
-      name: 'DATE2',
-      obj: {
-        t: 'D8',
-        p: '*DMY',
-        k: '',
-      },
-      icon: 'calendar',
-      title: 'Date (ddmmyy)',
-    },
-    {
-      name: 'DATE3',
-      obj: {
-        t: 'D8',
-        p: '*DMYY',
-        k: '',
-      },
-      icon: 'calendar',
-      title: 'Date (ddmmyyyy)',
-    },
-    {
-      name: 'DATE4',
-      obj: {
-        t: 'D8',
-        p: '*CYMD',
-        k: '',
-      },
-      icon: 'calendar',
-      title: 'Date (eyymmdd)',
+      title: 'Date (dd/mm/yyyy)',
     },
     {
       name: 'TIMESEC',
@@ -94019,46 +93195,6 @@ export const dataTableDateTime = {
             k: '',
           },
           value: '2021-01-02',
-        },
-        DATESHORT: {
-          obj: {
-            t: 'D8',
-            p: '*YYMD',
-            k: '',
-          },
-          value: '2021-01-03',
-        },
-        DATE1: {
-          obj: {
-            t: 'D8',
-            p: '*YMD',
-            k: '',
-          },
-          value: '2021-01-04',
-        },
-        DATE2: {
-          obj: {
-            t: 'D8',
-            p: '*DMY',
-            k: '',
-          },
-          value: '2021-01-05',
-        },
-        DATE3: {
-          obj: {
-            t: 'D8',
-            p: '*DMYY',
-            k: '',
-          },
-          value: '2021-01-06',
-        },
-        DATE4: {
-          obj: {
-            t: 'D8',
-            p: '*CYMD',
-            k: '',
-          },
-          value: '2021-01-07',
         },
         TIMESEC: {
           obj: {

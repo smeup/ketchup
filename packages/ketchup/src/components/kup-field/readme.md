@@ -58,6 +58,8 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-field --> kup-button
+  kup-button --> kup-badge
+  kup-badge --> kup-badge
   style kup-field fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

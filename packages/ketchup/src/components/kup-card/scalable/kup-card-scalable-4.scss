@@ -1,4 +1,8 @@
 .scalable-layout-4 {
+  #image1 img {
+    object-fit: contain;
+  }
+
   .scalable-element {
     display: grid;
     grid-template-columns: 2fr 5fr;

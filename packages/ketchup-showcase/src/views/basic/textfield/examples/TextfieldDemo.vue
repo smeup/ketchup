@@ -60,7 +60,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
@@ -92,7 +92,7 @@ export default {
           description:
             'Its value will be shown as a help text below the field.',
           type: 'string',
-          default: 'undefined',
+          default: 'null',
           try: 'field',
         },
         {
@@ -108,14 +108,14 @@ export default {
           description:
             "The text-field will be rendered with the specified icon. It shouldn't be used in textareas.",
           type: 'string',
-          default: 'undefined',
+          default: 'null',
           try: 'field',
         },
         {
           prop: 'initialValue',
           description: 'Sets the initial text value of the component.',
           type: 'string',
-          default: 'undefined',
+          default: 'null',
           try: 'field',
         },
         {
@@ -138,7 +138,7 @@ export default {
           prop: 'label',
           description: 'The label of the field.',
           type: 'string',
-          default: 'undefined',
+          default: 'null',
           try: 'field',
         },
         {
@@ -154,7 +154,7 @@ export default {
           description:
             'Sets the component max length to given characters and the helper will display a character counter.',
           type: 'string',
-          default: 'undefined',
+          default: 'null',
           try: 'field',
         },
         {
@@ -173,11 +173,12 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'shaped',
-          description: 'The text field will be rendered with shaped borders.',
-          type: 'boolean',
-          default: 'false',
-          try: 'switch',
+          prop: 'step',
+          description:
+            'The HTML step of the input element. It has effect only with number input type.',
+          type: 'number',
+          default: '',
+          try: 'field',
         },
         {
           prop: 'textArea',
@@ -212,6 +213,10 @@ export default {
           class: 'kup-secondary-color',
           description:
             'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'shaped',
+          description: 'The text field will be rendered with shaped borders.',
         },
       ],
     };

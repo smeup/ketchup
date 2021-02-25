@@ -490,7 +490,7 @@ export default {
                   name: 'qlik',
                 },
               },
-            ]
+            ],
           },
         ],
       },

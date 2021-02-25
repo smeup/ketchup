@@ -48,7 +48,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
@@ -86,9 +86,9 @@ export default {
         {
           prop: 'styling',
           description:
-            'Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.',
-          type: 'string',
-          default: '""',
+            'Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.',
+          type: 'FButtonStyling',
+          default: 'raised',
           try: 'field',
         },
         {
@@ -137,6 +137,7 @@ function createComp() {
   comp.icon = 'widgets';
   comp.id = 'demo-component';
   comp.label = 'Demo';
+  comp.styling = 'raised';
   return comp;
 }
 </script>

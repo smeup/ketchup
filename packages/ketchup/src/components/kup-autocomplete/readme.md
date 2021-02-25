@@ -84,13 +84,11 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-text-field](../kup-text-field)
 - [kup-list](../kup-list)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-autocomplete --> kup-text-field
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox

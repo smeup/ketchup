@@ -30,10 +30,6 @@ export default {
           type: 'change',
         },
         {
-          name: 'kupSwitchInput',
-          type: 'input',
-        },
-        {
           name: 'kupSwitchFocus',
           type: 'focus',
         },
@@ -55,7 +51,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {

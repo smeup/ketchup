@@ -44,14 +44,14 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
           prop: 'data',
           description:
             'Object array containing the data of the chips: value, icon, label to be shown and checked status.',
-          type: 'ComponentChipElement[]',
+          type: 'FChipData[]',
           default: '[]',
           try: 'json',
         },
@@ -59,8 +59,8 @@ export default {
           prop: 'type',
           description:
             'The type of chip. Available types: input, filter, choice or empty for default.',
-          type: 'string',
-          default: 'undefined',
+          type: 'FChipType',
+          default: 'standard',
           try: 'field',
         },
       ],
@@ -98,6 +98,7 @@ function createComp() {
     },
   ];
   comp.id = 'demo-component';
+  comp.type = 'standard';
   return comp;
 }
 </script>

@@ -202,6 +202,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'removableColumns',
+          description: 'Sets the possibility to remove the selected column.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'rowActions',
           description: 'Sets the actions of the rows.',
           type: 'rowAction[]',
@@ -249,6 +256,13 @@ export default {
         {
           prop: 'showFilters',
           description: 'When set to true enables the column filters.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'showFooter',
+          description: 'When set to true shows the footer.',
           type: 'boolean',
           default: 'false',
           try: 'switch',

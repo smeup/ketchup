@@ -50,16 +50,10 @@ h3 {
     ></kup-lazy>
 
     <h3>With totals (fixed columns (4) rows (4))</h3>
-    <kup-lazy
-        component-name="kup-data-table"
-        :data.prop="fixedDataTotals"
-    />
+    <kup-lazy component-name="kup-data-table" :data.prop="fixedDataTotals" />
 
     <h3>With hidden table header (fixed columns (4) rows (4))</h3>
-    <kup-lazy
-        component-name="kup-data-table"
-        :data.prop="fixedDataNoHeaders"
-    />
+    <kup-lazy component-name="kup-data-table" :data.prop="fixedDataNoHeaders" />
   </div>
 </template>
 
