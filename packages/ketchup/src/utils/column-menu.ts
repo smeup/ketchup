@@ -1,18 +1,23 @@
 import { KupDataTable } from '../components/kup-data-table/kup-data-table';
 import { Column } from '../components/kup-data-table/kup-data-table-declarations';
+import {
+    getValueForDisplay,
+    isColumnFiltrableByInterval,
+} from '../components/kup-data-table/kup-data-table-helper';
 import { KupTree } from '../components/kup-tree/kup-tree';
 import { GenericObject } from '../types/GenericTypes';
-import { isStringObject } from './object-utils';
+import { isCheckbox, isStringObject } from './object-utils';
 
 export function columnMenuData(
     comp: KupDataTable | KupTree,
     column: Column
 ): GenericObject {
-    console.log('here');
     let cardData: GenericObject = {
         button: prepButtons(comp, column),
-        checkbox: prepCheckbox(),
-        textfield: prepTextfield(comp, column),
+        checkbox: prepCheckbox(comp, column),
+        textfield: !isColumnFiltrableByInterval(column)
+            ? prepTextfield(comp, column)
+            : [],
     };
     return cardData;
 }
@@ -25,9 +30,9 @@ function prepButtons(
     comp: KupDataTable | KupTree,
     column: Column
 ): GenericObject[] {
-    let buttonProps: GenericObject[] = [];
+    let props: GenericObject[] = [];
     if (!isTree(comp)) {
-        buttonProps.push({
+        props.push({
             'data-storage': {
                 columnName: column.name,
             },
@@ -39,7 +44,7 @@ function prepButtons(
                     : 'Enable grouping',
         });
         if (comp.removableColumns) {
-            buttonProps.push({
+            props.push({
                 'data-storage': {
                     columnName: column.name,
                 },
@@ -49,28 +54,78 @@ function prepButtons(
             });
         }
     }
-    buttonProps.push({
+    props.push({
         icon: 'table-column-plus-after',
         id: 'add',
         title: 'Add column',
     });
-    buttonProps.push({
+    props.push({
         icon: 'label',
         id: 'description',
         title: 'Add code/description column',
     });
-    return buttonProps;
+    return props;
 }
 
-function prepCheckbox(): GenericObject[] {
-    return [];
+function prepCheckbox(
+    comp: KupDataTable | KupTree,
+    column: Column
+): GenericObject[] {
+    let props: GenericObject[] = [];
+    if (
+        !isTree(comp) &&
+        comp.showFilters &&
+        (isStringObject(column.obj) || isCheckbox(column.obj))
+    ) {
+        const checkBoxesFilter: string[] = comp.getCheckBoxFilterValues(
+            column.name
+        );
+        const columnValues: {
+            value: string;
+            displayedValue: string;
+        }[] = comp.getColumnValues(column);
+
+        if (columnValues.length > 0) {
+            props.push({
+                checked: checkBoxesFilter.length == 0,
+                id: 'global-checkbox',
+                label: '(*All)',
+            });
+        }
+        for (let index = 0; index < columnValues.length; index++) {
+            let label = columnValues[index].displayedValue;
+            if (isCheckbox(column.obj)) {
+                if (columnValues[index].value == '1') {
+                    label = 'Checked';
+                } else {
+                    label = 'Unchecked';
+                }
+            }
+            props.push({
+                checked: checkBoxesFilter.includes(columnValues[index].value),
+                'data-storage': {
+                    column: column,
+                    value: columnValues[index].value,
+                },
+                label: label,
+            });
+        }
+    }
+    return props;
 }
 
 function prepTextfield(
     comp: KupDataTable | KupTree,
     column: Column
 ): GenericObject[] {
+    let props: GenericObject[] = [];
     if (!isTree(comp) && comp.showFilters && isStringObject(column.obj)) {
+        let filterInitialValue = comp.getTextFieldFilterValue(column.name);
+        filterInitialValue = getValueForDisplay(
+            filterInitialValue,
+            column.obj,
+            column.decimals
+        );
         return [
             {
                 'data-storage': {
@@ -83,7 +138,6 @@ function prepTextfield(
                 label: 'Search...',
             },
         ];
-    } else {
-        return null;
     }
+    return props;
 }

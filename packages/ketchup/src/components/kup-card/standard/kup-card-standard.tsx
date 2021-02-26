@@ -502,7 +502,14 @@ export function create12(component: KupCard) {
                     {buttonArray ? compList(buttonArray, 'button') : null}
                 </div>
             ) : null}
-            <div class="section-2">
+            <div
+                class={`section-2 ${
+                    textfieldArray || datepickerArray || timepickerArray
+                        ? 'has-content'
+                        : ''
+                }
+            }`}
+            >
                 {datepickerArray
                     ? compList(datepickerArray, 'datepicker')
                     : null}

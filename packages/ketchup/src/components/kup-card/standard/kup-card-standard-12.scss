@@ -17,8 +17,10 @@
 
   .section-2 {
     display: flex;
-    border-bottom: 1px solid var(--kup-border-color);
-    padding: 0.5em 0.5em;
+    &.has-content {
+      border-bottom: 1px solid var(--kup-border-color);
+      padding: 0.5em 0.5em;
+    }
   }
 
   .section-3 {
