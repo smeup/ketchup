@@ -200,17 +200,17 @@ export function create3(component: KupCard): VNode {
  * @param {KupCard}  comp - Card component.
  * @returns {VNode} 4th standard layout JSX markup.
  */
-export function create4(component: KupCard) {
+export function create4(component: KupCard): VNode {
     //Action buttons
     const buttonArray: GenericObject[] = component.data['button']
         ? component.data['button']
         : [];
-    //Cover image
+    //Left image
     const imageArray: GenericObject[] =
         component.data['image'] && component.data['image']
             ? component.data['image']
             : [];
-    //Title, subtitle and description
+    //Title, subtitle
     let textIndex: number = 0;
     const textArray: string[] =
         component.data['text'] && component.data['text']
@@ -254,178 +254,312 @@ export function create4(component: KupCard) {
         </div>
     );
 }
-
-export function create5(component: KupCard) {
-    let componentClass = 'standard-layout-' + component.layoutNumber;
-    let CSSVariables = {
-        ['--color-1']: component.data['color1'],
-        ['--color-2']: component.data['color2'],
+/**
+ * 5th card standard layout, useful to display TODOs with extensive information.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} 5th standard layout JSX markup.
+ */
+export function create5(component: KupCard): VNode {
+    //Action button
+    const buttonArray: GenericObject[] = component.data['button']
+        ? component.data['button']
+        : [];
+    //Top and bottom bars colors
+    let colorIndex: number = 0;
+    const colorArray: GenericObject[] = component.data['color']
+        ? component.data['color']
+        : [];
+    //Left icon and right image
+    let imageIndex: number = 0;
+    const imageArray: GenericObject[] =
+        component.data['image'] && component.data['image']
+            ? component.data['image']
+            : [];
+    //Progress bar
+    const progressbarArray: GenericObject[] = component.data['progressbar']
+        ? component.data['progressbar']
+        : [];
+    //6 text slots
+    let textIndex: number = 0;
+    const textArray: string[] =
+        component.data['text'] && component.data['text']
+            ? component.data['text']
+            : [];
+    //Dynamic CSS variables
+    let CSSVariables: GenericObject = {
+        [`--color-0`]: colorArray[colorIndex]
+            ? colorArray[colorIndex]
+            : 'var(--kup-primary-color)',
+        [`--color-1`]: colorArray[colorIndex++]
+            ? colorArray[colorIndex]
+            : 'rgba(var(--kup-text-color-rgb),0.1)',
     };
     return (
-        <div class={componentClass} style={CSSVariables}>
+        <div
+            class={`standard-layout-${component.layoutNumber}`}
+            style={CSSVariables}
+        >
             <div class="section-1"></div>
             <div class="section-2">
                 <div class="sub-2 icon">
-                    {component.data['image1'] && (
+                    {imageArray[imageIndex] ? (
                         <FImage
-                            {...component.data['image1']}
                             id="image1"
+                            {...imageArray[imageIndex]}
                             sizeX="100%"
                             sizeY="100%"
                         ></FImage>
-                    )}
+                    ) : null}
                 </div>
                 <div class="sub-2 text">
-                    <div class="desc-text">{component.data['text1']}</div>
-                    <div class="alt-text">{component.data['text2']}</div>
+                    <div class="desc-text">
+                        {textArray[textIndex] ? textArray[textIndex] : ''}
+                    </div>
+                    <div class="alt-text">
+                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                    </div>
                 </div>
                 <div class="sub-2 image">
-                    {component.data['image2'] && (
+                    {imageArray[imageIndex++] ? (
                         <FImage
-                            {...component.data['image2']}
-                            id="image2"
+                            id="image1"
+                            {...imageArray[imageIndex]}
                             sizeX="100%"
                             sizeY="100%"
                         ></FImage>
-                    )}
+                    ) : null}
                 </div>
             </div>
             <div class="section-3">
                 <div class="sub-3 progress-bar">
-                    {component.data['progressBar1'] && (
+                    {progressbarArray[0] ? (
                         <kup-progress-bar
                             id="progressBar1"
                             is-slim
-                            {...component.data['progressBar1']}
+                            {...progressbarArray[0]}
                         ></kup-progress-bar>
-                    )}
+                    ) : null}
                 </div>
-
                 <div class="sub-3 button">
-                    {component.data['button1'] && (
+                    {buttonArray[0] ? (
                         <kup-button
                             id="button1"
-                            {...component.data['button1']}
+                            {...buttonArray[0]}
                         ></kup-button>
-                    )}
+                    ) : null}
                 </div>
             </div>
             <div class="section-4">
                 <div class="sub-4 text">
-                    <div>{component.data['text3']}</div>
-                    <div class="alt-text">{component.data['text4']}</div>
+                    <div>
+                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                    </div>
+                    <div class="alt-text">
+                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                    </div>
                 </div>
                 <div class="sub-4 text">
-                    <div>{component.data['text5']}</div>
-                    <div class="alt-text">{component.data['text6']}</div>
+                    <div>
+                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                    </div>
+                    <div class="alt-text">
+                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                    </div>
                 </div>
             </div>
         </div>
     );
 }
-
-export function create6(component: KupCard) {
-    let componentClass = 'standard-layout-' + component.layoutNumber;
-    let CSSVariables = {
-        ['--color-1']: component.data['color1'],
-        ['--dyn-color-1']: 'white',
+/**
+ * 6th card standard layout, useful to display TODOs in a compact view.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} 6th standard layout JSX markup.
+ */
+export function create6(component: KupCard): VNode {
+    //Action button
+    const buttonArray: GenericObject[] = component.data['button']
+        ? component.data['button']
+        : [];
+    //Left bar color
+    const colorArray: GenericObject[] = component.data['color']
+        ? component.data['color']
+        : [];
+    //Radial progress bar
+    const progressbarArray: GenericObject[] = component.data['progressbar']
+        ? component.data['progressbar']
+        : [];
+    //Left and center text
+    let textIndex: number = 0;
+    const textArray: string[] =
+        component.data['text'] && component.data['text']
+            ? component.data['text']
+            : [];
+    //Dynamic CSS variables
+    let CSSVariables: GenericObject = {
+        ['--color-0']: colorArray[0]
+            ? colorArray[0]
+            : 'var(--kup-primary-color)',
+        ['--dyn-color-0']: 'white',
     };
     return (
-        <div class={componentClass} style={CSSVariables}>
+        <div
+            class={`standard-layout-${component.layoutNumber}`}
+            style={CSSVariables}
+        >
             <div class="section-1">
-                <div class="alt-text">{component.data['text1']}</div>
+                <div class="alt-text">
+                    {textArray[textIndex] ? textArray[textIndex] : ''}
+                </div>
             </div>
             <div class="section-2">
                 <div class="sub-2">
-                    {component.data['progressBar1'] && (
+                    {progressbarArray[0] ? (
                         <kup-progress-bar
                             id="progressBar1"
                             is-radial
-                            icon={...component.data['image1'].resource}
-                            {...component.data['progressBar1']}
+                            {...progressbarArray[0]}
                         ></kup-progress-bar>
-                    )}
-                    <div>{component.data['text2']}</div>
+                    ) : null}
+                    <div>
+                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                    </div>
                 </div>
-                {component.data['button1'] && (
-                    <kup-button
-                        id="button1"
-                        {...component.data['button1']}
-                    ></kup-button>
-                )}
+                {buttonArray[0] ? (
+                    <kup-button id="button1" {...buttonArray[0]}></kup-button>
+                ) : null}
             </div>
         </div>
     );
 }
-
-export function create7(component: KupCard) {
-    let componentClass = 'standard-layout-' + component.layoutNumber;
-    let CSSVariables = {
-        ['--color-1']: component.data['color1'],
+/**
+ * 7th card standard layout, centered image and text.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} 7th standard layout JSX markup.
+ */
+export function create7(component: KupCard): VNode {
+    //Top bar color
+    const colorArray: GenericObject[] = component.data['color']
+        ? component.data['color']
+        : [];
+    //Center image
+    const imageArray: GenericObject[] =
+        component.data['image'] && component.data['image']
+            ? component.data['image']
+            : [];
+    //3 text slots
+    let textIndex: number = 0;
+    const textArray: string[] =
+        component.data['text'] && component.data['text']
+            ? component.data['text']
+            : [];
+    //Dynamic CSS variables
+    let CSSVariables: GenericObject = {
+        [`--color-0`]: colorArray[0]
+            ? colorArray[0]
+            : 'var(--kup-primary-color)',
     };
     return (
-        <div class={componentClass} style={CSSVariables}>
+        <div
+            class={`standard-layout-${component.layoutNumber}`}
+            style={CSSVariables}
+        >
             <div class="section-1"></div>
             <div class="section-2">
                 <div class="sub-2 image">
-                    {component.data['image1'] && (
+                    {imageArray[0] ? (
                         <FImage
-                            {...component.data['image1']}
                             id="image1"
+                            {...imageArray[0]}
                             sizeX="100%"
                             sizeY="100%"
                         ></FImage>
-                    )}
+                    ) : null}
                 </div>
                 <div class="sub-2 text">
-                    <div>{component.data['text1']}</div>
+                    <div>
+                        {textArray[textIndex] ? textArray[textIndex] : ''}
+                    </div>
                 </div>
             </div>
             <div class="section-3">
-                <div class="sub-3 alt-text">{component.data['text2']}</div>
-                <div class="sub-3 alt-text">{component.data['text3']}</div>
+                <div class="sub-3 alt-text">
+                    {textArray[textIndex++] ? textArray[textIndex] : ''}
+                </div>
+                <div class="sub-3 alt-text">
+                    {textArray[textIndex++] ? textArray[textIndex] : ''}
+                </div>
             </div>
         </div>
     );
 }
-
-export function create8(component: KupCard) {
-    let componentClass = 'standard-layout-' + component.layoutNumber;
-    let CSSVariables = {
-        ['--color-1']: component.data['color1'],
+/**
+ * 8th card standard layout, centered image and text.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} 8th standard layout JSX markup.
+ */
+export function create8(component: KupCard): VNode {
+    //Chips
+    const chipArray: GenericObject[] = component.data['chip']
+        ? component.data['chip']
+        : [];
+    //Background and corner text colors
+    const colorArray: GenericObject[] = component.data['color']
+        ? component.data['color']
+        : [];
+    //Left icon and right image
+    const imageArray: GenericObject[] =
+        component.data['image'] && component.data['image']
+            ? component.data['image']
+            : [];
+    //3 text slots
+    let textIndex: number = 0;
+    const textArray: string[] =
+        component.data['text'] && component.data['text']
+            ? component.data['text']
+            : [];
+    //Dynamic CSS variables
+    let CSSVariables: GenericObject = {
+        [`--color-0`]: colorArray[0]
+            ? colorArray[0]
+            : 'rgba(var(--kup-primary-color-rgb),0.1)',
     };
     return (
-        <div class={componentClass} style={CSSVariables}>
+        <div
+            class={`standard-layout-${component.layoutNumber}`}
+            style={CSSVariables}
+        >
             <div class="background"></div>
             <div class="section-1">
                 <div class="sub-1">
-                    <div class="text">{component.data['text1']}</div>
+                    <div class="text">
+                        {textArray[textIndex] ? textArray[textIndex] : ''}
+                    </div>
                 </div>
                 <div class="sub-2">
-                    <div class="text">{component.data['text2']}</div>
+                    <div class="text">
+                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                    </div>
                 </div>
                 <div class="sub-3">
                     <div class="image">
-                        {component.data['image1'] && (
+                        {imageArray[0] ? (
                             <FImage
-                                {...component.data['image1']}
-                                color={component.data['color1']}
                                 id="image1"
+                                {...imageArray[0]}
                                 sizeX="24px"
                                 sizeY="24px"
                             ></FImage>
-                        )}
+                        ) : null}
                     </div>
-                    <div class="text">{component.data['text3']}</div>
+                    <div class="text">
+                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                    </div>
                 </div>
             </div>
             <div class="section-2">
-                {component.data['chip1'] && (
-                    <kup-chip
-                        id="chip1"
-                        {...component.data['chip1']}
-                    ></kup-chip>
-                )}
+                {chipArray[0] ? (
+                    <kup-chip id="chip1" {...chipArray[0]}></kup-chip>
+                ) : null}
             </div>
         </div>
     );
