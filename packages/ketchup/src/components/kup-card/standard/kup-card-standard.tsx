@@ -4,9 +4,9 @@ import { FImage } from '../../../f-components/f-image/f-image';
 import { GenericObject } from '../../../types/GenericTypes';
 import { KupCard } from '../kup-card';
 /**
- * First card standard layout, inspired by Material Design.
+ * 1st card standard layout, inspired by Material Design.
  * @param {KupCard}  comp - Card component.
- * @returns {VNode} First standard layout JSX markup.
+ * @returns {VNode} 1st standard layout JSX markup.
  */
 export function create1(component: KupCard): VNode {
     //Action buttons
@@ -14,7 +14,6 @@ export function create1(component: KupCard): VNode {
         ? component.data['button']
         : [];
     //Cover image
-    let imageIndex: number = 0;
     const imageArray: GenericObject[] =
         component.data['image'] && component.data['image']
             ? component.data['image']
@@ -32,11 +31,11 @@ export function create1(component: KupCard): VNode {
             }`}
         >
             <div class="mdc-ripple-surface">
-                {imageArray[imageIndex] ? (
+                {imageArray[0] ? (
                     <div class="section-1">
                         <FImage
                             id="image1"
-                            {...imageArray[imageIndex]}
+                            {...imageArray[0]}
                             sizeX="100%"
                             sizeY="100%"
                         ></FImage>
@@ -67,9 +66,9 @@ export function create1(component: KupCard): VNode {
     );
 }
 /**
- * Second card standard layout, inspired by Material Design.
+ * 2nd card standard layout, inspired by Material Design.
  * @param {KupCard}  comp - Card component.
- * @returns {VNode} Second standard layout JSX markup.
+ * @returns {VNode} 2nd standard layout JSX markup.
  */
 export function create2(component: KupCard): VNode {
     //Action buttons
@@ -77,7 +76,6 @@ export function create2(component: KupCard): VNode {
         ? component.data['button']
         : [];
     //Cover image
-    let imageIndex: number = 0;
     const imageArray: GenericObject[] =
         component.data['image'] && component.data['image']
             ? component.data['image']
@@ -102,16 +100,16 @@ export function create2(component: KupCard): VNode {
                 ) : null}
                 {textArray[textIndex++] ? (
                     <div class="sub-1 subtitle">
-                        <div>{textArray[textIndex++]}</div>
+                        <div>{textArray[textIndex]}</div>
                     </div>
                 ) : null}
             </div>
             <div class="mdc-ripple-surface">
-                {imageArray[imageIndex] ? (
+                {imageArray[0] ? (
                     <div class="section-2">
                         <FImage
                             id="image1"
-                            {...imageArray[imageIndex]}
+                            {...imageArray[0]}
                             sizeX="100%"
                             sizeY="100%"
                         ></FImage>
@@ -120,7 +118,7 @@ export function create2(component: KupCard): VNode {
                 <div class="section-3">
                     {textArray[textIndex++] ? (
                         <div class="sub-3 description">
-                            <div>{textArray[textIndex++]}</div>
+                            <div>{textArray[textIndex]}</div>
                         </div>
                     ) : null}
                 </div>
@@ -132,12 +130,26 @@ export function create2(component: KupCard): VNode {
     );
 }
 /**
- * Third card standard layout, inspired by Material Design.
+ * 3rd card standard layout, inspired by Material Design.
  * @param {KupCard}  comp - Card component.
- * @returns {VNode} Third standard layout JSX markup.
+ * @returns {VNode} 3rd standard layout JSX markup.
  */
 export function create3(component: KupCard): VNode {
-    const buttonArray: [] = component.data['button'];
+    //Action buttons
+    const buttonArray: GenericObject[] = component.data['button']
+        ? component.data['button']
+        : [];
+    //Cover image
+    const imageArray: GenericObject[] =
+        component.data['image'] && component.data['image']
+            ? component.data['image']
+            : [];
+    //Title, subtitle and description
+    let textIndex: number = 0;
+    const textArray: string[] =
+        component.data['text'] && component.data['text']
+            ? component.data['text']
+            : [];
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
@@ -147,39 +159,63 @@ export function create3(component: KupCard): VNode {
             <div class="mdc-ripple-surface">
                 <div class="section-1">
                     <div class="media">
-                        {component.data['image1'] && (
+                        {imageArray[0] ? (
                             <FImage
-                                {...component.data['image1']}
                                 id="image1"
+                                {...imageArray[0]}
                                 sizeX="100%"
                                 sizeY="100%"
                             ></FImage>
-                        )}
+                        ) : null}
                         <div class="text-on-media">
-                            <div class="sub-1 title">
-                                <div>{component.data['text1']}</div>
-                            </div>
-                            <div class="sub-1 subtitle">
-                                <div>{component.data['text2']}</div>
-                            </div>
+                            {textArray[textIndex] ? (
+                                <div class="sub-1 title">
+                                    <div>{textArray[textIndex]}</div>
+                                </div>
+                            ) : null}
+                            {textArray[textIndex++] ? (
+                                <div class="sub-1 subtitle">
+                                    <div>{textArray[textIndex]}</div>
+                                </div>
+                            ) : null}
                         </div>
                     </div>
                 </div>
                 <div class="section-2">
-                    <div class="sub-2 description">
-                        <div>{component.data['text3']}</div>
-                    </div>
+                    {textArray[textIndex++] ? (
+                        <div class="sub-2 description">
+                            <div>{textArray[textIndex]}</div>
+                        </div>
+                    ) : null}
                 </div>
             </div>
-            <div class="section-3">
-                {buttonArray ? compList(buttonArray, 'button') : ''}
-            </div>
+            {buttonArray.length > 0 ? (
+                <div class="section-3">{compList(buttonArray, 'button')}</div>
+            ) : null}
         </div>
     );
 }
-
+/**
+ * 4th card standard layout, inspired by Material Design.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} 4th standard layout JSX markup.
+ */
 export function create4(component: KupCard) {
-    const buttonArray: [] = component.data['button'];
+    //Action buttons
+    const buttonArray: GenericObject[] = component.data['button']
+        ? component.data['button']
+        : [];
+    //Cover image
+    const imageArray: GenericObject[] =
+        component.data['image'] && component.data['image']
+            ? component.data['image']
+            : [];
+    //Title, subtitle and description
+    let textIndex: number = 0;
+    const textArray: string[] =
+        component.data['text'] && component.data['text']
+            ? component.data['text']
+            : [];
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
@@ -188,23 +224,27 @@ export function create4(component: KupCard) {
         >
             <div class="mdc-ripple-surface">
                 <div class="section-1">
-                    <div class="sub-1 image">
-                        {component.data['image1'] && (
+                    {imageArray[0] ? (
+                        <div class="sub-1 image">
                             <FImage
-                                {...component.data['image1']}
                                 id="image1"
+                                {...imageArray[0]}
                                 sizeX="100%"
                                 sizeY="100%"
                             ></FImage>
-                        )}
-                    </div>
+                        </div>
+                    ) : null}
                     <div class="text">
-                        <div class="sub-1 title">
-                            <div>{component.data['text1']}</div>
-                        </div>
-                        <div class="sub-1 subtitle">
-                            <div>{component.data['text2']}</div>
-                        </div>
+                        {textArray[textIndex] ? (
+                            <div class="sub-1 title">
+                                <div>{textArray[textIndex]}</div>
+                            </div>
+                        ) : null}
+                        {textArray[textIndex++] ? (
+                            <div class="sub-1 subtitle">
+                                <div>{textArray[textIndex]}</div>
+                            </div>
+                        ) : null}
                     </div>
                 </div>
             </div>

@@ -35,13 +35,13 @@ for (let index = 0; index < cards.length; index++) {
         ],
         image: [
             {
-                resource: 'widgets',
+                resource: 'omega',
             },
             {
-                resource: 'menu',
+                resource: 'radioactive',
             },
         ],
-        text: ['mah', 'mih', 'moh'],
+        text: ['L U L', 'LUL', 'omegalul'],
         textfield: [
             {
                 fullWidth: true,
