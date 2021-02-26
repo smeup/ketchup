@@ -2189,7 +2189,7 @@ export class KupDataTable {
         for (let elem of eventPath) {
             // TODO When the footer is considered stable please do this in another dedicated method
             // check if is the open menu button the element which fired the event
-            if ((elem as HTMLElement).id == totalMenuOpenID) {
+            if ((elem as HTMLElement).id === totalMenuOpenID) {
                 return;
             }
 
@@ -3443,82 +3443,14 @@ export class KupDataTable {
         return this.totals && this.totals[column.name] ? true : false;
     }
 
-    renderTotalsComboBox(column: Column) {
-        // TODO Manage the label with different languages
-        // and move this object into declaration
-        let menu;
-        if (isNumber(column.obj)) {
-            menu = {
-                [TotalMode.COUNT]: {
-                    label: 'Conta',
-                },
-                [TotalMode.SUM]: {
-                    label: 'Somma',
-                },
-                [TotalMode.AVERAGE]: {
-                    label: 'Media',
-                },
-            };
-        } else {
-            menu = {
-                [TotalMode.COUNT]: {
-                    label: 'Conta',
-                },
-            };
-        }
-
-        if (!this.areTotalsSelected(column)) {
-            menu['Calcola'] = {
-                label: 'Calcola',
-                selected: true,
-                hidden: true,
-            };
-        } else {
-            this.setSelectedMenu(menu, column.name);
-        }
-
-        return (
-            <select
-                class="totals-select"
-                onInput={(event) => this.onTotalsChange(event, column)}
-            >
-                {Object.keys(menu).map((key) => {
-                    const m = menu[key];
-                    return (
-                        <option
-                            value={key}
-                            selected={m.selected ? true : false}
-                            hidden={m.hidden ? true : false}
-                        >
-                            {m.label}
-                        </option>
-                    );
-                })}
-            </select>
-        );
-    }
-
-    // TODO replace any with the correct type using TotalMode
-    setSelectedMenu(menu: any, name: string) {
-        const totalValue = this.totals[name];
-        if (totalValue) {
-            if (totalValue.startsWith(TotalMode.MATH)) {
-                menu[TotalMode.MATH] = {
-                    label: 'Formula',
-                    selected: true,
-                };
-            } else if (menu[totalValue]) {
-                menu[totalValue].selected = true;
-            }
-        }
-    }
-
     onTotalsChange(event, column) {
+        // close menu
+        this.closeTotalMenu();
         if (column) {
             // must do this
-            // otherwise the watcher does not fire
+            // otherwise does not fire the watcher
             const totalsCopy = { ...this.totals };
-            totalsCopy[column.name] = event.target.value;
+            totalsCopy[column.name] = event.detail.selected.value;
             this.totals = totalsCopy;
         }
     }
@@ -3529,8 +3461,10 @@ export class KupDataTable {
                 '.total-menu'
             );
             if (menu) {
-                let wrapper: HTMLElement = menu.closest('td');
-                positionRecalc(menu, wrapper, 0, true);
+                let wrapper = menu.parentElement.querySelector(
+                    '#' + totalMenuOpenID
+                ) as HTMLElement;
+                positionRecalc(menu, wrapper, 10, true);
                 menu.classList.add('dynamic-position-active');
                 menu.classList.add('visible');
             }
@@ -3584,15 +3518,84 @@ export class KupDataTable {
                 );
 
                 let totalMenu = undefined;
+                // TODO Manage the label with different languages
+                let menuLabel = 'Calcola';
+                if (this.totals) {
+                    const totalValue = this.totals[column.name];
+                    if (totalValue) {
+                        if (totalValue.startsWith(TotalMode.MATH)) {
+                            menuLabel = 'Formula ';
+                        } else {
+                            switch (totalValue) {
+                                case TotalMode.COUNT:
+                                    menuLabel = 'Conta ';
+                                    break;
+                                case TotalMode.SUM:
+                                    menuLabel = 'Somma ';
+                                    break;
+                                case TotalMode.AVERAGE:
+                                    menuLabel = 'Media ';
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                }
+
                 if (this.isOpenedTotalMenuForColumn(column.name)) {
-                    // creare gli elementi della lista
+                    let listData: ComponentListElement[] = [];
+                    if (isNumber(column.obj)) {
+                        // TODO Move these objects in declarations
+                        listData.push(
+                            {
+                                text: 'Conta',
+                                value: TotalMode.COUNT,
+                                selected: false,
+                            },
+                            {
+                                text: 'Somma',
+                                value: TotalMode.SUM,
+                                selected: false,
+                            },
+                            {
+                                text: 'Media',
+                                value: TotalMode.AVERAGE,
+                                selected: false,
+                            }
+                        );
+                    } else {
+                        listData.push({
+                            text: 'Conta',
+                            value: TotalMode.COUNT,
+                            selected: false,
+                        });
+                    }
+
+                    // TODO replace this with find which is a better approach
+                    // selectedElement = listData.find((item) => item.text === menuLabel)
+                    // Note that this is not supported in older IE
+                    var itemIndex = listData.findIndex(
+                        (item) => item.text === menuLabel
+                    );
+                    if (itemIndex >= 0) {
+                        listData[itemIndex] = {
+                            text: listData[itemIndex].text,
+                            value: listData[itemIndex].value,
+                            selected: true,
+                        };
+                    }
+
                     totalMenu = (
-                        <div class={`kup-menu total-menu`}>
-                            <p>Prova di menu</p>
-                            <p>Prova di menu</p>
-                            <p>Prova di menu</p>
-                            <p>Prova di menu</p>
-                        </div>
+                        <kup-list
+                            class={`kup-menu total-menu`}
+                            data={...listData}
+                            is-menu
+                            menu-visible
+                            onKupListClick={(event) =>
+                                this.onTotalsChange(event, column)
+                            }
+                        ></kup-list>
                     );
                 }
 
@@ -3602,7 +3605,7 @@ export class KupDataTable {
                             (fixedCellStyle
                                 ? fixedCellStyle.fixedCellClasses
                                 : '') +
-                            (this.areTotalsSelected(column) ? '' : ' ') // TODO rimettere hidden
+                            (this.areTotalsSelected(column) ? '' : ' hidden')
                         }
                         style={
                             fixedCellStyle
@@ -3611,13 +3614,13 @@ export class KupDataTable {
                         }
                     >
                         <span
+                            style={{ cursor: 'pointer' }}
                             id={totalMenuOpenID}
                             onClick={() => this.onTotalMenuOpen(column)}
                         >
-                            Apri menu
+                            {menuLabel}
                         </span>
                         {totalMenu}
-                        {this.renderTotalsComboBox(column)}
                         <span>
                             {numberToFormattedStringNumber(
                                 this.footer[column.name],
