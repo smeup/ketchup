@@ -1015,7 +1015,7 @@ export class KupBox {
                 <div class="box-selection">
                     <kup-checkbox
                         checked={isSelected}
-                        onKupCheckboxClick={(e) => e.stopPropagation()}
+                        onClick={(e) => e.stopPropagation()}
                     />
                 </div>
             );

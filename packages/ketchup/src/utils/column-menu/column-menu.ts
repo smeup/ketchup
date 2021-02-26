@@ -88,6 +88,10 @@ function prepCheckbox(
         if (columnValues.length > 0) {
             props.push({
                 checked: checkBoxesFilter.length == 0,
+                'data-storage': {
+                    column: column,
+                    value: null,
+                },
                 id: 'global-checkbox',
                 label: '(*All)',
             });

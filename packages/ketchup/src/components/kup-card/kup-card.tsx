@@ -257,7 +257,7 @@ export class KupCard {
     }
 
     listenCheckboxEvents(root: ShadowRoot) {
-        root.addEventListener('kupCheckboxClick', (e) => {
+        root.addEventListener('kupCheckboxChange', (e) => {
             this.onKupEvent(e);
         });
     }

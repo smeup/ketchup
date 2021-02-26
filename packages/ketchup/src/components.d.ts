@@ -2570,29 +2570,25 @@ declare namespace LocalJSX {
           * Triggered when the input element loses focus.
          */
         "onKupCheckboxBlur"?: (event: CustomEvent<{
-        value: string;
+        id: string;
         checked: boolean;
+        value: string;
     }>) => void;
         /**
           * Triggered when the input element's value changes.
          */
         "onKupCheckboxChange"?: (event: CustomEvent<{
-        value: string;
+        id: string;
         checked: boolean;
-    }>) => void;
-        /**
-          * Triggered when the input element is clicked.
-         */
-        "onKupCheckboxClick"?: (event: CustomEvent<{
         value: string;
-        checked: boolean;
     }>) => void;
         /**
           * Triggered when the input element gets focused.
          */
         "onKupCheckboxFocus"?: (event: CustomEvent<{
-        value: string;
+        id: string;
         checked: boolean;
+        value: string;
     }>) => void;
     }
     interface KupChip {

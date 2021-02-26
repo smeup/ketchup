@@ -647,7 +647,7 @@ export class KupDataTable {
     private isSafariBrowser: boolean = false;
     private isRestoringState: boolean = false;
     private globalFilterTimeout: number;
-    private columnFilterTimeout: number;
+    columnFilterTimeout: number;
     private resizeTimeout: number;
     private resObserver: ResizeObserver = undefined;
 
@@ -1773,7 +1773,7 @@ export class KupDataTable {
         this.filters = newFilters;
     }
 
-    private onFilterChange(value: string, column: Column) {
+    onFilterChange(value: string, column: Column) {
         // resetting current page
         this.resetCurrentPage();
         let newFilter = '';
@@ -1785,13 +1785,13 @@ export class KupDataTable {
         this.filters = newFilters;
     }
 
-    private onFilterChange2({ detail }, column: Column, filterValue: string) {
+    onFilterChange2(checked: boolean, column: Column, filterValue: string) {
         // resetting current page
         this.resetCurrentPage();
 
         const newFilters = { ...this.filters };
 
-        if (detail.checked == true || filterValue == null) {
+        if (checked || filterValue == null) {
             addCheckBoxFilterValue(newFilters, column.name, filterValue);
         } else {
             removeCheckBoxFilterValue(newFilters, column.name, filterValue);

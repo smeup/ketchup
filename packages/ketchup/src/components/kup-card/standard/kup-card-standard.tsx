@@ -1,6 +1,7 @@
 import { h } from '@stencil/core';
 import { JSX } from '@stencil/core/internal';
 import { FImage } from '../../../f-components/f-image/f-image';
+import { GenericObject } from '../../../types/GenericTypes';
 import { KupCard } from '../kup-card';
 
 export function create1(component: KupCard) {
@@ -542,46 +543,27 @@ export function create12(component: KupCard) {
     );
 }
 
-function compList(compArray: [], compType: string): JSX.Element[] {
+function compList(compArray: GenericObject[], compType: string): JSX.Element[] {
     let list: JSX.Element[] = [];
     for (let index = 0; index < compArray.length; index++) {
+        if (!compArray[index].id) {
+            compArray[index]['id'] = compType + index;
+        }
         switch (compType) {
             case 'button':
-                list.push(
-                    <kup-button id={'button' + index} {...compArray[index]} />
-                );
+                list.push(<kup-button {...compArray[index]} />);
                 break;
             case 'checkbox':
-                list.push(
-                    <kup-checkbox
-                        id={'checkbox' + index}
-                        {...compArray[index]}
-                    />
-                );
+                list.push(<kup-checkbox {...compArray[index]} />);
                 break;
             case 'datepicker':
-                list.push(
-                    <kup-date-picker
-                        id={'datepicker' + index}
-                        {...compArray[index]}
-                    />
-                );
+                list.push(<kup-date-picker {...compArray[index]} />);
                 break;
             case 'textfield':
-                list.push(
-                    <kup-text-field
-                        id={'textfield' + index}
-                        {...compArray[index]}
-                    />
-                );
+                list.push(<kup-text-field {...compArray[index]} />);
                 break;
             case 'timepicker':
-                list.push(
-                    <kup-time-picker
-                        id={'timepicker' + index}
-                        {...compArray[index]}
-                    />
-                );
+                list.push(<kup-time-picker {...compArray[index]} />);
                 break;
         }
     }

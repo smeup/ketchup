@@ -90,8 +90,9 @@ export class KupCheckbox {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
-        value: string;
+        id: string;
         checked: boolean;
+        value: string;
     }>;
     /**
      * Triggered when the input element's value changes.
@@ -103,21 +104,9 @@ export class KupCheckbox {
         bubbles: true,
     })
     kupChange: EventEmitter<{
-        value: string;
+        id: string;
         checked: boolean;
-    }>;
-    /**
-     * Triggered when the input element is clicked.
-     */
-    @Event({
-        eventName: 'kupCheckboxClick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupClick: EventEmitter<{
         value: string;
-        checked: boolean;
     }>;
     /**
      * Triggered when the input element gets focused.
@@ -129,14 +118,16 @@ export class KupCheckbox {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
-        value: string;
+        id: string;
         checked: boolean;
+        value: string;
     }>;
 
     onKupBlur() {
         this.kupBlur.emit({
-            value: this.value,
             checked: this.checked == true ? true : false,
+            id: this.rootElement.id,
+            value: this.value,
         });
     }
 
@@ -153,22 +144,17 @@ export class KupCheckbox {
             this.value = 'on';
         }
         this.kupChange.emit({
-            value: this.value,
             checked: this.checked,
-        });
-    }
-
-    onKupClick() {
-        this.kupClick.emit({
+            id: this.rootElement.id,
             value: this.value,
-            checked: this.checked == true ? true : false,
         });
     }
 
     onKupFocus() {
         this.kupFocus.emit({
-            value: this.value,
             checked: this.checked == true ? true : false,
+            id: this.rootElement.id,
+            value: this.value,
         });
     }
 
@@ -205,11 +191,10 @@ export class KupCheckbox {
                 if (inputEl) {
                     inputEl.onblur = () => this.onKupBlur();
                     inputEl.onchange = () => this.onKupChange();
-                    inputEl.onclick = () => this.onKupClick();
                     inputEl.onfocus = () => this.onKupFocus();
                 }
                 if (labelEl) {
-                    labelEl.onclick = () => this.onKupClick();
+                    labelEl.onclick = () => this.onKupChange();
                 }
                 FCheckboxMDC(f);
             }
