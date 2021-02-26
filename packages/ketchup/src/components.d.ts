@@ -2449,8 +2449,7 @@ declare namespace LocalJSX {
         id: any;
     }>) => void;
         "onKupCardEvent"?: (event: CustomEvent<{
-        id: any;
-        value: any;
+        card: KupCard;
         event: any;
     }>) => void;
         /**

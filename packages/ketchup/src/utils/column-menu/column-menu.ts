@@ -1,12 +1,12 @@
-import { KupDataTable } from '../components/kup-data-table/kup-data-table';
-import { Column } from '../components/kup-data-table/kup-data-table-declarations';
+import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
+import { Column } from '../../components/kup-data-table/kup-data-table-declarations';
 import {
     getValueForDisplay,
     isColumnFiltrableByInterval,
-} from '../components/kup-data-table/kup-data-table-helper';
-import { KupTree } from '../components/kup-tree/kup-tree';
-import { GenericObject } from '../types/GenericTypes';
-import { isCheckbox, isStringObject } from './object-utils';
+} from '../../components/kup-data-table/kup-data-table-helper';
+import { KupTree } from '../../components/kup-tree/kup-tree';
+import { GenericObject } from '../../types/GenericTypes';
+import { isCheckbox, isStringObject } from '../object-utils';
 
 export function columnMenuData(
     comp: KupDataTable | KupTree,
@@ -22,7 +22,7 @@ export function columnMenuData(
     return cardData;
 }
 
-function isTree(comp: KupDataTable | KupTree): comp is KupTree {
+export function isTree(comp: KupDataTable | KupTree): comp is KupTree {
     return (comp as KupTree).rootElement.tagName === 'KUP-TREE';
 }
 
@@ -46,7 +46,7 @@ function prepButtons(
         if (comp.removableColumns) {
             props.push({
                 'data-storage': {
-                    columnName: column.name,
+                    column: column,
                 },
                 icon: 'table-column-remove',
                 id: 'remove',

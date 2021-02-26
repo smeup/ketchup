@@ -146,8 +146,9 @@ import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
-import { columnMenuData } from '../../utils/column-menu';
+import { columnMenuData } from '../../utils/column-menu/column-menu';
 import { KupCard } from '../kup-card/kup-card';
+import { columnMenuEvents } from '../../utils/column-menu/column-menu-events';
 
 @Component({
     tag: 'kup-data-table',
@@ -1717,44 +1718,6 @@ export class KupDataTable {
     }
 
     //======== Event Listeners ========
-    private columnMenuEvents(e: CustomEvent) {
-        const card: any = this.rootElement.shadowRoot.querySelector(
-            '#column-menu'
-        );
-        const cardData = card.data;
-        const eventType = e.detail.event.type;
-        const compID = e.detail.value.id;
-        switch (eventType) {
-            case 'kupButtonClick':
-                switch (compID) {
-                    case 'add':
-                        this.addColumn(e.target);
-                        break;
-                    case 'description':
-                        this.onAddCodeDecodeColumnClick(e);
-                        break;
-                    case 'group':
-                        this.switchColumnGroup(
-                            cardData['button1']['data-storage']['column-name']
-                        );
-                        break;
-                }
-                break;
-            case 'kupTextFieldInput':
-                window.clearTimeout(this.columnFilterTimeout);
-                this.columnFilterTimeout = window.setTimeout(
-                    () =>
-                        this.onFilterChange(
-                            e.detail.value.value,
-                            cardData['textfield'][0]['data-storage']['column']
-                        ),
-                    300
-                );
-                console.log(e);
-                break;
-        }
-    }
-
     private onColumnSort({ ctrlKey }: MouseEvent, columnName: string) {
         // check if columnName is already in sort array
         let i = 0;
@@ -2133,7 +2096,7 @@ export class KupDataTable {
         return canHaveDerivedColumn(column.obj);
     }
 
-    private onAddCodeDecodeColumnClick(e: Event, column?: Column) {
+    onAddCodeDecodeColumnClick(e: Event, column?: Column) {
         e.stopPropagation();
         let columnName: string;
         if (!column) {
@@ -2176,7 +2139,7 @@ export class KupDataTable {
         }
     }
 
-    private addColumn(el: EventTarget) {
+    addColumn(el: EventTarget) {
         const column: string = (el as HTMLElement).closest('th').dataset.column;
         this.kupAddColumn.emit({
             column: column,
@@ -2184,15 +2147,13 @@ export class KupDataTable {
         this.closeMenuAndTooltip();
     }
 
-    private removeColumn(el: EventTarget) {
-        const columnName: string = (el as HTMLElement).closest('th').dataset
-            .column;
-        let column = getColumnByName(this.getColumns(), columnName);
+    removeColumn(column: Column) {
+        console.log(column);
         column.visible = false;
         this.closeMenu();
     }
 
-    private switchColumnGroup(column: string): void {
+    switchColumnGroup(column: string): void {
         const group: GroupObject = this.getGroupByName(column);
         // resetting opened menu
         this.closeMenuAndTooltip();
@@ -4942,7 +4903,7 @@ export class KupDataTable {
                             onClick={(e) => e.stopPropagation()}
                             onMouseUp={(e) => e.stopPropagation()}
                             onKupCardEvent={(e) => {
-                                this.columnMenuEvents(e);
+                                columnMenuEvents(e, this);
                             }}
                             sizeX="auto"
                             sizeY="auto"

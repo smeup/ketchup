@@ -92,8 +92,7 @@ export class KupCard {
         bubbles: true,
     })
     kupEvent: EventEmitter<{
-        id: any;
-        value: any;
+        card: KupCard;
         event: any;
     }>;
 
@@ -126,8 +125,7 @@ export class KupCard {
         }
 
         this.kupEvent.emit({
-            id: this.rootElement.id,
-            value: e.detail,
+            card: this,
             event: e,
         });
     }

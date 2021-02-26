@@ -490,35 +490,50 @@ export function create11(component: KupCard) {
 }
 
 export function create12(component: KupCard) {
-    const buttonArray: [] = component.data['button'];
-    const checkboxArray: [] = component.data['checkbox'];
-    const datepickerArray: [] = component.data['datepicker'];
-    const textfieldArray: [] = component.data['textfield'];
-    const timepickerArray: [] = component.data['timepicker'];
+    const buttonArray: [] = component.data['button']
+        ? component.data['button']
+        : [];
+    const checkboxArray: [] = component.data['checkbox']
+        ? component.data['checkbox']
+        : [];
+    const datepickerArray: [] = component.data['datepicker']
+        ? component.data['datepicker']
+        : [];
+    const textfieldArray: [] = component.data['textfield']
+        ? component.data['textfield']
+        : [];
+    const timepickerArray: [] = component.data['timepicker']
+        ? component.data['timepicker']
+        : [];
     return (
         <div class={`standard-layout-${component.layoutNumber} `}>
             {buttonArray ? (
                 <div class="section-1">
-                    {buttonArray ? compList(buttonArray, 'button') : null}
+                    {buttonArray.length > 0
+                        ? compList(buttonArray, 'button')
+                        : null}
                 </div>
             ) : null}
             <div
                 class={`section-2 ${
-                    textfieldArray || datepickerArray || timepickerArray
+                    textfieldArray.length > 0 ||
+                    datepickerArray.length > 0 ||
+                    timepickerArray.length > 0
                         ? 'has-content'
                         : ''
-                }
-            }`}
+                }`}
             >
-                {datepickerArray
+                {datepickerArray.length > 0
                     ? compList(datepickerArray, 'datepicker')
                     : null}
-                {textfieldArray ? compList(textfieldArray, 'textfield') : null}
-                {timepickerArray
+                {textfieldArray.length > 0
+                    ? compList(textfieldArray, 'textfield')
+                    : null}
+                {timepickerArray.length > 0
                     ? compList(timepickerArray, 'timepicker')
                     : null}
             </div>
-            {checkboxArray ? (
+            {checkboxArray.length > 0 ? (
                 <div class="section-3">
                     {compList(checkboxArray, 'checkbox')}
                 </div>
