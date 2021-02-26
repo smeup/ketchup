@@ -1,9 +1,11 @@
-const basicCard = document.getElementById('basic-card');
 addEventListener('kupCardEvent', (e) => {
     console.log(e);
 });
-if (basicCard != null) {
-    basicCard.data = {
+
+const cards = document.querySelectorAll('kup-card');
+
+for (let index = 0; index < cards.length; index++) {
+    cards[index].data = {
         button: [
             {
                 icon: 'book',
@@ -31,6 +33,15 @@ if (basicCard != null) {
                 label: 'Checkbox4',
             },
         ],
+        image: [
+            {
+                resource: 'widgets',
+            },
+            {
+                resource: 'menu',
+            },
+        ],
+        text: ['mah', 'mih', 'moh'],
         textfield: [
             {
                 fullWidth: true,

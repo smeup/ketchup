@@ -22,7 +22,6 @@ export function columnMenuEvents(
     cardEvent: CustomEvent,
     comp: KupDataTable | KupTree
 ): void {
-    console.log(cardEvent, comp);
     const card: KupCard = cardEvent.detail.card;
     const cardData = card.data;
     const compEvent = cardEvent.detail.event;

@@ -1,88 +1,142 @@
 import { h } from '@stencil/core';
-import { JSX } from '@stencil/core/internal';
+import { JSX, VNode } from '@stencil/core/internal';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { GenericObject } from '../../../types/GenericTypes';
 import { KupCard } from '../kup-card';
-
-export function create1(component: KupCard) {
-    const buttonArray: [] = component.data['button'];
+/**
+ * First card standard layout, inspired by Material Design.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} First standard layout JSX markup.
+ */
+export function create1(component: KupCard): VNode {
+    //Action buttons
+    const buttonArray: GenericObject[] = component.data['button']
+        ? component.data['button']
+        : [];
+    //Cover image
+    let imageIndex: number = 0;
+    const imageArray: GenericObject[] =
+        component.data['image'] && component.data['image']
+            ? component.data['image']
+            : [];
+    //Title, subtitle and description
+    let textIndex: number = 0;
+    const textArray: string[] =
+        component.data['text'] && component.data['text']
+            ? component.data['text']
+            : [];
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
-                buttonArray ? 'has-actions' : ''
+                buttonArray.length > 0 ? 'has-actions' : ''
             }`}
         >
             <div class="mdc-ripple-surface">
-                <div class="section-1">
-                    {component.data['image1'] && (
+                {imageArray[imageIndex] ? (
+                    <div class="section-1">
                         <FImage
-                            {...component.data['image1']}
                             id="image1"
+                            {...imageArray[imageIndex]}
                             sizeX="100%"
                             sizeY="100%"
                         ></FImage>
-                    )}
-                </div>
+                    </div>
+                ) : null}
                 <div class="section-2">
-                    <div class="sub-2 title">
-                        <div>{component.data['text1']}</div>
-                    </div>
-                    <div class="sub-2 subtitle">
-                        <div>{component.data['text2']}</div>
-                    </div>
-                    <div class="sub-2 description">
-                        <div>{component.data['text3']}</div>
-                    </div>
+                    {textArray[textIndex] ? (
+                        <div class="sub-2 title">
+                            <div>{textArray[textIndex]}</div>
+                        </div>
+                    ) : null}
+                    {textArray[textIndex++] ? (
+                        <div class="sub-2 subtitle">
+                            <div>{textArray[textIndex]}</div>
+                        </div>
+                    ) : null}
+                    {textArray[textIndex++] ? (
+                        <div class="sub-2 description">
+                            <div>{textArray[textIndex]}</div>
+                        </div>
+                    ) : null}
                 </div>
             </div>
-            <div class="section-3">
-                {buttonArray ? compList(buttonArray, 'button') : ''}
-            </div>
+            {buttonArray.length > 0 ? (
+                <div class="section-3">{compList(buttonArray, 'button')}</div>
+            ) : null}
         </div>
     );
 }
-
-export function create2(component: KupCard) {
-    const buttonArray: [] = component.data['button'];
+/**
+ * Second card standard layout, inspired by Material Design.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} Second standard layout JSX markup.
+ */
+export function create2(component: KupCard): VNode {
+    //Action buttons
+    const buttonArray: GenericObject[] = component.data['button']
+        ? component.data['button']
+        : [];
+    //Cover image
+    let imageIndex: number = 0;
+    const imageArray: GenericObject[] =
+        component.data['image'] && component.data['image']
+            ? component.data['image']
+            : [];
+    //Title, subtitle and description
+    let textIndex: number = 0;
+    const textArray: string[] =
+        component.data['text'] && component.data['text']
+            ? component.data['text']
+            : [];
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
-                buttonArray ? 'has-actions' : ''
+                buttonArray.length > 0 ? 'has-actions' : ''
             }`}
         >
             <div class="section-1">
-                <div class="sub-1 title">
-                    <div>{component.data['text1']}</div>
-                </div>
-                <div class="sub-1 subtitle">
-                    <div>{component.data['text2']}</div>
-                </div>
+                {textArray[textIndex] ? (
+                    <div class="sub-1 title">
+                        <div>{textArray[textIndex]}</div>
+                    </div>
+                ) : null}
+                {textArray[textIndex++] ? (
+                    <div class="sub-1 subtitle">
+                        <div>{textArray[textIndex++]}</div>
+                    </div>
+                ) : null}
             </div>
             <div class="mdc-ripple-surface">
-                <div class="section-2">
-                    {component.data['image1'] && (
+                {imageArray[imageIndex] ? (
+                    <div class="section-2">
                         <FImage
-                            {...component.data['image1']}
                             id="image1"
+                            {...imageArray[imageIndex]}
                             sizeX="100%"
                             sizeY="100%"
                         ></FImage>
-                    )}
-                </div>
-                <div class="section-3">
-                    <div class="sub-3 description">
-                        <div>{component.data['text3']}</div>
                     </div>
+                ) : null}
+                <div class="section-3">
+                    {textArray[textIndex++] ? (
+                        <div class="sub-3 description">
+                            <div>{textArray[textIndex++]}</div>
+                        </div>
+                    ) : null}
                 </div>
             </div>
-            <div class="section-4">
-                {buttonArray ? compList(buttonArray, 'button') : ''}
-            </div>
+            {buttonArray.length > 0 ? (
+                <div class="section-4">{compList(buttonArray, 'button')}</div>
+            ) : null}
         </div>
     );
 }
-
-export function create3(component: KupCard) {
+/**
+ * Third card standard layout, inspired by Material Design.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} Third standard layout JSX markup.
+ */
+export function create3(component: KupCard): VNode {
     const buttonArray: [] = component.data['button'];
     return (
         <div
@@ -491,24 +545,24 @@ export function create11(component: KupCard) {
 }
 
 export function create12(component: KupCard) {
-    const buttonArray: [] = component.data['button']
+    const buttonArray: GenericObject[] = component.data['button']
         ? component.data['button']
         : [];
-    const checkboxArray: [] = component.data['checkbox']
+    const checkboxArray: GenericObject[] = component.data['checkbox']
         ? component.data['checkbox']
         : [];
-    const datepickerArray: [] = component.data['datepicker']
+    const datepickerArray: GenericObject[] = component.data['datepicker']
         ? component.data['datepicker']
         : [];
-    const textfieldArray: [] = component.data['textfield']
+    const textfieldArray: GenericObject[] = component.data['textfield']
         ? component.data['textfield']
         : [];
-    const timepickerArray: [] = component.data['timepicker']
+    const timepickerArray: GenericObject[] = component.data['timepicker']
         ? component.data['timepicker']
         : [];
     return (
         <div class={`standard-layout-${component.layoutNumber} `}>
-            {buttonArray ? (
+            {buttonArray.length > 0 ? (
                 <div class="section-1">
                     {buttonArray.length > 0
                         ? compList(buttonArray, 'button')
