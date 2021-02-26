@@ -1931,7 +1931,9 @@ export class KupDataTable {
         const target = event.target;
 
         // selecting row
-        this.selectedRows = [row];
+        if (!this.multiSelection) {
+            this.selectedRows = [row];
+        }
         // find clicked column
         let clickedColumn: string = null;
         if (target instanceof HTMLElement) {
@@ -1946,15 +1948,17 @@ export class KupDataTable {
         }
 
         // selecting clicked column
-        this.deselectColumn(this.selectedColumn);
-        this.selectedColumn = clickedColumn;
-        this.selectColumn(this.selectedColumn);
+        if (clickedColumn) {
+            this.deselectColumn(this.selectedColumn);
+            this.selectedColumn = clickedColumn;
+            this.selectColumn(this.selectedColumn);
 
-        // emit event
-        this.kupRowSelected.emit({
-            selectedRows: this.selectedRows,
-            clickedColumn,
-        });
+            // emit event
+            this.kupRowSelected.emit({
+                selectedRows: this.selectedRows,
+                clickedColumn,
+            });
+        }
     }
 
     private selectColumn(selectedColumn: string) {
@@ -3838,11 +3842,7 @@ export class KupDataTable {
             return (
                 <tr
                     class={rowClass}
-                    onClick={
-                        this.multiSelection
-                            ? null
-                            : (e) => this.onRowClick(e, row)
-                    }
+                    onClick={(e) => this.onRowClick(e, row)}
                     {...(this.dragEnabled
                         ? setKetchupDraggable(dragHandlersRow, {
                               [KupDataTableRowDragType]: row,
