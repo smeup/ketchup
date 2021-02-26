@@ -537,7 +537,6 @@ export class KupList {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.watchFilter();
         logLoad(this, false);
         setThemeCustomStyle(this);
     }
