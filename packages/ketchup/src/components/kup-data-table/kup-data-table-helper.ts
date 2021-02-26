@@ -397,16 +397,20 @@ export function getIntervalTextFieldFilterValue(
 }
 
 export function isColumnFiltrableByInterval(column: Column): boolean {
-    if (isDate(column.obj)) {
+    return isObjFiltrableByInterval(column.obj);
+}
+
+export function isObjFiltrableByInterval(obj): boolean {
+    if (isDate(obj)) {
         return true;
     }
-    if (isTime(column.obj)) {
+    if (isTime(obj)) {
         return true;
     }
-    if (isTimestamp(column.obj)) {
+    if (isTimestamp(obj)) {
         return true;
     }
-    if (isNumber(column.obj)) {
+    if (isNumber(obj)) {
         return true;
     }
     return false;
@@ -514,10 +518,17 @@ export function isRowCompliant(
         let filterValue = getTextFieldFilterValue(filters, key);
         let interval = getIntervalTextFieldFilterValues(filters, key);
 
-        let b1 = isFilterCompliantForCell(cell, filterValue, interval);
-        let b2 = isFilterCompliantForCellObj(cell, filterValue, interval);
-
         const _filterIsNegative: boolean = filterIsNegative(filterValue);
+        let b1 = isFilterCompliantForCell(cell, filterValue, interval);
+        let b2 = _filterIsNegative;
+        if (
+            !isNumber(cell.obj) &&
+            !isDate(cell.obj) &&
+            !isTime(cell.obj) &&
+            !isTimestamp(cell.obj)
+        ) {
+            b2 = isFilterCompliantForCellObj(cell, filterValue, interval);
+        }
         if (_filterIsNegative) {
             if (!b1 || !b2) {
                 return false;
