@@ -55,16 +55,12 @@ import {
     sortRows,
     styleHasBorderRadius,
     styleHasWritingMode,
-    setTextFieldFilterValue,
-    addCheckBoxFilterValue,
-    removeCheckBoxFilterValue,
     getTextFieldFilterValue,
     getCheckBoxFilterValues,
     hasFiltersForColumn,
     getCellValueForDisplay,
     normalizeValue,
     setIntervalTextFieldFilterValue,
-    isColumnFiltrableByInterval,
     isFilterCompliantForSimpleValue,
     getIntervalTextFieldFilterValues,
     hasIntervalTextFieldFilterValues,
@@ -82,7 +78,6 @@ import {
     isDate,
     isProgressBar as isProgressBarObj,
     isVoCodver,
-    isStringObject,
     isCheckbox,
     hasTooltip,
     isRadio as isRadioObj,
@@ -142,12 +137,10 @@ import {
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
 import { FButton } from '../../f-components/f-button/f-button';
-import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
 import { columnMenuData } from '../../utils/column-menu/column-menu';
-import { KupCard } from '../kup-card/kup-card';
 import { columnMenuEvents } from '../../utils/column-menu/column-menu-events';
 
 @Component({
@@ -1267,7 +1260,7 @@ export class KupDataTable {
         this.kupResetSelectedRows.emit();
     }
 
-    private resetCurrentPage() {
+    resetCurrentPage() {
         this.currentPage = 1;
         this.resetSelectedRows();
     }
@@ -1770,33 +1763,6 @@ export class KupDataTable {
             checkBoxes: [],
             interval: null,
         };
-        this.filters = newFilters;
-    }
-
-    onFilterChange(value: string, column: Column) {
-        // resetting current page
-        this.resetCurrentPage();
-        let newFilter = '';
-        if (value) {
-            newFilter = normalizeValue(value.trim(), column.obj);
-        }
-        const newFilters: GenericFilter = { ...this.filters };
-        setTextFieldFilterValue(newFilters, column.name, newFilter);
-        this.filters = newFilters;
-    }
-
-    onFilterChange2(checked: boolean, column: Column, filterValue: string) {
-        // resetting current page
-        this.resetCurrentPage();
-
-        const newFilters = { ...this.filters };
-
-        if (checked || filterValue == null) {
-            addCheckBoxFilterValue(newFilters, column.name, filterValue);
-        } else {
-            removeCheckBoxFilterValue(newFilters, column.name, filterValue);
-        }
-
         this.filters = newFilters;
     }
 

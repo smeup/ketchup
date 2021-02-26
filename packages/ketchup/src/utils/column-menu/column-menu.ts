@@ -7,7 +7,12 @@ import {
 import { KupTree } from '../../components/kup-tree/kup-tree';
 import { GenericObject } from '../../types/GenericTypes';
 import { isCheckbox, isStringObject } from '../object-utils';
-
+/**
+ * Function called by the column menu card to prepare its 'data' prop.
+ * @param {KupDataTable | KupTree}  comp - Component using the column menu.
+ * @param {Column} column - Column of the menu.
+ * @returns {GenericObject} 'data' prop of the column menu card.
+ */
 export function columnMenuData(
     comp: KupDataTable | KupTree,
     column: Column
@@ -21,11 +26,20 @@ export function columnMenuData(
     };
     return cardData;
 }
-
+/**
+ * Function used to check whether the component is a KupTree or KupDataTable.
+ * @param {KupDataTable | KupTree}  comp - Component using the column menu.
+ * @returns {comp is KupTree} Returns true when the component is KupTree.
+ */
 export function isTree(comp: KupDataTable | KupTree): comp is KupTree {
     return (comp as KupTree).rootElement.tagName === 'KUP-TREE';
 }
-
+/**
+ * Handles the column menu's button prop.
+ * @param {KupDataTable | KupTree}  comp - Component using the column menu.
+ * @param {Column} column - Column of the menu.
+ * @returns {GenericObject[]} Buttons props.
+ */
 function prepButtons(
     comp: KupDataTable | KupTree,
     column: Column
@@ -66,7 +80,12 @@ function prepButtons(
     });
     return props;
 }
-
+/**
+ * Handles the column menu's checkbox prop.
+ * @param {KupDataTable | KupTree}  comp - Component using the column menu.
+ * @param {Column} column - Column of the menu.
+ * @returns {GenericObject[]} Checkboxes props.
+ */
 function prepCheckbox(
     comp: KupDataTable | KupTree,
     column: Column
@@ -117,7 +136,12 @@ function prepCheckbox(
     }
     return props;
 }
-
+/**
+ * Handles the column menu's textfield prop.
+ * @param {KupDataTable | KupTree}  comp - Component using the column menu.
+ * @param {Column} column - Column of the menu.
+ * @returns {GenericObject[]} Text fields props.
+ */
 function prepTextfield(
     comp: KupDataTable | KupTree,
     column: Column
