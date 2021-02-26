@@ -4,17 +4,19 @@ addEventListener('kupCardEvent', (e) => {
 });
 if (basicCard != null) {
     basicCard.data = {
-        button1: {
-            icon: 'book',
-        },
-        button2: {
-            icon: 'table-column-plus-after',
-            title: 'Add column',
-        },
-        button3: {
-            icon: 'label',
-            title: 'Add code/description column',
-        },
+        button: [
+            {
+                icon: 'book',
+            },
+            {
+                icon: 'table-column-plus-after',
+                title: 'Add column',
+            },
+            {
+                icon: 'label',
+                title: 'Add code/description column',
+            },
+        ],
         checkbox: [
             {
                 label: 'Checkbox1',

@@ -1,24 +1,16 @@
 import { h } from '@stencil/core';
 import { JSX } from '@stencil/core/internal';
-import { FCheckbox } from '../../../f-components/f-checkbox/f-checkbox';
-import { FCheckboxProps } from '../../../f-components/f-checkbox/f-checkbox-declarations';
 import { FImage } from '../../../f-components/f-image/f-image';
-import { FTextField } from '../../../f-components/f-text-field/f-text-field';
 import { KupCard } from '../kup-card';
 
 export function create1(component: KupCard) {
-    let componentClass = 'standard-layout-' + component.layoutNumber;
-    if (
-        component.data['button1'] ||
-        component.data['button2'] ||
-        component.data['button3'] ||
-        component.data['button4'] ||
-        component.data['button5']
-    ) {
-        componentClass += ' has-actions';
-    }
+    const buttonArray: [] = component.data['button'];
     return (
-        <div class={componentClass}>
+        <div
+            class={`standard-layout-${component.layoutNumber} ${
+                buttonArray ? 'has-actions' : ''
+            }`}
+        >
             <div class="mdc-ripple-surface">
                 <div class="section-1">
                     {component.data['image1'] && (
@@ -42,24 +34,21 @@ export function create1(component: KupCard) {
                     </div>
                 </div>
             </div>
-            {actionBar(component, 'section-3')}
+            <div class="section-3">
+                {buttonArray ? compList(buttonArray, 'button') : ''}
+            </div>
         </div>
     );
 }
 
 export function create2(component: KupCard) {
-    let componentClass = 'standard-layout-' + component.layoutNumber;
-    if (
-        component.data['button1'] ||
-        component.data['button2'] ||
-        component.data['button3'] ||
-        component.data['button4'] ||
-        component.data['button5']
-    ) {
-        componentClass += ' has-actions';
-    }
+    const buttonArray: [] = component.data['button'];
     return (
-        <div class={componentClass}>
+        <div
+            class={`standard-layout-${component.layoutNumber} ${
+                buttonArray ? 'has-actions' : ''
+            }`}
+        >
             <div class="section-1">
                 <div class="sub-1 title">
                     <div>{component.data['text1']}</div>
@@ -85,24 +74,21 @@ export function create2(component: KupCard) {
                     </div>
                 </div>
             </div>
-            {actionBar(component, 'section-4')}
+            <div class="section-4">
+                {buttonArray ? compList(buttonArray, 'button') : ''}
+            </div>
         </div>
     );
 }
 
 export function create3(component: KupCard) {
-    let componentClass = 'standard-layout-' + component.layoutNumber;
-    if (
-        component.data['button1'] ||
-        component.data['button2'] ||
-        component.data['button3'] ||
-        component.data['button4'] ||
-        component.data['button5']
-    ) {
-        componentClass += ' has-actions';
-    }
+    const buttonArray: [] = component.data['button'];
     return (
-        <div class={componentClass}>
+        <div
+            class={`standard-layout-${component.layoutNumber} ${
+                buttonArray ? 'has-actions' : ''
+            }`}
+        >
             <div class="mdc-ripple-surface">
                 <div class="section-1">
                     <div class="media">
@@ -130,24 +116,21 @@ export function create3(component: KupCard) {
                     </div>
                 </div>
             </div>
-            {actionBar(component, 'section-3')}
+            <div class="section-3">
+                {buttonArray ? compList(buttonArray, 'button') : ''}
+            </div>
         </div>
     );
 }
 
 export function create4(component: KupCard) {
-    let componentClass = 'standard-layout-' + component.layoutNumber;
-    if (
-        component.data['button1'] ||
-        component.data['button2'] ||
-        component.data['button3'] ||
-        component.data['button4'] ||
-        component.data['button5']
-    ) {
-        componentClass += ' has-actions';
-    }
+    const buttonArray: [] = component.data['button'];
     return (
-        <div class={componentClass}>
+        <div
+            class={`standard-layout-${component.layoutNumber} ${
+                buttonArray ? 'has-actions' : ''
+            }`}
+        >
             <div class="mdc-ripple-surface">
                 <div class="section-1">
                     <div class="sub-1 image">
@@ -170,7 +153,9 @@ export function create4(component: KupCard) {
                     </div>
                 </div>
             </div>
-            {actionBar(component, 'section-2')}
+            <div class="section-2">
+                {buttonArray ? compList(buttonArray, 'button') : ''}
+            </div>
         </div>
     );
 }
@@ -505,80 +490,78 @@ export function create11(component: KupCard) {
 }
 
 export function create12(component: KupCard) {
-    let componentClass = 'standard-layout-' + component.layoutNumber;
-    if (
-        component.data['button1'] ||
-        component.data['button2'] ||
-        component.data['button3'] ||
-        component.data['button4'] ||
-        component.data['button5']
-    ) {
-        componentClass += ' has-actions';
-    }
+    const buttonArray: [] = component.data['button'];
+    const checkboxArray: [] = component.data['checkbox'];
+    const datepickerArray: [] = component.data['datepicker'];
+    const textfieldArray: [] = component.data['textfield'];
+    const timepickerArray: [] = component.data['timepicker'];
     return (
-        <div class={componentClass}>
-            {actionBar(component, 'section-1')}
+        <div class={`standard-layout-${component.layoutNumber} `}>
+            {buttonArray ? (
+                <div class="section-1">
+                    {buttonArray ? compList(buttonArray, 'button') : null}
+                </div>
+            ) : null}
             <div class="section-2">
-                {component.data.textfield ? (
-                    <kup-text-field
-                        class="full-width"
-                        id="textfield1"
-                        {...component.data.textfield[0]}
-                    ></kup-text-field>
-                ) : null}
-            </div>
-            <div class="section-3">
-                {component.data.checkbox
-                    ? checkboxList(component.data.checkbox)
+                {datepickerArray
+                    ? compList(datepickerArray, 'datepicker')
+                    : null}
+                {textfieldArray ? compList(textfieldArray, 'textfield') : null}
+                {timepickerArray
+                    ? compList(timepickerArray, 'timepicker')
                     : null}
             </div>
+            {checkboxArray ? (
+                <div class="section-3">
+                    {compList(checkboxArray, 'checkbox')}
+                </div>
+            ) : null}
         </div>
     );
 }
 
-function actionBar(component: KupCard, section: string) {
-    return (
-        <div class={section}>
-            {component.data['button1'] && (
-                <kup-button
-                    id="button1"
-                    {...component.data['button1']}
-                ></kup-button>
-            )}
-            {component.data['button2'] && (
-                <kup-button
-                    id="button2"
-                    {...component.data['button2']}
-                ></kup-button>
-            )}
-            {component.data['button3'] && (
-                <kup-button
-                    id="button3"
-                    {...component.data['button3']}
-                ></kup-button>
-            )}
-            {component.data['button4'] && (
-                <kup-button
-                    id="button4"
-                    {...component.data['button4']}
-                ></kup-button>
-            )}
-            {component.data['button5'] && (
-                <kup-button
-                    id="button5"
-                    {...component.data['button5']}
-                ></kup-button>
-            )}
-        </div>
-    );
-}
-
-function checkboxList(checkboxes: [FCheckboxProps]): JSX.Element[] {
-    let checkboxList: JSX.Element[] = [];
-    for (let index = 0; index < checkboxes.length; index++) {
-        checkboxList.push(
-            <kup-checkbox id={'checkbox' + index} {...checkboxes[index]} />
-        );
+function compList(compArray: [], compType: string): JSX.Element[] {
+    let list: JSX.Element[] = [];
+    for (let index = 0; index < compArray.length; index++) {
+        switch (compType) {
+            case 'button':
+                list.push(
+                    <kup-button id={'button' + index} {...compArray[index]} />
+                );
+                break;
+            case 'checkbox':
+                list.push(
+                    <kup-checkbox
+                        id={'checkbox' + index}
+                        {...compArray[index]}
+                    />
+                );
+                break;
+            case 'datepicker':
+                list.push(
+                    <kup-date-picker
+                        id={'datepicker' + index}
+                        {...compArray[index]}
+                    />
+                );
+                break;
+            case 'textfield':
+                list.push(
+                    <kup-text-field
+                        id={'textfield' + index}
+                        {...compArray[index]}
+                    />
+                );
+                break;
+            case 'timepicker':
+                list.push(
+                    <kup-time-picker
+                        id={'timepicker' + index}
+                        {...compArray[index]}
+                    />
+                );
+                break;
+        }
     }
-    return checkboxList;
+    return list;
 }

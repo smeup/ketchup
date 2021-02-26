@@ -146,6 +146,7 @@ import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
+import { columnMenuData } from '../../utils/column-menu';
 
 @Component({
     tag: 'kup-data-table',
@@ -1381,7 +1382,7 @@ export class KupDataTable {
         return visibleColumns;
     }
 
-    private getGroupByName(column: string): GroupObject {
+    getGroupByName(column: string): GroupObject {
         if (!this.isGrouping()) {
             return null;
         }
@@ -1778,9 +1779,7 @@ export class KupDataTable {
                         break;
                     case 'group':
                         this.switchColumnGroup(
-                            cardData['button1']['data-storage'][
-                                'data-column-name'
-                            ]
+                            cardData['button1']['data-storage']['column-name']
                         );
                         break;
                 }
@@ -1791,9 +1790,7 @@ export class KupDataTable {
                     () =>
                         this.onFilterChange(
                             e.detail.value.value,
-                            cardData['textfield'][0]['data-storage'][
-                                'data-column'
-                            ]
+                            cardData['textfield'][0]['data-storage']['column']
                         ),
                     300
                 );
@@ -3075,30 +3072,6 @@ export class KupDataTable {
                             />
                         );
                     }
-                    columnMenuItems.push(
-                        <li role="menuitem" class="button-row">
-                            <FButton
-                                icon="book"
-                                title={
-                                    this.getGroupByName(column.name) != null
-                                        ? 'Disable grouping'
-                                        : 'Enable grouping'
-                                }
-                                wrapperClass="group"
-                            />
-                            <FButton
-                                icon="table-column-plus-after"
-                                title="Add column"
-                                wrapperClass="add"
-                            />
-                            {actionHideCol}
-                            <FButton
-                                icon="label"
-                                title="Add code/description column"
-                                wrapperClass="description"
-                            />
-                        </li>
-                    );
 
                     let checkboxProps = [];
 
@@ -3144,8 +3117,8 @@ export class KupDataTable {
                             checkboxProps.push({
                                 checked: checkBoxesFilter.includes(v.value),
                                 'data-storage': {
-                                    'data-column': column,
-                                    'data-value': v.value,
+                                    column: column,
+                                    value: v.value,
                                 },
                                 label: label,
                             });
@@ -3173,64 +3146,20 @@ export class KupDataTable {
                         }
                     }
 
-                    let cardData = {
-                        button1: {
-                            'data-storage': {
-                                'data-column-name': column.name,
-                            },
-                            icon: 'book',
-                            id: 'group',
-                            title:
-                                this.getGroupByName(column.name) != null
-                                    ? 'Disable grouping'
-                                    : 'Enable grouping',
-                        },
-                        button2: {
-                            icon: 'table-column-plus-after',
-                            id: 'add',
-                            title: 'Add column',
-                        },
-                        button3: {
-                            icon: 'label',
-                            id: 'description',
-                            title: 'Add code/description column',
-                        },
-                        checkbox: checkboxProps,
-                        textfield: [
-                            {
-                                'data-storage': {
-                                    'data-column': column,
-                                },
-                                fullWidth: true,
-                                icon: 'magnify',
-                                id: 'thanos',
-                                isClearable: true,
-                                label: 'Search...',
-                            },
-                        ],
-                    };
-
-                    let style = {
-                        position: 'fixed',
-                    };
-
-                    if (columnMenuItems.length !== 0) {
-                        columnMenu = (
-                            <kup-card
-                                data={cardData}
-                                id="column-menu"
-                                isMenu={true}
-                                layoutNumber={12}
-                                onMouseUp={(e) => e.stopPropagation()}
-                                onKupCardEvent={(e) => {
-                                    this.columnMenuEvents(e);
-                                }}
-                                sizeX="auto"
-                                sizeY="auto"
-                                style={style}
-                            ></kup-card>
-                        );
-                    }
+                    columnMenu = (
+                        <kup-card
+                            data={columnMenuData(this, column)}
+                            id="column-menu"
+                            isMenu={true}
+                            layoutNumber={12}
+                            onMouseUp={(e) => e.stopPropagation()}
+                            onKupCardEvent={(e) => {
+                                this.columnMenuEvents(e);
+                            }}
+                            sizeX="auto"
+                            sizeY="auto"
+                        ></kup-card>
+                    );
                 }
 
                 // Reference for drag events and what they permit or not
