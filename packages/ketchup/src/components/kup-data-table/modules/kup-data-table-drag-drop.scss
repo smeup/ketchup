@@ -1,8 +1,4 @@
 [columns-dragging] {
-  th {
-    position: relative;
-  }
-
   // When the drag is over a valid target
   [drag-over] {
     background-color: rgba(var(--kup-success-color-rgb), 0.25);
