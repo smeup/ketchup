@@ -1691,6 +1691,10 @@ export namespace Components {
         "globalFilterValue": string;
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
+          * Sets the possibility to remove the selected column.
+         */
+        "removableColumns": boolean;
+        /**
           * Activates the scroll on hover function.
          */
         "scrollOnHover": boolean;
@@ -4185,6 +4189,11 @@ declare namespace LocalJSX {
           * The value of the global filter.
          */
         "globalFilterValue"?: string;
+        "onKupAddCodeDecodeColumn"?: (event: CustomEvent<{ column: string }>) => void;
+        /**
+          * When 'add column' menu item is clicked
+         */
+        "onKupAddColumn"?: (event: CustomEvent<{ column: string }>) => void;
         "onKupDidLoad"?: (event: CustomEvent<void>) => void;
         /**
           * Triggered when stop propagation event
@@ -4244,6 +4253,10 @@ declare namespace LocalJSX {
         auto: boolean;
         tree: KupTree;
     }>) => void;
+        /**
+          * Sets the possibility to remove the selected column.
+         */
+        "removableColumns"?: boolean;
         /**
           * Activates the scroll on hover function.
          */

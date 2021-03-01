@@ -9,8 +9,16 @@ import { GenericObject } from '../../types/GenericTypes';
 import { isCheckbox, isStringObject } from '../object-utils';
 import { getTextFilterValue } from './column-menu-filters';
 /**
+ * Function used to check whether the component is a KupTree or KupDataTable.
+ * @param {KupDataTable | KupTree} comp - Component using the column menu.
+ * @returns {comp is KupTree} Returns true when the component is KupTree.
+ */
+export function isTree(comp: KupDataTable | KupTree): comp is KupTree {
+    return (comp as KupTree).rootElement.tagName === 'KUP-TREE';
+}
+/**
  * Function called by the column menu card to prepare its 'data' prop.
- * @param {KupDataTable | KupTree}  comp - Component using the column menu.
+ * @param {KupDataTable | KupTree} comp - Component using the column menu.
  * @param {Column} column - Column of the menu.
  * @returns {GenericObject} 'data' prop of the column menu card.
  */
@@ -28,16 +36,8 @@ export function columnMenuData(
     return cardData;
 }
 /**
- * Function used to check whether the component is a KupTree or KupDataTable.
- * @param {KupDataTable | KupTree}  comp - Component using the column menu.
- * @returns {comp is KupTree} Returns true when the component is KupTree.
- */
-export function isTree(comp: KupDataTable | KupTree): comp is KupTree {
-    return (comp as KupTree).rootElement.tagName === 'KUP-TREE';
-}
-/**
  * Handles the column menu's button prop.
- * @param {KupDataTable | KupTree}  comp - Component using the column menu.
+ * @param {KupDataTable | KupTree} comp - Component using the column menu.
  * @param {Column} column - Column of the menu.
  * @returns {GenericObject[]} Buttons props.
  */
@@ -58,23 +58,29 @@ function prepButtons(
                     ? 'Disable grouping'
                     : 'Enable grouping',
         });
-        if (comp.removableColumns) {
-            props.push({
-                'data-storage': {
-                    column: column,
-                },
-                icon: 'table-column-remove',
-                id: 'remove',
-                title: 'Hide column',
-            });
-        }
+    }
+    if (comp.removableColumns) {
+        props.push({
+            'data-storage': {
+                column: column,
+            },
+            icon: 'table-column-remove',
+            id: 'remove',
+            title: 'Hide column',
+        });
     }
     props.push({
+        'data-storage': {
+            columnName: column.name,
+        },
         icon: 'table-column-plus-after',
         id: 'add',
         title: 'Add column',
     });
     props.push({
+        'data-storage': {
+            columnName: column.name,
+        },
         icon: 'label',
         id: 'description',
         title: 'Add code/description column',
@@ -83,7 +89,7 @@ function prepButtons(
 }
 /**
  * Handles the column menu's checkbox prop.
- * @param {KupDataTable | KupTree}  comp - Component using the column menu.
+ * @param {KupDataTable | KupTree} comp - Component using the column menu.
  * @param {Column} column - Column of the menu.
  * @returns {GenericObject[]} Checkboxes props.
  */
@@ -138,7 +144,7 @@ function prepCheckbox(
 }
 /**
  * Handles the column menu's textfield prop.
- * @param {KupDataTable | KupTree}  comp - Component using the column menu.
+ * @param {KupDataTable | KupTree} comp - Component using the column menu.
  * @param {Column} column - Column of the menu.
  * @returns {GenericObject[]} Text fields props.
  */

@@ -1,42 +1,13 @@
-import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import {
     Column,
     Filter,
     GenericFilter,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import {
-    addCheckBoxFilterValue,
     getIntervalTextFieldFilterValue,
     isColumnFiltrableByInterval,
-    normalizeValue,
-    removeCheckBoxFilterValue,
-    setTextFieldFilterValue,
 } from '../../components/kup-data-table/kup-data-table-helper';
-import { KupTree } from '../../components/kup-tree/kup-tree';
-import { isTree } from './column-menu';
 import { FilterInterval } from './column-menu-declarations';
-/**
- * Triggered when the text filter changes.
- * @param {KupDataTable | KupTree}  comp - Component using the column menu.
- * @param {string} value - New value of the filter.
- * @param {Column} column - Column of the menu.
- */
-export function textFilterChange(
-    comp: KupDataTable | KupTree,
-    value: string,
-    column: Column
-): void {
-    if (!isTree(comp)) {
-        comp.resetCurrentPage();
-        let newFilter = '';
-        if (value) {
-            newFilter = normalizeValue(value.trim(), column.obj);
-        }
-        const newFilters: GenericFilter = { ...comp.filters };
-        setTextFieldFilterValue(newFilters, column.name, newFilter);
-        comp.filters = newFilters;
-    }
-}
 /**
  * Gets the value of the filter prop.
  * @param {GenericFilter} filters - Filters of the component.
@@ -58,33 +29,6 @@ export function getTextFilterValue(
     }
     value = filter.textField;
     return value;
-}
-/**
- * Triggered when the checkbox list changes.
- * @param {KupDataTable | KupTree}  comp - Component using the column menu.
- * @param {boolean} checked - State of the changed checkbox.
- * @param {Column} column - Column of the menu.
- * @param {string} filterValue - Value used to filter.
- */
-export function checkboxFilterChange(
-    comp: KupDataTable | KupTree,
-    checked: boolean,
-    column: Column,
-    filterValue: string
-): void {
-    if (!isTree(comp)) {
-        comp.resetCurrentPage();
-
-        const newFilters = { ...comp.filters };
-
-        if (checked || filterValue == null) {
-            addCheckBoxFilterValue(newFilters, column.name, filterValue);
-        } else {
-            removeCheckBoxFilterValue(newFilters, column.name, filterValue);
-        }
-
-        comp.filters = newFilters;
-    }
 }
 /**
  * Returns whether a column has filters or not.

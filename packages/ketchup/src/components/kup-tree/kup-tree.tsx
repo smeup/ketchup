@@ -173,6 +173,10 @@ export class KupTree {
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
     /**
+     * Sets the possibility to remove the selected column.
+     */
+    @Prop() removableColumns: boolean = true;
+    /**
      * Activates the scroll on hover function.
      */
     @Prop() scrollOnHover: boolean = false;
@@ -314,6 +318,25 @@ export class KupTree {
         auto: boolean;
         tree: KupTree;
     }>;
+
+    /**
+     * When 'add column' menu item is clicked
+     */
+    @Event({
+        eventName: 'kupAddColumn',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAddColumn: EventEmitter<{ column: string }>;
+
+    @Event({
+        eventName: 'kupAddCodeDecodeColumn',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupAddCodeDecodeColumn: EventEmitter<{ column: string }>;
 
     @Event({
         eventName: 'kupDidLoad',

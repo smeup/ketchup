@@ -2034,20 +2034,6 @@ export class KupDataTable {
         return canHaveDerivedColumn(column.obj);
     }
 
-    onAddCodeDecodeColumnClick(e: Event, column?: Column) {
-        e.stopPropagation();
-        let columnName: string;
-        if (!column) {
-            columnName = (e.target as HTMLElement).closest('th').dataset.column;
-        } else {
-            columnName = column.name;
-        }
-        this.kupAddCodeDecodeColumn.emit({
-            column: columnName,
-        });
-        this.closeMenuAndTooltip();
-    }
-
     private onHeaderCellContextMenuClose(event: MouseEvent) {
         // Gets the path of the event (does not work in IE11 or previous)
         const eventPath = event.composedPath();
@@ -2074,39 +2060,6 @@ export class KupDataTable {
         // When we have an open menu and the event does NOT come from the same table, we close the menu.
         if (this.isOpenedMenu() && !(fromMenu && fromSameTable)) {
             this.closeMenuAndTooltip();
-        }
-    }
-
-    addColumn(el: EventTarget) {
-        const column: string = (el as HTMLElement).closest('th').dataset.column;
-        this.kupAddColumn.emit({
-            column: column,
-        });
-        this.closeMenuAndTooltip();
-    }
-
-    removeColumn(column: Column) {
-        console.log(column);
-        column.visible = false;
-        this.closeMenu();
-    }
-
-    switchColumnGroup(column: string): void {
-        const group: GroupObject = this.getGroupByName(column);
-        // resetting opened menu
-        this.closeMenuAndTooltip();
-
-        // reset group state
-        this.groupState = {};
-
-        if (group !== null) {
-            // remove from grouping
-            const index = this.groups.indexOf(group);
-            this.groups.splice(index, 1);
-            this.groups = [...this.groups];
-        } else {
-            // add to groups
-            this.groups = [...this.groups, { column, visible: true }];
         }
     }
 
