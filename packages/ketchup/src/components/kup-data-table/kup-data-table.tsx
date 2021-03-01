@@ -40,6 +40,7 @@ import {
     FilterInterval,
     TotalMode,
     totalMenuOpenID,
+    TotalLabel,
 } from './kup-data-table-declarations';
 
 import { isRating, isGauge, isKnob, getCellType } from '../../utils/cell-utils';
@@ -2202,6 +2203,7 @@ export class KupDataTable {
         for (let elem of eventPath) {
             // TODO When the footer is considered stable please do this in another dedicated method
             // check if is the open menu button the element which fired the event
+            // TODO Maybe a better approach would be to use the blur event in order to hide the menu
             if ((elem as HTMLElement).id === totalMenuOpenID) {
                 return;
             }
@@ -3465,7 +3467,14 @@ export class KupDataTable {
             // must do this
             // otherwise does not fire the watcher
             const totalsCopy = { ...this.totals };
-            totalsCopy[column.name] = event.detail.selected.value;
+            const value = event.detail.selected.value;
+            if (value === TotalLabel.CANC) {
+                if (this.totals && this.totals[column.name]) {
+                    delete totalsCopy[column.name];
+                }
+            } else {
+                totalsCopy[column.name] = value;
+            }
             this.totals = totalsCopy;
         }
     }
@@ -3534,22 +3543,22 @@ export class KupDataTable {
 
                 let totalMenu = undefined;
                 // TODO Manage the label with different languages
-                let menuLabel = 'Calcola';
+                let menuLabel = TotalLabel.CALC;
                 if (this.totals) {
                     const totalValue = this.totals[column.name];
                     if (totalValue) {
                         if (totalValue.startsWith(TotalMode.MATH)) {
-                            menuLabel = 'Formula';
+                            menuLabel = TotalLabel.MATH;
                         } else {
                             switch (totalValue) {
                                 case TotalMode.COUNT:
-                                    menuLabel = 'Conta';
+                                    menuLabel = TotalLabel.COUNT;
                                     break;
                                 case TotalMode.SUM:
-                                    menuLabel = 'Somma';
+                                    menuLabel = TotalLabel.SUM;
                                     break;
                                 case TotalMode.AVERAGE:
-                                    menuLabel = 'Media';
+                                    menuLabel = TotalLabel.AVERAGE;
                                     break;
                                 default:
                                     break;
@@ -3564,42 +3573,48 @@ export class KupDataTable {
                         // TODO Move these objects in declarations
                         listData.push(
                             {
-                                text: 'Conta',
+                                text: TotalLabel.COUNT,
                                 value: TotalMode.COUNT,
                                 selected: false,
                             },
                             {
-                                text: 'Somma',
+                                text: TotalLabel.SUM,
                                 value: TotalMode.SUM,
                                 selected: false,
                             },
                             {
-                                text: 'Media',
+                                text: TotalLabel.AVERAGE,
                                 value: TotalMode.AVERAGE,
                                 selected: false,
                             }
                         );
                     } else {
                         listData.push({
-                            text: 'Conta',
+                            text: TotalLabel.COUNT,
                             value: TotalMode.COUNT,
                             selected: false,
                         });
                     }
 
                     // TODO replace this with find which is a better approach
-                    // selectedElement = listData.find((item) => item.text === menuLabel)
                     // Note that this is not supported in older IE
-
-                    var itemIndex = listData.findIndex(
+                    let selectedItem = listData.find(
                         (item) => item.text === menuLabel
                     );
-                    if (itemIndex >= 0) {
-                        listData[itemIndex] = {
-                            text: listData[itemIndex].text,
-                            value: listData[itemIndex].value,
-                            selected: true,
-                        };
+                    if (selectedItem) {
+                        selectedItem.selected = true;
+                        listData.push(
+                            {
+                                text: null,
+                                value: null,
+                                isSeparator: true,
+                            },
+                            {
+                                text: TotalLabel.CANC,
+                                value: TotalLabel.CANC,
+                                selected: false,
+                            }
+                        );
                     }
 
                     totalMenu = (

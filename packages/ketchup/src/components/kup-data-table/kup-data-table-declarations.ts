@@ -122,6 +122,15 @@ export enum TotalMode {
     MATH = 'MATH',
 }
 
+export enum TotalLabel {
+    COUNT = 'Conta',
+    SUM = 'Somma',
+    AVERAGE = 'Media',
+    MATH = 'Formula',
+    CANC = 'Cancella',
+    CALC = 'Calcola',
+}
+
 export enum PaginatorPos {
     TOP = 'Top',
     BOTTOM = 'Bottom',
