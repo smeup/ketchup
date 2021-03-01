@@ -135,8 +135,6 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
-import { columnMenuData } from '../../utils/column-menu/column-menu';
-import { ColumnMenuEvents } from '../../utils/column-menu/column-menu-events';
 import {
     getCheckBoxFilterValues,
     getTextFilterValue,
@@ -144,6 +142,7 @@ import {
     hasIntervalTextFieldFilterValues,
 } from '../../utils/column-menu/column-menu-filters';
 import { FilterInterval } from '../../utils/column-menu/column-menu-declarations';
+import { ColumnMenu } from '../../utils/column-menu/column-menu';
 
 @Component({
     tag: 'kup-data-table',
@@ -645,7 +644,7 @@ export class KupDataTable {
     columnFilterTimeout: number;
     private resizeTimeout: number;
     private resObserver: ResizeObserver = undefined;
-    private columnMenuEventsInstance: ColumnMenuEvents;
+    private columnMenuInstance: ColumnMenu;
 
     /**
      * When component unload is complete
@@ -1134,7 +1133,7 @@ export class KupDataTable {
     componentWillLoad() {
         logLoad(this, false);
         this.identifyAndInitRows();
-        this.columnMenuEventsInstance = new ColumnMenuEvents();
+        this.columnMenuInstance = new ColumnMenu();
 
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
@@ -1172,7 +1171,7 @@ export class KupDataTable {
         if (this.showCustomization) {
             this.customizePanelPosition();
         }
-        this.columnMenuEventsInstance.reposition(this);
+        this.columnMenuInstance.reposition(this);
         this.checkScrollOnHover();
         this.didRenderObservers();
         this.hideShowColumnRemoveDropArea(false);
@@ -2947,7 +2946,7 @@ export class KupDataTable {
                         class={columnClass}
                         style={thStyle}
                         onContextMenu={(e: MouseEvent) =>
-                            this.columnMenuEventsInstance.open(
+                            this.columnMenuInstance.open(
                                 e,
                                 this,
                                 column.name,
@@ -4783,7 +4782,7 @@ export class KupDataTable {
                     {tooltip}
                     {this.openedMenu ? (
                         <kup-card
-                            data={columnMenuData(
+                            data={this.columnMenuInstance.prepareData(
                                 this,
                                 getColumnByName(
                                     this.getVisibleColumns(),
@@ -4797,10 +4796,7 @@ export class KupDataTable {
                             onClick={(e) => e.stopPropagation()}
                             onMouseUp={(e) => e.stopPropagation()}
                             onKupCardEvent={(e) => {
-                                this.columnMenuEventsInstance.eventHandlers(
-                                    e,
-                                    this
-                                );
+                                this.columnMenuInstance.eventHandlers(e, this);
                             }}
                             sizeX="auto"
                             sizeY="auto"

@@ -14,13 +14,20 @@ import { KupTree } from '../../components/kup-tree/kup-tree';
 import { GenericObject } from '../../types/GenericTypes';
 import { unsetTooltip } from '../helpers';
 import { positionRecalc } from '../recalc-position';
-import { isTree } from './column-menu';
 import { addCheckboxFilter, removeCheckboxFilter } from './column-menu-filters';
 /**
  * Event handling of the column menu card.
  * @module ColumnMenuEvents
  */
 export class ColumnMenuEvents {
+    /**
+     * Function used to check whether the component is a KupTree or KupDataTable.
+     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @returns {comp is KupTree} Returns true when the component is KupTree.
+     */
+    isTree(comp: KupDataTable | KupTree): comp is KupTree {
+        return (comp as KupTree).rootElement.tagName === 'KUP-TREE';
+    }
     /**
      * Function called by the component when the column menu must be opened.
      * @param {Event} event - The event itself.
@@ -153,7 +160,7 @@ export class ColumnMenuEvents {
         value: string,
         column: Column
     ): void {
-        if (!isTree(comp)) {
+        if (!this.isTree(comp)) {
             comp.resetCurrentPage();
             let newFilter = '';
             if (value) {
@@ -177,7 +184,7 @@ export class ColumnMenuEvents {
         column: Column,
         filterValue: string
     ): void {
-        if (!isTree(comp)) {
+        if (!this.isTree(comp)) {
             comp.resetCurrentPage();
 
             const newFilters = { ...comp.filters };

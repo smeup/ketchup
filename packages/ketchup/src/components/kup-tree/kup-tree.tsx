@@ -54,8 +54,7 @@ import { setTooltip, unsetTooltip } from '../../utils/helpers';
 
 import { getCellType } from '../../utils/cell-utils';
 import { stringToNumber } from '../../utils/utils';
-import { ColumnMenuEvents } from '../../utils/column-menu/column-menu-events';
-import { columnMenuData } from '../../utils/column-menu/column-menu';
+import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import {
     getCheckBoxFilterValues,
     getTextFilterValue,
@@ -238,7 +237,7 @@ export class KupTree {
 
     private tooltip: KupTooltip;
     columnFilterTimeout: number;
-    private columnMenuEventsInstance: ColumnMenuEvents;
+    private columnMenuInstance: ColumnMenu;
 
     //-------- Events --------
     /**
@@ -463,7 +462,7 @@ export class KupTree {
     componentWillLoad() {
         logLoad(this, false);
         setThemeCustomStyle(this);
-        this.columnMenuEventsInstance = new ColumnMenuEvents();
+        this.columnMenuInstance = new ColumnMenu();
 
         this.refreshStructureState();
 
@@ -500,7 +499,7 @@ export class KupTree {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        this.columnMenuEventsInstance.reposition(this);
+        this.columnMenuInstance.reposition(this);
         this.checkScrollOnHover();
 
         if (root) {
@@ -1519,7 +1518,7 @@ export class KupTree {
             <th
                 data-column={column.name}
                 onContextMenu={(e: MouseEvent) =>
-                    this.columnMenuEventsInstance.open(
+                    this.columnMenuInstance.open(
                         e,
                         this,
                         column.name,
@@ -1844,7 +1843,7 @@ export class KupTree {
                     {tooltip}
                     {this.openedMenu ? (
                         <kup-card
-                            data={columnMenuData(
+                            data={this.columnMenuInstance.prepareData(
                                 this,
                                 getColumnByName(
                                     this.getVisibleColumns(),
@@ -1856,15 +1855,12 @@ export class KupTree {
                             isMenu={true}
                             layoutNumber={12}
                             onBlur={(e) =>
-                                this.columnMenuEventsInstance.close(e, this)
+                                this.columnMenuInstance.close(e, this)
                             }
                             onClick={(e) => e.stopPropagation()}
                             onMouseUp={(e) => e.stopPropagation()}
                             onKupCardEvent={(e) => {
-                                this.columnMenuEventsInstance.eventHandlers(
-                                    e,
-                                    this
-                                );
+                                this.columnMenuInstance.eventHandlers(e, this);
                             }}
                             sizeX="auto"
                             sizeY="auto"
