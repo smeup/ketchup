@@ -3539,17 +3539,17 @@ export class KupDataTable {
                     const totalValue = this.totals[column.name];
                     if (totalValue) {
                         if (totalValue.startsWith(TotalMode.MATH)) {
-                            menuLabel = 'Formula ';
+                            menuLabel = 'Formula';
                         } else {
                             switch (totalValue) {
                                 case TotalMode.COUNT:
-                                    menuLabel = 'Conta ';
+                                    menuLabel = 'Conta';
                                     break;
                                 case TotalMode.SUM:
-                                    menuLabel = 'Somma ';
+                                    menuLabel = 'Somma';
                                     break;
                                 case TotalMode.AVERAGE:
-                                    menuLabel = 'Media ';
+                                    menuLabel = 'Media';
                                     break;
                                 default:
                                     break;
@@ -3590,6 +3590,7 @@ export class KupDataTable {
                     // TODO replace this with find which is a better approach
                     // selectedElement = listData.find((item) => item.text === menuLabel)
                     // Note that this is not supported in older IE
+
                     var itemIndex = listData.findIndex(
                         (item) => item.text === menuLabel
                     );
@@ -3633,7 +3634,7 @@ export class KupDataTable {
                             id={totalMenuOpenID}
                             onClick={() => this.onTotalMenuOpen(column)}
                         >
-                            {menuLabel}
+                            {menuLabel + ' '}
                         </span>
                         {totalMenu}
                         <span>
