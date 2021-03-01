@@ -258,6 +258,50 @@ const mockedRows = [
                 obj: {
                     t: 'CN',
                     p: 'COL',
+                    k: 'CASFRA',
+                },
+                value: 'CASFRA',
+            },
+            FLD2: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '10',
+                },
+                value: '10',
+            },
+            FLD3: {
+                obj: {
+                    t: 'NR',
+                    p: '',
+                    k: '100000.60',
+                },
+                value: '100,000.60',
+            },
+            FLD4: {
+                obj: {
+                    t: 'D8',
+                    p: '*YYMD',
+                    k: '20181101',
+                },
+                value: '2018-11-01',
+            },
+            FLD5: {
+                obj: {
+                    t: 'NR',
+                    p: 'P',
+                    k: '0',
+                },
+                value: '0.00',
+            },
+        },
+    },
+    {
+        cells: {
+            FLD1: {
+                obj: {
+                    t: 'CN',
+                    p: 'COL',
                     k: 'DELGIO',
                 },
                 value: 'DELGIO',
