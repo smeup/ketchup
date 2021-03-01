@@ -114,3 +114,65 @@ export function hasIntervalTextFieldFilterValues(
     }
     return false;
 }
+/**
+ * Triggers when a new filter checkbox becomes checked.
+ * @param {GenericFilter} filters - Filters of the component.
+ * @param {string} column - Name of the column.
+ * @param {string} newFilter - Added filter.
+ */
+export function addCheckboxFilter(
+    filters: GenericFilter = {},
+    column: string,
+    newFilter: string
+): void {
+    if (filters == null) {
+        return;
+    }
+    let filter: Filter = filters[column];
+    if (filter == null) {
+        filter = { textField: '', checkBoxes: [], interval: null };
+        filters[column] = filter;
+    }
+    if (filter.checkBoxes == null) {
+        filter.checkBoxes = [];
+    }
+    if (newFilter == null) {
+        filter.checkBoxes = [];
+    } else {
+        if (!filter.checkBoxes.includes(newFilter)) {
+            filter.checkBoxes[filter.checkBoxes.length] = newFilter.trim();
+        }
+    }
+}
+/**
+ * Triggers when a filter checkbox becomes unchecked.
+ * @param {GenericFilter} filters - Filters of the component.
+ * @param {string} column - Name of the column.
+ * @param {string} remFilter - Removed filter.
+ */
+export function removeCheckboxFilter(
+    filters: GenericFilter = {},
+    column: string,
+    remFilter: string
+) {
+    if (filters == null) {
+        return;
+    }
+    let filter: Filter = filters[column];
+    if (filter == null) {
+        return;
+    }
+    if (filter.checkBoxes == null) {
+        filter.checkBoxes = [];
+    }
+    let index = filter.checkBoxes.indexOf(remFilter.trim());
+    if (index >= 0) {
+        let chs = [];
+        for (let i = 0; i < filter.checkBoxes.length; i++) {
+            if (i != index) {
+                chs[chs.length] = filter.checkBoxes[i];
+            }
+        }
+        filter.checkBoxes = [...chs];
+    }
+}

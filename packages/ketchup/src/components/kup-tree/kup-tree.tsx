@@ -54,12 +54,7 @@ import { setTooltip, unsetTooltip } from '../../utils/helpers';
 
 import { getCellType } from '../../utils/cell-utils';
 import { stringToNumber } from '../../utils/utils';
-import {
-    closeColumnMenu,
-    columnMenuEvents,
-    openColumnMenu,
-    positionColumnMenu,
-} from '../../utils/column-menu/column-menu-events';
+import { ColumnMenuEvents } from '../../utils/column-menu/column-menu-events';
 import { columnMenuData } from '../../utils/column-menu/column-menu';
 import {
     getCheckBoxFilterValues,
@@ -243,6 +238,7 @@ export class KupTree {
 
     private tooltip: KupTooltip;
     columnFilterTimeout: number;
+    private columnMenuEventsInstance: ColumnMenuEvents;
 
     //-------- Events --------
     /**
@@ -467,6 +463,7 @@ export class KupTree {
     componentWillLoad() {
         logLoad(this, false);
         setThemeCustomStyle(this);
+        this.columnMenuEventsInstance = new ColumnMenuEvents();
 
         this.refreshStructureState();
 
@@ -503,7 +500,7 @@ export class KupTree {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
-        positionColumnMenu(this);
+        this.columnMenuEventsInstance.reposition(this);
         this.checkScrollOnHover();
 
         if (root) {
@@ -1522,7 +1519,12 @@ export class KupTree {
             <th
                 data-column={column.name}
                 onContextMenu={(e: MouseEvent) =>
-                    openColumnMenu(e, this, column.name, this.tooltip)
+                    this.columnMenuEventsInstance.open(
+                        e,
+                        this,
+                        column.name,
+                        this.tooltip
+                    )
                 }
                 style={this.getCellStyle(column.name, null)}
             >
@@ -1853,11 +1855,16 @@ export class KupTree {
                             id="column-menu"
                             isMenu={true}
                             layoutNumber={12}
-                            onBlur={(e) => closeColumnMenu(e, this)}
+                            onBlur={(e) =>
+                                this.columnMenuEventsInstance.close(e, this)
+                            }
                             onClick={(e) => e.stopPropagation()}
                             onMouseUp={(e) => e.stopPropagation()}
                             onKupCardEvent={(e) => {
-                                columnMenuEvents(e, this);
+                                this.columnMenuEventsInstance.eventHandlers(
+                                    e,
+                                    this
+                                );
                             }}
                             sizeX="auto"
                             sizeY="auto"

@@ -194,58 +194,6 @@ export function hasFilters(filters: GenericFilter = {}, columns: Column[]) {
     return false;
 }
 
-export function addCheckBoxFilterValue(
-    filters: GenericFilter = {},
-    column: string,
-    newFilter: string
-) {
-    if (filters == null) {
-        return;
-    }
-    let filter: Filter = filters[column];
-    if (filter == null) {
-        filter = { textField: '', checkBoxes: [], interval: null };
-        filters[column] = filter;
-    }
-    if (filter.checkBoxes == null) {
-        filter.checkBoxes = [];
-    }
-    if (newFilter == null) {
-        filter.checkBoxes = [];
-    } else {
-        if (!filter.checkBoxes.includes(newFilter)) {
-            filter.checkBoxes[filter.checkBoxes.length] = newFilter.trim();
-        }
-    }
-}
-
-export function removeCheckBoxFilterValue(
-    filters: GenericFilter = {},
-    column: string,
-    remFilter: string
-) {
-    if (filters == null) {
-        return;
-    }
-    let filter: Filter = filters[column];
-    if (filter == null) {
-        return;
-    }
-    if (filter.checkBoxes == null) {
-        filter.checkBoxes = [];
-    }
-    let index = filter.checkBoxes.indexOf(remFilter.trim());
-    if (index >= 0) {
-        let chs = [];
-        for (let i = 0; i < filter.checkBoxes.length; i++) {
-            if (i != index) {
-                chs[chs.length] = filter.checkBoxes[i];
-            }
-        }
-        filter.checkBoxes = [...chs];
-    }
-}
-
 export function setTextFieldFilterValue(
     filters: GenericFilter = {},
     column: string,
