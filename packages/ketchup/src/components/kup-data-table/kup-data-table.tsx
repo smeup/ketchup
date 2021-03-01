@@ -3645,14 +3645,15 @@ export class KupDataTable {
                         }
                     >
                         <span
-                            style={{ cursor: 'pointer' }}
+                            class="totals-open"
                             id={totalMenuOpenID}
                             onClick={() => this.onTotalMenuOpen(column)}
                         >
-                            {menuLabel + ' '}
+                            {menuLabel}
+                            <i class="fa fa-caret-down"></i>
                         </span>
                         {totalMenu}
-                        <span>
+                        <span class="totals-value">
                             {numberToFormattedStringNumber(
                                 this.footer[column.name],
                                 column.decimals,
