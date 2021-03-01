@@ -705,6 +705,7 @@ export class KupDataTable {
     })
     kupRowSelected: EventEmitter<{
         selectedRows: Array<Row>;
+        clickedRow: Row;
         clickedColumn: string;
     }>;
 
@@ -1281,6 +1282,7 @@ export class KupDataTable {
                 this.kupRowSelected.emit({
                     selectedRows: this.selectedRows,
                     clickedColumn: null,
+                    clickedRow: null,
                 });
             }
         } else if (this.selectRow && this.selectRow > 0) {
@@ -2005,6 +2007,7 @@ export class KupDataTable {
             // emit event
             this.kupRowSelected.emit({
                 selectedRows: this.selectedRows,
+                clickedRow: row,
                 clickedColumn,
             });
         }
@@ -2077,6 +2080,7 @@ export class KupDataTable {
 
         this.kupRowSelected.emit({
             selectedRows: this.selectedRows,
+            clickedRow: null,
             clickedColumn: null,
         });
     }
@@ -2100,6 +2104,7 @@ export class KupDataTable {
             this.kupRowSelected.emit({
                 selectedRows: this.selectedRows,
                 clickedColumn: null,
+                clickedRow: null,
             });
         } else {
             // deselect all rows
