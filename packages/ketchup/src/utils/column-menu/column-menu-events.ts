@@ -122,24 +122,22 @@ export function columnMenuEvents(
             dataStorage = cardData['textfield'].find((x) => x.id === compID)[
                 'data-storage'
             ];
-            console.log('e');
             textFilterChange(comp, null, dataStorage['column']);
             break;
         case 'kupTextFieldInput':
             dataStorage = cardData['textfield'].find((x) => x.id === compID)[
                 'data-storage'
             ];
-            //window.clearTimeout(comp.columnFilterTimeout);
-            /*
-                comp.columnFilterTimeout = window.setTimeout(
-                    () =>
-                        textFilterChange(
-                            comp,
-                            compEvent.detail.value,
-                            dataStorage['column']
-                        ),
-                    300
-                );*/
+            window.clearTimeout(comp.columnFilterTimeout);
+            comp.columnFilterTimeout = window.setTimeout(
+                () =>
+                    textFilterChange(
+                        comp,
+                        compEvent.detail.value,
+                        dataStorage['column']
+                    ),
+                300
+            );
             break;
     }
 }

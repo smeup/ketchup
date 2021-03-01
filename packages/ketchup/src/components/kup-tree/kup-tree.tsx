@@ -242,6 +242,7 @@ export class KupTree {
     private sizedColumns: Column[] = undefined;
 
     private tooltip: KupTooltip;
+    columnFilterTimeout: number;
 
     //-------- Events --------
     /**
