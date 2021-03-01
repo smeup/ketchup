@@ -6,7 +6,7 @@ import { KupCard } from '../kup-card';
 /**
  * 1st card standard layout, inspired by Material Design.
  * @param {KupCard}  comp - Card component.
- * @returns {VNode} 1st standard layout JSX markup.
+ * @returns {VNode} 1st standard layout virtual node.
  */
 export function create1(component: KupCard): VNode {
     //Action buttons
@@ -67,7 +67,7 @@ export function create1(component: KupCard): VNode {
 /**
  * 2nd card standard layout, inspired by Material Design.
  * @param {KupCard}  comp - Card component.
- * @returns {VNode} 2nd standard layout JSX markup.
+ * @returns {VNode} 2nd standard layout virtual node.
  */
 export function create2(component: KupCard): VNode {
     //Action buttons
@@ -130,7 +130,7 @@ export function create2(component: KupCard): VNode {
 /**
  * 3rd card standard layout, inspired by Material Design.
  * @param {KupCard}  comp - Card component.
- * @returns {VNode} 3rd standard layout JSX markup.
+ * @returns {VNode} 3rd standard layout virtual node.
  */
 export function create3(component: KupCard): VNode {
     //Action buttons
@@ -195,7 +195,7 @@ export function create3(component: KupCard): VNode {
 /**
  * 4th card standard layout, inspired by Material Design.
  * @param {KupCard}  comp - Card component.
- * @returns {VNode} 4th standard layout JSX markup.
+ * @returns {VNode} 4th standard layout virtual node.
  */
 export function create4(component: KupCard): VNode {
     //Action buttons
@@ -253,7 +253,7 @@ export function create4(component: KupCard): VNode {
 /**
  * 5th card standard layout, useful to display TODOs with extensive information.
  * @param {KupCard}  comp - Card component.
- * @returns {VNode} 5th standard layout JSX markup.
+ * @returns {VNode} 5th standard layout virtual node.
  */
 export function create5(component: KupCard): VNode {
     //Action button
@@ -368,7 +368,7 @@ export function create5(component: KupCard): VNode {
 /**
  * 6th card standard layout, useful to display TODOs in a compact view.
  * @param {KupCard}  comp - Card component.
- * @returns {VNode} 6th standard layout JSX markup.
+ * @returns {VNode} 6th standard layout virtual node.
  */
 export function create6(component: KupCard): VNode {
     //Action button
@@ -429,7 +429,7 @@ export function create6(component: KupCard): VNode {
 /**
  * 7th card standard layout, centered image and text.
  * @param {KupCard}  comp - Card component.
- * @returns {VNode} 7th standard layout JSX markup.
+ * @returns {VNode} 7th standard layout virtual node.
  */
 export function create7(component: KupCard): VNode {
     //Top bar color
@@ -487,9 +487,9 @@ export function create7(component: KupCard): VNode {
     );
 }
 /**
- * 8th card standard layout, centered image and text.
+ * 8th card standard layout, useful to display a list of chips.
  * @param {KupCard}  comp - Card component.
- * @returns {VNode} 8th standard layout JSX markup.
+ * @returns {VNode} 8th standard layout virtual node.
  */
 export function create8(component: KupCard): VNode {
     //Chips
@@ -500,7 +500,7 @@ export function create8(component: KupCard): VNode {
     const colorArray: string[] = component.data['color']
         ? component.data['color']
         : [];
-    //Left icon and right image
+    //Right corner icon
     const imageArray: GenericObject[] = component.data['image']
         ? component.data['image']
         : [];
@@ -514,7 +514,7 @@ export function create8(component: KupCard): VNode {
     let CSSVariables: GenericObject = {
         [`--color-0`]: colorArray[0]
             ? colorArray[0]
-            : 'rgba(var(--kup-primary-color-rgb),0.1)',
+            : 'var(--kup-primary-color)',
     };
     return (
         <div
@@ -558,20 +558,20 @@ export function create8(component: KupCard): VNode {
     );
 }
 /**
- * 9th card standard layout, centered image and text.
+ * 9th card standard layout, chart displayed on the right with some info on the left.
  * @param {KupCard}  comp - Card component.
- * @returns {VNode} 9th standard layout JSX markup.
+ * @returns {VNode} 9th standard layout virtual node.
  */
 export function create9(component: KupCard): VNode {
-    //Background and corner text colors
+    //Chart
     const chartArray: GenericObject[] = component.data['chart']
         ? component.data['chart']
         : [];
-    //Background and corner text colors
+    //Icon color
     const colorArray: string[] = component.data['color']
         ? component.data['color']
         : [];
-    //Left icon and right image
+    //Left icon
     const imageArray: GenericObject[] = component.data['image']
         ? component.data['image']
         : [];
@@ -640,46 +640,82 @@ export function create9(component: KupCard): VNode {
         </div>
     );
 }
-
-export function create10(component: KupCard) {
-    let componentClass = 'standard-layout-' + component.layoutNumber;
-    let CSSVariables = {
-        ['--color-1']: component.data['color1'],
+/**
+ * 10th card standard layout, chart displayed on the left with some info on the right.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} 10th standard layout virtual node.
+ */
+export function create10(component: KupCard): VNode {
+    //Chart
+    const chartArray: GenericObject[] = component.data['chart']
+        ? component.data['chart']
+        : [];
+    //Icon color
+    const colorArray: string[] = component.data['color']
+        ? component.data['color']
+        : [];
+    //Left icon
+    const imageArray: GenericObject[] = component.data['image']
+        ? component.data['image']
+        : [];
+    //3 text slots
+    let textIndex: number = 0;
+    const textArray: string[] =
+        component.data['text'] && component.data['text']
+            ? component.data['text']
+            : [];
+    //Dynamic CSS variables
+    let CSSVariables: GenericObject = {
+        [`--color-0`]: colorArray[0]
+            ? colorArray[0]
+            : 'var(--kup-primary-color)',
     };
     return (
-        <div class={componentClass} style={CSSVariables}>
+        <div
+            class={`standard-layout-${component.layoutNumber}`}
+            style={CSSVariables}
+        >
             <div class="section-1">
-                {component.data['chart1'] && (
-                    <kup-chart
-                        id="chart1"
-                        {...component.data['chart1']}
-                    ></kup-chart>
-                )}
+                {chartArray[0] ? (
+                    <kup-chart id="chart1" {...chartArray[0]}></kup-chart>
+                ) : null}
             </div>
             <div class="section-2">
                 <div class="sub-1">
                     <div class="text description">
-                        {component.data['text1']}
+                        {textArray[textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 <div class="sub-2">
                     <div class="icon">
-                        {component.data['image1'] && (
+                        {imageArray[0] ? (
                             <FImage
-                                {...component.data['image1']}
-                                color={component.data['color1']}
+                                color={
+                                    colorArray[0]
+                                        ? colorArray[0]
+                                        : 'var(--kup-primary-color)'
+                                }
                                 id="image1"
+                                {...imageArray[0]}
                                 sizeX="3em"
                                 sizeY="3em"
                             ></FImage>
-                        )}
+                        ) : null}
                     </div>
                     <div class="text-wrapper">
                         <div class="text title">
-                            <div>{component.data['text2']}</div>
+                            <div>
+                                {textArray[textIndex++]
+                                    ? textArray[textIndex]
+                                    : ''}
+                            </div>
                         </div>
                         <div class="text subtitle">
-                            <div>{component.data['text3']}</div>
+                            <div>
+                                {textArray[textIndex++]
+                                    ? textArray[textIndex]
+                                    : ''}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -687,14 +723,41 @@ export function create10(component: KupCard) {
         </div>
     );
 }
-
+/**
+ * 11th card standard layout, chart displayed on the right with some info on the left, visible when hovering on the colored bar.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} 11th standard layout virtual node.
+ */
 export function create11(component: KupCard) {
-    let componentClass = 'standard-layout-' + component.layoutNumber;
-    let CSSVariables = {
-        ['--color-1']: component.data['color1'],
+    //Chart
+    const chartArray: GenericObject[] = component.data['chart']
+        ? component.data['chart']
+        : [];
+    //Icon and bar color
+    const colorArray: string[] = component.data['color']
+        ? component.data['color']
+        : [];
+    //Left icon
+    const imageArray: GenericObject[] = component.data['image']
+        ? component.data['image']
+        : [];
+    //3 text slots
+    let textIndex: number = 0;
+    const textArray: string[] =
+        component.data['text'] && component.data['text']
+            ? component.data['text']
+            : [];
+    //Dynamic CSS variables
+    let CSSVariables: GenericObject = {
+        [`--color-0`]: colorArray[0]
+            ? colorArray[0]
+            : 'var(--kup-primary-color)',
     };
     return (
-        <div class={componentClass} style={CSSVariables}>
+        <div
+            class={`standard-layout-${component.layoutNumber}`}
+            style={CSSVariables}
+        >
             <div
                 class="section-1"
                 onMouseEnter={(e: MouseEvent) => {
@@ -710,43 +773,56 @@ export function create11(component: KupCard) {
             >
                 <div class="sub-1 dyn-color">
                     <div class="text description">
-                        {component.data['text1']}
+                        {textArray[textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 <div class="sub-2">
                     <div class="icon">
-                        {component.data['image1'] && (
+                        {imageArray[0] ? (
                             <FImage
-                                {...component.data['image1']}
-                                color={component.data['color1']}
+                                color={
+                                    colorArray[0]
+                                        ? colorArray[0]
+                                        : 'var(--kup-primary-color)'
+                                }
                                 id="image1"
+                                {...imageArray[0]}
                                 sizeX="3em"
                                 sizeY="3em"
                             ></FImage>
-                        )}
+                        ) : null}
                     </div>
                     <div class="text-wrapper">
                         <div class="text title">
-                            <div>{component.data['text2']}</div>
+                            <div>
+                                {textArray[textIndex++]
+                                    ? textArray[textIndex]
+                                    : ''}
+                            </div>
                         </div>
                         <div class="text subtitle">
-                            <div>{component.data['text3']}</div>
+                            <div>
+                                {textArray[textIndex++]
+                                    ? textArray[textIndex]
+                                    : ''}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="section-2">
-                {component.data['chart1'] && (
-                    <kup-chart
-                        id="chart1"
-                        {...component.data['chart1']}
-                    ></kup-chart>
-                )}
+                {chartArray[0] ? (
+                    <kup-chart id="chart1" {...chartArray[0]}></kup-chart>
+                ) : null}
             </div>
         </div>
     );
 }
-
+/**
+ * 12th card standard layout, used for column menus in tree and data table.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} 12th standard layout virtual node.
+ */
 export function create12(component: KupCard) {
     const buttonArray: GenericObject[] = component.data['button']
         ? component.data['button']
@@ -799,7 +875,12 @@ export function create12(component: KupCard) {
         </div>
     );
 }
-
+/**
+ * This function returns a list of components.
+ * @param {GenericObject[]} compArray - Components' props.
+ * @param {string} compType - Components' type.
+ * @returns {JSX.Element[]} List of components.
+ */
 function compList(compArray: GenericObject[], compType: string): JSX.Element[] {
     let list: JSX.Element[] = [];
     for (let index = 0; index < compArray.length; index++) {
