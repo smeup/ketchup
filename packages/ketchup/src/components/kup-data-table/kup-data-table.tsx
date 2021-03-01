@@ -3650,7 +3650,6 @@ export class KupDataTable {
                             onClick={() => this.onTotalMenuOpen(column)}
                         >
                             {menuLabel}
-                            <i class="fa fa-caret-down"></i>
                         </span>
                         {totalMenu}
                         <span class="totals-value">
