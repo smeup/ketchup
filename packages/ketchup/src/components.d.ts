@@ -193,6 +193,10 @@ export namespace Components {
          */
         "tooltipDetailTimeout": number;
         /**
+          * Enable show tooltip
+         */
+        "tooltipEnabled": boolean;
+        /**
           * Defines the timeout for tooltip load
          */
         "tooltipLoadTimeout": number;
@@ -743,6 +747,10 @@ export namespace Components {
           * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout": number;
+        /**
+          * Enable show tooltip
+         */
+        "tooltipEnabled": boolean;
         /**
           * Defines the timeout for tooltip load
          */
@@ -1718,6 +1726,10 @@ export namespace Components {
          */
         "tooltipDetailTimeout": number;
         /**
+          * Enable show tooltip
+         */
+        "tooltipEnabled": boolean;
+        /**
           * Defines the timeout for tooltip load
          */
         "tooltipLoadTimeout": number;
@@ -2308,6 +2320,10 @@ declare namespace LocalJSX {
           * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout"?: number;
+        /**
+          * Enable show tooltip
+         */
+        "tooltipEnabled"?: boolean;
         /**
           * Defines the timeout for tooltip load
          */
@@ -3035,6 +3051,10 @@ declare namespace LocalJSX {
           * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout"?: number;
+        /**
+          * Enable show tooltip
+         */
+        "tooltipEnabled"?: boolean;
         /**
           * Defines the timeout for tooltip load
          */
@@ -4268,6 +4288,10 @@ declare namespace LocalJSX {
           * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout"?: number;
+        /**
+          * Enable show tooltip
+         */
+        "tooltipEnabled"?: boolean;
         /**
           * Defines the timeout for tooltip load
          */

@@ -188,6 +188,10 @@ export class KupTree {
      */
     @Prop() tooltipDetailTimeout: number;
     /**
+     * Enable show tooltip
+     */
+    @Prop() tooltipEnabled: boolean = true;
+    /**
      * Defines the timeout for tooltip load
      */
     @Prop() tooltipLoadTimeout: number;
@@ -1317,6 +1321,9 @@ export class KupTree {
     }
 
     renderTooltip() {
+        if (this.tooltipEnabled == false) {
+            return null;
+        }
         return (
             <kup-tooltip
                 class="datatable-tooltip"

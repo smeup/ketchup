@@ -151,6 +151,27 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'tooltipDetailTimeout',
+          description: 'Defines the timeout for tooltip detail.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'tooltipEnabled',
+          description: 'Enable tooltip.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'tooltipLoadTimeout',
+          description: 'Defines the timeout for tooltip load.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'useDynamicExpansion',
           description:
             'When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property. Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.',
@@ -335,6 +356,7 @@ function createComp() {
   comp.hoverScroll = true;
   comp.id = 'demo-component';
   comp.showIcons = true;
+  comp.tooltipEnabled = true;
   return comp;
 }
 </script>
