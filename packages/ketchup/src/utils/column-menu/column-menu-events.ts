@@ -59,6 +59,13 @@ export function columnMenuEvents(
                         break;
                 }
                 break;
+            case 'kupTextFieldClearIconClick':
+                dataStorage = cardData['textfield'].find(
+                    (x) => x.id === compID
+                )['data-storage'];
+                console.log('e');
+                textFilterChange(comp, null, dataStorage['column']);
+                break;
             case 'kupTextFieldInput':
                 dataStorage = cardData['textfield'].find(
                     (x) => x.id === compID
@@ -68,7 +75,7 @@ export function columnMenuEvents(
                     () =>
                         textFilterChange(
                             comp,
-                            compEvent.value,
+                            compEvent.detail.value,
                             dataStorage['column']
                         ),
                     300
