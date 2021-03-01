@@ -335,7 +335,7 @@ function numberStringToNumberString(
     if (input == null || input.trim() == '') {
         return '';
     }
-
+    let originalInputValue = input;
     let suffix = getNumericValueSuffixByType(type);
     if (suffix != '') {
         input = input.replace(suffix, '');
@@ -350,6 +350,9 @@ function numberStringToNumberString(
     input = input.replace(regExpr, '');
     if (decFmt != '.') {
         input = input.replace(/,/g, '.');
+    }
+    if (numeral(input).value() == null || isNaN(numeral(input).value())) {
+        return originalInputValue;
     }
     let unf: number = stringToNumber(input);
 

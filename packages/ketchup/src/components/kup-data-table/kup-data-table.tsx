@@ -520,9 +520,13 @@ export class KupDataTable {
         }
     }
 
-    @Watch('sort')
     @Watch('filters')
     @Watch('globalFilterValue')
+    filtersChanged() {
+        this.expandGroupsHandler();
+    }
+
+    @Watch('sort')
     @Watch('rowsPerPage')
     @Watch('totals')
     @Watch('currentPage')
@@ -544,6 +548,9 @@ export class KupDataTable {
     recalculateRowsAndUndoSelections() {
         if (!this.isRestoringState) {
             this.recalculateRows();
+            // reset group state
+            this.groupState = {};
+            this.forceGroupExpansion();
             this.resetSelectedRows();
         }
     }
@@ -1133,7 +1140,6 @@ export class KupDataTable {
                             expanderRowActions[index]['data-row']
                         );
                 }
-                FButtonMDC(expanderRowActions[index] as HTMLElement);
             }
 
             //Row actions: actions
@@ -1152,7 +1158,6 @@ export class KupDataTable {
                                 rowActions[index]['data-action']
                             );
                     }
-                    FButtonMDC(rowActions[index] as HTMLElement);
                 }
             }
             //Groups chip set
@@ -1457,7 +1462,7 @@ export class KupDataTable {
             this.getRows(),
             tmpFilters,
             this.globalFilterValue,
-            visibleColumns
+            this.getColumns()
         );
 
         if (columnObject != null) {
@@ -1550,7 +1555,7 @@ export class KupDataTable {
             this.getRows(),
             this.filters,
             this.globalFilterValue,
-            this.getVisibleColumns()
+            this.getColumns()
         );
         this.rowsLength = this.rowsPointLength();
     }
@@ -1983,8 +1988,9 @@ export class KupDataTable {
         const target = event.target;
 
         // selecting row
-        this.selectedRows = [row];
-
+        if (!this.multiSelection) {
+            this.selectedRows = [row];
+        }
         // find clicked column
         let clickedColumn: string = null;
         if (target instanceof HTMLElement) {
@@ -1999,15 +2005,17 @@ export class KupDataTable {
         }
 
         // selecting clicked column
-        this.deselectColumn(this.selectedColumn);
-        this.selectedColumn = clickedColumn;
-        this.selectColumn(this.selectedColumn);
+        if (clickedColumn) {
+            this.deselectColumn(this.selectedColumn);
+            this.selectedColumn = clickedColumn;
+            this.selectColumn(this.selectedColumn);
 
-        // emit event
-        this.kupRowSelected.emit({
-            selectedRows: this.selectedRows,
-            clickedColumn,
-        });
+            // emit event
+            this.kupRowSelected.emit({
+                selectedRows: this.selectedRows,
+                clickedColumn,
+            });
+        }
     }
 
     private selectColumn(selectedColumn: string) {
@@ -2074,6 +2082,11 @@ export class KupDataTable {
             this.selectedRows.splice(index, 1);
             this.selectedRows = [...this.selectedRows];
         }
+
+        this.kupRowSelected.emit({
+            selectedRows: this.selectedRows,
+            clickedColumn: null,
+        });
     }
 
     private onRowExpand(row: Row) {
@@ -2968,6 +2981,8 @@ export class KupDataTable {
 
                 //---- AddCodeDecodeColumn ----
                 let overlay = null;
+                /** disabled on release, for now... */
+                /*
                 if (this.hasOverlayActions(column)) {
                     columnClass['obj'] = true;
                     const svgLabel = 'Add code/decode column';
@@ -2988,7 +3003,7 @@ export class KupDataTable {
                         ></span>
                     );
                 }
-
+                */
                 //---- Filter ----
                 let filter = null;
 
@@ -4115,11 +4130,7 @@ export class KupDataTable {
             return (
                 <tr
                     class={rowClass}
-                    onClick={
-                        this.multiSelection
-                            ? null
-                            : (e) => this.onRowClick(e, row)
-                    }
+                    onClick={(e) => this.onRowClick(e, row)}
                     {...(this.dragEnabled
                         ? setKetchupDraggable(dragHandlersRow, {
                               [KupDataTableRowDragType]: row,

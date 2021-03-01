@@ -25,7 +25,7 @@
             "--kup-success-color": "#4d9f02",
             "--kup-warning-color": "#ffc107",
             "--kup-danger-color": "#d91e18",
-            "--kup-spinner-color": "#eaa710",
+            "--kup-spinner-color": "#1D1D1B",
             "--kup-chart-color-1": "#ff5959",
             "--kup-chart-color-2": "#e0a0a0",
             "--kup-chart-color-3": "#8e1010",
