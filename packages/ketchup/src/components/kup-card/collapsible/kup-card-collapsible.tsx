@@ -3,7 +3,7 @@ import { FImage } from '../../../f-components/f-image/f-image';
 import { GenericObject } from '../../../types/GenericTypes';
 import { KupCard } from '../kup-card';
 /**
- * 1st card collapsible layout, left bar and collapsible chips.
+ * 1st collapsible card layout, left bar and collapsible chips.
  * @param {KupCard}  comp - Card component.
  * @returns {VNode} 1st collapsible layout virtual node.
  */
@@ -63,7 +63,7 @@ export function create1(component: KupCard): VNode {
     );
 }
 /**
- * 2nd card collapsible layout, colored text and icon in top right corner.
+ * 2nd collapsible card layout, colored text and icon in top right corner.
  * @param {KupCard}  comp - Card component.
  * @returns {VNode} 2nd collapsible layout virtual node.
  */
@@ -137,8 +137,11 @@ export function create2(component: KupCard): VNode {
         </div>
     );
 }
-
-function collapsibleBar() {
+/**
+ * Creates the bar used to expand/collapse the card.
+ * @returns {VNode} Expansion bar virtual node.
+ */
+function collapsibleBar(): VNode {
     return (
         <div class="collapsible-trigger">
             <kup-button
