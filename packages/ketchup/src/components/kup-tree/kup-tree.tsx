@@ -17,6 +17,9 @@ import {
     Cell,
     CellData,
     Column,
+    GenericFilter,
+    Row,
+    SortMode,
 } from './../kup-data-table/kup-data-table-declarations';
 
 import {
@@ -33,7 +36,13 @@ import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import { isFilterCompliantForValue } from '../../utils/filters';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import {
+    compareValues,
+    filterRows,
     getCellValueForDisplay,
+    getColumnByName,
+    getIntervalTextFieldFilterValues,
+    getValueForDisplay,
+    isFilterCompliantForSimpleValue,
     styleHasBorderRadius,
     styleHasWritingMode,
 } from '../kup-data-table/kup-data-table-helper';
@@ -45,6 +54,18 @@ import { setTooltip, unsetTooltip } from '../../utils/helpers';
 
 import { getCellType } from '../../utils/cell-utils';
 import { stringToNumber } from '../../utils/utils';
+import {
+    closeColumnMenu,
+    columnMenuEvents,
+    openColumnMenu,
+    positionColumnMenu,
+} from '../../utils/column-menu/column-menu-events';
+import { columnMenuData } from '../../utils/column-menu/column-menu';
+import {
+    getCheckBoxFilterValues,
+    getTextFilterValue,
+    hasIntervalTextFieldFilterValues,
+} from '../../utils/column-menu/column-menu-filters';
 
 @Component({
     tag: 'kup-tree',
@@ -97,6 +118,8 @@ export class KupTree {
 
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
+    @State()
+    private openedMenu: string = null;
 
     /**
      * Auto select programmatic selectic node
@@ -138,6 +161,10 @@ export class KupTree {
      */
     @Prop() expanded: boolean = false;
     /**
+     * List of filters set by the user.
+     */
+    @Prop({ mutable: true }) filters: GenericFilter = {};
+    /**
      * When set to true it activates the global filter.
      */
     @Prop() globalFilter: boolean = false;
@@ -158,6 +185,10 @@ export class KupTree {
      * Shows the tree data as a table.
      */
     @Prop() showColumns: boolean = false;
+    /**
+     * When set to true enables the column filters.
+     */
+    @Prop() showFilters: boolean = true;
     /**
      * Flag: shows the header of the tree when the tree is displayed as a table.
      * @see showColumns
@@ -364,6 +395,10 @@ export class KupTree {
         this.forceUpdate();
     }
 
+    setColumnMenu(column: string) {
+        this.openedMenu = column;
+    }
+
     private setScrollOnHover() {
         this.scrollOnHoverInstance = new scrollOnHover();
         this.scrollOnHoverInstance.scrollOnHoverSetup(this.treeWrapperRef);
@@ -444,6 +479,7 @@ export class KupTree {
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
 
+        positionColumnMenu(this);
         this.checkScrollOnHover();
 
         if (root) {
@@ -795,6 +831,128 @@ export class KupTree {
             element.visible = true;
             this.setAllVisible(element.children);
         });
+    }
+
+    getCheckBoxFilterValues(column: string): Array<string> {
+        return getCheckBoxFilterValues(this.filters, column);
+    }
+
+    private getIntervalTextFieldFilterValues(column: Column): Array<string> {
+        if (!hasIntervalTextFieldFilterValues(this.filters, column)) {
+            return ['', ''];
+        }
+        return getIntervalTextFieldFilterValues(this.filters, column.name);
+    }
+
+    getColumnValues(
+        column: Column
+    ): { value: string; displayedValue: string }[] {
+        let values: { value: string; displayedValue: string }[] = new Array();
+
+        let value = getTextFilterValue(this.filters, column.name);
+        let interval = this.getIntervalTextFieldFilterValues(column);
+        if (
+            column.valuesForFilter != null &&
+            column.valuesForFilter.length > 0
+        ) {
+            column.valuesForFilter.forEach((element) => {
+                let v = element;
+                if (
+                    value == '' ||
+                    isFilterCompliantForSimpleValue(
+                        v,
+                        column.obj,
+                        value,
+                        interval
+                    )
+                ) {
+                    values.push({
+                        value: v,
+                        displayedValue: getValueForDisplay(
+                            v,
+                            column.obj,
+                            column.decimals
+                        ),
+                    });
+                }
+            });
+            return values;
+        }
+
+        /** è necessario estrarre i valori della colonna di tutte le righe
+         * filtrate SENZA il filtro della colonna stessa corrente */
+        let tmpFilters: GenericFilter = { ...this.filters };
+
+        tmpFilters[column.name] = {
+            textField: value,
+            checkBoxes: [],
+            interval: interval,
+        };
+
+        let visibleColumns = this.getVisibleColumns();
+        let columnObject = getColumnByName(visibleColumns, column.name);
+
+        let tmpRows = filterRows(
+            this.getRows(),
+            tmpFilters,
+            this.globalFilterValue,
+            this.getColumns()
+        );
+
+        if (columnObject != null) {
+            tmpRows = tmpRows.sort((n1: Row, n2: Row) => {
+                return compareValues(
+                    columnObject.obj,
+                    n1.cells[column.name].value,
+                    columnObject.obj,
+                    n2.cells[column.name].value,
+                    SortMode.A
+                );
+            });
+        }
+
+        /** il valore delle righe attualmente filtrate, formattato */
+        tmpRows.forEach((row) =>
+            this.addColumnValueFromRow(values, column, row)
+        );
+
+        return values;
+    }
+
+    private addColumnValueFromRow(
+        values: { value: string; displayedValue: string }[],
+        column: Column,
+        row: Row
+    ) {
+        const cell = row.cells[column.name];
+        if (cell) {
+            let item: { value: string; displayedValue: string } = {
+                value: cell.value,
+                displayedValue: getCellValueForDisplay(column, cell),
+            };
+            if (!this.columnValuesContainsValue(values, item)) {
+                values.push(item);
+            }
+        }
+    }
+
+    private columnValuesContainsValue(
+        values: { value: string; displayedValue: string }[],
+        value: { value: string; displayedValue: string }
+    ): boolean {
+        if (values == null || values.length < 1) {
+            return false;
+        }
+        for (let i = 0; i < values.length; i++) {
+            if (values[i].value == value.value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private getRows(): Array<Row> {
+        return this.data ? this.data : [];
     }
 
     private filterNodes() {
@@ -1337,7 +1495,13 @@ export class KupTree {
      */
     renderHeader(): JSX.Element[] {
         return this.getVisibleColumns().map((column) => (
-            <th style={this.getCellStyle(column.name, null)}>
+            <th
+                data-column={column.name}
+                onContextMenu={(e: MouseEvent) =>
+                    openColumnMenu(e, this, column.name, this.tooltip)
+                }
+                style={this.getCellStyle(column.name, null)}
+            >
                 <span class="column-title">{column.title}</span>
             </th>
         ));
@@ -1652,6 +1816,30 @@ export class KupTree {
                         </table>
                     </div>
                     {tooltip}
+                    {this.openedMenu ? (
+                        <kup-card
+                            data={columnMenuData(
+                                this,
+                                getColumnByName(
+                                    this.getVisibleColumns(),
+                                    this.openedMenu
+                                )
+                            )}
+                            data-column={this.openedMenu}
+                            id="column-menu"
+                            isMenu={true}
+                            layoutNumber={12}
+                            onBlur={(e) => closeColumnMenu(e, this)}
+                            onClick={(e) => e.stopPropagation()}
+                            onMouseUp={(e) => e.stopPropagation()}
+                            onKupCardEvent={(e) => {
+                                columnMenuEvents(e, this);
+                            }}
+                            sizeX="auto"
+                            sizeY="auto"
+                            tabIndex={0}
+                        ></kup-card>
+                    ) : null}
                 </div>
             </Host>
         );

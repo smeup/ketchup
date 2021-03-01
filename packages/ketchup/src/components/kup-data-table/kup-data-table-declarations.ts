@@ -106,11 +106,6 @@ export enum SortMode {
     D = 'D',
 }
 
-export enum FilterInterval {
-    FROM = 0,
-    TO = 1,
-}
-
 export interface TotalsMap {
     [index: string]: TotalMode;
 }

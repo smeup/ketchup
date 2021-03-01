@@ -37,7 +37,6 @@ import {
     TableData,
     TotalsMap,
     GenericFilter,
-    FilterInterval,
     TotalMode,
 } from './kup-data-table-declarations';
 
@@ -55,15 +54,11 @@ import {
     sortRows,
     styleHasBorderRadius,
     styleHasWritingMode,
-    getTextFieldFilterValue,
-    getCheckBoxFilterValues,
-    hasFiltersForColumn,
     getCellValueForDisplay,
     normalizeValue,
     setIntervalTextFieldFilterValue,
     isFilterCompliantForSimpleValue,
     getIntervalTextFieldFilterValues,
-    hasIntervalTextFieldFilterValues,
     getValueForDisplay,
     dropHandlersCell,
 } from './kup-data-table-helper';
@@ -141,7 +136,18 @@ import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
 import { columnMenuData } from '../../utils/column-menu/column-menu';
-import { columnMenuEvents } from '../../utils/column-menu/column-menu-events';
+import {
+    columnMenuEvents,
+    openColumnMenu,
+    positionColumnMenu,
+} from '../../utils/column-menu/column-menu-events';
+import {
+    getCheckBoxFilterValues,
+    getTextFilterValue,
+    hasFiltersForColumn,
+    hasIntervalTextFieldFilterValues,
+} from '../../utils/column-menu/column-menu-filters';
+import { FilterInterval } from '../../utils/column-menu/column-menu-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -913,24 +919,6 @@ export class KupDataTable {
         this.resObserver = new ResizeObserver(callbackResize);
     }
 
-    private columnMenuPosition() {
-        const root: ShadowRoot = this.rootElement.shadowRoot;
-        if (root) {
-            const menu: any = this.rootElement.shadowRoot.querySelector(
-                '#column-menu'
-            );
-            if (menu) {
-                const column = menu.dataset.column;
-                const wrapper: HTMLElement = root.querySelector(
-                    'th[data-column="' + column + '"]'
-                );
-                positionRecalc(menu, wrapper);
-                menu.classList.add('dynamic-position-active');
-                menu.menuVisible = true;
-            }
-        }
-    }
-
     private didRenderObservers() {
         let rows = this.rootElement.shadowRoot.querySelectorAll('tbody > tr');
         if (this.paginatedRowsLength < this.rowsLength && this.lazyLoadRows) {
@@ -1186,7 +1174,7 @@ export class KupDataTable {
         if (this.showCustomization) {
             this.customizePanelPosition();
         }
-        this.columnMenuPosition();
+        positionColumnMenu(this);
         this.checkScrollOnHover();
         this.didRenderObservers();
         this.hideShowColumnRemoveDropArea(false);
@@ -1351,7 +1339,7 @@ export class KupDataTable {
     ): { value: string; displayedValue: string }[] {
         let values: { value: string; displayedValue: string }[] = new Array();
 
-        let value = this.getTextFieldFilterValue(column.name);
+        let value = getTextFilterValue(this.filters, column.name);
         let interval = this.getIntervalTextFieldFilterValues(column);
         if (
             column.valuesForFilter != null &&
@@ -1796,14 +1784,6 @@ export class KupDataTable {
         this.filters = newFilters;
     }
 
-    private hasFiltersForColumn(column: Column): boolean {
-        return hasFiltersForColumn(this.filters, column);
-    }
-
-    getTextFieldFilterValue(column: string): string {
-        return getTextFieldFilterValue(this.filters, column);
-    }
-
     private getIntervalTextFieldFilterValues(column: Column): Array<string> {
         if (!hasIntervalTextFieldFilterValues(this.filters, column)) {
             return ['', ''];
@@ -1816,7 +1796,7 @@ export class KupDataTable {
     }
 
     private getFilterValueForTooltip(column: Column): string {
-        let txtFilter = this.getTextFieldFilterValue(column.name);
+        let txtFilter = getTextFilterValue(this.filters, column.name);
         let interval = this.getIntervalTextFieldFilterValues(column);
         let chkFilters = this.getCheckBoxFilterValues(column.name);
 
@@ -2024,29 +2004,17 @@ export class KupDataTable {
         }
     }
 
-    private openMenu(column: Column) {
-        this.openedMenu = column.name;
-    }
-
     private closeMenu() {
         this.openedMenu = null;
     }
 
-    private closeMenuAndTooltip() {
+    closeMenuAndTooltip() {
         this.closeMenu();
         unsetTooltip(this.tooltip);
     }
 
     private isOpenedMenu(): boolean {
         return this.openedMenu != null;
-    }
-
-    private onHeaderCellContextMenuOpen(e: MouseEvent, column: Column) {
-        this.closeMenuAndTooltip();
-        this.openMenu(column);
-        // Prevent opening of the default browser menu
-        e.preventDefault();
-        return false;
     }
 
     /**
@@ -2182,6 +2150,10 @@ export class KupDataTable {
             filters: this.filters,
             data: this.data,
         };
+    }
+
+    setColumnMenu(column: string) {
+        this.openedMenu = column;
     }
 
     // Handler for loadMore button is clicked.
@@ -2833,7 +2805,7 @@ export class KupDataTable {
                 //---- Filter ----
                 let filter = null;
 
-                if (this.hasFiltersForColumn(column)) {
+                if (hasFiltersForColumn(this.filters, column)) {
                     const svgLabel = `Remove filter(s): '${this.getFilterValueForTooltip(
                         column
                     )}'`;
@@ -3024,7 +2996,7 @@ export class KupDataTable {
                         class={columnClass}
                         style={thStyle}
                         onContextMenu={(e: MouseEvent) =>
-                            this.onHeaderCellContextMenuOpen(e, column)
+                            openColumnMenu(e, this, column.name, this.tooltip)
                         }
                         onMouseUp={sortEventHandler}
                         {...(this.enableSortableColumns

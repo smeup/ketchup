@@ -1678,6 +1678,10 @@ export namespace Components {
          */
         "expanded": boolean;
         /**
+          * List of filters set by the user.
+         */
+        "filters": GenericFilter;
+        /**
           * When set to true it activates the global filter.
          */
         "globalFilter": boolean;
@@ -1698,6 +1702,10 @@ export namespace Components {
           * Shows the tree data as a table.
          */
         "showColumns": boolean;
+        /**
+          * When set to true enables the column filters.
+         */
+        "showFilters": boolean;
         /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns
@@ -4166,6 +4174,10 @@ declare namespace LocalJSX {
          */
         "expanded"?: boolean;
         /**
+          * List of filters set by the user.
+         */
+        "filters"?: GenericFilter;
+        /**
           * When set to true it activates the global filter.
          */
         "globalFilter"?: boolean;
@@ -4244,6 +4256,10 @@ declare namespace LocalJSX {
           * Shows the tree data as a table.
          */
         "showColumns"?: boolean;
+        /**
+          * When set to true enables the column filters.
+         */
+        "showFilters"?: boolean;
         /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns

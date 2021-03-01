@@ -7,6 +7,7 @@ import {
 import { KupTree } from '../../components/kup-tree/kup-tree';
 import { GenericObject } from '../../types/GenericTypes';
 import { isCheckbox, isStringObject } from '../object-utils';
+import { getTextFilterValue } from './column-menu-filters';
 /**
  * Function called by the column menu card to prepare its 'data' prop.
  * @param {KupDataTable | KupTree}  comp - Component using the column menu.
@@ -92,7 +93,6 @@ function prepCheckbox(
 ): GenericObject[] {
     let props: GenericObject[] = [];
     if (
-        !isTree(comp) &&
         comp.showFilters &&
         (isStringObject(column.obj) || isCheckbox(column.obj))
     ) {
@@ -147,8 +147,8 @@ function prepTextfield(
     column: Column
 ): GenericObject[] {
     let props: GenericObject[] = [];
-    if (!isTree(comp) && comp.showFilters && isStringObject(column.obj)) {
-        let filterInitialValue = comp.getTextFieldFilterValue(column.name);
+    if (comp.showFilters && isStringObject(column.obj)) {
+        let filterInitialValue = getTextFilterValue(comp.filters, column.name);
         filterInitialValue = getValueForDisplay(
             filterInitialValue,
             column.obj,
