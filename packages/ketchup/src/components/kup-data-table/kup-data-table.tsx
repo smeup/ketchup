@@ -39,6 +39,8 @@ import {
     GenericFilter,
     FilterInterval,
     TotalMode,
+    totalMenuOpenID,
+    TotalLabel,
 } from './kup-data-table-declarations';
 
 import { isRating, isGauge, isKnob, getCellType } from '../../utils/cell-utils';
@@ -481,6 +483,12 @@ export class KupDataTable {
      */
     @State()
     private openedMenu: string = null;
+
+    /**
+     * name of the column with the opened total menu
+     */
+    @State()
+    private openedTotalMenu: string = null;
 
     @State()
     private openedCustomSettings: boolean = false;
@@ -1243,6 +1251,7 @@ export class KupDataTable {
             this.customizePanelPosition();
         }
         this.columnMenuPosition();
+        this.totalMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
         this.hideShowColumnRemoveDropArea(false);
@@ -2115,6 +2124,14 @@ export class KupDataTable {
         this.openedMenu = null;
     }
 
+    private openTotalMenu(column: Column) {
+        this.openedTotalMenu = column.name;
+    }
+
+    private closeTotalMenu() {
+        this.openedTotalMenu = null;
+    }
+
     private closeMenuAndTooltip() {
         this.closeMenu();
         unsetTooltip(this.tooltip);
@@ -2124,8 +2141,16 @@ export class KupDataTable {
         return this.openedMenu != null;
     }
 
+    private isOpenedTotalMenu(): boolean {
+        return this.openedTotalMenu != null;
+    }
+
     private isOpenedMenuForColumn(column: string): boolean {
         return this.openedMenu === column;
+    }
+
+    private isOpenedTotalMenuForColumn(column: string): boolean {
+        return this.openedTotalMenu === column;
     }
 
     private onHeaderCellContextMenuOpen(e: MouseEvent, column: Column) {
@@ -2171,10 +2196,18 @@ export class KupDataTable {
         // Gets the path of the event (does not work in IE11 or previous)
         const eventPath = event.composedPath();
         let fromMenu = false;
+        let fromTotalMenu = false;
         let fromSameTable = false;
 
         // Examine the path
         for (let elem of eventPath) {
+            // TODO When the footer is considered stable please do this in another dedicated method
+            // check if is the open menu button the element which fired the event
+            // TODO Maybe a better approach would be to use the blur event in order to hide the menu
+            if ((elem as HTMLElement).id === totalMenuOpenID) {
+                return;
+            }
+
             // If we encounter our table we can stop looping the elements
             if (elem === this.tableAreaRef) {
                 fromSameTable = true;
@@ -2189,11 +2222,26 @@ export class KupDataTable {
             ) {
                 fromMenu = true;
             }
+
+            // TODO When the footer is considered stable please do this in another dedicated method
+            // If the event comes from a menu of the table footer
+            if (
+                this.isHTMLElementFromEventTarget(elem) &&
+                elem.classList &&
+                elem.classList.contains('total-menu')
+            ) {
+                fromTotalMenu = true;
+            }
         }
 
         // When we have an open menu and the event does NOT come from the same table, we close the menu.
         if (this.isOpenedMenu() && !(fromMenu && fromSameTable)) {
             this.closeMenuAndTooltip();
+        }
+
+        // TODO When the footer is considered stable please do this in another dedicated method
+        if (this.isOpenedTotalMenu() && !(fromTotalMenu && fromSameTable)) {
+            this.closeTotalMenu();
         }
     }
 
@@ -3149,8 +3197,6 @@ export class KupDataTable {
                 // https://html.spec.whatwg.org/multipage/dnd.html#concept-dnd-p
                 const dragHandlers: DragHandlers = {
                     onDragStart: (e: DragEvent) => {
-                        // console.log('onDragStart', e);
-
                         // Sets the type of drag
                         setDragEffectAllowed(e, 'move');
 
@@ -3175,7 +3221,6 @@ export class KupDataTable {
                         // replace the used flags set with attribute
                     },
                     onDragEnd: (e: DragEvent) => {
-                        // console.log("onDragEnd" , e);
                         // When the drag has ended, checks if the element still exists or it was destroyed by JSX
                         const targetElement = e.target as HTMLElement;
                         if (targetElement) {
@@ -3199,7 +3244,6 @@ export class KupDataTable {
                 };
                 const dropHandlers: DropHandlers = {
                     onDrop: (e: DragEvent) => {
-                        // console.log("onDrop" , e);
                         const transferredData = JSON.parse(
                             e.dataTransfer.getData(KupDataTableColumnDragType)
                         ) as Column;
@@ -3209,7 +3253,6 @@ export class KupDataTable {
                         return KupDataTableColumnDragType;
                     },
                     onDragLeave: (e: DragEvent) => {
-                        // console.log("onDragLeave" , e);
                         if (
                             e.dataTransfer.types.indexOf(
                                 KupDataTableColumnDragType
@@ -3222,7 +3265,6 @@ export class KupDataTable {
                         }
                     },
                     onDragOver: (e: DragEvent) => {
-                        // console.log("onDragOver" , e);
                         if (
                             e.dataTransfer.types.indexOf(
                                 KupDataTableColumnDragType
@@ -3418,84 +3460,45 @@ export class KupDataTable {
         return this.totals && this.totals[column.name] ? true : false;
     }
 
-    renderTotalsComboBox(column: Column) {
-        // TODO Manage the label with different languages
-        // and move this object into declaration
-        let menu;
-        if (isNumber(column.obj)) {
-            menu = {
-                [TotalMode.COUNT]: {
-                    label: 'Conta',
-                },
-                [TotalMode.SUM]: {
-                    label: 'Somma',
-                },
-                [TotalMode.AVERAGE]: {
-                    label: 'Media',
-                },
-            };
-        } else {
-            menu = {
-                [TotalMode.COUNT]: {
-                    label: 'Conta',
-                },
-            };
+    onTotalsChange(event, column) {
+        // close menu
+        this.closeTotalMenu();
+        if (column) {
+            // must do this
+            // otherwise does not fire the watcher
+            const totalsCopy = { ...this.totals };
+            const value = event.detail.selected.value;
+            if (value === TotalLabel.CANC) {
+                if (this.totals && this.totals[column.name]) {
+                    delete totalsCopy[column.name];
+                }
+            } else {
+                totalsCopy[column.name] = value;
+            }
+            this.totals = totalsCopy;
         }
-
-        if (!this.areTotalsSelected(column)) {
-            menu['Calcola'] = {
-                label: 'Calcola',
-                selected: true,
-                hidden: true,
-            };
-        } else {
-            this.setSelectedMenu(menu, column.name);
-        }
-
-        return (
-            <select
-                class="totals-select"
-                onInput={(event) => this.onTotalsChange(event, column)}
-            >
-                {Object.keys(menu).map((key) => {
-                    const m = menu[key];
-                    return (
-                        <option
-                            value={key}
-                            selected={m.selected ? true : false}
-                            hidden={m.hidden ? true : false}
-                        >
-                            {m.label}
-                        </option>
-                    );
-                })}
-            </select>
-        );
     }
 
-    // TODO replace any with the correct type using TotalMode
-    setSelectedMenu(menu: any, name: string) {
-        const totalValue = this.totals[name];
-        if (totalValue) {
-            if (totalValue.startsWith(TotalMode.MATH)) {
-                menu[TotalMode.MATH] = {
-                    label: 'Formula',
-                    selected: true,
-                };
-            } else if (menu[totalValue]) {
-                menu[totalValue].selected = true;
+    private totalMenuPosition() {
+        if (this.rootElement.shadowRoot) {
+            let menu: HTMLElement = this.rootElement.shadowRoot.querySelector(
+                '.total-menu'
+            );
+            if (menu) {
+                let wrapper = menu.parentElement.querySelector(
+                    '#' + totalMenuOpenID
+                ) as HTMLElement;
+                positionRecalc(menu, wrapper, 10, true);
+                menu.classList.add('dynamic-position-active');
+                menu.classList.add('visible');
             }
         }
     }
 
-    onTotalsChange(event, column) {
-        if (column) {
-            // must do this
-            // otherwise the watcher does not fire
-            const totalsCopy = { ...this.totals };
-            totalsCopy[column.name] = event.target.value;
-            this.totals = totalsCopy;
-        }
+    private onTotalMenuOpen(column: Column) {
+        this.closeMenuAndTooltip();
+        this.closeTotalMenu();
+        this.openTotalMenu(column);
     }
 
     renderFooter() {
@@ -3538,6 +3541,95 @@ export class KupDataTable {
                     extraCells
                 );
 
+                let totalMenu = undefined;
+                // TODO Manage the label with different languages
+                let menuLabel = TotalLabel.CALC;
+                if (this.totals) {
+                    const totalValue = this.totals[column.name];
+                    if (totalValue) {
+                        if (totalValue.startsWith(TotalMode.MATH)) {
+                            menuLabel = TotalLabel.MATH;
+                        } else {
+                            switch (totalValue) {
+                                case TotalMode.COUNT:
+                                    menuLabel = TotalLabel.COUNT;
+                                    break;
+                                case TotalMode.SUM:
+                                    menuLabel = TotalLabel.SUM;
+                                    break;
+                                case TotalMode.AVERAGE:
+                                    menuLabel = TotalLabel.AVERAGE;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                if (this.isOpenedTotalMenuForColumn(column.name)) {
+                    let listData: ComponentListElement[] = [];
+                    if (isNumber(column.obj)) {
+                        // TODO Move these objects in declarations
+                        listData.push(
+                            {
+                                text: TotalLabel.COUNT,
+                                value: TotalMode.COUNT,
+                                selected: false,
+                            },
+                            {
+                                text: TotalLabel.SUM,
+                                value: TotalMode.SUM,
+                                selected: false,
+                            },
+                            {
+                                text: TotalLabel.AVERAGE,
+                                value: TotalMode.AVERAGE,
+                                selected: false,
+                            }
+                        );
+                    } else {
+                        listData.push({
+                            text: TotalLabel.COUNT,
+                            value: TotalMode.COUNT,
+                            selected: false,
+                        });
+                    }
+
+                    // TODO replace this with find which is a better approach
+                    // Note that this is not supported in older IE
+                    let selectedItem = listData.find(
+                        (item) => item.text === menuLabel
+                    );
+                    if (selectedItem) {
+                        selectedItem.selected = true;
+                        listData.push(
+                            {
+                                text: null,
+                                value: null,
+                                isSeparator: true,
+                            },
+                            {
+                                text: TotalLabel.CANC,
+                                value: TotalLabel.CANC,
+                                selected: false,
+                            }
+                        );
+                    }
+
+                    totalMenu = (
+                        <kup-list
+                            class={`kup-menu total-menu`}
+                            data={...listData}
+                            is-menu
+                            menu-visible
+                            onKupListClick={(event) =>
+                                this.onTotalsChange(event, column)
+                            }
+                        ></kup-list>
+                    );
+                }
+
                 return (
                     <td
                         class={
@@ -3552,8 +3644,15 @@ export class KupDataTable {
                                 : null
                         }
                     >
-                        {this.renderTotalsComboBox(column)}
-                        <span>
+                        <span
+                            class="totals-open"
+                            id={totalMenuOpenID}
+                            onClick={() => this.onTotalMenuOpen(column)}
+                        >
+                            {menuLabel}
+                        </span>
+                        {totalMenu}
+                        <span class="totals-value">
                             {numberToFormattedStringNumber(
                                 this.footer[column.name],
                                 column.decimals,
@@ -3976,8 +4075,6 @@ export class KupDataTable {
 
             const dragHandlersRow: DragHandlers = {
                 onDragStart: (e: DragEvent) => {
-                    // console.log('onDragStart', e.target);
-
                     // get the tr tag
                     const trElement = e.target as HTMLTableRowElement;
                     let cell = {};
@@ -4036,7 +4133,6 @@ export class KupDataTable {
                     }
                 },
                 onDragEnd: (_e: DragEvent) => {
-                    // console.log('onDragEnd', e);
                     // Remove the over class
                     const dragDropPayload = getDragDropPayload();
                     if (dragDropPayload && dragDropPayload.overElement) {

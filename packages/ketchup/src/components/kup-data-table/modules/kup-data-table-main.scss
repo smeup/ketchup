@@ -536,17 +536,21 @@ th.obj:hover span:not(.overlay-action) {
   opacity: 0.5;
 }
 
-.totals-select {
-  background: none;
-  border: none;
-  color: var(--kup-text-color);
-  outline: none;
-}
-
 .hidden {
   opacity: 0;
   transition: opacity 200ms;
   &:hover {
     opacity: 1;
   }
+}
+
+.totals-open {
+  cursor: pointer;
+  opacity: 0.5;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+.totals-value {
+  font-weight: bold;
 }
