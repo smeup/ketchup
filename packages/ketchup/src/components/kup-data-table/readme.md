@@ -101,7 +101,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kupOptionClicked`       | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
 | `kupResetSelectedRows`   | When rows selections reset                     | `CustomEvent<{}>`                                                                                             |
 | `kupRowActionClicked`    | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
-| `kupRowSelected`         | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedColumn: string; }>`                                                |
+| `kupRowSelected`         | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedRow: Row; clickedColumn: string; }>`                               |
 
 
 ## Methods
