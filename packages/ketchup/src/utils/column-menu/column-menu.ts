@@ -234,6 +234,7 @@ export class ColumnMenu {
                     fullWidth: true,
                     icon: 'magnify',
                     id: 'filter',
+                    initialValue: filterInitialValue,
                     isClearable: true,
                     label: 'Search...',
                 },
@@ -323,6 +324,7 @@ export class ColumnMenu {
         value: string,
         column: Column
     ): void {
+        console.log('ok');
         if (!this.isTree(comp)) {
             comp.resetCurrentPage();
         }
