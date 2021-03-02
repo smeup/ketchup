@@ -17,13 +17,13 @@ import { GenericObject } from '../../types/GenericTypes';
 import { unsetTooltip } from '../helpers';
 import { isCheckbox, isStringObject } from '../object-utils';
 import { positionRecalc } from '../recalc-position';
-import { ColumnMenuFilters } from './column-menu-filters';
+import { FiltersColumnMenu } from '../filters/filters-column-menu';
 /**
  * Definition and events of the column menu card.
  * @module ColumnMenu
  */
 export class ColumnMenu {
-    filters = new ColumnMenuFilters();
+    filters = new FiltersColumnMenu();
     /**
      * Function used to check whether the component is a KupTree or KupDataTable.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
@@ -325,14 +325,14 @@ export class ColumnMenu {
     ): void {
         if (!this.isTree(comp)) {
             comp.resetCurrentPage();
-            let newFilter = '';
-            if (value) {
-                newFilter = normalizeValue(value.trim(), column.obj);
-            }
-            const newFilters: GenericFilter = { ...comp.filters };
-            setTextFieldFilterValue(newFilters, column.name, newFilter);
-            comp.filters = newFilters;
         }
+        let newFilter = '';
+        if (value) {
+            newFilter = normalizeValue(value.trim(), column.obj);
+        }
+        const newFilters: GenericFilter = { ...comp.filters };
+        setTextFieldFilterValue(newFilters, column.name, newFilter);
+        comp.filters = newFilters;
     }
     /**
      * Triggered when the checkbox list changes.
@@ -349,25 +349,25 @@ export class ColumnMenu {
     ): void {
         if (!this.isTree(comp)) {
             comp.resetCurrentPage();
-
-            const newFilters = { ...comp.filters };
-
-            if (checked || filterValue == null) {
-                this.filters.addCheckboxFilter(
-                    newFilters,
-                    column.name,
-                    filterValue
-                );
-            } else {
-                this.filters.removeCheckboxFilter(
-                    newFilters,
-                    column.name,
-                    filterValue
-                );
-            }
-
-            comp.filters = newFilters;
         }
+
+        const newFilters = { ...comp.filters };
+
+        if (checked || filterValue == null) {
+            this.filters.addCheckboxFilter(
+                newFilters,
+                column.name,
+                filterValue
+            );
+        } else {
+            this.filters.removeCheckboxFilter(
+                newFilters,
+                column.name,
+                filterValue
+            );
+        }
+
+        comp.filters = newFilters;
     }
     /**
      * Toggles the grouping of the given column.

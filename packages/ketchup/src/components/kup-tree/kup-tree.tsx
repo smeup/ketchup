@@ -55,7 +55,7 @@ import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { getCellType } from '../../utils/cell-utils';
 import { stringToNumber } from '../../utils/utils';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
-import { ColumnMenuFilters } from '../../utils/column-menu/column-menu-filters';
+import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 
 @Component({
     tag: 'kup-tree',
@@ -234,7 +234,7 @@ export class KupTree {
     private tooltip: KupTooltip;
     columnFilterTimeout: number;
     private columnMenuInstance: ColumnMenu;
-    private columnMenuFiltersInstance: ColumnMenuFilters;
+    private filtersColumnMenuInstance: FiltersColumnMenu;
 
     //-------- Events --------
     /**
@@ -460,7 +460,7 @@ export class KupTree {
         logLoad(this, false);
         setThemeCustomStyle(this);
         this.columnMenuInstance = new ColumnMenu();
-        this.columnMenuFiltersInstance = new ColumnMenuFilters();
+        this.filtersColumnMenuInstance = new FiltersColumnMenu();
 
         this.refreshStructureState();
 
@@ -852,7 +852,7 @@ export class KupTree {
     }
 
     getCheckBoxFilterValues(column: string): Array<string> {
-        return this.columnMenuFiltersInstance.getCheckBoxFilterValues(
+        return this.filtersColumnMenuInstance.getCheckBoxFilterValues(
             this.filters,
             column
         );
@@ -860,7 +860,7 @@ export class KupTree {
 
     private getIntervalTextFieldFilterValues(column: Column): Array<string> {
         if (
-            !this.columnMenuFiltersInstance.hasIntervalTextFieldFilterValues(
+            !this.filtersColumnMenuInstance.hasIntervalTextFieldFilterValues(
                 this.filters,
                 column
             )
@@ -875,7 +875,7 @@ export class KupTree {
     ): { value: string; displayedValue: string }[] {
         let values: { value: string; displayedValue: string }[] = new Array();
 
-        let value = this.columnMenuFiltersInstance.getTextFilterValue(
+        let value = this.filtersColumnMenuInstance.getTextFilterValue(
             this.filters,
             column.name
         );

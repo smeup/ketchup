@@ -135,9 +135,9 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
-import { FilterInterval } from '../../utils/column-menu/column-menu-declarations';
+import { FilterInterval } from '../../utils/filters/filters-declarations';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
-import { ColumnMenuFilters } from '../../utils/column-menu/column-menu-filters';
+import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 
 @Component({
     tag: 'kup-data-table',
@@ -640,7 +640,7 @@ export class KupDataTable {
     private resizeTimeout: number;
     private resObserver: ResizeObserver = undefined;
     private columnMenuInstance: ColumnMenu;
-    private columnMenuFiltersInstance: ColumnMenuFilters;
+    private filtersColumnMenuInstance: FiltersColumnMenu;
 
     /**
      * When component unload is complete
@@ -1130,7 +1130,7 @@ export class KupDataTable {
         logLoad(this, false);
         this.identifyAndInitRows();
         this.columnMenuInstance = new ColumnMenu();
-        this.columnMenuFiltersInstance = new ColumnMenuFilters();
+        this.filtersColumnMenuInstance = new FiltersColumnMenu();
 
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
@@ -1333,7 +1333,7 @@ export class KupDataTable {
     ): { value: string; displayedValue: string }[] {
         let values: { value: string; displayedValue: string }[] = new Array();
 
-        let value = this.columnMenuFiltersInstance.getTextFilterValue(
+        let value = this.filtersColumnMenuInstance.getTextFilterValue(
             this.filters,
             column.name
         );
@@ -1783,7 +1783,7 @@ export class KupDataTable {
 
     private getIntervalTextFieldFilterValues(column: Column): Array<string> {
         if (
-            !this.columnMenuFiltersInstance.hasIntervalTextFieldFilterValues(
+            !this.filtersColumnMenuInstance.hasIntervalTextFieldFilterValues(
                 this.filters,
                 column
             )
@@ -1794,14 +1794,14 @@ export class KupDataTable {
     }
 
     getCheckBoxFilterValues(column: string): Array<string> {
-        return this.columnMenuFiltersInstance.getCheckBoxFilterValues(
+        return this.filtersColumnMenuInstance.getCheckBoxFilterValues(
             this.filters,
             column
         );
     }
 
     private getFilterValueForTooltip(column: Column): string {
-        let txtFilter = this.columnMenuFiltersInstance.getTextFilterValue(
+        let txtFilter = this.filtersColumnMenuInstance.getTextFilterValue(
             this.filters,
             column.name
         );
@@ -2767,7 +2767,7 @@ export class KupDataTable {
                 let filter = null;
 
                 if (
-                    this.columnMenuFiltersInstance.hasFiltersForColumn(
+                    this.filtersColumnMenuInstance.hasFiltersForColumn(
                         this.filters,
                         column
                     )

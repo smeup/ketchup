@@ -7,13 +7,14 @@ import {
     getIntervalTextFieldFilterValue,
     isColumnFiltrableByInterval,
 } from '../../components/kup-data-table/kup-data-table-helper';
-import { FilterInterval } from './column-menu-declarations';
+import { Filters } from './filters';
+import { FilterInterval } from './filters-declarations';
 /**
- * Event handling of the column menu card.
- * @module ColumnMenuFilters
- * @todo Should contain EVERY column-specific filtering method. Possibly it could extend a "Filter" class which contains methods used by other types of filtering (i.e.: global filters).
+ * Filtering algorithms related to column menus.
+ * @module FiltersColumnMenu
+ * @todo Should contain EVERY column-specific filtering method.
  */
-export class ColumnMenuFilters {
+export class FiltersColumnMenu extends Filters {
     /**
      * Gets the value of the filter prop.
      * @param {GenericFilter} filters - Filters of the component.
