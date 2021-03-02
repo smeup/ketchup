@@ -1217,16 +1217,6 @@ export class KupDataTable {
 
     componentWillLoad() {
         logLoad(this, false);
-        this.identifyAndInitRows();
-
-        if (document.querySelectorAll('.header')[0]) {
-            this.navBarHeight = document.querySelectorAll(
-                '.header'
-            )[0].clientHeight;
-        } else {
-            this.navBarHeight = 0;
-        }
-        this.setObserver();
 
         this.isRestoringState = true;
         // *** Store
@@ -1237,7 +1227,21 @@ export class KupDataTable {
         }
         this.currentRowsPerPage = this.rowsPerPage;
         this.isRestoringState = false;
-        this.recalculateRows();
+
+        //this.identifyAndInitRows();
+        identify(this.getRows());
+        this.expandGroupsHandler();
+
+        if (document.querySelectorAll('.header')[0]) {
+            this.navBarHeight = document.querySelectorAll(
+                '.header'
+            )[0].clientHeight;
+        } else {
+            this.navBarHeight = 0;
+        }
+        this.setObserver();
+
+        //this.recalculateRows();
 
         setThemeCustomStyle(this);
 
@@ -3562,18 +3566,14 @@ export class KupDataTable {
                         if (totalValue.startsWith(TotalMode.MATH)) {
                             menuLabel = TotalLabel.MATH;
                         } else {
-                            switch (totalValue) {
-                                case TotalMode.COUNT:
-                                    menuLabel = TotalLabel.COUNT;
-                                    break;
-                                case TotalMode.SUM:
-                                    menuLabel = TotalLabel.SUM;
-                                    break;
-                                case TotalMode.AVERAGE:
-                                    menuLabel = TotalLabel.AVERAGE;
-                                    break;
-                                default:
-                                    break;
+                            if (totalValue.startsWith(TotalMode.COUNT)) {
+                                menuLabel = TotalLabel.COUNT;
+                            } else if (totalValue.startsWith(TotalMode.SUM)) {
+                                menuLabel = TotalLabel.SUM;
+                            } else if (
+                                totalValue.startsWith(TotalMode.AVERAGE)
+                            ) {
+                                menuLabel = TotalLabel.AVERAGE;
                             }
                         }
                     }
