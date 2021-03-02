@@ -164,6 +164,7 @@ graph TD;
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-card
   kup-data-table --> kup-badge
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
@@ -184,10 +185,20 @@ graph TD;
   kup-tree --> kup-radio
   kup-tree --> kup-tooltip
   kup-tree --> kup-text-field
+  kup-tree --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
+  kup-card --> kup-chip
+  kup-card --> kup-button
+  kup-card --> kup-badge
+  kup-card --> kup-progress-bar
+  kup-card --> kup-chart
+  kup-card --> kup-checkbox
+  kup-card --> kup-date-picker
+  kup-card --> kup-text-field
+  kup-card --> kup-time-picker
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px

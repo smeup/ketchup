@@ -19,10 +19,10 @@
 
 ## Events
 
-| Event          | Description | Type                                                |
-| -------------- | ----------- | --------------------------------------------------- |
-| `kupCardClick` |             | `CustomEvent<{ id: any; }>`                         |
-| `kupCardEvent` |             | `CustomEvent<{ id: any; value: any; event: any; }>` |
+| Event          | Description | Type                                          |
+| -------------- | ----------- | --------------------------------------------- |
+| `kupCardClick` |             | `CustomEvent<{ id: any; }>`                   |
+| `kupCardEvent` |             | `CustomEvent<{ card: KupCard; event: any; }>` |
 
 
 ## Methods
@@ -43,6 +43,8 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-data-table](../kup-data-table)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
@@ -51,6 +53,10 @@ Type: `Promise<void>`
 - [kup-badge](../kup-badge)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-chart](../kup-chart)
+- [kup-checkbox](../kup-checkbox)
+- [kup-date-picker](../kup-date-picker)
+- [kup-text-field](../kup-text-field)
+- [kup-time-picker](../kup-time-picker)
 
 ### Graph
 ```mermaid
@@ -60,10 +66,23 @@ graph TD;
   kup-card --> kup-badge
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
+  kup-card --> kup-checkbox
+  kup-card --> kup-date-picker
+  kup-card --> kup-text-field
+  kup-card --> kup-time-picker
   kup-chip --> kup-badge
   kup-badge --> kup-badge
   kup-button --> kup-badge
+  kup-date-picker --> kup-text-field
+  kup-date-picker --> kup-button
+  kup-time-picker --> kup-text-field
+  kup-time-picker --> kup-button
+  kup-time-picker --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
   kup-box --> kup-card
+  kup-data-table --> kup-card
+  kup-tree --> kup-card
   style kup-card fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

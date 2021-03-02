@@ -76,6 +76,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
 
 ### Depends on
@@ -90,6 +91,7 @@ graph TD;
   kup-date-picker --> kup-button
   kup-button --> kup-badge
   kup-badge --> kup-badge
+  kup-card --> kup-date-picker
   kup-data-table --> kup-date-picker
   style kup-date-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```

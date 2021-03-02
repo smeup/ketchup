@@ -22,12 +22,11 @@
 
 ## Events
 
-| Event               | Description                                       | Type                                                |
-| ------------------- | ------------------------------------------------- | --------------------------------------------------- |
-| `kupCheckboxBlur`   | Triggered when the input element loses focus.     | `CustomEvent<{ value: string; checked: boolean; }>` |
-| `kupCheckboxChange` | Triggered when the input element's value changes. | `CustomEvent<{ value: string; checked: boolean; }>` |
-| `kupCheckboxClick`  | Triggered when the input element is clicked.      | `CustomEvent<{ value: string; checked: boolean; }>` |
-| `kupCheckboxFocus`  | Triggered when the input element gets focused.    | `CustomEvent<{ value: string; checked: boolean; }>` |
+| Event               | Description                                       | Type                                                            |
+| ------------------- | ------------------------------------------------- | --------------------------------------------------------------- |
+| `kupCheckboxBlur`   | Triggered when the input element loses focus.     | `CustomEvent<{ id: string; checked: boolean; value: string; }>` |
+| `kupCheckboxChange` | Triggered when the input element's value changes. | `CustomEvent<{ id: string; checked: boolean; value: string; }>` |
+| `kupCheckboxFocus`  | Triggered when the input element gets focused.    | `CustomEvent<{ id: string; checked: boolean; value: string; }>` |
 
 
 ## Methods
@@ -49,6 +48,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
  - [kup-list](../kup-list)
  - [kup-tree](../kup-tree)
@@ -57,6 +57,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-box --> kup-checkbox
+  kup-card --> kup-checkbox
   kup-data-table --> kup-checkbox
   kup-list --> kup-checkbox
   kup-tree --> kup-checkbox
