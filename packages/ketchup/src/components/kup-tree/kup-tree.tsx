@@ -55,11 +55,7 @@ import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { getCellType } from '../../utils/cell-utils';
 import { stringToNumber } from '../../utils/utils';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
-import {
-    getCheckBoxFilterValues,
-    getTextFilterValue,
-    hasIntervalTextFieldFilterValues,
-} from '../../utils/column-menu/column-menu-filters';
+import { ColumnMenuFilters } from '../../utils/column-menu/column-menu-filters';
 
 @Component({
     tag: 'kup-tree',
@@ -238,6 +234,7 @@ export class KupTree {
     private tooltip: KupTooltip;
     columnFilterTimeout: number;
     private columnMenuInstance: ColumnMenu;
+    private columnMenuFiltersInstance: ColumnMenuFilters;
 
     //-------- Events --------
     /**
@@ -463,6 +460,7 @@ export class KupTree {
         logLoad(this, false);
         setThemeCustomStyle(this);
         this.columnMenuInstance = new ColumnMenu();
+        this.columnMenuFiltersInstance = new ColumnMenuFilters();
 
         this.refreshStructureState();
 
@@ -854,11 +852,19 @@ export class KupTree {
     }
 
     getCheckBoxFilterValues(column: string): Array<string> {
-        return getCheckBoxFilterValues(this.filters, column);
+        return this.columnMenuFiltersInstance.getCheckBoxFilterValues(
+            this.filters,
+            column
+        );
     }
 
     private getIntervalTextFieldFilterValues(column: Column): Array<string> {
-        if (!hasIntervalTextFieldFilterValues(this.filters, column)) {
+        if (
+            !this.columnMenuFiltersInstance.hasIntervalTextFieldFilterValues(
+                this.filters,
+                column
+            )
+        ) {
             return ['', ''];
         }
         return getIntervalTextFieldFilterValues(this.filters, column.name);
@@ -869,7 +875,10 @@ export class KupTree {
     ): { value: string; displayedValue: string }[] {
         let values: { value: string; displayedValue: string }[] = new Array();
 
-        let value = getTextFilterValue(this.filters, column.name);
+        let value = this.columnMenuFiltersInstance.getTextFilterValue(
+            this.filters,
+            column.name
+        );
         let interval = this.getIntervalTextFieldFilterValues(column);
         if (
             column.valuesForFilter != null &&
@@ -1843,7 +1852,7 @@ export class KupTree {
                     {tooltip}
                     {this.openedMenu ? (
                         <kup-card
-                            data={this.columnMenuInstance.prepareData(
+                            data={this.columnMenuInstance.prepData(
                                 this,
                                 getColumnByName(
                                     this.getVisibleColumns(),

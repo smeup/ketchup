@@ -53,12 +53,8 @@ import {
 } from '../../utils/filters';
 import { logMessage } from '../../utils/debug-manager';
 import { DropHandlers, setDragDropPayload } from '../../utils/drag-and-drop';
-import {
-    getCheckBoxFilterValues,
-    getTextFilterValue,
-    hasFiltersForColumn,
-} from '../../utils/column-menu/column-menu-filters';
 import { FilterInterval } from '../../utils/column-menu/column-menu-declarations';
+import { ColumnMenuFilters } from '../../utils/column-menu/column-menu-filters';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -177,6 +173,7 @@ function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
 
 //-------- FILTER FUNCTIONS --------
 export function hasFilters(filters: GenericFilter = {}, columns: Column[]) {
+    const columnMenuFilters = new ColumnMenuFilters();
     if (filters == null) {
         return false;
     }
@@ -187,7 +184,7 @@ export function hasFilters(filters: GenericFilter = {}, columns: Column[]) {
     for (let i = 0; i < keys.length; i++) {
         let key = keys[i];
         const col = getColumnByName(columns, key);
-        if (hasFiltersForColumn(filters, col)) {
+        if (columnMenuFilters.hasFiltersForColumn(filters, col)) {
             return true;
         }
     }
@@ -336,6 +333,7 @@ export function isRowCompliant(
     isUsingGlobalFilter: boolean = false,
     columns: Column[] = []
 ) {
+    const columnMenuFilters = new ColumnMenuFilters();
     if (isUsingGlobalFilter) {
         let retValue = true;
         // There are no columns -> display element
@@ -382,7 +380,7 @@ export function isRowCompliant(
             return false;
         }
 
-        let filterValue = getTextFilterValue(filters, key);
+        let filterValue = columnMenuFilters.getTextFilterValue(filters, key);
         let interval = getIntervalTextFieldFilterValues(filters, key);
 
         const _filterIsNegative: boolean = filterIsNegative(filterValue);
@@ -407,7 +405,10 @@ export function isRowCompliant(
             }
         }
 
-        let filterValues = getCheckBoxFilterValues(filters, key);
+        let filterValues = columnMenuFilters.getCheckBoxFilterValues(
+            filters,
+            key
+        );
         if (filterValues.length == 0) {
             continue;
         }

@@ -135,14 +135,9 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
-import {
-    getCheckBoxFilterValues,
-    getTextFilterValue,
-    hasFiltersForColumn,
-    hasIntervalTextFieldFilterValues,
-} from '../../utils/column-menu/column-menu-filters';
 import { FilterInterval } from '../../utils/column-menu/column-menu-declarations';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
+import { ColumnMenuFilters } from '../../utils/column-menu/column-menu-filters';
 
 @Component({
     tag: 'kup-data-table',
@@ -645,6 +640,7 @@ export class KupDataTable {
     private resizeTimeout: number;
     private resObserver: ResizeObserver = undefined;
     private columnMenuInstance: ColumnMenu;
+    private columnMenuFiltersInstance: ColumnMenuFilters;
 
     /**
      * When component unload is complete
@@ -1134,6 +1130,7 @@ export class KupDataTable {
         logLoad(this, false);
         this.identifyAndInitRows();
         this.columnMenuInstance = new ColumnMenu();
+        this.columnMenuFiltersInstance = new ColumnMenuFilters();
 
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
@@ -1336,7 +1333,10 @@ export class KupDataTable {
     ): { value: string; displayedValue: string }[] {
         let values: { value: string; displayedValue: string }[] = new Array();
 
-        let value = getTextFilterValue(this.filters, column.name);
+        let value = this.columnMenuFiltersInstance.getTextFilterValue(
+            this.filters,
+            column.name
+        );
         let interval = this.getIntervalTextFieldFilterValues(column);
         if (
             column.valuesForFilter != null &&
@@ -1782,18 +1782,29 @@ export class KupDataTable {
     }
 
     private getIntervalTextFieldFilterValues(column: Column): Array<string> {
-        if (!hasIntervalTextFieldFilterValues(this.filters, column)) {
+        if (
+            !this.columnMenuFiltersInstance.hasIntervalTextFieldFilterValues(
+                this.filters,
+                column
+            )
+        ) {
             return ['', ''];
         }
         return getIntervalTextFieldFilterValues(this.filters, column.name);
     }
 
     getCheckBoxFilterValues(column: string): Array<string> {
-        return getCheckBoxFilterValues(this.filters, column);
+        return this.columnMenuFiltersInstance.getCheckBoxFilterValues(
+            this.filters,
+            column
+        );
     }
 
     private getFilterValueForTooltip(column: Column): string {
-        let txtFilter = getTextFilterValue(this.filters, column.name);
+        let txtFilter = this.columnMenuFiltersInstance.getTextFilterValue(
+            this.filters,
+            column.name
+        );
         let interval = this.getIntervalTextFieldFilterValues(column);
         let chkFilters = this.getCheckBoxFilterValues(column.name);
 
@@ -2755,7 +2766,12 @@ export class KupDataTable {
                 //---- Filter ----
                 let filter = null;
 
-                if (hasFiltersForColumn(this.filters, column)) {
+                if (
+                    this.columnMenuFiltersInstance.hasFiltersForColumn(
+                        this.filters,
+                        column
+                    )
+                ) {
                     const svgLabel = `Remove filter(s): '${this.getFilterValueForTooltip(
                         column
                     )}'`;
@@ -4782,7 +4798,7 @@ export class KupDataTable {
                     {tooltip}
                     {this.openedMenu ? (
                         <kup-card
-                            data={this.columnMenuInstance.prepareData(
+                            data={this.columnMenuInstance.prepData(
                                 this,
                                 getColumnByName(
                                     this.getVisibleColumns(),
