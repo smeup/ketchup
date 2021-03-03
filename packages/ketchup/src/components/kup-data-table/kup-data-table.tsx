@@ -217,7 +217,6 @@ export class KupDataTable {
             this.state.lazyLoadRows = this.lazyLoadRows;
             this.state.loadMoreLimit = this.loadMoreLimit;
             this.state.multiSelection = this.multiSelection;
-            //this.state.rowsPerPage = this.rowsPerPage;
             this.state.rowsPerPage = this.currentRowsPerPage;
             this.state.showFilters = this.showFilters;
             this.state.showHeader = this.showHeader;
