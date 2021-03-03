@@ -3630,14 +3630,19 @@ export class KupDataTable {
                     );
                 }
 
+                let footerClasses = {};
+                if (fixedCellStyle) {
+                    if (fixedCellStyle.fixedCellClasses) {
+                        footerClasses = fixedCellStyle.fixedCellClasses;
+                    }
+                }
+                if (!this.areTotalsSelected(column)) {
+                    footerClasses['hidden'] = true;
+                }
+
                 return (
                     <td
-                        class={
-                            (fixedCellStyle
-                                ? fixedCellStyle.fixedCellClasses
-                                : '') +
-                            (this.areTotalsSelected(column) ? '' : ' hidden')
-                        }
+                        class={footerClasses}
                         style={
                             fixedCellStyle
                                 ? fixedCellStyle.fixedCellStyle
