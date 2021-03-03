@@ -876,15 +876,15 @@ export class KupBox {
 
     // render methods
     private renderSectionAsCard(row: BoxRow) {
-        let emptyEl: string | GenericObject;
+        let emptyEl: string[] | GenericObject[];
         let cardData: CardData = {
             button: [],
             chart: [],
+            checkbox: [],
+            chip: [],
             color: [],
             image: [],
             progressbar: [],
-            checkbox: [],
-            chip: [],
             text: [],
             textfield: [],
         };
@@ -934,67 +934,70 @@ export class KupBox {
         for (var key in row.cells) {
             if (row.cells.hasOwnProperty(key)) {
                 var cell = row.cells[key];
-                switch (cell.obj.p) {
-                    case 'BTN':
-                        emptyEl = cardData.button.filter(function (x) {
-                            return x === {};
-                        });
-                        //If there are empty elements, the first one will be used
-                        if (emptyEl[0]) {
-                            emptyEl[0] = {
-                                label: cell.value,
-                            };
-                            //Otherwise a new element will be pushed
-                        } else {
-                            cardData.button.push({
-                                label: cell.value,
+                if (!cell.cardID) {
+                    console.log('d');
+                    switch (cell.obj.p) {
+                        case 'BTN':
+                            emptyEl = cardData.button.filter(function (x) {
+                                return x === {};
                             });
-                        }
-                        break;
-                    case 'IMG':
-                        emptyEl = cardData.image.filter(function (x) {
-                            return x === {};
-                        });
-                        //If there are empty elements, the first one will be used
-                        if (emptyEl[0]) {
-                            emptyEl[0] = {
-                                resource: cell.value,
-                            };
-                            //Otherwise a new element will be pushed
-                        } else {
-                            cardData.image.push({
-                                resource: cell.value,
+                            //If there are empty elements, the first one will be used
+                            if (emptyEl[0]) {
+                                emptyEl[0] = {
+                                    label: cell.value,
+                                };
+                                //Otherwise a new element will be pushed
+                            } else {
+                                cardData.button.push({
+                                    label: cell.value,
+                                });
+                            }
+                            break;
+                        case 'IMG':
+                            emptyEl = cardData.image.filter(function (x) {
+                                return x === {};
                             });
-                        }
-                        break;
-                    case 'PGB':
-                        emptyEl = cardData.progressbar.filter(function (x) {
-                            return x === {};
-                        });
-                        //If there are empty elements, the first one will be used
-                        if (emptyEl[0]) {
-                            emptyEl[0] = {
-                                value: cell.value,
-                            };
-                            //Otherwise a new element will be pushed
-                        } else {
-                            cardData.progressbar.push({
-                                value: cell.value,
+                            //If there are empty elements, the first one will be used
+                            if (emptyEl[0]) {
+                                emptyEl[0] = {
+                                    resource: cell.value,
+                                };
+                                //Otherwise a new element will be pushed
+                            } else {
+                                cardData.image.push({
+                                    resource: cell.value,
+                                });
+                            }
+                            break;
+                        case 'PGB':
+                            emptyEl = cardData.progressbar.filter(function (x) {
+                                return x === {};
                             });
-                        }
-                        break;
-                    default:
-                        emptyEl = cardData.text.filter(function (x) {
-                            return x === '';
-                        });
-                        //If there are empty elements, the first one will be used
-                        if (emptyEl[0]) {
-                            emptyEl[0] = cell.value;
-                            //Otherwise a new element will be pushed
-                        } else {
-                            cardData.text.push(cell.value);
-                        }
-                        break;
+                            //If there are empty elements, the first one will be used
+                            if (emptyEl[0]) {
+                                emptyEl[0] = {
+                                    value: cell.value,
+                                };
+                                //Otherwise a new element will be pushed
+                            } else {
+                                cardData.progressbar.push({
+                                    value: cell.value,
+                                });
+                            }
+                            break;
+                        default:
+                            emptyEl = cardData.text.filter(function (x) {
+                                return x === '';
+                            });
+                            //If there are empty elements, the first one will be used
+                            if (emptyEl[0]) {
+                                emptyEl[0] = cell.value;
+                                //Otherwise a new element will be pushed
+                            } else {
+                                cardData.text.push(cell.value);
+                            }
+                            break;
+                    }
                 }
             }
         }

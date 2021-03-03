@@ -3,15 +3,15 @@ import { GenericObject } from '../../types/GenericTypes';
  * Data prop of the kup-card component.
  */
 export interface CardData {
-    button: GenericObject[];
-    chart: GenericObject[];
-    checkbox: GenericObject[];
-    chip: GenericObject[];
-    color: string[];
-    image: GenericObject[];
-    progressbar: GenericObject[];
-    text: string[];
-    textfield: GenericObject[];
+    button?: GenericObject[];
+    chart?: GenericObject[];
+    checkbox?: GenericObject[];
+    chip?: GenericObject[];
+    color?: string[];
+    image?: GenericObject[];
+    progressbar?: GenericObject[];
+    text?: string[];
+    textfield?: GenericObject[];
 }
 /**
  * Layout families of the kup-card component.

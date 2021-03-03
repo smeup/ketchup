@@ -18,6 +18,7 @@ import { unsetTooltip } from '../helpers';
 import { isCheckbox, isStringObject } from '../object-utils';
 import { positionRecalc } from '../recalc-position';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
+import { CardData } from '../../components/kup-card/kup-card-declarations';
 /**
  * Definition and events of the column menu card.
  * @module ColumnMenu
@@ -89,15 +90,14 @@ export class ColumnMenu {
      * @param {Column} column - Column of the menu.
      * @returns {GenericObject} 'data' prop of the column menu card.
      */
-    prepData(comp: KupDataTable | KupTree, column: Column): GenericObject {
-        let cardData: GenericObject = {
+    prepData(comp: KupDataTable | KupTree, column: Column): CardData {
+        return {
             button: this.prepButton(comp, column),
             checkbox: this.prepCheckbox(comp, column),
             textfield: !isColumnFiltrableByInterval(column)
                 ? this.prepTextfield(comp, column)
                 : [],
         };
-        return cardData;
     }
     /**
      * Handles the column menu's button prop.
