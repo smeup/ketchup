@@ -324,7 +324,6 @@ export class ColumnMenu {
         value: string,
         column: Column
     ): void {
-        console.log('ok');
         if (!this.isTree(comp)) {
             comp.resetCurrentPage();
         }
