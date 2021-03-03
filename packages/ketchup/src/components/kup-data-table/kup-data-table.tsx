@@ -1204,7 +1204,20 @@ export class KupDataTable {
 
     componentWillLoad() {
         logLoad(this, false);
-        this.identifyAndInitRows();
+
+        this.isRestoringState = true;
+        // *** Store
+        this.initWithPersistedState();
+        // ***
+        if (this.pageSelected > 0) {
+            this.currentPage = this.pageSelected;
+        }
+        this.currentRowsPerPage = this.rowsPerPage;
+        this.isRestoringState = false;        
+
+        //this.identifyAndInitRows();
+        identify(this.getRows());
+        this.expandGroupsHandler();        
 
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
@@ -1215,16 +1228,7 @@ export class KupDataTable {
         }
         this.setObserver();
 
-        this.isRestoringState = true;
-        // *** Store
-        this.initWithPersistedState();
-        // ***
-        if (this.pageSelected > 0) {
-            this.currentPage = this.pageSelected;
-        }
-        this.currentRowsPerPage = this.rowsPerPage;
-        this.isRestoringState = false;
-        this.recalculateRows();
+        //this.recalculateRows();
 
         setThemeCustomStyle(this);
 
