@@ -890,7 +890,10 @@ export function fillString(
     }
 }
 
-export function deepEqual(object1, object2) {
+export function deepEqual(object1, object2): boolean {
+    if (!(isObject(object1) && isObject(object2))) {
+        return object1 === object2;
+    }
     const keys1 = Object.keys(object1);
     const keys2 = Object.keys(object2);
 
@@ -913,6 +916,6 @@ export function deepEqual(object1, object2) {
     return true;
 }
 
-export function isObject(object) {
+export function isObject(object): boolean {
     return object != null && typeof object === 'object';
 }
