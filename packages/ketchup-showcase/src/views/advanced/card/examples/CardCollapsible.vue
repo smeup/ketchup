@@ -19,16 +19,17 @@
     </p>
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 1</span> settings:
+        <span class="code-word">Layout 1</span> configuration:
         <br />
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the side bar.
+        <span class="code-word">- color[0]</span>: Sets the color of the side
+        bar.
         <br />
-        <span class="code-word">- chip1</span>: Chips displayed after clicking
+        <span class="code-word">- chip[0]</span>: Chips displayed after clicking
         on the bottom bar.
         <br />
-        <span class="code-word">- text1, text2, text3</span>: Generic text,
-        check the mock-up below to see how they are positioned.
+        <span class="code-word">- text[0 to 2]</span>: Generic text, check the
+        mock-up below to see how they are positioned.
         <br />
       </p>
       <br />
@@ -46,20 +47,20 @@
     </div>
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 2</span> settings:
+        <span class="code-word">Layout 2</span> configuration:
         <br />
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the elements
-        placed in the top right corner.
+        <span class="code-word">- color[0]</span>: Sets the color of the
+        elements placed in the top right corner.
         <br />
-        <span class="code-word">- chip1</span>: Chips displayed after clicking
+        <span class="code-word">- chip[0]</span>: Chips displayed after clicking
         on the bottom bar.
         <br />
-        <span class="code-word">- image1</span>: Image on the top right corner,
-        colored with color1.
+        <span class="code-word">- image[0]</span>: Image on the top right
+        corner.
         <br />
-        <span class="code-word">- text1, text2, text3</span>: Generic text,
-        check the mock-up below to see how they are positioned.
+        <span class="code-word">- text[0 to 2]</span>: Generic text, check the
+        mock-up below to see how they are positioned.
         <br />
       </p>
       <br />
@@ -84,10 +85,10 @@ export default {
   data() {
     return {
       data: {
-        button: [{ icon: 'widgets', flat: true, title: 'button1' }],
+        button: [{ icon: 'widgets', flat: true, title: 'button[0]' }],
         chip: [
           {
-            title: 'chip1',
+            title: 'chip[0]',
             data: [
               {
                 value: '1_chip',
@@ -157,7 +158,7 @@ export default {
                 height: '100%',
               },
             ],
-            title: 'image1',
+            title: 'image[0]',
           },
           {
             data: [
@@ -168,11 +169,18 @@ export default {
                 height: '100%',
               },
             ],
-            title: 'image2',
+            title: 'image[1]',
           },
         ],
-        progressbar: [{ value: 50, title: 'progressBar1' }],
-        text: ['text1', 'text2', 'text3', 'text4', 'text5', 'text6'],
+        progressbar: [{ value: 50, title: 'progressbar[0]' }],
+        text: [
+          'text[0]',
+          'text[1]',
+          'text[2]',
+          'text[3]',
+          'text[4]',
+          'text[5]',
+        ],
       },
     };
   },

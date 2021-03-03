@@ -2,21 +2,20 @@
   <div>
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 1</span> settings:
+        <span class="code-word">Layout 1</span> configuration:
         <br />
         <br />
-        <span class="code-word"
-          >- button1, button2, button3, button4, button5</span
-        >: Actions, the action bar will be displayed only in presence of at
-        least 1 button. They will be arranged from left to right.
+        <span class="code-word">- button[0 to n]</span>: Actions, the action bar
+        will be displayed only in presence of at least 1 button. They will be
+        arranged from left to right.
         <br />
-        <span class="code-word">- image1</span>: Cover.
+        <span class="code-word">- image[0]</span>: Cover.
         <br />
-        <span class="code-word">- text1</span>: Title.
+        <span class="code-word">- text[0]</span>: Title.
         <br />
-        <span class="code-word">- text2</span>: Subtitle.
+        <span class="code-word">- text[1]</span>: Subtitle.
         <br />
-        <span class="code-word">- text3</span>: Description.
+        <span class="code-word">- text[2]</span>: Description.
       </p>
       <br />
       <div class="demo-container">
@@ -33,21 +32,20 @@
 
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 2</span> settings:
+        <span class="code-word">Layout 2</span> configuration:
         <br />
         <br />
-        <span class="code-word"
-          >- button1, button2, button3, button4, button5</span
-        >: Actions, the action bar will be displayed only in presence of at
-        least 1 button. They will be arranged from left to right.
+        <span class="code-word">- button[0 to n]</span>: Actions, the action bar
+        will be displayed only in presence of at least 1 button. They will be
+        arranged from left to right.
         <br />
-        <span class="code-word">- image1</span>: Cover.
+        <span class="code-word">- image[0]</span>: Cover.
         <br />
-        <span class="code-word">- text1</span>: Title.
+        <span class="code-word">- text[0]</span>: Title.
         <br />
-        <span class="code-word">- text2</span>: Subtitle.
+        <span class="code-word">- text[1]</span>: Subtitle.
         <br />
-        <span class="code-word">- text3</span>: Description.
+        <span class="code-word">- text[2]</span>: Description.
       </p>
       <br />
       <div class="demo-container">
@@ -64,21 +62,20 @@
 
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 3</span> settings:
+        <span class="code-word">Layout 3</span> configuration:
         <br />
         <br />
-        <span class="code-word"
-          >- button1, button2, button3, button4, button5</span
-        >: Actions, the action bar will be displayed only in presence of at
-        least 1 button. They will be arranged from left to right.
+        <span class="code-word">- button[0 to n]</span>: Actions, the action bar
+        will be displayed only in presence of at least 1 button. They will be
+        arranged from left to right.
         <br />
-        <span class="code-word">- image1</span>: Cover.
+        <span class="code-word">- image[0]</span>: Cover.
         <br />
-        <span class="code-word">- text1</span>: Title.
+        <span class="code-word">- text[0]</span>: Title.
         <br />
-        <span class="code-word">- text2</span>: Subtitle.
+        <span class="code-word">- text[1]</span>: Subtitle.
         <br />
-        <span class="code-word">- text3</span>: Description.
+        <span class="code-word">- text[2]</span>: Description.
       </p>
       <br />
       <div class="demo-container">
@@ -95,19 +92,18 @@
 
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 4</span> settings:
+        <span class="code-word">Layout 4</span> configuration:
         <br />
         <br />
-        <span class="code-word"
-          >- button1, button2, button3, button4, button5</span
-        >: Actions, the action bar will be displayed only in presence of at
-        least 1 button. They will be arranged from left to right.
+        <span class="code-word">- button[0 to n]</span>: Actions, the action bar
+        will be displayed only in presence of at least 1 button. They will be
+        arranged from left to right.
         <br />
-        <span class="code-word">- image1</span>: Cover.
+        <span class="code-word">- image[0]</span>: Cover.
         <br />
-        <span class="code-word">- text1</span>: Title.
+        <span class="code-word">- text[0]</span>: Title.
         <br />
-        <span class="code-word">- text2</span>: Subtitle.
+        <span class="code-word">- text[1]</span>: Subtitle.
       </p>
       <br />
       <div class="demo-container">
@@ -124,26 +120,27 @@
 
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 5</span> settings:
+        <span class="code-word">Layout 5</span> configuration:
         <br />
         <br />
-        <span class="code-word">- button1</span>: Action button.
+        <span class="code-word">- button[0]</span>: Action button.
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the top bar
-        and of text4 and text6.
+        <span class="code-word">- color[0]</span>: Sets the color of top bar,
+        <span class="code-word">text[3]</span> and
+        <span class="code-word">text[5]</span>.
         <br />
-        <span class="code-word">- color2</span>: Sets the background color of
+        <span class="code-word">- color[1]</span>: Sets the background color of
         the bottom section.
         <br />
-        <span class="code-word">- image1</span>: Left image.
+        <span class="code-word">- image[0]</span>: Left image (smaller).
         <br />
-        <span class="code-word">- image2</span>: Right image.
+        <span class="code-word">- image[1]</span>: Right image (larger).
         <br />
-        <span class="code-word">- progressBar1</span>: Slim progress bar.
+        <span class="code-word">- progressbar[0]</span>: Slim progress bar.
         <br />
-        <span class="code-word">- text1, text2, text3, text4, text5, text6</span
-        >: Generic text, check the mock-up below to see how they are positioned.
-        <span class="code-word">text2</span> is colored with the primary color
+        <span class="code-word">- text[0 to 5]</span>: Generic text, check the
+        mock-up below to see how they are positioned.
+        <span class="code-word">text[1]</span> is colored with the primary color
         of the app.
         <br />
       </p>
@@ -162,18 +159,19 @@
 
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 6</span> settings:
+        <span class="code-word">Layout 6</span> configuration:
         <br />
         <br />
-        <span class="code-word">- button1</span>: Action button.
+        <span class="code-word">- button[0]</span>: Action button.
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the left bar.
+        <span class="code-word">- color[0]</span>: Sets the color of the left
+        bar.
         <br />
-        <span class="code-word">- progressBar1</span>: Radial progress bar.
+        <span class="code-word">- progressbar[0]</span>: Radial progress bar.
         <br />
-        <span class="code-word">- text1, text2</span>: Generic text, check the
+        <span class="code-word">- text[0 to 1]</span>: Generic text, check the
         mock-up below to see how they are positioned.
-        <span class="code-word">text1</span> will be white.
+        <span class="code-word">text[0]</span> will be white.
         <br />
       </p>
       <br />
@@ -190,15 +188,16 @@
     </div>
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 7</span> settings:
+        <span class="code-word">Layout 7</span> configuration:
         <br />
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the top bar..
+        <span class="code-word">- color[0]</span>: Sets the color of the top
+        bar.
         <br />
-        <span class="code-word">- image1</span>: Avatar.
+        <span class="code-word">- image[0]</span>: Image.
         <br />
-        <span class="code-word">- text1, text2, text3</span>: Generic text,
-        check the mock-up below to see how they are positioned.
+        <span class="code-word">- text[0 to 2]</span>: Generic text, check the
+        mock-up below to see how they are positioned.
         <br />
       </p>
       <br />
@@ -216,20 +215,20 @@
 
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 8</span> settings:
+        <span class="code-word">Layout 8</span> configuration:
         <br />
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the elements
-        placed in the top right corner and the color of the background, its
-        opacity will be set to 10%.
+        <span class="code-word">- color[0]</span>: Sets the color of
+        <span class="code-word">text[2]</span> and the color of the background
+        (its opacity will be set to 10%).
         <br />
-        <span class="code-word">- chip1</span>: Chips.
+        <span class="code-word">- chip[0]</span>: Chips.
         <br />
-        <span class="code-word">- image1</span>: Image on the top right corner,
-        colored with color1.
+        <span class="code-word">- image[0]</span>: Image on the top right
+        corner.
         <br />
-        <span class="code-word">- text1, text2, text3</span>: Generic text,
-        check the mock-up below to see how they are positioned.
+        <span class="code-word">- text[0 to 2]</span>: Generic text, check the
+        mock-up below to see how they are positioned.
         <br />
       </p>
       <br />
@@ -247,18 +246,18 @@
 
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 9</span> settings:
+        <span class="code-word">Layout 9</span> configuration:
         <br />
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the icon.
+        <span class="code-word">- color[0]</span>: Sets the color of the icon.
         <br />
-        <span class="code-word">- chart1</span>: Chart on the right.
+        <span class="code-word">- chart[0]</span>: Chart on the right.
         <br />
-        <span class="code-word">- image1</span>: Image on the left, colored with
-        color1.
+        <span class="code-word">- image[0]</span>: Image on the left, colored
+        with color1.
         <br />
-        <span class="code-word">- text1, text2, text3</span>: Generic text,
-        check the mock-up below to see how they are positioned.
+        <span class="code-word">- text[0 to 2]</span>: Generic text, check the
+        mock-up below to see how they are positioned.
         <br />
       </p>
       <br />
@@ -276,18 +275,18 @@
 
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 10</span> settings:
+        <span class="code-word">Layout 10</span> configuration:
         <br />
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the icon.
+        <span class="code-word">- color[0]</span>: Sets the color of the icon.
         <br />
-        <span class="code-word">- chart1</span>: Chart on the left.
+        <span class="code-word">- chart[0]</span>: Chart on the left.
         <br />
-        <span class="code-word">- image1</span>: Image on the right, colored
+        <span class="code-word">- image[0]</span>: Image on the right, colored
         with color1.
         <br />
-        <span class="code-word">- text1, text2, text3</span>: Generic text,
-        check the mock-up below to see how they are positioned.
+        <span class="code-word">- text[0 to 2]</span>: Generic text, check the
+        mock-up below to see how they are positioned.
         <br />
       </p>
       <br />
@@ -305,23 +304,26 @@
 
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 11</span> settings:
+        <span class="code-word">Layout 11</span> configuration:
         <br />
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the icon and
-        the color of the left bar.
+        <span class="code-word">- color[0]</span>: Sets the color of the icon
+        and the color of the left bar.
         <br />
-        <span class="code-word">- chart1</span>: Chart on the right.
+        <span class="code-word">- chart[0]</span>: Chart on the right.
         <br />
-        <span class="code-word">- image1</span>: Image on the left, hidden
-        unless mouse hovering text1. Colored with color1.
+        <span class="code-word">- image[0]</span>: Image on the left, hidden
+        unless mouse hovering <span class="code-word">text[0]</span>. Colored
+        with <span class="code-word">color[0]</span>.
         <br />
-        <span class="code-word">- text1</span>: Title, positioned vertically on
-        the left. On mouse hover, image1, text2 and text3 will be displayed.
-        Color is dynamic (black or white) depending on the contrast with color1.
+        <span class="code-word">- text[0 to 2]</span>:
+        <span class="code-word">text[0]</span> will be positioned vertically on
+        the left. On mouse hover, <span class="code-word">image[0]</span>,
+        <span class="code-word">text[1]</span> and
+        <span class="code-word">text[2]</span> will be displayed. Color is
+        dynamic (black or white) depending on the contrast with
+        <span class="code-word">color[0]</span>.
         <br />
-        <span class="code-word">- text2, text3</span>: Generic text, hidden
-        unless mouse hovering text1.
         <br />
       </p>
       <br />
@@ -331,6 +333,35 @@
             size-x="600px"
             size-y="150px"
             layout-number="11"
+            :data.prop="data"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 12</span> configuration:
+        <br />
+        <br />
+        <span class="code-word">- button[0 to n]</span>: Action list, displayed
+        above.
+        <br />
+        <span class="code-word">- checkbox[0 to n]</span>: Checkbox list, this
+        section will be scrollable with an height limit of 20vh in order to
+        avoid undesired sizes.
+        <br />
+        <span class="code-word">- textfield[0 to n]</span>: Textfield list.
+        <br />
+        <br />
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            size-x="300px"
+            size-y="300px"
+            layout-number="12"
             :data.prop="data"
           ></kup-card>
         </div>
@@ -347,24 +378,52 @@ export default {
     return {
       data: {
         button: [
-          { icon: 'widgets', flat: true, title: 'button1' },
-          { icon: 'widgets', flat: true, title: 'button2' },
-          { icon: 'widgets', flat: true, title: 'button3' },
-          { icon: 'widgets', flat: true, title: 'button4' },
-          { icon: 'widgets', flat: true, title: 'button5' },
+          { icon: 'widgets', flat: true, title: 'button[0]' },
+          { icon: 'widgets', flat: true, title: 'button[1]' },
+          { icon: 'widgets', flat: true, title: 'button[2]' },
         ],
         chart: [
           {
-            title: 'chart1',
+            title: 'chart[0]',
             data: baseData,
             series: ['Col2', 'Col3', 'Col4'],
             axis: 'Col1',
             offlineMode: { value: '1;7;-5;6;10;-5;3;4', shape: 'line' },
           },
         ],
+        checkbox: [
+          {
+            label: 'checkbox[0]',
+            title: 'checkbox[0]',
+          },
+          {
+            label: 'checkbox[1]',
+            title: 'checkbox[1]',
+          },
+          {
+            label: 'checkbox[2]',
+            title: 'checkbox[2]',
+          },
+          {
+            label: 'checkbox[3]',
+            title: 'checkbox[3]',
+          },
+          {
+            label: 'checkbox[4]',
+            title: 'checkbox[4]',
+          },
+          {
+            label: 'checkbox[5]',
+            title: 'checkbox[5]',
+          },
+          {
+            label: 'checkbox[6]',
+            title: 'checkbox[6]',
+          },
+        ],
         chip: [
           {
-            title: 'chip1',
+            title: 'chip[0]',
             data: [
               {
                 value: '1_chip',
@@ -434,7 +493,7 @@ export default {
                 height: '100%',
               },
             ],
-            title: 'image1',
+            title: 'image[0]',
           },
           {
             data: [
@@ -445,11 +504,27 @@ export default {
                 height: '100%',
               },
             ],
-            title: 'image2',
+            title: 'image[1]',
           },
         ],
-        progressbar: [{ value: 50, title: 'progressbar1' }],
-        text: ['text1', 'text2', 'text3', 'text4', 'text5', 'text6'],
+        progressbar: [{ value: 50, title: 'progressbar[0]' }],
+        text: [
+          'text[0]',
+          'text[1]',
+          'text[2]',
+          'text[3]',
+          'text[4]',
+          'text[5]',
+        ],
+        textfield: [
+          {
+            fullWidth: true,
+            icon: 'widgets',
+            isClearable: true,
+            label: 'textfield[0]',
+            title: 'textfield[0]',
+          },
+        ],
       },
     };
   },

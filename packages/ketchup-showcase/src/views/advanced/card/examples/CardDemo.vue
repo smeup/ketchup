@@ -37,14 +37,14 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
           prop: 'data',
           description: 'The actual data of the card.',
-          type: 'ComponentCardElement',
-          default: 'undefined',
+          type: 'CardData',
+          default: 'null',
           try: 'json',
         },
         {
@@ -58,7 +58,7 @@ export default {
           prop: 'layoutFamily',
           description:
             'Sets the type of the card. Currently supported values: "collapsible", "scalable", "standard".',
-          type: 'string',
+          type: 'CardFamily',
           default: 'standard',
           try: 'field',
         },
@@ -120,6 +120,36 @@ function createComp() {
         series: ['Col2', 'Col3', 'Col4'],
         axis: 'Col1',
         offlineMode: { value: '1;7;-5;6;10;-5;3;4', shape: 'line' },
+      },
+    ],
+    checkbox: [
+      {
+        label: 'checkbox[0]',
+        title: 'checkbox[0]',
+      },
+      {
+        label: 'checkbox[1]',
+        title: 'checkbox[1]',
+      },
+      {
+        label: 'checkbox[2]',
+        title: 'checkbox[2]',
+      },
+      {
+        label: 'checkbox[3]',
+        title: 'checkbox[3]',
+      },
+      {
+        label: 'checkbox[4]',
+        title: 'checkbox[4]',
+      },
+      {
+        label: 'checkbox[5]',
+        title: 'checkbox[5]',
+      },
+      {
+        label: 'checkbox[6]',
+        title: 'checkbox[6]',
       },
     ],
     chip: [
@@ -198,6 +228,15 @@ function createComp() {
       'Text #4',
       'Text #5',
       'Text #6',
+    ],
+    textfield: [
+      {
+        fullWidth: true,
+        icon: 'widgets',
+        isClearable: true,
+        label: 'textfield[0]',
+        title: 'textfield[0]',
+      },
     ],
   };
   comp.id = 'demo-component';
