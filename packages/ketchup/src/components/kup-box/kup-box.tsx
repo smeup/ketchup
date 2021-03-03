@@ -242,6 +242,10 @@ export class KupBox {
      */
     @Prop() tooltipDetailTimeout: number;
     /**
+     * Enable show tooltip
+     */
+    @Prop() tooltipEnabled: boolean = true;
+    /**
      * Defines the timeout for tooltip load
      */
     @Prop() tooltipLoadTimeout: number;
@@ -1526,6 +1530,9 @@ export class KupBox {
     }
 
     renderTooltip() {
+        if (this.tooltipEnabled == false) {
+            return null;
+        }
         return (
             <kup-tooltip
                 class="box-tooltip"

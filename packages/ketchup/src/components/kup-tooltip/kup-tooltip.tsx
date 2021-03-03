@@ -542,6 +542,8 @@ export class KupTooltip {
                     showFilter={true}
                     {...this.cellOptions.config}
                     {...this.cellOptions}
+                    /** not managed yet, in this release
+                     *  //tooltipEnabled={false} */
                 ></kup-tree>,
             ];
         }

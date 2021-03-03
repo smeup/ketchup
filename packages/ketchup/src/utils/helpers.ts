@@ -63,5 +63,8 @@ export function setTooltip(event: MouseEvent, cell: Cell, tooltip: KupTooltip) {
 }
 
 export function unsetTooltip(tooltip: KupTooltip) {
+    if (tooltip == null) {
+        return;
+    }
     tooltip.unsetTooltipInfo();
 }
