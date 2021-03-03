@@ -46,7 +46,6 @@ export async function runRecalc(el: HTMLElement, above?: boolean) {
     let offsetH: number = el.clientHeight;
     let offsetW: number = el.clientWidth;
     const rect = el.anchorEl.getBoundingClientRect();
-
     el.style.top = ``;
     el.style.right = ``;
     el.style.bottom = ``;

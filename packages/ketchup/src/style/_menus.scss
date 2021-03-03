@@ -8,7 +8,10 @@ div.mdc-menu {
   max-height: 40vh;
   opacity: 0;
   position: relative;
+  transform: none;
+  transform-origin: unset;
   transition: height 0.2s;
+  will-change: unset;
   &.visible {
     display: block;
     opacity: 1;

@@ -17,9 +17,14 @@
 
   .section-2 {
     display: flex;
+    flex-direction: column;
     &.has-content {
       border-bottom: 1px solid var(--kup-border-color);
       padding: 0.5em 0.5em;
+    }
+    kup-date-picker:first-of-type,
+    kup-time-picker:first-of-type {
+      margin-bottom: 0.5em;
     }
   }
 
