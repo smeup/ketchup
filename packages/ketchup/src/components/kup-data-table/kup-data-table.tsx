@@ -48,7 +48,6 @@ import { isRating, isGauge, isKnob, getCellType } from '../../utils/cell-utils';
 import {
     calcTotals,
     compareValues,
-    normalizeTotals,
     normalizeRows,
     filterRows,
     getColumnByName,
@@ -1534,7 +1533,7 @@ export class KupDataTable {
 
         this.footer = calcTotals(
             normalizeRows(this.getColumns(), this.rows),
-            normalizeTotals(this.getColumns(), this.totals)
+            this.totals
         );
 
         this.groupRows();
@@ -1578,8 +1577,7 @@ export class KupDataTable {
     }
 
     private hasTotals() {
-        const realtotals = normalizeTotals(this.getColumns(), this.totals);
-        return realtotals && Object.keys(realtotals).length > 0;
+        return this.totals && Object.keys(this.totals).length > 0;
     }
 
     /**
@@ -2307,7 +2305,7 @@ export class KupDataTable {
             this.getColumns(),
             this.rows,
             this.groups,
-            normalizeTotals(this.getColumns(), this.totals)
+            this.totals
         );
 
         this.adjustGroupState();

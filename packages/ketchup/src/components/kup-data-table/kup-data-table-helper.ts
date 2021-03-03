@@ -1095,37 +1095,6 @@ export function normalizeRows(
     }
 }
 
-export function normalizeTotals(
-    columns: Array<Column>,
-    totals: TotalsMap
-): TotalsMap {
-    if (isEmpty(columns) || isEmpty(totals)) {
-        return {};
-    }
-
-    let rettotals: TotalsMap = {};
-    const k = Object.keys(totals);
-
-    k.forEach((key) => {
-        if (key === '*ALL') {
-            columns.forEach((c) => {
-                if (isNumber(c.obj)) {
-                    let colCustomTotal: TotalMode = totals[c.name];
-                    if (colCustomTotal != null) {
-                        rettotals[c.name] = colCustomTotal;
-                    } else {
-                        rettotals[c.name] = totals[key];
-                    }
-                }
-            });
-        } else {
-            rettotals[key] = totals[key];
-        }
-    });
-
-    return rettotals;
-}
-
 export function calcTotals(
     rows: Array<Row> = [],
     totals: { [index: string]: TotalMode } = {}
