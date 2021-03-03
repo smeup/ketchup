@@ -16,7 +16,7 @@ import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
 import { MDCRipple } from '@material/ripple';
-import { ComponentCardElement } from './kup-card-declarations';
+import { CardData, CardFamily } from './kup-card-declarations';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import {
     setThemeCustomStyle,
@@ -24,7 +24,7 @@ import {
     colorContrast,
 } from '../../utils/theme-manager';
 import { FImage } from '../../f-components/f-image/f-image';
-import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
+import { VNode } from 'vue/types/umd';
 
 @Component({
     tag: 'kup-card',
@@ -32,49 +32,89 @@ import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
     shadow: true,
 })
 export class KupCard {
+    /**
+     * References the root HTML element of the component (<kup-card>).
+     */
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
+
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
 
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+     * The component-specific CSS set by the current Ketch.UP theme.
+     * @default ""
      */
-    @Prop() customStyle: string = undefined;
+    @State() customStyleTheme: string = '';
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
+
+    /**
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     */
+    @Prop() customStyle: string = '';
     /**
      * The actual data of the card.
+     * @default null
      */
-    @Prop() data: ComponentCardElement = undefined;
+    @Prop() data: CardData = null;
     /**
      * Defines whether the card is a menu or not.
+     * Works together with menuVisible.
+     * @default false
      */
     @Prop() isMenu: boolean = false;
     /**
-     * Sets the type of the card. Currently supported values: "collapsible", "scalable", "standard".
+     * Sets the type of the card.
+     * @default CardFamily.STANDARD
      */
-    @Prop() layoutFamily: string = 'standard';
+    @Prop() layoutFamily: CardFamily = CardFamily.STANDARD;
     /**
      * Sets the number of the layout.
+     * @default 1
      */
     @Prop() layoutNumber: number = 1;
     /**
-     * Sets the status of the menu, when false it's hidden otherwise it's visible.
+     * Sets the status of the card as menu, when false it's hidden otherwise it's visible.
+     * Works together with isMenu.
+     * @default false
      */
     @Prop() menuVisible: boolean = false;
     /**
      * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+     * @default "100%"
      */
     @Prop() sizeX: string = '100%';
     /**
      * The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+     * @default "100%"
      */
     @Prop() sizeY: string = '100%';
 
-    private elStyle: {
-        [key: string]: string;
-    } = undefined;
-    private oldSizeY: string = undefined;
-    private scalingActive: boolean = false;
-    private resObserver: ResizeObserver = undefined;
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
+    private cardEvent: EventListenerOrEventListenerObject = (
+        e: CustomEvent
+    ) => {
+        this.onKupEvent(e);
+    };
+    private oldSizeY: string;
+    private resObserver: ResizeObserver;
+    private scalingActive: boolean = false;
+
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
+
+    /**
+     * Triggered when the card is clicked.
+     */
     @Event({
         eventName: 'kupCardClick',
         composed: true,
@@ -82,9 +122,11 @@ export class KupCard {
         bubbles: true,
     })
     kupClick: EventEmitter<{
-        id: any;
+        card: KupCard;
     }>;
-
+    /**
+     * Triggered when a sub-component of the card emits an event.
+     */
     @Event({
         eventName: 'kupCardEvent',
         composed: true,
@@ -96,20 +138,13 @@ export class KupCard {
         event: any;
     }>;
 
-    //---- Methods ----
-
-    @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
-
-    onKupClick() {
+    onKupClick(): void {
         this.kupClick.emit({
-            id: this.rootElement.id,
+            card: this,
         });
     }
 
-    onKupEvent(e) {
+    onKupEvent(e: CustomEvent): void {
         const root = this.rootElement.shadowRoot;
 
         if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
@@ -130,54 +165,100 @@ export class KupCard {
         });
     }
 
-    getLayout() {
-        let card: HTMLElement = undefined;
-        let method: string = 'create' + this.layoutNumber;
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
+    @Method()
+    async refreshCustomStyle(customStyleTheme: string): Promise<void> {
+        this.customStyleTheme = customStyleTheme;
+    }
+
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    /**
+     * This method is invoked by the layout manager when the layout family is collapsible.
+     * When the card is not expanded and the collapsible content fits the wrapper, the bottom bar won't be displayed.
+     */
+    collapsible(): void {
+        const root = this.rootElement.shadowRoot;
+        const el = root.querySelector('.collapsible-element');
+        const card = root.querySelector('.collapsible-card');
+        const wrapper = root.querySelector('.collapsible-wrapper');
+        if (!card.classList.contains('expanded')) {
+            if (el.clientHeight > wrapper.clientHeight) {
+                if (!card.classList.contains('collapsible-active')) {
+                    card.classList.add('collapsible-active');
+                }
+            } else {
+                if (card.classList.contains('collapsible-active')) {
+                    card.classList.remove('collapsible-active');
+                }
+            }
+        }
+    }
+    /**
+     * This method will return the virtual node of the card, selecting the correct layout through layoutFamily and layoutNumber.
+     * @returns {VNode} Virtual node of the card for the specified family layout and number.
+     */
+    getLayout(): VNode {
+        const family: string = this.layoutFamily.toLowerCase();
+        const method: string = 'create' + this.layoutNumber;
 
         try {
-            switch (this.layoutFamily) {
-                case 'collapsible': {
-                    card = collapsibleLayouts[method](this);
-                    break;
+            switch (family) {
+                case CardFamily.COLLAPSIBLE: {
+                    return collapsibleLayouts[method](this);
                 }
-                case 'scalable': {
-                    card = scalableLayouts[method](this);
-                    break;
+                case CardFamily.SCALABLE: {
+                    return scalableLayouts[method](this);
                 }
                 default:
-                case 'standard': {
-                    card = standardLayouts[method](this);
-                    break;
+                case CardFamily.STANDARD: {
+                    return standardLayouts[method](this);
                 }
             }
         } catch (error) {
+            logMessage(this, error, 'warning');
             let props = {
                 resource: 'warning',
                 title: 'Layout not yet implemented!',
             };
-            card = <FImage {...props}></FImage>;
+            return <FImage {...props}></FImage>;
         }
-
-        return card;
     }
-
-    layoutManager() {
-        const root = this.rootElement.shadowRoot;
-        let dynColors = root.querySelectorAll('.dyn-color');
-        for (let i = 0; i < dynColors.length; i++) {
+    /**
+     * This method will trigger whenever the card's render() hook occurs or when the size changes (through ResizeObserver), in order to manage the more complex layout families.
+     * It will also update any dynamic color handled by the selected layout.
+     */
+    layoutManager(): void {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        const family: string = this.layoutFamily.toLowerCase();
+        const dynColors: NodeListOf<HTMLElement> = root.querySelectorAll(
+            '.dyn-color'
+        );
+        for (let index = 0; index < dynColors.length; index++) {
             this.rootElement.style.setProperty(
-                '--dyn-color-' + i,
+                '--dyn-color-' + index,
                 colorContrast(
-                    window.getComputedStyle(dynColors[i]).backgroundColor
+                    window.getComputedStyle(dynColors[index]).backgroundColor
                 )
             );
         }
-
-        switch (this.layoutFamily) {
-            case 'collapsible':
+        switch (family) {
+            case CardFamily.COLLAPSIBLE:
                 this.collapsible();
                 break;
-            case 'scalable':
+            case CardFamily.SCALABLE:
                 if (!this.scalingActive) {
                     this.scalable();
                 }
@@ -186,105 +267,81 @@ export class KupCard {
                 break;
         }
     }
-
-    collapsible() {
+    /**
+     * Sets the event listeners on the sub-components, in order to properly emit the generic kupCardEvent.
+     */
+    registerListeners(): void {
         const root = this.rootElement.shadowRoot;
-        let collapsibleEl = root.querySelector('.collapsible-element');
-        let collapsibleCard = root.querySelector('.collapsible-card');
-        let collapsibleWrap = root.querySelector('.collapsible-wrapper');
-        if (!collapsibleCard.classList.contains('expanded')) {
-            if (collapsibleEl.clientHeight > collapsibleWrap.clientHeight) {
-                if (!collapsibleCard.classList.contains('collapsible-active')) {
-                    collapsibleCard.classList.add('collapsible-active');
-                }
-            } else {
-                if (collapsibleCard.classList.contains('collapsible-active')) {
-                    collapsibleCard.classList.remove('collapsible-active');
-                }
-            }
-        }
+        root.addEventListener('kupButtonClick', this.cardEvent);
+        root.addEventListener('kupCheckboxChange', this.cardEvent);
+        root.addEventListener('kupChipClick', this.cardEvent);
+        root.addEventListener('kupChipIconClick', this.cardEvent);
+        root.addEventListener('kupTextFieldClearIconClick', this.cardEvent);
+        root.addEventListener('kupTextFieldInput', this.cardEvent);
+        root.addEventListener('kupTextFieldSubmit', this.cardEvent);
     }
-
-    async scalable() {
+    /**
+     * This method is invoked by the layout manager when the layout family is scalable.
+     * The content of the card (.scalable-element) will be resized to fit the wrapper (.scalable-card).
+     * The scaling is performed by using a CSS variable (--multiplier) which will impact the card's font-size.
+     * When there is empty space, the multiplier will be increased, as will the content.
+     * Viceversa, when the content exceeds the boundaries, the multiplier will be decreased.
+     */
+    scalable(): void {
         this.scalingActive = true;
         const root: ShadowRoot = this.rootElement.shadowRoot;
-        let scalableEl: HTMLElement = root.querySelector('.scalable-element');
-        let scalableCard: HTMLElement = root.querySelector('.scalable-card');
+        const el: HTMLElement = root.querySelector('.scalable-element');
+        const card: HTMLElement = root.querySelector('.scalable-card');
         let multiplierStep: number = 0.1;
         let multiplier: number = parseFloat(
-            scalableCard.style.getPropertyValue('--multiplier')
+            card.style.getPropertyValue('--multiplier')
         );
         if (multiplier < 0.1) {
             multiplier = 1;
         }
-        let cardHeight: number = (90 / 100) * scalableCard.clientHeight;
-        let cardWidthLow: number = (40 / 100) * scalableCard.clientWidth;
-        let cardWidthHigh: number = (75 / 100) * scalableCard.clientWidth;
+        /**
+         * cardHeight sets the maximum height of the content, when exceeded the multiplier will be reduced (90%).
+         */
+        let cardHeight: number = (90 / 100) * card.clientHeight;
+        /**
+         * cardWidthLow and cardWidthHigh will set the boundaries in which the component must fit (50% - 90%).
+         */
+        let cardWidthLow: number = (50 / 100) * card.clientWidth;
+        let cardWidthHigh: number = (90 / 100) * card.clientWidth;
         let tooManyAttempts: number = 2000;
-        //Cycle to adjust width
+        /**
+         * Cycle to adjust the width.
+         */
         do {
             tooManyAttempts--;
-            if (scalableEl.clientWidth < cardWidthLow) {
+            if (el.clientWidth < cardWidthLow) {
                 multiplier = multiplier + multiplierStep;
-                scalableCard.style.setProperty('--multiplier', multiplier + '');
-            } else if (scalableEl.clientWidth > cardWidthHigh) {
+                card.style.setProperty('--multiplier', multiplier + '');
+            } else if (el.clientWidth > cardWidthHigh) {
                 multiplier = multiplier - multiplierStep;
-                scalableCard.style.setProperty('--multiplier', multiplier + '');
+                card.style.setProperty('--multiplier', multiplier + '');
             } else {
                 tooManyAttempts = 0;
             }
         } while (
-            (scalableEl.clientWidth < cardWidthLow ||
-                scalableEl.clientWidth > cardWidthHigh) &&
+            (el.clientWidth < cardWidthLow || el.clientWidth > cardWidthHigh) &&
             tooManyAttempts > 0 &&
             multiplier > multiplierStep
         );
-        //Cycle to adjust height
+        /**
+         * Cycle to adjust the height, in case
+         */
         do {
             multiplier = multiplier - multiplierStep;
-            scalableCard.style.setProperty('--multiplier', multiplier + '');
-        } while (
-            scalableEl.clientHeight > cardHeight &&
-            multiplier > multiplierStep
-        );
+            card.style.setProperty('--multiplier', multiplier + '');
+        } while (el.clientHeight > cardHeight && multiplier > multiplierStep);
         this.scalingActive = false;
     }
-
-    listenButtonEvents(root: ShadowRoot) {
-        root.addEventListener('kupButtonClick', (e) => {
-            this.onKupEvent(e);
-        });
-    }
-
-    listenCheckboxEvents(root: ShadowRoot) {
-        root.addEventListener('kupCheckboxChange', (e) => {
-            this.onKupEvent(e);
-        });
-    }
-
-    listenChipEvents(root: ShadowRoot) {
-        root.addEventListener('kupChipClick', (e) => {
-            this.onKupEvent(e);
-        });
-        root.addEventListener('kupChipIconClick', (e) => {
-            this.onKupEvent(e);
-        });
-    }
-
-    listenTextFieldEvents(root: ShadowRoot) {
-        root.addEventListener('kupTextFieldClearIconClick', (e) => {
-            this.onKupEvent(e);
-        });
-        root.addEventListener('kupTextFieldInput', (e) => {
-            this.onKupEvent(e);
-        });
-        root.addEventListener('kupTextFieldSubmit', (e) => {
-            this.onKupEvent(e);
-        });
-    }
-
-    setObserver() {
-        let callback: ResizeObserverCallback = (
+    /**
+     * Sets the ResizeObserver in order to call layoutManager() when the size of the card changes.
+     */
+    setObserver(): void {
+        const callback: ResizeObserverCallback = (
             entries: ResizeObserverEntry[]
         ) => {
             entries.forEach((entry) => {
@@ -302,31 +359,25 @@ export class KupCard {
         this.resObserver = new ResizeObserver(callback);
     }
 
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
-        const root = this.rootElement.shadowRoot;
-
         logLoad(this, false);
-        this.setObserver();
         setThemeCustomStyle(this);
-
-        this.listenButtonEvents(root);
-        this.listenCheckboxEvents(root);
-        this.listenChipEvents(root);
-        this.listenTextFieldEvents(root);
+        this.setObserver();
+        this.registerListeners();
     }
 
     componentDidLoad() {
         this.resObserver.observe(this.rootElement);
-
-        let rippleEl: any = this.rootElement.shadowRoot.querySelector(
+        const rippleEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
             '.mdc-ripple-surface'
         );
         if (rippleEl) {
             MDCRipple.attachTo(rippleEl);
         }
-
         logLoad(this, true);
     }
 
@@ -340,51 +391,34 @@ export class KupCard {
     }
 
     render() {
-        if (
-            !this.data ||
-            !this.layoutNumber ||
-            !this.layoutFamily ||
-            this.layoutNumber < 1
-        ) {
-            let message = 'Data or layout information missing, not rendering!';
+        if (!this.data) {
+            const message = 'Data missing, not rendering!';
             logMessage(this, message, 'warning');
             return;
         }
-        let wrapperClass = undefined;
 
-        this.elStyle = undefined;
-        this.elStyle = {
-            height: this.sizeY,
-            minHeight: this.sizeY,
-            width: this.sizeX,
-            minWidth: this.sizeX,
+        const style = {
+            '--kup-card-height': this.sizeY ? this.sizeY : '100%',
+            '--kup-card-width': this.sizeX ? this.sizeX : '100%',
         };
 
-        if (this.isMenu) {
-            wrapperClass = 'mdc-menu mdc-menu-surface';
-
-            if (this.menuVisible) {
-                wrapperClass += ' visible';
-            }
-        }
-
-        let card = this.getLayout();
-
         return (
-            <Host style={this.elStyle}>
+            <Host style={style}>
                 <style>{setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
-                    class={wrapperClass}
+                    class={`${this.isMenu ? 'mdc-menu mdc-menu-surface' : ''} ${
+                        this.menuVisible ? 'visible' : ''
+                    }`}
                     onClick={() => this.onKupClick()}
                 >
-                    {card}
+                    {this.getLayout()}
                 </div>
             </Host>
         );
     }
 
-    disconnectedCallBack() {
+    componentDidUnload() {
         this.resObserver.unobserve(this.rootElement);
     }
 }

@@ -7,7 +7,7 @@
 
 | Property                 | Attribute                    | Description                                                                                                                              | Type      | Default  |
 | ------------------------ | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | --------- | -------- |
-| `customStyle`            | `custom-style`               | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                          | `string`  | `''`     |
+| `customStyle`            | `custom-style`               | Custom style of the component.                                                                                                           | `string`  | `''`     |
 | `disabled`               | `disabled`                   | When set to true, the component is disabled.                                                                                             | `boolean` | `false`  |
 | `emitSubmitEventOnEnter` | `emit-submit-event-on-enter` | When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.         | `boolean` | `true`   |
 | `fullWidth`              | `full-width`                 | When set to true, the component will be rendered at full width.                                                                          | `boolean` | `false`  |

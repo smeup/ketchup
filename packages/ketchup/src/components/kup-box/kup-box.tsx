@@ -64,7 +64,7 @@ import {
 
 const KupBoxDragType = 'text/kup-box-drag';
 
-import { ComponentCardElement } from '../kup-card/kup-card-declarations';
+import { CardData } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
@@ -147,7 +147,7 @@ export class KupBox {
     /**
      * Number of columns
      */
-    @Prop() cardData: ComponentCardElement = undefined;
+    @Prop() cardData: CardData = undefined;
     /**
      * Number of columns
      */

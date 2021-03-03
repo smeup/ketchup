@@ -45,8 +45,9 @@ export class KupChip {
     /*-------------------------------------------------*/
 
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
      * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -202,7 +203,7 @@ export class KupChip {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async refreshCustomStyle(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
     }
 

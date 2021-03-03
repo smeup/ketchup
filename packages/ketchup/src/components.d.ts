@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { ComponentCardElement } from "./components/kup-card/kup-card-declarations";
+import { CardData, CardFamily } from "./components/kup-card/kup-card-declarations";
 import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
@@ -95,7 +95,7 @@ export namespace Components {
         /**
           * Number of columns
          */
-        "cardData": ComponentCardElement;
+        "cardData": CardData;
         /**
           * Number of columns
          */
@@ -208,8 +208,9 @@ export namespace Components {
          */
         "checked": boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
           * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -270,36 +271,51 @@ export namespace Components {
     }
     interface KupCard {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
           * The actual data of the card.
+          * @default null
          */
-        "data": ComponentCardElement;
+        "data": CardData;
         /**
-          * Defines whether the card is a menu or not.
+          * Defines whether the card is a menu or not. Works together with menuVisible.
+          * @default false
          */
         "isMenu": boolean;
         /**
-          * Sets the type of the card. Currently supported values: "collapsible", "scalable", "standard".
+          * Sets the type of the card.
+          * @default CardFamily.STANDARD
          */
-        "layoutFamily": string;
+        "layoutFamily": CardFamily;
         /**
           * Sets the number of the layout.
+          * @default 1
          */
         "layoutNumber": number;
         /**
-          * Sets the status of the menu, when false it's hidden otherwise it's visible.
+          * Sets the status of the card as menu, when false it's hidden otherwise it's visible. Works together with isMenu.
+          * @default false
          */
         "menuVisible": boolean;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+          * @default "100%"
          */
         "sizeX": string;
         /**
           * The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default "100%"
          */
         "sizeY": string;
     }
@@ -381,8 +397,9 @@ export namespace Components {
          */
         "checked": boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
           * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -415,8 +432,9 @@ export namespace Components {
     }
     interface KupChip {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
           * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1069,8 +1087,9 @@ export namespace Components {
          */
         "color": string;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @default ''
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1422,8 +1441,9 @@ export namespace Components {
          */
         "checked": boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
           * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -1462,8 +1482,9 @@ export namespace Components {
     }
     interface KupTextField {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
           * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
         /**
@@ -2171,7 +2192,7 @@ declare namespace LocalJSX {
         /**
           * Number of columns
          */
-        "cardData"?: ComponentCardElement;
+        "cardData"?: CardData;
         /**
           * Number of columns
          */
@@ -2339,8 +2360,9 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
           * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -2434,42 +2456,57 @@ declare namespace LocalJSX {
     }
     interface KupCard {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
           * The actual data of the card.
+          * @default null
          */
-        "data"?: ComponentCardElement;
+        "data"?: CardData;
         /**
-          * Defines whether the card is a menu or not.
+          * Defines whether the card is a menu or not. Works together with menuVisible.
+          * @default false
          */
         "isMenu"?: boolean;
         /**
-          * Sets the type of the card. Currently supported values: "collapsible", "scalable", "standard".
+          * Sets the type of the card.
+          * @default CardFamily.STANDARD
          */
-        "layoutFamily"?: string;
+        "layoutFamily"?: CardFamily;
         /**
           * Sets the number of the layout.
+          * @default 1
          */
         "layoutNumber"?: number;
         /**
-          * Sets the status of the menu, when false it's hidden otherwise it's visible.
+          * Sets the status of the card as menu, when false it's hidden otherwise it's visible. Works together with isMenu.
+          * @default false
          */
         "menuVisible"?: boolean;
+        /**
+          * Triggered when the card is clicked.
+         */
         "onKupCardClick"?: (event: CustomEvent<{
-        id: any;
+        card: KupCard;
     }>) => void;
+        /**
+          * Triggered when a sub-component of the card emits an event.
+         */
         "onKupCardEvent"?: (event: CustomEvent<{
         card: KupCard;
         event: any;
     }>) => void;
         /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
+          * @default "100%"
          */
         "sizeX"?: string;
         /**
           * The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+          * @default "100%"
          */
         "sizeY"?: string;
     }
@@ -2554,8 +2591,9 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
           * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -2605,8 +2643,9 @@ declare namespace LocalJSX {
     }
     interface KupChip {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
           * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -3407,8 +3446,9 @@ declare namespace LocalJSX {
          */
         "color"?: string;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @default ''
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -3815,8 +3855,9 @@ declare namespace LocalJSX {
          */
         "checked"?: boolean;
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
           * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**
@@ -3883,8 +3924,9 @@ declare namespace LocalJSX {
     }
     interface KupTextField {
         /**
-          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * Custom style of the component.
           * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle"?: string;
         /**

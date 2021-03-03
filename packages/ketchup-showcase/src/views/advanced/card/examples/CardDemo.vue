@@ -203,6 +203,8 @@ function createComp() {
   comp.id = 'demo-component';
   comp.layoutFamily = 'standard';
   comp.layoutNumber = '1';
+  comp.sizeX = '100%';
+  comp.sizeY = '100%';
   return comp;
 }
 </script>

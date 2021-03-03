@@ -10,6 +10,10 @@
   font-size: var(--kup-font-size);
   outline: none;
   position: relative;
+  min-height: var(--kup-card-height);
+  height: var(--kup-card-height);
+  min-width: var(--kup-card-width);
+  width: var(--kup-card-width);
 }
 
 #kup-component {

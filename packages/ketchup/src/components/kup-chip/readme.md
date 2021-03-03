@@ -5,11 +5,11 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                     | Type                                                                            | Default              |
-| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | -------------------- |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                                                        | `''`                 |
-| `data`        | --             | List of elements.                                                                                               | `FChipData[]`                                                                   | `[]`                 |
-| `type`        | `type`         | The type of chip. Available types: input, filter, choice or empty for default.                                  | `FChipType.CHOICE \| FChipType.FILTER \| FChipType.INPUT \| FChipType.STANDARD` | `FChipType.STANDARD` |
+| Property      | Attribute      | Description                                                                    | Type                                                                            | Default              |
+| ------------- | -------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- | -------------------- |
+| `customStyle` | `custom-style` | Custom style of the component.                                                 | `string`                                                                        | `''`                 |
+| `data`        | --             | List of elements.                                                              | `FChipData[]`                                                                   | `[]`                 |
+| `type`        | `type`         | The type of chip. Available types: input, filter, choice or empty for default. | `FChipType.CHOICE \| FChipType.FILTER \| FChipType.INPUT \| FChipType.STANDARD` | `FChipType.STANDARD` |
 
 
 ## Events

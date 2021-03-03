@@ -46,8 +46,9 @@ export class KupTextField {
     /*-------------------------------------------------*/
 
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
      * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -141,7 +142,9 @@ export class KupTextField {
      */
     @Prop() trailingLabel: boolean = false;
 
-    //---- Internal variables ----
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
     /**
      * Reference to the input element.
@@ -343,21 +346,21 @@ export class KupTextField {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async refreshCustomStyle(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
     }
     /**
      * Focuses the input element.
      */
     @Method()
-    async setFocus() {
+    async setFocus(): Promise<void> {
         this.inputEl.focus();
     }
     /**
      * Sets the internal value of the component.
      */
     @Method()
-    async setValue(value: string) {
+    async setValue(value: string): Promise<void> {
         this.value = value;
         try {
             this.inputEl.value = value;
