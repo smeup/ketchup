@@ -75,6 +75,7 @@ import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { identify, stringToNumber } from '../../utils/utils';
 import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
+import { GenericObject } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kup-box',
@@ -147,7 +148,7 @@ export class KupBox {
     /**
      * Number of columns
      */
-    @Prop() cardData: CardData = undefined;
+    @Prop() cardData: GenericObject;
     /**
      * Number of columns
      */
@@ -875,11 +876,18 @@ export class KupBox {
 
     // render methods
     private renderSectionAsCard(row: BoxRow) {
-        let cntBTN: number = 0;
-        let cntIMG: number = 0;
-        let cntPGB: number = 0;
-        let cnt: number = 0;
-        let cardData = {};
+        let emptyEl: string | GenericObject;
+        let cardData: CardData = {
+            button: [],
+            chart: [],
+            color: [],
+            image: [],
+            progressbar: [],
+            checkbox: [],
+            chip: [],
+            text: [],
+            textfield: [],
+        };
 
         //First cycle sets specific binds between cardIDs and cells
         for (var key in row.cells) {
@@ -888,22 +896,34 @@ export class KupBox {
                 if (cell.cardID) {
                     switch (cell.obj.p) {
                         case 'BTN':
-                            cardData[cell.cardID] = {
+                            do {
+                                cardData.button.push({});
+                            } while (cardData.button.length < cell.cardID);
+                            cardData.button[cell.cardID] = {
                                 label: cell.value,
                             };
                             break;
                         case 'IMG':
-                            cardData[cell.cardID] = {
+                            do {
+                                cardData.image.push({});
+                            } while (cardData.image.length < cell.cardID);
+                            cardData.image[cell.cardID] = {
                                 resource: cell.value,
                             };
                             break;
                         case 'PGB':
-                            cardData[cell.cardID] = {
+                            do {
+                                cardData.progressbar.push({});
+                            } while (cardData.progressbar.length < cell.cardID);
+                            cardData.progressbar[cell.cardID] = {
                                 value: cell.value,
                             };
                             break;
                         default:
-                            cardData[cell.cardID] = cell.value;
+                            do {
+                                cardData.text.push('');
+                            } while (cardData.text.length < cell.cardID);
+                            cardData.text[cell.cardID] = cell.value;
                             break;
                     }
                 }
@@ -916,38 +936,64 @@ export class KupBox {
                 var cell = row.cells[key];
                 switch (cell.obj.p) {
                     case 'BTN':
-                        do {
-                            cntBTN++;
-                        } while (cardData['button' + cntBTN]);
-
-                        cardData['button' + cntBTN] = {
-                            label: cell.value,
-                        };
+                        emptyEl = cardData.button.filter(function (x) {
+                            return x === {};
+                        });
+                        //If there are empty elements, the first one will be used
+                        if (emptyEl[0]) {
+                            emptyEl[0] = {
+                                label: cell.value,
+                            };
+                            //Otherwise a new element will be pushed
+                        } else {
+                            cardData.button.push({
+                                label: cell.value,
+                            });
+                        }
                         break;
                     case 'IMG':
-                        do {
-                            cntIMG++;
-                        } while (cardData['image' + cntIMG]);
-
-                        cardData['image' + cntIMG] = {
-                            resource: cell.value,
-                        };
+                        emptyEl = cardData.image.filter(function (x) {
+                            return x === {};
+                        });
+                        //If there are empty elements, the first one will be used
+                        if (emptyEl[0]) {
+                            emptyEl[0] = {
+                                resource: cell.value,
+                            };
+                            //Otherwise a new element will be pushed
+                        } else {
+                            cardData.image.push({
+                                resource: cell.value,
+                            });
+                        }
                         break;
                     case 'PGB':
-                        do {
-                            cntPGB++;
-                        } while (cardData['progressBar' + cntPGB]);
-
-                        cardData['progressBar' + cntPGB] = {
-                            value: cell.value,
-                        };
+                        emptyEl = cardData.progressbar.filter(function (x) {
+                            return x === {};
+                        });
+                        //If there are empty elements, the first one will be used
+                        if (emptyEl[0]) {
+                            emptyEl[0] = {
+                                value: cell.value,
+                            };
+                            //Otherwise a new element will be pushed
+                        } else {
+                            cardData.progressbar.push({
+                                value: cell.value,
+                            });
+                        }
                         break;
                     default:
-                        do {
-                            cnt++;
-                        } while (cardData['text' + cnt]);
-
-                        cardData['text' + cnt] = cell.value;
+                        emptyEl = cardData.text.filter(function (x) {
+                            return x === '';
+                        });
+                        //If there are empty elements, the first one will be used
+                        if (emptyEl[0]) {
+                            emptyEl[0] = cell.value;
+                            //Otherwise a new element will be pushed
+                        } else {
+                            cardData.text.push(cell.value);
+                        }
                         break;
                 }
             }

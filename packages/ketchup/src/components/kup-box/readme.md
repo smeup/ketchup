@@ -9,7 +9,7 @@
 
 | Property                  | Attribute                     | Description                                                                                                     | Type                                       | Default     |
 | ------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
-| `cardData`                | --                            | Number of columns                                                                                               | `CardData`                                 | `undefined` |
+| `cardData`                | --                            | Number of columns                                                                                               | `GenericObject`                            | `undefined` |
 | `columns`                 | `columns`                     | Number of columns                                                                                               | `number`                                   | `1`         |
 | `customStyle`             | `custom-style`                | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                   | `undefined` |
 | `data`                    | --                            | Data                                                                                                            | `{ columns?: Column[]; rows?: BoxRow[]; }` | `undefined` |

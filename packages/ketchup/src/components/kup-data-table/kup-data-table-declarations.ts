@@ -20,7 +20,7 @@ export interface Cell {
     style?: GenericMap;
     shape?: string;
     data?: CellData;
-    cardID?: string;
+    cardID?: number;
     cssClass?: string;
     icon?: string;
     title?: string;

@@ -7,11 +7,12 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
 import { KupStore } from "./components/kup-state/kup-store";
-import { CardData, CardFamily } from "./components/kup-card/kup-card-declarations";
+import { GenericObject } from "./types/GenericTypes";
 import { Column, DataTable, GenericFilter, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
+import { CardData, CardFamily } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
 import { FChipData, FChipType } from "./f-components/f-chip/f-chip-declarations";
 import { CrudCallBackOnFormEventResult, CrudConfig, CrudRecord, CrudRecordsChanged } from "./components/kup-crud/kup-crud-declarations";
@@ -95,7 +96,7 @@ export namespace Components {
         /**
           * Number of columns
          */
-        "cardData": CardData;
+        "cardData": GenericObject;
         /**
           * Number of columns
          */
@@ -2192,7 +2193,7 @@ declare namespace LocalJSX {
         /**
           * Number of columns
          */
-        "cardData"?: CardData;
+        "cardData"?: GenericObject;
         /**
           * Number of columns
          */
