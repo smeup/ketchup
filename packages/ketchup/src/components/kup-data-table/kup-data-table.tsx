@@ -3529,7 +3529,30 @@ export class KupDataTable {
             );
         }
 
-        let groupingCell = null;
+        // Action cell
+        let actionsCell = null;
+        if (this.hasRowActions()) {
+            extraCells++;
+            const selectionStyleAndClass = this.composeFixedCellStyleAndClass(
+                extraCells,
+                0,
+                extraCells
+            );
+            actionsCell = (
+                <td
+                    class={
+                        selectionStyleAndClass
+                            ? selectionStyleAndClass.fixedCellClasses
+                            : {}
+                    }
+                    style={
+                        selectionStyleAndClass
+                            ? selectionStyleAndClass.fixedCellStyle
+                            : {}
+                    }
+                />
+            );
+        }
 
         const footerCells = this.getVisibleColumns().map(
             (column: Column, columnIndex) => {
@@ -3673,7 +3696,7 @@ export class KupDataTable {
             <tfoot>
                 <tr>
                     {selectRowCell}
-                    {groupingCell}
+                    {actionsCell}
                     {footerCells}
                 </tr>
             </tfoot>
