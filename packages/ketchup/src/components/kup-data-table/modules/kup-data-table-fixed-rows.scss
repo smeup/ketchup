@@ -18,9 +18,15 @@ $sticky-cell--row-z-index: 4;
   // For fixed headers, we must set a different background and place the correct z-index to prevent overlapping.
   thead &,
   tfoot & {
-    background-color: var(--kup-title-background-color);
-    color: var(--kup-title-color);
     z-index: #{$sticky-header--z-index};
+    &.th {
+      background-color: var(--kup-title-background-color);
+    }
+    &.td {
+      &:hover {
+        background-color: var(--kup-background-color);
+      }
+    }
   }
 }
 
