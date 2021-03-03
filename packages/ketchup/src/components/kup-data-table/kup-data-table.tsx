@@ -3550,14 +3550,18 @@ export class KupDataTable {
                         if (totalValue.startsWith(TotalMode.MATH)) {
                             menuLabel = TotalLabel.MATH;
                         } else {
-                            if (totalValue.startsWith(TotalMode.COUNT)) {
-                                menuLabel = TotalLabel.COUNT;
-                            } else if (totalValue.startsWith(TotalMode.SUM)) {
-                                menuLabel = TotalLabel.SUM;
-                            } else if (
-                                totalValue.startsWith(TotalMode.AVERAGE)
-                            ) {
-                                menuLabel = TotalLabel.AVERAGE;
+                            switch (totalValue) {
+                                case TotalMode.COUNT:
+                                    menuLabel = TotalLabel.COUNT;
+                                    break;
+                                case TotalMode.SUM:
+                                    menuLabel = TotalLabel.SUM;
+                                    break;
+                                case TotalMode.AVERAGE:
+                                    menuLabel = TotalLabel.AVERAGE;
+                                    break;
+                                default:
+                                    break;
                             }
                         }
                     }
