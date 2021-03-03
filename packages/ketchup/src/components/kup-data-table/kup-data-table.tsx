@@ -1035,16 +1035,6 @@ export class KupDataTable {
 
     componentWillLoad() {
         logLoad(this, false);
-        this.identifyAndInitRows();
-
-        if (document.querySelectorAll('.header')[0]) {
-            this.navBarHeight = document.querySelectorAll(
-                '.header'
-            )[0].clientHeight;
-        } else {
-            this.navBarHeight = 0;
-        }
-        this.setObserver();
 
         this.isRestoringState = true;
         // *** Store
@@ -1055,7 +1045,21 @@ export class KupDataTable {
         }
         this.currentRowsPerPage = this.rowsPerPage;
         this.isRestoringState = false;
-        this.recalculateRows();
+
+        //this.identifyAndInitRows();
+        identify(this.getRows());
+        this.expandGroupsHandler();        
+
+        if (document.querySelectorAll('.header')[0]) {
+            this.navBarHeight = document.querySelectorAll(
+                '.header'
+            )[0].clientHeight;
+        } else {
+            this.navBarHeight = 0;
+        }
+        this.setObserver();
+
+        //this.recalculateRows();
 
         setThemeCustomStyle(this);
 
