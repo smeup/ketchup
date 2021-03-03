@@ -196,6 +196,7 @@ export class KupDataTable {
                 this.dragEnabled = state.dragEnabled;
                 this.dropEnabled = state.dropEnabled;
                 this.showFooter = state.showFooter;
+                this.totals = state.totals;
                 //
             }
         }
@@ -228,6 +229,7 @@ export class KupDataTable {
             this.state.dragEnabled = this.dragEnabled;
             this.state.dropEnabled = this.dropEnabled;
             this.state.showFooter = this.showFooter;
+            this.state.totals = this.totals;
             this.state.selectRowsById = this.selectedRows.reduce(
                 (accumulator, row, currentIndex) => {
                     const prefix = currentIndex > 0 ? ';' : '';
