@@ -1,7 +1,7 @@
+import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { KupState } from '../kup-state/kup-state';
 
 import {
-    GenericFilter,
     GroupObject,
     SortObject,
     GroupLabelDisplayMode,

@@ -17,7 +17,6 @@ import {
     Cell,
     CellData,
     Column,
-    GenericFilter,
     Row,
     SortMode,
 } from './../kup-data-table/kup-data-table-declarations';
@@ -40,7 +39,6 @@ import {
     filterRows,
     getCellValueForDisplay,
     getColumnByName,
-    getIntervalTextFieldFilterValues,
     getValueForDisplay,
     isFilterCompliantForSimpleValue,
     styleHasBorderRadius,
@@ -56,6 +54,7 @@ import { getCellType } from '../../utils/cell-utils';
 import { stringToNumber } from '../../utils/utils';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
+import { GenericFilter } from '../../utils/filters/filters-declarations';
 
 @Component({
     tag: 'kup-tree',
@@ -859,15 +858,10 @@ export class KupTree {
     }
 
     private getIntervalTextFieldFilterValues(column: Column): Array<string> {
-        if (
-            !this.filtersColumnMenuInstance.hasIntervalTextFieldFilterValues(
-                this.filters,
-                column
-            )
-        ) {
-            return ['', ''];
-        }
-        return getIntervalTextFieldFilterValues(this.filters, column.name);
+        return this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
+            this.filters,
+            column
+        );
     }
 
     getColumnValues(

@@ -36,7 +36,6 @@ import {
     SortObject,
     TableData,
     TotalsMap,
-    GenericFilter,
     TotalMode,
 } from './kup-data-table-declarations';
 
@@ -56,9 +55,7 @@ import {
     styleHasWritingMode,
     getCellValueForDisplay,
     normalizeValue,
-    setIntervalTextFieldFilterValue,
     isFilterCompliantForSimpleValue,
-    getIntervalTextFieldFilterValues,
     getValueForDisplay,
     dropHandlersCell,
 } from './kup-data-table-helper';
@@ -135,7 +132,10 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
-import { FilterInterval } from '../../utils/filters/filters-declarations';
+import {
+    FilterInterval,
+    GenericFilter,
+} from '../../utils/filters/filters-declarations';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 
@@ -1751,6 +1751,7 @@ export class KupDataTable {
         this.filters = newFilters;
     }
 
+    /*
     private onIntervalFilterChange(
         { detail },
         column: Column,
@@ -1779,18 +1780,13 @@ export class KupDataTable {
             index
         );
         this.filters = newFilters;
-    }
+    }*/
 
     private getIntervalTextFieldFilterValues(column: Column): Array<string> {
-        if (
-            !this.filtersColumnMenuInstance.hasIntervalTextFieldFilterValues(
-                this.filters,
-                column
-            )
-        ) {
-            return ['', ''];
-        }
-        return getIntervalTextFieldFilterValues(this.filters, column.name);
+        return this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
+            this.filters,
+            column
+        );
     }
 
     getCheckBoxFilterValues(column: string): Array<string> {
@@ -2362,6 +2358,7 @@ export class KupDataTable {
         };
     }
 
+    /*
     private getIntervalTextualFilter(column: Column) {
         let textFieldData = {};
         textFieldData['fullWidth'] = true;
@@ -2655,7 +2652,7 @@ export class KupDataTable {
             </li>
         );
     }
-
+*/
     private renderHeader() {
         let specialExtraCellsCount: number = 0;
 

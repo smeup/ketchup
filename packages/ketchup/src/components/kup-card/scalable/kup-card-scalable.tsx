@@ -10,10 +10,9 @@ import { KupCard } from '../kup-card';
 export function create1(component: KupCard): VNode {
     //Title, subtitle
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables = {
         ['--multiplier']: '1',
@@ -54,10 +53,9 @@ export function create2(component: KupCard): VNode {
         : [];
     //Value, decimal value, measurement unit
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables = {
         ['--multiplier']: '1',
@@ -110,10 +108,9 @@ export function create2(component: KupCard): VNode {
 export function create3(component: KupCard): VNode {
     //Title, subtitle
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables = {
         ['--multiplier']: '1',
@@ -154,10 +151,9 @@ export function create4(component: KupCard): VNode {
         : [];
     //Value, decimal value, measurement unit, subtitle
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables = {
         [`--color-0`]: colorArray[0]
@@ -229,10 +225,9 @@ export function create5(component: KupCard): VNode {
         : [];
     //Title, subtitle
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables = {
         ['--multiplier']: '1',
@@ -291,10 +286,9 @@ export function create6(component: KupCard): VNode {
         : [];
     //Title, subtitle
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables = {
         ['--multiplier']: '1',
@@ -353,10 +347,9 @@ export function create7(component: KupCard): VNode {
         : [];
     //Title, subtitle
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables = {
         ['--multiplier']: '1',
@@ -415,10 +408,9 @@ export function create8(component: KupCard): VNode {
         : [];
     //Title, subtitle
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables = {
         ['--multiplier']: '1',

@@ -9,8 +9,6 @@ import {
     TotalMode,
     TotalsMap,
     Column,
-    GenericFilter,
-    Filter,
     RowGroup,
     KupDataTableRowDragType,
 } from './kup-data-table-declarations';
@@ -53,7 +51,11 @@ import {
 } from '../../utils/filters';
 import { logMessage } from '../../utils/debug-manager';
 import { DropHandlers, setDragDropPayload } from '../../utils/drag-and-drop';
-import { FilterInterval } from '../../utils/filters/filters-declarations';
+import {
+    Filter,
+    FilterInterval,
+    GenericFilter,
+} from '../../utils/filters/filters-declarations';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 
 export function sortRows(
@@ -191,95 +193,6 @@ export function hasFilters(filters: GenericFilter = {}, columns: Column[]) {
     return false;
 }
 
-export function setTextFieldFilterValue(
-    filters: GenericFilter = {},
-    column: string,
-    newFilter: string
-) {
-    if (filters == null) {
-        return;
-    }
-    let filter: Filter = filters[column];
-    if (filter == null) {
-        filter = { textField: '', checkBoxes: [], interval: null };
-        filters[column] = filter;
-    }
-    filter.textField = newFilter != null ? newFilter.trim() : newFilter;
-}
-
-export function setIntervalTextFieldFilterValue(
-    filters: GenericFilter = {},
-    column: string,
-    newFilter: string,
-    index: FilterInterval
-) {
-    if (filters == null) {
-        return;
-    }
-    let filter: Filter = filters[column];
-    if (filter == null) {
-        filter = { textField: '', checkBoxes: [], interval: null };
-        filters[column] = filter;
-    }
-    if (filter.interval == null) {
-        filter.interval = [];
-        filter.interval.push('', '');
-    }
-    filter.interval[index] = newFilter != null ? newFilter.trim() : newFilter;
-}
-
-export function getIntervalTextFieldFilterValues(
-    filters: GenericFilter = {},
-    column: string
-): Array<string> {
-    let values = [
-        getIntervalTextFieldFilterValue(filters, column, FilterInterval.FROM),
-        getIntervalTextFieldFilterValue(filters, column, FilterInterval.TO),
-    ];
-    return values;
-}
-
-export function getIntervalTextFieldFilterValue(
-    filters: GenericFilter = {},
-    column: string,
-    index: FilterInterval
-): string {
-    let value = '';
-
-    if (filters == null) {
-        return value;
-    }
-    let filter: Filter = filters[column];
-    if (filter == null) {
-        return value;
-    }
-    if (filter.interval == null) {
-        return value;
-    }
-    value = filter.interval[index];
-    return value;
-}
-
-export function isColumnFiltrableByInterval(column: Column): boolean {
-    return isObjFiltrableByInterval(column.obj);
-}
-
-export function isObjFiltrableByInterval(obj): boolean {
-    if (isDate(obj)) {
-        return true;
-    }
-    if (isTime(obj)) {
-        return true;
-    }
-    if (isTimestamp(obj)) {
-        return true;
-    }
-    if (isNumber(obj)) {
-        return true;
-    }
-    return false;
-}
-
 /**
  * Filters the rows data of a data-table component according to the parameters
  *
@@ -381,7 +294,10 @@ export function isRowCompliant(
         }
 
         let filterValue = columnFilters.getTextFilterValue(filters, key);
-        let interval = getIntervalTextFieldFilterValues(filters, key);
+        let interval = columnFilters.getIntervalTextFieldFilterValues(
+            filters,
+            getColumnByName(columns, key)
+        );
 
         const _filterIsNegative: boolean = filterIsNegative(filterValue);
         let b1 = isFilterCompliantForCell(cell, filterValue, interval);

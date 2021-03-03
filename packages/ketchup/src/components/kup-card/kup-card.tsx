@@ -24,7 +24,7 @@ import {
     colorContrast,
 } from '../../utils/theme-manager';
 import { FImage } from '../../f-components/f-image/f-image';
-import { VNode } from 'vue/types/umd';
+import { VNode } from '@stencil/core/internal';
 
 @Component({
     tag: 'kup-card',

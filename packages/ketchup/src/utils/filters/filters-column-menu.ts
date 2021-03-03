@@ -1,14 +1,6 @@
-import {
-    Column,
-    Filter,
-    GenericFilter,
-} from '../../components/kup-data-table/kup-data-table-declarations';
-import {
-    getIntervalTextFieldFilterValue,
-    isColumnFiltrableByInterval,
-} from '../../components/kup-data-table/kup-data-table-helper';
+import { Column } from '../../components/kup-data-table/kup-data-table-declarations';
 import { Filters } from './filters';
-import { FilterInterval } from './filters-declarations';
+import { Filter, FilterInterval, GenericFilter } from './filters-declarations';
 /**
  * Filtering algorithms related to column menus.
  * @module FiltersColumnMenu
@@ -94,10 +86,10 @@ export class FiltersColumnMenu extends Filters {
         if (column == null) {
             return false;
         }
-        if (!isColumnFiltrableByInterval(column)) {
+        if (!this.isColumnFiltrableByInterval(column)) {
             return false;
         }
-        let intervalFrom = getIntervalTextFieldFilterValue(
+        let intervalFrom = this.getIntervalTextFieldFilterValue(
             filters,
             column.name,
             FilterInterval.FROM
@@ -105,7 +97,7 @@ export class FiltersColumnMenu extends Filters {
         if (intervalFrom != null && intervalFrom.trim() != '') {
             return true;
         }
-        let intervalTo = getIntervalTextFieldFilterValue(
+        let intervalTo = this.getIntervalTextFieldFilterValue(
             filters,
             column.name,
             FilterInterval.TO
@@ -176,5 +168,91 @@ export class FiltersColumnMenu extends Filters {
             }
             filter.checkBoxes = [...chs];
         }
+    }
+
+    isColumnFiltrableByInterval(column: Column): boolean {
+        return this.isObjFiltrableByInterval(column.obj);
+    }
+
+    getIntervalTextFieldFilterValues(
+        filters: GenericFilter = {},
+        column: Column
+    ): Array<string> {
+        if (!this.hasIntervalTextFieldFilterValues(filters, column)) {
+            return ['', ''];
+        }
+
+        let values = [
+            this.getIntervalTextFieldFilterValue(
+                filters,
+                column.name,
+                FilterInterval.FROM
+            ),
+            this.getIntervalTextFieldFilterValue(
+                filters,
+                column.name,
+                FilterInterval.TO
+            ),
+        ];
+        return values;
+    }
+
+    getIntervalTextFieldFilterValue(
+        filters: GenericFilter = {},
+        column: string,
+        index: FilterInterval
+    ): string {
+        let value = '';
+
+        if (filters == null) {
+            return value;
+        }
+        let filter: Filter = filters[column];
+        if (filter == null) {
+            return value;
+        }
+        if (filter.interval == null) {
+            return value;
+        }
+        value = filter.interval[index];
+        return value;
+    }
+
+    setTextFieldFilterValue(
+        filters: GenericFilter = {},
+        column: string,
+        newFilter: string
+    ) {
+        if (filters == null) {
+            return;
+        }
+        let filter: Filter = filters[column];
+        if (filter == null) {
+            filter = { textField: '', checkBoxes: [], interval: null };
+            filters[column] = filter;
+        }
+        filter.textField = newFilter != null ? newFilter.trim() : newFilter;
+    }
+
+    setIntervalTextFieldFilterValue(
+        filters: GenericFilter = {},
+        column: string,
+        newFilter: string,
+        index: FilterInterval
+    ) {
+        if (filters == null) {
+            return;
+        }
+        let filter: Filter = filters[column];
+        if (filter == null) {
+            filter = { textField: '', checkBoxes: [], interval: null };
+            filters[column] = filter;
+        }
+        if (filter.interval == null) {
+            filter.interval = [];
+            filter.interval.push('', '');
+        }
+        filter.interval[index] =
+            newFilter != null ? newFilter.trim() : newFilter;
     }
 }

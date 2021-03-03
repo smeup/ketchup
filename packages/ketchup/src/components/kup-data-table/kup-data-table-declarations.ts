@@ -86,16 +86,6 @@ export interface GenericMap {
     [index: string]: string;
 }
 
-export interface GenericFilter {
-    [index: string]: Filter;
-}
-
-export interface Filter {
-    textField: string;
-    checkBoxes: Array<string>;
-    interval: string[];
-}
-
 export interface SortObject {
     column: string;
     sortMode: SortMode;

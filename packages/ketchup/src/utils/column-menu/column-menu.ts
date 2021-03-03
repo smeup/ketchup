@@ -2,22 +2,33 @@ import { KupCard } from '../../components/kup-card/kup-card';
 import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import {
     Column,
-    GenericFilter,
     GroupObject,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import {
     getValueForDisplay,
-    isColumnFiltrableByInterval,
     normalizeValue,
-    setTextFieldFilterValue,
 } from '../../components/kup-data-table/kup-data-table-helper';
 import { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import { KupTree } from '../../components/kup-tree/kup-tree';
 import { GenericObject } from '../../types/GenericTypes';
 import { unsetTooltip } from '../helpers';
-import { isCheckbox, isStringObject } from '../object-utils';
+import {
+    isCheckbox,
+    isDate,
+    isNumber,
+    isStringObject,
+    isTime,
+    isTimestamp,
+    isTimeWithSeconds,
+} from '../object-utils';
 import { positionRecalc } from '../recalc-position';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
+import { FilterInterval, GenericFilter } from '../filters/filters-declarations';
+import {
+    changeDateTimeFormat,
+    ISO_DEFAULT_DATE_FORMAT,
+    ISO_DEFAULT_DATE_TIME_FORMAT,
+} from '../utils';
 import { CardData } from '../../components/kup-card/kup-card-declarations';
 /**
  * Definition and events of the column menu card.
@@ -94,9 +105,11 @@ export class ColumnMenu {
         return {
             button: this.prepButton(comp, column),
             checkbox: this.prepCheckbox(comp, column),
-            textfield: !isColumnFiltrableByInterval(column)
+            datepicker: this.prepIntervalDatePicker(comp, column),
+            textfield: !this.filters.isColumnFiltrableByInterval(column)
                 ? this.prepTextfield(comp, column)
-                : [],
+                : this.prepIntervalTextfield(comp, column),
+            timepicker: this.prepIntervalTimePicker(comp, column),
         };
     }
     /**
@@ -242,6 +255,203 @@ export class ColumnMenu {
         }
         return props;
     }
+
+    /**
+     * Handles the column menu's interval textfields props (number column type).
+     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @param {Column} column - Column of the menu.
+     * @returns {GenericObject[]} Text fields props.
+     */
+    prepIntervalTextfield(
+        comp: KupDataTable | KupTree,
+        column: Column
+    ): GenericObject[] {
+        let props: GenericObject[] = [];
+        if (!isNumber(column.obj)) {
+            return props;
+        }
+
+        let interval = this.filters.getIntervalTextFieldFilterValues(
+            comp.filters,
+            column
+        );
+        let initialValueFrom = interval[FilterInterval.FROM];
+        let initialValueTo = interval[FilterInterval.TO];
+
+        props.push({
+            'data-storage': {
+                column: column,
+                intervalIndex: FilterInterval.FROM,
+                isInterval: true,
+            },
+            fullWidth: true,
+            helperWhenFocused: true,
+            id: 'filterFrom',
+            initialValue: initialValueFrom,
+            isClearable: true,
+            label: 'Search from...',
+            icon: 'magnify',
+        });
+        props.push({
+            'data-storage': {
+                column: column,
+                intervalIndex: FilterInterval.TO,
+                isInterval: true,
+            },
+            fullWidth: true,
+            helperWhenFocused: true,
+            id: 'filterTo',
+            initialValue: initialValueTo,
+            isClearable: true,
+            label: 'Search to...',
+            icon: 'magnify',
+        });
+
+        return props;
+    }
+    /**
+     * Handles the column menu's interval timepicker props (time column type).
+     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @param {Column} column - Column of the menu.
+     * @returns {GenericObject[]} Time picker fields props.
+     */
+    prepIntervalTimePicker(
+        comp: KupDataTable | KupTree,
+        column: Column
+    ): GenericObject[] {
+        let props: GenericObject[] = [];
+        if (!isTime(column.obj)) {
+            return props;
+        }
+
+        let interval = this.filters.getIntervalTextFieldFilterValues(
+            comp.filters,
+            column
+        );
+        let initialValueFrom = interval[FilterInterval.FROM];
+        let initialValueTo = interval[FilterInterval.TO];
+
+        props.push({
+            'data-storage': {
+                column: column,
+                intervalIndex: FilterInterval.FROM,
+                isInterval: true,
+            },
+            data: {
+                'kup-text-field': {
+                    fullWidth: true,
+                    helperWhenFocused: true,
+                    id: 'filterFrom',
+                    isClearable: true,
+                    label: 'Search from...',
+                },
+            },
+            initialValue: initialValueFrom,
+            manageSeconds: isTimeWithSeconds(column.obj),
+        });
+        props.push({
+            'data-storage': {
+                column: column,
+                intervalIndex: FilterInterval.TO,
+                isInterval: true,
+            },
+            data: {
+                'kup-text-field': {
+                    fullWidth: true,
+                    helperWhenFocused: true,
+                    id: 'filterTo',
+                    isClearable: true,
+                    label: 'Search to...',
+                },
+            },
+            initialValue: initialValueTo,
+            manageSeconds: isTimeWithSeconds(column.obj),
+        });
+
+        return props;
+    }
+    /**
+     * Handles the column menu's interval datepicker props (date/timestamp column type).
+     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @param {Column} column - Column of the menu.
+     * @returns {GenericObject[]} Date picker fields props.
+     */
+    prepIntervalDatePicker(
+        comp: KupDataTable | KupTree,
+        column: Column
+    ): GenericObject[] {
+        let props: GenericObject[] = [];
+        if (!isDate(column.obj) && !isTimestamp(column.obj)) {
+            return props;
+        }
+
+        let interval = this.filters.getIntervalTextFieldFilterValues(
+            comp.filters,
+            column
+        );
+        let initialValueFrom = interval[FilterInterval.FROM];
+        let initialValueTo = interval[FilterInterval.TO];
+
+        let suffixFrom = null;
+        let suffixTo = null;
+        if (isTimestamp(column.obj)) {
+            suffixFrom = ' 00:00:00';
+            suffixTo = ' 23:59:59';
+            if (initialValueFrom != '') {
+                initialValueFrom = changeDateTimeFormat(
+                    initialValueFrom,
+                    ISO_DEFAULT_DATE_TIME_FORMAT,
+                    ISO_DEFAULT_DATE_FORMAT
+                );
+            }
+            if (initialValueTo != '') {
+                initialValueTo = changeDateTimeFormat(
+                    initialValueTo,
+                    ISO_DEFAULT_DATE_TIME_FORMAT,
+                    ISO_DEFAULT_DATE_FORMAT
+                );
+            }
+        }
+
+        props.push({
+            'data-storage': {
+                column: column,
+                suffix: suffixFrom,
+                intervalIndex: FilterInterval.FROM,
+                isInterval: true,
+            },
+            data: {
+                'kup-text-field': {
+                    fullWidth: true,
+                    helperWhenFocused: true,
+                    id: 'filterFrom',
+                    isClearable: true,
+                    label: 'Search from...',
+                },
+            },
+            initialValue: initialValueFrom,
+        });
+        props.push({
+            'data-storage': {
+                column: column,
+                suffix: suffixTo,
+                intervalIndex: FilterInterval.TO,
+                isInterval: true,
+            },
+            data: {
+                'kup-text-field': {
+                    fullWidth: true,
+                    helperWhenFocused: true,
+                    id: 'filterTo',
+                    isClearable: true,
+                    label: 'Search to...',
+                },
+            },
+            initialValue: initialValueTo,
+        });
+
+        return props;
+    }
     /**
      * Function called by the column menu card when a kupCardEvent is received.
      * @param {CustomEvent} cardEvent - kupCardEvent emitted by the column menu.
@@ -253,6 +463,16 @@ export class ColumnMenu {
         const compEvent = cardEvent.detail.event;
         const compID = compEvent.detail.id;
         let dataStorage: GenericObject[];
+        let compEventType: string = compEvent.type;
+        let isClickEvent = compEventType.toLowerCase().endsWith('click');
+        let cardDataId = '';
+        if (compEventType.toLowerCase().indexOf('textfield') > 0) {
+            cardDataId = 'textfield';
+        } else if (compEventType.toLowerCase().indexOf('datepicker') > 0) {
+            cardDataId = 'datepicker';
+        } else if (compEventType.toLowerCase().indexOf('timepicker') > 0) {
+            cardDataId = 'timepicker';
+        }
         switch (compEvent.type) {
             case 'kupCheckboxChange':
                 dataStorage = cardData['checkbox'].find((x) => x.id === compID)[
@@ -290,26 +510,56 @@ export class ColumnMenu {
                         break;
                 }
                 break;
+            case 'kupTextFieldSubmit':
+            case 'kupDatePickerTextFieldSubmit':
+            case 'kupTimePickerTextFieldSubmit':
+                this.close(compEvent, comp);
+                break;
             case 'kupTextFieldClearIconClick':
-                dataStorage = cardData['textfield'].find(
-                    (x) => x.id === compID
-                )['data-storage'];
-                this.textfieldChange(comp, null, dataStorage['column']);
+            case 'kupDatePickerClearIconClick':
+            case 'kupTimePickerClearIconClick':
+                dataStorage = cardData[cardDataId].find((x) => x.id === compID)[
+                    'data-storage'
+                ];
+                if (dataStorage['isInterval'] == true) {
+                    this.intervalChange(
+                        comp,
+                        null,
+                        dataStorage['column'],
+                        dataStorage['intervalIndex'],
+                        false
+                    );
+                } else {
+                    this.textfieldChange(comp, null, dataStorage['column']);
+                }
                 break;
             case 'kupTextFieldInput':
-                dataStorage = cardData['textfield'].find(
-                    (x) => x.id === compID
-                )['data-storage'];
+            case 'kupDatePickerInput':
+            case 'kupDatePickerItemClick':
+            case 'kupTimePickerInput':
+            case 'kupTimePickerItemClick':
+                dataStorage = cardData[cardDataId].find((x) => x.id === compID)[
+                    'data-storage'
+                ];
                 window.clearTimeout(comp.columnFilterTimeout);
-                comp.columnFilterTimeout = window.setTimeout(
-                    () =>
+                comp.columnFilterTimeout = window.setTimeout(() => {
+                    if (dataStorage['isInterval'] == true) {
+                        this.intervalChange(
+                            comp,
+                            compEvent.detail.value,
+                            dataStorage['column'],
+                            dataStorage['intervalIndex'],
+                            !isClickEvent,
+                            dataStorage['suffix']
+                        );
+                    } else {
                         this.textfieldChange(
                             comp,
                             compEvent.detail.value,
                             dataStorage['column']
-                        ),
-                    300
-                );
+                        );
+                    }
+                }, 300);
                 break;
         }
     }
@@ -332,7 +582,43 @@ export class ColumnMenu {
             newFilter = normalizeValue(value.trim(), column.obj);
         }
         const newFilters: GenericFilter = { ...comp.filters };
-        setTextFieldFilterValue(newFilters, column.name, newFilter);
+        this.filters.setTextFieldFilterValue(
+            newFilters,
+            column.name,
+            newFilter
+        );
+        comp.filters = newFilters;
+    }
+
+    intervalChange(
+        comp: KupDataTable | KupTree,
+        value: string,
+        column: Column,
+        index: FilterInterval,
+        needNormalize: boolean,
+        suffix?: string
+    ): void {
+        if (!this.isTree(comp)) {
+            comp.resetCurrentPage();
+        }
+        let newFilter = '';
+        if (value) {
+            newFilter = value.trim();
+            if (needNormalize) {
+                newFilter = normalizeValue(newFilter, column.obj);
+            }
+            if (suffix != null && newFilter != '') {
+                newFilter = newFilter + suffix;
+            }
+        }
+
+        const newFilters: GenericFilter = { ...comp.filters };
+        this.filters.setIntervalTextFieldFilterValue(
+            newFilters,
+            column.name,
+            newFilter,
+            index
+        );
         comp.filters = newFilters;
     }
     /**

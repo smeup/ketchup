@@ -18,10 +18,9 @@ export function create1(component: KupCard): VNode {
         : [];
     //3 text slots
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables: GenericObject = {
         [`--color-0`]: colorArray[0]
@@ -82,10 +81,9 @@ export function create2(component: KupCard): VNode {
         : [];
     //3 text slots
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables: GenericObject = {
         [`--color-0`]: colorArray[0]

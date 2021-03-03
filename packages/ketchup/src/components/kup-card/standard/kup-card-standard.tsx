@@ -19,10 +19,9 @@ export function create1(component: KupCard): VNode {
         : [];
     //Title, subtitle and description
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
@@ -80,10 +79,9 @@ export function create2(component: KupCard): VNode {
         : [];
     //Title, subtitle and description
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
@@ -143,10 +141,9 @@ export function create3(component: KupCard): VNode {
         : [];
     //Title, subtitle and description
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
@@ -208,10 +205,9 @@ export function create4(component: KupCard): VNode {
         : [];
     //Title, subtitle
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
@@ -276,10 +272,9 @@ export function create5(component: KupCard): VNode {
         : [];
     //6 text slots
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables: GenericObject = {
         [`--color-0`]: colorArray[colorIndex]
@@ -385,10 +380,9 @@ export function create6(component: KupCard): VNode {
         : [];
     //Left and center text
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables: GenericObject = {
         ['--color-0']: colorArray[0]
@@ -442,10 +436,9 @@ export function create7(component: KupCard): VNode {
         : [];
     //3 text slots
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables: GenericObject = {
         [`--color-0`]: colorArray[0]
@@ -506,10 +499,9 @@ export function create8(component: KupCard): VNode {
         : [];
     //3 text slots
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables: GenericObject = {
         [`--color-0`]: colorArray[0]
@@ -577,10 +569,9 @@ export function create9(component: KupCard): VNode {
         : [];
     //3 text slots
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables: GenericObject = {
         [`--color-0`]: colorArray[0]
@@ -660,10 +651,9 @@ export function create10(component: KupCard): VNode {
         : [];
     //3 text slots
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables: GenericObject = {
         [`--color-0`]: colorArray[0]
@@ -743,10 +733,9 @@ export function create11(component: KupCard) {
         : [];
     //3 text slots
     let textIndex: number = 0;
-    const textArray: string[] =
-        component.data['text'] && component.data['text']
-            ? component.data['text']
-            : [];
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
     //Dynamic CSS variables
     let CSSVariables: GenericObject = {
         [`--color-0`]: colorArray[0]
@@ -887,6 +876,7 @@ function compList(compArray: GenericObject[], compType: string): JSX.Element[] {
         if (!compArray[index].id) {
             compArray[index]['id'] = compType + index;
         }
+        console.log('cacca');
         switch (compType) {
             case 'button':
                 list.push(<kup-button {...compArray[index]} />);

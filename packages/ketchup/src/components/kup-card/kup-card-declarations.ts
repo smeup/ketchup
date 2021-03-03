@@ -8,10 +8,12 @@ export interface CardData {
     checkbox?: GenericObject[];
     chip?: GenericObject[];
     color?: string[];
+    datepicker?: GenericObject[];
     image?: GenericObject[];
     progressbar?: GenericObject[];
     text?: string[];
     textfield?: GenericObject[];
+    timepicker?: GenericObject[];
 }
 /**
  * Layout families of the kup-card component.
