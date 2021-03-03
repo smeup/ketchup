@@ -3649,21 +3649,23 @@ export class KupDataTable {
                                 : null
                         }
                     >
-                        <span
-                            class="totals-open"
-                            id={totalMenuOpenID}
-                            onClick={() => this.onTotalMenuOpen(column)}
-                        >
-                            {menuLabel}
-                        </span>
-                        {totalMenu}
-                        <span class="totals-value">
-                            {numberToFormattedStringNumber(
-                                this.footer[column.name],
-                                column.decimals,
-                                column.obj ? column.obj.p : ''
-                            )}
-                        </span>
+                        <div class="totals-wrapper">
+                            <span
+                                class="totals-open"
+                                id={totalMenuOpenID}
+                                onClick={() => this.onTotalMenuOpen(column)}
+                            >
+                                {menuLabel}
+                            </span>
+                            {totalMenu}
+                            <span class="totals-value">
+                                {numberToFormattedStringNumber(
+                                    this.footer[column.name],
+                                    column.decimals,
+                                    column.obj ? column.obj.p : ''
+                                )}
+                            </span>
+                        </div>
                     </td>
                 );
             }
