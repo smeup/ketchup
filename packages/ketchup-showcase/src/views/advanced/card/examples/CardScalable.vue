@@ -246,15 +246,12 @@ export default {
   data() {
     return {
       data: {
-        color1: 'var(--kup-primary-color)',
-        image1: {
+        color: ['var(--kup-primary-color)'],
+        image: {
           resource: 'widgets',
           title: 'image1',
         },
-        text1: 't1',
-        text2: 't2',
-        text3: 't3',
-        text4: 't4',
+        text: ['t1', 't2', 't3', 't4'],
       },
     };
   },

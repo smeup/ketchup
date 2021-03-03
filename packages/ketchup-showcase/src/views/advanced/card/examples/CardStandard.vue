@@ -346,108 +346,110 @@ export default {
   data() {
     return {
       data: {
-        button1: { icon: 'widgets', flat: true, title: 'button1' },
-        button2: { icon: 'widgets', flat: true, title: 'button2' },
-        button3: { icon: 'widgets', flat: true, title: 'button3' },
-        button4: { icon: 'widgets', flat: true, title: 'button4' },
-        button5: { icon: 'widgets', flat: true, title: 'button5' },
-        chart1: {
-          title: 'chart1',
-          data: baseData,
-          series: ['Col2', 'Col3', 'Col4'],
-          axis: 'Col1',
-          offlineMode: { value: '1;7;-5;6;10;-5;3;4', shape: 'line' },
-        },
-        chip1: {
-          title: 'chip1',
-          data: [
-            {
-              value: '1_chip',
-              icon: 'filter_1',
-              label: 'First chip',
-              checked: false,
-            },
-            {
-              value: '2_chip',
-              icon: 'filter_2',
-              label: 'Second chip',
-              checked: true,
-            },
-            {
-              value: '3_chip',
-              icon: 'filter_3',
-              label: 'Third chip',
-              checked: false,
-            },
-            {
-              value: '4_chip',
-              icon: 'filter_4',
-              label: 'Fourth chip',
-              checked: false,
-            },
-            {
-              value: '5_chip',
-              icon: 'filter_5',
-              label: 'Fifth chip',
-              checked: false,
-            },
-            {
-              value: '6_chip',
-              icon: 'filter_6',
-              label: 'Sixth chip',
-              checked: false,
-            },
-            {
-              value: '7_chip',
-              icon: 'filter_7',
-              label: 'Seventh chip',
-              checked: false,
-            },
-            {
-              value: '8_chip',
-              icon: 'filter_8',
-              label: 'Eighth chip',
-              checked: false,
-            },
-            {
-              value: '9_chip',
-              icon: 'filter_9',
-              label: 'Ninth chip',
-              checked: false,
-            },
-          ],
-        },
-        color1: 'var(--kup-spinner-color)',
-        color2: 'var(--kup-border-color)',
-        image1: {
-          data: [
-            {
-              shape: 'bar',
-              color: 'var(--kup-primary-color)',
-              width: '100%',
-              height: '100%',
-            },
-          ],
-          title: 'image1',
-        },
-        image2: {
-          data: [
-            {
-              shape: 'bar',
-              color: 'var(--kup-primary-color)',
-              width: '100%',
-              height: '100%',
-            },
-          ],
-          title: 'image2',
-        },
-        progressBar1: { value: 50, title: 'progressBar1' },
-        text1: 'text1',
-        text2: 'text2',
-        text3: 'text3',
-        text4: 'text4',
-        text5: 'text5',
-        text6: 'text6',
+        button: [
+          { icon: 'widgets', flat: true, title: 'button1' },
+          { icon: 'widgets', flat: true, title: 'button2' },
+          { icon: 'widgets', flat: true, title: 'button3' },
+          { icon: 'widgets', flat: true, title: 'button4' },
+          { icon: 'widgets', flat: true, title: 'button5' },
+        ],
+        chart: [
+          {
+            title: 'chart1',
+            data: baseData,
+            series: ['Col2', 'Col3', 'Col4'],
+            axis: 'Col1',
+            offlineMode: { value: '1;7;-5;6;10;-5;3;4', shape: 'line' },
+          },
+        ],
+        chip: [
+          {
+            title: 'chip1',
+            data: [
+              {
+                value: '1_chip',
+                icon: 'filter_1',
+                label: 'First chip',
+                checked: false,
+              },
+              {
+                value: '2_chip',
+                icon: 'filter_2',
+                label: 'Second chip',
+                checked: true,
+              },
+              {
+                value: '3_chip',
+                icon: 'filter_3',
+                label: 'Third chip',
+                checked: false,
+              },
+              {
+                value: '4_chip',
+                icon: 'filter_4',
+                label: 'Fourth chip',
+                checked: false,
+              },
+              {
+                value: '5_chip',
+                icon: 'filter_5',
+                label: 'Fifth chip',
+                checked: false,
+              },
+              {
+                value: '6_chip',
+                icon: 'filter_6',
+                label: 'Sixth chip',
+                checked: false,
+              },
+              {
+                value: '7_chip',
+                icon: 'filter_7',
+                label: 'Seventh chip',
+                checked: false,
+              },
+              {
+                value: '8_chip',
+                icon: 'filter_8',
+                label: 'Eighth chip',
+                checked: false,
+              },
+              {
+                value: '9_chip',
+                icon: 'filter_9',
+                label: 'Ninth chip',
+                checked: false,
+              },
+            ],
+          },
+        ],
+        color: ['var(--kup-spinner-color)', 'var(--kup-border-color)'],
+        image: [
+          {
+            data: [
+              {
+                shape: 'bar',
+                color: 'var(--kup-primary-color)',
+                width: '100%',
+                height: '100%',
+              },
+            ],
+            title: 'image1',
+          },
+          {
+            data: [
+              {
+                shape: 'bar',
+                color: 'var(--kup-primary-color)',
+                width: '100%',
+                height: '100%',
+              },
+            ],
+            title: 'image2',
+          },
+        ],
+        progressbar: [{ value: 50, title: 'progressbar1' }],
+        text: ['text1', 'text2', 'text3', 'text4', 'text5', 'text6'],
       },
     };
   },
