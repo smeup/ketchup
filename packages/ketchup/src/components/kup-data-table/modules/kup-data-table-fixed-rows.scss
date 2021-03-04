@@ -19,14 +19,6 @@ $sticky-cell--row-z-index: 4;
   thead &,
   tfoot & {
     z-index: #{$sticky-header--z-index};
-    &.th {
-      background-color: var(--kup-title-background-color);
-    }
-    &.td {
-      &:hover {
-        background-color: var(--kup-background-color);
-      }
-    }
   }
 }
 
@@ -78,4 +70,16 @@ tr.selected .fixed-row {
   &.fixed-row {
     z-index: $sticky-cell--row-column-z-index; // Must be higher than column
   }
+}
+
+thead tr:hover .fixed-column {
+  background-color: var(--kup-title-background-color);
+  color: var(--kup-title-color);
+  position: sticky;
+}
+
+tfoot tr:hover .fixed-row,
+tfoot tr:hover .fixed-column {
+  color: var(--kup-text-color);
+  background-color: var(--kup-background-color);
 }
