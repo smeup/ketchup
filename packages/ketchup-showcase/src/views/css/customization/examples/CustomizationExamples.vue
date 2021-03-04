@@ -112,7 +112,7 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-text-field
-            custom-style="#kup-component input { color: blue; font-weight: bold; }"
+            custom-style="#kup-component input { color: blue !important; font-weight: bold; }"
             initial-value="Blue and bold"
           ></kup-text-field>
         </div>
@@ -200,7 +200,8 @@ export default {
       markup6:
         '#kup-component .mdc-checkbox.mdc-checkbox--checked .mdc-checkbox__background { animation: rotate 2s infinite; } @-webkit-keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }} @keyframes rotate { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) }',
       markup7: '#kup-component .mdc-tab__text-label { font-style: italic; }',
-      markup8: '#kup-component input { color: blue; font-weight: bold; }',
+      markup8:
+        '#kup-component input { color: blue !important; font-weight: bold; }',
       markup9:
         '#kup-component { box-shadow: 0 0 0 purple; animation: pulse 2s infinite; border-radius: 4px; } #kup-component:hover { animation: none; } #kup-component button { background-color: purple; } @-webkit-keyframes pulse { 0% { -webkit-box-shadow: 0 0 0 0 purple; } 70% { -webkit-box-shadow: 0 0 5px 5px transparent; } 100% { -webkit-box-shadow: 0 0 0 0 transparent; }}@keyframes pulse { 0% { -moz-box-shadow: 0 0 0 0 purple; box-shadow: 0 0 0 0 purple; }  70% { -moz-box-shadow: 0 0 5px 5px transparent; box-shadow: 0 0 5px 5px transparent; }  100% { -moz-box-shadow: 0 0 0 0 transparent; box-shadow: 0 0 0 0 transparent; }}',
       markup10: '#kup-component button { text-transform: unset; }',
