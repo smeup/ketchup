@@ -930,7 +930,6 @@ export class KupBox {
             if (row.cells.hasOwnProperty(key)) {
                 var cell = row.cells[key];
                 if (cell.cardID === undefined) {
-                    console.log('o');
                     skipPush = false;
                     switch (cell.obj.p) {
                         case 'BTN':

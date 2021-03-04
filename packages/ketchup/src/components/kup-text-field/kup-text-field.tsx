@@ -318,7 +318,6 @@ export class KupTextField {
     onKeyDown(event: KeyboardEvent) {
         if (event.key === 'Enter') {
             if (this.emitSubmitEventOnEnter == true) {
-                event.preventDefault();
                 this.kupTextFieldSubmit.emit({
                     id: this.rootElement.id,
                     value: this.inputEl.value,
