@@ -30,7 +30,7 @@ export function create1(component: KupCard): VNode {
                 </div>
                 <div class="value">
                     <div>
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
             </div>
@@ -88,12 +88,12 @@ export function create2(component: KupCard): VNode {
                 </div>
                 <div class="value-dec">
                     <div>
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 <div class="unit">
                     <div>
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
             </div>
@@ -128,7 +128,7 @@ export function create3(component: KupCard): VNode {
                 </div>
                 <div class="descr">
                     <div>
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
             </div>
@@ -190,19 +190,19 @@ export function create4(component: KupCard): VNode {
                     </div>
                     <div class="value-dec">
                         <div>
-                            {textArray[textIndex++] ? textArray[textIndex] : ''}
+                            {textArray[++textIndex] ? textArray[textIndex] : ''}
                         </div>
                     </div>
                     <div class="unit">
                         <div>
-                            {textArray[textIndex++] ? textArray[textIndex] : ''}
+                            {textArray[++textIndex] ? textArray[textIndex] : ''}
                         </div>
                     </div>
                 </div>
                 <div class="empty-placeholder"></div>
                 <div class="descr">
                     <div>
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
             </div>
@@ -247,7 +247,7 @@ export function create5(component: KupCard): VNode {
 
                     <div class="value">
                         <div>
-                            {textArray[textIndex++] ? textArray[textIndex] : ''}
+                            {textArray[++textIndex] ? textArray[textIndex] : ''}
                         </div>
                     </div>
                 </div>
@@ -323,7 +323,7 @@ export function create6(component: KupCard): VNode {
                     </div>
                     <div class="descr">
                         <div>
-                            {textArray[textIndex++] ? textArray[textIndex] : ''}
+                            {textArray[++textIndex] ? textArray[textIndex] : ''}
                         </div>
                     </div>
                 </div>
@@ -369,7 +369,7 @@ export function create7(component: KupCard): VNode {
 
                     <div class="descr">
                         <div>
-                            {textArray[textIndex++] ? textArray[textIndex] : ''}
+                            {textArray[++textIndex] ? textArray[textIndex] : ''}
                         </div>
                     </div>
                 </div>
@@ -443,7 +443,7 @@ export function create8(component: KupCard): VNode {
                 </div>
                 <div class="descr">
                     <div>
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
             </div>

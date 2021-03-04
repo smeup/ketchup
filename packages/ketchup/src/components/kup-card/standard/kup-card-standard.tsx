@@ -45,12 +45,12 @@ export function create1(component: KupCard): VNode {
                             <div>{textArray[textIndex]}</div>
                         </div>
                     ) : null}
-                    {textArray[textIndex++] ? (
+                    {textArray[++textIndex] ? (
                         <div class="sub-2 subtitle">
                             <div>{textArray[textIndex]}</div>
                         </div>
                     ) : null}
-                    {textArray[textIndex++] ? (
+                    {textArray[++textIndex] ? (
                         <div class="sub-2 description">
                             <div>{textArray[textIndex]}</div>
                         </div>
@@ -94,7 +94,7 @@ export function create2(component: KupCard): VNode {
                         <div>{textArray[textIndex]}</div>
                     </div>
                 ) : null}
-                {textArray[textIndex++] ? (
+                {textArray[++textIndex] ? (
                     <div class="sub-1 subtitle">
                         <div>{textArray[textIndex]}</div>
                     </div>
@@ -112,7 +112,7 @@ export function create2(component: KupCard): VNode {
                     </div>
                 ) : null}
                 <div class="section-3">
-                    {textArray[textIndex++] ? (
+                    {textArray[++textIndex] ? (
                         <div class="sub-3 description">
                             <div>{textArray[textIndex]}</div>
                         </div>
@@ -167,7 +167,7 @@ export function create3(component: KupCard): VNode {
                                     <div>{textArray[textIndex]}</div>
                                 </div>
                             ) : null}
-                            {textArray[textIndex++] ? (
+                            {textArray[++textIndex] ? (
                                 <div class="sub-1 subtitle">
                                     <div>{textArray[textIndex]}</div>
                                 </div>
@@ -176,7 +176,7 @@ export function create3(component: KupCard): VNode {
                     </div>
                 </div>
                 <div class="section-2">
-                    {textArray[textIndex++] ? (
+                    {textArray[++textIndex] ? (
                         <div class="sub-2 description">
                             <div>{textArray[textIndex]}</div>
                         </div>
@@ -232,7 +232,7 @@ export function create4(component: KupCard): VNode {
                                 <div>{textArray[textIndex]}</div>
                             </div>
                         ) : null}
-                        {textArray[textIndex++] ? (
+                        {textArray[++textIndex] ? (
                             <div class="sub-1 subtitle">
                                 <div>{textArray[textIndex]}</div>
                             </div>
@@ -280,7 +280,7 @@ export function create5(component: KupCard): VNode {
         [`--color-0`]: colorArray[colorIndex]
             ? colorArray[colorIndex]
             : 'var(--kup-primary-color)',
-        [`--color-1`]: colorArray[colorIndex++]
+        [`--color-1`]: colorArray[++colorIndex]
             ? colorArray[colorIndex]
             : 'rgba(var(--kup-text-color-rgb),0.1)',
     };
@@ -306,11 +306,11 @@ export function create5(component: KupCard): VNode {
                         {textArray[textIndex] ? textArray[textIndex] : ''}
                     </div>
                     <div class="alt-text">
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 <div class="sub-2 image">
-                    {imageArray[imageIndex++] ? (
+                    {imageArray[++imageIndex] ? (
                         <FImage
                             id="image1"
                             {...imageArray[imageIndex]}
@@ -342,18 +342,18 @@ export function create5(component: KupCard): VNode {
             <div class="section-4">
                 <div class="sub-4 text">
                     <div>
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                     <div class="alt-text">
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 <div class="sub-4 text">
                     <div>
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                     <div class="alt-text">
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
             </div>
@@ -410,7 +410,7 @@ export function create6(component: KupCard): VNode {
                         ></kup-progress-bar>
                     ) : null}
                     <div>
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 {buttonArray[0] ? (
@@ -470,10 +470,10 @@ export function create7(component: KupCard): VNode {
             </div>
             <div class="section-3">
                 <div class="sub-3 alt-text">
-                    {textArray[textIndex++] ? textArray[textIndex] : ''}
+                    {textArray[++textIndex] ? textArray[textIndex] : ''}
                 </div>
                 <div class="sub-3 alt-text">
-                    {textArray[textIndex++] ? textArray[textIndex] : ''}
+                    {textArray[++textIndex] ? textArray[textIndex] : ''}
                 </div>
             </div>
         </div>
@@ -522,7 +522,7 @@ export function create8(component: KupCard): VNode {
                 </div>
                 <div class="sub-2">
                     <div class="text">
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 <div class="sub-3">
@@ -537,7 +537,7 @@ export function create8(component: KupCard): VNode {
                         ) : null}
                     </div>
                     <div class="text">
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
             </div>
@@ -608,14 +608,14 @@ export function create9(component: KupCard): VNode {
                     <div class="text-wrapper">
                         <div class="text title">
                             <div>
-                                {textArray[textIndex++]
+                                {textArray[++textIndex]
                                     ? textArray[textIndex]
                                     : ''}
                             </div>
                         </div>
                         <div class="text subtitle">
                             <div>
-                                {textArray[textIndex++]
+                                {textArray[++textIndex]
                                     ? textArray[textIndex]
                                     : ''}
                             </div>
@@ -695,14 +695,14 @@ export function create10(component: KupCard): VNode {
                     <div class="text-wrapper">
                         <div class="text title">
                             <div>
-                                {textArray[textIndex++]
+                                {textArray[++textIndex]
                                     ? textArray[textIndex]
                                     : ''}
                             </div>
                         </div>
                         <div class="text subtitle">
                             <div>
-                                {textArray[textIndex++]
+                                {textArray[++textIndex]
                                     ? textArray[textIndex]
                                     : ''}
                             </div>
@@ -784,14 +784,14 @@ export function create11(component: KupCard) {
                     <div class="text-wrapper">
                         <div class="text title">
                             <div>
-                                {textArray[textIndex++]
+                                {textArray[++textIndex]
                                     ? textArray[textIndex]
                                     : ''}
                             </div>
                         </div>
                         <div class="text subtitle">
                             <div>
-                                {textArray[textIndex++]
+                                {textArray[++textIndex]
                                     ? textArray[textIndex]
                                     : ''}
                             </div>

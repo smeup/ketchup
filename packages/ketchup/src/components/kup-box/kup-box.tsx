@@ -1056,7 +1056,10 @@ export class KupBox {
             };
 
             while (size-- > 0) {
-                if (!this.cardData) {
+                if (
+                    typeof this.cardData !== 'object' &&
+                    this.cardData !== null
+                ) {
                     boxContent.push(
                         this.renderSection(
                             sections[cnt++],

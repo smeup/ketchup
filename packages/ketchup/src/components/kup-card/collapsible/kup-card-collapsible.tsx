@@ -39,12 +39,12 @@ export function create1(component: KupCard): VNode {
                         {textArray[textIndex] ? textArray[textIndex] : ''}
                     </div>
                     <div class="text right">
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 <div class="sub-2">
                     <div class="text">
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 <div class="sub-3 collapsible-wrapper">
@@ -103,7 +103,7 @@ export function create2(component: KupCard): VNode {
                 </div>
                 <div class="sub-2">
                     <div class="text">
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 <div class="sub-3">
@@ -118,7 +118,7 @@ export function create2(component: KupCard): VNode {
                         ) : null}
                     </div>
                     <div class="text">
-                        {textArray[textIndex++] ? textArray[textIndex] : ''}
+                        {textArray[++textIndex] ? textArray[textIndex] : ''}
                     </div>
                 </div>
                 <div class="sub-4 collapsible-wrapper">
