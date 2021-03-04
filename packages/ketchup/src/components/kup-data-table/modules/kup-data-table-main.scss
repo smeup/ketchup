@@ -571,6 +571,7 @@ th.obj:hover span:not(.overlay-action) {
   font-weight: normal;
   margin-right: 0.5em;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 .totals-value {
