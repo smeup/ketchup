@@ -304,15 +304,19 @@ export class KupCard {
          */
         let cardHeight: number = (90 / 100) * card.clientHeight;
         /**
-         * cardWidthLow and cardWidthHigh will set the boundaries in which the component must fit (50% - 90%).
+         * cardWidthLow and cardWidthHigh will set the boundaries in which the component must fit (85% - 95%).
          */
-        let cardWidthLow: number = (50 / 100) * card.clientWidth;
-        let cardWidthHigh: number = (90 / 100) * card.clientWidth;
+        let cardWidthLow: number = (85 / 100) * card.clientWidth;
+        let cardWidthHigh: number = (95 / 100) * card.clientWidth;
         let tooManyAttempts: number = 2000;
         /**
          * Cycle to adjust the width.
          */
-        do {
+        while (
+            (el.clientWidth < cardWidthLow || el.clientWidth > cardWidthHigh) &&
+            tooManyAttempts > 0 &&
+            multiplier > multiplierStep
+        ) {
             tooManyAttempts--;
             if (el.clientWidth < cardWidthLow) {
                 multiplier = multiplier + multiplierStep;
@@ -323,18 +327,14 @@ export class KupCard {
             } else {
                 tooManyAttempts = 0;
             }
-        } while (
-            (el.clientWidth < cardWidthLow || el.clientWidth > cardWidthHigh) &&
-            tooManyAttempts > 0 &&
-            multiplier > multiplierStep
-        );
+        }
         /**
-         * Cycle to adjust the height, in case
+         * Cycle to adjust the height, in case it exceeds its boundaries after having adjusted width.
          */
-        do {
+        while (el.clientHeight > cardHeight && multiplier > multiplierStep) {
             multiplier = multiplier - multiplierStep;
             card.style.setProperty('--multiplier', multiplier + '');
-        } while (el.clientHeight > cardHeight && multiplier > multiplierStep);
+        }
         this.scalingActive = false;
     }
     /**
