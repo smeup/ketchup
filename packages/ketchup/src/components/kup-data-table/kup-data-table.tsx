@@ -542,6 +542,11 @@ export class KupDataTable {
     } = {};
 
     /**
+     * When true, the global filter will show up.
+     */
+    @State()
+    private toggleFilter: boolean = false;
+    /**
      * name of the column with an open menu
      */
     @State()
@@ -1271,6 +1276,20 @@ export class KupDataTable {
                         this.onGlobalFilterChange(null);
                 }
                 FTextFieldMDC(globalFilter);
+            }
+            //Global filter button
+            const globalFilterButton: HTMLElement = root.querySelector(
+                '.f-button--wrapper#global-filter-toggler'
+            );
+            if (globalFilterButton) {
+                const buttonEl: HTMLButtonElement = globalFilterButton.querySelector(
+                    'button'
+                );
+                if (buttonEl) {
+                    buttonEl.onclick = () =>
+                        (this.toggleFilter = !this.toggleFilter);
+                }
+                FButtonMDC(globalFilterButton);
             }
         }
     }
@@ -5132,21 +5151,6 @@ export class KupDataTable {
 
         const tooltip = this.renderTooltip();
 
-        let globalFilter = null;
-        if (this.globalFilter) {
-            globalFilter = (
-                <div id="global-filter">
-                    <FTextField
-                        fullWidth={true}
-                        icon="magnify"
-                        isClearable={true}
-                        label="Search..."
-                        value={this.globalFilterValue}
-                    />
-                </div>
-            );
-        }
-
         let paginatorTop = undefined;
         let paginatorBottom = undefined;
         if (
@@ -5266,7 +5270,27 @@ export class KupDataTable {
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class="above-wrapper">
-                        {globalFilter}
+                        {this.globalFilter ? (
+                            <FButton
+                                iconOff={'magnify'}
+                                icon={'magnify'}
+                                id="global-filter-toggler"
+                                toggable={true}
+                                wrapperClass={
+                                    this.toggleFilter ? 'toggled' : ''
+                                }
+                            />
+                        ) : null}
+                        {this.toggleFilter ? (
+                            <div id="global-filter">
+                                <FTextField
+                                    fullWidth={true}
+                                    isClearable={true}
+                                    label="Search..."
+                                    value={this.globalFilterValue}
+                                />
+                            </div>
+                        ) : null}
                         {paginatorTop}
                     </div>
                     <div
