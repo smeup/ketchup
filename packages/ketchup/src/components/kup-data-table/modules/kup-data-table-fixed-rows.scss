@@ -72,10 +72,10 @@ tr.selected .fixed-row {
   }
 }
 
+thead tr .fixed-column,
 thead tr:hover .fixed-column {
   background-color: var(--kup-title-background-color);
   color: var(--kup-title-color);
-  position: sticky;
 }
 
 tfoot tr:hover .fixed-row,
