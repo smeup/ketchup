@@ -39,24 +39,26 @@ import {
     TotalMode,
 } from './kup-data-table-declarations';
 
-import { isRating, isGauge, isKnob, getCellType } from '../../utils/cell-utils';
+import {
+    isRating,
+    isGauge,
+    isKnob,
+    getCellType,
+    getColumnByName,
+    getCellValueForDisplay,
+    getValueForDisplay,
+} from '../../utils/cell-utils';
 
 import {
     calcTotals,
-    compareValues,
     normalizeTotals,
     normalizeRows,
     filterRows,
-    getColumnByName,
     groupRows,
     paginateRows,
     sortRows,
     styleHasBorderRadius,
     styleHasWritingMode,
-    getCellValueForDisplay,
-    normalizeValue,
-    isFilterCompliantForSimpleValue,
-    getValueForDisplay,
     dropHandlersCell,
 } from './kup-data-table-helper';
 
@@ -67,15 +69,11 @@ import {
     isIcon,
     isImage,
     isNumber,
-    isDate,
     isProgressBar as isProgressBarObj,
     isVoCodver,
     isCheckbox,
     hasTooltip,
     isRadio as isRadioObj,
-    isTimestamp,
-    isTime,
-    isTimeWithSeconds,
     canHaveDerivedColumn,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
@@ -84,9 +82,6 @@ import {
     stringToNumber,
     numberToFormattedStringNumber,
     identify,
-    ISO_DEFAULT_DATE_TIME_FORMAT,
-    ISO_DEFAULT_DATE_FORMAT,
-    changeDateTimeFormat,
 } from '../../utils/utils';
 
 import {
@@ -132,12 +127,10 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
-import {
-    FilterInterval,
-    GenericFilter,
-} from '../../utils/filters/filters-declarations';
+import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
+import { FiltersRows } from '../../utils/filters/filters-rows';
 
 @Component({
     tag: 'kup-data-table',
@@ -641,6 +634,7 @@ export class KupDataTable {
     private resObserver: ResizeObserver = undefined;
     private columnMenuInstance: ColumnMenu;
     private filtersColumnMenuInstance: FiltersColumnMenu;
+    private filtersRowsInstance: FiltersRows;
 
     /**
      * When component unload is complete
@@ -1131,6 +1125,7 @@ export class KupDataTable {
         this.identifyAndInitRows();
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
+        this.filtersRowsInstance = new FiltersRows();
 
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
@@ -1247,15 +1242,7 @@ export class KupDataTable {
         this.resetSelectedRows();
     }
 
-    private _setTooltip(event: MouseEvent, cell: Cell) {
-        setTooltip(event, cell, this.tooltip);
-    }
-
-    private _unsetTooltip() {
-        unsetTooltip(this.tooltip);
-    }
-
-    private getColumns(): Array<Column> {
+    getColumns(): Array<Column> {
         return this.data && this.data.columns
             ? this.data.columns
             : [{ title: '', name: '' }];
@@ -1280,7 +1267,7 @@ export class KupDataTable {
         }
     }
 
-    private getVisibleColumns(): Array<Column> {
+    getVisibleColumns(): Array<Column> {
         // TODO: change into `visible ?? true` when TS dependency has been updated
         const visibleColumns = this.getColumns().filter(({ visible }) =>
             visible !== undefined ? visible : true
@@ -1331,114 +1318,15 @@ export class KupDataTable {
     getColumnValues(
         column: Column
     ): { value: string; displayedValue: string }[] {
-        let values: { value: string; displayedValue: string }[] = new Array();
-
-        let value = this.filtersColumnMenuInstance.getTextFilterValue(
-            this.filters,
-            column.name
-        );
-        let interval = this.getIntervalTextFieldFilterValues(column);
-        if (
-            column.valuesForFilter != null &&
-            column.valuesForFilter.length > 0
-        ) {
-            column.valuesForFilter.forEach((element) => {
-                let v = element;
-                if (
-                    value == '' ||
-                    isFilterCompliantForSimpleValue(
-                        v,
-                        column.obj,
-                        value,
-                        interval
-                    )
-                ) {
-                    values.push({
-                        value: v,
-                        displayedValue: getValueForDisplay(
-                            v,
-                            column.obj,
-                            column.decimals
-                        ),
-                    });
-                }
-            });
-            return values;
-        }
-
-        /** è necessario estrarre i valori della colonna di tutte le righe
-         * filtrate SENZA il filtro della colonna stessa corrente */
-        let tmpFilters: GenericFilter = { ...this.filters };
-
-        tmpFilters[column.name] = {
-            textField: value,
-            checkBoxes: [],
-            interval: interval,
-        };
-
-        let visibleColumns = this.getVisibleColumns();
-        let columnObject = getColumnByName(visibleColumns, column.name);
-
-        let tmpRows = filterRows(
-            this.getRows(),
-            tmpFilters,
+        return this.filtersRowsInstance.getColumnValues(
+            this,
+            column,
             this.globalFilterValue,
-            this.getColumns()
+            this.filtersColumnMenuInstance
         );
-
-        if (columnObject != null) {
-            tmpRows = tmpRows.sort((n1: Row, n2: Row) => {
-                return compareValues(
-                    columnObject.obj,
-                    n1.cells[column.name].value,
-                    columnObject.obj,
-                    n2.cells[column.name].value,
-                    SortMode.A
-                );
-            });
-        }
-
-        /** il valore delle righe attualmente filtrate, formattato */
-        tmpRows.forEach((row) =>
-            this.addColumnValueFromRow(values, column, row)
-        );
-
-        return values;
     }
 
-    private addColumnValueFromRow(
-        values: { value: string; displayedValue: string }[],
-        column: Column,
-        row: Row
-    ) {
-        const cell = row.cells[column.name];
-        if (cell) {
-            let item: { value: string; displayedValue: string } = {
-                value: cell.value,
-                displayedValue: getCellValueForDisplay(column, cell),
-            };
-            if (!this.columnValuesContainsValue(values, item)) {
-                values.push(item);
-            }
-        }
-    }
-
-    private columnValuesContainsValue(
-        values: { value: string; displayedValue: string }[],
-        value: { value: string; displayedValue: string }
-    ): boolean {
-        if (values == null || values.length < 1) {
-            return false;
-        }
-        for (let i = 0; i < values.length; i++) {
-            if (values[i].value == value.value) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private getRows(): Array<Row> {
+    getRows(): Array<Row> {
         return this.data && this.data.rows ? this.data.rows : [];
     }
 
@@ -1751,37 +1639,6 @@ export class KupDataTable {
         this.filters = newFilters;
     }
 
-    /*
-    private onIntervalFilterChange(
-        { detail },
-        column: Column,
-        index: FilterInterval,
-        needNormalize: boolean,
-        suffixToAdd?: string
-    ) {
-        // resetting current page
-        this.resetCurrentPage();
-        let newFilter = '';
-        if (detail.value) {
-            newFilter = detail.value.trim();
-            if (needNormalize) {
-                newFilter = normalizeValue(newFilter, column.obj);
-            }
-            if (suffixToAdd != null && newFilter != '') {
-                newFilter = newFilter + suffixToAdd;
-            }
-        }
-
-        const newFilters: GenericFilter = { ...this.filters };
-        setIntervalTextFieldFilterValue(
-            newFilters,
-            column.name,
-            newFilter,
-            index
-        );
-        this.filters = newFilters;
-    }*/
-
     private getIntervalTextFieldFilterValues(column: Column): Array<string> {
         return this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
             this.filters,
@@ -1789,72 +1646,11 @@ export class KupDataTable {
         );
     }
 
-    getCheckBoxFilterValues(column: string): Array<string> {
-        return this.filtersColumnMenuInstance.getCheckBoxFilterValues(
+    private getFilterValueForTooltip(column: Column): string {
+        return this.filtersColumnMenuInstance.getFilterValueForTooltip(
             this.filters,
             column
         );
-    }
-
-    private getFilterValueForTooltip(column: Column): string {
-        let txtFilter = this.filtersColumnMenuInstance.getTextFilterValue(
-            this.filters,
-            column.name
-        );
-        let interval = this.getIntervalTextFieldFilterValues(column);
-        let chkFilters = this.getCheckBoxFilterValues(column.name);
-
-        let separator = '';
-
-        let txtFiterRis = getValueForDisplay(
-            txtFilter,
-            column.obj,
-            column.decimals
-        );
-        if (txtFilter != '') {
-            separator = ' AND ';
-        }
-        if (interval[FilterInterval.FROM] != '') {
-            txtFiterRis +=
-                separator +
-                '(>= ' +
-                getValueForDisplay(
-                    interval[FilterInterval.FROM],
-                    column.obj,
-                    column.decimals
-                ) +
-                ')';
-            separator = ' AND ';
-        }
-        if (interval[FilterInterval.TO] != '') {
-            txtFiterRis +=
-                separator +
-                '(<= ' +
-                getValueForDisplay(
-                    interval[FilterInterval.TO],
-                    column.obj,
-                    column.decimals
-                ) +
-                ')';
-            separator = ' AND ';
-        }
-
-        separator = '';
-        let ris = '';
-        chkFilters.forEach((f) => {
-            ris +=
-                separator + getValueForDisplay(f, column.obj, column.decimals);
-            separator = ' OR ';
-        });
-
-        if (ris != '') {
-            ris = '(' + ris + ')';
-            if (txtFiterRis != '') {
-                ris = ' AND ' + ris;
-            }
-        }
-        ris = txtFiterRis + ris;
-        return ris;
     }
 
     private onGlobalFilterChange(inputEl: EventTarget) {
@@ -2358,301 +2154,6 @@ export class KupDataTable {
         };
     }
 
-    /*
-    private getIntervalTextualFilter(column: Column) {
-        let textFieldData = {};
-        textFieldData['fullWidth'] = true;
-        textFieldData['isClearable'] = true;
-        textFieldData['helperWhenFocused'] = true;
-
-        let interval = this.getIntervalTextFieldFilterValues(column);
-        let initialValueFrom = interval[FilterInterval.FROM];
-        let initialValueTo = interval[FilterInterval.TO];
-
-        let comps = [];
-        if (isNumber(column.obj)) {
-            textFieldData['label'] = 'Search from...';
-            comps.push(
-                <kup-text-field
-                    {...textFieldData}
-                    initialValue={initialValueFrom}
-                    onKupTextFieldInput={(e) => {
-                        window.clearTimeout(this.columnFilterTimeout);
-                        this.columnFilterTimeout = window.setTimeout(
-                            () =>
-                                this.onIntervalFilterChange(
-                                    e,
-                                    column,
-                                    FilterInterval.FROM,
-                                    true
-                                ),
-                            300
-                        );
-                    }}
-                    onKupTextFieldSubmit={() => {
-                        this.closeMenuAndTooltip();
-                    }}
-                    onKupTextFieldClearIconClick={(e) => {
-                        this.onIntervalFilterChange(
-                            e,
-                            column,
-                            FilterInterval.FROM,
-                            false
-                        );
-                    }}
-                ></kup-text-field>
-            );
-
-            textFieldData['label'] = 'Search to...';
-            comps.push(
-                <kup-text-field
-                    {...textFieldData}
-                    initialValue={initialValueTo}
-                    onKupTextFieldInput={(e) => {
-                        window.clearTimeout(this.columnFilterTimeout);
-                        this.columnFilterTimeout = window.setTimeout(
-                            () =>
-                                this.onIntervalFilterChange(
-                                    e,
-                                    column,
-                                    FilterInterval.TO,
-                                    true
-                                ),
-                            300
-                        );
-                    }}
-                    onKupTextFieldSubmit={() => {
-                        this.closeMenuAndTooltip();
-                    }}
-                    onKupTextFieldClearIconClick={(e) => {
-                        this.onIntervalFilterChange(
-                            e,
-                            column,
-                            FilterInterval.TO,
-                            false
-                        );
-                    }}
-                ></kup-text-field>
-            );
-        } else if (isTime(column.obj)) {
-            textFieldData['label'] = 'Search from...';
-            let data = { 'kup-text-field': { ...textFieldData } };
-            comps.push(
-                <kup-time-picker
-                    data={data}
-                    initialValue={initialValueFrom}
-                    manageSeconds={isTimeWithSeconds(column.obj)}
-                    onKupTimePickerItemClick={(e) => {
-                        window.clearTimeout(this.columnFilterTimeout);
-                        this.columnFilterTimeout = window.setTimeout(
-                            () =>
-                                this.onIntervalFilterChange(
-                                    e,
-                                    column,
-                                    FilterInterval.FROM,
-                                    false
-                                ),
-                            300
-                        );
-                    }}
-                    onKupTimePickerInput={(e) => {
-                        window.clearTimeout(this.columnFilterTimeout);
-                        this.columnFilterTimeout = window.setTimeout(
-                            () =>
-                                this.onIntervalFilterChange(
-                                    e,
-                                    column,
-                                    FilterInterval.FROM,
-                                    true
-                                ),
-                            300
-                        );
-                    }}
-                    onKupTimePickerTextFieldSubmit={() => {
-                        this.closeMenuAndTooltip();
-                    }}
-                    onKupTimePickerClearIconClick={(e) => {
-                        this.onIntervalFilterChange(
-                            e,
-                            column,
-                            FilterInterval.FROM,
-                            false
-                        );
-                    }}
-                ></kup-time-picker>
-            );
-            textFieldData['label'] = 'Search to...';
-            data = { 'kup-text-field': { ...textFieldData } };
-            comps.push(
-                <kup-time-picker
-                    data={data}
-                    initialValue={initialValueTo}
-                    manageSeconds={isTimeWithSeconds(column.obj)}
-                    onKupTimePickerItemClick={(e) => {
-                        window.clearTimeout(this.columnFilterTimeout);
-                        this.columnFilterTimeout = window.setTimeout(
-                            () =>
-                                this.onIntervalFilterChange(
-                                    e,
-                                    column,
-                                    FilterInterval.TO,
-                                    false
-                                ),
-                            300
-                        );
-                    }}
-                    onKupTimePickerInput={(e) => {
-                        window.clearTimeout(this.columnFilterTimeout);
-                        this.columnFilterTimeout = window.setTimeout(
-                            () =>
-                                this.onIntervalFilterChange(
-                                    e,
-                                    column,
-                                    FilterInterval.TO,
-                                    true
-                                ),
-                            300
-                        );
-                    }}
-                    onKupTimePickerTextFieldSubmit={() => {
-                        this.closeMenuAndTooltip();
-                    }}
-                    onKupTimePickerClearIconClick={(e) => {
-                        this.onIntervalFilterChange(
-                            e,
-                            column,
-                            FilterInterval.TO,
-                            false
-                        );
-                    }}
-                ></kup-time-picker>
-            );
-        } else if (isDate(column.obj) || isTimestamp(column.obj)) {
-            let suffixFrom = null;
-            let suffixTo = null;
-            if (isTimestamp(column.obj)) {
-                suffixFrom = ' 00:00:00';
-                suffixTo = ' 23:59:59';
-                if (initialValueFrom != '') {
-                    initialValueFrom = changeDateTimeFormat(
-                        initialValueFrom,
-                        ISO_DEFAULT_DATE_TIME_FORMAT,
-                        ISO_DEFAULT_DATE_FORMAT
-                    );
-                }
-                if (initialValueTo != '') {
-                    initialValueTo = changeDateTimeFormat(
-                        initialValueTo,
-                        ISO_DEFAULT_DATE_TIME_FORMAT,
-                        ISO_DEFAULT_DATE_FORMAT
-                    );
-                }
-            }
-            textFieldData['label'] = 'Search from...';
-            let data = { 'kup-text-field': { ...textFieldData } };
-            comps.push(
-                <kup-date-picker
-                    data={data}
-                    initialValue={initialValueFrom}
-                    onKupDatePickerItemClick={(e) => {
-                        window.clearTimeout(this.columnFilterTimeout);
-                        this.columnFilterTimeout = window.setTimeout(
-                            () =>
-                                this.onIntervalFilterChange(
-                                    e,
-                                    column,
-                                    FilterInterval.FROM,
-                                    false,
-                                    suffixFrom
-                                ),
-                            300
-                        );
-                    }}
-                    onKupDatePickerInput={(e) => {
-                        window.clearTimeout(this.columnFilterTimeout);
-                        this.columnFilterTimeout = window.setTimeout(
-                            () =>
-                                this.onIntervalFilterChange(
-                                    e,
-                                    column,
-                                    FilterInterval.FROM,
-                                    true,
-                                    suffixFrom
-                                ),
-                            300
-                        );
-                    }}
-                    onKupDatePickerTextFieldSubmit={() => {
-                        this.closeMenuAndTooltip();
-                    }}
-                    onKupDatePickerClearIconClick={(e) => {
-                        this.onIntervalFilterChange(
-                            e,
-                            column,
-                            FilterInterval.FROM,
-                            false,
-                            suffixFrom
-                        );
-                    }}
-                ></kup-date-picker>
-            );
-            textFieldData['label'] = 'Search to...';
-            data = { 'kup-text-field': { ...textFieldData } };
-            comps.push(
-                <kup-date-picker
-                    data={data}
-                    initialValue={initialValueTo}
-                    onKupDatePickerItemClick={(e) => {
-                        window.clearTimeout(this.columnFilterTimeout);
-                        this.columnFilterTimeout = window.setTimeout(
-                            () =>
-                                this.onIntervalFilterChange(
-                                    e,
-                                    column,
-                                    FilterInterval.TO,
-                                    false,
-                                    suffixTo
-                                ),
-                            300
-                        );
-                    }}
-                    onKupDatePickerInput={(e) => {
-                        window.clearTimeout(this.columnFilterTimeout);
-                        this.columnFilterTimeout = window.setTimeout(
-                            () =>
-                                this.onIntervalFilterChange(
-                                    e,
-                                    column,
-                                    FilterInterval.TO,
-                                    true,
-                                    suffixTo
-                                ),
-                            300
-                        );
-                    }}
-                    onKupDatePickerTextFieldSubmit={() => {
-                        this.closeMenuAndTooltip();
-                    }}
-                    onKupDatePickerClearIconClick={(e) => {
-                        this.onIntervalFilterChange(
-                            e,
-                            column,
-                            FilterInterval.TO,
-                            false,
-                            suffixTo
-                        );
-                    }}
-                ></kup-date-picker>
-            );
-        }
-
-        return (
-            <li role="menuitem" class="textfield-row">
-                {comps}
-            </li>
-        );
-    }
-*/
     private renderHeader() {
         let specialExtraCellsCount: number = 0;
 
@@ -3617,16 +3118,16 @@ export class KupDataTable {
                         eventHandlers = {
                             onContextMenu: (ev) => {
                                 ev.preventDefault();
-                                this._setTooltip(ev, cell);
+                                setTooltip(ev, cell, this.tooltip);
                             },
                         };
                     } else {
                         eventHandlers = {
                             onMouseEnter: (ev) => {
-                                this._setTooltip(ev, cell);
+                                setTooltip(ev, cell, this.tooltip);
                             },
                             onMouseLeave: () => {
-                                this._unsetTooltip();
+                                unsetTooltip(this.tooltip);
                             },
                         };
                     }
@@ -4778,7 +4279,7 @@ export class KupDataTable {
                             ref={(el: HTMLTableElement) => (this.tableRef = el)}
                             onMouseLeave={(ev) => {
                                 ev.stopPropagation();
-                                this._unsetTooltip();
+                                unsetTooltip(this.tooltip);
                             }}
                         >
                             <thead

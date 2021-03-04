@@ -18,17 +18,17 @@
 
 ## Events
 
-| Event                          | Description | Type                           |
-| ------------------------------ | ----------- | ------------------------------ |
-| `kupTimePickerBlur`            |             | `CustomEvent<{ value: any; }>` |
-| `kupTimePickerChange`          |             | `CustomEvent<{ value: any; }>` |
-| `kupTimePickerClearIconClick`  |             | `CustomEvent<{ id: any; }>`    |
-| `kupTimePickerClick`           |             | `CustomEvent<{ value: any; }>` |
-| `kupTimePickerFocus`           |             | `CustomEvent<{ value: any; }>` |
-| `kupTimePickerIconClick`       |             | `CustomEvent<{ value: any; }>` |
-| `kupTimePickerInput`           |             | `CustomEvent<{ value: any; }>` |
-| `kupTimePickerItemClick`       |             | `CustomEvent<{ value: any; }>` |
-| `kupTimePickerTextFieldSubmit` |             | `CustomEvent<{ value: any; }>` |
+| Event                          | Description | Type                                    |
+| ------------------------------ | ----------- | --------------------------------------- |
+| `kupTimePickerBlur`            |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupTimePickerChange`          |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupTimePickerClearIconClick`  |             | `CustomEvent<{ id: any; }>`             |
+| `kupTimePickerClick`           |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupTimePickerFocus`           |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupTimePickerIconClick`       |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupTimePickerInput`           |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupTimePickerItemClick`       |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupTimePickerTextFieldSubmit` |             | `CustomEvent<{ id: any; value: any; }>` |
 
 
 ## Methods

@@ -3114,30 +3114,38 @@ declare namespace LocalJSX {
          */
         "initialValue"?: string;
         "onKupDatePickerBlur"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         "onKupDatePickerChange"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         "onKupDatePickerClearIconClick"?: (event: CustomEvent<{
         id: any;
     }>) => void;
         "onKupDatePickerClick"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         "onKupDatePickerFocus"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         "onKupDatePickerIconClick"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         "onKupDatePickerInput"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         "onKupDatePickerItemClick"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         "onKupDatePickerTextFieldSubmit"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
     }
@@ -4103,30 +4111,38 @@ declare namespace LocalJSX {
          */
         "manageSeconds"?: boolean;
         "onKupTimePickerBlur"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         "onKupTimePickerChange"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         "onKupTimePickerClearIconClick"?: (event: CustomEvent<{
         id: any;
     }>) => void;
         "onKupTimePickerClick"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         "onKupTimePickerFocus"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         "onKupTimePickerIconClick"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         "onKupTimePickerInput"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         "onKupTimePickerItemClick"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         "onKupTimePickerTextFieldSubmit"?: (event: CustomEvent<{
+        id: any;
         value: any;
     }>) => void;
         /**

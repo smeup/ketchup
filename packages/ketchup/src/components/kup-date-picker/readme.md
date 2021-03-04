@@ -16,17 +16,17 @@
 
 ## Events
 
-| Event                          | Description | Type                           |
-| ------------------------------ | ----------- | ------------------------------ |
-| `kupDatePickerBlur`            |             | `CustomEvent<{ value: any; }>` |
-| `kupDatePickerChange`          |             | `CustomEvent<{ value: any; }>` |
-| `kupDatePickerClearIconClick`  |             | `CustomEvent<{ id: any; }>`    |
-| `kupDatePickerClick`           |             | `CustomEvent<{ value: any; }>` |
-| `kupDatePickerFocus`           |             | `CustomEvent<{ value: any; }>` |
-| `kupDatePickerIconClick`       |             | `CustomEvent<{ value: any; }>` |
-| `kupDatePickerInput`           |             | `CustomEvent<{ value: any; }>` |
-| `kupDatePickerItemClick`       |             | `CustomEvent<{ value: any; }>` |
-| `kupDatePickerTextFieldSubmit` |             | `CustomEvent<{ value: any; }>` |
+| Event                          | Description | Type                                    |
+| ------------------------------ | ----------- | --------------------------------------- |
+| `kupDatePickerBlur`            |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupDatePickerChange`          |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupDatePickerClearIconClick`  |             | `CustomEvent<{ id: any; }>`             |
+| `kupDatePickerClick`           |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupDatePickerFocus`           |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupDatePickerIconClick`       |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupDatePickerInput`           |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupDatePickerItemClick`       |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupDatePickerTextFieldSubmit` |             | `CustomEvent<{ id: any; value: any; }>` |
 
 
 ## Methods

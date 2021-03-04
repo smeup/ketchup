@@ -45,13 +45,14 @@ import {
     isGauge,
     isKnob,
     isChart,
+    getCellValueForDisplay,
+    getColumnByName,
 } from '../../utils/cell-utils';
 
 import {
     filterRows,
     sortRows,
     paginateRows,
-    getCellValueForDisplay,
 } from '../kup-data-table/kup-data-table-helper';
 
 import {
@@ -74,7 +75,6 @@ import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { identify, stringToNumber } from '../../utils/utils';
-import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 import { GenericObject } from '../../types/GenericTypes';
 
 @Component({

@@ -34,8 +34,6 @@ import {
 
 import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 
-import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
-
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import {
     setThemeCustomStyle,
@@ -44,6 +42,7 @@ import {
     colorContrast,
 } from '../../utils/theme-manager';
 import { identify } from '../../utils/utils';
+import { getColumnByName } from '../../utils/cell-utils';
 
 declare const google: any;
 declare const $: any;

@@ -4,10 +4,6 @@ import {
     Column,
     GroupObject,
 } from '../../components/kup-data-table/kup-data-table-declarations';
-import {
-    getValueForDisplay,
-    normalizeValue,
-} from '../../components/kup-data-table/kup-data-table-helper';
 import { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import { KupTree } from '../../components/kup-tree/kup-tree';
 import { GenericObject } from '../../types/GenericTypes';
@@ -30,12 +26,15 @@ import {
     ISO_DEFAULT_DATE_TIME_FORMAT,
 } from '../utils';
 import { CardData } from '../../components/kup-card/kup-card-declarations';
+import { getValueForDisplay } from '../cell-utils';
+import { FiltersRows } from '../filters/filters-rows';
 /**
  * Definition and events of the column menu card.
  * @module ColumnMenu
  */
 export class ColumnMenu {
-    filters = new FiltersColumnMenu();
+    filtersColumnMenuInstance = new FiltersColumnMenu();
+    filtersRowsInstance = new FiltersRows();
     /**
      * Function used to check whether the component is a KupTree or KupDataTable.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
@@ -106,7 +105,9 @@ export class ColumnMenu {
             button: this.prepButton(comp, column),
             checkbox: this.prepCheckbox(comp, column),
             datepicker: this.prepIntervalDatePicker(comp, column),
-            textfield: !this.filters.isColumnFiltrableByInterval(column)
+            textfield: !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
+                column
+            )
                 ? this.prepTextfield(comp, column)
                 : this.prepIntervalTextfield(comp, column),
             timepicker: this.prepIntervalTimePicker(comp, column),
@@ -176,7 +177,8 @@ export class ColumnMenu {
             comp.showFilters &&
             (isStringObject(column.obj) || isCheckbox(column.obj))
         ) {
-            const checkBoxesFilter: string[] = comp.getCheckBoxFilterValues(
+            const checkBoxesFilter: string[] = this.filtersColumnMenuInstance.getCheckBoxFilterValues(
+                comp.filters,
                 column.name
             );
             const columnValues: {
@@ -230,7 +232,7 @@ export class ColumnMenu {
     ): GenericObject[] {
         let props: GenericObject[] = [];
         if (comp.showFilters && isStringObject(column.obj)) {
-            let filterInitialValue = this.filters.getTextFilterValue(
+            let filterInitialValue = this.filtersColumnMenuInstance.getTextFilterValue(
                 comp.filters,
                 column.name
             );
@@ -250,6 +252,7 @@ export class ColumnMenu {
                     initialValue: filterInitialValue,
                     isClearable: true,
                     label: 'Search...',
+                    trailingIcon: true,
                 },
             ];
         }
@@ -267,11 +270,14 @@ export class ColumnMenu {
         column: Column
     ): GenericObject[] {
         let props: GenericObject[] = [];
+        if (!comp.showFilters) {
+            return props;
+        }
         if (!isNumber(column.obj)) {
             return props;
         }
 
-        let interval = this.filters.getIntervalTextFieldFilterValues(
+        let interval = this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
             comp.filters,
             column
         );
@@ -291,6 +297,7 @@ export class ColumnMenu {
             isClearable: true,
             label: 'Search from...',
             icon: 'magnify',
+            trailingIcon: true,
         });
         props.push({
             'data-storage': {
@@ -305,6 +312,7 @@ export class ColumnMenu {
             isClearable: true,
             label: 'Search to...',
             icon: 'magnify',
+            trailingIcon: true,
         });
 
         return props;
@@ -320,11 +328,14 @@ export class ColumnMenu {
         column: Column
     ): GenericObject[] {
         let props: GenericObject[] = [];
+        if (!comp.showFilters) {
+            return props;
+        }
         if (!isTime(column.obj)) {
             return props;
         }
 
-        let interval = this.filters.getIntervalTextFieldFilterValues(
+        let interval = this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
             comp.filters,
             column
         );
@@ -381,11 +392,14 @@ export class ColumnMenu {
         column: Column
     ): GenericObject[] {
         let props: GenericObject[] = [];
+        if (!comp.showFilters) {
+            return props;
+        }
         if (!isDate(column.obj) && !isTimestamp(column.obj)) {
             return props;
         }
 
-        let interval = this.filters.getIntervalTextFieldFilterValues(
+        let interval = this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
             comp.filters,
             column
         );
@@ -466,18 +480,24 @@ export class ColumnMenu {
         let compEventType: string = compEvent.type;
         let isClickEvent = compEventType.toLowerCase().endsWith('click');
         let cardDataId = '';
-        if (compEventType.toLowerCase().indexOf('textfield') > 0) {
+        if (compEventType.indexOf('kupTextField') == 0) {
             cardDataId = 'textfield';
-        } else if (compEventType.toLowerCase().indexOf('datepicker') > 0) {
+        } else if (compEventType.indexOf('kupDatePicker') == 0) {
             cardDataId = 'datepicker';
-        } else if (compEventType.toLowerCase().indexOf('timepicker') > 0) {
+        } else if (compEventType.indexOf('kupTimePicker') == 0) {
             cardDataId = 'timepicker';
+        } else if (compEventType.indexOf('kupCheckbox') == 0) {
+            cardDataId = 'checkbox';
+        } else if (compEventType.indexOf('kupButton') == 0) {
+            cardDataId = 'button';
+        }
+        if (cardDataId != '') {
+            dataStorage = cardData[cardDataId].find((x) => x.id === compID)[
+                'data-storage'
+            ];
         }
         switch (compEvent.type) {
             case 'kupCheckboxChange':
-                dataStorage = cardData['checkbox'].find((x) => x.id === compID)[
-                    'data-storage'
-                ];
                 this.checkboxChange(
                     comp,
                     compEvent.detail.checked,
@@ -486,9 +506,6 @@ export class ColumnMenu {
                 );
                 break;
             case 'kupButtonClick':
-                dataStorage = cardData['button'].find((x) => x.id === compID)[
-                    'data-storage'
-                ];
                 switch (compID) {
                     case 'add':
                         this.addColumn(comp, dataStorage['columnName']);
@@ -518,9 +535,6 @@ export class ColumnMenu {
             case 'kupTextFieldClearIconClick':
             case 'kupDatePickerClearIconClick':
             case 'kupTimePickerClearIconClick':
-                dataStorage = cardData[cardDataId].find((x) => x.id === compID)[
-                    'data-storage'
-                ];
                 if (dataStorage['isInterval'] == true) {
                     this.intervalChange(
                         comp,
@@ -538,9 +552,6 @@ export class ColumnMenu {
             case 'kupDatePickerItemClick':
             case 'kupTimePickerInput':
             case 'kupTimePickerItemClick':
-                dataStorage = cardData[cardDataId].find((x) => x.id === compID)[
-                    'data-storage'
-                ];
                 window.clearTimeout(comp.columnFilterTimeout);
                 comp.columnFilterTimeout = window.setTimeout(() => {
                     if (dataStorage['isInterval'] == true) {
@@ -579,10 +590,13 @@ export class ColumnMenu {
         }
         let newFilter = '';
         if (value) {
-            newFilter = normalizeValue(value.trim(), column.obj);
+            newFilter = this.filtersColumnMenuInstance.normalizeValue(
+                value.trim(),
+                column.obj
+            );
         }
         const newFilters: GenericFilter = { ...comp.filters };
-        this.filters.setTextFieldFilterValue(
+        this.filtersColumnMenuInstance.setTextFieldFilterValue(
             newFilters,
             column.name,
             newFilter
@@ -605,7 +619,10 @@ export class ColumnMenu {
         if (value) {
             newFilter = value.trim();
             if (needNormalize) {
-                newFilter = normalizeValue(newFilter, column.obj);
+                newFilter = this.filtersColumnMenuInstance.normalizeValue(
+                    newFilter,
+                    column.obj
+                );
             }
             if (suffix != null && newFilter != '') {
                 newFilter = newFilter + suffix;
@@ -613,7 +630,7 @@ export class ColumnMenu {
         }
 
         const newFilters: GenericFilter = { ...comp.filters };
-        this.filters.setIntervalTextFieldFilterValue(
+        this.filtersColumnMenuInstance.setIntervalTextFieldFilterValue(
             newFilters,
             column.name,
             newFilter,
@@ -641,13 +658,13 @@ export class ColumnMenu {
         const newFilters = { ...comp.filters };
 
         if (checked || filterValue == null) {
-            this.filters.addCheckboxFilter(
+            this.filtersColumnMenuInstance.addCheckboxFilter(
                 newFilters,
                 column.name,
                 filterValue
             );
         } else {
-            this.filters.removeCheckboxFilter(
+            this.filtersColumnMenuInstance.removeCheckboxFilter(
                 newFilters,
                 column.name,
                 filterValue

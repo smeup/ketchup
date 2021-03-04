@@ -13,50 +13,18 @@ import {
     KupDataTableRowDragType,
 } from './kup-data-table-declarations';
 
-import {
-    isNumber,
-    isDate,
-    isTime,
-    isTimeWithSeconds,
-    isTimestamp,
-} from '../../utils/object-utils';
-import {
-    isEmpty,
-    ISO_DEFAULT_DATE_FORMAT,
-    isValidStringDate,
-    getCurrentDateFormatFromBrowserLocale,
-    stringToNumber,
-    changeDateTimeFormat,
-    unformatDateTime,
-    unformattedStringToFormattedStringDate,
-    unformattedStringToFormattedStringTime,
-    unformattedStringToFormattedStringNumber,
-    isValidFormattedStringDate,
-    formattedStringToDefaultUnformattedStringDate,
-    formattedStringToUnformattedStringNumber,
-    isValidFormattedStringNumber,
-    unformattedStringNumberToNumber,
-    isNumber as isNumberThisString,
-    unformattedStringToFormattedStringTimestamp,
-    ISO_DEFAULT_TIME_FORMAT,
-    ISO_DEFAULT_DATE_TIME_FORMAT,
-    isValidFormattedStringTime,
-    formattedStringToDefaultUnformattedStringTime,
-    formattedStringToDefaultUnformattedStringTimestamp,
-    ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS,
-} from '../../utils/utils';
-import {
-    isFilterCompliantForValue,
-    filterIsNegative,
-} from '../../utils/filters';
+import { isNumber } from '../../utils/object-utils';
+import { isEmpty, stringToNumber } from '../../utils/utils';
 import { logMessage } from '../../utils/debug-manager';
 import { DropHandlers, setDragDropPayload } from '../../utils/drag-and-drop';
-import {
-    Filter,
-    FilterInterval,
-    GenericFilter,
-} from '../../utils/filters/filters-declarations';
+import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
+import {
+    getCellValueForDisplay,
+    getColumnByName,
+    compareCell,
+} from '../../utils/cell-utils';
+import { FiltersRows } from '../../utils/filters/filters-rows';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -174,25 +142,6 @@ function compareRows(r1: Row, r2: Row, sortObj: SortObject): number {
 }
 
 //-------- FILTER FUNCTIONS --------
-export function hasFilters(filters: GenericFilter = {}, columns: Column[]) {
-    const columnFilters = new FiltersColumnMenu();
-    if (filters == null) {
-        return false;
-    }
-    let keys = Object.keys(filters);
-    if (keys == null || keys.length < 1) {
-        return false;
-    }
-    for (let i = 0; i < keys.length; i++) {
-        let key = keys[i];
-        const col = getColumnByName(columns, key);
-        if (columnFilters.hasFiltersForColumn(filters, col)) {
-            return true;
-        }
-    }
-    return false;
-}
-
 /**
  * Filters the rows data of a data-table component according to the parameters
  *
@@ -203,293 +152,25 @@ export function hasFilters(filters: GenericFilter = {}, columns: Column[]) {
  * @todo This function can be improved in its speed by a refactor in which from two different cycles of execution for
  *    single filters and global filter, all controls on a single column are done in a single cycle.
  */
+
 export function filterRows(
     rows: Array<Row> = [],
     filters: GenericFilter = {},
     globalFilter: string = '',
-    columns: Column[] = []
+    columns: Column[] = [],
+    columnFilters?: FiltersColumnMenu,
+    filtersRows?: FiltersRows
 ): Array<Row> {
-    if (!rows || rows == null) {
-        return [];
+    if (filtersRows == null) {
+        filtersRows = new FiltersRows();
     }
 
-    // There are rows to filter
-    let filteredRows: Array<Row> = [];
-    const isUsingGlobalFilter: boolean = !!(globalFilter && columns);
-
-    if (hasFilters(filters, columns) || isUsingGlobalFilter) {
-        for (let i = 0; i < rows.length; i++) {
-            let r: Row = rows[i];
-            if (
-                isRowCompliant(
-                    r,
-                    filters,
-                    globalFilter,
-                    isUsingGlobalFilter,
-                    columns
-                )
-            ) {
-                filteredRows[filteredRows.length] = r;
-            }
-        }
-    } else {
-        filteredRows = [...rows];
-    }
-
-    return filteredRows;
-}
-
-export function isRowCompliant(
-    r: Row,
-    filters: GenericFilter = {},
-    globalFilter: string = '',
-    isUsingGlobalFilter: boolean = false,
-    columns: Column[] = []
-) {
-    const columnFilters = new FiltersColumnMenu();
-    if (isUsingGlobalFilter) {
-        let retValue = true;
-        // There are no columns -> display element
-        if (columns && columns != null && columns.length > 0) {
-            retValue = false;
-            let _filterIsNegative = filterIsNegative(globalFilter);
-
-            // Search among all columns for the global filter
-            for (let i = 0; i < columns.length; i++) {
-                const cell = r.cells[columns[i].name];
-                retValue = isFilterCompliantForValue(cell.value, globalFilter);
-                let displayedValue = getCellValueForDisplay(columns[i], cell);
-                if (displayedValue != cell.value) {
-                    retValue =
-                        retValue ||
-                        isFilterCompliantForValue(displayedValue, globalFilter);
-                }
-                if (retValue == true && !_filterIsNegative) {
-                    break;
-                }
-                if (retValue == false && _filterIsNegative) {
-                    break;
-                }
-            }
-        }
-        if (!retValue) {
-            return false;
-        }
-    }
-
-    // There are no filters to check -> the element is valid
-    if (!hasFilters(filters, columns)) {
-        return true;
-    }
-
-    let keys = Object.keys(filters);
-
-    // Filters
-    for (let i = 0; i < keys.length; i++) {
-        let key: string = keys[i];
-
-        const cell = r.cells[key];
-        if (!cell) {
-            return false;
-        }
-
-        let filterValue = columnFilters.getTextFilterValue(filters, key);
-        let interval = columnFilters.getIntervalTextFieldFilterValues(
-            filters,
-            getColumnByName(columns, key)
-        );
-
-        const _filterIsNegative: boolean = filterIsNegative(filterValue);
-        let b1 = isFilterCompliantForCell(cell, filterValue, interval);
-        let b2 = _filterIsNegative;
-        if (
-            !isNumber(cell.obj) &&
-            !isDate(cell.obj) &&
-            !isTime(cell.obj) &&
-            !isTimestamp(cell.obj)
-        ) {
-            b2 = isFilterCompliantForCellObj(cell, filterValue, interval);
-        }
-
-        if (_filterIsNegative) {
-            if (!b1 || !b2) {
-                return false;
-            }
-        } else {
-            if (!b1 && !b2) {
-                return false;
-            }
-        }
-
-        let filterValues = columnFilters.getCheckBoxFilterValues(filters, key);
-        if (filterValues.length == 0) {
-            continue;
-        }
-        let retValue = false;
-        for (let i = 0; i < filterValues.length; i++) {
-            let fv = filterValues[i];
-            if (fv == null) {
-                continue;
-            }
-            if (cell.value != null) {
-                if (
-                    cell.value.toLowerCase().trim() == fv.toLowerCase().trim()
-                ) {
-                    retValue = true;
-                    break;
-                }
-            }
-            if (cell.obj != null) {
-                if (
-                    cell.obj.k.toLowerCase().trim() == fv.toLowerCase().trim()
-                ) {
-                    retValue = true;
-                    break;
-                }
-            }
-        }
-        if (!retValue) {
-            return false;
-        }
-    }
-    return true;
-}
-
-export function isFilterCompliantForSimpleValue(
-    valueToCheck: string,
-    obj: any,
-    filterValue: string,
-    interval: string[]
-) {
-    if (valueToCheck == null) {
-        return false;
-    }
-
-    filterValue = normalizeValue(filterValue, obj);
-    let value = valueToCheck;
-
-    let from: string = '';
-    let to: string = '';
-    if (interval != null) {
-        from = interval[FilterInterval.FROM];
-        to = interval[FilterInterval.TO];
-    }
-    let checkByRegularExpression = true;
-    if (isNumber(obj)) {
-        value = unformattedStringNumberToNumber(value, obj ? obj.p : '');
-        let valueNumber: number = stringToNumber(value);
-        if (from != '') {
-            if (isNumberThisString(from)) {
-                checkByRegularExpression = false;
-                let fromNumber: number = stringToNumber(from);
-                if (valueNumber < fromNumber) {
-                    return false;
-                }
-            } else {
-                filterValue = from;
-            }
-        }
-        if (to != '') {
-            if (isNumberThisString(to)) {
-                checkByRegularExpression = false;
-                let toNumber: number = stringToNumber(to);
-                if (valueNumber > toNumber) {
-                    return false;
-                }
-            } else {
-                filterValue = to;
-            }
-        }
-    }
-    if (isDate(obj) || isTime(obj) || isTimestamp(obj)) {
-        let valueDate: Date = null;
-
-        let defaultFormat = ISO_DEFAULT_DATE_FORMAT;
-        if (isDate(obj)) {
-            defaultFormat = ISO_DEFAULT_DATE_FORMAT;
-        } else if (isTime(obj)) {
-            defaultFormat = isTimeWithSeconds(obj)
-                ? ISO_DEFAULT_TIME_FORMAT
-                : ISO_DEFAULT_TIME_FORMAT_WITHOUT_SECONDS;
-        } else if (isTimestamp(obj)) {
-            defaultFormat = ISO_DEFAULT_DATE_TIME_FORMAT;
-        }
-
-        if (isValidStringDate(value, defaultFormat)) {
-            valueDate = unformatDateTime(value, defaultFormat);
-        }
-        if (from != '') {
-            if (valueDate != null && isValidStringDate(from, defaultFormat)) {
-                checkByRegularExpression = false;
-                let fromDate: Date = unformatDateTime(from, defaultFormat);
-                if (valueDate < fromDate) {
-                    return false;
-                }
-            } else {
-                filterValue = from;
-            }
-        }
-        if (to != '') {
-            if (valueDate != null && isValidStringDate(to, defaultFormat)) {
-                checkByRegularExpression = false;
-                let toDate: Date = unformatDateTime(to, defaultFormat);
-                if (valueDate > toDate) {
-                    return false;
-                }
-            } else {
-                filterValue = to;
-            }
-        }
-        if (
-            !isValidStringDate(filterValue, defaultFormat) &&
-            !isValidStringDate(filterValue)
-        ) {
-            value = changeDateTimeFormat(
-                value,
-                defaultFormat,
-                getCurrentDateFormatFromBrowserLocale()
-            );
-        }
-    }
-    if (checkByRegularExpression) {
-        return isFilterCompliantForValue(value, filterValue);
-    }
-    return true;
-}
-
-export function isFilterCompliantForCell(
-    cellValue: Cell,
-    filterValue: string,
-    interval: string[]
-) {
-    if (!cellValue) {
-        return false;
-    }
-
-    return isFilterCompliantForSimpleValue(
-        cellValue.value,
-        cellValue.obj,
-        filterValue,
-        interval
-    );
-}
-
-export function isFilterCompliantForCellObj(
-    cellValue: Cell,
-    filterValue: string,
-    interval: string[]
-) {
-    if (!cellValue) {
-        return false;
-    }
-    if (!cellValue.obj) {
-        return false;
-    }
-    return isFilterCompliantForSimpleValue(
-        cellValue.obj.k,
-        cellValue.obj,
-        filterValue,
-        interval
+    return filtersRows.filterRows(
+        rows,
+        filters,
+        globalFilter,
+        columns,
+        columnFilters
     );
 }
 
@@ -823,34 +504,6 @@ export function evaluateString(f: string) {
     return Function('"use strict"; return (' + f + ')')();
 }
 
-export function normalizeValue(value: string, smeupObj: any): string {
-    let newValue = value != null ? value.trim() : value;
-    if (newValue == null || newValue == '' || smeupObj == null) {
-        return newValue;
-    }
-    if (isDate(smeupObj)) {
-        if (isValidFormattedStringDate(value)) {
-            return formattedStringToDefaultUnformattedStringDate(value);
-        }
-    } else if (isTime(smeupObj)) {
-        if (isValidFormattedStringTime(value, isTimeWithSeconds(smeupObj))) {
-            return formattedStringToDefaultUnformattedStringTime(value);
-        }
-    } else if (isTimestamp(smeupObj)) {
-        if (isValidFormattedStringTime(value, true)) {
-            return formattedStringToDefaultUnformattedStringTimestamp(value);
-        }
-    } else if (isNumber(smeupObj)) {
-        if (isValidFormattedStringNumber(value, smeupObj ? smeupObj.p : '')) {
-            return formattedStringToUnformattedStringNumber(
-                value,
-                smeupObj ? smeupObj.p : ''
-            );
-        }
-    }
-    return newValue;
-}
-
 export function normalizeRows(
     columns: Array<Column>,
     rows: Array<Row>
@@ -966,106 +619,6 @@ export function calcTotals(
     return footerRow;
 }
 
-function compareCell(cell1: Cell, cell2: Cell, sortMode: SortMode): number {
-    return compareValues(
-        cell1.obj,
-        cell1.value,
-        cell2.obj,
-        cell2.value,
-        sortMode
-    );
-}
-
-export function compareValues(
-    obj1: any,
-    value1: any,
-    obj2: any,
-    value2: any,
-    sortMode: SortMode
-): number {
-    const sm = sortMode === 'A' ? 1 : -1;
-
-    if (obj1 == null || obj2 == null) {
-        return sm * localCompareAsInJava(value1, value2);
-    }
-
-    // If either the type or the parameter of the current object are not equal.
-    if (!(obj1.t === obj2.t && obj1.p === obj2.p)) {
-        let compare = localCompareAsInJava(obj1.t, obj2.t);
-        if (compare === 0) {
-            compare = localCompareAsInJava(obj1.p, obj2.p);
-        }
-        return compare * sm;
-    }
-
-    let s1: string = value1;
-    let s2: string = value2;
-
-    if (s1 == s2) {
-        return 0;
-    }
-
-    if (s1 == '') {
-        return sm * -1;
-    }
-
-    if (s2 == '') {
-        return sm * 1;
-    }
-
-    let v1: any = s1;
-    let v2: any = s2;
-    if (isNumber(obj1)) {
-        v1 = stringToNumber(s1);
-        v2 = stringToNumber(s2);
-    } else if (isDate(obj1)) {
-        v1 = unformatDateTime(s1, ISO_DEFAULT_DATE_FORMAT);
-        v2 = unformatDateTime(s2, ISO_DEFAULT_DATE_FORMAT);
-    } else if (isTime(obj1)) {
-        v1 = unformatDateTime(s1, ISO_DEFAULT_TIME_FORMAT);
-        v2 = unformatDateTime(s2, ISO_DEFAULT_TIME_FORMAT);
-    } else if (isTimestamp(obj1)) {
-        v1 = unformatDateTime(s1, ISO_DEFAULT_DATE_TIME_FORMAT);
-        v2 = unformatDateTime(s2, ISO_DEFAULT_DATE_TIME_FORMAT);
-    }
-    if (v1 > v2) {
-        return sm * 1;
-    }
-    if (v1 < v2) {
-        return sm * -1;
-    }
-    return 0;
-}
-
-/**
- * Given two strings to compare, the functions decides which string comes before the other or if they are equal.
- * This is meant as a replacement for the JavaScript function localCompare() which produces a slightly different result from
- * the Java version of compareTo().
- *
- * This function has been taken from the link below, but it is slightly improved.
- * @param t1
- * @param t2
- * @see https://stackoverflow.com/questions/60300935/javascript-localecompare-returns-different-result-than-java-compareto
- */
-function localCompareAsInJava(t1: string, t2: string): number {
-    const lim = Math.min(t1.length, t2.length);
-
-    let k = 0;
-    while (k < lim) {
-        const c1 = t1[k];
-        const c2 = t2[k];
-        if (c1 !== c2) {
-            if (c1.charCodeAt(0) === 32) {
-                return c1.charCodeAt(0) + c2.charCodeAt(0);
-            } else {
-                return c1.charCodeAt(0) - c2.charCodeAt(0);
-            }
-        }
-        k++;
-    }
-    return t1.length - t2.length;
-}
-
 function adjustGroupId(row: Row): void {
     if (!row.group) {
         return;
@@ -1081,19 +634,6 @@ function adjustGroupId(row: Row): void {
     }
 
     row.group.id = groupID;
-}
-
-export function getColumnByName(columns: Column[], name: string): Column {
-    if (columns == null) {
-        return null;
-    }
-    for (let column of columns) {
-        if (column.name === name) {
-            return column;
-        }
-    }
-
-    return null;
 }
 
 export function paginateRows(
@@ -1228,63 +768,6 @@ export function styleHasWritingMode(cell: Cell): boolean {
         cell &&
         cell.style &&
         (cell.style.writingMode || cell.style['writing-mode'])
-    );
-}
-
-export function getValueForDisplay(value, obj, decimals: number): string {
-    if (value == null || value.trim() == '') {
-        return value;
-    }
-    if (isNumber(obj)) {
-        return unformattedStringToFormattedStringNumber(
-            value,
-            decimals ? decimals : -1,
-            obj ? obj.p : ''
-        );
-    }
-    if (isDate(obj) && isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)) {
-        return unformattedStringToFormattedStringDate(
-            value,
-            null,
-            obj.t + obj.p
-        );
-    }
-    if (isTime(obj)) {
-        return unformattedStringToFormattedStringTime(
-            value,
-            isTimeWithSeconds(obj),
-            null,
-            obj.t + obj.p
-        );
-    }
-    if (isTimestamp(obj)) {
-        return unformattedStringToFormattedStringTimestamp(value);
-    }
-    return value;
-}
-
-export function getCellValueForDisplay(column: Column, cell: Cell): string {
-    if (cell != null) {
-        if (cell.displayedValue != null) {
-            return cell.displayedValue;
-        }
-    }
-    let formattedValue = _getCellValueForDisplay(cell.value, column, cell);
-    if (cell != null) {
-        cell.displayedValue = formattedValue;
-    }
-    return formattedValue;
-}
-
-function _getCellValueForDisplay(value, column: Column, cell: Cell): string {
-    let obj = column != null ? column.obj : null;
-    if (cell != null) {
-        obj = cell.obj ? cell.obj : obj;
-    }
-    return getValueForDisplay(
-        value,
-        obj,
-        column != null ? column.decimals : null
     );
 }
 

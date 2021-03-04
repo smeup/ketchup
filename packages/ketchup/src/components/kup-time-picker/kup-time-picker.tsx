@@ -92,6 +92,7 @@ export class KupTimePicker {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -102,6 +103,7 @@ export class KupTimePicker {
         bubbles: true,
     })
     kupChange: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -112,6 +114,7 @@ export class KupTimePicker {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -122,6 +125,7 @@ export class KupTimePicker {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -132,6 +136,7 @@ export class KupTimePicker {
         bubbles: true,
     })
     kupInput: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -142,6 +147,7 @@ export class KupTimePicker {
         bubbles: true,
     })
     kupIconClick: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -152,6 +158,7 @@ export class KupTimePicker {
         bubbles: true,
     })
     kupItemClick: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -162,6 +169,7 @@ export class KupTimePicker {
         bubbles: true,
     })
     kupTextFieldSubmit: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -183,27 +191,37 @@ export class KupTimePicker {
             }
             if (e.key === 'Enter') {
                 e.stopPropagation();
-                this.onKupTimePickerItemClick();
+                this.onKupTimePickerItemClick(null);
             }
         }
     }
 
-    onKupTimePickerItemClick(value?: string) {
+    onKupTimePickerItemClick(e: CustomEvent, value?: string) {
+        if (e != null) {
+            e.stopPropagation();
+            if (value == null) {
+                value = e.detail.selected.value;
+            }
+        }
         this.setPickerValueSelected(value);
 
         this.kupChange.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
 
         this.kupItemClick.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
 
-    onKupClearIconClick() {
+    onKupClearIconClick(e: MouseEvent) {
+        e.stopPropagation();
         this.setPickerValueSelected('');
 
         this.kupChange.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
 
@@ -265,26 +283,27 @@ export class KupTimePicker {
     @Method()
     async setValue(value: string) {
         this.value = value;
-        if (this.textfieldEl != null) {
-            this.textfieldEl.setValue(value);
-        }
+        this.setTextFieldInitalValue(this.getTimeForOutput());
     }
 
     onKupBlur(e: UIEvent) {
         e.stopPropagation();
         this.closePicker();
         this.kupBlur.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
 
     onKupChange(e: CustomEvent) {
+        e.stopPropagation();
         this.refreshPickerValue(e.detail.value, this.kupChange);
     }
 
     onKupClick(e: UIEvent) {
         e.stopPropagation();
         this.kupClick.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -292,15 +311,18 @@ export class KupTimePicker {
     onKupFocus(e: UIEvent) {
         e.stopPropagation();
         this.kupFocus.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
 
     onKupInput(e: CustomEvent) {
+        e.stopPropagation();
         this.refreshPickerValue(e.detail.value, this.kupInput);
     }
 
     onKupTextFieldSubmit(e: CustomEvent) {
+        e.stopPropagation();
         this.refreshPickerValue(e.detail.value, this.kupTextFieldSubmit);
     }
 
@@ -312,6 +334,7 @@ export class KupTimePicker {
             this.openPicker();
         }
         this.kupIconClick.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -331,10 +354,12 @@ export class KupTimePicker {
                 this.manageSeconds
             );
             this.value = newValue;
+            this.setTextFieldInitalValue(this.getTimeForOutput());
         }
 
         if (newValue != null) {
             eventToRaise.emit({
+                id: this.rootElement.id,
                 value: newValue,
             });
         }
@@ -425,10 +450,10 @@ export class KupTimePicker {
     }
 
     prepTimeTextfield(): any {
-        return this.prepTextfield();
+        return this.prepTextfield(this.getTimeForOutput());
     }
 
-    prepTextfield(): any {
+    prepTextfield(initialValue: string): any {
         let textfieldData = { ...this.data['kup-text-field'] };
 
         if (!textfieldData['icon']) {
@@ -444,14 +469,16 @@ export class KupTimePicker {
                 {...textfieldData}
                 disabled={this.disabled}
                 id={this.rootElement.id + '_text-field'}
-                initialValue={this.value}
+                initialValue={initialValue}
                 onKupTextFieldChange={(e: any) => this.onKupChange(e)}
                 onKupTextFieldClick={(e: any) => this.onKupClick(e)}
                 onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
                 onKupTextFieldInput={(e: any) => this.onKupInput(e)}
                 onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
                 onKupTextFieldSubmit={(e: any) => this.onKupTextFieldSubmit(e)}
-                onKupTextFieldClearIconClick={() => this.onKupClearIconClick()}
+                onKupTextFieldClearIconClick={(e: any) =>
+                    this.onKupClearIconClick(e)
+                }
                 ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );
@@ -478,13 +505,13 @@ export class KupTimePicker {
         return idConc.indexOf('#' + id + '#') >= 0;
     }
 
-    private setTimeFromClock() {
+    private setTimeFromClock(e: CustomEvent) {
         let text: string =
             this.hoursEl.innerText + ':' + this.minutesEl.innerText;
         if (this.manageSeconds) {
             text += ':' + this.secondsEl.innerText;
         }
-        this.onKupTimePickerItemClick(text);
+        this.onKupTimePickerItemClick(e, text);
     }
 
     private createClock() {
@@ -586,8 +613,8 @@ export class KupTimePicker {
                 {seconds}
                 <div class="actions">
                     <kup-button
-                        onKupButtonClick={() => {
-                            this.setTimeFromClock();
+                        onKupButtonClick={(e: any) => {
+                            this.setTimeFromClock(e);
                         }}
                         id="confirm"
                         styling={FButtonStyling.FLAT}
@@ -717,14 +744,14 @@ export class KupTimePicker {
                 this.setClockViewActive(false, false, true);
                 this.switchView(this.secondsEl, this.secondsCircleEl);
             } else {
-                this.setTimeFromClock();
+                this.setTimeFromClock(e);
             }
         } else {
             this.secondsEl.innerText = time;
             this.secondsCircleEl
                 .querySelector('.selected')
                 .classList.remove('selected');
-            this.setTimeFromClock();
+            this.setTimeFromClock(e);
         }
         e.target.classList.add('selected');
     }
@@ -741,7 +768,10 @@ export class KupTimePicker {
                     is-menu
                     menu-visible
                     onKupListClick={(e) =>
-                        this.onKupTimePickerItemClick(e.detail.selected.value)
+                        this.onKupTimePickerItemClick(
+                            e,
+                            e.detail.selected.value
+                        )
                     }
                     id={this.rootElement.id + '_list'}
                     ref={(el) => (this.pickerEl = el as any)}
@@ -836,7 +866,6 @@ export class KupTimePicker {
     componentWillLoad() {
         logLoad(this, false);
         setThemeCustomStyle(this);
-
         this.watchTimeMinutesStep();
         this.value = this.initialValue;
         if (!this.data) {

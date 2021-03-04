@@ -1,4 +1,5 @@
 import { Column } from '../../components/kup-data-table/kup-data-table-declarations';
+import { getValueForDisplay } from '../cell-utils';
 import { Filters } from './filters';
 import { Filter, FilterInterval, GenericFilter } from './filters-declarations';
 /**
@@ -254,5 +255,66 @@ export class FiltersColumnMenu extends Filters {
         }
         filter.interval[index] =
             newFilter != null ? newFilter.trim() : newFilter;
+    }
+
+    getFilterValueForTooltip(
+        filters: GenericFilter = {},
+        column: Column
+    ): string {
+        let txtFilter = this.getTextFilterValue(filters, column.name);
+        let interval = this.getIntervalTextFieldFilterValues(filters, column);
+        let chkFilters = this.getCheckBoxFilterValues(filters, column.name);
+
+        let separator = '';
+
+        let txtFiterRis = getValueForDisplay(
+            txtFilter,
+            column.obj,
+            column.decimals
+        );
+        if (txtFilter != '') {
+            separator = ' AND ';
+        }
+        if (interval[FilterInterval.FROM] != '') {
+            txtFiterRis +=
+                separator +
+                '(>= ' +
+                getValueForDisplay(
+                    interval[FilterInterval.FROM],
+                    column.obj,
+                    column.decimals
+                ) +
+                ')';
+            separator = ' AND ';
+        }
+        if (interval[FilterInterval.TO] != '') {
+            txtFiterRis +=
+                separator +
+                '(<= ' +
+                getValueForDisplay(
+                    interval[FilterInterval.TO],
+                    column.obj,
+                    column.decimals
+                ) +
+                ')';
+            separator = ' AND ';
+        }
+
+        separator = '';
+        let ris = '';
+        chkFilters.forEach((f) => {
+            ris +=
+                separator + getValueForDisplay(f, column.obj, column.decimals);
+            separator = ' OR ';
+        });
+
+        if (ris != '') {
+            ris = '(' + ris + ')';
+            if (txtFiterRis != '') {
+                ris = ' AND ' + ris;
+            }
+        }
+        ris = txtFiterRis + ris;
+        return ris;
     }
 }

@@ -876,7 +876,6 @@ function compList(compArray: GenericObject[], compType: string): JSX.Element[] {
         if (!compArray[index].id) {
             compArray[index]['id'] = compType + index;
         }
-        console.log('cacca');
         switch (compType) {
             case 'button':
                 list.push(<kup-button {...compArray[index]} />);

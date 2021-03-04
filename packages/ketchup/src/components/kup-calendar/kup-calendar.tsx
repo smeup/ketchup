@@ -9,9 +9,9 @@ import {
     Column,
 } from '../kup-data-table/kup-data-table-declarations';
 import { formatToMomentDate } from '../../utils/cell-formatter';
-import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
 import moment from 'moment';
 import { logLoad, logRender } from '../../utils/debug-manager';
+import { getColumnByName } from '../../utils/cell-utils';
 
 @Component({
     tag: 'kup-calendar',

@@ -79,6 +79,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -89,6 +90,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupChange: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -99,6 +101,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -109,6 +112,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -119,6 +123,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupInput: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -129,6 +134,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupIconClick: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -139,6 +145,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupItemClick: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -149,6 +156,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupTextFieldSubmit: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -175,22 +183,27 @@ export class KupDatePicker {
         }
     }
 
-    onKupDatePickerItemClick(value: string) {
+    onKupDatePickerItemClick(e: MouseEvent, value: string) {
+        e.stopPropagation();
         this.setPickerValueSelected(value);
 
         this.kupChange.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
 
         this.kupItemClick.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
 
-    onKupClearIconClick() {
+    onKupClearIconClick(e: MouseEvent) {
+        e.stopPropagation();
         this.setPickerValueSelected('');
 
         this.kupChange.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
 
@@ -199,7 +212,8 @@ export class KupDatePicker {
         });
     }
 
-    onKupDatePickerMonthYearItemClick(value: string) {
+    onKupDatePickerMonthYearItemClick(e: MouseEvent, value: string) {
+        e.stopPropagation();
         switch (this.calendarView) {
             case SourceEvent.MONTH: {
                 this.calendarView = SourceEvent.DATE;
@@ -256,17 +270,20 @@ export class KupDatePicker {
         e.stopPropagation();
         this.closePicker();
         this.kupBlur.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
 
     onKupChange(e: CustomEvent) {
+        e.stopPropagation();
         this.refreshPickerValue(e.detail.value, this.kupChange);
     }
 
     onKupClick(e: UIEvent) {
         e.stopPropagation();
         this.kupClick.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -274,15 +291,18 @@ export class KupDatePicker {
     onKupFocus(e: UIEvent) {
         e.stopPropagation();
         this.kupFocus.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
 
     onKupInput(e: CustomEvent) {
+        e.stopPropagation();
         this.refreshPickerValue(e.detail.value, this.kupInput, true);
     }
 
     onKupTextFieldSubmit(e: CustomEvent) {
+        e.stopPropagation();
         this.refreshPickerValue(e.detail.value, this.kupTextFieldSubmit);
     }
 
@@ -294,6 +314,7 @@ export class KupDatePicker {
             this.openPicker();
         }
         this.kupIconClick.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -321,6 +342,7 @@ export class KupDatePicker {
         if (newValue != null) {
             if (eventToRaise != null) {
                 eventToRaise.emit({
+                    id: this.rootElement.id,
                     value: newValue,
                 });
             }
@@ -448,7 +470,9 @@ export class KupDatePicker {
                 onKupTextFieldInput={(e: any) => this.onKupInput(e)}
                 onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
                 onKupTextFieldSubmit={(e: any) => this.onKupTextFieldSubmit(e)}
-                onKupTextFieldClearIconClick={() => this.onKupClearIconClick()}
+                onKupTextFieldClearIconClick={(e: any) =>
+                    this.onKupClearIconClick(e)
+                }
                 ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );
@@ -631,8 +655,9 @@ export class KupDatePicker {
                         <span
                             {...dataIndex}
                             class="item-number"
-                            onClick={() => {
+                            onClick={(e) => {
                                 this.onKupDatePickerItemClick(
+                                    e,
                                     dataIndex['data-index']
                                 );
                             }}
@@ -696,8 +721,9 @@ export class KupDatePicker {
                         <span
                             {...dataIndex}
                             class="item-number"
-                            onClick={() => {
+                            onClick={(e) => {
                                 this.onKupDatePickerMonthYearItemClick(
+                                    e,
                                     dataIndex['data-index']
                                 );
                             }}
@@ -761,8 +787,9 @@ export class KupDatePicker {
                         <span
                             {...dataIndex}
                             class="item-number"
-                            onClick={() => {
+                            onClick={(e) => {
                                 this.onKupDatePickerMonthYearItemClick(
+                                    e,
                                     dataIndex['data-index']
                                 );
                             }}

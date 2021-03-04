@@ -18,7 +18,6 @@ import {
     CellData,
     Column,
     Row,
-    SortMode,
 } from './../kup-data-table/kup-data-table-declarations';
 
 import {
@@ -32,15 +31,8 @@ import { hasTooltip } from '../../utils/object-utils';
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
 import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
-import { isFilterCompliantForValue } from '../../utils/filters';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import {
-    compareValues,
-    filterRows,
-    getCellValueForDisplay,
-    getColumnByName,
-    getValueForDisplay,
-    isFilterCompliantForSimpleValue,
     styleHasBorderRadius,
     styleHasWritingMode,
 } from '../kup-data-table/kup-data-table-helper';
@@ -50,11 +42,17 @@ import { KupStore } from '../kup-state/kup-store';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 
-import { getCellType } from '../../utils/cell-utils';
+import {
+    getCellType,
+    getCellValueForDisplay,
+    getColumnByName,
+} from '../../utils/cell-utils';
 import { stringToNumber } from '../../utils/utils';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
+import { FiltersRows } from '../../utils/filters/filters-rows';
+import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 
 @Component({
     tag: 'kup-tree',
@@ -234,6 +232,7 @@ export class KupTree {
     columnFilterTimeout: number;
     private columnMenuInstance: ColumnMenu;
     private filtersColumnMenuInstance: FiltersColumnMenu;
+    private filtersTreeItemsInstance: FiltersTreeItems;
 
     //-------- Events --------
     /**
@@ -460,6 +459,7 @@ export class KupTree {
         setThemeCustomStyle(this);
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
+        this.filtersTreeItemsInstance = new FiltersTreeItems();
 
         this.refreshStructureState();
 
@@ -551,6 +551,13 @@ export class KupTree {
 
     //-------- Methods --------
     expandCollapseNode(treeNode: TreeNode, expandNode: boolean = false) {
+        this.filtersTreeItemsInstance.expandCollapseNode(
+            treeNode,
+            expandNode,
+            treeExpandedPropName
+        );
+
+        /*
         // The node is expandable, which means there are sub trees
         if (treeNode.expandable) {
             // If the node does not already have the property to toggle expansion we add it
@@ -562,7 +569,7 @@ export class KupTree {
             )
                 ? treeNode[treeExpandedPropName] || expandNode
                 : expandNode;
-        }
+        }*/
     }
 
     expandCollapseAllNodes(treeNode: TreeNode, expandNode: boolean = false) {
@@ -582,7 +589,7 @@ export class KupTree {
         }
     }
 
-    private getColumns(): Array<Column> {
+    getColumns(): Array<Column> {
         return this.columns ? this.columns : [{ title: '', name: '' }];
     }
 
@@ -605,18 +612,10 @@ export class KupTree {
         }
     }
 
-    private getVisibleColumns(): Array<Column> {
+    getVisibleColumns(): Array<Column> {
         return this.getColumns().filter((column) =>
             column.hasOwnProperty('visible') ? column.visible : true
         );
-    }
-
-    private _setTooltip(event: MouseEvent, cell: Cell) {
-        setTooltip(event, cell, this.tooltip);
-    }
-
-    private _unsetTooltip() {
-        unsetTooltip(this.tooltip);
     }
 
     /*
@@ -685,7 +684,7 @@ export class KupTree {
         treeNodePath: string,
         auto: boolean
     ) {
-        this._unsetTooltip();
+        unsetTooltip(this.tooltip);
         // If this TreeNode is not disabled, then it can be selected and an event is emitted
         if (treeNodeData && !treeNodeData.disabled) {
             if (this.autoSelectionNodeMode)
@@ -712,7 +711,7 @@ export class KupTree {
         treeNodePath: string,
         ctrlKey: boolean
     ) {
-        this._unsetTooltip();
+        unsetTooltip(this.tooltip);
         // If the node is expandable
         if (treeNodeData.expandable) {
             // Always composes the tree node path as an array
@@ -843,13 +842,15 @@ export class KupTree {
         this.globalFilterValue = value;
     }
 
+    /*
     private setAllVisible(items: TreeNode[]) {
         items.forEach((element) => {
             element.visible = true;
             this.setAllVisible(element.children);
         });
-    }
+    }*/
 
+    /*
     getCheckBoxFilterValues(column: string): Array<string> {
         return this.filtersColumnMenuInstance.getCheckBoxFilterValues(
             this.filters,
@@ -862,123 +863,33 @@ export class KupTree {
             this.filters,
             column
         );
-    }
+    }*/
 
     getColumnValues(
         column: Column
     ): { value: string; displayedValue: string }[] {
-        let values: { value: string; displayedValue: string }[] = new Array();
-
-        let value = this.filtersColumnMenuInstance.getTextFilterValue(
-            this.filters,
-            column.name
-        );
-        let interval = this.getIntervalTextFieldFilterValues(column);
-        if (
-            column.valuesForFilter != null &&
-            column.valuesForFilter.length > 0
-        ) {
-            column.valuesForFilter.forEach((element) => {
-                let v = element;
-                if (
-                    value == '' ||
-                    isFilterCompliantForSimpleValue(
-                        v,
-                        column.obj,
-                        value,
-                        interval
-                    )
-                ) {
-                    values.push({
-                        value: v,
-                        displayedValue: getValueForDisplay(
-                            v,
-                            column.obj,
-                            column.decimals
-                        ),
-                    });
-                }
-            });
-            return values;
-        }
-
-        /** è necessario estrarre i valori della colonna di tutte le righe
-         * filtrate SENZA il filtro della colonna stessa corrente */
-        let tmpFilters: GenericFilter = { ...this.filters };
-
-        tmpFilters[column.name] = {
-            textField: value,
-            checkBoxes: [],
-            interval: interval,
-        };
-
-        let visibleColumns = this.getVisibleColumns();
-        let columnObject = getColumnByName(visibleColumns, column.name);
-
-        let tmpRows = filterRows(
-            this.getRows(),
-            tmpFilters,
+        return this.filtersTreeItemsInstance.getColumnValues(
+            this,
+            column,
             this.globalFilterValue,
-            this.getColumns()
+            this.filtersColumnMenuInstance
         );
-
-        if (columnObject != null) {
-            tmpRows = tmpRows.sort((n1: Row, n2: Row) => {
-                return compareValues(
-                    columnObject.obj,
-                    n1.cells[column.name].value,
-                    columnObject.obj,
-                    n2.cells[column.name].value,
-                    SortMode.A
-                );
-            });
-        }
-
-        /** il valore delle righe attualmente filtrate, formattato */
-        tmpRows.forEach((row) =>
-            this.addColumnValueFromRow(values, column, row)
-        );
-
-        return values;
     }
 
-    private addColumnValueFromRow(
-        values: { value: string; displayedValue: string }[],
-        column: Column,
-        row: Row
-    ) {
-        const cell = row.cells[column.name];
-        if (cell) {
-            let item: { value: string; displayedValue: string } = {
-                value: cell.value,
-                displayedValue: getCellValueForDisplay(column, cell),
-            };
-            if (!this.columnValuesContainsValue(values, item)) {
-                values.push(item);
-            }
-        }
-    }
-
-    private columnValuesContainsValue(
-        values: { value: string; displayedValue: string }[],
-        value: { value: string; displayedValue: string }
-    ): boolean {
-        if (values == null || values.length < 1) {
-            return false;
-        }
-        for (let i = 0; i < values.length; i++) {
-            if (values[i].value == value.value) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private getRows(): Array<Row> {
+    getRows(): Array<TreeNode> {
         return this.data ? this.data : [];
     }
 
     private filterNodes() {
+        this.filtersTreeItemsInstance.filterRows(
+            this.getRows(),
+            this.filters,
+            this.globalFilterValue,
+            this.getColumns(),
+            treeExpandedPropName,
+            this.filtersColumnMenuInstance
+        );
+        /*
         if (this.data == null || this.data.length == 0) {
             return;
         }
@@ -989,7 +900,7 @@ export class KupTree {
         for (let i = 0; i < this.data.length; i++) {
             if (this.setNodeVisibility(this.data[i])) {
             }
-        }
+        }*/
     }
 
     private refreshStructureState() {
@@ -1004,15 +915,7 @@ export class KupTree {
             });
             this.filterNodes();
         }
-    }
-
-    private setNodeVisibility(node: TreeNode): boolean {
-        let visibility: boolean = isFilterCompliantForValue(
-            node.value,
-            this.globalFilterValue
-        );
-        if (node.disabled != true && node.expandable == true) {
-            /** se il ramo è compatibile con il filtro, mostro tutto l'albero sottostante */
+    } /*
             if (visibility == true) {
                 this.setAllVisible(node.children);
             } else {
@@ -1027,7 +930,16 @@ export class KupTree {
         node.visible = visibility;
         return visibility;
     }
+*/
 
+    /*
+    private setNodeVisibility(node: TreeNode): boolean {
+        let visibility: boolean = this.filtersColumnMenuInstance.isFilterCompliantForValue(
+            node.value,
+            this.globalFilterValue
+        );
+        if (node.disabled != true && node.expandable == true) {
+            /** se il ramo è compatibile con il filtro, mostro tutto l'albero sottostante */
     private createIconElement(
         CSSClass: string,
         icon: string,
@@ -1192,16 +1104,16 @@ export class KupTree {
                 eventHandlers = {
                     onContextMenu: (ev) => {
                         ev.preventDefault();
-                        this._setTooltip(ev, cell);
+                        setTooltip(ev, cell, this.tooltip);
                     },
                 };
             } else {
                 eventHandlers = {
                     onMouseEnter: (ev) => {
-                        this._setTooltip(ev, cell);
+                        setTooltip(ev, cell, this.tooltip);
                     },
                     onMouseLeave: () => {
-                        this._unsetTooltip();
+                        unsetTooltip(this.tooltip);
                     },
                 };
             }
