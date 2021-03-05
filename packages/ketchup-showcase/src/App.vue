@@ -444,6 +444,12 @@ export default {
                 },
               },
               {
+                title: `Dash List`,
+                to: {
+                  name: 'dashlist',
+                },
+              },
+              {
                 title: `Data Table`,
                 to: {
                   name: 'datatable',
@@ -459,6 +465,12 @@ export default {
                 title: `Field`,
                 to: {
                   name: 'field',
+                },
+              },
+              {
+                title: `Gauge`,
+                to: {
+                  name: 'gauge',
                 },
               },
               {
