@@ -39,7 +39,7 @@ export class KupGauge {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * The first threshold, establishing the length of the first and second arc.
      */

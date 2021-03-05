@@ -1,5 +1,5 @@
+import type { KupBadge } from '../../components/kup-badge/kup-badge';
 import { FComponent } from '../../types/GenericTypes';
-import { KupBadge } from '../../components/kup-badge/kup-badge';
 /**
  * Props of the f-image component.
  */

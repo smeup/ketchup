@@ -25,7 +25,7 @@ export class KupBadge {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * The data of the image displayed inside the badge.
      */

@@ -1,5 +1,13 @@
+import type {
+    GenericObject,
+    KupComponent,
+    KupDom,
+} from '../../types/GenericTypes';
+import type {
+    KupThemeIcons,
+    KupThemeVariables,
+} from './kup-theme-declarations';
 import { getAssetPath } from '@stencil/core';
-import { GenericObject, KupComponent, KupDom } from '../../types/GenericTypes';
 import { KupDebug } from '../kup-debug/kup-debug';
 import * as themesJson from './themes.json';
 /**
@@ -92,7 +100,8 @@ export class KupTheme {
      * Sets the CSS variables of the theme.
      */
     cssVariables(): void {
-        const variables = this.dom.kupCurrentTheme.cssVariables;
+        const variables: KupThemeVariables = this.dom.kupCurrentTheme
+            .cssVariables;
         let rgbVariables: [{ rgbKey: string; rgbVal: string }];
         for (var key in variables) {
             if (variables.hasOwnProperty(key)) {
@@ -135,7 +144,7 @@ export class KupTheme {
      * Sets the icon variables of the theme.
      */
     icons(): void {
-        const icons: GenericObject = this.dom.kupCurrentTheme.icons;
+        const icons: KupThemeIcons = this.dom.kupCurrentTheme.icons;
         for (var key in icons) {
             if (icons.hasOwnProperty(key)) {
                 const val = `url('${getAssetPath(

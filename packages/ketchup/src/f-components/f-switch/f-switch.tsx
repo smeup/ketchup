@@ -1,7 +1,9 @@
+import type { FSwitchProps } from './f-switch-declarations';
 import { FunctionalComponent, h } from '@stencil/core';
-import { FSwitchProps } from './f-switch-declarations';
 
-//---- Component ----
+/*-------------------------------------------------*/
+/*                C o m p o n e n t                */
+/*-------------------------------------------------*/
 
 export const FSwitch: FunctionalComponent<FSwitchProps> = (
     props: FSwitchProps

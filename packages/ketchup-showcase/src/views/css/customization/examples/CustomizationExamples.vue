@@ -38,7 +38,7 @@
         <div class="kup-container">
           <kup-chip
             :data.prop="chipData"
-            custom-style="#kup-component .mdc-chip { background-color: blue; color: pink; } #kup-component .icon-container { background-color: pink; }"
+            custom-style="#kup-component .mdc-chip { background-color: blue !important; color: pink !important; } #kup-component .f-image__icon { background-color: pink !important; }"
           ></kup-chip>
         </div>
         <p class="centered">customStyle used</p>
@@ -53,7 +53,7 @@
         <div class="kup-container">
           <kup-chip
             :data.prop="chipData"
-            custom-style="#kup-component .mdc-chip:first-child { background-color: blue; color: pink; } #kup-component .mdc-chip:first-child .icon-container{ background-color: pink; }"
+            custom-style="#kup-component .mdc-chip:first-child { background-color: blue !important; color: pink !important; } #kup-component .mdc-chip:first-child .f-image__icon{ background-color: pink !important; }"
           ></kup-chip>
         </div>
         <p class="centered">customStyle used</p>
@@ -191,9 +191,9 @@ export default {
         '#kup-component input, #kup-component label{ font-family: Courier, sans-serif; }',
       markup2: '#kup-component button { text-decoration: underline; }',
       markup3:
-        '#kup-component .mdc-chip { background-color: blue; color: pink; } #kup-component kup-image { --kup-icon-color: pink; }',
+        '#kup-component .mdc-chip { background-color: blue !important; color: pink !important; } #kup-component .f-image__icon { background-color: pink !important; }',
       markup4:
-        '#kup-component .mdc-chip:first-child { background-color: blue; color: pink; } #kup-component .mdc-chip:first-child kup-image { --kup-icon-color: pink; }',
+        '#kup-component .mdc-chip:first-child { background-color: blue !important; color: pink !important; } #kup-component .mdc-chip:first-child .f-image__icon { background-color: pink !important; }',
 
       markup5:
         '#kup-component button { color: transparent; } #kup-component button:hover { color: var(--kup-text-on-primary-color); }',

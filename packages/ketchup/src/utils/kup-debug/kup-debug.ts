@@ -1,4 +1,4 @@
-import { KupDom } from '../../types/GenericTypes';
+import type { KupDom } from '../../types/GenericTypes';
 
 /**
  * Debugging suite, used to log messages and statuses from the Ketch.UP components.

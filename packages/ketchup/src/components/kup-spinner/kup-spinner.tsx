@@ -31,7 +31,7 @@ export class KupSpinner {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Width and height of the spinner. For the bar variant, only height.
      */

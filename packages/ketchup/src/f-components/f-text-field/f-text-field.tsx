@@ -1,7 +1,9 @@
+import type { FTextFieldProps } from './f-text-field-declarations';
 import { FunctionalComponent, getAssetPath, h } from '@stencil/core';
-import { FTextFieldProps } from './f-text-field-declarations';
 
-//---- Component ----
+/*-------------------------------------------------*/
+/*                C o m p o n e n t                */
+/*-------------------------------------------------*/
 
 export const FTextField: FunctionalComponent<FTextFieldProps> = (
     props: FTextFieldProps
@@ -36,7 +38,9 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
     );
 };
 
-//---- Methods ----
+/*-------------------------------------------------*/
+/*                  M e t h o d s                  */
+/*-------------------------------------------------*/
 
 function setContent(props: FTextFieldProps): HTMLDivElement {
     const isOutlined: boolean = props.textArea || props.outlined;

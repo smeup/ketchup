@@ -79,7 +79,7 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 /**
  * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
  */
- @Prop() customStyle: string = undefined;
+ @Prop() customStyle: string = "";
 ```
 
 3. Define the `refreshCustomStyle` method which allows the component to auto-refresh itself once a theme mutation is detected (themes can include customStyle info):

@@ -1,5 +1,4 @@
-import { FComponent } from '../../types/GenericTypes';
-
+import type { FComponent } from '../../types/GenericTypes';
 /**
  * Props of the f-button component.
  */

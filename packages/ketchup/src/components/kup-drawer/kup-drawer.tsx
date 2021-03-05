@@ -25,7 +25,7 @@ export class KupDrawer {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Defaults at false. When set to true, the drawer appears.
      */
