@@ -616,9 +616,6 @@ export class KupDataTable {
     @State()
     private triggerColumnSortRerender = false;
 
-    @State()
-    private stateMap: Map<any, any> = new Map();
-
     @Watch('rowsPerPage')
     rowsPerPageHandler(newValue: number) {
         this.currentRowsPerPage = newValue;
