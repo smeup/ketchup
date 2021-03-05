@@ -1067,7 +1067,7 @@ export class KupTree {
         let title: string = undefined;
         if (_hasTooltip) {
             classObj['is-obj'] = true;
-            if (document.documentElement['kupDebug']) {
+            if (this.kupDebug.isDebug()) {
                 title =
                     cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
             }
@@ -1575,7 +1575,7 @@ export class KupTree {
 
         const _hasTooltip: boolean = hasTooltip(treeNodeData.obj);
         let title: string = undefined;
-        if (_hasTooltip && document.documentElement['kupDebug']) {
+        if (_hasTooltip && this.kupDebug.isDebug()) {
             title =
                 treeNodeData.obj.t +
                 '; ' +

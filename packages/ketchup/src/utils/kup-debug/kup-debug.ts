@@ -1,5 +1,37 @@
+import { KupDom } from '../../types/GenericTypes';
+
+/**
+ * Debugging suite, used to log messages and statuses from the Ketch.UP components.
+ * @module KupDebug
+ */
 export class KupDebug {
-    dom = document.documentElement;
+    /**
+     * Function used to set the status of the debug.
+     * If no argument is provided, this method will work as a toggler.
+     *
+     * @param {boolean} value - If this argument is provided, the debug status will be forced to its value.
+     */
+    toggle(value?: boolean): void {
+        const dom: KupDom = document.documentElement as KupDom;
+        if (typeof value !== 'boolean') {
+            dom.kupDebug = !dom.kupDebug;
+        } else {
+            dom.kupDebug = value;
+        }
+    }
+    /**
+     * Function used to check whether the debug is active or not.
+     * If kupDebug on documentElement's type is not a boolean, it will be set to false.
+     *
+     * @returns {boolean} Status of the debug.
+     */
+    isDebug(): boolean {
+        const dom: HTMLElement = document.documentElement;
+        if (typeof dom['kupDebug'] !== 'boolean') {
+            dom['kupDebug'] = false;
+        }
+        return dom['kupDebug'];
+    }
     /**
      * Displays a timestamped message in the browser's console when the kupDebug property on document.documentElement is true.
      * Warnings and errors will be displayed even when kupDebug !== true.
@@ -9,7 +41,7 @@ export class KupDebug {
      * @param {string} type - The type of console message, defaults to "log" but "warning" and "error" can be used as well.
      */
     logMessage(comp: any, message: string, type?: string): void {
-        if ((!type || type === 'log') && !this.dom['kupDebug']) {
+        if ((!type || type === 'log') && !this.isDebug()) {
             return;
         }
         let obj: object | string;
@@ -121,7 +153,7 @@ export class KupDebug {
             comp.debugInfo.endTime = window.performance.now();
             let timeDiff: number =
                 comp.debugInfo.endTime - comp.debugInfo.startTime;
-            if (this.dom['kupDebug']) {
+            if (this.isDebug()) {
                 this.logMessage(
                     comp,
                     'Component ready after ' + timeDiff + 'ms.'
@@ -143,7 +175,7 @@ export class KupDebug {
             comp.debugInfo.renderEnd = window.performance.now();
             let timeDiff: number =
                 comp.debugInfo.renderEnd - comp.debugInfo.renderStart;
-            if (this.dom['kupDebug']) {
+            if (this.isDebug()) {
                 this.logMessage(
                     comp,
                     'Render #' +

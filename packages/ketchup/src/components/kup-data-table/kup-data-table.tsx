@@ -3114,7 +3114,7 @@ export class KupDataTable {
                 let title: string = undefined;
                 if (_hasTooltip) {
                     cellClass['is-obj'] = true;
-                    if (document.documentElement['kupDebug']) {
+                    if (this.kupDebug.isDebug()) {
                         title =
                             cell.obj.t +
                             '; ' +
