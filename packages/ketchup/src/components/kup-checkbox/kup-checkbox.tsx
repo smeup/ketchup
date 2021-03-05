@@ -9,7 +9,7 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
@@ -85,6 +85,10 @@ export class KupCheckbox {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -217,7 +221,7 @@ export class KupCheckbox {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
@@ -248,7 +252,7 @@ export class KupCheckbox {
         };
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <FCheckbox {...props} />
                 </div>

@@ -10,11 +10,7 @@ import {
     EventEmitter,
 } from '@stencil/core';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import {
-    setThemeCustomStyle,
-    setCustomStyle,
-    colorCheck,
-} from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import Picker from 'vanilla-picker';
 import { positionRecalc } from '../../utils/recalc-position';
 import { KupTextField } from '../kup-text-field/kup-text-field';
@@ -55,6 +51,10 @@ export class KupColorPicker {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
     private picker: Picker;
     private textfieldEl: KupTextField;
 
@@ -113,7 +113,7 @@ export class KupColorPicker {
     private setHexValue() {
         if (this.value) {
             if (this.value.indexOf('#') < 0) {
-                this.value = colorCheck(this.value).hexColor;
+                this.value = this.kupTheme.colorCheck(this.value).hexColor;
             }
             if (
                 this.picker &&
@@ -171,7 +171,7 @@ export class KupColorPicker {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
         this.value = this.initialValue;
         this.setHexValue();
         if (!this.data) {
@@ -272,7 +272,7 @@ export class KupColorPicker {
 
         return (
             <Host class={hostClass}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     ref={(el) => (this.anchorEl = el as any)}

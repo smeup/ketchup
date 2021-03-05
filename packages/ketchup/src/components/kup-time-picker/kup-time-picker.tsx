@@ -15,7 +15,7 @@ import {
 
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { positionRecalc } from '../../utils/recalc-position';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 
 import {
@@ -72,6 +72,10 @@ export class KupTimePicker {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
     private hoursEl: HTMLElement = undefined;
     private minutesEl: HTMLElement = undefined;
     private secondsEl: HTMLElement = undefined;
@@ -868,7 +872,7 @@ export class KupTimePicker {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
         this.watchTimeMinutesStep();
         this.value = this.initialValue;
         if (!this.data) {
@@ -923,7 +927,7 @@ export class KupTimePicker {
 
         return (
             <Host class={hostClass} onBlur={(e) => this.onKupBlur(e)}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     {this.prepTimeTextfield()}
                     {this.prepTimePicker()}

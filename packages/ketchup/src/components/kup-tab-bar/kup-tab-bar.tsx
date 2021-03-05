@@ -13,7 +13,7 @@ import {
 
 import { MDCTabBar } from '@material/tab-bar';
 import { ComponentTabBarElement } from './kup-tab-bar-declarations';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
@@ -38,6 +38,10 @@ export class KupTabBar {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     @Event({
         eventName: 'kupTabBarBlur',
@@ -139,8 +143,8 @@ export class KupTabBar {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
         this.consistencyCheck();
-        setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
@@ -227,7 +231,7 @@ export class KupTabBar {
 
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={componentClass} role="tablist">
                         <div class="mdc-tab-scroller">

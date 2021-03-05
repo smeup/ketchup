@@ -19,7 +19,7 @@ import { KupRadio } from '../kup-radio/kup-radio';
 import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
 import { getValueOfItemByDisplayMode } from './kup-list-declarations';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
@@ -93,6 +93,10 @@ export class KupList {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     private radios: KupRadio[] = [];
     private checkboxes: KupCheckbox[] = [];
@@ -541,9 +545,9 @@ export class KupList {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.watchFilter();
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
+        this.watchFilter();
     }
 
     componentDidLoad() {
@@ -612,7 +616,7 @@ export class KupList {
 
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <ul
                         class={componentClass}

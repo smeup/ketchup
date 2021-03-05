@@ -7,7 +7,7 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
@@ -57,6 +57,10 @@ export class KupSpinner {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     //---- Methods ----
 
@@ -69,7 +73,7 @@ export class KupSpinner {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
@@ -204,7 +208,7 @@ export class KupSpinner {
 
         return (
             <Host style={elStyle}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component" style={elStyle}>
                     <div
                         id="loading-wrapper-master"

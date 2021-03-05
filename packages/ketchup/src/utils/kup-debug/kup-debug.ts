@@ -5,6 +5,7 @@ import { KupDom } from '../../types/GenericTypes';
  * @module KupDebug
  */
 export class KupDebug {
+    dom: KupDom = document.documentElement as KupDom;
     /**
      * Function used to set the status of the debug.
      * If no argument is provided, this method will work as a toggler.
@@ -12,11 +13,10 @@ export class KupDebug {
      * @param {boolean} value - If this argument is provided, the debug status will be forced to its value.
      */
     toggle(value?: boolean): void {
-        const dom: KupDom = document.documentElement as KupDom;
         if (typeof value !== 'boolean') {
-            dom.kupDebug = !dom.kupDebug;
+            this.dom.kupDebug = !this.dom.kupDebug;
         } else {
-            dom.kupDebug = value;
+            this.dom.kupDebug = value;
         }
     }
     /**
@@ -26,11 +26,10 @@ export class KupDebug {
      * @returns {boolean} Status of the debug.
      */
     isDebug(): boolean {
-        const dom: HTMLElement = document.documentElement;
-        if (typeof dom['kupDebug'] !== 'boolean') {
-            dom['kupDebug'] = false;
+        if (typeof this.dom.kupDebug !== 'boolean') {
+            this.dom.kupDebug = false;
         }
-        return dom['kupDebug'];
+        return this.dom.kupDebug;
     }
     /**
      * Displays a timestamped message in the browser's console when the kupDebug property on document.documentElement is true.

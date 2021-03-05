@@ -1,6 +1,6 @@
 import { Component, Element, Host, Prop, State, h } from '@stencil/core';
 import { Method } from '@stencil/core/internal';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
@@ -35,6 +35,10 @@ export class KupLazy {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     //---- Methods ----
 
@@ -70,8 +74,8 @@ export class KupLazy {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
         this.setObserver();
-        setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
@@ -222,7 +226,7 @@ export class KupLazy {
         }
         return (
             <Host class={className}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">{content}</div>
             </Host>
         );

@@ -17,7 +17,7 @@ import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallba
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import echarts, { EChartOption, ECharts } from 'echarts';
 
 @Component({
@@ -76,6 +76,10 @@ export class KupEchart {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
     private resObserver: ResizeObserver = undefined;
     private nameMap: any;
     private jsonMap: any;
@@ -535,8 +539,8 @@ export class KupEchart {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
         this.setObserver();
-        setThemeCustomStyle(this);
         this.fetchThemeColors();
     }
 
@@ -557,7 +561,7 @@ export class KupEchart {
     render() {
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     onClick={() => this.onKupClick()}

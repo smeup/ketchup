@@ -89,7 +89,7 @@ import {
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 
 import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
@@ -573,6 +573,10 @@ export class KupDataTable {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
     private renderedRows: Array<Row> = [];
 
     private loadMoreEventCounter: number = 0;
@@ -1131,6 +1135,7 @@ export class KupDataTable {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
         this.identifyAndInitRows();
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
@@ -1155,8 +1160,6 @@ export class KupDataTable {
         this.currentRowsPerPage = this.rowsPerPage;
         this.isRestoringState = false;
         this.recalculateRows();
-
-        setThemeCustomStyle(this);
 
         // Detects is the browser is Safari. If needed, this function can be moved into an external file and then imported into components
         this.isSafariBrowser =
@@ -4271,7 +4274,7 @@ export class KupDataTable {
 
         let compCreated = (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class="above-wrapper">
                         {globalFilter}

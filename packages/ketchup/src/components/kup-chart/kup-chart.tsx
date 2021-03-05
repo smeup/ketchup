@@ -35,12 +35,7 @@ import {
 import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import {
-    setThemeCustomStyle,
-    setCustomStyle,
-    randomColor,
-    colorContrast,
-} from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { identify } from '../../utils/utils';
 import { getColumnByName } from '../../utils/cell-utils';
 
@@ -155,6 +150,10 @@ export class KupChart {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
     private resObserver: ResizeObserver = undefined;
 
     //---- Methods ----
@@ -329,7 +328,9 @@ export class KupChart {
             opts.slices = [];
             for (let index = 0; index < opts.colors.length; index++) {
                 opts.slices.push({
-                    textStyle: { color: colorContrast(opts.colors[index]) },
+                    textStyle: {
+                        color: this.kupTheme.colorContrast(opts.colors[index]),
+                    },
                 });
             }
         }
@@ -559,7 +560,7 @@ export class KupChart {
                 index < this.data.columns.length;
                 index++
             ) {
-                colorArray.push(randomColor(25));
+                colorArray.push(this.kupTheme.randomColor(25));
             }
         } catch (error) {
             if (!this.offlineMode) {
@@ -604,9 +605,9 @@ export class KupChart {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
         this.identifyRows();
         this.setObserver();
-        setThemeCustomStyle(this);
         this.fetchThemeColors();
     }
 
@@ -676,7 +677,7 @@ export class KupChart {
 
         return (
             <Host style={this.elStyle}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     ref={(chartContainer) =>

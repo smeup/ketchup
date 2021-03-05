@@ -9,7 +9,7 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { FSwitch } from '../../f-components/f-switch/f-switch';
 import { FSwitchMDC } from '../../f-components/f-switch/f-switch-mdc';
@@ -80,6 +80,10 @@ export class KupSwitch {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -215,7 +219,7 @@ export class KupSwitch {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
@@ -246,7 +250,7 @@ export class KupSwitch {
 
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <FSwitch {...props} />
                 </div>

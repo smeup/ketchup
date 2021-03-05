@@ -18,11 +18,7 @@ import * as standardLayouts from './standard/kup-card-standard';
 import { MDCRipple } from '@material/ripple';
 import { CardData, CardFamily } from './kup-card-declarations';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import {
-    setThemeCustomStyle,
-    setCustomStyle,
-    colorContrast,
-} from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { FImage } from '../../f-components/f-image/f-image';
 import { VNode } from '@stencil/core/internal';
 
@@ -111,6 +107,10 @@ export class KupCard {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
     /**
      * Previous height of the component, tested when the card is collapsible.
      */
@@ -265,7 +265,7 @@ export class KupCard {
         for (let index = 0; index < dynColors.length; index++) {
             this.rootElement.style.setProperty(
                 '--dyn-color-' + index,
-                colorContrast(
+                this.kupTheme.colorContrast(
                     window.getComputedStyle(dynColors[index]).backgroundColor
                 )
             );
@@ -389,7 +389,7 @@ export class KupCard {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
         this.setObserver();
         this.registerListeners();
     }
@@ -431,7 +431,7 @@ export class KupCard {
 
         return (
             <Host style={style}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     class={`${this.isMenu ? 'mdc-menu mdc-menu-surface' : ''} ${

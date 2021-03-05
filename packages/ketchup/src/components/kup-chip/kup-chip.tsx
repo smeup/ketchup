@@ -9,7 +9,7 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
@@ -69,6 +69,10 @@ export class KupChip {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -258,7 +262,7 @@ export class KupChip {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
@@ -309,7 +313,7 @@ export class KupChip {
 
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <FChip {...props} />
                 </div>

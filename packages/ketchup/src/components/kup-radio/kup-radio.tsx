@@ -12,7 +12,7 @@ import {
 import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
 import { ComponentRadioElement } from './kup-radio-declarations';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
@@ -53,6 +53,10 @@ export class KupRadio {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     @Event({
         eventName: 'kupRadioBlur',
@@ -160,7 +164,7 @@ export class KupRadio {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
@@ -248,7 +252,7 @@ export class KupRadio {
 
         return (
             <Host style={hostStyle}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={wrapperClass}>{radioList}</div>
                 </div>

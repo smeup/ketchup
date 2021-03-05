@@ -19,11 +19,7 @@ import {
 import { MDCTopAppBar } from '@material/top-app-bar';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { positionRecalc } from '../../utils/recalc-position';
-import {
-    setThemeCustomStyle,
-    setCustomStyle,
-    colorContrast,
-} from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
@@ -57,6 +53,10 @@ export class KupNavBar {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
     private menuButtonEl: any = undefined;
     private menuListEl: any = undefined;
     private textColor: string = 'white';
@@ -247,14 +247,14 @@ export class KupNavBar {
         let color = document.documentElement.style.getPropertyValue(
             '--kup-nav-bar-background-color'
         );
-        this.textColor = colorContrast(color);
+        this.textColor = this.kupTheme.colorContrast(color);
     }
 
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
         this.fetchThemeColors();
     }
 
@@ -370,7 +370,7 @@ export class KupNavBar {
         let titleStyle = { color: this.textColor };
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <header class={headerClassName}>
                         <div class="mdc-top-app-bar__row">

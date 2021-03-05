@@ -15,7 +15,7 @@ import { FButtonStyling } from '../../f-components/f-button/f-button-declaration
 
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { positionRecalc } from '../../utils/recalc-position';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 
 import {
     formattedStringToDefaultUnformattedStringDate,
@@ -66,6 +66,10 @@ export class KupDatePicker {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
     private textfieldEl: any = undefined;
     private pickerContainerEl: HTMLElement = undefined;
     private pickerEl: { value: string; date: Date } = {
@@ -908,7 +912,7 @@ export class KupDatePicker {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
         this.watchFirstDayIndex();
         this.value = this.initialValue;
         if (!this.data) {
@@ -953,7 +957,7 @@ export class KupDatePicker {
 
         return (
             <Host class={hostClass} onBlur={(e) => this.onKupBlur(e)}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     {this.prepDateTextfield()}
                     {this.prepDatePicker()}

@@ -11,7 +11,7 @@ import {
 } from '@stencil/core';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 
 @Component({
     tag: 'kup-badge',
@@ -49,6 +49,10 @@ export class KupBadge {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     //---- Methods ----
 
@@ -67,7 +71,7 @@ export class KupBadge {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
@@ -106,7 +110,7 @@ export class KupBadge {
 
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
                     {this.text}
                     {imageEl}

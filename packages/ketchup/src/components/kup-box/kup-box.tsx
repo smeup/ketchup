@@ -67,7 +67,7 @@ const KupBoxDragType = 'text/kup-box-drag';
 
 import { CardData } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 
@@ -395,6 +395,10 @@ export class KupBox {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     @Watch('pageSize')
     rowsPerPageHandler(newValue: number) {
@@ -446,7 +450,7 @@ export class KupBox {
         } else if (this.pageSize) {
             this.currentRowsPerPage = this.pageSize;
         }
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
         this.onDataChanged();
         this.adjustPaginator();
     }
@@ -1739,7 +1743,7 @@ export class KupBox {
 
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div
                         class="box-component"

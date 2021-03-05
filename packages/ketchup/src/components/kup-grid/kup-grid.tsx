@@ -9,7 +9,7 @@ import {
     Method,
 } from '@stencil/core';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 
 @Component({
     tag: 'kup-grid',
@@ -38,6 +38,10 @@ export class KupGrid {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     //---- Methods ----
 
@@ -50,7 +54,7 @@ export class KupGrid {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
@@ -116,7 +120,7 @@ export class KupGrid {
 
         return (
             <Host style={this.elStyle}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={componentClass}>
                         <div class={contentClass}>{el}</div>

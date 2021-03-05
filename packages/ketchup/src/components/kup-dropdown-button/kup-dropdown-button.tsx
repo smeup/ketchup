@@ -12,7 +12,7 @@ import {
     Listen,
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
@@ -77,6 +77,10 @@ export class KupDropdownButton {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
     private listEl: any;
     private wrapperEl: HTMLElement;
 
@@ -368,7 +372,7 @@ export class KupDropdownButton {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
         this.value = this.initialValue;
         if (!this.data) {
             this.data = {
@@ -404,7 +408,7 @@ export class KupDropdownButton {
     render() {
         return (
             <Host onBlur={() => this.onKupBlur()}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     ref={(el) => (this.wrapperEl = el as any)}

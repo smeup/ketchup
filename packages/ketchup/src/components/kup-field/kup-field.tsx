@@ -13,7 +13,7 @@ import {
 import { KupFldChangeEvent, KupFldSubmitEvent } from './kup-field-declarations';
 
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 
 @Component({
     tag: 'kup-field',
@@ -63,6 +63,10 @@ export class KupField {
      * Instance of the KupDebug class.
      */
     private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
     previousValue: object | string = null;
 
     // Generates an instance of the event handler while binding the current component as its this value
@@ -144,7 +148,7 @@ export class KupField {
 
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
@@ -271,7 +275,7 @@ export class KupField {
 
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     {toRender}
                 </div>
