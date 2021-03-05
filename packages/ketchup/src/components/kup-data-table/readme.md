@@ -100,7 +100,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kupOptionClicked`       | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
 | `kupResetSelectedRows`   | When rows selections reset                     | `CustomEvent<{}>`                                                                                             |
 | `kupRowActionClicked`    | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
-| `kupRowSelected`         | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedColumn: string; }>`                                                |
+| `kupRowSelected`         | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedRow: Row; clickedColumn: string; }>`                               |
 
 
 ## Methods
@@ -149,6 +149,7 @@ Type: `Promise<void>`
 - [kup-date-picker](../kup-date-picker)
 - [kup-checkbox](../kup-checkbox)
 - [kup-tooltip](../kup-tooltip)
+- [kup-list](../kup-list)
 - [kup-image](../kup-image)
 - [kup-button](../kup-button)
 - [kup-chart](../kup-chart)
@@ -169,6 +170,7 @@ graph TD;
   kup-data-table --> kup-date-picker
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
+  kup-data-table --> kup-list
   kup-data-table --> kup-image
   kup-data-table --> kup-button
   kup-data-table --> kup-chart

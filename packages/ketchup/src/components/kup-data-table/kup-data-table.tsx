@@ -39,6 +39,8 @@ import {
     GenericFilter,
     FilterInterval,
     TotalMode,
+    totalMenuOpenID,
+    TotalLabel,
 } from './kup-data-table-declarations';
 
 import { isRating, isGauge, isKnob, getCellType } from '../../utils/cell-utils';
@@ -46,7 +48,6 @@ import { isRating, isGauge, isKnob, getCellType } from '../../utils/cell-utils';
 import {
     calcTotals,
     compareValues,
-    normalizeTotals,
     normalizeRows,
     filterRows,
     getColumnByName,
@@ -100,6 +101,7 @@ import {
     ISO_DEFAULT_DATE_TIME_FORMAT,
     ISO_DEFAULT_DATE_FORMAT,
     changeDateTimeFormat,
+    deepEqual,
 } from '../../utils/utils';
 
 import {
@@ -195,49 +197,159 @@ export class KupDataTable {
                 this.dragEnabled = state.dragEnabled;
                 this.dropEnabled = state.dropEnabled;
                 this.showFooter = state.showFooter;
-                //
+                this.totals = state.totals;
             }
         }
     }
 
     persistState(): void {
         if (this.store && this.stateId) {
-            // *** PROPS ***
-            this.state.filters = this.filters;
-            this.state.groups = this.groups;
-            this.state.expandGroups = this.expandGroups;
-            this.state.groupLabelDisplay = this.groupLabelDisplay;
-            this.state.density = this.density;
-            this.state.enableSortableColumns = this.enableSortableColumns;
-            this.state.forceOneLine = this.forceOneLine;
-            this.state.globalFilter = this.globalFilter;
-            this.state.globalFilterValue = this.globalFilterValue;
-            this.state.headerIsPersistent = this.headerIsPersistent;
-            this.state.lazyLoadRows = this.lazyLoadRows;
-            this.state.loadMoreLimit = this.loadMoreLimit;
-            this.state.multiSelection = this.multiSelection;
-            //this.state.rowsPerPage = this.rowsPerPage;
-            this.state.rowsPerPage = this.currentRowsPerPage;
-            this.state.showFilters = this.showFilters;
-            this.state.showHeader = this.showHeader;
-            this.state.showLoadMore = this.showLoadMore;
-            this.state.sortEnabled = this.sortEnabled;
-            this.state.sort = this.sort;
-            this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
-            this.state.pageSelected = this.currentPage;
-            this.state.dragEnabled = this.dragEnabled;
-            this.state.dropEnabled = this.dropEnabled;
-            this.state.showFooter = this.showFooter;
-            this.state.selectRowsById = this.selectedRows.reduce(
-                (accumulator, row, currentIndex) => {
-                    const prefix = currentIndex > 0 ? ';' : '';
-                    return accumulator + prefix + row.id;
-                },
-                ''
-            );
+            let somethingChanged = false;
+            if (!deepEqual(this.state.filters, this.filters)) {
+                this.state.filters = this.filters;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.groups, this.groups)) {
+                this.state.groups = this.groups;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.sort, this.sort)) {
+                this.state.sort = this.sort;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.expandGroups, this.expandGroups)) {
+                this.state.expandGroups = this.expandGroups;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(this.state.groupLabelDisplay, this.groupLabelDisplay)
+            ) {
+                this.state.groupLabelDisplay = this.groupLabelDisplay;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.density, this.density)) {
+                this.state.density = this.density;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(
+                    this.state.enableSortableColumns,
+                    this.enableSortableColumns
+                )
+            ) {
+                this.state.enableSortableColumns = this.enableSortableColumns;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.forceOneLine, this.forceOneLine)) {
+                this.state.forceOneLine = this.forceOneLine;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.globalFilter, this.globalFilter)) {
+                this.state.globalFilter = this.globalFilter;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(this.state.globalFilterValue, this.globalFilterValue)
+            ) {
+                this.state.globalFilterValue = this.globalFilterValue;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(
+                    this.state.headerIsPersistent,
+                    this.headerIsPersistent
+                )
+            ) {
+                this.state.headerIsPersistent = this.headerIsPersistent;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.lazyLoadRows, this.lazyLoadRows)) {
+                this.state.lazyLoadRows = this.lazyLoadRows;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.loadMoreLimit, this.loadMoreLimit)) {
+                this.state.loadMoreLimit = this.loadMoreLimit;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.multiSelection, this.multiSelection)) {
+                this.state.multiSelection = this.multiSelection;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.rowsPerPage, this.currentRowsPerPage)) {
+                this.state.rowsPerPage = this.currentRowsPerPage;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showFilters, this.showFilters)) {
+                this.state.showFilters = this.showFilters;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showHeader, this.showHeader)) {
+                this.state.showHeader = this.showHeader;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showLoadMore, this.showLoadMore)) {
+                this.state.showLoadMore = this.showLoadMore;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.sortEnabled, this.sortEnabled)) {
+                this.state.sortEnabled = this.sortEnabled;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(
+                    this.state.sortableColumnsMutateData,
+                    this.sortableColumnsMutateData
+                )
+            ) {
+                this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.pageSelected, this.currentPage)) {
+                this.state.pageSelected = this.currentPage;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.dragEnabled, this.dragEnabled)) {
+                this.state.dragEnabled = this.dragEnabled;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.dropEnabled, this.dropEnabled)) {
+                this.state.dropEnabled = this.dropEnabled;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showFooter, this.showFooter)) {
+                this.state.showFooter = this.showFooter;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.totals, this.totals)) {
+                this.state.totals = this.totals;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(
+                    this.state.selectRowsById,
+                    this.selectedRows.reduce(
+                        (accumulator, row, currentIndex) => {
+                            const prefix = currentIndex > 0 ? ';' : '';
+                            return accumulator + prefix + row.id;
+                        },
+                        ''
+                    )
+                )
+            ) {
+                this.state.selectRowsById = this.selectedRows.reduce(
+                    (accumulator, row, currentIndex) => {
+                        const prefix = currentIndex > 0 ? ';' : '';
+                        return accumulator + prefix + row.id;
+                    },
+                    ''
+                );
+                somethingChanged = true;
+            }
 
-            logMessage(this, 'Persisting stateId ' + this.stateId);
-            this.store.persistState(this.stateId, this.state);
+            if (somethingChanged) {
+                logMessage(this, 'Persisting stateId ' + this.stateId);
+                this.store.persistState(this.stateId, this.state);
+            }
         }
     }
 
@@ -482,6 +594,12 @@ export class KupDataTable {
     @State()
     private openedMenu: string = null;
 
+    /**
+     * name of the column with the opened total menu
+     */
+    @State()
+    private openedTotalMenu: string = null;
+
     @State()
     private openedCustomSettings: boolean = false;
 
@@ -705,6 +823,7 @@ export class KupDataTable {
     })
     kupRowSelected: EventEmitter<{
         selectedRows: Array<Row>;
+        clickedRow: Row;
         clickedColumn: string;
     }>;
 
@@ -1204,16 +1323,6 @@ export class KupDataTable {
 
     componentWillLoad() {
         logLoad(this, false);
-        this.identifyAndInitRows();
-
-        if (document.querySelectorAll('.header')[0]) {
-            this.navBarHeight = document.querySelectorAll(
-                '.header'
-            )[0].clientHeight;
-        } else {
-            this.navBarHeight = 0;
-        }
-        this.setObserver();
 
         this.isRestoringState = true;
         // *** Store
@@ -1224,7 +1333,21 @@ export class KupDataTable {
         }
         this.currentRowsPerPage = this.rowsPerPage;
         this.isRestoringState = false;
-        this.recalculateRows();
+
+        //this.identifyAndInitRows();
+        identify(this.getRows());
+        this.expandGroupsHandler();
+
+        if (document.querySelectorAll('.header')[0]) {
+            this.navBarHeight = document.querySelectorAll(
+                '.header'
+            )[0].clientHeight;
+        } else {
+            this.navBarHeight = 0;
+        }
+        this.setObserver();
+
+        //this.recalculateRows();
 
         setThemeCustomStyle(this);
 
@@ -1243,6 +1366,7 @@ export class KupDataTable {
             this.customizePanelPosition();
         }
         this.columnMenuPosition();
+        this.totalMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
         this.hideShowColumnRemoveDropArea(false);
@@ -1281,6 +1405,7 @@ export class KupDataTable {
                 this.kupRowSelected.emit({
                     selectedRows: this.selectedRows,
                     clickedColumn: null,
+                    clickedRow: null,
                 });
             }
         } else if (this.selectRow && this.selectRow > 0) {
@@ -1525,7 +1650,7 @@ export class KupDataTable {
 
         this.footer = calcTotals(
             normalizeRows(this.getColumns(), this.rows),
-            normalizeTotals(this.getColumns(), this.totals)
+            this.totals
         );
 
         this.groupRows();
@@ -1569,8 +1694,7 @@ export class KupDataTable {
     }
 
     private hasTotals() {
-        const realtotals = normalizeTotals(this.getColumns(), this.totals);
-        return realtotals && Object.keys(realtotals).length > 0;
+        return this.totals && Object.keys(this.totals).length > 0;
     }
 
     /**
@@ -2005,6 +2129,7 @@ export class KupDataTable {
             // emit event
             this.kupRowSelected.emit({
                 selectedRows: this.selectedRows,
+                clickedRow: row,
                 clickedColumn,
             });
         }
@@ -2077,6 +2202,7 @@ export class KupDataTable {
 
         this.kupRowSelected.emit({
             selectedRows: this.selectedRows,
+            clickedRow: null,
             clickedColumn: null,
         });
     }
@@ -2100,6 +2226,7 @@ export class KupDataTable {
             this.kupRowSelected.emit({
                 selectedRows: this.selectedRows,
                 clickedColumn: null,
+                clickedRow: null,
             });
         } else {
             // deselect all rows
@@ -2115,6 +2242,14 @@ export class KupDataTable {
         this.openedMenu = null;
     }
 
+    private openTotalMenu(column: Column) {
+        this.openedTotalMenu = column.name;
+    }
+
+    private closeTotalMenu() {
+        this.openedTotalMenu = null;
+    }
+
     private closeMenuAndTooltip() {
         this.closeMenu();
         unsetTooltip(this.tooltip);
@@ -2124,8 +2259,16 @@ export class KupDataTable {
         return this.openedMenu != null;
     }
 
+    private isOpenedTotalMenu(): boolean {
+        return this.openedTotalMenu != null;
+    }
+
     private isOpenedMenuForColumn(column: string): boolean {
         return this.openedMenu === column;
+    }
+
+    private isOpenedTotalMenuForColumn(column: string): boolean {
+        return this.openedTotalMenu === column;
     }
 
     private onHeaderCellContextMenuOpen(e: MouseEvent, column: Column) {
@@ -2171,10 +2314,18 @@ export class KupDataTable {
         // Gets the path of the event (does not work in IE11 or previous)
         const eventPath = event.composedPath();
         let fromMenu = false;
+        let fromTotalMenu = false;
         let fromSameTable = false;
 
         // Examine the path
         for (let elem of eventPath) {
+            // TODO When the footer is considered stable please do this in another dedicated method
+            // check if is the open menu button the element which fired the event
+            // TODO Maybe a better approach would be to use the blur event in order to hide the menu
+            if ((elem as HTMLElement).id === totalMenuOpenID) {
+                return;
+            }
+
             // If we encounter our table we can stop looping the elements
             if (elem === this.tableAreaRef) {
                 fromSameTable = true;
@@ -2189,11 +2340,26 @@ export class KupDataTable {
             ) {
                 fromMenu = true;
             }
+
+            // TODO When the footer is considered stable please do this in another dedicated method
+            // If the event comes from a menu of the table footer
+            if (
+                this.isHTMLElementFromEventTarget(elem) &&
+                elem.classList &&
+                elem.classList.contains('total-menu')
+            ) {
+                fromTotalMenu = true;
+            }
         }
 
         // When we have an open menu and the event does NOT come from the same table, we close the menu.
         if (this.isOpenedMenu() && !(fromMenu && fromSameTable)) {
             this.closeMenuAndTooltip();
+        }
+
+        // TODO When the footer is considered stable please do this in another dedicated method
+        if (this.isOpenedTotalMenu() && !(fromTotalMenu && fromSameTable)) {
+            this.closeTotalMenu();
         }
     }
 
@@ -2259,7 +2425,7 @@ export class KupDataTable {
             this.getColumns(),
             this.rows,
             this.groups,
-            normalizeTotals(this.getColumns(), this.totals)
+            this.totals
         );
 
         this.adjustGroupState();
@@ -3149,8 +3315,6 @@ export class KupDataTable {
                 // https://html.spec.whatwg.org/multipage/dnd.html#concept-dnd-p
                 const dragHandlers: DragHandlers = {
                     onDragStart: (e: DragEvent) => {
-                        // console.log('onDragStart', e);
-
                         // Sets the type of drag
                         setDragEffectAllowed(e, 'move');
 
@@ -3175,7 +3339,6 @@ export class KupDataTable {
                         // replace the used flags set with attribute
                     },
                     onDragEnd: (e: DragEvent) => {
-                        // console.log("onDragEnd" , e);
                         // When the drag has ended, checks if the element still exists or it was destroyed by JSX
                         const targetElement = e.target as HTMLElement;
                         if (targetElement) {
@@ -3199,7 +3362,6 @@ export class KupDataTable {
                 };
                 const dropHandlers: DropHandlers = {
                     onDrop: (e: DragEvent) => {
-                        // console.log("onDrop" , e);
                         const transferredData = JSON.parse(
                             e.dataTransfer.getData(KupDataTableColumnDragType)
                         ) as Column;
@@ -3209,7 +3371,6 @@ export class KupDataTable {
                         return KupDataTableColumnDragType;
                     },
                     onDragLeave: (e: DragEvent) => {
-                        // console.log("onDragLeave" , e);
                         if (
                             e.dataTransfer.types.indexOf(
                                 KupDataTableColumnDragType
@@ -3222,7 +3383,6 @@ export class KupDataTable {
                         }
                     },
                     onDragOver: (e: DragEvent) => {
-                        // console.log("onDragOver" , e);
                         if (
                             e.dataTransfer.types.indexOf(
                                 KupDataTableColumnDragType
@@ -3418,84 +3578,45 @@ export class KupDataTable {
         return this.totals && this.totals[column.name] ? true : false;
     }
 
-    renderTotalsComboBox(column: Column) {
-        // TODO Manage the label with different languages
-        // and move this object into declaration
-        let menu;
-        if (isNumber(column.obj)) {
-            menu = {
-                [TotalMode.COUNT]: {
-                    label: 'Conta',
-                },
-                [TotalMode.SUM]: {
-                    label: 'Somma',
-                },
-                [TotalMode.AVERAGE]: {
-                    label: 'Media',
-                },
-            };
-        } else {
-            menu = {
-                [TotalMode.COUNT]: {
-                    label: 'Conta',
-                },
-            };
+    onTotalsChange(event, column) {
+        // close menu
+        this.closeTotalMenu();
+        if (column) {
+            // must do this
+            // otherwise does not fire the watcher
+            const totalsCopy = { ...this.totals };
+            const value = event.detail.selected.value;
+            if (value === TotalLabel.CANC) {
+                if (this.totals && this.totals[column.name]) {
+                    delete totalsCopy[column.name];
+                }
+            } else {
+                totalsCopy[column.name] = value;
+            }
+            this.totals = totalsCopy;
         }
-
-        if (!this.areTotalsSelected(column)) {
-            menu['Calcola'] = {
-                label: 'Calcola',
-                selected: true,
-                hidden: true,
-            };
-        } else {
-            this.setSelectedMenu(menu, column.name);
-        }
-
-        return (
-            <select
-                class="totals-select"
-                onInput={(event) => this.onTotalsChange(event, column)}
-            >
-                {Object.keys(menu).map((key) => {
-                    const m = menu[key];
-                    return (
-                        <option
-                            value={key}
-                            selected={m.selected ? true : false}
-                            hidden={m.hidden ? true : false}
-                        >
-                            {m.label}
-                        </option>
-                    );
-                })}
-            </select>
-        );
     }
 
-    // TODO replace any with the correct type using TotalMode
-    setSelectedMenu(menu: any, name: string) {
-        const totalValue = this.totals[name];
-        if (totalValue) {
-            if (totalValue.startsWith(TotalMode.MATH)) {
-                menu[TotalMode.MATH] = {
-                    label: 'Formula',
-                    selected: true,
-                };
-            } else if (menu[totalValue]) {
-                menu[totalValue].selected = true;
+    private totalMenuPosition() {
+        if (this.rootElement.shadowRoot) {
+            let menu: HTMLElement = this.rootElement.shadowRoot.querySelector(
+                '.total-menu'
+            );
+            if (menu) {
+                let wrapper = menu.parentElement.querySelector(
+                    '#' + totalMenuOpenID
+                ) as HTMLElement;
+                positionRecalc(menu, wrapper, 10, true);
+                menu.classList.add('dynamic-position-active');
+                menu.classList.add('visible');
             }
         }
     }
 
-    onTotalsChange(event, column) {
-        if (column) {
-            // must do this
-            // otherwise the watcher does not fire
-            const totalsCopy = { ...this.totals };
-            totalsCopy[column.name] = event.target.value;
-            this.totals = totalsCopy;
-        }
+    private onTotalMenuOpen(column: Column) {
+        this.closeMenuAndTooltip();
+        this.closeTotalMenu();
+        this.openTotalMenu(column);
     }
 
     renderFooter() {
@@ -3528,7 +3649,30 @@ export class KupDataTable {
             );
         }
 
-        let groupingCell = null;
+        // Action cell
+        let actionsCell = null;
+        if (this.hasRowActions()) {
+            extraCells++;
+            const selectionStyleAndClass = this.composeFixedCellStyleAndClass(
+                extraCells,
+                0,
+                extraCells
+            );
+            actionsCell = (
+                <td
+                    class={
+                        selectionStyleAndClass
+                            ? selectionStyleAndClass.fixedCellClasses
+                            : {}
+                    }
+                    style={
+                        selectionStyleAndClass
+                            ? selectionStyleAndClass.fixedCellStyle
+                            : {}
+                    }
+                />
+            );
+        }
 
         const footerCells = this.getVisibleColumns().map(
             (column: Column, columnIndex) => {
@@ -3538,28 +3682,131 @@ export class KupDataTable {
                     extraCells
                 );
 
+                let totalMenu = undefined;
+                // TODO Manage the label with different languages
+                let menuLabel = TotalLabel.CALC;
+                if (this.totals) {
+                    const totalValue = this.totals[column.name];
+                    if (totalValue) {
+                        if (totalValue.startsWith(TotalMode.MATH)) {
+                            menuLabel = TotalLabel.MATH;
+                        } else {
+                            switch (totalValue) {
+                                case TotalMode.COUNT:
+                                    menuLabel = TotalLabel.COUNT;
+                                    break;
+                                case TotalMode.SUM:
+                                    menuLabel = TotalLabel.SUM;
+                                    break;
+                                case TotalMode.AVERAGE:
+                                    menuLabel = TotalLabel.AVERAGE;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                }
+
+                if (this.isOpenedTotalMenuForColumn(column.name)) {
+                    let listData: ComponentListElement[] = [];
+                    if (isNumber(column.obj)) {
+                        // TODO Move these objects in declarations
+                        listData.push(
+                            {
+                                text: TotalLabel.COUNT,
+                                value: TotalMode.COUNT,
+                                selected: false,
+                            },
+                            {
+                                text: TotalLabel.SUM,
+                                value: TotalMode.SUM,
+                                selected: false,
+                            },
+                            {
+                                text: TotalLabel.AVERAGE,
+                                value: TotalMode.AVERAGE,
+                                selected: false,
+                            }
+                        );
+                    } else {
+                        listData.push({
+                            text: TotalLabel.COUNT,
+                            value: TotalMode.COUNT,
+                            selected: false,
+                        });
+                    }
+
+                    // TODO replace this with find which is a better approach
+                    // Note that this is not supported in older IE
+                    let selectedItem = listData.find(
+                        (item) => item.text === menuLabel
+                    );
+                    if (selectedItem) {
+                        selectedItem.selected = true;
+                        listData.push(
+                            {
+                                text: null,
+                                value: null,
+                                isSeparator: true,
+                            },
+                            {
+                                text: TotalLabel.CANC,
+                                value: TotalLabel.CANC,
+                                selected: false,
+                            }
+                        );
+                    }
+
+                    totalMenu = (
+                        <kup-list
+                            class={`kup-menu total-menu`}
+                            data={...listData}
+                            is-menu
+                            menu-visible
+                            onKupListClick={(event) =>
+                                this.onTotalsChange(event, column)
+                            }
+                        ></kup-list>
+                    );
+                }
+
+                let footerClasses = {};
+                if (fixedCellStyle) {
+                    if (fixedCellStyle.fixedCellClasses) {
+                        footerClasses = fixedCellStyle.fixedCellClasses;
+                    }
+                }
+                if (!this.areTotalsSelected(column)) {
+                    footerClasses['hidden'] = true;
+                }
+
                 return (
                     <td
-                        class={
-                            (fixedCellStyle
-                                ? fixedCellStyle.fixedCellClasses
-                                : '') +
-                            (this.areTotalsSelected(column) ? '' : ' hidden')
-                        }
+                        class={footerClasses}
                         style={
                             fixedCellStyle
                                 ? fixedCellStyle.fixedCellStyle
                                 : null
                         }
                     >
-                        {this.renderTotalsComboBox(column)}
-                        <span>
-                            {numberToFormattedStringNumber(
-                                this.footer[column.name],
-                                column.decimals,
-                                column.obj ? column.obj.p : ''
-                            )}
-                        </span>
+                        <div class="totals-wrapper">
+                            <span
+                                class="totals-open"
+                                id={totalMenuOpenID}
+                                onClick={() => this.onTotalMenuOpen(column)}
+                            >
+                                {menuLabel}
+                            </span>
+                            {totalMenu}
+                            <span class="totals-value">
+                                {numberToFormattedStringNumber(
+                                    this.footer[column.name],
+                                    column.decimals,
+                                    column.obj ? column.obj.p : ''
+                                )}
+                            </span>
+                        </div>
                     </td>
                 );
             }
@@ -3569,7 +3816,7 @@ export class KupDataTable {
             <tfoot>
                 <tr>
                     {selectRowCell}
-                    {groupingCell}
+                    {actionsCell}
                     {footerCells}
                 </tr>
             </tfoot>
@@ -3976,8 +4223,6 @@ export class KupDataTable {
 
             const dragHandlersRow: DragHandlers = {
                 onDragStart: (e: DragEvent) => {
-                    // console.log('onDragStart', e.target);
-
                     // get the tr tag
                     const trElement = e.target as HTMLTableRowElement;
                     let cell = {};
@@ -4036,7 +4281,6 @@ export class KupDataTable {
                     }
                 },
                 onDragEnd: (_e: DragEvent) => {
-                    // console.log('onDragEnd', e);
                     // Remove the over class
                     const dragDropPayload = getDragDropPayload();
                     if (dragDropPayload && dragDropPayload.overElement) {

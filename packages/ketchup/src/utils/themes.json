@@ -343,11 +343,11 @@
             "--kup-obj-cursor": "inherit"
         },
         "customStyles": {
-            "MASTER": "",
+            "MASTER": "#kup-component #global-filter {\ndisplay: none;\n}\n\n",
             "KUP-BOX": "#kup-component #box-container .box-wrapper .box:hover {\nbox-shadow: none;\n}\n\n#kup-component #box-container .box-wrapper .box.selected {\nbackground-color: inherit;\n}",
             "KUP-BUTTON": "#kup-component {\ndisplay: none;\n}\n\n",
             "KUP-CARD": "#kup-component div {\noverflow: hidden;\n}\n\n",
-            "KUP-DATA-TABLE": "#kup-component sticky-header {\ndisplay: none;\n}\n\n#kup-component kup-paginator {\ndisplay: none;\n}\n\n#kup-component td.selected,\n#kup-component tr.selected td {\nbackground-color: inherit !important;\nbackground-image: none !important;\n}\n\n#kup-component table,\n#kup-component .below-wrapper {\noverflow: hidden !important;\n}",
+            "KUP-DATA-TABLE": "#kup-component sticky-header {\ndisplay: none;\n}\n\n#kup-component kup-paginator {\ndisplay: none;\n}\n\n:host(.cross-selection) #kup-component table tr.selected td.selected, \n#kup-component table td.selected, #kup-component tr.selected td {\nbackground-color: inherit;\nbackground-image: none;\n}\n\n#kup-component table,\n#kup-component .below-wrapper {\noverflow: hidden !important;\n}\n\n:host(.cross-selection) #kup-component tr.selected td:first-of-type,\n:host(.cross-selection) #kup-component th.selected { \nbox-shadow: none !important;\n}\n\n:host(.cross-selection) #kup-component table td.selected,\n:host(.cross-selection) #kup-component table tr.selected td {\nbackground-color: inherit;\n}\n\n:host(.cross-selection) #kup-component table tr.selected td.fixed-column.selected,\n:host(.cross-selection) #kup-component table td.selected.fixed-column, \n:host(.cross-selection) #kup-component table td.selected.fixed-row,\n:host(.cross-selection) #kup-component table tr.selected td.fixed-column, \n:host(.cross-selection) #kup-component table tr.selected td.fixed-row {\nbackground-color: inherit;\nbackground-image: none;\n}\n\n",
             "KUP-PROGRESS-BAR": "#kup-component .progress-bar {\nbackground: #e7e7e7;\n}\n\n#kup-component .progress-bar-percentage span {\ntext-shadow: 0px 0px 0px hsl(0deg 0% 100%);\n}\n\n",
             "KUP-TREE": "#kup-component .wrapper {\noverflow: hidden;\n}\n\n#kup-component tr.mdc-ripple-surface::before, \n#kup-component tr.mdc-ripple-surface::after,\n#kup-component td.mdc-ripple-surface::before, \n#kup-component td.mdc-ripple-surface::after,\n#kup-component .kup-tree__node--selected:not(.kup-tree__node--disabled) td {\nbackground-color: var(--kup-background-color);\n}"
         },
