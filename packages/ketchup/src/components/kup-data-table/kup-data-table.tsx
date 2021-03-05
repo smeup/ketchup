@@ -101,6 +101,7 @@ import {
     ISO_DEFAULT_DATE_TIME_FORMAT,
     ISO_DEFAULT_DATE_FORMAT,
     changeDateTimeFormat,
+    deepEqual,
 } from '../../utils/utils';
 
 import {
@@ -147,7 +148,6 @@ import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
-import { isStateChanged } from '../../utils/state-utils';
 
 @Component({
     tag: 'kup-data-table',
@@ -198,63 +198,134 @@ export class KupDataTable {
                 this.dropEnabled = state.dropEnabled;
                 this.showFooter = state.showFooter;
                 this.totals = state.totals;
-                //
             }
         }
     }
 
     persistState(): void {
         if (this.store && this.stateId) {
-            if (this.stateMap.size > 0) {
-                // TODO do it better (with a generic map usable for both assignment and the research if something changed)
-                // this is just for test
-                this.stateMap.set(this.state.filters, this.filters);
-                this.stateMap.set(this.state.groups, this.groups);
-                this.stateMap.set(this.state.expandGroups, this.expandGroups);
-                this.stateMap.set(
-                    this.state.groupLabelDisplay,
-                    this.groupLabelDisplay
-                );
-                this.stateMap.set(this.state.density, this.density);
-                this.stateMap.set(
+            let somethingChanged = false;
+            if (!deepEqual(this.state.filters, this.filters)) {
+                this.state.filters = this.filters;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.groups, this.groups)) {
+                this.state.groups = this.groups;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.sort, this.sort)) {
+                this.state.sort = this.sort;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.expandGroups, this.expandGroups)) {
+                this.state.expandGroups = this.expandGroups;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(this.state.groupLabelDisplay, this.groupLabelDisplay)
+            ) {
+                this.state.groupLabelDisplay = this.groupLabelDisplay;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.density, this.density)) {
+                this.state.density = this.density;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(
                     this.state.enableSortableColumns,
                     this.enableSortableColumns
-                );
-                this.stateMap.set(this.state.forceOneLine, this.forceOneLine);
-                this.stateMap.set(this.state.globalFilter, this.globalFilter);
-                this.stateMap.set(
-                    this.state.globalFilterValue,
-                    this.globalFilterValue
-                );
-                this.stateMap.set(
+                )
+            ) {
+                this.state.enableSortableColumns = this.enableSortableColumns;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.forceOneLine, this.forceOneLine)) {
+                this.state.forceOneLine = this.forceOneLine;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.globalFilter, this.globalFilter)) {
+                this.state.globalFilter = this.globalFilter;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(this.state.globalFilterValue, this.globalFilterValue)
+            ) {
+                this.state.globalFilterValue = this.globalFilterValue;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(
                     this.state.headerIsPersistent,
                     this.headerIsPersistent
-                );
-                this.stateMap.set(this.state.lazyLoadRows, this.lazyLoadRows);
-                this.stateMap.set(this.state.loadMoreLimit, this.loadMoreLimit);
-                this.stateMap.set(
-                    this.state.multiSelection,
-                    this.multiSelection
-                );
-                this.stateMap.set(
-                    this.state.rowsPerPage,
-                    this.currentRowsPerPage
-                );
-                this.stateMap.set(this.state.showFilters, this.showFilters);
-                this.stateMap.set(this.state.showHeader, this.showHeader);
-                this.stateMap.set(this.state.showLoadMore, this.showLoadMore);
-                this.stateMap.set(this.state.sortEnabled, this.sortEnabled);
-                this.stateMap.set(this.state.sort, this.sort);
-                this.stateMap.set(
+                )
+            ) {
+                this.state.headerIsPersistent = this.headerIsPersistent;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.lazyLoadRows, this.lazyLoadRows)) {
+                this.state.lazyLoadRows = this.lazyLoadRows;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.loadMoreLimit, this.loadMoreLimit)) {
+                this.state.loadMoreLimit = this.loadMoreLimit;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.multiSelection, this.multiSelection)) {
+                this.state.multiSelection = this.multiSelection;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.rowsPerPage, this.currentRowsPerPage)) {
+                this.state.rowsPerPage = this.currentRowsPerPage;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showFilters, this.showFilters)) {
+                this.state.showFilters = this.showFilters;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showHeader, this.showHeader)) {
+                this.state.showHeader = this.showHeader;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showLoadMore, this.showLoadMore)) {
+                this.state.showLoadMore = this.showLoadMore;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.sortEnabled, this.sortEnabled)) {
+                this.state.sortEnabled = this.sortEnabled;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(
                     this.state.sortableColumnsMutateData,
                     this.sortableColumnsMutateData
-                );
-                this.stateMap.set(this.state.pageSelected, this.currentPage);
-                this.stateMap.set(this.state.dragEnabled, this.dragEnabled);
-                this.stateMap.set(this.state.dropEnabled, this.dropEnabled);
-                this.stateMap.set(this.state.showFooter, this.showFooter);
-                this.stateMap.set(this.state.totals, this.totals);
-                this.stateMap.set(
+                )
+            ) {
+                this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.pageSelected, this.currentPage)) {
+                this.state.pageSelected = this.currentPage;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.dragEnabled, this.dragEnabled)) {
+                this.state.dragEnabled = this.dragEnabled;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.dropEnabled, this.dropEnabled)) {
+                this.state.dropEnabled = this.dropEnabled;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showFooter, this.showFooter)) {
+                this.state.showFooter = this.showFooter;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.totals, this.totals)) {
+                this.state.totals = this.totals;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(
                     this.state.selectRowsById,
                     this.selectedRows.reduce(
                         (accumulator, row, currentIndex) => {
@@ -263,35 +334,8 @@ export class KupDataTable {
                         },
                         ''
                     )
-                );
-            }
-            if (isStateChanged(this.stateMap)) {
-                // *** PROPS ***
-                this.state.filters = this.filters;
-                this.state.groups = this.groups;
-                this.state.expandGroups = this.expandGroups;
-                this.state.groupLabelDisplay = this.groupLabelDisplay;
-                this.state.density = this.density;
-                this.state.enableSortableColumns = this.enableSortableColumns;
-                this.state.forceOneLine = this.forceOneLine;
-                this.state.globalFilter = this.globalFilter;
-                this.state.globalFilterValue = this.globalFilterValue;
-                this.state.headerIsPersistent = this.headerIsPersistent;
-                this.state.lazyLoadRows = this.lazyLoadRows;
-                this.state.loadMoreLimit = this.loadMoreLimit;
-                this.state.multiSelection = this.multiSelection;
-                this.state.rowsPerPage = this.currentRowsPerPage;
-                this.state.showFilters = this.showFilters;
-                this.state.showHeader = this.showHeader;
-                this.state.showLoadMore = this.showLoadMore;
-                this.state.sortEnabled = this.sortEnabled;
-                this.state.sort = this.sort;
-                this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
-                this.state.pageSelected = this.currentPage;
-                this.state.dragEnabled = this.dragEnabled;
-                this.state.dropEnabled = this.dropEnabled;
-                this.state.showFooter = this.showFooter;
-                this.state.totals = this.totals;
+                )
+            ) {
                 this.state.selectRowsById = this.selectedRows.reduce(
                     (accumulator, row, currentIndex) => {
                         const prefix = currentIndex > 0 ? ';' : '';
@@ -299,7 +343,10 @@ export class KupDataTable {
                     },
                     ''
                 );
+                somethingChanged = true;
+            }
 
+            if (somethingChanged) {
                 logMessage(this, 'Persisting stateId ' + this.stateId);
                 this.store.persistState(this.stateId, this.state);
             }
