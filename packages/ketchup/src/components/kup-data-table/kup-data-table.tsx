@@ -101,6 +101,7 @@ import {
     ISO_DEFAULT_DATE_TIME_FORMAT,
     ISO_DEFAULT_DATE_FORMAT,
     changeDateTimeFormat,
+    deepEqual,
 } from '../../utils/utils';
 
 import {
@@ -197,49 +198,158 @@ export class KupDataTable {
                 this.dropEnabled = state.dropEnabled;
                 this.showFooter = state.showFooter;
                 this.totals = state.totals;
-                //
             }
         }
     }
 
     persistState(): void {
         if (this.store && this.stateId) {
-            // *** PROPS ***
-            this.state.filters = this.filters;
-            this.state.groups = this.groups;
-            this.state.expandGroups = this.expandGroups;
-            this.state.groupLabelDisplay = this.groupLabelDisplay;
-            this.state.density = this.density;
-            this.state.enableSortableColumns = this.enableSortableColumns;
-            this.state.forceOneLine = this.forceOneLine;
-            this.state.globalFilter = this.globalFilter;
-            this.state.globalFilterValue = this.globalFilterValue;
-            this.state.headerIsPersistent = this.headerIsPersistent;
-            this.state.lazyLoadRows = this.lazyLoadRows;
-            this.state.loadMoreLimit = this.loadMoreLimit;
-            this.state.multiSelection = this.multiSelection;
-            this.state.rowsPerPage = this.currentRowsPerPage;
-            this.state.showFilters = this.showFilters;
-            this.state.showHeader = this.showHeader;
-            this.state.showLoadMore = this.showLoadMore;
-            this.state.sortEnabled = this.sortEnabled;
-            this.state.sort = this.sort;
-            this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
-            this.state.pageSelected = this.currentPage;
-            this.state.dragEnabled = this.dragEnabled;
-            this.state.dropEnabled = this.dropEnabled;
-            this.state.showFooter = this.showFooter;
-            this.state.totals = this.totals;
-            this.state.selectRowsById = this.selectedRows.reduce(
-                (accumulator, row, currentIndex) => {
-                    const prefix = currentIndex > 0 ? ';' : '';
-                    return accumulator + prefix + row.id;
-                },
-                ''
-            );
+            let somethingChanged = false;
+            if (!deepEqual(this.state.filters, this.filters)) {
+                this.state.filters = this.filters;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.groups, this.groups)) {
+                this.state.groups = this.groups;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.sort, this.sort)) {
+                this.state.sort = this.sort;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.expandGroups, this.expandGroups)) {
+                this.state.expandGroups = this.expandGroups;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(this.state.groupLabelDisplay, this.groupLabelDisplay)
+            ) {
+                this.state.groupLabelDisplay = this.groupLabelDisplay;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.density, this.density)) {
+                this.state.density = this.density;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(
+                    this.state.enableSortableColumns,
+                    this.enableSortableColumns
+                )
+            ) {
+                this.state.enableSortableColumns = this.enableSortableColumns;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.forceOneLine, this.forceOneLine)) {
+                this.state.forceOneLine = this.forceOneLine;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.globalFilter, this.globalFilter)) {
+                this.state.globalFilter = this.globalFilter;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(this.state.globalFilterValue, this.globalFilterValue)
+            ) {
+                this.state.globalFilterValue = this.globalFilterValue;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(
+                    this.state.headerIsPersistent,
+                    this.headerIsPersistent
+                )
+            ) {
+                this.state.headerIsPersistent = this.headerIsPersistent;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.lazyLoadRows, this.lazyLoadRows)) {
+                this.state.lazyLoadRows = this.lazyLoadRows;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.loadMoreLimit, this.loadMoreLimit)) {
+                this.state.loadMoreLimit = this.loadMoreLimit;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.multiSelection, this.multiSelection)) {
+                this.state.multiSelection = this.multiSelection;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.rowsPerPage, this.currentRowsPerPage)) {
+                this.state.rowsPerPage = this.currentRowsPerPage;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showFilters, this.showFilters)) {
+                this.state.showFilters = this.showFilters;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showHeader, this.showHeader)) {
+                this.state.showHeader = this.showHeader;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showLoadMore, this.showLoadMore)) {
+                this.state.showLoadMore = this.showLoadMore;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.sortEnabled, this.sortEnabled)) {
+                this.state.sortEnabled = this.sortEnabled;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(
+                    this.state.sortableColumnsMutateData,
+                    this.sortableColumnsMutateData
+                )
+            ) {
+                this.state.sortableColumnsMutateData = this.sortableColumnsMutateData;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.pageSelected, this.currentPage)) {
+                this.state.pageSelected = this.currentPage;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.dragEnabled, this.dragEnabled)) {
+                this.state.dragEnabled = this.dragEnabled;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.dropEnabled, this.dropEnabled)) {
+                this.state.dropEnabled = this.dropEnabled;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showFooter, this.showFooter)) {
+                this.state.showFooter = this.showFooter;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.totals, this.totals)) {
+                this.state.totals = this.totals;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(
+                    this.state.selectRowsById,
+                    this.selectedRows.reduce(
+                        (accumulator, row, currentIndex) => {
+                            const prefix = currentIndex > 0 ? ';' : '';
+                            return accumulator + prefix + row.id;
+                        },
+                        ''
+                    )
+                )
+            ) {
+                this.state.selectRowsById = this.selectedRows.reduce(
+                    (accumulator, row, currentIndex) => {
+                        const prefix = currentIndex > 0 ? ';' : '';
+                        return accumulator + prefix + row.id;
+                    },
+                    ''
+                );
+                somethingChanged = true;
+            }
 
-            logMessage(this, 'Persisting stateId ' + this.stateId);
-            this.store.persistState(this.stateId, this.state);
+            if (somethingChanged) {
+                logMessage(this, 'Persisting stateId ' + this.stateId);
+                this.store.persistState(this.stateId, this.state);
+            }
         }
     }
 
