@@ -217,6 +217,11 @@ let advancedRoutes = [
     name: 'qlik',
     component: () => import(`@/views/advanced/qlik/Qlik.vue`),
   },
+  {
+    path: `/gauge`,
+    name: 'gauge',
+    component: () => import(`@/views/advanced/gauge/Gauge.vue`),
+  },
 ];
 
 let cssRoutes = [
