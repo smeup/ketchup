@@ -10,7 +10,7 @@ import {
     Method,
 } from '@stencil/core';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
@@ -150,6 +150,10 @@ export class KupTextField {
      * Reference to the input element.
      */
     private inputEl: HTMLInputElement | HTMLTextAreaElement;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -364,9 +368,11 @@ export class KupTextField {
         try {
             this.inputEl.value = value;
         } catch (error) {
-            let message =
-                "Couldn't set value on input element: '" + value + "'";
-            logMessage(this, message, 'warning');
+            this.kupDebug.logMessage(
+                this,
+                "Couldn't set value on input element: '" + value + "'",
+                'warning'
+            );
         }
     }
 
@@ -426,22 +432,22 @@ export class KupTextField {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
         this.value = this.initialValue;
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
         this.setEvents();
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

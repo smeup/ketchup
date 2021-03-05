@@ -16,7 +16,7 @@ import {
     consistencyCheck,
 } from '../kup-list/kup-list-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 
@@ -63,6 +63,10 @@ export class KupAutocomplete {
     private doConsistencyCheck: boolean = true;
     private elStyle: any = undefined;
     private listEl: any = undefined;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
     private textfieldWrapper: HTMLElement = undefined;
     private textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
 
@@ -301,8 +305,12 @@ export class KupAutocomplete {
                     this.kupFilterChanged.emit(detail);
                 })
                 .catch((err) => {
-                    logMessage(this, 'Executing callback error', 'error');
-                    logMessage(this, err, 'error');
+                    this.kupDebug.logMessage(
+                        this,
+                        'Executing callback error',
+                        'error'
+                    );
+                    this.kupDebug.logMessage(this, err, 'error');
                 });
         } else {
             this.listEl.resetFilter(newFilter);
@@ -410,7 +418,7 @@ export class KupAutocomplete {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
         this.doConsistencyCheck = true;
         this.value = this.initialValue;
@@ -424,17 +432,17 @@ export class KupAutocomplete {
 
     componentDidLoad() {
         this.consistencyCheck(undefined, this.value);
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
         this.setEvents();
         positionRecalc(this.listEl, this.textfieldWrapper);
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

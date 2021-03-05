@@ -16,7 +16,7 @@ import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import echarts, { EChartOption, ECharts } from 'echarts';
 
@@ -72,6 +72,10 @@ export class KupEchart {
     private chartEl: ECharts;
     private echartOption: EChartOption;
     private echartSeries: EChartOption.Series[];
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
     private resObserver: ResizeObserver = undefined;
     private nameMap: any;
     private jsonMap: any;
@@ -513,7 +517,7 @@ export class KupEchart {
             entries: ResizeObserverEntry[]
         ) => {
             entries.forEach((entry) => {
-                logMessage(
+                this.kupDebug.logMessage(
                     this,
                     'Size changed to x: ' +
                         entry.contentRect.width +
@@ -530,7 +534,7 @@ export class KupEchart {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         this.setObserver();
         setThemeCustomStyle(this);
         this.fetchThemeColors();
@@ -538,16 +542,16 @@ export class KupEchart {
 
     componentDidLoad() {
         this.resObserver.observe(this.rootElement);
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
         this.initChart();
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

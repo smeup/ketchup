@@ -20,7 +20,7 @@ import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
 import { getValueOfItemByDisplayMode } from './kup-list-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
     tag: 'kup-list',
@@ -89,6 +89,10 @@ export class KupList {
 
     private filteredItems: ComponentListElement[] = [];
     private listComponent: MDCList = null;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
 
     private radios: KupRadio[] = [];
     private checkboxes: KupCheckbox[] = [];
@@ -538,7 +542,7 @@ export class KupList {
 
     componentWillLoad() {
         this.watchFilter();
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
@@ -557,15 +561,15 @@ export class KupList {
                 (listItemEl: any) => new MDCRipple(listItemEl)
             );
         }
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

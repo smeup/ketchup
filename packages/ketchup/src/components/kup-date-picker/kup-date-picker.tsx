@@ -13,7 +13,7 @@ import {
 } from '@stencil/core';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { positionRecalc } from '../../utils/recalc-position';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
@@ -62,6 +62,10 @@ export class KupDatePicker {
     @Prop() initialValue: string = '';
 
     private calendarView: SourceEvent = SourceEvent.DATE;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
     private textfieldEl: any = undefined;
     private pickerContainerEl: HTMLElement = undefined;
     private pickerEl: { value: string; date: Date } = {
@@ -230,7 +234,7 @@ export class KupDatePicker {
     @Watch('firstDayIndex')
     watchFirstDayIndex() {
         if (this.firstDayIndex > 6 || this.firstDayIndex < 0) {
-            logMessage(
+            this.kupDebug.logMessage(
                 this,
                 'property first-day-index=[' +
                     this.firstDayIndex +
@@ -903,7 +907,7 @@ export class KupDatePicker {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
         this.watchFirstDayIndex();
         this.value = this.initialValue;
@@ -915,16 +919,16 @@ export class KupDatePicker {
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
         this.recalcPosition();
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

@@ -30,7 +30,7 @@ import { hasTooltip } from '../../utils/object-utils';
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import {
     styleHasBorderRadius,
@@ -219,6 +219,10 @@ export class KupTree {
 
     @State() stateSwitcher: boolean = false;
 
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
     private treeWrapperRef: any;
     private scrollOnHoverInstance: scrollOnHover;
     private selectedColumn: string = '';
@@ -436,7 +440,7 @@ export class KupTree {
     onKupTreeNodeDblClick(treeNodeData: TreeNode, treeNodePath: string) {
         for (let index = 0; index < this.clickTimeout.length; index++) {
             clearTimeout(this.clickTimeout[index]);
-            logMessage(
+            this.kupDebug.logMessage(
                 this,
                 'Cleared hdlTreeNodeClicked timeout(' +
                     this.clickTimeout[index] +
@@ -455,7 +459,7 @@ export class KupTree {
     //-------- Lifecycle hooks --------
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
@@ -485,11 +489,11 @@ export class KupTree {
             }
         }
         this.kupDidLoad.emit();
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
         this.filterNodes();
     }
 
@@ -511,7 +515,7 @@ export class KupTree {
         // *** Store
         this.persistState();
         // ***
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     componentDidUnload() {
@@ -1063,7 +1067,7 @@ export class KupTree {
         let title: string = undefined;
         if (_hasTooltip) {
             classObj['is-obj'] = true;
-            if (document.documentElement.kupDebug) {
+            if (document.documentElement['kupDebug']) {
                 title =
                     cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
             }
@@ -1571,7 +1575,7 @@ export class KupTree {
 
         const _hasTooltip: boolean = hasTooltip(treeNodeData.obj);
         let title: string = undefined;
-        if (_hasTooltip && document.documentElement.kupDebug) {
+        if (_hasTooltip && document.documentElement['kupDebug']) {
             title =
                 treeNodeData.obj.t +
                 '; ' +

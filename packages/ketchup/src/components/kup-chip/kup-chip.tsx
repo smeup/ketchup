@@ -10,7 +10,7 @@ import {
     Method,
 } from '@stencil/core';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
 import {
@@ -60,6 +60,15 @@ export class KupChip {
      * @default FChipType.STANDARD
      */
     @Prop() type: FChipType = FChipType.STANDARD;
+
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -248,12 +257,12 @@ export class KupChip {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillUpdate() {
@@ -268,7 +277,7 @@ export class KupChip {
                         j +
                         ") to be set on 'checked' when another one was found before! Overriding to false because the 'choice' type only allows 1 'checked'.";
 
-                    logMessage(this, message, 'warning');
+                    this.kupDebug.logMessage(this, message, 'warning');
                 }
                 if (this.data[j].checked && !firstCheckedFound) {
                     firstCheckedFound = true;
@@ -278,12 +287,12 @@ export class KupChip {
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
         this.setEvents();
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
@@ -294,7 +303,7 @@ export class KupChip {
 
         if (this.data.length === 0) {
             let message = 'Empty data.';
-            logMessage(this, message, 'warning');
+            this.kupDebug.logMessage(this, message, 'warning');
             return;
         }
 

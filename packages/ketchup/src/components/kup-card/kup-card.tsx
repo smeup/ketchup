@@ -17,7 +17,7 @@ import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
 import { MDCRipple } from '@material/ripple';
 import { CardData, CardFamily } from './kup-card-declarations';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import {
     setThemeCustomStyle,
     setCustomStyle,
@@ -99,13 +99,29 @@ export class KupCard {
     /*       I n t e r n a l   V a r i a b l e s       */
     /*-------------------------------------------------*/
 
+    /**
+     * kupCardEvent callback.
+     */
     private cardEvent: EventListenerOrEventListenerObject = (
         e: CustomEvent
     ) => {
         this.onKupEvent(e);
     };
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Previous height of the component, tested when the card is collapsible.
+     */
     private oldSizeY: string;
+    /**
+     * ResizeObserver instance.
+     */
     private resObserver: ResizeObserver;
+    /**
+     * Prevents multiple scaling callbacks when the card is scalable.
+     */
     private scalingActive: boolean = false;
 
     /*-------------------------------------------------*/
@@ -228,7 +244,7 @@ export class KupCard {
                 }
             }
         } catch (error) {
-            logMessage(this, error, 'warning');
+            this.kupDebug.logMessage(this, error, 'warning');
             let props = {
                 resource: 'warning',
                 title: 'Layout not yet implemented!',
@@ -353,7 +369,7 @@ export class KupCard {
             entries: ResizeObserverEntry[]
         ) => {
             entries.forEach((entry) => {
-                logMessage(
+                this.kupDebug.logMessage(
                     this,
                     'Size changed to x: ' +
                         entry.contentRect.width +
@@ -372,7 +388,7 @@ export class KupCard {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
         this.setObserver();
         this.registerListeners();
@@ -386,22 +402,25 @@ export class KupCard {
         if (rippleEl) {
             MDCRipple.attachTo(rippleEl);
         }
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
         this.layoutManager();
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
         if (!this.data) {
-            const message = 'Data missing, not rendering!';
-            logMessage(this, message, 'warning');
+            this.kupDebug.logMessage(
+                this,
+                'Data missing, not rendering!',
+                'warning'
+            );
             return;
         }
 

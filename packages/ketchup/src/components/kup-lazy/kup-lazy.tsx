@@ -1,7 +1,7 @@
 import { Component, Element, Host, Prop, State, h } from '@stencil/core';
 import { Method } from '@stencil/core/internal';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
     tag: 'kup-lazy',
@@ -31,6 +31,10 @@ export class KupLazy {
     @Prop() showPlaceholder: boolean = true;
 
     private intObserver: IntersectionObserver = undefined;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
 
     //---- Methods ----
 
@@ -45,7 +49,7 @@ export class KupLazy {
         ) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    logMessage(
+                    this.kupDebug.logMessage(
                         this,
                         'kup-lazy entering the viewport, rendering ' +
                             this.componentName +
@@ -65,22 +69,22 @@ export class KupLazy {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         this.setObserver();
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
         this.intObserver.observe(this.rootElement);
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

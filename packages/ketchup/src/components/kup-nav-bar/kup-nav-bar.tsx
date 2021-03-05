@@ -24,7 +24,7 @@ import {
     setCustomStyle,
     colorContrast,
 } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -53,6 +53,10 @@ export class KupNavBar {
 
     private optionsButtonEl: any = undefined;
     private optionsListEl: any = undefined;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
     private menuButtonEl: any = undefined;
     private menuListEl: any = undefined;
     private textColor: string = 'white';
@@ -249,17 +253,17 @@ export class KupNavBar {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
         this.fetchThemeColors();
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -275,7 +279,7 @@ export class KupNavBar {
         if (this.optionsListEl != null) {
             positionRecalc(this.optionsListEl, this.optionsButtonEl);
         }
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

@@ -120,19 +120,28 @@ async refreshCustomStyle(customStyleTheme: string) {
 </Host>
 ```
 
-#### debugging
+### Debugging
 
-1. Import these methods from the `debug manager`:
+1. Import the KupDebug class:
 
 ```
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 ```
 
-2. Call the following methods in the following `Stencil's lifecycle hooks`:
+2. Define a new internal variable which instances KupDebug:
+
+```
+/**
+* Instance of the KupDebug class.
+*/
+private kupDebug: KupDebug = new KupDebug();
+```
+
+3. Call the following methods in the following `Stencil's lifecycle hooks`:
 
 ```
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         //..
         //Actual willLoad code (below)
     }
@@ -140,11 +149,11 @@ import { logLoad, logRender } from '../../utils/debug-manager';
     componentDidLoad() {
         //Actual didLoad code (above)
         //..
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
         //..
         //Actual willRender code (below)
     }
@@ -152,7 +161,7 @@ import { logLoad, logRender } from '../../utils/debug-manager';
     componentDidRender() {
         //Actual didRender code (above)
         //..
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 ```
 

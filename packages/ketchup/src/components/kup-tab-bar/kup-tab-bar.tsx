@@ -14,7 +14,7 @@ import {
 import { MDCTabBar } from '@material/tab-bar';
 import { ComponentTabBarElement } from './kup-tab-bar-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -33,6 +33,11 @@ export class KupTabBar {
      * List of elements.
      */
     @Prop() data: ComponentTabBarElement[] = [];
+
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
 
     @Event({
         eventName: 'kupTabBarBlur',
@@ -113,12 +118,17 @@ export class KupTabBar {
             }
             if (activeTabs > 1) {
                 this.data[lastActiveOccurrence].active = true;
-                let message = 'Too many active tabs, forcing last one.';
-                logMessage(this, message, 'warning');
+                this.kupDebug.logMessage(
+                    this,
+                    'Too many active tabs, forcing last one.',
+                    'warning'
+                );
             } else if (activeTabs === 0) {
                 this.data[0].active = true;
-                let message = 'No active tabs detected, forcing first one.';
-                logMessage(this, message, 'log');
+                this.kupDebug.logMessage(
+                    this,
+                    'No active tabs detected, forcing first one.'
+                );
             } else {
                 this.data[lastActiveOccurrence].active = true;
             }
@@ -128,17 +138,17 @@ export class KupTabBar {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         this.consistencyCheck();
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -147,13 +157,12 @@ export class KupTabBar {
         if (root) {
             MDCTabBar.attachTo(root.querySelector('.mdc-tab-bar'));
         }
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
         if (!this.data || this.data.length === 0) {
-            let message = 'Empty data.';
-            logMessage(this, message, 'warning');
+            this.kupDebug.logMessage(this, 'Empty data.', 'warning');
         }
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;

@@ -13,7 +13,7 @@ import {
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
     consistencyCheck,
@@ -71,6 +71,15 @@ export class KupDropdownButton {
      */
     @Prop() trailingIcon: boolean = false;
 
+    private buttonEl: any;
+    private dropdownButtonEl: any;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    private listEl: any;
+    private wrapperEl: HTMLElement;
+
     @Event({
         eventName: 'kupDropdownButtonBlur',
         composed: true,
@@ -123,11 +132,6 @@ export class KupDropdownButton {
     kupItemClick: EventEmitter<{
         value: any;
     }>;
-
-    private listEl: any = undefined;
-    private buttonEl: any = undefined;
-    private wrapperEl: HTMLElement = undefined;
-    private dropdownButtonEl: any = undefined;
 
     //---- Methods ----
 
@@ -363,7 +367,7 @@ export class KupDropdownButton {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
         this.value = this.initialValue;
         if (!this.data) {
@@ -375,11 +379,11 @@ export class KupDropdownButton {
 
     componentDidLoad() {
         this.consistencyCheck(undefined, this.value);
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -394,7 +398,7 @@ export class KupDropdownButton {
         }
 
         positionRecalc(this.listEl, this.wrapperEl);
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

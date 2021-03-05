@@ -7,7 +7,7 @@ import {
     Method,
     Host,
 } from '@stencil/core';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { unformattedStringToFormattedStringNumber } from '../../utils/utils';
 
@@ -123,6 +123,10 @@ export class KupGauge {
      * @namespace kup-gauge.maxValuePositive
      */
     private maxValuePositive = 0;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
 
     //---- Methods ----
 
@@ -211,20 +215,20 @@ export class KupGauge {
     }
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

@@ -10,7 +10,7 @@ import {
     EventEmitter,
     Watch,
 } from '@stencil/core';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
@@ -30,6 +30,11 @@ export class KupDrawer {
      * Defaults at false. When set to true, the drawer appears.
      */
     @Prop({ reflect: true, mutable: true }) opened: boolean = false;
+
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
 
     //---- Watches ----
 
@@ -76,20 +81,20 @@ export class KupDrawer {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

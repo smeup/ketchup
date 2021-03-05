@@ -9,7 +9,7 @@ import {
     getAssetPath,
 } from '@stencil/core';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
     tag: 'kup-progress-bar',
@@ -49,6 +49,11 @@ export class KupProgressBar {
      */
     @Prop() value: number = 0;
 
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+
     //---- Methods ----
 
     @Method()
@@ -86,16 +91,16 @@ export class KupProgressBar {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -108,7 +113,7 @@ export class KupProgressBar {
                 'transform: rotate(' + deg + ')'
             );
         }
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

@@ -1,5 +1,5 @@
 import { getAssetPath } from '@stencil/core';
-import { logMessage } from './debug-manager';
+import { KupDebug } from './kup-debug/kup-debug';
 import * as themesJson from './themes.json';
 
 declare global {
@@ -13,10 +13,11 @@ declare global {
 }
 
 const dom: HTMLElement = document.documentElement;
+const kupDebug: KupDebug = new KupDebug();
 /**
  * Initializes Ketch.UP theme.
  */
-function initThemes() : void {
+function initThemes(): void {
     if (dom.kupCurrentTheme) {
         //In case multiple initializing instances are launched
         return;
@@ -27,7 +28,7 @@ function initThemes() : void {
     } else {
         let message =
             'Ketchup themes were already set by a third party application.';
-        logMessage('theme manager', message);
+        kupDebug.logMessage('theme manager', message);
     }
     if (!dom.getAttribute('kup-theme')) {
         dom.setAttribute('kup-theme', 'ketchup');
@@ -41,12 +42,12 @@ function initThemes() : void {
 
                 let message =
                     'Theme ' + dom.getAttribute('kup-theme') + ' refreshed.';
-                logMessage('theme manager', message);
+                kupDebug.logMessage('theme manager', message);
                 let event = new CustomEvent('kupThemeRefresh');
                 document.dispatchEvent(event);
             } catch (error) {
                 let message = 'Theme not refreshed.';
-                logMessage('theme manager', message, 'warning');
+                kupDebug.logMessage('theme manager', message, 'warning');
             }
         };
     }
@@ -65,16 +66,16 @@ function initThemes() : void {
 /**
  * Sets the theme using the value of "kup-theme" attribute on document.documentElement.
  */
-function setTheme() : void {
+function setTheme(): void {
     let message = '';
     let themeValue = dom.getAttribute('kup-theme');
     message = 'Setting theme to: ' + themeValue + '.';
-    logMessage('theme manager', message);
+    kupDebug.logMessage('theme manager', message);
 
     dom.kupCurrentTheme = dom.kupThemes[themeValue];
     if (!dom.kupCurrentTheme) {
         message = 'Invalid theme name, falling back to default ("ketchup").';
-        logMessage('theme manager', message);
+        kupDebug.logMessage('theme manager', message);
         dom.kupCurrentTheme = dom.kupThemes['ketchup'];
     }
 
@@ -88,7 +89,7 @@ function setTheme() : void {
 /**
  * Sets the CSS variables of the theme.
  */
-function setupCssVariables() : void {
+function setupCssVariables(): void {
     let variables = dom.kupCurrentTheme.cssVariables;
     let rgbVariables: [{ rgbKey: string; rgbVal: string }] = undefined;
     for (var key in variables) {
@@ -118,7 +119,7 @@ function setupCssVariables() : void {
 /**
  * Sets the customStyle of the theme on existing components.
  */
-function setupCustomStyle() : void {
+function setupCustomStyle(): void {
     let components: any = dom.kupCustomStyles;
     for (let i = 0; i < components.length; i++) {
         if (components[i].isConnected) {
@@ -131,7 +132,7 @@ function setupCustomStyle() : void {
 /**
  * Sets the icon variables of the theme.
  */
-function setupIcons() : void {
+function setupIcons(): void {
     let icons = dom.kupCurrentTheme.icons;
     for (var key in icons) {
         if (icons.hasOwnProperty(key)) {
@@ -148,7 +149,7 @@ function setupIcons() : void {
  * @param {string} component - The component's tagName.
  * @returns {string} Complete custom CSS of the component.
  */
-export function fetchThemeCustomStyle(component: string) : string {
+export function fetchThemeCustomStyle(component: string): string {
     let styles = dom.kupCurrentTheme.customStyles;
     if (!styles) {
         return '';
@@ -170,7 +171,7 @@ export function fetchThemeCustomStyle(component: string) : string {
  *
  * @param component - The component calling this function.
  */
-export function setThemeCustomStyle(component: any) : void {
+export function setThemeCustomStyle(component: any): void {
     if (!dom.kupCurrentTheme) {
         initThemes();
     }
@@ -194,7 +195,7 @@ export function setCustomStyle(component: any) {
     } else if (component.customStyle) {
         return component.customStyle;
     } else {
-        return "";
+        return '';
     }
 }
 /**
@@ -203,7 +204,7 @@ export function setCustomStyle(component: any) {
  * @param {string} color - Color used to check the contrast.
  * @returns {string} "white" or "black".
  */
-export function colorContrast(color: string) : string{
+export function colorContrast(color: string): string {
     color = colorCheck(color).rgbColor;
     const colorValues = color.replace(/[^\d,.]/g, '').split(',');
     const brightness = Math.round(
@@ -221,7 +222,7 @@ export function colorContrast(color: string) : string{
  * @param {number} brightness - Brightness of the color generated (0-255).
  * @returns {string} Random HEX color.
  */
-export function randomColor(brightness: number) : string {
+export function randomColor(brightness: number): string {
     function randomChannel(brightness: number) {
         var r = 255 - brightness;
         var n = 0 | (Math.random() * r + brightness);
@@ -241,11 +242,13 @@ export function randomColor(brightness: number) : string {
  * @param {string} color - Color.
  * @returns {{string, string, string}} Object of color values: hexColor ("#ffffff"), rgbColor ("rgb(255,255,255)"") and rgbValues ("255,255,255").
  */
-export function colorCheck(color: string) :  { hexColor: string, rgbColor: string, rgbValues: string } {
+export function colorCheck(
+    color: string
+): { hexColor: string; rgbColor: string; rgbValues: string } {
     //Testing whether the color is transparent, if it is a fall back value will be returned matching the background-color
     if (color === 'transparent') {
         color = dom.kupCurrentTheme.cssVariables['--kup-background-color'];
-        logMessage(
+        kupDebug.logMessage(
             'theme manager',
             'Received TRANSPARENT color, converted to ' +
                 color +
@@ -257,7 +260,7 @@ export function colorCheck(color: string) :  { hexColor: string, rgbColor: strin
     if (color.substr(0, 1) !== '#' && color.substr(0, 3) !== 'rgb') {
         let oldColor = color;
         color = codeToHex(color);
-        logMessage(
+        kupDebug.logMessage(
             'theme manager',
             'Received CODE NAME color ' +
                 oldColor +
@@ -276,7 +279,7 @@ export function colorCheck(color: string) :  { hexColor: string, rgbColor: strin
         try {
             color =
                 'rgb(' + rgbColor.r + ',' + rgbColor.g + ',' + rgbColor.b + ')';
-            logMessage(
+            kupDebug.logMessage(
                 'theme manager',
                 'Received HEX color ' +
                     oldColor +
@@ -285,7 +288,10 @@ export function colorCheck(color: string) :  { hexColor: string, rgbColor: strin
                     '.'
             );
         } catch (error) {
-            logMessage('theme-manager', 'Invalid color: ' + color + '.');
+            kupDebug.logMessage(
+                'theme-manager',
+                'Invalid color: ' + color + '.'
+            );
         }
     }
 
@@ -297,7 +303,7 @@ export function colorCheck(color: string) :  { hexColor: string, rgbColor: strin
     try {
         rgbValues = values[1] + ',' + values[2] + ',' + values[3];
     } catch (error) {
-        logMessage(
+        kupDebug.logMessage(
             'theme-manager',
             'Color not converted to rgb values: ' + color + '.'
         );
@@ -311,7 +317,7 @@ export function colorCheck(color: string) :  { hexColor: string, rgbColor: strin
                 parseInt(values[3])
             );
         } catch (error) {
-            logMessage(
+            kupDebug.logMessage(
                 'theme-manager',
                 'Color not converted to hex value: ' + color + '.'
             );
@@ -326,7 +332,7 @@ export function colorCheck(color: string) :  { hexColor: string, rgbColor: strin
  * @param {string} hex - Hex code.
  * @returns {{number, number, number}} Object of color values: hexColor ("#ffffff"), rgbColor ("rgb(255,255,255)"") and rgbValues ("255,255,255").
  */
-export function hexToRgb(hex: string) : {r: number, g: number, b: number} {
+export function hexToRgb(hex: string): { r: number; g: number; b: number } {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result
         ? {
@@ -344,7 +350,7 @@ export function hexToRgb(hex: string) : {r: number, g: number, b: number} {
  * @param {number} b - Blue channel value.
  * @returns {string} HEX color.
  */
-export function rgbToHex(r: number, g: number, b: number) : string {
+export function rgbToHex(r: number, g: number, b: number): string {
     return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 /**
@@ -353,7 +359,7 @@ export function rgbToHex(r: number, g: number, b: number) : string {
  * @param {number} c - Color value.
  * @returns {string} HEX value.
  */
-function componentToHex(c : number) : string {
+function componentToHex(c: number): string {
     var hex = c.toString(16);
     return hex.length == 1 ? '0' + hex : hex;
 }
@@ -363,7 +369,7 @@ function componentToHex(c : number) : string {
  * @param {string} color - Color code word.
  * @returns {string} HEX value.
  */
-export function codeToHex(color: string) : string {
+export function codeToHex(color: string): string {
     const colorCodes = {
         aliceblue: '#f0f8ff',
         antiquewhite: '#faebd7',
@@ -517,7 +523,10 @@ export function codeToHex(color: string) : string {
     if (colorCodes[color.toLowerCase()]) {
         return colorCodes[color.toLowerCase()];
     } else {
-        logMessage('theme manager', 'Could not decode color ' + color + '!');
+        kupDebug.logMessage(
+            'theme manager',
+            'Could not decode color ' + color + '!'
+        );
         return color;
     }
 }

@@ -68,7 +68,7 @@ const KupBoxDragType = 'text/kup-box-drag';
 import { CardData } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 
 import { KupBoxState } from './kup-box-state';
@@ -96,7 +96,7 @@ export class KupBox {
         if (this.store && this.stateId) {
             const state = this.store.getState(this.stateId);
             if (state != null) {
-                logMessage(
+                this.kupDebug.logMessage(
                     this,
                     'Initialize with state for stateId ' +
                         this.stateId +
@@ -127,7 +127,7 @@ export class KupBox {
             );
             this.state.pageSelected = this.currentPage;
             this.state.rowsPerPage = this.currentRowsPerPage;
-            logMessage(
+            this.kupDebug.logMessage(
                 this,
                 'Persisting state for stateId ' +
                     this.stateId +
@@ -391,6 +391,10 @@ export class KupBox {
 
     private tooltip: KupTooltip;
     private globalFilterTimeout: number;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
 
     @Watch('pageSize')
     rowsPerPageHandler(newValue: number) {
@@ -435,7 +439,7 @@ export class KupBox {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
 
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
@@ -464,18 +468,18 @@ export class KupBox {
             });
         }
         this.kupDidLoad.emit();
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
         // *** Store
         this.persistState();
         // ***
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     componentDidUnload() {

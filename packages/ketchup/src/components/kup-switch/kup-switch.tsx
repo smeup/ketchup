@@ -10,7 +10,7 @@ import {
     Method,
 } from '@stencil/core';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { FSwitch } from '../../f-components/f-switch/f-switch';
 import { FSwitchMDC } from '../../f-components/f-switch/f-switch-mdc';
 import { FSwitchProps } from '../../f-components/f-switch/f-switch-declarations';
@@ -71,6 +71,15 @@ export class KupSwitch {
      * @default false
      */
     @Prop() leadingLabel: boolean = false;
+
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -205,16 +214,16 @@ export class KupSwitch {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
         if (this.checked) {
             this.value = 'on';
         } else {
@@ -224,7 +233,7 @@ export class KupSwitch {
 
     componentDidRender() {
         this.setEvents();
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

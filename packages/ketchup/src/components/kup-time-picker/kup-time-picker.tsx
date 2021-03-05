@@ -13,7 +13,7 @@ import {
     JSX,
 } from '@stencil/core';
 
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { positionRecalc } from '../../utils/recalc-position';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
@@ -68,6 +68,10 @@ export class KupTimePicker {
      */
     @Prop() timeMinutesStep: number = 10;
 
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
     private hoursEl: HTMLElement = undefined;
     private minutesEl: HTMLElement = undefined;
     private secondsEl: HTMLElement = undefined;
@@ -77,7 +81,6 @@ export class KupTimePicker {
     private hoursActive: boolean = true;
     private minutesActive: boolean = false;
     private secondsActive: boolean = false;
-
     private textfieldEl: any = undefined;
     private pickerContainerEl: HTMLElement = undefined;
     private pickerEl: HTMLElement = undefined;
@@ -236,7 +239,7 @@ export class KupTimePicker {
             return;
         }
         if (this.timeMinutesStep <= 0) {
-            logMessage(
+            this.kupDebug.logMessage(
                 this,
                 'property time-minutes-step=[' +
                     this.timeMinutesStep +
@@ -249,7 +252,7 @@ export class KupTimePicker {
         let result: number = 60 % this.timeMinutesStep;
 
         if (result != 0) {
-            logMessage(
+            this.kupDebug.logMessage(
                 this,
                 'property time-minutes-step=[' +
                     this.timeMinutesStep +
@@ -864,7 +867,7 @@ export class KupTimePicker {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
         this.watchTimeMinutesStep();
         this.value = this.initialValue;
@@ -877,11 +880,11 @@ export class KupTimePicker {
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -895,7 +898,7 @@ export class KupTimePicker {
             }
         }
         this.recalcPosition();
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

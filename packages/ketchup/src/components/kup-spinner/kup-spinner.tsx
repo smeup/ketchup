@@ -8,7 +8,7 @@ import {
     Method,
 } from '@stencil/core';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
     tag: 'kup-spinner',
@@ -53,6 +53,11 @@ export class KupSpinner {
      */
     @Prop() layout: number = 1;
 
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+
     //---- Methods ----
 
     @Method()
@@ -63,12 +68,12 @@ export class KupSpinner {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentDidUpdate() {
@@ -81,7 +86,7 @@ export class KupSpinner {
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -96,7 +101,7 @@ export class KupSpinner {
                 }, this.faderTimeout);
             }
         }
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

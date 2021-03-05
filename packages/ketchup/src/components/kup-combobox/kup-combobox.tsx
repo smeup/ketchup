@@ -16,7 +16,7 @@ import {
     consistencyCheck,
 } from '../kup-list/kup-list-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 
@@ -60,6 +60,10 @@ export class KupCombobox {
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
 
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
     private elStyle: any = undefined;
     private listEl: any = undefined;
     private textfieldWrapper: HTMLElement = undefined;
@@ -348,7 +352,7 @@ export class KupCombobox {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
         this.value = this.initialValue;
         if (!this.data) {
@@ -361,17 +365,17 @@ export class KupCombobox {
 
     componentDidLoad() {
         this.consistencyCheck(undefined, this.value);
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
         this.setEvents();
         positionRecalc(this.listEl, this.textfieldWrapper);
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

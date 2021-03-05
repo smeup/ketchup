@@ -8,7 +8,7 @@ import {
     JSX,
     Method,
 } from '@stencil/core';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 
 @Component({
@@ -34,6 +34,10 @@ export class KupGrid {
     @Prop() singleLine: boolean = false;
 
     private elStyle = undefined;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
 
     //---- Methods ----
 
@@ -45,27 +49,27 @@ export class KupGrid {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
         let slots = this.rootElement.children;
         if (!slots || slots.length === 0) {
             let message = 'Missing slots, not rendering!';
-            logMessage(this, message, 'warning');
+            this.kupDebug.logMessage(this, message, 'warning');
             return;
         }
 

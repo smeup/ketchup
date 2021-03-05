@@ -15,7 +15,6 @@ import {
 
 import { isNumber } from '../../utils/object-utils';
 import { isEmpty, stringToNumber } from '../../utils/utils';
-import { logMessage } from '../../utils/debug-manager';
 import { DropHandlers, setDragDropPayload } from '../../utils/drag-and-drop';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
@@ -491,7 +490,7 @@ export function evaluateFormula(
     try {
         return evaluateString(formula1);
     } catch (e) {
-        logMessage(
+        this.kupDebug.logMessage(
             'kup-data-table-helper',
             'Error during evaluate formula [' + formula1 + ']',
             'error'

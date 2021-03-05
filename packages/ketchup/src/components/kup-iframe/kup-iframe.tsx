@@ -8,7 +8,7 @@ import {
     h,
 } from '@stencil/core';
 
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
     tag: 'kup-iframe',
@@ -30,6 +30,11 @@ export class KupIframe {
      * The address the iframe should be referencing to.
      */
     @Prop() src: string = undefined;
+
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
 
     //---- Methods ----
 
@@ -64,25 +69,25 @@ export class KupIframe {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
         if (this.src === undefined || this.src === null || this.src === '') {
             let message = 'Resource undefined, not rendering!';
-            logMessage(this, message, 'warning');
+            this.kupDebug.logMessage(this, message, 'warning');
             return;
         }
 

@@ -13,7 +13,7 @@ import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
 import { ComponentRadioElement } from './kup-radio-declarations';
 import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
     tag: 'kup-radio',
@@ -48,6 +48,11 @@ export class KupRadio {
      * Defaults at null. It's the name that binds the radio buttons together.
      */
     @Prop() name: string = 'radio-list';
+
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
 
     @Event({
         eventName: 'kupRadioBlur',
@@ -154,16 +159,16 @@ export class KupRadio {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -179,7 +184,7 @@ export class KupRadio {
                 formField.input = component;
             }
         }
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

@@ -8,9 +8,8 @@ import {
     Host,
     Method,
     EventEmitter,
-    Watch,
 } from '@stencil/core';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import {
     setThemeCustomStyle,
     setCustomStyle,
@@ -51,9 +50,13 @@ export class KupColorPicker {
      */
     @Prop() swatchOnly: boolean = false;
 
-    private anchorEl: HTMLElement = undefined;
-    private textfieldEl: KupTextField = undefined;
-    private picker: Picker = undefined;
+    private anchorEl: HTMLElement;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    private picker: Picker;
+    private textfieldEl: KupTextField;
 
     @Event({
         eventName: 'kupColorPickerChange',
@@ -167,7 +170,7 @@ export class KupColorPicker {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
         setThemeCustomStyle(this);
         this.value = this.initialValue;
         this.setHexValue();
@@ -217,7 +220,7 @@ export class KupColorPicker {
                 }
             };
         }
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillUpdate() {
@@ -225,11 +228,11 @@ export class KupColorPicker {
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
