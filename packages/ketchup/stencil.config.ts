@@ -2,10 +2,7 @@ import { Config } from '@stencil/core';
 import { sass } from '@stencil/sass';
 
 export const config: Config = {
-    /* buildEs5: false,*/
-    extras: {
-        cssVarsShim: true,
-    },
+    buildEs5: false,
     copy: [
         {
             src: 'autocomplete.html',
@@ -20,15 +17,6 @@ export const config: Config = {
             src: 'chart.html',
         },
         {
-            src: 'data-table.html',
-        },
-        {
-            src: 'data-table-performance.html',
-        },
-        {
-            src: 'rating.html',
-        },
-        {
             src: 'color-picker.html',
         },
         {
@@ -38,25 +26,36 @@ export const config: Config = {
             src: 'dash-list.html',
         },
         {
+            src: 'data-table.html',
+        },
+        {
+            src: 'data-table-performance.html',
+        },
+        {
+            src: 'drawer.html',
+        },
+        {
             src: 'echart.html',
         },
         {
             src: 'gauge.html',
         },
         {
-            src: 'tree.html',
+            src: 'nav-bar.html',
         },
         {
-            src: 'nav-bar.html',
+            src: 'rating.html',
         },
         {
             src: 'tooltip.html',
         },
         {
-            src: 'drawer.html',
+            src: 'tree.html',
         },
     ],
-
+    extras: {
+        cssVarsShim: true,
+    },
     namespace: 'ketchup',
     outputTargets: [
         { type: 'dist' },

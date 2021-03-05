@@ -1,4 +1,4 @@
-import { Column } from '../../components/kup-data-table/kup-data-table-declarations';
+import type { Column } from '../../components/kup-data-table/kup-data-table-declarations';
 import { getValueForDisplay } from '../cell-utils';
 import { Filters } from './filters';
 import { Filter, FilterInterval, GenericFilter } from './filters-declarations';

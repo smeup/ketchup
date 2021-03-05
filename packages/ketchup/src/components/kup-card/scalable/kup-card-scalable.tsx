@@ -1,7 +1,7 @@
+import type { KupCard } from '../kup-card';
 import { h, VNode } from '@stencil/core';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { GenericObject } from '../../../types/GenericTypes';
-import { KupCard } from '../kup-card';
 /**
  * 1st scalable card layout, column of 2 texts.
  * @param {KupCard}  comp - Card component.

@@ -1,12 +1,13 @@
-import { KupCard } from '../../components/kup-card/kup-card';
-import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
-import {
+import type { CardData } from '../../components/kup-card/kup-card-declarations';
+import type { GenericObject } from '../../types/GenericTypes';
+import type { KupCard } from '../../components/kup-card/kup-card';
+import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
+import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
+import type { KupTree } from '../../components/kup-tree/kup-tree';
+import type {
     Column,
     GroupObject,
 } from '../../components/kup-data-table/kup-data-table-declarations';
-import { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
-import { KupTree } from '../../components/kup-tree/kup-tree';
-import { GenericObject } from '../../types/GenericTypes';
 import { unsetTooltip } from '../helpers';
 import {
     isCheckbox,
@@ -25,7 +26,6 @@ import {
     ISO_DEFAULT_DATE_FORMAT,
     ISO_DEFAULT_DATE_TIME_FORMAT,
 } from '../utils';
-import { CardData } from '../../components/kup-card/kup-card-declarations';
 import { getValueForDisplay } from '../cell-utils';
 import { FiltersRows } from '../filters/filters-rows';
 /**

@@ -1,4 +1,6 @@
-import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
+import type { GenericFilter } from './filters-declarations';
+import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
+import type { KupTree } from '../../components/kup-tree/kup-tree';
 import {
     Cell,
     Column,
@@ -6,7 +8,6 @@ import {
     CellsHolder,
     SortMode,
 } from '../../components/kup-data-table/kup-data-table-declarations';
-import { KupTree } from '../../components/kup-tree/kup-tree';
 import {
     compareValues,
     getCellValueForDisplay,
@@ -16,7 +17,6 @@ import {
 import { isDate, isNumber, isTime, isTimestamp } from '../object-utils';
 import { Filters } from './filters';
 import { FiltersColumnMenu } from './filters-column-menu';
-import { GenericFilter } from './filters-declarations';
 
 /**
  * Filtering algorithms related to data-table rows.

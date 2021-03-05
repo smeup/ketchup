@@ -1,8 +1,8 @@
+import type { KupCard } from '../kup-card';
 import { h } from '@stencil/core';
 import { JSX, VNode } from '@stencil/core/internal';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { GenericObject } from '../../../types/GenericTypes';
-import { KupCard } from '../kup-card';
 /**
  * 1st standard card layout, inspired by Material Design.
  * @param {KupCard}  comp - Card component.

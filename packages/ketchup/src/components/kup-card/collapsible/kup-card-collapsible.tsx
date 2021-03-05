@@ -1,7 +1,8 @@
+import type { KupCard } from '../kup-card';
 import { h, VNode } from '@stencil/core';
 import { FImage } from '../../../f-components/f-image/f-image';
 import { GenericObject } from '../../../types/GenericTypes';
-import { KupCard } from '../kup-card';
+
 /**
  * 1st collapsible card layout, left bar and collapsible chips.
  * @param {KupCard}  comp - Card component.

@@ -1,10 +1,10 @@
-import {
+import type {
     Column,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
-import { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
+import type { GenericFilter } from './filters-declarations';
+import type { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
 import { FiltersColumnMenu } from './filters-column-menu';
-import { GenericFilter } from './filters-declarations';
 import { FiltersRows } from './filters-rows';
 
 /**
