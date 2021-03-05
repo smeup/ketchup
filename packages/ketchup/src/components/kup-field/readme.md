@@ -7,7 +7,7 @@
 
 | Property      | Attribute      | Description                                                                                                     | Type      | Default     |
 | ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `undefined` |
+| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `''`        |
 | `data`        | --             | Effective data to pass to the component.                                                                        | `Object`  | `{}`        |
 | `label`       | `label`        | The text of the label. If set to empty or has only white space chars, the label will be removed.                | `string`  | `''`        |
 | `labelPos`    | `label-pos`    | Sets the label's position, left right or top.                                                                   | `string`  | `'left'`    |
