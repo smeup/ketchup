@@ -276,6 +276,10 @@ export class KupDatePicker {
 
     onKupBlur(e: UIEvent) {
         e.stopPropagation();
+        console.log(
+            'cacca kup.date-picker - onBlur() ',
+            this.rootElement.shadowRoot.activeElement
+        );
         this.closePicker();
         this.kupBlur.emit({
             id: this.rootElement.id,

@@ -20,7 +20,7 @@ export class FiltersTreeItems extends FiltersRows {
         columns: Column[] = [],
         treeExpandedPropName,
         columnFilters?: FiltersColumnMenu
-    ): Array<Row> {
+    ): Array<TreeNode> {
         if (!items || items == null) {
             return [];
         }
@@ -32,7 +32,7 @@ export class FiltersTreeItems extends FiltersRows {
             !this.hasFilters(filters, columns, columnFilters)
         ) {
             this.setAllVisible(items);
-            return [];
+            return items;
         }
         for (let i = 0; i < items.length; i++) {
             if (
@@ -48,6 +48,7 @@ export class FiltersTreeItems extends FiltersRows {
             ) {
             }
         }
+        return items;
     }
 
     private setNodeVisibility(
@@ -111,6 +112,28 @@ export class FiltersTreeItems extends FiltersRows {
             element.visible = true;
             this.setAllVisible(element.children);
         });
+    }
+
+    extarctColumnValues(
+        rows: Array<TreeNode>,
+        column: Column,
+        values: { value: string; displayedValue: string }[]
+    ) {
+        if (rows == null || rows.length == 0) {
+            return;
+        }
+        /** il valore delle righe attualmente filtrate, formattato */
+        rows.forEach((row) => {
+            if (row.visible) {
+                this.addColumnValueFromRow(
+                    values,
+                    column,
+                    row.cells[column.name]
+                );
+                this.extarctColumnValues(row.children, column, values);
+            }
+        });
+        return values;
     }
 
     expandCollapseNode(

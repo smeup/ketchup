@@ -1777,9 +1777,9 @@ export class KupTree {
                             id="column-menu"
                             isMenu={true}
                             layoutNumber={12}
-                            onBlur={(e) =>
+                            /*onBlur={(e) =>
                                 this.columnMenuInstance.close(e, this)
-                            }
+                            }*/
                             onClick={(e) => e.stopPropagation()}
                             onMouseUp={(e) => e.stopPropagation()}
                             onKupCardEvent={(e) => {

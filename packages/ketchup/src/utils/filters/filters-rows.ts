@@ -96,6 +96,9 @@ export class FiltersRows extends Filters {
                 // Search among all columns for the global filter
                 for (let i = 0; i < columns.length; i++) {
                     const cell = cells[columns[i].name];
+                    if (cell == null) {
+                        continue;
+                    }
                     retValue = this.isFilterCompliantForValue(
                         cell.value,
                         globalFilter
@@ -368,15 +371,23 @@ export class FiltersRows extends Filters {
             });
         }
 
-        /** il valore delle righe attualmente filtrate, formattato */
-        tmpRows.forEach((row) =>
-            this.addColumnValueFromRow(values, column, row.cells[column.name])
-        );
-
+        this.extarctColumnValues(tmpRows, column, values);
         return values;
     }
 
-    private addColumnValueFromRow(
+    extarctColumnValues(
+        rows: Array<Row>,
+        column: Column,
+        values: { value: string; displayedValue: string }[]
+    ) {
+        /** il valore delle righe attualmente filtrate, formattato */
+        rows.forEach((row) =>
+            this.addColumnValueFromRow(values, column, row.cells[column.name])
+        );
+        return values;
+    }
+
+    addColumnValueFromRow(
         values: { value: string; displayedValue: string }[],
         column: Column,
         cell: Cell

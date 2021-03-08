@@ -405,6 +405,7 @@ export class ColumnMenu {
         );
         let initialValueFrom = interval[FilterInterval.FROM];
         let initialValueTo = interval[FilterInterval.TO];
+        console.log('cacca');
 
         let suffixFrom = null;
         let suffixTo = null;
