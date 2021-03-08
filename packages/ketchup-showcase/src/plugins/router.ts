@@ -178,6 +178,11 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/dash/Dash.vue`),
   },
   {
+    path: `/dashlist`,
+    name: 'dashlist',
+    component: () => import(`@/views/advanced/dashlist/DashList.vue`),
+  },
+  {
     path: `/datatable`,
     name: 'datatable',
     component: () => import(`@/views/advanced/datatable/Datatable.vue`),
