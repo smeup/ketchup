@@ -8,6 +8,12 @@
 // - above    = when true "el" will be always placed above its wrapper
 // - right    = when true "el" will be always placed on the right of its wrapper
 //
+declare global {
+    interface HTMLElement {
+        anchorEl: HTMLElement;
+    }
+}
+
 export function positionRecalc(
     el: any,
     anchorEl: HTMLElement,
@@ -20,13 +26,17 @@ export function positionRecalc(
     if (!margin) {
         margin = 0;
     }
-    el['anchorEl'] = anchorEl;
-    el['anchorMargin'] = margin;
+    el['recalcPosition'] = {
+        ['anchor']: anchorEl,
+        ['margin']: margin ? margin : 0,
+        ['above']: above ? true : false,
+        ['right']: right ? true : false,
+    };
 
     var mutObserver = new MutationObserver(function (mutations) {
         let target: any = mutations[0].target;
         if (target.classList.contains('dynamic-position-active')) {
-            runRecalc(el, anchorEl, margin, above, right);
+            runRecalc(el);
         }
     });
     mutObserver.observe(el, {
@@ -35,29 +45,31 @@ export function positionRecalc(
     });
 }
 
-export async function runRecalc(
-    el: HTMLElement,
-    anchorEl: HTMLElement,
-    margin?: number,
-    above?: boolean,
-    right?: boolean
-) {
+export async function runRecalc(el: HTMLElement) {
     if (!el.isConnected || !el.classList.contains('dynamic-position-active')) {
         return;
     }
     let offsetH: number = el.clientHeight;
     let offsetW: number = el.clientWidth;
-    const rect = anchorEl.getBoundingClientRect();
+    const rect = el['recalcPosition']['anchor'].getBoundingClientRect();
     el.style.top = ``;
     el.style.right = ``;
     el.style.bottom = ``;
     el.style.left = ``;
-    if (window.innerHeight - rect.bottom < offsetH || above) {
-        el.style.bottom = `${window.innerHeight - rect.top + margin}px`;
+    if (
+        window.innerHeight - rect.bottom < offsetH ||
+        el['recalcPosition']['above']
+    ) {
+        el.style.bottom = `${
+            window.innerHeight - rect.top + el['recalcPosition']['margin']
+        }px`;
     } else {
-        el.style.top = `${rect.bottom + margin}px`;
+        el.style.top = `${rect.bottom + el['recalcPosition']['margin']}px`;
     }
-    if (window.innerWidth - rect.left < offsetW || right) {
+    if (
+        window.innerWidth - rect.left < offsetW ||
+        el['recalcPosition']['right']
+    ) {
         //01-27-2021 Experimental: subtracting from window.innerWidth the scrollbar's width - if it's too large something's wrong so it will be set to 0
         let scrollbarWidth =
             window.innerWidth - document.documentElement.offsetWidth;
@@ -68,5 +80,5 @@ export async function runRecalc(
     } else {
         el.style.left = `${rect.left}px`;
     }
-    setTimeout(runRecalc, 10, el, anchorEl, margin, above, right);
+    setTimeout(runRecalc, 10, el);
 }
