@@ -274,12 +274,7 @@ export class KupDatePicker {
         this.setTextFieldInitalValue(this.getDateForOutput());
     }
 
-    onKupBlur(e: UIEvent) {
-        e.stopPropagation();
-        console.log(
-            'cacca kup.date-picker - onBlur() ',
-            this.rootElement.shadowRoot.activeElement
-        );
+    onKupBlur() {
         this.closePicker();
         this.kupBlur.emit({
             id: this.rootElement.id,
@@ -567,7 +562,7 @@ export class KupDatePicker {
                 onBlur={(e: any) => {
                     e.stopPropagation();
                     if (!this.isRelatedTargetInThisComponent(e)) {
-                        this.onKupBlur(e);
+                        this.onKupBlur();
                     }
                 }}
             >
@@ -960,7 +955,7 @@ export class KupDatePicker {
         }
 
         return (
-            <Host class={hostClass} onBlur={(e) => this.onKupBlur(e)}>
+            <Host class={hostClass} onBlur={() => this.onKupBlur()}>
                 <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     {this.prepDateTextfield()}

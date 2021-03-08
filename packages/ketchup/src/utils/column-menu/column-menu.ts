@@ -81,7 +81,9 @@ export class ColumnMenu {
     reposition(comp: KupDataTable | KupTree): void {
         const root: ShadowRoot = comp.rootElement.shadowRoot;
         if (root) {
-            const card: any = root.querySelector('#column-menu');
+            const card: any = root.querySelector(
+                '#column-menu:not(.dynamic-position-active)'
+            );
             if (card) {
                 const column: string = card.dataset.column;
                 const wrapper: HTMLElement = root.querySelector(
