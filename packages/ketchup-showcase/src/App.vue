@@ -468,12 +468,6 @@ export default {
                 },
               },
               {
-                title: `Gauge`,
-                to: {
-                  name: 'gauge',
-                },
-              },
-              {
                 title: 'Search',
                 to: {
                   name: 'search',
