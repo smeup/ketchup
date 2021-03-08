@@ -589,6 +589,11 @@ export class KupDataTable {
     } = {};
 
     /**
+     * When true, the global filter will show up.
+     */
+    @State()
+    private toggleFilter: boolean = false;
+    /**
      * name of the column with an open menu
      */
     @State()
@@ -1315,6 +1320,20 @@ export class KupDataTable {
                         this.onGlobalFilterChange(null);
                 }
                 FTextFieldMDC(globalFilter);
+            }
+            //Global filter button
+            const globalFilterButton: HTMLElement = root.querySelector(
+                '.f-button--wrapper#global-filter-toggler'
+            );
+            if (globalFilterButton) {
+                const buttonEl: HTMLButtonElement = globalFilterButton.querySelector(
+                    'button'
+                );
+                if (buttonEl) {
+                    buttonEl.onclick = () =>
+                        (this.toggleFilter = !this.toggleFilter);
+                }
+                FButtonMDC(globalFilterButton);
             }
         }
     }
@@ -3600,13 +3619,11 @@ export class KupDataTable {
     private totalMenuPosition() {
         if (this.rootElement.shadowRoot) {
             let menu: HTMLElement = this.rootElement.shadowRoot.querySelector(
-                '.total-menu'
+                '#totals-menu'
             );
             if (menu) {
-                let wrapper = menu.parentElement.querySelector(
-                    '#' + totalMenuOpenID
-                ) as HTMLElement;
-                positionRecalc(menu, wrapper, 10, true);
+                let wrapper = menu.closest('td');
+                positionRecalc(menu, wrapper, 0, true, true);
                 menu.classList.add('dynamic-position-active');
                 menu.classList.add('visible');
             }
@@ -3620,11 +3637,6 @@ export class KupDataTable {
     }
 
     renderFooter() {
-        if (!this.showFooter && !this.hasTotals()) {
-            // no footer
-            return null;
-        }
-
         let extraCells = 0;
 
         // Composes initial cells if necessary
@@ -3762,6 +3774,7 @@ export class KupDataTable {
                         <kup-list
                             class={`kup-menu total-menu`}
                             data={...listData}
+                            id="totals-menu"
                             is-menu
                             menu-visible
                             onKupListClick={(event) =>
@@ -3771,42 +3784,31 @@ export class KupDataTable {
                     );
                 }
 
-                let footerClasses = {};
-                if (fixedCellStyle) {
-                    if (fixedCellStyle.fixedCellClasses) {
-                        footerClasses = fixedCellStyle.fixedCellClasses;
-                    }
-                }
-                if (!this.areTotalsSelected(column)) {
-                    footerClasses['hidden'] = true;
-                }
-
                 return (
                     <td
-                        class={footerClasses}
+                        class={
+                            fixedCellStyle && fixedCellStyle.fixedCellClasses
+                                ? fixedCellStyle.fixedCellClasses
+                                : ''
+                        }
+                        onContextMenu={(e: MouseEvent) => {
+                            e.preventDefault();
+                            this.onTotalMenuOpen(column);
+                        }}
                         style={
                             fixedCellStyle
                                 ? fixedCellStyle.fixedCellStyle
                                 : null
                         }
                     >
-                        <div class="totals-wrapper">
-                            <span
-                                class="totals-open"
-                                id={totalMenuOpenID}
-                                onClick={() => this.onTotalMenuOpen(column)}
-                            >
-                                {menuLabel}
-                            </span>
-                            {totalMenu}
-                            <span class="totals-value">
-                                {numberToFormattedStringNumber(
-                                    this.footer[column.name],
-                                    column.decimals,
-                                    column.obj ? column.obj.p : ''
-                                )}
-                            </span>
-                        </div>
+                        {totalMenu}
+                        <span class="totals-value" title={menuLabel}>
+                            {numberToFormattedStringNumber(
+                                this.footer[column.name],
+                                column.decimals,
+                                column.obj ? column.obj.p : ''
+                            )}
+                        </span>
                     </td>
                 );
             }
@@ -5171,25 +5173,7 @@ export class KupDataTable {
         const header = this.renderHeader();
         const stickyHeader = this.renderStickyHeader();
 
-        // footer
-        const footer = this.renderFooter();
-
         const tooltip = this.renderTooltip();
-
-        let globalFilter = null;
-        if (this.globalFilter) {
-            globalFilter = (
-                <div id="global-filter">
-                    <FTextField
-                        fullWidth={true}
-                        icon="magnify"
-                        isClearable={true}
-                        label="Search..."
-                        value={this.globalFilterValue}
-                    />
-                </div>
-            );
-        }
 
         let paginatorTop = undefined;
         let paginatorBottom = undefined;
@@ -5239,7 +5223,7 @@ export class KupDataTable {
             }
         }
         const tableClass = {
-            // Class for specifying if the table should have width: auto.
+            // Class to specify whether the table should have width: auto or not.
             // Mandatory to check with custom column size.
             'auto-width': this.tableHasAutoWidth(),
             'column-separation':
@@ -5310,7 +5294,27 @@ export class KupDataTable {
                 <style>{setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class="above-wrapper">
-                        {globalFilter}
+                        {this.globalFilter ? (
+                            <FButton
+                                iconOff={'magnify'}
+                                icon={'magnify'}
+                                id="global-filter-toggler"
+                                toggable={true}
+                                wrapperClass={
+                                    this.toggleFilter ? 'toggled' : ''
+                                }
+                            />
+                        ) : null}
+                        {this.toggleFilter ? (
+                            <div id="global-filter">
+                                <FTextField
+                                    fullWidth={true}
+                                    isClearable={true}
+                                    label="Search..."
+                                    value={this.globalFilterValue}
+                                />
+                            </div>
+                        ) : null}
                         {paginatorTop}
                     </div>
                     <div
@@ -5334,7 +5338,9 @@ export class KupDataTable {
                                 <tr>{header}</tr>
                             </thead>
                             <tbody>{rows}</tbody>
-                            {footer}
+                            {this.showFooter || this.hasTotals()
+                                ? this.renderFooter()
+                                : null}
                         </table>
                         {stickyEl}
                     </div>

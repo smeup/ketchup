@@ -88,6 +88,7 @@ table {
       border-bottom: $common-border;
       border-right: $common-border;
       box-sizing: border-box;
+      height: 36px;
       text-align: right;
       font-weight: bold;
       padding: 0.5em 0.3125em;
@@ -554,26 +555,13 @@ th.obj:hover span:not(.overlay-action) {
   }
 }
 
-.totals-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  margin-left: auto;
-  max-width: -moz-fit-content;
-  max-width: fit-content;
-  position: relative;
-}
-
-.totals-open {
-  cursor: pointer;
-  opacity: 0.35;
-  font-size: 0.925em;
-  font-weight: normal;
-  margin-right: 0.5em;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
 .totals-value {
   font-weight: bold;
+}
+
+#global-filter-toggler {
+  margin: 0.5em 0;
+  &:not(.toggled) {
+    --kup-primary-color: var(--kup-icon-color);
+  }
 }

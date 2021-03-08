@@ -343,7 +343,7 @@
             "--kup-obj-cursor": "inherit"
         },
         "customStyles": {
-            "MASTER": "#kup-component #global-filter {\ndisplay: none;\n}\n\n",
+            "MASTER": "#kup-component #global-filter,\n#kup-component #global-filter-toggler {\ndisplay: none;\n}\n\n",
             "KUP-BOX": "#kup-component #box-container .box-wrapper .box:hover {\nbox-shadow: none;\n}\n\n#kup-component #box-container .box-wrapper .box.selected {\nbackground-color: inherit;\n}",
             "KUP-BUTTON": "#kup-component {\ndisplay: none;\n}\n\n",
             "KUP-CARD": "#kup-component div {\noverflow: hidden;\n}\n\n",
