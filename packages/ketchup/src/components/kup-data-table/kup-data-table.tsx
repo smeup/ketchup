@@ -1514,7 +1514,6 @@ export class KupDataTable {
         const details: GenericObject = this.getEventDetails(
             e.target as HTMLElement
         );
-        console.log(details);
         if (details.area === 'header') {
             if (details.th && details.column) {
                 if (details.filterRemove) {
@@ -1546,7 +1545,6 @@ export class KupDataTable {
 
     private contextMenuHandler(e: MouseEvent): void {
         const details = this.getEventDetails(e.target as HTMLElement);
-        console.log(details);
         if (details.area === 'header') {
             if (details.th && details.column) {
                 this.columnMenuInstance.open(
@@ -1579,7 +1577,6 @@ export class KupDataTable {
         const details: GenericObject = this.getEventDetails(
             e.target as HTMLElement
         );
-        console.log(details);
         this.kupDataTableDblClick.emit({
             details: details,
         });
@@ -4686,12 +4683,16 @@ export class KupDataTable {
                             id="column-menu"
                             isMenu={true}
                             layoutNumber={12}
+                            onBlur={(e) =>
+                                this.columnMenuInstance.close(e, this)
+                            }
                             onClick={(e) => e.stopPropagation()}
                             onKupCardEvent={(e) => {
                                 this.columnMenuInstance.eventHandlers(e, this);
                             }}
                             sizeX="auto"
                             sizeY="auto"
+                            tabIndex={0}
                         ></kup-card>
                     ) : null}
                     {this.removableColumns ? this.columnRemoveArea() : null}
