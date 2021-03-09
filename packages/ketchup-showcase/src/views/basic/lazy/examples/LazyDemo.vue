@@ -32,7 +32,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
@@ -67,13 +67,16 @@ function createComp() {
   comp.componentName = 'kup-card';
   comp.data = {
     data: {
-      button1: { icon: 'favorite', flat: true },
-      image1: {
-        resource: 'images/catz_small.jpg',
-      },
-      text1: 'Lazy loaded!',
-      text2:
+      button: [{ icon: 'favorite', flat: true }],
+      image: [
+        {
+          resource: 'images/catz_small.jpg',
+        },
+      ],
+      text: [
+        'Lazy loaded!',
         'This card was rendered as soon as it was partially included inside the viewport.',
+      ],
     },
   };
   comp.id = 'demo-component';

@@ -10,8 +10,8 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { logLoad, logRender } from '../../utils/debug-manager';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 
 @Component({
     tag: 'kup-rating',
@@ -26,7 +26,7 @@ export class KupRating {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Defaults at false. When set to true, the component is disabled.
      */
@@ -39,6 +39,15 @@ export class KupRating {
      * Rated stars
      */
     @Prop() value: number = 0;
+
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     @Event() kupRatingClicked: EventEmitter;
 
@@ -110,27 +119,27 @@ export class KupRating {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
         this.onValueChanged();
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div>{this.stars}</div>
                 </div>

@@ -12,8 +12,8 @@ import {
 
 import { KupFldChangeEvent, KupFldSubmitEvent } from './kup-field-declarations';
 
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 
 @Component({
     tag: 'kup-field',
@@ -27,7 +27,7 @@ export class KupField {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Effective data to pass to the component.
      */
@@ -59,6 +59,14 @@ export class KupField {
 
     //-- Not reactive --
     currentValue: object | string = null;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
     previousValue: object | string = null;
 
     // Generates an instance of the event handler while binding the current component as its this value
@@ -139,20 +147,20 @@ export class KupField {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
@@ -222,8 +230,11 @@ export class KupField {
         let comp: string = undefined;
 
         if (this.type === undefined) {
-            let message = 'Type (state) is undefined!';
-            logMessage(this, message, 'warning');
+            this.kupDebug.logMessage(
+                this,
+                'Type (state) is undefined!',
+                'warning'
+            );
         } else {
             switch (this.type.toLowerCase()) {
                 case 'cmb':
@@ -264,7 +275,7 @@ export class KupField {
 
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     {toRender}
                 </div>

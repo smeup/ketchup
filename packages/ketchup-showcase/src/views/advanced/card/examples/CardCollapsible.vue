@@ -19,16 +19,17 @@
     </p>
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 1</span> settings:
+        <span class="code-word">Layout 1</span> configuration:
         <br />
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the side bar.
+        <span class="code-word">- color[0]</span>: Sets the color of the side
+        bar.
         <br />
-        <span class="code-word">- chip1</span>: Chips displayed after clicking
+        <span class="code-word">- chip[0]</span>: Chips displayed after clicking
         on the bottom bar.
         <br />
-        <span class="code-word">- text1, text2, text3</span>: Generic text,
-        check the mock-up below to see how they are positioned.
+        <span class="code-word">- text[0 to 2]</span>: Generic text, check the
+        mock-up below to see how they are positioned.
         <br />
       </p>
       <br />
@@ -46,20 +47,20 @@
     </div>
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 2</span> settings:
+        <span class="code-word">Layout 2</span> configuration:
         <br />
         <br />
-        <span class="code-word">- color1</span>: Sets the color of the elements
-        placed in the top right corner.
+        <span class="code-word">- color[0]</span>: Sets the color of the
+        elements placed in the top right corner.
         <br />
-        <span class="code-word">- chip1</span>: Chips displayed after clicking
+        <span class="code-word">- chip[0]</span>: Chips displayed after clicking
         on the bottom bar.
         <br />
-        <span class="code-word">- image1</span>: Image on the top right corner,
-        colored with color1.
+        <span class="code-word">- image[0]</span>: Image on the top right
+        corner.
         <br />
-        <span class="code-word">- text1, text2, text3</span>: Generic text,
-        check the mock-up below to see how they are positioned.
+        <span class="code-word">- text[0 to 2]</span>: Generic text, check the
+        mock-up below to see how they are positioned.
         <br />
       </p>
       <br />
@@ -84,97 +85,102 @@ export default {
   data() {
     return {
       data: {
-        button1: { icon: 'widgets', flat: true, title: 'button1' },
-        chip1: {
-          title: 'chip1',
-          data: [
-            {
-              value: '1_chip',
-              icon: 'filter_1',
-              label: 'First chip',
-              checked: false,
-            },
-            {
-              value: '2_chip',
-              icon: 'filter_2',
-              label: 'Second chip',
-              checked: true,
-            },
-            {
-              value: '3_chip',
-              icon: 'filter_3',
-              label: 'Third chip',
-              checked: false,
-            },
-            {
-              value: '4_chip',
-              icon: 'filter_4',
-              label: 'Fourth chip',
-              checked: false,
-            },
-            {
-              value: '5_chip',
-              icon: 'filter_5',
-              label: 'Fifth chip',
-              checked: false,
-            },
-            {
-              value: '6_chip',
-              icon: 'filter_6',
-              label: 'Sixth chip',
-              checked: false,
-            },
-            {
-              value: '7_chip',
-              icon: 'filter_7',
-              label: 'Seventh chip',
-              checked: false,
-            },
-            {
-              value: '8_chip',
-              icon: 'filter_8',
-              label: 'Eighth chip',
-              checked: false,
-            },
-            {
-              value: '9_chip',
-              icon: 'filter_9',
-              label: 'Ninth chip',
-              checked: false,
-            },
-          ],
-        },
-        color1: 'var(--kup-spinner-color)',
-        color2: 'var(--kup-border-color)',
-        image1: {
-          data: [
-            {
-              shape: 'bar',
-              color: 'var(--kup-primary-color)',
-              width: '100%',
-              height: '100%',
-            },
-          ],
-          title: 'image1',
-        },
-        image2: {
-          data: [
-            {
-              shape: 'bar',
-              color: 'var(--kup-primary-color)',
-              width: '100%',
-              height: '100%',
-            },
-          ],
-          title: 'image2',
-        },
-        progressBar1: { value: 50, title: 'progressBar1' },
-        text1: 'text1',
-        text2: 'text2',
-        text3: 'text3',
-        text4: 'text4',
-        text5: 'text5',
-        text6: 'text6',
+        button: [{ icon: 'widgets', flat: true, title: 'button[0]' }],
+        chip: [
+          {
+            title: 'chip[0]',
+            data: [
+              {
+                value: '1_chip',
+                icon: 'filter_1',
+                label: 'First chip',
+                checked: false,
+              },
+              {
+                value: '2_chip',
+                icon: 'filter_2',
+                label: 'Second chip',
+                checked: true,
+              },
+              {
+                value: '3_chip',
+                icon: 'filter_3',
+                label: 'Third chip',
+                checked: false,
+              },
+              {
+                value: '4_chip',
+                icon: 'filter_4',
+                label: 'Fourth chip',
+                checked: false,
+              },
+              {
+                value: '5_chip',
+                icon: 'filter_5',
+                label: 'Fifth chip',
+                checked: false,
+              },
+              {
+                value: '6_chip',
+                icon: 'filter_6',
+                label: 'Sixth chip',
+                checked: false,
+              },
+              {
+                value: '7_chip',
+                icon: 'filter_7',
+                label: 'Seventh chip',
+                checked: false,
+              },
+              {
+                value: '8_chip',
+                icon: 'filter_8',
+                label: 'Eighth chip',
+                checked: false,
+              },
+              {
+                value: '9_chip',
+                icon: 'filter_9',
+                label: 'Ninth chip',
+                checked: false,
+              },
+            ],
+          },
+        ],
+        color: ['var(--kup-spinner-color)', 'var(--kup-border-color)'],
+        image: [
+          {
+            data: [
+              {
+                shape: 'bar',
+                color: 'var(--kup-primary-color)',
+                width: '100%',
+                height: '100%',
+              },
+            ],
+            title: 'image[0]',
+          },
+          {
+            data: [
+              {
+                shape: 'bar',
+                color: 'var(--kup-primary-color)',
+                width: '100%',
+                height: '100%',
+              },
+            ],
+            title: 'image[1]',
+          },
+        ],
+        progressbar: [{ value: 50, title: 'progressbar[0]' }],
+        text: [
+          'text[0]',
+          'text[1]',
+          'text[2]',
+          'text[3]',
+          'text[4]',
+          'text[5]',
+        ],
       },
     };
   },

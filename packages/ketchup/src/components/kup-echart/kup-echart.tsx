@@ -16,8 +16,8 @@ import { ResizeObserver } from 'resize-observer';
 import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
 import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import echarts, { EChartOption, ECharts } from 'echarts';
 
 @Component({
@@ -46,7 +46,7 @@ export class KupEchart {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * The actual data of the chart.
      */
@@ -72,6 +72,14 @@ export class KupEchart {
     private chartEl: ECharts;
     private echartOption: EChartOption;
     private echartSeries: EChartOption.Series[];
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
     private resObserver: ResizeObserver = undefined;
     private nameMap: any;
     private jsonMap: any;
@@ -513,7 +521,7 @@ export class KupEchart {
             entries: ResizeObserverEntry[]
         ) => {
             entries.forEach((entry) => {
-                logMessage(
+                this.kupDebug.logMessage(
                     this,
                     'Size changed to x: ' +
                         entry.contentRect.width +
@@ -530,30 +538,30 @@ export class KupEchart {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
         this.setObserver();
-        setThemeCustomStyle(this);
         this.fetchThemeColors();
     }
 
     componentDidLoad() {
         this.resObserver.observe(this.rootElement);
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
         this.initChart();
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     onClick={() => this.onKupClick()}

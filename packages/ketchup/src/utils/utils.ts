@@ -3,7 +3,6 @@ import numeral from 'numeral';
 import moment from 'moment';
 
 import { Identifiable } from '../types/GenericTypes';
-import { logMessage } from './debug-manager';
 
 export function identify(array: Array<Identifiable>) {
     if (array) {

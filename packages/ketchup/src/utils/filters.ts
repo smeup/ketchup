@@ -2,6 +2,8 @@ import { GenericObject } from '../types/GenericTypes';
 
 // TODO improve this by making it a generic function which accepts a dynamic type
 // TODO allow filterOnField to be a function which returns a string passing the current item under analysis
+/** NOT USED!!! */
+/*
 export function basicListFilter(
     listToFilter: GenericObject[],
     filterValue: string,
@@ -24,6 +26,7 @@ export function basicListFilter(
 
     return toRet;
 }
+*/
 
 /**
  * This regular expressions returns a match like this one:
@@ -36,12 +39,13 @@ export function basicListFilter(
  * @property {string} 4 - Either % or null: means the string must finish with the given string.
  * @property {string} 5 - Always equal to ': it's the end of the filter.
  */
-const filterAnalyzer = /^('|!')(%){0,1}(.*?)(%){0,1}(')$/;
+//const filterAnalyzer = /^('|!')(%){0,1}(.*?)(%){0,1}(')$/;
 
 /**
  * Given a filter value, check if is a negative filter
  * @param filterValue the filter value to use for check
  */
+/*
 export function filterIsNegative(filterValue: string) {
     const analyzedFilter = filterValue.match(filterAnalyzer);
     const filterIsNegative: boolean = analyzedFilter
@@ -49,6 +53,7 @@ export function filterIsNegative(filterValue: string) {
         : false;
     return filterIsNegative;
 }
+*/
 /**
 * Given a value and a filter value, returns if that value matches the filter.
 *
@@ -72,6 +77,7 @@ export function filterIsNegative(filterValue: string) {
            true if value matches special filter created on filterValue; 
            false otherwise.
 */
+/*
 export function isFilterCompliantForValue(
     value: string,
     filterValue: string
@@ -106,6 +112,7 @@ export function isFilterCompliantForValue(
     }
     return false;
 }
+*/
 
 /**
  * Given a value and a filter value, returns if that value matches the filter.
@@ -128,6 +135,7 @@ export function isFilterCompliantForValue(
  * @param ignoreNegativeFlag = false - When set to true, the matcher will ignore the (!) operator; useful for global filter.
  * @returns True if the filter is empty and the value of the cell is empty, false otherwise.
  */
+/*
 export function matchSpecialFilter(
     value: string,
     parsedFilter: RegExpMatchArray | null,
@@ -158,3 +166,4 @@ export function matchSpecialFilter(
     }
     return false;
 }
+*/

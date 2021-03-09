@@ -34,16 +34,10 @@ import {
 
 import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 
-import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
-
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
-import {
-    setThemeCustomStyle,
-    setCustomStyle,
-    randomColor,
-    colorContrast,
-} from '../../utils/theme-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { identify } from '../../utils/utils';
+import { getColumnByName } from '../../utils/cell-utils';
 
 declare const google: any;
 declare const $: any;
@@ -74,7 +68,7 @@ export class KupChart {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * The actual data of the chart.
      */
@@ -152,6 +146,14 @@ export class KupChart {
     private gChartDataTable: any;
     private gChartView: any;
     private elStyle = undefined;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
     private resObserver: ResizeObserver = undefined;
 
     //---- Methods ----
@@ -326,7 +328,9 @@ export class KupChart {
             opts.slices = [];
             for (let index = 0; index < opts.colors.length; index++) {
                 opts.slices.push({
-                    textStyle: { color: colorContrast(opts.colors[index]) },
+                    textStyle: {
+                        color: this.kupTheme.colorContrast(opts.colors[index]),
+                    },
                 });
             }
         }
@@ -449,9 +453,11 @@ export class KupChart {
 
     private loadOfflineChart() {
         if (!this.offlineMode.value || this.offlineMode.value == '') {
-            let message =
-                "Incorrect or incomplete data, can't render chart in offline mode!";
-            logMessage(this, message, 'warning');
+            this.kupDebug.logMessage(
+                this,
+                "Incorrect or incomplete data, can't render chart in offline mode!",
+                'warning'
+            );
             return;
         }
 
@@ -554,11 +560,15 @@ export class KupChart {
                 index < this.data.columns.length;
                 index++
             ) {
-                colorArray.push(randomColor(25));
+                colorArray.push(this.kupTheme.randomColor(25));
             }
         } catch (error) {
             if (!this.offlineMode) {
-                logMessage(this, 'Chart colors setup failed!', 'warning');
+                this.kupDebug.logMessage(
+                    this,
+                    'Chart colors setup failed!',
+                    'warning'
+                );
             }
         }
 
@@ -570,7 +580,7 @@ export class KupChart {
             entries: ResizeObserverEntry[]
         ) => {
             entries.forEach((entry) => {
-                logMessage(
+                this.kupDebug.logMessage(
                     this,
                     'Size changed to x: ' +
                         entry.contentRect.width +
@@ -594,10 +604,10 @@ export class KupChart {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
         this.identifyRows();
         this.setObserver();
-        setThemeCustomStyle(this);
         this.fetchThemeColors();
     }
 
@@ -631,15 +641,15 @@ export class KupChart {
                 console.error(err);
             }
         }
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     componentWillUpdate() {
@@ -667,7 +677,7 @@ export class KupChart {
 
         return (
             <Host style={this.elStyle}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     ref={(chartContainer) =>

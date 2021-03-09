@@ -26,7 +26,7 @@
     </p>
     <div class="demo-container">
       <div class="kup-container">
-        <kup-button flat label="Your button"></kup-button>
+        <kup-button styling="flat" label="Your button"></kup-button>
       </div>
     </div>
     <br />
