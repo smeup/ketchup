@@ -850,29 +850,6 @@ export class KupTree {
         this.globalFilterValue = value;
     }
 
-    /*
-    private setAllVisible(items: TreeNode[]) {
-        items.forEach((element) => {
-            element.visible = true;
-            this.setAllVisible(element.children);
-        });
-    }*/
-
-    /*
-    getCheckBoxFilterValues(column: string): Array<string> {
-        return this.filtersColumnMenuInstance.getCheckBoxFilterValues(
-            this.filters,
-            column
-        );
-    }
-
-    private getIntervalTextFieldFilterValues(column: Column): Array<string> {
-        return this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
-            this.filters,
-            column
-        );
-    }*/
-
     getColumnValues(
         column: Column
     ): { value: string; displayedValue: string }[] {
@@ -897,18 +874,6 @@ export class KupTree {
             treeExpandedPropName,
             this.filtersColumnMenuInstance
         );
-        /*
-        if (this.data == null || this.data.length == 0) {
-            return;
-        }
-        if (this.globalFilterValue.trim() == '') {
-            this.setAllVisible(this.data);
-            return;
-        }
-        for (let i = 0; i < this.data.length; i++) {
-            if (this.setNodeVisibility(this.data[i])) {
-            }
-        }*/
     }
 
     private refreshStructureState() {
@@ -923,31 +888,8 @@ export class KupTree {
             });
             this.filterNodes();
         }
-    } /*
-            if (visibility == true) {
-                this.setAllVisible(node.children);
-            } else {
-                for (let i = 0; i < node.children.length; i++) {
-                    if (this.setNodeVisibility(node.children[i])) {
-                        visibility = true;
-                        this.expandCollapseNode(node, true);
-                    }
-                }
-            }
-        }
-        node.visible = visibility;
-        return visibility;
     }
-*/
 
-    /*
-    private setNodeVisibility(node: TreeNode): boolean {
-        let visibility: boolean = this.filtersColumnMenuInstance.isFilterCompliantForValue(
-            node.value,
-            this.globalFilterValue
-        );
-        if (node.disabled != true && node.expandable == true) {
-            /** se il ramo è compatibile con il filtro, mostro tutto l'albero sottostante */
     private createIconElement(
         CSSClass: string,
         icon: string,
