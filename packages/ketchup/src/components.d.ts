@@ -2955,8 +2955,23 @@ declare namespace LocalJSX {
         selectedRow: Row;
     }>) => void;
         "onKupCellButtonClicked"?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
+        /**
+          * Generic click event on data table.
+         */
+        "onKupDataTableClick"?: (event: CustomEvent<{
+        details: GenericObject;
+    }>) => void;
+        /**
+          * Generic right click event on data table.
+         */
+        "onKupDataTableContextMenu"?: (event: CustomEvent<{
+        details: GenericObject;
+    }>) => void;
+        /**
+          * Generic double click event on data table.
+         */
         "onKupDataTableDblClick"?: (event: CustomEvent<{
-        obj: {};
+        details: GenericObject;
     }>) => void;
         /**
           * When component load is complete

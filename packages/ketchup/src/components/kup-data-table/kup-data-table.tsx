@@ -832,7 +832,42 @@ export class KupDataTable {
         clickedRow: Row;
         clickedColumn: string;
     }>;
-
+    /**
+     * Generic click event on data table.
+     */
+    @Event({
+        eventName: 'kupDataTableClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableClick: EventEmitter<{
+        details: GenericObject;
+    }>;
+    /**
+     * Generic right click event on data table.
+     */
+    @Event({
+        eventName: 'kupDataTableContextMenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableContextMenu: EventEmitter<{
+        details: GenericObject;
+    }>;
+    /**
+     * Generic double click event on data table.
+     */
+    @Event({
+        eventName: 'kupDataTableDblClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableDblClick: EventEmitter<{
+        details: GenericObject;
+    }>;
     /**
      * When cell option is clicked
      */
@@ -900,25 +935,9 @@ export class KupDataTable {
     })
     kupCellButtonClicked: EventEmitter<KupDataTableCellButtonClick>;
 
-    @Event({
-        eventName: 'kupDataTableDblClick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupDataTableDblClick: EventEmitter<{
-        obj: {};
-    }>;
-
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
-    }
-
-    onKupDataTableDblClick(obj: { t: string; p: string; k: string }) {
-        this.kupDataTableDblClick.emit({
-            obj: obj,
-        });
     }
 
     forceUpdate() {
@@ -1200,9 +1219,8 @@ export class KupDataTable {
                         index
                     ].querySelector('button');
                     if (buttonEl) {
-                        buttonEl.onclick = (e: MouseEvent) =>
+                        buttonEl.onclick = () =>
                             this.onDefaultRowActionClick(
-                                e,
                                 rowActions[index]['data-action']
                             );
                     }
@@ -1431,6 +1449,137 @@ export class KupDataTable {
         } else {
             return undefined;
         }
+    }
+
+    private getEventDetails(
+        el: HTMLElement
+    ): {
+        area: string;
+        cell: Cell;
+        column: Column;
+        filterRemove: HTMLSpanElement;
+        row: Row;
+        td: HTMLTableDataCellElement;
+        th: HTMLTableHeaderCellElement;
+        tr: HTMLTableRowElement;
+    } {
+        const isHeader: boolean = !!el.closest('thead'),
+            isBody: boolean = !!el.closest('tbody'),
+            isFooter: boolean = !!el.closest('tfoot'),
+            td: HTMLTableDataCellElement = el.closest('td'),
+            th: HTMLTableHeaderCellElement = el.closest('th'),
+            tr: HTMLTableRowElement = el.closest('tr'),
+            filterRemove: HTMLSpanElement = el.closest('th .filter-remove');
+        let cell: Cell = null,
+            column: Column = null,
+            row: Row = null;
+        if (isBody) {
+            if (td) {
+                cell = td['data-cell'];
+            }
+            if (tr) {
+                row = tr['data-row'];
+            }
+        }
+        if (isHeader || isBody || isFooter) {
+            const columnName = td
+                ? td.dataset.column
+                : th
+                ? th.dataset.column
+                : null;
+            if (columnName) {
+                column = getColumnByName(this.getColumns(), columnName);
+            }
+        }
+
+        return {
+            area: isHeader
+                ? 'header'
+                : isBody
+                ? 'body'
+                : isFooter
+                ? 'footer'
+                : null,
+            cell: cell ? cell : null,
+            column: column ? column : null,
+            filterRemove: filterRemove ? filterRemove : null,
+            row: row ? row : null,
+            td: td ? td : null,
+            th: th ? th : null,
+            tr: tr ? tr : null,
+        };
+    }
+
+    private clickHandler(e: MouseEvent): void {
+        const details: GenericObject = this.getEventDetails(
+            e.target as HTMLElement
+        );
+        if (details.area === 'header') {
+            if (details.th && details.column) {
+                if (details.filterRemove) {
+                    this.onRemoveFilter(details.column);
+                    return;
+                } else {
+                    this.onColumnSort(e, details.column.name);
+                    return;
+                }
+            }
+        } else if (details.area === 'body') {
+            if (
+                details.tr &&
+                details.row &&
+                details.tr.classList.contains('group')
+            ) {
+                this.onRowExpand(details.row);
+                return;
+            }
+            if (details.td && details.row) {
+                this.onRowClick(e, details.row);
+                return;
+            }
+        }
+        this.kupDataTableClick.emit({
+            details: details,
+        });
+    }
+
+    private contextMenuHandler(e: MouseEvent): void {
+        const details = this.getEventDetails(e.target as HTMLElement);
+        if (details.area === 'header') {
+            if (details.th && details.column) {
+                this.columnMenuInstance.open(
+                    e,
+                    this,
+                    details.column.name,
+                    this.tooltip
+                );
+                return;
+            }
+        } else if (details.area === 'body') {
+            if (this.showTooltipOnRightClick && details.td && details.cell) {
+                e.preventDefault();
+                setTooltip(e, details.cell, this.tooltip);
+                return;
+            }
+        } else if (details.area === 'footer') {
+            if (details.td && details.column) {
+                e.preventDefault();
+                this.onTotalMenuOpen(details.column);
+                return;
+            }
+        }
+        this.kupDataTableContextMenu.emit({
+            details: details,
+        });
+    }
+
+    private dblClickHandler(e: MouseEvent): void {
+        const details: GenericObject = this.getEventDetails(
+            e.target as HTMLElement
+        );
+        this.kupDataTableDblClick.emit({
+            details: details,
+        });
     }
 
     getVisibleColumns(): Array<Column> {
@@ -1903,12 +2052,7 @@ export class KupDataTable {
         }
     }
 
-    private onDefaultRowActionClick(
-        e: MouseEvent,
-        { action, row, type, index }
-    ) {
-        e.stopPropagation();
-
+    private onDefaultRowActionClick({ action, row, type, index }) {
         this.kupRowActionClicked.emit({
             action,
             index,
@@ -1997,23 +2141,9 @@ export class KupDataTable {
         return this.openedTotalMenu != null;
     }
 
-    /*
-    private isOpenedMenuForColumn(column: string): boolean {
-        return this.openedMenu === column;
-    }*/
-
     private isOpenedTotalMenuForColumn(column: string): boolean {
         return this.openedTotalMenu === column;
     }
-
-    /*
-    private onHeaderCellContextMenuOpen(e: MouseEvent, column: Column) {
-        this.closeMenuAndTooltip();
-        this.openMenu(column);
-        // Prevent opening of the default browser menu
-        e.preventDefault();
-        return false;
-    }*/
 
     /**
      * Type guard needed to be sure that an object returned from composePath() is an HTMLElement with classes
@@ -2503,16 +2633,12 @@ export class KupDataTable {
                         <span
                             title={svgLabel}
                             class="icon-container filter-remove"
-                            onClick={() => {
-                                this.onRemoveFilter(column);
-                            }}
                         ></span>
                     );
                 }
 
                 //---- Sort ----
                 let sortIcon = null;
-                let sortEventHandler = undefined;
 
                 // When sorting is enabled, there are two things to do:
                 // 1 - Add correct icon to the table
@@ -2523,21 +2649,6 @@ export class KupDataTable {
                         iconClass += ' icon-container';
                         sortIcon = <span class={iconClass}></span>;
                     }
-
-                    // The handler for triggering the sorting of a column
-                    sortEventHandler = (e: MouseEvent) => {
-                        // Sorts column only when currently pressed mouse button is the the left click handler
-                        // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
-                        if (
-                            e.button === 0 &&
-                            !(e.target as HTMLTableCellElement).hasAttribute(
-                                this.dragStarterAttribute
-                            ) &&
-                            (e.target as HTMLElement).tagName !== 'KUP-CARD'
-                        ) {
-                            this.onColumnSort(e, column.name);
-                        }
-                    };
 
                     // Adds the sortable class to the header cell
                     columnClass['header-cell--sortable'] = true;
@@ -2674,15 +2785,6 @@ export class KupDataTable {
                         data-column={column.name}
                         class={columnClass}
                         style={thStyle}
-                        onContextMenu={(e: MouseEvent) =>
-                            this.columnMenuInstance.open(
-                                e,
-                                this,
-                                column.name,
-                                this.tooltip
-                            )
-                        }
-                        onMouseUp={sortEventHandler}
                         {...(this.enableSortableColumns
                             ? setKetchupDraggable(dragHandlers, {
                                   [KupDataTableColumnDragType]: column,
@@ -3021,15 +3123,12 @@ export class KupDataTable {
 
                 return (
                     <td
+                        data-column={column.name}
                         class={
                             fixedCellStyle && fixedCellStyle.fixedCellClasses
                                 ? fixedCellStyle.fixedCellClasses
                                 : ''
                         }
-                        onContextMenu={(e: MouseEvent) => {
-                            e.preventDefault();
-                            this.onTotalMenuOpen(column);
-                        }}
                         style={
                             fixedCellStyle
                                 ? fixedCellStyle.fixedCellStyle
@@ -3135,25 +3234,19 @@ export class KupDataTable {
                 }
 
                 jsxRows.push(
-                    <tr
-                        class="group group-label"
-                        onClick={() => this.onRowExpand(row)}
-                    >
+                    <tr data-row={row} class="group group-label">
                         {grouplabelcell}
                     </tr>
                 );
 
                 jsxRows.push(
-                    <tr
-                        class="group group-total"
-                        onClick={() => this.onRowExpand(row)}
-                    >
+                    <tr data-row={row} class="group group-total">
                         {cells}
                     </tr>
                 );
             } else {
                 jsxRows.push(
-                    <tr class="group" onClick={() => this.onRowExpand(row)}>
+                    <tr data-row={row} class="group">
                         <td colSpan={this.calculateColspan()}>
                             <span class="group-cell-content">
                                 {indent}
@@ -3399,14 +3492,7 @@ export class KupDataTable {
                             cell.obj.k +
                             ';';
                     }
-                    if (this.showTooltipOnRightClick) {
-                        eventHandlers = {
-                            onContextMenu: (ev) => {
-                                ev.preventDefault();
-                                setTooltip(ev, cell, this.tooltip);
-                            },
-                        };
-                    } else {
+                    if (!this.showTooltipOnRightClick) {
                         eventHandlers = {
                             onMouseEnter: (ev) => {
                                 setTooltip(ev, cell, this.tooltip);
@@ -3434,16 +3520,13 @@ export class KupDataTable {
                               )
                             : {})}
                         title={title}
+                        data-cell={cell}
                         data-column={name}
                         style={cellStyle}
                         class={cellClass}
                         {...eventHandlers}
-                        onDblClick={() => {
-                            this.onKupDataTableDblClick(cell.obj);
-                        }}
                     >
                         {jsxCell}
-                        {/* {options} */}
                     </td>
                 );
             });
@@ -3530,8 +3613,8 @@ export class KupDataTable {
 
             return (
                 <tr
+                    data-row={row}
                     class={rowClass}
-                    onClick={(e) => this.onRowClick(e, row)}
                     {...(this.dragEnabled
                         ? setKetchupDraggable(dragHandlersRow, {
                               [KupDataTableRowDragType]: row,
@@ -4565,6 +4648,13 @@ export class KupDataTable {
                                 ev.stopPropagation();
                                 unsetTooltip(this.tooltip);
                             }}
+                            onClick={(e: MouseEvent) => this.clickHandler(e)}
+                            onContextMenu={(e: MouseEvent) =>
+                                this.contextMenuHandler(e)
+                            }
+                            onDblClick={(e: MouseEvent) =>
+                                this.dblClickHandler(e)
+                            }
                         >
                             <thead
                                 hidden={!this.showHeader}
@@ -4593,13 +4683,16 @@ export class KupDataTable {
                             id="column-menu"
                             isMenu={true}
                             layoutNumber={12}
+                            onBlur={(e) =>
+                                this.columnMenuInstance.close(e, this)
+                            }
                             onClick={(e) => e.stopPropagation()}
-                            onMouseUp={(e) => e.stopPropagation()}
                             onKupCardEvent={(e) => {
                                 this.columnMenuInstance.eventHandlers(e, this);
                             }}
                             sizeX="auto"
                             sizeY="auto"
+                            tabIndex={0}
                         ></kup-card>
                     ) : null}
                     {this.removableColumns ? this.columnRemoveArea() : null}

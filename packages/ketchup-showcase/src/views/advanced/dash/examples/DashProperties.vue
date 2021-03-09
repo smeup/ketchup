@@ -5,15 +5,15 @@
         <ul>
           <li>
             <span class="code-word">{{ property.property }}</span
-            >: {{ property.description }} 
+            >: {{ property.description }}
             <br />
-            <span class="code-word">Attribute: </span>: {{ property.attribute }} 
+            <span class="code-word">Attribute: </span>: {{ property.attribute }}
             <br />
-            <span class="code-word">Type: </span>: {{ property.type }} 
+            <span class="code-word">Type: </span>: {{ property.type }}
             <br />
             <span class="code-word">Default: </span>: {{ property.default }}
           </li>
-          <hr/>
+          <hr />
         </ul>
       </div>
     </div>

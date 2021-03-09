@@ -39,7 +39,7 @@ export default {
     };
   },
   methods: {
-    Updrawer1: function () {
+    Updrawer1: function() {
       const sideDrawer1 = document.getElementById('seconddrawer');
       if (!sideDrawer1.opened) {
         sideDrawer1.open();
