@@ -1723,7 +1723,6 @@ export class KupTree {
                                 this.columnMenuInstance.close(e, this)
                             }
                             onClick={(e) => e.stopPropagation()}
-                            onMouseUp={(e) => e.stopPropagation()}
                             onKupCardEvent={(e) => {
                                 this.columnMenuInstance.eventHandlers(e, this);
                             }}
