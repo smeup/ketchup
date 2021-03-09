@@ -1094,7 +1094,8 @@ export class KupBox {
                 <div class="box-selection">
                     <kup-checkbox
                         checked={isSelected}
-                        onClick={(e) => e.stopPropagation()}
+                        /*TODO Improvement: Listener removed, the event passes through, and is managed by the box itself !!! */
+                        /*onClick={(e) => e.stopPropagation()}*/
                     />
                 </div>
             );

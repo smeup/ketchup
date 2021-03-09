@@ -48,13 +48,10 @@ import {
     getCellType,
     getColumnByName,
     getCellValueForDisplay,
-    getValueForDisplay,
 } from '../../utils/cell-utils';
 
 import {
     calcTotals,
-    normalizeTotals,
-    compareValues,
     normalizeRows,
     filterRows,
     groupRows,
@@ -85,9 +82,6 @@ import {
     stringToNumber,
     numberToFormattedStringNumber,
     identify,
-    ISO_DEFAULT_DATE_TIME_FORMAT,
-    ISO_DEFAULT_DATE_FORMAT,
-    changeDateTimeFormat,
     deepEqual,
 } from '../../utils/utils';
 
@@ -138,6 +132,7 @@ import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { FiltersRows } from '../../utils/filters/filters-rows';
+import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 
 @Component({
     tag: 'kup-data-table',
