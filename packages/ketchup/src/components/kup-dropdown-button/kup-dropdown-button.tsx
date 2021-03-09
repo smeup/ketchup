@@ -204,6 +204,9 @@ export class KupDropdownButton {
     }
 
     private isListOpened(): boolean {
+        if (this.listEl == null) {
+            return false;
+        }
         return this.listEl.menuVisible == true;
     }
 

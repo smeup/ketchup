@@ -93,12 +93,12 @@ function sortGroupRows(
         // creating fake cells
         const cell1: Cell = {
             obj: r1.group.obj,
-            value: r1.group.label,
+            value: r1.group.id,
         };
 
         const cell2: Cell = {
             obj: r2.group.obj,
-            value: r2.group.label,
+            value: r2.group.id,
         };
 
         return compareCell(cell1, cell2, sortObject.sortMode);
@@ -220,12 +220,13 @@ export function groupRows(
 
         if (cell) {
             const column = getColumnByName(columns, columnName);
-            const cellValue = getCellValueForDisplay(column, cell);
+            const cellValueForDisplay = getCellValueForDisplay(column, cell);
+            const cellValue = cell.value;
             let groupRow: Row = null;
 
             // check in already in groupedRow
             for (let currentGroupRow of groupRows) {
-                if (currentGroupRow.group.label === cellValue) {
+                if (currentGroupRow.group.label === cellValueForDisplay) {
                     groupRow = currentGroupRow;
                     break;
                 }
@@ -240,7 +241,7 @@ export function groupRows(
                         column: columnName,
                         columnLabel: columnLabels[columnName],
                         expanded: false,
-                        label: cellValue,
+                        label: cellValueForDisplay,
                         children: [],
                         obj: cell.obj,
                         totals: {},
@@ -259,10 +260,11 @@ export function groupRows(
                 const tempCell = row.cells[group.column];
                 if (tempCell) {
                     const column = getColumnByName(columns, group.column);
-                    const tempCellValue = getCellValueForDisplay(
+                    const tempCellValueForDisplay = getCellValueForDisplay(
                         column,
                         tempCell
                     );
+                    const tempCellValue = tempCell.value;
 
                     // check if group already exists
                     let tempGroupingRow: Row = null;
@@ -270,7 +272,7 @@ export function groupRows(
                         const childGroup = groupRow.group.children[j];
                         const groupLabel = childGroup.group.label;
 
-                        if (groupLabel === tempCellValue) {
+                        if (groupLabel === tempCellValueForDisplay) {
                             tempGroupingRow = childGroup;
                             break;
                         }
@@ -286,7 +288,7 @@ export function groupRows(
                                 columnLabel: columnLabels[group.column],
                                 children: [],
                                 expanded: false,
-                                label: tempCellValue,
+                                label: tempCellValueForDisplay,
                                 totals: {},
                                 obj: tempCell.obj,
                             },
@@ -526,37 +528,6 @@ export function normalizeRows(
     } else {
         return undefined;
     }
-}
-
-export function normalizeTotals(
-    columns: Array<Column>,
-    totals: TotalsMap
-): TotalsMap {
-    if (isEmpty(columns) || isEmpty(totals)) {
-        return {};
-    }
-
-    let rettotals: TotalsMap = {};
-    const k = Object.keys(totals);
-
-    k.forEach((key) => {
-        if (key === '*ALL') {
-            columns.forEach((c) => {
-                if (isNumber(c.obj)) {
-                    let colCustomTotal: TotalMode = totals[c.name];
-                    if (colCustomTotal != null) {
-                        rettotals[c.name] = colCustomTotal;
-                    } else {
-                        rettotals[c.name] = totals[key];
-                    }
-                }
-            });
-        } else {
-            rettotals[key] = totals[key];
-        }
-    });
-
-    return rettotals;
 }
 
 export function calcTotals(

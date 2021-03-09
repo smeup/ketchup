@@ -107,6 +107,15 @@ export enum TotalMode {
     MATH = 'MATH',
 }
 
+export enum TotalLabel {
+    COUNT = 'Conta',
+    SUM = 'Somma',
+    AVERAGE = 'Media',
+    MATH = 'Formula',
+    CANC = 'Cancella',
+    CALC = 'Calcola',
+}
+
 export enum PaginatorPos {
     TOP = 'Top',
     BOTTOM = 'Bottom',
@@ -184,3 +193,5 @@ export const FixedCellsCSSVarsBase = {
     columns: '--ddt_column-left-',
     rows: '--ddt_row-top-',
 };
+
+export const totalMenuOpenID = 'TOMEOPID';

@@ -547,7 +547,6 @@ export class KupList {
     componentWillLoad() {
         this.kupDebug.logLoad(this, false);
         this.kupTheme.setThemeCustomStyle(this);
-        this.watchFilter();
     }
 
     componentDidLoad() {

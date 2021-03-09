@@ -444,6 +444,12 @@ export default {
                 },
               },
               {
+                title: `Dash List`,
+                to: {
+                  name: 'dashlist',
+                },
+              },
+              {
                 title: `Data Table`,
                 to: {
                   name: 'datatable',

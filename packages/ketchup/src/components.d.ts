@@ -2994,6 +2994,7 @@ declare namespace LocalJSX {
          */
         "onKupRowSelected"?: (event: CustomEvent<{
         selectedRows: Array<Row>;
+        clickedRow: Row;
         clickedColumn: string;
     }>) => void;
         /**

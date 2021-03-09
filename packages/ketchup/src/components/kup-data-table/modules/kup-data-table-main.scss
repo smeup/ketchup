@@ -84,13 +84,20 @@ table {
   }
 
   tfoot {
-    background-color: var(--kup-title-background-color);
-    color: var(--kup-title-color);
-
     td {
+      border-bottom: $common-border;
+      border-right: $common-border;
+      box-sizing: border-box;
+      height: 36px;
       text-align: right;
       font-weight: bold;
       padding: 0.5em 0.3125em;
+      &:hover {
+        background-color: var(--kup-background-color);
+      }
+      &:first-of-type {
+        border-left: $common-border;
+      }
     }
   }
 }
@@ -536,17 +543,25 @@ th.obj:hover span:not(.overlay-action) {
   opacity: 0.5;
 }
 
-.totals-select {
-  background: none;
-  border: none;
-  color: var(--kup-text-color);
-  outline: none;
+.hidden {
+  span {
+    color: transparent;
+    position: relative;
+    text-overflow: ellipsis;
+    transition: color 200ms;
+    &:hover {
+      color: var(--kup-text-color);
+    }
+  }
 }
 
-.hidden {
-  opacity: 0;
-  transition: opacity 200ms;
-  &:hover {
-    opacity: 1;
+.totals-value {
+  font-weight: bold;
+}
+
+#global-filter-toggler {
+  margin: 0.5em 0;
+  &:not(.toggled) {
+    --kup-primary-color: var(--kup-icon-color);
   }
 }
