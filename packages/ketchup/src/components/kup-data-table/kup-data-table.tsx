@@ -1596,12 +1596,7 @@ export class KupDataTable {
 
         if (details.area === 'body') {
             if (details.tr) {
-                if (
-                    !details.tr.classList.contains('group') &&
-                    !details.tr.classList.contains('selected')
-                ) {
-                    details.tr.classList.add('hover');
-                }
+                details.tr.classList.add('hover');
                 return;
             }
         }
