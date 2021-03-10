@@ -330,7 +330,7 @@ tbody {
       }
     }
 
-    &:not(.group):not(.selected):hover {
+    &.hover {
       td {
         color: var(--kup-hover-color);
         background-color: var(--kup-hover-background-color);

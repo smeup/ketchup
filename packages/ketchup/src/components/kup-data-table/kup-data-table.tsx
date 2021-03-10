@@ -1582,6 +1582,31 @@ export class KupDataTable {
         });
     }
 
+    private mouseMoveHandler(e: MouseEvent): void {
+        const details: GenericObject = this.getEventDetails(
+            e.target as HTMLElement
+        );
+
+        const hoverEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
+            '.hover'
+        );
+        if (hoverEl) {
+            hoverEl.classList.remove('hover');
+        }
+
+        if (details.area === 'body') {
+            if (details.tr) {
+                if (
+                    !details.tr.classList.contains('group') &&
+                    !details.tr.classList.contains('selected')
+                ) {
+                    details.tr.classList.add('hover');
+                }
+                return;
+            }
+        }
+    }
+
     getVisibleColumns(): Array<Column> {
         // TODO: change into `visible ?? true` when TS dependency has been updated
         const visibleColumns = this.getColumns().filter(({ visible }) =>
@@ -4654,6 +4679,9 @@ export class KupDataTable {
                             }
                             onDblClick={(e: MouseEvent) =>
                                 this.dblClickHandler(e)
+                            }
+                            onMouseMove={(e: MouseEvent) =>
+                                this.mouseMoveHandler(e)
                             }
                         >
                             <thead
