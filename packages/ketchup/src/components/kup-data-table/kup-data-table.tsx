@@ -1969,19 +1969,8 @@ export class KupDataTable {
         // resetting current page
         this.resetCurrentPage();
         const newFilters: GenericFilter = { ...this.filters };
-        newFilters[column.name] = {
-            textField: '',
-            checkBoxes: [],
-            interval: null,
-        };
+        this.filtersColumnMenuInstance.removeFilter(newFilters, column.name);
         this.filters = newFilters;
-    }
-
-    private getIntervalTextFieldFilterValues(column: Column): Array<string> {
-        return this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
-            this.filters,
-            column
-        );
     }
 
     private getFilterValueForTooltip(column: Column): string {
@@ -2671,7 +2660,12 @@ export class KupDataTable {
                     let iconClass = this.getSortIcon(column.name);
                     if (iconClass !== '') {
                         iconClass += ' icon-container';
-                        sortIcon = <span class={iconClass}></span>;
+                        sortIcon = (
+                            <span
+                                class={iconClass}
+                                title={this.getSortDecode(column.name)}
+                            ></span>
+                        );
                     }
 
                     // Adds the sortable class to the header cell

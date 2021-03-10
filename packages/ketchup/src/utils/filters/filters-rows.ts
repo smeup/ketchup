@@ -371,11 +371,11 @@ export class FiltersRows extends Filters {
             });
         }
 
-        this.extarctColumnValues(tmpRows, column, values);
+        this.extractColumnValues(tmpRows, column, values);
         return values;
     }
 
-    extarctColumnValues(
+    extractColumnValues(
         rows: Array<Row>,
         column: Column,
         values: { value: string; displayedValue: string }[]
