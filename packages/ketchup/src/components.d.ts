@@ -727,6 +727,10 @@ export namespace Components {
          */
         "showGrid": ShowGrid;
         /**
+          * When set to true enables the column grouping.
+         */
+        "showGroups": boolean;
+        /**
           * Enables rendering of the table header.
           * @namespace KupDataTable.showHeader
          */
@@ -3062,6 +3066,10 @@ declare namespace LocalJSX {
           * Can be used to customize the grid view of the table.
          */
         "showGrid"?: ShowGrid;
+        /**
+          * When set to true enables the column grouping.
+         */
+        "showGroups"?: boolean;
         /**
           * Enables rendering of the table header.
           * @namespace KupDataTable.showHeader

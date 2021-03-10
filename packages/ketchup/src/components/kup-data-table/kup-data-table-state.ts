@@ -24,6 +24,7 @@ export class KupDataTableState implements KupState {
     multiSelection = false;
     rowsPerPage = 10;
     showFilters = false;
+    showGroups = false;
     showHeader = true;
     showLoadMore: boolean = false;
     sortEnabled = true;
