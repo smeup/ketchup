@@ -9,9 +9,9 @@
 
 | Property                  | Attribute                     | Description                                                                                                     | Type                                       | Default     |
 | ------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
-| `cardData`                | --                            | Number of columns                                                                                               | `ComponentCardElement`                     | `undefined` |
+| `cardData`                | --                            | Number of columns                                                                                               | `GenericObject`                            | `undefined` |
 | `columns`                 | `columns`                     | Number of columns                                                                                               | `number`                                   | `1`         |
-| `customStyle`             | `custom-style`                | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                   | `undefined` |
+| `customStyle`             | `custom-style`                | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                   | `''`        |
 | `data`                    | --                            | Data                                                                                                            | `{ columns?: Column[]; rows?: BoxRow[]; }` | `undefined` |
 | `dragEnabled`             | `drag-enabled`                | Enable dragging                                                                                                 | `boolean`                                  | `false`     |
 | `dropEnabled`             | `drop-enabled`                | Enable dropping                                                                                                 | `boolean`                                  | `false`     |
@@ -118,9 +118,20 @@ graph TD;
   kup-card --> kup-badge
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
+  kup-card --> kup-checkbox
+  kup-card --> kup-date-picker
+  kup-card --> kup-text-field
+  kup-card --> kup-time-picker
   kup-chip --> kup-badge
   kup-badge --> kup-badge
   kup-button --> kup-badge
+  kup-date-picker --> kup-text-field
+  kup-date-picker --> kup-button
+  kup-time-picker --> kup-text-field
+  kup-time-picker --> kup-button
+  kup-time-picker --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-tooltip --> kup-button
@@ -137,10 +148,9 @@ graph TD;
   kup-tree --> kup-radio
   kup-tree --> kup-tooltip
   kup-tree --> kup-text-field
+  kup-tree --> kup-card
   kup-color-picker --> kup-text-field
   kup-combobox --> kup-list
-  kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   style kup-box fill:#f9f,stroke:#333,stroke-width:4px

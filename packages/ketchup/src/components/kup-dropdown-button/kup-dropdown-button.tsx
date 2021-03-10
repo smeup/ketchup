@@ -12,8 +12,8 @@ import {
     Listen,
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
     consistencyCheck,
@@ -33,7 +33,7 @@ export class KupDropdownButton {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Props of the sub-components.
      */
@@ -70,6 +70,19 @@ export class KupDropdownButton {
      * Defaults at null. When set, the icon will be shown after the text.
      */
     @Prop() trailingIcon: boolean = false;
+
+    private buttonEl: any;
+    private dropdownButtonEl: any;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
+    private listEl: any;
+    private wrapperEl: HTMLElement;
 
     @Event({
         eventName: 'kupDropdownButtonBlur',
@@ -123,11 +136,6 @@ export class KupDropdownButton {
     kupItemClick: EventEmitter<{
         value: any;
     }>;
-
-    private listEl: any = undefined;
-    private buttonEl: any = undefined;
-    private wrapperEl: HTMLElement = undefined;
-    private dropdownButtonEl: any = undefined;
 
     //---- Methods ----
 
@@ -366,8 +374,8 @@ export class KupDropdownButton {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
         this.value = this.initialValue;
         if (!this.data) {
             this.data = {
@@ -378,11 +386,11 @@ export class KupDropdownButton {
 
     componentDidLoad() {
         this.consistencyCheck(undefined, this.value);
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -397,13 +405,13 @@ export class KupDropdownButton {
         }
 
         positionRecalc(this.listEl, this.wrapperEl);
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
         return (
             <Host onBlur={() => this.onKupBlur()}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     ref={(el) => (this.wrapperEl = el as any)}

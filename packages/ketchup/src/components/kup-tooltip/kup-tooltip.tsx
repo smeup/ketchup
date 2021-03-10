@@ -19,7 +19,7 @@ import {
     ViewMode,
     TooltipCellOptions,
 } from './kup-tooltip-declarations';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { Row } from '../kup-data-table/kup-data-table-declarations';
 import { positionRecalc } from '../../utils/recalc-position';
 
@@ -60,6 +60,11 @@ export class KupTooltip {
      * Container element for tooltip
      */
     @Prop() relatedObject: TooltipRelatedObject;
+
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
 
     @Event({
         eventName: 'kupTooltipLoadData',
@@ -622,15 +627,15 @@ export class KupTooltip {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -640,7 +645,7 @@ export class KupTooltip {
         } else {
             this.rootElement.classList.remove('dynamic-position-active');
         }
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {

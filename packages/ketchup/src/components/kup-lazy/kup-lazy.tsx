@@ -1,7 +1,7 @@
 import { Component, Element, Host, Prop, State, h } from '@stencil/core';
 import { Method } from '@stencil/core/internal';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 @Component({
     tag: 'kup-lazy',
@@ -20,7 +20,7 @@ export class KupLazy {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Sets the data of the component to be lazy loaded.
      */
@@ -31,6 +31,14 @@ export class KupLazy {
     @Prop() showPlaceholder: boolean = true;
 
     private intObserver: IntersectionObserver = undefined;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     //---- Methods ----
 
@@ -45,7 +53,7 @@ export class KupLazy {
         ) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    logMessage(
+                    this.kupDebug.logMessage(
                         this,
                         'kup-lazy entering the viewport, rendering ' +
                             this.componentName +
@@ -65,22 +73,22 @@ export class KupLazy {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
         this.setObserver();
-        setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
         this.intObserver.observe(this.rootElement);
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
@@ -218,7 +226,7 @@ export class KupLazy {
         }
         return (
             <Host class={className}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">{content}</div>
             </Host>
         );

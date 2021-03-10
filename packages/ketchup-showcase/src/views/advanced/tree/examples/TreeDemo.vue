@@ -52,7 +52,7 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'columns?',
+          prop: 'columns',
           description:
             'The columns of the tree when tree visualization is active.',
           type: 'Column[]',
@@ -64,7 +64,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {

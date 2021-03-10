@@ -2,7 +2,9 @@ import { FunctionalComponent, h } from '@stencil/core';
 import { FButtonProps, FButtonStyling } from './f-button-declarations';
 import { FImage } from '../f-image/f-image';
 
-//---- Component ----
+/*-------------------------------------------------*/
+/*                C o m p o n e n t                */
+/*-------------------------------------------------*/
 
 export const FButton: FunctionalComponent<FButtonProps> = (
     props: FButtonProps
@@ -26,7 +28,9 @@ export const FButton: FunctionalComponent<FButtonProps> = (
     );
 };
 
-//---- Methods ----
+/*-------------------------------------------------*/
+/*                  M e t h o d s                  */
+/*-------------------------------------------------*/
 
 function renderButton(props: FButtonProps): HTMLButtonElement {
     const isFlat = props.styling.toLowerCase() === FButtonStyling.FLAT;

@@ -20,7 +20,7 @@ export interface Cell {
     style?: GenericMap;
     shape?: string;
     data?: CellData;
-    cardID?: string;
+    cardID?: number;
     cssClass?: string;
     icon?: string;
     title?: string;
@@ -86,16 +86,6 @@ export interface GenericMap {
     [index: string]: string;
 }
 
-export interface GenericFilter {
-    [index: string]: Filter;
-}
-
-export interface Filter {
-    textField: string;
-    checkBoxes: Array<string>;
-    interval: string[];
-}
-
 export interface SortObject {
     column: string;
     sortMode: SortMode;
@@ -104,11 +94,6 @@ export interface SortObject {
 export enum SortMode {
     A = 'A',
     D = 'D',
-}
-
-export enum FilterInterval {
-    FROM = 0,
-    TO = 1,
 }
 
 export interface TotalsMap {

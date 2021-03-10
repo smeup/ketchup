@@ -10,8 +10,8 @@ import {
     EventEmitter,
     Watch,
 } from '@stencil/core';
-import { logLoad, logRender } from '../../utils/debug-manager';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 
 @Component({
     tag: 'kup-drawer',
@@ -25,11 +25,20 @@ export class KupDrawer {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Defaults at false. When set to true, the drawer appears.
      */
     @Prop({ reflect: true, mutable: true }) opened: boolean = false;
+
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     //---- Watches ----
 
@@ -76,26 +85,26 @@ export class KupDrawer {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class="backdrop" onClick={() => this.close()} />
                     <aside>

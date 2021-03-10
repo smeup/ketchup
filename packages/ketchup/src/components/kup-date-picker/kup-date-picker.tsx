@@ -13,9 +13,9 @@ import {
 } from '@stencil/core';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { positionRecalc } from '../../utils/recalc-position';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
 
 import {
     formattedStringToDefaultUnformattedStringDate,
@@ -43,7 +43,7 @@ export class KupDatePicker {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Props of the sub-components.
      */
@@ -62,6 +62,14 @@ export class KupDatePicker {
     @Prop() initialValue: string = '';
 
     private calendarView: SourceEvent = SourceEvent.DATE;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
     private textfieldEl: any = undefined;
     private pickerContainerEl: HTMLElement = undefined;
     private pickerEl: { value: string; date: Date } = {
@@ -79,6 +87,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -89,6 +98,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupChange: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -99,6 +109,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -109,6 +120,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -119,6 +131,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupInput: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -129,6 +142,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupIconClick: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -139,6 +153,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupItemClick: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -149,6 +164,7 @@ export class KupDatePicker {
         bubbles: true,
     })
     kupTextFieldSubmit: EventEmitter<{
+        id: any;
         value: any;
     }>;
 
@@ -175,22 +191,27 @@ export class KupDatePicker {
         }
     }
 
-    onKupDatePickerItemClick(value: string) {
+    onKupDatePickerItemClick(e: MouseEvent, value: string) {
+        e.stopPropagation();
         this.setPickerValueSelected(value);
 
         this.kupChange.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
 
         this.kupItemClick.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
 
-    onKupClearIconClick() {
+    onKupClearIconClick(e: MouseEvent) {
+        e.stopPropagation();
         this.setPickerValueSelected('');
 
         this.kupChange.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
 
@@ -199,7 +220,8 @@ export class KupDatePicker {
         });
     }
 
-    onKupDatePickerMonthYearItemClick(value: string) {
+    onKupDatePickerMonthYearItemClick(e: MouseEvent, value: string) {
+        e.stopPropagation();
         switch (this.calendarView) {
             case SourceEvent.MONTH: {
                 this.calendarView = SourceEvent.DATE;
@@ -216,7 +238,7 @@ export class KupDatePicker {
     @Watch('firstDayIndex')
     watchFirstDayIndex() {
         if (this.firstDayIndex > 6 || this.firstDayIndex < 0) {
-            logMessage(
+            this.kupDebug.logMessage(
                 this,
                 'property first-day-index=[' +
                     this.firstDayIndex +
@@ -252,21 +274,23 @@ export class KupDatePicker {
         this.setTextFieldInitalValue(this.getDateForOutput());
     }
 
-    onKupBlur(e: UIEvent) {
-        e.stopPropagation();
+    onKupBlur() {
         this.closePicker();
         this.kupBlur.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
 
     onKupChange(e: CustomEvent) {
+        e.stopPropagation();
         this.refreshPickerValue(e.detail.value, this.kupChange);
     }
 
     onKupClick(e: UIEvent) {
         e.stopPropagation();
         this.kupClick.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -274,15 +298,18 @@ export class KupDatePicker {
     onKupFocus(e: UIEvent) {
         e.stopPropagation();
         this.kupFocus.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
 
     onKupInput(e: CustomEvent) {
+        e.stopPropagation();
         this.refreshPickerValue(e.detail.value, this.kupInput, true);
     }
 
     onKupTextFieldSubmit(e: CustomEvent) {
+        e.stopPropagation();
         this.refreshPickerValue(e.detail.value, this.kupTextFieldSubmit);
     }
 
@@ -294,6 +321,7 @@ export class KupDatePicker {
             this.openPicker();
         }
         this.kupIconClick.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -321,6 +349,7 @@ export class KupDatePicker {
         if (newValue != null) {
             if (eventToRaise != null) {
                 eventToRaise.emit({
+                    id: this.rootElement.id,
                     value: newValue,
                 });
             }
@@ -448,7 +477,9 @@ export class KupDatePicker {
                 onKupTextFieldInput={(e: any) => this.onKupInput(e)}
                 onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
                 onKupTextFieldSubmit={(e: any) => this.onKupTextFieldSubmit(e)}
-                onKupTextFieldClearIconClick={() => this.onKupClearIconClick()}
+                onKupTextFieldClearIconClick={(e: any) =>
+                    this.onKupClearIconClick(e)
+                }
                 ref={(el) => (this.textfieldEl = el as any)}
             ></kup-text-field>
         );
@@ -531,7 +562,7 @@ export class KupDatePicker {
                 onBlur={(e: any) => {
                     e.stopPropagation();
                     if (!this.isRelatedTargetInThisComponent(e)) {
-                        this.onKupBlur(e);
+                        this.onKupBlur();
                     }
                 }}
             >
@@ -631,8 +662,9 @@ export class KupDatePicker {
                         <span
                             {...dataIndex}
                             class="item-number"
-                            onClick={() => {
+                            onClick={(e) => {
                                 this.onKupDatePickerItemClick(
+                                    e,
                                     dataIndex['data-index']
                                 );
                             }}
@@ -696,8 +728,9 @@ export class KupDatePicker {
                         <span
                             {...dataIndex}
                             class="item-number"
-                            onClick={() => {
+                            onClick={(e) => {
                                 this.onKupDatePickerMonthYearItemClick(
+                                    e,
                                     dataIndex['data-index']
                                 );
                             }}
@@ -761,8 +794,9 @@ export class KupDatePicker {
                         <span
                             {...dataIndex}
                             class="item-number"
-                            onClick={() => {
+                            onClick={(e) => {
                                 this.onKupDatePickerMonthYearItemClick(
+                                    e,
                                     dataIndex['data-index']
                                 );
                             }}
@@ -876,8 +910,8 @@ export class KupDatePicker {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
         this.watchFirstDayIndex();
         this.value = this.initialValue;
         if (!this.data) {
@@ -888,16 +922,16 @@ export class KupDatePicker {
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
         this.recalcPosition();
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
@@ -921,8 +955,8 @@ export class KupDatePicker {
         }
 
         return (
-            <Host class={hostClass} onBlur={(e) => this.onKupBlur(e)}>
-                <style>{setCustomStyle(this)}</style>
+            <Host class={hostClass} onBlur={() => this.onKupBlur()}>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     {this.prepDateTextfield()}
                     {this.prepDatePicker()}

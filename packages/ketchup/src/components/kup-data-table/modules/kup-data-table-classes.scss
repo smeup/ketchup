@@ -98,58 +98,58 @@ td.strong-text {
 }
 
 td.success-text {
-  color: var(--kup-success-color);
+  color: var(--kup-success-color) !important;
 }
 
 td.warning-text {
-  color: var(--kup-warning-color);
+  color: var(--kup-warning-color) !important;
 }
 
 td.danger-text {
-  color: var(--kup-danger-color);
+  color: var(--kup-danger-color) !important;
 }
 
 td.purple-text {
-  color: #8e15bf;
+  color: #8e15bf !important;
 }
 
 td.success-bg {
-  background: var(--kup-success-color);
-  color: white;
+  background: var(--kup-success-color) !important;
+  color: white !important;
 }
 
 td.warning-bg {
-  background: var(--kup-warning-color);
+  background: var(--kup-warning-color) !important;
 }
 
 td.danger-bg {
-  background: var(--kup-danger-color);
-  color: white;
+  background: var(--kup-danger-color) !important;
+  color: white !important;
 }
 
 td.teal-bg {
-  background: #00b4bc;
-  color: white;
+  background: #00b4bc !important;
+  color: white !important;
 }
 
 td.orange-bg {
-  background: #f59729;
-  color: white;
+  background: #f59729 !important;
+  color: white !important;
 }
 
 td.green-bg {
-  background: #00be67;
-  color: white;
+  background: #00be67 !important;
+  color: white !important;
 }
 
 td.grey-bg {
-  background: #8d8d8d;
-  color: white;
+  background: #8d8d8d !important;
+  color: white !important;
 }
 
 td.purple-bg {
-  background: #b88acc;
-  color: white;
+  background: #b88acc !important;
+  color: white !important;
 }
 
 // Content styles
@@ -204,56 +204,56 @@ td.c-ver-padded {
 
 td.c-success-bg {
   & * {
-    background: var(--kup-success-color);
-    color: white;
+    background: var(--kup-success-color) !important;
+    color: white !important;
   }
 }
 
 td.c-warning-bg {
   & * {
-    background: var(--kup-warning-color);
+    background: var(--kup-warning-color) !important;
   }
 }
 
 td.c-danger-bg {
   & * {
-    background: var(--kup-danger-color);
-    color: white;
+    background: var(--kup-danger-color) !important;
+    color: white !important;
   }
 }
 
 td.c-teal-bg {
   & * {
-    background: #00b4bc;
-    color: white;
+    background: #00b4bc !important;
+    color: white !important;
   }
 }
 
 td.c-orange-bg {
   & * {
-    background: #f59729;
-    color: white;
+    background: #f59729 !important;
+    color: white !important;
   }
 }
 
 td.c-green-bg {
   & * {
-    background: #00be67;
-    color: white;
+    background: #00be67 !important;
+    color: white !important;
   }
 }
 
 td.c-grey-bg {
   & * {
-    background: #8d8d8d;
-    color: white;
+    background: #8d8d8d !important;
+    color: white !important;
   }
 }
 
 td.c-purple-bg {
   & * {
-    background: #b88acc;
-    color: white;
+    background: #b88acc !important;
+    color: white !important;
   }
 }
 

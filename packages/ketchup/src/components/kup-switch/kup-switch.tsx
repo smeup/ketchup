@@ -9,8 +9,8 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { FSwitch } from '../../f-components/f-switch/f-switch';
 import { FSwitchMDC } from '../../f-components/f-switch/f-switch-mdc';
 import { FSwitchProps } from '../../f-components/f-switch/f-switch-declarations';
@@ -51,8 +51,9 @@ export class KupSwitch {
      */
     @Prop() checked: boolean = false;
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
      * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -70,6 +71,19 @@ export class KupSwitch {
      * @default false
      */
     @Prop() leadingLabel: boolean = false;
+
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -167,7 +181,7 @@ export class KupSwitch {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async refreshCustomStyle(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -204,16 +218,16 @@ export class KupSwitch {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
         if (this.checked) {
             this.value = 'on';
         } else {
@@ -223,7 +237,7 @@ export class KupSwitch {
 
     componentDidRender() {
         this.setEvents();
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
@@ -236,7 +250,7 @@ export class KupSwitch {
 
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <FSwitch {...props} />
                 </div>

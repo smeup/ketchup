@@ -1,8 +1,10 @@
-import { FunctionalComponent, getAssetPath, h, JSX } from '@stencil/core';
-import { KupBadge } from '../../components/kup-badge/kup-badge';
+import type { KupBadge } from '../../components/kup-badge/kup-badge';
 import { FImageProps, FImageData, FImageShape } from './f-image-declarations';
+import { FunctionalComponent, getAssetPath, h, JSX } from '@stencil/core';
 
-//---- Component ----
+/*-------------------------------------------------*/
+/*                C o m p o n e n t                */
+/*-------------------------------------------------*/
 
 export const FImage: FunctionalComponent<FImageProps> = (
     props: FImageProps
@@ -62,7 +64,9 @@ export const FImage: FunctionalComponent<FImageProps> = (
     );
 };
 
-//---- Methods ----
+/*-------------------------------------------------*/
+/*                  M e t h o d s                  */
+/*-------------------------------------------------*/
 
 function createIcon(props: FImageProps): HTMLDivElement {
     let path = getAssetPath(`./assets/svg/${props.resource}.svg`);

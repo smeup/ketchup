@@ -9,7 +9,7 @@
 | ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
 | `arrowDown`   | `arrow-down`   | Used to navigate the list when it's bound to a text field, i.e.: autocomplete.                                  | `boolean`                                                                                        | `false`                        |
 | `arrowUp`     | `arrow-up`     |                                                                                                                 | `boolean`                                                                                        | `false`                        |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                                                                         | `undefined`                    |
+| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                                                                         | `''`                           |
 | `data`        | --             | The data of the list.                                                                                           | `ComponentListElement[]`                                                                         | `[]`                           |
 | `displayMode` | `display-mode` | Selects how the items must display their label and how they can be filtered for.                                | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
 | `filter`      | `filter`       | Keeps string for filtering elements when filter mode is active                                                  | `string`                                                                                         | `''`                           |
@@ -62,6 +62,7 @@ Type: `Promise<void>`
 
  - [kup-autocomplete](../kup-autocomplete)
  - [kup-combobox](../kup-combobox)
+ - [kup-data-table](../kup-data-table)
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-time-picker](../kup-time-picker)
@@ -78,6 +79,7 @@ graph TD;
   kup-list --> kup-checkbox
   kup-autocomplete --> kup-list
   kup-combobox --> kup-list
+  kup-data-table --> kup-list
   kup-dropdown-button --> kup-list
   kup-nav-bar --> kup-list
   kup-time-picker --> kup-list

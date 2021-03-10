@@ -11,7 +11,6 @@
 
 <script>
 import Demo from '@/views/advanced/page/templates/Demo';
-import { baseData } from '@/mock/chart';
 
 export default {
   components: {
@@ -41,7 +40,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {

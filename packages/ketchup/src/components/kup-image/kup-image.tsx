@@ -9,8 +9,8 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { imageCanvas } from './canvas/kup-image-canvas';
 import { KupBadge } from '../kup-badge/kup-badge';
 import { FImage } from '../../f-components/f-image/f-image';
@@ -56,8 +56,9 @@ export class KupImage {
      */
     @Prop() color: string = 'var(--kup-icon-color)';
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
-     * @default ''
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -96,17 +97,25 @@ export class KupImage {
     /*-------------------------------------------------*/
 
     /**
-     * True when the resource is an URL.
+     * Reference to the canvas element.
      */
-    private isUrl: boolean = false;
+    private canvas: HTMLCanvasElement;
     /**
      * Instance of the imageCanvas class.
      */
     private imageCanvas: imageCanvas;
     /**
-     * Reference to the canvas element.
+     * True when the resource is an URL.
      */
-    private canvas: HTMLCanvasElement;
+    private isUrl: boolean = false;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -140,7 +149,7 @@ export class KupImage {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async refreshCustomStyle(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -171,16 +180,16 @@ export class KupImage {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
         this.isUrl = false;
         if (this.resource) {
             if (
@@ -202,7 +211,7 @@ export class KupImage {
             this.canvas.width = this.canvas.clientWidth;
             this.imageCanvas.drawCanvas(this.resource, this.canvas);
         }
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
@@ -250,13 +259,13 @@ export class KupImage {
             el = <FImage {...props}></FImage>;
         } else {
             let message = 'Resource undefined, not rendering!';
-            logMessage(this, message, 'warning');
+            this.kupDebug.logMessage(this, message, 'warning');
             return;
         }
 
         return (
             <Host style={elStyle}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 {feedback}
                 <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
                     {el}

@@ -9,8 +9,8 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
@@ -46,8 +46,9 @@ export class KupTextField {
     /*-------------------------------------------------*/
 
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
      * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -141,12 +142,22 @@ export class KupTextField {
      */
     @Prop() trailingLabel: boolean = false;
 
-    //---- Internal variables ----
+    /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
 
     /**
      * Reference to the input element.
      */
     private inputEl: HTMLInputElement | HTMLTextAreaElement;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -315,7 +326,6 @@ export class KupTextField {
     onKeyDown(event: KeyboardEvent) {
         if (event.key === 'Enter') {
             if (this.emitSubmitEventOnEnter == true) {
-                event.preventDefault();
                 this.kupTextFieldSubmit.emit({
                     id: this.rootElement.id,
                     value: this.inputEl.value,
@@ -343,28 +353,30 @@ export class KupTextField {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async refreshCustomStyle(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
     }
     /**
      * Focuses the input element.
      */
     @Method()
-    async setFocus() {
+    async setFocus(): Promise<void> {
         this.inputEl.focus();
     }
     /**
      * Sets the internal value of the component.
      */
     @Method()
-    async setValue(value: string) {
+    async setValue(value: string): Promise<void> {
         this.value = value;
         try {
             this.inputEl.value = value;
         } catch (error) {
-            let message =
-                "Couldn't set value on input element: '" + value + "'";
-            logMessage(this, message, 'warning');
+            this.kupDebug.logMessage(
+                this,
+                "Couldn't set value on input element: '" + value + "'",
+                'warning'
+            );
         }
     }
 
@@ -424,22 +436,22 @@ export class KupTextField {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupDebug.logLoad(this, false);
+        this.kupTheme.setThemeCustomStyle(this);
         this.value = this.initialValue;
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
         this.setEvents();
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     render() {
@@ -472,7 +484,7 @@ export class KupTextField {
 
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <FTextField {...props} />
                 </div>

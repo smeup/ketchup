@@ -32,13 +32,16 @@ export default {
     return {
       data: {
         data: {
-          button1: { icon: 'favorite', flat: true },
-          image1: {
-            resource: 'images/catz_small.jpg',
-          },
-          text1: 'Lazy loaded!',
-          text2:
+          button: [{ icon: 'favorite', flat: true }],
+          image: [
+            {
+              resource: 'images/catz_small.jpg',
+            },
+          ],
+          text: [
+            'Lazy loaded!',
             'This card was rendered as soon as it was partially included inside the viewport.',
+          ],
         },
       },
     };

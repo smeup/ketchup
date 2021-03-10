@@ -1,10 +1,11 @@
+import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { KupState } from '../kup-state/kup-state';
 
 import {
-    GenericFilter,
     GroupObject,
     SortObject,
     GroupLabelDisplayMode,
+    TotalsMap,
 } from './kup-data-table-declarations';
 
 export class KupDataTableState implements KupState {
@@ -34,6 +35,7 @@ export class KupDataTableState implements KupState {
     dragEnabled: boolean = false;
     dropEnabled: boolean = false;
     showFooter: boolean = false;
+    totals: TotalsMap;
 
     public toDebugString() {
         // TODO

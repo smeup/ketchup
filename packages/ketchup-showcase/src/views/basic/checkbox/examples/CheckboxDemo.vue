@@ -22,10 +22,6 @@ export default {
       demoComp: createComp(),
       demoEvents: [
         {
-          name: 'kupCheckboxClick',
-          type: 'click',
-        },
-        {
           name: 'kupCheckboxChange',
           type: 'change',
         },

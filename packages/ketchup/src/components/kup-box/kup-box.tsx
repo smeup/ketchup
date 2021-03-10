@@ -45,13 +45,14 @@ import {
     isGauge,
     isKnob,
     isChart,
+    getCellValueForDisplay,
+    getColumnByName,
 } from '../../utils/cell-utils';
 
 import {
     filterRows,
     sortRows,
     paginateRows,
-    getCellValueForDisplay,
 } from '../kup-data-table/kup-data-table-helper';
 
 import {
@@ -64,17 +65,17 @@ import {
 
 const KupBoxDragType = 'text/kup-box-drag';
 
-import { ComponentCardElement } from '../kup-card/kup-card-declarations';
+import { CardData } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { identify, stringToNumber } from '../../utils/utils';
-import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
+import { GenericObject } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kup-box',
@@ -95,7 +96,7 @@ export class KupBox {
         if (this.store && this.stateId) {
             const state = this.store.getState(this.stateId);
             if (state != null) {
-                logMessage(
+                this.kupDebug.logMessage(
                     this,
                     'Initialize with state for stateId ' +
                         this.stateId +
@@ -126,7 +127,7 @@ export class KupBox {
             );
             this.state.pageSelected = this.currentPage;
             this.state.rowsPerPage = this.currentRowsPerPage;
-            logMessage(
+            this.kupDebug.logMessage(
                 this,
                 'Persisting state for stateId ' +
                     this.stateId +
@@ -147,7 +148,7 @@ export class KupBox {
     /**
      * Number of columns
      */
-    @Prop() cardData: ComponentCardElement = undefined;
+    @Prop() cardData: GenericObject;
     /**
      * Number of columns
      */
@@ -155,7 +156,7 @@ export class KupBox {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Data
      */
@@ -394,6 +395,14 @@ export class KupBox {
 
     private tooltip: KupTooltip;
     private globalFilterTimeout: number;
+    /**
+     * Instance of the KupDebug class.
+     */
+    private kupDebug: KupDebug = new KupDebug();
+    /**
+     * Instance of the KupTheme class.
+     */
+    private kupTheme: KupTheme = new KupTheme();
 
     @Watch('pageSize')
     rowsPerPageHandler(newValue: number) {
@@ -438,14 +447,14 @@ export class KupBox {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupDebug.logLoad(this, false);
 
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
         } else if (this.pageSize) {
             this.currentRowsPerPage = this.pageSize;
         }
-        setThemeCustomStyle(this);
+        this.kupTheme.setThemeCustomStyle(this);
         this.onDataChanged();
         this.adjustPaginator();
     }
@@ -467,18 +476,18 @@ export class KupBox {
             });
         }
         this.kupDidLoad.emit();
-        logLoad(this, true);
+        this.kupDebug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupDebug.logRender(this, false);
     }
 
     componentDidRender() {
         // *** Store
         this.persistState();
         // ***
-        logRender(this, true);
+        this.kupDebug.logRender(this, true);
     }
 
     componentDidUnload() {
@@ -879,35 +888,49 @@ export class KupBox {
 
     // render methods
     private renderSectionAsCard(row: BoxRow) {
-        let cntBTN: number = 0;
-        let cntIMG: number = 0;
-        let cntPGB: number = 0;
-        let cnt: number = 0;
-        let cardData = {};
+        let skipPush: boolean = false;
+        let cardData: CardData = {
+            button: [],
+            image: [],
+            progressbar: [],
+            text: [],
+        };
 
         //First cycle sets specific binds between cardIDs and cells
         for (var key in row.cells) {
             if (row.cells.hasOwnProperty(key)) {
                 var cell = row.cells[key];
-                if (cell.cardID) {
+                if (cell.cardID !== undefined) {
                     switch (cell.obj.p) {
                         case 'BTN':
-                            cardData[cell.cardID] = {
+                            do {
+                                cardData.button.push({});
+                            } while (cardData.button.length < cell.cardID);
+                            cardData.button[cell.cardID] = {
                                 label: cell.value,
                             };
                             break;
                         case 'IMG':
-                            cardData[cell.cardID] = {
+                            do {
+                                cardData.image.push({});
+                            } while (cardData.image.length < cell.cardID);
+                            cardData.image[cell.cardID] = {
                                 resource: cell.value,
                             };
                             break;
                         case 'PGB':
-                            cardData[cell.cardID] = {
+                            do {
+                                cardData.progressbar.push({});
+                            } while (cardData.progressbar.length < cell.cardID);
+                            cardData.progressbar[cell.cardID] = {
                                 value: cell.value,
                             };
                             break;
                         default:
-                            cardData[cell.cardID] = cell.value;
+                            do {
+                                cardData.text.push('');
+                            } while (cardData.text.length < cell.cardID);
+                            cardData.text[cell.cardID] = cell.value;
                             break;
                     }
                 }
@@ -918,41 +941,94 @@ export class KupBox {
         for (var key in row.cells) {
             if (row.cells.hasOwnProperty(key)) {
                 var cell = row.cells[key];
-                switch (cell.obj.p) {
-                    case 'BTN':
-                        do {
-                            cntBTN++;
-                        } while (cardData['button' + cntBTN]);
-
-                        cardData['button' + cntBTN] = {
-                            label: cell.value,
-                        };
-                        break;
-                    case 'IMG':
-                        do {
-                            cntIMG++;
-                        } while (cardData['image' + cntIMG]);
-
-                        cardData['image' + cntIMG] = {
-                            resource: cell.value,
-                        };
-                        break;
-                    case 'PGB':
-                        do {
-                            cntPGB++;
-                        } while (cardData['progressBar' + cntPGB]);
-
-                        cardData['progressBar' + cntPGB] = {
-                            value: cell.value,
-                        };
-                        break;
-                    default:
-                        do {
-                            cnt++;
-                        } while (cardData['text' + cnt]);
-
-                        cardData['text' + cnt] = cell.value;
-                        break;
+                if (cell.cardID === undefined) {
+                    skipPush = false;
+                    switch (cell.obj.p) {
+                        case 'BTN':
+                            for (
+                                let index = 0;
+                                index < cardData.button.length;
+                                index++
+                            ) {
+                                //If there are empty elements, the first one will be used
+                                if (cardData.button[index] === {}) {
+                                    cardData.button[index] = {
+                                        label: cell.value,
+                                    };
+                                    skipPush = true;
+                                    break;
+                                }
+                            }
+                            //Otherwise a new element will be pushed
+                            if (!skipPush) {
+                                cardData.button.push({
+                                    label: cell.value,
+                                });
+                            }
+                            break;
+                        case 'IMG':
+                            for (
+                                let index = 0;
+                                index < cardData.image.length;
+                                index++
+                            ) {
+                                //If there are empty elements, the first one will be used
+                                if (cardData.image[index] === {}) {
+                                    cardData.image[index] = {
+                                        resource: cell.value,
+                                    };
+                                    skipPush = true;
+                                    break;
+                                }
+                            }
+                            //Otherwise a new element will be pushed
+                            if (!skipPush) {
+                                cardData.image.push({
+                                    resource: cell.value,
+                                });
+                            }
+                            break;
+                        case 'PGB':
+                            for (
+                                let index = 0;
+                                index < cardData.progressbar.length;
+                                index++
+                            ) {
+                                //If there are empty elements, the first one will be used
+                                if (cardData.progressbar[index] === {}) {
+                                    cardData.progressbar[index] = {
+                                        value: cell.value,
+                                    };
+                                    skipPush = true;
+                                    break;
+                                }
+                            }
+                            //Otherwise a new element will be pushed
+                            if (!skipPush) {
+                                cardData.progressbar.push({
+                                    value: cell.value,
+                                });
+                            }
+                            break;
+                        default:
+                            for (
+                                let index = 0;
+                                index < cardData.text.length;
+                                index++
+                            ) {
+                                //If there are empty elements, the first one will be used
+                                if (cardData.text[index] === '') {
+                                    cardData.text[index] = cell.value;
+                                    skipPush = true;
+                                    break;
+                                }
+                            }
+                            //Otherwise a new element will be pushed
+                            if (!skipPush) {
+                                cardData.text.push(cell.value);
+                            }
+                            break;
+                    }
                 }
             }
         }
@@ -991,7 +1067,10 @@ export class KupBox {
             };
 
             while (size-- > 0) {
-                if (!this.cardData) {
+                if (
+                    typeof this.cardData !== 'object' &&
+                    this.cardData !== null
+                ) {
                     boxContent.push(
                         this.renderSection(
                             sections[cnt++],
@@ -1019,7 +1098,8 @@ export class KupBox {
                 <div class="box-selection">
                     <kup-checkbox
                         checked={isSelected}
-                        onKupCheckboxClick={(e) => e.stopPropagation()}
+                        /*TODO Improvement: Listener removed, the event passes through, and is managed by the box itself !!! */
+                        /*onClick={(e) => e.stopPropagation()}*/
                     />
                 </div>
             );
@@ -1671,7 +1751,7 @@ export class KupBox {
 
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupTheme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div
                         class="box-component"
