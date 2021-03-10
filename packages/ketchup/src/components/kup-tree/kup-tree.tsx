@@ -51,7 +51,6 @@ import { stringToNumber } from '../../utils/utils';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
-import { FiltersRows } from '../../utils/filters/filters-rows';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 
 @Component({
@@ -530,15 +529,6 @@ export class KupTree {
     @Watch('data')
     enrichDataWhenChanged(newData, oldData) {
         if (newData !== oldData) {
-            /*
-            newData.forEach((rootNode) => {
-                this.expandCollapseAllNodes(
-                    rootNode,
-                    this.expanded && !this.useDynamicExpansion
-                );
-            });
-            this.filterNodes();
-            */
             this.refreshStructureState();
         }
     }
@@ -564,37 +554,14 @@ export class KupTree {
             expandNode,
             treeExpandedPropName
         );
-
-        /*
-        // The node is expandable, which means there are sub trees
-        if (treeNode.expandable) {
-            // If the node does not already have the property to toggle expansion we add it
-            // Notice how, if the property is already set, its first value will be the same value that was provided by the object itself
-            // and only if the node must be expanded automatically then [treeExpandedPropName] is set to true forcibly.
-            // This is done to allow a TreeNode to force its [treeExpandedPropName] to true so that specific nodes can be already set to open.
-            treeNode[treeExpandedPropName] = treeNode.hasOwnProperty(
-                treeExpandedPropName
-            )
-                ? treeNode[treeExpandedPropName] || expandNode
-                : expandNode;
-        }*/
     }
 
     expandCollapseAllNodes(treeNode: TreeNode, expandNode: boolean = false) {
-        // The node is expandable, which means there are sub trees
-        if (treeNode.expandable && !treeNode.disabled) {
-            this.expandCollapseNode(treeNode, expandNode);
-            // Enriches also direct subtrees recursively (if it has children)
-            if (treeNode.children && treeNode.children.length) {
-                // To save some function calls, only child elements which are expandable will be enriched
-                for (let i = 0; i < treeNode.children.length; i++) {
-                    this.expandCollapseAllNodes(
-                        treeNode.children[i],
-                        expandNode
-                    );
-                }
-            }
-        }
+        this.filtersTreeItemsInstance.expandCollapseAllNodes(
+            treeNode,
+            expandNode,
+            treeExpandedPropName
+        );
     }
 
     getColumns(): Array<Column> {
@@ -842,6 +809,19 @@ export class KupTree {
         return strToRet;
     }
 
+    private getFilterValueForTooltip(column: Column): string {
+        return this.filtersColumnMenuInstance.getFilterValueForTooltip(
+            this.filters,
+            column
+        );
+    }
+
+    private onRemoveFilter(column: Column) {
+        const newFilters: GenericFilter = { ...this.filters };
+        this.filtersColumnMenuInstance.removeFilter(newFilters, column.name);
+        this.filters = newFilters;
+    }
+
     onGlobalFilterChange({ detail }) {
         let value = '';
         if (detail && detail.value) {
@@ -886,7 +866,6 @@ export class KupTree {
                     this.expanded && !this.useDynamicExpansion
                 );
             });
-            this.filterNodes();
         }
     }
 
@@ -1379,22 +1358,52 @@ export class KupTree {
      * @returns An array of table header cells.
      */
     renderHeader(): JSX.Element[] {
-        return this.getVisibleColumns().map((column) => (
-            <th
-                data-column={column.name}
-                onContextMenu={(e: MouseEvent) =>
-                    this.columnMenuInstance.open(
-                        e,
-                        this,
-                        column.name,
-                        this.tooltip
-                    )
-                }
-                style={this.getCellStyle(column.name, null)}
-            >
-                <span class="column-title">{column.title}</span>
-            </th>
-        ));
+        return this.getVisibleColumns().map((column) => {
+            //---- Filter ----
+            let filter = null;
+
+            if (
+                this.filtersColumnMenuInstance.hasFiltersForColumn(
+                    this.filters,
+                    column
+                )
+            ) {
+                const svgLabel = `Remove filter(s): '${this.getFilterValueForTooltip(
+                    column
+                )}'`;
+                /**
+                 * When column has a filter but filters must not be displayed, shows an icon to remove the filter.
+                 * Upon click, the filter gets removed.
+                 */
+                filter = (
+                    <span
+                        title={svgLabel}
+                        class="icon-container filter-remove"
+                        onClick={(e: MouseEvent) => {
+                            e.stopPropagation();
+                            this.onRemoveFilter(column);
+                        }}
+                    ></span>
+                );
+            }
+            return (
+                <th
+                    data-column={column.name}
+                    onContextMenu={(e: MouseEvent) =>
+                        this.columnMenuInstance.open(
+                            e,
+                            this,
+                            column.name,
+                            this.tooltip
+                        )
+                    }
+                    style={this.getCellStyle(column.name, null)}
+                >
+                    <span class="column-title">{column.title}</span>
+                    {filter}
+                </th>
+            );
+        });
     }
 
     /**

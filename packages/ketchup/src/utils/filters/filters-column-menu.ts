@@ -317,4 +317,17 @@ export class FiltersColumnMenu extends Filters {
         ris = txtFiterRis + ris;
         return ris;
     }
+
+    /**
+     * Triggers when a filter must be removed, for column.
+     * @param {GenericFilter} filters - Filters of the component.
+     * @param {string} column - Name of the column.
+     */
+    removeFilter(filters: GenericFilter = {}, column: string) {
+        filters[column] = {
+            textField: '',
+            checkBoxes: [],
+            interval: null,
+        };
+    }
 }

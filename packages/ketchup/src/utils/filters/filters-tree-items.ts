@@ -63,22 +63,17 @@ export class FiltersTreeItems extends FiltersRows {
         if (columnFilters == null) {
             columnFilters = new FiltersColumnMenu();
         }
-        let visibility: boolean = false;
-        if (
-            this.areCellsCompliant(
-                node.cells,
-                filters,
-                globalFilter,
-                isUsingGlobalFilter,
-                columns,
-                columnFilters
-            )
-        ) {
-            visibility = true;
-        }
+        let visibility: boolean = this.areCellsCompliant(
+            node.cells,
+            filters,
+            globalFilter,
+            isUsingGlobalFilter,
+            columns,
+            columnFilters
+        );
         if (node.disabled != true && node.expandable == true) {
             /** se il ramo è compatibile con il filtro, mostro tutto l'albero sottostante */
-            if (visibility == true) {
+            if (visibility == true && isUsingGlobalFilter) {
                 this.setAllVisible(node.children);
             } else {
                 for (let i = 0; i < node.children.length; i++) {
@@ -93,12 +88,12 @@ export class FiltersTreeItems extends FiltersRows {
                             columnFilters
                         )
                     ) {
-                        visibility = true;
                         this.expandCollapseNode(
                             node,
                             true,
                             treeExpandedPropName
                         );
+                        visibility = true;
                     }
                 }
             }
@@ -114,7 +109,7 @@ export class FiltersTreeItems extends FiltersRows {
         });
     }
 
-    extarctColumnValues(
+    extractColumnValues(
         rows: Array<TreeNode>,
         column: Column,
         values: { value: string; displayedValue: string }[]
@@ -130,7 +125,7 @@ export class FiltersTreeItems extends FiltersRows {
                     column,
                     row.cells[column.name]
                 );
-                this.extarctColumnValues(row.children, column, values);
+                this.extractColumnValues(row.children, column, values);
             }
         });
         return values;
@@ -152,6 +147,28 @@ export class FiltersTreeItems extends FiltersRows {
             )
                 ? treeNode[treeExpandedPropName] || expandNode
                 : expandNode;
+        }
+    }
+
+    expandCollapseAllNodes(
+        treeNode: TreeNode,
+        expandNode: boolean = false,
+        treeExpandedPropName
+    ) {
+        // The node is expandable, which means there are sub trees
+        if (treeNode.expandable && !treeNode.disabled) {
+            this.expandCollapseNode(treeNode, expandNode, treeExpandedPropName);
+            // Enriches also direct subtrees recursively (if it has children)
+            if (treeNode.children && treeNode.children.length) {
+                // To save some function calls, only child elements which are expandable will be enriched
+                for (let i = 0; i < treeNode.children.length; i++) {
+                    this.expandCollapseAllNodes(
+                        treeNode.children[i],
+                        expandNode,
+                        treeExpandedPropName
+                    );
+                }
+            }
         }
     }
 }
