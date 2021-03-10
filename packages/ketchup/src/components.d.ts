@@ -30,6 +30,7 @@ import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarat
 import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
 import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
+import { KupTree } from "./components/kup-tree/kup-tree";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
     interface KupAutocomplete {
@@ -194,6 +195,10 @@ export namespace Components {
           * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout": number;
+        /**
+          * Enable show tooltip
+         */
+        "tooltipEnabled": boolean;
         /**
           * Defines the timeout for tooltip load
          */
@@ -763,6 +768,10 @@ export namespace Components {
           * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout": number;
+        /**
+          * Enable show tooltip
+         */
+        "tooltipEnabled": boolean;
         /**
           * Defines the timeout for tooltip load
          */
@@ -1753,6 +1762,10 @@ export namespace Components {
          */
         "tooltipDetailTimeout": number;
         /**
+          * Enable show tooltip
+         */
+        "tooltipEnabled": boolean;
+        /**
           * Defines the timeout for tooltip load
          */
         "tooltipLoadTimeout": number;
@@ -2343,6 +2356,10 @@ declare namespace LocalJSX {
           * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout"?: number;
+        /**
+          * Enable show tooltip
+         */
+        "tooltipEnabled"?: boolean;
         /**
           * Defines the timeout for tooltip load
          */
@@ -3099,6 +3116,10 @@ declare namespace LocalJSX {
           * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout"?: number;
+        /**
+          * Enable show tooltip
+         */
+        "tooltipEnabled"?: boolean;
         /**
           * Defines the timeout for tooltip load
          */
@@ -4215,6 +4236,40 @@ declare namespace LocalJSX {
         relatedObject: TooltipRelatedObject;
         tooltip: KupTooltip;
     }>) => void;
+        "onKupTooltipTreeDynamicMassExpansion"?: (event: CustomEvent<{
+        treeNodePath?: TreeNodePath;
+        treeNode?: TreeNode;
+        expandAll?: boolean;
+    }>) => void;
+        "onKupTooltipTreeNodeButtonClicked"?: (event: CustomEvent<{
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+        column: Column;
+        columnName: string;
+        auto: boolean;
+        tree: KupTree;
+    }>) => void;
+        "onKupTooltipTreeNodeDblClick"?: (event: CustomEvent<{
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+    }>) => void;
+        "onKupTooltipTreeNodeExpand"?: (event: CustomEvent<{
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+        usesDynamicExpansion?: boolean;
+        dynamicExpansionRequireChildren?: boolean;
+        tree: KupTree;
+    }>) => void;
+        /**
+          * Fired when a node of the tree has been selected
+         */
+        "onKupTooltipTreeNodeSelected"?: (event: CustomEvent<{
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+        columnName: string;
+        auto: boolean;
+        tree: KupTree;
+    }>) => void;
         /**
           * Container element for tooltip
          */
@@ -4368,6 +4423,10 @@ declare namespace LocalJSX {
           * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout"?: number;
+        /**
+          * Enable show tooltip
+         */
+        "tooltipEnabled"?: boolean;
         /**
           * Defines the timeout for tooltip load
          */

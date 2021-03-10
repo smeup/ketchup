@@ -17,7 +17,6 @@ import {
     Cell,
     CellData,
     Column,
-    Row,
 } from './../kup-data-table/kup-data-table-declarations';
 
 import {
@@ -51,7 +50,6 @@ import { stringToNumber } from '../../utils/utils';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
-import { FiltersRows } from '../../utils/filters/filters-rows';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 
 @Component({
@@ -209,6 +207,10 @@ export class KupTree {
      * Defines the timeout for tooltip detail
      */
     @Prop() tooltipDetailTimeout: number;
+    /**
+     * Enable show tooltip
+     */
+    @Prop() tooltipEnabled: boolean = true;
     /**
      * Defines the timeout for tooltip load
      */
@@ -1360,6 +1362,9 @@ export class KupTree {
     }
 
     renderTooltip() {
+        if (this.tooltipEnabled == false) {
+            return null;
+        }
         return (
             <kup-tooltip
                 class="datatable-tooltip"

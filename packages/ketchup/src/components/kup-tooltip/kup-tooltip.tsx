@@ -20,8 +20,10 @@ import {
     TooltipCellOptions,
 } from './kup-tooltip-declarations';
 import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { Row } from '../kup-data-table/kup-data-table-declarations';
+import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 import { positionRecalc } from '../../utils/recalc-position';
+import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
+import { KupTree } from '../kup-tree/kup-tree';
 
 @Component({
     tag: 'kup-tooltip',
@@ -137,6 +139,75 @@ export class KupTooltip {
     })
     kupDefaultOptionClicked: EventEmitter<{
         obj: TooltipObject;
+    }>;
+
+    @Event({
+        eventName: 'kupTooltipTreeNodeExpand',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeNodeExpand: EventEmitter<{
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+        usesDynamicExpansion?: boolean;
+        dynamicExpansionRequireChildren?: boolean;
+        tree: KupTree;
+    }>;
+
+    @Event({
+        eventName: 'kupTooltipTreeNodeButtonClicked',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeNodeButtonClicked: EventEmitter<{
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+        column: Column;
+        columnName: string;
+        auto: boolean;
+        tree: KupTree;
+    }>;
+
+    /**
+     * Fired when a node of the tree has been selected
+     */
+    @Event({
+        eventName: 'kupTooltipTreeNodeSelected',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeNodeSelected: EventEmitter<{
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+        columnName: string;
+        auto: boolean;
+        tree: KupTree;
+    }>;
+
+    @Event({
+        eventName: 'kupTooltipTreeNodeDblClick',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeNodeDblClick: EventEmitter<{
+        treeNodePath: TreeNodePath;
+        treeNode: TreeNode;
+    }>;
+
+    @Event({
+        eventName: 'kupTooltipTreeDynamicMassExpansion',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeDynamicMassExpansion: EventEmitter<{
+        treeNodePath?: TreeNodePath;
+        treeNode?: TreeNode;
+        expandAll?: boolean;
     }>;
 
     @Watch('relatedObject')
@@ -417,6 +488,69 @@ export class KupTooltip {
         }
     }
 
+    private onKupTreeNodeExpand(e: CustomEvent) {
+        e.stopPropagation();
+        if (e.detail.usesDynamicExpansion != true) {
+            return;
+        }
+        if (e.detail.dynamicExpansionRequireChildren != true) {
+            return;
+        }
+        // TreeNode is now expanded -> Fires expanded event
+        this.kupTreeNodeExpand.emit({
+            treeNodePath: e.detail.treeNodePath,
+            treeNode: e.detail.treeNode,
+            usesDynamicExpansion: e.detail.usesDynamicExpansion,
+            dynamicExpansionRequireChildren:
+                e.detail.dynamicExpansionRequireChildren,
+            tree: e.detail.tree,
+        });
+    }
+
+    private onKupTreeNodeSelected(e: CustomEvent) {
+        e.stopPropagation();
+
+        this.kupTreeNodeSelected.emit({
+            treeNodePath: e.detail.treeNodePath,
+            treeNode: e.detail.treeNode,
+            columnName: e.detail.columnName,
+            auto: e.detail.auto,
+            tree: e.detail.tree,
+        });
+    }
+
+    private onKupTreeNodeButtonClicked(e: CustomEvent) {
+        e.stopPropagation();
+
+        this.kupTreeNodeButtonClicked.emit({
+            treeNodePath: e.detail.treeNodePath,
+            treeNode: e.detail.treeNode,
+            column: e.detail.column,
+            columnName: e.detail.columnName,
+            auto: e.detail.auto,
+            tree: e.detail.tree,
+        });
+    }
+
+    private onKupTreeNodeDblClick(e: CustomEvent) {
+        e.stopPropagation();
+
+        this.kupTreeNodeDblClick.emit({
+            treeNodePath: e.detail.treeNodePath,
+            treeNode: e.detail.treeNode,
+        });
+    }
+
+    private onKupTreeDynamicMassExpansion(e: CustomEvent) {
+        e.stopPropagation();
+
+        this.kupTreeDynamicMassExpansion.emit({
+            treeNodePath: e.detail.treeNodePath,
+            treeNode: e.detail.treeNode,
+            expandAll: e.detail.expandAll,
+        });
+    }
+
     private resetAll() {
         // reset timeouts
         this.resetTimeouts();
@@ -547,6 +681,19 @@ export class KupTooltip {
                     showFilter={true}
                     {...this.cellOptions.config}
                     {...this.cellOptions}
+                    tooltipEnabled={false}
+                    onKupTreeNodeCollapse={(e) => e.stopPropagation()}
+                    onKupTreeNodeExpand={(e) => this.onKupTreeNodeExpand(e)}
+                    onKupTreeNodeSelected={(e) => this.onKupTreeNodeSelected(e)}
+                    onKupTreeNodeButtonClicked={(e) =>
+                        this.onKupTreeNodeButtonClicked(e)
+                    }
+                    onKupDidLoad={(e) => e.stopPropagation()}
+                    onKupDidUnload={(e) => e.stopPropagation()}
+                    onKupTreeNodeDblClick={(e) => this.onKupTreeNodeDblClick(e)}
+                    onKupTreeDynamicMassExpansion={(e) =>
+                        this.onKupTreeDynamicMassExpansion(e)
+                    }
                 ></kup-tree>,
             ];
         }
