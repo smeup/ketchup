@@ -107,6 +107,16 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 ## Methods
 
+### `collapseAll() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `defaultSortingFunction(columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<Column[]>`
 
 
@@ -114,6 +124,16 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 #### Returns
 
 Type: `Promise<Column[]>`
+
+
+
+### `expandAll() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
 
 
 

@@ -575,6 +575,7 @@ export namespace Components {
         "valueColor": Array<any>;
     }
     interface KupDataTable {
+        "collapseAll": () => Promise<void>;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
@@ -604,6 +605,7 @@ export namespace Components {
           * Enables the sorting of columns by dragging them into different columns.
          */
         "enableSortableColumns": boolean;
+        "expandAll": () => Promise<void>;
         /**
           * Expands groups when set to true.
          */

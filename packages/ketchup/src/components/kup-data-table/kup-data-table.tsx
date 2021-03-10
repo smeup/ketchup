@@ -940,6 +940,16 @@ export class KupDataTable {
         this.customStyleTheme = customStyleTheme;
     }
 
+    @Method()
+    async expandAll() {
+        this.expandGroups = true;
+    }
+
+    @Method()
+    async collapseAll() {
+        this.expandGroups = false;
+    }
+
     forceUpdate() {
         this.stateSwitcher = !this.stateSwitcher;
     }
