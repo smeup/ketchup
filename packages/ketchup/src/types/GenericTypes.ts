@@ -1,15 +1,4 @@
 /**
- * Interface used to define the HTML element with Ketch.UP specific properties.
- */
-export interface KupDom extends HTMLHtmlElement {
-    kupDebug: boolean;
-    'kup-theme': string;
-    kupCurrentTheme: GenericObject;
-    kupCustomStyles: Array<KupComponent>;
-    kupRefreshTheme: Function;
-    kupThemes: GenericObject;
-}
-/**
  * Generic KupComponent.
  */
 export interface KupComponent extends HTMLElement {
