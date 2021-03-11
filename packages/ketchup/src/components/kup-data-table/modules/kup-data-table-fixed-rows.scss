@@ -35,8 +35,8 @@ table.custom-size th {
   }
 }
 
-tr:hover .fixed-row,
-tr:hover .fixed-column {
+tr.hover .fixed-row,
+tr.hover .fixed-column {
   color: var(--kup-hover-color);
   background-color: var(--kup-hover-background-color);
 }
@@ -73,13 +73,13 @@ tr.selected .fixed-row {
 }
 
 thead tr .fixed-column,
-thead tr:hover .fixed-column {
+thead tr.hover:not(.group):not(.selected) .fixed-column {
   background-color: var(--kup-title-background-color);
   color: var(--kup-title-color);
 }
 
-tfoot tr:hover .fixed-row,
-tfoot tr:hover .fixed-column {
+tfoot tr.hover:not(.group):not(.selected) .fixed-row,
+tfoot tr.hover:not(.group):not(.selected) .fixed-column {
   color: var(--kup-text-color);
   background-color: var(--kup-background-color);
 }

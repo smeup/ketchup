@@ -548,6 +548,10 @@ export class KupDataTable {
      */
     @Prop() tooltipDetailTimeout: number;
     /**
+     * Enable show tooltip
+     */
+    @Prop() tooltipEnabled: boolean = true;
+    /**
      * Defines the timeout for tooltip load
      */
     @Prop() tooltipLoadTimeout: number;
@@ -1601,6 +1605,35 @@ export class KupDataTable {
         });
     }
 
+    private mouseMoveHandler(e: MouseEvent): void {
+        const details: GenericObject = this.getEventDetails(
+            e.target as HTMLElement
+        );
+
+        const hoverEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
+            '.hover'
+        );
+        if (hoverEl) {
+            hoverEl.classList.remove('hover');
+        }
+
+        if (details.area === 'body') {
+            if (details.tr) {
+                details.tr.classList.add('hover');
+                return;
+            }
+        }
+    }
+
+    private mouseOutHandler(): void {
+        const hoverEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
+            '.hover'
+        );
+        if (hoverEl) {
+            hoverEl.classList.remove('hover');
+        }
+    }
+
     getVisibleColumns(): Array<Column> {
         // TODO: change into `visible ?? true` when TS dependency has been updated
         const visibleColumns = this.getColumns().filter(({ visible }) =>
@@ -1964,19 +1997,8 @@ export class KupDataTable {
         // resetting current page
         this.resetCurrentPage();
         const newFilters: GenericFilter = { ...this.filters };
-        newFilters[column.name] = {
-            textField: '',
-            checkBoxes: [],
-            interval: null,
-        };
+        this.filtersColumnMenuInstance.removeFilter(newFilters, column.name);
         this.filters = newFilters;
-    }
-
-    private getIntervalTextFieldFilterValues(column: Column): Array<string> {
-        return this.filtersColumnMenuInstance.getIntervalTextFieldFilterValues(
-            this.filters,
-            column
-        );
     }
 
     private getFilterValueForTooltip(column: Column): string {
@@ -2666,7 +2688,12 @@ export class KupDataTable {
                     let iconClass = this.getSortIcon(column.name);
                     if (iconClass !== '') {
                         iconClass += ' icon-container';
-                        sortIcon = <span class={iconClass}></span>;
+                        sortIcon = (
+                            <span
+                                class={iconClass}
+                                title={this.getSortDecode(column.name)}
+                            ></span>
+                        );
                     }
 
                     // Adds the sortable class to the header cell
@@ -2935,6 +2962,9 @@ export class KupDataTable {
     }
 
     renderTooltip() {
+        if (this.tooltipEnabled == false) {
+            return null;
+        }
         return (
             <kup-tooltip
                 class="datatable-tooltip"
@@ -4674,6 +4704,10 @@ export class KupDataTable {
                             onDblClick={(e: MouseEvent) =>
                                 this.dblClickHandler(e)
                             }
+                            onMouseMove={(e: MouseEvent) =>
+                                this.mouseMoveHandler(e)
+                            }
+                            onMouseOut={() => this.mouseOutHandler()}
                         >
                             <thead
                                 hidden={!this.showHeader}
