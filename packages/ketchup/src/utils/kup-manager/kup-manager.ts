@@ -19,23 +19,6 @@ export class KupManager {
         ? dom.ketchupInit
         : null;
     theme: KupTheme = new KupTheme();
-    /**
-     * Initializes KupManager.
-     *
-     * */
-    initialize(): void {
-        const themesOverrides: boolean = !!(
-            this.overrides && this.overrides.theme
-        );
-        this.theme.initialize(
-            themesOverrides && this.overrides.theme.current
-                ? this.overrides.theme.current
-                : null,
-            themesOverrides && this.overrides.theme.list
-                ? this.overrides.theme.list
-                : null
-        );
-    }
 }
 /**
  * Called by the Ketch.UP components to retrieve the instance of KupManager (or creating a new one when missing).
@@ -45,7 +28,7 @@ export class KupManager {
 export function kupManagerInstance(): KupManager {
     if (!dom.ketchup) {
         dom.ketchup = new KupManager();
-        dom.ketchup.initialize();
+        dom.ketchup.theme.set();
     }
     return dom.ketchup;
 }

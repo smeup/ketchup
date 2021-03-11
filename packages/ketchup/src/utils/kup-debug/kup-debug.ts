@@ -1,9 +1,16 @@
+import type { KupDom } from '../kup-manager/kup-manager-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
+
 /**
  * Debugging suite, used to log messages and statuses from the Ketch.UP components.
  * @module KupDebug
  */
 export class KupDebug {
-    active: boolean = false;
+    active: boolean =
+        dom.ketchupInit && dom.ketchupInit.debug && dom.ketchupInit.debug.active
+            ? dom.ketchupInit.debug.active
+            : false;
     /**
      * Function used to set the status of the debug.
      * If no argument is provided, this method will work as a toggler.

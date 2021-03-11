@@ -16,11 +16,11 @@ export interface KupManager {
     theme: KupTheme;
     resize: ResizeObserver;
     overrides?: KupManagerInitialization;
-    initialize: () => void;
 }
 /**
  * Interface for the KupManager override settings.
  */
 export interface KupManagerInitialization {
-    theme: { current: string; list: JSON };
+    debug: { active: boolean };
+    theme: { name: string; list: JSON };
 }
