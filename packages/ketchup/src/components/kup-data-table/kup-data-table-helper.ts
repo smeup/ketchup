@@ -24,6 +24,7 @@ import {
     compareCell,
 } from '../../utils/cell-utils';
 import { FiltersRows } from '../../utils/filters/filters-rows';
+import { KupDebug } from '../../utils/kup-debug/kup-debug';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -479,6 +480,7 @@ export function evaluateFormula(
     formula: string,
     row: { [index: string]: number }
 ): number {
+    const kupDebug = new KupDebug();
     let formula1: string = formula;
     const keys = Object.keys(row);
     for (let i = 0; i < keys.length; i++) {
@@ -492,7 +494,7 @@ export function evaluateFormula(
     try {
         return evaluateString(formula1);
     } catch (e) {
-        this.kupDebug.logMessage(
+        kupDebug.logMessage(
             'kup-data-table-helper',
             'Error during evaluate formula [' + formula1 + ']',
             'error'

@@ -1606,6 +1606,15 @@ export class KupDataTable {
         }
     }
 
+    private mouseOutHandler(): void {
+        const hoverEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
+            '.hover'
+        );
+        if (hoverEl) {
+            hoverEl.classList.remove('hover');
+        }
+    }
+
     getVisibleColumns(): Array<Column> {
         // TODO: change into `visible ?? true` when TS dependency has been updated
         const visibleColumns = this.getColumns().filter(({ visible }) =>
@@ -4679,6 +4688,7 @@ export class KupDataTable {
                             onMouseMove={(e: MouseEvent) =>
                                 this.mouseMoveHandler(e)
                             }
+                            onMouseOut={() => this.mouseOutHandler()}
                         >
                             <thead
                                 hidden={!this.showHeader}
