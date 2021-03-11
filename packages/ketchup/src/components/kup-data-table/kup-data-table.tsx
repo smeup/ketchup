@@ -3077,6 +3077,12 @@ export class KupDataTable {
                                 case TotalMode.AVERAGE:
                                     menuLabel = TotalLabel.AVERAGE;
                                     break;
+                                case TotalMode.MIN:
+                                    menuLabel = TotalLabel.MIN;
+                                    break;
+                                case TotalMode.MAX:
+                                    menuLabel = TotalLabel.MAX;
+                                    break;
                                 default:
                                     break;
                             }
@@ -3102,6 +3108,16 @@ export class KupDataTable {
                             {
                                 text: TotalLabel.AVERAGE,
                                 value: TotalMode.AVERAGE,
+                                selected: false,
+                            },
+                            {
+                                text: TotalLabel.MIN,
+                                value: TotalMode.MIN,
+                                selected: false,
+                            },
+                            {
+                                text: TotalLabel.MAX,
+                                value: TotalMode.MAX,
                                 selected: false,
                             }
                         );

@@ -538,14 +538,11 @@ export function calcTotals(
         return {};
     }
     const keys = Object.keys(totals);
-
     const footerRow: { [index: string]: number } = {};
-
     // if there are only COUNT, no need to loop on rows
     let onlyCount =
         keys.length === 0 &&
         keys.every((key) => totals[key] === TotalMode.COUNT);
-
     if (onlyCount) {
         keys.forEach((columnName) => (footerRow[columnName] = rows.length));
     } else {
@@ -555,37 +552,65 @@ export function calcTotals(
                     TotalMode.COUNT !== totals[key] &&
                     totals[key].indexOf(TotalMode.MATH) != 0
             ).forEach((key) => {
-                // getting column
+                // getting cell
                 const cell = r.cells[key];
-
                 // check if number
                 if (cell && isNumber(cell.obj)) {
                     const cellValue = numeral(stringToNumber(cell.value));
-
                     const currentFooterValue = footerRow[key] || 0;
-
-                    footerRow[key] = cellValue.add(currentFooterValue).value();
+                    switch (true) {
+                        case totals[key] === TotalMode.MIN:
+                            if (currentFooterValue) {
+                                footerRow[key] = Math.min(
+                                    currentFooterValue,
+                                    cellValue.value()
+                                );
+                            } else {
+                                footerRow[key] = cellValue.value();
+                            }
+                            break;
+                        case totals[key] === TotalMode.MAX:
+                            if (currentFooterValue) {
+                                footerRow[key] = Math.max(
+                                    currentFooterValue,
+                                    cellValue.value()
+                                );
+                            } else {
+                                footerRow[key] = cellValue.value();
+                            }
+                            break;
+                        default:
+                            // SUM
+                            footerRow[key] = cellValue
+                                .add(currentFooterValue)
+                                .value();
+                    }
                 }
             });
         });
-
-        // fixing count and avg
+        // fixing
         for (let key of keys) {
-            if (totals[key] === TotalMode.AVERAGE) {
-                const sum: number = footerRow[key];
-
-                if (sum && rows.length > 0) {
-                    footerRow[key] = numeral(sum).divide(rows.length).value();
-                }
-            } else if (totals[key] === TotalMode.COUNT) {
-                footerRow[key] = rows.length;
-            } else if (totals[key].indexOf(TotalMode.MATH) == 0) {
-                let formula = totals[key].substring(TotalMode.MATH.length);
-                footerRow[key] = evaluateFormula(formula, footerRow);
+            switch (true) {
+                case totals[key] === TotalMode.AVERAGE:
+                    const sum: number = footerRow[key];
+                    if (sum && rows.length > 0) {
+                        footerRow[key] = numeral(sum)
+                            .divide(rows.length)
+                            .value();
+                    }
+                    break;
+                case totals[key] === TotalMode.COUNT:
+                    footerRow[key] = rows.length;
+                    break;
+                case totals[key].indexOf(TotalMode.MATH) == 0:
+                    let formula = totals[key].substring(TotalMode.MATH.length);
+                    footerRow[key] = evaluateFormula(formula, footerRow);
+                    break;
+                default:
+                    break;
             }
         }
     }
-
     return footerRow;
 }
 
