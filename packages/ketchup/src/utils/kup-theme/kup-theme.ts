@@ -28,9 +28,12 @@ export class KupTheme {
      *
      * @param {string} name - When present, this theme will be set.
      */
-    set(name?: string): void {
+    set(name?: string, list?: JSON): void {
         if (name) {
             this.name = name;
+        }
+        if (list) {
+            this.list = list;
         }
         dom.ketchup.debug.logMessage(
             'theme manager',
