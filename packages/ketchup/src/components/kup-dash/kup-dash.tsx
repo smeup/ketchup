@@ -6,7 +6,10 @@ import {
     Prop,
     h,
 } from '@stencil/core';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 
 @Component({
     tag: 'kup-dash',
@@ -34,9 +37,9 @@ export class KupDash {
     @Prop() index = 0;
 
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
+    private kupManager: KupManager = kupManagerInstance();
 
     @Event({
         eventName: 'ketchupDashClicked',
@@ -57,19 +60,19 @@ export class KupDash {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
+        this.kupManager.debug.logLoad(this, false);
     }
 
     componentDidLoad() {
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {

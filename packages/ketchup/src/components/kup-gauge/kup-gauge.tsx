@@ -7,8 +7,10 @@ import {
     Method,
     Host,
 } from '@stencil/core';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { unformattedStringToFormattedStringNumber } from '../../utils/utils';
 
 declare const d3: any;
@@ -124,13 +126,9 @@ export class KupGauge {
      */
     private maxValuePositive = 0;
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
 
     //---- Methods ----
 
@@ -219,20 +217,20 @@ export class KupGauge {
     }
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -426,7 +424,7 @@ export class KupGauge {
         const width = { width: this.widthComponent };
         return (
             <Host>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component" class="gauge__container">
                     <svg
                         class="gauge"

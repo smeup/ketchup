@@ -29,8 +29,10 @@ import { hasTooltip } from '../../utils/object-utils';
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import {
     styleHasBorderRadius,
     styleHasWritingMode,
@@ -222,13 +224,9 @@ export class KupTree {
     @State() stateSwitcher: boolean = false;
 
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
     private treeWrapperRef: any;
     private scrollOnHoverInstance: scrollOnHover;
     private selectedColumn: string = '';
@@ -446,7 +444,7 @@ export class KupTree {
     onKupTreeNodeDblClick(treeNodeData: TreeNode, treeNodePath: string) {
         for (let index = 0; index < this.clickTimeout.length; index++) {
             clearTimeout(this.clickTimeout[index]);
-            this.kupDebug.logMessage(
+            this.kupManager.debug.logMessage(
                 this,
                 'Cleared hdlTreeNodeClicked timeout(' +
                     this.clickTimeout[index] +
@@ -465,8 +463,8 @@ export class KupTree {
     //-------- Lifecycle hooks --------
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
         this.filtersTreeItemsInstance = new FiltersTreeItems();
@@ -495,11 +493,11 @@ export class KupTree {
             }
         }
         this.kupDidLoad.emit();
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
         this.filterNodes();
     }
 
@@ -521,7 +519,7 @@ export class KupTree {
         // *** Store
         this.persistState();
         // ***
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     componentDidUnload() {
@@ -995,7 +993,7 @@ export class KupTree {
         let title: string = undefined;
         if (_hasTooltip) {
             classObj['is-obj'] = true;
-            if (this.kupDebug.isDebug()) {
+            if (this.kupManager.debug.isDebug()) {
                 title =
                     cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
             }
@@ -1536,7 +1534,7 @@ export class KupTree {
 
         const _hasTooltip: boolean = hasTooltip(treeNodeData.obj);
         let title: string = undefined;
-        if (_hasTooltip && this.kupDebug.isDebug()) {
+        if (_hasTooltip && this.kupManager.debug.isDebug()) {
             title =
                 treeNodeData.obj.t +
                 '; ' +
@@ -1696,7 +1694,7 @@ export class KupTree {
         }
         return (
             <Host>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <div
                         class="wrapper"

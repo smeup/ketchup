@@ -17,8 +17,10 @@ import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
 import { MDCRipple } from '@material/ripple';
 import { CardData, CardFamily } from './kup-card-declarations';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { FImage } from '../../f-components/f-image/f-image';
 import { VNode } from '@stencil/core/internal';
 
@@ -104,13 +106,9 @@ export class KupCard {
         this.onKupEvent(e);
     };
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
     /**
      * Previous height of the component, tested when the card is collapsible.
      */
@@ -244,7 +242,7 @@ export class KupCard {
                 }
             }
         } catch (error) {
-            this.kupDebug.logMessage(this, error, 'warning');
+            this.kupManager.debug.logMessage(this, error, 'warning');
             let props = {
                 resource: 'warning',
                 title: 'Layout not yet implemented!',
@@ -265,7 +263,7 @@ export class KupCard {
         for (let index = 0; index < dynColors.length; index++) {
             this.rootElement.style.setProperty(
                 '--dyn-color-' + index,
-                this.kupTheme.colorContrast(
+                this.kupManager.theme.colorContrast(
                     window.getComputedStyle(dynColors[index]).backgroundColor
                 )
             );
@@ -369,7 +367,7 @@ export class KupCard {
             entries: ResizeObserverEntry[]
         ) => {
             entries.forEach((entry) => {
-                this.kupDebug.logMessage(
+                this.kupManager.debug.logMessage(
                     this,
                     'Size changed to x: ' +
                         entry.contentRect.width +
@@ -388,8 +386,8 @@ export class KupCard {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
         this.setObserver();
         this.registerListeners();
     }
@@ -402,21 +400,21 @@ export class KupCard {
         if (rippleEl) {
             MDCRipple.attachTo(rippleEl);
         }
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
         this.layoutManager();
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         if (!this.data) {
-            this.kupDebug.logMessage(
+            this.kupManager.debug.logMessage(
                 this,
                 'Data missing, not rendering!',
                 'warning'
@@ -431,7 +429,7 @@ export class KupCard {
 
         return (
             <Host style={style}>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     class={`${this.isMenu ? 'mdc-menu mdc-menu-surface' : ''} ${

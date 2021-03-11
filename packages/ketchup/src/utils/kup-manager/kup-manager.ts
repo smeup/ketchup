@@ -14,11 +14,11 @@ const dom: KupDom = document.documentElement as KupDom;
  */
 export class KupManager {
     debug: KupDebug = new KupDebug();
-    theme: KupTheme = new KupTheme();
     resize: ResizeObserver = new ResizeObserver(() => {});
     overrides?: KupManagerInitialization = dom.ketchupInit
         ? dom.ketchupInit
         : null;
+    theme: KupTheme = new KupTheme();
     /**
      * Initializes KupManager.
      *
@@ -27,12 +27,6 @@ export class KupManager {
         const themesOverrides: boolean = !!(
             this.overrides && this.overrides.theme
         );
-        if (themesOverrides) {
-            this.debug.logMessage(
-                'kup-manager',
-                'Override settings detected, applying.'
-            );
-        }
         this.theme.initialize(
             themesOverrides && this.overrides.theme.current
                 ? this.overrides.theme.current
@@ -41,7 +35,6 @@ export class KupManager {
                 ? this.overrides.theme.list
                 : null
         );
-        this.debug.logMessage('kup-manager', 'Initialization complete.');
     }
 }
 /**

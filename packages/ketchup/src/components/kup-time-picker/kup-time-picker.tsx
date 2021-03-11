@@ -12,10 +12,11 @@ import {
     Watch,
     JSX,
 } from '@stencil/core';
-
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { positionRecalc } from '../../utils/recalc-position';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 
 import {
@@ -69,13 +70,9 @@ export class KupTimePicker {
     @Prop() timeMinutesStep: number = 10;
 
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
     private hoursEl: HTMLElement = undefined;
     private minutesEl: HTMLElement = undefined;
     private secondsEl: HTMLElement = undefined;
@@ -243,7 +240,7 @@ export class KupTimePicker {
             return;
         }
         if (this.timeMinutesStep <= 0) {
-            this.kupDebug.logMessage(
+            this.kupManager.debug.logMessage(
                 this,
                 'property time-minutes-step=[' +
                     this.timeMinutesStep +
@@ -256,7 +253,7 @@ export class KupTimePicker {
         let result: number = 60 % this.timeMinutesStep;
 
         if (result != 0) {
-            this.kupDebug.logMessage(
+            this.kupManager.debug.logMessage(
                 this,
                 'property time-minutes-step=[' +
                     this.timeMinutesStep +
@@ -871,8 +868,8 @@ export class KupTimePicker {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
         this.watchTimeMinutesStep();
         this.value = this.initialValue;
         if (!this.data) {
@@ -884,11 +881,11 @@ export class KupTimePicker {
     }
 
     componentDidLoad() {
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -902,7 +899,7 @@ export class KupTimePicker {
             }
         }
         this.recalcPosition();
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -927,7 +924,7 @@ export class KupTimePicker {
 
         return (
             <Host class={hostClass} onBlur={(e) => this.onKupBlur(e)}>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     {this.prepTimeTextfield()}
                     {this.prepTimePicker()}

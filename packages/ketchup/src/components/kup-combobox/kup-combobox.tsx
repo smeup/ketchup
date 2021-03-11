@@ -15,8 +15,10 @@ import {
     ItemsDisplayMode,
     consistencyCheck,
 } from '../kup-list/kup-list-declarations';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 
@@ -61,13 +63,9 @@ export class KupCombobox {
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
 
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
     private elStyle: any = undefined;
     private listEl: any = undefined;
     private textfieldWrapper: HTMLElement = undefined;
@@ -356,8 +354,8 @@ export class KupCombobox {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
         this.value = this.initialValue;
         if (!this.data) {
             this.data = {
@@ -369,17 +367,17 @@ export class KupCombobox {
 
     componentDidLoad() {
         this.consistencyCheck(undefined, this.value);
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
         this.setEvents();
         positionRecalc(this.listEl, this.textfieldWrapper);
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -398,7 +396,7 @@ export class KupCombobox {
                 onBlur={() => this.onKupBlur()}
                 style={this.elStyle}
             >
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
                     <FTextField
                         {...this.data['kup-text-field']}

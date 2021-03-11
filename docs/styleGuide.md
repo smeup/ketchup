@@ -120,28 +120,32 @@ async refreshCustomStyle(customStyleTheme: string) {
 </Host>
 ```
 
-### Debugging
+### Debugging and theming
 
-1. Import the KupDebug class:
-
-```
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
-```
-
-2. Define a new internal variable which instances KupDebug:
+1. Import the KupManager class:
 
 ```
-/**
-* Instance of the KupDebug class.
-*/
-private kupDebug: KupDebug = new KupDebug();
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+```
+
+2. Define a new internal variable which references KupManager (which will be created on the HTML document element):
+
+```
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 ```
 
 3. Call the following methods in the following `Stencil's lifecycle hooks`:
 
 ```
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
         //..
         //Actual willLoad code (below)
     }
@@ -149,11 +153,11 @@ private kupDebug: KupDebug = new KupDebug();
     componentDidLoad() {
         //Actual didLoad code (above)
         //..
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
         //..
         //Actual willRender code (below)
     }
@@ -161,7 +165,7 @@ private kupDebug: KupDebug = new KupDebug();
     componentDidRender() {
         //Actual didRender code (above)
         //..
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 ```
 

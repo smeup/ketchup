@@ -13,9 +13,11 @@ import {
 } from '@stencil/core';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { positionRecalc } from '../../utils/recalc-position';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 
 import {
     formattedStringToDefaultUnformattedStringDate,
@@ -63,13 +65,9 @@ export class KupDatePicker {
 
     private calendarView: SourceEvent = SourceEvent.DATE;
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
     private textfieldEl: any = undefined;
     private pickerContainerEl: HTMLElement = undefined;
     private pickerEl: { value: string; date: Date } = {
@@ -238,7 +236,7 @@ export class KupDatePicker {
     @Watch('firstDayIndex')
     watchFirstDayIndex() {
         if (this.firstDayIndex > 6 || this.firstDayIndex < 0) {
-            this.kupDebug.logMessage(
+            this.kupManager.debug.logMessage(
                 this,
                 'property first-day-index=[' +
                     this.firstDayIndex +
@@ -910,8 +908,8 @@ export class KupDatePicker {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
         this.watchFirstDayIndex();
         this.value = this.initialValue;
         if (!this.data) {
@@ -922,16 +920,16 @@ export class KupDatePicker {
     }
 
     componentDidLoad() {
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
         this.recalcPosition();
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -956,7 +954,7 @@ export class KupDatePicker {
 
         return (
             <Host class={hostClass} onBlur={() => this.onKupBlur()}>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     {this.prepDateTextfield()}
                     {this.prepDatePicker()}

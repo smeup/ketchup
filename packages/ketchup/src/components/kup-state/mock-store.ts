@@ -1,22 +1,25 @@
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { KupStore } from './kup-store';
 
 export default class MockStore implements KupStore {
     component: any;
-    private kupDebug: KupDebug = new KupDebug();
+    private kupManager: KupManager = kupManagerInstance();
 
     constructor(component: any) {
         this.component = component;
     }
 
     persistState(stateId: string, _state: any): void {
-        this.kupDebug.logMessage(
+        this.kupManager.debug.logMessage(
             this.component,
             'MOCK-STORE - Persisted state ' + stateId
         );
     }
     getState(stateId: string) {
-        this.kupDebug.logMessage(
+        this.kupManager.debug.logMessage(
             this.component,
             'MOCK-STORE - Initialized state ' + stateId
         );

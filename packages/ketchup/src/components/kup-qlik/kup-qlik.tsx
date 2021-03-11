@@ -1,6 +1,9 @@
 import { Component, Prop, Element, h, State } from '@stencil/core';
 import { QlikServer, KupQlikGrid } from './kup-qlik-declarations';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 
 @Component({
     tag: 'kup-qlik',
@@ -88,9 +91,9 @@ export class KupQlik {
     @Prop() defobjsize: string = '400px';
 
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
+    private kupManager: KupManager = kupManagerInstance();
 
     @State() divlist: Array<object> = [];
 
@@ -165,15 +168,15 @@ export class KupQlik {
     }
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
+        this.kupManager.debug.logLoad(this, false);
     }
 
     componentDidLoad() {
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
         this.setRender(this.grid);
     }
 
@@ -220,6 +223,6 @@ export class KupQlik {
                 });
             }
         }
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 }

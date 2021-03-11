@@ -19,7 +19,10 @@ import {
     ViewMode,
     TooltipCellOptions,
 } from './kup-tooltip-declarations';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 import { positionRecalc } from '../../utils/recalc-position';
 import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
@@ -64,9 +67,9 @@ export class KupTooltip {
     @Prop() relatedObject: TooltipRelatedObject;
 
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
+    private kupManager: KupManager = kupManagerInstance();
 
     @Event({
         eventName: 'kupTooltipLoadData',
@@ -773,15 +776,15 @@ export class KupTooltip {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
+        this.kupManager.debug.logLoad(this, false);
     }
 
     componentDidLoad() {
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -791,7 +794,7 @@ export class KupTooltip {
         } else {
             this.rootElement.classList.remove('dynamic-position-active');
         }
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {

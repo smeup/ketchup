@@ -11,9 +11,10 @@ import {
 } from '@stencil/core';
 
 import { KupFldChangeEvent, KupFldSubmitEvent } from './kup-field-declarations';
-
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 
 @Component({
     tag: 'kup-field',
@@ -60,13 +61,9 @@ export class KupField {
     //-- Not reactive --
     currentValue: object | string = null;
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
     previousValue: object | string = null;
 
     // Generates an instance of the event handler while binding the current component as its this value
@@ -147,20 +144,20 @@ export class KupField {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -230,7 +227,7 @@ export class KupField {
         let comp: string = undefined;
 
         if (this.type === undefined) {
-            this.kupDebug.logMessage(
+            this.kupManager.debug.logMessage(
                 this,
                 'Type (state) is undefined!',
                 'warning'
@@ -275,7 +272,7 @@ export class KupField {
 
         return (
             <Host>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     {toRender}
                 </div>

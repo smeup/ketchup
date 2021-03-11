@@ -89,8 +89,10 @@ import {
     ComponentListElement,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 
 import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
@@ -153,7 +155,7 @@ export class KupDataTable {
         if (this.store && this.stateId) {
             const state = this.store.getState(this.stateId);
             if (state != null) {
-                this.kupDebug.logMessage(
+                this.kupManager.debug.logMessage(
                     this,
                     'Initializing stateId ' + this.stateId
                 );
@@ -335,7 +337,7 @@ export class KupDataTable {
             }
 
             if (somethingChanged) {
-                this.kupDebug.logMessage(
+                this.kupManager.debug.logMessage(
                     this,
                     'Persisting stateId ' + this.stateId
                 );
@@ -697,13 +699,9 @@ export class KupDataTable {
 
     private footer: { [index: string]: number };
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
     private renderedRows: Array<Row> = [];
 
     private loadMoreEventCounter: number = 0;
@@ -990,7 +988,7 @@ export class KupDataTable {
             entries.forEach((entry) => {
                 if (entry.target.tagName === 'TR') {
                     if (entry.isIntersecting) {
-                        this.kupDebug.logMessage(
+                        this.kupManager.debug.logMessage(
                             this,
                             'Last row entering the viewport, loading more elements.'
                         );
@@ -1046,7 +1044,7 @@ export class KupDataTable {
                     entry.contentRect.width &&
                     this.lazyLoadCells
                 ) {
-                    this.kupDebug.logMessage(
+                    this.kupManager.debug.logMessage(
                         this,
                         'Size changed to x: ' +
                             entry.contentRect.width +
@@ -1294,8 +1292,8 @@ export class KupDataTable {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
         this.identifyAndInitRows();
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
@@ -1342,7 +1340,7 @@ export class KupDataTable {
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -1370,7 +1368,7 @@ export class KupDataTable {
             this.persistState();
         }
         // ***
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     componentDidLoad() {
@@ -1404,7 +1402,7 @@ export class KupDataTable {
 
         this.lazyLoadCells = true;
         this.kupDidLoad.emit();
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentDidUnload() {
@@ -3513,7 +3511,7 @@ export class KupDataTable {
                 let title: string = undefined;
                 if (_hasTooltip) {
                     cellClass['is-obj'] = true;
-                    if (this.kupDebug.isDebug()) {
+                    if (this.kupManager.debug.isDebug()) {
                         title =
                             cell.obj.t +
                             '; ' +
@@ -4639,7 +4637,7 @@ export class KupDataTable {
 
         let compCreated = (
             <Host>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class="above-wrapper">
                         {this.globalFilter ? (
