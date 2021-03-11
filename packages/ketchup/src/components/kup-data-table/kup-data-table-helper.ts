@@ -588,7 +588,7 @@ export function calcTotals(
                 }
             });
         });
-        // fixing
+        // fixing MATH and COUNT
         for (let key of keys) {
             switch (true) {
                 case totals[key] === TotalMode.AVERAGE:
