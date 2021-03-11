@@ -51,6 +51,33 @@ export class FiltersTreeItems extends FiltersRows {
         return items;
     }
 
+    isNodeCompliant(
+        node: TreeNode,
+        filters: GenericFilter = {},
+        globalFilter: string = '',
+        isUsingGlobalFilter: boolean = false,
+        columns: Column[] = [],
+        columnFilters?: FiltersColumnMenu
+    ): boolean {
+        let retValue = false;
+        if (node.cells != null) {
+            retValue = this.areCellsCompliant(
+                node.cells,
+                filters,
+                globalFilter,
+                isUsingGlobalFilter,
+                columns,
+                columnFilters
+            );
+        }
+
+        if (isUsingGlobalFilter == true) {
+            retValue = this.isFilterCompliantForValue(node.value, globalFilter);
+        }
+
+        return retValue;
+    }
+
     private setNodeVisibility(
         node: TreeNode,
         filters: GenericFilter = {},
@@ -63,8 +90,8 @@ export class FiltersTreeItems extends FiltersRows {
         if (columnFilters == null) {
             columnFilters = new FiltersColumnMenu();
         }
-        let visibility: boolean = this.areCellsCompliant(
-            node.cells,
+        let visibility: boolean = this.isNodeCompliant(
+            node,
             filters,
             globalFilter,
             isUsingGlobalFilter,
