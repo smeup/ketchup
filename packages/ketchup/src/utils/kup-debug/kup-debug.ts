@@ -1,4 +1,5 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
+import type { KupDebugLog } from './kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -11,6 +12,74 @@ export class KupDebug {
         dom.ketchupInit && dom.ketchupInit.debug && dom.ketchupInit.debug.active
             ? dom.ketchupInit.debug.active
             : false;
+    logs: KupDebugLog[] = [];
+    /**
+     * Dumps the stored logs.
+     */
+    dump(): void {
+        this.logs = [];
+    }
+    /**
+     * Displays a table with debug information inside the browser's console.
+     */
+    print(): void {
+        let loadLogs: KupDebugLog[] = [];
+        let miscLogs: KupDebugLog[] = [];
+        let renderLogs: KupDebugLog[] = [];
+        for (let index = 0; index < this.logs.length; index++) {
+            switch (this.logs[index].type) {
+                case 'Load':
+                    loadLogs.push(this.logs[index]);
+                    break;
+                case 'Render':
+                    renderLogs.push(this.logs[index]);
+                    break;
+                default:
+                    miscLogs.push(this.logs[index]);
+                    break;
+            }
+        }
+        if (this.logs.length > 0) {
+            console.groupCollapsed(
+                '%c  %c' + 'Complete log list ' + '(' + this.logs.length + ')',
+                'background-color: teal; margin-right: 10px; border-radius: 50%',
+                'background-color: transparent'
+            );
+            console.table(this.logs);
+            console.groupEnd();
+        }
+        if (loadLogs.length > 0) {
+            console.groupCollapsed(
+                '%c  %c' + 'Component load logs ' + '(' + loadLogs.length + ')',
+                'background-color: green; margin-right: 10px; border-radius: 50%',
+                'background-color: transparent'
+            );
+            console.table(loadLogs);
+            console.groupEnd();
+        }
+        if (renderLogs.length > 0) {
+            console.groupCollapsed(
+                '%c  %c' +
+                    'Component render logs ' +
+                    '(' +
+                    renderLogs.length +
+                    ')',
+                'background-color: green; margin-right: 10px; border-radius: 50%',
+                'background-color: transparent'
+            );
+            console.table(renderLogs);
+            console.groupEnd();
+        }
+        if (miscLogs.length > 0) {
+            console.groupCollapsed(
+                '%c  %c' + 'Misc. logs ' + '(' + miscLogs.length + ')',
+                'background-color: blue; margin-right: 10px; border-radius: 50%',
+                'background-color: transparent'
+            );
+            console.table(miscLogs);
+            console.groupEnd();
+        }
+    }
     /**
      * Function used to set the status of the debug.
      * If no argument is provided, this method will work as a toggler.
@@ -131,7 +200,27 @@ export class KupDebug {
                 break;
             case 'log':
             default:
-                console.log(consoleDate + id + message, obj);
+                const log: KupDebugLog = {
+                    type:
+                        message.indexOf('Render #') > -1
+                            ? 'Render'
+                            : message.indexOf('Component ready') > -1
+                            ? 'Load'
+                            : 'Message',
+                    message: message,
+                    id: id,
+                    date: consoleDate,
+                    element: obj,
+                };
+                if (this.logs.length > 1000) {
+                    console.warn(
+                        consoleDate +
+                            ' kup-debug => ' +
+                            'Too many logs (> 1000)! Dumping...'
+                    );
+                    this.dump();
+                }
+                this.logs.push(log);
                 break;
         }
     }
