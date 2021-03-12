@@ -564,7 +564,7 @@ export class KupEchart {
         );
     }
 
-    disconnectedCallBack() {
+    componentDidUnload() {
         this.kupManager.resize.unobserve(this.rootElement);
     }
 }

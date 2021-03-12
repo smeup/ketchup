@@ -22,10 +22,6 @@ import {
     ChartTitle,
 } from './kup-chart-declarations';
 
-import { ResizeObserver } from 'resize-observer';
-import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
-import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
-
 import {
     convertColumns,
     convertRows,
@@ -687,7 +683,7 @@ export class KupChart {
         );
     }
 
-    disconnectedCallBack() {
+    componentDidUnload() {
         this.kupManager.resize.unobserve(this.rootElement);
     }
 }

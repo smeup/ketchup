@@ -311,7 +311,7 @@ export class KupCalendar {
         );
     }
 
-    disconnectedCallback() {
+    componentDidUnload() {
         if (this.calendar) {
             this.calendar.destroy();
         }

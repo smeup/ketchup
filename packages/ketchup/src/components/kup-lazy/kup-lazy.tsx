@@ -230,7 +230,7 @@ export class KupLazy {
         );
     }
 
-    disconnectedCallBack() {
+    componentDidUnload() {
         this.intObserver.unobserve(this.rootElement);
     }
 }
