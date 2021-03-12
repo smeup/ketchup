@@ -580,6 +580,7 @@ export namespace Components {
         "valueColor": Array<any>;
     }
     interface KupDataTable {
+        "collapseAll": () => Promise<void>;
         /**
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
@@ -609,6 +610,7 @@ export namespace Components {
           * Enables the sorting of columns by dragging them into different columns.
          */
         "enableSortableColumns": boolean;
+        "expandAll": () => Promise<void>;
         /**
           * Expands groups when set to true.
          */
@@ -729,6 +731,10 @@ export namespace Components {
           * Can be used to customize the grid view of the table.
          */
         "showGrid": ShowGrid;
+        /**
+          * When set to true enables the column grouping.
+         */
+        "showGroups": boolean;
         /**
           * Enables rendering of the table header.
           * @namespace KupDataTable.showHeader
@@ -3077,6 +3083,10 @@ declare namespace LocalJSX {
           * Can be used to customize the grid view of the table.
          */
         "showGrid"?: ShowGrid;
+        /**
+          * When set to true enables the column grouping.
+         */
+        "showGroups"?: boolean;
         /**
           * Enables rendering of the table header.
           * @namespace KupDataTable.showHeader

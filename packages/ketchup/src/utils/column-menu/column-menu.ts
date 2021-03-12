@@ -102,9 +102,9 @@ export class ColumnMenu {
      * @param {Column} column - Column of the menu.
      * @returns {GenericObject} 'data' prop of the column menu card.
      */
-    prepData(comp: KupDataTable | KupTree, column: Column): CardData {
+    prepData(comp: KupDataTable | KupTree, column: Column, showGroup: boolean): CardData {
         return {
-            button: this.prepButton(comp, column),
+            button: this.prepButton(comp, column, showGroup),
             checkbox: this.prepCheckbox(comp, column),
             datepicker: this.prepIntervalDatePicker(comp, column),
             textfield: !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
@@ -121,20 +121,22 @@ export class ColumnMenu {
      * @param {Column} column - Column of the menu.
      * @returns {GenericObject[]} Buttons props.
      */
-    prepButton(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
+    prepButton(comp: KupDataTable | KupTree, column: Column, showGroup: boolean): GenericObject[] {
         let props: GenericObject[] = [];
-        if (!this.isTree(comp)) {
-            props.push({
-                'data-storage': {
-                    columnName: column.name,
-                },
-                icon: 'book',
-                id: 'group',
-                title:
-                    comp.getGroupByName(column.name) != null
-                        ? 'Disable grouping'
-                        : 'Enable grouping',
-            });
+        if(showGroup){
+            if (!this.isTree(comp)) {
+                props.push({
+                    'data-storage': {
+                        columnName: column.name,
+                    },
+                    icon: 'book',
+                    id: 'group',
+                    title:
+                        comp.getGroupByName(column.name) != null
+                            ? 'Disable grouping'
+                            : 'Enable grouping',
+                });
+            }
         }
         if (comp.removableColumns) {
             props.push({

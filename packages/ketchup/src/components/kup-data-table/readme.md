@@ -70,6 +70,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `showFilters`               | `show-filters`                 | When set to true enables the column filters.                                                                                                                                                                                   | `boolean`                                                                                        | `false`                              |
 | `showFooter`                | `show-footer`                  | When set to true shows the footer.                                                                                                                                                                                             | `boolean`                                                                                        | `false`                              |
 | `showGrid`                  | `show-grid`                    | Can be used to customize the grid view of the table.                                                                                                                                                                           | `ShowGrid.COL \| ShowGrid.COMPLETE \| ShowGrid.NONE \| ShowGrid.ROW`                             | `ShowGrid.ROW`                       |
+| `showGroups`                | `show-groups`                  | When set to true enables the column grouping.                                                                                                                                                                                  | `boolean`                                                                                        | `false`                              |
 | `showHeader`                | `show-header`                  | Enables rendering of the table header.                                                                                                                                                                                         | `boolean`                                                                                        | `true`                               |
 | `showLoadMore`              | `show-load-more`               | If set to true, displays the button to load more records.                                                                                                                                                                      | `boolean`                                                                                        | `false`                              |
 | `showTooltipOnRightClick`   | `show-tooltip-on-right-click`  | If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.                                                                                                                               | `boolean`                                                                                        | `true`                               |
@@ -108,6 +109,16 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 ## Methods
 
+### `collapseAll() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `defaultSortingFunction(columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<Column[]>`
 
 
@@ -115,6 +126,16 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 #### Returns
 
 Type: `Promise<Column[]>`
+
+
+
+### `expandAll() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
 
 
 
