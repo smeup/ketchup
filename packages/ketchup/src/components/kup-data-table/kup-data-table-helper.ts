@@ -199,7 +199,6 @@ export function groupRows(
                 return true;
             }
         }
-
         return false;
     });
 
@@ -214,7 +213,6 @@ export function groupRows(
     rows.forEach((row: Row) => {
         // getting column name from first group
         const columnName = validGroups[0].column;
-
         // getting row value
         const cell = row.cells[columnName];
 
@@ -223,7 +221,6 @@ export function groupRows(
             const cellValueForDisplay = getCellValueForDisplay(column, cell);
             const cellValue = cell.value;
             let groupRow: Row = null;
-
             // check in already in groupedRow
             for (let currentGroupRow of groupRows) {
                 if (currentGroupRow.group.label === cellValueForDisplay) {
@@ -231,7 +228,6 @@ export function groupRows(
                     break;
                 }
             }
-
             if (groupRow === null) {
                 // create group row
                 groupRow = {
@@ -248,14 +244,11 @@ export function groupRows(
                     },
                     cells: {},
                 };
-
                 // add group to list
                 groupRows.push(groupRow);
             }
-
             for (let i = 1; i < validGroups.length; i++) {
                 const group = validGroups[i];
-
                 // getting cell value
                 const tempCell = row.cells[group.column];
                 if (tempCell) {
@@ -265,7 +258,6 @@ export function groupRows(
                         tempCell
                     );
                     const tempCellValue = tempCell.value;
-
                     // check if group already exists
                     let tempGroupingRow: Row = null;
                     for (let j = 0; j < groupRow.group.children.length; j++) {
@@ -277,7 +269,6 @@ export function groupRows(
                             break;
                         }
                     }
-
                     if (!tempGroupingRow) {
                         tempGroupingRow = {
                             cells: {},
@@ -299,7 +290,6 @@ export function groupRows(
                     groupRow = tempGroupingRow;
                 }
             }
-
             // adding row
             groupRow.group.children.push(row);
 
@@ -341,7 +331,6 @@ function updateGroupTotal(
             switch (totalMode) {
                 case TotalMode.COUNT:
                     groupRow.group.totals[key] = currentTotalValue + 1;
-
                     // updating parents
                     let parent = groupRow.group.parent;
                     while (parent != null) {
@@ -364,7 +353,6 @@ function updateGroupTotal(
                         groupRow.group.totals[key] = numeral(cellValue)
                             .add(currentTotalValue)
                             .value();
-
                         // updating parents
                         let parent = groupRow.group.parent;
                         while (parent != null) {
@@ -429,10 +417,10 @@ function updateGroupTotal(
                         // updating parents
                         let parent = groupRow.group.parent;
                         while (parent != null) {
-                            const currentParentMin = parent.group.totals[key];
-                            if (currentParentMin) {
+                            const currentParentMax = parent.group.totals[key];
+                            if (currentParentMax) {
                                 parent.group.totals[key] = Math.max(
-                                    currentParentMin,
+                                    currentParentMax,
                                     cellValue
                                 );
                             } else {
