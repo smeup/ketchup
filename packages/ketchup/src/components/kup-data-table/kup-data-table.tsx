@@ -172,6 +172,7 @@ export class KupDataTable {
                 this.multiSelection = state.multiSelection;
                 this.rowsPerPage = state.rowsPerPage;
                 this.showFilters = state.showFilters;
+                this.showGroups = state.showGroups;
                 this.showHeader = state.showHeader;
                 this.showLoadMore = state.showLoadMore;
                 this.sortEnabled = state.sortEnabled;
@@ -268,6 +269,10 @@ export class KupDataTable {
             }
             if (!deepEqual(this.state.showFilters, this.showFilters)) {
                 this.state.showFilters = this.showFilters;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showGroups, this.showGroups)) {
+                this.state.showGroups = this.showGroups;
                 somethingChanged = true;
             }
             if (!deepEqual(this.state.showHeader, this.showHeader)) {
@@ -492,6 +497,10 @@ export class KupDataTable {
      */
     @Prop() showFilters: boolean = false;
     /**
+     * When set to true enables the column grouping.
+     */
+     @Prop() showGroups: boolean = false;
+     /**
      * When set to true shows the footer.
      */
     @Prop() showFooter: boolean = false;
@@ -959,6 +968,16 @@ export class KupDataTable {
                 300
             );
         }
+    }
+
+    @Method()
+    async expandAll() {
+        this.expandGroups = true;
+    }
+
+    @Method()
+    async collapseAll() {
+        this.expandGroups = false;
     }
 
     forceUpdate() {
@@ -4702,7 +4721,7 @@ export class KupDataTable {
                                 getColumnByName(
                                     this.getVisibleColumns(),
                                     this.openedMenu
-                                )
+                                ), this.showGroups
                             )}
                             data-column={this.openedMenu}
                             id="column-menu"
