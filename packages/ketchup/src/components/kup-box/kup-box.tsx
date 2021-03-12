@@ -67,8 +67,10 @@ const KupBoxDragType = 'text/kup-box-drag';
 
 import { CardData } from '../kup-card/kup-card-declarations';
 import { PaginatorMode } from '../kup-paginator/kup-paginator-declarations';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 
 import { KupBoxState } from './kup-box-state';
@@ -96,7 +98,7 @@ export class KupBox {
         if (this.store && this.stateId) {
             const state = this.store.getState(this.stateId);
             if (state != null) {
-                this.kupDebug.logMessage(
+                this.kupManager.debug.logMessage(
                     this,
                     'Initialize with state for stateId ' +
                         this.stateId +
@@ -127,7 +129,7 @@ export class KupBox {
             );
             this.state.pageSelected = this.currentPage;
             this.state.rowsPerPage = this.currentRowsPerPage;
-            this.kupDebug.logMessage(
+            this.kupManager.debug.logMessage(
                 this,
                 'Persisting state for stateId ' +
                     this.stateId +
@@ -396,13 +398,9 @@ export class KupBox {
     private tooltip: KupTooltip;
     private globalFilterTimeout: number;
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
 
     @Watch('pageSize')
     rowsPerPageHandler(newValue: number) {
@@ -447,14 +445,14 @@ export class KupBox {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
+        this.kupManager.debug.logLoad(this, false);
 
         if (this.rowsPerPage) {
             this.currentRowsPerPage = this.rowsPerPage;
         } else if (this.pageSize) {
             this.currentRowsPerPage = this.pageSize;
         }
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.theme.setThemeCustomStyle(this);
         this.onDataChanged();
         this.adjustPaginator();
     }
@@ -476,18 +474,18 @@ export class KupBox {
             });
         }
         this.kupDidLoad.emit();
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
         // *** Store
         this.persistState();
         // ***
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     componentDidUnload() {
@@ -1751,7 +1749,7 @@ export class KupBox {
 
         return (
             <Host>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div
                         class="box-component"

@@ -13,8 +13,10 @@ import {
 
 import { MDCTabBar } from '@material/tab-bar';
 import { ComponentTabBarElement } from './kup-tab-bar-declarations';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -35,13 +37,9 @@ export class KupTabBar {
     @Prop() data: ComponentTabBarElement[] = [];
 
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
 
     @Event({
         eventName: 'kupTabBarBlur',
@@ -122,14 +120,14 @@ export class KupTabBar {
             }
             if (activeTabs > 1) {
                 this.data[lastActiveOccurrence].active = true;
-                this.kupDebug.logMessage(
+                this.kupManager.debug.logMessage(
                     this,
                     'Too many active tabs, forcing last one.',
                     'warning'
                 );
             } else if (activeTabs === 0) {
                 this.data[0].active = true;
-                this.kupDebug.logMessage(
+                this.kupManager.debug.logMessage(
                     this,
                     'No active tabs detected, forcing first one.'
                 );
@@ -142,17 +140,17 @@ export class KupTabBar {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
         this.consistencyCheck();
     }
 
     componentDidLoad() {
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -161,12 +159,12 @@ export class KupTabBar {
         if (root) {
             MDCTabBar.attachTo(root.querySelector('.mdc-tab-bar'));
         }
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         if (!this.data || this.data.length === 0) {
-            this.kupDebug.logMessage(this, 'Empty data.', 'warning');
+            this.kupManager.debug.logMessage(this, 'Empty data.', 'warning');
         }
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;
@@ -231,7 +229,7 @@ export class KupTabBar {
 
         return (
             <Host>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={componentClass} role="tablist">
                         <div class="mdc-tab-scroller">

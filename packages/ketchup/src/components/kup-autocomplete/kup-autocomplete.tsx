@@ -15,10 +15,12 @@ import {
     ItemsDisplayMode,
     consistencyCheck,
 } from '../kup-list/kup-list-declarations';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -64,13 +66,9 @@ export class KupAutocomplete {
     private elStyle: any = undefined;
     private listEl: any = undefined;
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
     private textfieldWrapper: HTMLElement = undefined;
     private textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
 
@@ -309,12 +307,12 @@ export class KupAutocomplete {
                     this.kupFilterChanged.emit(detail);
                 })
                 .catch((err) => {
-                    this.kupDebug.logMessage(
+                    this.kupManager.debug.logMessage(
                         this,
                         'Executing callback error',
                         'error'
                     );
-                    this.kupDebug.logMessage(this, err, 'error');
+                    this.kupManager.debug.logMessage(this, err, 'error');
                 });
         } else {
             this.listEl.resetFilter(newFilter);
@@ -422,8 +420,8 @@ export class KupAutocomplete {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
         this.doConsistencyCheck = true;
         this.value = this.initialValue;
         if (!this.data) {
@@ -436,17 +434,17 @@ export class KupAutocomplete {
 
     componentDidLoad() {
         this.consistencyCheck(undefined, this.value);
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
         this.setEvents();
         positionRecalc(this.listEl, this.textfieldWrapper);
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -465,7 +463,7 @@ export class KupAutocomplete {
                 onBlur={(e: any) => this.onKupBlur(e)}
                 style={this.elStyle}
             >
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
                     <FTextField
                         {...this.data['kup-text-field']}

@@ -1,21 +1,9 @@
 /**
- * Interface used to define the HTML element with Ketch.UP specific properties.
- */
-export interface KupDom extends HTMLHtmlElement {
-    kupDebug: boolean;
-    'kup-theme': string;
-    kupCurrentTheme: GenericObject;
-    kupCustomStyles: Array<KupComponent>;
-    kupRefreshTheme: Function;
-    kupThemes: GenericObject;
-}
-/**
  * Generic KupComponent.
  */
 export interface KupComponent extends HTMLElement {
     customStyle: string;
     customStyleTheme: string;
-    refreshCustomStyle: Function;
     debugInfo: {
         endTime: number;
         renderCount: number;
@@ -23,7 +11,14 @@ export interface KupComponent extends HTMLElement {
         renderStart: number;
         startTime: number;
     };
+    refreshCustomStyle: Function;
     rootElement: KupComponent;
+}
+/**
+ * Resizable KupComponent.
+ */
+export interface ResizableKupComponent extends KupComponent {
+    resizeCallback: () => {};
 }
 /**
  * Props in common with every f-component.

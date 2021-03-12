@@ -11,13 +11,10 @@ import {
     Method,
 } from '@stencil/core';
 import { EchartTitle } from './kup-echart-declarations';
-
-import { ResizeObserver } from 'resize-observer';
-import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
-import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
-
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import echarts, { EChartOption, ECharts } from 'echarts';
 
 @Component({
@@ -73,14 +70,13 @@ export class KupEchart {
     private echartOption: EChartOption;
     private echartSeries: EChartOption.Series[];
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
+    private kupManager: KupManager = kupManagerInstance();
     /**
-     * Instance of the KupTheme class.
+     * Used to prevent too many resizes callbacks at once.
      */
-    private kupTheme: KupTheme = new KupTheme();
-    private resObserver: ResizeObserver = undefined;
+    private resizeTimeout: number;
     private nameMap: any;
     private jsonMap: any;
 
@@ -88,12 +84,27 @@ export class KupEchart {
 
     //---- Methods ----
 
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme =
             'Needs to be refreshed every time the theme changes because there are dynamic colors.';
         this.customStyleTheme = customStyleTheme;
         this.fetchThemeColors();
+    }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        window.clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => this.forceUpdate(), 300);
     }
 
     private onKupClick() {
@@ -516,52 +527,32 @@ export class KupEchart {
         };
     }
 
-    private setObserver() {
-        let callback: ResizeObserverCallback = (
-            entries: ResizeObserverEntry[]
-        ) => {
-            entries.forEach((entry) => {
-                this.kupDebug.logMessage(
-                    this,
-                    'Size changed to x: ' +
-                        entry.contentRect.width +
-                        ', y: ' +
-                        entry.contentRect.height +
-                        '.'
-                );
-                this.forceUpdate();
-            });
-        };
-        this.resObserver = new ResizeObserver(callback);
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
-        this.setObserver();
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
         this.fetchThemeColors();
     }
 
     componentDidLoad() {
-        this.resObserver.observe(this.rootElement);
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.resize.observe(this.rootElement);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
         this.initChart();
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         return (
             <Host>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     onClick={() => this.onKupClick()}
@@ -573,7 +564,7 @@ export class KupEchart {
         );
     }
 
-    disconnectedCallBack() {
-        this.resObserver.unobserve(this.rootElement);
+    componentDidUnload() {
+        this.kupManager.resize.unobserve(this.rootElement);
     }
 }

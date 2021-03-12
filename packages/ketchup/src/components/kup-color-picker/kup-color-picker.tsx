@@ -9,8 +9,10 @@ import {
     Method,
     EventEmitter,
 } from '@stencil/core';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import Picker from 'vanilla-picker';
 import { positionRecalc } from '../../utils/recalc-position';
 import { KupTextField } from '../kup-text-field/kup-text-field';
@@ -48,13 +50,9 @@ export class KupColorPicker {
 
     private anchorEl: HTMLElement;
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
     private picker: Picker;
     private textfieldEl: KupTextField;
 
@@ -113,7 +111,9 @@ export class KupColorPicker {
     private setHexValue() {
         if (this.value) {
             if (this.value.indexOf('#') < 0) {
-                this.value = this.kupTheme.colorCheck(this.value).hexColor;
+                this.value = this.kupManager.theme.colorCheck(
+                    this.value
+                ).hexColor;
             }
             if (
                 this.picker &&
@@ -170,8 +170,8 @@ export class KupColorPicker {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
         this.value = this.initialValue;
         this.setHexValue();
         if (!this.data) {
@@ -220,7 +220,7 @@ export class KupColorPicker {
                 }
             };
         }
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillUpdate() {
@@ -228,11 +228,11 @@ export class KupColorPicker {
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -272,7 +272,7 @@ export class KupColorPicker {
 
         return (
             <Host class={hostClass}>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     ref={(el) => (this.anchorEl = el as any)}

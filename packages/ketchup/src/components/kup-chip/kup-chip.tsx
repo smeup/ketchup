@@ -9,8 +9,10 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipMDC } from '../../f-components/f-chip/f-chip-mdc';
 import {
@@ -66,13 +68,9 @@ export class KupChip {
     /*-------------------------------------------------*/
 
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -261,12 +259,12 @@ export class KupChip {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillUpdate() {
@@ -281,7 +279,7 @@ export class KupChip {
                         j +
                         ") to be set on 'checked' when another one was found before! Overriding to false because the 'choice' type only allows 1 'checked'.";
 
-                    this.kupDebug.logMessage(this, message, 'warning');
+                    this.kupManager.debug.logMessage(this, message, 'warning');
                 }
                 if (this.data[j].checked && !firstCheckedFound) {
                     firstCheckedFound = true;
@@ -291,12 +289,12 @@ export class KupChip {
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
         this.setEvents();
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -307,13 +305,13 @@ export class KupChip {
 
         if (this.data.length === 0) {
             let message = 'Empty data.';
-            this.kupDebug.logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(this, message, 'warning');
             return;
         }
 
         return (
             <Host>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <FChip {...props} />
                 </div>

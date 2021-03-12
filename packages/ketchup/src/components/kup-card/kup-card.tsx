@@ -9,16 +9,15 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { ResizeObserver } from 'resize-observer';
-import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
-import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
 import { MDCRipple } from '@material/ripple';
 import { CardData, CardFamily } from './kup-card-declarations';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { FImage } from '../../f-components/f-image/f-image';
 import { VNode } from '@stencil/core/internal';
 
@@ -104,21 +103,17 @@ export class KupCard {
         this.onKupEvent(e);
     };
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
     /**
      * Previous height of the component, tested when the card is collapsible.
      */
     private oldSizeY: string;
     /**
-     * ResizeObserver instance.
+     * Used to prevent too many resizes callbacks at once.
      */
-    private resObserver: ResizeObserver;
+    private resizeTimeout: number;
     /**
      * Prevents multiple scaling callbacks when the card is scalable.
      */
@@ -196,6 +191,16 @@ export class KupCard {
     async refreshCustomStyle(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
     }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        window.clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => {
+            this.layoutManager();
+        }, 300);
+    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
@@ -244,7 +249,7 @@ export class KupCard {
                 }
             }
         } catch (error) {
-            this.kupDebug.logMessage(this, error, 'warning');
+            this.kupManager.debug.logMessage(this, error, 'warning');
             let props = {
                 resource: 'warning',
                 title: 'Layout not yet implemented!',
@@ -253,7 +258,7 @@ export class KupCard {
         }
     }
     /**
-     * This method will trigger whenever the card's render() hook occurs or when the size changes (through ResizeObserver), in order to manage the more complex layout families.
+     * This method will trigger whenever the card's render() hook occurs or when the size changes (through KupManager), in order to manage the more complex layout families.
      * It will also update any dynamic color handled by the selected layout.
      */
     layoutManager(): void {
@@ -265,7 +270,7 @@ export class KupCard {
         for (let index = 0; index < dynColors.length; index++) {
             this.rootElement.style.setProperty(
                 '--dyn-color-' + index,
-                this.kupTheme.colorContrast(
+                this.kupManager.theme.colorContrast(
                     window.getComputedStyle(dynColors[index]).backgroundColor
                 )
             );
@@ -361,62 +366,40 @@ export class KupCard {
         }
         this.scalingActive = false;
     }
-    /**
-     * Sets the ResizeObserver in order to call layoutManager() when the size of the card changes.
-     */
-    setObserver(): void {
-        const callback: ResizeObserverCallback = (
-            entries: ResizeObserverEntry[]
-        ) => {
-            entries.forEach((entry) => {
-                this.kupDebug.logMessage(
-                    this,
-                    'Size changed to x: ' +
-                        entry.contentRect.width +
-                        ', y: ' +
-                        entry.contentRect.height +
-                        '.'
-                );
-                this.layoutManager();
-            });
-        };
-        this.resObserver = new ResizeObserver(callback);
-    }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
-        this.setObserver();
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
         this.registerListeners();
     }
 
     componentDidLoad() {
-        this.resObserver.observe(this.rootElement);
         const rippleEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
             '.mdc-ripple-surface'
         );
         if (rippleEl) {
             MDCRipple.attachTo(rippleEl);
         }
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.resize.observe(this.rootElement);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
         this.layoutManager();
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         if (!this.data) {
-            this.kupDebug.logMessage(
+            this.kupManager.debug.logMessage(
                 this,
                 'Data missing, not rendering!',
                 'warning'
@@ -431,7 +414,7 @@ export class KupCard {
 
         return (
             <Host style={style}>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     class={`${this.isMenu ? 'mdc-menu mdc-menu-surface' : ''} ${
@@ -446,6 +429,6 @@ export class KupCard {
     }
 
     componentDidUnload() {
-        this.resObserver.unobserve(this.rootElement);
+        this.kupManager.resize.unobserve(this.rootElement);
     }
 }

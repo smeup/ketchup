@@ -9,8 +9,10 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { imageCanvas } from './canvas/kup-image-canvas';
 import { KupBadge } from '../kup-badge/kup-badge';
 import { FImage } from '../../f-components/f-image/f-image';
@@ -109,13 +111,9 @@ export class KupImage {
      */
     private isUrl: boolean = false;
     /**
-     * Instance of the KupDebug class.
+     * Instance of the KupManager class.
      */
-    private kupDebug: KupDebug = new KupDebug();
-    /**
-     * Instance of the KupTheme class.
-     */
-    private kupTheme: KupTheme = new KupTheme();
+    private kupManager: KupManager = kupManagerInstance();
 
     /*-------------------------------------------------*/
     /*                   E v e n t s                   */
@@ -180,16 +178,16 @@ export class KupImage {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
         this.isUrl = false;
         if (this.resource) {
             if (
@@ -211,7 +209,7 @@ export class KupImage {
             this.canvas.width = this.canvas.clientWidth;
             this.imageCanvas.drawCanvas(this.resource, this.canvas);
         }
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -259,13 +257,13 @@ export class KupImage {
             el = <FImage {...props}></FImage>;
         } else {
             let message = 'Resource undefined, not rendering!';
-            this.kupDebug.logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(this, message, 'warning');
             return;
         }
 
         return (
             <Host style={elStyle}>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 {feedback}
                 <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
                     {el}

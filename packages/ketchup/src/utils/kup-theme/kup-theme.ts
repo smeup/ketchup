@@ -1,107 +1,64 @@
-import type {
-    GenericObject,
-    KupComponent,
-    KupDom,
-} from '../../types/GenericTypes';
+import type { KupDom } from '../kup-manager/kup-manager-declarations';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type {
     KupThemeIcons,
     KupThemeVariables,
 } from './kup-theme-declarations';
 import { getAssetPath } from '@stencil/core';
-import { KupDebug } from '../kup-debug/kup-debug';
 import * as themesJson from './themes.json';
+
+const dom: KupDom = document.documentElement as KupDom;
+
 /**
  * Theme manager, handles everything about theming, customStyles and color utilities.
  * @module KupTheme
  */
 export class KupTheme {
-    dom: KupDom = document.documentElement as KupDom;
-    kupDebug: KupDebug = new KupDebug();
+    name: string =
+        dom.ketchupInit && dom.ketchupInit.theme && dom.ketchupInit.theme.name
+            ? dom.ketchupInit.theme.name
+            : 'ketchup';
+    list: JSON =
+        dom.ketchupInit && dom.ketchupInit.theme && dom.ketchupInit.theme.list
+            ? dom.ketchupInit.theme.list
+            : themesJson['default'];
+    managedComponents: Array<KupComponent> = [];
     /**
-     * Initializes Ketch.UP theme.
+     * Sets the theme using this.name or the function's argument.
+     *
+     * @param {string} name - When present, this theme will be set.
      */
-    initializeTheme(): void {
-        if (this.dom.kupCurrentTheme) {
-            //In case multiple initializing instances are launched
-            return;
+    set(name?: string, list?: JSON): void {
+        if (name) {
+            this.name = name;
         }
-        if (!this.dom.kupThemes) {
-            this.dom.kupThemes = themesJson['default'];
-        } else {
-            this.kupDebug.logMessage(
-                'theme manager',
-                'Ketchup themes were already set by a third party application.'
-            );
+        if (list) {
+            this.list = list;
         }
-        if (!this.dom.getAttribute('kup-theme')) {
-            this.dom.setAttribute('kup-theme', 'ketchup');
-        }
-        if (!this.dom.kupRefreshTheme) {
-            this.dom.kupRefreshTheme = () => {
-                try {
-                    this.cssVariables();
-                    this.icons();
-                    this.customStyle();
-                    this.kupDebug.logMessage(
-                        'kup-theme',
-                        'Theme ' +
-                            this.dom.getAttribute('kup-theme') +
-                            ' refreshed.'
-                    );
-                    document.dispatchEvent(new CustomEvent('kupThemeRefresh'));
-                } catch (error) {
-                    this.kupDebug.logMessage(
-                        'kup-theme',
-                        'Theme not refreshed.',
-                        'warning'
-                    );
-                }
-            };
-        }
-        this.dom.kupCustomStyles = [];
-        this.setTheme();
-
-        const observer = new MutationObserver(function () {
-            const kupTheme = new KupTheme();
-            kupTheme.setTheme();
-        });
-        let container = this.dom || document.body;
-        observer.observe(container, {
-            attributes: true,
-            attributeFilter: ['kup-theme'],
-        });
-    }
-    /**
-     * Sets the theme using the value of "kup-theme" attribute on document.documentElement.
-     */
-    setTheme(): void {
-        const themeValue = this.dom.getAttribute('kup-theme');
-        this.kupDebug.logMessage(
+        dom.ketchup.debug.logMessage(
             'theme manager',
-            'Setting theme to: ' + themeValue + '.'
+            'Setting theme to: ' + this.name + '.'
         );
-
-        this.dom.kupCurrentTheme = this.dom.kupThemes[themeValue];
-        if (!this.dom.kupCurrentTheme) {
-            this.kupDebug.logMessage(
+        if (!this.list[this.name]) {
+            dom.ketchup.debug.logMessage(
                 'theme manager',
                 'Invalid theme name, falling back to default ("ketchup").'
             );
-            this.dom.kupCurrentTheme = this.dom.kupThemes['ketchup'];
+            this.name = 'ketchup';
         }
 
         this.cssVariables();
         this.icons();
         this.customStyle();
 
+        document.documentElement.setAttribute('kup-theme', this.name);
         document.dispatchEvent(new CustomEvent('kupThemeChange'));
     }
     /**
      * Sets the CSS variables of the theme.
      */
     cssVariables(): void {
-        const variables: KupThemeVariables = this.dom.kupCurrentTheme
-            .cssVariables;
+        const variables: KupThemeVariables = this.list[this.name].cssVariables;
         let rgbVariables: [{ rgbKey: string; rgbVal: string }];
         for (var key in variables) {
             if (variables.hasOwnProperty(key)) {
@@ -115,12 +72,12 @@ export class KupTheme {
                         rgbVariables = [{ rgbKey: rgbKey, rgbVal: rgbVal }];
                     }
                 }
-                this.dom.style.setProperty(key, val);
+                dom.style.setProperty(key, val);
             }
         }
         if (rgbVariables) {
             for (let index = 0; index < rgbVariables.length; index++) {
-                this.dom.style.setProperty(
+                dom.style.setProperty(
                     rgbVariables[index].rgbKey,
                     rgbVariables[index].rgbVal
                 );
@@ -131,11 +88,12 @@ export class KupTheme {
      * Sets the customStyle of the theme on existing components.
      */
     customStyle(): void {
-        const components: Array<KupComponent> = this.dom.kupCustomStyles;
-        for (let i = 0; i < components.length; i++) {
-            if (components[i].isConnected) {
-                components[i].refreshCustomStyle(
-                    this.fetchThemeCustomStyle(components[i].tagName)
+        for (let i = 0; i < this.managedComponents.length; i++) {
+            if (this.managedComponents[i].isConnected) {
+                this.managedComponents[i].refreshCustomStyle(
+                    this.fetchThemeCustomStyle(
+                        this.managedComponents[i].tagName
+                    )
                 );
             }
         }
@@ -144,14 +102,35 @@ export class KupTheme {
      * Sets the icon variables of the theme.
      */
     icons(): void {
-        const icons: KupThemeIcons = this.dom.kupCurrentTheme.icons;
+        const icons: KupThemeIcons = this.list[this.name].icons;
         for (var key in icons) {
             if (icons.hasOwnProperty(key)) {
                 const val = `url('${getAssetPath(
                     `./assets/svg/${icons[key]}.svg`
                 )}') no-repeat center`;
-                this.dom.style.setProperty(key, val);
+                dom.style.setProperty(key, val);
             }
+        }
+    }
+    /**
+     * This method will just refresh the current theme.
+     */
+    refresh(): void {
+        try {
+            this.cssVariables();
+            this.icons();
+            this.customStyle();
+            dom.ketchup.debug.logMessage(
+                'kup-theme',
+                'Theme ' + dom.getAttribute('kup-theme') + ' refreshed.'
+            );
+            document.dispatchEvent(new CustomEvent('kupThemeRefresh'));
+        } catch (error) {
+            dom.ketchup.debug.logMessage(
+                'kup-theme',
+                'Theme not refreshed.',
+                'warning'
+            );
         }
     }
     /**
@@ -161,7 +140,7 @@ export class KupTheme {
      * @returns {string} Complete custom CSS of the component.
      */
     fetchThemeCustomStyle(component: string): string {
-        const styles: GenericObject = this.dom.kupCurrentTheme.customStyles;
+        const styles: GenericObject = this.list[this.name].customStyles;
         if (!styles) {
             return '';
         }
@@ -183,10 +162,7 @@ export class KupTheme {
      * @param component - The component calling this function.
      */
     setThemeCustomStyle(component: any): void {
-        if (!this.dom.kupCurrentTheme) {
-            this.initializeTheme();
-        }
-        this.dom.kupCustomStyles.push(component.rootElement);
+        this.managedComponents.push(component.rootElement);
         component.customStyleTheme = this.fetchThemeCustomStyle(
             component.rootElement.tagName
         );
@@ -258,10 +234,8 @@ export class KupTheme {
     ): { hexColor: string; rgbColor: string; rgbValues: string } {
         //Testing whether the color is transparent, if it is a fall back value will be returned matching the background-color
         if (color === 'transparent') {
-            color = this.dom.kupCurrentTheme.cssVariables[
-                '--kup-background-color'
-            ];
-            this.kupDebug.logMessage(
+            color = this.list[this.name].cssVariables['--kup-background-color'];
+            dom.ketchup.debug.logMessage(
                 'theme manager',
                 'Received TRANSPARENT color, converted to ' +
                     color +
@@ -273,7 +247,7 @@ export class KupTheme {
         if (color.substr(0, 1) !== '#' && color.substr(0, 3) !== 'rgb') {
             let oldColor = color;
             color = this.codeToHex(color);
-            this.kupDebug.logMessage(
+            dom.ketchup.debug.logMessage(
                 'theme manager',
                 'Received CODE NAME color ' +
                     oldColor +
@@ -298,7 +272,7 @@ export class KupTheme {
                     ',' +
                     rgbColor.b +
                     ')';
-                this.kupDebug.logMessage(
+                dom.ketchup.debug.logMessage(
                     'theme manager',
                     'Received HEX color ' +
                         oldColor +
@@ -307,7 +281,7 @@ export class KupTheme {
                         '.'
                 );
             } catch (error) {
-                this.kupDebug.logMessage(
+                dom.ketchup.debug.logMessage(
                     'theme-manager',
                     'Invalid color: ' + color + '.'
                 );
@@ -322,7 +296,7 @@ export class KupTheme {
         try {
             rgbValues = values[1] + ',' + values[2] + ',' + values[3];
         } catch (error) {
-            this.kupDebug.logMessage(
+            dom.ketchup.debug.logMessage(
                 'theme-manager',
                 'Color not converted to rgb values: ' + color + '.'
             );
@@ -336,7 +310,7 @@ export class KupTheme {
                     parseInt(values[3])
                 );
             } catch (error) {
-                this.kupDebug.logMessage(
+                dom.ketchup.debug.logMessage(
                     'theme-manager',
                     'Color not converted to hex value: ' + color + '.'
                 );
@@ -546,7 +520,7 @@ export class KupTheme {
         if (colorCodes[color.toLowerCase()]) {
             return colorCodes[color.toLowerCase()];
         } else {
-            this.kupDebug.logMessage(
+            dom.ketchup.debug.logMessage(
                 'theme manager',
                 'Could not decode color ' + color + '!'
             );

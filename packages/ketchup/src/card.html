@@ -9,18 +9,8 @@
         />
 
         <title>Ketchup card</title>
-        <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        ></link>
         <script src="https://d3js.org/d3-path.v1.min.js"></script>
         <script src="https://d3js.org/d3-shape.v1.min.js"></script>
-
-        <link
-            href="https://cdn.materialdesignicons.com/4.5.95/css/materialdesignicons.min.css"
-            rel="stylesheet"
-            type="text/css"
-        />
 
         <script type="module" src="/build/ketchup.esm.js"></script>
         <script nomodule src="/build/ketchup.js"></script>
@@ -99,7 +89,7 @@
 
             <h1>Standard layouts</h1>
             <script>
-                document.documentElement['kupDebug'] = true;
+                document.documentElement['ketchupInit'] = { debug: { active: true } };
             </script>
             <div id="card-wrapper">
                 <kup-card
@@ -262,6 +252,7 @@ size-y="300px"
 ></kup-card
 ></div>
 
+    </body>
         <script src="/assets/card.js"></script>
 
         <style>
@@ -328,5 +319,4 @@ size-y="300px"
     --kup-text-on-secondary-color-rgb: 255,255,255;
             }
         </style>
-    </body>
 </html>

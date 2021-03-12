@@ -316,6 +316,10 @@ export namespace Components {
          */
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
+          * This method is invoked by KupManager whenever the component changes size.
+         */
+        "resizeCallback": () => Promise<void>;
+        /**
           * The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).
           * @default "100%"
          */
@@ -363,7 +367,17 @@ export namespace Components {
           * Renders charts without the Google API and using jQuery Sparkline.
          */
         "offlineMode": ChartOfflineMode;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * This method is invoked by KupManager whenever the component changes size.
+         */
+        "resizeCallback": () => Promise<void>;
         /**
           * The data series to be displayed. They must be of the same type.
          */
@@ -690,11 +704,21 @@ export namespace Components {
           * Sets the position of the paginator. Available positions: top, bottom or both.
          */
         "paginatorPos": PaginatorPos;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Sets the possibility to remove the selected column.
          */
         "removableColumns": boolean;
+        /**
+          * This method is invoked by KupManager whenever the component changes size.
+         */
+        "resizeCallback": () => Promise<void>;
         /**
           * Sets the actions of the rows.
          */
@@ -897,7 +921,17 @@ export namespace Components {
           * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
          */
         "mapType": any;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
         "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        /**
+          * This method is invoked by KupManager whenever the component changes size.
+         */
+        "resizeCallback": () => Promise<void>;
         /**
           * The data series to be displayed. They must be of the same type.
          */

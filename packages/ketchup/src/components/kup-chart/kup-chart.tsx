@@ -22,10 +22,6 @@ import {
     ChartTitle,
 } from './kup-chart-declarations';
 
-import { ResizeObserver } from 'resize-observer';
-import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
-import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
-
 import {
     convertColumns,
     convertRows,
@@ -34,8 +30,10 @@ import {
 
 import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 
-import { KupDebug } from '../../utils/kup-debug/kup-debug';
-import { KupTheme } from '../../utils/kup-theme/kup-theme';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { identify } from '../../utils/utils';
 import { getColumnByName } from '../../utils/cell-utils';
 
@@ -147,23 +145,46 @@ export class KupChart {
     private gChartView: any;
     private elStyle = undefined;
     /**
-     * Instance of the KupDebug class.
+     * Used to prevent too many resizes callbacks at once.
      */
-    private kupDebug: KupDebug = new KupDebug();
+    private resizeTimeout: number;
     /**
-     * Instance of the KupTheme class.
+     * Instance of the KupManager class.
      */
-    private kupTheme: KupTheme = new KupTheme();
-    private resObserver: ResizeObserver = undefined;
+    private kupManager: KupManager = kupManagerInstance();
 
     //---- Methods ----
 
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme =
             'Needs to be refreshed every time the theme changes because there are dynamic colors.';
         this.customStyleTheme = customStyleTheme;
         this.fetchThemeColors();
+    }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        window.clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => {
+            if (!this.offlineMode) {
+                const options = this.createGoogleChartOptions();
+                try {
+                    this.gChart.draw(this.gChartView, options);
+                } catch (error) {}
+            } else {
+                this.loadOfflineChart();
+            }
+        }, 300);
     }
 
     private loadGoogleChart() {
@@ -329,7 +350,9 @@ export class KupChart {
             for (let index = 0; index < opts.colors.length; index++) {
                 opts.slices.push({
                     textStyle: {
-                        color: this.kupTheme.colorContrast(opts.colors[index]),
+                        color: this.kupManager.theme.colorContrast(
+                            opts.colors[index]
+                        ),
                     },
                 });
             }
@@ -453,7 +476,7 @@ export class KupChart {
 
     private loadOfflineChart() {
         if (!this.offlineMode.value || this.offlineMode.value == '') {
-            this.kupDebug.logMessage(
+            this.kupManager.debug.logMessage(
                 this,
                 "Incorrect or incomplete data, can't render chart in offline mode!",
                 'warning'
@@ -560,11 +583,11 @@ export class KupChart {
                 index < this.data.columns.length;
                 index++
             ) {
-                colorArray.push(this.kupTheme.randomColor(25));
+                colorArray.push(this.kupManager.theme.randomColor(25));
             }
         } catch (error) {
             if (!this.offlineMode) {
-                this.kupDebug.logMessage(
+                this.kupManager.debug.logMessage(
                     this,
                     'Chart colors setup failed!',
                     'warning'
@@ -575,45 +598,16 @@ export class KupChart {
         this.themeColors = colorArray;
     }
 
-    setObserver() {
-        let callback: ResizeObserverCallback = (
-            entries: ResizeObserverEntry[]
-        ) => {
-            entries.forEach((entry) => {
-                this.kupDebug.logMessage(
-                    this,
-                    'Size changed to x: ' +
-                        entry.contentRect.width +
-                        ', y: ' +
-                        entry.contentRect.height +
-                        '.'
-                );
-                if (!this.offlineMode) {
-                    const options = this.createGoogleChartOptions();
-                    try {
-                        this.gChart.draw(this.gChartView, options);
-                    } catch (error) {}
-                } else {
-                    this.loadOfflineChart();
-                }
-            });
-        };
-        this.resObserver = new ResizeObserver(callback);
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        this.kupDebug.logLoad(this, false);
-        this.kupTheme.setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
         this.identifyRows();
-        this.setObserver();
         this.fetchThemeColors();
     }
 
     componentDidLoad() {
-        this.resObserver.observe(this.rootElement);
-
         if (!this.offlineMode && (!this.axis || !this.series)) {
             return;
         }
@@ -641,15 +635,16 @@ export class KupChart {
                 console.error(err);
             }
         }
-        this.kupDebug.logLoad(this, true);
+        this.kupManager.resize.observe(this.rootElement);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        this.kupDebug.logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        this.kupDebug.logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     componentWillUpdate() {
@@ -677,7 +672,7 @@ export class KupChart {
 
         return (
             <Host style={this.elStyle}>
-                <style>{this.kupTheme.setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     ref={(chartContainer) =>
@@ -688,7 +683,7 @@ export class KupChart {
         );
     }
 
-    disconnectedCallBack() {
-        this.resObserver.unobserve(this.rootElement);
+    componentDidUnload() {
+        this.kupManager.resize.unobserve(this.rootElement);
     }
 }
