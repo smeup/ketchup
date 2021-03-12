@@ -546,6 +546,7 @@ export function calcTotals(
     if (onlyCount) {
         keys.forEach((columnName) => (footerRow[columnName] = rows.length));
     } else {
+        let distinctObj = {};
         rows.forEach((r) => {
             keys.filter(
                 (key) =>
@@ -555,40 +556,67 @@ export function calcTotals(
                 // getting cell
                 const cell = r.cells[key];
                 // check if number
-                if (cell && isNumber(cell.obj)) {
-                    const cellValue = numeral(stringToNumber(cell.value));
-                    const currentFooterValue = footerRow[key] || 0;
-                    switch (true) {
-                        case totals[key] === TotalMode.MIN:
-                            if (currentFooterValue) {
-                                footerRow[key] = Math.min(
-                                    currentFooterValue,
-                                    cellValue.value()
-                                );
+                if (cell) {
+                    if (totals[key] === TotalMode.DISTINCT) {
+                        let cellValue;
+                        if (isNumber(cell.obj)) {
+                            cellValue = numeral(
+                                stringToNumber(cell.value)
+                            ).value();
+                        } else {
+                            cellValue = cell.value;
+                        }
+                        let distinctList = distinctObj[key];
+                        if (!distinctList) {
+                            // first round
+                            distinctObj[key] = [];
+                            distinctObj[key].push(cellValue);
+                        } else {
+                            if (distinctList.length === rows.length - 1) {
+                                // last round
+                                footerRow[key] = new Set(distinctList).size;
+                                distinctObj[key] = [];
                             } else {
-                                footerRow[key] = cellValue.value();
+                                // middle round
+                                // update the list
+                                distinctList.push(cellValue);
                             }
-                            break;
-                        case totals[key] === TotalMode.MAX:
-                            if (currentFooterValue) {
-                                footerRow[key] = Math.max(
-                                    currentFooterValue,
-                                    cellValue.value()
-                                );
-                            } else {
-                                footerRow[key] = cellValue.value();
-                            }
-                            break;
-                        default:
-                            // SUM
-                            footerRow[key] = cellValue
-                                .add(currentFooterValue)
-                                .value();
+                        }
+                    } else if (isNumber(cell.obj)) {
+                        const cellValue = numeral(stringToNumber(cell.value));
+                        const currentFooterValue = footerRow[key] || 0;
+                        switch (true) {
+                            case totals[key] === TotalMode.MIN:
+                                if (currentFooterValue) {
+                                    footerRow[key] = Math.min(
+                                        currentFooterValue,
+                                        cellValue.value()
+                                    );
+                                } else {
+                                    footerRow[key] = cellValue.value();
+                                }
+                                break;
+                            case totals[key] === TotalMode.MAX:
+                                if (currentFooterValue) {
+                                    footerRow[key] = Math.max(
+                                        currentFooterValue,
+                                        cellValue.value()
+                                    );
+                                } else {
+                                    footerRow[key] = cellValue.value();
+                                }
+                                break;
+                            default:
+                                // SUM
+                                footerRow[key] = cellValue
+                                    .add(currentFooterValue)
+                                    .value();
+                        }
                     }
                 }
             });
         });
-        // fixing MATH and COUNT
+        // fixing MATH, AVERAGE and COUNT
         for (let key of keys) {
             switch (true) {
                 case totals[key] === TotalMode.AVERAGE:

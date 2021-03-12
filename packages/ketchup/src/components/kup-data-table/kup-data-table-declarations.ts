@@ -105,6 +105,7 @@ export enum TotalMode {
     SUM = 'Sum',
     MIN = 'Min',
     MAX = 'Max',
+    DISTINCT = 'Distinct',
     AVERAGE = 'Average',
     MATH = 'MATH',
 }
@@ -115,6 +116,7 @@ export enum TotalLabel {
     SUM = 'Somma',
     MIN = 'Min',
     MAX = 'Max',
+    DISTINCT = 'Distinct',
     AVERAGE = 'Media',
     MATH = 'Formula',
     CANC = 'Cancella',
