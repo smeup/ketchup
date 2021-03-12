@@ -19,9 +19,9 @@
       <br />
       <p class="centered">Sample markup</p>
       <code class="flat">
-        {{ markupBasic }}<br />
-        {{ markupBasic2 }}<br />
-        {{ markupBasic3 }}<br />
+        {{ markupBasic }}
+        {{ markupBasic2 }}
+        {{ markupBasic3 }}
         {{ markupBasic4 }}
       </code>
       <div>

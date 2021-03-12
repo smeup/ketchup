@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="container">
+    <div class="demo-wrapper">
       <h3>With dynamism</h3>
       <kup-dash id="layoutdyn" layout="8" active>
         <div slot="icon">
@@ -10,6 +10,16 @@
         <div slot="descr">Users</div>
       </kup-dash>
     </div>
+    <p class="centered">Sample markup</p>
+    <code class="flat">
+      {{ markupBasic }}
+      {{ markupBasic2 }}
+      {{ markupBasic3 }}
+      {{ markupBasic4 }}
+      {{ markupBasic5 }}
+      {{ markupBasic6 }}
+      {{ markupBasic7 }}
+    </code>
     <kup-list
       show-icons
       class="handles-custom-style hydrated"
@@ -48,6 +58,13 @@ export default {
           trailingIcon: true,
         },
       ],
+      markupBasic: '<kup-dash id="layoutdyn" layout="8" active>',
+      markupBasic2: ' <div slot="icon">',
+      markupBasic3: '   <i class="mdi mdi-facebook" style="color: blue" />',
+      markupBasic4: ' </div>',
+      markupBasic5: ' <div slot="value">35</div>',
+      markupBasic6: ' <div slot="descr">Users</div>',
+      markupBasic7: '</kup-dash>',
     };
   },
 };
