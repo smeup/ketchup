@@ -3084,11 +3084,20 @@ export class KupDataTable {
                                 case TotalMode.COUNT:
                                     menuLabel = TotalLabel.COUNT;
                                     break;
+                                case TotalMode.DISTINCT:
+                                    menuLabel = TotalLabel.DISTINCT;
+                                    break;
                                 case TotalMode.SUM:
                                     menuLabel = TotalLabel.SUM;
                                     break;
                                 case TotalMode.AVERAGE:
                                     menuLabel = TotalLabel.AVERAGE;
+                                    break;
+                                case TotalMode.MIN:
+                                    menuLabel = TotalLabel.MIN;
+                                    break;
+                                case TotalMode.MAX:
+                                    menuLabel = TotalLabel.MAX;
                                     break;
                                 default:
                                     break;
@@ -3098,15 +3107,21 @@ export class KupDataTable {
                 }
 
                 if (this.isOpenedTotalMenuForColumn(column.name)) {
-                    let listData: ComponentListElement[] = [];
+                    let listData: ComponentListElement[] = [
+                        {
+                            text: TotalLabel.COUNT,
+                            value: TotalMode.COUNT,
+                            selected: false,
+                        },
+                        {
+                            text: TotalLabel.DISTINCT,
+                            value: TotalMode.DISTINCT,
+                            selected: false,
+                        },
+                    ];
                     if (isNumber(column.obj)) {
                         // TODO Move these objects in declarations
                         listData.push(
-                            {
-                                text: TotalLabel.COUNT,
-                                value: TotalMode.COUNT,
-                                selected: false,
-                            },
                             {
                                 text: TotalLabel.SUM,
                                 value: TotalMode.SUM,
@@ -3116,16 +3131,19 @@ export class KupDataTable {
                                 text: TotalLabel.AVERAGE,
                                 value: TotalMode.AVERAGE,
                                 selected: false,
+                            },
+                            {
+                                text: TotalLabel.MIN,
+                                value: TotalMode.MIN,
+                                selected: false,
+                            },
+                            {
+                                text: TotalLabel.MAX,
+                                value: TotalMode.MAX,
+                                selected: false,
                             }
                         );
-                    } else {
-                        listData.push({
-                            text: TotalLabel.COUNT,
-                            value: TotalMode.COUNT,
-                            selected: false,
-                        });
                     }
-
                     // TODO replace this with find which is a better approach
                     // Note that this is not supported in older IE
                     let selectedItem = listData.find(
@@ -3161,6 +3179,20 @@ export class KupDataTable {
                     );
                 }
 
+                let value;
+                if (
+                    menuLabel === TotalLabel.COUNT ||
+                    menuLabel === TotalLabel.DISTINCT
+                ) {
+                    value = this.footer[column.name];
+                } else {
+                    value = numberToFormattedStringNumber(
+                        this.footer[column.name],
+                        column.decimals,
+                        column.obj ? column.obj.p : ''
+                    );
+                }
+
                 return (
                     <td
                         data-column={column.name}
@@ -3177,11 +3209,7 @@ export class KupDataTable {
                     >
                         {totalMenu}
                         <span class="totals-value" title={menuLabel}>
-                            {numberToFormattedStringNumber(
-                                this.footer[column.name],
-                                column.decimals,
-                                column.obj ? column.obj.p : ''
-                            )}
+                            {value}
                         </span>
                     </td>
                 );

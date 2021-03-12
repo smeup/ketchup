@@ -203,7 +203,6 @@ export function groupRows(
                 return true;
             }
         }
-
         return false;
     });
 
@@ -218,7 +217,6 @@ export function groupRows(
     rows.forEach((row: Row) => {
         // getting column name from first group
         const columnName = validGroups[0].column;
-
         // getting row value
         const cell = row.cells[columnName];
 
@@ -227,7 +225,6 @@ export function groupRows(
             const cellValueForDisplay = getCellValueForDisplay(column, cell);
             const cellValue = cell.value;
             let groupRow: Row = null;
-
             // check in already in groupedRow
             for (let currentGroupRow of groupRows) {
                 if (currentGroupRow.group.label === cellValueForDisplay) {
@@ -235,7 +232,6 @@ export function groupRows(
                     break;
                 }
             }
-
             if (groupRow === null) {
                 // create group row
                 groupRow = {
@@ -252,14 +248,11 @@ export function groupRows(
                     },
                     cells: {},
                 };
-
                 // add group to list
                 groupRows.push(groupRow);
             }
-
             for (let i = 1; i < validGroups.length; i++) {
                 const group = validGroups[i];
-
                 // getting cell value
                 const tempCell = row.cells[group.column];
                 if (tempCell) {
@@ -269,7 +262,6 @@ export function groupRows(
                         tempCell
                     );
                     const tempCellValue = tempCell.value;
-
                     // check if group already exists
                     let tempGroupingRow: Row = null;
                     for (let j = 0; j < groupRow.group.children.length; j++) {
@@ -281,7 +273,6 @@ export function groupRows(
                             break;
                         }
                     }
-
                     if (!tempGroupingRow) {
                         tempGroupingRow = {
                             cells: {},
@@ -303,7 +294,6 @@ export function groupRows(
                     groupRow = tempGroupingRow;
                 }
             }
-
             // adding row
             groupRow.group.children.push(row);
 
@@ -345,7 +335,6 @@ function updateGroupTotal(
             switch (totalMode) {
                 case TotalMode.COUNT:
                     groupRow.group.totals[key] = currentTotalValue + 1;
-
                     // updating parents
                     let parent = groupRow.group.parent;
                     while (parent != null) {
@@ -357,7 +346,9 @@ function updateGroupTotal(
                         parent = parent.group.parent;
                     }
                     break;
-
+                case TotalMode.DISTINCT:
+                    // TODO
+                    break;
                 case TotalMode.SUM:
                 case TotalMode.AVERAGE:
                     if (_isNumber) {
@@ -366,7 +357,6 @@ function updateGroupTotal(
                         groupRow.group.totals[key] = numeral(cellValue)
                             .add(currentTotalValue)
                             .value();
-
                         // updating parents
                         let parent = groupRow.group.parent;
                         while (parent != null) {
@@ -381,7 +371,70 @@ function updateGroupTotal(
                         }
                     }
                     break;
-
+                case TotalMode.MIN:
+                    if (_isNumber) {
+                        const currentTotalValue = groupRow.group.totals[key];
+                        const cellValue = numeral(
+                            stringToNumber(cell.value)
+                        ).value();
+                        if (currentTotalValue) {
+                            groupRow.group.totals[key] = Math.min(
+                                currentTotalValue,
+                                cellValue
+                            );
+                        } else {
+                            // first round
+                            groupRow.group.totals[key] = cellValue;
+                        }
+                        // updating parents
+                        let parent = groupRow.group.parent;
+                        while (parent != null) {
+                            const currentParentMin = parent.group.totals[key];
+                            if (currentParentMin) {
+                                parent.group.totals[key] = Math.min(
+                                    currentParentMin,
+                                    cellValue
+                                );
+                            } else {
+                                // first round
+                                parent.group.totals[key] = cellValue;
+                            }
+                            parent = parent.group.parent;
+                        }
+                    }
+                    break;
+                case TotalMode.MAX:
+                    if (_isNumber) {
+                        const currentTotalValue = groupRow.group.totals[key];
+                        const cellValue = numeral(
+                            stringToNumber(cell.value)
+                        ).value();
+                        if (currentTotalValue) {
+                            groupRow.group.totals[key] = Math.max(
+                                currentTotalValue,
+                                cellValue
+                            );
+                        } else {
+                            // first round
+                            groupRow.group.totals[key] = cellValue;
+                        }
+                        // updating parents
+                        let parent = groupRow.group.parent;
+                        while (parent != null) {
+                            const currentParentMax = parent.group.totals[key];
+                            if (currentParentMax) {
+                                parent.group.totals[key] = Math.max(
+                                    currentParentMax,
+                                    cellValue
+                                );
+                            } else {
+                                // first round
+                                parent.group.totals[key] = cellValue;
+                            }
+                            parent = parent.group.parent;
+                        }
+                    }
+                    break;
                 default: {
                     if (totalMode.indexOf(TotalMode.MATH) != 0) {
                         console.warn(`invalid total mode: ${totalMode}`);
@@ -543,54 +596,107 @@ export function calcTotals(
         return {};
     }
     const keys = Object.keys(totals);
-
     const footerRow: { [index: string]: number } = {};
-
     // if there are only COUNT, no need to loop on rows
     let onlyCount =
         keys.length === 0 &&
         keys.every((key) => totals[key] === TotalMode.COUNT);
-
     if (onlyCount) {
         keys.forEach((columnName) => (footerRow[columnName] = rows.length));
     } else {
+        let distinctObj = {};
         rows.forEach((r) => {
             keys.filter(
                 (key) =>
                     TotalMode.COUNT !== totals[key] &&
                     totals[key].indexOf(TotalMode.MATH) != 0
             ).forEach((key) => {
-                // getting column
+                // getting cell
                 const cell = r.cells[key];
-
                 // check if number
-                if (cell && isNumber(cell.obj)) {
-                    const cellValue = numeral(stringToNumber(cell.value));
-
-                    const currentFooterValue = footerRow[key] || 0;
-
-                    footerRow[key] = cellValue.add(currentFooterValue).value();
+                if (cell) {
+                    if (totals[key] === TotalMode.DISTINCT) {
+                        let cellValue;
+                        if (isNumber(cell.obj)) {
+                            cellValue = numeral(
+                                stringToNumber(cell.value)
+                            ).value();
+                        } else {
+                            cellValue = cell.value;
+                        }
+                        let distinctList = distinctObj[key];
+                        if (!distinctList) {
+                            // first round
+                            distinctObj[key] = [];
+                            distinctObj[key].push(cellValue);
+                        } else {
+                            if (distinctList.length === rows.length - 1) {
+                                // last round
+                                footerRow[key] = new Set(distinctList).size;
+                                distinctObj[key] = [];
+                            } else {
+                                // middle round
+                                // update the list
+                                distinctList.push(cellValue);
+                            }
+                        }
+                    } else if (isNumber(cell.obj)) {
+                        const cellValue = numeral(stringToNumber(cell.value));
+                        const currentFooterValue = footerRow[key] || 0;
+                        switch (true) {
+                            case totals[key] === TotalMode.MIN:
+                                if (currentFooterValue) {
+                                    footerRow[key] = Math.min(
+                                        currentFooterValue,
+                                        cellValue.value()
+                                    );
+                                } else {
+                                    footerRow[key] = cellValue.value();
+                                }
+                                break;
+                            case totals[key] === TotalMode.MAX:
+                                if (currentFooterValue) {
+                                    footerRow[key] = Math.max(
+                                        currentFooterValue,
+                                        cellValue.value()
+                                    );
+                                } else {
+                                    footerRow[key] = cellValue.value();
+                                }
+                                break;
+                            default:
+                                // SUM
+                                footerRow[key] = cellValue
+                                    .add(currentFooterValue)
+                                    .value();
+                        }
+                    }
                 }
             });
         });
-
-        // fixing count and avg
+        // fixing MATH, AVERAGE and COUNT
         for (let key of keys) {
-            if (totals[key] === TotalMode.AVERAGE) {
-                const sum: number = footerRow[key];
-
-                if (sum && rows.length > 0) {
-                    footerRow[key] = numeral(sum).divide(rows.length).value();
-                }
-            } else if (totals[key] === TotalMode.COUNT) {
-                footerRow[key] = rows.length;
-            } else if (totals[key].indexOf(TotalMode.MATH) == 0) {
-                let formula = totals[key].substring(TotalMode.MATH.length);
-                footerRow[key] = evaluateFormula(formula, footerRow);
+            switch (true) {
+                case totals[key] === TotalMode.AVERAGE:
+                    const sum: number = footerRow[key];
+                    if (sum && rows.length > 0) {
+                        footerRow[key] = numeral(sum)
+                            .divide(rows.length)
+                            .value();
+                    }
+                    break;
+                case totals[key] === TotalMode.COUNT:
+                    footerRow[key] = rows.length;
+                    break;
+                case totals[key].indexOf(TotalMode.MATH) == 0:
+                    let formula = totals[key].substring(TotalMode.MATH.length);
+                    footerRow[key] = evaluateFormula(formula, footerRow);
+                    break;
+                default:
+                    break;
             }
         }
     }
-
     return footerRow;
 }
 

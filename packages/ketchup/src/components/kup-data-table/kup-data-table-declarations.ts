@@ -103,13 +103,20 @@ export interface TotalsMap {
 export enum TotalMode {
     COUNT = 'Count',
     SUM = 'Sum',
+    MIN = 'Min',
+    MAX = 'Max',
+    DISTINCT = 'Distinct',
     AVERAGE = 'Average',
     MATH = 'MATH',
 }
 
+// TODO, if not used anymore please remove this and the implementations
 export enum TotalLabel {
     COUNT = 'Conta',
     SUM = 'Somma',
+    MIN = 'Min',
+    MAX = 'Max',
+    DISTINCT = 'Distinct',
     AVERAGE = 'Media',
     MATH = 'Formula',
     CANC = 'Cancella',
