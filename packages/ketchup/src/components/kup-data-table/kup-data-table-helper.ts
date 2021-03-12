@@ -353,7 +353,6 @@ function updateGroupTotal(
                         parent = parent.group.parent;
                     }
                     break;
-
                 case TotalMode.SUM:
                 case TotalMode.AVERAGE:
                     if (_isNumber) {
@@ -377,7 +376,39 @@ function updateGroupTotal(
                         }
                     }
                     break;
-
+                case TotalMode.MIN:
+                    if (_isNumber) {
+                        const currentTotalValue = groupRow.group.totals[key];
+                        const cellValue = numeral(
+                            stringToNumber(cell.value)
+                        ).value();
+                        if (currentTotalValue) {
+                            groupRow.group.totals[key] = Math.min(
+                                currentTotalValue,
+                                cellValue
+                            );
+                        } else {
+                            // first round
+                            groupRow.group.totals[key] = cellValue;
+                        }
+                        // updating parents
+                        let parent = groupRow.group.parent;
+                        while (parent != null) {
+                            const currentParentMin = parent.group.totals[key];
+                            if (currentParentMin) {
+                                parent.group.totals[key] = Math.min(
+                                    currentParentMin,
+                                    cellValue
+                                );
+                            } else {
+                                // first round
+                                parent.group.totals[key] = cellValue;
+                            }
+                            parent = parent.group.parent;
+                        }
+                        break;
+                    }
+                    break;
                 default: {
                     if (totalMode.indexOf(TotalMode.MATH) != 0) {
                         console.warn(`invalid total mode: ${totalMode}`);
