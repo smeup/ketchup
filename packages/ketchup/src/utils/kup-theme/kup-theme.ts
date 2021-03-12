@@ -51,6 +51,7 @@ export class KupTheme {
         this.icons();
         this.customStyle();
 
+        document.documentElement.setAttribute('kup-theme', this.name);
         document.dispatchEvent(new CustomEvent('kupThemeChange'));
     }
     /**
