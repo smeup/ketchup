@@ -1,11 +1,13 @@
 <template>
   <div>
-    <div id="container">
-      <span class="code-word">{{ event }}</span>
-      <br />
-      <span class="code-word">Type</span>:
-      <br />
-      <code class="flat">{{ type }}</code>
+    <div class="demo-wrapper">
+      <p> The drawer component has only 1 event: </p>
+      <ul>
+        <li
+          ><span class="code-word">{{ event }}</span
+          >: it is launched every time the drawer is cliked.</li
+        >
+      </ul>
     </div>
   </div>
 </template>

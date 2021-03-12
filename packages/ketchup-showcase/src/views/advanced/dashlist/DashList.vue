@@ -2,23 +2,24 @@
   <div>
     <comp :giturl="giturl" :headtitle="headtitle" :titles="titles">
       <template v-slot:0>
-        <dash-list-properties></dash-list-properties>
+        <dash-list-demo></dash-list-demo>
       </template>
       <template v-slot:1>
-        <dash-list-events></dash-list-events>
+        <dash-basic></dash-basic>
       </template>
     </comp>
   </div>
 </template>
 
 <script>
-import DashListProperties from './examples/DashListProperties';
 import Comp from '../page/templates/Comp';
-import DashListEvents from './examples/DashListEvents';
+import DashListDemo from './examples/DashListDemo';
+import DashBasic from './examples/DashListBasic';
+
 export default {
   components: {
-    DashListProperties,
-    DashListEvents,
+    DashListDemo,
+    DashBasic,
     Comp,
   },
 
@@ -27,7 +28,7 @@ export default {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-dash-list',
       headtitle: 'Dash List',
-      titles: ['Properties', 'Events'],
+      titles: ['Playground', 'Basic Usage'],
     };
   },
 };
