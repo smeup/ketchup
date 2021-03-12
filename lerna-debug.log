@@ -7,15 +7,15 @@
 0 silly argv   script: 'serve'
 0 silly argv }
 1 notice cli v3.22.1
-2 verbose rootPath C:\Users\aziz.urrehman\Desktop\Ketchup\ketchup
+2 verbose rootPath C:\Users\aziz.urrehman\Desktop\Ketchup_1\ketchup
 3 info versioning independent
 4 notice filter including "ketchup-showcase"
 5 info filter [ 'ketchup-showcase' ]
 6 info Executing command in 1 package: "npm run serve"
 7 silly npmRunScript.stream [ 'serve', [], 'ketchup-showcase' ]
-8 silly getExecOpts C:\Users\aziz.urrehman\Desktop\Ketchup\ketchup\packages\ketchup-showcase undefined
+8 silly getExecOpts C:\Users\aziz.urrehman\Desktop\Ketchup_1\ketchup\packages\ketchup-showcase undefined
 9 error MaxBufferError: stdout maxBuffer exceeded
-9 error     at PassThrough.<anonymous> (C:\Users\aziz.urrehman\Desktop\Ketchup\ketchup\node_modules\get-stream\index.js:41:19)
+9 error     at PassThrough.<anonymous> (C:\Users\aziz.urrehman\Desktop\Ketchup_1\ketchup\node_modules\get-stream\index.js:41:19)
 9 error     at PassThrough.emit (events.js:327:22)
 9 error     at addChunk (internal/streams/readable.js:309:12)
 9 error     at readableAddChunk (internal/streams/readable.js:280:11)

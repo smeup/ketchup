@@ -7,7 +7,13 @@
       <dash-properties></dash-properties>
     </template>
     <template v-slot:2>
+      <dash-layouts></dash-layouts>
+    </template>
+    <template v-slot:3>
       <dash-events></dash-events>
+    </template>
+    <template v-slot:4>
+      <dash-dynamism></dash-dynamism>
     </template>
   </comp>
 </template>
@@ -15,22 +21,26 @@
 <script>
 import DashBasic from '@/views/advanced/dash/examples/DashBasic';
 import Comp from '@/views/advanced/page/templates/Comp';
-import DashProperties from '@/views/advanced/dash/examples/DashProperties';
+import DashProperties from './examples/DashProperties';
 import DashEvents from './examples/DashEvents';
+import DashLayouts from './examples/DashLayouts';
+import DashDynamism from './examples/DashDynamism';
 
 export default {
   components: {
     DashBasic,
+    Comp,
     DashProperties,
     DashEvents,
-    Comp,
+    DashLayouts,
+    DashDynamism,
   },
   data() {
     return {
       giturl:
         'https://github.com/smeup/ketchup/tree/develop/packages/ketchup/src/components/kup-dash',
       headtitle: 'Dash',
-      titles: ['Basic usage', 'Properties', 'Events'],
+      titles: ['Basic usage', 'Properties', 'Layouts', 'Events','Dynamism'],
     };
   },
 };
