@@ -4,7 +4,6 @@
 export interface KupComponent extends HTMLElement {
     customStyle: string;
     customStyleTheme: string;
-    refreshCustomStyle: Function;
     debugInfo: {
         endTime: number;
         renderCount: number;
@@ -12,7 +11,14 @@ export interface KupComponent extends HTMLElement {
         renderStart: number;
         startTime: number;
     };
+    refreshCustomStyle: Function;
     rootElement: KupComponent;
+}
+/**
+ * Resizable KupComponent.
+ */
+export interface ResizableKupComponent extends KupComponent {
+    resizeCallback: () => {};
 }
 /**
  * Props in common with every f-component.

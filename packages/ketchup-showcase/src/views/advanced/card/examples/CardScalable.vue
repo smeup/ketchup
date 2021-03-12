@@ -4,9 +4,9 @@
       The main feature of this layout family is the automatic fit of the
       content, the class used is
       <span class="code-word">scalable-element</span>. Whenever the card' size
-      changes, the ResizeObserver API starts a function which adjusts the size
-      of the content to be included in the range of 40% and 60% of the maximum
-      width.
+      changes, the ResizeObserver API inside the KupManager class starts a
+      function which adjusts the size of the content to be included in the range
+      of 40% and 60% of the maximum width.
       <br />
       <br />When the width matches the criteria, a second adjustment will make
       sure that <span class="code-word">scalable-element</span> doesn't exceed

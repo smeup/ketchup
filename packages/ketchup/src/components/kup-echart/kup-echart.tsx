@@ -11,10 +11,6 @@ import {
     Method,
 } from '@stencil/core';
 import { EchartTitle } from './kup-echart-declarations';
-
-import { ResizeObserver } from 'resize-observer';
-import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
-import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import {
     KupManager,
     kupManagerInstance,
@@ -77,7 +73,10 @@ export class KupEchart {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
-    private resObserver: ResizeObserver = undefined;
+    /**
+     * Used to prevent too many resizes callbacks at once.
+     */
+    private resizeTimeout: number;
     private nameMap: any;
     private jsonMap: any;
 
@@ -85,12 +84,27 @@ export class KupEchart {
 
     //---- Methods ----
 
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme =
             'Needs to be refreshed every time the theme changes because there are dynamic colors.';
         this.customStyleTheme = customStyleTheme;
         this.fetchThemeColors();
+    }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        window.clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => this.forceUpdate(), 300);
     }
 
     private onKupClick() {
@@ -513,36 +527,16 @@ export class KupEchart {
         };
     }
 
-    private setObserver() {
-        let callback: ResizeObserverCallback = (
-            entries: ResizeObserverEntry[]
-        ) => {
-            entries.forEach((entry) => {
-                this.kupManager.debug.logMessage(
-                    this,
-                    'Size changed to x: ' +
-                        entry.contentRect.width +
-                        ', y: ' +
-                        entry.contentRect.height +
-                        '.'
-                );
-                this.forceUpdate();
-            });
-        };
-        this.resObserver = new ResizeObserver(callback);
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.setThemeCustomStyle(this);
-        this.setObserver();
         this.fetchThemeColors();
     }
 
     componentDidLoad() {
-        this.resObserver.observe(this.rootElement);
+        this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -571,6 +565,6 @@ export class KupEchart {
     }
 
     disconnectedCallBack() {
-        this.resObserver.unobserve(this.rootElement);
+        this.kupManager.resize.unobserve(this.rootElement);
     }
 }

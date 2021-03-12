@@ -2,6 +2,8 @@ import type {
     KupDom,
     KupManagerInitialization,
 } from './kup-manager-declarations';
+import type { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
+import type { ResizableKupComponent } from '../../types/GenericTypes';
 import { KupDebug } from '../kup-debug/kup-debug';
 import { KupTheme } from '../kup-theme/kup-theme';
 import { ResizeObserver } from 'resize-observer';
@@ -14,7 +16,26 @@ const dom: KupDom = document.documentElement as KupDom;
  */
 export class KupManager {
     debug: KupDebug = new KupDebug();
-    resize: ResizeObserver = new ResizeObserver(() => {});
+    resize: ResizeObserver = new ResizeObserver(
+        (entries: ResizeObserverEntry[]) => {
+            entries.forEach((entry) => {
+                if (entry.contentRect.height && entry.contentRect.width) {
+                    (entry.target as ResizableKupComponent).resizeCallback();
+                    this.debug.logMessage(
+                        'kup-manager',
+                        entry.target.tagName +
+                            '#' +
+                            entry.target.id +
+                            ' size changed to x: ' +
+                            entry.contentRect.width +
+                            ', y: ' +
+                            entry.contentRect.height +
+                            '.'
+                    );
+                }
+            });
+        }
+    );
     overrides?: KupManagerInitialization = dom.ketchupInit
         ? dom.ketchupInit
         : null;

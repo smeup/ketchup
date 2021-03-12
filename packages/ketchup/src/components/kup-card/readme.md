@@ -38,6 +38,16 @@ Type: `Promise<void>`
 
 
 
+### `resizeCallback() => Promise<void>`
+
+This method is invoked by KupManager whenever the component changes size.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 

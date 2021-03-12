@@ -9,9 +9,6 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { ResizeObserver } from 'resize-observer';
-import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
-import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
@@ -114,9 +111,9 @@ export class KupCard {
      */
     private oldSizeY: string;
     /**
-     * ResizeObserver instance.
+     * Used to prevent too many resizes callbacks at once.
      */
-    private resObserver: ResizeObserver;
+    private resizeTimeout: number;
     /**
      * Prevents multiple scaling callbacks when the card is scalable.
      */
@@ -194,6 +191,16 @@ export class KupCard {
     async refreshCustomStyle(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
     }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        window.clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => {
+            this.layoutManager();
+        }, 300);
+    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
@@ -251,7 +258,7 @@ export class KupCard {
         }
     }
     /**
-     * This method will trigger whenever the card's render() hook occurs or when the size changes (through ResizeObserver), in order to manage the more complex layout families.
+     * This method will trigger whenever the card's render() hook occurs or when the size changes (through KupManager), in order to manage the more complex layout families.
      * It will also update any dynamic color handled by the selected layout.
      */
     layoutManager(): void {
@@ -359,27 +366,6 @@ export class KupCard {
         }
         this.scalingActive = false;
     }
-    /**
-     * Sets the ResizeObserver in order to call layoutManager() when the size of the card changes.
-     */
-    setObserver(): void {
-        const callback: ResizeObserverCallback = (
-            entries: ResizeObserverEntry[]
-        ) => {
-            entries.forEach((entry) => {
-                this.kupManager.debug.logMessage(
-                    this,
-                    'Size changed to x: ' +
-                        entry.contentRect.width +
-                        ', y: ' +
-                        entry.contentRect.height +
-                        '.'
-                );
-                this.layoutManager();
-            });
-        };
-        this.resObserver = new ResizeObserver(callback);
-    }
 
     /*-------------------------------------------------*/
     /*          L i f e c y c l e   H o o k s          */
@@ -388,18 +374,17 @@ export class KupCard {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.setThemeCustomStyle(this);
-        this.setObserver();
         this.registerListeners();
     }
 
     componentDidLoad() {
-        this.resObserver.observe(this.rootElement);
         const rippleEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
             '.mdc-ripple-surface'
         );
         if (rippleEl) {
             MDCRipple.attachTo(rippleEl);
         }
+        this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -444,6 +429,6 @@ export class KupCard {
     }
 
     componentDidUnload() {
-        this.resObserver.unobserve(this.rootElement);
+        this.kupManager.resize.unobserve(this.rootElement);
     }
 }

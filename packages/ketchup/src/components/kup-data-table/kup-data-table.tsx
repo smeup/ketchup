@@ -768,8 +768,10 @@ export class KupDataTable {
     private isRestoringState: boolean = false;
     private globalFilterTimeout: number;
     columnFilterTimeout: number;
+    /**
+     * Used to prevent too many resizes callbacks at once.
+     */
     private resizeTimeout: number;
-    private resObserver: ResizeObserver = undefined;
     private columnMenuInstance: ColumnMenu;
     private filtersColumnMenuInstance: FiltersColumnMenu;
     private filtersRowsInstance: FiltersRows;
@@ -937,9 +939,29 @@ export class KupDataTable {
     })
     kupCellButtonClicked: EventEmitter<KupDataTableCellButtonClick>;
 
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
     @Method()
     async refreshCustomStyle(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        if (this.lazyLoadCells) {
+            window.clearTimeout(this.resizeTimeout);
+            this.resizeTimeout = window.setTimeout(
+                () => this.forceUpdate(),
+                300
+            );
+        }
     }
 
     forceUpdate() {
@@ -1034,33 +1056,6 @@ export class KupDataTable {
             rootMargin: '-' + this.navBarHeight + 'px 0px 0px 0px',
         };
         this.intObserver = new IntersectionObserver(callback, options);
-
-        let callbackResize: ResizeObserverCallback = (
-            entries: ResizeObserverEntry[]
-        ) => {
-            entries.forEach((entry) => {
-                if (
-                    entry.contentRect.height &&
-                    entry.contentRect.width &&
-                    this.lazyLoadCells
-                ) {
-                    this.kupManager.debug.logMessage(
-                        this,
-                        'Size changed to x: ' +
-                            entry.contentRect.width +
-                            ', y: ' +
-                            entry.contentRect.height +
-                            '.'
-                    );
-                    window.clearTimeout(this.resizeTimeout);
-                    this.resizeTimeout = window.setTimeout(
-                        () => this.forceUpdate(),
-                        300
-                    );
-                }
-            });
-        };
-        this.resObserver = new ResizeObserver(callbackResize);
     }
 
     private didRenderObservers() {
@@ -1071,7 +1066,6 @@ export class KupDataTable {
     }
 
     private didLoadObservers() {
-        this.resObserver.observe(this.rootElement);
         if (
             this.headerIsPersistent &&
             this.tableHeight === undefined &&
@@ -1402,6 +1396,7 @@ export class KupDataTable {
 
         this.lazyLoadCells = true;
         this.kupDidLoad.emit();
+        this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -1413,6 +1408,7 @@ export class KupDataTable {
                 this.documentHandlerCloseHeaderMenu
             );
         }
+        this.kupManager.resize.unobserve(this.rootElement);
         this.kupDidUnload.emit();
     }
 
