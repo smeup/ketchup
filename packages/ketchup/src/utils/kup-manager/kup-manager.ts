@@ -22,11 +22,12 @@ export class KupManager {
                 if (entry.contentRect.height && entry.contentRect.width) {
                     (entry.target as ResizableKupComponent).resizeCallback();
                     this.debug.logMessage(
-                        'kup-manager',
-                        entry.target.tagName +
+                        'kup-manager (' +
+                            entry.target.tagName +
                             '#' +
                             entry.target.id +
-                            ' size changed to x: ' +
+                            ')',
+                        'Size changed to x: ' +
                             entry.contentRect.width +
                             ', y: ' +
                             entry.contentRect.height +
