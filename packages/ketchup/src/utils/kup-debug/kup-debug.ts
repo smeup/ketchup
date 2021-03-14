@@ -1,5 +1,10 @@
+import type { KupComponent } from '../../types/GenericTypes';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
-import type { KupDebugLog } from './kup-debug-declarations';
+import {
+    KupDebugLog,
+    KupDebugLogColor,
+    KupDebugLogPrint,
+} from './kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -23,60 +28,54 @@ export class KupDebug {
      * Displays a table with debug information inside the browser's console.
      */
     print(): void {
-        let loadLogs: KupDebugLog[] = [];
-        let miscLogs: KupDebugLog[] = [];
-        let renderLogs: KupDebugLog[] = [];
+        let printLog: KupDebugLogPrint = {};
         for (let index = 0; index < this.logs.length; index++) {
-            switch (this.logs[index].type) {
-                case 'Load':
-                    loadLogs.push(this.logs[index]);
-                    break;
-                case 'Render':
-                    renderLogs.push(this.logs[index]);
-                    break;
-                default:
-                    miscLogs.push(this.logs[index]);
-                    break;
+            const type: string =
+                this.logs[index].message.indexOf('Render #') > -1
+                    ? 'Render'
+                    : this.logs[index].message.indexOf('Component ready') > -1
+                    ? 'Load'
+                    : this.logs[index].message.indexOf('Size changed') > -1
+                    ? 'Resize'
+                    : 'Misc';
+            if (!printLog[type]) {
+                printLog[type] = [];
+            }
+            printLog[type].push({
+                date: this.formatDate(this.logs[index].date),
+                element: (this.logs[index].element as KupComponent).rootElement
+                    ? (this.logs[index].element as KupComponent).rootElement
+                    : this.logs[index].id,
+                message: this.logs[index].message,
+            });
+        }
+        for (const key in printLog) {
+            if (Object.prototype.hasOwnProperty.call(printLog, key)) {
+                console.groupCollapsed(
+                    '%c  %c' +
+                        key +
+                        ' logs ' +
+                        '(' +
+                        printLog[key].length +
+                        ')',
+                    'background-color: ' +
+                        KupDebugLogColor[key] +
+                        '; margin-right: 10px; border-radius: 50%',
+                    'background-color: transparent'
+                );
+                console.table(printLog[key]);
+                console.groupEnd();
             }
         }
         if (this.logs.length > 0) {
             console.groupCollapsed(
-                '%c  %c' + 'Complete log list ' + '(' + this.logs.length + ')',
-                'background-color: teal; margin-right: 10px; border-radius: 50%',
+                '%c  %c' + 'All logs (' + this.logs.length + ')',
+                'background-color: ' +
+                    KupDebugLogColor['Total'] +
+                    '; margin-right: 10px; border-radius: 50%',
                 'background-color: transparent'
             );
             console.table(this.logs);
-            console.groupEnd();
-        }
-        if (loadLogs.length > 0) {
-            console.groupCollapsed(
-                '%c  %c' + 'Component load logs ' + '(' + loadLogs.length + ')',
-                'background-color: green; margin-right: 10px; border-radius: 50%',
-                'background-color: transparent'
-            );
-            console.table(loadLogs);
-            console.groupEnd();
-        }
-        if (renderLogs.length > 0) {
-            console.groupCollapsed(
-                '%c  %c' +
-                    'Component render logs ' +
-                    '(' +
-                    renderLogs.length +
-                    ')',
-                'background-color: green; margin-right: 10px; border-radius: 50%',
-                'background-color: transparent'
-            );
-            console.table(renderLogs);
-            console.groupEnd();
-        }
-        if (miscLogs.length > 0) {
-            console.groupCollapsed(
-                '%c  %c' + 'Misc. logs ' + '(' + miscLogs.length + ')',
-                'background-color: blue; margin-right: 10px; border-radius: 50%',
-                'background-color: transparent'
-            );
-            console.table(miscLogs);
             console.groupEnd();
         }
     }
@@ -128,24 +127,66 @@ export class KupDebug {
             id = ' ' + comp + ' => ';
             obj = '';
         }
-        var d = new Date(),
-            minutes =
-                d.getMinutes().toString().length == 1
-                    ? '0' + d.getMinutes()
-                    : d.getMinutes(),
+        var date = new Date();
+
+        switch (type) {
+            case 'error':
+                console.error(this.formatDate(date) + id + message, obj);
+                window.dispatchEvent(
+                    new CustomEvent('kupError', {
+                        bubbles: true,
+                        detail: { comp, date, type, message },
+                    })
+                );
+                break;
+            case 'warning':
+                console.warn(this.formatDate(date) + id + message, obj);
+                break;
+            case 'log':
+            default:
+                const log: KupDebugLog = {
+                    message: message,
+                    id: id,
+                    date: date,
+                    element: obj,
+                };
+                if (this.logs.length > 1000) {
+                    console.warn(
+                        this.formatDate(date) +
+                            ' kup-debug => ' +
+                            'Too many logs (> 1000)! Dumping...'
+                    );
+                    this.dump();
+                }
+                this.logs.push(log);
+                break;
+        }
+    }
+    /**
+     * Function used to format a date.
+     * Example: "Sun Mar 14 2021 13:50:56,329pm"
+     *
+     * @param {Date} date - Date to be formatted.
+     * @returns {string} Formatted
+     */
+    formatDate(date: Date): string {
+        let minutes =
+                date.getMinutes().toString().length == 1
+                    ? '0' + date.getMinutes()
+                    : date.getMinutes(),
             hours =
-                d.getHours().toString().length == 1
-                    ? '0' + d.getHours()
-                    : d.getHours(),
+                date.getHours().toString().length == 1
+                    ? '0' + date.getHours()
+                    : date.getHours(),
             seconds =
-                d.getSeconds().toString().length == 1
-                    ? '0' + d.getSeconds()
-                    : d.getSeconds(),
+                date.getSeconds().toString().length == 1
+                    ? '0' + date.getSeconds()
+                    : date.getSeconds(),
             milliseconds =
-                d.getMilliseconds().toString().length == 1
-                    ? '0' + d.getMilliseconds()
-                    : d.getMilliseconds(),
-            ampm = d.getHours() >= 12 ? 'pm' : 'am',
+                date.getMilliseconds().toString().length == 1
+                    ? '0' + date.getMilliseconds()
+                    : date.getMilliseconds(),
+            ampm = date.getHours() >= 12 ? 'pm' : 'am',
             months = [
                 'Jan',
                 'Feb',
@@ -161,14 +202,14 @@ export class KupDebug {
                 'Dec',
             ],
             days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        let consoleDate =
-            days[d.getDay()] +
+        return (
+            days[date.getDay()] +
             ' ' +
-            months[d.getMonth()] +
+            months[date.getMonth()] +
             ' ' +
-            d.getDate() +
+            date.getDate() +
             ' ' +
-            d.getFullYear() +
+            date.getFullYear() +
             ' ' +
             hours +
             ':' +
@@ -177,52 +218,8 @@ export class KupDebug {
             seconds +
             ',' +
             milliseconds +
-            ampm;
-
-        switch (type) {
-            case 'error':
-                console.error(consoleDate + id + message, obj);
-                window.dispatchEvent(
-                    new CustomEvent('kupError', {
-                        bubbles: true,
-                        detail: { comp, consoleDate, type, message },
-                    })
-                );
-                break;
-            case 'warning':
-                console.warn(consoleDate + id + message, obj);
-                window.dispatchEvent(
-                    new CustomEvent('kupError', {
-                        bubbles: true,
-                        detail: { comp, consoleDate, type, message },
-                    })
-                );
-                break;
-            case 'log':
-            default:
-                const log: KupDebugLog = {
-                    type:
-                        message.indexOf('Render #') > -1
-                            ? 'Render'
-                            : message.indexOf('Component ready') > -1
-                            ? 'Load'
-                            : 'Message',
-                    message: message,
-                    id: id,
-                    date: consoleDate,
-                    element: obj,
-                };
-                if (this.logs.length > 1000) {
-                    console.warn(
-                        consoleDate +
-                            ' kup-debug => ' +
-                            'Too many logs (> 1000)! Dumping...'
-                    );
-                    this.dump();
-                }
-                this.logs.push(log);
-                break;
-        }
+            ampm
+        );
     }
     /**
      * Function used to time the loading times of a component.
