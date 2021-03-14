@@ -11,8 +11,19 @@ export interface KupDebugLog {
  * Interface for printed logs.
  */
 export interface KupDebugLogPrint {
-    date: string;
-    element: string | Object;
-    message: string;
-    type: string;
+    [index: string]: {
+        date: string;
+        element: string | Object;
+        message: string;
+    }[];
+}
+/**
+ * Colors associated with every type of log to be printed.
+ */
+export enum KupDebugLogColor {
+    'Load' = 'green',
+    'Render' = 'green',
+    'Resize' = 'green',
+    'Misc' = 'blue',
+    'Total' = 'teal',
 }

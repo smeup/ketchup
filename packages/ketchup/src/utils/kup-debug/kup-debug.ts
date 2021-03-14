@@ -1,6 +1,10 @@
 import type { KupComponent } from '../../types/GenericTypes';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
-import type { KupDebugLog, KupDebugLogPrint } from './kup-debug-declarations';
+import {
+    KupDebugLog,
+    KupDebugLogColor,
+    KupDebugLogPrint,
+} from './kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -24,99 +28,54 @@ export class KupDebug {
      * Displays a table with debug information inside the browser's console.
      */
     print(): void {
-        let loadLogs: KupDebugLogPrint[] = [];
-        let miscLogs: KupDebugLogPrint[] = [];
-        let renderLogs: KupDebugLogPrint[] = [];
-        let resizeLogs: KupDebugLogPrint[] = [];
-        let totalLogs: KupDebugLogPrint[] = [];
+        let printLog: KupDebugLogPrint = {};
         for (let index = 0; index < this.logs.length; index++) {
-            let treatedLog: KupDebugLogPrint = {
+            const type: string =
+                this.logs[index].message.indexOf('Render #') > -1
+                    ? 'Render'
+                    : this.logs[index].message.indexOf('Component ready') > -1
+                    ? 'Load'
+                    : this.logs[index].message.indexOf('Size changed') > -1
+                    ? 'Resize'
+                    : 'Misc';
+            if (!printLog[type]) {
+                printLog[type] = [];
+            }
+            printLog[type].push({
                 date: this.formatDate(this.logs[index].date),
                 element: (this.logs[index].element as KupComponent).rootElement
                     ? (this.logs[index].element as KupComponent).rootElement
                     : this.logs[index].id,
                 message: this.logs[index].message,
-                type:
-                    this.logs[index].message.indexOf('Render #') > -1
-                        ? 'Render'
-                        : this.logs[index].message.indexOf('Component ready') >
-                          -1
-                        ? 'Load'
-                        : this.logs[index].message.indexOf('Size changed') > -1
-                        ? 'Resize'
-                        : 'Miscellaneous',
-            };
-            switch (treatedLog.type) {
-                case 'Load':
-                    loadLogs.push(treatedLog);
-                    break;
-                case 'Render':
-                    renderLogs.push(treatedLog);
-                    break;
-                case 'Resize':
-                    resizeLogs.push(treatedLog);
-                    break;
-                default:
-                    miscLogs.push(treatedLog);
-                    break;
+            });
+        }
+        for (const key in printLog) {
+            if (Object.prototype.hasOwnProperty.call(printLog, key)) {
+                console.groupCollapsed(
+                    '%c  %c' +
+                        key +
+                        ' logs ' +
+                        '(' +
+                        printLog[key].length +
+                        ')',
+                    'background-color: ' +
+                        KupDebugLogColor[key] +
+                        '; margin-right: 10px; border-radius: 50%',
+                    'background-color: transparent'
+                );
+                console.table(printLog[key]);
+                console.groupEnd();
             }
-            totalLogs.push(treatedLog);
         }
-        if (totalLogs.length > 0) {
+        if (this.logs.length > 0) {
             console.groupCollapsed(
-                '%c  %c' + 'Complete log list ' + '(' + totalLogs.length + ')',
-                'background-color: teal; margin-right: 10px; border-radius: 50%',
+                '%c  %c' + 'All logs (' + this.logs.length + ')',
+                'background-color: ' +
+                    KupDebugLogColor['Total'] +
+                    '; margin-right: 10px; border-radius: 50%',
                 'background-color: transparent'
             );
-            console.table(totalLogs);
-            console.groupEnd();
-        }
-        if (loadLogs.length > 0) {
-            console.groupCollapsed(
-                '%c  %c' +
-                    'Component load logs (componentDidLoad) ' +
-                    '(' +
-                    loadLogs.length +
-                    ')',
-                'background-color: green; margin-right: 10px; border-radius: 50%',
-                'background-color: transparent'
-            );
-            console.table(loadLogs);
-            console.groupEnd();
-        }
-        if (renderLogs.length > 0) {
-            console.groupCollapsed(
-                '%c  %c' +
-                    'Component render logs (componentDidRender)' +
-                    '(' +
-                    renderLogs.length +
-                    ')',
-                'background-color: green; margin-right: 10px; border-radius: 50%',
-                'background-color: transparent'
-            );
-            console.table(renderLogs);
-            console.groupEnd();
-        }
-        if (resizeLogs.length > 0) {
-            console.groupCollapsed(
-                '%c  %c' +
-                    'Component resize logs (ResizeObserver) ' +
-                    '(' +
-                    resizeLogs.length +
-                    ')',
-                'background-color: green; margin-right: 10px; border-radius: 50%',
-                'background-color: transparent'
-            );
-            console.table(resizeLogs);
-            console.groupEnd();
-        }
-        if (miscLogs.length > 0) {
-            console.groupCollapsed(
-                '%c  %c' + 'Misc. logs ' + '(' + miscLogs.length + ')',
-                'background-color: blue; margin-right: 10px; border-radius: 50%',
-                'background-color: transparent'
-            );
-            console.table(miscLogs);
+            console.table(this.logs);
             console.groupEnd();
         }
     }
