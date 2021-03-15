@@ -1308,7 +1308,6 @@ export class KupDataTable {
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
         this.filtersRowsInstance = new FiltersRows();
-
         if (document.querySelectorAll('.header')[0]) {
             this.navBarHeight = document.querySelectorAll(
                 '.header'
@@ -4274,7 +4273,6 @@ export class KupDataTable {
         let dropArea: HTMLElement = this.rootElement.shadowRoot.querySelector(
             '#remove-column-area'
         );
-
         if (show) {
             dropArea.style.marginLeft =
                 'calc(' + th.clientWidth / 2 + 'px - 25px)';
