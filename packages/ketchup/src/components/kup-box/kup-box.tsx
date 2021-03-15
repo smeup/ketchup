@@ -78,6 +78,8 @@ import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { identify, stringToNumber } from '../../utils/utils';
 import { GenericObject } from '../../types/GenericTypes';
+import { FImage } from '../../f-components/f-image/f-image';
+import { FButton } from '../../f-components/f-button/f-button';
 
 @Component({
     tag: 'kup-box',
@@ -387,6 +389,18 @@ export class KupBox {
         bubbles: true,
     })
     kupDidUnload: EventEmitter<void>;
+    /**
+     * Generic right click event on box.
+     */
+    @Event({
+        eventName: 'kupBoxContextMenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupBoxContextMenu: EventEmitter<{
+        details: GenericObject;
+    }>;
 
     private boxLayout: Layout;
 
@@ -651,6 +665,39 @@ export class KupBox {
                 row: this.selectedRows[0],
             });
         }
+    }
+
+    private getEventDetails(
+        el: HTMLElement
+    ): {
+        boxObject: HTMLElement;
+        cell: Cell;
+    } {
+        const boxObject: HTMLDivElement = el.closest('.box-object');
+        let cell: Cell = null;
+        if (boxObject) {
+            cell = boxObject['data-cell'];
+        }
+
+        return {
+            boxObject: boxObject ? boxObject : null,
+            cell: cell ? cell : null,
+        };
+    }
+
+    private contextMenuHandler(e: MouseEvent): void {
+        const details: {
+            boxObject: HTMLElement;
+            cell: Cell;
+        } = this.getEventDetails(e.target as HTMLElement);
+        if (this.showTooltipOnRightClick && details.boxObject && details.cell) {
+            e.preventDefault();
+            setTooltip(e, details.cell, this.tooltip);
+            return;
+        }
+        this.kupBoxContextMenu.emit({
+            details: details,
+        });
     }
 
     /**
@@ -1448,10 +1495,7 @@ export class KupBox {
                 if (isButton(cell.obj)) {
                     if (props) {
                         boContent = (
-                            <kup-button
-                                class="cell-button"
-                                {...props}
-                            ></kup-button>
+                            <FButton class="cell-button" {...props}></FButton>
                         );
                     } else {
                         boContent = undefined;
@@ -1485,7 +1529,7 @@ export class KupBox {
                             props['sizeY'] = '18px';
                         }
                         boContent = (
-                            <kup-image class="cell-icon" {...props}></kup-image>
+                            <FImage wrapperClass="cell-icon" {...props} />
                         );
                     } else {
                         boContent = undefined;
@@ -1498,7 +1542,9 @@ export class KupBox {
                         if (props.badgeData) {
                             classObj['has-padding'] = true;
                         }
-                        boContent = <kup-image class="cell-image" {...props} />;
+                        boContent = (
+                            <FImage wrapperClass="cell-image" {...props} />
+                        );
                     } else {
                         boContent = undefined;
                     }
@@ -1570,39 +1616,33 @@ export class KupBox {
             classObj['is-obj'] = true;
             title = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
         }
-        return (
-            <div
-                data-column={boxObject.column}
-                class={classObj}
-                style={boStyle}
-                title={title}
-            >
-                <span
-                    onMouseEnter={(ev) => {
-                        if (
-                            _hasTooltip &&
-                            this.showTooltipOnRightClick == false
-                        ) {
+        let tipEvents: {} = null;
+        if (_hasTooltip) {
+            if (!this.showTooltipOnRightClick) {
+                tipEvents = {
+                    onMouseEnter: (ev) => {
+                        if (_hasTooltip) {
                             this._setTooltip(ev, cell);
                         } else if (!_hasTooltip) {
                             this._unsetTooltip();
                         }
-                    }}
-                    onMouseLeave={() => {
+                    },
+                    onMouseLeave: () => {
                         this._unsetTooltip();
-                    }}
-                    onContextMenu={(ev) => {
-                        ev.preventDefault();
-                        if (
-                            _hasTooltip &&
-                            this.showTooltipOnRightClick == true
-                        ) {
-                            this._setTooltip(ev, cell);
-                        }
-                    }}
-                >
-                    {boContent}
-                </span>
+                    },
+                };
+            }
+        }
+        return (
+            <div
+                data-cell={cell}
+                data-column={boxObject.column}
+                class={classObj}
+                style={boStyle}
+                title={title}
+                {...tipEvents}
+            >
+                <span>{boContent}</span>
             </div>
         );
     }
@@ -1762,6 +1802,9 @@ export class KupBox {
                                   { row: null, id: this.rootElement.id }
                               )
                             : {})}
+                        onContextMenu={(e: MouseEvent) =>
+                            this.contextMenuHandler(e)
+                        }
                     >
                         {sortPanel}
                         {filterPanel}
