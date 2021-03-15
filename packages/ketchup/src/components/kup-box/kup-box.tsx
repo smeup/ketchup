@@ -78,6 +78,8 @@ import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
 import { identify, stringToNumber } from '../../utils/utils';
 import { GenericObject } from '../../types/GenericTypes';
+import { FImage } from '../../f-components/f-image/f-image';
+import { FButton } from '../../f-components/f-button/f-button';
 
 @Component({
     tag: 'kup-box',
@@ -1448,10 +1450,7 @@ export class KupBox {
                 if (isButton(cell.obj)) {
                     if (props) {
                         boContent = (
-                            <kup-button
-                                class="cell-button"
-                                {...props}
-                            ></kup-button>
+                            <FButton class="cell-button" {...props}></FButton>
                         );
                     } else {
                         boContent = undefined;
@@ -1485,7 +1484,7 @@ export class KupBox {
                             props['sizeY'] = '18px';
                         }
                         boContent = (
-                            <kup-image class="cell-icon" {...props}></kup-image>
+                            <FImage wrapperClass="cell-icon" {...props} />
                         );
                     } else {
                         boContent = undefined;
@@ -1498,7 +1497,9 @@ export class KupBox {
                         if (props.badgeData) {
                             classObj['has-padding'] = true;
                         }
-                        boContent = <kup-image class="cell-image" {...props} />;
+                        boContent = (
+                            <FImage wrapperClass="cell-image" {...props} />
+                        );
                     } else {
                         boContent = undefined;
                     }
