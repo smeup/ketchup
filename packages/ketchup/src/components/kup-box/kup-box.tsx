@@ -1577,10 +1577,7 @@ export class KupBox {
                 tipEvents = {
                     onContextMenu: (ev) => {
                         ev.preventDefault();
-                        if (
-                            _hasTooltip &&
-                            this.showTooltipOnRightClick == true
-                        ) {
+                        if (_hasTooltip) {
                             this._setTooltip(ev, cell);
                         }
                     },
@@ -1588,10 +1585,7 @@ export class KupBox {
             } else {
                 tipEvents = {
                     onMouseEnter: (ev) => {
-                        if (
-                            _hasTooltip &&
-                            this.showTooltipOnRightClick == false
-                        ) {
+                        if (_hasTooltip) {
                             this._setTooltip(ev, cell);
                         } else if (!_hasTooltip) {
                             this._unsetTooltip();
