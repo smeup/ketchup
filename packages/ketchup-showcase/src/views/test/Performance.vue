@@ -6,11 +6,15 @@
 
 <script>
 import { performanceDataTable } from '@/mock/dataTable';
+document.documentElement['ketchupInit'] = { debug: { active: true } };
 
 export default {
   name: 'Performance',
   mounted() {
-    document.documentElement.kupDebug = true;
+    const dom = document.documentElement;
+    if (dom.ketchup) {
+      dom.ketchup.debug.toggle(true);
+    }
     let wrapper = document.querySelector('#performance-wrapper');
     let comp = document.createElement('kup-data-table');
     comp.data = performanceDataTable;

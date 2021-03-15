@@ -149,11 +149,9 @@ graph TD;
   kup-search --> kup-button
   kup-search --> kup-modal
   kup-search --> kup-data-table
-  kup-data-table --> kup-text-field
-  kup-data-table --> kup-time-picker
-  kup-data-table --> kup-date-picker
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
+  kup-data-table --> kup-list
   kup-data-table --> kup-image
   kup-data-table --> kup-button
   kup-data-table --> kup-chart
@@ -164,12 +162,8 @@ graph TD;
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-card
   kup-data-table --> kup-badge
-  kup-time-picker --> kup-text-field
-  kup-time-picker --> kup-button
-  kup-time-picker --> kup-list
-  kup-date-picker --> kup-text-field
-  kup-date-picker --> kup-button
   kup-tooltip --> kup-button
   kup-tooltip --> kup-tree
   kup-tree --> kup-image
@@ -184,10 +178,25 @@ graph TD;
   kup-tree --> kup-radio
   kup-tree --> kup-tooltip
   kup-tree --> kup-text-field
+  kup-tree --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
+  kup-card --> kup-chip
+  kup-card --> kup-button
+  kup-card --> kup-badge
+  kup-card --> kup-progress-bar
+  kup-card --> kup-chart
+  kup-card --> kup-checkbox
+  kup-card --> kup-date-picker
+  kup-card --> kup-text-field
+  kup-card --> kup-time-picker
+  kup-date-picker --> kup-text-field
+  kup-date-picker --> kup-button
+  kup-time-picker --> kup-text-field
+  kup-time-picker --> kup-button
+  kup-time-picker --> kup-list
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   style kup-form fill:#f9f,stroke:#333,stroke-width:4px

@@ -76,7 +76,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
@@ -230,6 +230,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'tooltipEnabled',
+          description: 'Enable tooltip.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'tooltipLoadTimeout',
           description: 'Defines the timeout for tooltip load.',
           type: 'number',
@@ -280,7 +287,9 @@ function createComp() {
   comp.columns = '4';
   comp.data = defaultData;
   comp.id = 'demo-component';
+  comp.showSelection = true;
   comp.showTooltipOnRightClick = true;
+  comp.tooltipEnabled = true;
   return comp;
 }
 </script>

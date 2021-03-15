@@ -1,7 +1,9 @@
+import type { FCheckboxProps } from './f-checkbox-declarations';
 import { FunctionalComponent, h } from '@stencil/core';
-import { FCheckboxProps } from './f-checkbox-declarations';
 
-//---- Component ----
+/*-------------------------------------------------*/
+/*                C o m p o n e n t                */
+/*-------------------------------------------------*/
 
 export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
     props: FCheckboxProps

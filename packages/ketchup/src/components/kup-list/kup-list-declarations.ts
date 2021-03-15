@@ -1,5 +1,3 @@
-import { logMessage } from '../../utils/debug-manager';
-
 export interface ComponentListElement {
     text: string;
     secondaryText?: string;

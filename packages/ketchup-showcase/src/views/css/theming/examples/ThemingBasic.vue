@@ -83,8 +83,7 @@ export default {
   methods: {
     setTheme(e) {
       let dom = document.documentElement;
-
-      dom.setAttribute('kup-theme', event.detail.value);
+      dom.ketchup.theme.set(e.detail.value);
     },
   },
   name: 'ThemingBasic',

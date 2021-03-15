@@ -1,5 +1,4 @@
-import { FComponent } from '../../types/GenericTypes';
-
+import type { FComponent } from '../../types/GenericTypes';
 /**
  * Props of the f-chip component.
  */
@@ -7,7 +6,6 @@ export interface FChipsProps extends FComponent {
     data?: FChipData[];
     type?: FChipType;
 }
-
 /**
  * The object of a single chip contained in a chip set.
  * @property {string} value - Intrinsic/server side value.

@@ -20,11 +20,9 @@ import { MDCTopAppBar } from '@material/top-app-bar';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { positionRecalc } from '../../utils/recalc-position';
 import {
-    setThemeCustomStyle,
-    setCustomStyle,
-    colorContrast,
-} from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -53,6 +51,10 @@ export class KupNavBar {
 
     private optionsButtonEl: any = undefined;
     private optionsListEl: any = undefined;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
     private menuButtonEl: any = undefined;
     private menuListEl: any = undefined;
     private textColor: string = 'white';
@@ -243,23 +245,23 @@ export class KupNavBar {
         let color = document.documentElement.style.getPropertyValue(
             '--kup-nav-bar-background-color'
         );
-        this.textColor = colorContrast(color);
+        this.textColor = this.kupManager.theme.colorContrast(color);
     }
 
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
         this.fetchThemeColors();
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -275,7 +277,7 @@ export class KupNavBar {
         if (this.optionsListEl != null) {
             positionRecalc(this.optionsListEl, this.optionsButtonEl);
         }
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -366,7 +368,7 @@ export class KupNavBar {
         let titleStyle = { color: this.textColor };
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <header class={headerClassName}>
                         <div class="mdc-top-app-bar__row">

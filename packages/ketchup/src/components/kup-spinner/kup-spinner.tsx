@@ -7,8 +7,10 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 
 @Component({
     tag: 'kup-spinner',
@@ -31,7 +33,7 @@ export class KupSpinner {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Width and height of the spinner. For the bar variant, only height.
      */
@@ -53,6 +55,11 @@ export class KupSpinner {
      */
     @Prop() layout: number = 1;
 
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+
     //---- Methods ----
 
     @Method()
@@ -63,12 +70,12 @@ export class KupSpinner {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentDidUpdate() {
@@ -81,7 +88,7 @@ export class KupSpinner {
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -96,7 +103,7 @@ export class KupSpinner {
                 }, this.faderTimeout);
             }
         }
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -199,7 +206,7 @@ export class KupSpinner {
 
         return (
             <Host style={elStyle}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component" style={elStyle}>
                     <div
                         id="loading-wrapper-master"

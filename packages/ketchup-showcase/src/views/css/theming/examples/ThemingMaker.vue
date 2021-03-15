@@ -1144,8 +1144,10 @@ export default {
       const dom = document.documentElement;
       this.initTheme();
 
-      dom.kupThemes['showcaseDemo']['cssVariables']['--kup-' + e.target.id] =
+      const list = { ...dom.ketchup.theme.list };
+      list['showcaseDemo']['cssVariables']['--kup-' + e.target.id] =
         e.detail.value;
+      dom.ketchup.theme.set(null, list);
       e.target.customStyle =
         '#kup-component .icon-container { background-color: ' +
         e.detail.value +
@@ -1158,8 +1160,10 @@ export default {
       const dom = document.documentElement;
       this.initTheme();
 
-      dom.kupThemes['showcaseDemo']['customStyles'][e.target.id.toUpperCase()] =
+      const list = { ...dom.ketchup.theme.list };
+      list['showcaseDemo']['customStyles'][e.target.id.toUpperCase()] =
         e.detail.value;
+      dom.ketchup.theme.set(null, list);
 
       this.refreshTheme();
     },
@@ -1168,8 +1172,9 @@ export default {
       const dom = document.documentElement;
       this.initTheme();
 
-      dom.kupThemes['showcaseDemo']['icons']['--kup-' + e.target.id] =
-        e.detail.value;
+      const list = { ...dom.ketchup.theme.list };
+      list['showcaseDemo']['icons']['--kup-' + e.target.id] = e.detail.value;
+      dom.ketchup.theme.set(null, list);
       e.target.icon = e.detail.value;
 
       this.refreshTheme();
@@ -1177,20 +1182,22 @@ export default {
 
     initTheme() {
       const dom = document.documentElement;
+      const list = { ...dom.ketchup.theme.list };
 
-      if (!dom.kupThemes['showcaseDemo']) {
-        dom.kupThemes['showcaseDemo'] = JSON.parse(
-          JSON.stringify(dom.kupCurrentTheme)
+      if (!list['showcaseDemo']) {
+        list['showcaseDemo'] = JSON.parse(
+          JSON.stringify(dom.ketchup.theme.list[dom.ketchup.theme.name])
         );
-        if (!dom.kupThemes['showcaseDemo'].cssVariables) {
-          dom.kupThemes['showcaseDemo'].cssVariables = {};
+        if (!list['showcaseDemo'].cssVariables) {
+          list['showcaseDemo'].cssVariables = {};
         }
-        if (!dom.kupThemes['showcaseDemo'].customStyles) {
-          dom.kupThemes['showcaseDemo'].customStyles = {};
+        if (!list['showcaseDemo'].customStyles) {
+          list['showcaseDemo'].customStyles = {};
         }
-        if (!dom.kupThemes['showcaseDemo'].icons) {
-          dom.kupThemes['showcaseDemo'].icons = {};
+        if (!list['showcaseDemo'].icons) {
+          list['showcaseDemo'].icons = {};
         }
+        dom.ketchup.theme.set(null, list);
       }
 
       const tile = document.querySelector('#showcaseDemo');
@@ -1204,7 +1211,7 @@ export default {
       var dataStr =
         'data:text/json;charset=utf-8,' +
         encodeURIComponent(
-          JSON.stringify(dom.kupThemes['showcaseDemo'], null, 2)
+          JSON.stringify(dom.ketchup.theme.list['showcaseDemo'], null, 2)
         );
       var downloadAnchorNode = document.createElement('a');
       downloadAnchorNode.setAttribute('href', dataStr);
@@ -1216,23 +1223,22 @@ export default {
 
     deleteTheme() {
       const dom = document.documentElement;
+      const list = { ...dom.ketchup.theme.list };
       const tile = document.querySelector('#showcaseDemo');
       const actions = document.querySelector('#theme-action-demo');
-
-      dom.setAttribute('kup-theme', 'ketchup');
-
       actions.classList.remove('visible');
       tile.remove();
-      delete dom.kupThemes['showcaseDemo'];
+      delete list['showcaseDemo'];
+      dom.ketchup.theme.set('ketchup', list);
     },
 
     refreshTheme() {
       const dom = document.documentElement;
 
-      if (dom.getAttribute('kup-theme') === 'showcaseDemo') {
-        dom.kupRefreshTheme();
+      if (dom.ketchup.theme.name === 'showcaseDemo') {
+        dom.ketchup.theme.refresh();
       } else {
-        dom.setAttribute('kup-theme', 'showcaseDemo');
+        dom.ketchup.theme.set('showcaseDemo');
       }
       updateTile();
     },
@@ -1270,14 +1276,11 @@ export default {
 
     jsonSet() {
       const dom = document.documentElement;
+      const list = { ...dom.ketchup.theme.list };
       let jsonWarning = document.querySelector('#json-warning');
       let jsonTextarea = document.querySelector('#json-textarea');
       let codemirrorTextarea = document.querySelector('#json-tab .CodeMirror');
-      let stringifiedJSON = JSON.stringify(
-        dom.kupThemes['showcaseDemo'],
-        null,
-        2
-      );
+      let stringifiedJSON = JSON.stringify(list['showcaseDemo'], null, 2);
       if (jsonTextarea.value === stringifiedJSON) {
         return;
       } else {
@@ -1296,9 +1299,8 @@ export default {
         cm.save();
         try {
           let jsonifiedData = JSON.parse(jsonTextarea.value);
-          dom.kupThemes['showcaseDemo'] = jsonifiedData;
-          dom.setAttribute('kup-theme', 'ketchup');
-          dom.setAttribute('kup-theme', 'showcaseDemo');
+          list['showcaseDemo'] = jsonifiedData;
+          dom.ketchup.theme.set('showcaseDemo', list);
           jsonWarning.classList.remove('visible');
         } catch (error) {
           jsonWarning.classList.add('visible');
@@ -1319,7 +1321,7 @@ export default {
     customStyleTab.setAttribute('style', 'display: none;');
     iconsTab.setAttribute('style', 'display: none;');
 
-    if (document.documentElement.kupCurrentTheme) {
+    if (dom.ketchup) {
       initDemo();
     }
 
@@ -1329,14 +1331,20 @@ export default {
 
 function initDemo() {
   const dom = document.documentElement;
-  const theme = dom.kupCurrentTheme;
-  const fields = document.querySelectorAll('#sample-comp kup-text-field');
+  const theme = dom.ketchup.theme.list[dom.ketchup.theme.name];
   const tile = document.querySelector('#showcaseDemo');
 
   if (tile) {
     updateTile();
-  } else if (dom.kupThemes['showcaseDemo']) {
+  } else if (dom.ketchup.theme.list['showcaseDemo']) {
     createTile();
+  }
+
+  const fields = document.querySelectorAll(
+    '#css-variables-tab kup-color-picker, #css-variables-tab kup-text-field, #customstyle-tab kup-color-picker, #customstyle-tab kup-text-field, #icons-tab kup-color-picker, #icons-tab kup-text-field'
+  );
+  for (let index = 0; index < fields.length; index++) {
+    fields[index].setValue('');
   }
 
   let cssVariablesTab = document.querySelector('#css-variables-tab');
@@ -1356,7 +1364,7 @@ function initDemo() {
     try {
       field.setValue(theme.customStyles[key]);
     } catch (error) {
-      console.warn("Couldn't set field set customStyle '" + key + "'.");
+      console.warn("Couldn't set field for customStyle '" + key + "'.");
     }
   }
 
@@ -1374,7 +1382,6 @@ function initDemo() {
 }
 
 function createTile() {
-  const dom = document.documentElement;
   const themeContainer = document.querySelector('#theme-container-demo');
   let themeWrapper = document.createElement('div');
   let themeImage = document.createElement('kup-image');
@@ -1400,7 +1407,7 @@ function createTile() {
 
 function updateTile() {
   const dom = document.documentElement;
-  var variables = dom.kupThemes['showcaseDemo'].cssVariables;
+  var variables = dom.ketchup.theme.list['showcaseDemo'].cssVariables;
   let themeWrapper = document.querySelector('#showcaseDemo');
   let themeImage = document.querySelector('#showcaseDemo kup-image');
   let themeText = document.querySelector('#showcaseDemo .icon-label');
@@ -1417,7 +1424,7 @@ function updateTile() {
 }
 
 function setDemoTheme() {
-  let dom = document.documentElement;
-  dom.setAttribute('kup-theme', 'showcaseDemo');
+  const dom = document.documentElement;
+  dom.ketchup.theme.set('showcaseDemo');
 }
 </script>

@@ -9,8 +9,10 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
@@ -51,8 +53,9 @@ export class KupCheckbox {
      */
     @Prop() checked: boolean = false;
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
      * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
     @Prop() customStyle: string = '';
     /**
@@ -77,6 +80,15 @@ export class KupCheckbox {
     @Prop() leadingLabel: boolean = false;
 
     /*-------------------------------------------------*/
+    /*       I n t e r n a l   V a r i a b l e s       */
+    /*-------------------------------------------------*/
+
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+
+    /*-------------------------------------------------*/
     /*                   E v e n t s                   */
     /*-------------------------------------------------*/
 
@@ -90,8 +102,9 @@ export class KupCheckbox {
         bubbles: true,
     })
     kupBlur: EventEmitter<{
-        value: string;
+        id: string;
         checked: boolean;
+        value: string;
     }>;
     /**
      * Triggered when the input element's value changes.
@@ -103,21 +116,9 @@ export class KupCheckbox {
         bubbles: true,
     })
     kupChange: EventEmitter<{
-        value: string;
+        id: string;
         checked: boolean;
-    }>;
-    /**
-     * Triggered when the input element is clicked.
-     */
-    @Event({
-        eventName: 'kupCheckboxClick',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupClick: EventEmitter<{
         value: string;
-        checked: boolean;
     }>;
     /**
      * Triggered when the input element gets focused.
@@ -129,14 +130,16 @@ export class KupCheckbox {
         bubbles: true,
     })
     kupFocus: EventEmitter<{
-        value: string;
+        id: string;
         checked: boolean;
+        value: string;
     }>;
 
     onKupBlur() {
         this.kupBlur.emit({
-            value: this.value,
             checked: this.checked == true ? true : false,
+            id: this.rootElement.id,
+            value: this.value,
         });
     }
 
@@ -153,22 +156,17 @@ export class KupCheckbox {
             this.value = 'on';
         }
         this.kupChange.emit({
-            value: this.value,
             checked: this.checked,
-        });
-    }
-
-    onKupClick() {
-        this.kupClick.emit({
+            id: this.rootElement.id,
             value: this.value,
-            checked: this.checked == true ? true : false,
         });
     }
 
     onKupFocus() {
         this.kupFocus.emit({
-            value: this.value,
             checked: this.checked == true ? true : false,
+            id: this.rootElement.id,
+            value: this.value,
         });
     }
 
@@ -184,7 +182,7 @@ export class KupCheckbox {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async refreshCustomStyle(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -205,11 +203,10 @@ export class KupCheckbox {
                 if (inputEl) {
                     inputEl.onblur = () => this.onKupBlur();
                     inputEl.onchange = () => this.onKupChange();
-                    inputEl.onclick = () => this.onKupClick();
                     inputEl.onfocus = () => this.onKupFocus();
                 }
                 if (labelEl) {
-                    labelEl.onclick = () => this.onKupClick();
+                    labelEl.onclick = () => this.onKupChange();
                 }
                 FCheckboxMDC(f);
             }
@@ -221,16 +218,16 @@ export class KupCheckbox {
     /*-------------------------------------------------*/
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.setThemeCustomStyle(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
         if (this.checked) {
             this.value = 'on';
         } else {
@@ -240,7 +237,7 @@ export class KupCheckbox {
 
     componentDidRender() {
         this.setEvents();
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -253,7 +250,7 @@ export class KupCheckbox {
         };
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <FCheckbox {...props} />
                 </div>

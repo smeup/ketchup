@@ -89,7 +89,7 @@ export default {
     };
   },
   methods: {
-    openDrawer: function () {
+    openDrawer: function() {
       const sideDrawer = document.getElementById('first-drawer');
       sideDrawer.toggle();
     },

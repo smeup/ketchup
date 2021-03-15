@@ -9,7 +9,10 @@ import {
 
 import { PaginatorMode } from './kup-paginator-declarations';
 import { isNumber } from '../../utils/utils';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { FButton } from '../../f-components/f-button/f-button';
 import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 
@@ -33,6 +36,10 @@ export class KupPaginator {
 
     private comboPageSelectorEl: any = undefined;
     private comboRowsSelectorEl: any = undefined;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     /**
      * When the current page change
@@ -214,16 +221,16 @@ export class KupPaginator {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupManager.debug.logLoad(this, false);
         this.selectedPerPage = this.perPage;
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -234,7 +241,7 @@ export class KupPaginator {
         if (this.comboRowsSelectorEl) {
             this.comboRowsSelectorEl.setValue(this.selectedPerPage.toString());
         }
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {

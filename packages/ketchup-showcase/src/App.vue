@@ -224,28 +224,29 @@
 export default {
   methods: {
     changeTheme(e) {
+      const dom = document.documentElement;
       if (e.detail.value === 'on') {
-        this.setTheme('dark');
+        dom.ketchup.theme.set('dark');
       } else {
-        this.setTheme('ketchup');
+        dom.ketchup.theme.set('ketchup');
       }
     },
     setTheme(themeID) {
-      let dom = document.documentElement;
-      dom.setAttribute('kup-theme', themeID);
+      const dom = document.documentElement;
+      dom.ketchup.theme.set(themeID);
     },
     toggleDebug() {
-      let dom = document.documentElement;
+      const dom = document.documentElement;
       let debugToggler = document.querySelector('#debug-toggler');
 
-      if (!dom['kupDebug']) {
-        console.log('Debug activated.');
-        debugToggler.customStyle = '';
-        dom['kupDebug'] = true;
-      } else {
+      if (dom.ketchup.debug.isDebug()) {
         console.log('Debug deactivated.');
         debugToggler.customStyle = ':host{--kup-primary-color: white}';
-        dom['kupDebug'] = false;
+        dom.ketchup.debug.toggle(false);
+      } else {
+        console.log('Debug activated.');
+        debugToggler.customStyle = '';
+        dom.ketchup.debug.toggle(true);
       }
     },
   },
@@ -441,6 +442,12 @@ export default {
                 title: `Dash`,
                 to: {
                   name: 'dash',
+                },
+              },
+              {
+                title: `Dash List`,
+                to: {
+                  name: 'dashlist',
                 },
               },
               {
