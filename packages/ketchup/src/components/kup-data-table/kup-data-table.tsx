@@ -499,8 +499,8 @@ export class KupDataTable {
     /**
      * When set to true enables the column grouping.
      */
-     @Prop() showGroups: boolean = false;
-     /**
+    @Prop() showGroups: boolean = false;
+    /**
      * When set to true shows the footer.
      */
     @Prop() showFooter: boolean = false;
@@ -4749,7 +4749,8 @@ export class KupDataTable {
                                 getColumnByName(
                                     this.getVisibleColumns(),
                                     this.openedMenu
-                                ), this.showGroups
+                                ),
+                                this.showGroups
                             )}
                             data-column={this.openedMenu}
                             id="column-menu"

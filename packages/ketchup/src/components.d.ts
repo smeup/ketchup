@@ -1783,6 +1783,10 @@ export namespace Components {
          */
         "showFilters": boolean;
         /**
+          * When set to true shows the footer.
+         */
+        "showFooter": boolean;
+        /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns
          */
@@ -1809,6 +1813,10 @@ export namespace Components {
           * Defines the timeout for tooltip load
          */
         "tooltipLoadTimeout": number;
+        /**
+          * Defines the current totals options.
+         */
+        "totals": TotalsMap;
         /**
           * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
           * @see dynamicExpansionCallback
@@ -4449,6 +4457,10 @@ declare namespace LocalJSX {
          */
         "showFilters"?: boolean;
         /**
+          * When set to true shows the footer.
+         */
+        "showFooter"?: boolean;
+        /**
           * Flag: shows the header of the tree when the tree is displayed as a table.
           * @see showColumns
          */
@@ -4475,6 +4487,10 @@ declare namespace LocalJSX {
           * Defines the timeout for tooltip load
          */
         "tooltipLoadTimeout"?: number;
+        /**
+          * Defines the current totals options.
+         */
+        "totals"?: TotalsMap;
         /**
           * When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property.  Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.  For more information:
           * @see dynamicExpansionCallback

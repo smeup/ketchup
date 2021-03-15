@@ -17,6 +17,10 @@ import {
     Cell,
     CellData,
     Column,
+    Row,
+    TotalLabel,
+    TotalMode,
+    TotalsMap,
 } from './../kup-data-table/kup-data-table-declarations';
 
 import {
@@ -25,7 +29,7 @@ import {
     TreeNodePath,
 } from './kup-tree-declarations';
 
-import { hasTooltip } from '../../utils/object-utils';
+import { hasTooltip, isNumber } from '../../utils/object-utils';
 
 import { scrollOnHover } from '../../utils/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
@@ -34,6 +38,8 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import {
+    calcTotals,
+    normalizeRows,
     styleHasBorderRadius,
     styleHasWritingMode,
 } from '../kup-data-table/kup-data-table-helper';
@@ -48,11 +54,15 @@ import {
     getCellValueForDisplay,
     getColumnByName,
 } from '../../utils/cell-utils';
-import { stringToNumber } from '../../utils/utils';
+import {
+    numberToFormattedStringNumber,
+    stringToNumber,
+} from '../../utils/utils';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
+import { ComponentListElement } from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-tree',
@@ -107,6 +117,11 @@ export class KupTree {
     @State() customStyleTheme: string = undefined;
     @State()
     private openedMenu: string = null;
+    /**
+     * name of the column with the opened total menu
+     */
+    @State()
+    private openedTotalMenu: string = null;
 
     /**
      * Auto select programmatic selectic node
@@ -181,6 +196,10 @@ export class KupTree {
      */
     @Prop() showFilters: boolean = true;
     /**
+     * When set to true shows the footer.
+     */
+    @Prop() showFooter: boolean = false;
+    /**
      * Flag: shows the header of the tree when the tree is displayed as a table.
      * @see showColumns
      */
@@ -217,6 +236,10 @@ export class KupTree {
      * Defines the timeout for tooltip load
      */
     @Prop() tooltipLoadTimeout: number;
+    /**
+     * Defines the current totals options.
+     */
+    @Prop() totals: TotalsMap;
 
     //-------- State --------
     @State() selectedNodeString: string = '';
@@ -233,6 +256,8 @@ export class KupTree {
     private clickTimeout: any[] = [];
     private iconPaths: [{ icon: string; path: string }] = undefined;
     private globalFilterTimeout: number;
+
+    private footer: { [index: string]: number };
 
     private sizedColumns: Column[] = undefined;
 
@@ -460,11 +485,42 @@ export class KupTree {
         });
     }
 
+    nodesToRows(): Row[] {
+        function children(TreeNode: TreeNode) {
+            for (let index = 0; index < TreeNode.children.length; index++) {
+                const node: TreeNode = TreeNode.children[index];
+                rows.push({
+                    cells: TreeNode.children[index].cells,
+                });
+                if (node.children) {
+                    children(node);
+                }
+            }
+        }
+        let rows: Row[] = [];
+        for (let index = 0; index < this.data.length; index++) {
+            const node: TreeNode = this.data[index];
+            rows.push({
+                cells: this.data[index].cells,
+            });
+            if (node.children) {
+                children(this.data[index]);
+            }
+        }
+        return rows;
+    }
+
     //-------- Lifecycle hooks --------
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.setThemeCustomStyle(this);
+
+        this.footer = calcTotals(
+            normalizeRows(this.getColumns(), this.nodesToRows()),
+            this.totals
+        );
+
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
         this.filtersTreeItemsInstance = new FiltersTreeItems();
@@ -781,6 +837,10 @@ export class KupTree {
                 }
             }
         }
+    }
+
+    private hasTotals() {
+        return this.totals && Object.keys(this.totals).length > 0;
     }
 
     private handleChildren(TreeNode: TreeNode, expand: boolean) {
@@ -1585,6 +1645,176 @@ export class KupTree {
         );
     }
 
+    private closeTotalMenu() {
+        this.openedTotalMenu = null;
+    }
+
+    private isOpenedTotalMenuForColumn(column: string): boolean {
+        return this.openedTotalMenu === column;
+    }
+
+    onTotalsChange(event, column) {
+        // close menu
+        this.closeTotalMenu();
+        if (column) {
+            // must do this
+            // otherwise does not fire the watcher
+            const totalsCopy = { ...this.totals };
+            const value = event.detail.selected.value;
+            if (value === TotalLabel.CANC) {
+                if (this.totals && this.totals[column.name]) {
+                    delete totalsCopy[column.name];
+                }
+            } else {
+                totalsCopy[column.name] = value;
+            }
+            this.totals = totalsCopy;
+        }
+    }
+
+    renderFooter() {
+        const footerCells = this.getVisibleColumns().map((column: Column) => {
+            let totalMenu = undefined;
+            // TODO Manage the label with different languages
+            let menuLabel = TotalLabel.CALC;
+            if (this.totals) {
+                const totalValue = this.totals[column.name];
+                if (totalValue) {
+                    if (totalValue.startsWith(TotalMode.MATH)) {
+                        menuLabel = TotalLabel.MATH;
+                    } else {
+                        switch (totalValue) {
+                            case TotalMode.COUNT:
+                                menuLabel = TotalLabel.COUNT;
+                                break;
+                            case TotalMode.DISTINCT:
+                                menuLabel = TotalLabel.DISTINCT;
+                                break;
+                            case TotalMode.SUM:
+                                menuLabel = TotalLabel.SUM;
+                                break;
+                            case TotalMode.AVERAGE:
+                                menuLabel = TotalLabel.AVERAGE;
+                                break;
+                            case TotalMode.MIN:
+                                menuLabel = TotalLabel.MIN;
+                                break;
+                            case TotalMode.MAX:
+                                menuLabel = TotalLabel.MAX;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+
+            if (this.isOpenedTotalMenuForColumn(column.name)) {
+                let listData: ComponentListElement[] = [
+                    {
+                        text: TotalLabel.COUNT,
+                        value: TotalMode.COUNT,
+                        selected: false,
+                    },
+                    {
+                        text: TotalLabel.DISTINCT,
+                        value: TotalMode.DISTINCT,
+                        selected: false,
+                    },
+                ];
+                if (isNumber(column.obj)) {
+                    // TODO Move these objects in declarations
+                    listData.push(
+                        {
+                            text: TotalLabel.SUM,
+                            value: TotalMode.SUM,
+                            selected: false,
+                        },
+                        {
+                            text: TotalLabel.AVERAGE,
+                            value: TotalMode.AVERAGE,
+                            selected: false,
+                        },
+                        {
+                            text: TotalLabel.MIN,
+                            value: TotalMode.MIN,
+                            selected: false,
+                        },
+                        {
+                            text: TotalLabel.MAX,
+                            value: TotalMode.MAX,
+                            selected: false,
+                        }
+                    );
+                }
+                // TODO replace this with find which is a better approach
+                // Note that this is not supported in older IE
+                let selectedItem = listData.find(
+                    (item) => item.text === menuLabel
+                );
+                if (selectedItem) {
+                    selectedItem.selected = true;
+                    listData.push(
+                        {
+                            text: null,
+                            value: null,
+                            isSeparator: true,
+                        },
+                        {
+                            text: TotalLabel.CANC,
+                            value: TotalLabel.CANC,
+                            selected: false,
+                        }
+                    );
+                }
+
+                totalMenu = (
+                    <kup-list
+                        class={`kup-menu total-menu`}
+                        data={...listData}
+                        id="totals-menu"
+                        is-menu
+                        menu-visible
+                        onKupListClick={(event) =>
+                            this.onTotalsChange(event, column)
+                        }
+                    ></kup-list>
+                );
+            }
+
+            let value;
+            if (
+                menuLabel === TotalLabel.COUNT ||
+                menuLabel === TotalLabel.DISTINCT
+            ) {
+                value = this.footer[column.name];
+            } else {
+                value = numberToFormattedStringNumber(
+                    this.footer[column.name],
+                    column.decimals,
+                    column.obj ? column.obj.p : ''
+                );
+            }
+
+            return (
+                <td data-column={column.name}>
+                    {totalMenu}
+                    <span class="totals-value" title={menuLabel}>
+                        {value}
+                    </span>
+                </td>
+            );
+        });
+
+        const footer = (
+            <tfoot>
+                <tr>{footerCells}</tr>
+            </tfoot>
+        );
+
+        return footer;
+    }
+
     /**
      * Given a TreeNode, reads through its data to compose and return the TreeNodes of the root of this TreeNode
      * and its children nodes, composing an array of JSX TreeNodes.
@@ -1716,6 +1946,9 @@ export class KupTree {
                                 </tr>
                             </thead>
                             <tbody>{treeNodes}</tbody>
+                            {this.showFooter || this.hasTotals()
+                                ? this.renderFooter()
+                                : null}
                         </table>
                     </div>
                     {tooltip}
@@ -1726,7 +1959,8 @@ export class KupTree {
                                 getColumnByName(
                                     this.getVisibleColumns(),
                                     this.openedMenu
-                                ), false
+                                ),
+                                false
                             )}
                             data-column={this.openedMenu}
                             id="column-menu"
