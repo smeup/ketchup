@@ -389,6 +389,18 @@ export class KupBox {
         bubbles: true,
     })
     kupDidUnload: EventEmitter<void>;
+    /**
+     * Generic right click event on box.
+     */
+    @Event({
+        eventName: 'kupBoxContextMenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupBoxContextMenu: EventEmitter<{
+        details: GenericObject;
+    }>;
 
     private boxLayout: Layout;
 
@@ -653,6 +665,39 @@ export class KupBox {
                 row: this.selectedRows[0],
             });
         }
+    }
+
+    private getEventDetails(
+        el: HTMLElement
+    ): {
+        boxObject: HTMLElement;
+        cell: Cell;
+    } {
+        const boxObject: HTMLDivElement = el.closest('.box-object');
+        let cell: Cell = null;
+        if (boxObject) {
+            cell = boxObject['data-cell'];
+        }
+
+        return {
+            boxObject: boxObject ? boxObject : null,
+            cell: cell ? cell : null,
+        };
+    }
+
+    private contextMenuHandler(e: MouseEvent): void {
+        const details: {
+            boxObject: HTMLElement;
+            cell: Cell;
+        } = this.getEventDetails(e.target as HTMLElement);
+        if (this.showTooltipOnRightClick && details.boxObject && details.cell) {
+            e.preventDefault();
+            setTooltip(e, details.cell, this.tooltip);
+            return;
+        }
+        this.kupBoxContextMenu.emit({
+            details: details,
+        });
     }
 
     /**
@@ -1573,16 +1618,7 @@ export class KupBox {
         }
         let tipEvents: {} = null;
         if (_hasTooltip) {
-            if (this.showTooltipOnRightClick) {
-                tipEvents = {
-                    onContextMenu: (ev) => {
-                        ev.preventDefault();
-                        if (_hasTooltip) {
-                            this._setTooltip(ev, cell);
-                        }
-                    },
-                };
-            } else {
+            if (!this.showTooltipOnRightClick) {
                 tipEvents = {
                     onMouseEnter: (ev) => {
                         if (_hasTooltip) {
@@ -1599,6 +1635,7 @@ export class KupBox {
         }
         return (
             <div
+                data-cell={cell}
                 data-column={boxObject.column}
                 class={classObj}
                 style={boStyle}
@@ -1765,6 +1802,9 @@ export class KupBox {
                                   { row: null, id: this.rootElement.id }
                               )
                             : {})}
+                        onContextMenu={(e: MouseEvent) =>
+                            this.contextMenuHandler(e)
+                        }
                     >
                         {sortPanel}
                         {filterPanel}
