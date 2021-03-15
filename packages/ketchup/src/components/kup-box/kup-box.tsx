@@ -1571,15 +1571,23 @@ export class KupBox {
             classObj['is-obj'] = true;
             title = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
         }
-        return (
-            <div
-                data-column={boxObject.column}
-                class={classObj}
-                style={boStyle}
-                title={title}
-            >
-                <span
-                    onMouseEnter={(ev) => {
+        let tipEvents: {} = null;
+        if (_hasTooltip) {
+            if (this.showTooltipOnRightClick) {
+                tipEvents = {
+                    onContextMenu: (ev) => {
+                        ev.preventDefault();
+                        if (
+                            _hasTooltip &&
+                            this.showTooltipOnRightClick == true
+                        ) {
+                            this._setTooltip(ev, cell);
+                        }
+                    },
+                };
+            } else {
+                tipEvents = {
+                    onMouseEnter: (ev) => {
                         if (
                             _hasTooltip &&
                             this.showTooltipOnRightClick == false
@@ -1588,22 +1596,22 @@ export class KupBox {
                         } else if (!_hasTooltip) {
                             this._unsetTooltip();
                         }
-                    }}
-                    onMouseLeave={() => {
+                    },
+                    onMouseLeave: () => {
                         this._unsetTooltip();
-                    }}
-                    onContextMenu={(ev) => {
-                        ev.preventDefault();
-                        if (
-                            _hasTooltip &&
-                            this.showTooltipOnRightClick == true
-                        ) {
-                            this._setTooltip(ev, cell);
-                        }
-                    }}
-                >
-                    {boContent}
-                </span>
+                    },
+                };
+            }
+        }
+        return (
+            <div
+                data-column={boxObject.column}
+                class={classObj}
+                style={boStyle}
+                title={title}
+                {...tipEvents}
+            >
+                <span>{boContent}</span>
             </div>
         );
     }
