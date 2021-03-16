@@ -374,6 +374,7 @@ function updateGroupTotal(
                         }
                     }
                     break;
+                // TODO DRY the MIN and MAX functions
                 case TotalMode.MIN:
                     if (_isNumber) {
                         const currentTotalValue = groupRow.group.totals[key];
@@ -436,6 +437,7 @@ function updateGroupTotal(
                         }
                     }
                     break;
+                // TODO DRY the MIN and MAX functions
                 case TotalMode.MAX:
                     if (_isNumber) {
                         const currentTotalValue = groupRow.group.totals[key];
@@ -460,6 +462,36 @@ function updateGroupTotal(
                                     currentParentMax,
                                     cellValue
                                 );
+                            } else {
+                                // first round
+                                parent.group.totals[key] = cellValue;
+                            }
+                            parent = parent.group.parent;
+                        }
+                    } else if (isDate(cell.obj)) {
+                        const currentTotalValue = groupRow.group.totals[key];
+                        const cellValue = formatToMomentDate(cell).toDate();
+                        if (currentTotalValue) {
+                            let moments = [];
+                            moments.push(cellValue);
+                            moments.push(
+                                moment(currentTotalValue, 'DD/MM/YYYY')
+                            );
+                            groupRow.group.totals[key] = moment.max(moments);
+                        } else {
+                            groupRow.group.totals[key] = cellValue;
+                        }
+                        // updating parents
+                        let parent = groupRow.group.parent;
+                        while (parent != null) {
+                            const currentParentMin = parent.group.totals[key];
+                            if (currentParentMin) {
+                                let moments = [];
+                                moments.push(cellValue);
+                                moments.push(
+                                    moment(currentParentMin, 'DD/MM/YYYY')
+                                );
+                                parent.group.totals[key] = moment.max(moments);
                             } else {
                                 // first round
                                 parent.group.totals[key] = cellValue;
@@ -676,6 +708,7 @@ export function calcTotals(
                         const cellValue = numeral(stringToNumber(cell.value));
                         let currentFooterValue = footerRow[key];
                         switch (true) {
+                            // TODO DRY the MIN and MAX functions
                             case totals[key] === TotalMode.MIN:
                                 if (currentFooterValue) {
                                     footerRow[key] = Math.min(
@@ -703,6 +736,7 @@ export function calcTotals(
                                     .add(currentFooterValue)
                                     .value();
                         }
+                        // TODO DRY the MIN and MAX functions
                     } else if (isDate(cell.obj)) {
                         const cellValue = formatToMomentDate(cell).toDate();
                         const currentFooterValue = footerRow[key];
