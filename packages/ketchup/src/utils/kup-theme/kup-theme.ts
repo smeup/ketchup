@@ -2,7 +2,6 @@ import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type {
     KupThemeCSSVariables,
-    KupThemeCSSVariablesRGB,
     KupThemeIcons,
     KupThemeVariables,
 } from './kup-theme-declarations';
@@ -55,7 +54,8 @@ export class KupTheme {
 
         this.cssVars = {};
         this.styleTag.innerText =
-            ':root[kup-theme="' +
+            this.imports() +
+            ' :root[kup-theme="' +
             this.name +
             '"]{' +
             this.cssVariables() +
@@ -65,6 +65,19 @@ export class KupTheme {
 
         document.documentElement.setAttribute('kup-theme', this.name);
         document.dispatchEvent(new CustomEvent('kupThemeChange'));
+    }
+    /**
+     * Sets the CSS variables of the theme.
+     */
+    imports(): string {
+        const imports: [] = this.list[this.name].imports
+            ? this.list[this.name].imports
+            : [];
+        let css: string = '';
+        for (let index = 0; index < imports.length; index++) {
+            css += '@import ' + imports[index] + ';';
+        }
+        return css;
     }
     /**
      * Sets the CSS variables of the theme.
@@ -233,6 +246,30 @@ export class KupTheme {
             randomChannel(brightness) +
             randomChannel(brightness)
         );
+    }
+    /**
+     * Sets a random theme between those specified in this.list (excludes "print" and "test").
+     */
+    randomTheme(): void {
+        let themes: string[] = [];
+        for (var key in this.list) {
+            if (this.list.hasOwnProperty(key)) {
+                if (key !== 'test' && key !== 'print') {
+                    themes.push(key);
+                }
+            }
+        }
+        if (themes.length > 0) {
+            this.set(
+                themes[Math.floor(Math.random() * Math.floor(themes.length))]
+            );
+        } else {
+            dom.ketchup.debug.logMessage(
+                'kup-theme',
+                "Couldn't set a random theme: no themes available!",
+                'warning'
+            );
+        }
     }
     /**
      * Returns HEX, RGB and RGB values from a given color.

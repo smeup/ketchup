@@ -40,7 +40,10 @@
             "--kup-clear-icon": "clear",
             "--kup-filter-remove-icon": "filter-remove"
         },
-        "customStyles": {}
+        "customStyles": {},
+        "imports": [
+            "@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap')"
+        ]
     },
     "cobalt": {
         "cssVariables": {
@@ -49,7 +52,7 @@
             "--kup-background-color": "#222222",
             "--kup-nav-bar-background-color": "#131313",
             "--kup-drawer-background-color": "#2e2e2e",
-            "--kup-font-family": "Tahoma, sans-serif",
+            "--kup-font-family": "Blinker, sans-serif;",
             "--kup-font-family-monospace": "Andalé Mono, monospace",
             "--kup-font-size": "14px",
             "--kup-text-color": "#65cbe9",
@@ -82,7 +85,10 @@
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
             "--kup-filter-remove-icon": "filter-remove"
-        }
+        },
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Blinker:wght@200;300;600&display=swap')"
+        ]
     },
     "dark": {
         "cssVariables": {
@@ -124,7 +130,10 @@
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
             "--kup-filter-remove-icon": "filter-remove"
-        }
+        },
+        "imports": [
+            "@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap')"
+        ]
     },
     "flamingo": {
         "cssVariables": {
@@ -133,7 +142,7 @@
             "--kup-background-color": "#222222",
             "--kup-nav-bar-background-color": "#2d2d2d",
             "--kup-drawer-background-color": "#1f1f1f",
-            "--kup-font-family": "Verdana, sans-serif",
+            "--kup-font-family": "Mali, cursive;",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "14px",
             "--kup-text-color": "#f5f5f5",
@@ -166,7 +175,10 @@
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
             "--kup-filter-remove-icon": "filter-remove"
-        }
+        },
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Mali:wght@300&display=swap')"
+        ]
     },
     "graphite": {
         "cssVariables": {
@@ -400,7 +412,10 @@
             "--kup-collapsed-icon": "chevron_right",
             "--kup-clear-icon": "cancel",
             "--kup-filter-remove-icon": "filter-remove"
-        }
+        },
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap')"
+        ]
     },
     "red": {
         "cssVariables": {
@@ -449,7 +464,10 @@
             "--kup-clear-icon": "cancel",
             "--kup-filter-remove-icon": "filter-remove"
         },
-        "customStyles": {}
+        "customStyles": {},
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap')"
+        ]
     },
     "teal": {
         "cssVariables": {
