@@ -15,7 +15,7 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupTheme
  */
 export class KupTheme {
-    cssVars: Partial<KupThemeCSSVariables> = {};
+    cssVars: Partial<KupThemeVariables> = {};
     list: JSON =
         dom.ketchupInit && dom.ketchupInit.theme && dom.ketchupInit.theme.list
             ? dom.ketchupInit.theme.list
