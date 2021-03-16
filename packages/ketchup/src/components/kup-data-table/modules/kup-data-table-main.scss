@@ -558,10 +558,3 @@ th.obj:hover span:not(.overlay-action) {
 .totals-value {
   font-weight: bold;
 }
-
-#global-filter-toggler {
-  margin: 0.5em 0;
-  &:not(.toggled) {
-    --kup-primary-color: var(--kup-icon-color);
-  }
-}

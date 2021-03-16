@@ -466,22 +466,17 @@ export class KupEchart {
 
     private fetchThemeColors() {
         let colorArray: string[] = [];
-        for (let index = 1, color = undefined; color !== ''; index++) {
-            let key = '--kup-chart-color-' + index;
-            color = document.documentElement.style.getPropertyValue(key);
-            if (color) {
-                colorArray.push(color);
-            }
+        let key: string = '--kup-chart-color-';
+        for (
+            let index = 1;
+            this.kupManager.theme.cssVars[key + index];
+            index++
+        ) {
+            colorArray.push(this.kupManager.theme.cssVars[key + index]);
         }
-        this.themeBorder = document.documentElement.style.getPropertyValue(
-            '--kup-border-color'
-        );
-        this.themeFont = document.documentElement.style.getPropertyValue(
-            '--kup-font-family'
-        );
-        this.themeText = document.documentElement.style.getPropertyValue(
-            '--kup-text-color'
-        );
+        this.themeBorder = this.kupManager.theme.cssVars['--kup-border-color'];
+        this.themeFont = this.kupManager.theme.cssVars['--kup-font-family'];
+        this.themeText = this.kupManager.theme.cssVars['--kup-text-color'];
 
         this.themeColors = colorArray;
     }
