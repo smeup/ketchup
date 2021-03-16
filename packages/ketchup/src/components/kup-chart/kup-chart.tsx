@@ -574,7 +574,6 @@ export class KupChart {
             colorArray.push(this.kupManager.theme.cssVars[key + index]);
         }
         this.themeText = this.kupManager.theme.cssVars['--kup-text-color'];
-        console.log(colorArray, this.themeText);
 
         try {
             for (
