@@ -21,6 +21,6 @@ export interface KupManager {
  * Interface for the KupManager override settings.
  */
 export interface KupManagerInitialization {
-    debug: { active: boolean };
+    debug: { active: boolean; logLimit: number };
     theme: { name: string; list: JSON };
 }
