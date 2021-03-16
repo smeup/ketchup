@@ -69,6 +69,7 @@ import {
     isIcon,
     isImage,
     isNumber,
+    isDate,
     isProgressBar as isProgressBarObj,
     isVoCodver,
     isCheckbox,
@@ -83,6 +84,9 @@ import {
     numberToFormattedStringNumber,
     identify,
     deepEqual,
+    unformattedStringToFormattedStringDate,
+    isValidStringDate,
+    ISO_DEFAULT_DATE_FORMAT,
 } from '../../utils/utils';
 
 import {
@@ -131,7 +135,6 @@ import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { FiltersRows } from '../../utils/filters/filters-rows';
-import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 
 @Component({
     tag: 'kup-data-table',
@@ -698,7 +701,7 @@ export class KupDataTable {
     private paginatedRows: Array<Row>;
     private paginatedRowsLength: number = 0;
 
-    private footer: { [index: string]: number };
+    private footer: { [index: string]: any }; // TODO change any
     /**
      * Instance of the KupManager class.
      */
@@ -3099,6 +3102,11 @@ export class KupDataTable {
                             value: TotalMode.DISTINCT,
                             selected: false,
                         },
+                        {
+                            text: null,
+                            value: null,
+                            isSeparator: true,
+                        },
                     ];
                     if (isNumber(column.obj)) {
                         // TODO Move these objects in declarations
@@ -3113,6 +3121,19 @@ export class KupDataTable {
                                 value: TotalMode.AVERAGE,
                                 selected: false,
                             },
+                            {
+                                text: TotalLabel.MIN,
+                                value: TotalMode.MIN,
+                                selected: false,
+                            },
+                            {
+                                text: TotalLabel.MAX,
+                                value: TotalMode.MAX,
+                                selected: false,
+                            }
+                        );
+                    } else if (isDate(column.obj)) {
+                        listData.push(
                             {
                                 text: TotalLabel.MIN,
                                 value: TotalMode.MIN,
@@ -3160,18 +3181,41 @@ export class KupDataTable {
                     );
                 }
 
+                // TODO please use getValueForDisplay
                 let value;
-                if (
-                    menuLabel === TotalLabel.COUNT ||
-                    menuLabel === TotalLabel.DISTINCT
-                ) {
-                    value = this.footer[column.name];
-                } else {
-                    value = numberToFormattedStringNumber(
-                        this.footer[column.name],
-                        column.decimals,
-                        column.obj ? column.obj.p : ''
-                    );
+                const footerValue = this.footer[column.name];
+                if (footerValue) {
+                    if (
+                        menuLabel === TotalLabel.COUNT ||
+                        menuLabel === TotalLabel.DISTINCT
+                    ) {
+                        value = footerValue;
+                    } else if (
+                        (menuLabel === TotalLabel.MAX ||
+                            menuLabel === TotalLabel.MIN) &&
+                        isDate(column.obj)
+                    ) {
+                        if (
+                            isValidStringDate(
+                                footerValue,
+                                ISO_DEFAULT_DATE_FORMAT
+                            )
+                        ) {
+                            value = unformattedStringToFormattedStringDate(
+                                footerValue,
+                                null,
+                                column.obj.t + column.obj.p
+                            );
+                        } else {
+                            console.warn(`invalid date: ${footerValue}`);
+                        }
+                    } else {
+                        value = numberToFormattedStringNumber(
+                            footerValue,
+                            column.decimals,
+                            column.obj ? column.obj.p : ''
+                        );
+                    }
                 }
 
                 return (
@@ -3271,15 +3315,32 @@ export class KupDataTable {
                     if (row.group.totals[column.name] < 0) {
                         totalClass += ' negative-number';
                     }
-                    cells.push(
-                        <td class={totalClass}>
-                            {numberToFormattedStringNumber(
-                                row.group.totals[column.name],
-                                column.decimals,
-                                column.obj ? column.obj.p : ''
-                            )}
-                        </td>
-                    );
+                    // TODO please use getValueForDisplay
+                    let value;
+                    let totalValue = row.group.totals[column.name];
+                    if (isDate(column.obj)) {
+                        if (
+                            isValidStringDate(
+                                totalValue,
+                                ISO_DEFAULT_DATE_FORMAT
+                            )
+                        ) {
+                            value = unformattedStringToFormattedStringDate(
+                                totalValue,
+                                null,
+                                column.obj.t + column.obj.p
+                            );
+                        } else {
+                            console.warn(`invalid date: ${totalValue}`);
+                        }
+                    } else {
+                        value = numberToFormattedStringNumber(
+                            totalValue,
+                            column.decimals,
+                            column.obj ? column.obj.p : ''
+                        );
+                    }
+                    cells.push(<td class={totalClass}>{value}</td>);
                 }
 
                 jsxRows.push(
