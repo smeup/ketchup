@@ -181,3 +181,37 @@
   margin: 0 0.25em;
   opacity: 0.5;
 }
+
+tfoot {
+  td {
+    border-bottom: 1px solid var(--kup-border-color);
+    border-right: 1px solid var(--kup-border-color);
+    box-sizing: border-box;
+    height: 36px;
+    text-align: right;
+    font-weight: bold;
+    padding: 0.5em 0.3125em;
+    &:hover {
+      background-color: var(--kup-background-color);
+    }
+    &:first-of-type {
+      border-left: 1px solid var(--kup-border-color);
+    }
+  }
+}
+
+.hidden {
+  span {
+    color: transparent;
+    position: relative;
+    text-overflow: ellipsis;
+    transition: color 200ms;
+    &:hover {
+      color: var(--kup-text-color);
+    }
+  }
+}
+
+.totals-value {
+  font-weight: bold;
+}

@@ -4388,6 +4388,12 @@ declare namespace LocalJSX {
           * Triggered when stop propagation event
          */
         "onKupDidUnload"?: (event: CustomEvent<void>) => void;
+        /**
+          * Generic right click event on tree.
+         */
+        "onKupTreeContextMenu"?: (event: CustomEvent<{
+        details: GenericObject;
+    }>) => void;
         "onKupTreeDynamicMassExpansion"?: (event: CustomEvent<{
         treeNodePath?: TreeNodePath;
         treeNode?: TreeNode;

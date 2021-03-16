@@ -63,6 +63,8 @@ import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import { GenericObject } from '../../types/GenericTypes';
+import { positionRecalc } from '../../utils/recalc-position';
 
 @Component({
     tag: 'kup-tree',
@@ -353,7 +355,18 @@ export class KupTree {
         bubbles: true,
     })
     kupAddColumn: EventEmitter<{ column: string }>;
-
+    /**
+     * Generic right click event on tree.
+     */
+    @Event({
+        eventName: 'kupTreeContextMenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupTreeContextMenu: EventEmitter<{
+        details: GenericObject;
+    }>;
     @Event({
         eventName: 'kupAddCodeDecodeColumn',
         composed: true,
@@ -516,11 +529,6 @@ export class KupTree {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.setThemeCustomStyle(this);
 
-        this.footer = calcTotals(
-            normalizeRows(this.getColumns(), this.nodesToRows()),
-            this.totals
-        );
-
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
         this.filtersTreeItemsInstance = new FiltersTreeItems();
@@ -554,6 +562,12 @@ export class KupTree {
 
     componentWillRender() {
         this.kupManager.debug.logRender(this, false);
+        if (this.showFooter && this.columns) {
+            this.footer = calcTotals(
+                normalizeRows(this.getColumns(), this.nodesToRows()),
+                this.totals
+            );
+        }
         this.filterNodes();
     }
 
@@ -561,6 +575,7 @@ export class KupTree {
         const root = this.rootElement.shadowRoot;
 
         this.columnMenuInstance.reposition(this);
+        this.totalMenuPosition();
         this.checkScrollOnHover();
 
         if (root) {
@@ -668,6 +683,99 @@ export class KupTree {
                 }
             }
         }
+    }
+
+    private closeMenu() {
+        this.openedMenu = null;
+    }
+
+    private openTotalMenu(column: Column) {
+        this.openedTotalMenu = column.name;
+    }
+
+    private closeMenuAndTooltip() {
+        this.closeMenu();
+        unsetTooltip(this.tooltip);
+    }
+
+    private onTotalMenuOpen(column: Column) {
+        this.closeMenuAndTooltip();
+        this.closeTotalMenu();
+        this.openTotalMenu(column);
+    }
+
+    private getEventDetails(
+        el: HTMLElement
+    ): {
+        area: string;
+        cell: Cell;
+        column: Column;
+        filterRemove: HTMLSpanElement;
+        row: Row;
+        td: HTMLTableDataCellElement;
+        th: HTMLTableHeaderCellElement;
+        tr: HTMLTableRowElement;
+    } {
+        const isHeader: boolean = !!el.closest('thead'),
+            isBody: boolean = !!el.closest('tbody'),
+            isFooter: boolean = !!el.closest('tfoot'),
+            td: HTMLTableDataCellElement = el.closest('td'),
+            th: HTMLTableHeaderCellElement = el.closest('th'),
+            tr: HTMLTableRowElement = el.closest('tr'),
+            filterRemove: HTMLSpanElement = el.closest('th .filter-remove');
+        let cell: Cell = null,
+            column: Column = null,
+            row: Row = null;
+        if (isBody) {
+            if (td) {
+                cell = td['data-cell'];
+            }
+            if (tr) {
+                row = tr['data-row'];
+            }
+        }
+        if (isHeader || isBody || isFooter) {
+            const columnName = td
+                ? td.dataset.column
+                : th
+                ? th.dataset.column
+                : null;
+            if (columnName) {
+                column = getColumnByName(this.getColumns(), columnName);
+            }
+        }
+
+        return {
+            area: isHeader
+                ? 'header'
+                : isBody
+                ? 'body'
+                : isFooter
+                ? 'footer'
+                : null,
+            cell: cell ? cell : null,
+            column: column ? column : null,
+            filterRemove: filterRemove ? filterRemove : null,
+            row: row ? row : null,
+            td: td ? td : null,
+            th: th ? th : null,
+            tr: tr ? tr : null,
+        };
+    }
+
+    private contextMenuHandler(e: MouseEvent): void {
+        const details = this.getEventDetails(e.target as HTMLElement);
+        console.log('dafuq');
+        if (details.area === 'footer') {
+            if (details.td && details.column) {
+                e.preventDefault();
+                this.onTotalMenuOpen(details.column);
+                return;
+            }
+        }
+        this.kupTreeContextMenu.emit({
+            details: details,
+        });
     }
 
     /**
@@ -1673,6 +1781,7 @@ export class KupTree {
     }
 
     renderFooter() {
+        const nodesCell: HTMLTableDataCellElement = <td></td>;
         const footerCells = this.getVisibleColumns().map((column: Column) => {
             let totalMenu = undefined;
             // TODO Manage the label with different languages
@@ -1775,9 +1884,11 @@ export class KupTree {
                         id="totals-menu"
                         is-menu
                         menu-visible
+                        onBlur={() => this.closeTotalMenu()}
                         onKupListClick={(event) =>
                             this.onTotalsChange(event, column)
                         }
+                        tabindex={0}
                     ></kup-list>
                 );
             }
@@ -1806,13 +1917,29 @@ export class KupTree {
             );
         });
 
-        const footer = (
+        return (
             <tfoot>
-                <tr>{footerCells}</tr>
+                <tr>
+                    {nodesCell}
+                    {footerCells}
+                </tr>
             </tfoot>
         );
+    }
 
-        return footer;
+    private totalMenuPosition() {
+        if (this.rootElement.shadowRoot) {
+            let menu: HTMLElement = this.rootElement.shadowRoot.querySelector(
+                '#totals-menu'
+            );
+            if (menu) {
+                let wrapper = menu.closest('td');
+                positionRecalc(menu, wrapper, 0, true, true);
+                menu.classList.add('dynamic-position-active');
+                menu.classList.add('visible');
+                menu.focus();
+            }
+        }
     }
 
     /**
@@ -1934,6 +2061,9 @@ export class KupTree {
                         <table
                             class="kup-tree"
                             data-show-columns={this.showColumns}
+                            onContextMenu={(e: MouseEvent) =>
+                                this.contextMenuHandler(e)
+                            }
                         >
                             <thead
                                 class={{
