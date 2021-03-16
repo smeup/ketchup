@@ -3102,6 +3102,11 @@ export class KupDataTable {
                             value: TotalMode.DISTINCT,
                             selected: false,
                         },
+                        {
+                            text: null,
+                            value: null,
+                            isSeparator: true,
+                        },
                     ];
                     if (isNumber(column.obj)) {
                         // TODO Move these objects in declarations

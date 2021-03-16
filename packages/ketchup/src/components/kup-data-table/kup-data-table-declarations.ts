@@ -74,7 +74,7 @@ export interface RowGroup {
         p: string;
         k: string;
     };
-    totals: { [index: string]: number };
+    totals: { [index: string]: any }; // TODO manage this any
 }
 
 export interface TableData {
