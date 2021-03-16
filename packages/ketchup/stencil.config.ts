@@ -11,9 +11,6 @@ export const config: Config = {
             src: 'box.html',
         },
         {
-            src: 'box-performance.html',
-        },
-        {
             src: 'card.html',
         },
         {

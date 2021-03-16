@@ -45,7 +45,6 @@
 | ------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | `kupAutoBoxSelect`        | Triggered when a box is auto selected via selectBox prop  | `CustomEvent<{ row: BoxRow; }>`                                                  |
 | `kupBoxClicked`           | Triggered when a box is clicked                           | `CustomEvent<{ row: BoxRow; column?: string; }>`                                 |
-| `kupBoxContextMenu`       | Generic right click event on box.                         | `CustomEvent<{ details: GenericObject; }>`                                       |
 | `kupBoxDragEnded`         | Triggered when a box dragging is ended                    | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; }>` |
 | `kupBoxDragStarted`       | Triggered when a box dragging is started                  | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; }>` |
 | `kupBoxSelected`          | Triggered when the multi selection checkbox changes value | `CustomEvent<{ rows: BoxRow[]; }>`                                               |
@@ -85,8 +84,10 @@ Type: `Promise<void>`
 - [kup-card](../kup-card)
 - [kup-checkbox](../kup-checkbox)
 - [kup-badge](../kup-badge)
+- [kup-button](../kup-button)
 - [kup-chart](../kup-chart)
 - [kup-editor](../kup-editor)
+- [kup-image](../kup-image)
 - [kup-text-field](../kup-text-field)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
@@ -101,8 +102,10 @@ graph TD;
   kup-box --> kup-card
   kup-box --> kup-checkbox
   kup-box --> kup-badge
+  kup-box --> kup-button
   kup-box --> kup-chart
   kup-box --> kup-editor
+  kup-box --> kup-image
   kup-box --> kup-text-field
   kup-box --> kup-progress-bar
   kup-box --> kup-radio
@@ -129,6 +132,8 @@ graph TD;
   kup-time-picker --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
   kup-tooltip --> kup-button
   kup-tooltip --> kup-tree
   kup-tree --> kup-image
@@ -144,8 +149,6 @@ graph TD;
   kup-tree --> kup-tooltip
   kup-tree --> kup-text-field
   kup-tree --> kup-card
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
   kup-color-picker --> kup-text-field
   kup-combobox --> kup-list
   kup-paginator --> kup-combobox

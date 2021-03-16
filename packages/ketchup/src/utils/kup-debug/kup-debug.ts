@@ -38,19 +38,15 @@ export class KupDebug {
                     : this.logs[index].message.indexOf('Size changed') > -1
                     ? 'Resize'
                     : 'Misc';
-            const isComponent: boolean = !!(this.logs[index]
-                .element as KupComponent);
             if (!printLog[type]) {
                 printLog[type] = [];
             }
             printLog[type].push({
                 date: this.formatDate(this.logs[index].date),
-                element: isComponent
-                    ? (this.logs[index].element as KupComponent)
+                element: (this.logs[index].element as KupComponent).rootElement
+                    ? (this.logs[index].element as KupComponent).rootElement
                     : this.logs[index].id,
-                message: isComponent
-                    ? this.logs[index].id + this.logs[index].message
-                    : this.logs[index].message,
+                message: this.logs[index].message,
             });
         }
         for (const key in printLog) {
@@ -67,13 +63,7 @@ export class KupDebug {
                         '; margin-right: 10px; border-radius: 50%',
                     'background-color: transparent'
                 );
-                for (let index = 0; index < printLog[key].length; index++) {
-                    console.log(
-                        printLog[key][index].date,
-                        printLog[key][index].message,
-                        printLog[key][index].element
-                    );
-                }
+                console.table(printLog[key]);
                 console.groupEnd();
             }
         }
@@ -160,11 +150,11 @@ export class KupDebug {
                     date: date,
                     element: obj,
                 };
-                if (this.logs.length > 5000) {
+                if (this.logs.length > 1000) {
                     console.warn(
                         this.formatDate(date) +
                             ' kup-debug => ' +
-                            'Too many logs (> 5000)! Dumping...'
+                            'Too many logs (> 1000)! Dumping...'
                     );
                     this.dump();
                 }

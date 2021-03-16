@@ -2306,12 +2306,6 @@ declare namespace LocalJSX {
         column?: string;
     }>) => void;
         /**
-          * Generic right click event on box.
-         */
-        "onKupBoxContextMenu"?: (event: CustomEvent<{
-        details: GenericObject;
-    }>) => void;
-        /**
           * Triggered when a box dragging is ended
          */
         "onKupBoxDragEnded"?: (event: CustomEvent<{
