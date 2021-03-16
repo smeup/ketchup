@@ -17,6 +17,12 @@ export class KupDebug {
         dom.ketchupInit && dom.ketchupInit.debug && dom.ketchupInit.debug.active
             ? dom.ketchupInit.debug.active
             : false;
+    logLimit: number =
+        dom.ketchupInit &&
+        dom.ketchupInit.debug &&
+        dom.ketchupInit.debug.logLimit
+            ? dom.ketchupInit.debug.logLimit
+            : 100;
     logs: KupDebugLog[] = [];
     /**
      * Dumps the stored logs.
@@ -160,11 +166,13 @@ export class KupDebug {
                     date: date,
                     element: obj,
                 };
-                if (this.logs.length > 5000) {
+                if (this.logs.length > this.logLimit) {
                     console.warn(
                         this.formatDate(date) +
                             ' kup-debug => ' +
-                            'Too many logs (> 5000)! Dumping...'
+                            'Too many logs (> ' +
+                            this.logLimit +
+                            ')! Dumping (increase debug.logLimit to store more logs)... .'
                     );
                     this.dump();
                 }
