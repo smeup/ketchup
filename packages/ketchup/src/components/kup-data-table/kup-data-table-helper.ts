@@ -1,5 +1,7 @@
 import numeral from 'numeral';
 
+import moment from 'moment';
+
 import {
     Row,
     SortObject,
@@ -13,7 +15,7 @@ import {
     KupDataTableRowDragType,
 } from './kup-data-table-declarations';
 
-import { isNumber } from '../../utils/object-utils';
+import { isNumber, isDate } from '../../utils/object-utils';
 import { isEmpty, stringToNumber } from '../../utils/utils';
 import { DropHandlers, setDragDropPayload } from '../../utils/drag-and-drop';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
@@ -28,6 +30,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { formatToMomentDate } from '../../utils/cell-formatter';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -596,7 +599,7 @@ export function calcTotals(
         return {};
     }
     const keys = Object.keys(totals);
-    const footerRow: { [index: string]: number } = {};
+    const footerRow: { [index: string]: any } = {};
     // if there are only COUNT, no need to loop on rows
     let onlyCount =
         keys.length === 0 &&
@@ -613,7 +616,6 @@ export function calcTotals(
             ).forEach((key) => {
                 // getting cell
                 const cell = r.cells[key];
-                // check if number
                 if (cell) {
                     if (totals[key] === TotalMode.DISTINCT) {
                         let cellValue;
@@ -642,7 +644,7 @@ export function calcTotals(
                         }
                     } else if (isNumber(cell.obj)) {
                         const cellValue = numeral(stringToNumber(cell.value));
-                        const currentFooterValue = footerRow[key] || 0;
+                        let currentFooterValue = footerRow[key];
                         switch (true) {
                             case totals[key] === TotalMode.MIN:
                                 if (currentFooterValue) {
@@ -666,9 +668,32 @@ export function calcTotals(
                                 break;
                             default:
                                 // SUM
+                                currentFooterValue = footerRow[key] || 0;
                                 footerRow[key] = cellValue
                                     .add(currentFooterValue)
                                     .value();
+                        }
+                    } else if (isDate(cell.obj)) {
+                        const cellValue = formatToMomentDate(cell).toDate();
+                        const currentFooterValue = footerRow[key];
+                        switch (true) {
+                            case totals[key] === TotalMode.MIN:
+                                if (currentFooterValue) {
+                                    let moments = [];
+                                    moments.push(cellValue);
+                                    moments.push(
+                                        moment(currentFooterValue, 'DD/MM/YYYY')
+                                    );
+                                    footerRow[key] = moment.min(moments);
+                                } else {
+                                    footerRow[key] = cellValue;
+                                }
+                                break;
+                            case totals[key] === TotalMode.MAX:
+                                // TODO
+                                break;
+                            default:
+                                break;
                         }
                     }
                 }

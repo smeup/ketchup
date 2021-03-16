@@ -69,6 +69,7 @@ import {
     isIcon,
     isImage,
     isNumber,
+    isDate,
     isProgressBar as isProgressBarObj,
     isVoCodver,
     isCheckbox,
@@ -83,6 +84,9 @@ import {
     numberToFormattedStringNumber,
     identify,
     deepEqual,
+    unformattedStringToFormattedStringDate,
+    isValidStringDate,
+    ISO_DEFAULT_DATE_FORMAT,
 } from '../../utils/utils';
 
 import {
@@ -131,7 +135,6 @@ import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { FiltersRows } from '../../utils/filters/filters-rows';
-import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 
 @Component({
     tag: 'kup-data-table',
@@ -698,7 +701,7 @@ export class KupDataTable {
     private paginatedRows: Array<Row>;
     private paginatedRowsLength: number = 0;
 
-    private footer: { [index: string]: number };
+    private footer: { [index: string]: any }; // TODO change any
     /**
      * Instance of the KupManager class.
      */
@@ -3124,6 +3127,19 @@ export class KupDataTable {
                                 selected: false,
                             }
                         );
+                    } else if (isDate(column.obj)) {
+                        listData.push(
+                            {
+                                text: TotalLabel.MIN,
+                                value: TotalMode.MIN,
+                                selected: false,
+                            },
+                            {
+                                text: TotalLabel.MAX,
+                                value: TotalMode.MAX,
+                                selected: false,
+                            }
+                        );
                     }
                     // TODO replace this with find which is a better approach
                     // Note that this is not supported in older IE
@@ -3160,18 +3176,41 @@ export class KupDataTable {
                     );
                 }
 
+                // TODO please use getValueForDisplay
                 let value;
-                if (
-                    menuLabel === TotalLabel.COUNT ||
-                    menuLabel === TotalLabel.DISTINCT
-                ) {
-                    value = this.footer[column.name];
-                } else {
-                    value = numberToFormattedStringNumber(
-                        this.footer[column.name],
-                        column.decimals,
-                        column.obj ? column.obj.p : ''
-                    );
+                const footerValue = this.footer[column.name];
+                if (footerValue) {
+                    if (
+                        menuLabel === TotalLabel.COUNT ||
+                        menuLabel === TotalLabel.DISTINCT
+                    ) {
+                        value = footerValue;
+                    } else if (
+                        (menuLabel === TotalLabel.MAX ||
+                            menuLabel === TotalLabel.MIN) &&
+                        isDate(column.obj)
+                    ) {
+                        if (
+                            isValidStringDate(
+                                footerValue,
+                                ISO_DEFAULT_DATE_FORMAT
+                            )
+                        ) {
+                            value = unformattedStringToFormattedStringDate(
+                                footerValue,
+                                null,
+                                column.obj.t + column.obj.p
+                            );
+                        } else {
+                            console.warn(`invalid date: ${footerValue}`);
+                        }
+                    } else {
+                        value = numberToFormattedStringNumber(
+                            footerValue,
+                            column.decimals,
+                            column.obj ? column.obj.p : ''
+                        );
+                    }
                 }
 
                 return (
