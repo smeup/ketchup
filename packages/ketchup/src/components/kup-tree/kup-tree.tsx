@@ -2076,7 +2076,8 @@ export class KupTree {
                                 </tr>
                             </thead>
                             <tbody>{treeNodes}</tbody>
-                            {this.showFooter || this.hasTotals()
+                            {(this.showFooter || this.hasTotals()) &&
+                            this.columns
                                 ? this.renderFooter()
                                 : null}
                         </table>

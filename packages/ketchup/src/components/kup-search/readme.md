@@ -76,12 +76,15 @@ graph TD;
   kup-tree --> kup-rating
   kup-tree --> kup-radio
   kup-tree --> kup-tooltip
+  kup-tree --> kup-list
   kup-tree --> kup-text-field
   kup-tree --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
   kup-card --> kup-chip
   kup-card --> kup-button
   kup-card --> kup-badge
@@ -96,8 +99,6 @@ graph TD;
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
-  kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   kup-combobox --> kup-list

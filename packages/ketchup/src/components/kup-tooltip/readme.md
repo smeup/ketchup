@@ -84,6 +84,8 @@ graph TD;
   kup-image --> kup-badge
   kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
   kup-card --> kup-chip
   kup-card --> kup-button
   kup-card --> kup-badge
@@ -98,8 +100,6 @@ graph TD;
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
-  kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-box --> kup-tooltip
   kup-data-table --> kup-tooltip
   style kup-tooltip fill:#f9f,stroke:#333,stroke-width:4px

@@ -136,6 +136,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showFooter',
+          description: 'When set to true shows the footer.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'showHeader',
           description:
             'Flag: shows the header of the tree when the tree is displayed as a table.',

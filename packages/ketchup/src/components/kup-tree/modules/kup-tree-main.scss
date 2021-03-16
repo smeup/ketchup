@@ -194,8 +194,9 @@ tfoot {
     &:hover {
       background-color: var(--kup-background-color);
     }
-    &:first-of-type {
-      border-left: 1px solid var(--kup-border-color);
+    &:first-of-type {    
+      border: none;
+      border-right: 1px solid var(--kup-border-color);
     }
   }
 }
