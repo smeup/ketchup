@@ -1,6 +1,7 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type {
+    KupThemeCSSVariables,
     KupThemeIcons,
     KupThemeVariables,
 } from './kup-theme-declarations';
@@ -14,15 +15,19 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupTheme
  */
 export class KupTheme {
-    name: string =
-        dom.ketchupInit && dom.ketchupInit.theme && dom.ketchupInit.theme.name
-            ? dom.ketchupInit.theme.name
-            : 'ketchup';
+    cssVars: Partial<KupThemeVariables> = {};
     list: JSON =
         dom.ketchupInit && dom.ketchupInit.theme && dom.ketchupInit.theme.list
             ? dom.ketchupInit.theme.list
             : themesJson['default'];
     managedComponents: Array<KupComponent> = [];
+    name: string =
+        dom.ketchupInit && dom.ketchupInit.theme && dom.ketchupInit.theme.name
+            ? dom.ketchupInit.theme.name
+            : 'ketchup';
+    styleTag: HTMLStyleElement = dom
+        .querySelector('head')
+        .appendChild(document.createElement('style'));
     /**
      * Sets the theme using this.name or the function's argument.
      *
@@ -47,8 +52,15 @@ export class KupTheme {
             this.name = 'ketchup';
         }
 
-        this.cssVariables();
-        this.icons();
+        this.cssVars = {};
+        this.styleTag.innerText =
+            this.imports() +
+            ' :root[kup-theme="' +
+            this.name +
+            '"]{' +
+            this.cssVariables() +
+            this.icons() +
+            '}';
         this.customStyle();
 
         document.documentElement.setAttribute('kup-theme', this.name);
@@ -57,32 +69,53 @@ export class KupTheme {
     /**
      * Sets the CSS variables of the theme.
      */
-    cssVariables(): void {
+    imports(): string {
+        const imports: [] = this.list[this.name].imports
+            ? this.list[this.name].imports
+            : [];
+        let css: string = '';
+        for (let index = 0; index < imports.length; index++) {
+            css += '@import ' + imports[index] + ';';
+        }
+        return css;
+    }
+    /**
+     * Sets the CSS variables of the theme.
+     */
+    cssVariables(): string {
         const variables: KupThemeVariables = this.list[this.name].cssVariables;
-        let rgbVariables: [{ rgbKey: string; rgbVal: string }];
+        let css: string = '';
         for (var key in variables) {
             if (variables.hasOwnProperty(key)) {
                 var val = variables[key];
+                this.cssVars[key] = val;
+                css += key + ': ' + val + ';';
                 if (key.indexOf('color') > -1) {
                     let rgbKey = key + '-rgb';
                     let rgbVal = this.colorCheck(val).rgbValues;
-                    if (rgbVariables) {
-                        rgbVariables.push({ rgbVal: rgbVal, rgbKey: rgbKey });
-                    } else {
-                        rgbVariables = [{ rgbKey: rgbKey, rgbVal: rgbVal }];
-                    }
+                    this.cssVars[rgbKey] = rgbVal;
+                    css += rgbKey + ': ' + rgbVal + ';';
                 }
-                dom.style.setProperty(key, val);
             }
         }
-        if (rgbVariables) {
-            for (let index = 0; index < rgbVariables.length; index++) {
-                dom.style.setProperty(
-                    rgbVariables[index].rgbKey,
-                    rgbVariables[index].rgbVal
-                );
+        return css;
+    }
+    /**
+     * Sets the icon variables of the theme.
+     */
+    icons(): string {
+        const icons: KupThemeIcons = this.list[this.name].icons;
+        let css: string = '';
+        for (var key in icons) {
+            if (icons.hasOwnProperty(key)) {
+                const val = `url('${getAssetPath(
+                    `./assets/svg/${icons[key]}.svg`
+                )}') no-repeat center`;
+                this.cssVars[key] = val;
+                css += key + ': ' + val + ';';
             }
         }
+        return css;
     }
     /**
      * Sets the customStyle of the theme on existing components.
@@ -99,26 +132,17 @@ export class KupTheme {
         }
     }
     /**
-     * Sets the icon variables of the theme.
-     */
-    icons(): void {
-        const icons: KupThemeIcons = this.list[this.name].icons;
-        for (var key in icons) {
-            if (icons.hasOwnProperty(key)) {
-                const val = `url('${getAssetPath(
-                    `./assets/svg/${icons[key]}.svg`
-                )}') no-repeat center`;
-                dom.style.setProperty(key, val);
-            }
-        }
-    }
-    /**
      * This method will just refresh the current theme.
      */
     refresh(): void {
         try {
-            this.cssVariables();
-            this.icons();
+            this.styleTag.innerText =
+                ':root[kup-theme="' +
+                this.name +
+                '"]{' +
+                this.cssVariables() +
+                this.icons() +
+                '}';
             this.customStyle();
             dom.ketchup.debug.logMessage(
                 'kup-theme',
@@ -222,6 +246,30 @@ export class KupTheme {
             randomChannel(brightness) +
             randomChannel(brightness)
         );
+    }
+    /**
+     * Sets a random theme between those specified in this.list (excludes "print" and "test").
+     */
+    randomTheme(): void {
+        let themes: string[] = [];
+        for (var key in this.list) {
+            if (this.list.hasOwnProperty(key)) {
+                if (key !== 'test' && key !== 'print') {
+                    themes.push(key);
+                }
+            }
+        }
+        if (themes.length > 0) {
+            this.set(
+                themes[Math.floor(Math.random() * Math.floor(themes.length))]
+            );
+        } else {
+            dom.ketchup.debug.logMessage(
+                'kup-theme',
+                "Couldn't set a random theme: no themes available!",
+                'warning'
+            );
+        }
     }
     /**
      * Returns HEX, RGB and RGB values from a given color.

@@ -40,7 +40,10 @@
             "--kup-clear-icon": "clear",
             "--kup-filter-remove-icon": "filter-remove"
         },
-        "customStyles": {}
+        "customStyles": {},
+        "imports": [
+            "@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap')"
+        ]
     },
     "cobalt": {
         "cssVariables": {
@@ -49,7 +52,7 @@
             "--kup-background-color": "#222222",
             "--kup-nav-bar-background-color": "#131313",
             "--kup-drawer-background-color": "#2e2e2e",
-            "--kup-font-family": "Tahoma, sans-serif",
+            "--kup-font-family": "Blinker, sans-serif;",
             "--kup-font-family-monospace": "Andalé Mono, monospace",
             "--kup-font-size": "14px",
             "--kup-text-color": "#65cbe9",
@@ -82,7 +85,10 @@
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
             "--kup-filter-remove-icon": "filter-remove"
-        }
+        },
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Blinker:wght@200;300;600&display=swap')"
+        ]
     },
     "dark": {
         "cssVariables": {
@@ -124,7 +130,10 @@
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
             "--kup-filter-remove-icon": "filter-remove"
-        }
+        },
+        "imports": [
+            "@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap')"
+        ]
     },
     "flamingo": {
         "cssVariables": {
@@ -133,7 +142,7 @@
             "--kup-background-color": "#222222",
             "--kup-nav-bar-background-color": "#2d2d2d",
             "--kup-drawer-background-color": "#1f1f1f",
-            "--kup-font-family": "Verdana, sans-serif",
+            "--kup-font-family": "Mali, cursive;",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "14px",
             "--kup-text-color": "#f5f5f5",
@@ -166,7 +175,10 @@
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
             "--kup-filter-remove-icon": "filter-remove"
-        }
+        },
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Mali:wght@300&display=swap')"
+        ]
     },
     "graphite": {
         "cssVariables": {
@@ -226,10 +238,10 @@
             "--kup-background-color": "#ffffff",
             "--kup-nav-bar-background-color": "#2e2e2e",
             "--kup-drawer-background-color": "#ffffff",
-            "--kup-font-family": "Roboto, sans-serif",
+            "--kup-font-family": "Ubuntu, sans-serif",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "14px",
-            "--kup-text-color": "#2e2e2e",
+            "--kup-text-color": "#595959",
             "--kup-text-on-primary-color": "#ffffff",
             "--kup-text-on-secondary-color": "#ffffff",
             "--kup-disabled-background-color": "#eaeaea",
@@ -259,7 +271,10 @@
             "--kup-collapsed-icon": "chevron_right",
             "--kup-clear-icon": "clear",
             "--kup-filter-remove-icon": "filter-remove"
-        }
+        },
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap')"
+        ]
     },
     "ocean": {
         "cssVariables": {
@@ -268,9 +283,9 @@
             "--kup-background-color": "#ffffff",
             "--kup-nav-bar-background-color": "#001d3e",
             "--kup-drawer-background-color": "#e6f1ff",
-            "--kup-font-family": "Lato, sans-serif",
+            "--kup-font-family": "Open Sans Condensed, sans-serif",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
-            "--kup-font-size": "14px",
+            "--kup-font-size": "16px",
             "--kup-text-color": "#1b1b1b",
             "--kup-text-on-primary-color": "#ffffff",
             "--kup-text-on-secondary-color": "#ffffff",
@@ -301,7 +316,10 @@
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
             "--kup-filter-remove-icon": "filter-remove"
-        }
+        },
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&display=swap')"
+        ]
     },
     "print": {
         "cssVariables": {
@@ -400,7 +418,10 @@
             "--kup-collapsed-icon": "chevron_right",
             "--kup-clear-icon": "cancel",
             "--kup-filter-remove-icon": "filter-remove"
-        }
+        },
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap')"
+        ]
     },
     "red": {
         "cssVariables": {
@@ -449,7 +470,10 @@
             "--kup-clear-icon": "cancel",
             "--kup-filter-remove-icon": "filter-remove"
         },
-        "customStyles": {}
+        "customStyles": {},
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap')"
+        ]
     },
     "teal": {
         "cssVariables": {
@@ -506,9 +530,9 @@
             "--kup-background-color": "#ffffff",
             "--kup-nav-bar-background-color": "#095a1f",
             "--kup-drawer-background-color": "#dbfbd5",
-            "--kup-font-family": "Open Sans, arial, helvatica",
+            "--kup-font-family": "Abel, sans-serif",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
-            "--kup-font-size": "14px",
+            "--kup-font-size": "16px",
             "--kup-text-color": "#000000",
             "--kup-text-on-primary-color": "#ffffff",
             "--kup-text-on-secondary-color": "#ffffff",
@@ -539,7 +563,10 @@
             "--kup-collapsed-icon": "menu-right",
             "--kup-clear-icon": "cancel",
             "--kup-filter-remove-icon": "filter-remove"
-        }
+        },
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Abel&display=swap')"
+        ]
     },
     "test": {
         "cssVariables": {
@@ -548,7 +575,7 @@
             "--kup-background-color": "#ffffff",
             "--kup-nav-bar-background-color": "#f5f5f5",
             "--kup-drawer-background-color": "#ffffff",
-            "--kup-font-family": "Roboto, sans-serif",
+            "--kup-font-family": "Architects Daughter, cursive",
             "--kup-font-family-monospace": "Roboto Mono, consolas, monospace",
             "--kup-font-size": "14px",
             "--kup-text-color": "#2e2e2e",
@@ -613,6 +640,9 @@
             "--kup-collapsed-icon": "chevron_right",
             "--kup-clear-icon": "cancel",
             "--kup-filter-remove-icon": "broom"
-        }
+        },
+        "imports": [
+            "url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap')"
+        ]
     }
 }
