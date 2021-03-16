@@ -404,6 +404,36 @@ function updateGroupTotal(
                             }
                             parent = parent.group.parent;
                         }
+                    } else if (isDate(cell.obj)) {
+                        const currentTotalValue = groupRow.group.totals[key];
+                        const cellValue = formatToMomentDate(cell).toDate();
+                        if (currentTotalValue) {
+                            let moments = [];
+                            moments.push(cellValue);
+                            moments.push(
+                                moment(currentTotalValue, 'DD/MM/YYYY')
+                            );
+                            groupRow.group.totals[key] = moment.min(moments);
+                        } else {
+                            groupRow.group.totals[key] = cellValue;
+                        }
+                        // updating parents
+                        let parent = groupRow.group.parent;
+                        while (parent != null) {
+                            const currentParentMin = parent.group.totals[key];
+                            if (currentParentMin) {
+                                let moments = [];
+                                moments.push(cellValue);
+                                moments.push(
+                                    moment(currentParentMin, 'DD/MM/YYYY')
+                                );
+                                parent.group.totals[key] = moment.min(moments);
+                            } else {
+                                // first round
+                                parent.group.totals[key] = cellValue;
+                            }
+                            parent = parent.group.parent;
+                        }
                     }
                     break;
                 case TotalMode.MAX:
