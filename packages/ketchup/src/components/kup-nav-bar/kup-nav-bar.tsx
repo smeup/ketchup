@@ -242,9 +242,9 @@ export class KupNavBar {
     }
 
     private fetchThemeColors() {
-        let color = document.documentElement.style.getPropertyValue(
+        let color = this.kupManager.theme.cssVars[
             '--kup-nav-bar-background-color'
-        );
+        ];
         this.textColor = this.kupManager.theme.colorContrast(color);
     }
 

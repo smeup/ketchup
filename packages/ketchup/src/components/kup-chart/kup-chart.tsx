@@ -565,16 +565,16 @@ export class KupChart {
 
     private fetchThemeColors() {
         let colorArray: string[] = [];
-        for (let index = 1, color = undefined; color !== ''; index++) {
-            let key = '--kup-chart-color-' + index;
-            color = document.documentElement.style.getPropertyValue(key);
-            if (color) {
-                colorArray.push(color);
-            }
+        let key: string = '--kup-chart-color-';
+        for (
+            let index = 1;
+            this.kupManager.theme.cssVars[key + index];
+            index++
+        ) {
+            colorArray.push(this.kupManager.theme.cssVars[key + index]);
         }
-        this.themeText = document.documentElement.style.getPropertyValue(
-            '--kup-text-color'
-        );
+        this.themeText = this.kupManager.theme.cssVars['--kup-text-color'];
+        console.log(colorArray, this.themeText);
 
         try {
             for (
