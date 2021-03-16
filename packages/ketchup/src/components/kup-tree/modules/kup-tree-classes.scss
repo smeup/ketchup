@@ -112,39 +112,39 @@ td.purple-bg {
 // Content styles
 // These styles are applied to the cell's content
 td.c-vertical-text {
-  & * {
+  .cell-content {
     text-align: center;
     writing-mode: vertical-lr;
   }
 }
 
 td.c-right-aligned {
-  & * {
+  .cell-content {
     flex-flow: row-reverse;
   }
 }
 
 td.c-centered {
-  & * {
+  .cell-content {
     margin: auto;
     max-width: max-content;
   }
 }
 
 td.c-fitted {
-  & * {
+  .cell-content {
     max-width: max-content;
   }
 }
 
 td.c-shaped {
-  & * {
+  .cell-content {
     border-radius: 4px;
   }
 }
 
 td.c-hor-padded {
-  & * {
+  .cell-content {
     box-sizing: border-box;
     padding-left: 0.5em;
     padding-right: 0.5em;
@@ -152,7 +152,7 @@ td.c-hor-padded {
 }
 
 td.c-ver-padded {
-  & * {
+  .cell-content {
     box-sizing: border-box;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
@@ -160,55 +160,55 @@ td.c-ver-padded {
 }
 
 td.c-success-bg {
-  & * {
+  .cell-content {
     background: var(--kup-success-color);
     color: white;
   }
 }
 
 td.c-warning-bg {
-  & * {
+  .cell-content {
     background: var(--kup-warning-color);
   }
 }
 
 td.c-danger-bg {
-  & * {
+  .cell-content {
     background: var(--kup-danger-color);
     color: white;
   }
 }
 
 td.c-teal-bg {
-  & * {
+  .cell-content {
     background: #00b4bc;
     color: white;
   }
 }
 
 td.c-orange-bg {
-  & * {
+  .cell-content {
     background: #f59729;
     color: white;
   }
 }
 
 td.c-green-bg {
-  & * {
+  .cell-content {
     background: #00be67;
     color: white;
   }
 }
 
 td.c-grey-bg {
-  & * {
+  .cell-content {
     background: #8d8d8d;
     color: white;
   }
 }
 
 td.c-purple-bg {
-  & * {
+  .cell-content {
     background: #b88acc;
     color: white;
   }
