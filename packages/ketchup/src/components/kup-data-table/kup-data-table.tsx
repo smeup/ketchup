@@ -3315,15 +3315,32 @@ export class KupDataTable {
                     if (row.group.totals[column.name] < 0) {
                         totalClass += ' negative-number';
                     }
-                    cells.push(
-                        <td class={totalClass}>
-                            {numberToFormattedStringNumber(
-                                row.group.totals[column.name],
-                                column.decimals,
-                                column.obj ? column.obj.p : ''
-                            )}
-                        </td>
-                    );
+                    // TODO please use getValueForDisplay
+                    let value;
+                    let totalValue = row.group.totals[column.name];
+                    if (isDate(column.obj)) {
+                        if (
+                            isValidStringDate(
+                                totalValue,
+                                ISO_DEFAULT_DATE_FORMAT
+                            )
+                        ) {
+                            value = unformattedStringToFormattedStringDate(
+                                totalValue,
+                                null,
+                                column.obj.t + column.obj.p
+                            );
+                        } else {
+                            console.warn(`invalid date: ${totalValue}`);
+                        }
+                    } else {
+                        value = numberToFormattedStringNumber(
+                            totalValue,
+                            column.decimals,
+                            column.obj ? column.obj.p : ''
+                        );
+                    }
+                    cells.push(<td class={totalClass}>{value}</td>);
                 }
 
                 jsxRows.push(
