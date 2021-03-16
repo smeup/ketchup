@@ -690,7 +690,16 @@ export function calcTotals(
                                 }
                                 break;
                             case totals[key] === TotalMode.MAX:
-                                // TODO
+                                if (currentFooterValue) {
+                                    let moments = [];
+                                    moments.push(cellValue);
+                                    moments.push(
+                                        moment(currentFooterValue, 'DD/MM/YYYY')
+                                    );
+                                    footerRow[key] = moment.max(moments);
+                                } else {
+                                    footerRow[key] = cellValue;
+                                }
                                 break;
                             default:
                                 break;
