@@ -359,6 +359,10 @@ export class FiltersRows extends Filters {
             columnFilters
         );
 
+        if (Filters.isTree(comp)) {
+            tmpRows = JSON.parse(JSON.stringify(tmpRows));
+        }
+
         if (columnObject != null) {
             tmpRows = tmpRows.sort((n1: Row, n2: Row) => {
                 return compareValues(
