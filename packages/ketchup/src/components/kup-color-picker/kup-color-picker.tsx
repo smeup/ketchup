@@ -53,7 +53,7 @@ export class KupColorPicker {
     /**
      * Instance of the KupManager class.
      */
-    private kupManager: KupManager = kupManagerInstance();
+    kupManager: KupManager = kupManagerInstance();
     private picker: Picker;
     private textfieldEl: KupTextField;
 
@@ -208,7 +208,7 @@ export class KupColorPicker {
                     colorPicker.dropdownEl = this[
                         'kupColorPicker'
                     ].rootElement.shadowRoot.querySelector('.picker_wrapper');
-                    colorPicker.kupManager.dynamicPosition.add(
+                    colorPicker.kupManager.dynamicPosition.register(
                         colorPicker.dropdownEl,
                         colorPicker.anchorEl
                     );
