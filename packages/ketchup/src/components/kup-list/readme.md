@@ -35,7 +35,7 @@
 
 ## Methods
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `resetFilter(newFilter: string) => Promise<void>`
 
 
 
@@ -45,7 +45,7 @@ Type: `Promise<void>`
 
 
 
-### `resetFilter(newFilter: string) => Promise<void>`
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 
 

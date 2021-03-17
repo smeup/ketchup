@@ -12,8 +12,7 @@ import {
     Watch,
 } from '@stencil/core';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
-
-import { positionRecalc } from '../../utils/recalc-position';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -255,7 +254,7 @@ export class KupDatePicker {
     }
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -413,7 +412,9 @@ export class KupDatePicker {
             textfieldEl.emitSubmitEventOnEnter = false;
         }
         if (containerEl != null) {
-            containerEl.classList.add('dynamic-position-active');
+            this.kupManager.dynamicPosition.start(
+                containerEl as DynamicallyPositionedElement
+            );
             containerEl.classList.add('visible');
             let elStyle: any = containerEl.style;
             elStyle.height = 'auto';
@@ -435,7 +436,9 @@ export class KupDatePicker {
             textfieldEl.emitSubmitEventOnEnter = true;
         }
         if (containerEl != null) {
-            containerEl.classList.remove('dynamic-position-active');
+            this.kupManager.dynamicPosition.stop(
+                containerEl as DynamicallyPositionedElement
+            );
             containerEl.classList.remove('visible');
         }
     }
@@ -901,7 +904,10 @@ export class KupDatePicker {
 
     recalcPosition() {
         if (this.pickerContainerEl != null && this.textfieldEl != null) {
-            positionRecalc(this.pickerContainerEl, this.textfieldEl);
+            this.kupManager.dynamicPosition.register(
+                this.pickerContainerEl as DynamicallyPositionedElement,
+                this.textfieldEl
+            );
         }
     }
 
@@ -909,7 +915,7 @@ export class KupDatePicker {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.watchFirstDayIndex();
         this.value = this.initialValue;
         if (!this.data) {
@@ -961,5 +967,17 @@ export class KupDatePicker {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

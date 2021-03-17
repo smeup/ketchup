@@ -41,16 +41,6 @@ Type: `Promise<string>`
 
 
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 ### `setFocus() => Promise<void>`
 
 
@@ -62,6 +52,16 @@ Type: `Promise<void>`
 
 
 ### `setValue(value: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 
 

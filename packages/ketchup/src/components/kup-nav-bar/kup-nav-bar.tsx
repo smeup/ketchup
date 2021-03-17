@@ -18,11 +18,11 @@ import {
 } from './kup-nav-bar-declarations';
 import { MDCTopAppBar } from '@material/top-app-bar';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
-import { positionRecalc } from '../../utils/recalc-position';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -105,7 +105,7 @@ export class KupNavBar {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme =
             'Needs to be refreshed every time the theme changes because there are dynamic colors.';
         this.customStyleTheme = customStyleTheme;
@@ -166,7 +166,9 @@ export class KupNavBar {
             return false;
         }
         listEl.menuVisible = true;
-        listEl.classList.add('dynamic-position-active');
+        this.kupManager.dynamicPosition.start(
+            listEl as DynamicallyPositionedElement
+        );
         let elStyle: any = listEl.style;
         elStyle.height = 'auto';
         return true;
@@ -186,7 +188,9 @@ export class KupNavBar {
             return;
         }
         listEl.menuVisible = false;
-        listEl.classList.remove('dynamic-position-active');
+        this.kupManager.dynamicPosition.stop(
+            listEl as DynamicallyPositionedElement
+        );
     }
 
     isListOpened(): boolean {
@@ -252,7 +256,7 @@ export class KupNavBar {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.fetchThemeColors();
     }
 
@@ -268,14 +272,19 @@ export class KupNavBar {
         const root = this.rootElement.shadowRoot;
         if (root != null) {
             const topAppBarElement = root.querySelector('.mdc-top-app-bar');
-            //MDCTopAppBar.attachTo(topAppBarElement);
             new MDCTopAppBar(topAppBarElement);
         }
         if (this.menuListEl != null) {
-            positionRecalc(this.menuListEl, this.menuButtonEl);
+            this.kupManager.dynamicPosition.register(
+                this.menuListEl,
+                this.menuButtonEl
+            );
         }
         if (this.optionsListEl != null) {
-            positionRecalc(this.optionsListEl, this.optionsButtonEl);
+            this.kupManager.dynamicPosition.register(
+                this.optionsListEl,
+                this.optionsButtonEl
+            );
         }
         this.kupManager.debug.logRender(this, true);
     }
@@ -394,5 +403,17 @@ export class KupNavBar {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

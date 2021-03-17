@@ -452,7 +452,7 @@ export class KupBox {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -466,7 +466,7 @@ export class KupBox {
         } else if (this.pageSize) {
             this.currentRowsPerPage = this.pageSize;
         }
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.onDataChanged();
         this.adjustPaginator();
     }
@@ -500,12 +500,6 @@ export class KupBox {
         this.persistState();
         // ***
         this.kupManager.debug.logRender(this, true);
-    }
-
-    componentDidUnload() {
-        this.kupDidUnload.emit();
-        // When component is destroyed, then the listener is removed. @See clickFunction for more details
-        document.removeEventListener('click', this.clickFunction.bind(this));
     }
 
     // @Methods
@@ -1824,5 +1818,12 @@ export class KupBox {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        // When component is destroyed, then the listener is removed. @See clickFunction for more details
+        document.removeEventListener('click', this.clickFunction.bind(this));
+        this.kupDidUnload.emit();
     }
 }

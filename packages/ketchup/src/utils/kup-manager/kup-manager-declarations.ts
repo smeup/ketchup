@@ -1,6 +1,7 @@
 import type { KupDebug } from '../kup-debug/kup-debug';
 import type { KupTheme } from '../kup-theme/kup-theme';
 import type { ResizeObserver } from 'resize-observer';
+import { DynamicPosition } from '../dynamic-position/dynamic-position';
 /**
  * Interface used to define the HTML element with Ketch.UP specific properties.
  */
@@ -13,6 +14,7 @@ export interface KupDom extends HTMLHtmlElement {
  */
 export interface KupManager {
     debug: KupDebug;
+    dynamicPosition: DynamicPosition;
     theme: KupTheme;
     resize: ResizeObserver;
     overrides?: KupManagerInitialization;

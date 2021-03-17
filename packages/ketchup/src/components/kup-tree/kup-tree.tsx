@@ -64,7 +64,7 @@ import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { GenericObject } from '../../types/GenericTypes';
-import { positionRecalc } from '../../utils/recalc-position';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 
 @Component({
     tag: 'kup-tree',
@@ -421,7 +421,7 @@ export class KupTree {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -527,7 +527,7 @@ export class KupTree {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
 
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
@@ -591,10 +591,6 @@ export class KupTree {
         this.persistState();
         // ***
         this.kupManager.debug.logRender(this, true);
-    }
-
-    componentDidUnload() {
-        this.kupDidUnload.emit();
     }
 
     //-------- Watchers --------
@@ -765,7 +761,6 @@ export class KupTree {
 
     private contextMenuHandler(e: MouseEvent): void {
         const details = this.getEventDetails(e.target as HTMLElement);
-        console.log('dafuq');
         if (details.area === 'footer') {
             if (details.td && details.column) {
                 e.preventDefault();
@@ -1934,8 +1929,16 @@ export class KupTree {
             );
             if (menu) {
                 let wrapper = menu.closest('td');
-                positionRecalc(menu, wrapper, 0, true, true);
-                menu.classList.add('dynamic-position-active');
+                this.kupManager.dynamicPosition.register(
+                    menu as DynamicallyPositionedElement,
+                    wrapper,
+                    0,
+                    true,
+                    true
+                );
+                this.kupManager.dynamicPosition.start(
+                    menu as DynamicallyPositionedElement
+                );
                 menu.classList.add('visible');
                 menu.focus();
             }
@@ -2112,5 +2115,18 @@ export class KupTree {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
+        this.kupDidUnload.emit();
     }
 }
