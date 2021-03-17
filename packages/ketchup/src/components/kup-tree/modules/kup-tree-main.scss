@@ -140,7 +140,7 @@
 
       .cell-content .icon-container.obj-icon {
         display: inline-block;
-        vertical-align: middle;
+        vertical-align: sub;
         height: 1.25em;
         width: 1.25em;
         background-color: rgba(var(--kup-text-color-rgb), 0.375);
@@ -154,10 +154,6 @@
 
       .negative-number {
         color: var(--kup-danger-color);
-      }
-
-      .text {
-        vertical-align: middle;
       }
     }
 
