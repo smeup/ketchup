@@ -28,6 +28,7 @@ import {
 } from '../utils';
 import { getValueForDisplay } from '../cell-utils';
 import { FiltersRows } from '../filters/filters-rows';
+import { Filters } from '../filters/filters';
 /**
  * Definition and events of the column menu card.
  * @module ColumnMenu
@@ -41,7 +42,7 @@ export class ColumnMenu {
      * @returns {comp is KupTree} Returns true when the component is KupTree.
      */
     isTree(comp: KupDataTable | KupTree): comp is KupTree {
-        return (comp as KupTree).rootElement.tagName === 'KUP-TREE';
+        return Filters.isTree(comp);
     }
     /**
      * Function called by the component when the column menu must be opened.
@@ -102,7 +103,11 @@ export class ColumnMenu {
      * @param {Column} column - Column of the menu.
      * @returns {GenericObject} 'data' prop of the column menu card.
      */
-    prepData(comp: KupDataTable | KupTree, column: Column, showGroup: boolean): CardData {
+    prepData(
+        comp: KupDataTable | KupTree,
+        column: Column,
+        showGroup: boolean
+    ): CardData {
         return {
             button: this.prepButton(comp, column, showGroup),
             checkbox: this.prepCheckbox(comp, column),
@@ -121,9 +126,13 @@ export class ColumnMenu {
      * @param {Column} column - Column of the menu.
      * @returns {GenericObject[]} Buttons props.
      */
-    prepButton(comp: KupDataTable | KupTree, column: Column, showGroup: boolean): GenericObject[] {
+    prepButton(
+        comp: KupDataTable | KupTree,
+        column: Column,
+        showGroup: boolean
+    ): GenericObject[] {
         let props: GenericObject[] = [];
-        if(showGroup){
+        if (showGroup) {
             if (!this.isTree(comp)) {
                 props.push({
                     'data-storage': {
