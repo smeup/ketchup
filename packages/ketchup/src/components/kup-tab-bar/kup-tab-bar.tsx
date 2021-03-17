@@ -77,7 +77,7 @@ export class KupTabBar {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -141,7 +141,7 @@ export class KupTabBar {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.consistencyCheck();
     }
 
@@ -243,5 +243,9 @@ export class KupTabBar {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
     }
 }

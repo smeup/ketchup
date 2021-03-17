@@ -789,7 +789,7 @@ export class KupTooltip {
 
     componentDidRender() {
         if (this.visible) {
-            this.kupManager.dynamicPosition.add(
+            this.kupManager.dynamicPosition.register(
                 this.rootElement as DynamicallyPositionedElement,
                 this.relatedObject.element
             );
@@ -827,7 +827,7 @@ export class KupTooltip {
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {
-            this.kupManager.dynamicPosition.remove(
+            this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
             );
         }

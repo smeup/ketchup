@@ -181,7 +181,7 @@ export class KupCombobox {
     }
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -359,7 +359,7 @@ export class KupCombobox {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.value = this.initialValue;
         if (!this.data) {
             this.data = {
@@ -380,7 +380,10 @@ export class KupCombobox {
 
     componentDidRender() {
         this.setEvents();
-        this.kupManager.dynamicPosition.add(this.listEl, this.textfieldWrapper);
+        this.kupManager.dynamicPosition.register(
+            this.listEl,
+            this.textfieldWrapper
+        );
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -418,11 +421,12 @@ export class KupCombobox {
     }
 
     componentDidUnload() {
+        this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {
-            this.kupManager.dynamicPosition.remove(
+            this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
             );
         }

@@ -37,7 +37,7 @@
 
 ## Methods
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 This method is invoked by the theme manager.
 Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.

@@ -18,7 +18,7 @@ export class DynamicPosition {
      * @param {boolean} above - When true "el" will be always placed above its wrapper.
      * @param {boolean} right - When true "el" will be always placed on the right of its wrapper.
      */
-    add(
+    register(
         el: DynamicallyPositionedElement,
         anchorEl: HTMLElement,
         margin?: number,
@@ -59,7 +59,7 @@ export class DynamicPosition {
      * *
      * @param {DynamicallyPositionedElement} elements - Elements to remove from the managed elements set.
      */
-    remove(elements: DynamicallyPositionedElement[]): void {
+    unregister(elements: DynamicallyPositionedElement[]): void {
         for (let index = 0; index < elements.length; index++) {
             this.managedElements.delete(elements[index]);
         }

@@ -254,7 +254,7 @@ export class KupDatePicker {
     }
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -904,7 +904,7 @@ export class KupDatePicker {
 
     recalcPosition() {
         if (this.pickerContainerEl != null && this.textfieldEl != null) {
-            this.kupManager.dynamicPosition.add(
+            this.kupManager.dynamicPosition.register(
                 this.pickerContainerEl as DynamicallyPositionedElement,
                 this.textfieldEl
             );
@@ -915,7 +915,7 @@ export class KupDatePicker {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.watchFirstDayIndex();
         this.value = this.initialValue;
         if (!this.data) {
@@ -970,11 +970,12 @@ export class KupDatePicker {
     }
 
     componentDidUnload() {
+        this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {
-            this.kupManager.dynamicPosition.remove(
+            this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
             );
         }

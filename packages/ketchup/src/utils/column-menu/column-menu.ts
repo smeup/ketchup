@@ -93,7 +93,7 @@ export class ColumnMenu {
                 const wrapper: HTMLElement = root.querySelector(
                     'th[data-column="' + column + '"]'
                 );
-                dom.ketchup.dynamicPosition.add(card, wrapper);
+                dom.ketchup.dynamicPosition.register(card, wrapper);
                 dom.ketchup.dynamicPosition.start(
                     card as DynamicallyPositionedElement
                 );

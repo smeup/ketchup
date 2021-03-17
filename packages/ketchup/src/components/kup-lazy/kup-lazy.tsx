@@ -41,7 +41,7 @@ export class KupLazy {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -72,7 +72,7 @@ export class KupLazy {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.setObserver();
     }
 
@@ -231,6 +231,7 @@ export class KupLazy {
     }
 
     componentDidUnload() {
+        this.kupManager.theme.unregister(this);
         this.intObserver.unobserve(this.rootElement);
     }
 }

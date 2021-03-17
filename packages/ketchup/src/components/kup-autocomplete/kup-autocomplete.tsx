@@ -208,7 +208,7 @@ export class KupAutocomplete {
     }
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -425,7 +425,7 @@ export class KupAutocomplete {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.doConsistencyCheck = true;
         this.value = this.initialValue;
         if (!this.data) {
@@ -447,7 +447,10 @@ export class KupAutocomplete {
 
     componentDidRender() {
         this.setEvents();
-        this.kupManager.dynamicPosition.add(this.listEl, this.textfieldWrapper);
+        this.kupManager.dynamicPosition.register(
+            this.listEl,
+            this.textfieldWrapper
+        );
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -485,11 +488,12 @@ export class KupAutocomplete {
     }
 
     componentDidUnload() {
+        this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {
-            this.kupManager.dynamicPosition.remove(
+            this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
             );
         }

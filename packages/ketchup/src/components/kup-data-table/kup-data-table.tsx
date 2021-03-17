@@ -949,7 +949,7 @@ export class KupDataTable {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
     /**
@@ -1137,13 +1137,13 @@ export class KupDataTable {
 
     private customizePanelPosition() {
         if (this.customizeTopButtonRef) {
-            this.kupManager.dynamicPosition.add(
+            this.kupManager.dynamicPosition.register(
                 this.customizeTopPanelRef,
                 this.customizeTopButtonRef
             );
         }
         if (this.customizeBottomButtonRef) {
-            this.kupManager.dynamicPosition.add(
+            this.kupManager.dynamicPosition.register(
                 this.customizeBottomPanelRef,
                 this.customizeBottomButtonRef
             );
@@ -1285,7 +1285,7 @@ export class KupDataTable {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.identifyAndInitRows();
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
@@ -2970,7 +2970,7 @@ export class KupDataTable {
             );
             if (menu) {
                 let wrapper = menu.closest('td');
-                this.kupManager.dynamicPosition.add(
+                this.kupManager.dynamicPosition.register(
                     menu as DynamicallyPositionedElement,
                     wrapper,
                     0,
@@ -4319,7 +4319,7 @@ export class KupDataTable {
             dropArea.style.marginLeft =
                 'calc(' + th.clientWidth / 2 + 'px - 25px)';
             this.tableAreaRef.appendChild(dropArea);
-            this.kupManager.dynamicPosition.add(
+            this.kupManager.dynamicPosition.register(
                 dropArea as DynamicallyPositionedElement,
                 th,
                 10,
@@ -4816,11 +4816,12 @@ export class KupDataTable {
     }
 
     componentDidUnload() {
+        this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {
-            this.kupManager.dynamicPosition.remove(
+            this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
             );
         }

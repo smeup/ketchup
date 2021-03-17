@@ -421,7 +421,7 @@ export class KupTree {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -527,7 +527,7 @@ export class KupTree {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
 
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
@@ -1929,7 +1929,7 @@ export class KupTree {
             );
             if (menu) {
                 let wrapper = menu.closest('td');
-                this.kupManager.dynamicPosition.add(
+                this.kupManager.dynamicPosition.register(
                     menu as DynamicallyPositionedElement,
                     wrapper,
                     0,
@@ -2118,11 +2118,12 @@ export class KupTree {
     }
 
     componentDidUnload() {
+        this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {
-            this.kupManager.dynamicPosition.remove(
+            this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
             );
         }

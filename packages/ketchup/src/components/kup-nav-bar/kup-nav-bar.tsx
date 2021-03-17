@@ -105,7 +105,7 @@ export class KupNavBar {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme =
             'Needs to be refreshed every time the theme changes because there are dynamic colors.';
         this.customStyleTheme = customStyleTheme;
@@ -256,7 +256,7 @@ export class KupNavBar {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.fetchThemeColors();
     }
 
@@ -275,13 +275,13 @@ export class KupNavBar {
             new MDCTopAppBar(topAppBarElement);
         }
         if (this.menuListEl != null) {
-            this.kupManager.dynamicPosition.add(
+            this.kupManager.dynamicPosition.register(
                 this.menuListEl,
                 this.menuButtonEl
             );
         }
         if (this.optionsListEl != null) {
-            this.kupManager.dynamicPosition.add(
+            this.kupManager.dynamicPosition.register(
                 this.optionsListEl,
                 this.optionsButtonEl
             );
@@ -406,11 +406,12 @@ export class KupNavBar {
     }
 
     componentDidUnload() {
+        this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
         if (dynamicPositionElements.length > 0) {
-            this.kupManager.dynamicPosition.remove(
+            this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
             );
         }

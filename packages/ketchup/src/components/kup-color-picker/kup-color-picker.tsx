@@ -85,7 +85,7 @@ export class KupColorPicker {
     }
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -172,7 +172,7 @@ export class KupColorPicker {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.value = this.initialValue;
         this.setHexValue();
         if (!this.data) {
@@ -284,11 +284,12 @@ export class KupColorPicker {
     }
 
     componentDidUnload() {
+        this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
         );
-        if (dynamicPositionElements) {
-            this.kupManager.dynamicPosition.remove(
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
             );
         }

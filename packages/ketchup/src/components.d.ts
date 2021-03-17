@@ -67,7 +67,6 @@ export namespace Components {
           * The minimum number of chars to trigger the autocomplete
          */
         "minimumChars": number;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
@@ -78,6 +77,7 @@ export namespace Components {
         "serverHandledFilter": boolean;
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupBadge {
         /**
@@ -88,11 +88,11 @@ export namespace Components {
           * The data of the image displayed inside the badge.
          */
         "imageData": {};
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * The text displayed inside the badge.
          */
         "text": string;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupBox {
         /**
@@ -156,7 +156,6 @@ export namespace Components {
           * Enables pagination
          */
         "pagination": boolean;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Number of current rows per page
          */
@@ -191,6 +190,7 @@ export namespace Components {
           * Disable swipe
          */
         "swipeDisabled": boolean;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * Defines the timeout for tooltip detail
          */
@@ -241,17 +241,17 @@ export namespace Components {
          */
         "label": string;
         /**
+          * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
+          * @default FButtonStyling.RAISED
+         */
+        "styling": FButtonStyling;
+        /**
           * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
           * @param customStyleTheme - Contains current theme's component-specific CSS.
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
           * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
          */
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        /**
-          * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
-          * @default FButtonStyling.RAISED
-         */
-        "styling": FButtonStyling;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * When set to true, the icon button will be toggable on/off.
           * @default false
@@ -309,13 +309,6 @@ export namespace Components {
          */
         "menuVisible": boolean;
         /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        /**
           * This method is invoked by KupManager whenever the component changes size.
          */
         "resizeCallback": () => Promise<void>;
@@ -329,6 +322,13 @@ export namespace Components {
           * @default "100%"
          */
         "sizeY": string;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupChart {
         /**
@@ -368,13 +368,6 @@ export namespace Components {
          */
         "offlineMode": ChartOfflineMode;
         /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        /**
           * This method is invoked by KupManager whenever the component changes size.
          */
         "resizeCallback": () => Promise<void>;
@@ -398,6 +391,13 @@ export namespace Components {
           * Displays the data columns of an object on top of each other.
          */
         "stacked": boolean;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * The type of the chart. Supported formats: Area, Bubble, Cal, Candlestick, Combo, Geo, Hbar, Line, Ohlc, Pie, Sankey, Scatter, Unk, Vbar.
          */
@@ -449,7 +449,7 @@ export namespace Components {
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
           * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
          */
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupChip {
         /**
@@ -469,7 +469,7 @@ export namespace Components {
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
           * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
          */
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * The type of chip. Available types: input, filter, choice or empty for default.
           * @default FChipType.STANDARD
@@ -494,13 +494,13 @@ export namespace Components {
           * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
          */
         "initialValue": string;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
         /**
           * When true, the component's text field will be replaced by a swatch.
          */
         "swatchOnly": boolean;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupCombobox {
         /**
@@ -528,13 +528,13 @@ export namespace Components {
           * Lets the combobox behave as a select element.
          */
         "isSelect": boolean;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupCrud {
         "actions": FormActions;
@@ -705,13 +705,6 @@ export namespace Components {
          */
         "paginatorPos": PaginatorPos;
         /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        /**
           * Sets the possibility to remove the selected column.
          */
         "removableColumns": boolean;
@@ -795,6 +788,13 @@ export namespace Components {
          */
         "tableWidth": string;
         /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
+        /**
           * Defines the timeout for tooltip detail
          */
         "tooltipDetailTimeout": number;
@@ -833,9 +833,9 @@ export namespace Components {
           * Sets the initial value of the component
          */
         "initialValue": string;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupDrawer {
         "close": () => Promise<void>;
@@ -848,7 +848,7 @@ export namespace Components {
           * Defaults at false. When set to true, the drawer appears.
          */
         "opened": boolean;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         "toggle": () => Promise<void>;
     }
     interface KupDropdownButton {
@@ -881,7 +881,6 @@ export namespace Components {
           * Defaults at null. When set, the button will show this text.
          */
         "label": string;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Sets how the return the selected item value. Suported values: "code", "description", "both".
          */
@@ -891,6 +890,7 @@ export namespace Components {
           * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.
          */
         "styling": string;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * Defaults at null. When set, the icon will be shown after the text.
          */
@@ -922,13 +922,6 @@ export namespace Components {
          */
         "mapType": any;
         /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        /**
           * This method is invoked by KupManager whenever the component changes size.
          */
         "resizeCallback": () => Promise<void>;
@@ -936,6 +929,13 @@ export namespace Components {
           * The data series to be displayed. They must be of the same type.
          */
         "series": string[];
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * The type of the chart. Supported formats: Line, Pie, Map, Scatter
          */
@@ -970,7 +970,6 @@ export namespace Components {
           * Sets the label's position, left right or top.
          */
         "labelPos": string;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Sets whether the submit button must be displayed or not.
          */
@@ -983,6 +982,7 @@ export namespace Components {
           * Sets the submit button's position, top right bottom or left.
          */
         "submitPos": string;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * The type of the FLD
          */
@@ -1057,7 +1057,6 @@ export namespace Components {
           * When true, ignore thresholds in gauge and show colored value's arc.
          */
         "onlyValue": boolean;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * When true, the colors inside the colors array are used in the reversed order.
          */
@@ -1084,6 +1083,7 @@ export namespace Components {
           * @see kup-gauge.arcThickness
          */
         "size": number;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * The current value of the gauge. The gauge's needle points to the percentage based on this prop.
          */
@@ -1106,11 +1106,11 @@ export namespace Components {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * When set to true, forces the content on a single line.
          */
         "singleLine": boolean;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupIframe {
         /**
@@ -1159,13 +1159,6 @@ export namespace Components {
          */
         "isCanvas": boolean;
         /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        /**
           * The resource used to fetch the image.
           * @default null
          */
@@ -1180,6 +1173,13 @@ export namespace Components {
           * @default '100%'
          */
         "sizeY": string;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupImageButton {
         /**
@@ -1230,11 +1230,11 @@ export namespace Components {
           * Sets the data of the component to be lazy loaded.
          */
         "data": {};
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Displays an animated SVG placeholder until the component is loaded.
          */
         "showPlaceholder": boolean;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupList {
         /**
@@ -1270,7 +1270,6 @@ export namespace Components {
           * Sets the status of the menu, when false it's hidden otherwise it's visible.
          */
         "menuVisible": boolean;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         "resetFilter": (newFilter: string) => Promise<void>;
         /**
           * Defines the type of selection. Values accepted: listbox, radiogroup or group.
@@ -1284,6 +1283,7 @@ export namespace Components {
           * Displays the icons associated to each row when set to true.
          */
         "showIcons": boolean;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * The list elements descriptions will be arranged in two lines.
          */
@@ -1306,7 +1306,7 @@ export namespace Components {
           * Defines how the bar will be displayed.
          */
         "mode": ComponentNavBarMode;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupPaginator {
         "currentPage": number;
@@ -1340,7 +1340,7 @@ export namespace Components {
           * Specifies a text for the bar's label.
          */
         "label": string;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * The current value the progress bar must display.
          */
@@ -1409,7 +1409,7 @@ export namespace Components {
           * Defaults at null. It's the name that binds the radio buttons together.
          */
         "name": string;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupRating {
         /**
@@ -1424,7 +1424,7 @@ export namespace Components {
           * Max number of stars (default 5)
          */
         "maxValue": number;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * Rated stars
          */
@@ -1483,7 +1483,7 @@ export namespace Components {
           * Sets the layout of the spinner.
          */
         "layout": number;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupSwitch {
         /**
@@ -1518,7 +1518,7 @@ export namespace Components {
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
           * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
          */
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupTabBar {
         /**
@@ -1529,7 +1529,7 @@ export namespace Components {
           * List of elements.
          */
         "data": ComponentTabBarElement[];
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupTextField {
         /**
@@ -1613,13 +1613,6 @@ export namespace Components {
          */
         "readOnly": boolean;
         /**
-          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-          * @param customStyleTheme - Contains current theme's component-specific CSS.
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
-          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
-         */
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
-        /**
           * Focuses the input element.
          */
         "setFocus": () => Promise<void>;
@@ -1637,6 +1630,13 @@ export namespace Components {
           * @default false
          */
         "textArea": boolean;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * When set, the icon will be shown after the text.
           * @default false
@@ -1674,9 +1674,9 @@ export namespace Components {
           * Manage seconds
          */
         "manageSeconds": boolean;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * Minutes step
          */
@@ -1761,7 +1761,6 @@ export namespace Components {
           * The value of the global filter.
          */
         "globalFilterValue": string;
-        "refreshCustomStyle": (customStyleTheme: string) => Promise<void>;
         /**
           * Sets the possibility to remove the selected column.
          */
@@ -1801,6 +1800,7 @@ export namespace Components {
         "showTooltipOnRightClick": boolean;
         "stateId": string;
         "store": KupStore;
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * Defines the timeout for tooltip detail
          */
