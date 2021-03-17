@@ -217,6 +217,9 @@ export function groupRows(
     // creating root
     const groupRows: Array<Row> = [];
 
+    // obj used to calculate the group distinct value
+    let distinctObj = {};
+
     rows.forEach((row: Row) => {
         // getting column name from first group
         const columnName = validGroups[0].column;
@@ -300,10 +303,11 @@ export function groupRows(
             // adding row
             groupRow.group.children.push(row);
 
-            updateGroupTotal(groupRow, totals, row);
+            updateGroupTotal(groupRow, totals, row, distinctObj);
         }
     });
 
+    adjustGroupsDistinct(groupRows, totals, distinctObj);
     adjustGroupsAverageOrFormula(groupRows, TotalMode.AVERAGE, totals);
     adjustGroupsAverageOrFormula(groupRows, TotalMode.MATH, totals);
 
@@ -313,7 +317,8 @@ export function groupRows(
 function updateGroupTotal(
     groupRow: Row,
     totals: TotalsMap,
-    addedRow: Row
+    addedRow: Row,
+    distinctObj: Object
 ): void {
     if (!groupRow || !totals) {
         return;
@@ -350,6 +355,28 @@ function updateGroupTotal(
                     }
                     break;
                 case TotalMode.DISTINCT:
+                    let cellValue;
+                    if (_isNumber) {
+                        cellValue = numeral(stringToNumber(cell.value)).value();
+                    } else {
+                        cellValue = cell.value;
+                    }
+                    let distinctGroup = distinctObj[groupRow.group.id];
+                    if (!distinctGroup) {
+                        distinctObj[groupRow.group.id] = {};
+                        distinctObj[groupRow.group.id][key] = [];
+                        distinctObj[groupRow.group.id][key].push(cellValue);
+                    } else {
+                        let distinctList = distinctObj[groupRow.group.id][key];
+                        if (!distinctList) {
+                            // first round
+                            distinctObj[groupRow.group.id][key] = [];
+                            distinctObj[groupRow.group.id][key].push(cellValue);
+                        } else {
+                            // update the list
+                            distinctList.push(cellValue);
+                        }
+                    }
                     break;
                 case TotalMode.SUM:
                 case TotalMode.AVERAGE:
@@ -510,6 +537,32 @@ function updateGroupTotal(
     });
 }
 
+function adjustGroupsDistinct(
+    groupRows: Array<Row>,
+    totals: TotalsMap,
+    distinctObj: Object
+) {
+    if (!groupRows || !totals) {
+        return;
+    }
+
+    const keys = Object.keys(totals);
+
+    if (groupRows.length === 0 || !groupRows[0].group || keys.length === 0) {
+        return;
+    }
+
+    let toAdjustKeys = keys.filter((key) => TotalMode.DISTINCT === totals[key]);
+
+    if (toAdjustKeys.length > 0) {
+        groupRows
+            .filter((groupRow) => groupRow.group.children.length > 0)
+            .forEach((groupRow) =>
+                adjustGroupDistinct(groupRow, toAdjustKeys, distinctObj)
+            );
+    }
+}
+
 function adjustGroupsAverageOrFormula(
     groupRows: Array<Row>,
     type: TotalMode,
@@ -548,6 +601,22 @@ function adjustGroupsAverageOrFormula(
                 )
             );
     }
+}
+
+function adjustGroupDistinct(
+    groupRow: Row,
+    toAdjustKeys: Array<string>,
+    distinctObj: Object
+) {
+    const children = groupRow.group.children;
+    if (children.length === 0) {
+        return;
+    }
+    toAdjustKeys.forEach((key) => {
+        const distinctList = distinctObj[groupRow.group.id][key];
+        groupRow.group.totals[key] = new Set(distinctList).size;
+    });
+    // TODO fix invalid date and % format
 }
 
 /**
