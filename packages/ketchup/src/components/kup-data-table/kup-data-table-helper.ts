@@ -350,7 +350,6 @@ function updateGroupTotal(
                     }
                     break;
                 case TotalMode.DISTINCT:
-                    // TODO
                     break;
                 case TotalMode.SUM:
                 case TotalMode.AVERAGE:

@@ -3195,19 +3195,21 @@ export class KupDataTable {
                             menuLabel === TotalLabel.MIN) &&
                         isDate(column.obj)
                     ) {
-                        if (
-                            isValidStringDate(
-                                footerValue,
-                                ISO_DEFAULT_DATE_FORMAT
-                            )
-                        ) {
-                            value = unformattedStringToFormattedStringDate(
-                                footerValue,
-                                null,
-                                column.obj.t + column.obj.p
-                            );
-                        } else {
-                            console.warn(`invalid date: ${footerValue}`);
+                        if (footerValue) {
+                            if (
+                                isValidStringDate(
+                                    footerValue,
+                                    ISO_DEFAULT_DATE_FORMAT
+                                )
+                            ) {
+                                value = unformattedStringToFormattedStringDate(
+                                    footerValue,
+                                    null,
+                                    column.obj.t + column.obj.p
+                                );
+                            } else {
+                                console.warn(`invalid date: ${footerValue}`);
+                            }
                         }
                     } else {
                         value = numberToFormattedStringNumber(
@@ -3319,19 +3321,21 @@ export class KupDataTable {
                     let value;
                     let totalValue = row.group.totals[column.name];
                     if (isDate(column.obj)) {
-                        if (
-                            isValidStringDate(
-                                totalValue,
-                                ISO_DEFAULT_DATE_FORMAT
-                            )
-                        ) {
-                            value = unformattedStringToFormattedStringDate(
-                                totalValue,
-                                null,
-                                column.obj.t + column.obj.p
-                            );
-                        } else {
-                            console.warn(`invalid date: ${totalValue}`);
+                        if (totalValue) {
+                            if (
+                                isValidStringDate(
+                                    totalValue,
+                                    ISO_DEFAULT_DATE_FORMAT
+                                )
+                            ) {
+                                value = unformattedStringToFormattedStringDate(
+                                    totalValue,
+                                    null,
+                                    column.obj.t + column.obj.p
+                                );
+                            } else {
+                                console.warn(`invalid date: ${totalValue}`);
+                            }
                         }
                     } else {
                         value = numberToFormattedStringNumber(
