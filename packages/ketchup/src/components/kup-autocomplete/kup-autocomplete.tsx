@@ -10,7 +10,6 @@ import {
     Method,
     Listen,
 } from '@stencil/core';
-import { positionRecalc } from '../../utils/recalc-position';
 import {
     ItemsDisplayMode,
     consistencyCheck,
@@ -21,6 +20,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -326,7 +326,9 @@ export class KupAutocomplete {
         }
         this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
-        this.listEl.classList.add('dynamic-position-active');
+        this.kupManager.dynamicPosition.start(
+            this.listEl as DynamicallyPositionedElement
+        );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
@@ -336,7 +338,9 @@ export class KupAutocomplete {
     private closeList() {
         this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
-        this.listEl.classList.remove('dynamic-position-active');
+        this.kupManager.dynamicPosition.stop(
+            this.rootElement as DynamicallyPositionedElement
+        );
     }
 
     private isListOpened(): boolean {
@@ -443,7 +447,10 @@ export class KupAutocomplete {
 
     componentDidRender() {
         this.setEvents();
-        positionRecalc(this.listEl, this.textfieldWrapper);
+        this.kupManager.dynamicPosition.setup(
+            this.listEl,
+            this.textfieldWrapper
+        );
         this.kupManager.debug.logRender(this, true);
     }
 

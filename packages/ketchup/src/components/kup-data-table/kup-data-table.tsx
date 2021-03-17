@@ -12,10 +12,7 @@ import {
     Watch,
     Host,
 } from '@stencil/core';
-
 import { scrollOnHover } from '../../utils/scroll-on-hover';
-import { positionRecalc } from '../../utils/recalc-position';
-
 import {
     Cell,
     Column,
@@ -135,6 +132,7 @@ import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { FiltersRows } from '../../utils/filters/filters-rows';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1139,13 +1137,13 @@ export class KupDataTable {
 
     private customizePanelPosition() {
         if (this.customizeTopButtonRef) {
-            positionRecalc(
+            this.kupManager.dynamicPosition.setup(
                 this.customizeTopPanelRef,
                 this.customizeTopButtonRef
             );
         }
         if (this.customizeBottomButtonRef) {
-            positionRecalc(
+            this.kupManager.dynamicPosition.setup(
                 this.customizeBottomPanelRef,
                 this.customizeBottomButtonRef
             );
@@ -2984,8 +2982,16 @@ export class KupDataTable {
             );
             if (menu) {
                 let wrapper = menu.closest('td');
-                positionRecalc(menu, wrapper, 0, true, true);
-                menu.classList.add('dynamic-position-active');
+                this.kupManager.dynamicPosition.setup(
+                    menu as DynamicallyPositionedElement,
+                    wrapper,
+                    0,
+                    true,
+                    true
+                );
+                this.kupManager.dynamicPosition.start(
+                    menu as DynamicallyPositionedElement
+                );
                 menu.classList.add('visible');
             }
         }
@@ -3321,12 +3327,12 @@ export class KupDataTable {
                     if (isDate(column.obj)) {
                         if (
                             isValidStringDate(
-                                totalValue,
+                                totalValue.toString(),
                                 ISO_DEFAULT_DATE_FORMAT
                             )
                         ) {
                             value = unformattedStringToFormattedStringDate(
-                                totalValue,
+                                totalValue.toString(),
                                 null,
                                 column.obj.t + column.obj.p
                             );
@@ -4165,7 +4171,9 @@ export class KupDataTable {
             : this.customizeBottomPanelRef;
 
         elPanel.classList.add('visible');
-        elPanel.classList.add('dynamic-position-active');
+        this.kupManager.dynamicPosition.start(
+            elPanel as DynamicallyPositionedElement
+        );
         this.openedCustomSettings = true;
     }
 
@@ -4177,7 +4185,9 @@ export class KupDataTable {
             return;
         }
         elPanel.classList.remove('visible');
-        elPanel.classList.remove('dynamic-position-active');
+        this.kupManager.dynamicPosition.stop(
+            elPanel as DynamicallyPositionedElement
+        );
         this.openedCustomSettings = false;
     }
 
@@ -4321,12 +4331,21 @@ export class KupDataTable {
             dropArea.style.marginLeft =
                 'calc(' + th.clientWidth / 2 + 'px - 25px)';
             this.tableAreaRef.appendChild(dropArea);
-            positionRecalc(dropArea, th, 10, true);
-            dropArea.classList.add('dynamic-position-active');
+            this.kupManager.dynamicPosition.setup(
+                dropArea as DynamicallyPositionedElement,
+                th,
+                10,
+                true
+            );
+            this.kupManager.dynamicPosition.start(
+                dropArea as DynamicallyPositionedElement
+            );
             dropArea.classList.add('visible');
         } else {
             dropArea.classList.remove('visible');
-            dropArea.classList.remove('dynamic-position-active');
+            this.kupManager.dynamicPosition.stop(
+                dropArea as DynamicallyPositionedElement
+            );
         }
     }
 

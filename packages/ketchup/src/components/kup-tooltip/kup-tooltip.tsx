@@ -24,9 +24,9 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
-import { positionRecalc } from '../../utils/recalc-position';
 import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
 import { KupTree } from '../kup-tree/kup-tree';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 
 @Component({
     tag: 'kup-tooltip',
@@ -789,10 +789,17 @@ export class KupTooltip {
 
     componentDidRender() {
         if (this.visible) {
-            positionRecalc(this.rootElement, this.relatedObject.element);
-            this.rootElement.classList.add('dynamic-position-active');
+            this.kupManager.dynamicPosition.setup(
+                this.rootElement as DynamicallyPositionedElement,
+                this.relatedObject.element
+            );
+            this.kupManager.dynamicPosition.start(
+                this.rootElement as DynamicallyPositionedElement
+            );
         } else {
-            this.rootElement.classList.remove('dynamic-position-active');
+            this.kupManager.dynamicPosition.stop(
+                this.rootElement as DynamicallyPositionedElement
+            );
         }
         this.kupManager.debug.logRender(this, true);
     }

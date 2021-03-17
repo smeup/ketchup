@@ -8,6 +8,7 @@ import type {
     Column,
     GroupObject,
 } from '../../components/kup-data-table/kup-data-table-declarations';
+import type { DynamicallyPositionedElement } from '../dynamic-position/dynamic-position-declarations';
 import { unsetTooltip } from '../helpers';
 import {
     isCheckbox,
@@ -18,7 +19,6 @@ import {
     isTimestamp,
     isTimeWithSeconds,
 } from '../object-utils';
-import { positionRecalc } from '../recalc-position';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
 import { FilterInterval, GenericFilter } from '../filters/filters-declarations';
 import {
@@ -28,6 +28,10 @@ import {
 } from '../utils';
 import { getValueForDisplay } from '../cell-utils';
 import { FiltersRows } from '../filters/filters-rows';
+import { KupDom } from '../kup-manager/kup-manager-declarations';
+
+const dom: KupDom = document.documentElement as KupDom;
+
 /**
  * Definition and events of the column menu card.
  * @module ColumnMenu
@@ -89,8 +93,10 @@ export class ColumnMenu {
                 const wrapper: HTMLElement = root.querySelector(
                     'th[data-column="' + column + '"]'
                 );
-                positionRecalc(card, wrapper);
-                card.classList.add('dynamic-position-active');
+                dom.ketchup.dynamicPosition.setup(card, wrapper);
+                dom.ketchup.dynamicPosition.start(
+                    card as DynamicallyPositionedElement
+                );
                 card.menuVisible = true;
                 card.focus();
             }
@@ -102,7 +108,11 @@ export class ColumnMenu {
      * @param {Column} column - Column of the menu.
      * @returns {GenericObject} 'data' prop of the column menu card.
      */
-    prepData(comp: KupDataTable | KupTree, column: Column, showGroup: boolean): CardData {
+    prepData(
+        comp: KupDataTable | KupTree,
+        column: Column,
+        showGroup: boolean
+    ): CardData {
         return {
             button: this.prepButton(comp, column, showGroup),
             checkbox: this.prepCheckbox(comp, column),
@@ -121,9 +131,13 @@ export class ColumnMenu {
      * @param {Column} column - Column of the menu.
      * @returns {GenericObject[]} Buttons props.
      */
-    prepButton(comp: KupDataTable | KupTree, column: Column, showGroup: boolean): GenericObject[] {
+    prepButton(
+        comp: KupDataTable | KupTree,
+        column: Column,
+        showGroup: boolean
+    ): GenericObject[] {
         let props: GenericObject[] = [];
-        if(showGroup){
+        if (showGroup) {
             if (!this.isTree(comp)) {
                 props.push({
                     'data-storage': {

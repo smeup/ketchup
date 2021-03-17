@@ -16,11 +16,11 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { positionRecalc } from '../../utils/recalc-position';
 import {
     consistencyCheck,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 
 @Component({
     tag: 'kup-dropdown-button',
@@ -214,7 +214,9 @@ export class KupDropdownButton {
         this.buttonEl.classList.add('toggled');
         this.dropdownButtonEl.classList.add('toggled');
         this.listEl.menuVisible = true;
-        this.listEl.classList.add('dynamic-position-active');
+        this.kupManager.dynamicPosition.start(
+            this.listEl as DynamicallyPositionedElement
+        );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = buttonWidth + 'px';
@@ -225,7 +227,9 @@ export class KupDropdownButton {
         this.buttonEl.classList.remove('toggled');
         this.dropdownButtonEl.classList.remove('toggled');
         this.listEl.menuVisible = false;
-        this.listEl.classList.remove('dynamic-position-active');
+        this.kupManager.dynamicPosition.stop(
+            this.listEl as DynamicallyPositionedElement
+        );
     }
 
     onKupItemClick(e: CustomEvent) {
@@ -401,8 +405,7 @@ export class KupDropdownButton {
                 }
             });
         }
-
-        positionRecalc(this.listEl, this.wrapperEl);
+        this.kupManager.dynamicPosition.setup(this.listEl, this.wrapperEl);
         this.kupManager.debug.logRender(this, true);
     }
 

@@ -16,7 +16,6 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { positionRecalc } from '../../utils/recalc-position';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 
 import {
@@ -29,6 +28,7 @@ import {
     formatTime,
 } from '../../utils/utils';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 
 @Component({
     tag: 'kup-time-picker',
@@ -416,7 +416,9 @@ export class KupTimePicker {
             textfieldEl.emitSubmitEventOnEnter = false;
         }
         if (containerEl != null) {
-            containerEl.classList.add('dynamic-position-active');
+            this.kupManager.dynamicPosition.start(
+                containerEl as DynamicallyPositionedElement
+            );
             containerEl.classList.add('visible');
             let elStyle: any = containerEl.style;
             elStyle.height = 'auto';
@@ -436,7 +438,9 @@ export class KupTimePicker {
             textfieldEl.emitSubmitEventOnEnter = true;
         }
         if (containerEl != null) {
-            containerEl.classList.remove('dynamic-position-active');
+            this.kupManager.dynamicPosition.stop(
+                containerEl as DynamicallyPositionedElement
+            );
             containerEl.classList.remove('visible');
         }
     }
@@ -861,7 +865,10 @@ export class KupTimePicker {
 
     recalcPosition() {
         if (this.pickerContainerEl != null && this.textfieldEl != null) {
-            positionRecalc(this.pickerContainerEl, this.textfieldEl);
+            this.kupManager.dynamicPosition.setup(
+                this.pickerContainerEl as DynamicallyPositionedElement,
+                this.textfieldEl
+            );
         }
     }
 

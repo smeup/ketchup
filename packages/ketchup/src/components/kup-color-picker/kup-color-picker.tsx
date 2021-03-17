@@ -14,8 +14,8 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import Picker from 'vanilla-picker';
-import { positionRecalc } from '../../utils/recalc-position';
 import { KupTextField } from '../kup-text-field/kup-text-field';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 
 @Component({
     tag: 'kup-color-picker',
@@ -194,10 +194,9 @@ export class KupColorPicker {
             this.picker['onClose'] = function (color) {
                 let colorPicker = this['kupColorPicker'];
                 colorPicker.setValue(color.hex.substr(0, 7));
-                colorPicker.dropdownEl.classList.remove(
-                    'dynamic-position-active'
+                colorPicker.kupManager.dynamicPosition.stop(
+                    colorPicker.dropdownEl as DynamicallyPositionedElement
                 );
-
                 colorPicker.kupChange.emit({
                     value: colorPicker.value,
                 });
@@ -208,14 +207,14 @@ export class KupColorPicker {
                     colorPicker.dropdownEl = this[
                         'kupColorPicker'
                     ].rootElement.shadowRoot.querySelector('.picker_wrapper');
-                    positionRecalc(
+                    colorPicker.kupManager.dynamicPosition.setup(
                         colorPicker.dropdownEl,
                         colorPicker.anchorEl
                     );
                 }
                 if (!colorPicker.disabled) {
-                    colorPicker.dropdownEl.classList.add(
-                        'dynamic-position-active'
+                    colorPicker.kupManager.dynamicPosition.start(
+                        colorPicker.dropdownEl as DynamicallyPositionedElement
                     );
                 }
             };

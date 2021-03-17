@@ -64,7 +64,7 @@ import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { GenericObject } from '../../types/GenericTypes';
-import { positionRecalc } from '../../utils/recalc-position';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 
 @Component({
     tag: 'kup-tree',
@@ -765,7 +765,6 @@ export class KupTree {
 
     private contextMenuHandler(e: MouseEvent): void {
         const details = this.getEventDetails(e.target as HTMLElement);
-        console.log('dafuq');
         if (details.area === 'footer') {
             if (details.td && details.column) {
                 e.preventDefault();
@@ -1934,8 +1933,16 @@ export class KupTree {
             );
             if (menu) {
                 let wrapper = menu.closest('td');
-                positionRecalc(menu, wrapper, 0, true, true);
-                menu.classList.add('dynamic-position-active');
+                this.kupManager.dynamicPosition.setup(
+                    menu as DynamicallyPositionedElement,
+                    wrapper,
+                    0,
+                    true,
+                    true
+                );
+                this.kupManager.dynamicPosition.start(
+                    menu as DynamicallyPositionedElement
+                );
                 menu.classList.add('visible');
                 menu.focus();
             }
