@@ -3102,15 +3102,15 @@ export class KupDataTable {
                             value: TotalMode.DISTINCT,
                             selected: false,
                         },
-                        {
-                            text: null,
-                            value: null,
-                            isSeparator: true,
-                        },
                     ];
                     if (isNumber(column.obj)) {
                         // TODO Move these objects in declarations
                         listData.push(
+                            {
+                                text: null,
+                                value: null,
+                                isSeparator: true,
+                            },
                             {
                                 text: TotalLabel.SUM,
                                 value: TotalMode.SUM,
@@ -3134,6 +3134,11 @@ export class KupDataTable {
                         );
                     } else if (isDate(column.obj)) {
                         listData.push(
+                            {
+                                text: null,
+                                value: null,
+                                isSeparator: true,
+                            },
                             {
                                 text: TotalLabel.MIN,
                                 value: TotalMode.MIN,
