@@ -85,6 +85,11 @@
     </head>
 
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true, logLimit: 10000 },
+            };
+        </script>
         <div class="utility-examples">
             <h1>Tree mixed columns</h1>
             <kup-tree
@@ -117,6 +122,13 @@
             ></kup-tree>
             <h1>Filters2</h1>
             <kup-tree global-filter id="tree-show-filter2"></kup-tree>
+            <h1>Filters3</h1>
+            <kup-tree
+                global-filter
+                id="tree-show-filter3"
+                show-columns
+                show-header
+            ></kup-tree>
         </div>
 
         <script src="/assets/tree.js"></script>
