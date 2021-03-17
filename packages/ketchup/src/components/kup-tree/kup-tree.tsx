@@ -593,10 +593,6 @@ export class KupTree {
         this.kupManager.debug.logRender(this, true);
     }
 
-    componentDidUnload() {
-        this.kupDidUnload.emit();
-    }
-
     //-------- Watchers --------
     @Watch('data')
     enrichDataWhenChanged(newData, oldData) {
@@ -1933,7 +1929,7 @@ export class KupTree {
             );
             if (menu) {
                 let wrapper = menu.closest('td');
-                this.kupManager.dynamicPosition.setup(
+                this.kupManager.dynamicPosition.add(
                     menu as DynamicallyPositionedElement,
                     wrapper,
                     0,
@@ -2119,5 +2115,17 @@ export class KupTree {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.remove(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
+        this.kupDidUnload.emit();
     }
 }

@@ -380,10 +380,7 @@ export class KupCombobox {
 
     componentDidRender() {
         this.setEvents();
-        this.kupManager.dynamicPosition.setup(
-            this.listEl,
-            this.textfieldWrapper
-        );
+        this.kupManager.dynamicPosition.add(this.listEl, this.textfieldWrapper);
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -418,5 +415,16 @@ export class KupCombobox {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.remove(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

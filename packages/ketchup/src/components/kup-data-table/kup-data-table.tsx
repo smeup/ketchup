@@ -1137,13 +1137,13 @@ export class KupDataTable {
 
     private customizePanelPosition() {
         if (this.customizeTopButtonRef) {
-            this.kupManager.dynamicPosition.setup(
+            this.kupManager.dynamicPosition.add(
                 this.customizeTopPanelRef,
                 this.customizeTopButtonRef
             );
         }
         if (this.customizeBottomButtonRef) {
-            this.kupManager.dynamicPosition.setup(
+            this.kupManager.dynamicPosition.add(
                 this.customizeBottomPanelRef,
                 this.customizeBottomButtonRef
             );
@@ -1396,18 +1396,6 @@ export class KupDataTable {
         this.kupDidLoad.emit();
         this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
-    }
-
-    componentDidUnload() {
-        // Remove function to close header menu onto the document
-        if (this.documentHandlerCloseHeaderMenu) {
-            document.removeEventListener(
-                'click',
-                this.documentHandlerCloseHeaderMenu
-            );
-        }
-        this.kupManager.resize.unobserve(this.rootElement);
-        this.kupDidUnload.emit();
     }
 
     //======== Utility methods ========
@@ -2982,7 +2970,7 @@ export class KupDataTable {
             );
             if (menu) {
                 let wrapper = menu.closest('td');
-                this.kupManager.dynamicPosition.setup(
+                this.kupManager.dynamicPosition.add(
                     menu as DynamicallyPositionedElement,
                     wrapper,
                     0,
@@ -4331,7 +4319,7 @@ export class KupDataTable {
             dropArea.style.marginLeft =
                 'calc(' + th.clientWidth / 2 + 'px - 25px)';
             this.tableAreaRef.appendChild(dropArea);
-            this.kupManager.dynamicPosition.setup(
+            this.kupManager.dynamicPosition.add(
                 dropArea as DynamicallyPositionedElement,
                 th,
                 10,
@@ -4825,5 +4813,25 @@ export class KupDataTable {
             </Host>
         );
         return compCreated;
+    }
+
+    componentDidUnload() {
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.remove(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
+        // Remove function to close header menu onto the document
+        if (this.documentHandlerCloseHeaderMenu) {
+            document.removeEventListener(
+                'click',
+                this.documentHandlerCloseHeaderMenu
+            );
+        }
+        this.kupManager.resize.unobserve(this.rootElement);
+        this.kupDidUnload.emit();
     }
 }

@@ -8,9 +8,9 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module DynamicPosition
  */
 export class DynamicPosition {
-    managedElements: Array<DynamicallyPositionedElement> = [];
+    managedElements: Set<DynamicallyPositionedElement> = new Set();
     /**
-     * Initializes the dynamic position.
+     * Watches the element eligible to dynamic positioning.
      * *
      * @param {DynamicallyPositionedElement} el - Element to reposition.
      * @param {HTMLElement} anchorEl - "el" position will be anchored to this element.
@@ -18,7 +18,7 @@ export class DynamicPosition {
      * @param {boolean} above - When true "el" will be always placed above its wrapper.
      * @param {boolean} right - When true "el" will be always placed on the right of its wrapper.
      */
-    setup(
+    add(
         el: DynamicallyPositionedElement,
         anchorEl: HTMLElement,
         margin?: number,
@@ -52,7 +52,17 @@ export class DynamicPosition {
             attributes: true,
             attributeFilter: ['class'],
         });
-        this.managedElements.push(el);
+        this.managedElements.add(el);
+    }
+    /**
+     * Removes the element from dynamic position management.
+     * *
+     * @param {DynamicallyPositionedElement} elements - Elements to remove from the managed elements set.
+     */
+    remove(elements: DynamicallyPositionedElement[]): void {
+        for (let index = 0; index < elements.length; index++) {
+            this.managedElements.delete(elements[index]);
+        }
     }
     /**
      * Starts the process of dynamically reposition the element (which must be firstly initialized through this.setup()).
@@ -75,11 +85,12 @@ export class DynamicPosition {
      * *
      * @param {DynamicallyPositionedElement} el - Element to reposition.
      */
-    run(el: DynamicallyPositionedElement): void {
-        if (
-            !el.isConnected ||
-            !el.classList.contains('dynamic-position-active')
-        ) {
+    async run(el: DynamicallyPositionedElement): Promise<void> {
+        if (!el.isConnected) {
+            dom.ketchup.dynamicPosition.managedElements.delete(el);
+            return;
+        }
+        if (!el.classList.contains('dynamic-position-active')) {
             return;
         }
         let offsetH: number = el.clientHeight;

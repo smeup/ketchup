@@ -405,7 +405,7 @@ export class KupDropdownButton {
                 }
             });
         }
-        this.kupManager.dynamicPosition.setup(this.listEl, this.wrapperEl);
+        this.kupManager.dynamicPosition.add(this.listEl, this.wrapperEl);
         this.kupManager.debug.logRender(this, true);
     }
 

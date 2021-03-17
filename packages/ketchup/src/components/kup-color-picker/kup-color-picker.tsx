@@ -49,6 +49,7 @@ export class KupColorPicker {
     @Prop() swatchOnly: boolean = false;
 
     private anchorEl: HTMLElement;
+    dropdownEl: HTMLElement;
     /**
      * Instance of the KupManager class.
      */
@@ -207,7 +208,7 @@ export class KupColorPicker {
                     colorPicker.dropdownEl = this[
                         'kupColorPicker'
                     ].rootElement.shadowRoot.querySelector('.picker_wrapper');
-                    colorPicker.kupManager.dynamicPosition.setup(
+                    colorPicker.kupManager.dynamicPosition.add(
                         colorPicker.dropdownEl,
                         colorPicker.anchorEl
                     );
@@ -280,5 +281,16 @@ export class KupColorPicker {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements) {
+            this.kupManager.dynamicPosition.remove(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

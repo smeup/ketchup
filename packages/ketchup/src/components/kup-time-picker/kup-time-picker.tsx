@@ -865,7 +865,7 @@ export class KupTimePicker {
 
     recalcPosition() {
         if (this.pickerContainerEl != null && this.textfieldEl != null) {
-            this.kupManager.dynamicPosition.setup(
+            this.kupManager.dynamicPosition.add(
                 this.pickerContainerEl as DynamicallyPositionedElement,
                 this.textfieldEl
             );
@@ -938,5 +938,16 @@ export class KupTimePicker {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.remove(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

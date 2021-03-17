@@ -789,7 +789,7 @@ export class KupTooltip {
 
     componentDidRender() {
         if (this.visible) {
-            this.kupManager.dynamicPosition.setup(
+            this.kupManager.dynamicPosition.add(
                 this.rootElement as DynamicallyPositionedElement,
                 this.relatedObject.element
             );
@@ -820,5 +820,16 @@ export class KupTooltip {
                 {this.createTooltip()}
             </div>
         );
+    }
+
+    componentDidUnload() {
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.remove(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

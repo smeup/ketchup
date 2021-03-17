@@ -275,13 +275,13 @@ export class KupNavBar {
             new MDCTopAppBar(topAppBarElement);
         }
         if (this.menuListEl != null) {
-            this.kupManager.dynamicPosition.setup(
+            this.kupManager.dynamicPosition.add(
                 this.menuListEl,
                 this.menuButtonEl
             );
         }
         if (this.optionsListEl != null) {
-            this.kupManager.dynamicPosition.setup(
+            this.kupManager.dynamicPosition.add(
                 this.optionsListEl,
                 this.optionsButtonEl
             );
@@ -403,5 +403,16 @@ export class KupNavBar {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.remove(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }
