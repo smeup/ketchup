@@ -3347,17 +3347,11 @@ export class KupDataTable {
                                 }
                             }
                         } else {
-                            console.log({ totalValue });
-                            const columnP =
-                                column.obj && column.obj.p != 'P'
-                                    ? column.obj.p
-                                    : '';
                             value = numberToFormattedStringNumber(
                                 totalValue,
                                 column.decimals,
                                 column.obj ? column.obj.p : ''
                             );
-                            console.log({ value });
                         }
                     }
                     cells.push(<td class={totalClass}>{value}</td>);
