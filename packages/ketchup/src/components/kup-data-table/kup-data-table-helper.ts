@@ -217,6 +217,9 @@ export function groupRows(
     // creating root
     const groupRows: Array<Row> = [];
 
+    // obj used to calculate the group distinct value
+    let distinctObj = {};
+
     rows.forEach((row: Row) => {
         // getting column name from first group
         const columnName = validGroups[0].column;
@@ -300,10 +303,11 @@ export function groupRows(
             // adding row
             groupRow.group.children.push(row);
 
-            updateGroupTotal(groupRow, totals, row);
+            updateGroupTotal(groupRow, totals, row, distinctObj);
         }
     });
 
+    adjustGroupsDistinct(groupRows, totals, distinctObj);
     adjustGroupsAverageOrFormula(groupRows, TotalMode.AVERAGE, totals);
     adjustGroupsAverageOrFormula(groupRows, TotalMode.MATH, totals);
 
@@ -313,7 +317,8 @@ export function groupRows(
 function updateGroupTotal(
     groupRow: Row,
     totals: TotalsMap,
-    addedRow: Row
+    addedRow: Row,
+    distinctObj: Object
 ): void {
     if (!groupRow || !totals) {
         return;
@@ -350,7 +355,28 @@ function updateGroupTotal(
                     }
                     break;
                 case TotalMode.DISTINCT:
-                    // TODO
+                    let cellValue;
+                    if (_isNumber) {
+                        cellValue = numeral(stringToNumber(cell.value)).value();
+                    } else {
+                        cellValue = cell.value;
+                    }
+                    let distinctGroup = distinctObj[groupRow.group.id];
+                    if (!distinctGroup) {
+                        distinctObj[groupRow.group.id] = {};
+                        distinctObj[groupRow.group.id][key] = [];
+                        distinctObj[groupRow.group.id][key].push(cellValue);
+                    } else {
+                        let distinctList = distinctObj[groupRow.group.id][key];
+                        if (!distinctList) {
+                            // first round
+                            distinctObj[groupRow.group.id][key] = [];
+                            distinctObj[groupRow.group.id][key].push(cellValue);
+                        } else {
+                            // update the list
+                            distinctList.push(cellValue);
+                        }
+                    }
                     break;
                 case TotalMode.SUM:
                 case TotalMode.AVERAGE:
@@ -406,34 +432,43 @@ function updateGroupTotal(
                             parent = parent.group.parent;
                         }
                     } else if (isDate(cell.obj)) {
-                        const currentTotalValue = groupRow.group.totals[key];
-                        const cellValue = formatToMomentDate(cell).toDate();
-                        if (currentTotalValue) {
-                            let moments = [];
-                            moments.push(cellValue);
-                            moments.push(
-                                moment(currentTotalValue, 'DD/MM/YYYY')
-                            );
-                            groupRow.group.totals[key] = moment.min(moments);
-                        } else {
-                            groupRow.group.totals[key] = cellValue;
-                        }
-                        // updating parents
-                        let parent = groupRow.group.parent;
-                        while (parent != null) {
-                            const currentParentMin = parent.group.totals[key];
-                            if (currentParentMin) {
+                        const momentValue = formatToMomentDate(cell);
+                        if (momentValue.isValid()) {
+                            const cellValue = momentValue.toDate();
+                            const currentTotalValue =
+                                groupRow.group.totals[key];
+                            if (currentTotalValue) {
                                 let moments = [];
                                 moments.push(cellValue);
                                 moments.push(
-                                    moment(currentParentMin, 'DD/MM/YYYY')
+                                    moment(currentTotalValue, 'DD/MM/YYYY')
                                 );
-                                parent.group.totals[key] = moment.min(moments);
+                                groupRow.group.totals[key] = moment.min(
+                                    moments
+                                );
                             } else {
-                                // first round
-                                parent.group.totals[key] = cellValue;
+                                groupRow.group.totals[key] = cellValue;
                             }
-                            parent = parent.group.parent;
+                            // updating parents
+                            let parent = groupRow.group.parent;
+                            while (parent != null) {
+                                const currentParentMin =
+                                    parent.group.totals[key];
+                                if (currentParentMin) {
+                                    let moments = [];
+                                    moments.push(cellValue);
+                                    moments.push(
+                                        moment(currentParentMin, 'DD/MM/YYYY')
+                                    );
+                                    parent.group.totals[key] = moment.min(
+                                        moments
+                                    );
+                                } else {
+                                    // first round
+                                    parent.group.totals[key] = cellValue;
+                                }
+                                parent = parent.group.parent;
+                            }
                         }
                     }
                     break;
@@ -469,34 +504,43 @@ function updateGroupTotal(
                             parent = parent.group.parent;
                         }
                     } else if (isDate(cell.obj)) {
-                        const currentTotalValue = groupRow.group.totals[key];
-                        const cellValue = formatToMomentDate(cell).toDate();
-                        if (currentTotalValue) {
-                            let moments = [];
-                            moments.push(cellValue);
-                            moments.push(
-                                moment(currentTotalValue, 'DD/MM/YYYY')
-                            );
-                            groupRow.group.totals[key] = moment.max(moments);
-                        } else {
-                            groupRow.group.totals[key] = cellValue;
-                        }
-                        // updating parents
-                        let parent = groupRow.group.parent;
-                        while (parent != null) {
-                            const currentParentMin = parent.group.totals[key];
-                            if (currentParentMin) {
+                        const momentValue = formatToMomentDate(cell);
+                        if (momentValue.isValid()) {
+                            const cellValue = momentValue.toDate();
+                            const currentTotalValue =
+                                groupRow.group.totals[key];
+                            if (currentTotalValue) {
                                 let moments = [];
                                 moments.push(cellValue);
                                 moments.push(
-                                    moment(currentParentMin, 'DD/MM/YYYY')
+                                    moment(currentTotalValue, 'DD/MM/YYYY')
                                 );
-                                parent.group.totals[key] = moment.max(moments);
+                                groupRow.group.totals[key] = moment.max(
+                                    moments
+                                );
                             } else {
-                                // first round
-                                parent.group.totals[key] = cellValue;
+                                groupRow.group.totals[key] = cellValue;
                             }
-                            parent = parent.group.parent;
+                            // updating parents
+                            let parent = groupRow.group.parent;
+                            while (parent != null) {
+                                const currentParentMin =
+                                    parent.group.totals[key];
+                                if (currentParentMin) {
+                                    let moments = [];
+                                    moments.push(cellValue);
+                                    moments.push(
+                                        moment(currentParentMin, 'DD/MM/YYYY')
+                                    );
+                                    parent.group.totals[key] = moment.max(
+                                        moments
+                                    );
+                                } else {
+                                    // first round
+                                    parent.group.totals[key] = cellValue;
+                                }
+                                parent = parent.group.parent;
+                            }
                         }
                     }
                     break;
@@ -509,6 +553,32 @@ function updateGroupTotal(
             }
         }
     });
+}
+
+function adjustGroupsDistinct(
+    groupRows: Array<Row>,
+    totals: TotalsMap,
+    distinctObj: Object
+) {
+    if (!groupRows || !totals) {
+        return;
+    }
+
+    const keys = Object.keys(totals);
+
+    if (groupRows.length === 0 || !groupRows[0].group || keys.length === 0) {
+        return;
+    }
+
+    let toAdjustKeys = keys.filter((key) => TotalMode.DISTINCT === totals[key]);
+
+    if (toAdjustKeys.length > 0) {
+        groupRows
+            .filter((groupRow) => groupRow.group.children.length > 0)
+            .forEach((groupRow) =>
+                adjustGroupDistinct(groupRow, toAdjustKeys, distinctObj)
+            );
+    }
 }
 
 function adjustGroupsAverageOrFormula(
@@ -549,6 +619,22 @@ function adjustGroupsAverageOrFormula(
                 )
             );
     }
+}
+
+function adjustGroupDistinct(
+    groupRow: Row,
+    toAdjustKeys: Array<string>,
+    _distinctObj: Object
+) {
+    const children = groupRow.group.children;
+    if (children.length === 0) {
+        return;
+    }
+    toAdjustKeys.forEach((_key) => {
+        // TODO
+        // const distinctList = distinctObj[groupRow.group.id][key];
+        // groupRow.group.totals[key] = new Set(distinctList).size;
+    });
 }
 
 /**
@@ -694,14 +780,12 @@ export function calcTotals(
                             distinctObj[key] = [];
                             distinctObj[key].push(cellValue);
                         } else {
-                            if (distinctList.length === rows.length - 1) {
+                            // update the list
+                            distinctList.push(cellValue);
+                            if (distinctList.length === rows.length) {
                                 // last round
                                 footerRow[key] = new Set(distinctList).size;
                                 distinctObj[key] = [];
-                            } else {
-                                // middle round
-                                // update the list
-                                distinctList.push(cellValue);
                             }
                         }
                     } else if (isNumber(cell.obj)) {
@@ -738,35 +822,44 @@ export function calcTotals(
                         }
                         // TODO DRY the MIN and MAX functions
                     } else if (isDate(cell.obj)) {
-                        const cellValue = formatToMomentDate(cell).toDate();
-                        const currentFooterValue = footerRow[key];
-                        switch (true) {
-                            case totals[key] === TotalMode.MIN:
-                                if (currentFooterValue) {
-                                    let moments = [];
-                                    moments.push(cellValue);
-                                    moments.push(
-                                        moment(currentFooterValue, 'DD/MM/YYYY')
-                                    );
-                                    footerRow[key] = moment.min(moments);
-                                } else {
-                                    footerRow[key] = cellValue;
-                                }
-                                break;
-                            case totals[key] === TotalMode.MAX:
-                                if (currentFooterValue) {
-                                    let moments = [];
-                                    moments.push(cellValue);
-                                    moments.push(
-                                        moment(currentFooterValue, 'DD/MM/YYYY')
-                                    );
-                                    footerRow[key] = moment.max(moments);
-                                } else {
-                                    footerRow[key] = cellValue;
-                                }
-                                break;
-                            default:
-                                break;
+                        const momentValue = formatToMomentDate(cell);
+                        if (momentValue.isValid()) {
+                            const cellValue = momentValue.toDate();
+                            const currentFooterValue = footerRow[key];
+                            switch (true) {
+                                case totals[key] === TotalMode.MIN:
+                                    if (currentFooterValue) {
+                                        let moments = [];
+                                        moments.push(cellValue);
+                                        moments.push(
+                                            moment(
+                                                currentFooterValue,
+                                                'DD/MM/YYYY'
+                                            )
+                                        );
+                                        footerRow[key] = moment.min(moments);
+                                    } else {
+                                        footerRow[key] = cellValue;
+                                    }
+                                    break;
+                                case totals[key] === TotalMode.MAX:
+                                    if (currentFooterValue) {
+                                        let moments = [];
+                                        moments.push(cellValue);
+                                        moments.push(
+                                            moment(
+                                                currentFooterValue,
+                                                'DD/MM/YYYY'
+                                            )
+                                        );
+                                        footerRow[key] = moment.max(moments);
+                                    } else {
+                                        footerRow[key] = cellValue;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
                 }
