@@ -76,7 +76,7 @@ import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
-import { identify, stringToNumber } from '../../utils/utils';
+import { deepEqual, identify, stringToNumber } from '../../utils/utils';
 import { GenericObject } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FButton } from '../../f-components/f-button/f-button';
@@ -118,27 +118,58 @@ export class KupBox {
     }
 
     persistState(): void {
+        console.log(this.state.load);
+        if (!this.state.load){
+            this.state.load = true;
+            return;
+        }
+
         if (this.store && this.stateId) {
-            // *** PROPS ***
-            this.state.sortBy = this.sortBy;
-            this.state.globalFilterValue = this.globalFilterValue;
-            this.state.selectedRowsState = this.selectedRows.reduce(
+
+            let somethingChanged = false;
+            if (!deepEqual(this.state.sortBy, this.sortBy)) {
+                this.state.sortBy = this.sortBy;
+                somethingChanged = true;
+            }
+
+            if (!deepEqual(this.state.globalFilterValue, this.globalFilterValue)) {
+                this.state.globalFilterValue = this.globalFilterValue;
+                somethingChanged = true;
+            }
+
+            if (!deepEqual(this.state.pageSelected, this.currentPage)) {
+                this.state.pageSelected = this.currentPage;
+                somethingChanged = true;
+            }
+
+            if (!deepEqual(this.state.rowsPerPage, this.currentRowsPerPage)) {
+                this.state.rowsPerPage = this.currentRowsPerPage;
+                somethingChanged = true;
+            }
+
+            const selectedRowsState = this.selectedRows.reduce(
                 (accumulator, row, currentIndex) => {
                     const prefix = currentIndex > 0 ? ';' : '';
                     return accumulator + prefix + row.id;
                 },
                 ''
             );
-            this.state.pageSelected = this.currentPage;
-            this.state.rowsPerPage = this.currentRowsPerPage;
-            this.kupManager.debug.logMessage(
-                this,
-                'Persisting state for stateId ' +
-                    this.stateId +
-                    ': ' +
-                    this.state
-            );
-            this.store.persistState(this.stateId, this.state);
+
+            if (!deepEqual(this.state.selectedRowsState, selectedRowsState)) {
+                this.state.selectedRowsState = selectedRowsState;
+                somethingChanged = true;
+            }
+
+            if (somethingChanged) {
+                this.kupManager.debug.logMessage(
+                    this,
+                    'Persisting state for stateId ' +
+                        this.stateId +
+                        ': ' +
+                        this.state
+                );
+                this.store.persistState(this.stateId, this.state);
+            }
         }
     }
 
