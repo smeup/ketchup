@@ -118,7 +118,6 @@ export class KupBox {
     }
 
     persistState(): void {
-        console.log(this.state.load);
         if (!this.state.load){
             this.state.load = true;
             return;

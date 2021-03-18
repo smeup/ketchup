@@ -192,6 +192,11 @@ export class KupDataTable {
     }
 
     persistState(): void {
+        if (!this.state.load){
+            this.state.load = true;
+            return;
+        }
+
         if (this.store && this.stateId) {
             let somethingChanged = false;
             if (!deepEqual(this.state.filters, this.filters)) {
@@ -1286,19 +1291,9 @@ export class KupDataTable {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
-        this.identifyAndInitRows();
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
         this.filtersRowsInstance = new FiltersRows();
-
-        if (document.querySelectorAll('.header')[0]) {
-            this.navBarHeight = document.querySelectorAll(
-                '.header'
-            )[0].clientHeight;
-        } else {
-            this.navBarHeight = 0;
-        }
-        this.setObserver();
 
         this.isRestoringState = true;
         // *** Store
@@ -1329,7 +1324,7 @@ export class KupDataTable {
         this.isSafariBrowser =
             CSS.supports('position', '-webkit-sticky') ||
             !!(window && (window as Window & { safari?: object }).safari);
-    }
+    } 
 
     componentWillRender() {
         this.kupManager.debug.logRender(this, false);
