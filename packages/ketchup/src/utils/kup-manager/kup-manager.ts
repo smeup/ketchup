@@ -48,7 +48,6 @@ export class KupManager {
 }
 /**
  * Called by the Ketch.UP components to retrieve the instance of KupManager (or creating a new one when missing).
- * *
  * @returns {KupManager} KupManager instance.
  */
 export function kupManagerInstance(): KupManager {

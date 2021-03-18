@@ -26,5 +26,6 @@ export interface KupManager {
  */
 export interface KupManagerInitialization {
     debug: { active: boolean; logLimit: number };
+    scrollOnHover: { debounce: number; delay: number };
     theme: { list: JSON; name: string };
 }

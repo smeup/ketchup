@@ -133,6 +133,7 @@ import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -757,7 +758,7 @@ export class KupDataTable {
     /**
      * Reference to the working area of the table. This is the below-wrapper reference.
      */
-    private tableAreaRef: HTMLDivElement;
+    private tableAreaRef: HTMLElement;
     private stickyTheadRef: any;
     private customizeTopButtonRef: any;
     private customizeBottomButtonRef: any;
@@ -1111,14 +1112,19 @@ export class KupDataTable {
     }
 
     private checkScrollOnHover() {
-        console.log('er');
-        if (!this.kupManager.scrollOnHover.isRegistered(this.tableAreaRef)) {
+        if (
+            !this.kupManager.scrollOnHover.isRegistered(
+                this.tableAreaRef as ScrollableElement
+            )
+        ) {
             if (
                 this.scrollOnHover &&
                 this.tableHeight === undefined &&
                 this.tableWidth === undefined
             ) {
-                this.kupManager.scrollOnHover.register(this.tableAreaRef);
+                this.kupManager.scrollOnHover.register(
+                    this.tableAreaRef as ScrollableElement
+                );
             }
         } else {
             if (
@@ -1126,7 +1132,9 @@ export class KupDataTable {
                 (this.tableHeight !== undefined ||
                     this.tableWidth !== undefined)
             ) {
-                this.kupManager.scrollOnHover.unregister(this.tableAreaRef);
+                this.kupManager.scrollOnHover.unregister(
+                    this.tableAreaRef as ScrollableElement
+                );
             }
         }
     }
