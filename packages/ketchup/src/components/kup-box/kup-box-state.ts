@@ -7,6 +7,7 @@ export class KupBoxState implements KupState {
     selectedRowsState: string = '';
     pageSelected: number = 1;
     rowsPerPage: number = 0;
+    load: boolean = false;
 
     /*Add attribute*/
 

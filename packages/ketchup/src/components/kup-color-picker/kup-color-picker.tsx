@@ -14,8 +14,8 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import Picker from 'vanilla-picker';
-import { positionRecalc } from '../../utils/recalc-position';
 import { KupTextField } from '../kup-text-field/kup-text-field';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 
 @Component({
     tag: 'kup-color-picker',
@@ -49,10 +49,11 @@ export class KupColorPicker {
     @Prop() swatchOnly: boolean = false;
 
     private anchorEl: HTMLElement;
+    dropdownEl: HTMLElement;
     /**
      * Instance of the KupManager class.
      */
-    private kupManager: KupManager = kupManagerInstance();
+    kupManager: KupManager = kupManagerInstance();
     private picker: Picker;
     private textfieldEl: KupTextField;
 
@@ -84,7 +85,7 @@ export class KupColorPicker {
     }
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -171,7 +172,7 @@ export class KupColorPicker {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.value = this.initialValue;
         this.setHexValue();
         if (!this.data) {
@@ -194,10 +195,9 @@ export class KupColorPicker {
             this.picker['onClose'] = function (color) {
                 let colorPicker = this['kupColorPicker'];
                 colorPicker.setValue(color.hex.substr(0, 7));
-                colorPicker.dropdownEl.classList.remove(
-                    'dynamic-position-active'
+                colorPicker.kupManager.dynamicPosition.stop(
+                    colorPicker.dropdownEl as DynamicallyPositionedElement
                 );
-
                 colorPicker.kupChange.emit({
                     value: colorPicker.value,
                 });
@@ -208,14 +208,14 @@ export class KupColorPicker {
                     colorPicker.dropdownEl = this[
                         'kupColorPicker'
                     ].rootElement.shadowRoot.querySelector('.picker_wrapper');
-                    positionRecalc(
+                    colorPicker.kupManager.dynamicPosition.register(
                         colorPicker.dropdownEl,
                         colorPicker.anchorEl
                     );
                 }
                 if (!colorPicker.disabled) {
-                    colorPicker.dropdownEl.classList.add(
-                        'dynamic-position-active'
+                    colorPicker.kupManager.dynamicPosition.start(
+                        colorPicker.dropdownEl as DynamicallyPositionedElement
                     );
                 }
             };
@@ -281,5 +281,17 @@ export class KupColorPicker {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

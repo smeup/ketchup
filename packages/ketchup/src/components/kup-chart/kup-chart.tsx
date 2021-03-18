@@ -163,7 +163,7 @@ export class KupChart {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme =
             'Needs to be refreshed every time the theme changes because there are dynamic colors.';
         this.customStyleTheme = customStyleTheme;
@@ -601,7 +601,7 @@ export class KupChart {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.identifyRows();
         this.fetchThemeColors();
     }
@@ -683,6 +683,7 @@ export class KupChart {
     }
 
     componentDidUnload() {
+        this.kupManager.theme.unregister(this);
         this.kupManager.resize.unobserve(this.rootElement);
     }
 }

@@ -1,8 +1,8 @@
 <template>
   <div>
     <p>
-      This script allows the dynamic positioning of a given HTML element by
-      using the
+      This class allows the dynamic positioning of a given HTML element by using
+      the
       <span class="code-word">position: fixed</span> CSS rule. In order to work
       it just need two mandatory arguments:
       <span class="code-word"
@@ -32,9 +32,6 @@
       The chip component above will be repositioned when buttons in the examples
       are clicked.
     </p>
-    <div class="demo-container">
-      <code class="flat">{{ codeSample }}</code>
-    </div>
   </div>
 </template>
 
@@ -49,8 +46,6 @@ export default {
           checked: false,
         },
       ],
-      codeSample:
-        'positionRecalc(el: HTMLElement, anchorEl: HTMLElement, margin?: number, above?: boolean, right?: boolean) {...}',
     };
   },
 };

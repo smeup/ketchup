@@ -7,6 +7,7 @@ import type { ResizableKupComponent } from '../../types/GenericTypes';
 import { KupDebug } from '../kup-debug/kup-debug';
 import { KupTheme } from '../kup-theme/kup-theme';
 import { ResizeObserver } from 'resize-observer';
+import { DynamicPosition } from '../dynamic-position/dynamic-position';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -16,6 +17,7 @@ const dom: KupDom = document.documentElement as KupDom;
  */
 export class KupManager {
     debug: KupDebug = new KupDebug();
+    dynamicPosition: DynamicPosition = new DynamicPosition();
     resize: ResizeObserver = new ResizeObserver(
         (entries: ResizeObserverEntry[]) => {
             entries.forEach((entry) => {

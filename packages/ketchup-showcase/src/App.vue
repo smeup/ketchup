@@ -534,9 +534,9 @@ export default {
             },
           },
           {
-            title: 'Tip positioning',
+            title: 'Dynamic position',
             to: {
-              name: 'tippositioning',
+              name: 'dynamicposition',
             },
           },
         ],

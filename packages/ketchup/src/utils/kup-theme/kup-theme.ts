@@ -20,7 +20,7 @@ export class KupTheme {
         dom.ketchupInit && dom.ketchupInit.theme && dom.ketchupInit.theme.list
             ? dom.ketchupInit.theme.list
             : themesJson['default'];
-    managedComponents: Array<KupComponent> = [];
+    managedComponents: Set<KupComponent> = new Set();
     name: string =
         dom.ketchupInit && dom.ketchupInit.theme && dom.ketchupInit.theme.name
             ? dom.ketchupInit.theme.name
@@ -121,15 +121,14 @@ export class KupTheme {
      * Sets the customStyle of the theme on existing components.
      */
     customStyle(): void {
-        for (let i = 0; i < this.managedComponents.length; i++) {
-            if (this.managedComponents[i].isConnected) {
-                this.managedComponents[i].refreshCustomStyle(
-                    this.fetchThemeCustomStyle(
-                        this.managedComponents[i].tagName
-                    )
+        const _this: KupTheme = this;
+        this.managedComponents.forEach(function (comp) {
+            if (comp.isConnected) {
+                comp.themeChangeCallback(
+                    _this.fetchThemeCustomStyle(comp.tagName)
                 );
             }
-        }
+        }, _this);
     }
     /**
      * This method will just refresh the current theme.
@@ -181,15 +180,23 @@ export class KupTheme {
         return completeStyle + ' ';
     }
     /**
-     * Called by every component having a customStyle prop, invokes theme's initialization when no current theme is detected and calls fetchThemeCustomStyle which return the complete CSS of the component
+     * Registers a KupComponent in KupTheme, in order to be properly handled whenever the theme changes.
      *
-     * @param component - The component calling this function.
+     * @param {any} component - The component calling this function.
      */
-    setThemeCustomStyle(component: any): void {
-        this.managedComponents.push(component.rootElement);
+    register(component: any): void {
+        this.managedComponents.add(component.rootElement);
         component.customStyleTheme = this.fetchThemeCustomStyle(
             component.rootElement.tagName
         );
+    }
+    /**
+     * Unregisters a KupComponent, so it won't be handled when the theme changes.
+     *
+     * @param {any} component - The component calling this function.
+     */
+    unregister(component: any): void {
+        this.managedComponents.delete(component.rootElement);
     }
     /**
      * Combines the component's customStyle and customStyleTheme properties, returning the result.

@@ -82,11 +82,11 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
  @Prop() customStyle: string = "";
 ```
 
-3. Define the `refreshCustomStyle` method which allows the component to auto-refresh itself once a theme mutation is detected (themes can include customStyle info):
+3. Define the `themeChangeCallback` method which allows the component to auto-refresh itself once a theme mutation is detected (themes can include customStyle info):
 
 ```
 @Method()
-async refreshCustomStyle(customStyleTheme: string) {
+async themeChangeCallback(customStyleTheme: string) {
  this.customStyleTheme = customStyleTheme;
 }
 ```
@@ -95,7 +95,7 @@ Note - sometimes components' theme information must be dynamic. For example, kup
 
 ```
 @Method()
-async refreshCustomStyle(customStyleTheme: string) {
+async themeChangeCallback(customStyleTheme: string) {
  this.customStyleTheme =
  'Needs to be refreshed every time the theme changes because there are dynamic colors.';
  this.customStyleTheme = customStyleTheme;
@@ -145,7 +145,7 @@ import {
 ```
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         //..
         //Actual willLoad code (below)
     }

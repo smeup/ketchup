@@ -149,10 +149,9 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 
 
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `resizeCallback() => Promise<void>`
 
-This method is invoked by the theme manager.
-Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+This method is invoked by KupManager whenever the component changes size.
 
 #### Returns
 
@@ -160,9 +159,10 @@ Type: `Promise<void>`
 
 
 
-### `resizeCallback() => Promise<void>`
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
-This method is invoked by KupManager whenever the component changes size.
+This method is invoked by the theme manager.
+Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
 
 #### Returns
 
@@ -228,12 +228,15 @@ graph TD;
   kup-tree --> kup-rating
   kup-tree --> kup-radio
   kup-tree --> kup-tooltip
+  kup-tree --> kup-list
   kup-tree --> kup-text-field
   kup-tree --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
   kup-card --> kup-chip
   kup-card --> kup-button
   kup-card --> kup-badge
@@ -248,8 +251,6 @@ graph TD;
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
-  kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   kup-combobox --> kup-list

@@ -11,7 +11,7 @@ export interface KupComponent extends HTMLElement {
         renderStart: number;
         startTime: number;
     };
-    refreshCustomStyle: Function;
+    themeChangeCallback: Function;
     rootElement: KupComponent;
 }
 /**

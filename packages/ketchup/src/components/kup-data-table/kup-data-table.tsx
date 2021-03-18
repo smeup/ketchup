@@ -12,10 +12,7 @@ import {
     Watch,
     Host,
 } from '@stencil/core';
-
 import { scrollOnHover } from '../../utils/scroll-on-hover';
-import { positionRecalc } from '../../utils/recalc-position';
-
 import {
     Cell,
     Column,
@@ -135,6 +132,7 @@ import { GenericFilter } from '../../utils/filters/filters-declarations';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { FiltersRows } from '../../utils/filters/filters-rows';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -194,6 +192,11 @@ export class KupDataTable {
     }
 
     persistState(): void {
+        if (!this.state.load) {
+            this.state.load = true;
+            return;
+        }
+
         if (this.store && this.stateId) {
             let somethingChanged = false;
             if (!deepEqual(this.state.filters, this.filters)) {
@@ -951,7 +954,7 @@ export class KupDataTable {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
     /**
@@ -965,6 +968,29 @@ export class KupDataTable {
                 () => this.forceUpdate(),
                 300
             );
+        }
+    }
+    /**
+     * This method will set the selected rows of the component.
+     * @param {string} rowsById - String containing the ids separated by ";".
+     * @param {boolean} emitEvent - The event will always be emitted unless emitEvent is set to false.
+     */
+    @Method()
+    async setSelectedRows(
+        rowsById: string,
+        emitEvent?: boolean
+    ): Promise<void> {
+        this.selectedRows = [];
+        this.selectedRows = this.renderedRows.filter((r) => {
+            return rowsById.split(';').indexOf(r.id) >= 0;
+        });
+
+        if (emitEvent !== false) {
+            this.kupRowSelected.emit({
+                selectedRows: this.selectedRows,
+                clickedColumn: null,
+                clickedRow: null,
+            });
         }
     }
 
@@ -1139,13 +1165,13 @@ export class KupDataTable {
 
     private customizePanelPosition() {
         if (this.customizeTopButtonRef) {
-            positionRecalc(
+            this.kupManager.dynamicPosition.register(
                 this.customizeTopPanelRef,
                 this.customizeTopButtonRef
             );
         }
         if (this.customizeBottomButtonRef) {
-            positionRecalc(
+            this.kupManager.dynamicPosition.register(
                 this.customizeBottomPanelRef,
                 this.customizeBottomButtonRef
             );
@@ -1287,20 +1313,10 @@ export class KupDataTable {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
-        this.identifyAndInitRows();
+        this.kupManager.theme.register(this);
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
         this.filtersRowsInstance = new FiltersRows();
-
-        if (document.querySelectorAll('.header')[0]) {
-            this.navBarHeight = document.querySelectorAll(
-                '.header'
-            )[0].clientHeight;
-        } else {
-            this.navBarHeight = 0;
-        }
-        this.setObserver();
 
         this.isRestoringState = true;
         // *** Store
@@ -1371,19 +1387,7 @@ export class KupDataTable {
 
         // automatic row selection
         if (this.selectRowsById) {
-            this.selectedRows = [];
-            let selectedIds: Array<string> = this.selectRowsById.split(';');
-            this.selectedRows = this.renderedRows.filter((r) => {
-                return selectedIds.indexOf(r.id) >= 0;
-            });
-
-            if (this.selectedRows && this.selectedRows.length > 0) {
-                this.kupRowSelected.emit({
-                    selectedRows: this.selectedRows,
-                    clickedColumn: null,
-                    clickedRow: null,
-                });
-            }
+            this.setSelectedRows(this.selectRowsById);
         } else if (this.selectRow && this.selectRow > 0) {
             if (this.selectRow <= this.renderedRows.length) {
                 this.selectedRows = [];
@@ -1398,18 +1402,6 @@ export class KupDataTable {
         this.kupDidLoad.emit();
         this.kupManager.resize.observe(this.rootElement);
         this.kupManager.debug.logLoad(this, true);
-    }
-
-    componentDidUnload() {
-        // Remove function to close header menu onto the document
-        if (this.documentHandlerCloseHeaderMenu) {
-            document.removeEventListener(
-                'click',
-                this.documentHandlerCloseHeaderMenu
-            );
-        }
-        this.kupManager.resize.unobserve(this.rootElement);
-        this.kupDidUnload.emit();
     }
 
     //======== Utility methods ========
@@ -2984,8 +2976,16 @@ export class KupDataTable {
             );
             if (menu) {
                 let wrapper = menu.closest('td');
-                positionRecalc(menu, wrapper, 0, true, true);
-                menu.classList.add('dynamic-position-active');
+                this.kupManager.dynamicPosition.register(
+                    menu as DynamicallyPositionedElement,
+                    wrapper,
+                    0,
+                    true,
+                    true
+                );
+                this.kupManager.dynamicPosition.start(
+                    menu as DynamicallyPositionedElement
+                );
                 menu.classList.add('visible');
             }
         }
@@ -4179,7 +4179,9 @@ export class KupDataTable {
             : this.customizeBottomPanelRef;
 
         elPanel.classList.add('visible');
-        elPanel.classList.add('dynamic-position-active');
+        this.kupManager.dynamicPosition.start(
+            elPanel as DynamicallyPositionedElement
+        );
         this.openedCustomSettings = true;
     }
 
@@ -4191,7 +4193,9 @@ export class KupDataTable {
             return;
         }
         elPanel.classList.remove('visible');
-        elPanel.classList.remove('dynamic-position-active');
+        this.kupManager.dynamicPosition.stop(
+            elPanel as DynamicallyPositionedElement
+        );
         this.openedCustomSettings = false;
     }
 
@@ -4335,12 +4339,21 @@ export class KupDataTable {
             dropArea.style.marginLeft =
                 'calc(' + th.clientWidth / 2 + 'px - 25px)';
             this.tableAreaRef.appendChild(dropArea);
-            positionRecalc(dropArea, th, 10, true);
-            dropArea.classList.add('dynamic-position-active');
+            this.kupManager.dynamicPosition.register(
+                dropArea as DynamicallyPositionedElement,
+                th,
+                10,
+                true
+            );
+            this.kupManager.dynamicPosition.start(
+                dropArea as DynamicallyPositionedElement
+            );
             dropArea.classList.add('visible');
         } else {
             dropArea.classList.remove('visible');
-            dropArea.classList.remove('dynamic-position-active');
+            this.kupManager.dynamicPosition.stop(
+                dropArea as DynamicallyPositionedElement
+            );
         }
     }
 
@@ -4820,5 +4833,26 @@ export class KupDataTable {
             </Host>
         );
         return compCreated;
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
+        // Remove function to close header menu onto the document
+        if (this.documentHandlerCloseHeaderMenu) {
+            document.removeEventListener(
+                'click',
+                this.documentHandlerCloseHeaderMenu
+            );
+        }
+        this.kupManager.resize.unobserve(this.rootElement);
+        this.kupDidUnload.emit();
     }
 }

@@ -16,11 +16,11 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { positionRecalc } from '../../utils/recalc-position';
 import {
     consistencyCheck,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 
 @Component({
     tag: 'kup-dropdown-button',
@@ -138,7 +138,7 @@ export class KupDropdownButton {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -214,7 +214,9 @@ export class KupDropdownButton {
         this.buttonEl.classList.add('toggled');
         this.dropdownButtonEl.classList.add('toggled');
         this.listEl.menuVisible = true;
-        this.listEl.classList.add('dynamic-position-active');
+        this.kupManager.dynamicPosition.start(
+            this.listEl as DynamicallyPositionedElement
+        );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = buttonWidth + 'px';
@@ -225,7 +227,9 @@ export class KupDropdownButton {
         this.buttonEl.classList.remove('toggled');
         this.dropdownButtonEl.classList.remove('toggled');
         this.listEl.menuVisible = false;
-        this.listEl.classList.remove('dynamic-position-active');
+        this.kupManager.dynamicPosition.stop(
+            this.listEl as DynamicallyPositionedElement
+        );
     }
 
     onKupItemClick(e: CustomEvent) {
@@ -373,7 +377,7 @@ export class KupDropdownButton {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.value = this.initialValue;
         if (!this.data) {
             this.data = {
@@ -401,8 +405,7 @@ export class KupDropdownButton {
                 }
             });
         }
-
-        positionRecalc(this.listEl, this.wrapperEl);
+        this.kupManager.dynamicPosition.register(this.listEl, this.wrapperEl);
         this.kupManager.debug.logRender(this, true);
     }
 
@@ -419,5 +422,17 @@ export class KupDropdownButton {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

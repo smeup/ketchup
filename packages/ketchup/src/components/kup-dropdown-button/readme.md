@@ -44,7 +44,7 @@ Type: `Promise<string>`
 
 
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `setValue(value: string) => Promise<void>`
 
 
 
@@ -54,7 +54,7 @@ Type: `Promise<void>`
 
 
 
-### `setValue(value: string) => Promise<void>`
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 
 

@@ -92,7 +92,7 @@ export class KupEchart {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme =
             'Needs to be refreshed every time the theme changes because there are dynamic colors.';
         this.customStyleTheme = customStyleTheme;
@@ -128,24 +128,42 @@ export class KupEchart {
         this.createChart();
     }
 
+    private prepMap(): void {
+        let y = {};
+        echarts.registerMap(this.nameMap, this.jsonMap);
+        y = this.createMapY();
+        this.setMapSeries(y);
+        this.setMapOption();
+        this.chartEl.setOption(this.echartOption, true);
+    }
+
     private createChart() {
         let x: string[] = [],
             y = {};
 
         switch (this.types[0].toLowerCase()) {
             case 'map':
-                this.dynamicImport()
-                    .then(() => {
-                        let y = {};
-                        echarts.registerMap(this.nameMap, this.jsonMap);
-                        y = this.createMapY();
-                        this.setMapSeries(y);
-                        this.setMapOption();
-                        this.chartEl.setOption(this.echartOption, true);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+                if (typeof this.mapType === 'string') {
+                    fetch(getAssetPath(`./assets/maps/${this.mapType}.json`))
+                        .then((res) =>
+                            res.text().then((res) => {
+                                this.jsonMap = JSON.parse(res);
+                                this.nameMap = this.mapType;
+                                this.prepMap();
+                            })
+                        )
+                        .catch((err) => {
+                            this.kupManager.debug.logMessage(
+                                this,
+                                "Couldn't fetch map JSON: " + err,
+                                'warning'
+                            );
+                        });
+                } else {
+                    this.jsonMap = this.mapType;
+                    this.nameMap = 'custom';
+                    this.prepMap();
+                }
                 break;
             case 'pie':
                 y = this.createY();
@@ -159,48 +177,6 @@ export class KupEchart {
                 this.setOption(x, y);
                 this.chartEl.setOption(this.echartOption, true);
                 break;
-        }
-    }
-
-    async dynamicImport(): Promise<Boolean> {
-        const chart = this;
-        let maps = getAssetPath(`./assets/maps/maps.js`);
-        return new Promise(function (resolve, reject) {
-            if (typeof chart.mapType == 'string') {
-                import(maps)
-                    .then((res) => {
-                        chart.setMap(res, chart).then(() => {
-                            resolve(true);
-                        });
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        reject();
-                    });
-            } else if (typeof chart.mapType == 'object') {
-                import(maps)
-                    .then((res) => {
-                        chart.setMap(res, chart).then(() => {
-                            resolve(true);
-                        });
-
-                        resolve(true);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        reject();
-                    });
-            } else reject();
-        });
-    }
-
-    async setMap(maps: {}, chart: KupEchart) {
-        if (typeof (chart.mapType == 'string')) {
-            chart.jsonMap = maps[chart.mapType];
-            chart.nameMap = chart.mapType;
-        } else if (typeof (chart.mapType == 'object')) {
-            chart.jsonMap = chart.mapType;
-            chart.nameMap = 'custom';
         }
     }
 
@@ -526,7 +502,7 @@ export class KupEchart {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.fetchThemeColors();
     }
 
@@ -560,6 +536,7 @@ export class KupEchart {
     }
 
     componentDidUnload() {
+        this.kupManager.theme.unregister(this);
         this.kupManager.resize.unobserve(this.rootElement);
     }
 }
