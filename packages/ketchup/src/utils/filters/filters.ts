@@ -1,3 +1,5 @@
+import { KupDataTable } from '../../components/kup-data-table/kup-data-table';
+import { KupTree } from '../../components/kup-tree/kup-tree';
 import {
     isDate,
     isNumber,
@@ -32,6 +34,15 @@ import { FilterInterval, FILTER_ANALIZER } from './filters-declarations';
  * @todo Should contain EVERY filtering method in common between filtering types (i.e.: global filters and column menu filters).
  */
 export class Filters {
+    /**
+     * Function used to check whether the component is a KupTree or KupDataTable.
+     * @param {KupDataTable | KupTree} comp - Component using the column menu.
+     * @returns {comp is KupTree} Returns true when the component is KupTree.
+     */
+    static isTree(comp: KupDataTable | KupTree): comp is KupTree {
+        return (comp as KupTree).rootElement.tagName === 'KUP-TREE';
+    }
+
     isObjFiltrableByInterval(obj): boolean {
         if (isDate(obj)) {
             return true;
