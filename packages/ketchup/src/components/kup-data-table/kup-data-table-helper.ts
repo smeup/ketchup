@@ -762,14 +762,12 @@ export function calcTotals(
                             distinctObj[key] = [];
                             distinctObj[key].push(cellValue);
                         } else {
-                            if (distinctList.length === rows.length - 1) {
+                            // update the list
+                            distinctList.push(cellValue);
+                            if (distinctList.length === rows.length) {
                                 // last round
                                 footerRow[key] = new Set(distinctList).size;
                                 distinctObj[key] = [];
-                            } else {
-                                // middle round
-                                // update the list
-                                distinctList.push(cellValue);
                             }
                         }
                     } else if (isNumber(cell.obj)) {
