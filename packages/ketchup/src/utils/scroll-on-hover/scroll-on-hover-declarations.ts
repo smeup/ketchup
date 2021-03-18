@@ -10,3 +10,10 @@ export interface ScrollableElement extends HTMLElement {
         y: number;
     };
 }
+/**
+ * The direction to which ScollableElement can be scrolled.
+ */
+export enum ScrollOnHoverDirection {
+    LEFT = 'left',
+    RIGHT = 'right',
+}

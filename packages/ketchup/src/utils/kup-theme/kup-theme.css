@@ -16,13 +16,13 @@
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
     border-right: 8px solid var(--kup-primary-color);
-    transform: translate(30px, -10px);
+    transform: translate(30px, -10px) translateZ(0);
 }
 #container-scrolling-arrow .right-scrolling-arrow {
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
     border-left: 8px solid var(--kup-primary-color);
-    transform: translate(-30px, -10px);
+    transform: translate(-30px, -10px) translateZ(0);
 }
 #container-scrolling-arrow .left-scrolling-arrow.activated {
     visibility: visible;
