@@ -965,6 +965,29 @@ export class KupDataTable {
             );
         }
     }
+    /**
+     * This method will set the selected rows of the component.
+     * @param {string} rowsById - String containing the ids separated by ";".
+     * @param {boolean} emitEvent - The event will always be emitted unless emitEvent is set to false.
+     */
+    @Method()
+    async setSelectedRows(
+        rowsById: string,
+        emitEvent?: boolean
+    ): Promise<void> {
+        this.selectedRows = [];
+        this.selectedRows = this.renderedRows.filter((r) => {
+            return rowsById.split(';').indexOf(r.id) >= 0;
+        });
+
+        if (emitEvent !== false) {
+            this.kupRowSelected.emit({
+                selectedRows: this.selectedRows,
+                clickedColumn: null,
+                clickedRow: null,
+            });
+        }
+    }
 
     @Method()
     async expandAll() {
@@ -1369,19 +1392,7 @@ export class KupDataTable {
 
         // automatic row selection
         if (this.selectRowsById) {
-            this.selectedRows = [];
-            let selectedIds: Array<string> = this.selectRowsById.split(';');
-            this.selectedRows = this.renderedRows.filter((r) => {
-                return selectedIds.indexOf(r.id) >= 0;
-            });
-
-            if (this.selectedRows && this.selectedRows.length > 0) {
-                this.kupRowSelected.emit({
-                    selectedRows: this.selectedRows,
-                    clickedColumn: null,
-                    clickedRow: null,
-                });
-            }
+            this.setSelectedRows(this.selectRowsById);
         } else if (this.selectRow && this.selectRow > 0) {
             if (this.selectRow <= this.renderedRows.length) {
                 this.selectedRows = [];
