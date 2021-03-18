@@ -572,8 +572,6 @@ function adjustGroupsDistinct(
 
     let toAdjustKeys = keys.filter((key) => TotalMode.DISTINCT === totals[key]);
 
-    console.log({ distinctObj });
-
     if (toAdjustKeys.length > 0) {
         groupRows
             .filter((groupRow) => groupRow.group.children.length > 0)
@@ -626,17 +624,17 @@ function adjustGroupsAverageOrFormula(
 function adjustGroupDistinct(
     groupRow: Row,
     toAdjustKeys: Array<string>,
-    distinctObj: Object
+    _distinctObj: Object
 ) {
     const children = groupRow.group.children;
     if (children.length === 0) {
         return;
     }
-    toAdjustKeys.forEach((key) => {
-        const distinctList = distinctObj[groupRow.group.id][key];
-        groupRow.group.totals[key] = new Set(distinctList).size;
+    toAdjustKeys.forEach((_key) => {
+        // TODO
+        // const distinctList = distinctObj[groupRow.group.id][key];
+        // groupRow.group.totals[key] = new Set(distinctList).size;
     });
-    // TODO fix invalid date and % format
 }
 
 /**
