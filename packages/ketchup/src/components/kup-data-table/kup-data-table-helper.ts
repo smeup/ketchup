@@ -554,6 +554,8 @@ function adjustGroupsDistinct(
 
     let toAdjustKeys = keys.filter((key) => TotalMode.DISTINCT === totals[key]);
 
+    console.log({ distinctObj });
+
     if (toAdjustKeys.length > 0) {
         groupRows
             .filter((groupRow) => groupRow.group.children.length > 0)

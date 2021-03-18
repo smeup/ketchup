@@ -3189,40 +3189,38 @@ export class KupDataTable {
                 // TODO please use getValueForDisplay
                 let value;
                 const footerValue = this.footer[column.name];
-                if (footerValue) {
-                    if (
-                        menuLabel === TotalLabel.COUNT ||
-                        menuLabel === TotalLabel.DISTINCT
-                    ) {
-                        value = footerValue;
-                    } else if (
-                        (menuLabel === TotalLabel.MAX ||
-                            menuLabel === TotalLabel.MIN) &&
-                        isDate(column.obj)
-                    ) {
-                        if (footerValue) {
-                            if (
-                                isValidStringDate(
-                                    footerValue,
-                                    ISO_DEFAULT_DATE_FORMAT
-                                )
-                            ) {
-                                value = unformattedStringToFormattedStringDate(
-                                    footerValue,
-                                    null,
-                                    column.obj.t + column.obj.p
-                                );
-                            } else {
-                                console.warn(`invalid date: ${footerValue}`);
-                            }
+                if (
+                    menuLabel === TotalLabel.COUNT ||
+                    menuLabel === TotalLabel.DISTINCT
+                ) {
+                    value = footerValue;
+                } else if (
+                    (menuLabel === TotalLabel.MAX ||
+                        menuLabel === TotalLabel.MIN) &&
+                    isDate(column.obj)
+                ) {
+                    if (footerValue) {
+                        if (
+                            isValidStringDate(
+                                footerValue,
+                                ISO_DEFAULT_DATE_FORMAT
+                            )
+                        ) {
+                            value = unformattedStringToFormattedStringDate(
+                                footerValue,
+                                null,
+                                column.obj.t + column.obj.p
+                            );
+                        } else {
+                            console.warn(`invalid date: ${footerValue}`);
                         }
-                    } else {
-                        value = numberToFormattedStringNumber(
-                            footerValue,
-                            column.decimals,
-                            column.obj ? column.obj.p : ''
-                        );
                     }
+                } else {
+                    value = numberToFormattedStringNumber(
+                        footerValue,
+                        column.decimals,
+                        column.obj ? column.obj.p : ''
+                    );
                 }
 
                 return (
@@ -3325,29 +3323,42 @@ export class KupDataTable {
                     // TODO please use getValueForDisplay
                     let value;
                     let totalValue = row.group.totals[column.name];
-                    if (isDate(column.obj)) {
-                        if (totalValue) {
-                            if (
-                                isValidStringDate(
-                                    totalValue,
-                                    ISO_DEFAULT_DATE_FORMAT
-                                )
-                            ) {
-                                value = unformattedStringToFormattedStringDate(
-                                    totalValue,
-                                    null,
-                                    column.obj.t + column.obj.p
-                                );
-                            } else {
-                                console.warn(`invalid date: ${totalValue}`);
-                            }
-                        }
+                    if (
+                        this.totals[column.name] === TotalMode.COUNT ||
+                        this.totals[column.name] === TotalMode.DISTINCT
+                    ) {
+                        value = totalValue;
                     } else {
-                        value = numberToFormattedStringNumber(
-                            totalValue,
-                            column.decimals,
-                            column.obj ? column.obj.p : ''
-                        );
+                        if (isDate(column.obj)) {
+                            if (totalValue) {
+                                if (
+                                    isValidStringDate(
+                                        totalValue,
+                                        ISO_DEFAULT_DATE_FORMAT
+                                    )
+                                ) {
+                                    value = unformattedStringToFormattedStringDate(
+                                        totalValue,
+                                        null,
+                                        column.obj.t + column.obj.p
+                                    );
+                                } else {
+                                    console.warn(`invalid date: ${totalValue}`);
+                                }
+                            }
+                        } else {
+                            console.log({ totalValue });
+                            const columnP =
+                                column.obj && column.obj.p != 'P'
+                                    ? column.obj.p
+                                    : '';
+                            value = numberToFormattedStringNumber(
+                                totalValue,
+                                column.decimals,
+                                column.obj ? column.obj.p : ''
+                            );
+                            console.log({ value });
+                        }
                     }
                     cells.push(<td class={totalClass}>{value}</td>);
                 }
