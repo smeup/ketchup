@@ -7,6 +7,7 @@ import type {
 } from './kup-theme-declarations';
 import { getAssetPath } from '@stencil/core';
 import * as themesJson from './themes.json';
+import * as themeCSS from './kup-theme.css';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -60,7 +61,8 @@ export class KupTheme {
             '"]{' +
             this.cssVariables() +
             this.icons() +
-            '}';
+            '}' +
+            themeCSS['default'];
         this.customStyle();
 
         document.documentElement.setAttribute('kup-theme', this.name);

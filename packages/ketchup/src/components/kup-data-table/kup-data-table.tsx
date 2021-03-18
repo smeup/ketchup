@@ -12,7 +12,7 @@ import {
     Watch,
     Host,
 } from '@stencil/core';
-import { scrollOnHover } from '../../utils/scroll-on-hover';
+import { ScrollOnHover } from '../../utils/scroll-on-hover/scroll-on-hover';
 import {
     Cell,
     Column,
@@ -192,7 +192,7 @@ export class KupDataTable {
     }
 
     persistState(): void {
-        if (!this.state.load){
+        if (!this.state.load) {
             this.state.load = true;
             return;
         }
@@ -715,8 +715,6 @@ export class KupDataTable {
 
     private loadMoreEventPreviousQuantity: number = 0;
 
-    private scrollOnHoverInstance: scrollOnHover;
-
     /**
      * Internal not reactive state used to keep track if a column is being dragged.
      * @private
@@ -1112,19 +1110,15 @@ export class KupDataTable {
         this.stickyTheadRef.scrollLeft = this.tableAreaRef.scrollLeft;
     }
 
-    private setScrollOnHover() {
-        this.scrollOnHoverInstance = new scrollOnHover();
-        this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
-    }
-
     private checkScrollOnHover() {
-        if (!this.scrollOnHoverInstance) {
+        console.log('er');
+        if (!this.kupManager.scrollOnHover.isRegistered(this.tableAreaRef)) {
             if (
                 this.scrollOnHover &&
                 this.tableHeight === undefined &&
                 this.tableWidth === undefined
             ) {
-                this.setScrollOnHover();
+                this.kupManager.scrollOnHover.register(this.tableAreaRef);
             }
         } else {
             if (
@@ -1132,10 +1126,7 @@ export class KupDataTable {
                 (this.tableHeight !== undefined ||
                     this.tableWidth !== undefined)
             ) {
-                this.scrollOnHoverInstance.scrollOnHoverDisable(
-                    this.tableAreaRef
-                );
-                this.scrollOnHoverInstance = undefined;
+                this.kupManager.scrollOnHover.unregister(this.tableAreaRef);
             }
         }
     }
@@ -1324,7 +1315,7 @@ export class KupDataTable {
         this.isSafariBrowser =
             CSS.supports('position', '-webkit-sticky') ||
             !!(window && (window as Window & { safari?: object }).safari);
-    } 
+    }
 
     componentWillRender() {
         this.kupManager.debug.logRender(this, false);

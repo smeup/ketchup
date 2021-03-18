@@ -8,6 +8,7 @@ import { KupDebug } from '../kup-debug/kup-debug';
 import { KupTheme } from '../kup-theme/kup-theme';
 import { ResizeObserver } from 'resize-observer';
 import { DynamicPosition } from '../dynamic-position/dynamic-position';
+import { ScrollOnHover } from '../scroll-on-hover/scroll-on-hover';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -18,6 +19,7 @@ const dom: KupDom = document.documentElement as KupDom;
 export class KupManager {
     debug: KupDebug = new KupDebug();
     dynamicPosition: DynamicPosition = new DynamicPosition();
+    scrollOnHover: ScrollOnHover = new ScrollOnHover();
     resize: ResizeObserver = new ResizeObserver(
         (entries: ResizeObserverEntry[]) => {
             entries.forEach((entry) => {
