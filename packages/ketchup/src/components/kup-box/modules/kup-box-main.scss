@@ -15,6 +15,11 @@
   grid-gap: 1em;
   color: var(--kup-text-color);
 
+  &.is-kanban {
+    display: flex;
+    flex-direction: column;
+  }
+
   * {
     box-sizing: border-box;
   }

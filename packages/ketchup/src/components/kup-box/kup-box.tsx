@@ -11,6 +11,7 @@ import {
     h,
     Method,
     Element,
+    VNode,
 } from '@stencil/core';
 
 import {
@@ -27,6 +28,7 @@ import {
     Section,
     CollapsedSectionsState,
     BoxObject,
+    BoxKanban,
 } from './kup-box-declarations';
 
 import {
@@ -72,7 +74,6 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
-
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
@@ -80,6 +81,7 @@ import { deepEqual, identify, stringToNumber } from '../../utils/utils';
 import { GenericObject } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FButton } from '../../f-components/f-button/f-button';
+import { FiltersRows } from '../../utils/filters/filters-rows';
 
 @Component({
     tag: 'kup-box',
@@ -118,20 +120,21 @@ export class KupBox {
     }
 
     persistState(): void {
-        if (!this.state.load){
+        if (!this.state.load) {
             this.state.load = true;
             return;
         }
 
         if (this.store && this.stateId) {
-
             let somethingChanged = false;
             if (!deepEqual(this.state.sortBy, this.sortBy)) {
                 this.state.sortBy = this.sortBy;
                 somethingChanged = true;
             }
 
-            if (!deepEqual(this.state.globalFilterValue, this.globalFilterValue)) {
+            if (
+                !deepEqual(this.state.globalFilterValue, this.globalFilterValue)
+            ) {
                 this.state.globalFilterValue = this.globalFilterValue;
                 somethingChanged = true;
             }
@@ -220,6 +223,10 @@ export class KupBox {
      * The value of the global filter.
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
+    /**
+     * When set to true it activates the global filter.
+     */
+    @Prop() kanban: BoxKanban = null;
     /**
      * How the field will be displayed. If not present, a default one will be created.
      */
@@ -1670,6 +1677,39 @@ export class KupBox {
             </div>
         );
     }
+    /**
+     * Prepares the kanban sections by sorting the boxlist's data.
+     * @returns {VNode[]} Kanban sections.
+     */
+    kanbanMode(): VNode[] {
+        let kanbanSections: { [index: string]: VNode[] } = {};
+        if (this.kanban.labels) {
+            for (let index = 0; index < this.kanban.labels.length; index++) {
+                kanbanSections[this.kanban.labels[index]] = [];
+            }
+        }
+        for (let index = 0; index < this.rows.length; index++) {
+            let key: string = this.rows[index].cells[this.kanban.column].value;
+            let sectionExists: boolean = !!kanbanSections[key];
+            if (sectionExists) {
+                kanbanSections[key].push(this.renderRow(this.rows[index]));
+            } else {
+                kanbanSections[key] = [this.renderRow(this.rows[index])];
+            }
+        }
+        let kanbanJSX: VNode[] = [];
+        for (var key in kanbanSections) {
+            if (kanbanSections.hasOwnProperty(key)) {
+                kanbanJSX.push(
+                    <div class="kanban-section">
+                        <div class="kanban-title">{key}</div>
+                        {kanbanSections[key]}
+                    </div>
+                );
+            }
+        }
+        return kanbanJSX;
+    }
 
     renderTooltip() {
         if (this.tooltipEnabled == false) {
@@ -1690,6 +1730,9 @@ export class KupBox {
     }
 
     render() {
+        let isKanban: boolean = !!(
+            typeof this.kanban === 'object' && this.kanban !== null
+        );
         let sortPanel = null;
         if (this.sortEnabled) {
             // creating items
@@ -1772,6 +1815,8 @@ export class KupBox {
 
         if (this.rows.length === 0) {
             boxContent = <p id="empty-data-message">Empty data</p>;
+        } else if (isKanban) {
+            boxContent = this.kanbanMode();
         } else {
             const rows = this.rows;
             let size = rows.length;
@@ -1816,7 +1861,7 @@ export class KupBox {
                 <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div
-                        class="box-component"
+                        class={'box-component'}
                         {...(this.dropEnabled &&
                         (this.dropOnSection || !this.getRows().length)
                             ? setKetchupDroppable(
@@ -1834,7 +1879,8 @@ export class KupBox {
                         {filterPanel}
                         {paginator}
                         <div
-                            id="box-container"
+                            class={isKanban ? 'is-kanban' : ''}
+                            id={'box-container'}
                             style={containerStyle}
                             onMouseLeave={(ev) => {
                                 ev.stopPropagation();

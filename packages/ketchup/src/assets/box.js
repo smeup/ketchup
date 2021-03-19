@@ -176,6 +176,12 @@ let sortBoxData = {
     ],
 };
 
+const kanbanBox = document.getElementById('kanban-box');
+if (kanbanBox != null) {
+    kanbanBox.data = sortBoxData;
+    kanbanBox.kanban = { column: 'FLD3' };
+}
+
 const sortBox = document.getElementById('sort-box');
 if (sortBox != null) {
     sortBox.data = sortBoxData;

@@ -1,4 +1,8 @@
-import { Cell, RowAction } from '../kup-data-table/kup-data-table-declarations';
+import {
+    Cell,
+    Column,
+    RowAction,
+} from '../kup-data-table/kup-data-table-declarations';
 import { KupBadge } from '../kup-badge/kup-badge';
 import { Identifiable } from '../../types/GenericTypes';
 
@@ -43,4 +47,11 @@ export interface CollapsedSectionsState {
     [index: string]: {
         [index: string]: boolean;
     };
+}
+/**
+ * Interface for a kanban-displayed boxlist.
+ */
+export interface BoxKanban {
+    column: string;
+    labels?: string[];
 }
