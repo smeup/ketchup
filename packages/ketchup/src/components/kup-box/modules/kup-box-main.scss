@@ -19,7 +19,8 @@
     display: flex;
     flex-direction: row;
     grid-gap: unset;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding: 1em;
     .kanban-title {
       font-weight: bold;
       &:after {

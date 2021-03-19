@@ -1681,6 +1681,14 @@ export class KupBox {
      * @returns {VNode[]} Kanban sections.
      */
     kanbanMode(): VNode[] {
+        if (!this.kanban.column) {
+            this.kupManager.debug.logMessage(
+                this,
+                'Invalid kanban column: ' + this.kanban.column,
+                'error'
+            );
+            return <p id="empty-data-message">Empty data</p>;
+        }
         let kanbanSections: { [index: string]: VNode[] } = {};
         let kanbanJSX: VNode[] = [];
         if (this.kanban.labels) {
