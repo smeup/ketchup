@@ -158,8 +158,8 @@ export class KupDataTable {
                     'Initializing stateId ' + this.stateId
                 );
                 // *** PROPS ***
-                this.filters = state.filters;
-                this.groups = state.groups;
+                this.filters = { ...state.filters };
+                this.groups = [...state.groups];
                 this.expandGroups = state.expandGroups;
                 this.groupLabelDisplay = state.groupLabelDisplay;
                 this.density = state.density;
@@ -177,7 +177,7 @@ export class KupDataTable {
                 this.showHeader = state.showHeader;
                 this.showLoadMore = state.showLoadMore;
                 this.sortEnabled = state.sortEnabled;
-                this.sort = state.sort;
+                this.sort = [...state.sort];
                 this.pageSelected = state.pageSelected;
                 this.sortableColumnsMutateData =
                     state.sortableColumnsMutateData;
@@ -186,7 +186,7 @@ export class KupDataTable {
                 this.dragEnabled = state.dragEnabled;
                 this.dropEnabled = state.dropEnabled;
                 this.showFooter = state.showFooter;
-                this.totals = state.totals;
+                this.totals = { ...state.totals };
             }
         }
     }
