@@ -7,6 +7,7 @@ import type {
 } from './kup-theme-declarations';
 import { getAssetPath } from '@stencil/core';
 import * as themesJson from './themes.json';
+import * as themeCSS from './kup-theme.css';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -30,7 +31,6 @@ export class KupTheme {
         .appendChild(document.createElement('style'));
     /**
      * Sets the theme using this.name or the function's argument.
-     *
      * @param {string} name - When present, this theme will be set.
      */
     set(name?: string, list?: JSON): void {
@@ -60,7 +60,8 @@ export class KupTheme {
             '"]{' +
             this.cssVariables() +
             this.icons() +
-            '}';
+            '}' +
+            themeCSS['default'];
         this.customStyle();
 
         document.documentElement.setAttribute('kup-theme', this.name);
@@ -158,7 +159,6 @@ export class KupTheme {
     }
     /**
      * Sets the customStyleTheme property on the component, which contains the combination of "MASTER" and component-specific styles of the current theme.
-     *
      * @param {string} component - The component's tagName.
      * @returns {string} Complete custom CSS of the component.
      */
@@ -181,7 +181,6 @@ export class KupTheme {
     }
     /**
      * Registers a KupComponent in KupTheme, in order to be properly handled whenever the theme changes.
-     *
      * @param {any} component - The component calling this function.
      */
     register(component: any): void {
@@ -200,7 +199,6 @@ export class KupTheme {
     }
     /**
      * Combines the component's customStyle and customStyleTheme properties, returning the result.
-     *
      * @param component - The component calling this function.
      * @returns {string} Combined customStyle.
      */
@@ -219,7 +217,6 @@ export class KupTheme {
     }
     /**
      * Checks whether on a given color the text should be white or black.
-     *
      * @param {string} color - Color used to check the contrast.
      * @returns {string} "white" or "black".
      */
@@ -236,7 +233,6 @@ export class KupTheme {
     }
     /**
      * Generates a random HEX color.
-     *
      * @param {number} brightness - Brightness of the color generated (0-255).
      * @returns {string} Random HEX color.
      */
@@ -280,7 +276,6 @@ export class KupTheme {
     }
     /**
      * Returns HEX, RGB and RGB values from a given color.
-     *
      * @param {string} color - Color.
      * @returns {{string, string, string}} Object of color values: hexColor ("#ffffff"), rgbColor ("rgb(255,255,255)"") and rgbValues ("255,255,255").
      */
@@ -376,7 +371,6 @@ export class KupTheme {
     }
     /**
      * Converts an HEX color to its RGB values.
-     *
      * @param {string} hex - Hex code.
      * @returns {{number, number, number}} Object of color values: hexColor ("#ffffff"), rgbColor ("rgb(255,255,255)"") and rgbValues ("255,255,255").
      */
@@ -394,7 +388,6 @@ export class KupTheme {
     }
     /**
      * Converts a color in RGB format to the corresponding HEX color.
-     *
      * @param {number} r - Red channel value.
      * @param {number} g - Green channel value.
      * @param {number} b - Blue channel value.
@@ -407,7 +400,6 @@ export class KupTheme {
     }
     /**
      * Converts a single RGB value to the corresponding HEX value.
-     *
      * @param {number} c - Color value.
      * @returns {string} HEX value.
      */
@@ -417,7 +409,6 @@ export class KupTheme {
     }
     /**
      * Converts a color code word to the corresponding HEX value.
-     *
      * @param {string} color - Color code word.
      * @returns {string} HEX value.
      */
