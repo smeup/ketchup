@@ -195,15 +195,15 @@ export class KupDataTable {
         if (this.store && this.stateId) {
             let somethingChanged = false;
             if (!deepEqual(this.state.filters, this.filters)) {
-                this.state.filters = this.filters;
+                this.state.filters = { ...this.filters };
                 somethingChanged = true;
             }
             if (!deepEqual(this.state.groups, this.groups)) {
-                this.state.groups = this.groups;
+                this.state.groups = [...this.groups];
                 somethingChanged = true;
             }
             if (!deepEqual(this.state.sort, this.sort)) {
-                this.state.sort = this.sort;
+                this.state.sort = [...this.sort];
                 somethingChanged = true;
             }
             if (!deepEqual(this.state.expandGroups, this.expandGroups)) {
@@ -314,7 +314,7 @@ export class KupDataTable {
                 somethingChanged = true;
             }
             if (!deepEqual(this.state.totals, this.totals)) {
-                this.state.totals = this.totals;
+                this.state.totals = { ...this.totals };
                 somethingChanged = true;
             }
             if (
@@ -343,7 +343,7 @@ export class KupDataTable {
                 this.state.load = true;
                 return;
             }
-    
+
             if (somethingChanged) {
                 this.kupManager.debug.logMessage(
                     this,
@@ -1406,8 +1406,7 @@ export class KupDataTable {
 
     //======== Utility methods ========
     private resetSelectedRows() {
-        if(this.data.rows.length === 0)
-            return;
+        if (this.data.rows.length === 0) return;
         this.selectedRows = [];
         this.kupResetSelectedRows.emit();
     }
