@@ -12,7 +12,6 @@ import {
     Watch,
     Host,
 } from '@stencil/core';
-import { ScrollOnHover } from '../../utils/scroll-on-hover/scroll-on-hover';
 import {
     Cell,
     Column,
@@ -758,7 +757,7 @@ export class KupDataTable {
     /**
      * Reference to the working area of the table. This is the below-wrapper reference.
      */
-    private tableAreaRef: HTMLElement;
+    private tableAreaRef: ScrollableElement;
     private stickyTheadRef: any;
     private customizeTopButtonRef: any;
     private customizeBottomButtonRef: any;
@@ -1135,19 +1134,13 @@ export class KupDataTable {
     }
 
     private checkScrollOnHover() {
-        if (
-            !this.kupManager.scrollOnHover.isRegistered(
-                this.tableAreaRef as ScrollableElement
-            )
-        ) {
+        if (!this.kupManager.scrollOnHover.isRegistered(this.tableAreaRef)) {
             if (
                 this.scrollOnHover &&
                 this.tableHeight === undefined &&
                 this.tableWidth === undefined
             ) {
-                this.kupManager.scrollOnHover.register(
-                    this.tableAreaRef as ScrollableElement
-                );
+                this.kupManager.scrollOnHover.register(this.tableAreaRef);
             }
         } else {
             if (
@@ -1155,9 +1148,7 @@ export class KupDataTable {
                 (this.tableHeight !== undefined ||
                     this.tableWidth !== undefined)
             ) {
-                this.kupManager.scrollOnHover.unregister(
-                    this.tableAreaRef as ScrollableElement
-                );
+                this.kupManager.scrollOnHover.unregister(this.tableAreaRef);
             }
         }
     }
@@ -4765,7 +4756,9 @@ export class KupDataTable {
                     <div
                         style={elStyle}
                         class={belowClass}
-                        ref={(el: HTMLDivElement) => (this.tableAreaRef = el)}
+                        ref={(el: HTMLElement) =>
+                            (this.tableAreaRef = el as ScrollableElement)
+                        }
                     >
                         {groupChips}
                         <table
@@ -4836,6 +4829,13 @@ export class KupDataTable {
     }
 
     componentDidUnload() {
+        // Remove function to close header menu onto the document
+        if (this.documentHandlerCloseHeaderMenu) {
+            document.removeEventListener(
+                'click',
+                this.documentHandlerCloseHeaderMenu
+            );
+        }
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
@@ -4845,12 +4845,8 @@ export class KupDataTable {
                 Array.prototype.slice.call(dynamicPositionElements)
             );
         }
-        // Remove function to close header menu onto the document
-        if (this.documentHandlerCloseHeaderMenu) {
-            document.removeEventListener(
-                'click',
-                this.documentHandlerCloseHeaderMenu
-            );
+        if (this.scrollOnHover) {
+            this.kupManager.scrollOnHover.unregister(this.tableAreaRef);
         }
         this.kupManager.resize.unobserve(this.rootElement);
         this.kupDidUnload.emit();

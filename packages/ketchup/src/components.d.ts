@@ -9,7 +9,7 @@ import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/ku
 import { KupStore } from "./components/kup-state/kup-store";
 import { GenericObject } from "./types/GenericTypes";
 import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
-import { BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
+import { BoxKanban, BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { CardData, CardFamily } from "./components/kup-card/kup-card-declarations";
@@ -135,6 +135,10 @@ export namespace Components {
           * The value of the global filter.
          */
         "globalFilterValue": string;
+        /**
+          * Displays the boxlist as a Kanban.
+         */
+        "kanban": BoxKanban;
         /**
           * How the field will be displayed. If not present, a default one will be created.
          */
@@ -2298,6 +2302,10 @@ declare namespace LocalJSX {
           * The value of the global filter.
          */
         "globalFilterValue"?: string;
+        /**
+          * Displays the boxlist as a Kanban.
+         */
+        "kanban"?: BoxKanban;
         /**
           * How the field will be displayed. If not present, a default one will be created.
          */

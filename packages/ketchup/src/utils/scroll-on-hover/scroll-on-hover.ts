@@ -26,7 +26,7 @@ export class ScrollOnHover {
         dom.ketchupInit.scrollOnHover &&
         dom.ketchupInit.scrollOnHover.debounce
             ? dom.ketchupInit.scrollOnHover.debounce
-            : 50;
+            : 10;
     delay: number =
         dom.ketchupInit &&
         dom.ketchupInit.scrollOnHover &&
@@ -39,7 +39,7 @@ export class ScrollOnHover {
         dom.ketchupInit.scrollOnHover &&
         dom.ketchupInit.scrollOnHover.step
             ? dom.ketchupInit.scrollOnHover.step
-            : 5;
+            : 2;
     /**
      * Initializes the class' elements.
      */
@@ -225,30 +225,28 @@ export class ScrollOnHover {
             this.stop(el);
             return;
         }
-        let step: number = el.scrollLeft;
         if (el.scrollOnHover.children) {
             this.updateChildren(el);
         }
         let arrow: HTMLElement[];
         if (direction === ScrollOnHoverDirection.LEFT) {
             arrow = this.#leftArrows;
-            if (step === 0) {
+            if (el.scrollLeft === 0) {
                 this.stop(el);
                 return;
             }
-            step = step - parseInt('10', this.step); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1 - scroll didn't work
+            el.scrollLeft -= this.step;
         } else {
             arrow = this.#rightArrows;
-            if (step === maxScrollLeft) {
+            if (el.scrollLeft === maxScrollLeft) {
                 this.stop(el);
                 return;
             }
-            step = step + parseInt('10', this.step); //subtracting 1 without this trick caused Safari to have problems: it subtracted decimal values instead of 1 - scroll didn't work
+            el.scrollLeft += this.step;
         }
         for (let i = 0; i < arrow.length; i++) {
             arrow[i].classList.add('animated');
         }
-        el.scrollLeft = step;
         this.#timeout.push(
             setTimeout(() => {
                 this.run(el, maxScrollLeft, percRight, percLeft, direction);
