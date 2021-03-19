@@ -192,11 +192,6 @@ export class KupDataTable {
     }
 
     persistState(): void {
-        if (!this.state.load) {
-            this.state.load = true;
-            return;
-        }
-
         if (this.store && this.stateId) {
             let somethingChanged = false;
             if (!deepEqual(this.state.filters, this.filters)) {
@@ -344,6 +339,11 @@ export class KupDataTable {
                 somethingChanged = true;
             }
 
+            if (!this.state.load) {
+                this.state.load = true;
+                return;
+            }
+    
             if (somethingChanged) {
                 this.kupManager.debug.logMessage(
                     this,
@@ -1395,8 +1395,9 @@ export class KupDataTable {
     }
 
     //======== Utility methods ========
-
     private resetSelectedRows() {
+        if((!this.data || !this.data.rows) || this.data.rows.length === 0)
+            return;
         this.selectedRows = [];
         this.kupResetSelectedRows.emit();
     }

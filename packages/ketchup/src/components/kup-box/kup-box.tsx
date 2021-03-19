@@ -119,11 +119,6 @@ export class KupBox {
     }
 
     persistState(): void {
-        if (!this.state.load) {
-            this.state.load = true;
-            return;
-        }
-
         if (this.store && this.stateId) {
             let somethingChanged = false;
             if (!deepEqual(this.state.sortBy, this.sortBy)) {
@@ -159,6 +154,11 @@ export class KupBox {
             if (!deepEqual(this.state.selectedRowsState, selectedRowsState)) {
                 this.state.selectedRowsState = selectedRowsState;
                 somethingChanged = true;
+            }
+
+            if (!this.state.load) {
+                this.state.load = true;
+                return;
             }
 
             if (somethingChanged) {
@@ -1644,7 +1644,10 @@ export class KupBox {
         let title: string = undefined;
         if (_hasTooltip) {
             classObj['is-obj'] = true;
-            title = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+            if (this.kupManager.debug.isDebug()) {
+                title =
+                    cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+            }
         }
         let tipEvents: {} = null;
         if (_hasTooltip) {
