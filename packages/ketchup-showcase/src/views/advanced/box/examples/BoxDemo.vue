@@ -130,6 +130,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'kanban',
+          description: 'Displays the boxlist as a Kanban.',
+          type: 'BoxKanban',
+          default: 'null',
+          try: 'json',
+        },
+        {
           prop: 'layout',
           description:
             'How the field will be displayed. If not present, a default one will be created.',

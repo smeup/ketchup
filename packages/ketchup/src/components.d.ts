@@ -136,7 +136,7 @@ export namespace Components {
          */
         "globalFilterValue": string;
         /**
-          * When set to true it activates the global filter.
+          * Displays the boxlist as a Kanban.
          */
         "kanban": BoxKanban;
         /**
@@ -2303,7 +2303,7 @@ declare namespace LocalJSX {
          */
         "globalFilterValue"?: string;
         /**
-          * When set to true it activates the global filter.
+          * Displays the boxlist as a Kanban.
          */
         "kanban"?: BoxKanban;
         /**

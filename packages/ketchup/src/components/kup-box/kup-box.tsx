@@ -81,7 +81,6 @@ import { deepEqual, identify, stringToNumber } from '../../utils/utils';
 import { GenericObject } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FButton } from '../../f-components/f-button/f-button';
-import { FiltersRows } from '../../utils/filters/filters-rows';
 
 @Component({
     tag: 'kup-box',
@@ -224,7 +223,7 @@ export class KupBox {
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
     /**
-     * When set to true it activates the global filter.
+     * Displays the boxlist as a Kanban.
      */
     @Prop() kanban: BoxKanban = null;
     /**
@@ -1683,6 +1682,7 @@ export class KupBox {
      */
     kanbanMode(): VNode[] {
         let kanbanSections: { [index: string]: VNode[] } = {};
+        let kanbanJSX: VNode[] = [];
         if (this.kanban.labels) {
             for (let index = 0; index < this.kanban.labels.length; index++) {
                 kanbanSections[this.kanban.labels[index]] = [];
@@ -1697,7 +1697,6 @@ export class KupBox {
                 kanbanSections[key] = [this.renderRow(this.rows[index])];
             }
         }
-        let kanbanJSX: VNode[] = [];
         for (var key in kanbanSections) {
             if (kanbanSections.hasOwnProperty(key)) {
                 kanbanJSX.push(

@@ -17,7 +17,27 @@
 
   &.is-kanban {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    grid-gap: unset;
+    justify-content: space-evenly;
+    .kanban-title {
+      font-weight: bold;
+      &:after {
+        content: '';
+        margin-top: 0.25em;
+        height: 0.2em;
+        background-image: linear-gradient(
+          to right,
+          rgba(var(--kup-text-color-rgb), 0.75) 0%,
+          rgba(var(--kup-text-color-rgb), 0.75) 5%,
+          transparent
+        );
+        display: block;
+      }
+    }
+    .box-wrapper {
+      padding-top: 1em;
+    }
   }
 
   * {
