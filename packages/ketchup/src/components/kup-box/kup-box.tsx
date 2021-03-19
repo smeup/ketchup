@@ -118,11 +118,6 @@ export class KupBox {
     }
 
     persistState(): void {
-        if (!this.state.load){
-            this.state.load = true;
-            return;
-        }
-
         if (this.store && this.stateId) {
 
             let somethingChanged = false;
@@ -159,6 +154,11 @@ export class KupBox {
                 somethingChanged = true;
             }
 
+            if (!this.state.load){
+                this.state.load = true;
+                return;
+            }
+    
             if (somethingChanged) {
                 this.kupManager.debug.logMessage(
                     this,

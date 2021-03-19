@@ -159,6 +159,16 @@ Type: `Promise<void>`
 
 
 
+### `setSelectedRows(rowsById: string, emitEvent?: boolean) => Promise<void>`
+
+This method will set the selected rows of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 This method is invoked by the theme manager.
