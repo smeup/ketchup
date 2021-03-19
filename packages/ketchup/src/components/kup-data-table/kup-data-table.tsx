@@ -12,7 +12,7 @@ import {
     Watch,
     Host,
 } from '@stencil/core';
-import { scrollOnHover } from '../../utils/scroll-on-hover';
+import { ScrollOnHover } from '../../utils/scroll-on-hover/scroll-on-hover';
 import {
     Cell,
     Column,
@@ -133,6 +133,7 @@ import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -715,8 +716,6 @@ export class KupDataTable {
 
     private loadMoreEventPreviousQuantity: number = 0;
 
-    private scrollOnHoverInstance: scrollOnHover;
-
     /**
      * Internal not reactive state used to keep track if a column is being dragged.
      * @private
@@ -759,7 +758,7 @@ export class KupDataTable {
     /**
      * Reference to the working area of the table. This is the below-wrapper reference.
      */
-    private tableAreaRef: HTMLDivElement;
+    private tableAreaRef: HTMLElement;
     private stickyTheadRef: any;
     private customizeTopButtonRef: any;
     private customizeBottomButtonRef: any;
@@ -1135,19 +1134,20 @@ export class KupDataTable {
         this.stickyTheadRef.scrollLeft = this.tableAreaRef.scrollLeft;
     }
 
-    private setScrollOnHover() {
-        this.scrollOnHoverInstance = new scrollOnHover();
-        this.scrollOnHoverInstance.scrollOnHoverSetup(this.tableAreaRef);
-    }
-
     private checkScrollOnHover() {
-        if (!this.scrollOnHoverInstance) {
+        if (
+            !this.kupManager.scrollOnHover.isRegistered(
+                this.tableAreaRef as ScrollableElement
+            )
+        ) {
             if (
                 this.scrollOnHover &&
                 this.tableHeight === undefined &&
                 this.tableWidth === undefined
             ) {
-                this.setScrollOnHover();
+                this.kupManager.scrollOnHover.register(
+                    this.tableAreaRef as ScrollableElement
+                );
             }
         } else {
             if (
@@ -1155,10 +1155,9 @@ export class KupDataTable {
                 (this.tableHeight !== undefined ||
                     this.tableWidth !== undefined)
             ) {
-                this.scrollOnHoverInstance.scrollOnHoverDisable(
-                    this.tableAreaRef
+                this.kupManager.scrollOnHover.unregister(
+                    this.tableAreaRef as ScrollableElement
                 );
-                this.scrollOnHoverInstance = undefined;
             }
         }
     }
@@ -1406,7 +1405,8 @@ export class KupDataTable {
 
     //======== Utility methods ========
     private resetSelectedRows() {
-        if (this.data.rows.length === 0) return;
+        if (!this.data || !this.data.rows || this.data.rows.length === 0)
+            return;
         this.selectedRows = [];
         this.kupResetSelectedRows.emit();
     }
