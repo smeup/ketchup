@@ -54,4 +54,5 @@ export interface CollapsedSectionsState {
 export interface BoxKanban {
     column: string;
     labels?: string[];
+    size?: string;
 }

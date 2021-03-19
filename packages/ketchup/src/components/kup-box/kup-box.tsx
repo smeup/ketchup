@@ -1678,9 +1678,9 @@ export class KupBox {
     }
     /**
      * Prepares the kanban sections by sorting the boxlist's data.
-     * @returns {VNode[]} Kanban sections.
+     * @returns {{jsx: VNode[], style: { [index: string]: string }}} jsx contains the virtual nodes of the Kanban sections, style contains the grid CSS settings.
      */
-    kanbanMode(): VNode[] {
+    kanbanMode(): { jsx: VNode[]; style: { [index: string]: string } } {
         if (!this.kanban.column) {
             this.kupManager.debug.logMessage(
                 this,
@@ -1715,7 +1715,16 @@ export class KupBox {
                 );
             }
         }
-        return kanbanJSX;
+        return {
+            jsx: kanbanJSX,
+            style: {
+                'grid-template-columns': this.kanban.size
+                    ? `repeat(${Object.keys(kanbanSections).length}, ${
+                          this.kanban.size
+                      })`
+                    : `repeat(${Object.keys(kanbanSections).length}, 1fr)`,
+            },
+        };
     }
 
     renderTooltip() {
@@ -1820,11 +1829,19 @@ export class KupBox {
 
         let boxContent = null;
 
+        let containerStyle = {};
+
         if (this.rows.length === 0) {
             boxContent = <p id="empty-data-message">Empty data</p>;
+            containerStyle = { 'grid-template-columns': `repeat(1, 1fr)` };
         } else if (isKanban) {
-            boxContent = this.kanbanMode();
+            let kanban = this.kanbanMode();
+            boxContent = kanban.jsx;
+            containerStyle = kanban.style;
         } else {
+            containerStyle = {
+                'grid-template-columns': `repeat(${this.columns}, 1fr)`,
+            };
             const rows = this.rows;
             let size = rows.length;
 
@@ -1835,10 +1852,6 @@ export class KupBox {
                 boxContent.push(this.renderRow(rows[cnt++]));
             }
         }
-
-        const containerStyle = {
-            'grid-template-columns': `repeat(${this.columns}, 1fr)`,
-        };
 
         const tooltip = this.renderTooltip();
 
