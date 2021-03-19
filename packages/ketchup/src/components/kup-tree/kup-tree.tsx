@@ -65,6 +65,7 @@ import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
 
 @Component({
     tag: 'kup-tree',
@@ -252,7 +253,7 @@ export class KupTree {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
-    private treeWrapperRef: any;
+    private treeWrapperRef: ScrollableElement;
     private selectedColumn: string = '';
     private clickTimeout: any[] = [];
     private iconPaths: [{ icon: string; path: string }] = undefined;
@@ -2049,7 +2050,9 @@ export class KupTree {
                 <div id="kup-component" class={wrapperClass}>
                     <div
                         class="wrapper"
-                        ref={(el) => (this.treeWrapperRef = el as any)}
+                        ref={(el: HTMLElement) =>
+                            (this.treeWrapperRef = el as ScrollableElement)
+                        }
                     >
                         {filterField}
                         <table
@@ -2117,6 +2120,9 @@ export class KupTree {
             this.kupManager.dynamicPosition.unregister(
                 Array.prototype.slice.call(dynamicPositionElements)
             );
+        }
+        if (this.scrollOnHover) {
+            this.kupManager.scrollOnHover.unregister(this.treeWrapperRef);
         }
         this.kupDidUnload.emit();
     }

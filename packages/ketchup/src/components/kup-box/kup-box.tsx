@@ -1687,7 +1687,10 @@ export class KupBox {
                 'Invalid kanban column: ' + this.kanban.column,
                 'error'
             );
-            return <p id="empty-data-message">Empty data</p>;
+            return {
+                jsx: <p id="empty-data-message">Empty data</p>,
+                style: { 'grid-template-columns': `repeat(1, 1fr)` },
+            };
         }
         let kanbanSections: { [index: string]: VNode[] } = {};
         let kanbanJSX: VNode[] = [];
@@ -1746,7 +1749,7 @@ export class KupBox {
     }
 
     render() {
-        let isKanban: boolean = !!(
+        const isKanban: boolean = !!(
             typeof this.kanban === 'object' && this.kanban !== null
         );
         let sortPanel = null;
@@ -1835,7 +1838,12 @@ export class KupBox {
             boxContent = <p id="empty-data-message">Empty data</p>;
             containerStyle = { 'grid-template-columns': `repeat(1, 1fr)` };
         } else if (isKanban) {
-            let kanban = this.kanbanMode();
+            const kanban: {
+                jsx: VNode[];
+                style: {
+                    [index: string]: string;
+                };
+            } = this.kanbanMode();
             boxContent = kanban.jsx;
             containerStyle = kanban.style;
         } else {
