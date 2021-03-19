@@ -1,6 +1,4 @@
 import { KupState } from '../kup-state/kup-state';
-import { BoxRow } from './kup-box-declarations';
-
 export class KupBoxState implements KupState {
     globalFilterValue: string = '';
     sortBy: string = '';
@@ -13,6 +11,6 @@ export class KupBoxState implements KupState {
 
     public toDebugString() {
         // TODO
-        return 'state';
+        return 'box state';
     }
 }
