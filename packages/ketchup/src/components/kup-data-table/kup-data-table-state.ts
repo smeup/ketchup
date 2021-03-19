@@ -41,6 +41,6 @@ export class KupDataTableState implements KupState {
 
     public toDebugString() {
         // TODO
-        return 'state';
+        return 'dt state';
     }
 }
