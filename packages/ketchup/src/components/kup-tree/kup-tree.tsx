@@ -31,7 +31,7 @@ import {
 
 import { hasTooltip, isNumber } from '../../utils/object-utils';
 
-import { scrollOnHover } from '../../utils/scroll-on-hover';
+import { ScrollOnHover } from '../../utils/scroll-on-hover/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
 import {
     KupManager,
@@ -253,7 +253,6 @@ export class KupTree {
      */
     private kupManager: KupManager = kupManagerInstance();
     private treeWrapperRef: any;
-    private scrollOnHoverInstance: scrollOnHover;
     private selectedColumn: string = '';
     private clickTimeout: any[] = [];
     private iconPaths: [{ icon: string; path: string }] = undefined;
@@ -459,22 +458,14 @@ export class KupTree {
         this.openedMenu = column;
     }
 
-    private setScrollOnHover() {
-        this.scrollOnHoverInstance = new scrollOnHover();
-        this.scrollOnHoverInstance.scrollOnHoverSetup(this.treeWrapperRef);
-    }
-
     private checkScrollOnHover() {
-        if (!this.scrollOnHoverInstance) {
+        if (!this.kupManager.scrollOnHover.isRegistered(this.treeWrapperRef)) {
             if (this.scrollOnHover) {
-                this.setScrollOnHover();
+                this.kupManager.scrollOnHover.register(this.treeWrapperRef);
             }
         } else {
             if (!this.scrollOnHover) {
-                this.scrollOnHoverInstance.scrollOnHoverDisable(
-                    this.treeWrapperRef
-                );
-                this.scrollOnHoverInstance = undefined;
+                this.kupManager.scrollOnHover.unregister(this.treeWrapperRef);
             }
         }
     }

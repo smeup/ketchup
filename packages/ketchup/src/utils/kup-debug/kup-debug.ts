@@ -98,7 +98,6 @@ export class KupDebug {
     /**
      * Function used to set the status of the debug.
      * If no argument is provided, this method will work as a toggler.
-     *
      * @param {boolean} value - If this argument is provided, the debug status will be forced to its value.
      */
     toggle(value?: boolean): void {
@@ -111,7 +110,6 @@ export class KupDebug {
     /**
      * Function used to check whether the debug is active or not.
      * If kupDebug on documentElement's type is not a boolean, it will be set to false.
-     *
      * @returns {boolean} Status of the debug.
      */
     isDebug(): boolean {
@@ -120,7 +118,6 @@ export class KupDebug {
     /**
      * Displays a timestamped message in the browser's console when the kupDebug property on document.documentElement is true.
      * Warnings and errors will be displayed even when kupDebug !== true.
-     *
      * @param {any} comp - The component calling this function or a string.
      * @param {string} message - The actual message that will be printed.
      * @param {string} type - The type of console message, defaults to "log" but "warning" and "error" can be used as well.
@@ -183,7 +180,6 @@ export class KupDebug {
     /**
      * Function used to format a date.
      * Example: "Sun Mar 14 2021 13:50:56,329pm"
-     *
      * @param {Date} date - Date to be formatted.
      * @returns {string} Formatted
      */
@@ -241,7 +237,6 @@ export class KupDebug {
     }
     /**
      * Function used to time the loading times of a component.
-     *
      * @param {any} comp - The component calling this function or a string.
      * @param {boolean} didLoad - Must be set to false when called inside a componentWillLoad() lifecycle hook and true when called inside componentDidLoad().
      */
@@ -268,7 +263,6 @@ export class KupDebug {
     }
     /**
      * Function used to time the render times of a component.
-     *
      * @param comp - The component calling this function or a string.
      * @param didRender - Must be set to false when called inside a componentWillRender() lifecycle hook and true when called inside componentDidRender().
      */
