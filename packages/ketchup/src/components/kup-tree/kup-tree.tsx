@@ -90,10 +90,8 @@ export class KupTree {
                     'Initialize with state for stateId ' + this.stateId,
                     state
                 );
-                // *** PROPS ***
                 this.density = state.density;
                 this.globalFilterValue = state.globalFilterValue;
-                //
             }
         }
     }
@@ -101,7 +99,6 @@ export class KupTree {
     persistState(): void {
         if (this.store && this.stateId) {
             let somethingChanged = false;
-            // *** PROPS ***
             if (!deepEqual(this.state.density, this.density)) {
                 this.state.density = this.density;
                 somethingChanged = true;
