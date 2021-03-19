@@ -55,6 +55,7 @@ import {
     getColumnByName,
 } from '../../utils/cell-utils';
 import {
+    deepEqual,
     numberToFormattedStringNumber,
     stringToNumber,
 } from '../../utils/utils';
@@ -99,15 +100,25 @@ export class KupTree {
 
     persistState(): void {
         if (this.store && this.stateId) {
+            let somethingChanged = false;
             // *** PROPS ***
-            this.state.density = this.density;
-            this.state.globalFilterValue = this.globalFilterValue;
-            //
-            console.log(
-                'Persisting state for stateId ' + this.stateId + ': ',
-                this.state
-            );
-            this.store.persistState(this.stateId, this.state);
+            if (!deepEqual(this.state.density, this.density)) {
+                this.state.density = this.density;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(this.state.globalFilterValue, this.globalFilterValue)
+            ) {
+                this.state.globalFilterValue = this.globalFilterValue;
+                somethingChanged = true;
+            }
+            if (somethingChanged) {
+                console.log(
+                    'Persisting state for stateId ' + this.stateId + ': ',
+                    this.state
+                );
+                this.store.persistState(this.stateId, this.state);
+            }
         }
     }
 
