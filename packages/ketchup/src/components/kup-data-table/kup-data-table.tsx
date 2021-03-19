@@ -1405,7 +1405,7 @@ export class KupDataTable {
 
     //======== Utility methods ========
     private resetSelectedRows() {
-        if((this.data  === undefined || this.data.rows === undefined) || this.data.rows.length === 0)
+        if((!this.data || !this.data.rows) || this.data.rows.length === 0)
             return;
         this.selectedRows = [];
         this.kupResetSelectedRows.emit();
