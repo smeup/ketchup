@@ -193,11 +193,6 @@ export class KupDataTable {
     }
 
     persistState(): void {
-        if (!this.state.load) {
-            this.state.load = true;
-            return;
-        }
-
         if (this.store && this.stateId) {
             let somethingChanged = false;
             if (!deepEqual(this.state.filters, this.filters)) {
@@ -345,6 +340,11 @@ export class KupDataTable {
                 somethingChanged = true;
             }
 
+            if (!this.state.load) {
+                this.state.load = true;
+                return;
+            }
+    
             if (somethingChanged) {
                 this.kupManager.debug.logMessage(
                     this,
@@ -969,6 +969,29 @@ export class KupDataTable {
             );
         }
     }
+    /**
+     * This method will set the selected rows of the component.
+     * @param {string} rowsById - String containing the ids separated by ";".
+     * @param {boolean} emitEvent - The event will always be emitted unless emitEvent is set to false.
+     */
+    @Method()
+    async setSelectedRows(
+        rowsById: string,
+        emitEvent?: boolean
+    ): Promise<void> {
+        this.selectedRows = [];
+        this.selectedRows = this.renderedRows.filter((r) => {
+            return rowsById.split(';').indexOf(r.id) >= 0;
+        });
+
+        if (emitEvent !== false) {
+            this.kupRowSelected.emit({
+                selectedRows: this.selectedRows,
+                clickedColumn: null,
+                clickedRow: null,
+            });
+        }
+    }
 
     @Method()
     async expandAll() {
@@ -1363,19 +1386,7 @@ export class KupDataTable {
 
         // automatic row selection
         if (this.selectRowsById) {
-            this.selectedRows = [];
-            let selectedIds: Array<string> = this.selectRowsById.split(';');
-            this.selectedRows = this.renderedRows.filter((r) => {
-                return selectedIds.indexOf(r.id) >= 0;
-            });
-
-            if (this.selectedRows && this.selectedRows.length > 0) {
-                this.kupRowSelected.emit({
-                    selectedRows: this.selectedRows,
-                    clickedColumn: null,
-                    clickedRow: null,
-                });
-            }
+            this.setSelectedRows(this.selectRowsById);
         } else if (this.selectRow && this.selectRow > 0) {
             if (this.selectRow <= this.renderedRows.length) {
                 this.selectedRows = [];
@@ -1393,8 +1404,9 @@ export class KupDataTable {
     }
 
     //======== Utility methods ========
-
     private resetSelectedRows() {
+        if(this.data.rows.length === 0)
+            return;
         this.selectedRows = [];
         this.kupResetSelectedRows.emit();
     }
@@ -3090,15 +3102,15 @@ export class KupDataTable {
                             value: TotalMode.DISTINCT,
                             selected: false,
                         },
-                        {
-                            text: null,
-                            value: null,
-                            isSeparator: true,
-                        },
                     ];
                     if (isNumber(column.obj)) {
                         // TODO Move these objects in declarations
                         listData.push(
+                            {
+                                text: null,
+                                value: null,
+                                isSeparator: true,
+                            },
                             {
                                 text: TotalLabel.SUM,
                                 value: TotalMode.SUM,
@@ -3122,6 +3134,11 @@ export class KupDataTable {
                         );
                     } else if (isDate(column.obj)) {
                         listData.push(
+                            {
+                                text: null,
+                                value: null,
+                                isSeparator: true,
+                            },
                             {
                                 text: TotalLabel.MIN,
                                 value: TotalMode.MIN,
@@ -3172,17 +3189,17 @@ export class KupDataTable {
                 // TODO please use getValueForDisplay
                 let value;
                 const footerValue = this.footer[column.name];
-                if (footerValue) {
-                    if (
-                        menuLabel === TotalLabel.COUNT ||
-                        menuLabel === TotalLabel.DISTINCT
-                    ) {
-                        value = footerValue;
-                    } else if (
-                        (menuLabel === TotalLabel.MAX ||
-                            menuLabel === TotalLabel.MIN) &&
-                        isDate(column.obj)
-                    ) {
+                if (
+                    menuLabel === TotalLabel.COUNT ||
+                    menuLabel === TotalLabel.DISTINCT
+                ) {
+                    value = footerValue;
+                } else if (
+                    (menuLabel === TotalLabel.MAX ||
+                        menuLabel === TotalLabel.MIN) &&
+                    isDate(column.obj)
+                ) {
+                    if (footerValue) {
                         if (
                             isValidStringDate(
                                 footerValue,
@@ -3197,13 +3214,13 @@ export class KupDataTable {
                         } else {
                             console.warn(`invalid date: ${footerValue}`);
                         }
-                    } else {
-                        value = numberToFormattedStringNumber(
-                            footerValue,
-                            column.decimals,
-                            column.obj ? column.obj.p : ''
-                        );
                     }
+                } else {
+                    value = numberToFormattedStringNumber(
+                        footerValue,
+                        column.decimals,
+                        column.obj ? column.obj.p : ''
+                    );
                 }
 
                 return (
@@ -3306,27 +3323,36 @@ export class KupDataTable {
                     // TODO please use getValueForDisplay
                     let value;
                     let totalValue = row.group.totals[column.name];
-                    if (isDate(column.obj)) {
-                        if (
-                            isValidStringDate(
-                                totalValue.toString(),
-                                ISO_DEFAULT_DATE_FORMAT
-                            )
-                        ) {
-                            value = unformattedStringToFormattedStringDate(
-                                totalValue.toString(),
-                                null,
-                                column.obj.t + column.obj.p
-                            );
-                        } else {
-                            console.warn(`invalid date: ${totalValue}`);
-                        }
+                    if (
+                        this.totals[column.name] === TotalMode.COUNT ||
+                        this.totals[column.name] === TotalMode.DISTINCT
+                    ) {
+                        value = totalValue;
                     } else {
-                        value = numberToFormattedStringNumber(
-                            totalValue,
-                            column.decimals,
-                            column.obj ? column.obj.p : ''
-                        );
+                        if (isDate(column.obj)) {
+                            if (totalValue) {
+                                if (
+                                    isValidStringDate(
+                                        totalValue.toString(),
+                                        ISO_DEFAULT_DATE_FORMAT
+                                    )
+                                ) {
+                                    value = unformattedStringToFormattedStringDate(
+                                        totalValue.toString(),
+                                        null,
+                                        column.obj.t + column.obj.p
+                                    );
+                                } else {
+                                    console.warn(`invalid date: ${totalValue}`);
+                                }
+                            }
+                        } else {
+                            value = numberToFormattedStringNumber(
+                                totalValue,
+                                column.decimals,
+                                column.obj ? column.obj.p : ''
+                            );
+                        }
                     }
                     cells.push(<td class={totalClass}>{value}</td>);
                 }

@@ -733,6 +733,12 @@ export namespace Components {
          */
         "selectRowsById": string;
         /**
+          * This method will set the selected rows of the component.
+          * @param rowsById - String containing the ids separated by ";".
+          * @param emitEvent - The event will always be emitted unless emitEvent is set to false.
+         */
+        "setSelectedRows": (rowsById: string, emitEvent?: boolean) => Promise<void>;
+        /**
           * If set to true, displays the button to open the customization panel.
          */
         "showCustomization": boolean;
