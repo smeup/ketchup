@@ -34,7 +34,7 @@ export class ScrollOnHover {
         dom.ketchupInit.scrollOnHover &&
         dom.ketchupInit.scrollOnHover.step
             ? dom.ketchupInit.scrollOnHover.step
-            : 25;
+            : 50;
     /**
      * Initializes the class' elements.
      */
