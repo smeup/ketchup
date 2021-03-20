@@ -6,6 +6,7 @@ export interface DynamicallyPositionedElement extends HTMLElement {
         anchor: HTMLElement;
         margin: number;
         above: boolean;
+        rAF: number;
         right: boolean;
     };
 }
