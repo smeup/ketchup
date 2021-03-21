@@ -95,6 +95,14 @@
         JavaScript enabled. Please enable it to continue.</strong
       >
     </noscript>
+    <script>
+      if (
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      ) {
+        document['ketchupInit'] = { theme: { name: 'dark' } };
+      }
+    </script>
     <div id="landing-spinner-modal"
       ><div id="landing-spinner-wrapper">
         <div id="landing-spinner-container"
