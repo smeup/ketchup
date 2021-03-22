@@ -1,7 +1,11 @@
 // Box and datatables cells utils functions
 
 import get from 'lodash/get';
-import { Cell } from '../components/kup-data-table/kup-data-table-declarations';
+import {
+    Cell,
+    Column,
+    SortMode,
+} from '../components/kup-data-table/kup-data-table-declarations';
 import { BoxObject } from '../components/kup-box/kup-box-declarations';
 import {
     isBar,
@@ -16,6 +20,7 @@ import {
     isTextField,
     isTime,
     isTimestamp,
+    isTimeWithSeconds,
     isVoCodver,
 } from './object-utils';
 import { isColor as isColorObj } from './object-utils';
@@ -24,7 +29,19 @@ import { isChart as isChartObj } from './object-utils';
 
 import { isImage as isImageObj } from './object-utils';
 import numeral from 'numeral';
-import { toKebabCase } from './utils';
+import {
+    ISO_DEFAULT_DATE_FORMAT,
+    ISO_DEFAULT_DATE_TIME_FORMAT,
+    ISO_DEFAULT_TIME_FORMAT,
+    isValidStringDate,
+    stringToNumber,
+    toKebabCase,
+    unformatDateTime,
+    unformattedStringToFormattedStringDate,
+    unformattedStringToFormattedStringNumber,
+    unformattedStringToFormattedStringTime,
+    unformattedStringToFormattedStringTimestamp,
+} from './utils';
 
 // -------------
 // COMMONS
@@ -332,4 +349,178 @@ export function getCellType(cell: Cell) {
     } else {
         return 'string';
     }
+}
+
+export function getCellValueForDisplay(column: Column, cell: Cell): string {
+    if (cell != null) {
+        if (cell.displayedValue != null) {
+            return cell.displayedValue;
+        }
+    }
+    let formattedValue = _getCellValueForDisplay(cell.value, column, cell);
+    if (cell != null) {
+        cell.displayedValue = formattedValue;
+    }
+    return formattedValue;
+}
+
+function _getCellValueForDisplay(value, column: Column, cell: Cell): string {
+    let obj = column != null ? column.obj : null;
+    if (cell != null) {
+        obj = cell.obj ? cell.obj : obj;
+    }
+    return getValueForDisplay(
+        value,
+        obj,
+        column != null ? column.decimals : null
+    );
+}
+
+export function getValueForDisplay(value, obj, decimals: number): string {
+    if (value == null || value.trim() == '') {
+        return value;
+    }
+    if (isNumber(obj)) {
+        return unformattedStringToFormattedStringNumber(
+            value,
+            decimals ? decimals : -1,
+            obj ? obj.p : ''
+        );
+    }
+    if (isDate(obj) && isValidStringDate(value, ISO_DEFAULT_DATE_FORMAT)) {
+        return unformattedStringToFormattedStringDate(
+            value,
+            null,
+            obj.t + obj.p
+        );
+    }
+    if (isTime(obj)) {
+        return unformattedStringToFormattedStringTime(
+            value,
+            isTimeWithSeconds(obj),
+            null,
+            obj.t + obj.p
+        );
+    }
+    if (isTimestamp(obj)) {
+        return unformattedStringToFormattedStringTimestamp(value);
+    }
+    return value;
+}
+
+export function getColumnByName(columns: Column[], name: string): Column {
+    if (columns == null) {
+        return null;
+    }
+    for (let column of columns) {
+        if (column.name === name) {
+            return column;
+        }
+    }
+
+    return null;
+}
+
+export function compareCell(
+    cell1: Cell,
+    cell2: Cell,
+    sortMode: SortMode
+): number {
+    return compareValues(
+        cell1.obj,
+        cell1.value,
+        cell2.obj,
+        cell2.value,
+        sortMode
+    );
+}
+
+export function compareValues(
+    obj1: any,
+    value1: any,
+    obj2: any,
+    value2: any,
+    sortMode: SortMode
+): number {
+    const sm = sortMode === 'A' ? 1 : -1;
+
+    if (obj1 == null || obj2 == null) {
+        return sm * localCompareAsInJava(value1, value2);
+    }
+
+    // If either the type or the parameter of the current object are not equal.
+    if (!(obj1.t === obj2.t && obj1.p === obj2.p)) {
+        let compare = localCompareAsInJava(obj1.t, obj2.t);
+        if (compare === 0) {
+            compare = localCompareAsInJava(obj1.p, obj2.p);
+        }
+        return compare * sm;
+    }
+
+    let s1: string = value1;
+    let s2: string = value2;
+
+    if (s1 == s2) {
+        return 0;
+    }
+
+    if (s1 == '') {
+        return sm * -1;
+    }
+
+    if (s2 == '') {
+        return sm * 1;
+    }
+
+    let v1: any = s1;
+    let v2: any = s2;
+    if (isNumber(obj1)) {
+        v1 = stringToNumber(s1);
+        v2 = stringToNumber(s2);
+    } else if (isDate(obj1)) {
+        v1 = unformatDateTime(s1, ISO_DEFAULT_DATE_FORMAT);
+        v2 = unformatDateTime(s2, ISO_DEFAULT_DATE_FORMAT);
+    } else if (isTime(obj1)) {
+        v1 = unformatDateTime(s1, ISO_DEFAULT_TIME_FORMAT);
+        v2 = unformatDateTime(s2, ISO_DEFAULT_TIME_FORMAT);
+    } else if (isTimestamp(obj1)) {
+        v1 = unformatDateTime(s1, ISO_DEFAULT_DATE_TIME_FORMAT);
+        v2 = unformatDateTime(s2, ISO_DEFAULT_DATE_TIME_FORMAT);
+    }
+    if (v1 > v2) {
+        return sm * 1;
+    }
+    if (v1 < v2) {
+        return sm * -1;
+    }
+    return 0;
+}
+
+/**
+ * Given two strings to compare, the functions decides which string comes before the other or if they are equal.
+ * This is meant as a replacement for the JavaScript function localCompare() which produces a slightly different result from
+ * the Java version of compareTo().
+ *
+ * This function has been taken from the link below, but it is slightly improved.
+ * @param t1
+ * @param t2
+ * @see https://stackoverflow.com/questions/60300935/javascript-localecompare-returns-different-result-than-java-compareto
+ */
+function localCompareAsInJava(t1: string, t2: string): number {
+    const lim = Math.min(t1.length, t2.length);
+
+    let k = 0;
+    while (k < lim) {
+        const c1 = t1[k];
+        const c2 = t2[k];
+        if (c1 !== c2) {
+            if (c1.charCodeAt(0) === 32) {
+                return c1.charCodeAt(0) + c2.charCodeAt(0);
+            } else {
+                return c1.charCodeAt(0) - c2.charCodeAt(0);
+            }
+        }
+        k++;
+    }
+    return t1.length - t2.length;
 }

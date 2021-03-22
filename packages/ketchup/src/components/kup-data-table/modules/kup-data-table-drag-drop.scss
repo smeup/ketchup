@@ -1,8 +1,4 @@
 [columns-dragging] {
-  th {
-    position: relative;
-  }
-
   // When the drag is over a valid target
   [drag-over] {
     background-color: rgba(var(--kup-success-color-rgb), 0.25);
@@ -25,7 +21,9 @@
   box-shadow: var(--kup-box-shadow);
   display: none;
   height: 50px;
+  opacity: 0.5;
   width: 50px;
+  transition: opacity 0.25s;
   &.visible {
     display: block;
   }
@@ -40,6 +38,7 @@
     }
   }
   &[drag-over] {
+    opacity: 1;
     .f-image--wrapper {
       &:first-of-type {
         opacity: 0;

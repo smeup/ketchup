@@ -8,7 +8,7 @@
 | Property       | Attribute       | Description                                                                                                                 | Type                                                                      | Default                 |
 | -------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ----------------------- |
 | `checked`      | `checked`       | When set to true, the icon button state will be on.                                                                         | `boolean`                                                                 | `false`                 |
-| `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization             | `string`                                                                  | `''`                    |
+| `customStyle`  | `custom-style`  | Custom style of the component.                                                                                              | `string`                                                                  | `''`                    |
 | `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                             | `boolean`                                                                 | `false`                 |
 | `icon`         | `icon`          | When set, the button will show this icon.                                                                                   | `string`                                                                  | `null`                  |
 | `iconOff`      | `icon-off`      | When set, the icon button off state will show this icon. Otherwise, an outlined version of the icon prop will be displayed. | `string`                                                                  | `null`                  |
@@ -29,7 +29,7 @@
 
 ## Methods
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 This method is invoked by the theme manager.
 Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
@@ -45,7 +45,6 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-box](../kup-box)
  - [kup-btn](../kup-btn)
  - [kup-calendar](../kup-calendar)
  - [kup-card](../kup-card)
@@ -70,7 +69,6 @@ Type: `Promise<void>`
 graph TD;
   kup-button --> kup-badge
   kup-badge --> kup-badge
-  kup-box --> kup-button
   kup-btn --> kup-button
   kup-calendar --> kup-button
   kup-card --> kup-button

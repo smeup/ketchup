@@ -8,17 +8,14 @@ import {
     Host,
     Method,
     EventEmitter,
-    Watch,
 } from '@stencil/core';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import {
-    setThemeCustomStyle,
-    setCustomStyle,
-    colorCheck,
-} from '../../utils/theme-manager';
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import Picker from 'vanilla-picker';
-import { positionRecalc } from '../../utils/recalc-position';
 import { KupTextField } from '../kup-text-field/kup-text-field';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 
 @Component({
     tag: 'kup-color-picker',
@@ -33,7 +30,7 @@ export class KupColorPicker {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Props of the text field.
      */
@@ -51,9 +48,14 @@ export class KupColorPicker {
      */
     @Prop() swatchOnly: boolean = false;
 
-    private anchorEl: HTMLElement = undefined;
-    private textfieldEl: KupTextField = undefined;
-    private picker: Picker = undefined;
+    private anchorEl: HTMLElement;
+    dropdownEl: HTMLElement;
+    /**
+     * Instance of the KupManager class.
+     */
+    kupManager: KupManager = kupManagerInstance();
+    private picker: Picker;
+    private textfieldEl: KupTextField;
 
     @Event({
         eventName: 'kupColorPickerChange',
@@ -83,7 +85,7 @@ export class KupColorPicker {
     }
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -110,7 +112,9 @@ export class KupColorPicker {
     private setHexValue() {
         if (this.value) {
             if (this.value.indexOf('#') < 0) {
-                this.value = colorCheck(this.value).hexColor;
+                this.value = this.kupManager.theme.colorCheck(
+                    this.value
+                ).hexColor;
             }
             if (
                 this.picker &&
@@ -167,8 +171,8 @@ export class KupColorPicker {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
         this.value = this.initialValue;
         this.setHexValue();
         if (!this.data) {
@@ -191,10 +195,9 @@ export class KupColorPicker {
             this.picker['onClose'] = function (color) {
                 let colorPicker = this['kupColorPicker'];
                 colorPicker.setValue(color.hex.substr(0, 7));
-                colorPicker.dropdownEl.classList.remove(
-                    'dynamic-position-active'
+                colorPicker.kupManager.dynamicPosition.stop(
+                    colorPicker.dropdownEl as DynamicallyPositionedElement
                 );
-
                 colorPicker.kupChange.emit({
                     value: colorPicker.value,
                 });
@@ -205,19 +208,19 @@ export class KupColorPicker {
                     colorPicker.dropdownEl = this[
                         'kupColorPicker'
                     ].rootElement.shadowRoot.querySelector('.picker_wrapper');
-                    positionRecalc(
+                    colorPicker.kupManager.dynamicPosition.register(
                         colorPicker.dropdownEl,
                         colorPicker.anchorEl
                     );
                 }
                 if (!colorPicker.disabled) {
-                    colorPicker.dropdownEl.classList.add(
-                        'dynamic-position-active'
+                    colorPicker.kupManager.dynamicPosition.start(
+                        colorPicker.dropdownEl as DynamicallyPositionedElement
                     );
                 }
             };
         }
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillUpdate() {
@@ -225,11 +228,11 @@ export class KupColorPicker {
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -269,7 +272,7 @@ export class KupColorPicker {
 
         return (
             <Host class={hostClass}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     ref={(el) => (this.anchorEl = el as any)}
@@ -278,5 +281,17 @@ export class KupColorPicker {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

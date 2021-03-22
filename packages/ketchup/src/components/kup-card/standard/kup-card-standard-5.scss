@@ -6,7 +6,7 @@
   width: 100%;
 
   .section-1 {
-    background-color: var(--color-1);
+    background-color: var(--color-0);
     height: 3%;
   }
 
@@ -23,7 +23,7 @@
   .section-4 {
     display: flex;
     height: 20%;
-    background-color: var(--color-2);
+    background-color: var(--color-1);
   }
 
   .sub-2 {
@@ -118,7 +118,7 @@
     }
 
     .alt-text {
-      color: var(--color-1);
+      color: var(--color-0);
       font-size: 1em;
     }
   }

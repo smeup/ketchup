@@ -61,7 +61,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {

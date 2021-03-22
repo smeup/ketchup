@@ -18,8 +18,6 @@ $sticky-cell--row-z-index: 4;
   // For fixed headers, we must set a different background and place the correct z-index to prevent overlapping.
   thead &,
   tfoot & {
-    background-color: var(--kup-title-background-color);
-    color: var(--kup-title-color);
     z-index: #{$sticky-header--z-index};
   }
 }
@@ -37,8 +35,8 @@ table.custom-size th {
   }
 }
 
-tr:hover .fixed-row,
-tr:hover .fixed-column {
+tr.hover .fixed-row,
+tr.hover .fixed-column {
   color: var(--kup-hover-color);
   background-color: var(--kup-hover-background-color);
 }
@@ -72,4 +70,16 @@ tr.selected .fixed-row {
   &.fixed-row {
     z-index: $sticky-cell--row-column-z-index; // Must be higher than column
   }
+}
+
+thead tr .fixed-column,
+thead tr.hover:not(.group):not(.selected) .fixed-column {
+  background-color: var(--kup-title-background-color);
+  color: var(--kup-title-color);
+}
+
+tfoot tr.hover:not(.group):not(.selected) .fixed-row,
+tfoot tr.hover:not(.group):not(.selected) .fixed-column {
+  color: var(--kup-text-color);
+  background-color: var(--kup-background-color);
 }

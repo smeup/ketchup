@@ -9,9 +9,9 @@
 
 | Property                  | Attribute                     | Description                                                                                                     | Type                                       | Default     |
 | ------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
-| `cardData`                | --                            | Number of columns                                                                                               | `ComponentCardElement`                     | `undefined` |
+| `cardData`                | --                            | Number of columns                                                                                               | `GenericObject`                            | `undefined` |
 | `columns`                 | `columns`                     | Number of columns                                                                                               | `number`                                   | `1`         |
-| `customStyle`             | `custom-style`                | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                   | `undefined` |
+| `customStyle`             | `custom-style`                | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                   | `''`        |
 | `data`                    | --                            | Data                                                                                                            | `{ columns?: Column[]; rows?: BoxRow[]; }` | `undefined` |
 | `dragEnabled`             | `drag-enabled`                | Enable dragging                                                                                                 | `boolean`                                  | `false`     |
 | `dropEnabled`             | `drop-enabled`                | Enable dropping                                                                                                 | `boolean`                                  | `false`     |
@@ -19,6 +19,7 @@
 | `enableRowActions`        | `enable-row-actions`          | If enabled, a button to load / display the row actions will be displayed on the right of every box              | `boolean`                                  | `false`     |
 | `globalFilter`            | `global-filter`               | When set to true it activates the global filter.                                                                | `boolean`                                  | `false`     |
 | `globalFilterValue`       | `global-filter-value`         | The value of the global filter.                                                                                 | `string`                                   | `''`        |
+| `kanban`                  | --                            | Displays the boxlist as a Kanban.                                                                               | `BoxKanban`                                | `null`      |
 | `layout`                  | --                            | How the field will be displayed. If not present, a default one will be created.                                 | `Layout`                                   | `undefined` |
 | `multiSelection`          | `multi-selection`             | Enable multi selection                                                                                          | `boolean`                                  | `false`     |
 | `pageSelected`            | `page-selected`               | Current page number                                                                                             | `number`                                   | `1`         |
@@ -35,6 +36,7 @@
 | `store`                   | --                            |                                                                                                                 | `KupStore`                                 | `undefined` |
 | `swipeDisabled`           | `swipe-disabled`              | Disable swipe                                                                                                   | `boolean`                                  | `false`     |
 | `tooltipDetailTimeout`    | `tooltip-detail-timeout`      | Defines the timeout for tooltip detail                                                                          | `number`                                   | `undefined` |
+| `tooltipEnabled`          | `tooltip-enabled`             | Enable show tooltip                                                                                             | `boolean`                                  | `true`      |
 | `tooltipLoadTimeout`      | `tooltip-load-timeout`        | Defines the timeout for tooltip load                                                                            | `number`                                   | `undefined` |
 
 
@@ -44,6 +46,7 @@
 | ------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | `kupAutoBoxSelect`        | Triggered when a box is auto selected via selectBox prop  | `CustomEvent<{ row: BoxRow; }>`                                                  |
 | `kupBoxClicked`           | Triggered when a box is clicked                           | `CustomEvent<{ row: BoxRow; column?: string; }>`                                 |
+| `kupBoxContextMenu`       | Generic right click event on box.                         | `CustomEvent<{ details: GenericObject; }>`                                       |
 | `kupBoxDragEnded`         | Triggered when a box dragging is ended                    | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; }>` |
 | `kupBoxDragStarted`       | Triggered when a box dragging is started                  | `CustomEvent<{ fromId: string; fromRow: BoxRow; fromSelectedRows?: BoxRow[]; }>` |
 | `kupBoxSelected`          | Triggered when the multi selection checkbox changes value | `CustomEvent<{ rows: BoxRow[]; }>`                                               |
@@ -65,7 +68,7 @@ Type: `Promise<void>`
 
 
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 
 
@@ -83,10 +86,8 @@ Type: `Promise<void>`
 - [kup-card](../kup-card)
 - [kup-checkbox](../kup-checkbox)
 - [kup-badge](../kup-badge)
-- [kup-button](../kup-button)
 - [kup-chart](../kup-chart)
 - [kup-editor](../kup-editor)
-- [kup-image](../kup-image)
 - [kup-text-field](../kup-text-field)
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-radio](../kup-radio)
@@ -101,10 +102,8 @@ graph TD;
   kup-box --> kup-card
   kup-box --> kup-checkbox
   kup-box --> kup-badge
-  kup-box --> kup-button
   kup-box --> kup-chart
   kup-box --> kup-editor
-  kup-box --> kup-image
   kup-box --> kup-text-field
   kup-box --> kup-progress-bar
   kup-box --> kup-radio
@@ -117,11 +116,20 @@ graph TD;
   kup-card --> kup-badge
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
+  kup-card --> kup-checkbox
+  kup-card --> kup-date-picker
+  kup-card --> kup-text-field
+  kup-card --> kup-time-picker
   kup-chip --> kup-badge
   kup-badge --> kup-badge
   kup-button --> kup-badge
-  kup-image --> kup-spinner
-  kup-image --> kup-badge
+  kup-date-picker --> kup-text-field
+  kup-date-picker --> kup-button
+  kup-time-picker --> kup-text-field
+  kup-time-picker --> kup-button
+  kup-time-picker --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
   kup-tooltip --> kup-button
   kup-tooltip --> kup-tree
   kup-tree --> kup-image
@@ -135,11 +143,13 @@ graph TD;
   kup-tree --> kup-rating
   kup-tree --> kup-radio
   kup-tree --> kup-tooltip
+  kup-tree --> kup-list
   kup-tree --> kup-text-field
+  kup-tree --> kup-card
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
   kup-color-picker --> kup-text-field
   kup-combobox --> kup-list
-  kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   style kup-box fill:#f9f,stroke:#333,stroke-width:4px

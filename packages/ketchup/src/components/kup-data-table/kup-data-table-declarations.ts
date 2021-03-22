@@ -20,7 +20,7 @@ export interface Cell {
     style?: GenericMap;
     shape?: string;
     data?: CellData;
-    cardID?: string;
+    cardID?: number;
     cssClass?: string;
     icon?: string;
     title?: string;
@@ -74,7 +74,7 @@ export interface RowGroup {
         p: string;
         k: string;
     };
-    totals: { [index: string]: number };
+    totals: { [index: string]: any }; // TODO manage this any
 }
 
 export interface TableData {
@@ -84,16 +84,6 @@ export interface TableData {
 
 export interface GenericMap {
     [index: string]: string;
-}
-
-export interface GenericFilter {
-    [index: string]: Filter;
-}
-
-export interface Filter {
-    textField: string;
-    checkBoxes: Array<string>;
-    interval: string[];
 }
 
 export interface SortObject {
@@ -106,11 +96,6 @@ export enum SortMode {
     D = 'D',
 }
 
-export enum FilterInterval {
-    FROM = 0,
-    TO = 1,
-}
-
 export interface TotalsMap {
     [index: string]: TotalMode;
 }
@@ -118,8 +103,24 @@ export interface TotalsMap {
 export enum TotalMode {
     COUNT = 'Count',
     SUM = 'Sum',
+    MIN = 'Min',
+    MAX = 'Max',
+    DISTINCT = 'Distinct',
     AVERAGE = 'Average',
     MATH = 'MATH',
+}
+
+// TODO, if not used anymore please remove this and the implementations
+export enum TotalLabel {
+    COUNT = 'Conta',
+    SUM = 'Somma',
+    MIN = 'Min',
+    MAX = 'Max',
+    DISTINCT = 'Distinct',
+    AVERAGE = 'Media',
+    MATH = 'Formula',
+    CANC = 'Cancella',
+    CALC = 'Calcola',
 }
 
 export enum PaginatorPos {
@@ -205,3 +206,5 @@ export const FixedCellsCSSVarsBase = {
     columns: '--ddt_column-left-',
     rows: '--ddt_row-top-',
 };
+
+export const totalMenuOpenID = 'TOMEOPID';

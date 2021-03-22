@@ -52,7 +52,7 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'columns?',
+          prop: 'columns',
           description:
             'The columns of the tree when tree visualization is active.',
           type: 'Column[]',
@@ -64,7 +64,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
@@ -136,6 +136,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showFooter',
+          description: 'When set to true shows the footer.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'showHeader',
           description:
             'Flag: shows the header of the tree when the tree is displayed as a table.',
@@ -149,6 +156,27 @@ export default {
           type: 'boolean',
           default: 'true',
           try: 'switch',
+        },
+        {
+          prop: 'tooltipDetailTimeout',
+          description: 'Defines the timeout for tooltip detail.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'tooltipEnabled',
+          description: 'Enable tooltip.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'tooltipLoadTimeout',
+          description: 'Defines the timeout for tooltip load.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
         },
         {
           prop: 'useDynamicExpansion',
@@ -335,6 +363,7 @@ function createComp() {
   comp.hoverScroll = true;
   comp.id = 'demo-component';
   comp.showIcons = true;
+  comp.tooltipEnabled = true;
   return comp;
 }
 </script>

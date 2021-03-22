@@ -6,11 +6,15 @@
 
 <script>
 import { treeColumns, treeColumnsColumns } from '@/mock/tree';
+document.documentElement['ketchupInit'] = { debug: { active: true } };
 
 export default {
   name: 'TreeColumns',
   mounted() {
-    document.documentElement.kupDebug = true;
+    const dom = document.documentElement;
+    if (dom.ketchup) {
+      dom.ketchup.debug.toggle(true);
+    }
     let wrapper = document.querySelector('#tree-wrapper');
     let comp = document.createElement('kup-tree');
     comp.columns = treeColumnsColumns;

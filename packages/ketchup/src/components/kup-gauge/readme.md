@@ -79,7 +79,7 @@ Fundamentally, the main problem here is that that if
 | ----------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ---------- | -------------------------------------------------------------------------------------------------------------------- |
 | `arcThickness`    | `arc-thickness`    | Sets how much the arc of the gauge should be thick.                                                                                  | `number`   | `30`                                                                                                                 |
 | `colors`          | --                 | Array of three elements to specify the color of the arcs.                                                                            | `string[]` | `[         'var(--kup-success-color)',         'var(--kup-warning-color)',         'var(--kup-danger-color)',     ]` |
-| `customStyle`     | `custom-style`     | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                      | `string`   | `undefined`                                                                                                          |
+| `customStyle`     | `custom-style`     | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                      | `string`   | `''`                                                                                                                 |
 | `firstThreshold`  | `first-threshold`  | The first threshold, establishing the length of the first and second arc.                                                            | `number`   | `undefined`                                                                                                          |
 | `labelDistance`   | `label-distance`   | The distance the label and the value has from the gauge graph.                                                                       | `number`   | `20`                                                                                                                 |
 | `maxValue`        | `max-value`        | The maximum value reachable in the current graph.                                                                                    | `number`   | `100`                                                                                                                |
@@ -100,7 +100,7 @@ Fundamentally, the main problem here is that that if
 
 ## Methods
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 
 

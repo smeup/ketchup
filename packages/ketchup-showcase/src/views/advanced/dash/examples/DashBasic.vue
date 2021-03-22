@@ -1,6 +1,72 @@
 <template>
   <div>
-    <div id="container">
+    <div class="demo-wrapper">
+      <p>
+        Dash component it's used for rendering a single object, we can choose
+        the style from 8 different layouts
+        <br />
+        <br />
+        The difference between Dash and dash list is the number of objects
+        rendered by the component. Dash render only one object, alternatively,
+        Dash List renders all the objects in the JSON file
+        <br />
+        <br />
+        The Ketch.UP dash works using slots, thus the component itself contains
+        only the main structure. The user can pass the children components
+        through the slot, like the title, the subtitle, and the main content.
+      </p>
+      <br />
+      <br />
+      <p class="centered">Sample markup</p>
+      <code class="flat">
+        {{ markupBasic }}
+        {{ markupBasic2 }}
+        {{ markupBasic3 }}
+        {{ markupBasic4 }}
+      </code>
+      <div>
+        <!-- <h3>Layout 1</h3> -->
+        <kup-dash id="layout1">
+          <div slot="descr">Admissions Count</div>
+          <div slot="value">34,678</div>
+        </kup-dash>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'DashExamples',
+  data() {
+    return {
+      markupBasic: '<kup-dash id="layout1">',
+      markupBasic2: '   <div slot="descr">Admissions Count</div>',
+      markupBasic3: '   <div slot="value">34,678</div>',
+      markupBasic4: '</kup-dash>',
+    };
+  },
+};
+</script>
+
+<style scoped lang="scss">
+#container {
+  display: grid;
+  grid-template-columns: 1fr 5% 1fr;
+
+  > div:nth-of-type(odd) {
+    grid-column-start: 1;
+    grid-column-end: 1;
+  }
+
+  > div:nth-of-type(even) {
+    grid-column-start: 3;
+    grid-column-end: 3;
+  }
+}
+</style>
+
+<!-- <div id="container">
       <div>
         <h3>Layout 1</h3>
         <kup-dash id="layout1">
@@ -20,7 +86,7 @@
           <div slot="unit">%</div>
         </kup-dash>
       </div>
-
+      
       <div>
         <h3>Layout 3</h3>
         <kup-dash id="layout3" layout="3">
@@ -96,29 +162,4 @@
           <div slot="descr">Users</div>
         </kup-dash>
       </div>
-    </div>
-  </div>
-</template>
-
-<script>
-export default {
-  name: 'DashExamples',
-};
-</script>
-
-<style scoped lang="scss">
-#container {
-  display: grid;
-  grid-template-columns: 1fr 5% 1fr;
-
-  > div:nth-of-type(odd) {
-    grid-column-start: 1;
-    grid-column-end: 1;
-  }
-
-  > div:nth-of-type(even) {
-    grid-column-start: 3;
-    grid-column-end: 3;
-  }
-}
-</style>
+    </div> -->

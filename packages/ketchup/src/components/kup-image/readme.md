@@ -9,7 +9,7 @@
 | ------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ------------------------- |
 | `badgeData`   | --             | Sets the data of badges.                                                                                                                                            | `KupBadge[]`   | `null`                    |
 | `color`       | `color`        | The color of the icon, defaults to the CSS variable --kup-icon-color.                                                                                               | `string`       | `'var(--kup-icon-color)'` |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                                     | `string`       | `''`                      |
+| `customStyle` | `custom-style` | Custom style of the component.                                                                                                                                      | `string`       | `''`                      |
 | `data`        | --             | When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.                               | `FImageData[]` | `null`                    |
 | `feedback`    | `feedback`     | When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.                                                           | `boolean`      | `false`                   |
 | `isCanvas`    | `is-canvas`    | The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future. | `boolean`      | `false`                   |
@@ -27,7 +27,7 @@
 
 ## Methods
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 This method is invoked by the theme manager.
 Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
@@ -43,7 +43,6 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-box](../kup-box)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
  - [kup-tree](../kup-tree)
@@ -59,7 +58,6 @@ graph TD;
   kup-image --> kup-spinner
   kup-image --> kup-badge
   kup-badge --> kup-badge
-  kup-box --> kup-image
   kup-data-table --> kup-image
   kup-form --> kup-image
   kup-tree --> kup-image

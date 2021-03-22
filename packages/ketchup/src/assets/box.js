@@ -71,6 +71,474 @@ let sortBoxData = {
                     obj: {
                         t: 'J4',
                         p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '43100.60',
+                    },
+                    value: '43,100.60',
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '2018-01-01',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '43100.60',
+                    },
+                    value: '43,100.60',
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '2018-01-01',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '43100.60',
+                    },
+                    value: '43,100.60',
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '2018-01-01',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '43100.60',
+                    },
+                    value: '43,100.60',
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '2018-01-01',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '43100.60',
+                    },
+                    value: '43,100.60',
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '2018-01-01',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '43100.60',
+                    },
+                    value: '43,100.60',
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '2018-01-01',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '43100.60',
+                    },
+                    value: '43,100.60',
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '2018-01-01',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '43100.60',
+                    },
+                    value: '43,100.60',
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '2018-01-01',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '43100.60',
+                    },
+                    value: '43,100.60',
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '2018-01-01',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '43100.60',
+                    },
+                    value: '43,100.60',
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '2018-01-01',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '43100.60',
+                    },
+                    value: '43,100.60',
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '2018-01-01',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '43100.60',
+                    },
+                    value: '43,100.60',
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '2018-01-01',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'CASFRA',
+                    },
+                    value: 'CASFRA',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '43100.60',
+                    },
+                    value: '43,100.60',
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '2018-01-01',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
                         k: 'CN;COL;PARFRA',
                     },
                     value: 'http://lorempixel.com/64/64/?user=PARFRA',
@@ -175,6 +643,16 @@ let sortBoxData = {
         },
     ],
 };
+
+const kanbanBox = document.getElementById('kanban-box');
+if (kanbanBox != null) {
+    kanbanBox.data = sortBoxData;
+    kanbanBox.kanban = {
+        column: 'FLD2',
+        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
+        size: '50px',
+    };
+}
 
 const sortBox = document.getElementById('sort-box');
 if (sortBox != null) {

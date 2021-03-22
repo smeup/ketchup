@@ -140,7 +140,7 @@
 
       .cell-content .icon-container.obj-icon {
         display: inline-block;
-        vertical-align: middle;
+        vertical-align: sub;
         height: 1.25em;
         width: 1.25em;
         background-color: rgba(var(--kup-text-color-rgb), 0.375);
@@ -155,10 +155,6 @@
       .negative-number {
         color: var(--kup-danger-color);
       }
-
-      .text {
-        vertical-align: middle;
-      }
     }
 
     &[data-show-columns] .kup-tree__node {
@@ -168,5 +164,51 @@
 }
 
 .first-node .cell-content {
+  font-weight: bold;
+}
+
+.icon-container.filter-remove:not(.f-image--wrapper) {
+  background-color: var(--kup-text-color);
+  margin: 0 0.25em;
+  height: 1em;
+  width: 1em;
+  cursor: pointer;
+  float: right;
+  margin: 0 0.25em;
+  opacity: 0.5;
+}
+
+tfoot {
+  td {
+    border-bottom: 1px solid var(--kup-border-color);
+    border-right: 1px solid var(--kup-border-color);
+    box-sizing: border-box;
+    height: 36px;
+    text-align: right;
+    font-weight: bold;
+    padding: 0.5em 0.3125em;
+    &:hover {
+      background-color: var(--kup-background-color);
+    }
+    &:first-of-type {    
+      border: none;
+      border-right: 1px solid var(--kup-border-color);
+    }
+  }
+}
+
+.hidden {
+  span {
+    color: transparent;
+    position: relative;
+    text-overflow: ellipsis;
+    transition: color 200ms;
+    &:hover {
+      color: var(--kup-text-color);
+    }
+  }
+}
+
+.totals-value {
   font-weight: bold;
 }

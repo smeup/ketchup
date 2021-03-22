@@ -7,7 +7,7 @@
 
 | Property                 | Attribute                    | Description                                                                                                                              | Type      | Default  |
 | ------------------------ | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | --------- | -------- |
-| `customStyle`            | `custom-style`               | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                          | `string`  | `''`     |
+| `customStyle`            | `custom-style`               | Custom style of the component.                                                                                                           | `string`  | `''`     |
 | `disabled`               | `disabled`                   | When set to true, the component is disabled.                                                                                             | `boolean` | `false`  |
 | `emitSubmitEventOnEnter` | `emit-submit-event-on-enter` | When the text field is part of the autocomplete component and the list is opened, enter key selects the item and doesn't submit.         | `boolean` | `true`   |
 | `fullWidth`              | `full-width`                 | When set to true, the component will be rendered at full width.                                                                          | `boolean` | `false`  |
@@ -54,17 +54,6 @@ Type: `Promise<string>`
 
 
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
-
-This method is invoked by the theme manager.
-Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
-
-#### Returns
-
-Type: `Promise<void>`
-
-
-
 ### `setFocus() => Promise<void>`
 
 Focuses the input element.
@@ -85,14 +74,25 @@ Type: `Promise<void>`
 
 
 
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
+
+This method is invoked by the theme manager.
+Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-card](../kup-card)
  - [kup-color-picker](../kup-color-picker)
- - [kup-data-table](../kup-data-table)
  - [kup-date-picker](../kup-date-picker)
  - [kup-form](../kup-form)
  - [kup-search](../kup-search)
@@ -103,8 +103,8 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-box --> kup-text-field
+  kup-card --> kup-text-field
   kup-color-picker --> kup-text-field
-  kup-data-table --> kup-text-field
   kup-date-picker --> kup-text-field
   kup-form --> kup-text-field
   kup-search --> kup-text-field

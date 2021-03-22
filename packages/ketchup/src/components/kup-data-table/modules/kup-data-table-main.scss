@@ -84,13 +84,20 @@ table {
   }
 
   tfoot {
-    background-color: var(--kup-title-background-color);
-    color: var(--kup-title-color);
-
     td {
+      border-bottom: $common-border;
+      border-right: $common-border;
+      box-sizing: border-box;
+      height: 36px;
       text-align: right;
       font-weight: bold;
       padding: 0.5em 0.3125em;
+      &:hover {
+        background-color: var(--kup-background-color);
+      }
+      &:first-of-type {
+        border-left: $common-border;
+      }
     }
   }
 }
@@ -323,7 +330,7 @@ tbody {
       }
     }
 
-    &:not(.group):not(.selected):hover {
+    &.hover:not(.group):not(.selected) {
       td {
         color: var(--kup-hover-color);
         background-color: var(--kup-hover-background-color);
@@ -489,7 +496,7 @@ tr {
     min-height: 40px;
   }
 
-  td[row-action-cell] kup-button {
+  td[row-action-cell] .f-button--wrapper {
     display: inline-block;
   }
 }
@@ -531,13 +538,23 @@ thead {
     position: relative;
   }
 }
+
 th.obj:hover span:not(.overlay-action) {
   opacity: 0.5;
 }
 
-.totals-select {
-  background: none;
-  border: none;
-  color: var(--kup-text-color);
-  outline: none;
+.hidden {
+  span {
+    color: transparent;
+    position: relative;
+    text-overflow: ellipsis;
+    transition: color 200ms;
+    &:hover {
+      color: var(--kup-text-color);
+    }
+  }
+}
+
+.totals-value {
+  font-weight: bold;
 }

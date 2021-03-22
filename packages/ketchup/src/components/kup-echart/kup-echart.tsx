@@ -11,13 +11,10 @@ import {
     Method,
 } from '@stencil/core';
 import { EchartTitle } from './kup-echart-declarations';
-
-import { ResizeObserver } from 'resize-observer';
-import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
-import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
-
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import echarts, { EChartOption, ECharts } from 'echarts';
 
 @Component({
@@ -46,7 +43,7 @@ export class KupEchart {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * The actual data of the chart.
      */
@@ -72,7 +69,14 @@ export class KupEchart {
     private chartEl: ECharts;
     private echartOption: EChartOption;
     private echartSeries: EChartOption.Series[];
-    private resObserver: ResizeObserver = undefined;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+    /**
+     * Used to prevent too many resizes callbacks at once.
+     */
+    private resizeTimeout: number;
     private nameMap: any;
     private jsonMap: any;
 
@@ -80,12 +84,27 @@ export class KupEchart {
 
     //---- Methods ----
 
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme =
             'Needs to be refreshed every time the theme changes because there are dynamic colors.';
         this.customStyleTheme = customStyleTheme;
         this.fetchThemeColors();
+    }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        window.clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => this.forceUpdate(), 300);
     }
 
     private onKupClick() {
@@ -109,24 +128,42 @@ export class KupEchart {
         this.createChart();
     }
 
+    private prepMap(): void {
+        let y = {};
+        echarts.registerMap(this.nameMap, this.jsonMap);
+        y = this.createMapY();
+        this.setMapSeries(y);
+        this.setMapOption();
+        this.chartEl.setOption(this.echartOption, true);
+    }
+
     private createChart() {
         let x: string[] = [],
             y = {};
 
         switch (this.types[0].toLowerCase()) {
             case 'map':
-                this.dynamicImport()
-                    .then(() => {
-                        let y = {};
-                        echarts.registerMap(this.nameMap, this.jsonMap);
-                        y = this.createMapY();
-                        this.setMapSeries(y);
-                        this.setMapOption();
-                        this.chartEl.setOption(this.echartOption, true);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+                if (typeof this.mapType === 'string') {
+                    fetch(getAssetPath(`./assets/maps/${this.mapType}.json`))
+                        .then((res) =>
+                            res.text().then((res) => {
+                                this.jsonMap = JSON.parse(res);
+                                this.nameMap = this.mapType;
+                                this.prepMap();
+                            })
+                        )
+                        .catch((err) => {
+                            this.kupManager.debug.logMessage(
+                                this,
+                                "Couldn't fetch map JSON: " + err,
+                                'warning'
+                            );
+                        });
+                } else {
+                    this.jsonMap = this.mapType;
+                    this.nameMap = 'custom';
+                    this.prepMap();
+                }
                 break;
             case 'pie':
                 y = this.createY();
@@ -140,48 +177,6 @@ export class KupEchart {
                 this.setOption(x, y);
                 this.chartEl.setOption(this.echartOption, true);
                 break;
-        }
-    }
-
-    async dynamicImport(): Promise<Boolean> {
-        const chart = this;
-        let maps = getAssetPath(`./assets/maps/maps.js`);
-        return new Promise(function (resolve, reject) {
-            if (typeof chart.mapType == 'string') {
-                import(maps)
-                    .then((res) => {
-                        chart.setMap(res, chart).then(() => {
-                            resolve(true);
-                        });
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        reject();
-                    });
-            } else if (typeof chart.mapType == 'object') {
-                import(maps)
-                    .then((res) => {
-                        chart.setMap(res, chart).then(() => {
-                            resolve(true);
-                        });
-
-                        resolve(true);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        reject();
-                    });
-            } else reject();
-        });
-    }
-
-    async setMap(maps: {}, chart: KupEchart) {
-        if (typeof (chart.mapType == 'string')) {
-            chart.jsonMap = maps[chart.mapType];
-            chart.nameMap = chart.mapType;
-        } else if (typeof (chart.mapType == 'object')) {
-            chart.jsonMap = chart.mapType;
-            chart.nameMap = 'custom';
         }
     }
 
@@ -447,22 +442,17 @@ export class KupEchart {
 
     private fetchThemeColors() {
         let colorArray: string[] = [];
-        for (let index = 1, color = undefined; color !== ''; index++) {
-            let key = '--kup-chart-color-' + index;
-            color = document.documentElement.style.getPropertyValue(key);
-            if (color) {
-                colorArray.push(color);
-            }
+        let key: string = '--kup-chart-color-';
+        for (
+            let index = 1;
+            this.kupManager.theme.cssVars[key + index];
+            index++
+        ) {
+            colorArray.push(this.kupManager.theme.cssVars[key + index]);
         }
-        this.themeBorder = document.documentElement.style.getPropertyValue(
-            '--kup-border-color'
-        );
-        this.themeFont = document.documentElement.style.getPropertyValue(
-            '--kup-font-family'
-        );
-        this.themeText = document.documentElement.style.getPropertyValue(
-            '--kup-text-color'
-        );
+        this.themeBorder = this.kupManager.theme.cssVars['--kup-border-color'];
+        this.themeFont = this.kupManager.theme.cssVars['--kup-font-family'];
+        this.themeText = this.kupManager.theme.cssVars['--kup-text-color'];
 
         this.themeColors = colorArray;
     }
@@ -508,52 +498,32 @@ export class KupEchart {
         };
     }
 
-    private setObserver() {
-        let callback: ResizeObserverCallback = (
-            entries: ResizeObserverEntry[]
-        ) => {
-            entries.forEach((entry) => {
-                logMessage(
-                    this,
-                    'Size changed to x: ' +
-                        entry.contentRect.width +
-                        ', y: ' +
-                        entry.contentRect.height +
-                        '.'
-                );
-                this.forceUpdate();
-            });
-        };
-        this.resObserver = new ResizeObserver(callback);
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        this.setObserver();
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
         this.fetchThemeColors();
     }
 
     componentDidLoad() {
-        this.resObserver.observe(this.rootElement);
-        logLoad(this, true);
+        this.kupManager.resize.observe(this.rootElement);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
         this.initChart();
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     onClick={() => this.onKupClick()}
@@ -565,7 +535,8 @@ export class KupEchart {
         );
     }
 
-    disconnectedCallBack() {
-        this.resObserver.unobserve(this.rootElement);
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        this.kupManager.resize.unobserve(this.rootElement);
     }
 }

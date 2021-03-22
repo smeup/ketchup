@@ -2,7 +2,9 @@ import { FunctionalComponent, h } from '@stencil/core';
 import { FChipsProps, FChipType } from './f-chip-declarations';
 import { FImage } from '../f-image/f-image';
 
-//---- Component ----
+/*-------------------------------------------------*/
+/*                C o m p o n e n t                */
+/*-------------------------------------------------*/
 
 export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
     if (!props.type) {
@@ -24,6 +26,7 @@ export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
             class={`f-chip--wrapper ${
                 props.wrapperClass ? props.wrapperClass : ''
             }`}
+            {...props.dataSet}
             id={props.id}
             title={props.title}
         >
@@ -34,7 +37,9 @@ export const FChip: FunctionalComponent<FChipsProps> = (props: FChipsProps) => {
     );
 };
 
-//---- Methods ----
+/*-------------------------------------------------*/
+/*                  M e t h o d s                  */
+/*-------------------------------------------------*/
 
 function createChipList(
     props: FChipsProps,

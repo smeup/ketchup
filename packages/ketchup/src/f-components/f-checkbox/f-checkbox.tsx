@@ -1,7 +1,9 @@
+import type { FCheckboxProps } from './f-checkbox-declarations';
 import { FunctionalComponent, h } from '@stencil/core';
-import { FCheckboxProps } from './f-checkbox-declarations';
 
-//---- Component ----
+/*-------------------------------------------------*/
+/*                C o m p o n e n t                */
+/*-------------------------------------------------*/
 
 export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
     props: FCheckboxProps
@@ -23,6 +25,7 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
             class={`f-checkbox--wrapper ${
                 props.wrapperClass ? props.wrapperClass : ''
             }`}
+            {...props.dataSet}
             id={props.id}
             title={props.title}
         >
@@ -31,7 +34,7 @@ export const FCheckbox: FunctionalComponent<FCheckboxProps> = (
                     props.leadingLabel ? 'mdc-form-field--align-end' : ''
                 }`}
             >
-                <div id="checkbox-wrapper" class={classObj}>
+                <div class={classObj}>
                     <input
                         type="checkbox"
                         class="mdc-checkbox__native-control"

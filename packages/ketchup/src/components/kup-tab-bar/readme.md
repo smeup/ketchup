@@ -5,10 +5,10 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                     | Type                       | Default     |
-| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------- | ----------- |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                   | `undefined` |
-| `data`        | --             | List of elements.                                                                                               | `ComponentTabBarElement[]` | `[]`        |
+| Property      | Attribute      | Description                                                                                                     | Type                       | Default |
+| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | -------------------------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                   | `''`    |
+| `data`        | --             | List of elements.                                                                                               | `ComponentTabBarElement[]` | `[]`    |
 
 
 ## Events
@@ -22,7 +22,7 @@
 
 ## Methods
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 
 

@@ -85,7 +85,20 @@
     </head>
 
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = {
+                debug: { active: true, logLimit: 10000 },
+            };
+        </script>
         <div class="utility-examples">
+            <h1>Tree mixed columns</h1>
+            <kup-tree
+                id="tree-mixed"
+                show-footer
+                show-columns
+                show-header
+                show-icons
+            ></kup-tree>
             <h1>Tree layout-fixed</h1>
             <kup-tree
                 id="tree-layout-fixed"
@@ -106,6 +119,15 @@
                 global-filter
                 global-filter-value="24"
                 id="tree-show-filter"
+            ></kup-tree>
+            <h1>Filters2</h1>
+            <kup-tree global-filter id="tree-show-filter2"></kup-tree>
+            <h1>Filters3</h1>
+            <kup-tree
+                global-filter
+                id="tree-show-filter3"
+                show-columns
+                show-header
             ></kup-tree>
         </div>
 
