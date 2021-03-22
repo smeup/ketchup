@@ -846,7 +846,7 @@ export class KupDataTable {
     /**
      * Emitted when a cell's data has been updated.
      */
-    @Event({
+    /*@Event({
         eventName: 'kupDataTableCellUpdate',
         composed: true,
         cancelable: false,
@@ -855,7 +855,7 @@ export class KupDataTable {
     kupDataTableCellUpdate: EventEmitter<{
         cell: Cell;
         event: Event | FocusEvent;
-    }>;
+    }>;*/
     /**
      * Generic click event on data table.
      */
@@ -2113,10 +2113,10 @@ export class KupDataTable {
                 cell['data']['value'] = inputEl.value;
             }
         }
-        this.kupDataTableCellUpdate.emit({
+        /*this.kupDataTableCellUpdate.emit({
             cell: cell,
             event: e,
-        });
+        });*/
     }
 
     private handleRowSelect(row: Row) {
