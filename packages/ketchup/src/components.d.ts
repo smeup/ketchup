@@ -673,6 +673,11 @@ export namespace Components {
          */
         "headerIsPersistent": boolean;
         /**
+          * When set to true, clicked-on rows will have a visual feedback.
+          * @default false
+         */
+        "isFocusable": boolean;
+        /**
           * When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.
          */
         "lazyLoadRows": boolean;
@@ -3000,6 +3005,11 @@ declare namespace LocalJSX {
           * When set to true the header will stick on top of the table when scrolling.
          */
         "headerIsPersistent"?: boolean;
+        /**
+          * When set to true, clicked-on rows will have a visual feedback.
+          * @default false
+         */
+        "isFocusable"?: boolean;
         /**
           * When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.
          */

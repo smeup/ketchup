@@ -431,6 +431,11 @@ export class KupDataTable {
      */
     @Prop() headerIsPersistent = true;
     /**
+     * When set to true, clicked-on rows will have a visual feedback.
+     * @default false
+     */
+    @Prop() isFocusable: boolean = false;
+    /**
      * When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.
      */
     @Prop() lazyLoadRows: boolean = false;
@@ -1506,6 +1511,15 @@ export class KupDataTable {
                 }
             }
         } else if (details.area === 'body') {
+            if (this.isFocusable && details.tr) {
+                const focusEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
+                    'tr.focus'
+                );
+                if (focusEl) {
+                    focusEl.classList.remove('focus');
+                }
+                details.tr.classList.add('focus');
+            }
             if (
                 details.tr &&
                 details.row &&
