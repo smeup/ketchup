@@ -1024,24 +1024,6 @@ export class KupDataTable {
         this.expandGroups = false;
     }
 
-    private onJ4TextFieldInput(row, column, cell) {
-        // Since this function is called with bind, the event from the kup-button gets passed into the arguments array
-        const textFieldEvent = arguments[3] as UIEvent;
-        if (textFieldEvent) {
-            // Prevents double events to be fired.
-            textFieldEvent.stopPropagation();
-        } else {
-            throw 'kup-data-table error: missing event';
-        }
-        cell.value = arguments[3].detail.value;
-        cell.element = arguments[3].currentTarget;
-        this.kupCellTextFieldInput.emit({
-            cell,
-            column,
-            row,
-        });
-    }
-
     forceUpdate() {
         this.stateSwitcher = !this.stateSwitcher;
     }
@@ -2126,9 +2108,9 @@ export class KupDataTable {
             cell.obj.k = inputEl.value;
             cell.value = inputEl.value;
             if (cell.data) {
-                cell.data['initialValue'] = inputEl.value;
+                cell.data['value'] = inputEl.value;
             } else {
-                cell['data']['initialValue'] = inputEl.value;
+                cell['data']['value'] = inputEl.value;
             }
         }
         this.kupDataTableCellUpdate.emit({
@@ -4108,14 +4090,7 @@ export class KupDataTable {
                 );
                 return <kup-button {...props}></kup-button>;
             case 'text-field':
-                classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
-                props['onKupTextFieldInput'] = this.onJ4TextFieldInput.bind(
-                    this,
-                    row,
-                    column,
-                    cell
-                );
                 props['dataSet'] = {
                     'data-cell': cell,
                 };
