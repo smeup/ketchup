@@ -1543,6 +1543,7 @@ export class KupDataTable {
             if (this.showTooltipOnRightClick && details.td && details.cell) {
                 e.preventDefault();
                 setTooltip(e, details.cell, this.tooltip);
+                (this.tooltip as any).focus();
                 return;
             }
         } else if (details.area === 'footer') {
@@ -2934,8 +2935,9 @@ export class KupDataTable {
                         ? 0
                         : this.tooltipLoadTimeout
                 }
-                onBlur={() => this.closeMenuAndTooltip()}
-                onKupTooltipLoadData={() => (this.tooltip as any).focus()}
+                onBlur={() => {
+                    this.closeMenuAndTooltip();
+                }}
                 detailTimeout={this.tooltipDetailTimeout}
                 ref={(el: any) => (this.tooltip = el as KupTooltip)}
                 tabindex={0}
