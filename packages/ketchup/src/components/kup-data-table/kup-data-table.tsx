@@ -698,11 +698,6 @@ export class KupDataTable {
         }
     }
 
-    /**
-     * The reference for the function used to close the menu of the header cells
-     */
-    private documentHandlerCloseHeaderMenu;
-
     private rows: Array<Row>;
     private rowsLength: number = 0;
 
@@ -1120,12 +1115,6 @@ export class KupDataTable {
     }
 
     private didLoadEventHandling() {
-        // Attach function to close header menu onto the document
-        this.documentHandlerCloseHeaderMenu = this.onHeaderCellContextMenuClose.bind(
-            this
-        );
-        // We use the click event to avoid a menu closing another one
-        document.addEventListener('click', this.documentHandlerCloseHeaderMenu);
         this.tableAreaRef.addEventListener('scroll', () =>
             this.scrollStickyHeader()
         );
@@ -1554,6 +1543,7 @@ export class KupDataTable {
             if (this.showTooltipOnRightClick && details.td && details.cell) {
                 e.preventDefault();
                 setTooltip(e, details.cell, this.tooltip);
+                (this.tooltip as any).focus();
                 return;
             }
         } else if (details.area === 'footer') {
@@ -2945,8 +2935,12 @@ export class KupDataTable {
                         ? 0
                         : this.tooltipLoadTimeout
                 }
+                onBlur={() => {
+                    this.closeMenuAndTooltip();
+                }}
                 detailTimeout={this.tooltipDetailTimeout}
                 ref={(el: any) => (this.tooltip = el as KupTooltip)}
+                tabindex={0}
             ></kup-tooltip>
         );
     }
@@ -2992,6 +2986,7 @@ export class KupDataTable {
                     menu as DynamicallyPositionedElement
                 );
                 menu.classList.add('visible');
+                menu.focus();
             }
         }
     }
@@ -3184,9 +3179,11 @@ export class KupDataTable {
                             id="totals-menu"
                             is-menu
                             menu-visible
+                            onBlur={() => this.closeTotalMenu()}
                             onKupListClick={(event) =>
                                 this.onTotalsChange(event, column)
                             }
+                            tabindex={0}
                         ></kup-list>
                     );
                 }
@@ -4822,9 +4819,9 @@ export class KupDataTable {
                             id="column-menu"
                             isMenu={true}
                             layoutNumber={12}
-                            onBlur={(e) =>
-                                this.columnMenuInstance.close(e, this)
-                            }
+                            onBlur={(e) => {
+                                this.columnMenuInstance.close(e, this);
+                            }}
                             onClick={(e) => e.stopPropagation()}
                             onKupCardEvent={(e) => {
                                 this.columnMenuInstance.eventHandlers(e, this);
@@ -4843,13 +4840,6 @@ export class KupDataTable {
     }
 
     componentDidUnload() {
-        // Remove function to close header menu onto the document
-        if (this.documentHandlerCloseHeaderMenu) {
-            document.removeEventListener(
-                'click',
-                this.documentHandlerCloseHeaderMenu
-            );
-        }
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'
