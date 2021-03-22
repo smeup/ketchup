@@ -140,6 +140,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'isFocusable',
+          description:
+            'When set to true, clicked-on rows will have a visual feedback.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'lazyLoadRows',
           description:
             'When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content.',
