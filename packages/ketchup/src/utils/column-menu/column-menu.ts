@@ -131,6 +131,7 @@ export class ColumnMenu {
         if (showGroup) {
             if (!FiltersColumnMenu.isTree(comp)) {
                 props.push({
+                    className: 'printable',
                     'data-storage': {
                         columnName: column.name,
                     },
@@ -145,6 +146,7 @@ export class ColumnMenu {
         }
         if (comp.removableColumns) {
             props.push({
+                className: 'printable',
                 'data-storage': {
                     column: column,
                 },
@@ -154,6 +156,7 @@ export class ColumnMenu {
             });
         }
         props.push({
+            className: 'printable',
             'data-storage': {
                 columnName: column.name,
             },
@@ -162,6 +165,7 @@ export class ColumnMenu {
             title: 'Add column',
         });
         props.push({
+            className: 'printable',
             'data-storage': {
                 columnName: column.name,
             },
