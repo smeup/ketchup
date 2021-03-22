@@ -624,16 +624,26 @@ function adjustGroupsAverageOrFormula(
 function adjustGroupDistinct(
     groupRow: Row,
     toAdjustKeys: Array<string>,
-    _distinctObj: Object
+    distinctObj: Object
 ) {
     const children = groupRow.group.children;
+
     if (children.length === 0) {
         return;
     }
-    toAdjustKeys.forEach((_key) => {
-        // TODO
-        // const distinctList = distinctObj[groupRow.group.id][key];
-        // groupRow.group.totals[key] = new Set(distinctList).size;
+
+    if (children[0].group) {
+        children.forEach((child) => {
+            adjustGroupDistinct(child, toAdjustKeys, distinctObj);
+        });
+    }
+
+    toAdjustKeys.forEach((key) => {
+        console.log({ key });
+        console.log({ groupRow });
+        console.log({ distinctObj });
+        const distinctList = distinctObj[groupRow.group.id][key];
+        groupRow.group.totals[key] = new Set(distinctList).size;
     });
 }
 

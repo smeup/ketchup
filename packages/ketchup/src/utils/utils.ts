@@ -479,7 +479,7 @@ export function isValidFormattedStringDate(value: string): boolean {
  * @returns true if date string in input is a valid date
  */
 export function isValidStringDate(
-    value: string,
+    value: string | object, // TODO check why with the moment object and the toString the method return that the value is invalid
     valueDateFormat?: string,
     strictValidation?: boolean
 ): boolean {
