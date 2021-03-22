@@ -17,6 +17,8 @@ import {
     isTime,
     isTimestamp,
     isTimeWithSeconds,
+    canHaveExtraColumns,
+    canHaveAutomaticDerivedColumn,
 } from '../object-utils';
 import { positionRecalc } from '../recalc-position';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
@@ -157,22 +159,26 @@ export class ColumnMenu {
                 title: 'Hide column',
             });
         }
-        props.push({
-            'data-storage': {
-                columnName: column.name,
-            },
-            icon: 'table-column-plus-after',
-            id: 'add',
-            title: 'Add column',
-        });
-        props.push({
-            'data-storage': {
-                columnName: column.name,
-            },
-            icon: 'label',
-            id: 'description',
-            title: 'Add code/description column',
-        });
+        if (canHaveExtraColumns(column.obj)) {
+            props.push({
+                'data-storage': {
+                    columnName: column.name,
+                },
+                icon: 'table-column-plus-after',
+                id: 'add',
+                title: 'Add column',
+            });
+            if (canHaveAutomaticDerivedColumn(column.obj)) {
+                props.push({
+                    'data-storage': {
+                        columnName: column.name,
+                    },
+                    icon: 'label',
+                    id: 'description',
+                    title: 'Add code/description column',
+                });
+            }
+        }
         return props;
     }
     /**

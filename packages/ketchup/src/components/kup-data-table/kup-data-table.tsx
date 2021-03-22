@@ -74,7 +74,7 @@ import {
     isCheckbox,
     hasTooltip,
     isRadio as isRadioObj,
-    canHaveDerivedColumn,
+    canHaveAutomaticDerivedColumn,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
 
@@ -2171,7 +2171,7 @@ export class KupDataTable {
         if (column == null || column.obj == null) {
             return false;
         }
-        return canHaveDerivedColumn(column.obj);
+        return canHaveAutomaticDerivedColumn(column.obj);
     }
 
     private onHeaderCellContextMenuClose(event: MouseEvent) {
