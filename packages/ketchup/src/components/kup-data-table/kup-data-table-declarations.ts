@@ -208,3 +208,18 @@ export const FixedCellsCSSVarsBase = {
 };
 
 export const totalMenuOpenID = 'TOMEOPID';
+
+/**
+ * Contains all the data of an event.
+ */
+export interface EventHandlerDetails {
+    area: string;
+    cell: Cell;
+    column: Column;
+    filterRemove: HTMLSpanElement;
+    row: Row;
+    td: HTMLTableDataCellElement;
+    textfield: HTMLElement;
+    th: HTMLTableHeaderCellElement;
+    tr: HTMLTableRowElement;
+}
