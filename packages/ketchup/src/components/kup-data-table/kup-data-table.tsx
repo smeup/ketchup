@@ -3335,12 +3335,12 @@ export class KupDataTable {
                             if (totalValue) {
                                 if (
                                     isValidStringDate(
-                                        totalValue.toString(),
+                                        totalValue,
                                         ISO_DEFAULT_DATE_FORMAT
                                     )
                                 ) {
                                     value = unformattedStringToFormattedStringDate(
-                                        totalValue.toString(),
+                                        totalValue,
                                         null,
                                         column.obj.t + column.obj.p
                                     );
