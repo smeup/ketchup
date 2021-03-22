@@ -6,7 +6,7 @@
       <div class="demo-container">
         <div class="kup-container">
           <kup-text-field
-            custom-style="#kup-component input, #kup-component label{ font-family: Courier, sans-serif; }"
+            custom-style="#kup-component input, #kup-component label{ font-family: Courier, sans-serif !important; }"
             label="Courier font"
           ></kup-text-field>
         </div>
@@ -188,7 +188,7 @@ export default {
         },
       ],
       markup1:
-        '#kup-component input, #kup-component label{ font-family: Courier, sans-serif; }',
+        '#kup-component input, #kup-component label{ font-family: Courier, sans-serif !important; }',
       markup2: '#kup-component button { text-decoration: underline; }',
       markup3:
         '#kup-component .mdc-chip { background-color: blue !important; color: pink !important; } #kup-component .f-image__icon { background-color: pink !important; }',

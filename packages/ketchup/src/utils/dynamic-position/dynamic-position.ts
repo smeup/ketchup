@@ -11,7 +11,6 @@ export class DynamicPosition {
     managedElements: Set<DynamicallyPositionedElement> = new Set();
     /**
      * Watches the element eligible to dynamic positioning.
-     * *
      * @param {DynamicallyPositionedElement} el - Element to reposition.
      * @param {HTMLElement} anchorEl - "el" position will be anchored to this element.
      * @param {number} margin - "el" distance from its parent in pixels.
@@ -30,9 +29,10 @@ export class DynamicPosition {
         el.style.zIndex = '1000';
         anchorEl.classList.add('dynamic-position-anchor');
         el.dynamicPosition = {
+            above: above ? true : false,
             anchor: anchorEl,
             margin: margin ? margin : 0,
-            above: above ? true : false,
+            rAF: null,
             right: right ? true : false,
         };
 
@@ -45,7 +45,9 @@ export class DynamicPosition {
                     'dynamic-position-active'
                 )
             ) {
-                dom.ketchup.dynamicPosition.run(el);
+                requestAnimationFrame(function () {
+                    dom.ketchup.dynamicPosition.run(el);
+                });
             }
         });
         mutObserver.observe(el, {
@@ -56,7 +58,6 @@ export class DynamicPosition {
     }
     /**
      * Removes the element from dynamic position management.
-     * *
      * @param {DynamicallyPositionedElement} elements - Elements to remove from the managed elements set.
      */
     unregister(elements: DynamicallyPositionedElement[]): void {
@@ -66,7 +67,6 @@ export class DynamicPosition {
     }
     /**
      * Starts the process of dynamically reposition the element (which must be firstly initialized through this.setup()).
-     * *
      * @param {DynamicallyPositionedElement} el - Element to reposition.
      */
     start(el: DynamicallyPositionedElement): void {
@@ -74,7 +74,6 @@ export class DynamicPosition {
     }
     /**
      * Ends the process of dynamically reposition the element.
-     * *
      * @param {DynamicallyPositionedElement} el - Element to reposition.
      */
     stop(el: DynamicallyPositionedElement): void {
@@ -82,15 +81,16 @@ export class DynamicPosition {
     }
     /**
      * This function calculates where to place the element in order to correctly display it attached to its anchor point.
-     * *
      * @param {DynamicallyPositionedElement} el - Element to reposition.
      */
-    async run(el: DynamicallyPositionedElement): Promise<void> {
+    run(el: DynamicallyPositionedElement): void {
         if (!el.isConnected) {
             dom.ketchup.dynamicPosition.managedElements.delete(el);
+            cancelAnimationFrame(el.dynamicPosition.rAF);
             return;
         }
         if (!el.classList.contains('dynamic-position-active')) {
+            cancelAnimationFrame(el.dynamicPosition.rAF);
             return;
         }
         let offsetH: number = el.clientHeight;
@@ -126,6 +126,8 @@ export class DynamicPosition {
         } else {
             el.style.left = `${rect.left}px`;
         }
-        setTimeout(dom.ketchup.dynamicPosition.run, 10, el);
+        el.dynamicPosition.rAF = requestAnimationFrame(function () {
+            dom.ketchup.dynamicPosition.run(el);
+        });
     }
 }

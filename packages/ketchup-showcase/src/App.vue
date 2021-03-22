@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire" style="display: none">
     <v-navigation-drawer v-model="drawer" fixed app>
       <div class="logo">
         <a title="Sme.UP" target="_blank" href="https://www.smeup.com/"
