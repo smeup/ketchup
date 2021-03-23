@@ -248,6 +248,12 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * When set, the button will show this icon.
           * @default null
          */
@@ -310,6 +316,12 @@ export namespace Components {
           * @default null
          */
         "data": CardData;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Defines whether the card is a menu or not. Works together with menuVisible.
           * @default false
@@ -377,6 +389,12 @@ export namespace Components {
           * The actual data of the chart.
          */
         "data": DataTable;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Customize the hAxis.
          */

@@ -8,18 +8,19 @@ import {
     State,
     h,
     Method,
+    VNode,
 } from '@stencil/core';
+import { MDCRipple } from '@material/ripple';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
 import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
-import { MDCRipple } from '@material/ripple';
-import { CardData, CardFamily } from './kup-card-declarations';
+import type { GenericObject } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { CardData, CardFamily, KupCardProps } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
-import { VNode } from '@stencil/core/internal';
 
 @Component({
     tag: 'kup-card',
@@ -200,6 +201,25 @@ export class KupCard {
         this.resizeTimeout = window.setTimeout(() => {
             this.layoutManager();
         }, 300);
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupCardProps;
+        } else {
+            for (const key in KupCardProps) {
+                if (Object.prototype.hasOwnProperty.call(KupCardProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     /*-------------------------------------------------*/
