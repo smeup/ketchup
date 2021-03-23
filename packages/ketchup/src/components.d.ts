@@ -468,6 +468,12 @@ export namespace Components {
          */
         "data": FChipData[];
         /**
+          * Used to retrieve component's props information in JSON format.
+          * @param values - When provided and true, the result will be a JSON file containing the props as keys with their respective value.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (values?: boolean) => Promise<GenericObject>;
+        /**
           * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
           * @param customStyleTheme - Contains current theme's component-specific CSS.
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization

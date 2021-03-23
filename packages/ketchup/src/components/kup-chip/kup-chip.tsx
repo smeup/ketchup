@@ -20,6 +20,8 @@ import {
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
+import { KupChipProps } from './kup-chip-declarations';
+import { GenericObject } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kup-chip',
@@ -216,6 +218,26 @@ export class KupChip {
     @Method()
     async themeChangeCallback(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props information in JSON format.
+     * @param {boolean} values - When provided and true, the result will be a JSON file containing the props as keys with their respective value.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(values?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (values) {
+            for (const key in KupChipProps) {
+                if (Object.prototype.hasOwnProperty.call(KupChipProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        } else {
+            props = KupChipProps;
+        }
+
+        return props;
     }
 
     /*-------------------------------------------------*/
