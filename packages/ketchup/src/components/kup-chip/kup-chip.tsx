@@ -230,7 +230,11 @@ export class KupChip {
         if (values) {
             for (const key in KupChipProps) {
                 if (Object.prototype.hasOwnProperty.call(KupChipProps, key)) {
-                    props[key] = this[key];
+                    if (key.indexOf('(inherited from HTMLElement)')) {
+                        props[key] = this.rootElement[key];
+                    } else {
+                        props[key] = this[key];
+                    }
                 }
             }
         } else {

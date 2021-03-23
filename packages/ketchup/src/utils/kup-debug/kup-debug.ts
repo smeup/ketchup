@@ -116,9 +116,11 @@ export class KupDebug {
         return this.active;
     }
     /**
-     * Retrieves the information for every component in the logs array.
+     * Retrieves the information for every component in this.logs by invoking the getProps public method of each component.
+     * @returns {GenericObject[]} Array of components props.
      */
-    async getProps(value?: boolean): Promise<GenericObject> {
+    async getProps(): Promise<GenericObject[]> {
+        let props: GenericObject[] = [];
         let comps: Set<KupComponent> = new Set();
         for (let index = 0; index < this.logs.length; index++) {
             if (typeof this.logs[index].element !== 'string') {
@@ -129,8 +131,8 @@ export class KupDebug {
         }
         comps.forEach((el) => {
             try {
-                el.getProps()
-                    .then((res) => console.log(res))
+                el.getProps(true)
+                    .then((res) => props.push(res))
                     .catch((err) =>
                         this.logMessage('kup-debug', err, 'warning')
                     );
@@ -144,7 +146,7 @@ export class KupDebug {
             }
         });
         console.log(comps);
-        return { value: value };
+        return props;
     }
     /**
      * Displays a timestamped message in the browser's console when the kupDebug property on document.documentElement is true.
