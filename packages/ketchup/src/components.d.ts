@@ -6,8 +6,8 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
-import { KupStore } from "./components/kup-state/kup-store";
 import { GenericObject } from "./types/GenericTypes";
+import { KupStore } from "./components/kup-state/kup-store";
 import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxKanban, BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
@@ -58,6 +58,12 @@ export namespace Components {
           * Sets how the show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode": ItemsDisplayMode;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component.
@@ -432,6 +438,12 @@ export namespace Components {
           * @default false
          */
         "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * When set to true, the component will be set to 'indeterminate'.
           * @default false
