@@ -91,6 +91,12 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * The data of the image displayed inside the badge.
          */
         "imageData": {};
@@ -102,7 +108,7 @@ export namespace Components {
     }
     interface KupBox {
         /**
-          * Number of columns
+          * Data of the card linked to the box when the latter's layout must be a premade template.
          */
         "cardData": GenericObject;
         /**
@@ -133,6 +139,12 @@ export namespace Components {
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
          */
         "enableRowActions": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * When set to true it activates the global filter.
          */
@@ -2286,7 +2298,7 @@ declare namespace LocalJSX {
     }
     interface KupBox {
         /**
-          * Number of columns
+          * Data of the card linked to the box when the latter's layout must be a premade template.
          */
         "cardData"?: GenericObject;
         /**
