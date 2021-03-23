@@ -220,27 +220,22 @@ export class KupChip {
         this.customStyleTheme = customStyleTheme;
     }
     /**
-     * Used to retrieve component's props information in JSON format.
-     * @param {boolean} values - When provided and true, the result will be a JSON file containing the props as keys with their respective value.
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
      * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
      */
     @Method()
-    async getProps(values?: boolean): Promise<GenericObject> {
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
         let props: GenericObject = {};
-        if (values) {
+        if (descriptions) {
+            props = KupChipProps;
+        } else {
             for (const key in KupChipProps) {
                 if (Object.prototype.hasOwnProperty.call(KupChipProps, key)) {
-                    if (key.indexOf('(inherited from HTMLElement)')) {
-                        props[key] = this.rootElement[key];
-                    } else {
-                        props[key] = this[key];
-                    }
+                    props[key] = this[key];
                 }
             }
-        } else {
-            props = KupChipProps;
         }
-
         return props;
     }
 

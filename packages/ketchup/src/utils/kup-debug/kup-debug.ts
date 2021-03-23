@@ -117,11 +117,16 @@ export class KupDebug {
     }
     /**
      * Retrieves the information for every component in this.logs by invoking the getProps public method of each component.
-     * @returns {GenericObject[]} Array of components props.
+     * 'objectProps' will contain the props of the component's object (i.e.: KupChip).
+     * 'tagProps' will contain the props of the component's html tag (i.e.: <kup-chip>).
+     * 'props' will contain the developer defined props of the component, making it handy for test purposes.
+     * @param {boolean} detail - If provided and true, the returned object will contain additional information (i.e.: className, id).
+     * @returns {GenericObject} Props of the components.
      */
-    async getProps(): Promise<GenericObject[]> {
-        let props: GenericObject[] = [];
+    async getProps(detail?: boolean): Promise<GenericObject> {
+        let cnt: number = 0;
         let comps: Set<KupComponent> = new Set();
+        let props: GenericObject = {};
         for (let index = 0; index < this.logs.length; index++) {
             if (typeof this.logs[index].element !== 'string') {
                 if (!comps.has(this.logs[index].element as KupComponent)) {
@@ -129,10 +134,29 @@ export class KupDebug {
                 }
             }
         }
-        comps.forEach((el) => {
+        comps.forEach((el: KupComponent) => {
             try {
-                el.getProps(true)
-                    .then((res) => props.push(res))
+                el.getProps()
+                    .then((res: GenericObject) => {
+                        const key: string =
+                            el.rootElement.tagName + '_' + ++cnt;
+                        if (detail) {
+                            let objectProps: GenericObject = {};
+                            for (const key in el) {
+                                objectProps[key] = el[key];
+                            }
+                            let tagProps: GenericObject = {};
+                            for (const key in el.rootElement) {
+                                tagProps[key] = el.rootElement[key];
+                            }
+                            props[key] = {
+                                props: res,
+                                extraInfo: { objectProps, tagProps },
+                            };
+                        } else {
+                            props[key] = res;
+                        }
+                    })
                     .catch((err) =>
                         this.logMessage('kup-debug', err, 'warning')
                     );
@@ -145,7 +169,6 @@ export class KupDebug {
                 );
             }
         });
-        console.log(comps);
         return props;
     }
     /**
