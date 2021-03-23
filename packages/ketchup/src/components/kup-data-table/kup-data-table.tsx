@@ -35,6 +35,7 @@ import {
     TotalMode,
     totalMenuOpenID,
     TotalLabel,
+    KupDataTableProps,
 } from './kup-data-table-declarations';
 
 import {
@@ -967,6 +968,27 @@ export class KupDataTable {
                 300
             );
         }
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupDataTableProps;
+        } else {
+            for (const key in KupDataTableProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(KupDataTableProps, key)
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
     /**
      * This method will set the selected rows of the component.

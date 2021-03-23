@@ -541,6 +541,12 @@ export namespace Components {
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
@@ -571,6 +577,12 @@ export namespace Components {
           * Sets how the show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode": ItemsDisplayMode;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component
@@ -700,6 +712,12 @@ export namespace Components {
          */
         "forceOneLine": boolean;
         "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * When set to true it activates the global filter.
          */
