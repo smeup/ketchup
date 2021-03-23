@@ -17,13 +17,6 @@
       </p>
       <br />
       <br />
-      <p class="centered">Sample markup</p>
-      <code class="flat">
-        {{ markupBasic }}
-        {{ markupBasic2 }}
-        {{ markupBasic3 }}
-        {{ markupBasic4 }}
-      </code>
       <div>
         <!-- <h3>Layout 1</h3> -->
         <kup-dash id="layout1">
@@ -31,6 +24,13 @@
           <div slot="value">34,678</div>
         </kup-dash>
       </div>
+      <p class="centered">Sample markup</p>
+      <code class="flat">
+        {{ markupBasic }}
+        {{ markupBasic2 }}
+        {{ markupBasic3 }}
+        {{ markupBasic4 }}
+      </code>
     </div>
   </div>
 </template>
