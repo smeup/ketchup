@@ -1,4 +1,4 @@
-import type { KupComponent } from '../../types/GenericTypes';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     KupDebugLog,
@@ -114,6 +114,37 @@ export class KupDebug {
      */
     isDebug(): boolean {
         return this.active;
+    }
+    /**
+     * Retrieves the information for every component in the logs array.
+     */
+    async getProps(value?: boolean): Promise<GenericObject> {
+        let comps: Set<KupComponent> = new Set();
+        for (let index = 0; index < this.logs.length; index++) {
+            if (typeof this.logs[index].element !== 'string') {
+                if (!comps.has(this.logs[index].element as KupComponent)) {
+                    comps.add(this.logs[index].element as KupComponent);
+                }
+            }
+        }
+        comps.forEach((el) => {
+            try {
+                el.getProps()
+                    .then((res) => console.log(res))
+                    .catch((err) =>
+                        this.logMessage('kup-debug', err, 'warning')
+                    );
+            } catch (error) {
+                this.logMessage(
+                    'kup-debug',
+                    'Exception when accessing "getProps" public method for component: ' +
+                        el.rootElement.tagName,
+                    'warning'
+                );
+            }
+        });
+        console.log(comps);
+        return { value: value };
     }
     /**
      * Displays a timestamped message in the browser's console when the kupDebug property on document.documentElement is true.
