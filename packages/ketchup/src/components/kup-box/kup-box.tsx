@@ -1695,11 +1695,15 @@ export class KupBox {
                 style: { 'grid-template-columns': `repeat(1, 1fr)` },
             };
         }
-        let kanbanSections: { [index: string]: VNode[] } = {};
-        let kanbanJSX: VNode[] = [];
+        const kanbanSections: { [index: string]: VNode[] } = {};
+        const kanbanJSX: VNode[] = [];
+        const sortingOrder: Set<string> = new Set();
         if (this.kanban.labels) {
             for (let index = 0; index < this.kanban.labels.length; index++) {
                 kanbanSections[this.kanban.labels[index]] = [];
+                if (!sortingOrder.has(this.kanban.labels[index])) {
+                    sortingOrder.add(this.kanban.labels[index]);
+                }
             }
         }
         for (let index = 0; index < this.rows.length; index++) {
@@ -1710,17 +1714,20 @@ export class KupBox {
             } else {
                 kanbanSections[key] = [this.renderRow(this.rows[index])];
             }
-        }
-        for (var key in kanbanSections) {
-            if (kanbanSections.hasOwnProperty(key)) {
-                kanbanJSX.push(
-                    <div class="kanban-section">
-                        <div class="kanban-title">{key}</div>
-                        {kanbanSections[key]}
-                    </div>
-                );
+            if (!sortingOrder.has(key)) {
+                sortingOrder.add(key);
             }
         }
+        sortingOrder.forEach((section) => {
+            kanbanJSX.push(
+                <div class="kanban-section">
+                    <div class="kanban-title">
+                        {section ? section : '\u00A0'}
+                    </div>
+                    {kanbanSections[section]}
+                </div>
+            );
+        });
         return {
             jsx: kanbanJSX,
             style: {
