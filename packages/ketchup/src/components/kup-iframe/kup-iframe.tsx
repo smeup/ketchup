@@ -6,11 +6,14 @@ import {
     EventEmitter,
     Prop,
     h,
+    Method,
 } from '@stencil/core';
+import type { GenericObject } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { KupIframeProps } from './kup-iframe-declarations';
 
 @Component({
     tag: 'kup-iframe',
@@ -66,6 +69,25 @@ export class KupIframe {
 
     openInNew() {
         window.open(this.src, '_blank');
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupIframeProps;
+        } else {
+            for (const key in KupIframeProps) {
+                if (Object.prototype.hasOwnProperty.call(KupIframeProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     //---- Lifecycle hooks ----

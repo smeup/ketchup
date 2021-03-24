@@ -1145,6 +1145,12 @@ export namespace Components {
          */
         "firstThreshold"?: number;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * The distance the label and the value has from the gauge graph.
          */
         "labelDistance": number;
@@ -1218,6 +1224,12 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * When set to true, forces the content on a single line.
          */
         "singleLine": boolean;
@@ -1228,6 +1240,12 @@ export namespace Components {
           * Props of the button (when isButton is set to true).
          */
         "buttonData": Object;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * The component will be rendered as a button, which opens the link associated to the iframe in another tab when clicked.
          */
@@ -1264,6 +1282,12 @@ export namespace Components {
           * @default false
          */
         "feedback": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future.
           * @default false
@@ -1342,6 +1366,12 @@ export namespace Components {
          */
         "data": {};
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * Displays an animated SVG placeholder until the component is loaded.
          */
         "showPlaceholder": boolean;
@@ -1369,6 +1399,12 @@ export namespace Components {
           * Keeps string for filtering elements when filter mode is active
          */
         "filter": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Hides rows' text, ideally to display a list of icons only.
          */
@@ -1414,6 +1450,12 @@ export namespace Components {
          */
         "data": ComponentNavBarData;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * Defines how the bar will be displayed.
          */
         "mode": ComponentNavBarMode;
@@ -1435,6 +1477,12 @@ export namespace Components {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Flag to show or hide the progress bar's label.
          */
@@ -1513,6 +1561,12 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * Defaults at false. When set to true, the label will be on the left of the component.
          */
         "leadingLabel": boolean;
@@ -1531,6 +1585,12 @@ export namespace Components {
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Max number of stars (default 5)
          */
@@ -1591,6 +1651,12 @@ export namespace Components {
          */
         "fullScreen": boolean;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * Sets the layout of the spinner.
          */
         "layout": number;
@@ -1613,6 +1679,12 @@ export namespace Components {
           * @default false
          */
         "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Defaults at null. When specified, its content will be shown as a label.
           * @default null

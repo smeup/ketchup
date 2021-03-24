@@ -1,3 +1,12 @@
+/**
+ * Props of the kup-nav-bar component.
+ * Used to export every prop in an object.
+ */
+export enum KupNavBarProps {
+    customStyle = 'Custom style of the component.',
+    data = 'The actual data of the nav bar.',
+    mode = 'Defines how the bar will be displayed.',
+}
 export interface ComponentNavBarData {
     title: string;
     menuAction?: ComponentNavBarElement;
