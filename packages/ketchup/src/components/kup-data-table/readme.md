@@ -150,6 +150,16 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 
 
 
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
+
 ### `resizeCallback() => Promise<void>`
 
 This method is invoked by KupManager whenever the component changes size.

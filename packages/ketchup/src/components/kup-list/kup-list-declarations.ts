@@ -1,3 +1,22 @@
+/**
+ * Props of the kup-list component.
+ * Used to export every prop in an object.
+ */
+export enum KupListProps {
+    arrowDown = "Used to navigate the list when it's bound to a text field, i.e.: autocomplete.",
+    arrowUp = "Used to navigate the list when it's bound to a text field, i.e.: autocomplete.",
+    customStyle = 'Custom style of the component.',
+    data = 'The data of the list.',
+    displayMode = 'Selects how the items must display their label and how they can be filtered for.',
+    filter = 'Keeps string for filtering elements when filter mode is active',
+    hideText = "Hides rows' text, ideally to display a list of icons only.",
+    isMenu = 'Defines whether the list is a menu or not.',
+    menuVisible = "Sets the status of the menu, when false it's hidden otherwise it's visible.",
+    roleType = 'Defines the type of selection. Values accepted: listbox, radiogroup or group.',
+    selectable = 'Defines whether items are selectable or not.',
+    showIcons = 'Displays the icons associated to each row when set to true.',
+    twoLine = 'The list elements descriptions will be arranged in two lines.',
+}
 export interface ComponentListElement {
     text: string;
     secondaryText?: string;

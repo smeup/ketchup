@@ -29,6 +29,7 @@ import {
     CollapsedSectionsState,
     BoxObject,
     BoxKanban,
+    KupBoxProps,
 } from './kup-box-declarations';
 
 import {
@@ -182,7 +183,7 @@ export class KupBox {
     @State() customStyleTheme: string = undefined;
 
     /**
-     * Number of columns
+     * Data of the card linked to the box when the latter's layout must be a premade template.
      */
     @Prop() cardData: GenericObject;
     /**
@@ -490,6 +491,25 @@ export class KupBox {
     @Method()
     async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupBoxProps;
+        } else {
+            for (const key in KupBoxProps) {
+                if (Object.prototype.hasOwnProperty.call(KupBoxProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     //---- Lifecycle hooks ----

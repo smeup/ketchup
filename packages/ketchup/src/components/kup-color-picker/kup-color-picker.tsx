@@ -9,13 +9,15 @@ import {
     Method,
     EventEmitter,
 } from '@stencil/core';
+import Picker from 'vanilla-picker';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import Picker from 'vanilla-picker';
 import { KupTextField } from '../kup-text-field/kup-text-field';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import type { GenericObject } from '../../types/GenericTypes';
+import { KupColorPickerProps } from './kup-color-picker-declarations';
 
 @Component({
     tag: 'kup-color-picker',
@@ -98,6 +100,30 @@ export class KupColorPicker {
     async setValue(value: string) {
         this.value = value;
         this.textfieldEl.setValue(value);
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupColorPickerProps;
+        } else {
+            for (const key in KupColorPickerProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        KupColorPickerProps,
+                        key
+                    )
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     private onKupInput(e: CustomEvent) {

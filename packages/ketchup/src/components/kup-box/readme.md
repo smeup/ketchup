@@ -9,7 +9,7 @@
 
 | Property                  | Attribute                     | Description                                                                                                     | Type                                       | Default     |
 | ------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------- |
-| `cardData`                | --                            | Number of columns                                                                                               | `GenericObject`                            | `undefined` |
+| `cardData`                | --                            | Data of the card linked to the box when the latter's layout must be a premade template.                         | `GenericObject`                            | `undefined` |
 | `columns`                 | `columns`                     | Number of columns                                                                                               | `number`                                   | `1`         |
 | `customStyle`             | `custom-style`                | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                   | `''`        |
 | `data`                    | --                            | Data                                                                                                            | `{ columns?: Column[]; rows?: BoxRow[]; }` | `undefined` |
@@ -57,6 +57,16 @@
 
 
 ## Methods
+
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
 
 ### `loadRowActions(row: BoxRow, actions: RowAction[]) => Promise<void>`
 

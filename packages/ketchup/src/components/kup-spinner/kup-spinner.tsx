@@ -7,10 +7,12 @@ import {
     h,
     Method,
 } from '@stencil/core';
+import { GenericObject } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { KupSpinnerProps } from './kup-spinner-declarations';
 
 @Component({
     tag: 'kup-spinner',
@@ -65,6 +67,27 @@ export class KupSpinner {
     @Method()
     async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupSpinnerProps;
+        } else {
+            for (const key in KupSpinnerProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(KupSpinnerProps, key)
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     //---- Lifecycle hooks ----

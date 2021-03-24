@@ -1,4 +1,4 @@
-import type { KupComponent } from '../../types/GenericTypes';
+import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     KupDebugLog,
@@ -114,6 +114,71 @@ export class KupDebug {
      */
     isDebug(): boolean {
         return this.active;
+    }
+    /**
+     * Retrieves the information for every component in this.logs by invoking the getProps public method of each component.
+     * 'object' will contain the props of the component's object (i.e.: KupChip).
+     * 'tag' will contain the props of the component's html tag (i.e.: <kup-chip>).
+     * 'props' will contain the developer defined props of the component, making it handy for test purposes.
+     * @param {boolean} detail - If provided and true, the returned object will contain additional information (i.e.: className, id).
+     * @returns {GenericObject} Props of the components.
+     */
+    async getProps(detail?: boolean): Promise<GenericObject> {
+        let comps: Set<KupComponent> = new Set();
+        let props: GenericObject = detail ? { descriptions: {} } : {};
+        for (let index = 0; index < this.logs.length; index++) {
+            if (typeof this.logs[index].element !== 'string') {
+                if (!comps.has(this.logs[index].element as KupComponent)) {
+                    comps.add(this.logs[index].element as KupComponent);
+                }
+            }
+        }
+        comps.forEach((el: KupComponent) => {
+            try {
+                el.getProps()
+                    .then((res: GenericObject) => {
+                        let cnt: number = 0;
+                        let key: string = el.rootElement.tagName + '_' + ++cnt;
+                        while (props[key]) {
+                            key = el.rootElement.tagName + '_' + ++cnt;
+                        }
+                        if (detail) {
+                            let obj: GenericObject = {};
+                            for (const key in el) {
+                                obj[key] = el[key];
+                            }
+                            let tag: GenericObject = {};
+                            for (const key in el.rootElement) {
+                                tag[key] = el.rootElement[key];
+                            }
+                            props[key] = {
+                                props: res,
+                                extraInfo: { obj, tag },
+                            };
+                            if (!props.descriptions[el.rootElement.tagName]) {
+                                el.getProps(true).then((res: GenericObject) => {
+                                    props.descriptions[
+                                        el.rootElement.tagName
+                                    ] = res;
+                                });
+                            }
+                        } else {
+                            props[key] = res;
+                        }
+                    })
+                    .catch((err) =>
+                        this.logMessage('kup-debug', err, 'warning')
+                    );
+            } catch (error) {
+                this.logMessage(
+                    'kup-debug',
+                    'Exception when accessing "getProps" public method for component: ' +
+                        el.rootElement.tagName,
+                    'warning'
+                );
+            }
+        });
+        return props;
     }
     /**
      * Displays a timestamped message in the browser's console when the kupDebug property on document.documentElement is true.

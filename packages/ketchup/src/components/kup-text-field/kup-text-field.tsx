@@ -16,6 +16,8 @@ import {
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { GenericObject } from '../../types/GenericTypes';
+import { KupTextFieldProps } from './kup-text-field-declarations';
 
 @Component({
     tag: 'kup-text-field',
@@ -353,6 +355,27 @@ export class KupTextField {
     @Method()
     async themeChangeCallback(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupTextFieldProps;
+        } else {
+            for (const key in KupTextFieldProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(KupTextFieldProps, key)
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
     /**
      * Focuses the input element.

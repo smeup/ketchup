@@ -11,13 +11,12 @@ import {
     Method,
     Watch,
 } from '@stencil/core';
-import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import type { GenericObject } from '../../types/GenericTypes';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-
 import {
     formattedStringToDefaultUnformattedStringDate,
     isValidFormattedStringDate,
@@ -28,7 +27,11 @@ import {
     ISO_DEFAULT_DATE_FORMAT,
     fillString,
 } from '../../utils/utils';
-import { SourceEvent } from './kup-date-picker-declarations';
+import {
+    KupDatePickerProps,
+    SourceEvent,
+} from './kup-date-picker-declarations';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
 @Component({
     tag: 'kup-date-picker',
@@ -269,6 +272,30 @@ export class KupDatePicker {
     async setValue(value: string) {
         this.value = value;
         this.setTextFieldInitalValue(this.getDateForOutput());
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupDatePickerProps;
+        } else {
+            for (const key in KupDatePickerProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        KupDatePickerProps,
+                        key
+                    )
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     onKupBlur() {

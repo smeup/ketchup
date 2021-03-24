@@ -6,8 +6,8 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
-import { KupStore } from "./components/kup-state/kup-store";
 import { GenericObject } from "./types/GenericTypes";
+import { KupStore } from "./components/kup-state/kup-store";
 import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxKanban, BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
@@ -58,6 +58,12 @@ export namespace Components {
           * Sets how the show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode": ItemsDisplayMode;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component.
@@ -85,6 +91,12 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * The data of the image displayed inside the badge.
          */
         "imageData": {};
@@ -96,7 +108,7 @@ export namespace Components {
     }
     interface KupBox {
         /**
-          * Number of columns
+          * Data of the card linked to the box when the latter's layout must be a premade template.
          */
         "cardData": GenericObject;
         /**
@@ -127,6 +139,12 @@ export namespace Components {
           * If enabled, a button to load / display the row actions will be displayed on the right of every box
          */
         "enableRowActions": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * When set to true it activates the global filter.
          */
@@ -230,6 +248,12 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * When set, the button will show this icon.
           * @default null
          */
@@ -292,6 +316,12 @@ export namespace Components {
           * @default null
          */
         "data": CardData;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Defines whether the card is a menu or not. Works together with menuVisible.
           * @default false
@@ -359,6 +389,12 @@ export namespace Components {
           * The actual data of the chart.
          */
         "data": DataTable;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Customize the hAxis.
          */
@@ -433,6 +469,12 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * When set to true, the component will be set to 'indeterminate'.
           * @default false
          */
@@ -468,6 +510,12 @@ export namespace Components {
          */
         "data": FChipData[];
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
           * @param customStyleTheme - Contains current theme's component-specific CSS.
           * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -493,6 +541,12 @@ export namespace Components {
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
@@ -523,6 +577,12 @@ export namespace Components {
           * Sets how the show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode": ItemsDisplayMode;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component
@@ -652,6 +712,12 @@ export namespace Components {
          */
         "forceOneLine": boolean;
         "getInternalState": () => Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData; }>;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * When set to true it activates the global filter.
          */
@@ -843,6 +909,12 @@ export namespace Components {
           * First day number (0 - sunday, 1 - monday, ...)
          */
         "firstDayIndex": number;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component
@@ -858,6 +930,12 @@ export namespace Components {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "open": () => Promise<void>;
         /**
           * Defaults at false. When set to true, the drawer appears.
@@ -883,6 +961,12 @@ export namespace Components {
           * Sets how the show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode": ItemsDisplayMode;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "getValue": () => Promise<string>;
         /**
           * Defaults at null. When set, the button will show this icon.
@@ -929,11 +1013,17 @@ export namespace Components {
          */
         "data": object;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
         "legend": string;
         /**
-          * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
+          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
          */
         "mapType": any;
         /**
@@ -977,6 +1067,12 @@ export namespace Components {
           * @returns
          */
         "getCurrentValue": () => Promise<string | object>;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * The text of the label. If set to empty or has only white space chars, the label will be removed.
          */
@@ -1048,6 +1144,12 @@ export namespace Components {
           * The first threshold, establishing the length of the first and second arc.
          */
         "firstThreshold"?: number;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * The distance the label and the value has from the gauge graph.
          */
@@ -1122,6 +1224,12 @@ export namespace Components {
          */
         "customStyle": string;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * When set to true, forces the content on a single line.
          */
         "singleLine": boolean;
@@ -1132,6 +1240,12 @@ export namespace Components {
           * Props of the button (when isButton is set to true).
          */
         "buttonData": Object;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * The component will be rendered as a button, which opens the link associated to the iframe in another tab when clicked.
          */
@@ -1168,6 +1282,12 @@ export namespace Components {
           * @default false
          */
         "feedback": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future.
           * @default false
@@ -1246,6 +1366,12 @@ export namespace Components {
          */
         "data": {};
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * Displays an animated SVG placeholder until the component is loaded.
          */
         "showPlaceholder": boolean;
@@ -1273,6 +1399,12 @@ export namespace Components {
           * Keeps string for filtering elements when filter mode is active
          */
         "filter": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Hides rows' text, ideally to display a list of icons only.
          */
@@ -1318,6 +1450,12 @@ export namespace Components {
          */
         "data": ComponentNavBarData;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * Defines how the bar will be displayed.
          */
         "mode": ComponentNavBarMode;
@@ -1339,6 +1477,12 @@ export namespace Components {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Flag to show or hide the progress bar's label.
          */
@@ -1417,6 +1561,12 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * Defaults at false. When set to true, the label will be on the left of the component.
          */
         "leadingLabel": boolean;
@@ -1435,6 +1585,12 @@ export namespace Components {
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Max number of stars (default 5)
          */
@@ -1495,6 +1651,12 @@ export namespace Components {
          */
         "fullScreen": boolean;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * Sets the layout of the spinner.
          */
         "layout": number;
@@ -1517,6 +1679,12 @@ export namespace Components {
           * @default false
          */
         "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Defaults at null. When specified, its content will be shown as a label.
           * @default null
@@ -1544,6 +1712,12 @@ export namespace Components {
           * List of elements.
          */
         "data": ComponentTabBarElement[];
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupTextField {
@@ -1568,6 +1742,12 @@ export namespace Components {
           * @default false
          */
         "fullWidth": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Returns the component's internal value.
          */
@@ -1680,6 +1860,12 @@ export namespace Components {
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component
@@ -1714,6 +1900,12 @@ export namespace Components {
           * Timeout for loadDetail
          */
         "detailTimeout": number;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Layout used to display the items
          */
@@ -1768,6 +1960,12 @@ export namespace Components {
           * List of filters set by the user.
          */
         "filters": GenericFilter;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * When set to true it activates the global filter.
          */
@@ -2268,7 +2466,7 @@ declare namespace LocalJSX {
     }
     interface KupBox {
         /**
-          * Number of columns
+          * Data of the card linked to the box when the latter's layout must be a premade template.
          */
         "cardData"?: GenericObject;
         /**
@@ -3362,7 +3560,7 @@ declare namespace LocalJSX {
          */
         "legend"?: string;
         /**
-          * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
+          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
          */
         "mapType"?: any;
         "onKupEchartClicked"?: (event: CustomEvent<any>) => void;

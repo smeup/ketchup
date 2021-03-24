@@ -10,17 +10,19 @@ import {
     Method,
     Listen,
 } from '@stencil/core';
-import {
-    ItemsDisplayMode,
-    consistencyCheck,
-} from '../kup-list/kup-list-declarations';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import type { GenericObject } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import {
+    ItemsDisplayMode,
+    consistencyCheck,
+} from '../kup-list/kup-list-declarations';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
-import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import { KupComboboxProps } from './kup-combobox-declarations';
 
 @Component({
     tag: 'kup-combobox',
@@ -208,6 +210,27 @@ export class KupCombobox {
         this.kupChange.emit({
             value: this.value,
         });
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupComboboxProps;
+        } else {
+            for (const key in KupComboboxProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(KupComboboxProps, key)
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     onKupClick(e: UIEvent & { target: HTMLInputElement }) {
