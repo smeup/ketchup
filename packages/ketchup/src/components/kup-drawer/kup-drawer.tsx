@@ -10,10 +10,12 @@ import {
     EventEmitter,
     Watch,
 } from '@stencil/core';
+import { GenericObject } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { KupDrawerProps } from './kup-drawer-declarations';
 
 @Component({
     tag: 'kup-drawer',
@@ -78,6 +80,25 @@ export class KupDrawer {
     @Method()
     async open() {
         this.opened = true;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupDrawerProps;
+        } else {
+            for (const key in KupDrawerProps) {
+                if (Object.prototype.hasOwnProperty.call(KupDrawerProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     //---- Lifecycle hooks ----

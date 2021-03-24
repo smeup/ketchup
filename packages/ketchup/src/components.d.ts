@@ -909,6 +909,12 @@ export namespace Components {
           * First day number (0 - sunday, 1 - monday, ...)
          */
         "firstDayIndex": number;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component
@@ -924,6 +930,12 @@ export namespace Components {
           * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
          */
         "customStyle": string;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "open": () => Promise<void>;
         /**
           * Defaults at false. When set to true, the drawer appears.
@@ -949,6 +961,12 @@ export namespace Components {
           * Sets how the show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode": ItemsDisplayMode;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "getValue": () => Promise<string>;
         /**
           * Defaults at null. When set, the button will show this icon.
@@ -995,11 +1013,17 @@ export namespace Components {
          */
         "data": object;
         /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
           * Sets the position of the legend. Supported values: bottom, left, right, top. Keep in mind that legend types are tied to chart types, some combinations might not work.
          */
         "legend": string;
         /**
-          * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
+          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
          */
         "mapType": any;
         /**
@@ -1043,6 +1067,12 @@ export namespace Components {
           * @returns
          */
         "getCurrentValue": () => Promise<string | object>;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * The text of the label. If set to empty or has only white space chars, the label will be removed.
          */
@@ -3428,7 +3458,7 @@ declare namespace LocalJSX {
          */
         "legend"?: string;
         /**
-          * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
+          * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
          */
         "mapType"?: any;
         "onKupEchartClicked"?: (event: CustomEvent<any>) => void;
