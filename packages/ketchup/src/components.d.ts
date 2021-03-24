@@ -1712,6 +1712,12 @@ export namespace Components {
           * List of elements.
          */
         "data": ComponentTabBarElement[];
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupTextField {
@@ -1736,6 +1742,12 @@ export namespace Components {
           * @default false
          */
         "fullWidth": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Returns the component's internal value.
          */
@@ -1848,6 +1860,12 @@ export namespace Components {
           * Defaults at false. When set to true, the component is disabled.
          */
         "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         "getValue": () => Promise<string>;
         /**
           * Sets the initial value of the component
@@ -1882,6 +1900,12 @@ export namespace Components {
           * Timeout for loadDetail
          */
         "detailTimeout": number;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * Layout used to display the items
          */
@@ -1936,6 +1960,12 @@ export namespace Components {
           * List of filters set by the user.
          */
         "filters": GenericFilter;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * When set to true it activates the global filter.
          */

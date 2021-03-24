@@ -1,5 +1,18 @@
 import { DataTable } from '../kup-data-table/kup-data-table-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
+/**
+ * Props of the kup-tooltip component.
+ * Used to export every prop in an object.
+ */
+export enum KupTooltipProps {
+    cellOptions = 'Data for cell options',
+    data = 'Data for top section',
+    detailData = 'Data for the detail',
+    detailTimeout = 'Timeout for loadDetail',
+    layout = 'Layout used to display the items',
+    loadTimeout = 'Timeout for tooltip',
+    relatedObject = 'Container element for tooltip',
+}
 
 export interface TooltipObject {
     t: String;

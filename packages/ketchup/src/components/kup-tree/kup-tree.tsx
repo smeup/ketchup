@@ -24,14 +24,13 @@ import {
 } from './../kup-data-table/kup-data-table-declarations';
 
 import {
+    KupTreeProps,
     treeExpandedPropName,
     TreeNode,
     TreeNodePath,
 } from './kup-tree-declarations';
 
 import { hasTooltip, isNumber } from '../../utils/object-utils';
-
-import { ScrollOnHover } from '../../utils/scroll-on-hover/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
 import {
     KupManager,
@@ -461,6 +460,25 @@ export class KupTree {
             });
         }
         this.forceUpdate();
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupTreeProps;
+        } else {
+            for (const key in KupTreeProps) {
+                if (Object.prototype.hasOwnProperty.call(KupTreeProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     setColumnMenu(column: string) {

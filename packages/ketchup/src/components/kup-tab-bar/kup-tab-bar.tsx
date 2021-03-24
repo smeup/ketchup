@@ -12,11 +12,15 @@ import {
 } from '@stencil/core';
 
 import { MDCTabBar } from '@material/tab-bar';
-import { ComponentTabBarElement } from './kup-tab-bar-declarations';
+import {
+    ComponentTabBarElement,
+    KupTabBarProps,
+} from './kup-tab-bar-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { GenericObject } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -79,6 +83,25 @@ export class KupTabBar {
     @Method()
     async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupTabBarProps;
+        } else {
+            for (const key in KupTabBarProps) {
+                if (Object.prototype.hasOwnProperty.call(KupTabBarProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     onKupBlur(i: number, e: Event) {

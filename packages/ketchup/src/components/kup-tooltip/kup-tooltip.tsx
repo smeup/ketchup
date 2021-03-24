@@ -18,6 +18,7 @@ import {
     TooltipObject,
     ViewMode,
     TooltipCellOptions,
+    KupTooltipProps,
 } from './kup-tooltip-declarations';
 import {
     KupManager,
@@ -27,6 +28,7 @@ import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
 import { KupTree } from '../kup-tree/kup-tree';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import { GenericObject } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kup-tooltip',
@@ -282,6 +284,27 @@ export class KupTooltip {
         } else {
             //console.log('tooltip unsetTooltipInfo mouseIsoN');
         }
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupTooltipProps;
+        } else {
+            for (const key in KupTooltipProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(KupTooltipProps, key)
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     // ---- Private methods ----
