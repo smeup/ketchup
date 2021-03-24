@@ -124,9 +124,8 @@ export class KupDebug {
      * @returns {GenericObject} Props of the components.
      */
     async getProps(detail?: boolean): Promise<GenericObject> {
-        let cnt: number = 0;
         let comps: Set<KupComponent> = new Set();
-        let props: GenericObject = {};
+        let props: GenericObject = detail ? { descriptions: {} } : {};
         for (let index = 0; index < this.logs.length; index++) {
             if (typeof this.logs[index].element !== 'string') {
                 if (!comps.has(this.logs[index].element as KupComponent)) {
@@ -138,8 +137,11 @@ export class KupDebug {
             try {
                 el.getProps()
                     .then((res: GenericObject) => {
-                        const key: string =
-                            el.rootElement.tagName + '_' + ++cnt;
+                        let cnt: number = 0;
+                        let key: string = el.rootElement.tagName + '_' + ++cnt;
+                        while (props[key]) {
+                            key = el.rootElement.tagName + '_' + ++cnt;
+                        }
                         if (detail) {
                             let obj: GenericObject = {};
                             for (const key in el) {
@@ -153,6 +155,13 @@ export class KupDebug {
                                 props: res,
                                 extraInfo: { obj, tag },
                             };
+                            if (!props.descriptions[el.rootElement.tagName]) {
+                                el.getProps(true).then((res: GenericObject) => {
+                                    props.descriptions[
+                                        el.rootElement.tagName
+                                    ] = res;
+                                });
+                            }
                         } else {
                             props[key] = res;
                         }

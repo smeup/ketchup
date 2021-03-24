@@ -14,6 +14,16 @@
 
 ## Methods
 
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
+
 ### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 
