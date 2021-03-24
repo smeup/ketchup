@@ -1721,7 +1721,9 @@ export class KupBox {
         sortingOrder.forEach((section) => {
             kanbanJSX.push(
                 <div class="kanban-section">
-                    <div class="kanban-title">{section}</div>
+                    <div class="kanban-title">
+                        {section ? section : '\u00A0'}
+                    </div>
                     {kanbanSections[section]}
                 </div>
             );
