@@ -12,6 +12,7 @@ import {
     Method,
     Element,
     VNode,
+    JSX,
 } from '@stencil/core';
 
 import {
@@ -82,6 +83,9 @@ import { deepEqual, identify, stringToNumber } from '../../utils/utils';
 import { GenericObject } from '../../types/GenericTypes';
 import { FImage } from '../../f-components/f-image/f-image';
 import { FButton } from '../../f-components/f-button/f-button';
+import { FChip } from '../../f-components/f-chip/f-chip';
+import { FChipsProps } from '../../f-components/f-chip/f-chip-declarations';
+import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -251,6 +255,10 @@ export class KupBox {
      * Number of current rows per page
      */
     @Prop() rowsPerPage: number;
+    /**
+     * Activates the scroll on hover function.
+     */
+    @Prop() scrollOnHover: boolean = false;
     /**
      * Automatically selects the box at the specified index
      */
@@ -448,6 +456,7 @@ export class KupBox {
 
     private tooltip: KupTooltip;
     private globalFilterTimeout: number;
+    private boxContainer: ScrollableElement;
     /**
      * Instance of the KupManager class.
      */
@@ -552,6 +561,7 @@ export class KupBox {
     }
 
     componentDidRender() {
+        this.checkScrollOnHover();
         // *** Store
         this.persistState();
         // ***
@@ -636,6 +646,18 @@ export class KupBox {
         }
 
         return sortedRows;
+    }
+
+    private checkScrollOnHover() {
+        if (!this.kupManager.scrollOnHover.isRegistered(this.boxContainer)) {
+            if (this.scrollOnHover) {
+                this.kupManager.scrollOnHover.register(this.boxContainer);
+            }
+        } else {
+            if (!this.scrollOnHover) {
+                this.kupManager.scrollOnHover.unregister(this.boxContainer);
+            }
+        }
     }
 
     private checkLayout() {
@@ -1702,10 +1724,11 @@ export class KupBox {
      * @returns {{jsx: VNode[], style: { [index: string]: string }}} jsx contains the virtual nodes of the Kanban sections, style contains the grid CSS settings.
      */
     kanbanMode(): { jsx: VNode[]; style: { [index: string]: string } } {
-        if (!this.kanban.column) {
+        // Testing whether there are columns to group by
+        if (!this.kanban.columns || this.kanban.columns.length === 0) {
             this.kupManager.debug.logMessage(
                 this,
-                'Invalid kanban column: ' + this.kanban.column,
+                'No columns to group by detected.',
                 'error'
             );
             return {
@@ -1713,39 +1736,82 @@ export class KupBox {
                 style: { 'grid-template-columns': `repeat(1, 1fr)` },
             };
         }
-        const kanbanSections: { [index: string]: VNode[] } = {};
-        const kanbanJSX: VNode[] = [];
-        const sortingOrder: Set<string> = new Set();
+        const kanbanSections: { labels: string[]; nodes: VNode[] }[] = [];
+
+        // Creating empty sections from prop-defined labels
         if (this.kanban.labels) {
             for (let index = 0; index < this.kanban.labels.length; index++) {
-                kanbanSections[this.kanban.labels[index]] = [];
-                if (!sortingOrder.has(this.kanban.labels[index])) {
-                    sortingOrder.add(this.kanban.labels[index]);
+                const key: Array<string> = this.kanban.labels[index];
+                kanbanSections.push({ labels: key, nodes: [] });
+            }
+        }
+        // Browsing all rows
+        for (let index = 0; index < this.rows.length; index++) {
+            let key: Array<string> = [];
+            // Creating the key for the current row
+            for (let j = 0; j < this.kanban.columns.length; j++) {
+                try {
+                    key.push(
+                        this.rows[index].cells[this.kanban.columns[j]].value
+                    );
+                } catch (error) {
+                    this.kupManager.debug.logMessage(this, error, 'warning');
                 }
             }
-        }
-        for (let index = 0; index < this.rows.length; index++) {
-            let key: string = this.rows[index].cells[this.kanban.column].value;
-            let sectionExists: boolean = !!kanbanSections[key];
-            if (sectionExists) {
-                kanbanSections[key].push(this.renderRow(this.rows[index]));
+            const check: { found: boolean; index: number } = {
+                found: false,
+                index: null,
+            };
+            // Browsing key array to search whether the current key exists or not
+            for (let j = 0; j < kanbanSections.length; j++) {
+                let sortingKey = kanbanSections[j].labels;
+                let found: boolean = true;
+                for (let i = 0; i < sortingKey.length; i++) {
+                    if (key[i] !== sortingKey[i]) {
+                        found = false;
+                        break;
+                    }
+                }
+                if (found) {
+                    check.found = true;
+                    check.index = j;
+                    break;
+                }
+            }
+            // If current key exists, box will be pushed into the existing array of virtual nodes
+            if (check.found) {
+                kanbanSections[check.index].nodes.push(
+                    this.renderRow(this.rows[index])
+                );
             } else {
-                kanbanSections[key] = [this.renderRow(this.rows[index])];
-            }
-            if (!sortingOrder.has(key)) {
-                sortingOrder.add(key);
+                // Otherwise, a new section will be defined starting with just the current virtal node
+                kanbanSections.push({
+                    labels: key,
+                    nodes: [this.renderRow(this.rows[index])],
+                });
             }
         }
-        sortingOrder.forEach((section) => {
+        // Once the arrays are set, they need to be emptied into columns
+        const kanbanJSX: VNode[] = [];
+        for (let index = 0; index < kanbanSections.length; index++) {
+            const sortingKey: Array<string> = kanbanSections[index].labels;
+            const props: FChipsProps = {
+                data: [],
+            };
+            for (let index = 0; index < sortingKey.length; index++) {
+                props.data.push({
+                    checked: false,
+                    label: sortingKey[index],
+                    value: sortingKey[index],
+                });
+            }
             kanbanJSX.push(
                 <div class="kanban-section">
-                    <div class="kanban-title">
-                        {section ? section : '\u00A0'}
-                    </div>
-                    {kanbanSections[section]}
+                    <FChip {...props} />
+                    {kanbanSections[index].nodes}
                 </div>
             );
-        });
+        }
         return {
             jsx: kanbanJSX,
             style: {
@@ -1943,6 +2009,9 @@ export class KupBox {
                                 ev.stopPropagation();
                                 unsetTooltip(this.tooltip);
                             }}
+                            ref={(el: HTMLElement) =>
+                                (this.boxContainer = el as ScrollableElement)
+                            }
                         >
                             {boxContent}
                         </div>
@@ -1955,6 +2024,9 @@ export class KupBox {
 
     componentDidUnload() {
         this.kupManager.theme.unregister(this);
+        if (this.scrollOnHover) {
+            this.kupManager.scrollOnHover.unregister(this.boxContainer);
+        }
         // When component is destroyed, then the listener is removed. @See clickFunction for more details
         document.removeEventListener('click', this.clickFunction.bind(this));
         this.kupDidUnload.emit();

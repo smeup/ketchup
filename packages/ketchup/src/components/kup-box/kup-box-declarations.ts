@@ -25,6 +25,7 @@ export enum KupBoxProps {
     pageSize = 'Number of boxes per page.',
     pagination = 'Enables pagination.',
     rowsPerPage = 'Number of current rows per page.',
+    scrollOnHover = 'Activates the scroll on hover function.',
     selectBox = 'Automatically selects the box at the specified index.',
     selectedRowsState = 'Multiple selection.',
     showSelection = 'If enabled, highlights the selected box/boxes.',
@@ -83,7 +84,7 @@ export interface CollapsedSectionsState {
  * Interface for a kanban-displayed boxlist.
  */
 export interface BoxKanban {
-    column: string;
-    labels?: string[];
+    columns: string[];
+    labels?: Array<Array<string>>;
     size?: string;
 }

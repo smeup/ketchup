@@ -183,6 +183,10 @@ export namespace Components {
          */
         "rowsPerPage": number;
         /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover": boolean;
+        /**
           * Automatically selects the box at the specified index
          */
         "selectBox": number;
@@ -2597,6 +2601,10 @@ declare namespace LocalJSX {
           * Number of current rows per page
          */
         "rowsPerPage"?: number;
+        /**
+          * Activates the scroll on hover function.
+         */
+        "scrollOnHover"?: boolean;
         /**
           * Automatically selects the box at the specified index
          */
