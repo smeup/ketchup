@@ -180,6 +180,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'scrollOnHover',
+          description:
+            'When the mouse move towards the left or right edge and there is an overflow, the table will automatically scroll.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'selectBox',
           description: 'Automatically selects the box at the specified index.',
           type: 'number',

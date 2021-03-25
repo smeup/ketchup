@@ -230,7 +230,6 @@ export default {
           default: '10',
           try: 'field',
         },
-
         {
           prop: 'scrollOnHover',
           description:
