@@ -24,7 +24,12 @@ export function debounceEvent(event: EventEmitter, wait: number): EventEmitter {
 //     };
 // }
 
-export function setTooltip(event: MouseEvent, cell: Cell, tooltip: KupTooltip) {
+export function setTooltip(
+    event: MouseEvent,
+    rowId: string,
+    cell: Cell,
+    tooltip: KupTooltip
+) {
     if (event != null) {
         event.stopPropagation();
     }
@@ -36,6 +41,9 @@ export function setTooltip(event: MouseEvent, cell: Cell, tooltip: KupTooltip) {
         related = {} as TooltipRelatedObject;
         related.element = event.target as HTMLElement;
         related.object = cell;
+        if (rowId != null) {
+            related.rowId = rowId;
+        }
     }
 
     let newValue = related;
