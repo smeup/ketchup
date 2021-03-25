@@ -1727,7 +1727,7 @@ export class KupBox {
      */
     kanbanMode(): { jsx: VNode[]; style: { [index: string]: string } } {
         // Testing whether there are columns to group by
-        if (this.kanban.columns.length === 0) {
+        if (!this.kanban.columns || this.kanban.columns.length === 0) {
             this.kupManager.debug.logMessage(
                 this,
                 'No columns to group by detected.',
@@ -1740,17 +1740,25 @@ export class KupBox {
         }
         const kanbanSections: { labels: string[]; nodes: VNode[] }[] = [];
 
-        // Adding prop defined labels to sorting order ["sortingOrder"] and creating empty sections ["kanbanSections"]
-        for (let index = 0; index < this.kanban.labels.length; index++) {
-            const key: Array<string> = this.kanban.labels[index];
-            kanbanSections.push({ labels: key, nodes: [] });
+        // Creating empty sections from prop-defined labels
+        if (this.kanban.labels) {
+            for (let index = 0; index < this.kanban.labels.length; index++) {
+                const key: Array<string> = this.kanban.labels[index];
+                kanbanSections.push({ labels: key, nodes: [] });
+            }
         }
         // Browsing all rows
         for (let index = 0; index < this.rows.length; index++) {
             let key: Array<string> = [];
             // Creating the key for the current row
             for (let j = 0; j < this.kanban.columns.length; j++) {
-                key.push(this.rows[index].cells[this.kanban.columns[j]].value);
+                try {
+                    key.push(
+                        this.rows[index].cells[this.kanban.columns[j]].value
+                    );
+                } catch (error) {
+                    this.kupManager.debug.logMessage(this, error, 'warning');
+                }
             }
             const check: { found: boolean; index: number } = {
                 found: false,
@@ -1806,32 +1814,6 @@ export class KupBox {
                 </div>
             );
         }
-
-        console.log(
-            'labelSet'
-        ); /*
-        for (let index = 0; index < this.rows.length; index++) {
-            let key: string = this.rows[index].cells[this.kanban.column].value;
-            let sectionExists: boolean = !!kanbanSections[key];
-            if (sectionExists) {
-                kanbanSections[key].push(this.renderRow(this.rows[index]));
-            } else {
-                kanbanSections[key] = [this.renderRow(this.rows[index])];
-            }
-            if (!sortingOrder.has(key)) {
-                sortingOrder.add(key);
-            }
-        }
-        sortingOrder.forEach((section) => {
-            kanbanJSX.push(
-                <div class="kanban-section">
-                    <div class="kanban-title">
-                        {section ? section : '\u00A0'}
-                    </div>
-                    {kanbanSections[section]}
-                </div>
-            );
-        });*/
         return {
             jsx: kanbanJSX,
             style: {
