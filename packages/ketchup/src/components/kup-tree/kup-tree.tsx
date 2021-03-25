@@ -1197,7 +1197,11 @@ export class KupTree {
                 class={cellClass}
                 onClick={() => (this.selectedColumn = cellData.column.name)}
                 style={tdStyle}
-                {...this.getToolTipEventHandlers(cell, _hasTooltip)}
+                {...this.getToolTipEventHandlers(
+                    cellData.treeNode,
+                    cell,
+                    _hasTooltip
+                )}
             >
                 {cellElements}
             </td>
@@ -1208,20 +1212,24 @@ export class KupTree {
      * Controls if current cell needs a tooltip and eventually adds it.
      * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
      */
-    private getToolTipEventHandlers(cell: Cell, hasTooltip: boolean) {
+    private getToolTipEventHandlers(
+        treeNodeData: TreeNode,
+        cell: Cell,
+        hasTooltip: boolean
+    ) {
         let eventHandlers = undefined;
         if (hasTooltip) {
             if (this.showTooltipOnRightClick) {
                 eventHandlers = {
                     onContextMenu: (ev) => {
                         ev.preventDefault();
-                        setTooltip(ev, cell, this.tooltip);
+                        setTooltip(ev, treeNodeData.id, cell, this.tooltip);
                     },
                 };
             } else {
                 eventHandlers = {
                     onMouseEnter: (ev) => {
-                        setTooltip(ev, cell, this.tooltip);
+                        setTooltip(ev, treeNodeData.id, cell, this.tooltip);
                     },
                     onMouseLeave: () => {
                         unsetTooltip(this.tooltip);
@@ -1526,7 +1534,8 @@ export class KupTree {
         }
         return (
             <kup-tooltip
-                class="datatable-tooltip"
+                class="tree-tooltip"
+                owner={this.rootElement.tagName}
                 loadTimeout={
                     this.showTooltipOnRightClick == true
                         ? 0
@@ -1754,7 +1763,11 @@ export class KupTree {
                     onDblClick={() => {
                         this.onKupTreeNodeDblClick(treeNodeData, treeNodePath);
                     }}
-                    {...this.getToolTipEventHandlers(cell, _hasTooltip)}
+                    {...this.getToolTipEventHandlers(
+                        treeNodeData,
+                        cell,
+                        _hasTooltip
+                    )}
                 >
                     {indent}
                     {treeExpandIcon}

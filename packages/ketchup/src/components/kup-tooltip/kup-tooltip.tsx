@@ -64,6 +64,10 @@ export class KupTooltip {
      */
     @Prop() loadTimeout: number = 1000;
     /**
+     * Owner of this tooltip
+     */
+    @Prop() owner: string = 'not-set';
+    /**
      * Container element for tooltip
      */
     @Prop() relatedObject: TooltipRelatedObject;
@@ -114,6 +118,7 @@ export class KupTooltip {
     })
     kupActionCommandClicked: EventEmitter<{
         actionCommand: TooltipAction;
+        relatedObject: TooltipRelatedObject;
     }>;
 
     @Event({
@@ -473,7 +478,10 @@ export class KupTooltip {
         // Blocco la propagazione del onKupButtonClicked per evitare che lo stesso click
         // sia gestito da due handler differenti, creando problemi sulla navigazione
         event.stopPropagation();
-        this.kupActionCommandClicked.emit({ actionCommand: action });
+        this.kupActionCommandClicked.emit({
+            actionCommand: action,
+            relatedObject: this.relatedObject,
+        });
     }
 
     private onDefaultActionClicked(event: Event) {

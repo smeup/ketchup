@@ -11,6 +11,7 @@ export enum KupTooltipProps {
     detailTimeout = 'Timeout for loadDetail',
     layout = 'Layout used to display the items',
     loadTimeout = 'Timeout for tooltip',
+    owner = 'Owner of this tooltip',
     relatedObject = 'Container element for tooltip',
 }
 
@@ -47,6 +48,7 @@ export interface TooltipDetailData extends DataTable {
 export interface TooltipRelatedObject {
     element: HTMLElement;
     object?: any;
+    rowId?: string;
 }
 
 export interface TooltipCellOptions extends TreeNode {

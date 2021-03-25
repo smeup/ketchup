@@ -15,6 +15,7 @@
 | `detailTimeout` | `detail-timeout` | Timeout for loadDetail           | `number`               | `800`       |
 | `layout`        | `layout`         | Layout used to display the items | `string`               | `'1'`       |
 | `loadTimeout`   | `load-timeout`   | Timeout for tooltip              | `number`               | `1000`      |
+| `owner`         | `owner`          | Owner of this tooltip            | `string`               | `'not-set'` |
 | `relatedObject` | --               | Container element for tooltip    | `TooltipRelatedObject` | `undefined` |
 
 
@@ -22,7 +23,7 @@
 
 | Event                                | Description                                     | Type                                                                                                                                                         |
 | ------------------------------------ | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `kupActionCommandClicked`            |                                                 | `CustomEvent<{ actionCommand: TooltipAction; }>`                                                                                                             |
+| `kupActionCommandClicked`            |                                                 | `CustomEvent<{ actionCommand: TooltipAction; relatedObject: TooltipRelatedObject; }>`                                                                        |
 | `kupDefaultActionClicked`            |                                                 | `CustomEvent<{ obj: TooltipObject; }>`                                                                                                                       |
 | `kupDefaultOptionClicked`            |                                                 | `CustomEvent<{ obj: TooltipObject; }>`                                                                                                                       |
 | `kupDefaultPreviewClicked`           |                                                 | `CustomEvent<{ obj: TooltipObject; }>`                                                                                                                       |
