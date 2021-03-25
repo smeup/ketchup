@@ -721,16 +721,20 @@ export class KupBox {
         el: HTMLElement
     ): {
         boxObject: HTMLElement;
+        row: BoxRow;
         cell: Cell;
     } {
         const boxObject: HTMLDivElement = el.closest('.box-object');
         let cell: Cell = null;
+        let row: BoxRow = null;
         if (boxObject) {
             cell = boxObject['data-cell'];
+            row = boxObject['data-row'];
         }
 
         return {
             boxObject: boxObject ? boxObject : null,
+            row: row ? row : null,
             cell: cell ? cell : null,
         };
     }
@@ -738,11 +742,12 @@ export class KupBox {
     private contextMenuHandler(e: MouseEvent): void {
         const details: {
             boxObject: HTMLElement;
+            row: BoxRow;
             cell: Cell;
         } = this.getEventDetails(e.target as HTMLElement);
         if (this.showTooltipOnRightClick && details.boxObject && details.cell) {
             e.preventDefault();
-            setTooltip(e, details.cell, this.tooltip);
+            setTooltip(e, details.row.id, details.cell, this.tooltip);
             return;
         }
         this.kupBoxContextMenu.emit({
@@ -955,14 +960,6 @@ export class KupBox {
 
     private handlePageChanged({ detail }) {
         this.currentPage = detail.newPage;
-    }
-
-    private _setTooltip(event: MouseEvent, cell: Cell) {
-        setTooltip(event, cell, this.tooltip);
-    }
-
-    private _unsetTooltip() {
-        unsetTooltip(this.tooltip);
     }
 
     private handleRowsPerPageChanged({ detail }) {
@@ -1675,13 +1672,13 @@ export class KupBox {
                 tipEvents = {
                     onMouseEnter: (ev) => {
                         if (_hasTooltip) {
-                            this._setTooltip(ev, cell);
+                            setTooltip(ev, row.id, cell, this.tooltip);
                         } else if (!_hasTooltip) {
-                            this._unsetTooltip();
+                            unsetTooltip(this.tooltip);
                         }
                     },
                     onMouseLeave: () => {
-                        this._unsetTooltip();
+                        unsetTooltip(this.tooltip);
                     },
                 };
             }
@@ -1689,6 +1686,7 @@ export class KupBox {
         return (
             <div
                 data-cell={cell}
+                data-row={row}
                 data-column={boxObject.column}
                 class={classObj}
                 style={boStyle}
@@ -1767,6 +1765,7 @@ export class KupBox {
         return (
             <kup-tooltip
                 class="box-tooltip"
+                owner={this.rootElement.tagName}
                 loadTimeout={
                     this.showTooltipOnRightClick == true
                         ? 0
@@ -1942,7 +1941,7 @@ export class KupBox {
                             style={containerStyle}
                             onMouseLeave={(ev) => {
                                 ev.stopPropagation();
-                                this._unsetTooltip();
+                                unsetTooltip(this.tooltip);
                             }}
                         >
                             {boxContent}
