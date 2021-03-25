@@ -143,17 +143,13 @@ export class KupDebug {
                             key = el.rootElement.tagName + '_' + ++cnt;
                         }
                         if (detail) {
-                            let obj: GenericObject = {};
-                            for (const key in el) {
-                                obj[key] = el[key];
-                            }
                             let tag: GenericObject = {};
                             for (const key in el.rootElement) {
                                 tag[key] = el.rootElement[key];
                             }
                             props[key] = {
                                 props: res,
-                                extraInfo: { obj, tag },
+                                extraInfo: { tag },
                             };
                             if (!props.descriptions[el.rootElement.tagName]) {
                                 el.getProps(true).then((res: GenericObject) => {
