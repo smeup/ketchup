@@ -117,7 +117,6 @@ export class KupDebug {
     }
     /**
      * Retrieves the information for every component in this.logs by invoking the getProps public method of each component.
-     * 'object' will contain the props of the component's object (i.e.: KupChip).
      * 'tag' will contain the props of the component's html tag (i.e.: <kup-chip>).
      * 'props' will contain the developer defined props of the component, making it handy for test purposes.
      * @param {boolean} detail - If provided and true, the returned object will contain additional information (i.e.: className, id).
@@ -143,17 +142,13 @@ export class KupDebug {
                             key = el.rootElement.tagName + '_' + ++cnt;
                         }
                         if (detail) {
-                            let obj: GenericObject = {};
-                            for (const key in el) {
-                                obj[key] = el[key];
-                            }
                             let tag: GenericObject = {};
                             for (const key in el.rootElement) {
                                 tag[key] = el.rootElement[key];
                             }
                             props[key] = {
                                 props: res,
-                                extraInfo: { obj, tag },
+                                tagInfo: tag,
                             };
                             if (!props.descriptions[el.rootElement.tagName]) {
                                 el.getProps(true).then((res: GenericObject) => {

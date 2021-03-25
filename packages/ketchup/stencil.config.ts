@@ -35,6 +35,9 @@ export const config: Config = {
             src: 'data-table-performance.html',
         },
         {
+            src: 'debug.html',
+        },
+        {
             src: 'drawer.html',
         },
         {
