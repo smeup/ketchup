@@ -860,14 +860,6 @@ export class KupBox {
         this.currentPage = detail.newPage;
     }
 
-    private _setTooltip(event: MouseEvent, cell: Cell) {
-        setTooltip(event, cell, this.tooltip);
-    }
-
-    private _unsetTooltip() {
-        unsetTooltip(this.tooltip);
-    }
-
     private handleRowsPerPageChanged({ detail }) {
         this.currentRowsPerPage = detail.newRowsPerPage;
         this.adjustPaginator();
@@ -1583,13 +1575,13 @@ export class KupBox {
                             _hasTooltip &&
                             this.showTooltipOnRightClick == false
                         ) {
-                            this._setTooltip(ev, cell);
+                            setTooltip(ev, row.id, cell, this.tooltip);
                         } else if (!_hasTooltip) {
-                            this._unsetTooltip();
+                            unsetTooltip(this.tooltip);
                         }
                     }}
                     onMouseLeave={() => {
-                        this._unsetTooltip();
+                        unsetTooltip(this.tooltip);
                     }}
                     onContextMenu={(ev) => {
                         ev.preventDefault();
@@ -1597,7 +1589,7 @@ export class KupBox {
                             _hasTooltip &&
                             this.showTooltipOnRightClick == true
                         ) {
-                            this._setTooltip(ev, cell);
+                            setTooltip(ev, row.id, cell, this.tooltip);
                         }
                     }}
                 >
@@ -1614,6 +1606,7 @@ export class KupBox {
         return (
             <kup-tooltip
                 class="box-tooltip"
+                owner={this.rootElement.tagName}
                 loadTimeout={
                     this.showTooltipOnRightClick == true
                         ? 0
@@ -1771,7 +1764,7 @@ export class KupBox {
                             style={containerStyle}
                             onMouseLeave={(ev) => {
                                 ev.stopPropagation();
-                                this._unsetTooltip();
+                                unsetTooltip(this.tooltip);
                             }}
                         >
                             {boxContent}

@@ -1708,6 +1708,10 @@ export namespace Components {
          */
         "loadTimeout": number;
         /**
+          * Owner of this tooltip
+         */
+        "owner": string;
+        /**
           * Container element for tooltip
          */
         "relatedObject": TooltipRelatedObject;
@@ -4258,6 +4262,7 @@ declare namespace LocalJSX {
         "loadTimeout"?: number;
         "onKupActionCommandClicked"?: (event: CustomEvent<{
         actionCommand: TooltipAction;
+        relatedObject: TooltipRelatedObject;
     }>) => void;
         "onKupDefaultActionClicked"?: (event: CustomEvent<{
         obj: TooltipObject;
@@ -4314,6 +4319,10 @@ declare namespace LocalJSX {
         auto: boolean;
         tree: KupTree;
     }>) => void;
+        /**
+          * Owner of this tooltip
+         */
+        "owner"?: string;
         /**
           * Container element for tooltip
          */

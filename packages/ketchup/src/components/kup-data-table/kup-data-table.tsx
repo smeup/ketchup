@@ -1552,7 +1552,7 @@ export class KupDataTable {
         } else if (details.area === 'body') {
             if (this.showTooltipOnRightClick && details.td && details.cell) {
                 e.preventDefault();
-                setTooltip(e, details.cell, this.tooltip);
+                setTooltip(e, details.row.id, details.cell, this.tooltip);
                 return;
             }
         } else if (details.area === 'footer') {
@@ -2939,6 +2939,7 @@ export class KupDataTable {
         return (
             <kup-tooltip
                 class="datatable-tooltip"
+                owner={this.rootElement.tagName}
                 loadTimeout={
                     this.showTooltipOnRightClick == true
                         ? 0
@@ -3543,7 +3544,7 @@ export class KupDataTable {
                     if (!this.showTooltipOnRightClick) {
                         eventHandlers = {
                             onMouseEnter: (ev) => {
-                                setTooltip(ev, cell, this.tooltip);
+                                setTooltip(ev, row.id, cell, this.tooltip);
                             },
                             onMouseLeave: () => {
                                 unsetTooltip(this.tooltip);

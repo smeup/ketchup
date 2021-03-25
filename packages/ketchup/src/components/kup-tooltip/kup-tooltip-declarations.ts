@@ -34,6 +34,7 @@ export interface TooltipDetailData extends DataTable {
 export interface TooltipRelatedObject {
     element: HTMLElement;
     object?: any;
+    rowId?: string;
 }
 
 export interface TooltipCellOptions extends TreeNode {
