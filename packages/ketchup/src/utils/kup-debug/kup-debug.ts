@@ -1,3 +1,5 @@
+import type { KupCard } from '../../components/kup-card/kup-card';
+import { CardData } from '../../components/kup-card/kup-card-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
@@ -24,6 +26,7 @@ export class KupDebug {
             ? dom.ketchupInit.debug.logLimit
             : 100;
     logs: KupDebugLog[] = [];
+    #debugWindow: HTMLKupCardElement = this.active ? this.createWindow() : null;
     /**
      * Dumps the stored logs.
      */
@@ -105,6 +108,85 @@ export class KupDebug {
             this.active = !this.active;
         } else {
             this.active = value;
+        }
+        if (this.active) {
+            this.#debugWindow = this.createWindow();
+        } else {
+            this.#debugWindow.remove();
+            this.#debugWindow = null;
+        }
+    }
+    /**
+     * Creates the debugger window.
+     * @returns {HTMLKupCardElement} Card element used for the debugger window.
+     */
+    createWindow(): HTMLKupCardElement {
+        const debugWindow: HTMLKupCardElement = document.createElement(
+            'kup-card'
+        );
+        debugWindow.data = {
+            button: [
+                {
+                    icon: 'power_settings_new',
+                    id: 'off',
+                    title: 'Turn off debug',
+                },
+                {
+                    icon: 'arrow-collapse',
+                    id: 'toggle',
+                    iconOff: 'arrow-expand',
+                    title: 'Expand/collapse view',
+                    toggable: true,
+                },
+                { icon: 'print', id: 'print', title: 'Print logs stored' },
+                { icon: 'delete', id: 'clear', title: 'Clear window' },
+            ],
+        };
+        debugWindow.id = 'kup-debug-window';
+        debugWindow.layoutNumber = 13;
+        debugWindow.sizeX = 'auto';
+        debugWindow.sizeY = 'auto';
+        debugWindow.addEventListener('kupCardEvent', (e: CustomEvent) =>
+            this.handleEvents(e)
+        );
+        document.body.append(debugWindow);
+        return debugWindow;
+    }
+
+    handleEvents(e: CustomEvent) {
+        const compEvent: CustomEvent = e.detail.event;
+        const compID: string = compEvent.detail.id;
+        let cardData: CardData = { ...this.#debugWindow.data };
+        switch (compEvent.type) {
+            case 'kupButtonClick':
+                switch (compID) {
+                    case 'clear':
+                        cardData['text'] = null;
+                        this.#debugWindow.data = cardData;
+                        break;
+                    case 'off':
+                        this.toggle();
+                        break;
+                    case 'print':
+                        let logList: string[] = [];
+                        for (let index = 0; index < this.logs.length; index++) {
+                            logList.push(
+                                this.logs[index].id + this.logs[index].message
+                            );
+                        }
+                        cardData['text'] = logList;
+                        this.#debugWindow.data = cardData;
+                        break;
+                    case 'toggle':
+                        if (this.#debugWindow.customStyle) {
+                            this.#debugWindow.customStyle = '';
+                        } else {
+                            this.#debugWindow.customStyle =
+                                '#kup-component .section-2 {max-width: unset;}';
+                        }
+                        break;
+                }
+                break;
         }
     }
     /**
