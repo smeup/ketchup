@@ -98,11 +98,6 @@ export default {
             'The component will be rendered using the danger color of the app.',
         },
         {
-          class: 'kup-full-height',
-          description:
-            'The color picker will fill all the available vertical space (needs a new render to take effect).',
-        },
-        {
           class: 'kup-info',
           description:
             'The component will be rendered using the informational color of the app.',

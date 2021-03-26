@@ -61,7 +61,7 @@
                 </td>
                 <td>
                   Sets the secondary color of the app, usable by specifying the
-                  .kup-secondary-color class to kup components.
+                  .kup-secondary class to kup components.
                 </td>
                 <td class="prevent-cr">
                   <span class="code-word">color</span>

@@ -117,12 +117,12 @@ export default {
         {
           class: 'kup-full-height',
           description:
-            'The button will fill all the available vertical space (needs a new render to take effect).',
+            'The button will fill all the available vertical space (needs a new render to be effective).',
         },
         {
           class: 'kup-full-width',
           description:
-            'The button will fill all the available horizontal space (needs a new render to take effect).',
+            'The button will fill all the available horizontal space (needs a new render to be effective).',
         },
         {
           class: 'kup-info',
@@ -130,13 +130,14 @@ export default {
             'The component will be rendered using the info color of the app.',
         },
         {
-          class: 'kup-secondary-color',
+          class: 'kup-secondary',
           description:
             'The component will be rendered using the secondary color of the app.',
         },
         {
           class: 'kup-shaped',
-          description: 'The borders of the button will be shaped.',
+          description:
+            'The borders of the button will be shaped (needs a new render to be effective).',
         },
         {
           class: 'kup-success',

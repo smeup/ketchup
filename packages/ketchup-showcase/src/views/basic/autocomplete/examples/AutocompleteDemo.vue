@@ -127,12 +127,12 @@ export default {
         {
           class: 'kup-full-height',
           description:
-            'The autocomplete will fill all the available vertical space (needs a new render to take effect).',
+            'The autocomplete will fill all the available vertical space (needs a new render to be effective).',
         },
         {
           class: 'kup-full-width',
           description:
-            'The autocomplete will fill all the available horizontal space (needs a new render to take effect).',
+            'The autocomplete will fill all the available horizontal space (needs a new render to be effective).',
         },
         {
           class: 'kup-info',

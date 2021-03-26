@@ -1,7 +1,7 @@
 /*-------------------------------------------------*/
 /*        C o m p o n e n t   C l a s s e s        */
 /*-------------------------------------------------*/
-:host(.left-aligned) {
+:host(.kup-left-aligned) {
   .box-section {
     text-align: left;
 
@@ -16,7 +16,7 @@
   }
 }
 
-:host(.right-aligned) {
+:host(.kup-right-aligned) {
   .box-section {
     text-align: right;
 
@@ -31,49 +31,49 @@
   }
 }
 
-:host(.top-aligned) {
+:host(.kup-top-aligned) {
   #box-container .box-wrapper .box .box-section .column {
     justify-content: flex-start;
   }
 }
 
-:host(.bottom-aligned) {
+:host(.kup-bottom-aligned) {
   #box-container .box-wrapper .box .box-section .column {
     justify-content: flex-end;
   }
 }
 
-:host(:not(.borderless)) {
+:host(:not(.kup-borderless)) {
   .box {
     border: 1px solid var(--kup-border-color);
   }
 }
 
-:host(.flat-on-hover) {
+:host(.kup-flat-on-hover) {
   #box-container .box-wrapper .box:hover {
     box-shadow: none;
   }
 }
 
-:host(.shaped) {
+:host(.kup-shaped) {
   .box {
     border-radius: 10px;
   }
 }
 
-:host(.round) {
+:host(.kup-round) {
   .box {
     border-radius: 25px;
   }
 }
 
-:host(.dashed-sections) {
+:host(.kup-dashed-sections) {
   .box-section {
     border: 2px dashed var(--kup-text-color);
   }
 }
 
-:host(:not(.paddingless)) {
+:host(:not(.kup-paddingless)) {
   #box-container {
     .box {
       padding: 3px;

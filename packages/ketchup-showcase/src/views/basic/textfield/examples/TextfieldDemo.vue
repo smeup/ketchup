@@ -212,7 +212,7 @@ export default {
         {
           class: 'kup-full-height',
           description:
-            'The text field will fill all the available vertical space.',
+            'The text field will fill all the available vertical space (needs a new render to be effective).',
         },
         {
           class: 'kup-info',
