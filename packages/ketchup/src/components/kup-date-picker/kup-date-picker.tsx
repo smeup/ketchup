@@ -972,9 +972,11 @@ export class KupDatePicker {
             this.data &&
             this.data['kup-text-field'] &&
             this.data['kup-text-field']['className'] &&
-            this.data['kup-text-field']['className'].indexOf('full-height') > -1
+            this.data['kup-text-field']['className'].indexOf(
+                'kup-full-height'
+            ) > -1
         ) {
-            hostClass['full-height'] = true;
+            hostClass['kup-full-height'] = true;
         }
 
         if (
@@ -982,7 +984,7 @@ export class KupDatePicker {
             this.data['kup-text-field'] &&
             this.data['kup-text-field']['fullWidth']
         ) {
-            hostClass['full-width'] = true;
+            hostClass['kup-full-width'] = true;
         }
 
         return (

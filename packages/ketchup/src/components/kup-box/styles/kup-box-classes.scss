@@ -1,17 +1,16 @@
-//--------------------------------//
-// Component classes              //
-//--------------------------------//
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
 :host(.left-aligned) {
   .box-section {
     text-align: left;
 
-    kup-image {
+    .f-image--wrapper {
       margin-left: 0;
       margin-right: auto;
     }
 
-    kup-checkbox,
-    kup-image {
+    kup-checkbox {
       justify-content: flex-start;
     }
   }
@@ -21,13 +20,12 @@
   .box-section {
     text-align: right;
 
-    kup-image {
+    .f-image--wrapper {
       margin-left: auto;
       margin-right: 0;
     }
 
-    kup-checkbox,
-    kup-image {
+    kup-checkbox {
       justify-content: flex-end;
     }
   }
@@ -51,6 +49,30 @@
   }
 }
 
+:host(.flat-on-hover) {
+  #box-container .box-wrapper .box:hover {
+    box-shadow: none;
+  }
+}
+
+:host(.shaped) {
+  .box {
+    border-radius: 10px;
+  }
+}
+
+:host(.round) {
+  .box {
+    border-radius: 25px;
+  }
+}
+
+:host(.dashed-sections) {
+  .box-section {
+    border: 2px dashed var(--kup-text-color);
+  }
+}
+
 :host(:not(.paddingless)) {
   #box-container {
     .box {
@@ -68,21 +90,19 @@
     }
   }
 }
-
-//------------------------------------//
-// Section classes specified in JSON  //
-//------------------------------------//
+/*-------------------------------------------------*/
+/*             J S O N   C l a s s e s             */
+/*-------------------------------------------------*/
 :host {
   .box-section.left-aligned {
     text-align: left;
 
-    kup-image {
+    .f-image--wrapper {
       margin-left: 0;
       margin-right: auto;
     }
 
-    kup-checkbox,
-    kup-image {
+    kup-checkbox {
       justify-content: flex-start;
     }
   }
@@ -92,13 +112,12 @@
   .box-section.right-aligned {
     text-align: right;
 
-    kup-image {
+    .f-image--wrapper {
       margin-left: auto;
       margin-right: 0;
     }
 
-    kup-checkbox,
-    kup-image {
+    kup-checkbox {
       justify-content: flex-end;
     }
   }
@@ -108,12 +127,11 @@
   .box-section.center-aligned {
     text-align: center;
 
-    kup-image {
+    .f-image--wrapper {
       margin: auto;
     }
 
-    kup-checkbox,
-    kup-image {
+    kup-checkbox {
       justify-content: center;
     }
   }

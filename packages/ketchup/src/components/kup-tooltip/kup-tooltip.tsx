@@ -711,7 +711,7 @@ export class KupTooltip {
         if (this.hasCellOptionsData()) {
             detailContent = [
                 <kup-tree
-                    class="full-width"
+                    class="kup-full-width"
                     showFilter={true}
                     {...this.cellOptions.config}
                     {...this.cellOptions}

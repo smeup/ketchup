@@ -15,8 +15,8 @@ export const FButton: FunctionalComponent<FButtonProps> = (
     return (
         <div
             class={`f-button--wrapper ${
-                props.fullHeight ? 'full-height' : ''
-            } ${props.fullWidth ? 'full-width' : ''} ${
+                props.fullHeight ? 'kup-full-height' : ''
+            } ${props.fullWidth ? 'kup-full-width' : ''} ${
                 props.shaped ? 'shaped' : ''
             } ${props.wrapperClass ? props.wrapperClass : ''}`}
             {...props.dataSet}

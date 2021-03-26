@@ -110,13 +110,24 @@ export default {
       ],
       demoClasses: [
         {
-          class: 'full-height',
-          description: 'The button will fill all the available vertical space.',
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
         },
         {
-          class: 'full-width',
+          class: 'kup-full-height',
           description:
-            'The button will fill all the available horizontal space.',
+            'The button will fill all the available vertical space (needs a new render to take effect).',
+        },
+        {
+          class: 'kup-full-width',
+          description:
+            'The button will fill all the available horizontal space (needs a new render to take effect).',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the info color of the app.',
         },
         {
           class: 'kup-secondary-color',
@@ -124,28 +135,18 @@ export default {
             'The component will be rendered using the secondary color of the app.',
         },
         {
-          class: 'kup-info-color',
-          description:
-            'The component will be rendered using the info color of the app.',
+          class: 'kup-shaped',
+          description: 'The borders of the button will be shaped.',
         },
         {
-          class: 'kup-success-color',
+          class: 'kup-success',
           description:
             'The component will be rendered using the success color of the app.',
         },
         {
-          class: 'kup-warning-color',
+          class: 'kup-warning',
           description:
             'The component will be rendered using the warning color of the app.',
-        },
-        {
-          class: 'kup-danger-color',
-          description:
-            'The component will be rendered using the danger color of the app.',
-        },
-        {
-          class: 'shaped',
-          description: 'The borders of the button will be shaped.',
         },
       ],
     };

@@ -124,7 +124,7 @@ export class KupIframe {
         }
 
         return !this.isButton ? (
-            <Host class="iframe-version">
+            <Host class="kup-iframe-version">
                 <iframe
                     onError={this.onKupIframeError.bind(this)}
                     onLoad={this.onKupIframeLoad.bind(this)}
@@ -132,7 +132,7 @@ export class KupIframe {
                 />
             </Host>
         ) : (
-            <Host class="button-version">
+            <Host class="kup-button-version">
                 <kup-button
                     {...this.buttonData}
                     onKupButtonClick={() => this.openInNew()}

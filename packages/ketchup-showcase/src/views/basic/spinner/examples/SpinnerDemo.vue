@@ -83,7 +83,7 @@ export default {
       ],
       demoClasses: [
         {
-          class: 'unclickable',
+          class: 'kup-unclickable',
           description:
             'The area covered by the spinner will be unclickable and the cursor will change to "wait".',
         },

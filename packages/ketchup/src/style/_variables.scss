@@ -11,39 +11,6 @@
   --mdc-theme-text-primary-on-background: var(--kup-text-color);
 }
 
-// Components
-
-:host(.kup-secondary) {
-  --kup-primary-color: var(--kup-secondary-color);
-  --kup-text-on-primary-color: var(--kup-text-on-secondary-color);
-  --kup-primary-color-rgb: var(--kup-secondary-color-rgb);
-  --kup-text-on-primary-color-rgb: var(--kup-text-on-secondary-color-rgb);
-}
-:host(.kup-info) {
-  --kup-primary-color: var(--kup-info-color);
-  --kup-text-on-primary-color: white;
-  --kup-primary-color-rgb: var(--kup-info-color-rgb);
-  --kup-text-on-primary-color-rgb: 255, 255, 255;
-}
-:host(.kup-success) {
-  --kup-primary-color: var(--kup-success-color);
-  --kup-text-on-primary-color: white;
-  --kup-primary-color-rgb: var(--kup-success-color-rgb);
-  --kup-text-on-primary-color-rgb: 255, 255, 255;
-}
-:host(.kup-warning) {
-  --kup-primary-color: var(--kup-warning-color);
-  --kup-text-on-primary-color: white;
-  --kup-primary-color-rgb: var(--kup-warning-color-rgb);
-  --kup-text-on-primary-color-rgb: 255, 255, 255;
-}
-:host(.kup-danger) {
-  --kup-primary-color: var(--kup-danger-color);
-  --kup-text-on-primary-color: white;
-  --kup-primary-color-rgb: var(--kup-danger-color-rgb);
-  --kup-text-on-primary-color-rgb: 255, 255, 255;
-}
-
 // Cursors
 
 .is-obj {

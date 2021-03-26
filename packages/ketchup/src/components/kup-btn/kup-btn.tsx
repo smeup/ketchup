@@ -70,7 +70,7 @@ export class KupBtn {
                 const btnsJsx = btns.map((btn) => {
                     const props = {
                         ...(this.config.fillspace
-                            ? { class: 'full-width' }
+                            ? { class: 'kup-full-width' }
                             : {}),
                         ...(this.config.showtext ? { label: btn.value } : {}),
                         ...(this.config.showicon ? { icon: btn.icon } : {}),

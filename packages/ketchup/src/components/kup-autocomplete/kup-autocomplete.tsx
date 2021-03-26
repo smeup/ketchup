@@ -482,16 +482,16 @@ export class KupAutocomplete {
 
     render() {
         const fullHeight: boolean = this.rootElement.classList.contains(
-            'full-height'
+            'kup-full-height'
         );
         const fullWidth: boolean = this.rootElement.classList.contains(
-            'full-width'
+            'kup-full-width'
         );
 
         return (
             <Host
-                class={`${fullHeight ? 'full-height' : ''} ${
-                    fullWidth ? 'full-width' : ''
+                class={`${fullHeight ? 'kup-full-height' : ''} ${
+                    fullWidth ? 'kup-full-width' : ''
                 }`}
                 onBlur={(e: any) => this.onKupBlur(e)}
                 style={this.elStyle}

@@ -11,8 +11,8 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
     return (
         <div
             class={`f-text-field--wrapper ${
-                props.fullHeight ? 'full-height' : ''
-            } ${props.fullWidth ? 'full-width' : ''} ${
+                props.fullHeight ? 'kup-full-height' : ''
+            } ${props.fullWidth ? 'kup-full-width' : ''} ${
                 props.shaped ? 'shaped' : ''
             } ${props.wrapperClass ? props.wrapperClass : ''}`}
             {...props.dataSet}

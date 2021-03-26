@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  font-size: var(--kup-font-size);
+}
+
+.icon-container {
+  transition: transform 0.15s;
+}
+
+.toggled .icon-container.expanded {
+  transform: rotate(-180deg);
+}

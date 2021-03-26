@@ -120,19 +120,39 @@ export default {
       ],
       demoClasses: [
         {
-          class: 'full-height',
+          class: 'kup-danger',
           description:
-            'The autocomplete will fill all the available vertical space.',
+            'The component will be rendered using the danger color of the app.',
         },
         {
-          class: 'kup-secondary-color',
+          class: 'kup-full-height',
+          description:
+            'The autocomplete will fill all the available vertical space (needs a new render to take effect).',
+        },
+        {
+          class: 'kup-full-width',
+          description:
+            'The autocomplete will fill all the available horizontal space (needs a new render to take effect).',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-secondary',
           description:
             'The component will be rendered using the secondary color of the app.',
         },
         {
-          class: 'full-width',
+          class: 'kup-success',
           description:
-            'The autocomplete will fill all the available horizontal space.',
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
         },
       ],
     };
