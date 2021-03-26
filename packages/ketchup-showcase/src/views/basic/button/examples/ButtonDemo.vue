@@ -124,6 +124,26 @@ export default {
             'The component will be rendered using the secondary color of the app.',
         },
         {
+          class: 'kup-info-color',
+          description:
+            'The component will be rendered using the info color of the app.',
+        },
+        {
+          class: 'kup-success-color',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning-color',
+          description:
+            'The component will be rendered using the warning color of the app.',
+        },
+        {
+          class: 'kup-danger-color',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
           class: 'shaped',
           description: 'The borders of the button will be shaped.',
         },

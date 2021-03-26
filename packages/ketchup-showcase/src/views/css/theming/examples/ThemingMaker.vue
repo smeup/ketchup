@@ -431,6 +431,26 @@
               </tr>
               <tr>
                 <td class="prevent-cr">
+                  <span class="code-word">--kup-info-color</span>
+                </td>
+                <td
+                  >Sets the color which defines an informational status within
+                  the app.</td
+                >
+                <td class="prevent-cr">
+                  <span class="code-word">color</span>
+                </td>
+                <td class="text-cell">
+                  <kup-color-picker
+                    id="info-color"
+                    :data.prop="colorPickerData"
+                    @kupColorPickerInput="updateThemeVariable"
+                    @kupColorPickerChange="updateThemeVariable"
+                  ></kup-color-picker>
+                </td>
+              </tr>
+              <tr>
+                <td class="prevent-cr">
                   <span class="code-word">--kup-success-color</span>
                 </td>
                 <td
