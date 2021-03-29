@@ -57,6 +57,17 @@ export class DynamicPosition {
         this.managedElements.add(el);
     }
     /**
+     * Changes the anchor point of the given element.
+     * @param {DynamicallyPositionedElement} elements - Dynamically positioned element previously registered.
+     * @param {HTMLElement} anchorEl - New anchor point.
+     */
+    changeAnchor(
+        el: DynamicallyPositionedElement,
+        anchorEl: HTMLElement
+    ): void {
+        el.dynamicPosition.anchor = anchorEl;
+    }
+    /**
      * Removes the element from dynamic position management.
      * @param {DynamicallyPositionedElement} elements - Elements to remove from the managed elements set.
      */
@@ -64,6 +75,14 @@ export class DynamicPosition {
         for (let index = 0; index < elements.length; index++) {
             this.managedElements.delete(elements[index]);
         }
+    }
+    /**
+     * Returns whether an element was previously registered or not.
+     * @param {DynamicallyPositionedElement} el - Element to test.
+     * @returns {boolean} True if the element was registered.
+     */
+    isRegistered(el: DynamicallyPositionedElement): boolean {
+        return !this.managedElements ? false : this.managedElements.has(el);
     }
     /**
      * Starts the process of dynamically reposition the element (which must be firstly initialized through this.setup()).
