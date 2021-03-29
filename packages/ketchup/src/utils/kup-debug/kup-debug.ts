@@ -26,7 +26,7 @@ export class KupDebug {
             ? dom.ketchupInit.debug.logLimit
             : 100;
     logs: KupDebugLog[] = [];
-    #debugWindow: HTMLKupCardElement = this.active ? this.createWindow() : null;
+    #debugWindow: HTMLKupCardElement = null;
     /**
      * Dumps the stored logs.
      */
@@ -110,17 +110,15 @@ export class KupDebug {
             this.active = value;
         }
         if (this.active) {
-            this.#debugWindow = this.createWindow();
+            this.showWindow();
         } else {
-            this.#debugWindow.remove();
-            this.#debugWindow = null;
+            this.hideWindow();
         }
     }
     /**
      * Creates the debugger window.
-     * @returns {HTMLKupCardElement} Card element used for the debugger window.
      */
-    createWindow(): HTMLKupCardElement {
+    showWindow(): void {
         const debugWindow: HTMLKupCardElement = document.createElement(
             'kup-card'
         );
@@ -130,13 +128,6 @@ export class KupDebug {
                     icon: 'power_settings_new',
                     id: 'kup-debug-off',
                     title: 'Turn off debug',
-                },
-                {
-                    icon: 'arrow-collapse',
-                    id: 'kup-debug-toggle',
-                    iconOff: 'arrow-expand',
-                    title: 'Expand/collapse view',
-                    toggable: true,
                 },
                 {
                     icon: 'print',
@@ -152,7 +143,7 @@ export class KupDebug {
             ],
             textfield: [
                 {
-                    className: 'full-height',
+                    className: 'kup-full-height',
                     id: 'kup-debug-log-limit',
                     label: 'Set log limit',
                     initialValue: this.logLimit,
@@ -160,16 +151,17 @@ export class KupDebug {
                     inputType: 'number',
                 },
                 {
-                    className: 'full-height',
-                    id: 'kup-debug-log-limit',
-                    label: 'Set log limit',
-                    initialValue: this.logLimit,
+                    className: 'kup-full-height',
+                    id: 'kup-debug-theme-changer',
+                    label: 'Change theme',
+                    initialValue: dom.ketchup.theme.name,
                     emitSubmitEventOnEnter: false,
-                    inputType: 'number',
+                    inputType: 'text',
                 },
             ],
         };
-        debugWindow.customStyle = '#kup-debug-log-limit {width: 120px;}';
+        debugWindow.customStyle =
+            '#kup-debug-log-limit,#kup-debug-theme-changer {width: 120px;}';
         debugWindow.id = 'kup-debug-window';
         debugWindow.layoutNumber = 13;
         debugWindow.sizeX = 'auto';
@@ -178,10 +170,20 @@ export class KupDebug {
             this.handleEvents(e)
         );
         document.body.append(debugWindow);
-        return debugWindow;
+        this.#debugWindow = debugWindow;
     }
-
-    handleEvents(e: CustomEvent) {
+    /**
+     * Closes the debug window.
+     */
+    hideWindow() {
+        this.#debugWindow.remove();
+        this.#debugWindow = null;
+    }
+    /**
+     * Listens the card events and handles the related actions.
+     * @param {CustomEvent} e - kupCardEvent.
+     */
+    handleEvents(e: CustomEvent): void {
         const compEvent: CustomEvent = e.detail.event;
         const compID: string = compEvent.detail.id;
         let cardData: CardData = { ...this.#debugWindow.data };
@@ -211,21 +213,6 @@ export class KupDebug {
                         cardData['text'] = logList;
                         this.#debugWindow.data = cardData;
                         break;
-                    case 'kup-debug-toggle':
-                        let toggleStyle: string =
-                            ' #kup-component .section-2 {max-height: 75vh; max-width: unset;}';
-                        if (
-                            this.#debugWindow.customStyle.indexOf(toggleStyle) >
-                            -1
-                        ) {
-                            this.#debugWindow.customStyle.replace(
-                                new RegExp(toggleStyle, 'g'),
-                                ''
-                            );
-                        } else {
-                            this.#debugWindow.customStyle += toggleStyle;
-                        }
-                        break;
                 }
                 break;
             case 'kupTextFieldInput':
@@ -239,6 +226,9 @@ export class KupDebug {
                         } else {
                             this.logLimit = compEvent.detail.value;
                         }
+                        break;
+                    case 'kup-debug-theme-changer':
+                        dom.ketchup.theme.set(compEvent.detail.value);
                         break;
                 }
         }
