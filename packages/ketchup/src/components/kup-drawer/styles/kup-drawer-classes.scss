@@ -1,0 +1,21 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+:host(.kup-right) {
+  aside {
+    left: unset;
+    right: -100%;
+  }
+}
+
+:host([opened].kup-right) {
+  aside {
+    right: 0;
+  }
+}
+
+:host(.kup-permanent) {
+  .backdrop {
+    display: none;
+  }
+}

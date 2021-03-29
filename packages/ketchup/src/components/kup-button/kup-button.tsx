@@ -270,16 +270,19 @@ export class KupButton {
         let props: FButtonProps = {
             checked: this.checked,
             disabled: this.disabled,
-            fullHeight: this.rootElement.classList.contains('full-height')
+            fullHeight: this.rootElement.classList.contains('kup-full-height')
                 ? true
                 : false,
-            fullWidth: this.rootElement.classList.contains('full-width')
+            fullWidth: this.rootElement.classList.contains('kup-full-width')
                 ? true
                 : false,
             icon: this.icon,
             iconOff: this.iconOff,
             label: this.label,
-            shaped: this.rootElement.classList.contains('shaped')
+            large: this.rootElement.classList.contains('kup-large')
+                ? true
+                : false,
+            shaped: this.rootElement.classList.contains('kup-shaped')
                 ? true
                 : false,
             styling: this.styling,

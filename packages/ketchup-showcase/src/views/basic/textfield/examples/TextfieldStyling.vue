@@ -62,13 +62,13 @@
       <p>
         To render a text field which occupies all the available vertical space,
         you can use the class
-        <span class="code-word">full-height</span>.
+        <span class="code-word">kup-full-height</span>.
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container-fw" style="height: 75px">
           <kup-text-field
-            class="full-height"
+            class="kup-full-height"
             label="I am a full height field"
           ></kup-text-field>
         </div>
@@ -206,7 +206,8 @@ export default {
       markupOutlined: '<kup-text-field outlined></kup-text-field>',
       markupShaped: '<kup-text-field class="shaped"></kup-text-field>',
       markupFullwidth: '<kup-text-field full-width></kup-text-field>',
-      markupFullheight: '<kup-text-field class="full-height"></kup-text-field>',
+      markupFullheight:
+        '<kup-text-field class="kup-full-height"></kup-text-field>',
       markupIcon: '<kup-text-field icon="your_icon"></kup-text-field>',
       markupTrailingIcon:
         '<kup-text-field trailing-icon icon="your_icon"></kup-text-field>',

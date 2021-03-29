@@ -478,7 +478,7 @@ export class KupTextField {
     render() {
         let props: FTextFieldProps = {
             disabled: this.disabled,
-            fullHeight: this.rootElement.classList.contains('full-height')
+            fullHeight: this.rootElement.classList.contains('kup-full-height')
                 ? true
                 : false,
             fullWidth: this.fullWidth,
@@ -493,7 +493,7 @@ export class KupTextField {
             maxLength: this.maxLength,
             outlined: this.outlined,
             readOnly: this.readOnly,
-            shaped: this.rootElement.classList.contains('shaped')
+            shaped: this.rootElement.classList.contains('kup-shaped')
                 ? true
                 : false,
             step: this.step,

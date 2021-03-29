@@ -1,7 +1,7 @@
-//--------------------------------//
-// Component classes              //
-//--------------------------------//
-:host(.cross-selection) {
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+:host(.kup-cross-selection) {
   #kup-component {
     th.selected {
       box-shadow: inset 0px 4px 0px 0px var(--kup-secondary-color);
@@ -57,24 +57,21 @@
   }
 }
 
-:host(.layout-fixed) {
+:host(.kup-layout-fixed) {
   #kup-component table {
     table-layout: fixed;
     width: 100%;
   }
 }
-
-//--------------------------------//
-// Row classes specified in JSON  //
-//--------------------------------//
+/*-------------------------------------------------*/
+/*      J S O N   C l a s s e s   ( r o w s )      */
+/*-------------------------------------------------*/
 tr.clickable {
   cursor: pointer;
 }
-
-//--------------------------------//
-// Cell classes specified in JSON //
-//--------------------------------//
-
+/*-------------------------------------------------*/
+/*     J S O N   C l a s s e s   ( c e l l s )     */
+/*-------------------------------------------------*/
 // TD styles
 // These styles are applied to the whole cell
 td.clickable {

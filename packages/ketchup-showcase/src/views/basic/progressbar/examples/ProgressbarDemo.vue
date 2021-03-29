@@ -75,26 +75,46 @@ export default {
       ],
       demoClasses: [
         {
-          class: 'animated',
+          class: 'kup-animated',
           description:
             'When the striped class is active, the stripes will be animated.',
         },
         {
-          class: 'kup-secondary-color',
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-padded',
+          description: 'Adds padding to the progress bar.',
+        },
+        {
+          class: 'kup-secondary',
           description:
             'The component will be rendered using the secondary color of the app.',
         },
         {
-          class: 'padded',
-          description: 'Adds padding to the progress bar.',
-        },
-        {
-          class: 'slim',
+          class: 'kup-slim',
           description: 'Slim version.',
         },
         {
-          class: 'striped',
+          class: 'kup-striped',
           description: 'Displays stripes above the progress bar.',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
         },
       ],
     };

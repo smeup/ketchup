@@ -1,3 +1,8 @@
+:host {
+  display: block;
+  font-size: var(--kup-font-size);
+}
+
 #kup-component {
   color: var(--kup-text-color);
 }
@@ -190,7 +195,7 @@ tfoot {
     &:hover {
       background-color: var(--kup-background-color);
     }
-    &:first-of-type {    
+    &:first-of-type {
       border: none;
       border-right: 1px solid var(--kup-border-color);
     }

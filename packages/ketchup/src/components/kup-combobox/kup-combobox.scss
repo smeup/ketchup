@@ -1,30 +1,3 @@
 @import '../../f-components/f-text-field/f-text-field.scss';
-
-:host {
-  display: block;
-  font-size: var(--kup-font-size);
-}
-
-:host(.full-width) {
-  width: 100%;
-  #kup-component {
-    width: 100%;
-  }
-}
-
-:host(.full-height) {
-  height: 100%;
-  #kup-component,
-  .f-text-field--wrapper,
-  .mdc-text-field {
-    height: 100%;
-  }
-}
-
-.icon-container {
-  transition: transform 0.15s;
-}
-
-.toggled .icon-container.expanded {
-  transform: rotate(-180deg);
-}
+@import 'styles/kup-combobox-main.scss';
+@import 'styles/kup-combobox-classes.scss';
