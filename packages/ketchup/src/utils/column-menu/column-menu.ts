@@ -78,20 +78,22 @@ export class ColumnMenu {
     reposition(comp: KupDataTable | KupTree): void {
         const root: ShadowRoot = comp.rootElement.shadowRoot;
         if (root) {
-            const card: any = root.querySelector(
-                '#column-menu:not(.dynamic-position-active)'
-            );
+            const card: any = root.querySelector('#column-menu');
             if (card) {
                 const column: string = card.dataset.column;
                 const wrapper: HTMLElement = root.querySelector(
                     'th[data-column="' + column + '"]'
                 );
-                dom.ketchup.dynamicPosition.register(card, wrapper);
-                dom.ketchup.dynamicPosition.start(
-                    card as DynamicallyPositionedElement
-                );
-                card.menuVisible = true;
-                card.focus();
+                if (dom.ketchup.dynamicPosition.isRegistered(card)) {
+                    dom.ketchup.dynamicPosition.changeAnchor(card, wrapper);
+                } else {
+                    dom.ketchup.dynamicPosition.register(card, wrapper);
+                    dom.ketchup.dynamicPosition.start(
+                        card as DynamicallyPositionedElement
+                    );
+                    card.menuVisible = true;
+                    card.focus();
+                }
             }
         }
     }

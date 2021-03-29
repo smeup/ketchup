@@ -33,8 +33,10 @@ import {
     TableData,
     TotalsMap,
     TotalMode,
+    KupDataTableCellTextFieldInput,
     totalMenuOpenID,
     TotalLabel,
+    EventHandlerDetails,
     KupDataTableProps,
 } from './kup-data-table-declarations';
 
@@ -843,6 +845,19 @@ export class KupDataTable {
         clickedColumn: string;
     }>;
     /**
+     * Emitted when a cell's data has been updated.
+     */
+    @Event({
+        eventName: 'kupDataTableCellUpdate',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupDataTableCellUpdate: EventEmitter<{
+        cell: Cell;
+        event: any;
+    }>;
+    /**
      * Generic click event on data table.
      */
     @Event({
@@ -945,6 +960,13 @@ export class KupDataTable {
     })
     kupCellButtonClicked: EventEmitter<KupDataTableCellButtonClick>;
 
+    @Event({
+        eventName: 'kupCellTextFieldInput',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupCellTextFieldInput: EventEmitter<KupDataTableCellTextFieldInput>;
     /**
      * This method is invoked by the theme manager.
      * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
@@ -1214,6 +1236,22 @@ export class KupDataTable {
         const root: ShadowRoot = this.rootElement.shadowRoot;
 
         if (root) {
+            //Row textfields
+            const textfields: NodeListOf<Element> = root.querySelectorAll(
+                'td .f-text-field--wrapper'
+            );
+            for (let index = 0; index < textfields.length; index++) {
+                const inputEl: HTMLButtonElement = textfields[
+                    index
+                ].querySelector('input');
+                if (inputEl) {
+                    inputEl.onblur = (e: FocusEvent) =>
+                        this.cellUpdate(e, textfields[index]['data-cell']);
+                    inputEl.onchange = (e: Event) =>
+                        this.cellUpdate(e, textfields[index]['data-cell']);
+                }
+                FTextFieldMDC(textfields[index] as HTMLElement);
+            }
             //Row multiselection checkboxes
             const multiselectionCheckboxes: NodeListOf<Element> = root.querySelectorAll(
                 'td[row-select-cell] .f-checkbox--wrapper'
@@ -1448,22 +1486,14 @@ export class KupDataTable {
         }
     }
 
-    private getEventDetails(
-        el: HTMLElement
-    ): {
-        area: string;
-        cell: Cell;
-        column: Column;
-        filterRemove: HTMLSpanElement;
-        row: Row;
-        td: HTMLTableDataCellElement;
-        th: HTMLTableHeaderCellElement;
-        tr: HTMLTableRowElement;
-    } {
+    private getEventDetails(el: HTMLElement): EventHandlerDetails {
         const isHeader: boolean = !!el.closest('thead'),
             isBody: boolean = !!el.closest('tbody'),
             isFooter: boolean = !!el.closest('tfoot'),
             td: HTMLTableDataCellElement = el.closest('td'),
+            textfield: HTMLTableDataCellElement = el.closest(
+                '.f-text-field--wrapper'
+            ),
             th: HTMLTableHeaderCellElement = el.closest('th'),
             tr: HTMLTableRowElement = el.closest('tr'),
             filterRemove: HTMLSpanElement = el.closest('th .filter-remove');
@@ -1502,13 +1532,14 @@ export class KupDataTable {
             filterRemove: filterRemove ? filterRemove : null,
             row: row ? row : null,
             td: td ? td : null,
+            textfield: textfield ? textfield : null,
             th: th ? th : null,
             tr: tr ? tr : null,
         };
     }
 
     private clickHandler(e: MouseEvent): void {
-        const details: GenericObject = this.getEventDetails(
+        const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
         if (details.area === 'header') {
@@ -1539,7 +1570,7 @@ export class KupDataTable {
                 this.onRowExpand(details.row);
                 return;
             }
-            if (details.td && details.row) {
+            if (details.td && details.row && !details.textfield) {
                 this.onRowClick(e, details.row);
                 return;
             }
@@ -1550,7 +1581,9 @@ export class KupDataTable {
     }
 
     private contextMenuHandler(e: MouseEvent): void {
-        const details = this.getEventDetails(e.target as HTMLElement);
+        const details: EventHandlerDetails = this.getEventDetails(
+            e.target as HTMLElement
+        );
         if (details.area === 'header') {
             if (details.th && details.column) {
                 this.columnMenuInstance.open(
@@ -1581,7 +1614,7 @@ export class KupDataTable {
     }
 
     private dblClickHandler(e: MouseEvent): void {
-        const details: GenericObject = this.getEventDetails(
+        const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
         this.kupDataTableDblClick.emit({
@@ -1590,7 +1623,7 @@ export class KupDataTable {
     }
 
     private mouseMoveHandler(e: MouseEvent): void {
-        const details: GenericObject = this.getEventDetails(
+        const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
 
@@ -2092,6 +2125,23 @@ export class KupDataTable {
         this.kupRowActionClicked.emit({
             row,
             type: 'expander',
+        });
+    }
+
+    private cellUpdate(e: Event | FocusEvent, cell: Cell) {
+        if ((e.target as HTMLElement).tagName === 'INPUT') {
+            const inputEl = e.target as HTMLInputElement;
+            cell.obj.k = inputEl.value;
+            cell.value = inputEl.value;
+            if (cell.data) {
+                cell.data['value'] = inputEl.value;
+            } else {
+                cell['data']['value'] = inputEl.value;
+            }
+        }
+        this.kupDataTableCellUpdate.emit({
+            cell: cell,
+            event: e,
         });
     }
 
@@ -4073,6 +4123,12 @@ export class KupDataTable {
                     cell
                 );
                 return <kup-button {...props}></kup-button>;
+            case 'text-field':
+                props['disabled'] = row.readOnly;
+                props['dataSet'] = {
+                    'data-cell': cell,
+                };
+                return <FTextField {...props}></FTextField>;
             case 'chart':
                 classObj['is-centered'] = true;
                 return <kup-chart {...props} />;

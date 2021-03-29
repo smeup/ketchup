@@ -8,7 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { ComponentListElement, ItemsDisplayMode } from "./components/kup-list/kup-list-declarations";
 import { GenericObject } from "./types/GenericTypes";
 import { KupStore } from "./components/kup-state/kup-store";
-import { Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
+import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableCellTextFieldInput, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxKanban, BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
 import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
@@ -3260,6 +3260,14 @@ declare namespace LocalJSX {
         selectedRow: Row;
     }>) => void;
         "onKupCellButtonClicked"?: (event: CustomEvent<KupDataTableCellButtonClick>) => void;
+        "onKupCellTextFieldInput"?: (event: CustomEvent<KupDataTableCellTextFieldInput>) => void;
+        /**
+          * Emitted when a cell's data has been updated.
+         */
+        "onKupDataTableCellUpdate"?: (event: CustomEvent<{
+        cell: Cell;
+        event: any;
+    }>) => void;
         /**
           * Generic click event on data table.
          */
