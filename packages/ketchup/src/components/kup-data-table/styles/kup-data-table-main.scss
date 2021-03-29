@@ -21,6 +21,11 @@
      *     the width equal to the sum of all columns widths.
      * [3] - Mandatory for width property to take effect.
      */
+:host {
+  display: block;
+  font-size: var(--kup-font-size);
+  position: relative;
+}
 
 table {
   // [TFixed-1] - This is needed to avoid problems with fixed rows/columns

@@ -238,10 +238,10 @@ export class KupLazy {
         if (this.isInViewport) {
             let Tag = this.componentName;
             content = <Tag {...this.data}></Tag>;
-            className += ' loaded';
+            className += ' kup-loaded';
         } else if (this.showPlaceholder) {
             content = resource;
-            className += ' to-be-loaded';
+            className += ' kup-to-be-loaded';
         }
         return (
             <Host class={className}>

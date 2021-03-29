@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  font-size: var(--kup-font-size);
+}
+
+#kup-component {
+  width: max-content;
+}
+
+.color-picker {
+  outline: none;
+  height: 1.5em;
+  width: 1.5em;
+  margin: 0.25em;
+  border-radius: 50%;
+  border: 0.1em solid var(--kup-border-color);
+  background-color: transparent;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
+}
+.dynamic-position:not(.dynamic-position-active) {
+  display: none;
+}

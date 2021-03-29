@@ -53,24 +53,44 @@ export default {
       ],
       demoClasses: [
         {
-          class: 'bottom-left',
+          class: 'kup-bottom-left',
           description:
             'The badge will be position to the bottom left corner of its container.',
         },
         {
-          class: 'bottom-right',
+          class: 'kup-bottom-right',
           description:
             'The badge will be position to the bottom right corner of its container.',
         },
         {
-          class: 'kup-secondary-color',
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-secondary',
           description:
             'The component will be rendered using the secondary color of the app.',
         },
         {
-          class: 'top-right',
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-top-right',
           description:
             'The badge will be position to the top right corner of its container.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
         },
       ],
     };

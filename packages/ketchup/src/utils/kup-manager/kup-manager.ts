@@ -54,6 +54,7 @@ export function kupManagerInstance(): KupManager {
     if (!dom.ketchup) {
         dom.ketchup = new KupManager();
         dom.ketchup.theme.set();
+        document.dispatchEvent(new CustomEvent('kupManagerReady'));
     }
     return dom.ketchup;
 }
