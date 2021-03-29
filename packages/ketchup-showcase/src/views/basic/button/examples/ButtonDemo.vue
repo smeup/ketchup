@@ -130,6 +130,10 @@ export default {
             'The component will be rendered using the info color of the app.',
         },
         {
+          class: 'kup-large',
+          description: 'The button will have an increased size.',
+        },
+        {
           class: 'kup-secondary',
           description:
             'The component will be rendered using the secondary color of the app.',

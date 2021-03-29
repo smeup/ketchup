@@ -45,7 +45,21 @@
       }
     }
 
-    &.shaped {
+    &.kup-large {
+      .mdc-button {
+        font-size: 1.25em;
+        height: 48px;
+      }
+      .mdc-icon-button {
+        width: 60px;
+        height: 60px;
+      }
+      .f-image--wrapper {
+        font-size: 32px;
+      }
+    }
+
+    &.kup-shaped {
       .mdc-button,
       .mdc-button__ripple {
         border-radius: 18px;

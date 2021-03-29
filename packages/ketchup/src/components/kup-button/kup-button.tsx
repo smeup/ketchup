@@ -279,6 +279,9 @@ export class KupButton {
             icon: this.icon,
             iconOff: this.iconOff,
             label: this.label,
+            large: this.rootElement.classList.contains('kup-large')
+                ? true
+                : false,
             shaped: this.rootElement.classList.contains('kup-shaped')
                 ? true
                 : false,
