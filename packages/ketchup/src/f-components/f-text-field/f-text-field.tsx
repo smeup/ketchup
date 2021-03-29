@@ -114,7 +114,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                 </span>
             ) : (
                 <input
-                    type={props.inputType}
+                    type={props.inputType ? props.inputType : 'text'}
                     step={props.step}
                     class="mdc-text-field__input"
                     disabled={props.disabled}
