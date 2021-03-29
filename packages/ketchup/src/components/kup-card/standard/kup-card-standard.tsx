@@ -878,6 +878,10 @@ export function create13(component: KupCard): VNode {
     const textArray: string[] = component.data['text']
         ? component.data['text']
         : [];
+    //Textfield list
+    const textfieldArray: GenericObject[] = component.data['textfield']
+        ? component.data['textfield']
+        : [];
     return (
         <div
             class={`standard-layout-${component.layoutNumber} ${
@@ -885,9 +889,10 @@ export function create13(component: KupCard): VNode {
             }`}
         >
             <div>
-                {buttonArray.length > 0 ? (
+                {buttonArray.length > 0 || textfieldArray.length > 0 ? (
                     <div class="section-1">
                         {compList(buttonArray, 'button')}
+                        {compList(textfieldArray, 'textfield')}
                     </div>
                 ) : null}
                 {textArray.length > 0 ? (

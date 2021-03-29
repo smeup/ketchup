@@ -128,18 +128,37 @@ export class KupDebug {
             button: [
                 {
                     icon: 'power_settings_new',
-                    id: 'off',
+                    id: 'kup-debug-off',
                     title: 'Turn off debug',
                 },
                 {
                     icon: 'arrow-collapse',
-                    id: 'toggle',
+                    id: 'kup-debug-toggle',
                     iconOff: 'arrow-expand',
                     title: 'Expand/collapse view',
                     toggable: true,
                 },
-                { icon: 'print', id: 'print', title: 'Print logs stored' },
-                { icon: 'delete', id: 'clear', title: 'Clear window' },
+                {
+                    icon: 'print',
+                    id: 'kup-debug-print',
+                    title: 'Print logs stored',
+                },
+                { icon: 'broom', id: 'kup-debug-clear', title: 'Clear window' },
+                {
+                    icon: 'delete',
+                    id: 'kup-debug-delete',
+                    title: 'Dump stored logs',
+                },
+            ],
+            textfield: [
+                {
+                    className: 'full-height',
+                    id: 'kup-debug-log-limit',
+                    label: 'Set log limit',
+                    initialValue: this.logLimit,
+                    emitSubmitEventOnEnter: false,
+                    inputType: 'number',
+                },
             ],
         };
         debugWindow.id = 'kup-debug-window';
@@ -160,24 +179,30 @@ export class KupDebug {
         switch (compEvent.type) {
             case 'kupButtonClick':
                 switch (compID) {
-                    case 'clear':
+                    case 'kup-debug-clear':
                         cardData['text'] = null;
                         this.#debugWindow.data = cardData;
                         break;
-                    case 'off':
+                    case 'kup-debug-delete':
+                        this.dump();
+                        break;
+                    case 'kup-debug-off':
                         this.toggle();
                         break;
-                    case 'print':
+                    case 'kup-debug-print':
                         let logList: string[] = [];
                         for (let index = 0; index < this.logs.length; index++) {
-                            logList.push(
-                                this.logs[index].id + this.logs[index].message
-                            );
+                            if (this.logs[index].id.indexOf('#kup-debug') < 0) {
+                                logList.push(
+                                    this.logs[index].id +
+                                        this.logs[index].message
+                                );
+                            }
                         }
                         cardData['text'] = logList;
                         this.#debugWindow.data = cardData;
                         break;
-                    case 'toggle':
+                    case 'kup-debug-toggle':
                         if (this.#debugWindow.customStyle) {
                             this.#debugWindow.customStyle = '';
                         } else {
@@ -187,6 +212,19 @@ export class KupDebug {
                         break;
                 }
                 break;
+            case 'kupTextFieldInput':
+                switch (compID) {
+                    case 'kup-debug-log-limit':
+                        if (
+                            compEvent.detail.value === '' ||
+                            compEvent.detail.value < 1
+                        ) {
+                            this.logLimit = 1;
+                        } else {
+                            this.logLimit = compEvent.detail.value;
+                        }
+                        break;
+                }
         }
     }
     /**
