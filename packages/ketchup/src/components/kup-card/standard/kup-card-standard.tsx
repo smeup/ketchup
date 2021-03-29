@@ -874,6 +874,10 @@ export function create13(component: KupCard): VNode {
     const buttonArray: GenericObject[] = component.data['button']
         ? component.data['button']
         : [];
+    //Combobox list
+    const comboboxArray: GenericObject[] = component.data['combobox']
+        ? component.data['combobox']
+        : [];
     //String list
     const textArray: string[] = component.data['text']
         ? component.data['text']
@@ -893,6 +897,7 @@ export function create13(component: KupCard): VNode {
                     <div class="section-1">
                         {compList(buttonArray, 'button')}
                         {compList(textfieldArray, 'textfield')}
+                        {compList(comboboxArray, 'combobox')}
                     </div>
                 ) : null}
                 {textArray.length > 0 ? (
@@ -930,6 +935,11 @@ function compList(
             case 'checkbox':
                 list.push(
                     <kup-checkbox {...(compArray as GenericObject[])[index]} />
+                );
+                break;
+            case 'combobox':
+                list.push(
+                    <kup-combobox {...(compArray as GenericObject[])[index]} />
                 );
                 break;
             case 'datepicker':

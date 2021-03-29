@@ -104,6 +104,7 @@ export class KupCombobox {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: string;
         value: any;
     }>;
 
@@ -144,6 +145,7 @@ export class KupCombobox {
         bubbles: true,
     })
     kupItemClick: EventEmitter<{
+        id: string;
         value: any;
     }>;
 
@@ -245,6 +247,7 @@ export class KupCombobox {
         }
 
         this.kupClick.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -285,6 +288,7 @@ export class KupCombobox {
         });
 
         this.kupItemClick.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }

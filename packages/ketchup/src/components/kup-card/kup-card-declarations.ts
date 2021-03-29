@@ -22,6 +22,7 @@ export interface CardData {
     checkbox?: GenericObject[];
     chip?: GenericObject[];
     color?: string[];
+    combobox?: GenericObject[];
     datepicker?: GenericObject[];
     image?: GenericObject[];
     progressbar?: GenericObject[];

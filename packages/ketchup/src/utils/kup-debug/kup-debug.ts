@@ -1,5 +1,6 @@
 import type { KupCard } from '../../components/kup-card/kup-card';
 import { CardData } from '../../components/kup-card/kup-card-declarations';
+import { ComponentListElement } from '../../components/kup-list/kup-list-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
@@ -122,6 +123,16 @@ export class KupDebug {
         const debugWindow: HTMLKupCardElement = document.createElement(
             'kup-card'
         );
+        const themes: string[] = dom.ketchup.theme.getThemes();
+        const listData: ComponentListElement[] = [];
+        for (let index = 0; index < themes.length; index++) {
+            listData.push({
+                text: themes[index],
+                value: themes[index],
+                selected: false,
+                isSeparator: false,
+            });
+        }
         debugWindow.data = {
             button: [
                 {
@@ -141,6 +152,24 @@ export class KupDebug {
                     title: 'Dump stored logs',
                 },
             ],
+            combobox: [
+                {
+                    className: 'kup-full-height',
+                    data: {
+                        'kup-list': { data: listData },
+                        'kup-text-field': {
+                            className: 'kup-full-height',
+                            emitSubmitEventOnEnter: false,
+                            initialValue: dom.ketchup.theme.name,
+                            inputType: 'text',
+                            label: 'Change theme',
+                        },
+                    },
+                    id: 'kup-debug-theme-changer',
+                    initialValue: dom.ketchup.theme.name,
+                    isSelect: true,
+                },
+            ],
             textfield: [
                 {
                     className: 'kup-full-height',
@@ -150,18 +179,10 @@ export class KupDebug {
                     emitSubmitEventOnEnter: false,
                     inputType: 'number',
                 },
-                {
-                    className: 'kup-full-height',
-                    id: 'kup-debug-theme-changer',
-                    label: 'Change theme',
-                    initialValue: dom.ketchup.theme.name,
-                    emitSubmitEventOnEnter: false,
-                    inputType: 'text',
-                },
             ],
         };
         debugWindow.customStyle =
-            '#kup-debug-log-limit,#kup-debug-theme-changer {width: 120px;}';
+            '#kup-debug-log-limit {width: 120px;} #kup-debug-theme-changer {width: 190px;}';
         debugWindow.id = 'kup-debug-window';
         debugWindow.layoutNumber = 13;
         debugWindow.sizeX = 'auto';
@@ -215,6 +236,12 @@ export class KupDebug {
                         break;
                 }
                 break;
+            case 'kupComboboxItemClick':
+                switch (compID) {
+                    case 'kup-debug-theme-changer':
+                        dom.ketchup.theme.set(compEvent.detail.value);
+                        break;
+                }
             case 'kupTextFieldInput':
                 switch (compID) {
                     case 'kup-debug-log-limit':
@@ -226,9 +253,6 @@ export class KupDebug {
                         } else {
                             this.logLimit = compEvent.detail.value;
                         }
-                        break;
-                    case 'kup-debug-theme-changer':
-                        dom.ketchup.theme.set(compEvent.detail.value);
                         break;
                 }
         }
