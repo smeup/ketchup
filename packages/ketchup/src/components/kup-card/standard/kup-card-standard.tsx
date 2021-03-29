@@ -865,7 +865,7 @@ export function create12(component: KupCard) {
     );
 }
 /**
- * 1st standard card layout, inspired by Material Design.
+ * 13th standard card layout, buttons and text lines, used for debug window.
  * @param {KupCard}  comp - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */

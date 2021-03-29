@@ -159,8 +159,17 @@ export class KupDebug {
                     emitSubmitEventOnEnter: false,
                     inputType: 'number',
                 },
+                {
+                    className: 'full-height',
+                    id: 'kup-debug-log-limit',
+                    label: 'Set log limit',
+                    initialValue: this.logLimit,
+                    emitSubmitEventOnEnter: false,
+                    inputType: 'number',
+                },
             ],
         };
+        debugWindow.customStyle = '#kup-debug-log-limit {width: 120px;}';
         debugWindow.id = 'kup-debug-window';
         debugWindow.layoutNumber = 13;
         debugWindow.sizeX = 'auto';
@@ -203,11 +212,18 @@ export class KupDebug {
                         this.#debugWindow.data = cardData;
                         break;
                     case 'kup-debug-toggle':
-                        if (this.#debugWindow.customStyle) {
-                            this.#debugWindow.customStyle = '';
+                        let toggleStyle: string =
+                            ' #kup-component .section-2 {max-height: 75vh; max-width: unset;}';
+                        if (
+                            this.#debugWindow.customStyle.indexOf(toggleStyle) >
+                            -1
+                        ) {
+                            this.#debugWindow.customStyle.replace(
+                                new RegExp(toggleStyle, 'g'),
+                                ''
+                            );
                         } else {
-                            this.#debugWindow.customStyle =
-                                '#kup-component .section-2 {max-width: unset;}';
+                            this.#debugWindow.customStyle += toggleStyle;
                         }
                         break;
                 }

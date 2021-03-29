@@ -20,6 +20,7 @@
   }
 
   .section-1 {
+    background-color: var(--kup-title-background-color);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -32,9 +33,6 @@
     kup-button {
       margin-right: 0.25em;
     }
-    kup-text-field {
-      width: 120px;
-    }
   }
 
   .section-2 {
@@ -45,6 +43,7 @@
     max-width: 25vw;
   }
   .text {
+    color: var(--kup-text-color);
     font-family: var(--kup-font-family-monospace);
     white-space: nowrap;
     border-bottom: 1px solid var(--kup-border-color);
