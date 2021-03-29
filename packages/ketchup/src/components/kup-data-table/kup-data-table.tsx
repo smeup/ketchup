@@ -2037,14 +2037,13 @@ export class KupDataTable {
             this.deselectColumn(this.selectedColumn);
             this.selectedColumn = clickedColumn;
             this.selectColumn(this.selectedColumn);
-
-            // emit event
-            this.kupRowSelected.emit({
-                selectedRows: this.selectedRows,
-                clickedRow: row,
-                clickedColumn,
-            });
-        }
+        } 
+        // emit event
+        this.kupRowSelected.emit({
+            selectedRows: this.selectedRows,
+            clickedRow: row,
+            clickedColumn,
+        });
     }
 
     private selectColumn(selectedColumn: string) {
