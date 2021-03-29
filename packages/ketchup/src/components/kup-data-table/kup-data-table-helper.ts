@@ -377,6 +377,35 @@ function updateGroupTotal(
                             distinctList.push(cellValue);
                         }
                     }
+                    // updating parents
+                    let distinctParent = groupRow.group.parent;
+                    while (distinctParent != null) {
+                        // get parent value
+                        let distinctGroupParent =
+                            distinctObj[distinctParent.group.id];
+                        if (!distinctGroupParent) {
+                            distinctObj[distinctParent.group.id] = {};
+                            distinctObj[distinctParent.group.id][key] = [];
+                            distinctObj[distinctParent.group.id][key].push(
+                                cellValue
+                            );
+                        } else {
+                            let distinctParentList =
+                                distinctObj[distinctParent.group.id][key];
+                            if (!distinctParentList) {
+                                // first round
+                                distinctObj[distinctParent.group.id][key] = [];
+                                distinctObj[distinctParent.group.id][key].push(
+                                    cellValue
+                                );
+                            } else {
+                                // update the list
+                                distinctParentList.push(cellValue);
+                            }
+                        }
+                        // continue
+                        distinctParent = distinctParent.group.parent;
+                    }
                     break;
                 case TotalMode.SUM:
                 case TotalMode.AVERAGE:
@@ -624,16 +653,23 @@ function adjustGroupsAverageOrFormula(
 function adjustGroupDistinct(
     groupRow: Row,
     toAdjustKeys: Array<string>,
-    _distinctObj: Object
+    distinctObj: Object
 ) {
     const children = groupRow.group.children;
+
     if (children.length === 0) {
         return;
     }
-    toAdjustKeys.forEach((_key) => {
-        // TODO
-        // const distinctList = distinctObj[groupRow.group.id][key];
-        // groupRow.group.totals[key] = new Set(distinctList).size;
+
+    if (children[0].group) {
+        children.forEach((child) => {
+            adjustGroupDistinct(child, toAdjustKeys, distinctObj);
+        });
+    }
+
+    toAdjustKeys.forEach((key) => {
+        const distinctList = distinctObj[groupRow.group.id][key];
+        groupRow.group.totals[key] = new Set(distinctList).size;
     });
 }
 

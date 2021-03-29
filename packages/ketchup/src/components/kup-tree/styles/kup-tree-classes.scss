@@ -1,37 +1,34 @@
-//--------------------------------//
-// Component classes              //
-//--------------------------------//
-:host(.layout-fixed) {
-  #kup-component table {
-    table-layout: fixed;
-    width: 100%;
-  }
-}
-
-:host(.full-width) {
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+:host(.kup-full-width) {
   min-width: 100%;
   table.kup-tree {
     min-width: 100%;
   }
 }
 
-:host(.shaped) {
+:host(.kup-layout-fixed) {
+  #kup-component table {
+    table-layout: fixed;
+    width: 100%;
+  }
+}
+
+:host(.kup-shaped) {
   td.mdc-ripple-surface {
     border-radius: 0 66px 66px 0;
   }
 }
-
-//--------------------------------//
-// Row classes specified in JSON  //
-//--------------------------------//
+/*-------------------------------------------------*/
+/*      J S O N   C l a s s e s   ( r o w s )      */
+/*-------------------------------------------------*/
 tr.clickable {
   cursor: pointer;
 }
-
-//--------------------------------//
-// Cell classes specified in JSON //
-//--------------------------------//
-
+/*-------------------------------------------------*/
+/*     J S O N   C l a s s e s   ( c e l l s )     */
+/*-------------------------------------------------*/
 // TD styles
 // These styles are appplied to the whole cell
 td.clickable {

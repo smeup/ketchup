@@ -19,6 +19,8 @@ import {
     isTime,
     isTimestamp,
     isTimeWithSeconds,
+    canHaveExtraColumns,
+    canHaveAutomaticDerivedColumn,
 } from '../object-utils';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
 import { FilterInterval, GenericFilter } from '../filters/filters-declarations';
@@ -155,24 +157,28 @@ export class ColumnMenu {
                 title: 'Hide column',
             });
         }
-        props.push({
-            className: 'printable',
-            'data-storage': {
-                columnName: column.name,
-            },
-            icon: 'table-column-plus-after',
-            id: 'add',
-            title: 'Add column',
-        });
-        props.push({
-            className: 'printable',
-            'data-storage': {
-                columnName: column.name,
-            },
-            icon: 'label',
-            id: 'description',
-            title: 'Add code/description column',
-        });
+        if (canHaveExtraColumns(column.obj)) {
+            props.push({
+                className: 'printable',
+                'data-storage': {
+                    columnName: column.name,
+                },
+                icon: 'table-column-plus-after',
+                id: 'add',
+                title: 'Add column',
+            });
+            if (canHaveAutomaticDerivedColumn(column.obj)) {
+                props.push({
+                    className: 'printable',
+                    'data-storage': {
+                        columnName: column.name,
+                    },
+                    icon: 'label',
+                    id: 'description',
+                    title: 'Add code/description column',
+                });
+            }
+        }
         return props;
     }
     /**

@@ -1,5 +1,14 @@
-import { Component, Prop, State, h, Event, EventEmitter } from '@stencil/core';
+import {
+    Component,
+    Element,
+    Prop,
+    State,
+    h,
+    Event,
+    EventEmitter,
+} from '@stencil/core';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import { GenericObject } from '../../types/GenericTypes';
 
 import { ButtonConfig } from './kup-btn-declarations';
 
@@ -9,6 +18,7 @@ import { ButtonConfig } from './kup-btn-declarations';
     shadow: true,
 })
 export class KupBtn {
+    @Element() rootElement: HTMLElement;
     @Prop() buttons: any[];
 
     // setup props
@@ -70,7 +80,7 @@ export class KupBtn {
                 const btnsJsx = btns.map((btn) => {
                     const props = {
                         ...(this.config.fillspace
-                            ? { class: 'full-width' }
+                            ? { class: 'kup-full-width' }
                             : {}),
                         ...(this.config.showtext ? { label: btn.value } : {}),
                         ...(this.config.showicon ? { icon: btn.icon } : {}),
@@ -81,9 +91,14 @@ export class KupBtn {
                         onKupButtonClick: (ev) => this.onBtnClicked(ev),
                     };
 
+                    let classObj: GenericObject = {};
+                    if (this.rootElement.classList.contains('kup-large')) {
+                        classObj['kup-large'] = true;
+                    }
+
                     return (
                         <td>
-                            <kup-button {...props} />
+                            <kup-button class={classObj} {...props} />
                         </td>
                     );
                 });

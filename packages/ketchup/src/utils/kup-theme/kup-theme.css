@@ -1,3 +1,39 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+.kup-danger {
+    --kup-primary-color: var(--kup-danger-color);
+    --kup-text-on-primary-color: white;
+    --kup-primary-color-rgb: var(--kup-danger-color-rgb);
+    --kup-text-on-primary-color-rgb: 255, 255, 255;
+}
+.kup-info {
+    --kup-primary-color: var(--kup-info-color);
+    --kup-text-on-primary-color: white;
+    --kup-primary-color-rgb: var(--kup-info-color-rgb);
+    --kup-text-on-primary-color-rgb: 255, 255, 255;
+}
+.kup-secondary {
+    --kup-primary-color: var(--kup-secondary-color);
+    --kup-text-on-primary-color: var(--kup-text-on-secondary-color);
+    --kup-primary-color-rgb: var(--kup-secondary-color-rgb);
+    --kup-text-on-primary-color-rgb: var(--kup-text-on-secondary-color-rgb);
+}
+.kup-success {
+    --kup-primary-color: var(--kup-success-color);
+    --kup-text-on-primary-color: white;
+    --kup-primary-color-rgb: var(--kup-success-color-rgb);
+    --kup-text-on-primary-color-rgb: 255, 255, 255;
+}
+.kup-warning {
+    --kup-primary-color: var(--kup-warning-color);
+    --kup-text-on-primary-color: white;
+    --kup-primary-color-rgb: var(--kup-warning-color-rgb);
+    --kup-text-on-primary-color-rgb: 255, 255, 255;
+}
+/*-------------------------------------------------*/
+/*          S c r o l l   o n   h o v e r          */
+/*-------------------------------------------------*/
 #container-scrolling-arrow {
     position: fixed;
     top: 50%;

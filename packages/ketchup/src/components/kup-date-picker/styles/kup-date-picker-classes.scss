@@ -1,0 +1,16 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+:host(.kup-full-height) {
+  height: 100%;
+  #kup-component {
+    height: 100%;
+  }
+}
+
+:host(.kup-full-width) {
+  width: 100%;
+  #kup-component {
+    width: 100%;
+  }
+}

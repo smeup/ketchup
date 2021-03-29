@@ -259,9 +259,45 @@ let sortBoxData = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'CASFRA',
+                        k: 'pippo',
                     },
-                    value: 'CASFRA',
+                    value: 'pippo',
+                },
+                FLD3: {
+                    obj: {
+                        t: 'NR',
+                        p: '',
+                        k: '43100.60',
+                    },
+                    value: '43,100.60',
+                },
+                FLD4: {
+                    obj: {
+                        t: 'D8',
+                        p: '*YYMD',
+                        k: '20180101',
+                    },
+                    value: '2018-01-01',
+                },
+            },
+        },
+        {
+            cells: {
+                FLD1: {
+                    obj: {
+                        t: 'J4',
+                        p: 'IMG',
+                        k: 'CN;COL;CASFRA',
+                    },
+                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
+                },
+                FLD2: {
+                    obj: {
+                        t: 'CN',
+                        p: 'COL',
+                        k: 'pippo',
+                    },
+                    value: 'pippo',
                 },
                 FLD3: {
                     obj: {
@@ -331,45 +367,9 @@ let sortBoxData = {
                     obj: {
                         t: 'CN',
                         p: 'COL',
-                        k: 'CASFRA',
+                        k: 'pluto',
                     },
-                    value: 'CASFRA',
-                },
-                FLD3: {
-                    obj: {
-                        t: 'NR',
-                        p: '',
-                        k: '43100.60',
-                    },
-                    value: '43,100.60',
-                },
-                FLD4: {
-                    obj: {
-                        t: 'D8',
-                        p: '*YYMD',
-                        k: '20180101',
-                    },
-                    value: '2018-01-01',
-                },
-            },
-        },
-        {
-            cells: {
-                FLD1: {
-                    obj: {
-                        t: 'J4',
-                        p: 'IMG',
-                        k: 'CN;COL;CASFRA',
-                    },
-                    value: 'http://lorempixel.com/64/64/?user=CASFRA',
-                },
-                FLD2: {
-                    obj: {
-                        t: 'CN',
-                        p: 'COL',
-                        k: 'CASFRA',
-                    },
-                    value: 'CASFRA',
+                    value: 'pluto',
                 },
                 FLD3: {
                     obj: {
@@ -647,10 +647,15 @@ let sortBoxData = {
 const kanbanBox = document.getElementById('kanban-box');
 if (kanbanBox != null) {
     kanbanBox.data = sortBoxData;
+    kanbanBox.scrollOnHover = true;
     kanbanBox.kanban = {
-        column: 'FLD2',
-        labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
-        size: '50px',
+        columns: ['FLD1', 'FLD2'],
+        labels: [
+            ['uno', 'due'],
+            ['tre', 'quattro'],
+            ['http://lorempixel.com/64/64/?user=CASFRA', 'CASFRA'],
+        ],
+        size: '50vw',
     };
 }
 

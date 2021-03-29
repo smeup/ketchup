@@ -96,11 +96,22 @@
       >
     </noscript>
     <script>
+      document.addEventListener('kupManagerReady', () => removeSpinner());
       if (
         window.matchMedia &&
         window.matchMedia('(prefers-color-scheme: dark)').matches
       ) {
         document['ketchupInit'] = { theme: { name: 'dark' } };
+      }
+      function removeSpinner() {
+        setTimeout(() => {
+          let landingModal = document.querySelector('#landing-spinner-modal');
+          let landingLabel = document.querySelector('#landing-spinner-label');
+          landingLabel.innerHTML = 'Ready!';
+          landingModal.style.opacity = '0';
+          document.querySelector('#inspire').style.display = 'block';
+          setTimeout(() => landingModal.remove(), 500);
+        }, 1000);
       }
     </script>
     <div id="landing-spinner-modal"
@@ -112,16 +123,6 @@
       >
     </div>
     <div id="app"></div>
-    <script>
-      setTimeout(() => {
-        let landingModal = document.querySelector('#landing-spinner-modal');
-        let landingLabel = document.querySelector('#landing-spinner-label');
-        landingLabel.innerHTML = 'Ready!';
-        landingModal.style.opacity = '0';
-        document.querySelector('#inspire').style.display = 'block';
-        setTimeout(() => landingModal.remove(), 500);
-      }, 2000);
-    </script>
     <!-- built files will be auto injected -->
   </body>
 </html>

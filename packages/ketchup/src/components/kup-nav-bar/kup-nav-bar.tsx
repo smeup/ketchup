@@ -15,14 +15,16 @@ import {
     ComponentNavBarElement,
     getClassNameByComponentMode,
     ComponentNavBarMode,
+    KupNavBarProps,
 } from './kup-nav-bar-declarations';
 import { MDCTopAppBar } from '@material/top-app-bar';
-import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import type { GenericObject } from '../../types/GenericTypes';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import { ComponentListElement } from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -110,6 +112,25 @@ export class KupNavBar {
             'Needs to be refreshed every time the theme changes because there are dynamic colors.';
         this.customStyleTheme = customStyleTheme;
         this.fetchThemeColors();
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupNavBarProps;
+        } else {
+            for (const key in KupNavBarProps) {
+                if (Object.prototype.hasOwnProperty.call(KupNavBarProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     onKupNavbarMenuItemClick(e: CustomEvent) {

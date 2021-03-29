@@ -10,7 +10,6 @@ import {
     Method,
     Watch,
 } from '@stencil/core';
-
 import {
     ChartType,
     ChartAspect,
@@ -20,22 +19,21 @@ import {
     ChartOfflineMode,
     ChartSerie,
     ChartTitle,
+    KupChartProps,
 } from './kup-chart-declarations';
-
 import {
     convertColumns,
     convertRows,
     getSerieDecode,
 } from './kup-chart-builder';
-
 import { DataTable } from '../kup-data-table/kup-data-table-declarations';
-
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { identify } from '../../utils/utils';
 import { getColumnByName } from '../../utils/cell-utils';
+import { GenericObject } from '../../types/GenericTypes';
 
 declare const google: any;
 declare const $: any;
@@ -64,6 +62,10 @@ export class KupChart {
      */
     @Prop() colors: string[] = [];
     /**
+     * Title of the graph.
+     */
+    @Prop() chartTitle: ChartTitle;
+    /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
      */
     @Prop() customStyle: string = '';
@@ -71,10 +73,6 @@ export class KupChart {
      * The actual data of the chart.
      */
     @Prop() data: DataTable;
-    /**
-     * Title of the graph.
-     */
-    @Prop() chartTitle: ChartTitle;
     /**
      * Customize the hAxis.
      */
@@ -185,6 +183,25 @@ export class KupChart {
                 this.loadOfflineChart();
             }
         }, 300);
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupChartProps;
+        } else {
+            for (const key in KupChartProps) {
+                if (Object.prototype.hasOwnProperty.call(KupChartProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     private loadGoogleChart() {

@@ -21,6 +21,8 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import { GenericObject } from '../../types/GenericTypes';
+import { KupAutocompleteProps } from './kup-autocomplete-declarations';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -222,6 +224,30 @@ export class KupAutocomplete {
         this.value = value;
         this.doConsistencyCheck = true;
         this.consistencyCheck(undefined, value);
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupAutocompleteProps;
+        } else {
+            for (const key in KupAutocompleteProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        KupAutocompleteProps,
+                        key
+                    )
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
@@ -456,16 +482,16 @@ export class KupAutocomplete {
 
     render() {
         const fullHeight: boolean = this.rootElement.classList.contains(
-            'full-height'
+            'kup-full-height'
         );
         const fullWidth: boolean = this.rootElement.classList.contains(
-            'full-width'
+            'kup-full-width'
         );
 
         return (
             <Host
-                class={`${fullHeight ? 'full-height' : ''} ${
-                    fullWidth ? 'full-width' : ''
+                class={`${fullHeight ? 'kup-full-height' : ''} ${
+                    fullWidth ? 'kup-full-width' : ''
                 }`}
                 onBlur={(e: any) => this.onKupBlur(e)}
                 style={this.elStyle}

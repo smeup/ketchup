@@ -16,6 +16,8 @@ import {
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
+import { GenericObject } from '../../types/GenericTypes';
+import { KupCheckboxProps } from './kup-checkbox-declarations';
 
 @Component({
     tag: 'kup-checkbox',
@@ -184,6 +186,27 @@ export class KupCheckbox {
     @Method()
     async themeChangeCallback(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupCheckboxProps;
+        } else {
+            for (const key in KupCheckboxProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(KupCheckboxProps, key)
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     /*-------------------------------------------------*/

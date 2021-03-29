@@ -18,6 +18,7 @@ import {
     TooltipObject,
     ViewMode,
     TooltipCellOptions,
+    KupTooltipProps,
 } from './kup-tooltip-declarations';
 import {
     KupManager,
@@ -27,6 +28,7 @@ import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
 import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
 import { KupTree } from '../kup-tree/kup-tree';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import { GenericObject } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kup-tooltip',
@@ -61,6 +63,10 @@ export class KupTooltip {
      * Timeout for tooltip
      */
     @Prop() loadTimeout: number = 1000;
+    /**
+     * Owner of this tooltip
+     */
+    @Prop() owner: string = 'not-set';
     /**
      * Container element for tooltip
      */
@@ -112,6 +118,7 @@ export class KupTooltip {
     })
     kupActionCommandClicked: EventEmitter<{
         actionCommand: TooltipAction;
+        relatedObject: TooltipRelatedObject;
     }>;
 
     @Event({
@@ -283,6 +290,27 @@ export class KupTooltip {
             //console.log('tooltip unsetTooltipInfo mouseIsoN');
         }
     }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupTooltipProps;
+        } else {
+            for (const key in KupTooltipProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(KupTooltipProps, key)
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
+    }
 
     // ---- Private methods ----
     private mouseIsOn() {
@@ -450,7 +478,10 @@ export class KupTooltip {
         // Blocco la propagazione del onKupButtonClicked per evitare che lo stesso click
         // sia gestito da due handler differenti, creando problemi sulla navigazione
         event.stopPropagation();
-        this.kupActionCommandClicked.emit({ actionCommand: action });
+        this.kupActionCommandClicked.emit({
+            actionCommand: action,
+            relatedObject: this.relatedObject,
+        });
     }
 
     private onDefaultActionClicked(event: Event) {
@@ -680,7 +711,7 @@ export class KupTooltip {
         if (this.hasCellOptionsData()) {
             detailContent = [
                 <kup-tree
-                    class="full-width"
+                    class="kup-full-width"
                     showFilter={true}
                     {...this.cellOptions.config}
                     {...this.cellOptions}

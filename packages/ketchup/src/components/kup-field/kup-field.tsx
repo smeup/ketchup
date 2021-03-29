@@ -10,11 +10,16 @@ import {
     Method,
 } from '@stencil/core';
 
-import { KupFldChangeEvent, KupFldSubmitEvent } from './kup-field-declarations';
+import {
+    KupFieldProps,
+    KupFldChangeEvent,
+    KupFldSubmitEvent,
+} from './kup-field-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { GenericObject } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kup-field',
@@ -99,6 +104,25 @@ export class KupField {
     @Method()
     async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupFieldProps;
+        } else {
+            for (const key in KupFieldProps) {
+                if (Object.prototype.hasOwnProperty.call(KupFieldProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     // When a change or update event must be launched as if it's coming from the FLD itself

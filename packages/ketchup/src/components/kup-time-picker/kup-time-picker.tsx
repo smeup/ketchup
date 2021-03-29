@@ -29,6 +29,8 @@ import {
 } from '../../utils/utils';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import { KupTimePickerProps } from './kup-time-picker-declarations';
+import { GenericObject } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kup-time-picker',
@@ -41,14 +43,6 @@ export class KupTimePicker {
     @State() stateSwitcher: boolean = false;
     @State() value: string = '';
     /**
-     * Sets the initial value of the component
-     */
-    @Prop() initialValue: string = '';
-    /**
-     * Defaults at false. When set to true, the component is disabled.
-     */
-    @Prop() disabled: boolean = false;
-    /**
      * When set to true, the drop down menu will display a clock.
      */
     @Prop() clockVariant: boolean = true;
@@ -60,6 +54,14 @@ export class KupTimePicker {
      * Props of the sub-components (time input text field)
      */
     @Prop() data: Object = {};
+    /**
+     * Defaults at false. When set to true, the component is disabled.
+     */
+    @Prop() disabled: boolean = false;
+    /**
+     * Sets the initial value of the component
+     */
+    @Prop() initialValue: string = '';
     /**
      * Manage seconds
      */
@@ -288,6 +290,30 @@ export class KupTimePicker {
     async setValue(value: string) {
         this.value = value;
         this.setTextFieldInitalValue(this.getTimeForOutput());
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupTimePickerProps;
+        } else {
+            for (const key in KupTimePickerProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        KupTimePickerProps,
+                        key
+                    )
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     onKupBlur(e: UIEvent) {
@@ -916,9 +942,11 @@ export class KupTimePicker {
             this.data &&
             this.data['kup-text-field'] &&
             this.data['kup-text-field']['className'] &&
-            this.data['kup-text-field']['className'].indexOf('full-height') > -1
+            this.data['kup-text-field']['className'].indexOf(
+                'kup-full-height'
+            ) > -1
         ) {
-            hostClass['full-height'] = true;
+            hostClass['kup-full-height'] = true;
         }
 
         if (
@@ -926,7 +954,7 @@ export class KupTimePicker {
             this.data['kup-text-field'] &&
             this.data['kup-text-field']['fullWidth']
         ) {
-            hostClass['full-width'] = true;
+            hostClass['kup-full-width'] = true;
         }
 
         return (

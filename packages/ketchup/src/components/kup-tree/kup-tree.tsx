@@ -24,14 +24,13 @@ import {
 } from './../kup-data-table/kup-data-table-declarations';
 
 import {
+    KupTreeProps,
     treeExpandedPropName,
     TreeNode,
     TreeNodePath,
 } from './kup-tree-declarations';
 
 import { hasTooltip, isNumber } from '../../utils/object-utils';
-
-import { ScrollOnHover } from '../../utils/scroll-on-hover/scroll-on-hover';
 import { MDCRipple } from '@material/ripple';
 import {
     KupManager,
@@ -461,6 +460,25 @@ export class KupTree {
             });
         }
         this.forceUpdate();
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupTreeProps;
+        } else {
+            for (const key in KupTreeProps) {
+                if (Object.prototype.hasOwnProperty.call(KupTreeProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     setColumnMenu(column: string) {
@@ -1179,7 +1197,11 @@ export class KupTree {
                 class={cellClass}
                 onClick={() => (this.selectedColumn = cellData.column.name)}
                 style={tdStyle}
-                {...this.getToolTipEventHandlers(cell, _hasTooltip)}
+                {...this.getToolTipEventHandlers(
+                    cellData.treeNode,
+                    cell,
+                    _hasTooltip
+                )}
             >
                 {cellElements}
             </td>
@@ -1190,20 +1212,24 @@ export class KupTree {
      * Controls if current cell needs a tooltip and eventually adds it.
      * @todo When the option forceOneLine is active, there is a problem with the current implementation of the tooltip. See documentation in the mauer wiki for better understanding.
      */
-    private getToolTipEventHandlers(cell: Cell, hasTooltip: boolean) {
+    private getToolTipEventHandlers(
+        treeNodeData: TreeNode,
+        cell: Cell,
+        hasTooltip: boolean
+    ) {
         let eventHandlers = undefined;
         if (hasTooltip) {
             if (this.showTooltipOnRightClick) {
                 eventHandlers = {
                     onContextMenu: (ev) => {
                         ev.preventDefault();
-                        setTooltip(ev, cell, this.tooltip);
+                        setTooltip(ev, treeNodeData.id, cell, this.tooltip);
                     },
                 };
             } else {
                 eventHandlers = {
                     onMouseEnter: (ev) => {
-                        setTooltip(ev, cell, this.tooltip);
+                        setTooltip(ev, treeNodeData.id, cell, this.tooltip);
                     },
                     onMouseLeave: () => {
                         unsetTooltip(this.tooltip);
@@ -1508,7 +1534,8 @@ export class KupTree {
         }
         return (
             <kup-tooltip
-                class="datatable-tooltip"
+                class="tree-tooltip"
+                owner={this.rootElement.tagName}
                 loadTimeout={
                     this.showTooltipOnRightClick == true
                         ? 0
@@ -1736,7 +1763,11 @@ export class KupTree {
                     onDblClick={() => {
                         this.onKupTreeNodeDblClick(treeNodeData, treeNodePath);
                     }}
-                    {...this.getToolTipEventHandlers(cell, _hasTooltip)}
+                    {...this.getToolTipEventHandlers(
+                        treeNodeData,
+                        cell,
+                        _hasTooltip
+                    )}
                 >
                     {indent}
                     {treeExpandIcon}

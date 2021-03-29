@@ -10,12 +10,13 @@ import {
     State,
     Method,
 } from '@stencil/core';
-import { EchartTitle } from './kup-echart-declarations';
+import { EchartTitle, KupEchartProps } from './kup-echart-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import echarts, { EChartOption, ECharts } from 'echarts';
+import { GenericObject } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kup-echart',
@@ -53,7 +54,7 @@ export class KupEchart {
      */
     @Prop() legend: string;
     /**
-     * choose which map you want to view. europe, africa, asia, oceania, america, world. you can also switch to json data to form a custom map
+     * Choose which map you want to view, supported values: "europe", "africa", "asia", "oceania", "america" and "world". You can also provide your own JSON.
      */
     @Prop() mapType: any;
     /**
@@ -105,6 +106,25 @@ export class KupEchart {
     async resizeCallback(): Promise<void> {
         window.clearTimeout(this.resizeTimeout);
         this.resizeTimeout = window.setTimeout(() => this.forceUpdate(), 300);
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupEchartProps;
+        } else {
+            for (const key in KupEchartProps) {
+                if (Object.prototype.hasOwnProperty.call(KupEchartProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     private onKupClick() {

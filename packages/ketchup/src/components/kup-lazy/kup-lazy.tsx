@@ -1,9 +1,11 @@
 import { Component, Element, Host, Prop, State, h } from '@stencil/core';
 import { Method } from '@stencil/core/internal';
+import { GenericObject } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { KupLazyProps } from './kup-lazy-declarations';
 
 @Component({
     tag: 'kup-lazy',
@@ -43,6 +45,25 @@ export class KupLazy {
     @Method()
     async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupLazyProps;
+        } else {
+            for (const key in KupLazyProps) {
+                if (Object.prototype.hasOwnProperty.call(KupLazyProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     setObserver() {
@@ -217,10 +238,10 @@ export class KupLazy {
         if (this.isInViewport) {
             let Tag = this.componentName;
             content = <Tag {...this.data}></Tag>;
-            className += ' loaded';
+            className += ' kup-loaded';
         } else if (this.showPlaceholder) {
             content = resource;
-            className += ' to-be-loaded';
+            className += ' kup-to-be-loaded';
         }
         return (
             <Host class={className}>

@@ -15,10 +15,12 @@ export const FButton: FunctionalComponent<FButtonProps> = (
     return (
         <div
             class={`f-button--wrapper ${
-                props.fullHeight ? 'full-height' : ''
-            } ${props.fullWidth ? 'full-width' : ''} ${
-                props.shaped ? 'shaped' : ''
-            } ${props.wrapperClass ? props.wrapperClass : ''}`}
+                props.fullHeight ? 'kup-full-height' : ''
+            } ${props.fullWidth ? 'kup-full-width' : ''} ${
+                props.large ? 'kup-large' : ''
+            } ${props.shaped ? 'kup-shaped' : ''} ${
+                props.wrapperClass ? props.wrapperClass : ''
+            }`}
             {...props.dataSet}
             id={props.id}
             title={props.title}
@@ -77,8 +79,8 @@ function renderIconButton(props: FButtonProps): HTMLButtonElement {
         color: props.disabled
             ? 'var(--kup-disabled-color)'
             : 'var(--kup-primary-color)',
-        sizeX: '24px',
-        sizeY: '24px',
+        sizeX: props.large ? '32px' : '24px',
+        sizeY: props.large ? '32px' : '24px',
     };
 
     const classObj: Record<string, boolean> = {
