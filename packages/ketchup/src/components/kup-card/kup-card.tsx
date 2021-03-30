@@ -12,6 +12,7 @@ import {
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
+import * as dialogLayouts from './dialog/kup-card-dialog';
 import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
 import type { GenericObject } from '../../types/GenericTypes';
@@ -159,6 +160,11 @@ export class KupCard {
     onKupEvent(e: CustomEvent): void {
         const root = this.rootElement.shadowRoot;
 
+        if (e.type === 'kupButtonClick' && e.detail.id === 'dialog-close') {
+            this.rootElement.remove();
+            return;
+        }
+
         if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
             let collapsibleCard = root.querySelector('.collapsible-card');
             if (!collapsibleCard.classList.contains('expanded')) {
@@ -169,6 +175,7 @@ export class KupCard {
                 collapsibleCard.classList.remove('expanded');
                 this.sizeY = this.oldSizeY;
             }
+            return;
         }
 
         this.kupEvent.emit({
@@ -259,6 +266,9 @@ export class KupCard {
             switch (family) {
                 case CardFamily.COLLAPSIBLE: {
                     return collapsibleLayouts[method](this);
+                }
+                case CardFamily.DIALOG: {
+                    return dialogLayouts[method](this);
                 }
                 case CardFamily.SCALABLE: {
                     return scalableLayouts[method](this);

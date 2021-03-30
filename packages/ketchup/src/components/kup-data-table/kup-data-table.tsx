@@ -136,6 +136,7 @@ import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { FiltersRows } from '../../utils/filters/filters-rows';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
+import { CardData, CardFamily } from '../kup-card/kup-card-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1485,6 +1486,37 @@ export class KupDataTable {
             return undefined;
         }
     }
+    /**
+     * Opens a card containing the detail of the given row.
+     * @param {Row} row - Row for which the detail was requested.
+     * @private
+     * @memberof KupDataTable
+     */
+    private rowDetail(row: Row): void {
+        const cardData: CardData = { text: ['Record details'] };
+        for (const key in row.cells) {
+            if (Object.prototype.hasOwnProperty.call(row.cells, key)) {
+                const cell: Cell = row.cells[key];
+                cardData.text.push(
+                    this.data.columns.find((x) => x.name === key).title
+                );
+                cardData.text.push(
+                    cell.displayedValue ? cell.displayedValue : cell.value
+                );
+            }
+        }
+        const card: HTMLKupCardElement = document.createElement('kup-card');
+        card.data = cardData;
+        card.layoutFamily = CardFamily.DIALOG;
+        card.layoutNumber = 1;
+        card.sizeX = '300px';
+        card.sizeY = '300px';
+        card.style.position = 'fixed';
+        card.style.left = 'calc(50% - 150px)';
+        card.style.top = 'calc(50% - 150px)';
+        card.style.zIndex = '100';
+        document.body.append(card);
+    }
 
     private getEventDetails(el: HTMLElement): EventHandlerDetails {
         const isHeader: boolean = !!el.closest('thead'),
@@ -1553,7 +1585,10 @@ export class KupDataTable {
                 }
             }
         } else if (details.area === 'body') {
-            if (this.isFocusable && details.tr) {
+            if (e.ctrlKey && details.tr && details.row) {
+                this.rowDetail(details.row);
+                return;
+            } else if (this.isFocusable && details.tr) {
                 const focusEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
                     'tr.focus'
                 );
