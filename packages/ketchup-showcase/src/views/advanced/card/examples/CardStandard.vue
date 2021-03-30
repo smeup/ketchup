@@ -367,6 +367,36 @@
         </div>
       </div>
     </div>
+
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 13</span> configuration:
+        <br />
+        <br />
+        <span class="code-word">- button[0 to n]</span>: Action list, displayed
+        above.
+        <br />
+        <span class="code-word">- combobox[0 to n]</span>: List of comboboxes.
+        <br />
+        <span class="code-word">- text[0 to n]</span>: List of generic text.
+        <br />
+        <span class="code-word">- textfield[0 to n]</span>: Textfield list,
+        displayed to the right of the button list.
+        <br />
+        <br />
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            size-x="600px"
+            size-y="300px"
+            layout-number="13"
+            :data.prop="data"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -483,6 +513,17 @@ export default {
           },
         ],
         color: ['var(--kup-spinner-color)', 'var(--kup-border-color)'],
+        combobox: [
+          {
+            data: {
+              'kup-list': {},
+              'kup-text-field': {
+                label: 'combobox[0]',
+              },
+            },
+            title: 'combobox[0]',
+          },
+        ],
         image: [
           {
             data: [

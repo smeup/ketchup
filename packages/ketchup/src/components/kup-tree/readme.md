@@ -204,9 +204,11 @@ graph TD;
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
   kup-card --> kup-checkbox
+  kup-card --> kup-combobox
   kup-card --> kup-date-picker
   kup-card --> kup-text-field
   kup-card --> kup-time-picker
+  kup-combobox --> kup-list
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
   kup-time-picker --> kup-text-field

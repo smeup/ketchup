@@ -174,3 +174,10 @@
         transform: translate(-10px, -10px);
     }
 }
+/* Debug */
+#kup-debug-window {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+}
