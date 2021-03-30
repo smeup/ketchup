@@ -39,6 +39,7 @@ export interface CardData {
  */
 export enum CardFamily {
     COLLAPSIBLE = 'collapsible',
+    DIALOG = 'dialog',
     SCALABLE = 'scalable',
     STANDARD = 'standard',
 }

@@ -923,7 +923,6 @@ function compList(
             typeof compArray[0] !== 'string' &&
             !(compArray as GenericObject[])[index].id
         ) {
-            console.log('s');
             (compArray as GenericObject[])[index]['id'] = compType + index;
         }
         switch (compType) {

@@ -1,0 +1,20 @@
+@import 'kup-card-dialog-1.scss';
+
+#header-bar {
+  background-color: var(--kup-title-background-color);
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  position: sticky;
+  top: 0;
+  #dialog-title {
+    font-weight: bold;
+    line-height: 50px;
+    padding-left: 0.5em;
+    white-space: nowrap;
+  }
+  #dialog-close {
+    --kup-primary-color: var(--kup-title-color);
+    margin-right: 0;
+  }
+}
