@@ -10,26 +10,9 @@
   resize: both;
 
   .section-1 {
-    background-color: var(--kup-title-background-color);
-    display: flex;
-    flex-direction: row;
-    height: 50px;
-    #dialog-title {
-      font-weight: bold;
-      line-height: 50px;
-      padding-left: 0.5em;
-    }
-    #dialog-close {
-      --kup-primary-color: var(--kup-title-color);
-      margin-right: 0;
-    }
-  }
-
-  .section-2 {
     display: grid;
     grid-gap: 0.5em;
     grid-template-columns: repeat(2, 1fr);
-    overflow: auto;
     padding: 0.5em;
     .text {
       min-width: max-content;
