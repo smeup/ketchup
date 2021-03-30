@@ -75,6 +75,7 @@ Type: `Promise<void>`
 - [kup-progress-bar](../kup-progress-bar)
 - [kup-chart](../kup-chart)
 - [kup-checkbox](../kup-checkbox)
+- [kup-combobox](../kup-combobox)
 - [kup-date-picker](../kup-date-picker)
 - [kup-text-field](../kup-text-field)
 - [kup-time-picker](../kup-time-picker)
@@ -88,19 +89,21 @@ graph TD;
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
   kup-card --> kup-checkbox
+  kup-card --> kup-combobox
   kup-card --> kup-date-picker
   kup-card --> kup-text-field
   kup-card --> kup-time-picker
   kup-chip --> kup-badge
   kup-badge --> kup-badge
   kup-button --> kup-badge
+  kup-combobox --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
-  kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-box --> kup-card
   kup-data-table --> kup-card
   kup-tree --> kup-card

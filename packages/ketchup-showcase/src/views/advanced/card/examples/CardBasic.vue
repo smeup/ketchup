@@ -27,13 +27,18 @@
       <a href="https://ketchup.smeup.com/ketchup-showcase/#/checkbox"
         >kup-checkbox</a
       >
-      props.
       <br />
       <span class="code-word">chip</span>: array of objects containing
       <a href="https://ketchup.smeup.com/ketchup-showcase/#/button">kup-chip</a>
       props.
       <br />
       <span class="code-word">color</span>: array of CSS color strings.
+      <br />
+      <span class="code-word">combobox</span>: array of objects containing
+      <a href="https://ketchup.smeup.com/ketchup-showcase/#/combobox"
+        >kup-combobox</a
+      >
+      props.
       <br />
       <span class="code-word">image</span>: array of objects containing
       <a href="https://ketchup.smeup.com/ketchup-showcase/#/image">kup-image</a>

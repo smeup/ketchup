@@ -160,7 +160,6 @@ export class KupDebug {
                         'kup-text-field': {
                             className: 'kup-full-height',
                             emitSubmitEventOnEnter: false,
-                            initialValue: dom.ketchup.theme.name,
                             inputType: 'text',
                             label: 'Change theme',
                         },
