@@ -14,12 +14,12 @@ export class MoveOnDrag {
     activeY: number = 0;
     #elementDrag: (this: Document, e: Event) => any = function (e: MouseEvent) {
         e.preventDefault();
-        const moveOnDrag = dom.ketchup.moveOnDrag;
+        const moveOnDrag: MoveOnDrag = dom.ketchup.moveOnDrag;
         if (moveOnDrag.activeElement) {
-            let x =
+            const x: number =
                 moveOnDrag.activeElement.offsetLeft -
                 (moveOnDrag.activeX - e.clientX);
-            let y =
+            const y: number =
                 moveOnDrag.activeElement.offsetTop -
                 (moveOnDrag.activeY - e.clientY);
             moveOnDrag.activeElement.style.left = x + 'px';
@@ -34,7 +34,6 @@ export class MoveOnDrag {
         this.activeY = e.clientY;
         const paths: EventTarget[] = e.composedPath();
         for (let index = 0; index < paths.length; index++) {
-            console.log(paths[index]);
             if ((paths[index] as HTMLElement).tagName === 'BODY') {
                 break;
             }

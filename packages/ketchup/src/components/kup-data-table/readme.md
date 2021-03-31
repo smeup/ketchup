@@ -202,6 +202,7 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-card](../kup-card)
 - [kup-checkbox](../kup-checkbox)
 - [kup-tooltip](../kup-tooltip)
 - [kup-list](../kup-list)
@@ -215,12 +216,12 @@ Type: `Promise<void>`
 - [kup-radio](../kup-radio)
 - [kup-paginator](../kup-paginator)
 - [kup-combobox](../kup-combobox)
-- [kup-card](../kup-card)
 - [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-data-table --> kup-card
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
@@ -234,12 +235,30 @@ graph TD;
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
-  kup-data-table --> kup-card
   kup-data-table --> kup-badge
+  kup-card --> kup-chip
+  kup-card --> kup-button
+  kup-card --> kup-badge
+  kup-card --> kup-progress-bar
+  kup-card --> kup-chart
+  kup-card --> kup-checkbox
+  kup-card --> kup-combobox
+  kup-card --> kup-date-picker
+  kup-card --> kup-text-field
+  kup-card --> kup-time-picker
+  kup-chip --> kup-badge
+  kup-badge --> kup-badge
+  kup-button --> kup-badge
+  kup-combobox --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
+  kup-date-picker --> kup-text-field
+  kup-date-picker --> kup-button
+  kup-time-picker --> kup-text-field
+  kup-time-picker --> kup-button
+  kup-time-picker --> kup-list
   kup-tooltip --> kup-button
   kup-tooltip --> kup-tree
-  kup-button --> kup-badge
-  kup-badge --> kup-badge
   kup-tree --> kup-image
   kup-tree --> kup-button
   kup-tree --> kup-chart
@@ -256,26 +275,7 @@ graph TD;
   kup-tree --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
-  kup-list --> kup-radio
-  kup-list --> kup-checkbox
-  kup-card --> kup-chip
-  kup-card --> kup-button
-  kup-card --> kup-badge
-  kup-card --> kup-progress-bar
-  kup-card --> kup-chart
-  kup-card --> kup-checkbox
-  kup-card --> kup-combobox
-  kup-card --> kup-date-picker
-  kup-card --> kup-text-field
-  kup-card --> kup-time-picker
-  kup-combobox --> kup-list
-  kup-date-picker --> kup-text-field
-  kup-date-picker --> kup-button
-  kup-time-picker --> kup-text-field
-  kup-time-picker --> kup-button
-  kup-time-picker --> kup-list
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
   kup-search --> kup-data-table
