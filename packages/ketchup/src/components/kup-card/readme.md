@@ -5,16 +5,16 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                                                                                                     | Type                                                                   | Default               |
-| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | --------------------- |
-| `customStyle`  | `custom-style`  | Custom style of the component.                                                                                  | `string`                                                               | `''`                  |
-| `data`         | --              | The actual data of the card.                                                                                    | `CardData`                                                             | `null`                |
-| `isMenu`       | `is-menu`       | Defines whether the card is a menu or not. Works together with menuVisible.                                     | `boolean`                                                              | `false`               |
-| `layoutFamily` | `layout-family` | Sets the type of the card.                                                                                      | `CardFamily.COLLAPSIBLE \| CardFamily.SCALABLE \| CardFamily.STANDARD` | `CardFamily.STANDARD` |
-| `layoutNumber` | `layout-number` | Sets the number of the layout.                                                                                  | `number`                                                               | `1`                   |
-| `menuVisible`  | `menu-visible`  | Sets the status of the card as menu, when false it's hidden otherwise it's visible. Works together with isMenu. | `boolean`                                                              | `false`               |
-| `sizeX`        | `size-x`        | The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).                        | `string`                                                               | `'100%'`              |
-| `sizeY`        | `size-y`        | The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).                       | `string`                                                               | `'100%'`              |
+| Property       | Attribute       | Description                                                                                                     | Type                                                                                        | Default               |
+| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------------- |
+| `customStyle`  | `custom-style`  | Custom style of the component.                                                                                  | `string`                                                                                    | `''`                  |
+| `data`         | --              | The actual data of the card.                                                                                    | `CardData`                                                                                  | `null`                |
+| `isMenu`       | `is-menu`       | Defines whether the card is a menu or not. Works together with menuVisible.                                     | `boolean`                                                                                   | `false`               |
+| `layoutFamily` | `layout-family` | Sets the type of the card.                                                                                      | `CardFamily.COLLAPSIBLE \| CardFamily.DIALOG \| CardFamily.SCALABLE \| CardFamily.STANDARD` | `CardFamily.STANDARD` |
+| `layoutNumber` | `layout-number` | Sets the number of the layout.                                                                                  | `number`                                                                                    | `1`                   |
+| `menuVisible`  | `menu-visible`  | Sets the status of the card as menu, when false it's hidden otherwise it's visible. Works together with isMenu. | `boolean`                                                                                   | `false`               |
+| `sizeX`        | `size-x`        | The width of the card, defaults to 100%. Accepts any valid CSS format (px, %, vw, etc.).                        | `string`                                                                                    | `'100%'`              |
+| `sizeY`        | `size-y`        | The height of the card, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).                       | `string`                                                                                    | `'100%'`              |
 
 
 ## Events

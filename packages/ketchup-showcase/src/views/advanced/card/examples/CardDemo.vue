@@ -57,7 +57,7 @@ export default {
         {
           prop: 'layoutFamily',
           description:
-            'Sets the type of the card. Currently supported values: "collapsible", "scalable", "standard".',
+            'Sets the type of the card. Currently supported values: "collapsible", "dialog", "scalable", "standard".',
           type: 'CardFamily',
           default: 'standard',
           try: 'field',

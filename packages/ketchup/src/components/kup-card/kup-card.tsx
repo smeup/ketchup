@@ -291,6 +291,24 @@ export class KupCard {
      * This method will trigger whenever the card's render() hook occurs or when the size changes (through KupManager), in order to manage the more complex layout families.
      * It will also update any dynamic color handled by the selected layout.
      */
+    dialog() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const card: HTMLElement = this.rootElement as HTMLElement;
+            const headerBar: HTMLElement = root.querySelector('#header-bar');
+            if (!this.kupManager.moveOnDrag.isRegistered(card)) {
+                if (headerBar) {
+                    this.kupManager.moveOnDrag.register(card, headerBar);
+                } else {
+                    this.kupManager.moveOnDrag.register(card);
+                }
+            }
+        }
+    }
+    /**
+     * This method will trigger whenever the card's render() hook occurs or when the size changes (through KupManager), in order to manage the more complex layout families.
+     * It will also update any dynamic color handled by the selected layout.
+     */
     layoutManager(): void {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         const family: string = this.layoutFamily.toLowerCase();
@@ -308,6 +326,9 @@ export class KupCard {
         switch (family) {
             case CardFamily.COLLAPSIBLE:
                 this.collapsible();
+                break;
+            case CardFamily.DIALOG:
+                this.dialog();
                 break;
             case CardFamily.SCALABLE:
                 if (!this.scalingActive) {
@@ -461,6 +482,9 @@ export class KupCard {
 
     componentDidUnload() {
         this.kupManager.theme.unregister(this);
+        this.kupManager.moveOnDrag.unregister([
+            this.rootElement as HTMLElement,
+        ]);
         this.kupManager.resize.unobserve(this.rootElement);
     }
 }

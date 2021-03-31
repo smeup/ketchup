@@ -22,6 +22,9 @@
       <template v-slot:6>
         <card-scalable></card-scalable>
       </template>
+      <template v-slot:7>
+        <card-dialog></card-dialog>
+      </template>
     </comp>
   </div>
 </template>
@@ -32,6 +35,7 @@ import CardBasic from '@/views/advanced/card/examples/CardBasic';
 import CardStyling from '@/views/advanced/card/examples/CardStyling';
 import CardMenu from '@/views/advanced/card/examples/CardMenu';
 import CardCollapsible from '@/views/advanced/card/examples/CardCollapsible';
+import CardDialog from '@/views/advanced/card/examples/CardDialog';
 import CardScalable from '@/views/advanced/card/examples/CardScalable';
 import CardStandard from '@/views/advanced/card/examples/CardStandard';
 import Comp from '@/views/advanced/page/templates/Comp';
@@ -42,6 +46,7 @@ export default {
     CardStyling,
     CardMenu,
     CardCollapsible,
+    CardDialog,
     CardScalable,
     CardStandard,
     Comp,
@@ -59,6 +64,7 @@ export default {
         'Standard layouts',
         'Collapsible layouts',
         'Scalable layouts',
+        'Dialog layouts',
       ],
     };
   },

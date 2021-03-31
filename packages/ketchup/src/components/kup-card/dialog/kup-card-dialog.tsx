@@ -15,13 +15,13 @@ export function create1(component: KupCard): VNode {
     for (let index = 1; index < textArray.length; index++) {
         const isEven: boolean = index % 2 == 0;
         divs.push(
-            <span class={`text ${isEven ? 'label' : ''}`}>
+            <span class={`text ${!isEven ? 'label' : ''}`}>
                 {textArray[index]}
             </span>
         );
     }
     return (
-        <div class={`dialog-layout-${component.layoutNumber}`}>
+        <div class={`dialog-layout-${component.layoutNumber} dialog-element`}>
             {prepHeader(textArray[0])}
             <div class="section-1">{divs}</div>
         </div>
