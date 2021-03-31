@@ -784,6 +784,10 @@ export class KupDataTable {
     private columnMenuInstance: ColumnMenu;
     private filtersColumnMenuInstance: FiltersColumnMenu;
     private filtersRowsInstance: FiltersRows;
+    /**
+     * Reference to the row detail card.
+     */
+    private detailCard: HTMLKupCardElement = null;
 
     /**
      * When component unload is complete
@@ -1499,23 +1503,38 @@ export class KupDataTable {
         for (const key in row.cells) {
             if (Object.prototype.hasOwnProperty.call(row.cells, key)) {
                 const cell: Cell = row.cells[key];
-                cardData.text.push(
-                    this.data.columns.find((x) => x.name === key).title
+                const column: Column = this.data.columns.find(
+                    (x) => x.name === key
                 );
-                cardData.text.push(
-                    cell.displayedValue ? cell.displayedValue : cell.value
-                );
+                if (column && cell) {
+                    cardData.text.push(column.title);
+                    cardData.text.push(
+                        cell.displayedValue ? cell.displayedValue : cell.value
+                    );
+                } else {
+                    this.kupManager.debug.logMessage(
+                        this,
+                        'Row detail: missing column(' +
+                            key +
+                            ') or cell(' +
+                            cell +
+                            ').',
+                        'warning'
+                    );
+                }
             }
         }
-        const card: HTMLKupCardElement = document.createElement('kup-card');
-        card.data = cardData;
-        card.layoutFamily = CardFamily.DIALOG;
-        card.layoutNumber = 1;
-        card.sizeX = '300px';
-        card.sizeY = '300px';
-        card.style.left = x + 'px';
-        card.style.top = y + 'px';
-        document.body.append(card);
+        if (!this.detailCard) {
+            this.detailCard = document.createElement('kup-card');
+            this.detailCard.layoutFamily = CardFamily.DIALOG;
+            this.detailCard.layoutNumber = 1;
+        }
+        this.detailCard.data = cardData;
+        this.detailCard.sizeX = '300px';
+        this.detailCard.sizeY = '300px';
+        this.detailCard.style.left = x + 'px';
+        this.detailCard.style.top = y + 'px';
+        document.body.append(this.detailCard);
     }
 
     private getEventDetails(el: HTMLElement): EventHandlerDetails {
@@ -1585,10 +1604,11 @@ export class KupDataTable {
                 }
             }
         } else if (details.area === 'body') {
-            if (e.ctrlKey && details.tr && details.row) {
-                this.rowDetail(details.row, e.clientX, e.clientY);
-                return;
-            } else if (this.isFocusable && details.tr) {
+            if (
+                (this.isFocusable || e.ctrlKey) &&
+                details.tr &&
+                !details.tr.classList.contains('group')
+            ) {
                 const focusEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
                     'tr.focus'
                 );
@@ -1596,6 +1616,10 @@ export class KupDataTable {
                     focusEl.classList.remove('focus');
                 }
                 details.tr.classList.add('focus');
+                if (e.ctrlKey) {
+                    this.rowDetail(details.row, e.clientX, e.clientY);
+                    return;
+                }
             }
             if (
                 details.tr &&
