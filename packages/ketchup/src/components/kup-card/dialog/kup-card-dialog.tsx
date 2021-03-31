@@ -21,7 +21,7 @@ export function create1(component: KupCard): VNode {
         );
     }
     return (
-        <div class={`dialog-layout-${component.layoutNumber}`}>
+        <div class={`dialog-layout-${component.layoutNumber} dialog-element`}>
             {prepHeader(textArray[0])}
             <div class="section-1">{divs}</div>
         </div>

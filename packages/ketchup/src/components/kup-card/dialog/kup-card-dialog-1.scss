@@ -14,6 +14,8 @@
     grid-gap: 0.5em;
     grid-template-columns: repeat(2, 1fr);
     padding: 0.5em;
+    overflow-y: auto;
+    overflow-x: hidden;
     .text {
       min-width: max-content;
       &:not(.label) {

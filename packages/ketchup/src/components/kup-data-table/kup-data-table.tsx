@@ -1489,10 +1489,12 @@ export class KupDataTable {
     /**
      * Opens a card containing the detail of the given row.
      * @param {Row} row - Row for which the detail was requested.
+     * @param {number} x - Initial x coordinates of the card.
+     * @param {number} y - Initial y coordinates of the card.
      * @private
      * @memberof KupDataTable
      */
-    private rowDetail(row: Row): void {
+    private rowDetail(row: Row, x: number, y: number): void {
         const cardData: CardData = { text: ['Record details'] };
         for (const key in row.cells) {
             if (Object.prototype.hasOwnProperty.call(row.cells, key)) {
@@ -1511,10 +1513,8 @@ export class KupDataTable {
         card.layoutNumber = 1;
         card.sizeX = '300px';
         card.sizeY = '300px';
-        card.style.position = 'fixed';
-        card.style.left = 'calc(50% - 150px)';
-        card.style.top = 'calc(50% - 150px)';
-        card.style.zIndex = '100';
+        card.style.left = x + 'px';
+        card.style.top = y + 'px';
         document.body.append(card);
     }
 
@@ -1586,7 +1586,7 @@ export class KupDataTable {
             }
         } else if (details.area === 'body') {
             if (e.ctrlKey && details.tr && details.row) {
-                this.rowDetail(details.row);
+                this.rowDetail(details.row, e.clientX, e.clientY);
                 return;
             } else if (this.isFocusable && details.tr) {
                 const focusEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
