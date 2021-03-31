@@ -3,7 +3,7 @@ import type { KupDom } from '../kup-manager/kup-manager-declarations';
 const dom: KupDom = document.documentElement as KupDom;
 
 /**
- * This class is used to dynamically reposition HTML elements.
+ * This class is used to move elements when dragged.
  * @module MoveOnDrag
  */
 export class MoveOnDrag {
@@ -54,7 +54,7 @@ export class MoveOnDrag {
     };
     #mouseUp: (this: Document, e: Event) => any = function (e: MouseEvent) {
         e.preventDefault();
-        const moveOnDrag = dom.ketchup.moveOnDrag;
+        const moveOnDrag: MoveOnDrag = dom.ketchup.moveOnDrag;
         moveOnDrag.activeElement = null;
     };
     /**
