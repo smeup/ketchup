@@ -13,9 +13,11 @@
     display: grid;
     grid-gap: 0.5em;
     grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(auto-fill, 1.25em);
+    height: 100%;
     padding: 0.5em;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
     .text {
       min-width: max-content;
       &:not(.label) {
