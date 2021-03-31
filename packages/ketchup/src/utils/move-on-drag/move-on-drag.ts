@@ -8,10 +8,11 @@ const dom: KupDom = document.documentElement as KupDom;
  */
 export class MoveOnDrag {
     managedElements: Set<HTMLElement> = null;
-    #initialized: boolean = false;
     activeElement: HTMLElement = null;
     activeX: number = 0;
     activeY: number = 0;
+    zIndex: number = 100;
+    #initialized: boolean = false;
     #elementDrag: (this: Document, e: Event) => any = function (e: MouseEvent) {
         e.preventDefault();
         const moveOnDrag: MoveOnDrag = dom.ketchup.moveOnDrag;
@@ -45,9 +46,7 @@ export class MoveOnDrag {
                 )
             ) {
                 this.activeElement = paths[index];
-                this.activeElement.style.zIndex = (
-                    parseInt(this.activeElement.style.zIndex) + 1
-                ).toString();
+                this.activeElement.style.zIndex = (this.zIndex++).toString();
                 break;
             }
         }
@@ -76,7 +75,7 @@ export class MoveOnDrag {
             this.initialize();
         }
         el.classList.add('kup-movable-element');
-        el.style.zIndex = '100';
+        el.style.zIndex = (this.zIndex++).toString();
         if (!el.style.left) {
             el.style.left = '0';
         }
