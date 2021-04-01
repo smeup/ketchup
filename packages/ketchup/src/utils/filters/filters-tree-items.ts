@@ -145,14 +145,15 @@ export class FiltersTreeItems extends FiltersRows {
             return;
         }
         /** il valore delle righe attualmente filtrate, formattato */
-        rows.forEach((row) => {
-            if (row.visible) {
+        rows.forEach((node): void => {
+            // TODO fare check con column root
+            if (node.visible) {
                 this.addColumnValueFromRow(
                     values,
                     column,
-                    row.cells[column.name]
+                    node.cells[column.name]
                 );
-                this.extractColumnValues(row.children, column, values);
+                this.extractColumnValues(node.children, column, values);
             }
         });
         return values;

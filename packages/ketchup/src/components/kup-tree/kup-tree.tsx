@@ -28,6 +28,7 @@ import {
     treeExpandedPropName,
     TreeNode,
     TreeNodePath,
+    treeMainColumnName,
 } from './kup-tree-declarations';
 
 import { hasTooltip, isNumber } from '../../utils/object-utils';
@@ -677,6 +678,15 @@ export class KupTree {
         return this.getColumns().filter((column) =>
             column.hasOwnProperty('visible') ? column.visible : true
         );
+    }
+
+    getHeadingColumns(): Array<Column> {
+        const firstColum: Column = {
+            name: treeMainColumnName,
+            title: '',
+        };
+        const visibleColumns = this.getVisibleColumns();
+        return [firstColum, ...visibleColumns];
     }
 
     /*
@@ -1552,7 +1562,7 @@ export class KupTree {
      * @returns An array of table header cells.
      */
     renderHeader(): JSX.Element[] {
-        return this.getVisibleColumns().map((column) => {
+        return this.getHeadingColumns().map((column) => {
             //---- Filter ----
             let filter = null;
 
@@ -2107,7 +2117,6 @@ export class KupTree {
                                 }}
                             >
                                 <tr>
-                                    <th />
                                     {visibleHeader ? this.renderHeader() : null}
                                 </tr>
                             </thead>
@@ -2124,7 +2133,7 @@ export class KupTree {
                             data={this.columnMenuInstance.prepData(
                                 this,
                                 getColumnByName(
-                                    this.getVisibleColumns(),
+                                    this.getHeadingColumns(),
                                     this.openedMenu
                                 ),
                                 false
