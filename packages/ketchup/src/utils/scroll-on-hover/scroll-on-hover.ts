@@ -95,7 +95,9 @@ export class ScrollOnHover {
         el.removeEventListener('scroll', this.#scrollEvent);
         el.removeEventListener('mousemove', this.#mousemoveEvent);
         el.removeEventListener('mouseleave', this.#mouseleaveEvent);
-        this.managedElements.delete(el);
+        if (this.managedElements) {
+            this.managedElements.delete(el);
+        }
     }
     /**
      * Returns whether an element was previously registered or not.

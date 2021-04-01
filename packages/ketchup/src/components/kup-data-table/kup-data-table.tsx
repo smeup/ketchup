@@ -4980,9 +4980,9 @@ export class KupDataTable {
                             tabIndex={0}
                         ></kup-card>
                     ) : null}
-                    {this.removableColumns ? this.columnRemoveArea() : null}
                     {paginatorBottom}
                 </div>
+                {this.removableColumns ? this.columnRemoveArea() : null}
             </Host>
         );
         return compCreated;
