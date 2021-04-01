@@ -32,6 +32,39 @@
         </div>
       </div>
     </div>
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 2</span> configuration:
+        <br />
+        <br />
+        <span class="code-word">- text[0]</span>: Sets the title inside the
+        header bar.
+        <br />
+        <span class="code-word">- text[1]</span>: Sets the sticky record's
+        label.
+        <br />
+        <span class="code-word">- text[2]</span>: Sets the sticky record's
+        value.
+        <br />
+        <span class="code-word">- text[3 - n]</span>: Set of labels and values.
+        Odd occurrences are considered as labels, even occurrences are
+        considered as values.
+        <br />
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            style="position: absolute !important; top: unset; left: unset"
+            size-x="300px"
+            size-y="300px"
+            layout-number="2"
+            layout-family="dialog"
+            :data.prop="data"
+          ></kup-card>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

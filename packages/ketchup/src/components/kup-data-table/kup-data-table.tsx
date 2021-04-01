@@ -1500,6 +1500,7 @@ export class KupDataTable {
      */
     private rowDetail(row: Row, x: number, y: number): void {
         const cardData: CardData = { text: ['Record details'] };
+        let columnKey: { label: string; value: string } = null;
         for (const key in row.cells) {
             if (Object.prototype.hasOwnProperty.call(row.cells, key)) {
                 const cell: Cell = row.cells[key];
@@ -1507,8 +1508,13 @@ export class KupDataTable {
                     (x) => x.name === key
                 );
                 if (column && cell) {
-                    cardData.text.push(column.title);
-                    cardData.text.push(getCellValueForDisplay(column, cell));
+                    let value: string = getCellValueForDisplay(column, cell);
+                    if (column.isKey) {
+                        columnKey = { label: column.title, value: value };
+                    } else {
+                        cardData.text.push(column.title);
+                        cardData.text.push(value);
+                    }
                 } else {
                     this.kupManager.debug.logMessage(
                         this,
@@ -1525,6 +1531,12 @@ export class KupDataTable {
         if (!this.detailCard) {
             this.detailCard = document.createElement('kup-card');
             this.detailCard.layoutFamily = CardFamily.DIALOG;
+        }
+        if (columnKey) {
+            cardData.text.splice(1, 0, columnKey.label);
+            cardData.text.splice(2, 0, columnKey.value);
+            this.detailCard.layoutNumber = 2;
+        } else {
             this.detailCard.layoutNumber = 1;
         }
         this.detailCard.data = cardData;
