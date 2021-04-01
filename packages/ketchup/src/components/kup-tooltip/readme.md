@@ -97,6 +97,7 @@ graph TD;
   kup-color-picker --> kup-text-field
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-list --> kup-badge
   kup-card --> kup-chip
   kup-card --> kup-button
   kup-card --> kup-badge

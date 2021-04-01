@@ -48,7 +48,7 @@ export class KupAutocomplete {
      */
     @Prop() disabled: boolean = false;
     /**
-     * Sets how the show the selected item value. Suported values: "code", "description", "both".
+     * Sets how to show the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
@@ -60,7 +60,7 @@ export class KupAutocomplete {
      */
     @Prop() minimumChars: number = 1;
     /**
-     * Sets how the return the selected item value. Suported values: "code", "description", "both".
+     * Sets how to return the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
 

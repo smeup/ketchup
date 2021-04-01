@@ -69,7 +69,7 @@ export default {
         {
           prop: 'displayMode',
           description:
-            'Sets how the show the selected item value. Suported values: "code", "description", "both".',
+            'Sets how to show the selected item value. Suported values: "code", "description", "both".',
           type: 'string',
           default: 'description',
           try: 'field',
@@ -100,7 +100,7 @@ export default {
         {
           prop: 'selectMode',
           description:
-            'Sets how the return the selected item value. Suported values: "code", "description", "both".',
+            'Sets how to return the selected item value. Suported values: "code", "description", "both".',
           type: 'string',
           default: 'description',
           try: 'field',

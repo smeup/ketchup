@@ -10,7 +10,7 @@ import { GenericObject } from "./types/GenericTypes";
 import { KupStore } from "./components/kup-state/kup-store";
 import { Cell, Column, DataTable, GroupLabelDisplayMode, GroupObject, KupDataTableCellButtonClick, KupDataTableCellTextFieldInput, LoadMoreMode, PaginatorPos, Row, RowAction, ShowGrid, SortObject, TableData, TotalsMap } from "./components/kup-data-table/kup-data-table-declarations";
 import { BoxKanban, BoxRow, Layout } from "./components/kup-box/kup-box-declarations";
-import { ButtonConfig } from "./components/kup-btn/kup-btn-declarations";
+import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { FButtonStyling } from "./f-components/f-button/f-button-declarations";
 import { CardData, CardFamily } from "./components/kup-card/kup-card-declarations";
 import { ChartAspect, ChartAxis, ChartClickedEvent, ChartOfflineMode, ChartSerie, ChartTitle, ChartType } from "./components/kup-chart/kup-chart-declarations";
@@ -29,7 +29,6 @@ import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarat
 import { ComponentRadioElement } from "./components/kup-radio/kup-radio-declarations";
 import { ComponentTabBarElement } from "./components/kup-tab-bar/kup-tab-bar-declarations";
 import { TooltipAction, TooltipCellOptions, TooltipData, TooltipDetailData, TooltipObject, TooltipRelatedObject } from "./components/kup-tooltip/kup-tooltip-declarations";
-import { TreeNode, TreeNodePath } from "./components/kup-tree/kup-tree-declarations";
 import { KupTree } from "./components/kup-tree/kup-tree";
 import { UploadProps } from "./components/kup-upload/kup-upload-declarations";
 export namespace Components {
@@ -55,7 +54,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+          * Sets how to show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode": ItemsDisplayMode;
         /**
@@ -74,7 +73,7 @@ export namespace Components {
          */
         "minimumChars": number;
         /**
-          * Sets how the return the selected item value. Suported values: "code", "description", "both".
+          * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
         /**
@@ -231,8 +230,39 @@ export namespace Components {
         "tooltipLoadTimeout": number;
     }
     interface KupBtn {
-        "buttons": any[];
-        "config": ButtonConfig;
+        /**
+          * Number of columns for draw sub-components.
+         */
+        "columns": number;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Props of the sub-components.
+         */
+        "data": TreeNode[];
+        /**
+          * Default at false. When set to true, the sub-components are disabled.
+         */
+        "disabled": boolean;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
+         */
+        "styling": string;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
     }
     interface KupButton {
         /**
@@ -578,7 +608,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+          * Sets how to show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode": ItemsDisplayMode;
         /**
@@ -597,7 +627,7 @@ export namespace Components {
          */
         "isSelect": boolean;
         /**
-          * Sets how the return the selected item value. Suported values: "code", "description", "both".
+          * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
         "setFocus": () => Promise<void>;
@@ -962,7 +992,7 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
-          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+          * Sets how to show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode": ItemsDisplayMode;
         /**
@@ -985,14 +1015,15 @@ export namespace Components {
          */
         "label": string;
         /**
-          * Sets how the return the selected item value. Suported values: "code", "description", "both".
+          * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode": ItemsDisplayMode;
         "setValue": (value: string) => Promise<void>;
         /**
-          * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.
+          * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
+          * @default FButtonStyling.RAISED
          */
-        "styling": string;
+        "styling": FButtonStyling;
         "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
         /**
           * Defaults at null. When set, the icon will be shown after the text.
@@ -2404,7 +2435,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+          * Sets how to show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode"?: ItemsDisplayMode;
         /**
@@ -2447,7 +2478,7 @@ declare namespace LocalJSX {
         value: any;
     }>) => void;
         /**
-          * Sets how the return the selected item value. Suported values: "code", "description", "both".
+          * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
         /**
@@ -2649,11 +2680,31 @@ declare namespace LocalJSX {
         "tooltipLoadTimeout"?: number;
     }
     interface KupBtn {
-        "buttons"?: any[];
-        "config"?: ButtonConfig;
+        /**
+          * Number of columns for draw sub-components.
+         */
+        "columns"?: number;
+        /**
+          * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Props of the sub-components.
+         */
+        "data"?: TreeNode[];
+        /**
+          * Default at false. When set to true, the sub-components are disabled.
+         */
+        "disabled"?: boolean;
         "onKupBtnClick"?: (event: CustomEvent<{
-        id: number;
+        id: string;
+        subId: string;
+        obj: any;
     }>) => void;
+        /**
+          * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
+         */
+        "styling"?: string;
     }
     interface KupButton {
         /**
@@ -3035,7 +3086,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+          * Sets how to show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode"?: ItemsDisplayMode;
         /**
@@ -3076,7 +3127,7 @@ declare namespace LocalJSX {
         value: any;
     }>) => void;
         /**
-          * Sets how the return the selected item value. Suported values: "code", "description", "both".
+          * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
     }
@@ -3514,7 +3565,7 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
-          * Sets how the show the selected item value. Suported values: "code", "description", "both".
+          * Sets how to show the selected item value. Suported values: "code", "description", "both".
          */
         "displayMode"?: ItemsDisplayMode;
         /**
@@ -3548,13 +3599,14 @@ declare namespace LocalJSX {
         value: any;
     }>) => void;
         /**
-          * Sets how the return the selected item value. Suported values: "code", "description", "both".
+          * Sets how to return the selected item value. Suported values: "code", "description", "both".
          */
         "selectMode"?: ItemsDisplayMode;
         /**
-          * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.
+          * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
+          * @default FButtonStyling.RAISED
          */
-        "styling"?: string;
+        "styling"?: FButtonStyling;
         /**
           * Defaults at null. When set, the icon will be shown after the text.
          */

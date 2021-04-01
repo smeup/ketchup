@@ -1,19 +1,10 @@
 /*-------------------------------------------------*/
 /*        C o m p o n e n t   C l a s s e s        */
 /*-------------------------------------------------*/
-:host(.kup-shaped) {
-  #kup-component {
-    border-radius: 18px;
-  }
-  .mdc-button,
-  .mdc-button__ripple {
-    border-radius: 18px;
-  }
-}
-
 :host(.kup-full-width) {
   width: 100%;
-  #kup-component {
+
+  .btn-container {
     width: 100%;
   }
 }

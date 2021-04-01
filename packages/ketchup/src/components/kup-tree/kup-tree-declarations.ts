@@ -1,3 +1,4 @@
+import { GenericObject } from '../../types/GenericTypes';
 import {
     CellsHolder,
     RowAction,
@@ -41,6 +42,8 @@ export enum KupTreeProps {
 export const treeExpandedPropName = 'isExpanded';
 
 export interface TreeNode {
+    data?: GenericObject;
+
     actions?: Array<RowAction>;
 
     cells: CellsHolder;
