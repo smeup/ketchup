@@ -146,7 +146,7 @@ export class FiltersTreeItems extends FiltersRows {
         }
         /** il valore delle righe attualmente filtrate, formattato */
         rows.forEach((node): void => {
-            // TODO fare check con column root
+            // TODO fare check con TreeMainColumnName
             if (node.visible) {
                 this.addColumnValueFromRow(
                     values,

@@ -85,4 +85,4 @@ export type TreeNodePath = number[];
  * The name of the constant used by the tree component to identify the main tree in column menu
  * @constant
  */
-export const treeMainColumnName = 'TREE';
+export const treeMainColumnName = 'TREE_COLUMN';
