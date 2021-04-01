@@ -1550,6 +1550,7 @@ export class KupDataTable {
             filterRemove: HTMLSpanElement = el.closest('th .filter-remove');
         let cell: Cell = null,
             column: Column = null,
+            isGroupRow: boolean = false,
             row: Row = null;
         if (isBody) {
             if (td) {
@@ -1557,6 +1558,9 @@ export class KupDataTable {
             }
             if (tr) {
                 row = tr['data-row'];
+            }
+            if (tr.classList.contains('group')) {
+                isGroupRow = true;
             }
         }
         if (isHeader || isBody || isFooter) {
@@ -1581,6 +1585,7 @@ export class KupDataTable {
             cell: cell ? cell : null,
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
+            isGroupRow: isGroupRow,
             row: row ? row : null,
             td: td ? td : null,
             textfield: textfield ? textfield : null,
@@ -1610,7 +1615,7 @@ export class KupDataTable {
             if (
                 (this.isFocusable || e.ctrlKey) &&
                 details.tr &&
-                !details.tr.classList.contains('group')
+                !details.isGroupRow
             ) {
                 const focusEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
                     'tr.focus'
@@ -1624,11 +1629,7 @@ export class KupDataTable {
                     return;
                 }
             }
-            if (
-                details.tr &&
-                details.row &&
-                details.tr.classList.contains('group')
-            ) {
+            if (details.tr && details.row && details.isGroupRow) {
                 this.onRowExpand(details.row);
                 return;
             }

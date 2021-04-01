@@ -273,6 +273,7 @@ export interface EventHandlerDetails {
     cell: Cell;
     column: Column;
     filterRemove: HTMLSpanElement;
+    isGroupRow: boolean;
     row: Row;
     td: HTMLTableDataCellElement;
     textfield: HTMLElement;
