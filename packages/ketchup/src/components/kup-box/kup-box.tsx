@@ -11,6 +11,8 @@ import {
     h,
     Method,
     Element,
+    VNode,
+    JSX,
 } from '@stencil/core';
 
 import {
@@ -27,6 +29,8 @@ import {
     Section,
     CollapsedSectionsState,
     BoxObject,
+    BoxKanban,
+    KupBoxProps,
 } from './kup-box-declarations';
 
 import {
@@ -72,12 +76,16 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
-
 import { KupBoxState } from './kup-box-state';
 import { KupStore } from '../kup-state/kup-store';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
-import { identify, stringToNumber } from '../../utils/utils';
+import { deepEqual, identify, stringToNumber } from '../../utils/utils';
 import { GenericObject } from '../../types/GenericTypes';
+import { FImage } from '../../f-components/f-image/f-image';
+import { FButton } from '../../f-components/f-button/f-button';
+import { FChip } from '../../f-components/f-chip/f-chip';
+import { FChipsProps } from '../../f-components/f-chip/f-chip-declarations';
+import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -117,26 +125,57 @@ export class KupBox {
 
     persistState(): void {
         if (this.store && this.stateId) {
-            // *** PROPS ***
-            this.state.sortBy = this.sortBy;
-            this.state.globalFilterValue = this.globalFilterValue;
-            this.state.selectedRowsState = this.selectedRows.reduce(
+            let somethingChanged = false;
+            if (!deepEqual(this.state.sortBy, this.sortBy)) {
+                this.state.sortBy = this.sortBy;
+                somethingChanged = true;
+            }
+
+            if (
+                !deepEqual(this.state.globalFilterValue, this.globalFilterValue)
+            ) {
+                this.state.globalFilterValue = this.globalFilterValue;
+                somethingChanged = true;
+            }
+
+            if (!deepEqual(this.state.pageSelected, this.currentPage)) {
+                this.state.pageSelected = this.currentPage;
+                somethingChanged = true;
+            }
+
+            if (!deepEqual(this.state.rowsPerPage, this.currentRowsPerPage)) {
+                this.state.rowsPerPage = this.currentRowsPerPage;
+                somethingChanged = true;
+            }
+
+            const selectedRowsState = this.selectedRows.reduce(
                 (accumulator, row, currentIndex) => {
                     const prefix = currentIndex > 0 ? ';' : '';
                     return accumulator + prefix + row.id;
                 },
                 ''
             );
-            this.state.pageSelected = this.currentPage;
-            this.state.rowsPerPage = this.currentRowsPerPage;
-            this.kupManager.debug.logMessage(
-                this,
-                'Persisting state for stateId ' +
-                    this.stateId +
-                    ': ' +
-                    this.state
-            );
-            this.store.persistState(this.stateId, this.state);
+
+            if (!deepEqual(this.state.selectedRowsState, selectedRowsState)) {
+                this.state.selectedRowsState = selectedRowsState;
+                somethingChanged = true;
+            }
+
+            if (!this.state.load) {
+                this.state.load = true;
+                return;
+            }
+
+            if (somethingChanged) {
+                this.kupManager.debug.logMessage(
+                    this,
+                    'Persisting state for stateId ' +
+                        this.stateId +
+                        ': ' +
+                        this.state
+                );
+                this.store.persistState(this.stateId, this.state);
+            }
         }
     }
 
@@ -148,7 +187,7 @@ export class KupBox {
     @State() customStyleTheme: string = undefined;
 
     /**
-     * Number of columns
+     * Data of the card linked to the box when the latter's layout must be a premade template.
      */
     @Prop() cardData: GenericObject;
     /**
@@ -189,6 +228,10 @@ export class KupBox {
      */
     @Prop({ reflect: true, mutable: true }) globalFilterValue = '';
     /**
+     * Displays the boxlist as a Kanban.
+     */
+    @Prop() kanban: BoxKanban = null;
+    /**
      * How the field will be displayed. If not present, a default one will be created.
      */
     @Prop() layout: Layout;
@@ -212,6 +255,10 @@ export class KupBox {
      * Number of current rows per page
      */
     @Prop() rowsPerPage: number;
+    /**
+     * Activates the scroll on hover function.
+     */
+    @Prop() scrollOnHover: boolean = false;
     /**
      * Automatically selects the box at the specified index
      */
@@ -387,6 +434,18 @@ export class KupBox {
         bubbles: true,
     })
     kupDidUnload: EventEmitter<void>;
+    /**
+     * Generic right click event on box.
+     */
+    @Event({
+        eventName: 'kupBoxContextMenu',
+        composed: true,
+        cancelable: false,
+        bubbles: true,
+    })
+    kupBoxContextMenu: EventEmitter<{
+        details: GenericObject;
+    }>;
 
     private boxLayout: Layout;
 
@@ -397,6 +456,7 @@ export class KupBox {
 
     private tooltip: KupTooltip;
     private globalFilterTimeout: number;
+    private boxContainer: ScrollableElement;
     /**
      * Instance of the KupManager class.
      */
@@ -438,8 +498,27 @@ export class KupBox {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupBoxProps;
+        } else {
+            for (const key in KupBoxProps) {
+                if (Object.prototype.hasOwnProperty.call(KupBoxProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     //---- Lifecycle hooks ----
@@ -452,7 +531,7 @@ export class KupBox {
         } else if (this.pageSize) {
             this.currentRowsPerPage = this.pageSize;
         }
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.onDataChanged();
         this.adjustPaginator();
     }
@@ -482,16 +561,11 @@ export class KupBox {
     }
 
     componentDidRender() {
+        this.checkScrollOnHover();
         // *** Store
         this.persistState();
         // ***
         this.kupManager.debug.logRender(this, true);
-    }
-
-    componentDidUnload() {
-        this.kupDidUnload.emit();
-        // When component is destroyed, then the listener is removed. @See clickFunction for more details
-        document.removeEventListener('click', this.clickFunction.bind(this));
     }
 
     // @Methods
@@ -574,6 +648,18 @@ export class KupBox {
         return sortedRows;
     }
 
+    private checkScrollOnHover() {
+        if (!this.kupManager.scrollOnHover.isRegistered(this.boxContainer)) {
+            if (this.scrollOnHover) {
+                this.kupManager.scrollOnHover.register(this.boxContainer);
+            }
+        } else {
+            if (!this.scrollOnHover) {
+                this.kupManager.scrollOnHover.unregister(this.boxContainer);
+            }
+        }
+    }
+
     private checkLayout() {
         // check if there is a layout.
         // if not, create a default layout
@@ -650,6 +736,44 @@ export class KupBox {
             this.kupAutoBoxSelect.emit({
                 row: this.selectedRows[0],
             });
+        }
+    }
+
+    private getEventDetails(
+        el: HTMLElement
+    ): {
+        boxObject: HTMLElement;
+        row: BoxRow;
+        cell: Cell;
+    } {
+        const boxObject: HTMLDivElement = el.closest('.box-object');
+        let cell: Cell = null;
+        let row: BoxRow = null;
+        if (boxObject) {
+            cell = boxObject['data-cell'];
+            row = boxObject['data-row'];
+        }
+
+        return {
+            boxObject: boxObject ? boxObject : null,
+            row: row ? row : null,
+            cell: cell ? cell : null,
+        };
+    }
+
+    private contextMenuHandler(e: MouseEvent): void {
+        const details: {
+            boxObject: HTMLElement;
+            row: BoxRow;
+            cell: Cell;
+        } = this.getEventDetails(e.target as HTMLElement);
+        this.kupBoxContextMenu.emit({
+            details: details,
+        });
+        if (this.showTooltipOnRightClick && details.boxObject && details.cell) {
+            e.preventDefault();
+            setTooltip(e, details.row.id, details.cell, this.tooltip);
+            return;
         }
     }
 
@@ -1440,10 +1564,7 @@ export class KupBox {
                 if (isButton(cell.obj)) {
                     if (props) {
                         boContent = (
-                            <kup-button
-                                class="cell-button"
-                                {...props}
-                            ></kup-button>
+                            <FButton class="cell-button" {...props}></FButton>
                         );
                     } else {
                         boContent = undefined;
@@ -1477,7 +1598,7 @@ export class KupBox {
                             props['sizeY'] = '18px';
                         }
                         boContent = (
-                            <kup-image class="cell-icon" {...props}></kup-image>
+                            <FImage wrapperClass="cell-icon" {...props} />
                         );
                     } else {
                         boContent = undefined;
@@ -1490,7 +1611,9 @@ export class KupBox {
                         if (props.badgeData) {
                             classObj['has-padding'] = true;
                         }
-                        boContent = <kup-image class="cell-image" {...props} />;
+                        boContent = (
+                            <FImage wrapperClass="cell-image" {...props} />
+                        );
                     } else {
                         boContent = undefined;
                     }
@@ -1560,43 +1683,145 @@ export class KupBox {
         let title: string = undefined;
         if (_hasTooltip) {
             classObj['is-obj'] = true;
-            title = cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+            if (this.kupManager.debug.isDebug()) {
+                title =
+                    cell.obj.t + '; ' + cell.obj.p + '; ' + cell.obj.k + ';';
+            }
         }
-        return (
-            <div
-                data-column={boxObject.column}
-                class={classObj}
-                style={boStyle}
-                title={title}
-            >
-                <span
-                    onMouseEnter={(ev) => {
-                        if (
-                            _hasTooltip &&
-                            this.showTooltipOnRightClick == false
-                        ) {
+        let tipEvents: {} = null;
+        if (_hasTooltip) {
+            if (!this.showTooltipOnRightClick) {
+                tipEvents = {
+                    onMouseEnter: (ev) => {
+                        if (_hasTooltip) {
                             setTooltip(ev, row.id, cell, this.tooltip);
                         } else if (!_hasTooltip) {
                             unsetTooltip(this.tooltip);
                         }
-                    }}
-                    onMouseLeave={() => {
+                    },
+                    onMouseLeave: () => {
                         unsetTooltip(this.tooltip);
-                    }}
-                    onContextMenu={(ev) => {
-                        ev.preventDefault();
-                        if (
-                            _hasTooltip &&
-                            this.showTooltipOnRightClick == true
-                        ) {
-                            setTooltip(ev, row.id, cell, this.tooltip);
-                        }
-                    }}
-                >
-                    {boContent}
-                </span>
+                    },
+                };
+            }
+        }
+        return (
+            <div
+                data-cell={cell}
+                data-row={row}
+                data-column={boxObject.column}
+                class={classObj}
+                style={boStyle}
+                title={title}
+                {...tipEvents}
+            >
+                <span>{boContent}</span>
             </div>
         );
+    }
+    /**
+     * Prepares the kanban sections by sorting the boxlist's data.
+     * @returns {{jsx: VNode[], style: { [index: string]: string }}} jsx contains the virtual nodes of the Kanban sections, style contains the grid CSS settings.
+     */
+    kanbanMode(): { jsx: VNode[]; style: { [index: string]: string } } {
+        // Testing whether there are columns to group by
+        if (!this.kanban.columns || this.kanban.columns.length === 0) {
+            this.kupManager.debug.logMessage(
+                this,
+                'No columns to group by detected.',
+                'error'
+            );
+            return {
+                jsx: <p id="empty-data-message">Empty data</p>,
+                style: { 'grid-template-columns': `repeat(1, 1fr)` },
+            };
+        }
+        const kanbanSections: { labels: string[]; nodes: VNode[] }[] = [];
+
+        // Creating empty sections from prop-defined labels
+        if (this.kanban.labels) {
+            for (let index = 0; index < this.kanban.labels.length; index++) {
+                const key: Array<string> = this.kanban.labels[index];
+                kanbanSections.push({ labels: key, nodes: [] });
+            }
+        }
+        // Browsing all rows
+        for (let index = 0; index < this.rows.length; index++) {
+            let key: Array<string> = [];
+            // Creating the key for the current row
+            for (let j = 0; j < this.kanban.columns.length; j++) {
+                try {
+                    key.push(
+                        this.rows[index].cells[this.kanban.columns[j]].value
+                    );
+                } catch (error) {
+                    this.kupManager.debug.logMessage(this, error, 'warning');
+                }
+            }
+            const check: { found: boolean; index: number } = {
+                found: false,
+                index: null,
+            };
+            // Browsing key array to search whether the current key exists or not
+            for (let j = 0; j < kanbanSections.length; j++) {
+                let sortingKey = kanbanSections[j].labels;
+                let found: boolean = true;
+                for (let i = 0; i < sortingKey.length; i++) {
+                    if (key[i] !== sortingKey[i]) {
+                        found = false;
+                        break;
+                    }
+                }
+                if (found) {
+                    check.found = true;
+                    check.index = j;
+                    break;
+                }
+            }
+            // If current key exists, box will be pushed into the existing array of virtual nodes
+            if (check.found) {
+                kanbanSections[check.index].nodes.push(
+                    this.renderRow(this.rows[index])
+                );
+            } else {
+                // Otherwise, a new section will be defined starting with just the current virtal node
+                kanbanSections.push({
+                    labels: key,
+                    nodes: [this.renderRow(this.rows[index])],
+                });
+            }
+        }
+        // Once the arrays are set, they need to be emptied into columns
+        const kanbanJSX: VNode[] = [];
+        for (let index = 0; index < kanbanSections.length; index++) {
+            const sortingKey: Array<string> = kanbanSections[index].labels;
+            const props: FChipsProps = {
+                data: [],
+            };
+            for (let index = 0; index < sortingKey.length; index++) {
+                props.data.push({
+                    checked: false,
+                    label: sortingKey[index],
+                    value: sortingKey[index],
+                });
+            }
+            kanbanJSX.push(
+                <div class="kanban-section">
+                    <FChip {...props} />
+                    {kanbanSections[index].nodes}
+                </div>
+            );
+        }
+        return {
+            jsx: kanbanJSX,
+            style: {
+                'grid-template-columns': this.kanban.size
+                    ? `repeat(${Object.keys(kanbanSections).length}, ${
+                          this.kanban.size
+                      })`
+                    : `repeat(${Object.keys(kanbanSections).length}, 1fr)`,
+            },
+        };
     }
 
     renderTooltip() {
@@ -1619,6 +1844,9 @@ export class KupBox {
     }
 
     render() {
+        const isKanban: boolean = !!(
+            typeof this.kanban === 'object' && this.kanban !== null
+        );
         let sortPanel = null;
         if (this.sortEnabled) {
             // creating items
@@ -1699,9 +1927,24 @@ export class KupBox {
 
         let boxContent = null;
 
+        let containerStyle = {};
+
         if (this.rows.length === 0) {
             boxContent = <p id="empty-data-message">Empty data</p>;
+            containerStyle = { 'grid-template-columns': `repeat(1, 1fr)` };
+        } else if (isKanban) {
+            const kanban: {
+                jsx: VNode[];
+                style: {
+                    [index: string]: string;
+                };
+            } = this.kanbanMode();
+            boxContent = kanban.jsx;
+            containerStyle = kanban.style;
         } else {
+            containerStyle = {
+                'grid-template-columns': `repeat(${this.columns}, 1fr)`,
+            };
             const rows = this.rows;
             let size = rows.length;
 
@@ -1712,10 +1955,6 @@ export class KupBox {
                 boxContent.push(this.renderRow(rows[cnt++]));
             }
         }
-
-        const containerStyle = {
-            'grid-template-columns': `repeat(${this.columns}, 1fr)`,
-        };
 
         const tooltip = this.renderTooltip();
 
@@ -1745,7 +1984,7 @@ export class KupBox {
                 <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div
-                        class="box-component"
+                        class={'box-component'}
                         {...(this.dropEnabled &&
                         (this.dropOnSection || !this.getRows().length)
                             ? setKetchupDroppable(
@@ -1755,17 +1994,24 @@ export class KupBox {
                                   { row: null, id: this.rootElement.id }
                               )
                             : {})}
+                        onContextMenu={(e: MouseEvent) =>
+                            this.contextMenuHandler(e)
+                        }
                     >
                         {sortPanel}
                         {filterPanel}
                         {paginator}
                         <div
-                            id="box-container"
+                            class={isKanban ? 'is-kanban' : ''}
+                            id={'box-container'}
                             style={containerStyle}
                             onMouseLeave={(ev) => {
                                 ev.stopPropagation();
                                 unsetTooltip(this.tooltip);
                             }}
+                            ref={(el: HTMLElement) =>
+                                (this.boxContainer = el as ScrollableElement)
+                            }
                         >
                             {boxContent}
                         </div>
@@ -1774,5 +2020,15 @@ export class KupBox {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        if (this.scrollOnHover) {
+            this.kupManager.scrollOnHover.unregister(this.boxContainer);
+        }
+        // When component is destroyed, then the listener is removed. @See clickFunction for more details
+        document.removeEventListener('click', this.clickFunction.bind(this));
+        this.kupDidUnload.emit();
     }
 }

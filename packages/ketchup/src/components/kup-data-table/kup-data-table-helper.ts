@@ -1,5 +1,7 @@
 import numeral from 'numeral';
 
+import moment from 'moment';
+
 import {
     Row,
     SortObject,
@@ -13,7 +15,7 @@ import {
     KupDataTableRowDragType,
 } from './kup-data-table-declarations';
 
-import { isNumber } from '../../utils/object-utils';
+import { isNumber, isDate } from '../../utils/object-utils';
 import { isEmpty, stringToNumber } from '../../utils/utils';
 import { DropHandlers, setDragDropPayload } from '../../utils/drag-and-drop';
 import { GenericFilter } from '../../utils/filters/filters-declarations';
@@ -28,6 +30,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { formatToMomentDate } from '../../utils/cell-formatter';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -214,6 +217,9 @@ export function groupRows(
     // creating root
     const groupRows: Array<Row> = [];
 
+    // obj used to calculate the group distinct value
+    let distinctObj = {};
+
     rows.forEach((row: Row) => {
         // getting column name from first group
         const columnName = validGroups[0].column;
@@ -297,10 +303,11 @@ export function groupRows(
             // adding row
             groupRow.group.children.push(row);
 
-            updateGroupTotal(groupRow, totals, row);
+            updateGroupTotal(groupRow, totals, row, distinctObj);
         }
     });
 
+    adjustGroupsDistinct(groupRows, totals, distinctObj);
     adjustGroupsAverageOrFormula(groupRows, TotalMode.AVERAGE, totals);
     adjustGroupsAverageOrFormula(groupRows, TotalMode.MATH, totals);
 
@@ -310,7 +317,8 @@ export function groupRows(
 function updateGroupTotal(
     groupRow: Row,
     totals: TotalsMap,
-    addedRow: Row
+    addedRow: Row,
+    distinctObj: Object
 ): void {
     if (!groupRow || !totals) {
         return;
@@ -347,7 +355,57 @@ function updateGroupTotal(
                     }
                     break;
                 case TotalMode.DISTINCT:
-                    // TODO
+                    let cellValue;
+                    if (_isNumber) {
+                        cellValue = numeral(stringToNumber(cell.value)).value();
+                    } else {
+                        cellValue = cell.value;
+                    }
+                    let distinctGroup = distinctObj[groupRow.group.id];
+                    if (!distinctGroup) {
+                        distinctObj[groupRow.group.id] = {};
+                        distinctObj[groupRow.group.id][key] = [];
+                        distinctObj[groupRow.group.id][key].push(cellValue);
+                    } else {
+                        let distinctList = distinctObj[groupRow.group.id][key];
+                        if (!distinctList) {
+                            // first round
+                            distinctObj[groupRow.group.id][key] = [];
+                            distinctObj[groupRow.group.id][key].push(cellValue);
+                        } else {
+                            // update the list
+                            distinctList.push(cellValue);
+                        }
+                    }
+                    // updating parents
+                    let distinctParent = groupRow.group.parent;
+                    while (distinctParent != null) {
+                        // get parent value
+                        let distinctGroupParent =
+                            distinctObj[distinctParent.group.id];
+                        if (!distinctGroupParent) {
+                            distinctObj[distinctParent.group.id] = {};
+                            distinctObj[distinctParent.group.id][key] = [];
+                            distinctObj[distinctParent.group.id][key].push(
+                                cellValue
+                            );
+                        } else {
+                            let distinctParentList =
+                                distinctObj[distinctParent.group.id][key];
+                            if (!distinctParentList) {
+                                // first round
+                                distinctObj[distinctParent.group.id][key] = [];
+                                distinctObj[distinctParent.group.id][key].push(
+                                    cellValue
+                                );
+                            } else {
+                                // update the list
+                                distinctParentList.push(cellValue);
+                            }
+                        }
+                        // continue
+                        distinctParent = distinctParent.group.parent;
+                    }
                     break;
                 case TotalMode.SUM:
                 case TotalMode.AVERAGE:
@@ -371,6 +429,7 @@ function updateGroupTotal(
                         }
                     }
                     break;
+                // TODO DRY the MIN and MAX functions
                 case TotalMode.MIN:
                     if (_isNumber) {
                         const currentTotalValue = groupRow.group.totals[key];
@@ -401,8 +460,48 @@ function updateGroupTotal(
                             }
                             parent = parent.group.parent;
                         }
+                    } else if (isDate(cell.obj)) {
+                        const momentValue = formatToMomentDate(cell);
+                        if (momentValue.isValid()) {
+                            const cellValue = momentValue.toDate();
+                            const currentTotalValue =
+                                groupRow.group.totals[key];
+                            if (currentTotalValue) {
+                                let moments = [];
+                                moments.push(cellValue);
+                                moments.push(
+                                    moment(currentTotalValue, 'DD/MM/YYYY')
+                                );
+                                groupRow.group.totals[key] = moment.min(
+                                    moments
+                                );
+                            } else {
+                                groupRow.group.totals[key] = cellValue;
+                            }
+                            // updating parents
+                            let parent = groupRow.group.parent;
+                            while (parent != null) {
+                                const currentParentMin =
+                                    parent.group.totals[key];
+                                if (currentParentMin) {
+                                    let moments = [];
+                                    moments.push(cellValue);
+                                    moments.push(
+                                        moment(currentParentMin, 'DD/MM/YYYY')
+                                    );
+                                    parent.group.totals[key] = moment.min(
+                                        moments
+                                    );
+                                } else {
+                                    // first round
+                                    parent.group.totals[key] = cellValue;
+                                }
+                                parent = parent.group.parent;
+                            }
+                        }
                     }
                     break;
+                // TODO DRY the MIN and MAX functions
                 case TotalMode.MAX:
                     if (_isNumber) {
                         const currentTotalValue = groupRow.group.totals[key];
@@ -433,6 +532,45 @@ function updateGroupTotal(
                             }
                             parent = parent.group.parent;
                         }
+                    } else if (isDate(cell.obj)) {
+                        const momentValue = formatToMomentDate(cell);
+                        if (momentValue.isValid()) {
+                            const cellValue = momentValue.toDate();
+                            const currentTotalValue =
+                                groupRow.group.totals[key];
+                            if (currentTotalValue) {
+                                let moments = [];
+                                moments.push(cellValue);
+                                moments.push(
+                                    moment(currentTotalValue, 'DD/MM/YYYY')
+                                );
+                                groupRow.group.totals[key] = moment.max(
+                                    moments
+                                );
+                            } else {
+                                groupRow.group.totals[key] = cellValue;
+                            }
+                            // updating parents
+                            let parent = groupRow.group.parent;
+                            while (parent != null) {
+                                const currentParentMin =
+                                    parent.group.totals[key];
+                                if (currentParentMin) {
+                                    let moments = [];
+                                    moments.push(cellValue);
+                                    moments.push(
+                                        moment(currentParentMin, 'DD/MM/YYYY')
+                                    );
+                                    parent.group.totals[key] = moment.max(
+                                        moments
+                                    );
+                                } else {
+                                    // first round
+                                    parent.group.totals[key] = cellValue;
+                                }
+                                parent = parent.group.parent;
+                            }
+                        }
                     }
                     break;
                 default: {
@@ -444,6 +582,32 @@ function updateGroupTotal(
             }
         }
     });
+}
+
+function adjustGroupsDistinct(
+    groupRows: Array<Row>,
+    totals: TotalsMap,
+    distinctObj: Object
+) {
+    if (!groupRows || !totals) {
+        return;
+    }
+
+    const keys = Object.keys(totals);
+
+    if (groupRows.length === 0 || !groupRows[0].group || keys.length === 0) {
+        return;
+    }
+
+    let toAdjustKeys = keys.filter((key) => TotalMode.DISTINCT === totals[key]);
+
+    if (toAdjustKeys.length > 0) {
+        groupRows
+            .filter((groupRow) => groupRow.group.children.length > 0)
+            .forEach((groupRow) =>
+                adjustGroupDistinct(groupRow, toAdjustKeys, distinctObj)
+            );
+    }
 }
 
 function adjustGroupsAverageOrFormula(
@@ -484,6 +648,29 @@ function adjustGroupsAverageOrFormula(
                 )
             );
     }
+}
+
+function adjustGroupDistinct(
+    groupRow: Row,
+    toAdjustKeys: Array<string>,
+    distinctObj: Object
+) {
+    const children = groupRow.group.children;
+
+    if (children.length === 0) {
+        return;
+    }
+
+    if (children[0].group) {
+        children.forEach((child) => {
+            adjustGroupDistinct(child, toAdjustKeys, distinctObj);
+        });
+    }
+
+    toAdjustKeys.forEach((key) => {
+        const distinctList = distinctObj[groupRow.group.id][key];
+        groupRow.group.totals[key] = new Set(distinctList).size;
+    });
 }
 
 /**
@@ -596,7 +783,7 @@ export function calcTotals(
         return {};
     }
     const keys = Object.keys(totals);
-    const footerRow: { [index: string]: number } = {};
+    const footerRow: { [index: string]: any } = {};
     // if there are only COUNT, no need to loop on rows
     let onlyCount =
         keys.length === 0 &&
@@ -613,7 +800,6 @@ export function calcTotals(
             ).forEach((key) => {
                 // getting cell
                 const cell = r.cells[key];
-                // check if number
                 if (cell) {
                     if (totals[key] === TotalMode.DISTINCT) {
                         let cellValue;
@@ -630,20 +816,19 @@ export function calcTotals(
                             distinctObj[key] = [];
                             distinctObj[key].push(cellValue);
                         } else {
-                            if (distinctList.length === rows.length - 1) {
+                            // update the list
+                            distinctList.push(cellValue);
+                            if (distinctList.length === rows.length) {
                                 // last round
                                 footerRow[key] = new Set(distinctList).size;
                                 distinctObj[key] = [];
-                            } else {
-                                // middle round
-                                // update the list
-                                distinctList.push(cellValue);
                             }
                         }
                     } else if (isNumber(cell.obj)) {
                         const cellValue = numeral(stringToNumber(cell.value));
-                        const currentFooterValue = footerRow[key] || 0;
+                        let currentFooterValue = footerRow[key];
                         switch (true) {
+                            // TODO DRY the MIN and MAX functions
                             case totals[key] === TotalMode.MIN:
                                 if (currentFooterValue) {
                                     footerRow[key] = Math.min(
@@ -666,9 +851,51 @@ export function calcTotals(
                                 break;
                             default:
                                 // SUM
+                                currentFooterValue = footerRow[key] || 0;
                                 footerRow[key] = cellValue
                                     .add(currentFooterValue)
                                     .value();
+                        }
+                        // TODO DRY the MIN and MAX functions
+                    } else if (isDate(cell.obj)) {
+                        const momentValue = formatToMomentDate(cell);
+                        if (momentValue.isValid()) {
+                            const cellValue = momentValue.toDate();
+                            const currentFooterValue = footerRow[key];
+                            switch (true) {
+                                case totals[key] === TotalMode.MIN:
+                                    if (currentFooterValue) {
+                                        let moments = [];
+                                        moments.push(cellValue);
+                                        moments.push(
+                                            moment(
+                                                currentFooterValue,
+                                                'DD/MM/YYYY'
+                                            )
+                                        );
+                                        footerRow[key] = moment.min(moments);
+                                    } else {
+                                        footerRow[key] = cellValue;
+                                    }
+                                    break;
+                                case totals[key] === TotalMode.MAX:
+                                    if (currentFooterValue) {
+                                        let moments = [];
+                                        moments.push(cellValue);
+                                        moments.push(
+                                            moment(
+                                                currentFooterValue,
+                                                'DD/MM/YYYY'
+                                            )
+                                        );
+                                        footerRow[key] = moment.max(moments);
+                                    } else {
+                                        footerRow[key] = cellValue;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
                 }

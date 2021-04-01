@@ -1,0 +1,219 @@
+:host {
+  display: block;
+  font-size: var(--kup-font-size);
+}
+
+#kup-component {
+  color: var(--kup-text-color);
+}
+
+.density-dense .wrapper .kup-tree,
+.density-dense .wrapper .kup-tree {
+  td,
+  th {
+    padding: 0 0.5em;
+
+    & .kup-tree__icon ~ .cell-content,
+    & .kup-tree__icon + .cell-content {
+      vertical-align: 0.4em;
+    }
+  }
+}
+
+.density-wide .wrapper .kup-tree,
+.density-wide .wrapper .kup-tree {
+  td,
+  th {
+    padding: 0.75em 0.5em;
+  }
+}
+
+.wrapper {
+  overflow-x: auto;
+
+  #global-filter {
+    margin-bottom: 1em;
+  }
+
+  .kup-tree {
+    border-collapse: collapse;
+    width: max-content;
+
+    thead {
+      display: none;
+      &.header--is-visible {
+        display: table-header-group;
+
+        th {
+          padding: 0.8em 0.5em;
+          font-size: 1.1em;
+        }
+      }
+
+      th {
+        text-align: left;
+      }
+    }
+
+    tr,
+    td {
+      font-size: 1em;
+      line-height: 1em;
+
+      &.mdc-ripple-surface {
+        --mdc-ripple-fg-opacity: 0.24;
+
+        &:before,
+        &:after {
+          background-color: var(--kup-primary-color);
+        }
+      }
+
+      & .kup-tree__icon ~ .cell-content,
+      & .kup-tree__icon + .cell-content {
+        display: inline-block;
+        line-height: 1em;
+        vertical-align: 0.3em;
+      }
+    }
+
+    td,
+    th {
+      padding: 0.4em 0.5em;
+    }
+
+    &__indent {
+      display: inline-block;
+      width: calc(1.5em * var(--tree-node_depth, 0));
+    }
+
+    &__icon {
+      display: inline-block;
+      margin-right: 0.4em;
+      height: 1.5em;
+      width: 1.5em;
+      transition: transform 0.1s;
+    }
+
+    &__node {
+      cursor: default;
+
+      &.with-dyn:not(.kup-tree__node--disabled) {
+        cursor: pointer;
+      }
+
+      &:not(.kup-tree__node--disabled) &__expander {
+        cursor: pointer;
+      }
+
+      &:not(.kup-tree__node--disabled)
+        .icon-container.kup-tree__node__expander {
+        cursor: pointer;
+      }
+
+      &--disabled {
+        opacity: 0.4;
+
+        &__expander {
+          pointer-events: none;
+        }
+      }
+
+      .icon-container:not(.is-image) {
+        background-color: var(--kup-icon-color);
+      }
+
+      .icon-container.kup-tree__node__expander:not(.is-image) {
+        background-color: var(--kup-text-color);
+      }
+
+      .icon-container.is-image img {
+        display: block;
+        height: auto;
+        width: 100%;
+      }
+
+      &:hover:not(.kup-tree__node--disabled):not(.kup-tree__node--selected) td {
+        background-color: var(--kup-hover-background-color);
+        color: var(--kup-hover-color);
+      }
+
+      &--selected:not(.kup-tree__node--disabled) td {
+        background-color: rgba(var(--kup-primary-color-rgb), 0.175);
+        color: var(--kup-text-color);
+      }
+
+      .cell-content .icon-container.obj-icon {
+        display: inline-block;
+        vertical-align: sub;
+        height: 1.25em;
+        width: 1.25em;
+        background-color: rgba(var(--kup-text-color-rgb), 0.375);
+        margin: auto 0.5em auto 0;
+      }
+
+      .number-cell {
+        font-family: var(--kup-font-family-monospace);
+        float: right;
+      }
+
+      .negative-number {
+        color: var(--kup-danger-color);
+      }
+    }
+
+    &[data-show-columns] .kup-tree__node {
+      border-bottom: solid 1px var(--kup-border-color);
+    }
+  }
+}
+
+.first-node .cell-content {
+  font-weight: bold;
+}
+
+.icon-container.filter-remove:not(.f-image--wrapper) {
+  background-color: var(--kup-text-color);
+  margin: 0 0.25em;
+  height: 1em;
+  width: 1em;
+  cursor: pointer;
+  float: right;
+  margin: 0 0.25em;
+  opacity: 0.5;
+}
+
+tfoot {
+  td {
+    border-bottom: 1px solid var(--kup-border-color);
+    border-right: 1px solid var(--kup-border-color);
+    box-sizing: border-box;
+    height: 36px;
+    text-align: right;
+    font-weight: bold;
+    padding: 0.5em 0.3125em;
+    &:hover {
+      background-color: var(--kup-background-color);
+    }
+    &:first-of-type {
+      border: none;
+      border-right: 1px solid var(--kup-border-color);
+    }
+  }
+}
+
+.hidden {
+  span {
+    color: transparent;
+    position: relative;
+    text-overflow: ellipsis;
+    transition: color 200ms;
+    &:hover {
+      color: var(--kup-text-color);
+    }
+  }
+}
+
+.totals-value {
+  font-weight: bold;
+}

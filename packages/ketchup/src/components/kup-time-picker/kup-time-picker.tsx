@@ -16,7 +16,6 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import { positionRecalc } from '../../utils/recalc-position';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 
 import {
@@ -29,6 +28,9 @@ import {
     formatTime,
 } from '../../utils/utils';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import { KupTimePickerProps } from './kup-time-picker-declarations';
+import { GenericObject } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kup-time-picker',
@@ -41,14 +43,6 @@ export class KupTimePicker {
     @State() stateSwitcher: boolean = false;
     @State() value: string = '';
     /**
-     * Sets the initial value of the component
-     */
-    @Prop() initialValue: string = '';
-    /**
-     * Defaults at false. When set to true, the component is disabled.
-     */
-    @Prop() disabled: boolean = false;
-    /**
      * When set to true, the drop down menu will display a clock.
      */
     @Prop() clockVariant: boolean = true;
@@ -60,6 +54,14 @@ export class KupTimePicker {
      * Props of the sub-components (time input text field)
      */
     @Prop() data: Object = {};
+    /**
+     * Defaults at false. When set to true, the component is disabled.
+     */
+    @Prop() disabled: boolean = false;
+    /**
+     * Sets the initial value of the component
+     */
+    @Prop() initialValue: string = '';
     /**
      * Manage seconds
      */
@@ -273,7 +275,7 @@ export class KupTimePicker {
     }
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -288,6 +290,30 @@ export class KupTimePicker {
     async setValue(value: string) {
         this.value = value;
         this.setTextFieldInitalValue(this.getTimeForOutput());
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupTimePickerProps;
+        } else {
+            for (const key in KupTimePickerProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        KupTimePickerProps,
+                        key
+                    )
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     onKupBlur(e: UIEvent) {
@@ -416,7 +442,9 @@ export class KupTimePicker {
             textfieldEl.emitSubmitEventOnEnter = false;
         }
         if (containerEl != null) {
-            containerEl.classList.add('dynamic-position-active');
+            this.kupManager.dynamicPosition.start(
+                containerEl as DynamicallyPositionedElement
+            );
             containerEl.classList.add('visible');
             let elStyle: any = containerEl.style;
             elStyle.height = 'auto';
@@ -436,7 +464,9 @@ export class KupTimePicker {
             textfieldEl.emitSubmitEventOnEnter = true;
         }
         if (containerEl != null) {
-            containerEl.classList.remove('dynamic-position-active');
+            this.kupManager.dynamicPosition.stop(
+                containerEl as DynamicallyPositionedElement
+            );
             containerEl.classList.remove('visible');
         }
     }
@@ -861,7 +891,10 @@ export class KupTimePicker {
 
     recalcPosition() {
         if (this.pickerContainerEl != null && this.textfieldEl != null) {
-            positionRecalc(this.pickerContainerEl, this.textfieldEl);
+            this.kupManager.dynamicPosition.register(
+                this.pickerContainerEl as DynamicallyPositionedElement,
+                this.textfieldEl
+            );
         }
     }
 
@@ -869,7 +902,7 @@ export class KupTimePicker {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.watchTimeMinutesStep();
         this.value = this.initialValue;
         if (!this.data) {
@@ -909,9 +942,11 @@ export class KupTimePicker {
             this.data &&
             this.data['kup-text-field'] &&
             this.data['kup-text-field']['className'] &&
-            this.data['kup-text-field']['className'].indexOf('full-height') > -1
+            this.data['kup-text-field']['className'].indexOf(
+                'kup-full-height'
+            ) > -1
         ) {
-            hostClass['full-height'] = true;
+            hostClass['kup-full-height'] = true;
         }
 
         if (
@@ -919,7 +954,7 @@ export class KupTimePicker {
             this.data['kup-text-field'] &&
             this.data['kup-text-field']['fullWidth']
         ) {
-            hostClass['full-width'] = true;
+            hostClass['kup-full-width'] = true;
         }
 
         return (
@@ -931,5 +966,17 @@ export class KupTimePicker {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

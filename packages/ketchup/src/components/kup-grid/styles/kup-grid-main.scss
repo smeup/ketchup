@@ -1,0 +1,54 @@
+:host {
+  font-size: var(--kup-font-size);
+  height: 100%;
+  width: 100%;
+}
+
+#kup-component {
+  height: 100%;
+  width: 100%;
+}
+
+.flex-layout,
+.flex-layout__inner {
+  height: 100%;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.flex-layout__inner {
+  width: auto;
+  & * {
+    display: block;
+    margin: 0 1.5em;
+  }
+}
+
+.mdc-layout-grid__cell,
+.flex-layout__cell {
+  display: flex;
+  & * {
+    justify-content: center;
+    margin: auto;
+  }
+}
+
+@media (min-width: 840px) {
+  .mdc-layout-grid__inner.custom-grid {
+    grid-template-columns: repeat(var(--columns-number), minmax(0px, 1fr));
+  }
+}
+
+@media (max-width: 839px) and (min-width: 480px) {
+  .mdc-layout-grid__inner.custom-grid {
+    grid-template-columns: repeat(var(--columns-number), minmax(0px, 1fr));
+  }
+}
+
+@media (max-width: 479px) {
+  .mdc-layout-grid__inner.custom-grid {
+    grid-template-columns: repeat(var(--columns-number), minmax(0px, 1fr));
+  }
+}

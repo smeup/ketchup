@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="demo-wrapper">
-      <p>--Description--</p>
+      <p
+        >The Dash list component is an extension of the Dash component, it
+        creates a list of Dash objects that you can customize by choosing
+        different layouts or colors.</p
+      >
       <br />
       <h3>Horizontal Configuration</h3>
       <div class="demo-container">

@@ -20,6 +20,8 @@ import {
     FChipsProps,
     FChipType,
 } from '../../f-components/f-chip/f-chip-declarations';
+import { KupChipProps } from './kup-chip-declarations';
+import { GenericObject } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kup-chip',
@@ -214,8 +216,27 @@ export class KupChip {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string): Promise<void> {
+    async themeChangeCallback(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupChipProps;
+        } else {
+            for (const key in KupChipProps) {
+                if (Object.prototype.hasOwnProperty.call(KupChipProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     /*-------------------------------------------------*/
@@ -260,7 +281,7 @@ export class KupChip {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
@@ -317,5 +338,9 @@ export class KupChip {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
     }
 }

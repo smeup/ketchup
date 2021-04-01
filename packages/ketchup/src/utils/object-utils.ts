@@ -98,6 +98,13 @@ export function isObjectList(smeupObj: Object): boolean {
     return 'JL' === smeupObj.t;
 }
 
+// TODO do it in real SmeUP way
+// in cell utils with the shape
+export function isTextField(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'J4' === smeupObj.t && 'TEXTFIELD' === smeupObj.p;
+}
+
 export function isStringObject(obj: any): boolean {
     if (!obj) return true;
 

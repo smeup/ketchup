@@ -11,8 +11,8 @@ export const FTextField: FunctionalComponent<FTextFieldProps> = (
     return (
         <div
             class={`f-text-field--wrapper ${
-                props.fullHeight ? 'full-height' : ''
-            } ${props.fullWidth ? 'full-width' : ''} ${
+                props.fullHeight ? 'kup-full-height' : ''
+            } ${props.fullWidth ? 'kup-full-width' : ''} ${
                 props.shaped ? 'shaped' : ''
             } ${props.wrapperClass ? props.wrapperClass : ''}`}
             {...props.dataSet}
@@ -114,7 +114,7 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                 </span>
             ) : (
                 <input
-                    type={props.inputType}
+                    type={props.inputType ? props.inputType : 'text'}
                     step={props.step}
                     class="mdc-text-field__input"
                     disabled={props.disabled}

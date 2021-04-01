@@ -10,7 +10,6 @@ import {
     Method,
     Listen,
 } from '@stencil/core';
-import { positionRecalc } from '../../utils/recalc-position';
 import {
     ItemsDisplayMode,
     consistencyCheck,
@@ -21,6 +20,9 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import { GenericObject } from '../../types/GenericTypes';
+import { KupAutocompleteProps } from './kup-autocomplete-declarations';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -208,7 +210,7 @@ export class KupAutocomplete {
     }
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -222,6 +224,30 @@ export class KupAutocomplete {
         this.value = value;
         this.doConsistencyCheck = true;
         this.consistencyCheck(undefined, value);
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupAutocompleteProps;
+        } else {
+            for (const key in KupAutocompleteProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        KupAutocompleteProps,
+                        key
+                    )
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     onKupBlur(e: UIEvent & { target: HTMLInputElement }) {
@@ -326,7 +352,9 @@ export class KupAutocomplete {
         }
         this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
-        this.listEl.classList.add('dynamic-position-active');
+        this.kupManager.dynamicPosition.start(
+            this.listEl as DynamicallyPositionedElement
+        );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
@@ -336,7 +364,9 @@ export class KupAutocomplete {
     private closeList() {
         this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
-        this.listEl.classList.remove('dynamic-position-active');
+        this.kupManager.dynamicPosition.stop(
+            this.rootElement as DynamicallyPositionedElement
+        );
     }
 
     private isListOpened(): boolean {
@@ -421,7 +451,7 @@ export class KupAutocomplete {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.doConsistencyCheck = true;
         this.value = this.initialValue;
         if (!this.data) {
@@ -443,22 +473,25 @@ export class KupAutocomplete {
 
     componentDidRender() {
         this.setEvents();
-        positionRecalc(this.listEl, this.textfieldWrapper);
+        this.kupManager.dynamicPosition.register(
+            this.listEl,
+            this.textfieldWrapper
+        );
         this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         const fullHeight: boolean = this.rootElement.classList.contains(
-            'full-height'
+            'kup-full-height'
         );
         const fullWidth: boolean = this.rootElement.classList.contains(
-            'full-width'
+            'kup-full-width'
         );
 
         return (
             <Host
-                class={`${fullHeight ? 'full-height' : ''} ${
-                    fullWidth ? 'full-width' : ''
+                class={`${fullHeight ? 'kup-full-height' : ''} ${
+                    fullWidth ? 'kup-full-width' : ''
                 }`}
                 onBlur={(e: any) => this.onKupBlur(e)}
                 style={this.elStyle}
@@ -478,5 +511,17 @@ export class KupAutocomplete {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

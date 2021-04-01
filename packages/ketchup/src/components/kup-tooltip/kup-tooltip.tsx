@@ -18,15 +18,17 @@ import {
     TooltipObject,
     ViewMode,
     TooltipCellOptions,
+    KupTooltipProps,
 } from './kup-tooltip-declarations';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { Column, Row } from '../kup-data-table/kup-data-table-declarations';
-import { positionRecalc } from '../../utils/recalc-position';
 import { TreeNode, TreeNodePath } from '../kup-tree/kup-tree-declarations';
 import { KupTree } from '../kup-tree/kup-tree';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import { GenericObject } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kup-tooltip',
@@ -287,6 +289,27 @@ export class KupTooltip {
         } else {
             //console.log('tooltip unsetTooltipInfo mouseIsoN');
         }
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupTooltipProps;
+        } else {
+            for (const key in KupTooltipProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(KupTooltipProps, key)
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     // ---- Private methods ----
@@ -688,7 +711,7 @@ export class KupTooltip {
         if (this.hasCellOptionsData()) {
             detailContent = [
                 <kup-tree
-                    class="full-width"
+                    class="kup-full-width"
                     showFilter={true}
                     {...this.cellOptions.config}
                     {...this.cellOptions}
@@ -797,10 +820,17 @@ export class KupTooltip {
 
     componentDidRender() {
         if (this.visible) {
-            positionRecalc(this.rootElement, this.relatedObject.element);
-            this.rootElement.classList.add('dynamic-position-active');
+            this.kupManager.dynamicPosition.register(
+                this.rootElement as DynamicallyPositionedElement,
+                this.relatedObject.element
+            );
+            this.kupManager.dynamicPosition.start(
+                this.rootElement as DynamicallyPositionedElement
+            );
         } else {
-            this.rootElement.classList.remove('dynamic-position-active');
+            this.kupManager.dynamicPosition.stop(
+                this.rootElement as DynamicallyPositionedElement
+            );
         }
         this.kupManager.debug.logRender(this, true);
     }
@@ -821,5 +851,16 @@ export class KupTooltip {
                 {this.createTooltip()}
             </div>
         );
+    }
+
+    componentDidUnload() {
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

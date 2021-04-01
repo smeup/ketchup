@@ -3,7 +3,7 @@
  */
 export interface KupDebugLog {
     date: Date;
-    id: string | HTMLElement;
+    id: string;
     element: string | Object;
     message: string;
 }

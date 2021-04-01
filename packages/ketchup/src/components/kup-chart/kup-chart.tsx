@@ -10,7 +10,6 @@ import {
     Method,
     Watch,
 } from '@stencil/core';
-
 import {
     ChartType,
     ChartAspect,
@@ -20,22 +19,21 @@ import {
     ChartOfflineMode,
     ChartSerie,
     ChartTitle,
+    KupChartProps,
 } from './kup-chart-declarations';
-
 import {
     convertColumns,
     convertRows,
     getSerieDecode,
 } from './kup-chart-builder';
-
 import { DataTable } from '../kup-data-table/kup-data-table-declarations';
-
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { identify } from '../../utils/utils';
 import { getColumnByName } from '../../utils/cell-utils';
+import { GenericObject } from '../../types/GenericTypes';
 
 declare const google: any;
 declare const $: any;
@@ -64,6 +62,10 @@ export class KupChart {
      */
     @Prop() colors: string[] = [];
     /**
+     * Title of the graph.
+     */
+    @Prop() chartTitle: ChartTitle;
+    /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
      */
     @Prop() customStyle: string = '';
@@ -71,10 +73,6 @@ export class KupChart {
      * The actual data of the chart.
      */
     @Prop() data: DataTable;
-    /**
-     * Title of the graph.
-     */
-    @Prop() chartTitle: ChartTitle;
     /**
      * Customize the hAxis.
      */
@@ -163,7 +161,7 @@ export class KupChart {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme =
             'Needs to be refreshed every time the theme changes because there are dynamic colors.';
         this.customStyleTheme = customStyleTheme;
@@ -185,6 +183,25 @@ export class KupChart {
                 this.loadOfflineChart();
             }
         }, 300);
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupChartProps;
+        } else {
+            for (const key in KupChartProps) {
+                if (Object.prototype.hasOwnProperty.call(KupChartProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     private loadGoogleChart() {
@@ -565,16 +582,15 @@ export class KupChart {
 
     private fetchThemeColors() {
         let colorArray: string[] = [];
-        for (let index = 1, color = undefined; color !== ''; index++) {
-            let key = '--kup-chart-color-' + index;
-            color = document.documentElement.style.getPropertyValue(key);
-            if (color) {
-                colorArray.push(color);
-            }
+        let key: string = '--kup-chart-color-';
+        for (
+            let index = 1;
+            this.kupManager.theme.cssVars[key + index];
+            index++
+        ) {
+            colorArray.push(this.kupManager.theme.cssVars[key + index]);
         }
-        this.themeText = document.documentElement.style.getPropertyValue(
-            '--kup-text-color'
-        );
+        this.themeText = this.kupManager.theme.cssVars['--kup-text-color'];
 
         try {
             for (
@@ -602,7 +618,7 @@ export class KupChart {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.identifyRows();
         this.fetchThemeColors();
     }
@@ -684,6 +700,7 @@ export class KupChart {
     }
 
     componentDidUnload() {
+        this.kupManager.theme.unregister(this);
         this.kupManager.resize.unobserve(this.rootElement);
     }
 }

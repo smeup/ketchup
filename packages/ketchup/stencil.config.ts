@@ -11,6 +11,9 @@ export const config: Config = {
             src: 'box.html',
         },
         {
+            src: 'box-performance.html',
+        },
+        {
             src: 'card.html',
         },
         {
@@ -30,6 +33,9 @@ export const config: Config = {
         },
         {
             src: 'data-table-performance.html',
+        },
+        {
+            src: 'debug.html',
         },
         {
             src: 'drawer.html',

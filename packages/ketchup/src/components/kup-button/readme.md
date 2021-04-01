@@ -29,7 +29,17 @@
 
 ## Methods
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
+
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 This method is invoked by the theme manager.
 Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
@@ -45,7 +55,6 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-box](../kup-box)
  - [kup-btn](../kup-btn)
  - [kup-calendar](../kup-calendar)
  - [kup-card](../kup-card)
@@ -70,7 +79,6 @@ Type: `Promise<void>`
 graph TD;
   kup-button --> kup-badge
   kup-badge --> kup-badge
-  kup-box --> kup-button
   kup-btn --> kup-button
   kup-calendar --> kup-button
   kup-card --> kup-button

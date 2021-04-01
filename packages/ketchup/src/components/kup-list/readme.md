@@ -35,7 +35,17 @@
 
 ## Methods
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
+
+### `resetFilter(newFilter: string) => Promise<void>`
 
 
 
@@ -45,7 +55,7 @@ Type: `Promise<void>`
 
 
 
-### `resetFilter(newFilter: string) => Promise<void>`
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 
 
@@ -66,6 +76,7 @@ Type: `Promise<void>`
  - [kup-dropdown-button](../kup-dropdown-button)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-time-picker](../kup-time-picker)
+ - [kup-tree](../kup-tree)
 
 ### Depends on
 
@@ -83,6 +94,7 @@ graph TD;
   kup-dropdown-button --> kup-list
   kup-nav-bar --> kup-list
   kup-time-picker --> kup-list
+  kup-tree --> kup-list
   style kup-list fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

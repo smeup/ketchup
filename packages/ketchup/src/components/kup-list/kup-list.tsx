@@ -11,10 +11,9 @@ import {
     Method,
     getAssetPath,
 } from '@stencil/core';
-
 import { MDCList } from '@material/list';
 import { MDCRipple } from '@material/ripple';
-import { ComponentListElement } from './kup-list-declarations';
+import { ComponentListElement, KupListProps } from './kup-list-declarations';
 import { KupRadio } from '../kup-radio/kup-radio';
 import { KupCheckbox } from '../kup-checkbox/kup-checkbox';
 import { ItemsDisplayMode } from './kup-list-declarations';
@@ -23,6 +22,7 @@ import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { GenericObject } from '../../types/GenericTypes';
 
 @Component({
     tag: 'kup-list',
@@ -208,8 +208,27 @@ export class KupList {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupListProps;
+        } else {
+            for (const key in KupListProps) {
+                if (Object.prototype.hasOwnProperty.call(KupListProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     onKupBlur(e: CustomEvent, item: ComponentListElement) {
@@ -282,9 +301,6 @@ export class KupList {
 
     @Method()
     async resetFilter(newFilter: string) {
-        /*if (this.filter == newFilter && newFilter != '') {
-            this.filter = '';
-        }*/
         this.filter = newFilter;
     }
 
@@ -544,7 +560,7 @@ export class KupList {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
@@ -632,5 +648,9 @@ export class KupList {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
     }
 }

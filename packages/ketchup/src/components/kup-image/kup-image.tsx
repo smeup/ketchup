@@ -9,6 +9,7 @@ import {
     h,
     Method,
 } from '@stencil/core';
+import type { GenericObject } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
@@ -20,6 +21,7 @@ import {
     FImageProps,
     FImageData,
 } from '../../f-components/f-image/f-image-declarations';
+import { KupImageProps } from './kup-image-declarations';
 
 @Component({
     tag: 'kup-image',
@@ -147,8 +149,27 @@ export class KupImage {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string): Promise<void> {
+    async themeChangeCallback(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupImageProps;
+        } else {
+            for (const key in KupImageProps) {
+                if (Object.prototype.hasOwnProperty.call(KupImageProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     /*-------------------------------------------------*/
@@ -179,7 +200,7 @@ export class KupImage {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
@@ -270,5 +291,9 @@ export class KupImage {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
     }
 }

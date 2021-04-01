@@ -865,32 +865,107 @@ export function create12(component: KupCard) {
     );
 }
 /**
+ * 13th standard card layout, buttons and text lines, used for debug window.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} 1st standard layout virtual node.
+ */
+export function create13(component: KupCard): VNode {
+    //Action buttons
+    const buttonArray: GenericObject[] = component.data['button']
+        ? component.data['button']
+        : [];
+    //Combobox list
+    const comboboxArray: GenericObject[] = component.data['combobox']
+        ? component.data['combobox']
+        : [];
+    //String list
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
+    //Textfield list
+    const textfieldArray: GenericObject[] = component.data['textfield']
+        ? component.data['textfield']
+        : [];
+    return (
+        <div
+            class={`standard-layout-${component.layoutNumber} ${
+                buttonArray.length > 0 ? 'has-actions' : ''
+            }`}
+        >
+            <div>
+                {buttonArray.length > 0 || textfieldArray.length > 0 ? (
+                    <div class="section-1">
+                        {compList(buttonArray, 'button')}
+                        {compList(textfieldArray, 'textfield')}
+                        {compList(comboboxArray, 'combobox')}
+                    </div>
+                ) : null}
+                {textArray.length > 0 ? (
+                    <div class="section-2">{compList(textArray, 'text')}</div>
+                ) : null}
+            </div>
+        </div>
+    );
+}
+/**
  * This function returns a list of components.
  * @param {GenericObject[]} compArray - Components' props.
  * @param {string} compType - Components' type.
  * @returns {JSX.Element[]} List of components.
  */
-function compList(compArray: GenericObject[], compType: string): JSX.Element[] {
+function compList(
+    compArray: GenericObject[] | string[],
+    compType: string
+): JSX.Element[] {
     let list: JSX.Element[] = [];
     for (let index = 0; index < compArray.length; index++) {
-        if (!compArray[index].id) {
-            compArray[index]['id'] = compType + index;
+        if (
+            typeof compArray[0] !== 'string' &&
+            !(compArray as GenericObject[])[index].id
+        ) {
+            (compArray as GenericObject[])[index]['id'] = compType + index;
         }
         switch (compType) {
             case 'button':
-                list.push(<kup-button {...compArray[index]} />);
+                list.push(
+                    <kup-button {...(compArray as GenericObject[])[index]} />
+                );
                 break;
             case 'checkbox':
-                list.push(<kup-checkbox {...compArray[index]} />);
+                list.push(
+                    <kup-checkbox {...(compArray as GenericObject[])[index]} />
+                );
+                break;
+            case 'combobox':
+                list.push(
+                    <kup-combobox {...(compArray as GenericObject[])[index]} />
+                );
                 break;
             case 'datepicker':
-                list.push(<kup-date-picker {...compArray[index]} />);
+                list.push(
+                    <kup-date-picker
+                        {...(compArray as GenericObject[])[index]}
+                    />
+                );
+                break;
+            case 'text':
+                list.push(
+                    <div class="text"> {(compArray as string[])[index]}</div>
+                );
                 break;
             case 'textfield':
-                list.push(<kup-text-field {...compArray[index]} />);
+                list.push(
+                    <kup-text-field
+                        {...(compArray as GenericObject[])[index]}
+                    />
+                );
                 break;
             case 'timepicker':
-                list.push(<kup-time-picker {...compArray[index]} />);
+                list.push(
+                    <kup-time-picker
+                        {...(compArray as GenericObject[])[index]}
+                    />
+                );
                 break;
         }
     }

@@ -7,6 +7,9 @@ import type { ResizableKupComponent } from '../../types/GenericTypes';
 import { KupDebug } from '../kup-debug/kup-debug';
 import { KupTheme } from '../kup-theme/kup-theme';
 import { ResizeObserver } from 'resize-observer';
+import { DynamicPosition } from '../dynamic-position/dynamic-position';
+import { ScrollOnHover } from '../scroll-on-hover/scroll-on-hover';
+import { MoveOnDrag } from '../move-on-drag/move-on-drag';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -16,6 +19,9 @@ const dom: KupDom = document.documentElement as KupDom;
  */
 export class KupManager {
     debug: KupDebug = new KupDebug();
+    dynamicPosition: DynamicPosition = new DynamicPosition();
+    moveOnDrag: MoveOnDrag = new MoveOnDrag();
+    scrollOnHover: ScrollOnHover = new ScrollOnHover();
     resize: ResizeObserver = new ResizeObserver(
         (entries: ResizeObserverEntry[]) => {
             entries.forEach((entry) => {
@@ -44,13 +50,20 @@ export class KupManager {
 }
 /**
  * Called by the Ketch.UP components to retrieve the instance of KupManager (or creating a new one when missing).
- * *
  * @returns {KupManager} KupManager instance.
  */
 export function kupManagerInstance(): KupManager {
     if (!dom.ketchup) {
         dom.ketchup = new KupManager();
         dom.ketchup.theme.set();
+        if (
+            dom.ketchupInit &&
+            dom.ketchupInit.debug &&
+            dom.ketchupInit.debug.active
+        ) {
+            dom.ketchup.debug.showWindow();
+        }
+        document.dispatchEvent(new CustomEvent('kupManagerReady'));
     }
     return dom.ketchup;
 }

@@ -16,6 +16,8 @@ import {
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
+import { GenericObject } from '../../types/GenericTypes';
+import { KupTextFieldProps } from './kup-text-field-declarations';
 
 @Component({
     tag: 'kup-text-field',
@@ -351,8 +353,29 @@ export class KupTextField {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string): Promise<void> {
+    async themeChangeCallback(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupTextFieldProps;
+        } else {
+            for (const key in KupTextFieldProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(KupTextFieldProps, key)
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
     /**
      * Focuses the input element.
@@ -435,7 +458,7 @@ export class KupTextField {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.value = this.initialValue;
     }
 
@@ -455,7 +478,7 @@ export class KupTextField {
     render() {
         let props: FTextFieldProps = {
             disabled: this.disabled,
-            fullHeight: this.rootElement.classList.contains('full-height')
+            fullHeight: this.rootElement.classList.contains('kup-full-height')
                 ? true
                 : false,
             fullWidth: this.fullWidth,
@@ -470,7 +493,7 @@ export class KupTextField {
             maxLength: this.maxLength,
             outlined: this.outlined,
             readOnly: this.readOnly,
-            shaped: this.rootElement.classList.contains('shaped')
+            shaped: this.rootElement.classList.contains('kup-shaped')
                 ? true
                 : false,
             step: this.step,
@@ -488,5 +511,9 @@ export class KupTextField {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
     }
 }
