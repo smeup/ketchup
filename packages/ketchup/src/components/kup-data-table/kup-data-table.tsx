@@ -1508,9 +1508,7 @@ export class KupDataTable {
                 );
                 if (column && cell) {
                     cardData.text.push(column.title);
-                    cardData.text.push(
-                        cell.displayedValue ? cell.displayedValue : cell.value
-                    );
+                    cardData.text.push(getCellValueForDisplay(column, cell));
                 } else {
                     this.kupManager.debug.logMessage(
                         this,
