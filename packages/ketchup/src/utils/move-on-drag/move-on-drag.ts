@@ -98,8 +98,10 @@ export class MoveOnDrag {
      * @param {HTMLElement[]} elements - Elements to remove.
      */
     unregister(elements: HTMLElement[]): void {
-        for (let index = 0; index < elements.length; index++) {
-            this.managedElements.delete(elements[index]);
+        if (this.managedElements) {
+            for (let index = 0; index < elements.length; index++) {
+                this.managedElements.delete(elements[index]);
+            }
         }
     }
     /**

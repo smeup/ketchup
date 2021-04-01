@@ -210,7 +210,9 @@ export class KupTheme {
      * @param {any} component - The component calling this function.
      */
     unregister(component: any): void {
-        this.managedComponents.delete(component.rootElement);
+        if (this.managedComponents) {
+            this.managedComponents.delete(component.rootElement);
+        }
     }
     /**
      * Combines the component's customStyle and customStyleTheme properties, returning the result.
