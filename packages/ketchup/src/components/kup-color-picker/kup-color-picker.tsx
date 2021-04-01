@@ -9,13 +9,15 @@ import {
     Method,
     EventEmitter,
 } from '@stencil/core';
+import Picker from 'vanilla-picker';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
-import Picker from 'vanilla-picker';
-import { positionRecalc } from '../../utils/recalc-position';
 import { KupTextField } from '../kup-text-field/kup-text-field';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import type { GenericObject } from '../../types/GenericTypes';
+import { KupColorPickerProps } from './kup-color-picker-declarations';
 
 @Component({
     tag: 'kup-color-picker',
@@ -49,10 +51,11 @@ export class KupColorPicker {
     @Prop() swatchOnly: boolean = false;
 
     private anchorEl: HTMLElement;
+    dropdownEl: HTMLElement;
     /**
      * Instance of the KupManager class.
      */
-    private kupManager: KupManager = kupManagerInstance();
+    kupManager: KupManager = kupManagerInstance();
     private picker: Picker;
     private textfieldEl: KupTextField;
 
@@ -84,7 +87,7 @@ export class KupColorPicker {
     }
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -97,6 +100,30 @@ export class KupColorPicker {
     async setValue(value: string) {
         this.value = value;
         this.textfieldEl.setValue(value);
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupColorPickerProps;
+        } else {
+            for (const key in KupColorPickerProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        KupColorPickerProps,
+                        key
+                    )
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     private onKupInput(e: CustomEvent) {
@@ -171,7 +198,7 @@ export class KupColorPicker {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.value = this.initialValue;
         this.setHexValue();
         if (!this.data) {
@@ -194,10 +221,9 @@ export class KupColorPicker {
             this.picker['onClose'] = function (color) {
                 let colorPicker = this['kupColorPicker'];
                 colorPicker.setValue(color.hex.substr(0, 7));
-                colorPicker.dropdownEl.classList.remove(
-                    'dynamic-position-active'
+                colorPicker.kupManager.dynamicPosition.stop(
+                    colorPicker.dropdownEl as DynamicallyPositionedElement
                 );
-
                 colorPicker.kupChange.emit({
                     value: colorPicker.value,
                 });
@@ -208,14 +234,14 @@ export class KupColorPicker {
                     colorPicker.dropdownEl = this[
                         'kupColorPicker'
                     ].rootElement.shadowRoot.querySelector('.picker_wrapper');
-                    positionRecalc(
+                    colorPicker.kupManager.dynamicPosition.register(
                         colorPicker.dropdownEl,
                         colorPicker.anchorEl
                     );
                 }
                 if (!colorPicker.disabled) {
-                    colorPicker.dropdownEl.classList.add(
-                        'dynamic-position-active'
+                    colorPicker.kupManager.dynamicPosition.start(
+                        colorPicker.dropdownEl as DynamicallyPositionedElement
                     );
                 }
             };
@@ -257,9 +283,11 @@ export class KupColorPicker {
             this.data &&
             this.data['kup-text-field'] &&
             this.data['kup-text-field']['className'] &&
-            this.data['kup-text-field']['className'].indexOf('full-height') > -1
+            this.data['kup-text-field']['className'].indexOf(
+                'kup-full-height'
+            ) > -1
         ) {
-            hostClass['full-height'] = true;
+            hostClass['kup-full-height'] = true;
         }
 
         if (
@@ -267,7 +295,7 @@ export class KupColorPicker {
             this.data['kup-text-field'] &&
             this.data['kup-text-field']['fullWidth']
         ) {
-            hostClass['full-width'] = true;
+            hostClass['kup-full-width'] = true;
         }
 
         return (
@@ -281,5 +309,17 @@ export class KupColorPicker {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

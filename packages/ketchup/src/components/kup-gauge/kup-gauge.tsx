@@ -7,11 +7,13 @@ import {
     Method,
     Host,
 } from '@stencil/core';
+import { GenericObject } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { unformattedStringToFormattedStringNumber } from '../../utils/utils';
+import { KupGaugeProps } from './kup-gauge-declarations';
 
 declare const d3: any;
 
@@ -133,8 +135,27 @@ export class KupGauge {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupGaugeProps;
+        } else {
+            for (const key in KupGaugeProps) {
+                if (Object.prototype.hasOwnProperty.call(KupGaugeProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     //---- Utility functions ----
@@ -218,7 +239,7 @@ export class KupGauge {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
@@ -460,5 +481,9 @@ export class KupGauge {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
     }
 }

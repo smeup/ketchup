@@ -10,6 +10,7 @@ export interface FButtonProps extends FComponent {
     icon?: string;
     iconOff?: string;
     label?: string;
+    large?: boolean;
     shaped?: boolean;
     styling?: FButtonStyling;
     toggable?: boolean;

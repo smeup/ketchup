@@ -1,12 +1,2 @@
-:host(.iframe-version) {
-  box-sizing: border-box;
-  display: block;
-  height: 100%;
-  width: 100%;
-}
-
-iframe {
-  box-sizing: border-box;
-  height: 100%;
-  width: 100%;
-}
+@import 'styles/kup-iframe-main.scss';
+@import 'styles/kup-iframe-classes.scss';

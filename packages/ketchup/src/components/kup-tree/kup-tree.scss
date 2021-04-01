@@ -1,8 +1,3 @@
 @import '@material/ripple/mdc-ripple';
-@import 'modules/kup-tree-main';
-@import 'modules/kup-tree-classes';
-
-:host {
-  display: block;
-  font-size: var(--kup-font-size);
-}
+@import 'styles/kup-tree-main';
+@import 'styles/kup-tree-classes';

@@ -10,17 +10,19 @@ import {
     Method,
     Listen,
 } from '@stencil/core';
-import { positionRecalc } from '../../utils/recalc-position';
-import {
-    ItemsDisplayMode,
-    consistencyCheck,
-} from '../kup-list/kup-list-declarations';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import type { GenericObject } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import {
+    ItemsDisplayMode,
+    consistencyCheck,
+} from '../kup-list/kup-list-declarations';
 import { FTextField } from '../../f-components/f-text-field/f-text-field';
 import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { KupComboboxProps } from './kup-combobox-declarations';
 
 @Component({
     tag: 'kup-combobox',
@@ -102,6 +104,7 @@ export class KupCombobox {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: string;
         value: any;
     }>;
 
@@ -142,6 +145,7 @@ export class KupCombobox {
         bubbles: true,
     })
     kupItemClick: EventEmitter<{
+        id: string;
         value: any;
     }>;
 
@@ -181,7 +185,7 @@ export class KupCombobox {
     }
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -209,6 +213,27 @@ export class KupCombobox {
             value: this.value,
         });
     }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupComboboxProps;
+        } else {
+            for (const key in KupComboboxProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(KupComboboxProps, key)
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
+    }
 
     onKupClick(e: UIEvent & { target: HTMLInputElement }) {
         const { target } = e;
@@ -222,6 +247,7 @@ export class KupCombobox {
         }
 
         this.kupClick.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -262,6 +288,7 @@ export class KupCombobox {
         });
 
         this.kupItemClick.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
@@ -269,7 +296,9 @@ export class KupCombobox {
     openList() {
         this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
-        this.listEl.classList.add('dynamic-position-active');
+        this.kupManager.dynamicPosition.start(
+            this.listEl as DynamicallyPositionedElement
+        );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
@@ -278,7 +307,9 @@ export class KupCombobox {
     closeList() {
         this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
-        this.listEl.classList.remove('dynamic-position-active');
+        this.kupManager.dynamicPosition.stop(
+            this.listEl as DynamicallyPositionedElement
+        );
     }
 
     isListOpened(): boolean {
@@ -355,7 +386,7 @@ export class KupCombobox {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
         this.value = this.initialValue;
         if (!this.data) {
             this.data = {
@@ -376,22 +407,25 @@ export class KupCombobox {
 
     componentDidRender() {
         this.setEvents();
-        positionRecalc(this.listEl, this.textfieldWrapper);
+        this.kupManager.dynamicPosition.register(
+            this.listEl,
+            this.textfieldWrapper
+        );
         this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         const fullHeight: boolean = this.rootElement.classList.contains(
-            'full-height'
+            'kup-full-height'
         );
         const fullWidth: boolean = this.rootElement.classList.contains(
-            'full-width'
+            'kup-full-width'
         );
 
         return (
             <Host
-                class={`${fullHeight ? 'full-height' : ''} ${
-                    fullWidth ? 'full-width' : ''
+                class={`${fullHeight ? 'kup-full-height' : ''} ${
+                    fullWidth ? 'kup-full-width' : ''
                 }`}
                 onBlur={() => this.onKupBlur()}
                 style={this.elStyle}
@@ -411,5 +445,17 @@ export class KupCombobox {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

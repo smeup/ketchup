@@ -11,11 +11,12 @@ import {
 } from '@stencil/core';
 import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
-import { ComponentRadioElement } from './kup-radio-declarations';
+import type { GenericObject } from '../../types/GenericTypes';
 import {
     KupManager,
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
+import { ComponentRadioElement, KupRadioProps } from './kup-radio-declarations';
 
 @Component({
     tag: 'kup-radio',
@@ -114,8 +115,27 @@ export class KupRadio {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupRadioProps;
+        } else {
+            for (const key in KupRadioProps) {
+                if (Object.prototype.hasOwnProperty.call(KupRadioProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
@@ -162,7 +182,7 @@ export class KupRadio {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
@@ -256,5 +276,9 @@ export class KupRadio {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
     }
 }

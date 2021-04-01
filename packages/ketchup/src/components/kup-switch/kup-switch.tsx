@@ -16,6 +16,8 @@ import {
 import { FSwitch } from '../../f-components/f-switch/f-switch';
 import { FSwitchMDC } from '../../f-components/f-switch/f-switch-mdc';
 import { FSwitchProps } from '../../f-components/f-switch/f-switch-declarations';
+import { GenericObject } from '../../types/GenericTypes';
+import { KupSwitchProps } from './kup-switch-declarations';
 
 @Component({
     tag: 'kup-switch',
@@ -179,8 +181,27 @@ export class KupSwitch {
      * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
      */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string): Promise<void> {
+    async themeChangeCallback(customStyleTheme: string): Promise<void> {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupSwitchProps;
+        } else {
+            for (const key in KupSwitchProps) {
+                if (Object.prototype.hasOwnProperty.call(KupSwitchProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     /*-------------------------------------------------*/
@@ -217,7 +238,7 @@ export class KupSwitch {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
-        this.kupManager.theme.setThemeCustomStyle(this);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
@@ -254,5 +275,9 @@ export class KupSwitch {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
     }
 }

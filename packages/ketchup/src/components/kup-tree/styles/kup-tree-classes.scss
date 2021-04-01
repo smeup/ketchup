@@ -1,0 +1,212 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+:host(.kup-full-width) {
+  min-width: 100%;
+  table.kup-tree {
+    min-width: 100%;
+  }
+}
+
+:host(.kup-layout-fixed) {
+  #kup-component table {
+    table-layout: fixed;
+    width: 100%;
+  }
+}
+
+:host(.kup-shaped) {
+  td.mdc-ripple-surface {
+    border-radius: 0 66px 66px 0;
+  }
+}
+/*-------------------------------------------------*/
+/*      J S O N   C l a s s e s   ( r o w s )      */
+/*-------------------------------------------------*/
+tr.clickable {
+  cursor: pointer;
+}
+/*-------------------------------------------------*/
+/*     J S O N   C l a s s e s   ( c e l l s )     */
+/*-------------------------------------------------*/
+// TD styles
+// These styles are appplied to the whole cell
+td.clickable {
+  cursor: pointer;
+}
+
+td.display-on-hover {
+  opacity: 0;
+  transition: opacity 0.25s;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+td.shaped {
+  border-radius: 4px;
+}
+
+td.strong-text {
+  font-weight: 600;
+}
+
+td.success-text {
+  color: var(--kup-success-color);
+}
+
+td.warning-text {
+  color: var(--kup-warning-color);
+}
+
+td.danger-text {
+  color: var(--kup-danger-color);
+}
+
+td.purple-text {
+  color: #8e15bf;
+}
+
+td.success-bg {
+  background: var(--kup-success-color);
+  color: white;
+}
+
+td.warning-bg {
+  background: var(--kup-warning-color);
+}
+
+td.danger-bg {
+  background: var(--kup-danger-color);
+  color: white;
+}
+
+td.teal-bg {
+  background: #00b4bc;
+  color: white;
+}
+
+td.orange-bg {
+  background: #f59729;
+  color: white;
+}
+
+td.green-bg {
+  background: #00be67;
+  color: white;
+}
+
+td.grey-bg {
+  background: #8d8d8d;
+  color: white;
+}
+
+td.purple-bg {
+  background: #b88acc;
+  color: white;
+}
+
+// Content styles
+// These styles are applied to the cell's content
+td.c-vertical-text {
+  .cell-content {
+    text-align: center;
+    writing-mode: vertical-lr;
+  }
+}
+
+td.c-right-aligned {
+  .cell-content {
+    flex-flow: row-reverse;
+  }
+}
+
+td.c-centered {
+  .cell-content {
+    margin: auto;
+    max-width: max-content;
+  }
+}
+
+td.c-fitted {
+  .cell-content {
+    max-width: max-content;
+  }
+}
+
+td.c-shaped {
+  .cell-content {
+    border-radius: 4px;
+  }
+}
+
+td.c-hor-padded {
+  .cell-content {
+    box-sizing: border-box;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+  }
+}
+
+td.c-ver-padded {
+  .cell-content {
+    box-sizing: border-box;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+}
+
+td.c-success-bg {
+  .cell-content {
+    background: var(--kup-success-color);
+    color: white;
+  }
+}
+
+td.c-warning-bg {
+  .cell-content {
+    background: var(--kup-warning-color);
+  }
+}
+
+td.c-danger-bg {
+  .cell-content {
+    background: var(--kup-danger-color);
+    color: white;
+  }
+}
+
+td.c-teal-bg {
+  .cell-content {
+    background: #00b4bc;
+    color: white;
+  }
+}
+
+td.c-orange-bg {
+  .cell-content {
+    background: #f59729;
+    color: white;
+  }
+}
+
+td.c-green-bg {
+  .cell-content {
+    background: #00be67;
+    color: white;
+  }
+}
+
+td.c-grey-bg {
+  .cell-content {
+    background: #8d8d8d;
+    color: white;
+  }
+}
+
+td.c-purple-bg {
+  .cell-content {
+    background: #b88acc;
+    color: white;
+  }
+}

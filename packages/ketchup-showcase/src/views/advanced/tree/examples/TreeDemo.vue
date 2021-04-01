@@ -136,6 +136,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showFooter',
+          description: 'When set to true shows the footer.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'showHeader',
           description:
             'Flag: shows the header of the tree when the tree is displayed as a table.',
@@ -182,23 +189,43 @@ export default {
       ],
       demoClasses: [
         {
-          class: 'full-width',
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-full-width',
           description: 'The tree will fill all the available horizontal space.',
         },
         {
-          class: 'kup-secondary-color',
+          class: 'kup-info',
           description:
-            'The component will be rendered using the secondary color of the app.',
+            'The component will be rendered using the informational color of the app.',
         },
         {
-          class: 'layout-fixed',
+          class: 'kup-layout-fixed',
           description:
             'Sets a fixed layout to improve performances (especially when using Google Chrome).',
         },
         {
-          class: 'shaped',
+          class: 'kup-secondary',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-shaped',
           description:
             'The right border of the cells will be shaped. It only applies when showColumns prop is set to false. ',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
         },
       ],
     };

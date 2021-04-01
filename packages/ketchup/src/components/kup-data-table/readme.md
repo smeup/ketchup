@@ -52,6 +52,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `groupLabelDisplay`         | `group-label-display`          | How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}                                                                                                                       | `GroupLabelDisplayMode.BOTH \| GroupLabelDisplayMode.LABEL \| GroupLabelDisplayMode.VALUE`       | `GroupLabelDisplayMode.BOTH`         |
 | `groups`                    | --                             | The list of groups.                                                                                                                                                                                                            | `GroupObject[]`                                                                                  | `[]`                                 |
 | `headerIsPersistent`        | `header-is-persistent`         | When set to true the header will stick on top of the table when scrolling.                                                                                                                                                     | `boolean`                                                                                        | `true`                               |
+| `isFocusable`               | `is-focusable`                 | When set to true, clicked-on rows will have a visual feedback.                                                                                                                                                                 | `boolean`                                                                                        | `false`                              |
 | `lazyLoadRows`              | `lazy-load-rows`               | When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.            | `boolean`                                                                                        | `false`                              |
 | `lineBreakCharacter`        | `line-break-character`         | Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.                                                                                                          | `string`                                                                                         | `'\n'`                               |
 | `loadMoreLimit`             | `load-more-limit`              | Sets a maximum limit of new records which can be required by the load more functionality.                                                                                                                                      | `number`                                                                                         | `1000`                               |
@@ -95,6 +96,8 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kupAddColumn`            | When 'add column' menu item is clicked         | `CustomEvent<{ column: string; }>`                                                                            |
 | `kupAutoRowSelect`        | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
 | `kupCellButtonClicked`    |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
+| `kupCellTextFieldInput`   |                                                | `CustomEvent<KupDataTableCellTextFieldInput>`                                                                 |
+| `kupDataTableCellUpdate`  | Emitted when a cell's data has been updated.   | `CustomEvent<{ cell: Cell; event: any; }>`                                                                    |
 | `kupDataTableClick`       | Generic click event on data table.             | `CustomEvent<{ details: GenericObject; }>`                                                                    |
 | `kupDataTableContextMenu` | Generic right click event on data table.       | `CustomEvent<{ details: GenericObject; }>`                                                                    |
 | `kupDataTableDblClick`    | Generic double click event on data table.      | `CustomEvent<{ details: GenericObject; }>`                                                                    |
@@ -149,10 +152,19 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 
 
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
 
-This method is invoked by the theme manager.
-Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
+
+### `resizeCallback() => Promise<void>`
+
+This method is invoked by KupManager whenever the component changes size.
 
 #### Returns
 
@@ -160,9 +172,20 @@ Type: `Promise<void>`
 
 
 
-### `resizeCallback() => Promise<void>`
+### `setSelectedRows(rowsById: string, emitEvent?: boolean) => Promise<void>`
 
-This method is invoked by KupManager whenever the component changes size.
+This method will set the selected rows of the component.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
+
+This method is invoked by the theme manager.
+Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
 
 #### Returns
 
@@ -179,6 +202,7 @@ Type: `Promise<void>`
 
 ### Depends on
 
+- [kup-card](../kup-card)
 - [kup-checkbox](../kup-checkbox)
 - [kup-tooltip](../kup-tooltip)
 - [kup-list](../kup-list)
@@ -192,12 +216,12 @@ Type: `Promise<void>`
 - [kup-radio](../kup-radio)
 - [kup-paginator](../kup-paginator)
 - [kup-combobox](../kup-combobox)
-- [kup-card](../kup-card)
 - [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
+  kup-data-table --> kup-card
   kup-data-table --> kup-checkbox
   kup-data-table --> kup-tooltip
   kup-data-table --> kup-list
@@ -211,12 +235,30 @@ graph TD;
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
-  kup-data-table --> kup-card
   kup-data-table --> kup-badge
+  kup-card --> kup-chip
+  kup-card --> kup-button
+  kup-card --> kup-badge
+  kup-card --> kup-progress-bar
+  kup-card --> kup-chart
+  kup-card --> kup-checkbox
+  kup-card --> kup-combobox
+  kup-card --> kup-date-picker
+  kup-card --> kup-text-field
+  kup-card --> kup-time-picker
+  kup-chip --> kup-badge
+  kup-badge --> kup-badge
+  kup-button --> kup-badge
+  kup-combobox --> kup-list
+  kup-list --> kup-radio
+  kup-list --> kup-checkbox
+  kup-date-picker --> kup-text-field
+  kup-date-picker --> kup-button
+  kup-time-picker --> kup-text-field
+  kup-time-picker --> kup-button
+  kup-time-picker --> kup-list
   kup-tooltip --> kup-button
   kup-tooltip --> kup-tree
-  kup-button --> kup-badge
-  kup-badge --> kup-badge
   kup-tree --> kup-image
   kup-tree --> kup-button
   kup-tree --> kup-chart
@@ -228,31 +270,14 @@ graph TD;
   kup-tree --> kup-rating
   kup-tree --> kup-radio
   kup-tree --> kup-tooltip
+  kup-tree --> kup-list
   kup-tree --> kup-text-field
   kup-tree --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-chip --> kup-badge
   kup-color-picker --> kup-text-field
-  kup-card --> kup-chip
-  kup-card --> kup-button
-  kup-card --> kup-badge
-  kup-card --> kup-progress-bar
-  kup-card --> kup-chart
-  kup-card --> kup-checkbox
-  kup-card --> kup-date-picker
-  kup-card --> kup-text-field
-  kup-card --> kup-time-picker
-  kup-date-picker --> kup-text-field
-  kup-date-picker --> kup-button
-  kup-time-picker --> kup-text-field
-  kup-time-picker --> kup-button
-  kup-time-picker --> kup-list
-  kup-list --> kup-radio
-  kup-list --> kup-checkbox
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
-  kup-combobox --> kup-list
   kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```

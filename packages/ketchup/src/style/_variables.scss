@@ -11,15 +11,6 @@
   --mdc-theme-text-primary-on-background: var(--kup-text-color);
 }
 
-// Components
-
-:host(.kup-secondary-color) {
-  --kup-primary-color: var(--kup-secondary-color);
-  --kup-text-on-primary-color: var(--kup-text-on-secondary-color);
-  --kup-primary-color-rgb: var(--kup-secondary-color-rgb);
-  --kup-text-on-primary-color-rgb: var(--kup-text-on-secondary-color-rgb);
-}
-
 // Cursors
 
 .is-obj {

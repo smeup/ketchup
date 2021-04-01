@@ -130,6 +130,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'kanban',
+          description: 'Displays the boxlist as a Kanban.',
+          type: 'BoxKanban',
+          default: 'null',
+          try: 'json',
+        },
+        {
           prop: 'layout',
           description:
             'How the field will be displayed. If not present, a default one will be created.',
@@ -171,6 +178,14 @@ export default {
           type: 'number',
           default: 'undefined',
           try: 'field',
+        },
+        {
+          prop: 'scrollOnHover',
+          description:
+            'When the mouse move towards the left or right edge and there is an overflow, the table will automatically scroll.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'selectBox',
@@ -246,36 +261,72 @@ export default {
       ],
       demoClasses: [
         {
-          class: 'borderless',
+          class: 'kup-borderless',
           description: 'Displays boxes without borders.',
         },
         {
-          class: 'bottom-aligned',
+          class: 'kup-bottom-aligned',
           description:
             "Content will be vertically aligned to section's bottom.",
         },
         {
-          class: 'left-aligned',
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-dashed-sections',
+          description: 'Setions will have a dashed border.',
+        },
+        {
+          class: 'kup-flat-on-hover',
+          description: 'Disables the box shadow effect on hover.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-left-aligned',
           description:
             "Content will be horizontally aligned to section's left.",
         },
         {
-          class: 'kup-secondary-color',
-          description:
-            'The component will be rendered using the secondary color of the app.',
-        },
-        {
-          class: 'paddingless',
+          class: 'kup-paddingless',
           description: 'Removes padding from box sections.',
         },
         {
-          class: 'right-aligned',
+          class: 'kup-right-aligned',
           description:
             "Content will be horizontally aligned to section's right.",
         },
         {
-          class: 'top-aligned',
+          class: 'kup-round',
+          description: 'Boxes borders will be heavily rounded.',
+        },
+        {
+          class: 'kup-secondary',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-shaped',
+          description: 'Boxes borders will be slightly rounded.',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-top-aligned',
           description: "Content will be vertically aligned to section's top.",
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
         },
       ],
     };

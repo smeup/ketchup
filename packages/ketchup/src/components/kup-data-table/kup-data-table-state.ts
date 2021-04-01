@@ -37,9 +37,10 @@ export class KupDataTableState implements KupState {
     dropEnabled: boolean = false;
     showFooter: boolean = false;
     totals: TotalsMap;
+    load: boolean = false;
 
     public toDebugString() {
         // TODO
-        return 'state';
+        return 'dt state';
     }
 }

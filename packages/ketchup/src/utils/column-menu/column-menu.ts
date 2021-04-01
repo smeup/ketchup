@@ -2,12 +2,14 @@ import type { CardData } from '../../components/kup-card/kup-card-declarations';
 import type { GenericObject } from '../../types/GenericTypes';
 import type { KupCard } from '../../components/kup-card/kup-card';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
+import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
 import type {
     Column,
     GroupObject,
 } from '../../components/kup-data-table/kup-data-table-declarations';
+import type { DynamicallyPositionedElement } from '../dynamic-position/dynamic-position-declarations';
 import { unsetTooltip } from '../helpers';
 import {
     isCheckbox,
@@ -20,7 +22,6 @@ import {
     canHaveExtraColumns,
     canHaveAutomaticDerivedColumn,
 } from '../object-utils';
-import { positionRecalc } from '../recalc-position';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
 import { FilterInterval, GenericFilter } from '../filters/filters-declarations';
 import {
@@ -30,7 +31,8 @@ import {
 } from '../utils';
 import { getValueForDisplay } from '../cell-utils';
 import { FiltersRows } from '../filters/filters-rows';
-import { Filters } from '../filters/filters';
+
+const dom: KupDom = document.documentElement as KupDom;
 /**
  * Definition and events of the column menu card.
  * @module ColumnMenu
@@ -38,14 +40,6 @@ import { Filters } from '../filters/filters';
 export class ColumnMenu {
     filtersColumnMenuInstance = new FiltersColumnMenu();
     filtersRowsInstance = new FiltersRows();
-    /**
-     * Function used to check whether the component is a KupTree or KupDataTable.
-     * @param {KupDataTable | KupTree} comp - Component using the column menu.
-     * @returns {comp is KupTree} Returns true when the component is KupTree.
-     */
-    isTree(comp: KupDataTable | KupTree): comp is KupTree {
-        return Filters.isTree(comp);
-    }
     /**
      * Function called by the component when the column menu must be opened.
      * @param {Event} event - The event itself.
@@ -84,18 +78,22 @@ export class ColumnMenu {
     reposition(comp: KupDataTable | KupTree): void {
         const root: ShadowRoot = comp.rootElement.shadowRoot;
         if (root) {
-            const card: any = root.querySelector(
-                '#column-menu:not(.dynamic-position-active)'
-            );
+            const card: any = root.querySelector('#column-menu');
             if (card) {
                 const column: string = card.dataset.column;
                 const wrapper: HTMLElement = root.querySelector(
                     'th[data-column="' + column + '"]'
                 );
-                positionRecalc(card, wrapper);
-                card.classList.add('dynamic-position-active');
-                card.menuVisible = true;
-                card.focus();
+                if (dom.ketchup.dynamicPosition.isRegistered(card)) {
+                    dom.ketchup.dynamicPosition.changeAnchor(card, wrapper);
+                } else {
+                    dom.ketchup.dynamicPosition.register(card, wrapper);
+                    dom.ketchup.dynamicPosition.start(
+                        card as DynamicallyPositionedElement
+                    );
+                    card.menuVisible = true;
+                    card.focus();
+                }
             }
         }
     }
@@ -135,8 +133,9 @@ export class ColumnMenu {
     ): GenericObject[] {
         let props: GenericObject[] = [];
         if (showGroup) {
-            if (!this.isTree(comp)) {
+            if (!FiltersColumnMenu.isTree(comp)) {
                 props.push({
+                    className: 'printable',
                     'data-storage': {
                         columnName: column.name,
                     },
@@ -151,6 +150,7 @@ export class ColumnMenu {
         }
         if (comp.removableColumns) {
             props.push({
+                className: 'printable',
                 'data-storage': {
                     column: column,
                 },
@@ -161,6 +161,7 @@ export class ColumnMenu {
         }
         if (canHaveExtraColumns(column.obj)) {
             props.push({
+                className: 'printable',
                 'data-storage': {
                     columnName: column.name,
                 },
@@ -170,6 +171,7 @@ export class ColumnMenu {
             });
             if (canHaveAutomaticDerivedColumn(column.obj)) {
                 props.push({
+                    className: 'printable',
                     'data-storage': {
                         columnName: column.name,
                     },
@@ -604,7 +606,7 @@ export class ColumnMenu {
         value: string,
         column: Column
     ): void {
-        if (!this.isTree(comp)) {
+        if (!FiltersColumnMenu.isTree(comp)) {
             comp.resetCurrentPage();
         }
         let newFilter = '';
@@ -631,7 +633,7 @@ export class ColumnMenu {
         needNormalize: boolean,
         suffix?: string
     ): void {
-        if (!this.isTree(comp)) {
+        if (!FiltersColumnMenu.isTree(comp)) {
             comp.resetCurrentPage();
         }
         let newFilter = '';
@@ -670,7 +672,7 @@ export class ColumnMenu {
         column: Column,
         filterValue: string
     ): void {
-        if (!this.isTree(comp)) {
+        if (!FiltersColumnMenu.isTree(comp)) {
             comp.resetCurrentPage();
         }
 
