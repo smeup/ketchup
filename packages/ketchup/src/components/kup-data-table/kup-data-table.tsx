@@ -1508,9 +1508,7 @@ export class KupDataTable {
                 );
                 if (column && cell) {
                     cardData.text.push(column.title);
-                    cardData.text.push(
-                        cell.displayedValue ? cell.displayedValue : cell.value
-                    );
+                    cardData.text.push(getCellValueForDisplay(column, cell));
                 } else {
                     this.kupManager.debug.logMessage(
                         this,
@@ -1550,6 +1548,7 @@ export class KupDataTable {
             filterRemove: HTMLSpanElement = el.closest('th .filter-remove');
         let cell: Cell = null,
             column: Column = null,
+            isGroupRow: boolean = false,
             row: Row = null;
         if (isBody) {
             if (td) {
@@ -1557,6 +1556,9 @@ export class KupDataTable {
             }
             if (tr) {
                 row = tr['data-row'];
+            }
+            if (tr.classList.contains('group')) {
+                isGroupRow = true;
             }
         }
         if (isHeader || isBody || isFooter) {
@@ -1581,6 +1583,7 @@ export class KupDataTable {
             cell: cell ? cell : null,
             column: column ? column : null,
             filterRemove: filterRemove ? filterRemove : null,
+            isGroupRow: isGroupRow,
             row: row ? row : null,
             td: td ? td : null,
             textfield: textfield ? textfield : null,
@@ -1593,6 +1596,9 @@ export class KupDataTable {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
+        this.kupDataTableClick.emit({
+            details: details,
+        });
         if (details.area === 'header') {
             if (details.th && details.column) {
                 if (details.filterRemove) {
@@ -1607,7 +1613,7 @@ export class KupDataTable {
             if (
                 (this.isFocusable || e.ctrlKey) &&
                 details.tr &&
-                !details.tr.classList.contains('group')
+                !details.isGroupRow
             ) {
                 const focusEl: HTMLElement = this.rootElement.shadowRoot.querySelector(
                     'tr.focus'
@@ -1621,11 +1627,7 @@ export class KupDataTable {
                     return;
                 }
             }
-            if (
-                details.tr &&
-                details.row &&
-                details.tr.classList.contains('group')
-            ) {
+            if (details.tr && details.row && details.isGroupRow) {
                 this.onRowExpand(details.row);
                 return;
             }
@@ -1634,15 +1636,15 @@ export class KupDataTable {
                 return;
             }
         }
-        this.kupDataTableClick.emit({
-            details: details,
-        });
     }
 
     private contextMenuHandler(e: MouseEvent): void {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
+        this.kupDataTableContextMenu.emit({
+            details: details,
+        });
         if (details.area === 'header') {
             if (details.th && details.column) {
                 this.columnMenuInstance.open(
@@ -1667,9 +1669,6 @@ export class KupDataTable {
                 return;
             }
         }
-        this.kupDataTableContextMenu.emit({
-            details: details,
-        });
     }
 
     private dblClickHandler(e: MouseEvent): void {
