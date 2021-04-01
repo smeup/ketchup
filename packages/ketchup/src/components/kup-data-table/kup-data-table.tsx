@@ -1593,6 +1593,9 @@ export class KupDataTable {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
+        this.kupDataTableClick.emit({
+            details: details,
+        });
         if (details.area === 'header') {
             if (details.th && details.column) {
                 if (details.filterRemove) {
@@ -1634,15 +1637,15 @@ export class KupDataTable {
                 return;
             }
         }
-        this.kupDataTableClick.emit({
-            details: details,
-        });
     }
 
     private contextMenuHandler(e: MouseEvent): void {
         const details: EventHandlerDetails = this.getEventDetails(
             e.target as HTMLElement
         );
+        this.kupDataTableContextMenu.emit({
+            details: details,
+        });
         if (details.area === 'header') {
             if (details.th && details.column) {
                 this.columnMenuInstance.open(
@@ -1667,9 +1670,6 @@ export class KupDataTable {
                 return;
             }
         }
-        this.kupDataTableContextMenu.emit({
-            details: details,
-        });
     }
 
     private dblClickHandler(e: MouseEvent): void {
