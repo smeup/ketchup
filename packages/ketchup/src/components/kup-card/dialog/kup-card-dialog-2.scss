@@ -1,10 +1,9 @@
-.dialog-layout-1 {
+.dialog-layout-2 {
   background-color: var(--kup-background-color);
   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     0 1px 3px 0 rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
-  min-height: 50px;
   min-width: min-content;
   height: 100%;
   width: 100%;
@@ -12,6 +11,18 @@
   resize: both;
 
   .section-1 {
+    text-align: center;
+    padding-bottom: 1em;
+    .text {
+      padding-top: 0.75em;
+      &:not(.label) {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .section-2 {
+    border-top: 1px solid var(--kup-border-color);
     display: grid;
     grid-gap: 0.5em;
     grid-template-columns: repeat(2, auto);
