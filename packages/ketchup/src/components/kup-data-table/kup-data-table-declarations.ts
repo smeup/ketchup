@@ -103,6 +103,7 @@ export interface Column {
     icon?: string;
     formula?: string;
     valuesForFilter?: string[];
+    isKey?: boolean;
 }
 
 export interface Row extends Identifiable {
