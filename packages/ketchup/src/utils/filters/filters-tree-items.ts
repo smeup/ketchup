@@ -1,5 +1,6 @@
 import type {
     Cell,
+    CellsHolder,
     Column,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
@@ -61,9 +62,20 @@ export class FiltersTreeItems extends FiltersRows {
         columnFilters?: FiltersColumnMenu
     ): boolean {
         let retValue = false;
+        let treeColumnCell: CellsHolder = null;
+
+        if (filters && filters['TREE_COLUMN']) {
+            treeColumnCell = {
+                TREE_COLUMN: {
+                    obj: node.obj,
+                    value: node.value,
+                },
+            };
+        }
+
         if (node.cells != null) {
             retValue = this.areCellsCompliant(
-                node.cells,
+                treeColumnCell ? treeColumnCell : node.cells,
                 filters,
                 globalFilter,
                 isUsingGlobalFilter,
