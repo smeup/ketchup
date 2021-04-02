@@ -18,16 +18,16 @@
 
 ## Events
 
-| Event                        | Description    | Type                           |
-| ---------------------------- | -------------- | ------------------------------ |
-| `kupComboboxBlur`            | Event example. | `CustomEvent<{ value: any; }>` |
-| `kupComboboxChange`          |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxClick`           |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxFocus`           |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxIconClick`       |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxInput`           |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxItemClick`       |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxTextFieldSubmit` |                | `CustomEvent<{ value: any; }>` |
+| Event                        | Description    | Type                                       |
+| ---------------------------- | -------------- | ------------------------------------------ |
+| `kupComboboxBlur`            | Event example. | `CustomEvent<{ value: any; }>`             |
+| `kupComboboxChange`          |                | `CustomEvent<{ value: any; }>`             |
+| `kupComboboxClick`           |                | `CustomEvent<{ id: string; value: any; }>` |
+| `kupComboboxFocus`           |                | `CustomEvent<{ value: any; }>`             |
+| `kupComboboxIconClick`       |                | `CustomEvent<{ value: any; }>`             |
+| `kupComboboxInput`           |                | `CustomEvent<{ value: any; }>`             |
+| `kupComboboxItemClick`       |                | `CustomEvent<{ id: string; value: any; }>` |
+| `kupComboboxTextFieldSubmit` |                | `CustomEvent<{ value: any; }>`             |
 
 
 ## Methods
@@ -88,6 +88,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
  - [kup-paginator](../kup-paginator)
@@ -103,6 +104,7 @@ graph TD;
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-box --> kup-combobox
+  kup-card --> kup-combobox
   kup-data-table --> kup-combobox
   kup-form --> kup-combobox
   kup-paginator --> kup-combobox

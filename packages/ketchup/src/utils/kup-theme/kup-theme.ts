@@ -68,6 +68,21 @@ export class KupTheme {
         document.dispatchEvent(new CustomEvent('kupThemeChange'));
     }
     /**
+     * Gets the name of available themes (filters out themes named "test").
+     * @returns {Array<string>} Array of themes' names.
+     */
+    getThemes(): Array<string> {
+        const themes: Array<string> = [];
+        for (var key in this.list) {
+            if (this.list.hasOwnProperty(key)) {
+                if (key !== 'test') {
+                    themes.push(key);
+                }
+            }
+        }
+        return themes;
+    }
+    /**
      * Sets the CSS variables of the theme.
      */
     imports(): string {
@@ -195,7 +210,9 @@ export class KupTheme {
      * @param {any} component - The component calling this function.
      */
     unregister(component: any): void {
-        this.managedComponents.delete(component.rootElement);
+        if (this.managedComponents) {
+            this.managedComponents.delete(component.rootElement);
+        }
     }
     /**
      * Combines the component's customStyle and customStyleTheme properties, returning the result.

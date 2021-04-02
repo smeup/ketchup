@@ -32,6 +32,14 @@
     --kup-text-on-primary-color-rgb: 255, 255, 255;
 }
 /*-------------------------------------------------*/
+/*            M o v e   o n   d r a g              */
+/*-------------------------------------------------*/
+.kup-movable-element {
+    margin: 0;
+    position: fixed;
+    transition: none;
+}
+/*-------------------------------------------------*/
 /*          S c r o l l   o n   h o v e r          */
 /*-------------------------------------------------*/
 #container-scrolling-arrow {
@@ -173,4 +181,11 @@
         opacity: 1;
         transform: translate(-10px, -10px);
     }
+}
+/* Debug */
+#kup-debug-window {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
 }

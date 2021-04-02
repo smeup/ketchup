@@ -103,6 +103,7 @@ export interface Column {
     icon?: string;
     formula?: string;
     valuesForFilter?: string[];
+    isKey?: boolean;
 }
 
 export interface Row extends Identifiable {
@@ -273,6 +274,7 @@ export interface EventHandlerDetails {
     cell: Cell;
     column: Column;
     filterRemove: HTMLSpanElement;
+    isGroupRow: boolean;
     row: Row;
     td: HTMLTableDataCellElement;
     textfield: HTMLElement;

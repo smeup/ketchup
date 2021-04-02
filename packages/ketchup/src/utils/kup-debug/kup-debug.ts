@@ -1,3 +1,6 @@
+import type { KupCard } from '../../components/kup-card/kup-card';
+import { CardData } from '../../components/kup-card/kup-card-declarations';
+import { ComponentListElement } from '../../components/kup-list/kup-list-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
@@ -24,6 +27,7 @@ export class KupDebug {
             ? dom.ketchupInit.debug.logLimit
             : 100;
     logs: KupDebugLog[] = [];
+    #debugWindow: HTMLKupCardElement = null;
     /**
      * Dumps the stored logs.
      */
@@ -106,6 +110,182 @@ export class KupDebug {
         } else {
             this.active = value;
         }
+        if (this.active) {
+            this.showWindow();
+        } else {
+            this.hideWindow();
+        }
+    }
+    /**
+     * Creates the debugger window.
+     */
+    showWindow(): void {
+        const debugWindow: HTMLKupCardElement = document.createElement(
+            'kup-card'
+        );
+        const themes: string[] = dom.ketchup.theme.getThemes();
+        const listData: ComponentListElement[] = [];
+        for (let index = 0; index < themes.length; index++) {
+            listData.push({
+                text: themes[index],
+                value: themes[index],
+                selected: false,
+                isSeparator: false,
+            });
+        }
+        debugWindow.data = {
+            button: [
+                {
+                    icon: 'power_settings_new',
+                    id: 'kup-debug-off',
+                    title: 'Turn off debug',
+                },
+                {
+                    icon: 'print',
+                    id: 'kup-debug-print',
+                    title: 'Print logs stored',
+                },
+                { icon: 'broom', id: 'kup-debug-clear', title: 'Clear window' },
+                {
+                    icon: 'delete',
+                    id: 'kup-debug-delete',
+                    title: 'Dump stored logs',
+                },
+                {
+                    className: 'kup-full-height',
+                    icon: 'download',
+                    id: 'kup-debug-dl-props',
+                    label: 'Props',
+                    styling: 'flat',
+                    title: 'Download components props',
+                },
+            ],
+            combobox: [
+                {
+                    className: 'kup-full-height',
+                    data: {
+                        'kup-list': {
+                            data: listData,
+                            id: 'kup-debug-theme-changer-list',
+                        },
+                        'kup-text-field': {
+                            className: 'kup-full-height',
+                            emitSubmitEventOnEnter: false,
+                            inputType: 'text',
+                            label: 'Change theme',
+                        },
+                    },
+                    id: 'kup-debug-theme-changer',
+                    initialValue: dom.ketchup.theme.name,
+                    isSelect: true,
+                },
+            ],
+            textfield: [
+                {
+                    className: 'kup-full-height',
+                    id: 'kup-debug-log-limit',
+                    label: 'Set log limit',
+                    initialValue: this.logLimit,
+                    emitSubmitEventOnEnter: false,
+                    inputType: 'number',
+                },
+            ],
+        };
+        debugWindow.customStyle =
+            '#kup-debug-log-limit {width: 120px;} #kup-debug-theme-changer {width: 190px;}';
+        debugWindow.id = 'kup-debug-window';
+        debugWindow.layoutNumber = 13;
+        debugWindow.sizeX = 'auto';
+        debugWindow.sizeY = 'auto';
+        debugWindow.addEventListener('kupCardEvent', (e: CustomEvent) =>
+            this.handleEvents(e)
+        );
+        document.body.append(debugWindow);
+        this.#debugWindow = debugWindow;
+    }
+    /**
+     * Closes the debug window.
+     */
+    hideWindow() {
+        this.#debugWindow.remove();
+        this.#debugWindow = null;
+    }
+    /**
+     * Listens the card events and handles the related actions.
+     * @param {CustomEvent} e - kupCardEvent.
+     */
+    handleEvents(e: CustomEvent): void {
+        const compEvent: CustomEvent = e.detail.event;
+        const compID: string = compEvent.detail.id;
+        let cardData: CardData = { ...this.#debugWindow.data };
+        switch (compEvent.type) {
+            case 'kupButtonClick':
+                switch (compID) {
+                    case 'kup-debug-clear':
+                        cardData['text'] = null;
+                        this.#debugWindow.data = cardData;
+                        break;
+                    case 'kup-debug-dl-props':
+                        this.getProps().then((res: GenericObject) => {
+                            const dataStr: string =
+                                'data:text/json;charset=utf-8,' +
+                                encodeURIComponent(
+                                    JSON.stringify(res, null, 2)
+                                );
+                            const downloadAnchorNode: HTMLAnchorElement = document.createElement(
+                                'a'
+                            );
+                            downloadAnchorNode.setAttribute('href', dataStr);
+                            downloadAnchorNode.setAttribute(
+                                'download',
+                                'kup_props.json'
+                            );
+                            document.body.appendChild(downloadAnchorNode);
+                            downloadAnchorNode.click();
+                            downloadAnchorNode.remove();
+                        });
+                        break;
+                    case 'kup-debug-delete':
+                        this.dump();
+                        break;
+                    case 'kup-debug-off':
+                        this.toggle();
+                        break;
+                    case 'kup-debug-print':
+                        let logList: string[] = [];
+                        for (let index = 0; index < this.logs.length; index++) {
+                            if (this.logs[index].id.indexOf('#kup-debug') < 0) {
+                                logList.push(
+                                    this.logs[index].id +
+                                        this.logs[index].message
+                                );
+                            }
+                        }
+                        cardData['text'] = logList;
+                        this.#debugWindow.data = cardData;
+                        break;
+                }
+                break;
+            case 'kupComboboxItemClick':
+                switch (compID) {
+                    case 'kup-debug-theme-changer':
+                        dom.ketchup.theme.set(compEvent.detail.value);
+                        break;
+                }
+            case 'kupTextFieldInput':
+                switch (compID) {
+                    case 'kup-debug-log-limit':
+                        if (
+                            compEvent.detail.value === '' ||
+                            compEvent.detail.value < 1
+                        ) {
+                            this.logLimit = 1;
+                        } else {
+                            this.logLimit = compEvent.detail.value;
+                        }
+                        break;
+                }
+        }
     }
     /**
      * Function used to check whether the debug is active or not.
@@ -137,7 +317,9 @@ export class KupDebug {
                 el.getProps()
                     .then((res: GenericObject) => {
                         let cnt: number = 0;
-                        let key: string = el.rootElement.tagName + '_' + ++cnt;
+                        let key: string = el.rootElement.id
+                            ? el.rootElement.tagName + '#' + el.rootElement.id
+                            : el.rootElement.tagName + '_' + ++cnt;
                         while (props[key]) {
                             key = el.rootElement.tagName + '_' + ++cnt;
                         }
@@ -223,17 +405,19 @@ export class KupDebug {
                     date: date,
                     element: obj,
                 };
-                if (this.logs.length > this.logLimit) {
-                    console.warn(
-                        this.formatDate(date) +
-                            ' kup-debug => ' +
-                            'Too many logs (> ' +
-                            this.logLimit +
-                            ')! Dumping (increase debug.logLimit to store more logs)... .'
-                    );
-                    this.dump();
+                if (id.indexOf('#kup-debug') < 0) {
+                    if (this.logs.length > this.logLimit) {
+                        console.warn(
+                            this.formatDate(date) +
+                                ' kup-debug => ' +
+                                'Too many logs (> ' +
+                                this.logLimit +
+                                ')! Dumping (increase debug.logLimit to store more logs)... .'
+                        );
+                        this.dump();
+                    }
+                    this.logs.push(log);
                 }
-                this.logs.push(log);
                 break;
         }
     }

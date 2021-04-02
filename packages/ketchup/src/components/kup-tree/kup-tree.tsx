@@ -798,6 +798,9 @@ export class KupTree {
 
     private contextMenuHandler(e: MouseEvent): void {
         const details = this.getEventDetails(e.target as HTMLElement);
+        this.kupTreeContextMenu.emit({
+            details: details,
+        });
         if (details.area === 'footer') {
             if (details.td && details.column) {
                 e.preventDefault();
@@ -805,9 +808,6 @@ export class KupTree {
                 return;
             }
         }
-        this.kupTreeContextMenu.emit({
-            details: details,
-        });
     }
 
     /**

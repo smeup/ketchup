@@ -3056,6 +3056,7 @@ declare namespace LocalJSX {
         value: any;
     }>) => void;
         "onKupComboboxClick"?: (event: CustomEvent<{
+        id: string;
         value: any;
     }>) => void;
         "onKupComboboxFocus"?: (event: CustomEvent<{
@@ -3068,6 +3069,7 @@ declare namespace LocalJSX {
         value: any;
     }>) => void;
         "onKupComboboxItemClick"?: (event: CustomEvent<{
+        id: string;
         value: any;
     }>) => void;
         "onKupComboboxTextFieldSubmit"?: (event: CustomEvent<{

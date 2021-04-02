@@ -12,6 +12,7 @@ import {
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
 import * as collapsibleLayouts from './collapsible/kup-card-collapsible';
+import * as dialogLayouts from './dialog/kup-card-dialog';
 import * as scalableLayouts from './scalable/kup-card-scalable';
 import * as standardLayouts from './standard/kup-card-standard';
 import type { GenericObject } from '../../types/GenericTypes';
@@ -159,6 +160,11 @@ export class KupCard {
     onKupEvent(e: CustomEvent): void {
         const root = this.rootElement.shadowRoot;
 
+        if (e.type === 'kupButtonClick' && e.detail.id === 'dialog-close') {
+            this.rootElement.remove();
+            return;
+        }
+
         if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
             let collapsibleCard = root.querySelector('.collapsible-card');
             if (!collapsibleCard.classList.contains('expanded')) {
@@ -169,6 +175,7 @@ export class KupCard {
                 collapsibleCard.classList.remove('expanded');
                 this.sizeY = this.oldSizeY;
             }
+            return;
         }
 
         this.kupEvent.emit({
@@ -260,6 +267,9 @@ export class KupCard {
                 case CardFamily.COLLAPSIBLE: {
                     return collapsibleLayouts[method](this);
                 }
+                case CardFamily.DIALOG: {
+                    return dialogLayouts[method](this);
+                }
                 case CardFamily.SCALABLE: {
                     return scalableLayouts[method](this);
                 }
@@ -275,6 +285,24 @@ export class KupCard {
                 title: 'Layout not yet implemented!',
             };
             return <FImage {...props}></FImage>;
+        }
+    }
+    /**
+     * This method will trigger whenever the card's render() hook occurs or when the size changes (through KupManager), in order to manage the more complex layout families.
+     * It will also update any dynamic color handled by the selected layout.
+     */
+    dialog() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const card: HTMLElement = this.rootElement as HTMLElement;
+            const headerBar: HTMLElement = root.querySelector('#header-bar');
+            if (!this.kupManager.moveOnDrag.isRegistered(card)) {
+                if (headerBar) {
+                    this.kupManager.moveOnDrag.register(card, headerBar);
+                } else {
+                    this.kupManager.moveOnDrag.register(card);
+                }
+            }
         }
     }
     /**
@@ -299,6 +327,9 @@ export class KupCard {
             case CardFamily.COLLAPSIBLE:
                 this.collapsible();
                 break;
+            case CardFamily.DIALOG:
+                this.dialog();
+                break;
             case CardFamily.SCALABLE:
                 if (!this.scalingActive) {
                     this.scalable();
@@ -317,6 +348,7 @@ export class KupCard {
         root.addEventListener('kupCheckboxChange', this.cardEvent);
         root.addEventListener('kupChipClick', this.cardEvent);
         root.addEventListener('kupChipIconClick', this.cardEvent);
+        root.addEventListener('kupComboboxItemClick', this.cardEvent);
         root.addEventListener('kupTextFieldClearIconClick', this.cardEvent);
         root.addEventListener('kupDatePickerClearIconClick', this.cardEvent);
         root.addEventListener('kupTimePickerClearIconClick', this.cardEvent);
@@ -450,6 +482,9 @@ export class KupCard {
 
     componentDidUnload() {
         this.kupManager.theme.unregister(this);
+        this.kupManager.moveOnDrag.unregister([
+            this.rootElement as HTMLElement,
+        ]);
         this.kupManager.resize.unobserve(this.rootElement);
     }
 }

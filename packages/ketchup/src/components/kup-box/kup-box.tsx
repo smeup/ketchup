@@ -767,14 +767,14 @@ export class KupBox {
             row: BoxRow;
             cell: Cell;
         } = this.getEventDetails(e.target as HTMLElement);
+        this.kupBoxContextMenu.emit({
+            details: details,
+        });
         if (this.showTooltipOnRightClick && details.boxObject && details.cell) {
             e.preventDefault();
             setTooltip(e, details.row.id, details.cell, this.tooltip);
             return;
         }
-        this.kupBoxContextMenu.emit({
-            details: details,
-        });
     }
 
     /**
