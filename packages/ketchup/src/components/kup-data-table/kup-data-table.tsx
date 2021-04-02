@@ -1623,7 +1623,7 @@ export class KupDataTable {
             }
         } else if (details.area === 'body') {
             if (
-                (this.isFocusable || e.ctrlKey) &&
+                (this.isFocusable || e.ctrlKey || e.metaKey) &&
                 details.tr &&
                 !details.isGroupRow
             ) {
@@ -1634,7 +1634,7 @@ export class KupDataTable {
                     focusEl.classList.remove('focus');
                 }
                 details.tr.classList.add('focus');
-                if (e.ctrlKey) {
+                if (e.ctrlKey || e.metaKey) {
                     this.rowDetail(details.row, e.clientX, e.clientY);
                     return;
                 }
