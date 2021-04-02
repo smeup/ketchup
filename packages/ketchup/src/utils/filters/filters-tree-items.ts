@@ -5,7 +5,10 @@ import type {
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
 import type { GenericFilter } from './filters-declarations';
-import type { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
+import {
+    treeMainColumnName,
+    TreeNode,
+} from '../../components/kup-tree/kup-tree-declarations';
 import { FiltersColumnMenu } from './filters-column-menu';
 import { FiltersRows } from './filters-rows';
 
@@ -64,9 +67,9 @@ export class FiltersTreeItems extends FiltersRows {
         let retValue = false;
         let treeColumnCell: CellsHolder = null;
 
-        if (filters && filters['TREE_COLUMN']) {
+        if (filters && filters[treeMainColumnName]) {
             treeColumnCell = {
-                TREE_COLUMN: {
+                [treeMainColumnName]: {
                     obj: node.obj,
                     value: node.value,
                 },
@@ -160,7 +163,7 @@ export class FiltersTreeItems extends FiltersRows {
         /** il valore delle righe attualmente filtrate, formattato */
         rows.forEach((node): void => {
             let cell: Cell = null;
-            if (column.name === 'TREE_COLUMN') {
+            if (column.name === treeMainColumnName) {
                 cell = {
                     obj: node.obj,
                     value: node.value,

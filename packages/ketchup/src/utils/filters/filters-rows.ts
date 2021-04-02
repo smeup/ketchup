@@ -17,6 +17,7 @@ import {
 import { isDate, isNumber, isTime, isTimestamp } from '../object-utils';
 import { Filters } from './filters';
 import { FiltersColumnMenu } from './filters-column-menu';
+import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
 
 /**
  * Filtering algorithms related to data-table rows.
@@ -237,9 +238,9 @@ export class FiltersRows extends Filters {
         for (let i = 0; i < keys.length; i++) {
             let key = keys[i];
             let col: Column = null;
-            if (key === 'TREE_COLUMN') {
+            if (key === treeMainColumnName) {
                 col = {
-                    name: 'TREE_COLUMN',
+                    name: treeMainColumnName,
                     title: '',
                 };
             } else {
