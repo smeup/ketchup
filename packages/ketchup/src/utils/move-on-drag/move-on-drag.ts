@@ -29,7 +29,6 @@ export class MoveOnDrag {
         }
     };
     #mouseDown: Function = function (e: MouseEvent) {
-        console.log('a');
         e.preventDefault();
         this.activeX = e.clientX;
         this.activeY = e.clientY;
