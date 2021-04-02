@@ -1,4 +1,5 @@
 import type {
+    Cell,
     Column,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
@@ -146,13 +147,18 @@ export class FiltersTreeItems extends FiltersRows {
         }
         /** il valore delle righe attualmente filtrate, formattato */
         rows.forEach((node): void => {
+            let cell: Cell = null;
             // TODO fare check con TreeMainColumnName
+            if (column.name === 'TREE_COLUMN') {
+                cell = {
+                    obj: node.obj,
+                    value: node.value,
+                };
+            } else {
+                cell = node.cells[column.name];
+            }
             if (node.visible) {
-                this.addColumnValueFromRow(
-                    values,
-                    column,
-                    node.cells[column.name]
-                );
+                this.addColumnValueFromRow(values, column, cell);
                 this.extractColumnValues(node.children, column, values);
             }
         });
