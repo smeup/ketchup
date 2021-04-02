@@ -14,7 +14,6 @@ export class MoveOnDrag {
     zIndex: number = 100;
     #initialized: boolean = false;
     #elementDrag: (this: Document, e: Event) => any = function (e: MouseEvent) {
-        e.preventDefault();
         const moveOnDrag: MoveOnDrag = dom.ketchup.moveOnDrag;
         if (moveOnDrag.activeElement) {
             const x: number =
@@ -51,8 +50,7 @@ export class MoveOnDrag {
             }
         }
     };
-    #mouseUp: (this: Document, e: Event) => any = function (e: MouseEvent) {
-        e.preventDefault();
+    #mouseUp: (this: Document, e: Event) => any = function () {
         const moveOnDrag: MoveOnDrag = dom.ketchup.moveOnDrag;
         moveOnDrag.activeElement = null;
     };
