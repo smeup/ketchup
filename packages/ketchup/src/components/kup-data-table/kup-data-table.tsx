@@ -1567,10 +1567,10 @@ export class KupDataTable {
                 cell = td['data-cell'];
             }
             if (tr) {
+                if (tr.classList.contains('group')) {
+                    isGroupRow = true;
+                }
                 row = tr['data-row'];
-            }
-            if (tr.classList.contains('group')) {
-                isGroupRow = true;
             }
         }
         if (isHeader || isBody || isFooter) {
@@ -1623,7 +1623,7 @@ export class KupDataTable {
             }
         } else if (details.area === 'body') {
             if (
-                (this.isFocusable || e.ctrlKey) &&
+                (this.isFocusable || e.ctrlKey || e.metaKey) &&
                 details.tr &&
                 !details.isGroupRow
             ) {
@@ -1634,7 +1634,7 @@ export class KupDataTable {
                     focusEl.classList.remove('focus');
                 }
                 details.tr.classList.add('focus');
-                if (e.ctrlKey) {
+                if (e.ctrlKey || e.metaKey) {
                     this.rowDetail(details.row, e.clientX, e.clientY);
                     return;
                 }
@@ -4980,9 +4980,9 @@ export class KupDataTable {
                             tabIndex={0}
                         ></kup-card>
                     ) : null}
-                    {this.removableColumns ? this.columnRemoveArea() : null}
                     {paginatorBottom}
                 </div>
+                {this.removableColumns ? this.columnRemoveArea() : null}
             </Host>
         );
         return compCreated;

@@ -72,8 +72,10 @@ export class DynamicPosition {
      * @param {DynamicallyPositionedElement[]} elements - Elements to remove from the managed elements set.
      */
     unregister(elements: DynamicallyPositionedElement[]): void {
-        for (let index = 0; index < elements.length; index++) {
-            this.managedElements.delete(elements[index]);
+        if (this.managedElements) {
+            for (let index = 0; index < elements.length; index++) {
+                this.managedElements.delete(elements[index]);
+            }
         }
     }
     /**
