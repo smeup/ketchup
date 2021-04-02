@@ -65,20 +65,15 @@ export class FiltersTreeItems extends FiltersRows {
         columnFilters?: FiltersColumnMenu
     ): boolean {
         let retValue = false;
-        let treeColumnCell: CellsHolder = null;
-
-        if (filters && filters[treeMainColumnName]) {
-            treeColumnCell = {
-                [treeMainColumnName]: {
-                    obj: node.obj,
-                    value: node.value,
-                },
-            };
-        }
+        let cellsHolder: CellsHolder = node.cells;
+        cellsHolder[treeMainColumnName] = {
+            obj: node.obj,
+            value: node.value,
+        };
 
         if (node.cells != null) {
             retValue = this.areCellsCompliant(
-                treeColumnCell ? treeColumnCell : node.cells,
+                cellsHolder,
                 filters,
                 globalFilter,
                 isUsingGlobalFilter,
@@ -162,17 +157,17 @@ export class FiltersTreeItems extends FiltersRows {
         }
         /** il valore delle righe attualmente filtrate, formattato */
         rows.forEach((node): void => {
-            let cell: Cell = null;
-            if (column.name === treeMainColumnName) {
-                cell = {
-                    obj: node.obj,
-                    value: node.value,
-                };
-            } else {
-                cell = node.cells[column.name];
-            }
+            let cellsHolder: CellsHolder = node.cells;
+            cellsHolder[treeMainColumnName] = {
+                obj: node.obj,
+                value: node.value,
+            };
             if (node.visible) {
-                this.addColumnValueFromRow(values, column, cell);
+                this.addColumnValueFromRow(
+                    values,
+                    column,
+                    cellsHolder[column.name]
+                );
                 this.extractColumnValues(node.children, column, values);
             }
         });
