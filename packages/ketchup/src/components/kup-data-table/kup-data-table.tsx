@@ -1567,10 +1567,10 @@ export class KupDataTable {
                 cell = td['data-cell'];
             }
             if (tr) {
+                if (tr.classList.contains('group')) {
+                    isGroupRow = true;
+                }
                 row = tr['data-row'];
-            }
-            if (tr.classList.contains('group')) {
-                isGroupRow = true;
             }
         }
         if (isHeader || isBody || isFooter) {
