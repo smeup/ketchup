@@ -28,6 +28,7 @@ import {
     treeExpandedPropName,
     TreeNode,
     TreeNodePath,
+    treeMainColumnName,
 } from './kup-tree-declarations';
 
 import { hasTooltip, isNumber } from '../../utils/object-utils';
@@ -127,6 +128,7 @@ export class KupTree {
     @State() customStyleTheme: string = undefined;
     @State()
     private openedMenu: string = null;
+    @State() private treeColumnVisible = true;
     /**
      * name of the column with the opened total menu
      */
@@ -481,6 +483,14 @@ export class KupTree {
         return props;
     }
 
+    setTreeColumnVisibility(value: boolean) {
+        this.treeColumnVisible = value;
+    }
+
+    isTreeColumnVisible(): boolean {
+        return this.treeColumnVisible;
+    }
+
     setColumnMenu(column: string) {
         this.openedMenu = column;
     }
@@ -677,6 +687,15 @@ export class KupTree {
         return this.getColumns().filter((column) =>
             column.hasOwnProperty('visible') ? column.visible : true
         );
+    }
+
+    getHeadingColumns(): Array<Column> {
+        const firstColum: Column = {
+            name: treeMainColumnName,
+            title: '',
+        };
+        const visibleColumns = this.getVisibleColumns();
+        return [firstColum, ...visibleColumns];
     }
 
     /*
@@ -1552,7 +1571,13 @@ export class KupTree {
      * @returns An array of table header cells.
      */
     renderHeader(): JSX.Element[] {
-        return this.getVisibleColumns().map((column) => {
+        return this.getHeadingColumns().map((column) => {
+            if (
+                !this.isTreeColumnVisible() &&
+                column.name === treeMainColumnName
+            )
+                return;
+
             //---- Filter ----
             let filter = null;
 
@@ -1580,6 +1605,7 @@ export class KupTree {
                     ></span>
                 );
             }
+
             return (
                 <th
                     data-column={column.name}
@@ -1738,19 +1764,9 @@ export class KupTree {
             value: treeNodeData.value,
         };
 
-        return (
-            <tr
-                class={{
-                    'kup-tree__node': true,
-                    'with-dyn': !treeNodeData.disabled,
-                    'kup-tree__node--disabled': treeNodeData.disabled,
-                    'kup-tree__node--selected':
-                        !treeNodeData.disabled &&
-                        treeNodePath === this.selectedNodeString,
-                }}
-                data-tree-path={treeNodePath}
-                {...treeNodeOptions}
-            >
+        let treeNodeCell = null;
+        if (this.isTreeColumnVisible()) {
+            treeNodeCell = (
                 <td
                     class={{
                         'first-node': treeNodeDepth === 0 ? true : false,
@@ -1774,6 +1790,23 @@ export class KupTree {
                     {treeNodeIcon}
                     <span class="cell-content">{treeNodeData.value}</span>
                 </td>
+            );
+        }
+
+        return (
+            <tr
+                class={{
+                    'kup-tree__node': true,
+                    'with-dyn': !treeNodeData.disabled,
+                    'kup-tree__node--disabled': treeNodeData.disabled,
+                    'kup-tree__node--selected':
+                        !treeNodeData.disabled &&
+                        treeNodePath === this.selectedNodeString,
+                }}
+                data-tree-path={treeNodePath}
+                {...treeNodeOptions}
+            >
+                {treeNodeCell}
                 {treeNodeCells}
             </tr>
         );
@@ -2107,7 +2140,6 @@ export class KupTree {
                                 }}
                             >
                                 <tr>
-                                    <th />
                                     {visibleHeader ? this.renderHeader() : null}
                                 </tr>
                             </thead>
@@ -2124,7 +2156,7 @@ export class KupTree {
                             data={this.columnMenuInstance.prepData(
                                 this,
                                 getColumnByName(
-                                    this.getVisibleColumns(),
+                                    this.getHeadingColumns(),
                                     this.openedMenu
                                 ),
                                 false

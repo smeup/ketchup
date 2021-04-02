@@ -5,6 +5,7 @@ import type { KupDataTable } from '../../components/kup-data-table/kup-data-tabl
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
+import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
 import type {
     Column,
     GroupObject,
@@ -727,7 +728,14 @@ export class ColumnMenu {
      * @param {Column} column - Column of the menu.
      */
     removeColumn(comp: KupDataTable | KupTree, column: Column): void {
-        column.visible = false;
+        if (
+            FiltersColumnMenu.isTree(comp) &&
+            column.name === treeMainColumnName
+        ) {
+            comp.setTreeColumnVisibility(false);
+        } else {
+            column.visible = false;
+        }
         this.close(null, comp);
     }
     /**

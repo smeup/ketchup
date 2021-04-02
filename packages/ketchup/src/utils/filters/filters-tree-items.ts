@@ -1,4 +1,6 @@
 import type {
+    Cell,
+    CellsHolder,
     Column,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
@@ -60,9 +62,20 @@ export class FiltersTreeItems extends FiltersRows {
         columnFilters?: FiltersColumnMenu
     ): boolean {
         let retValue = false;
+        let treeColumnCell: CellsHolder = null;
+
+        if (filters && filters['TREE_COLUMN']) {
+            treeColumnCell = {
+                TREE_COLUMN: {
+                    obj: node.obj,
+                    value: node.value,
+                },
+            };
+        }
+
         if (node.cells != null) {
             retValue = this.areCellsCompliant(
-                node.cells,
+                treeColumnCell ? treeColumnCell : node.cells,
                 filters,
                 globalFilter,
                 isUsingGlobalFilter,
@@ -145,14 +158,19 @@ export class FiltersTreeItems extends FiltersRows {
             return;
         }
         /** il valore delle righe attualmente filtrate, formattato */
-        rows.forEach((row) => {
-            if (row.visible) {
-                this.addColumnValueFromRow(
-                    values,
-                    column,
-                    row.cells[column.name]
-                );
-                this.extractColumnValues(row.children, column, values);
+        rows.forEach((node): void => {
+            let cell: Cell = null;
+            if (column.name === 'TREE_COLUMN') {
+                cell = {
+                    obj: node.obj,
+                    value: node.value,
+                };
+            } else {
+                cell = node.cells[column.name];
+            }
+            if (node.visible) {
+                this.addColumnValueFromRow(values, column, cell);
+                this.extractColumnValues(node.children, column, values);
             }
         });
         return values;
