@@ -160,7 +160,6 @@ export class FiltersTreeItems extends FiltersRows {
         /** il valore delle righe attualmente filtrate, formattato */
         rows.forEach((node): void => {
             let cell: Cell = null;
-            // TODO fare check con TreeMainColumnName
             if (column.name === 'TREE_COLUMN') {
                 cell = {
                     obj: node.obj,
