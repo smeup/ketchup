@@ -79,14 +79,14 @@ import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 /**
  * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
  */
- @Prop() customStyle: string = undefined;
+ @Prop() customStyle: string = "";
 ```
 
-3. Define the `refreshCustomStyle` method which allows the component to auto-refresh itself once a theme mutation is detected (themes can include customStyle info):
+3. Define the `themeChangeCallback` method which allows the component to auto-refresh itself once a theme mutation is detected (themes can include customStyle info):
 
 ```
 @Method()
-async refreshCustomStyle(customStyleTheme: string) {
+async themeChangeCallback(customStyleTheme: string) {
  this.customStyleTheme = customStyleTheme;
 }
 ```
@@ -95,7 +95,7 @@ Note - sometimes components' theme information must be dynamic. For example, kup
 
 ```
 @Method()
-async refreshCustomStyle(customStyleTheme: string) {
+async themeChangeCallback(customStyleTheme: string) {
  this.customStyleTheme =
  'Needs to be refreshed every time the theme changes because there are dynamic colors.';
  this.customStyleTheme = customStyleTheme;
@@ -120,19 +120,32 @@ async refreshCustomStyle(customStyleTheme: string) {
 </Host>
 ```
 
-#### debugging
+### Debugging and theming
 
-1. Import these methods from the `debug manager`:
+1. Import the KupManager class:
 
 ```
-import { logLoad, logRender } from '../../utils/debug-manager';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 ```
 
-2. Call the following methods in the following `Stencil's lifecycle hooks`:
+2. Define a new internal variable which references KupManager (which will be created on the HTML document element):
+
+```
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+```
+
+3. Call the following methods in the following `Stencil's lifecycle hooks`:
 
 ```
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
         //..
         //Actual willLoad code (below)
     }
@@ -140,11 +153,11 @@ import { logLoad, logRender } from '../../utils/debug-manager';
     componentDidLoad() {
         //Actual didLoad code (above)
         //..
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
         //..
         //Actual willRender code (below)
     }
@@ -152,7 +165,7 @@ import { logLoad, logRender } from '../../utils/debug-manager';
     componentDidRender() {
         //Actual didRender code (above)
         //..
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 ```
 

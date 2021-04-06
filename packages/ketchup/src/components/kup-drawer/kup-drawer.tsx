@@ -10,8 +10,12 @@ import {
     EventEmitter,
     Watch,
 } from '@stencil/core';
-import { logLoad, logRender } from '../../utils/debug-manager';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { GenericObject } from '../../types/GenericTypes';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import { KupDrawerProps } from './kup-drawer-declarations';
 
 @Component({
     tag: 'kup-drawer',
@@ -25,11 +29,16 @@ export class KupDrawer {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Defaults at false. When set to true, the drawer appears.
      */
     @Prop({ reflect: true, mutable: true }) opened: boolean = false;
+
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     //---- Watches ----
 
@@ -50,7 +59,7 @@ export class KupDrawer {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -72,30 +81,49 @@ export class KupDrawer {
     async open() {
         this.opened = true;
     }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupDrawerProps;
+        } else {
+            for (const key in KupDrawerProps) {
+                if (Object.prototype.hasOwnProperty.call(KupDrawerProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
+    }
 
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class="backdrop" onClick={() => this.close()} />
                     <aside>
@@ -114,5 +142,9 @@ export class KupDrawer {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
     }
 }

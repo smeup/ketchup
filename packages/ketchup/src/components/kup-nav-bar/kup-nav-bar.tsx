@@ -15,16 +15,16 @@ import {
     ComponentNavBarElement,
     getClassNameByComponentMode,
     ComponentNavBarMode,
+    KupNavBarProps,
 } from './kup-nav-bar-declarations';
 import { MDCTopAppBar } from '@material/top-app-bar';
-import { ComponentListElement } from '../kup-list/kup-list-declarations';
-import { positionRecalc } from '../../utils/recalc-position';
+import type { GenericObject } from '../../types/GenericTypes';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import {
-    setThemeCustomStyle,
-    setCustomStyle,
-    colorContrast,
-} from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import { ComponentListElement } from '../kup-list/kup-list-declarations';
 
 @Component({
     tag: 'kup-nav-bar',
@@ -53,6 +53,10 @@ export class KupNavBar {
 
     private optionsButtonEl: any = undefined;
     private optionsListEl: any = undefined;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
     private menuButtonEl: any = undefined;
     private menuListEl: any = undefined;
     private textColor: string = 'white';
@@ -103,11 +107,30 @@ export class KupNavBar {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme =
             'Needs to be refreshed every time the theme changes because there are dynamic colors.';
         this.customStyleTheme = customStyleTheme;
         this.fetchThemeColors();
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupNavBarProps;
+        } else {
+            for (const key in KupNavBarProps) {
+                if (Object.prototype.hasOwnProperty.call(KupNavBarProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     onKupNavbarMenuItemClick(e: CustomEvent) {
@@ -164,7 +187,9 @@ export class KupNavBar {
             return false;
         }
         listEl.menuVisible = true;
-        listEl.classList.add('dynamic-position-active');
+        this.kupManager.dynamicPosition.start(
+            listEl as DynamicallyPositionedElement
+        );
         let elStyle: any = listEl.style;
         elStyle.height = 'auto';
         return true;
@@ -184,7 +209,9 @@ export class KupNavBar {
             return;
         }
         listEl.menuVisible = false;
-        listEl.classList.remove('dynamic-position-active');
+        this.kupManager.dynamicPosition.stop(
+            listEl as DynamicallyPositionedElement
+        );
     }
 
     isListOpened(): boolean {
@@ -240,42 +267,47 @@ export class KupNavBar {
     }
 
     private fetchThemeColors() {
-        let color = document.documentElement.style.getPropertyValue(
+        let color = this.kupManager.theme.cssVars[
             '--kup-nav-bar-background-color'
-        );
-        this.textColor = colorContrast(color);
+        ];
+        this.textColor = this.kupManager.theme.colorContrast(color);
     }
 
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
         this.fetchThemeColors();
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
         const root = this.rootElement.shadowRoot;
         if (root != null) {
             const topAppBarElement = root.querySelector('.mdc-top-app-bar');
-            //MDCTopAppBar.attachTo(topAppBarElement);
             new MDCTopAppBar(topAppBarElement);
         }
         if (this.menuListEl != null) {
-            positionRecalc(this.menuListEl, this.menuButtonEl);
+            this.kupManager.dynamicPosition.register(
+                this.menuListEl,
+                this.menuButtonEl
+            );
         }
         if (this.optionsListEl != null) {
-            positionRecalc(this.optionsListEl, this.optionsButtonEl);
+            this.kupManager.dynamicPosition.register(
+                this.optionsListEl,
+                this.optionsButtonEl
+            );
         }
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -366,7 +398,7 @@ export class KupNavBar {
         let titleStyle = { color: this.textColor };
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component" class={wrapperClass}>
                     <header class={headerClassName}>
                         <div class="mdc-top-app-bar__row">
@@ -392,5 +424,17 @@ export class KupNavBar {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

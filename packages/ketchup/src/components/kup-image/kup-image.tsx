@@ -1,21 +1,27 @@
 import {
     Component,
+    Event,
+    EventEmitter,
     Prop,
     Element,
-    JSX,
     Host,
-    Event,
-    getAssetPath,
-    EventEmitter,
     State,
     h,
     Method,
 } from '@stencil/core';
-import { CssDraw } from './kup-image-declarations';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
+import type { GenericObject } from '../../types/GenericTypes';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { imageCanvas } from './canvas/kup-image-canvas';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
 import { KupBadge } from '../kup-badge/kup-badge';
+import { FImage } from '../../f-components/f-image/f-image';
+import {
+    FImageProps,
+    FImageData,
+} from '../../f-components/f-image/f-image-declarations';
+import { KupImageProps } from './kup-image-declarations';
 
 @Component({
     tag: 'kup-image',
@@ -24,50 +30,96 @@ import { KupBadge } from '../kup-badge/kup-badge';
     shadow: true,
 })
 export class KupImage {
+    /**
+     * References the root HTML element of the component (<kup-image>).
+     */
     @Element() rootElement: HTMLElement;
-    @State() customStyleTheme: string = undefined;
+
+    /*-------------------------------------------------*/
+    /*                   S t a t e s                   */
+    /*-------------------------------------------------*/
+
+    /**
+     * The component-specific CSS set by the current Ketch.UP theme.
+     * @default ""
+     */
+    @State() customStyleTheme: string = '';
+
+    /*-------------------------------------------------*/
+    /*                    P r o p s                    */
+    /*-------------------------------------------------*/
 
     /**
      * Sets the data of badges.
+     * @default null
      */
-    @Prop() badgeData: KupBadge[] = undefined;
+    @Prop() badgeData: KupBadge[] = null;
     /**
      * The color of the icon, defaults to the CSS variable --kup-icon-color.
+     * @default 'var(--kup-icon-color)'
      */
     @Prop() color: string = 'var(--kup-icon-color)';
     /**
-     * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * Custom style of the component.
+     * @default ""
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * When present, the component will be drawn using CSS. Check the 'Drawing with CSS' section of the image showcase for more information.
+     * @default null
      */
-    @Prop() data: CssDraw[] = undefined;
+    @Prop() data: FImageData[] = null;
     /**
      * When set to true, a spinner will be displayed until the image finished loading. Not compatible with SVGs.
+     * @default false
      */
     @Prop() feedback: boolean = false;
     /**
      * The image component will create a canvas element on which it's possible to draw. It's a temporary feature that will be fully replaced by CSS drawing in the future.
+     * @default false
      */
     @Prop() isCanvas: boolean = false;
     /**
      * The resource used to fetch the image.
+     * @default null
      */
-    @Prop() resource: string = undefined;
+    @Prop() resource: string = null;
     /**
      * The width of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+     * @default '100%'
      */
     @Prop() sizeX: string = '100%';
     /**
      * The height of the icon, defaults to 100%. Accepts any valid CSS format (px, %, vh, etc.).
+     * @default '100%'
      */
     @Prop() sizeY: string = '100%';
 
-    private isUrl: boolean = false;
-    private elStyle = undefined;
+    /*-------------------------------------------------*/
+    /*        I n t e r n a l   V a r i a b l e s      */
+    /*-------------------------------------------------*/
+
+    /**
+     * Reference to the canvas element.
+     */
+    private canvas: HTMLCanvasElement;
+    /**
+     * Instance of the imageCanvas class.
+     */
     private imageCanvas: imageCanvas;
-    canvas: HTMLCanvasElement;
+    /**
+     * True when the resource is an URL.
+     */
+    private isUrl: boolean = false;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+
+    /*-------------------------------------------------*/
+    /*                   E v e n t s                   */
+    /*-------------------------------------------------*/
 
     @Event({
         eventName: 'kupImageClick',
@@ -79,44 +131,56 @@ export class KupImage {
         el: EventTarget;
     }>;
 
-    @Event({
-        eventName: 'kupImageLoad',
-        composed: true,
-        cancelable: false,
-        bubbles: true,
-    })
-    kupLoad: EventEmitter<{
-        el: EventTarget;
-    }>;
-
-    //---- Methods ----
-
-    @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
-        this.customStyleTheme = customStyleTheme;
-    }
-
     onKupClick(e: Event) {
         this.kupClick.emit({
             el: e.target,
         });
     }
 
-    onKupLoad(e: Event) {
-        if (this.feedback && this.isUrl) {
-            if (this.rootElement.shadowRoot !== undefined) {
-                let spinner = this.rootElement.shadowRoot.querySelector(
-                    '#feedback'
-                );
-                spinner.remove();
+    /*-------------------------------------------------*/
+    /*           P u b l i c   M e t h o d s           */
+    /*-------------------------------------------------*/
+
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
+    @Method()
+    async themeChangeCallback(customStyleTheme: string): Promise<void> {
+        this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupImageProps;
+        } else {
+            for (const key in KupImageProps) {
+                if (Object.prototype.hasOwnProperty.call(KupImageProps, key)) {
+                    props[key] = this[key];
+                }
             }
         }
-        this.kupLoad.emit({
-            el: e.target,
-        });
+        return props;
     }
 
-    renderCanvas() {
+    /*-------------------------------------------------*/
+    /*           P r i v a t e   M e t h o d s         */
+    /*-------------------------------------------------*/
+
+    /**
+     * Render the canvas variant of kup-image.
+     * @todo should be handled inside f-image.
+     */
+    private renderCanvas(): HTMLDivElement {
         return (
             <div
                 id="kup-component"
@@ -130,103 +194,21 @@ export class KupImage {
         );
     }
 
-    renderFromResource() {
-        let svgMask: string = undefined;
-        let svgStyle: any = undefined;
-        let image: Element = undefined;
-        let url: string = getAssetPath(`./assets/svg/${this.resource}.svg`);
-
-        if (!this.isUrl) {
-            svgMask = `url('${url}') no-repeat center`;
-            svgStyle = {
-                mask: svgMask,
-                background: this.color,
-                webkitMask: svgMask,
-            };
-        } else {
-            image = (
-                <img
-                    style={this.elStyle}
-                    src={this.resource}
-                    onLoad={(e) => this.onKupLoad(e)}
-                ></img>
-            );
-        }
-
-        return (
-            <div
-                id="kup-component"
-                class="is-resource"
-                style={svgStyle}
-                onClick={(e) => this.onKupClick(e)}
-            >
-                {image}
-            </div>
-        );
-    }
-
-    renderFromData() {
-        const cssDraw = this.data;
-        let steps: JSX.Element[] = [];
-        let leftProgression: number = 0;
-
-        for (let i = 0; i < this.data.length; i++) {
-            let drawStep: JSX.Element = undefined;
-
-            if (!cssDraw[i].shape) {
-                cssDraw[i].shape = 'bar';
-            }
-            if (!cssDraw[i].color) {
-                cssDraw[i].color = 'transparent';
-            }
-            if (!cssDraw[i].height) {
-                cssDraw[i].height = '100%';
-            }
-            if (!cssDraw[i].width) {
-                cssDraw[i].width = '100%';
-            }
-
-            let stepId: string = 'step-' + i;
-            let stepClass: string = 'css-step bottom-aligned';
-            let stepStyle: any = {
-                backgroundColor: cssDraw[i].color,
-                left: leftProgression + '%',
-                height: cssDraw[i].height,
-                width: cssDraw[i].width,
-            };
-
-            leftProgression += parseFloat(cssDraw[i].width);
-
-            drawStep = (
-                <span id={stepId} class={stepClass} style={stepStyle}></span>
-            );
-            steps.push(drawStep);
-        }
-
-        return (
-            <div
-                id="kup-component"
-                class="is-css"
-                onClick={(e) => this.onKupClick(e)}
-            >
-                {steps}
-            </div>
-        );
-    }
-
-    //---- Lifecycle hooks ----
+    /*-------------------------------------------------*/
+    /*          L i f e c y c l e   H o o k s          */
+    /*-------------------------------------------------*/
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
         this.isUrl = false;
         if (this.resource) {
             if (
@@ -248,18 +230,33 @@ export class KupImage {
             this.canvas.width = this.canvas.clientWidth;
             this.imageCanvas.drawCanvas(this.resource, this.canvas);
         }
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
-        let el: Element = undefined;
-        let feedback: HTMLElement = undefined;
-        let spinnerLayout: number = undefined;
-        this.elStyle = {
-            height: this.sizeY,
-            minHeight: this.sizeY,
-            width: this.sizeX,
-            minWidth: this.sizeX,
+        let el: Element;
+        let feedback: HTMLElement;
+        let spinnerLayout: number;
+
+        let props: FImageProps = {
+            badgeData: this.badgeData,
+            color: this.color,
+            data: this.data,
+            resource: this.resource,
+            sizeX: this.sizeX,
+            sizeY: this.sizeY,
+        };
+
+        let elStyle: {
+            height: string;
+            minHeight: string;
+            width: string;
+            minWidth: string;
+        } = {
+            height: props.sizeY,
+            minHeight: props.sizeY,
+            width: props.sizeX,
+            minWidth: props.sizeX,
         };
 
         if (this.feedback && this.isUrl) {
@@ -275,32 +272,28 @@ export class KupImage {
             );
         }
 
-        let badgeCollection: KupBadge[] = [];
-        if (this.badgeData) {
-            for (let index = 0; index < this.badgeData.length; index++) {
-                badgeCollection.push(<kup-badge {...this.badgeData[index]} />);
-            }
-        }
-
         if (this.isCanvas) {
             el = this.renderCanvas();
-        } else if (this.resource) {
-            el = this.renderFromResource();
-        } else if (this.data) {
-            el = this.renderFromData();
+        } else if (props.resource || props.data) {
+            el = <FImage {...props}></FImage>;
         } else {
             let message = 'Resource undefined, not rendering!';
-            logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(this, message, 'warning');
             return;
         }
 
         return (
-            <Host style={this.elStyle}>
-                <style>{setCustomStyle(this)}</style>
+            <Host style={elStyle}>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 {feedback}
-                {el}
-                {...badgeCollection}
+                <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
+                    {el}
+                </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
     }
 }

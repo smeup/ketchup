@@ -2,9 +2,9 @@ import { newE2EPage } from '@stencil/core/testing';
 import { dataTableHideRepetitionsData } from './mocked-data';
 import { rowsSelector } from './data-table-selectors';
 import { Column } from '../../../src/components/kup-data-table/kup-data-table-declarations';
-import { getColumnByName } from '../../../src/components/kup-data-table/kup-data-table-helper';
 import { _numberToString, stringToNumber } from '../../../src/utils/utils';
 import { isNumber } from '../../../src/utils/object-utils';
+import { getColumnByName } from '../../../src/utils/cell-utils';
 
 describe('kup-data-table with hide repetitions active', () => {
     it('hides values where the previous cell on the same column has the same value', async () => {
@@ -56,7 +56,8 @@ describe('kup-data-table with hide repetitions active', () => {
                                 const cellValue = _numberToString(
                                     cellValueNumber,
                                     _column.decimals ? _column.decimals : -1,
-                                    'it-IT'
+                                    'it-IT',
+                                    true
                                 );
 
                                 /*

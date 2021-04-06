@@ -1,4 +1,60 @@
 import { Identifiable } from '../../types/GenericTypes';
+/**
+ * Props of the kup-data-table component.
+ * Used to export every prop in an object.
+ */
+export enum KupDataTableProps {
+    customStyle = 'Custom style of the component.',
+    data = 'The data of the table.',
+    density = "The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.",
+    dragEnabled = 'Enable row dragging',
+    dropEnabled = 'Enable record dropping',
+    emptyDataLabel = 'Defines the label to show when the table is empty.',
+    enableSortableColumns = 'Enables the sorting of columns by dragging them into different columns.',
+    expandGroups = 'Expands groups when set to true.',
+    filters = 'List of filters set by the user.',
+    fixedColumns = 'Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.',
+    fixedRows = 'Fixes the given number of rows so that they stay visible when vertically scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedColumns.',
+    forceOneLine = 'Forces cells with long text and a fixed column size to have an ellipsis set on their text. The reflect attribute is mandatory to allow styling.',
+    globalFilter = 'When set to true it activates the global filter.',
+    globalFilterValue = 'The value of the global filter.',
+    groupLabelDisplay = 'How the label of a group must be displayed. For available values',
+    groups = 'The list of groups.',
+    headerIsPersistent = 'When set to true the header will stick on top of the table when scrolling.',
+    isFocusable = 'When set to true, clicked-on rows will have a visual feedback.',
+    lazyLoadRows = 'When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.',
+    lineBreakCharacter = 'Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.',
+    loadMoreLimit = 'Sets a maximum limit of new records which can be required by the load more functionality.',
+    loadMoreMode = 'Establish the modality of how many new records will be downloaded. This property is regulated also by loadMoreStep.',
+    loadMoreStep = 'The number of records which will be requested to be downloaded when clicking on the load more button. This property is regulated also by loadMoreMode.',
+    multiSelection = 'When set to true enables rows multi selection.',
+    pageSelected = 'Current selected page set on component load',
+    paginatorPos = 'Sets the position of the paginator. Available positions: top, bottom or both.',
+    removableColumns = 'Sets the possibility to remove the selected column.',
+    rowActions = 'Sets the actions of the rows.',
+    rowsPerPage = 'Sets the number of rows per page to display.',
+    scrollOnHover = 'Activates the scroll on hover function.',
+    selectRow = 'Selects the row at the specified rendered rows prosition (base 1).',
+    selectRowsById = 'Semicolon separated rows id to select.',
+    showCustomization = 'If set to true, displays the button to open the customization panel.',
+    showFilters = 'When set to true enables the column filters.',
+    showGroups = 'When set to true enables the column grouping.',
+    showFooter = 'When set to true shows the footer.',
+    showGrid = 'Can be used to customize the grid view of the table.',
+    showHeader = 'Enables rendering of the table header.',
+    showLoadMore = 'If set to true, displays the button to load more records.',
+    showTooltipOnRightClick = 'If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.',
+    sort = 'Defines the current sorting options.',
+    stateId = '',
+    store = '',
+    sortableColumnsMutateData = 'If set to true, when a column is dragged to be sorted, the component directly mutates the data.columns property and then fires the event',
+    sortEnabled = 'When set to true enables the sorting of the columns.',
+    tableHeight = 'Sets the height of the table.',
+    tableWidth = 'Sets the width of the table.',
+    tooltipDetailTimeout = 'Defines the timeout for tooltip detail',
+    tooltipEnabled = 'Enable show tooltip',
+    totals = 'Defines the current totals options.',
+}
 
 export interface DataTable {
     columns?: Array<Column>;
@@ -20,7 +76,7 @@ export interface Cell {
     style?: GenericMap;
     shape?: string;
     data?: CellData;
-    cardID?: string;
+    cardID?: number;
     cssClass?: string;
     icon?: string;
     title?: string;
@@ -47,6 +103,7 @@ export interface Column {
     icon?: string;
     formula?: string;
     valuesForFilter?: string[];
+    isKey?: boolean;
 }
 
 export interface Row extends Identifiable {
@@ -74,7 +131,7 @@ export interface RowGroup {
         p: string;
         k: string;
     };
-    totals: { [index: string]: number };
+    totals: { [index: string]: any }; // TODO manage this any
 }
 
 export interface TableData {
@@ -84,16 +141,6 @@ export interface TableData {
 
 export interface GenericMap {
     [index: string]: string;
-}
-
-export interface GenericFilter {
-    [index: string]: Filter;
-}
-
-export interface Filter {
-    textField: string;
-    checkBoxes: Array<string>;
-    interval: string[];
 }
 
 export interface SortObject {
@@ -106,11 +153,6 @@ export enum SortMode {
     D = 'D',
 }
 
-export enum FilterInterval {
-    FROM = 0,
-    TO = 1,
-}
-
 export interface TotalsMap {
     [index: string]: TotalMode;
 }
@@ -118,8 +160,24 @@ export interface TotalsMap {
 export enum TotalMode {
     COUNT = 'Count',
     SUM = 'Sum',
+    MIN = 'Min',
+    MAX = 'Max',
+    DISTINCT = 'Distinct',
     AVERAGE = 'Average',
     MATH = 'MATH',
+}
+
+// TODO, if not used anymore please remove this and the implementations
+export enum TotalLabel {
+    COUNT = 'Conta',
+    SUM = 'Somma',
+    MIN = 'Min',
+    MAX = 'Max',
+    DISTINCT = 'Distinct',
+    AVERAGE = 'Media',
+    MATH = 'Formula',
+    CANC = 'Cancella',
+    CALC = 'Calcola',
 }
 
 export enum PaginatorPos {
@@ -151,6 +209,12 @@ export enum ShowGrid {
 // }
 
 export interface KupDataTableCellButtonClick {
+    cell: Cell;
+    column: Column;
+    row: Row;
+}
+
+export interface KupDataTableCellTextFieldInput {
     cell: Cell;
     column: Column;
     row: Row;
@@ -200,190 +264,20 @@ export const FixedCellsCSSVarsBase = {
     rows: '--ddt_row-top-',
 };
 
-export const CSSArray = [
-    //kup-data-table.scss
-    ':host',
-    //kup-data-table-classes.scss
-    ':host(.layout-fixed) #kup-component table',
-    'tr.clickable',
-    'td.clickable',
-    'td.display-on-hover',
-    'td.display-on-hover:hover',
-    'td.shaped',
-    'td.strong-text',
-    'td.success-text',
-    'td.warning-text',
-    'td.danger-text',
-    'td.purple-text',
-    'td.success-bg',
-    'td.warning-bg',
-    'td.danger-bg',
-    'td.teal-bg',
-    'td.orange-bg',
-    'td.green-bg',
-    'td.grey-bg',
-    'td.purple-bg',
-    'td.c-vertical-text *',
-    'td.c-right-aligned *',
-    'td.c-centered *',
-    'td.c-fitted *',
-    'td.c-shaped *',
-    'td.c-hor-padded *',
-    'td.c-ver-padded *',
-    'td.c-success-bg *',
-    'td.c-warning-bg *',
-    'td.c-danger-bg *',
-    'td.c-teal-bg *',
-    'td.c-orange-bg *',
-    'td.c-green-bg *',
-    'td.c-grey-bg *',
-    'td.c-purple-bg *',
-    ':host([force-one-line]) tbody tr > td.c-centered *',
-    ':host([force-one-line]) tbody tr > td.c-fitted *',
-    ':host([force-one-line]) tbody tr > td.c-right-aligned *',
-    //kup-data-table-drag-drop.scss
-    '[columns-dragging] th',
-    '[columns-dragging] [drag-over]',
-    '[columns-dragging] [drag-over] > *',
-    '[columns-dragging] [drag-over][drag-starter]',
-    //kup-data-table-fixed-rows.scss
-    'table.custom-size th',
-    'table.custom-size th.fixed-column',
-    'tr:hover .fixed-row',
-    'tr:hover .fixed-column',
-    '#kup-component tr.selected .fixed-column',
-    '#kup-component tr.selected .fixed-row',
-    '#kup-component tr.selected .fixed-row.selected',
-    '#kup-component tr.selected .fixed-column.selected',
-    '#kup-component tr:not(.selected) td.fixed-column.selected',
-    '#kup-component tr:not(.selected) td.fixed-row.selected',
-    '.fixed-row',
-    'thead .fixed-row',
-    'tfoot .fixed-row',
-    '.fixed-column',
-    'thead .fixed-column',
-    'tfoot .fixed-column',
-    '.fixed-column.fixed-row',
-    //kup-data-table-paginator.scss
-    '.paginator-wrapper',
-    '.paginator-tabs',
-    '.paginator-tabs kup-paginator',
-    '.paginator-tabs .customize-panel',
-    '.paginator-tabs .customize-element',
-    '.paginator-tabs .customize-element:nth-child(1)',
-    '.paginator-tabs kup-button',
-    '.paginator-tabs .load-more-button',
-    //kup-data-table-sticky-header.scss
-    'sticky-header',
-    '.persistent-header',
-    '.persistent-header ~ sticky-header',
-    '.persistent-header ~ sticky-header.activated',
-    '.persistent-header ~ sticky-header[hidden]',
-    '.persistent-header ~ sticky-header tr-sticky',
-    '.persistent-header ~ sticky-header th-sticky',
-    '.persistent-header ~ sticky-header th-sticky.icon',
-    '.persistent-header ~ sticky-header th-sticky.number',
-    '.persistent-header ~ sticky-header th-sticky.centered',
-    '.persistent-header ~ sticky-header .column-title',
-    //kup-data-table-main.scss
-    'table',
-    'table.auto-width',
-    'table > tbody > tr > td:first-of-type',
-    'table > tbody > tr > td:last-of-type',
-    'table > tbody > tr:last-of-type > td',
-    'table > tbody > tr:last-of-type > td',
-    'table.border-top > tbody > tr:first-of-type > td',
-    'table.row-separation > tbody > tr > td',
-    'table.column-separation > tbody > tr > td',
-    'table.column-separation > tbody > tr > td',
-    'table.noGrid td',
-    'table tfoot td',
-    'table #global-filter',
-    'table .icon-container',
-    'table .icon-container.ascending',
-    'table .icon-container.descending',
-    'table .icon-container.filter-remove',
-    'table .icon-container.collapsed',
-    'table .icon-container.expanded',
-    'table .icon-container.obj-icon',
-    ':host([force-one-line]) table .icon-container.obj-icon',
-    '.number .icon-container.obj-icon',
-    '.below-wrapper',
-    '.below-wrapper.custom-size',
-    '.below-wrapper:not(.custom-size)',
-    '.density-dense tbody > tr > td:not(.is-graphic)',
-    '.density-dense tbody > tr.group > td',
-    '.density-wide tbody > tr > td:not(.is-graphic)',
-    '.density-wide tbody > tr.group > td',
-    '.fontsize-small',
-    '.fontsize-small .group-cell-content > span:before',
-    '.fontsize-big',
-    '.fontsize-big .group-cell-content > span:before',
-    'thead th',
-    'thead th:first-of-type',
-    'thead th .column-title',
-    'thead th.icon',
-    'thead th.number',
-    'thead th.centered',
-    'thead th.header-cell--sortable',
-    'thead th .column-sort',
-    'thead th .column-menu',
-    'thead th .column-menu ul',
-    'thead th .column-menu ul li',
-    'thead th .column-menu ul li.textfield-row',
-    'thead th .column-menu ul li.button-row',
-    'thead th .column-menu ul li.checkbox-row',
-    'thead th .column-menu ul li kup-button',
-    'tbody',
-    'tbody tr kup-button',
-    'tbody tr:not(.group):hover',
-    'tbody tr:not(.group):hover td:not(.selected)',
-    'tbody tr.selected:not(.group):hover',
-    'tbody tr.selected:not(.group) td:not(.justincreasingspecificity)',
-    'tbody tr.selected:not(.group) td.selected',
-    'tbody tr td.selected',
-    'tbody tr.group',
-    'tbody tr.group.group-label',
-    'tbody tr.group.group-total',
-    'tbody tr.group > td',
-    'tbody tr.group > td .group-cell-content .indent',
-    'tbody tr.group > td .group-cell-content > span',
-    'tbody tr.group > td.total',
-    'tbody tr.group > td.total.negative-number',
-    'tbody tr > td',
-    'tbody tr > td.number .cell-content',
-    'tbody tr > td .row-expander',
-    'tbody tr > td .indent',
-    'tbody tr > td .row-action',
-    'tbody tr > td .cell-content',
-    'tbody tr > td .cell-content.has-padding',
-    'tbody tr > td .cell-content.has-padding',
-    ':host([force-one-line]) tbody tr > td .cell-content',
-    ':host([force-one-line]) tbody tr > td .cell-content.is-centered',
-    'tbody tr > td .cell-content.is-tooltip',
-    'tbody tr > td .cell-content.is-vertical',
-    ':host([force-one-line]) tbody tr > td .cell-content.is-vertical',
-    ':host([force-one-line]) tbody tr > td .cell-content.is-vertical > *',
-    'tbody tr > td .cell-content.negative-number',
-    'tbody tr > td .cell-content.negative-number',
-    'tbody tr > td .is-graphic',
-    'tbody tr > td .indent ~ kup-image',
-    'tbody tr > td .indent ~ kup-button',
-    'tr kup-checkbox',
-    'tr kup-button',
-    'tr kup-image',
-    'tr kup-progress-bar',
-    'tr .indent ~ kup-image',
-    'tr .indent ~ kup-button',
-    'tr .indent ~ kup-checkbox',
-    'tr [row-select-cell]',
-    'tr td[row-action-cell] kup-button',
-    'above-wrapper',
-    'bar-cell-content',
-    '.css-step.bottom-aligned',
-    '.checkbox-cell-content',
-    '.icon-cell-content',
-    '.image-cell-content',
-    '.image-cell-content',
-    'tbody td > *',
-];
+export const totalMenuOpenID = 'TOMEOPID';
+
+/**
+ * Contains all the data of an event.
+ */
+export interface EventHandlerDetails {
+    area: string;
+    cell: Cell;
+    column: Column;
+    filterRemove: HTMLSpanElement;
+    isGroupRow: boolean;
+    row: Row;
+    td: HTMLTableDataCellElement;
+    textfield: HTMLElement;
+    th: HTMLTableHeaderCellElement;
+    tr: HTMLTableRowElement;
+}

@@ -22,6 +22,19 @@
 | `kupIframeLoad`  |             | `CustomEvent<any>` |
 
 
+## Methods
+
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
+
+
 ## Dependencies
 
 ### Depends on
@@ -32,6 +45,8 @@
 ```mermaid
 graph TD;
   kup-iframe --> kup-button
+  kup-button --> kup-badge
+  kup-badge --> kup-badge
   style kup-iframe fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

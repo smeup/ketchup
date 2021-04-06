@@ -39,7 +39,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
@@ -83,7 +83,7 @@ export default {
       ],
       demoClasses: [
         {
-          class: 'unclickable',
+          class: 'kup-unclickable',
           description:
             'The area covered by the spinner will be unclickable and the cursor will change to "wait".',
         },

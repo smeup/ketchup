@@ -10,7 +10,6 @@ import {
     Method,
     Watch,
 } from '@stencil/core';
-
 import {
     ChartType,
     ChartAspect,
@@ -20,30 +19,21 @@ import {
     ChartOfflineMode,
     ChartSerie,
     ChartTitle,
+    KupChartProps,
 } from './kup-chart-declarations';
-
-import { ResizeObserver } from 'resize-observer';
-import { ResizeObserverCallback } from 'resize-observer/lib/ResizeObserverCallback';
-import { ResizeObserverEntry } from 'resize-observer/lib/ResizeObserverEntry';
-
 import {
     convertColumns,
     convertRows,
     getSerieDecode,
 } from './kup-chart-builder';
-
 import { DataTable } from '../kup-data-table/kup-data-table-declarations';
-
-import { getColumnByName } from '../kup-data-table/kup-data-table-helper';
-
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
 import {
-    setThemeCustomStyle,
-    setCustomStyle,
-    randomColor,
-    colorContrast,
-} from '../../utils/theme-manager';
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { identify } from '../../utils/utils';
+import { getColumnByName } from '../../utils/cell-utils';
+import { GenericObject } from '../../types/GenericTypes';
 
 declare const google: any;
 declare const $: any;
@@ -72,17 +62,17 @@ export class KupChart {
      */
     @Prop() colors: string[] = [];
     /**
+     * Title of the graph.
+     */
+    @Prop() chartTitle: ChartTitle;
+    /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization.
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * The actual data of the chart.
      */
     @Prop() data: DataTable;
-    /**
-     * Title of the graph.
-     */
-    @Prop() chartTitle: ChartTitle;
     /**
      * Customize the hAxis.
      */
@@ -152,16 +142,66 @@ export class KupChart {
     private gChartDataTable: any;
     private gChartView: any;
     private elStyle = undefined;
-    private resObserver: ResizeObserver = undefined;
+    /**
+     * Used to prevent too many resizes callbacks at once.
+     */
+    private resizeTimeout: number;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     //---- Methods ----
 
+    /**
+     * This method is invoked by the theme manager.
+     * Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+     * @param customStyleTheme - Contains current theme's component-specific CSS.
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+     * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+     */
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme =
             'Needs to be refreshed every time the theme changes because there are dynamic colors.';
         this.customStyleTheme = customStyleTheme;
         this.fetchThemeColors();
+    }
+    /**
+     * This method is invoked by KupManager whenever the component changes size.
+     */
+    @Method()
+    async resizeCallback(): Promise<void> {
+        window.clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = window.setTimeout(() => {
+            if (!this.offlineMode) {
+                const options = this.createGoogleChartOptions();
+                try {
+                    this.gChart.draw(this.gChartView, options);
+                } catch (error) {}
+            } else {
+                this.loadOfflineChart();
+            }
+        }, 300);
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupChartProps;
+        } else {
+            for (const key in KupChartProps) {
+                if (Object.prototype.hasOwnProperty.call(KupChartProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     private loadGoogleChart() {
@@ -326,7 +366,11 @@ export class KupChart {
             opts.slices = [];
             for (let index = 0; index < opts.colors.length; index++) {
                 opts.slices.push({
-                    textStyle: { color: colorContrast(opts.colors[index]) },
+                    textStyle: {
+                        color: this.kupManager.theme.colorContrast(
+                            opts.colors[index]
+                        ),
+                    },
                 });
             }
         }
@@ -449,9 +493,11 @@ export class KupChart {
 
     private loadOfflineChart() {
         if (!this.offlineMode.value || this.offlineMode.value == '') {
-            let message =
-                "Incorrect or incomplete data, can't render chart in offline mode!";
-            logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                "Incorrect or incomplete data, can't render chart in offline mode!",
+                'warning'
+            );
             return;
         }
 
@@ -536,16 +582,15 @@ export class KupChart {
 
     private fetchThemeColors() {
         let colorArray: string[] = [];
-        for (let index = 1, color = undefined; color !== ''; index++) {
-            let key = '--kup-chart-color-' + index;
-            color = document.documentElement.style.getPropertyValue(key);
-            if (color) {
-                colorArray.push(color);
-            }
+        let key: string = '--kup-chart-color-';
+        for (
+            let index = 1;
+            this.kupManager.theme.cssVars[key + index];
+            index++
+        ) {
+            colorArray.push(this.kupManager.theme.cssVars[key + index]);
         }
-        this.themeText = document.documentElement.style.getPropertyValue(
-            '--kup-text-color'
-        );
+        this.themeText = this.kupManager.theme.cssVars['--kup-text-color'];
 
         try {
             for (
@@ -554,56 +599,31 @@ export class KupChart {
                 index < this.data.columns.length;
                 index++
             ) {
-                colorArray.push(randomColor(25));
+                colorArray.push(this.kupManager.theme.randomColor(25));
             }
         } catch (error) {
             if (!this.offlineMode) {
-                logMessage(this, 'Chart colors setup failed!', 'warning');
+                this.kupManager.debug.logMessage(
+                    this,
+                    'Chart colors setup failed!',
+                    'warning'
+                );
             }
         }
 
         this.themeColors = colorArray;
     }
 
-    setObserver() {
-        let callback: ResizeObserverCallback = (
-            entries: ResizeObserverEntry[]
-        ) => {
-            entries.forEach((entry) => {
-                logMessage(
-                    this,
-                    'Size changed to x: ' +
-                        entry.contentRect.width +
-                        ', y: ' +
-                        entry.contentRect.height +
-                        '.'
-                );
-                if (!this.offlineMode) {
-                    const options = this.createGoogleChartOptions();
-                    try {
-                        this.gChart.draw(this.gChartView, options);
-                    } catch (error) {}
-                } else {
-                    this.loadOfflineChart();
-                }
-            });
-        };
-        this.resObserver = new ResizeObserver(callback);
-    }
-
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
         this.identifyRows();
-        this.setObserver();
-        setThemeCustomStyle(this);
         this.fetchThemeColors();
     }
 
     componentDidLoad() {
-        this.resObserver.observe(this.rootElement);
-
         if (!this.offlineMode && (!this.axis || !this.series)) {
             return;
         }
@@ -631,15 +651,16 @@ export class KupChart {
                 console.error(err);
             }
         }
-        logLoad(this, true);
+        this.kupManager.resize.observe(this.rootElement);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     componentWillUpdate() {
@@ -667,7 +688,7 @@ export class KupChart {
 
         return (
             <Host style={this.elStyle}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     ref={(chartContainer) =>
@@ -678,7 +699,8 @@ export class KupChart {
         );
     }
 
-    disconnectedCallBack() {
-        this.resObserver.unobserve(this.rootElement);
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        this.kupManager.resize.unobserve(this.rootElement);
     }
 }

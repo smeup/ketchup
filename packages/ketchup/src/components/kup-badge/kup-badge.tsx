@@ -9,8 +9,13 @@ import {
     Host,
     Method,
 } from '@stencil/core';
-import { logLoad, logMessage, logRender } from '../../utils/debug-manager';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { FImage } from '../../f-components/f-image/f-image';
+import { GenericObject } from '../../types/GenericTypes';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import { KupBadgeProps } from './kup-badge-declarations';
 
 @Component({
     tag: 'kup-badge',
@@ -24,7 +29,7 @@ export class KupBadge {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * The data of the image displayed inside the badge.
      */
@@ -44,11 +49,35 @@ export class KupBadge {
         el: EventTarget;
     }>;
 
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupBadgeProps;
+        } else {
+            for (const key in KupBadgeProps) {
+                if (Object.prototype.hasOwnProperty.call(KupBadgeProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     onKupClick(e: Event) {
@@ -60,26 +89,26 @@ export class KupBadge {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         if (this.text === undefined && this.imageData === undefined) {
             let message = 'Empty badge, not rendering!';
-            logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(this, message, 'warning');
             return;
         }
 
@@ -87,25 +116,29 @@ export class KupBadge {
 
         if (this.text === undefined && this.imageData !== undefined) {
             if (!this.imageData['sizeX']) {
-                this.imageData['sizeX'] = '1rem';
+                this.imageData['sizeX'] = '1em';
             }
             if (!this.imageData['sizeY']) {
-                this.imageData['sizeY'] = '1rem';
+                this.imageData['sizeY'] = '1em';
             }
             if (!this.imageData['color']) {
                 this.imageData['color'] = 'var(--kup-text-on-primary-color)';
             }
-            imageEl = <kup-image {...this.imageData}></kup-image>;
+            imageEl = <FImage {...this.imageData}></FImage>;
         }
 
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component" onClick={(e) => this.onKupClick(e)}>
                     {this.text}
                     {imageEl}
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
     }
 }

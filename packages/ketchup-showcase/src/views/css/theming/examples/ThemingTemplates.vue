@@ -15,7 +15,8 @@
 <script>
 export default {
   mounted() {
-    if (!document.documentElement.kupCurrentTheme) {
+    const dom = document.documentElement;
+    if (!dom.ketchup) {
       document.addEventListener('kupThemeChange', getThemes);
     } else {
       getThemes();
@@ -25,8 +26,8 @@ export default {
 };
 
 function setTheme(themeID) {
-  let dom = document.documentElement;
-  dom.setAttribute('kup-theme', themeID);
+  const dom = document.documentElement;
+  dom.ketchup.theme.set(themeID);
 }
 
 function getThemes() {
@@ -34,9 +35,9 @@ function getThemes() {
   const themeContainer = document.querySelector('#theme-container');
 
   let index = 0;
-  for (let key in dom.kupThemes) {
+  for (let key in dom.ketchup.theme.list) {
     if (key !== 'test' && key !== 'showcaseDemo') {
-      var variables = dom.kupThemes[key].cssVariables;
+      var variables = dom.ketchup.theme.list[key].cssVariables;
       let themeWrapper = document.createElement('div');
       let themeImage = document.createElement('kup-image');
       let themeText = document.createElement('div');

@@ -12,13 +12,17 @@ import {
     Listen,
 } from '@stencil/core';
 import { MDCRipple } from '@material/ripple';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
-import { positionRecalc } from '../../utils/recalc-position';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import {
     consistencyCheck,
     ItemsDisplayMode,
 } from '../kup-list/kup-list-declarations';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import { GenericObject } from '../../types/GenericTypes';
+import { KupDropdownButtonProps } from './kup-dropdown-button-declarations';
 
 @Component({
     tag: 'kup-dropdown-button',
@@ -33,7 +37,7 @@ export class KupDropdownButton {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Props of the sub-components.
      */
@@ -70,6 +74,15 @@ export class KupDropdownButton {
      * Defaults at null. When set, the icon will be shown after the text.
      */
     @Prop() trailingIcon: boolean = false;
+
+    private buttonEl: any;
+    private dropdownButtonEl: any;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+    private listEl: any;
+    private wrapperEl: HTMLElement;
 
     @Event({
         eventName: 'kupDropdownButtonBlur',
@@ -124,15 +137,10 @@ export class KupDropdownButton {
         value: any;
     }>;
 
-    private listEl: any = undefined;
-    private buttonEl: any = undefined;
-    private wrapperEl: HTMLElement = undefined;
-    private dropdownButtonEl: any = undefined;
-
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
@@ -144,6 +152,30 @@ export class KupDropdownButton {
     @Method()
     async setValue(value: string) {
         this.value = value;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupDropdownButtonProps;
+        } else {
+            for (const key in KupDropdownButtonProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(
+                        KupDropdownButtonProps,
+                        key
+                    )
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     @Listen('keyup', { target: 'document' })
@@ -196,6 +228,9 @@ export class KupDropdownButton {
     }
 
     private isListOpened(): boolean {
+        if (this.listEl == null) {
+            return false;
+        }
         return this.listEl.menuVisible == true;
     }
 
@@ -205,7 +240,9 @@ export class KupDropdownButton {
         this.buttonEl.classList.add('toggled');
         this.dropdownButtonEl.classList.add('toggled');
         this.listEl.menuVisible = true;
-        this.listEl.classList.add('dynamic-position-active');
+        this.kupManager.dynamicPosition.start(
+            this.listEl as DynamicallyPositionedElement
+        );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
         elStyle.minWidth = buttonWidth + 'px';
@@ -216,7 +253,9 @@ export class KupDropdownButton {
         this.buttonEl.classList.remove('toggled');
         this.dropdownButtonEl.classList.remove('toggled');
         this.listEl.menuVisible = false;
-        this.listEl.classList.remove('dynamic-position-active');
+        this.kupManager.dynamicPosition.stop(
+            this.listEl as DynamicallyPositionedElement
+        );
     }
 
     onKupItemClick(e: CustomEvent) {
@@ -236,7 +275,6 @@ export class KupDropdownButton {
         let ret = consistencyCheck(
             valueIn,
             this.data['kup-list'],
-            null,
             this.listEl,
             this.selectMode,
             this.displayMode,
@@ -364,8 +402,8 @@ export class KupDropdownButton {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
         this.value = this.initialValue;
         if (!this.data) {
             this.data = {
@@ -376,11 +414,11 @@ export class KupDropdownButton {
 
     componentDidLoad() {
         this.consistencyCheck(undefined, this.value);
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -393,15 +431,14 @@ export class KupDropdownButton {
                 }
             });
         }
-
-        positionRecalc(this.listEl, this.wrapperEl);
-        logRender(this, true);
+        this.kupManager.dynamicPosition.register(this.listEl, this.wrapperEl);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         return (
             <Host onBlur={() => this.onKupBlur()}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div
                     id="kup-component"
                     ref={(el) => (this.wrapperEl = el as any)}
@@ -411,5 +448,17 @@ export class KupDropdownButton {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

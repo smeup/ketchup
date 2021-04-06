@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property      | Attribute      | Description                                                                                                     | Type      | Default     |
-| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `undefined` |
-| `opened`      | `opened`       | Defaults at false. When set to true, the drawer appears.                                                        | `boolean` | `false`     |
+| Property      | Attribute      | Description                                                                                                     | Type      | Default |
+| ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ------- |
+| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `''`    |
+| `opened`      | `opened`       | Defaults at false. When set to true, the drawer appears.                                                        | `boolean` | `false` |
 
 
 ## Events
@@ -33,6 +33,16 @@ Type: `Promise<void>`
 
 
 
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
+
 ### `open() => Promise<void>`
 
 
@@ -43,7 +53,7 @@ Type: `Promise<void>`
 
 
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 
 

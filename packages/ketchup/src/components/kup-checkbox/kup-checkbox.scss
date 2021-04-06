@@ -1,50 +1,7 @@
-@import '@material/checkbox/mdc-checkbox';
-@import '@material/form-field/mdc-form-field';
+@import '../../f-components/f-checkbox/f-checkbox.scss';
 
 :host {
   display: block;
   font-size: var(--kup-font-size);
   margin: auto;
-}
-
-#kup-component .mdc-checkbox {
-  .mdc-form-field {
-    color: var(--kup-text-color);
-    font-family: var(--kup-font-family);
-    font-size: 0.875em;
-    line-height: 1.25em;
-  }
-  .mdc-checkbox__background {
-    border-color: rgba(var(--kup-text-color-rgb), 0.575);
-  }
-  .mdc-checkbox__checkmark,
-  .mdc-checkbox__mixedmark {
-    color: var(--kup-text-on-primary-color);
-  }
-  &.mdc-checkbox--checked .mdc-checkbox__background,
-  &.mdc-checkbox--indeterminate .mdc-checkbox__background {
-    background-color: var(--kup-primary-color);
-    border-color: var(--kup-primary-color);
-  }
-  &.mdc-checkbox--indeterminate .mdc-checkbox__mixedmark {
-    border-color: var(--kup-text-on-primary-color);
-  }
-  &.mdc-checkbox--disabled .mdc-checkbox__background {
-    background-color: transparent;
-    border-color: rgba(var(--kup-text-color-rgb), 0.325);
-  }
-  &.mdc-checkbox--disabled.mdc-checkbox--checked .mdc-checkbox__background,
-  &.mdc-checkbox--disabled.mdc-checkbox--indeterminate
-    .mdc-checkbox__mixedmark {
-    background-color: rgba(var(--kup-text-color-rgb), 0.325);
-    border-color: transparent;
-  }
-  &.mdc-checkbox--disabled.mdc-checkbox--checked .mdc-checkbox__checkmark,
-  &.mdc-checkbox--disabled.mdc-checkbox--checked .mdc-checkbox__mixedmark {
-    color: var(--kup-background-color);
-  }
-  &.mdc-checkbox--disabled.mdc-checkbox--indeterminate
-    .mdc-checkbox__mixedmark {
-    border-color: var(--kup-background-color);
-  }
 }

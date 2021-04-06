@@ -4,12 +4,12 @@
       <p>It is possible to add 2 useful classes to the drawer:</p>
       <ul>
         <li
-          ><span class="code-word">right</span> in order to show the drawer on
-          the right</li
+          ><span class="code-word">kup-right</span> in order to show the drawer
+          on the right</li
         >
         <li
-          ><span class="code-word">permanent</span> in order to make the drawer
-          permanent on the screen</li
+          ><span class="code-word">kup-permanent</span> in order to make the
+          drawer permanent on the screen</li
         >
       </ul>
       <br />
@@ -33,9 +33,9 @@ export default {
   name: 'DrawerProp',
   data() {
     return {
-      markupBasic: '<kup-drawer class="right"></kup-drawer>',
-      markupBasic2: '<kup-drawer class="permanent"></kup-drawer>',
-      markupBasic3: '<kup-drawer class="permanent right"></kup-drawer>',
+      markupBasic: '<kup-drawer class="kup-right"></kup-drawer>',
+      markupBasic2: '<kup-drawer class="kup-permanent"></kup-drawer>',
+      markupBasic3: '<kup-drawer class="kup-permanent kup-right"></kup-drawer>',
     };
   },
   methods: {

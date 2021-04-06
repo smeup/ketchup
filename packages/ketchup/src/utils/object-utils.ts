@@ -98,6 +98,13 @@ export function isObjectList(smeupObj: Object): boolean {
     return 'JL' === smeupObj.t;
 }
 
+// TODO do it in real SmeUP way
+// in cell utils with the shape
+export function isTextField(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    return 'J4' === smeupObj.t && 'TEXTFIELD' === smeupObj.p;
+}
+
 export function isStringObject(obj: any): boolean {
     if (!obj) return true;
 
@@ -111,9 +118,15 @@ export function isStringObject(obj: any): boolean {
     );
 }
 
-export function canHaveDerivedColumn(obj: any): boolean {
+export function canHaveExtraColumns(obj: any): boolean {
     if (!obj) return false;
-    if (obj.t == null || (obj.t as string).trim() == '') return false;
+    if (
+        obj.t == null ||
+        (obj.t as string).trim() == '' ||
+        (obj.t as string).trim() == '**'
+    ) {
+        return false;
+    }
     return (
         !isBar(obj) &&
         !isButton(obj) &&
@@ -121,15 +134,19 @@ export function canHaveDerivedColumn(obj: any): boolean {
         !isIcon(obj) &&
         !isImage(obj) &&
         !isLink(obj) &&
-        !isNumber(obj) &&
         !isProgressBar(obj) &&
         !isRadio(obj) &&
         !isVoCodver(obj) &&
-        !isChart(obj) &&
-        !isDate(obj) &&
-        !isTime(obj) &&
-        !isTimestamp(obj)
+        !isChart(obj)
     );
+}
+
+export function canHaveAutomaticDerivedColumn(obj: any): boolean {
+    if (!canHaveExtraColumns(obj)) {
+        return false;
+    }
+
+    return !isNumber(obj) && !isTime(obj) && !isTimestamp(obj);
 }
 
 export function hasTooltip(obj: any) {

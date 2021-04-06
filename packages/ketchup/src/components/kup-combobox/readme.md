@@ -7,7 +7,7 @@
 
 | Property       | Attribute       | Description                                                                                                     | Type                                                                                             | Default                        |
 | -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
-| `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                                                                         | `undefined`                    |
+| `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                                                                         | `''`                           |
 | `data`         | --              | Props of the sub-components (date input text field).                                                            | `Object`                                                                                         | `undefined`                    |
 | `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                 | `boolean`                                                                                        | `false`                        |
 | `displayMode`  | `display-mode`  | Sets how the show the selected item value. Suported values: "code", "description", "both".                      | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
@@ -18,19 +18,29 @@
 
 ## Events
 
-| Event                        | Description    | Type                           |
-| ---------------------------- | -------------- | ------------------------------ |
-| `kupComboboxBlur`            | Event example. | `CustomEvent<{ value: any; }>` |
-| `kupComboboxChange`          |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxClick`           |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxFocus`           |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxIconClick`       |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxInput`           |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxItemClick`       |                | `CustomEvent<{ value: any; }>` |
-| `kupComboboxTextFieldSubmit` |                | `CustomEvent<{ value: any; }>` |
+| Event                        | Description    | Type                                       |
+| ---------------------------- | -------------- | ------------------------------------------ |
+| `kupComboboxBlur`            | Event example. | `CustomEvent<{ value: any; }>`             |
+| `kupComboboxChange`          |                | `CustomEvent<{ value: any; }>`             |
+| `kupComboboxClick`           |                | `CustomEvent<{ id: string; value: any; }>` |
+| `kupComboboxFocus`           |                | `CustomEvent<{ value: any; }>`             |
+| `kupComboboxIconClick`       |                | `CustomEvent<{ value: any; }>`             |
+| `kupComboboxInput`           |                | `CustomEvent<{ value: any; }>`             |
+| `kupComboboxItemClick`       |                | `CustomEvent<{ id: string; value: any; }>` |
+| `kupComboboxTextFieldSubmit` |                | `CustomEvent<{ value: any; }>`             |
 
 
 ## Methods
+
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
 
 ### `getValue() => Promise<string>`
 
@@ -39,16 +49,6 @@
 #### Returns
 
 Type: `Promise<string>`
-
-
-
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
 
 
 
@@ -72,29 +72,39 @@ Type: `Promise<void>`
 
 
 
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
 ### Used by
 
  - [kup-box](../kup-box)
+ - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
  - [kup-paginator](../kup-paginator)
 
 ### Depends on
 
-- [kup-text-field](../kup-text-field)
 - [kup-list](../kup-list)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-combobox --> kup-text-field
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-box --> kup-combobox
+  kup-card --> kup-combobox
   kup-data-table --> kup-combobox
   kup-form --> kup-combobox
   kup-paginator --> kup-combobox

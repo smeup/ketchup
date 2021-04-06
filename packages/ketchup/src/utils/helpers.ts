@@ -1,12 +1,13 @@
-import debounce from 'lodash/debounce';
+//import debounce from 'lodash/debounce';
 
-import { EventEmitter } from '@stencil/core';
+//import { EventEmitter } from '@stencil/core';
 import { TooltipRelatedObject } from '../components/kup-tooltip/kup-tooltip-declarations';
 import { Cell } from '../components/kup-data-table/kup-data-table-declarations';
 import { KupTooltip } from '../components/kup-tooltip/kup-tooltip';
-import { smeupObjectEquals } from './object-utils';
 
 // shamelessy copyed from https://github.com/ionic-team/ionic/blob/master/core/src/utils/helpers.ts
+/** NOT USED!!! */
+/*
 export function debounceEvent(event: EventEmitter, wait: number): EventEmitter {
     const original = (event as any)._original || event;
     return {
@@ -14,7 +15,7 @@ export function debounceEvent(event: EventEmitter, wait: number): EventEmitter {
         emit: debounce(original.emit.bind(original), wait),
     } as EventEmitter;
 }
-
+*/
 // export function debounce(func: (...args: any[]) => void, wait = 0) {
 //     let timer: any;
 //     return (...args: any[]): any => {
@@ -23,7 +24,12 @@ export function debounceEvent(event: EventEmitter, wait: number): EventEmitter {
 //     };
 // }
 
-export function setTooltip(event: MouseEvent, cell: Cell, tooltip: KupTooltip) {
+export function setTooltip(
+    event: MouseEvent,
+    rowId: string,
+    cell: Cell,
+    tooltip: KupTooltip
+) {
     if (event != null) {
         event.stopPropagation();
     }
@@ -35,6 +41,9 @@ export function setTooltip(event: MouseEvent, cell: Cell, tooltip: KupTooltip) {
         related = {} as TooltipRelatedObject;
         related.element = event.target as HTMLElement;
         related.object = cell;
+        if (rowId != null) {
+            related.rowId = rowId;
+        }
     }
 
     let newValue = related;
@@ -63,5 +72,8 @@ export function setTooltip(event: MouseEvent, cell: Cell, tooltip: KupTooltip) {
 }
 
 export function unsetTooltip(tooltip: KupTooltip) {
+    if (tooltip == null) {
+        return;
+    }
     tooltip.unsetTooltipInfo();
 }

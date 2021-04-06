@@ -7,9 +7,13 @@ import {
     Method,
     Host,
 } from '@stencil/core';
-import { logLoad, logRender } from '../../utils/debug-manager';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
+import { GenericObject } from '../../types/GenericTypes';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import { unformattedStringToFormattedStringNumber } from '../../utils/utils';
+import { KupGaugeProps } from './kup-gauge-declarations';
 
 declare const d3: any;
 
@@ -39,7 +43,7 @@ export class KupGauge {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * The first threshold, establishing the length of the first and second arc.
      */
@@ -123,12 +127,35 @@ export class KupGauge {
      * @namespace kup-gauge.maxValuePositive
      */
     private maxValuePositive = 0;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupGaugeProps;
+        } else {
+            for (const key in KupGaugeProps) {
+                if (Object.prototype.hasOwnProperty.call(KupGaugeProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     //---- Utility functions ----
@@ -211,30 +238,30 @@ export class KupGauge {
     }
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
         // mathematical operations
         this.maxValuePositive = Math.abs(this.minValue - this.maxValue);
         let tempValue = this.value;
-        if(this.value > this.maxValue){
+        if (this.value > this.maxValue) {
             this.value = this.maxValue;
         }
-        if(this.value < this.minValue){
+        if (this.value < this.minValue) {
             this.value = this.minValue;
         }
 
@@ -356,7 +383,11 @@ export class KupGauge {
                                       x={topX}
                                       y={topY}
                                   >
-                                      {unformattedStringToFormattedStringNumber(String(threshold), -1, '')}
+                                      {unformattedStringToFormattedStringNumber(
+                                          String(threshold),
+                                          -1,
+                                          ''
+                                      )}
                                   </text>
                               );
                           }
@@ -376,7 +407,11 @@ export class KupGauge {
                                       x={topX}
                                       y={topY}
                                   >
-                                      {unformattedStringToFormattedStringNumber(String(threshold), -1, '')}
+                                      {unformattedStringToFormattedStringNumber(
+                                          String(threshold),
+                                          -1,
+                                          ''
+                                      )}
                                   </text>
                               );
                           }
@@ -396,7 +431,13 @@ export class KupGauge {
                     y={valueLabelYPosition}
                     style={style}
                 >
-                    {unformattedStringToFormattedStringNumber(String(tempValue), -1, '') + ' ' + this.measurementUnit}
+                    {unformattedStringToFormattedStringNumber(
+                        String(tempValue),
+                        -1,
+                        ''
+                    ) +
+                        ' ' +
+                        this.measurementUnit}
                 </text>
             );
         }
@@ -404,7 +445,7 @@ export class KupGauge {
         const width = { width: this.widthComponent };
         return (
             <Host>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component" class="gauge__container">
                     <svg
                         class="gauge"
@@ -440,5 +481,9 @@ export class KupGauge {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
     }
 }

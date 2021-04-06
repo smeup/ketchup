@@ -9,7 +9,7 @@
 
 | Property       | Attribute       | Description                                                                                                                           | Type      | Default     |
 | -------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                       | `string`  | `undefined` |
+| `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                       | `string`  | `''`        |
 | `data`         | --              | Props of the text field.                                                                                                              | `Object`  | `undefined` |
 | `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                                       | `boolean` | `false`     |
 | `initialValue` | `initial-value` | Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ). | `string`  | `''`        |
@@ -26,6 +26,16 @@
 
 ## Methods
 
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
+
 ### `getValue() => Promise<string>`
 
 
@@ -33,16 +43,6 @@
 #### Returns
 
 Type: `Promise<string>`
-
-
-
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
 
 
 
@@ -57,6 +57,16 @@ Type: `Promise<void>`
 
 
 ### `setValue(value: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 
 

@@ -7,7 +7,7 @@
 
 | Property        | Attribute         | Description                                                                                                     | Type      | Default     |
 | --------------- | ----------------- | --------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
-| `customStyle`   | `custom-style`    | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `undefined` |
+| `customStyle`   | `custom-style`    | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`  | `''`        |
 | `data`          | --                | Props of the sub-components.                                                                                    | `Object`  | `undefined` |
 | `disabled`      | `disabled`        | Defaults at false. When set to true, the component is disabled.                                                 | `boolean` | `false`     |
 | `firstDayIndex` | `first-day-index` | First day number (0 - sunday, 1 - monday, ...)                                                                  | `number`  | `1`         |
@@ -16,20 +16,30 @@
 
 ## Events
 
-| Event                          | Description | Type                           |
-| ------------------------------ | ----------- | ------------------------------ |
-| `kupDatePickerBlur`            |             | `CustomEvent<{ value: any; }>` |
-| `kupDatePickerChange`          |             | `CustomEvent<{ value: any; }>` |
-| `kupDatePickerClearIconClick`  |             | `CustomEvent<{ id: any; }>`    |
-| `kupDatePickerClick`           |             | `CustomEvent<{ value: any; }>` |
-| `kupDatePickerFocus`           |             | `CustomEvent<{ value: any; }>` |
-| `kupDatePickerIconClick`       |             | `CustomEvent<{ value: any; }>` |
-| `kupDatePickerInput`           |             | `CustomEvent<{ value: any; }>` |
-| `kupDatePickerItemClick`       |             | `CustomEvent<{ value: any; }>` |
-| `kupDatePickerTextFieldSubmit` |             | `CustomEvent<{ value: any; }>` |
+| Event                          | Description | Type                                    |
+| ------------------------------ | ----------- | --------------------------------------- |
+| `kupDatePickerBlur`            |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupDatePickerChange`          |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupDatePickerClearIconClick`  |             | `CustomEvent<{ id: any; }>`             |
+| `kupDatePickerClick`           |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupDatePickerFocus`           |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupDatePickerIconClick`       |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupDatePickerInput`           |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupDatePickerItemClick`       |             | `CustomEvent<{ id: any; value: any; }>` |
+| `kupDatePickerTextFieldSubmit` |             | `CustomEvent<{ id: any; value: any; }>` |
 
 
 ## Methods
+
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
 
 ### `getValue() => Promise<string>`
 
@@ -38,16 +48,6 @@
 #### Returns
 
 Type: `Promise<string>`
-
-
-
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
 
 
 
@@ -71,12 +71,22 @@ Type: `Promise<void>`
 
 
 
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
 ### Used by
 
- - [kup-data-table](../kup-data-table)
+ - [kup-card](../kup-card)
 
 ### Depends on
 
@@ -88,7 +98,9 @@ Type: `Promise<void>`
 graph TD;
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
-  kup-data-table --> kup-date-picker
+  kup-button --> kup-badge
+  kup-badge --> kup-badge
+  kup-card --> kup-date-picker
   style kup-date-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

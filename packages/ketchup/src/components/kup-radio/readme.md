@@ -8,7 +8,7 @@
 | Property       | Attribute       | Description                                                                                                     | Type                      | Default        |
 | -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------- | -------------- |
 | `columns`      | `columns`       | Number of columns. When undefined, radio fields will be displayed inline.                                       | `number`                  | `undefined`    |
-| `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                  | `undefined`    |
+| `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                  | `''`           |
 | `data`         | --              | List of elements.                                                                                               | `ComponentRadioElement[]` | `[]`           |
 | `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                 | `boolean`                 | `false`        |
 | `leadingLabel` | `leading-label` | Defaults at false. When set to true, the label will be on the left of the component.                            | `boolean`                 | `false`        |
@@ -28,7 +28,17 @@
 
 ## Methods
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
+
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 
 

@@ -52,7 +52,7 @@ export default {
           try: 'switch',
         },
         {
-          prop: 'columns?',
+          prop: 'columns',
           description:
             'The columns of the tree when tree visualization is active.',
           type: 'Column[]',
@@ -64,7 +64,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
@@ -136,6 +136,13 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'showFooter',
+          description: 'When set to true shows the footer.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'showHeader',
           description:
             'Flag: shows the header of the tree when the tree is displayed as a table.',
@@ -151,6 +158,27 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'tooltipDetailTimeout',
+          description: 'Defines the timeout for tooltip detail.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
+          prop: 'tooltipEnabled',
+          description: 'Enable tooltip.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
+          prop: 'tooltipLoadTimeout',
+          description: 'Defines the timeout for tooltip load.',
+          type: 'number',
+          default: 'undefined',
+          try: 'field',
+        },
+        {
           prop: 'useDynamicExpansion',
           description:
             'When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property. Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.',
@@ -161,23 +189,43 @@ export default {
       ],
       demoClasses: [
         {
-          class: 'full-width',
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-full-width',
           description: 'The tree will fill all the available horizontal space.',
         },
         {
-          class: 'kup-secondary-color',
+          class: 'kup-info',
           description:
-            'The component will be rendered using the secondary color of the app.',
+            'The component will be rendered using the informational color of the app.',
         },
         {
-          class: 'layout-fixed',
+          class: 'kup-layout-fixed',
           description:
             'Sets a fixed layout to improve performances (especially when using Google Chrome).',
         },
         {
-          class: 'shaped',
+          class: 'kup-secondary',
+          description:
+            'The component will be rendered using the secondary color of the app.',
+        },
+        {
+          class: 'kup-shaped',
           description:
             'The right border of the cells will be shaped. It only applies when showColumns prop is set to false. ',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
         },
       ],
     };
@@ -335,6 +383,7 @@ function createComp() {
   comp.hoverScroll = true;
   comp.id = 'demo-component';
   comp.showIcons = true;
+  comp.tooltipEnabled = true;
   return comp;
 }
 </script>

@@ -9,7 +9,12 @@ import {
 
 import { PaginatorMode } from './kup-paginator-declarations';
 import { isNumber } from '../../utils/utils';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import { FButton } from '../../f-components/f-button/f-button';
+import { FButtonMDC } from '../../f-components/f-button/f-button-mdc';
 
 @Component({
     tag: 'kup-paginator',
@@ -31,6 +36,10 @@ export class KupPaginator {
 
     private comboPageSelectorEl: any = undefined;
     private comboRowsSelectorEl: any = undefined;
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     /**
      * When the current page change
@@ -178,29 +187,61 @@ export class KupPaginator {
         return rowsPerPageItems;
     }
 
+    private setEvents(): void {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+
+        if (root) {
+            const nextButton: HTMLElement = root.querySelector(
+                '.f-button--wrapper.next-page'
+            );
+            const prevButton: HTMLElement = root.querySelector(
+                '.f-button--wrapper.prev-page'
+            );
+            if (nextButton) {
+                const buttonEl: HTMLButtonElement = nextButton.querySelector(
+                    'button'
+                );
+                if (buttonEl) {
+                    buttonEl.onclick = () => this.onNextPage();
+                }
+                FButtonMDC(nextButton);
+            }
+            if (prevButton) {
+                const buttonEl: HTMLButtonElement = prevButton.querySelector(
+                    'button'
+                );
+                if (buttonEl) {
+                    buttonEl.onclick = () => this.onPrevPage();
+                }
+                FButtonMDC(prevButton);
+            }
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupManager.debug.logLoad(this, false);
         this.selectedPerPage = this.perPage;
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.setEvents();
         if (this.comboPageSelectorEl) {
             this.comboPageSelectorEl.setValue(this.currentPage.toString());
         }
         if (this.comboRowsSelectorEl) {
             this.comboRowsSelectorEl.setValue(this.selectedPerPage.toString());
         }
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -239,15 +280,14 @@ export class KupPaginator {
             'kup-text-field': textfieldDataRows,
         };
         let compCreated = (
-            <div id="paginator">
+            <div id="kup-component">
                 <div class="align-left">
                     <div class="nav-section">
-                        <kup-button
+                        <FButton
                             icon="chevron_left"
                             disabled={this.isPrevPageDisabled()}
-                            class="prev-page"
-                            onKupButtonClick={() => this.onPrevPage()}
-                        ></kup-button>
+                            wrapperClass="prev-page"
+                        />
                         <kup-combobox
                             class="page-selector"
                             data={dataPageSelector}
@@ -259,12 +299,11 @@ export class KupPaginator {
                             onKupComboboxBlur={(e) => this.onPageChange(e)}
                             ref={(el) => (this.comboPageSelectorEl = el as any)}
                         />
-                        <kup-button
+                        <FButton
                             icon="chevron_right"
                             disabled={this.isNextPageDisabled()}
-                            class="next-page"
-                            onKupButtonClick={() => this.onNextPage()}
-                        ></kup-button>
+                            wrapperClass="next-page"
+                        />
                     </div>
                     <div class="tot-section">
                         <slot name="more-results" />

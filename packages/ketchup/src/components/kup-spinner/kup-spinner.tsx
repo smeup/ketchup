@@ -7,8 +7,12 @@ import {
     h,
     Method,
 } from '@stencil/core';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { GenericObject } from '../../types/GenericTypes';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import { KupSpinnerProps } from './kup-spinner-declarations';
 
 @Component({
     tag: 'kup-spinner',
@@ -31,7 +35,7 @@ export class KupSpinner {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Width and height of the spinner. For the bar variant, only height.
      */
@@ -53,22 +57,48 @@ export class KupSpinner {
      */
     @Prop() layout: number = 1;
 
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupSpinnerProps;
+        } else {
+            for (const key in KupSpinnerProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(KupSpinnerProps, key)
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentDidUpdate() {
@@ -81,7 +111,7 @@ export class KupSpinner {
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -96,7 +126,7 @@ export class KupSpinner {
                 }, this.faderTimeout);
             }
         }
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -199,7 +229,7 @@ export class KupSpinner {
 
         return (
             <Host style={elStyle}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component" style={elStyle}>
                     <div
                         id="loading-wrapper-master"
@@ -213,5 +243,9 @@ export class KupSpinner {
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
     }
 }

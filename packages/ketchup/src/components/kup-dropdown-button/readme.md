@@ -9,7 +9,7 @@
 
 | Property       | Attribute       | Description                                                                                                     | Type                                                                                             | Default                        |
 | -------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
-| `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                                                                         | `undefined`                    |
+| `customStyle`  | `custom-style`  | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string`                                                                                         | `''`                           |
 | `data`         | --              | Props of the sub-components.                                                                                    | `Object`                                                                                         | `undefined`                    |
 | `disabled`     | `disabled`      | Defaults at false. When set to true, the component is disabled.                                                 | `boolean`                                                                                        | `false`                        |
 | `displayMode`  | `display-mode`  | Sets how the show the selected item value. Suported values: "code", "description", "both".                      | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE` | `ItemsDisplayMode.DESCRIPTION` |
@@ -34,6 +34,16 @@
 
 ## Methods
 
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
+
 ### `getValue() => Promise<string>`
 
 
@@ -44,7 +54,7 @@ Type: `Promise<string>`
 
 
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `setValue(value: string) => Promise<void>`
 
 
 
@@ -54,7 +64,7 @@ Type: `Promise<void>`
 
 
 
-### `setValue(value: string) => Promise<void>`
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 
 

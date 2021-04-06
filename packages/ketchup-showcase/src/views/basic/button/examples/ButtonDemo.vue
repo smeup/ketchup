@@ -48,7 +48,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
@@ -86,9 +86,9 @@ export default {
         {
           prop: 'styling',
           description:
-            'Defines the style of the button. Available style are "flat" and "outlined", "raised" is the default.',
-          type: 'string',
-          default: '""',
+            'Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.',
+          type: 'FButtonStyling',
+          default: 'raised',
           try: 'field',
         },
         {
@@ -110,22 +110,48 @@ export default {
       ],
       demoClasses: [
         {
-          class: 'full-height',
-          description: 'The button will fill all the available vertical space.',
-        },
-        {
-          class: 'full-width',
+          class: 'kup-danger',
           description:
-            'The button will fill all the available horizontal space.',
+            'The component will be rendered using the danger color of the app.',
         },
         {
-          class: 'kup-secondary-color',
+          class: 'kup-full-height',
+          description:
+            'The button will fill all the available vertical space (needs a new render to be effective).',
+        },
+        {
+          class: 'kup-full-width',
+          description:
+            'The button will fill all the available horizontal space (needs a new render to be effective).',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the info color of the app.',
+        },
+        {
+          class: 'kup-large',
+          description: 'The button will have an increased size.',
+        },
+        {
+          class: 'kup-secondary',
           description:
             'The component will be rendered using the secondary color of the app.',
         },
         {
-          class: 'shaped',
-          description: 'The borders of the button will be shaped.',
+          class: 'kup-shaped',
+          description:
+            'The borders of the button will be shaped (needs a new render to be effective).',
+        },
+        {
+          class: 'kup-success',
+          description:
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
         },
       ],
     };
@@ -137,6 +163,7 @@ function createComp() {
   comp.icon = 'widgets';
   comp.id = 'demo-component';
   comp.label = 'Demo';
+  comp.styling = 'raised';
   return comp;
 }
 </script>

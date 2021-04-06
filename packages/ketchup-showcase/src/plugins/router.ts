@@ -178,6 +178,11 @@ let advancedRoutes = [
     component: () => import(`@/views/advanced/dash/Dash.vue`),
   },
   {
+    path: `/dashlist`,
+    name: 'dashlist',
+    component: () => import(`@/views/advanced/dashlist/DashList.vue`),
+  },
+  {
     path: `/datatable`,
     name: 'datatable',
     component: () => import(`@/views/advanced/datatable/Datatable.vue`),
@@ -240,10 +245,10 @@ let javascriptRoutes = [
       import(`@/views/javascript/scrollonhover/Scrollonhover.vue`),
   },
   {
-    path: `/tippositioning`,
-    name: 'tippositioning',
+    path: `/dynamicposition`,
+    name: 'dynamicposition',
     component: () =>
-      import(`@/views/javascript/tippositioning/Tippositioning.vue`),
+      import(`@/views/javascript/dynamicposition/DynamicPosition.vue`),
   },
 ];
 

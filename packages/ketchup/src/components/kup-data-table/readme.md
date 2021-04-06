@@ -35,7 +35,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 
 | Property                    | Attribute                      | Description                                                                                                                                                                                                                    | Type                                                                                             | Default                              |
 | --------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------ |
-| `customStyle`               | `custom-style`                 | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                                                                                                | `string`                                                                                         | `undefined`                          |
+| `customStyle`               | `custom-style`                 | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                                                                                                | `string`                                                                                         | `''`                                 |
 | `data`                      | --                             | The data of the table.                                                                                                                                                                                                         | `TableData`                                                                                      | `undefined`                          |
 | `density`                   | `density`                      | The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.                                                                                                                                       | `string`                                                                                         | `'dense'`                            |
 | `dragEnabled`               | `drag-enabled`                 | Enable row dragging                                                                                                                                                                                                            | `boolean`                                                                                        | `false`                              |
@@ -52,6 +52,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `groupLabelDisplay`         | `group-label-display`          | How the label of a group must be displayed. For available values [see here]{@link GroupLabelDisplayMode}                                                                                                                       | `GroupLabelDisplayMode.BOTH \| GroupLabelDisplayMode.LABEL \| GroupLabelDisplayMode.VALUE`       | `GroupLabelDisplayMode.BOTH`         |
 | `groups`                    | --                             | The list of groups.                                                                                                                                                                                                            | `GroupObject[]`                                                                                  | `[]`                                 |
 | `headerIsPersistent`        | `header-is-persistent`         | When set to true the header will stick on top of the table when scrolling.                                                                                                                                                     | `boolean`                                                                                        | `true`                               |
+| `isFocusable`               | `is-focusable`                 | When set to true, clicked-on rows will have a visual feedback.                                                                                                                                                                 | `boolean`                                                                                        | `false`                              |
 | `lazyLoadRows`              | `lazy-load-rows`               | When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content. Paginator is disabled.            | `boolean`                                                                                        | `false`                              |
 | `lineBreakCharacter`        | `line-break-character`         | Defines the placeholder character which will be replaced by a line break inside table header cells, normal or sticky.                                                                                                          | `string`                                                                                         | `'\n'`                               |
 | `loadMoreLimit`             | `load-more-limit`              | Sets a maximum limit of new records which can be required by the load more functionality.                                                                                                                                      | `number`                                                                                         | `1000`                               |
@@ -68,7 +69,9 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `selectRowsById`            | `select-rows-by-id`            | Semicolon separated rows id to select.                                                                                                                                                                                         | `string`                                                                                         | `undefined`                          |
 | `showCustomization`         | `show-customization`           | If set to true, displays the button to open the customization panel.                                                                                                                                                           | `boolean`                                                                                        | `false`                              |
 | `showFilters`               | `show-filters`                 | When set to true enables the column filters.                                                                                                                                                                                   | `boolean`                                                                                        | `false`                              |
+| `showFooter`                | `show-footer`                  | When set to true shows the footer.                                                                                                                                                                                             | `boolean`                                                                                        | `false`                              |
 | `showGrid`                  | `show-grid`                    | Can be used to customize the grid view of the table.                                                                                                                                                                           | `ShowGrid.COL \| ShowGrid.COMPLETE \| ShowGrid.NONE \| ShowGrid.ROW`                             | `ShowGrid.ROW`                       |
+| `showGroups`                | `show-groups`                  | When set to true enables the column grouping.                                                                                                                                                                                  | `boolean`                                                                                        | `false`                              |
 | `showHeader`                | `show-header`                  | Enables rendering of the table header.                                                                                                                                                                                         | `boolean`                                                                                        | `true`                               |
 | `showLoadMore`              | `show-load-more`               | If set to true, displays the button to load more records.                                                                                                                                                                      | `boolean`                                                                                        | `false`                              |
 | `showTooltipOnRightClick`   | `show-tooltip-on-right-click`  | If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.                                                                                                                               | `boolean`                                                                                        | `true`                               |
@@ -80,29 +83,44 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `tableHeight`               | `table-height`                 | Sets the height of the table.                                                                                                                                                                                                  | `string`                                                                                         | `undefined`                          |
 | `tableWidth`                | `table-width`                  | Sets the width of the table.                                                                                                                                                                                                   | `string`                                                                                         | `undefined`                          |
 | `tooltipDetailTimeout`      | `tooltip-detail-timeout`       | Defines the timeout for tooltip detail                                                                                                                                                                                         | `number`                                                                                         | `undefined`                          |
+| `tooltipEnabled`            | `tooltip-enabled`              | Enable show tooltip                                                                                                                                                                                                            | `boolean`                                                                                        | `true`                               |
 | `tooltipLoadTimeout`        | `tooltip-load-timeout`         | Defines the timeout for tooltip load                                                                                                                                                                                           | `number`                                                                                         | `undefined`                          |
 | `totals`                    | --                             | Defines the current totals options.                                                                                                                                                                                            | `TotalsMap`                                                                                      | `undefined`                          |
 
 
 ## Events
 
-| Event                    | Description                                    | Type                                                                                                          |
-| ------------------------ | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `kupAddCodeDecodeColumn` |                                                | `CustomEvent<{ column: string; }>`                                                                            |
-| `kupAddColumn`           | When 'add column' menu item is clicked         | `CustomEvent<{ column: string; }>`                                                                            |
-| `kupAutoRowSelect`       | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
-| `kupCellButtonClicked`   |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
-| `kupDataTableDblClick`   |                                                | `CustomEvent<{ obj: {}; }>`                                                                                   |
-| `kupDidLoad`             | When component load is complete                | `CustomEvent<{}>`                                                                                             |
-| `kupDidUnload`           | When component unload is complete              | `CustomEvent<{}>`                                                                                             |
-| `kupLoadMoreClicked`     |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
-| `kupOptionClicked`       | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
-| `kupResetSelectedRows`   | When rows selections reset                     | `CustomEvent<{}>`                                                                                             |
-| `kupRowActionClicked`    | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
-| `kupRowSelected`         | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedColumn: string; }>`                                                |
+| Event                     | Description                                    | Type                                                                                                          |
+| ------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `kupAddCodeDecodeColumn`  |                                                | `CustomEvent<{ column: string; }>`                                                                            |
+| `kupAddColumn`            | When 'add column' menu item is clicked         | `CustomEvent<{ column: string; }>`                                                                            |
+| `kupAutoRowSelect`        | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
+| `kupCellButtonClicked`    |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
+| `kupCellTextFieldInput`   |                                                | `CustomEvent<KupDataTableCellTextFieldInput>`                                                                 |
+| `kupDataTableCellUpdate`  | Emitted when a cell's data has been updated.   | `CustomEvent<{ cell: Cell; event: any; }>`                                                                    |
+| `kupDataTableClick`       | Generic click event on data table.             | `CustomEvent<{ details: GenericObject; }>`                                                                    |
+| `kupDataTableContextMenu` | Generic right click event on data table.       | `CustomEvent<{ details: GenericObject; }>`                                                                    |
+| `kupDataTableDblClick`    | Generic double click event on data table.      | `CustomEvent<{ details: GenericObject; }>`                                                                    |
+| `kupDidLoad`              | When component load is complete                | `CustomEvent<{}>`                                                                                             |
+| `kupDidUnload`            | When component unload is complete              | `CustomEvent<{}>`                                                                                             |
+| `kupLoadMoreClicked`      |                                                | `CustomEvent<{ loadItems: number; }>`                                                                         |
+| `kupOptionClicked`        | When cell option is clicked                    | `CustomEvent<{ column: string; row: Row; }>`                                                                  |
+| `kupResetSelectedRows`    | When rows selections reset                     | `CustomEvent<{}>`                                                                                             |
+| `kupRowActionClicked`     | When a row action is clicked                   | `CustomEvent<{ type: "default" \| "variable" \| "expander"; row: Row; action?: RowAction; index?: number; }>` |
+| `kupRowSelected`          | When a row is selected                         | `CustomEvent<{ selectedRows: Row[]; clickedRow: Row; clickedColumn: string; }>`                               |
 
 
 ## Methods
+
+### `collapseAll() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
 
 ### `defaultSortingFunction(columns: Column[], receivingColumnIndex: number, sortedColumnIndex: number, useNewObject?: boolean) => Promise<Column[]>`
 
@@ -111,6 +129,16 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 #### Returns
 
 Type: `Promise<Column[]>`
+
+
+
+### `expandAll() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
 
 
 
@@ -124,9 +152,19 @@ Type: `Promise<{ groups: GroupObject[]; filters: GenericFilter; data: TableData;
 
 
 
-### `performanceCSS(detailedLog: boolean) => Promise<void>`
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
 
 
+
+### `resizeCallback() => Promise<void>`
+
+This method is invoked by KupManager whenever the component changes size.
 
 #### Returns
 
@@ -134,9 +172,20 @@ Type: `Promise<void>`
 
 
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `setSelectedRows(rowsById: string, emitEvent?: boolean) => Promise<void>`
+
+This method will set the selected rows of the component.
+
+#### Returns
+
+Type: `Promise<void>`
 
 
+
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
+
+This method is invoked by the theme manager.
+Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
 
 #### Returns
 
@@ -153,15 +202,13 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-text-field](../kup-text-field)
-- [kup-time-picker](../kup-time-picker)
-- [kup-date-picker](../kup-date-picker)
+- [kup-card](../kup-card)
 - [kup-checkbox](../kup-checkbox)
-- [kup-button](../kup-button)
 - [kup-tooltip](../kup-tooltip)
+- [kup-list](../kup-list)
 - [kup-image](../kup-image)
+- [kup-button](../kup-button)
 - [kup-chart](../kup-chart)
-- [kup-chip](../kup-chip)
 - [kup-color-picker](../kup-color-picker)
 - [kup-gauge](../kup-gauge)
 - [kup-progress-bar](../kup-progress-bar)
@@ -169,19 +216,18 @@ Type: `Promise<void>`
 - [kup-radio](../kup-radio)
 - [kup-paginator](../kup-paginator)
 - [kup-combobox](../kup-combobox)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-data-table --> kup-text-field
-  kup-data-table --> kup-time-picker
-  kup-data-table --> kup-date-picker
+  kup-data-table --> kup-card
   kup-data-table --> kup-checkbox
-  kup-data-table --> kup-button
   kup-data-table --> kup-tooltip
+  kup-data-table --> kup-list
   kup-data-table --> kup-image
+  kup-data-table --> kup-button
   kup-data-table --> kup-chart
-  kup-data-table --> kup-chip
   kup-data-table --> kup-color-picker
   kup-data-table --> kup-gauge
   kup-data-table --> kup-progress-bar
@@ -189,13 +235,28 @@ graph TD;
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
   kup-data-table --> kup-combobox
-  kup-time-picker --> kup-text-field
-  kup-time-picker --> kup-button
-  kup-time-picker --> kup-list
+  kup-data-table --> kup-badge
+  kup-card --> kup-chip
+  kup-card --> kup-button
+  kup-card --> kup-badge
+  kup-card --> kup-progress-bar
+  kup-card --> kup-chart
+  kup-card --> kup-checkbox
+  kup-card --> kup-combobox
+  kup-card --> kup-date-picker
+  kup-card --> kup-text-field
+  kup-card --> kup-time-picker
+  kup-chip --> kup-badge
+  kup-badge --> kup-badge
+  kup-button --> kup-badge
+  kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
+  kup-time-picker --> kup-text-field
+  kup-time-picker --> kup-button
+  kup-time-picker --> kup-list
   kup-tooltip --> kup-button
   kup-tooltip --> kup-tree
   kup-tree --> kup-image
@@ -208,15 +269,15 @@ graph TD;
   kup-tree --> kup-progress-bar
   kup-tree --> kup-rating
   kup-tree --> kup-radio
+  kup-tree --> kup-tooltip
+  kup-tree --> kup-list
   kup-tree --> kup-text-field
+  kup-tree --> kup-card
   kup-image --> kup-spinner
   kup-image --> kup-badge
-  kup-badge --> kup-image
   kup-color-picker --> kup-text-field
-  kup-paginator --> kup-button
   kup-paginator --> kup-combobox
-  kup-combobox --> kup-text-field
-  kup-combobox --> kup-list
+  kup-paginator --> kup-badge
   kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```

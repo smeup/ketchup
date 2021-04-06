@@ -4,9 +4,9 @@
       The main feature of this layout family is the automatic fit of the
       content, the class used is
       <span class="code-word">scalable-element</span>. Whenever the card' size
-      changes, the ResizeObserver API starts a function which adjusts the size
-      of the content to be included in the range of 40% and 60% of the maximum
-      width.
+      changes, the ResizeObserver API inside the KupManager class starts a
+      function which adjusts the size of the content to be included in the range
+      of 40% and 60% of the maximum width.
       <br />
       <br />When the width matches the criteria, a second adjustment will make
       sure that <span class="code-word">scalable-element</span> doesn't exceed
@@ -15,13 +15,13 @@
     </p>
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 1</span> settings:
+        <span class="code-word">Layout 1</span> configuration:
         <br />
         <br />
-        <span class="code-word">- text1</span>: Emphasized text, ideally for a
+        <span class="code-word">- text[0]</span>: Emphasized text, ideally for a
         value.
         <br />
-        <span class="code-word">- text2</span>: Description.
+        <span class="code-word">- text[1]</span>: Description.
         <br />
       </p>
       <br />
@@ -39,20 +39,21 @@
     </div>
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 2</span> settings:
+        <span class="code-word">Layout 2</span> configuration:
         <br />
         <br />
-        <span class="code-word">- color1</span>: The color of image1.
+        <span class="code-word">- color[0]</span>: The color of image1.
         <br />
-        <span class="code-word">- image1</span>: Should be an icon.
+        <span class="code-word">- image[0]</span>: Should be an icon.
         <br />
-        <span class="code-word">- text1</span>: Should be the integer part of a
-        number, the layout automatically places a comma.
+        <span class="code-word">- text[0]</span>: Should be the integer part of
+        a number, the layout automatically places a comma.
         <br />
-        <span class="code-word">- text2</span>: Should be the decimal part of a
-        number.
+        <span class="code-word">- text[1]</span>: Should be the decimal part of
+        a number.
         <br />
-        <span class="code-word">- text3</span>: Should be a unit of measurement.
+        <span class="code-word">- text[2]</span>: Should be a unit of
+        measurement.
         <br />
       </p>
       <br />
@@ -70,13 +71,13 @@
     </div>
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 3</span> settings:
+        <span class="code-word">Layout 3</span> configuration:
         <br />
         <br />
-        <span class="code-word">- text1</span>: Emphasized text, ideally for a
+        <span class="code-word">- text[0]</span>: Emphasized text, ideally for a
         value.
         <br />
-        <span class="code-word">- text2</span>: Description.
+        <span class="code-word">- text[1]</span>: Description.
         <br />
       </p>
       <br />
@@ -94,22 +95,23 @@
     </div>
     <div class="demo-wrapper">
       <p>
-        <span class="code-word">Layout 4</span> settings:
+        <span class="code-word">Layout 4</span> configuration:
         <br />
         <br />
-        <span class="code-word">- color1</span>: The color of image1.
+        <span class="code-word">- color[0]</span>: The color of image1.
         <br />
-        <span class="code-word">- image1</span>: Should be an icon.
+        <span class="code-word">- image[0]</span>: Should be an icon.
         <br />
-        <span class="code-word">- text1</span>: Should be the integer part of a
-        number, the layout automatically places a comma.
+        <span class="code-word">- text[0]</span>: Should be the integer part of
+        a number, the layout automatically places a comma.
         <br />
-        <span class="code-word">- text2</span>: Should be the decimal part of a
-        number.
+        <span class="code-word">- text[1]</span>: Should be the decimal part of
+        a number.
         <br />
-        <span class="code-word">- text3</span>: Should be a unit of measurement.
+        <span class="code-word">- text[2]</span>: Should be a unit of
+        measurement.
         <br />
-        <span class="code-word">- text4</span>: Description.
+        <span class="code-word">- text[3]</span>: Description.
         <br />
       </p>
       <br />
@@ -130,14 +132,14 @@
         <span class="code-word">Layout 5</span> settings:
         <br />
         <br />
-        <span class="code-word">- color1</span>: The color of image1.
+        <span class="code-word">- color[0]</span>: The color of image1.
         <br />
-        <span class="code-word">- image1</span>: Should be an icon.
+        <span class="code-word">- image[0]</span>: Should be an icon.
         <br />
-        <span class="code-word">- text1</span>: Emphasized text, ideally for a
+        <span class="code-word">- text[0]</span>: Emphasized text, ideally for a
         value.
         <br />
-        <span class="code-word">- text2</span>: Description.
+        <span class="code-word">- text[1]</span>: Description.
         <br />
       </p>
       <br />
@@ -158,14 +160,14 @@
         <span class="code-word">Layout 6</span> settings:
         <br />
         <br />
-        <span class="code-word">- color1</span>: The color of image1.
+        <span class="code-word">- color[0]</span>: The color of image1.
         <br />
-        <span class="code-word">- image1</span>: Should be an icon.
+        <span class="code-word">- image[0]</span>: Should be an icon.
         <br />
-        <span class="code-word">- text1</span>: Emphasized text, ideally for a
+        <span class="code-word">- text[0]</span>: Emphasized text, ideally for a
         value.
         <br />
-        <span class="code-word">- text2</span>: Description.
+        <span class="code-word">- text[1]</span>: Description.
         <br />
       </p>
       <br />
@@ -186,14 +188,14 @@
         <span class="code-word">Layout 7</span> settings:
         <br />
         <br />
-        <span class="code-word">- color1</span>: The color of image1.
+        <span class="code-word">- color[0]</span>: The color of image1.
         <br />
-        <span class="code-word">- image1</span>: Should be an icon.
+        <span class="code-word">- image[0]</span>: Should be an icon.
         <br />
-        <span class="code-word">- text1</span>: Emphasized text, ideally for a
+        <span class="code-word">- text[0]</span>: Emphasized text, ideally for a
         value.
         <br />
-        <span class="code-word">- text2</span>: Description.
+        <span class="code-word">- text[1]</span>: Description.
         <br />
       </p>
       <br />
@@ -214,14 +216,14 @@
         <span class="code-word">Layout 8</span> settings:
         <br />
         <br />
-        <span class="code-word">- color1</span>: The color of image1.
+        <span class="code-word">- color[0]</span>: The color of image1.
         <br />
-        <span class="code-word">- image1</span>: Should be an icon.
+        <span class="code-word">- image[0]</span>: Should be an icon.
         <br />
-        <span class="code-word">- text1</span>: Emphasized text, ideally for a
+        <span class="code-word">- text[0]</span>: Emphasized text, ideally for a
         value.
         <br />
-        <span class="code-word">- text2</span>: Description.
+        <span class="code-word">- text[1]</span>: Description.
         <br />
       </p>
       <br />
@@ -246,15 +248,14 @@ export default {
   data() {
     return {
       data: {
-        color1: 'var(--kup-primary-color)',
-        image1: {
-          resource: 'widgets',
-          title: 'image1',
-        },
-        text1: 't1',
-        text2: 't2',
-        text3: 't3',
-        text4: 't4',
+        color: ['var(--kup-primary-color)'],
+        image: [
+          {
+            resource: 'widgets',
+            title: 'image[0]',
+          },
+        ],
+        text: ['t[0]', 't[1]', 't[2]', 't[3]'],
       },
     };
   },

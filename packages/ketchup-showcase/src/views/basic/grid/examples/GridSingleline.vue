@@ -25,12 +25,12 @@
       <p>
         The single line layout can also be forced to fit the container for its
         length by setting the
-        <span class="code-word">full-width</span> class.
+        <span class="code-word">kup-full-width</span> class.
       </p>
       <br />
       <div class="demo-container">
         <div class="kup-container" style="width: 100%">
-          <kup-grid class="full-width" single-line
+          <kup-grid class="kup-full-width" single-line
             ><kup-button slot="0" label="First slot"></kup-button>
             <kup-button slot="1" label="Second slot"></kup-button>
             <kup-button slot="2" label="Third slot"></kup-button
@@ -52,7 +52,7 @@ export default {
     return {
       markupSingleline: '<kup-grid single-line></kup-grid>',
       markupSinglelineFW:
-        '<kup-grid class="full-width" single-line></kup-grid>',
+        '<kup-grid class="kup-full-width" single-line></kup-grid>',
     };
   },
 };

@@ -85,7 +85,13 @@
 
     <body>
         <div class="data-examples">
-            <h1>Radio in cell</h1>
+            <h1>Text field</h1>
+            <kup-data-table lazy-load-rows="false" id="text-field" show-filters rows-per-page="2"></kup-data-table>
+
+            <h1>Row actions</h1>
+            <kup-data-table lazy-load-rows="false" id="row-actions" show-filters rows-per-page="20"></kup-data-table>
+
+            <h1>Radio in cell</h1> 
             <kup-data-table lazy-load-rows="false" id="temp-data-table-radio"></kup-data-table>
 
             <h1>Order grouped rows</h1>
@@ -98,7 +104,7 @@
             <kup-data-table lazy-load-rows="false" id="temp-data-table-test-data-type" show-filters></kup-data-table>
 
             <h1>temp test data type 2</h1>
-            <kup-data-table lazy-load-rows="false" id="temp-data-table-test-data-type2" rowsPerPage="100" show-filters></kup-data-table>
+            <kup-data-table lazy-load-rows="false" id="temp-data-table-test-data-type2" scroll-on-hover rows-per-page="100" show-filters></kup-data-table>
 
             <h1>No data</h1>
             <kup-data-table lazy-load-rows="false" density="small" show-load-more></kup-data-table>
@@ -108,6 +114,8 @@
                 id="only-cols"
                 paginator-pos="Both"
                 lazy-load-rows="false"
+                drop-enabled
+                drag-enabled
             ></kup-data-table>
 
             <h1>Columns and rows</h1>
@@ -117,17 +125,21 @@
                     enable-sortable-columns
                     drag-enabled
                     lazy-load-rows="false"
+                    show-footer
+                    show-groups
                 ></kup-data-table
             ></div>
 
             <h1>Columns and rows with removable columns</h1>
             <div style="width: 800px;">
                 <kup-data-table
+                    multi-selection
                     id="basic-data-rem-cols"
                     enable-sortable-columns
                     lazy-load-rows="false"
                     removable-columns="true"
                     drop-enabled
+                    show-footer
                 ></kup-data-table
             ></div>
 
@@ -187,7 +199,7 @@
             <kup-data-table lazy-load-rows="false" id="totals-test"></kup-data-table>
 
             <h1>Average test</h1>
-            <kup-data-table lazy-load-rows="false" id="average-test" expand-groups></kup-data-table>
+            <kup-data-table lazy-load-rows="false" id="average-test" expand-groups show-groups></kup-data-table>
 
             <h1>Math Formulas test</h1>
             <kup-data-table lazy-load-rows="false" id="math-test" expand-groups></kup-data-table>

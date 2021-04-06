@@ -33,7 +33,7 @@ export default {
           description:
             'Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization',
           type: 'string',
-          default: 'undefined',
+          default: '""',
           try: 'css',
         },
         {
@@ -140,6 +140,14 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'isFocusable',
+          description:
+            'When set to true, clicked-on rows will have a visual feedback.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'lazyLoadRows',
           description:
             'When set to true, extra rows will be automatically loaded once the last row enters the viewport. When groups are present, the number of rows is referred to groups and not to their content.',
@@ -202,6 +210,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'removableColumns',
+          description: 'Sets the possibility to remove the selected column.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'rowActions',
           description: 'Sets the actions of the rows.',
           type: 'rowAction[]',
@@ -215,7 +230,6 @@ export default {
           default: '10',
           try: 'field',
         },
-
         {
           prop: 'scrollOnHover',
           description:
@@ -249,6 +263,13 @@ export default {
         {
           prop: 'showFilters',
           description: 'When set to true enables the column filters.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
+          prop: 'showFooter',
+          description: 'When set to true shows the footer.',
           type: 'boolean',
           default: 'false',
           try: 'switch',
@@ -330,6 +351,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'tooltipEnabled',
+          description: 'Enable tooltip.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'tooltipLoadTimeout',
           description: 'Defines the timeout for tooltip load.',
           type: 'number',
@@ -346,14 +374,39 @@ export default {
       ],
       demoClasses: [
         {
-          class: 'kup-secondary-color',
+          class: 'kup-cross-selection',
+          description:
+            'The selected cell will be highlighted by a cross-selection between its row and its column.',
+        },
+        {
+          class: 'kup-danger',
+          description:
+            'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-info',
+          description:
+            'The component will be rendered using the informational color of the app.',
+        },
+        {
+          class: 'kup-layout-fixed',
+          description:
+            'Sets a fixed layout to improve performances (specifically when using Google Chrome, becasue every scroll triggers a repaint).',
+        },
+        {
+          class: 'kup-secondary',
           description:
             'The component will be rendered using the secondary color of the app.',
         },
         {
-          class: 'layout-fixed',
+          class: 'kup-success',
           description:
-            'Sets a fixed layout to improve performances (especially when using Google Chrome).',
+            'The component will be rendered using the success color of the app.',
+        },
+        {
+          class: 'kup-warning',
+          description:
+            'The component will be rendered using the warning color of the app.',
         },
       ],
     };
@@ -367,6 +420,7 @@ function createComp() {
   comp.groupLabelDisplay = 'both';
   comp.headerIsPersistent = true;
   comp.id = 'demo-component';
+  comp.enableSortableColumns = true;
   comp.loadMoreLimit = '1000';
   comp.loadMoreStep = '60';
   comp.paginatorPos = 'Top';
@@ -376,6 +430,7 @@ function createComp() {
   comp.sortableColumnsMutateData = true;
   comp.sortEnabled = true;
   comp.showTooltipOnRightClick = true;
+  comp.tooltipEnabled = true;
   return comp;
 }
 </script>

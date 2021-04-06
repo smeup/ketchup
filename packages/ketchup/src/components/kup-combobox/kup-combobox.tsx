@@ -1,24 +1,28 @@
 import {
     Component,
+    Event,
+    EventEmitter,
     Prop,
     Element,
     Host,
-    Event,
-    EventEmitter,
     State,
     h,
-    Listen,
     Method,
-    Watch,
+    Listen,
 } from '@stencil/core';
-
-import { positionRecalc } from '../../utils/recalc-position';
+import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
+import type { GenericObject } from '../../types/GenericTypes';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 import {
     ItemsDisplayMode,
     consistencyCheck,
 } from '../kup-list/kup-list-declarations';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import { FTextField } from '../../f-components/f-text-field/f-text-field';
+import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc';
+import { KupComboboxProps } from './kup-combobox-declarations';
 
 @Component({
     tag: 'kup-combobox',
@@ -28,12 +32,13 @@ import { logLoad, logRender } from '../../utils/debug-manager';
 export class KupCombobox {
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
+    @State() displayedValue: string = undefined;
     @State() value: string = '';
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * Props of the sub-components (date input text field).
      */
@@ -59,10 +64,14 @@ export class KupCombobox {
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
 
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
     private elStyle: any = undefined;
     private listEl: any = undefined;
-    private displayedValue: string = undefined;
-    private textfieldEl: any = undefined;
+    private textfieldWrapper: HTMLElement = undefined;
+    private textfieldEl: HTMLInputElement | HTMLTextAreaElement = undefined;
 
     /**
      * Event example.
@@ -95,6 +104,7 @@ export class KupCombobox {
         bubbles: true,
     })
     kupClick: EventEmitter<{
+        id: string;
         value: any;
     }>;
 
@@ -135,6 +145,7 @@ export class KupCombobox {
         bubbles: true,
     })
     kupItemClick: EventEmitter<{
+        id: string;
         value: any;
     }>;
 
@@ -174,19 +185,19 @@ export class KupCombobox {
     }
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
     }
 
     @Method()
     async setFocus() {
-        this.textfieldEl.setFocus();
+        this.textfieldEl.focus();
     }
 
     @Method()
     async setValue(value: string) {
         this.value = value;
-        this.textfieldEl.setValue(value);
+        this.consistencyCheck(undefined, value);
     }
 
     onKupBlur() {
@@ -196,12 +207,32 @@ export class KupCombobox {
         });
     }
 
-    onKupChange(e: CustomEvent) {
-        //this.value = e.detail.value;
-        this.consistencyCheck(null, e.detail.value);
+    onKupChange(e: UIEvent & { target: HTMLInputElement }) {
+        this.consistencyCheck(null, e.target.value);
         this.kupChange.emit({
             value: this.value,
         });
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupComboboxProps;
+        } else {
+            for (const key in KupComboboxProps) {
+                if (
+                    Object.prototype.hasOwnProperty.call(KupComboboxProps, key)
+                ) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     onKupClick(e: UIEvent & { target: HTMLInputElement }) {
@@ -216,6 +247,7 @@ export class KupCombobox {
         }
 
         this.kupClick.emit({
+            id: this.rootElement.id,
             value: target.value,
         });
     }
@@ -227,9 +259,8 @@ export class KupCombobox {
         });
     }
 
-    onKupInput(e: CustomEvent) {
-        //this.value = e.detail.value;
-        this.consistencyCheck(null, e.detail.value);
+    onKupInput(e: UIEvent & { target: HTMLInputElement }) {
+        this.consistencyCheck(null, e.target.value);
         this.kupInput.emit({
             value: this.value,
         });
@@ -238,7 +269,7 @@ export class KupCombobox {
     onKupIconClick(event: UIEvent & { target: HTMLInputElement }) {
         const { target } = event;
 
-        if (this.textfieldEl.classList.contains('toggled')) {
+        if (this.textfieldWrapper.classList.contains('toggled')) {
             this.closeList();
         } else {
             this.openList();
@@ -257,39 +288,28 @@ export class KupCombobox {
         });
 
         this.kupItemClick.emit({
+            id: this.rootElement.id,
             value: this.value,
         });
     }
 
-    onKupTextFieldSubmit(event: CustomEvent) {
-        this.kupChange.emit({
-            value: event.detail.value,
-        });
-        this.kupTextFieldSubmit.emit({
-            value: event.detail.value,
-        });
-    }
-
     openList() {
-        let textFieldWidth = this.textfieldEl.shadowRoot.querySelector(
-            '.mdc-text-field'
-        ).clientWidth;
-        this.textfieldEl.classList.add('toggled');
-        this.textfieldEl['icon'] = 'arrow_drop_up';
-        this.textfieldEl.emitSubmitEventOnEnter = false;
+        this.textfieldWrapper.classList.add('toggled');
         this.listEl.menuVisible = true;
-        this.listEl.classList.add('dynamic-position-active');
+        this.kupManager.dynamicPosition.start(
+            this.listEl as DynamicallyPositionedElement
+        );
         let elStyle: any = this.listEl.style;
         elStyle.height = 'auto';
-        elStyle.minWidth = textFieldWidth + 'px';
+        elStyle.minWidth = this.textfieldWrapper.clientWidth + 'px';
     }
 
     closeList() {
-        this.textfieldEl.classList.remove('toggled');
-        this.textfieldEl['icon'] = 'arrow_drop_down';
-        this.textfieldEl.emitSubmitEventOnEnter = true;
+        this.textfieldWrapper.classList.remove('toggled');
         this.listEl.menuVisible = false;
-        this.listEl.classList.remove('dynamic-position-active');
+        this.kupManager.dynamicPosition.stop(
+            this.listEl as DynamicallyPositionedElement
+        );
     }
 
     isListOpened(): boolean {
@@ -300,7 +320,6 @@ export class KupCombobox {
         let ret = consistencyCheck(
             valueIn,
             this.data['kup-list'],
-            this.textfieldEl,
             this.listEl,
             this.selectMode,
             this.displayMode,
@@ -310,33 +329,6 @@ export class KupCombobox {
         this.displayedValue = ret.displayedValue;
     }
 
-    prepTextfield() {
-        let textfieldData = { ...this.data['kup-text-field'] };
-
-        if (!textfieldData['icon']) {
-            textfieldData['icon'] = 'arrow_drop_down';
-        }
-        if (textfieldData['trailingIcon'] === undefined) {
-            textfieldData['trailingIcon'] = true;
-        }
-
-        return (
-            <kup-text-field
-                {...textfieldData}
-                disabled={this.disabled}
-                id={this.rootElement.id + '_text-field'}
-                initialValue={this.displayedValue}
-                onKupTextFieldChange={(e: any) => this.onKupChange(e)}
-                onKupTextFieldClick={(e: any) => this.onKupClick(e)}
-                onKupTextFieldFocus={(e: any) => this.onKupFocus(e)}
-                onKupTextFieldInput={(e: any) => this.onKupInput(e)}
-                onKupTextFieldIconClick={(e: any) => this.onKupIconClick(e)}
-                onKupTextFieldSubmit={(e: any) => this.onKupTextFieldSubmit(e)}
-                ref={(el) => (this.textfieldEl = el as any)}
-            ></kup-text-field>
-        );
-    }
-
     prepList() {
         return (
             <kup-list
@@ -344,17 +336,57 @@ export class KupCombobox {
                 displayMode={this.displayMode}
                 is-menu
                 onKupListClick={(e) => this.onKupItemClick(e)}
-                id={this.rootElement.id + '_list'}
                 ref={(el) => (this.listEl = el as any)}
             ></kup-list>
         );
     }
 
+    private setEvents() {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const f: HTMLElement = root.querySelector('.f-text-field--wrapper');
+            if (f) {
+                const inputEl:
+                    | HTMLInputElement
+                    | HTMLTextAreaElement = root.querySelector(
+                    '.mdc-text-field__input'
+                );
+                const icon: HTMLElement = root.querySelector(
+                    '.mdc-text-field__icon'
+                );
+                if (inputEl) {
+                    inputEl.onchange = (
+                        e: UIEvent & { target: HTMLInputElement }
+                    ) => this.onKupChange(e);
+                    inputEl.onclick = (
+                        e: MouseEvent & { target: HTMLInputElement }
+                    ) => this.onKupClick(e);
+                    inputEl.onfocus = (
+                        e: FocusEvent & { target: HTMLInputElement }
+                    ) => this.onKupFocus(e);
+                    inputEl.oninput = (
+                        e: UIEvent & { target: HTMLInputElement }
+                    ) => this.onKupInput(e);
+                    this.textfieldWrapper = inputEl.closest(
+                        '.f-text-field--wrapper'
+                    );
+                    this.textfieldEl = inputEl;
+                }
+                if (icon) {
+                    icon.onclick = (
+                        e: MouseEvent & { target: HTMLInputElement }
+                    ) => this.onKupIconClick(e);
+                }
+                FTextFieldMDC(f);
+            }
+        }
+    }
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
         this.value = this.initialValue;
         if (!this.data) {
             this.data = {
@@ -366,50 +398,64 @@ export class KupCombobox {
 
     componentDidLoad() {
         this.consistencyCheck(undefined, this.value);
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        positionRecalc(this.listEl, this.textfieldEl);
-        logRender(this, true);
+        this.setEvents();
+        this.kupManager.dynamicPosition.register(
+            this.listEl,
+            this.textfieldWrapper
+        );
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
-        let hostClass: Record<string, boolean> = {};
-
-        if (
-            this.data &&
-            this.data['kup-text-field'] &&
-            this.data['kup-text-field']['className'] &&
-            this.data['kup-text-field']['className'].indexOf('full-height') > -1
-        ) {
-            hostClass['full-height'] = true;
-        }
-
-        if (
-            this.data &&
-            this.data['kup-text-field'] &&
-            this.data['kup-text-field']['fullWidth']
-        ) {
-            hostClass['full-width'] = true;
-        }
+        const fullHeight: boolean = this.rootElement.classList.contains(
+            'kup-full-height'
+        );
+        const fullWidth: boolean = this.rootElement.classList.contains(
+            'kup-full-width'
+        );
 
         return (
             <Host
-                class={hostClass}
+                class={`${fullHeight ? 'kup-full-height' : ''} ${
+                    fullWidth ? 'kup-full-width' : ''
+                }`}
                 onBlur={() => this.onKupBlur()}
                 style={this.elStyle}
             >
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component" style={this.elStyle}>
-                    {this.prepTextfield()}
+                    <FTextField
+                        {...this.data['kup-text-field']}
+                        disabled={this.disabled}
+                        fullHeight={fullHeight}
+                        fullWidth={fullWidth}
+                        icon="--kup-expanded-icon"
+                        trailingIcon={true}
+                        value={this.displayedValue}
+                    />
                     {this.prepList()}
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
+        const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
+            '.dynamic-position'
+        );
+        if (dynamicPositionElements.length > 0) {
+            this.kupManager.dynamicPosition.unregister(
+                Array.prototype.slice.call(dynamicPositionElements)
+            );
+        }
     }
 }

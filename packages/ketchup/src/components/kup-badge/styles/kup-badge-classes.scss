@@ -1,0 +1,26 @@
+/*-------------------------------------------------*/
+/*        C o m p o n e n t   C l a s s e s        */
+/*-------------------------------------------------*/
+:host(.kup-top-right) {
+  top: 0;
+  right: 0;
+  bottom: unset;
+  left: unset;
+  transform: translate(50%, -50%);
+}
+
+:host(.kup-bottom-right) {
+  top: unset;
+  right: 0;
+  bottom: 0;
+  left: unset;
+  transform: translate(50%, 50%);
+}
+
+:host(.kup-bottom-left) {
+  top: unset;
+  right: unset;
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, 50%);
+}

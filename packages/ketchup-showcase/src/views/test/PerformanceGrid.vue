@@ -6,10 +6,15 @@
 
 <script>
 import { baseData } from '@/mock/chart';
+document.documentElement['ketchupInit'] = { debug: { active: true } };
 
 export default {
   name: 'PerformanceGrid',
   mounted() {
+    const dom = document.documentElement;
+    if (dom.ketchup) {
+      dom.ketchup.debug.toggle(true);
+    }
     let wrapper = document.querySelector('#performance-wrapper');
     let comp = document.createElement('kup-grid');
     for (let index = 0; index < 300; index++) {

@@ -8,7 +8,7 @@
 | Property                 | Attribute               | Description                                                                                                                                          | Type                                                                                                     | Default                        |
 | ------------------------ | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | `callBackOnFilterUpdate` | --                      | Function that can be invoked when the filter is updated, but only if in serverHandledFilter mode. It returns the items filtered.                     | `(detail: { filter: string; matchesMinimumCharsRequired: boolean; el: EventTarget; }) => Promise<any[]>` | `undefined`                    |
-| `customStyle`            | `custom-style`          | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                      | `string`                                                                                                 | `undefined`                    |
+| `customStyle`            | `custom-style`          | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                      | `string`                                                                                                 | `''`                           |
 | `data`                   | --                      | Props of the sub-components.                                                                                                                         | `Object`                                                                                                 | `undefined`                    |
 | `disabled`               | `disabled`              | Defaults at false. When set to true, the component is disabled.                                                                                      | `boolean`                                                                                                | `false`                        |
 | `displayMode`            | `display-mode`          | Sets how the show the selected item value. Suported values: "code", "description", "both".                                                           | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`         | `ItemsDisplayMode.DESCRIPTION` |
@@ -35,6 +35,16 @@
 
 ## Methods
 
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
+
 ### `getValue() => Promise<string>`
 
 
@@ -42,16 +52,6 @@
 #### Returns
 
 Type: `Promise<string>`
-
-
-
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
 
 
 
@@ -75,6 +75,16 @@ Type: `Promise<void>`
 
 
 
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 
 ## Dependencies
 
@@ -84,13 +94,11 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [kup-text-field](../kup-text-field)
 - [kup-list](../kup-list)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-autocomplete --> kup-text-field
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox

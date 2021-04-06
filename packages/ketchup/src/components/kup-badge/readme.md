@@ -7,7 +7,7 @@
 
 | Property      | Attribute      | Description                                                                                                     | Type     | Default     |
 | ------------- | -------------- | --------------------------------------------------------------------------------------------------------------- | -------- | ----------- |
-| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string` | `undefined` |
+| `customStyle` | `custom-style` | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization | `string` | `''`        |
 | `imageData`   | --             | The data of the image displayed inside the badge.                                                               | `{}`     | `undefined` |
 | `text`        | `text`         | The text displayed inside the badge.                                                                            | `string` | `undefined` |
 
@@ -21,7 +21,17 @@
 
 ## Methods
 
-### `refreshCustomStyle(customStyleTheme: string) => Promise<void>`
+### `getProps(descriptions?: boolean) => Promise<GenericObject>`
+
+Used to retrieve component's props values.
+
+#### Returns
+
+Type: `Promise<GenericObject>`
+
+
+
+### `themeChangeCallback(customStyleTheme: string) => Promise<void>`
 
 
 
@@ -36,19 +46,30 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-badge](.)
  - [kup-box](../kup-box)
+ - [kup-button](../kup-button)
+ - [kup-card](../kup-card)
+ - [kup-chip](../kup-chip)
+ - [kup-data-table](../kup-data-table)
  - [kup-image](../kup-image)
+ - [kup-paginator](../kup-paginator)
 
 ### Depends on
 
-- [kup-image](../kup-image)
+- [kup-badge](.)
 
 ### Graph
 ```mermaid
 graph TD;
-  kup-badge --> kup-image
-  kup-image --> kup-badge
+  kup-badge --> kup-badge
   kup-box --> kup-badge
+  kup-button --> kup-badge
+  kup-card --> kup-badge
+  kup-chip --> kup-badge
+  kup-data-table --> kup-badge
+  kup-image --> kup-badge
+  kup-paginator --> kup-badge
   style kup-badge fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

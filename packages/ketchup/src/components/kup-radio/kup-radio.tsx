@@ -11,9 +11,12 @@ import {
 } from '@stencil/core';
 import { MDCRadio } from '@material/radio';
 import { MDCFormField } from '@material/form-field';
-import { ComponentRadioElement } from './kup-radio-declarations';
-import { setThemeCustomStyle, setCustomStyle } from '../../utils/theme-manager';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import type { GenericObject } from '../../types/GenericTypes';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
+import { ComponentRadioElement, KupRadioProps } from './kup-radio-declarations';
 
 @Component({
     tag: 'kup-radio',
@@ -31,7 +34,7 @@ export class KupRadio {
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
      */
-    @Prop() customStyle: string = undefined;
+    @Prop() customStyle: string = '';
     /**
      * List of elements.
      */
@@ -48,6 +51,11 @@ export class KupRadio {
      * Defaults at null. It's the name that binds the radio buttons together.
      */
     @Prop() name: string = 'radio-list';
+
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
 
     @Event({
         eventName: 'kupRadioBlur',
@@ -107,8 +115,27 @@ export class KupRadio {
     //---- Methods ----
 
     @Method()
-    async refreshCustomStyle(customStyleTheme: string) {
+    async themeChangeCallback(customStyleTheme: string) {
         this.customStyleTheme = customStyleTheme;
+    }
+    /**
+     * Used to retrieve component's props values.
+     * @param {boolean} descriptions - When provided and true, the result will be the list of props with their description.
+     * @returns {Promise<GenericObject>} List of props as object, each key will be a prop.
+     */
+    @Method()
+    async getProps(descriptions?: boolean): Promise<GenericObject> {
+        let props: GenericObject = {};
+        if (descriptions) {
+            props = KupRadioProps;
+        } else {
+            for (const key in KupRadioProps) {
+                if (Object.prototype.hasOwnProperty.call(KupRadioProps, key)) {
+                    props[key] = this[key];
+                }
+            }
+        }
+        return props;
     }
 
     onKupBlur(event: UIEvent & { target: HTMLInputElement }) {
@@ -154,16 +181,16 @@ export class KupRadio {
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
-        setThemeCustomStyle(this);
+        this.kupManager.debug.logLoad(this, false);
+        this.kupManager.theme.register(this);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
@@ -179,7 +206,7 @@ export class KupRadio {
                 formField.input = component;
             }
         }
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
@@ -243,11 +270,15 @@ export class KupRadio {
 
         return (
             <Host style={hostStyle}>
-                <style>{setCustomStyle(this)}</style>
+                <style>{this.kupManager.theme.setCustomStyle(this)}</style>
                 <div id="kup-component">
                     <div class={wrapperClass}>{radioList}</div>
                 </div>
             </Host>
         );
+    }
+
+    componentDidUnload() {
+        this.kupManager.theme.unregister(this);
     }
 }

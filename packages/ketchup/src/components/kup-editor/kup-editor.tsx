@@ -1,5 +1,8 @@
 import { Component, Element, Prop, h } from '@stencil/core';
-import { logLoad, logRender } from '../../utils/debug-manager';
+import {
+    KupManager,
+    kupManagerInstance,
+} from '../../utils/kup-manager/kup-manager';
 
 @Component({
     tag: 'kup-editor',
@@ -14,22 +17,27 @@ export class KupEditor {
      */
     @Prop() text: string = '';
 
+    /**
+     * Instance of the KupManager class.
+     */
+    private kupManager: KupManager = kupManagerInstance();
+
     //---- Lifecycle hooks ----
 
     componentWillLoad() {
-        logLoad(this, false);
+        this.kupManager.debug.logLoad(this, false);
     }
 
     componentDidLoad() {
-        logLoad(this, true);
+        this.kupManager.debug.logLoad(this, true);
     }
 
     componentWillRender() {
-        logRender(this, false);
+        this.kupManager.debug.logRender(this, false);
     }
 
     componentDidRender() {
-        logRender(this, true);
+        this.kupManager.debug.logRender(this, true);
     }
 
     render() {
