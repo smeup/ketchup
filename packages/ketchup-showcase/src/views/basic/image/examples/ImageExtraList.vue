@@ -203,6 +203,14 @@
             ></kup-image>
             <div class="icon-label">arrow-up-bold</div>
           </div>
+          <div class="icon-wrapper" title="asterisk">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="asterisk"
+            ></kup-image>
+            <div class="icon-label">asterisk</div>
+          </div>
           <div class="icon-wrapper" title="auto-fix">
             <kup-image
               size-x="48px"
@@ -222,6 +230,14 @@
               resource="barcode"
             ></kup-image>
             <div class="icon-label">barcode</div>
+          </div>
+          <div class="icon-wrapper" title="binoculars">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="binoculars"
+            ></kup-image>
+            <div class="icon-label">binoculars</div>
           </div>
           <div class="icon-wrapper" title="block-helper">
             <kup-image
@@ -295,6 +311,14 @@
             ></kup-image>
             <div class="icon-label">calendar-today</div>
           </div>
+          <div class="icon-wrapper" title="calendar-week">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="calendar-week"
+            ></kup-image>
+            <div class="icon-label">calendar-week</div>
+          </div>
           <div class="icon-wrapper" title="cart">
             <kup-image size-x="48px" size-y="48px" resource="cart"></kup-image>
             <div class="icon-label">cart</div>
@@ -354,6 +378,22 @@
               resource="checkbox-multiple-marked-outline"
             ></kup-image>
             <div class="icon-label">checkbox-multiple-marked-outline</div>
+          </div>
+          <div class="icon-wrapper" title="chevron-double-down">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="chevron-double-down"
+            ></kup-image>
+            <div class="icon-label">chevron-double-down</div>
+          </div>
+          <div class="icon-wrapper" title="chevron-double-up">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="chevron-double-up"
+            ></kup-image>
+            <div class="icon-label">chevron-double-up</div>
           </div>
           <div class="icon-wrapper" title="chevron-down">
             <kup-image
@@ -955,6 +995,14 @@
             ></kup-image>
             <div class="icon-label">format-strikethrough</div>
           </div>
+          <div class="icon-wrapper" title="format-subscript">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="format-subscript"
+            ></kup-image>
+            <div class="icon-label">format-subscript</div>
+          </div>
           <div class="icon-wrapper" title="format-underline">
             <kup-image
               size-x="48px"
@@ -974,6 +1022,14 @@
               resource="github"
             ></kup-image>
             <div class="icon-label">github</div>
+          </div>
+          <div class="icon-wrapper" title="glasses">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="glasses"
+            ></kup-image>
+            <div class="icon-label">glasses</div>
           </div>
           <div class="icon-wrapper" title="gmail">
             <kup-image size-x="48px" size-y="48px" resource="gmail"></kup-image>
@@ -1062,6 +1118,14 @@
               resource="lightbulb-outline"
             ></kup-image>
             <div class="icon-label">lightbulb-outline</div>
+          </div>
+          <div class="icon-wrapper" title="link-off">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="link-off"
+            ></kup-image>
+            <div class="icon-label">link-off</div>
           </div>
           <div class="icon-wrapper" title="linkedin">
             <kup-image
