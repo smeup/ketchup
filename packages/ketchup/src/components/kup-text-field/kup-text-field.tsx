@@ -111,10 +111,22 @@ export class KupTextField {
      */
     @Prop() leadingLabel: boolean = false;
     /**
+     * The HTML max attribute specifies the maximum value for the input element.
+     * Works with the following input types: number, range, date, datetime-local, month, time and week.
+     * @default null
+     */
+    @Prop() max: number = null;
+    /**
      * When set, the helper will display a character counter.
      * @default null
      */
     @Prop() maxLength: number = null;
+    /**
+     * The HTML min attribute specifies the minimum value for the input element.
+     * Works with the following input types: number, range, date, datetime-local, month, time and week.
+     * @default null
+     */
+    @Prop() min: number = null;
     /**
      * When set to true, the component will be rendered as an outlined field.
      * @default false
@@ -130,18 +142,6 @@ export class KupTextField {
      * @default null
      */
     @Prop() step: number = null;
-    /**
-     * The HTML min attribute specifies the minimum value for the input element.
-     * Works with the following input types: number, range, date, datetime-local, month, time and week.
-     * @default null
-     */
-    @Prop() min: number = null;
-    /**
-     * The HTML max attribute specifies the maximum value for the input element.
-     * Works with the following input types: number, range, date, datetime-local, month, time and week.
-     * @default null
-     */
-    @Prop() max: number = null;
     /**
      * When set to true, the component will be rendered as a textarea.
      * @default false
@@ -502,15 +502,15 @@ export class KupTextField {
             isClearable: this.isClearable,
             label: this.label,
             leadingLabel: this.leadingLabel,
+            max: this.max,
             maxLength: this.maxLength,
+            min: this.min,
             outlined: this.outlined,
             readOnly: this.readOnly,
             shaped: this.rootElement.classList.contains('kup-shaped')
                 ? true
                 : false,
             step: this.step,
-            min: this.min,
-            max: this.max,
             textArea: this.textArea,
             trailingIcon: this.trailingIcon,
             trailingLabel: this.trailingLabel,

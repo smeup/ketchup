@@ -124,8 +124,11 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                     placeholder={props.fullWidth ? props.label : undefined}
                     maxlength={props.maxLength}
                     value={props.value}
-                    onInput={(props.min !== null || props.max !== null) ?
-                        (event) => validateMinAndMax(event) : undefined}
+                    onInput={
+                        props.min !== null || props.max !== null
+                            ? (event: InputEvent) => validateMinAndMax(event)
+                            : undefined
+                    }
                 ></input>
             )}
             {props.isClearable ? (
@@ -178,17 +181,18 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
     }
 }
 
-function validateMinAndMax(event) {
-    const value = parseInt(event.currentTarget.value);
+function validateMinAndMax(event: InputEvent) {
+    const el: HTMLInputElement = event.currentTarget as HTMLInputElement;
+    const value: number = parseInt(el.value);
     if (isNaN(value)) {
         return;
     }
-    const min = parseInt(event.currentTarget.min);
-    const max = parseInt(event.currentTarget.max);
-    if (!isNaN(min) && value < min) {
-        event.currentTarget.value = min;
+    const max: number = parseInt(el.max);
+    const min: number = parseInt(el.min);
+    if (min && !isNaN(min) && value < min) {
+        el.value = min.toString();
     }
-    if (!isNaN(max) && value > max) {
-        event.currentTarget.value = max;
+    if (max && !isNaN(max) && value > max) {
+        el.value = max.toString();
     }
 }
