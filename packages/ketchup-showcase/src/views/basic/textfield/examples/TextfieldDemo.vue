@@ -150,10 +150,26 @@ export default {
           try: 'switch',
         },
         {
+          prop: 'max',
+          description:
+            'The HTML max attribute specifies the maximum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week.',
+          type: 'number',
+          default: 'null',
+          try: 'field',
+        },
+        {
           prop: 'maxLength',
           description:
             'Sets the component max length to given characters and the helper will display a character counter.',
           type: 'string',
+          default: 'null',
+          try: 'field',
+        },
+        {
+          prop: 'min',
+          description:
+            'The HTML min attribute specifies the minimum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week.',
+          type: 'number',
           default: 'null',
           try: 'field',
         },
