@@ -124,8 +124,6 @@ function setContent(props: FTextFieldProps): HTMLDivElement {
                     placeholder={props.fullWidth ? props.label : undefined}
                     maxlength={props.maxLength}
                     value={props.value}
-                    onInput={(props.min !== null || props.max !== null) ?
-                        (event) => validateMinAndMax(event) : undefined}
                 ></input>
             )}
             {props.isClearable ? (
@@ -175,20 +173,5 @@ function setHelper(props: FTextFieldProps): HTMLDivElement {
                 </div>
             );
         }
-    }
-}
-
-function validateMinAndMax(event) {
-    const value = parseInt(event.currentTarget.value);
-    if (isNaN(value)) {
-        return;
-    }
-    const min = parseInt(event.currentTarget.min);
-    const max = parseInt(event.currentTarget.max);
-    if (!isNaN(min) && value < min) {
-        event.currentTarget.value = min;
-    }
-    if (!isNaN(max) && value > max) {
-        event.currentTarget.value = max;
     }
 }

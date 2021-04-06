@@ -11,7 +11,7 @@ export class MoveOnDrag {
     activeElement: HTMLElement = null;
     activeX: number = 0;
     activeY: number = 0;
-    zIndex: number = 100;
+    zIndex: number = 200;
     #initialized: boolean = false;
     #elementDrag: (this: Document, e: Event) => any = function (e: MouseEvent) {
         const moveOnDrag: MoveOnDrag = dom.ketchup.moveOnDrag;
