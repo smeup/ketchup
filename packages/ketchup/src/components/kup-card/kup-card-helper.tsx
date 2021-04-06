@@ -73,7 +73,7 @@ export function dialogHeader(title: string): VNode {
     return (
         <div id="drag-handle" class="header-bar">
             {title ? <div class="dialog-title">{title}</div> : null}
-            <kup-button icon="clear" class="dialog-close"></kup-button>
+            <kup-button icon="clear" id="dialog-close"></kup-button>
         </div>
     );
 }
