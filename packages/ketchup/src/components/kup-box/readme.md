@@ -123,8 +123,8 @@ graph TD;
   kup-box --> kup-combobox
   kup-box --> kup-paginator
   kup-card --> kup-chip
-  kup-card --> kup-button
   kup-card --> kup-badge
+  kup-card --> kup-button
   kup-card --> kup-checkbox
   kup-card --> kup-combobox
   kup-card --> kup-date-picker

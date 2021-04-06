@@ -98,8 +98,8 @@ graph TD;
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-card --> kup-chip
-  kup-card --> kup-button
   kup-card --> kup-badge
+  kup-card --> kup-button
   kup-card --> kup-checkbox
   kup-card --> kup-combobox
   kup-card --> kup-date-picker

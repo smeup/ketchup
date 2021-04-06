@@ -1,7 +1,8 @@
 import { h, VNode } from '@stencil/core';
-import { FImage } from '../../../f-components/f-image/f-image';
-import { GenericObject } from '../../../types/GenericTypes';
 import type { KupCard } from '../kup-card';
+import type { GenericObject } from '../../../types/GenericTypes';
+import { FImage } from '../../../f-components/f-image/f-image';
+import { compList, dialogHeader } from '../kup-card-helper';
 /**
  * 1st dialog card layout, used to display information in string format.
  * @param {KupCard}  comp - Card component.
@@ -24,7 +25,7 @@ export function create1(component: KupCard): VNode {
     }
     return (
         <div class={`dialog-layout-${component.layoutNumber} dialog-element`}>
-            {prepHeader(textArray[0])}
+            {dialogHeader(textArray[0])}
             <div class="section-1">{divs}</div>
         </div>
     );
@@ -51,7 +52,7 @@ export function create2(component: KupCard): VNode {
     }
     return (
         <div class={`dialog-layout-${component.layoutNumber} dialog-element`}>
-            {textArray[0] ? prepHeader(textArray[0]) : prepHeader('')}
+            {textArray[0] ? dialogHeader(textArray[0]) : dialogHeader('')}
             {textArray[1] && textArray[2] ? (
                 <div class="section-1">
                     <div class="text label">{textArray[1]}</div>
@@ -106,81 +107,4 @@ export function create3(component: KupCard): VNode {
             </div>
         </div>
     );
-}
-/**
- * Called by the layouts method to return the header bar of the dialog.
- * @param {string} title - Title of the dialog.
- * @returns {VNode} Virtual node of the dialog's header bar.
- */
-function prepHeader(title: string): VNode {
-    return (
-        <div id="drag-handle" class="header-bar">
-            {title ? <div class="dialog-title">{title}</div> : null}
-            <kup-button icon="clear" class="dialog-close"></kup-button>
-        </div>
-    );
-}
-/**
- * This function returns a list of components.
- * @param {GenericObject[]} compArray - Components' props.
- * @param {string} compType - Components' type.
- * @returns {VNode[]} List of components.
- */
-function compList(
-    compArray: GenericObject[] | string[],
-    compType: string
-): VNode[] {
-    let list: VNode[] = [];
-    for (let index = 0; index < compArray.length; index++) {
-        if (
-            typeof compArray[0] !== 'string' &&
-            !(compArray as GenericObject[])[index].id
-        ) {
-            (compArray as GenericObject[])[index]['id'] = compType + index;
-        }
-        switch (compType) {
-            case 'button':
-                list.push(
-                    <kup-button {...(compArray as GenericObject[])[index]} />
-                );
-                break;
-            case 'checkbox':
-                list.push(
-                    <kup-checkbox {...(compArray as GenericObject[])[index]} />
-                );
-                break;
-            case 'combobox':
-                list.push(
-                    <kup-combobox {...(compArray as GenericObject[])[index]} />
-                );
-                break;
-            case 'datepicker':
-                list.push(
-                    <kup-date-picker
-                        {...(compArray as GenericObject[])[index]}
-                    />
-                );
-                break;
-            case 'text':
-                list.push(
-                    <div class="text"> {(compArray as string[])[index]}</div>
-                );
-                break;
-            case 'textfield':
-                list.push(
-                    <kup-text-field
-                        {...(compArray as GenericObject[])[index]}
-                    />
-                );
-                break;
-            case 'timepicker':
-                list.push(
-                    <kup-time-picker
-                        {...(compArray as GenericObject[])[index]}
-                    />
-                );
-                break;
-        }
-    }
-    return list;
 }

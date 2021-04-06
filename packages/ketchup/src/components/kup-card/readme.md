@@ -70,8 +70,8 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-chip](../kup-chip)
-- [kup-button](../kup-button)
 - [kup-badge](../kup-badge)
+- [kup-button](../kup-button)
 - [kup-checkbox](../kup-checkbox)
 - [kup-combobox](../kup-combobox)
 - [kup-date-picker](../kup-date-picker)
@@ -84,8 +84,8 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   kup-card --> kup-chip
-  kup-card --> kup-button
   kup-card --> kup-badge
+  kup-card --> kup-button
   kup-card --> kup-checkbox
   kup-card --> kup-combobox
   kup-card --> kup-date-picker
