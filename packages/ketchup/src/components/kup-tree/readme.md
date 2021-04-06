@@ -199,15 +199,15 @@ graph TD;
   kup-list --> kup-radio
   kup-list --> kup-checkbox
   kup-card --> kup-chip
-  kup-card --> kup-button
   kup-card --> kup-badge
-  kup-card --> kup-progress-bar
-  kup-card --> kup-chart
+  kup-card --> kup-button
   kup-card --> kup-checkbox
   kup-card --> kup-combobox
   kup-card --> kup-date-picker
   kup-card --> kup-text-field
   kup-card --> kup-time-picker
+  kup-card --> kup-progress-bar
+  kup-card --> kup-chart
   kup-combobox --> kup-list
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
