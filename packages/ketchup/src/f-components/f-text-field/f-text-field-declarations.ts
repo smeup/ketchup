@@ -12,6 +12,8 @@ export interface FTextFieldProps extends FComponent {
     initialValue?: string;
     inputType?: string;
     step?: number;
+    min?: number;
+    max?: number;
     isClearable?: boolean;
     label?: string;
     leadingLabel?: boolean;

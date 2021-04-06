@@ -295,10 +295,10 @@ export class KupCard {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const card: HTMLElement = this.rootElement as HTMLElement;
-            const headerBar: HTMLElement = root.querySelector('#header-bar');
+            const dragHandle: HTMLElement = root.querySelector('#drag-handle');
             if (!this.kupManager.moveOnDrag.isRegistered(card)) {
-                if (headerBar) {
-                    this.kupManager.moveOnDrag.register(card, headerBar);
+                if (dragHandle) {
+                    this.kupManager.moveOnDrag.register(card, dragHandle);
                 } else {
                     this.kupManager.moveOnDrag.register(card);
                 }

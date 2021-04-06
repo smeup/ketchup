@@ -1,5 +1,8 @@
 import type { KupCard } from '../../components/kup-card/kup-card';
-import { CardData } from '../../components/kup-card/kup-card-declarations';
+import {
+    CardData,
+    CardFamily,
+} from '../../components/kup-card/kup-card-declarations';
 import { ComponentListElement } from '../../components/kup-list/kup-list-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
@@ -194,7 +197,8 @@ export class KupDebug {
         debugWindow.customStyle =
             '#kup-debug-log-limit {width: 120px;} #kup-debug-theme-changer {width: 190px;}';
         debugWindow.id = 'kup-debug-window';
-        debugWindow.layoutNumber = 13;
+        debugWindow.layoutFamily = CardFamily.DIALOG;
+        debugWindow.layoutNumber = 3;
         debugWindow.sizeX = 'auto';
         debugWindow.sizeY = 'auto';
         debugWindow.addEventListener('kupCardEvent', (e: CustomEvent) =>

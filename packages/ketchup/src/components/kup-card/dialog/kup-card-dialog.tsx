@@ -1,5 +1,8 @@
 import { h, VNode } from '@stencil/core';
 import type { KupCard } from '../kup-card';
+import type { GenericObject } from '../../../types/GenericTypes';
+import { FImage } from '../../../f-components/f-image/f-image';
+import { compList, dialogHeader } from '../kup-card-helper';
 /**
  * 1st dialog card layout, used to display information in string format.
  * @param {KupCard}  comp - Card component.
@@ -22,7 +25,7 @@ export function create1(component: KupCard): VNode {
     }
     return (
         <div class={`dialog-layout-${component.layoutNumber} dialog-element`}>
-            {prepHeader(textArray[0])}
+            {dialogHeader(textArray[0])}
             <div class="section-1">{divs}</div>
         </div>
     );
@@ -49,7 +52,7 @@ export function create2(component: KupCard): VNode {
     }
     return (
         <div class={`dialog-layout-${component.layoutNumber} dialog-element`}>
-            {textArray[0] ? prepHeader(textArray[0]) : prepHeader('')}
+            {textArray[0] ? dialogHeader(textArray[0]) : dialogHeader('')}
             {textArray[1] && textArray[2] ? (
                 <div class="section-1">
                     <div class="text label">{textArray[1]}</div>
@@ -61,15 +64,47 @@ export function create2(component: KupCard): VNode {
     );
 }
 /**
- * Called by the layouts method to return the header bar of the dialog.
- * @param {string} title - Title of the dialog.
- * @returns {VNode} Virtual node of the dialog's header bar.
+ * 3rd dialog card layout, buttons and text lines, used for debug window.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} 1st standard layout virtual node.
  */
-function prepHeader(title: string): VNode {
+export function create3(component: KupCard): VNode {
+    //Action buttons
+    const buttonArray: GenericObject[] = component.data['button']
+        ? component.data['button']
+        : [];
+    //Combobox list
+    const comboboxArray: GenericObject[] = component.data['combobox']
+        ? component.data['combobox']
+        : [];
+    //String list
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
+    //Textfield list
+    const textfieldArray: GenericObject[] = component.data['textfield']
+        ? component.data['textfield']
+        : [];
     return (
-        <div id="header-bar">
-            {title ? <div id="dialog-title">{title}</div> : null}
-            <kup-button icon="clear" id="dialog-close"></kup-button>
+        <div class={`dialog-layout-${component.layoutNumber}`}>
+            <div>
+                {buttonArray.length > 0 || textfieldArray.length > 0 ? (
+                    <div class="section-1">
+                        <FImage
+                            id="drag-handle"
+                            resource="drag_handle"
+                            sizeX="32px"
+                            sizeY="32px"
+                        />
+                        {compList(buttonArray, 'button')}
+                        {compList(textfieldArray, 'textfield')}
+                        {compList(comboboxArray, 'combobox')}
+                    </div>
+                ) : null}
+                {textArray.length > 0 ? (
+                    <div class="section-2">{compList(textArray, 'text')}</div>
+                ) : null}
+            </div>
         </div>
     );
 }
