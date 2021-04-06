@@ -1797,10 +1797,20 @@ export namespace Components {
          */
         "leadingLabel": boolean;
         /**
+          * The HTML max attribute specifies the maximum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week.
+          * @default null
+         */
+        "max": number;
+        /**
           * When set, the helper will display a character counter.
           * @default null
          */
         "maxLength": number;
+        /**
+          * The HTML min attribute specifies the minimum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week.
+          * @default null
+         */
+        "min": number;
         /**
           * When set to true, the component will be rendered as an outlined field.
           * @default false
@@ -4334,10 +4344,20 @@ declare namespace LocalJSX {
          */
         "leadingLabel"?: boolean;
         /**
+          * The HTML max attribute specifies the maximum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week.
+          * @default null
+         */
+        "max"?: number;
+        /**
           * When set, the helper will display a character counter.
           * @default null
          */
         "maxLength"?: number;
+        /**
+          * The HTML min attribute specifies the minimum value for the input element. Works with the following input types: number, range, date, datetime-local, month, time and week.
+          * @default null
+         */
+        "min"?: number;
         /**
           * Triggered when the input element loses focus.
          */
