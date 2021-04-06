@@ -66,13 +66,13 @@ graph TD;
   kup-card --> kup-chip
   kup-card --> kup-button
   kup-card --> kup-badge
-  kup-card --> kup-progress-bar
-  kup-card --> kup-chart
   kup-card --> kup-checkbox
   kup-card --> kup-combobox
   kup-card --> kup-date-picker
   kup-card --> kup-text-field
   kup-card --> kup-time-picker
+  kup-card --> kup-progress-bar
+  kup-card --> kup-chart
   kup-chip --> kup-badge
   kup-combobox --> kup-list
   kup-list --> kup-radio

@@ -72,13 +72,13 @@ Type: `Promise<void>`
 - [kup-chip](../kup-chip)
 - [kup-button](../kup-button)
 - [kup-badge](../kup-badge)
-- [kup-progress-bar](../kup-progress-bar)
-- [kup-chart](../kup-chart)
 - [kup-checkbox](../kup-checkbox)
 - [kup-combobox](../kup-combobox)
 - [kup-date-picker](../kup-date-picker)
 - [kup-text-field](../kup-text-field)
 - [kup-time-picker](../kup-time-picker)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-chart](../kup-chart)
 
 ### Graph
 ```mermaid
@@ -86,13 +86,13 @@ graph TD;
   kup-card --> kup-chip
   kup-card --> kup-button
   kup-card --> kup-badge
-  kup-card --> kup-progress-bar
-  kup-card --> kup-chart
   kup-card --> kup-checkbox
   kup-card --> kup-combobox
   kup-card --> kup-date-picker
   kup-card --> kup-text-field
   kup-card --> kup-time-picker
+  kup-card --> kup-progress-bar
+  kup-card --> kup-chart
   kup-chip --> kup-badge
   kup-badge --> kup-badge
   kup-button --> kup-badge
