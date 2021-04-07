@@ -23,6 +23,7 @@ import {
 } from '../kup-data-table/kup-data-table-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 import { isNumber } from '../../utils/object-utils';
+import { FImage } from '../../f-components/f-image/f-image';
 
 @Component({
     tag: 'kup-magic-box',
@@ -153,7 +154,14 @@ export class KupLazy {
         };
 
         let content: VNode[] = [];
-        if (!this.display || !hasColumns || !hasRows) {
+        if (!hasColumns && !hasRows) {
+            content.push(
+                <div class="empty">
+                    <FImage sizeY="100px" resource="move_to_inbox" />
+                    <div class="empty-text">Drop your data here.</div>
+                </div>
+            );
+        } else if (!this.display) {
             if (hasColumns) {
                 for (let index = 0; index < this.data.columns.length; index++) {
                     content.push(
