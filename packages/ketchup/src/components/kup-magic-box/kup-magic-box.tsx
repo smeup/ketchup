@@ -55,6 +55,7 @@ export class KupLazy {
      * Instance of the KupManager class.
      */
     private kupManager: KupManager = kupManagerInstance();
+    private dragHandler: HTMLElement = null;
 
     /**
      * This method is invoked by the theme manager.
@@ -120,6 +121,7 @@ export class KupLazy {
         this.rootElement.addEventListener('kup-drop', (e: CustomEvent) =>
             this.updateData(e)
         );
+        this.kupManager.moveOnDrag.register(this.rootElement, this.dragHandler);
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -260,7 +262,12 @@ export class KupLazy {
                             }
                         )}
                     >
-                        <div class="actions">
+                        <div
+                            class="actions"
+                            ref={(el: HTMLElement) => {
+                                this.dragHandler = el;
+                            }}
+                        >
                             <kup-button
                                 label="Box"
                                 onKupButtonClick={() => (this.display = 'box')}
@@ -305,6 +312,7 @@ export class KupLazy {
     }
 
     componentDidUnload() {
+        this.kupManager.moveOnDrag.unregister([this.rootElement]);
         this.kupManager.theme.unregister(this);
     }
 }
