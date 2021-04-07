@@ -269,6 +269,12 @@ export class KupLazy {
                             }}
                         >
                             <kup-button
+                                styling={FButtonStyling.FLAT}
+                                icon="json"
+                                label="Data"
+                                onKupButtonClick={() => (this.display = null)}
+                            ></kup-button>
+                            <kup-button
                                 label="Box"
                                 onKupButtonClick={() => (this.display = 'box')}
                             ></kup-button>
@@ -292,15 +298,19 @@ export class KupLazy {
                             ></kup-button>
                             <kup-button
                                 styling={FButtonStyling.FLAT}
-                                label="Data"
-                                onKupButtonClick={() => (this.display = null)}
-                            ></kup-button>
-                            <kup-button
-                                styling={FButtonStyling.FLAT}
-                                label="Clear"
+                                icon="delete"
+                                label="Reset"
                                 onKupButtonClick={() => {
                                     this.data = null;
                                     this.display = null;
+                                }}
+                            ></kup-button>
+                            <kup-button
+                                id="close-dialog"
+                                customStyle=":host{--kup-primary-color: var(--kup-title-color);}"
+                                icon="clear"
+                                onKupButtonClick={() => {
+                                    this.rootElement.remove();
                                 }}
                             ></kup-button>
                         </div>
