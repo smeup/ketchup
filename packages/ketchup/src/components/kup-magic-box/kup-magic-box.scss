@@ -1,0 +1,36 @@
+:host {
+  background-color: var(--kup-title-background-color);
+  display: block;
+  height: 500px;
+  width: 100%;
+}
+
+#kup-component,
+.magic-box-wrapper {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.actions {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+
+  kup-button {
+    margin: 0.5em;
+  }
+}
+
+.column,
+.row {
+  overflow-wrap: break-word;
+}
+
+.column {
+  font-weight: bold;
+}
+
+.row {
+  font-style: italic;
+}
