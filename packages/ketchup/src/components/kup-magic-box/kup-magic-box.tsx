@@ -223,6 +223,7 @@ export class KupLazy {
                     if (this.display === 'chart') {
                         content.push(<kup-chart {...props}></kup-chart>);
                     } else {
+                        //Echart series broken?
                         props['series'] = null;
                         content.push(<kup-echart {...props}></kup-echart>);
                     }
