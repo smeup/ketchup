@@ -2,7 +2,8 @@
   background-color: var(--kup-background-color);
   display: block;
   height: 300px;
-  width: 300px;
+  min-width: 700px;
+  width: 700px;
   transform: translateZ(0);
   resize: both;
   overflow: auto;
@@ -15,6 +16,13 @@
   overflow: auto;
 }
 
+.magic-box-wrapper {
+  border: 3px dashed var(--kup-border-color);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
 .actions {
   background-color: var(--kup-title-background-color);
   cursor: move;
@@ -24,6 +32,7 @@
   display: inline-flex;
   justify-content: center;
   width: 100%;
+  z-index: 1;
 
   kup-button {
     margin: 0.5em;
@@ -38,8 +47,6 @@
 }
 
 .content {
-  box-sizing: border-box;
-  border: 3px dashed var(--kup-border-color);
   height: 100%;
   padding-top: 52px;
 }
