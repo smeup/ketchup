@@ -153,7 +153,7 @@ export class KupLazy {
         };
 
         let content: VNode[] = [];
-        if (!this.display) {
+        if (!this.display || !hasColumns || !hasRows) {
             if (hasColumns) {
                 for (let index = 0; index < this.data.columns.length; index++) {
                     content.push(
@@ -180,6 +180,7 @@ export class KupLazy {
                     content.push(<kup-box {...props}></kup-box>);
                     break;
                 case 'chart':
+                case 'echart':
                     props['data'] = this.data;
                     props['series'] = [];
                     for (
@@ -211,7 +212,12 @@ export class KupLazy {
                             'warning'
                         );
                     }
-                    content.push(<kup-chart {...props}></kup-chart>);
+                    if (this.display === 'chart') {
+                        content.push(<kup-chart {...props}></kup-chart>);
+                    } else {
+                        props['series'] = null;
+                        content.push(<kup-echart {...props}></kup-echart>);
+                    }
                     break;
                 case 'datatable':
                     props['data'] = this.data;
@@ -257,6 +263,12 @@ export class KupLazy {
                                 }
                             ></kup-button>
                             <kup-button
+                                label="EChart"
+                                onKupButtonClick={() =>
+                                    (this.display = 'echart')
+                                }
+                            ></kup-button>
+                            <kup-button
                                 label="Table"
                                 onKupButtonClick={() =>
                                     (this.display = 'datatable')
@@ -264,7 +276,7 @@ export class KupLazy {
                             ></kup-button>
                             <kup-button
                                 styling={FButtonStyling.FLAT}
-                                label="Reset"
+                                label="Data"
                                 onKupButtonClick={() => (this.display = null)}
                             ></kup-button>
                             <kup-button
@@ -276,7 +288,7 @@ export class KupLazy {
                                 }}
                             ></kup-button>
                         </div>
-                        {content}
+                        <div class="content">{content}</div>
                     </div>
                 </div>
             </Host>
