@@ -253,7 +253,7 @@ export namespace Components {
          */
         "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
-          * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
+          * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
          */
         "styling": string;
         /**
@@ -2712,7 +2712,7 @@ declare namespace LocalJSX {
         obj: any;
     }>) => void;
         /**
-          * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
+          * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default. If set, will be valid for all sub-components.
          */
         "styling"?: string;
     }

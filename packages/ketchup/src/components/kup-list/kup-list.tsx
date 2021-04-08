@@ -9,7 +9,6 @@ import {
     h,
     Watch,
     Method,
-    getAssetPath,
 } from '@stencil/core';
 import { MDCList } from '@material/list';
 import { MDCRipple } from '@material/ripple';
@@ -327,16 +326,6 @@ export class KupList {
             item.icon != null &&
             item.icon.trim() != ''
         ) {
-            /**
-            let svg: string = `url('${getAssetPath(
-                `./assets/svg/${item.icon}.svg`
-            )}') no-repeat center`;
-            let iconStyle = {
-                mask: svg,
-                webkitMask: svg,
-            };
-            imageTag = <span style={iconStyle} class="icon-container"></span>;
-            */
             imageTag = this.getIconTag(item.icon);
         }
         let primaryTextTag = [

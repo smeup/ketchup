@@ -61,7 +61,7 @@ export class KupBtn {
      */
     @Prop() disabled: boolean = false;
     /**
-     * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.
+     * Defines the style of the buttons. Available styles are "flat" and "outlined", "raised" is the default.
      * If set, will be valid for all sub-components.
      */
     @Prop({ reflect: true }) styling: string = '';
