@@ -24,7 +24,6 @@
 
 .actions {
   background-color: var(--kup-title-background-color);
-  cursor: move;
   position: absolute;
   top: 0;
   left: 0;
@@ -36,12 +35,23 @@
   kup-button {
     margin: 0.5em;
   }
-  #close-dialog {
+
+  #close-dialog,
+  #drag-handle {
     position: absolute;
-    right: 0;
     margin: 0;
     top: 0;
     background-color: var(--kup-title-background-color);
+  }
+
+  #drag-handle {
+    cursor: move;
+    left: 0;
+    padding: 12px;
+  }
+
+  #close-dialog {
+    right: 0;
   }
 }
 

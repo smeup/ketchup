@@ -18,6 +18,7 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import {
     Column,
+    KupDataTableColumnDragType,
     KupDataTableRowDragType,
     Row,
 } from '../kup-data-table/kup-data-table-declarations';
@@ -120,6 +121,9 @@ export class KupLazy {
     componentDidLoad() {
         this.rootElement.addEventListener('kup-drop', (e: CustomEvent) =>
             this.updateData(e)
+        );
+        this.dragHandler = this.rootElement.shadowRoot.querySelector(
+            '#drag-handle'
         );
         this.kupManager.moveOnDrag.register(this.rootElement, this.dragHandler);
         this.kupManager.debug.logLoad(this, true);
@@ -252,7 +256,10 @@ export class KupLazy {
                         class="magic-box-wrapper"
                         {...setKetchupDroppable(
                             handlers,
-                            [KupDataTableRowDragType],
+                            [
+                                KupDataTableRowDragType,
+                                KupDataTableColumnDragType,
+                            ],
                             this.rootElement,
                             {
                                 row: null,
@@ -262,12 +269,14 @@ export class KupLazy {
                             }
                         )}
                     >
-                        <div
-                            class="actions"
-                            ref={(el: HTMLElement) => {
-                                this.dragHandler = el;
-                            }}
-                        >
+                        <div class="actions">
+                            <FImage
+                                color="var(--kup-title-color)"
+                                id="drag-handle"
+                                resource="drag_handle"
+                                sizeX="24px"
+                                sizeY="24px"
+                            />
                             <kup-button
                                 styling={FButtonStyling.FLAT}
                                 icon="json"
