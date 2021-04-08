@@ -311,13 +311,13 @@
             ></kup-image>
             <div class="icon-label">calendar-today</div>
           </div>
-          <div class="icon-wrapper" title="calendar-week">
+          <div class="icon-wrapper" title="calendar_week">
             <kup-image
               size-x="48px"
               size-y="48px"
-              resource="calendar-week"
+              resource="calendar_week"
             ></kup-image>
-            <div class="icon-label">calendar-week</div>
+            <div class="icon-label">calendar_week</div>
           </div>
           <div class="icon-wrapper" title="cart">
             <kup-image size-x="48px" size-y="48px" resource="cart"></kup-image>
@@ -379,21 +379,21 @@
             ></kup-image>
             <div class="icon-label">checkbox-multiple-marked-outline</div>
           </div>
-          <div class="icon-wrapper" title="chevron-double-down">
+          <div class="icon-wrapper" title="chevron_double_down">
             <kup-image
               size-x="48px"
               size-y="48px"
-              resource="chevron-double-down"
+              resource="chevron_double_down"
             ></kup-image>
-            <div class="icon-label">chevron-double-down</div>
+            <div class="icon-label">chevron_double_down</div>
           </div>
-          <div class="icon-wrapper" title="chevron-double-up">
+          <div class="icon-wrapper" title="chevron_double_up">
             <kup-image
               size-x="48px"
               size-y="48px"
-              resource="chevron-double-up"
+              resource="chevron_double_up"
             ></kup-image>
-            <div class="icon-label">chevron-double-up</div>
+            <div class="icon-label">chevron_double_up</div>
           </div>
           <div class="icon-wrapper" title="chevron-down">
             <kup-image
@@ -403,13 +403,13 @@
             ></kup-image>
             <div class="icon-label">chevron-down</div>
           </div>
-          <div class="icon-wrapper" title="chevron-up">
+          <div class="icon-wrapper" title="chevron_up">
             <kup-image
               size-x="48px"
               size-y="48px"
-              resource="chevron-up"
+              resource="chevron_up"
             ></kup-image>
-            <div class="icon-label">chevron-up</div>
+            <div class="icon-label">chevron_up</div>
           </div>
           <div class="icon-wrapper" title="chevron-right">
             <kup-image
@@ -995,13 +995,13 @@
             ></kup-image>
             <div class="icon-label">format-strikethrough</div>
           </div>
-          <div class="icon-wrapper" title="format-subscript">
+          <div class="icon-wrapper" title="format_subscript">
             <kup-image
               size-x="48px"
               size-y="48px"
-              resource="format-subscript"
+              resource="format_subscript"
             ></kup-image>
-            <div class="icon-label">format-subscript</div>
+            <div class="icon-label">format_subscript</div>
           </div>
           <div class="icon-wrapper" title="format-underline">
             <kup-image
@@ -1119,13 +1119,13 @@
             ></kup-image>
             <div class="icon-label">lightbulb-outline</div>
           </div>
-          <div class="icon-wrapper" title="link-off">
+          <div class="icon-wrapper" title="link_off">
             <kup-image
               size-x="48px"
               size-y="48px"
-              resource="link-off"
+              resource="link_off"
             ></kup-image>
-            <div class="icon-label">link-off</div>
+            <div class="icon-label">link_off</div>
           </div>
           <div class="icon-wrapper" title="linkedin">
             <kup-image
@@ -1267,13 +1267,13 @@
             ></kup-image>
             <div class="icon-label">open-in-browser</div>
           </div>
-          <div class="icon-wrapper" title="open-in-new">
+          <div class="icon-wrapper" title="open_in_new">
             <kup-image
               size-x="48px"
               size-y="48px"
-              resource="open-in-new"
+              resource="open_in_new"
             ></kup-image>
-            <div class="icon-label">open-in-new</div>
+            <div class="icon-label">open_in_new</div>
           </div>
           <div class="icon-wrapper" title="pause-circle">
             <kup-image
