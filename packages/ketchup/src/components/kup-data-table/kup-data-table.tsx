@@ -506,7 +506,7 @@ export class KupDataTable {
     /**
      * If set to true, displays the button to open the customization panel.
      */
-    @Prop() showCustomization: boolean = false;
+    @Prop() showCustomization: boolean = true;
     /**
      * When set to true enables the column filters.
      */
@@ -4315,83 +4315,36 @@ export class KupDataTable {
         );
     }
 
-    private onCustomSettingsClick(top: boolean) {
+    private onCustomSettingsClick() {
         if (!this.openedCustomSettings) {
-            this.openCustomSettings(top);
+            this.openCustomSettings();
         } else {
-            this.closeCustomSettings(top);
+            this.closeCustomSettings();
         }
     }
 
-    private openCustomSettings(top: boolean) {
-        this.closeCustomSettings(!top);
-        let elPanel = top
-            ? this.customizeTopPanelRef
-            : this.customizeBottomPanelRef;
-
-        elPanel.classList.add('visible');
+    private openCustomSettings() {
+        this.customizeTopPanelRef.classList.add('visible');
+        this.customizeTopButtonRef.classList.add('toggled');
         this.kupManager.dynamicPosition.start(
-            elPanel as DynamicallyPositionedElement
+            this.customizeTopPanelRef as DynamicallyPositionedElement
         );
         this.openedCustomSettings = true;
     }
 
-    private closeCustomSettings(top: boolean) {
-        let elPanel = top
-            ? this.customizeTopPanelRef
-            : this.customizeBottomPanelRef;
-        if (elPanel == null) {
+    private closeCustomSettings() {
+        this.customizeTopButtonRef.classList.remove('toggled');
+        if (this.customizeTopPanelRef == null) {
             return;
         }
-        elPanel.classList.remove('visible');
+        this.customizeTopPanelRef.classList.remove('visible');
         this.kupManager.dynamicPosition.stop(
-            elPanel as DynamicallyPositionedElement
+            this.customizeTopPanelRef as DynamicallyPositionedElement
         );
         this.openedCustomSettings = false;
     }
 
     private renderPaginator(top: boolean) {
-        let customizePanel: any[] = undefined;
-        let customizeButton: KupButton = undefined;
-        if (this.showCustomization) {
-            let density: HTMLElement = undefined;
-            let fontsize: HTMLElement = undefined;
-            let grid: HTMLElement = undefined;
-            if (this.openedCustomSettings) {
-                density = this.renderDensityPanel();
-                fontsize = this.renderFontSizePanel();
-                grid = this.renderGridPanel();
-            }
-            customizeButton = (
-                <kup-button
-                    class="paginator-button custom-settings"
-                    icon="settings"
-                    title="Show customization options"
-                    onKupButtonClick={() => {
-                        this.onCustomSettingsClick(top);
-                    }}
-                    ref={(el) => {
-                        top
-                            ? (this.customizeTopButtonRef = el as any)
-                            : (this.customizeBottomButtonRef = el as any);
-                    }}
-                />
-            );
-            customizePanel = (
-                <div
-                    class="kup-menu customize-panel"
-                    ref={(el) => {
-                        top
-                            ? (this.customizeTopPanelRef = el as any)
-                            : (this.customizeBottomPanelRef = el as any);
-                    }}
-                >
-                    {density}
-                    {grid}
-                    {fontsize}
-                </div>
-            );
-        }
         return (
             <div class="paginator-wrapper">
                 <div class="paginator-tabs">
@@ -4409,10 +4362,32 @@ export class KupDataTable {
                             }
                         />
                     ) : null}
-                    {customizeButton}
-                    {customizePanel}
                     {this.showLoadMore ? this.renderLoadMoreButton() : null}
                 </div>
+            </div>
+        );
+    }
+
+    renderCustomizePanel() {
+        let density: HTMLElement = undefined;
+        let fontsize: HTMLElement = undefined;
+        let grid: HTMLElement = undefined;
+        if (this.openedCustomSettings) {
+            density = this.renderDensityPanel();
+            fontsize = this.renderFontSizePanel();
+            grid = this.renderGridPanel();
+        }
+
+        return (
+            <div
+                class="kup-menu customize-panel"
+                ref={(el) => {
+                    this.customizeTopPanelRef = el as any;
+                }}
+            >
+                {density}
+                {grid}
+                {fontsize}
             </div>
         );
     }
@@ -4590,16 +4565,16 @@ export class KupDataTable {
         let textfieldData = {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
-            initialValue: this.getFontSizeDecodeFromCode(this.fontsize),
             label: 'Font size',
             icon: 'arrow_drop_down',
         };
-        let data = { 'text-field': textfieldData, list: listData };
+        let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
         return (
             <div class="customize-element fontsize-panel">
                 <kup-combobox
                     isSelect={true}
                     data={data}
+                    initialValue={this.getFontSizeDecodeFromCode(this.fontsize)}
                     onKupComboboxItemClick={(e: CustomEvent) => {
                         e.stopPropagation();
                         this.fontsize = this.getFontSizeCodeFromDecode(
@@ -4647,16 +4622,16 @@ export class KupDataTable {
         let textfieldData = {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
-            initialValue: this.getDensityDecodeFromCode(this.density),
             label: 'Row density',
             icon: 'arrow_drop_down',
         };
 
-        let data = { 'text-field': textfieldData, list: listData };
+        let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
         return (
             <div class="customize-element density-panel">
                 <kup-combobox
                     isSelect={true}
+                    initialValue={this.getDensityDecodeFromCode(this.density)}
                     selectMode={ItemsDisplayMode.DESCRIPTION}
                     data={data}
                     onKupComboboxItemClick={(e: CustomEvent) => {
@@ -4701,15 +4676,15 @@ export class KupDataTable {
         let textfieldData = {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
-            initialValue: this.getFontSizeDecodeFromCode(this.showGrid),
             label: 'Grid type',
             icon: 'arrow_drop_down',
         };
-        let data = { 'text-field': textfieldData, list: listData };
+        let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
         return (
             <div class="customize-element grid-panel">
                 <kup-combobox
                     isSelect={true}
+                    initialValue={this.getFontSizeDecodeFromCode(this.showGrid)}
                     data={data}
                     onKupComboboxItemClick={(e: CustomEvent) => {
                         e.stopPropagation();
@@ -4913,6 +4888,7 @@ export class KupDataTable {
                         ) : null}
                         {paginatorTop}
                     </div>
+                    {groupChips}
                     <div
                         style={elStyle}
                         class={belowClass}
@@ -4920,7 +4896,26 @@ export class KupDataTable {
                             (this.tableAreaRef = el as ScrollableElement)
                         }
                     >
-                        {groupChips}
+                        {this.showCustomization
+                            ? [
+                                  <div
+                                      class="settings-trigger"
+                                      onClick={() => {
+                                          this.onCustomSettingsClick();
+                                      }}
+                                      ref={(el) => {
+                                          this.customizeTopButtonRef = el as any;
+                                      }}
+                                  >
+                                      <FImage
+                                          color="var(--kup-title-color)"
+                                          resource="settings"
+                                          sizeX="10px"
+                                      />
+                                  </div>,
+                                  this.renderCustomizePanel(),
+                              ]
+                            : null}
                         <table
                             class={tableClass}
                             ref={(el: HTMLTableElement) => (this.tableRef = el)}
