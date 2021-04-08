@@ -26,7 +26,7 @@ import { FButtonStyling } from '../../f-components/f-button/f-button-declaration
 import { FImage } from '../../f-components/f-image/f-image';
 import {
     KupMagicBoxProps,
-    MagicBoxComponents,
+    MagicBoxDisplay,
     MagicBoxData,
 } from './kup-magic-box-declarations';
 
@@ -52,9 +52,9 @@ export class KupMagicBox {
     @State() customStyleTheme: string = '';
     /**
      * Data will be displayed using this component.
-     * @default MagicBoxComponents.DATATABLE
+     * @default MagicBoxDisplay.DATATABLE
      */
-    @State() display: MagicBoxComponents = MagicBoxComponents.DATATABLE;
+    @State() display: MagicBoxDisplay = MagicBoxDisplay.DATATABLE;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -132,11 +132,11 @@ export class KupMagicBox {
      */
     private comboboxProps(): GenericObject {
         const listData: ComponentListElement[] = [];
-        for (const key in MagicBoxComponents) {
-            if (Object.prototype.hasOwnProperty.call(MagicBoxComponents, key)) {
+        for (const key in MagicBoxDisplay) {
+            if (Object.prototype.hasOwnProperty.call(MagicBoxDisplay, key)) {
                 listData.push({
-                    text: MagicBoxComponents[key],
-                    value: MagicBoxComponents[key],
+                    text: MagicBoxDisplay[key],
+                    value: MagicBoxDisplay[key],
                     selected: false,
                     isSeparator: false,
                 });
@@ -183,12 +183,12 @@ export class KupMagicBox {
         } else {
             const props: GenericObject = {};
             switch (this.display) {
-                case MagicBoxComponents.BOX:
+                case MagicBoxDisplay.BOX:
                     props['data'] = this.data;
                     content.push(<kup-box {...props}></kup-box>);
                     break;
-                case MagicBoxComponents.CHART:
-                case MagicBoxComponents.ECHART:
+                case MagicBoxDisplay.CHART:
+                case MagicBoxDisplay.ECHART:
                     props['data'] = this.data;
                     props['series'] = [];
                     for (
@@ -220,7 +220,7 @@ export class KupMagicBox {
                             'warning'
                         );
                     }
-                    if (this.display === MagicBoxComponents.CHART) {
+                    if (this.display === MagicBoxDisplay.CHART) {
                         content.push(<kup-chart {...props}></kup-chart>);
                     } else {
                         //Echart series broken?
@@ -228,9 +228,17 @@ export class KupMagicBox {
                         content.push(<kup-echart {...props}></kup-echart>);
                     }
                     break;
-                case MagicBoxComponents.DATATABLE:
+                case MagicBoxDisplay.DATATABLE:
                     props['data'] = this.data;
                     content.push(<kup-data-table {...props}></kup-data-table>);
+                    break;
+                case MagicBoxDisplay.JSON:
+                    props['data'] = this.data;
+                    content.push(
+                        <pre class="json">
+                            {JSON.stringify(this.data, null, 2)}
+                        </pre>
+                    );
                     break;
                 default:
                     this.kupManager.debug.logMessage(

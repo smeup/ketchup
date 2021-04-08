@@ -18,11 +18,12 @@ export interface MagicBoxData {
     rows: Row[];
 }
 /**
- * Viable components selectable in kup-magic-box.
+ * Viable display modes selectable in kup-magic-box.
  */
-export enum MagicBoxComponents {
+export enum MagicBoxDisplay {
     BOX = 'Box',
     CHART = 'Chart',
-    ECHART = 'Echart',
     DATATABLE = 'Datatable',
+    ECHART = 'Echart',
+    JSON = 'JSON',
 }
