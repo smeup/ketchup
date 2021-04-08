@@ -257,7 +257,7 @@ export default {
           description:
             'If set to true, displays the button to open the customization panel.',
           type: 'boolean',
-          default: 'false',
+          default: 'true',
           try: 'switch',
         },
         {
@@ -426,6 +426,7 @@ function createComp() {
   comp.paginatorPos = 'Top';
   comp.rowsPerPage = '10';
   comp.showGrid = 'Row';
+  comp.showCustomization = true;
   comp.showHeader = true;
   comp.sortableColumnsMutateData = true;
   comp.sortEnabled = true;

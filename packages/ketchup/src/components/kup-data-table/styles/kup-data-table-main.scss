@@ -571,3 +571,33 @@ th.obj:hover span:not(.overlay-action) {
 .totals-value {
   font-weight: bold;
 }
+
+.settings-trigger {
+  cursor: pointer;
+  width: 32px;
+  height: 12px;
+  border-top-left-radius: 25px 30px;
+  border-top-right-radius: 25px 30px;
+  background-color: var(--kup-border-color);
+  &.toggled {
+    background-color: var(--kup-primary-color);
+    .f-image__icon {
+      background: var(--kup-text-on-primary-color) !important;
+    }
+  }
+}
+
+.customize-panel {
+  background: var(--kup-background-color);
+  box-shadow: var(--kup-box-shadow);
+  min-width: 200px;
+  width: fit-content;
+}
+
+.customize-element {
+  padding: 0 1em 1em 1em;
+}
+
+.customize-element:nth-child(1) {
+  padding-top: 1em;
+}
