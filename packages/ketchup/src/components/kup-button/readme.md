@@ -55,7 +55,6 @@ Type: `Promise<void>`
 
 ### Used by
 
- - [kup-btn](../kup-btn)
  - [kup-calendar](../kup-calendar)
  - [kup-card](../kup-card)
  - [kup-crud](../kup-crud)
@@ -79,7 +78,6 @@ Type: `Promise<void>`
 graph TD;
   kup-button --> kup-badge
   kup-badge --> kup-badge
-  kup-btn --> kup-button
   kup-calendar --> kup-button
   kup-card --> kup-button
   kup-crud --> kup-button

@@ -11,10 +11,10 @@
 | `customStyle`            | `custom-style`          | Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization                                      | `string`                                                                                                 | `''`                           |
 | `data`                   | --                      | Props of the sub-components.                                                                                                                         | `Object`                                                                                                 | `undefined`                    |
 | `disabled`               | `disabled`              | Defaults at false. When set to true, the component is disabled.                                                                                      | `boolean`                                                                                                | `false`                        |
-| `displayMode`            | `display-mode`          | Sets how the show the selected item value. Suported values: "code", "description", "both".                                                           | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`         | `ItemsDisplayMode.DESCRIPTION` |
+| `displayMode`            | `display-mode`          | Sets how to show the selected item value. Suported values: "code", "description", "both".                                                            | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`         | `ItemsDisplayMode.DESCRIPTION` |
 | `initialValue`           | `initial-value`         | Sets the initial value of the component.                                                                                                             | `string`                                                                                                 | `''`                           |
 | `minimumChars`           | `minimum-chars`         | The minimum number of chars to trigger the autocomplete                                                                                              | `number`                                                                                                 | `1`                            |
-| `selectMode`             | `select-mode`           | Sets how the return the selected item value. Suported values: "code", "description", "both".                                                         | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`         | `ItemsDisplayMode.CODE`        |
+| `selectMode`             | `select-mode`           | Sets how to return the selected item value. Suported values: "code", "description", "both".                                                          | `ItemsDisplayMode.CODE \| ItemsDisplayMode.DESCRIPTION \| ItemsDisplayMode.DESCRIPTION_AND_CODE`         | `ItemsDisplayMode.CODE`        |
 | `serverHandledFilter`    | `server-handled-filter` | When true, it will emit events to inform the listener of the change of the current filter value. Also the component builtin filter will be disabled. | `boolean`                                                                                                | `false`                        |
 
 
@@ -102,6 +102,8 @@ graph TD;
   kup-autocomplete --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-list --> kup-badge
+  kup-badge --> kup-badge
   kup-form --> kup-autocomplete
   style kup-autocomplete fill:#f9f,stroke:#333,stroke-width:4px
 ```
