@@ -198,6 +198,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-magic-box](../kup-magic-box)
  - [kup-search](../kup-search)
 
 ### Depends on
@@ -278,6 +279,7 @@ graph TD;
   kup-color-picker --> kup-text-field
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
+  kup-magic-box --> kup-data-table
   kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```

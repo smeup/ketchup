@@ -64,6 +64,7 @@ Type: `Promise<void>`
  - [kup-field](../kup-field)
  - [kup-form](../kup-form)
  - [kup-iframe](../kup-iframe)
+ - [kup-magic-box](../kup-magic-box)
  - [kup-nav-bar](../kup-nav-bar)
  - [kup-search](../kup-search)
  - [kup-time-picker](../kup-time-picker)
@@ -88,6 +89,7 @@ graph TD;
   kup-field --> kup-button
   kup-form --> kup-button
   kup-iframe --> kup-button
+  kup-magic-box --> kup-button
   kup-nav-bar --> kup-button
   kup-search --> kup-button
   kup-time-picker --> kup-button
