@@ -310,7 +310,7 @@ export class KupLazy {
                                 customStyle=":host{--kup-primary-color: var(--kup-title-color);}"
                                 icon="clear"
                                 onKupButtonClick={() => {
-                                    this.rootElement.remove();
+                                    this.kupManager.hideMagicBox();
                                 }}
                             ></kup-button>
                         </div>
