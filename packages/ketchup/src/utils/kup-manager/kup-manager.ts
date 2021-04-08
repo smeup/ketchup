@@ -55,6 +55,7 @@ export class KupManager {
         }
         this.magicBox = document.createElement('kup-magic-box');
         this.magicBox.id = 'kup-magic-box';
+        this.magicBox.style.position = 'fixed';
         this.magicBox.style.left = 'calc(50% - 350px)';
         this.magicBox.style.top = 'calc(50% - 150px)';
         document.body.append(this.magicBox);
