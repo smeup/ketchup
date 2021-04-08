@@ -1500,6 +1500,7 @@ export class KupDataTable {
      */
     private rowDetail(row: Row, x: number, y: number): void {
         const cardData: CardData = { text: ['Record details'] };
+        let columnKey: { label: string; value: string } = null;
         for (const key in row.cells) {
             if (Object.prototype.hasOwnProperty.call(row.cells, key)) {
                 const cell: Cell = row.cells[key];
@@ -1507,8 +1508,13 @@ export class KupDataTable {
                     (x) => x.name === key
                 );
                 if (column && cell) {
-                    cardData.text.push(column.title);
-                    cardData.text.push(getCellValueForDisplay(column, cell));
+                    let value: string = getCellValueForDisplay(column, cell);
+                    if (column.isKey) {
+                        columnKey = { label: column.title, value: value };
+                    } else {
+                        cardData.text.push(column.title);
+                        cardData.text.push(value);
+                    }
                 } else {
                     this.kupManager.debug.logMessage(
                         this,
@@ -1525,6 +1531,12 @@ export class KupDataTable {
         if (!this.detailCard) {
             this.detailCard = document.createElement('kup-card');
             this.detailCard.layoutFamily = CardFamily.DIALOG;
+        }
+        if (columnKey) {
+            cardData.text.splice(1, 0, columnKey.label);
+            cardData.text.splice(2, 0, columnKey.value);
+            this.detailCard.layoutNumber = 2;
+        } else {
             this.detailCard.layoutNumber = 1;
         }
         this.detailCard.data = cardData;
@@ -1555,10 +1567,10 @@ export class KupDataTable {
                 cell = td['data-cell'];
             }
             if (tr) {
+                if (tr.classList.contains('group')) {
+                    isGroupRow = true;
+                }
                 row = tr['data-row'];
-            }
-            if (tr.classList.contains('group')) {
-                isGroupRow = true;
             }
         }
         if (isHeader || isBody || isFooter) {
@@ -1611,7 +1623,7 @@ export class KupDataTable {
             }
         } else if (details.area === 'body') {
             if (
-                (this.isFocusable || e.ctrlKey) &&
+                (this.isFocusable || e.ctrlKey || e.metaKey) &&
                 details.tr &&
                 !details.isGroupRow
             ) {
@@ -1622,7 +1634,7 @@ export class KupDataTable {
                     focusEl.classList.remove('focus');
                 }
                 details.tr.classList.add('focus');
-                if (e.ctrlKey) {
+                if (e.ctrlKey || e.metaKey) {
                     this.rowDetail(details.row, e.clientX, e.clientY);
                     return;
                 }
@@ -4966,9 +4978,9 @@ export class KupDataTable {
                             tabIndex={0}
                         ></kup-card>
                     ) : null}
-                    {this.removableColumns ? this.columnRemoveArea() : null}
                     {paginatorBottom}
                 </div>
+                {this.removableColumns ? this.columnRemoveArea() : null}
             </Host>
         );
         return compCreated;
