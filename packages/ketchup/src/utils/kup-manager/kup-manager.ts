@@ -49,6 +49,9 @@ export class KupManager {
     scrollOnHover: ScrollOnHover = new ScrollOnHover();
     theme: KupTheme = new KupTheme();
 
+    /**
+     * Creates kup-magic-box component.
+     */
     showMagicBox(): void {
         if (this.magicBox) {
             return;
@@ -60,7 +63,9 @@ export class KupManager {
         this.magicBox.style.top = 'calc(50% - 150px)';
         document.body.append(this.magicBox);
     }
-
+    /**
+     * Removes kup-magic-box component.
+     */
     hideMagicBox(): void {
         if (!this.magicBox) {
             return;
@@ -68,7 +73,9 @@ export class KupManager {
         this.magicBox.remove();
         this.magicBox = null;
     }
-
+    /**
+     * Creates or removes kup-magic-box component depending on its existence.
+     */
     toggleMagicBox(): void {
         if (!this.magicBox) {
             this.showMagicBox();

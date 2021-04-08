@@ -23,6 +23,7 @@ import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
+import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
 import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
@@ -1448,9 +1449,16 @@ export namespace Components {
          */
         "customStyle": string;
         /**
-          * Sets the data of the component to be lazy loaded.
+          * Sets the data that will be used to display different components.
+          * @default null
          */
-        "data": { columns: Column[]; rows: Row[] };
+        "data": MagicBoxData;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
         /**
           * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
           * @param customStyleTheme - Contains current theme's component-specific CSS.
@@ -4009,9 +4017,10 @@ declare namespace LocalJSX {
          */
         "customStyle"?: string;
         /**
-          * Sets the data of the component to be lazy loaded.
+          * Sets the data that will be used to display different components.
+          * @default null
          */
-        "data"?: { columns: Column[]; rows: Row[] };
+        "data"?: MagicBoxData;
     }
     interface KupModal {
         "header"?: string;

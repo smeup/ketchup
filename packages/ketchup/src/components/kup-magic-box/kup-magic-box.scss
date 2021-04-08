@@ -36,6 +36,11 @@
     margin: 0.5em;
   }
 
+  #comp-switcher {
+    --kup-field-background-color: transparent;
+    margin: auto 0;
+  }
+
   #close-dialog,
   #drag-handle {
     position: absolute;
