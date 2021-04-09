@@ -4389,6 +4389,19 @@ export class KupDataTable {
                 {density}
                 {grid}
                 {fontsize}
+                <kup-switch
+                    checked={this.dragEnabled}
+                    label="Drag and drop"
+                    leadingLabel={true}
+                    onKupSwitchChange={() =>
+                        (this.dragEnabled = !this.dragEnabled)
+                    }
+                ></kup-switch>
+                <kup-button
+                    title="Toggle Magic Box (experimental feature)"
+                    icon="auto-fix"
+                    onKupButtonClick={() => this.kupManager.toggleMagicBox()}
+                />
             </div>
         );
     }

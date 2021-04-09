@@ -31,7 +31,7 @@ export class KupDebug {
             ? dom.ketchupInit.debug.logLimit
             : 250;
     logs: KupDebugLog[] = [];
-    #debugWindow: HTMLKupCardElement = null;
+    #debugWidget: HTMLKupCardElement = null;
     /**
      * Allows the download of props by creating a temporary clickable anchor element.
      */
@@ -131,16 +131,16 @@ export class KupDebug {
             this.active = value;
         }
         if (this.active) {
-            this.showWindow();
+            this.showWidget();
         } else {
-            this.hideWindow();
+            this.hideWidget();
         }
     }
     /**
-     * Creates the debugger window.
+     * Creates the debug widget.
      */
-    showWindow(): void {
-        const debugWindow: HTMLKupCardElement = document.createElement(
+    showWidget(): void {
+        const debugWidget: HTMLKupCardElement = document.createElement(
             'kup-card'
         );
         const themes: string[] = dom.ketchup.theme.getThemes();
@@ -153,7 +153,7 @@ export class KupDebug {
                 isSeparator: false,
             });
         }
-        debugWindow.data = {
+        debugWidget.data = {
             button: [
                 {
                     icon: 'power_settings_new',
@@ -165,7 +165,7 @@ export class KupDebug {
                     id: 'kup-debug-print',
                     title: 'Print logs stored',
                 },
-                { icon: 'broom', id: 'kup-debug-clear', title: 'Clear window' },
+                { icon: 'broom', id: 'kup-debug-clear', title: 'Clear widget' },
                 {
                     icon: 'delete',
                     id: 'kup-debug-delete',
@@ -178,6 +178,11 @@ export class KupDebug {
                     label: 'Props',
                     styling: 'flat',
                     title: 'Download components props',
+                },
+                {
+                    icon: 'auto-fix',
+                    id: 'kup-debug-magic-box',
+                    title: 'Toggle kup-magic-box',
                 },
             ],
             combobox: [
@@ -211,25 +216,25 @@ export class KupDebug {
                 },
             ],
         };
-        debugWindow.customStyle =
+        debugWidget.customStyle =
             '#kup-debug-log-limit {width: 120px;} #kup-debug-theme-changer {width: 190px;}';
-        debugWindow.id = 'kup-debug-window';
-        debugWindow.layoutFamily = CardFamily.DIALOG;
-        debugWindow.layoutNumber = 3;
-        debugWindow.sizeX = 'auto';
-        debugWindow.sizeY = 'auto';
-        debugWindow.addEventListener('kupCardEvent', (e: CustomEvent) =>
+        debugWidget.id = 'kup-debug-widget';
+        debugWidget.layoutFamily = CardFamily.DIALOG;
+        debugWidget.layoutNumber = 3;
+        debugWidget.sizeX = 'auto';
+        debugWidget.sizeY = 'auto';
+        debugWidget.addEventListener('kupCardEvent', (e: CustomEvent) =>
             this.handleEvents(e)
         );
-        document.body.append(debugWindow);
-        this.#debugWindow = debugWindow;
+        document.body.append(debugWidget);
+        this.#debugWidget = debugWidget;
     }
     /**
-     * Closes the debug window.
+     * Closes the debug widget.
      */
-    hideWindow() {
-        this.#debugWindow.remove();
-        this.#debugWindow = null;
+    hideWidget() {
+        this.#debugWidget.remove();
+        this.#debugWidget = null;
     }
     /**
      * Listens the card events and handles the related actions.
@@ -239,7 +244,7 @@ export class KupDebug {
         const compEvent: CustomEvent = e.detail.event;
         const compID: string = compEvent.detail.id;
         const children: HTMLCollection = Array.prototype.slice.call(
-            this.#debugWindow.children,
+            this.#debugWidget.children,
             0
         );
         switch (compEvent.type) {
@@ -249,7 +254,7 @@ export class KupDebug {
                         for (let index = 0; index < children.length; index++) {
                             children[index].remove();
                         }
-                        this.#debugWindow.refresh();
+                        this.#debugWidget.refresh();
                         break;
                     case 'kup-debug-dl-props':
                         this.getProps().then((res: GenericObject) => {
@@ -258,6 +263,9 @@ export class KupDebug {
                         break;
                     case 'kup-debug-delete':
                         this.dump();
+                        break;
+                    case 'kup-debug-magic-box':
+                        dom.ketchup.toggleMagicBox();
                         break;
                     case 'kup-debug-off':
                         this.toggle();
@@ -328,9 +336,9 @@ export class KupDebug {
                             message.innerHTML = this.logs[index].message;
                             // Append elements
                             slot.append(id, message);
-                            this.#debugWindow.append(slot);
+                            this.#debugWidget.append(slot);
                         }
-                        this.#debugWindow.refresh();
+                        this.#debugWidget.refresh();
                         break;
                 }
                 break;
