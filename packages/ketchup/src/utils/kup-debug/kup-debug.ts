@@ -7,6 +7,7 @@ import { ComponentListElement } from '../../components/kup-list/kup-list-declara
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
+    KupDebugCategory,
     KupDebugLog,
     KupDebugLogColor,
     KupDebugLogPrint,
@@ -28,7 +29,7 @@ export class KupDebug {
         dom.ketchupInit.debug &&
         dom.ketchupInit.debug.logLimit
             ? dom.ketchupInit.debug.logLimit
-            : 100;
+            : 250;
     logs: KupDebugLog[] = [];
     #debugWindow: HTMLKupCardElement = null;
     /**
@@ -289,7 +290,7 @@ export class KupDebug {
                                         this.logMessage(
                                             'kup-debug',
                                             err,
-                                            'warning'
+                                            KupDebugCategory.WARNING
                                         );
                                     }
                                 };
@@ -391,14 +392,18 @@ export class KupDebug {
                         }
                     })
                     .catch((err) =>
-                        this.logMessage('kup-debug', err, 'warning')
+                        this.logMessage(
+                            'kup-debug',
+                            err,
+                            KupDebugCategory.WARNING
+                        )
                     );
             } catch (error) {
                 this.logMessage(
                     'kup-debug',
                     'Exception when accessing "getProps" public method for component: ' +
                         el.rootElement.tagName,
-                    'warning'
+                    KupDebugCategory.WARNING
                 );
             }
         });
@@ -411,11 +416,18 @@ export class KupDebug {
      * @param {string} message - The actual message that will be printed.
      * @param {string} type - The type of console message, defaults to "log" but "warning" and "error" can be used as well.
      */
-    logMessage(comp: any, message: string, type?: string): void {
-        if ((!type || type === 'log') && !this.isDebug()) {
+    logMessage(comp: any, message: string, category?: KupDebugCategory): void {
+        if (
+            (!category || category === KupDebugCategory.INFO) &&
+            !this.isDebug()
+        ) {
             return;
         }
-        let obj: object | string;
+        const date: Date = new Date();
+        if (!category) {
+            category = KupDebugCategory.INFO;
+        }
+        let obj: object | string = null;
         let id: string = '';
         if (comp.rootElement) {
             id =
@@ -429,42 +441,40 @@ export class KupDebug {
             id = ' ' + comp + ' => ';
             obj = '';
         }
-        var date = new Date();
 
-        switch (type) {
-            case 'error':
+        if (id.indexOf('#kup-debug') < 0) {
+            const log: KupDebugLog = {
+                category: category,
+                date: date,
+                element: obj,
+                id: id,
+                message: message,
+            };
+            if (this.logs.length > this.logLimit) {
+                console.warn(
+                    this.formatDate(date) +
+                        ' kup-debug => ' +
+                        'Too many logs (> ' +
+                        this.logLimit +
+                        ')! Dumping (increase debug.logLimit to store more logs)... .'
+                );
+                this.dump();
+            }
+            this.logs.push(log);
+        }
+
+        switch (category) {
+            case KupDebugCategory.ERROR:
                 console.error(this.formatDate(date) + id + message, obj);
                 window.dispatchEvent(
                     new CustomEvent('kupError', {
                         bubbles: true,
-                        detail: { comp, date, type, message },
+                        detail: { comp, date, message },
                     })
                 );
                 break;
-            case 'warning':
+            case KupDebugCategory.WARNING:
                 console.warn(this.formatDate(date) + id + message, obj);
-                break;
-            case 'log':
-            default:
-                const log: KupDebugLog = {
-                    message: message,
-                    id: id,
-                    date: date,
-                    element: obj,
-                };
-                if (id.indexOf('#kup-debug') < 0) {
-                    if (this.logs.length > this.logLimit) {
-                        console.warn(
-                            this.formatDate(date) +
-                                ' kup-debug => ' +
-                                'Too many logs (> ' +
-                                this.logLimit +
-                                ')! Dumping (increase debug.logLimit to store more logs)... .'
-                        );
-                        this.dump();
-                    }
-                    this.logs.push(log);
-                }
                 break;
         }
     }

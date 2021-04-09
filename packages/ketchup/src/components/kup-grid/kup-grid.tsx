@@ -9,6 +9,7 @@ import {
     Method,
 } from '@stencil/core';
 import { GenericObject } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -92,7 +93,11 @@ export class KupGrid {
         let slots = this.rootElement.children;
         if (!slots || slots.length === 0) {
             let message = 'Missing slots, not rendering!';
-            this.kupManager.debug.logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
             return;
         }
 

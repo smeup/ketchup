@@ -22,6 +22,7 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { CardData, CardFamily, KupCardProps } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-card',
@@ -292,7 +293,11 @@ export class KupCard {
                 }
             }
         } catch (error) {
-            this.kupManager.debug.logMessage(this, error, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                error,
+                KupDebugCategory.WARNING
+            );
             let props = {
                 resource: 'warning',
                 title: 'Layout not yet implemented!',
@@ -467,7 +472,7 @@ export class KupCard {
             this.kupManager.debug.logMessage(
                 this,
                 'Data missing, not rendering!',
-                'warning'
+                KupDebugCategory.WARNING
             );
             return;
         }

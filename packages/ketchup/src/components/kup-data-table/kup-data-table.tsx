@@ -137,6 +137,7 @@ import { FiltersRows } from '../../utils/filters/filters-rows';
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
 import { CardData, CardFamily } from '../kup-card/kup-card-declarations';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -1523,7 +1524,7 @@ export class KupDataTable {
                             ') or cell(' +
                             cell +
                             ').',
-                        'warning'
+                        KupDebugCategory.WARNING
                     );
                 }
             }
