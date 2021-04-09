@@ -31,7 +31,7 @@ export interface KupManager {
  * Interface for the KupManager override settings.
  */
 export interface KupManagerInitialization {
-    debug: { active: boolean; logLimit: number };
+    debug: { active: boolean; autoPrint: boolean; logLimit: number };
     scrollOnHover: { delay: number; step: number };
     theme: { list: JSON; name: string };
 }

@@ -24,6 +24,12 @@ export class KupDebug {
         dom.ketchupInit && dom.ketchupInit.debug && dom.ketchupInit.debug.active
             ? dom.ketchupInit.debug.active
             : false;
+    autoPrint: boolean =
+        dom.ketchupInit &&
+        dom.ketchupInit.debug &&
+        dom.ketchupInit.debug.autoPrint
+            ? dom.ketchupInit.debug.autoPrint
+            : false;
     logLimit: number =
         dom.ketchupInit &&
         dom.ketchupInit.debug &&
@@ -47,6 +53,83 @@ export class KupDebug {
         document.body.appendChild(downloadAnchorNode);
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
+    }
+    /**
+     * Clears all the printed logs inside the debug widget.
+     */
+    private widgetClear(): void {
+        const children: HTMLCollection = Array.prototype.slice.call(
+            this.#debugWidget.children,
+            0
+        );
+        for (let index = 0; index < children.length; index++) {
+            children[index].remove();
+        }
+    }
+    /**
+     * Prints the stored logs inside the debug widget.
+     */
+    private widgetPrint(): void {
+        const slots: Array<HTMLDivElement> = [];
+        for (let index = 0; index < this.logs.length; index++) {
+            // Wrapper div
+            const slot: HTMLDivElement = document.createElement('div');
+            slot.classList.add('text');
+            switch (this.logs[index].category) {
+                case KupDebugCategory.ERROR:
+                    slot.style.backgroundColor =
+                        'rgba(var(--kup-danger-color-rgb), 0.15)';
+                    slot.style.borderLeft = '5px solid var(--kup-danger-color)';
+                    break;
+                case KupDebugCategory.WARNING:
+                    slot.style.backgroundColor =
+                        'rgba(var(--kup-warning-color-rgb), 0.15)';
+                    slot.style.borderLeft =
+                        '5px solid var(--kup-warning-color)';
+                    break;
+                case KupDebugCategory.INFO:
+                default:
+                    slot.style.borderLeft = '5px solid var(--kup-info-color)';
+                    break;
+            }
+            // If the log is tied to a KupComponent, on click its props will be downloaded.
+            // Also, a different style will be applied to distinguish it between the others.
+            if (typeof this.logs[index].element == 'object') {
+                slot.title = 'Download component props';
+                slot.style.fontWeight = 'bold';
+                slot.style.cursor = 'pointer';
+                slot.onclick = () => {
+                    try {
+                        (this.logs[index].element as KupComponent)
+                            .getProps()
+                            .then((res: GenericObject) => {
+                                this.downloadProps(res);
+                            });
+                    } catch (err) {
+                        this.logMessage(
+                            'kup-debug',
+                            err,
+                            KupDebugCategory.WARNING
+                        );
+                    }
+                };
+            }
+            // ID span
+            const id: HTMLSpanElement = document.createElement('span');
+            id.innerHTML = this.logs[index].id;
+            id.style.opacity = '0.75';
+            id.style.marginLeft = '5px';
+            // Message span
+            const message: HTMLSpanElement = document.createElement('span');
+            message.innerHTML = this.logs[index].message;
+            // Append elements
+            slot.append(id, message);
+            slots.push(slot);
+        }
+        slots.reverse();
+        for (let index = 0; index < slots.length; index++) {
+            this.#debugWidget.append(slots[index]);
+        }
     }
     /**
      * Dumps the stored logs.
@@ -158,12 +241,24 @@ export class KupDebug {
                 {
                     icon: 'power_settings_new',
                     id: 'kup-debug-off',
+                    customStyle:
+                        ':host {border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
                     title: 'Turn off debug',
                 },
                 {
                     icon: 'print',
                     id: 'kup-debug-print',
                     title: 'Print logs stored',
+                },
+                {
+                    customStyle:
+                        ':host {border-right: 1px solid var(--kup-border-color);}',
+                    checked: this.autoPrint,
+                    icon: 'speaker_notes',
+                    iconOff: 'speaker_notes_off',
+                    id: 'kup-debug-autoprint',
+                    title: 'Toggle automatic print',
+                    toggable: true,
                 },
                 { icon: 'broom', id: 'kup-debug-clear', title: 'Clear widget' },
                 {
@@ -173,6 +268,8 @@ export class KupDebug {
                 },
                 {
                     className: 'kup-full-height',
+                    customStyle:
+                        ':host {border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
                     icon: 'download',
                     id: 'kup-debug-dl-props',
                     label: 'Props',
@@ -243,17 +340,14 @@ export class KupDebug {
     handleEvents(e: CustomEvent): void {
         const compEvent: CustomEvent = e.detail.event;
         const compID: string = compEvent.detail.id;
-        const children: HTMLCollection = Array.prototype.slice.call(
-            this.#debugWidget.children,
-            0
-        );
         switch (compEvent.type) {
             case 'kupButtonClick':
                 switch (compID) {
+                    case 'kup-debug-autoprint':
+                        this.autoPrint = !this.autoPrint;
+                        break;
                     case 'kup-debug-clear':
-                        for (let index = 0; index < children.length; index++) {
-                            children[index].remove();
-                        }
+                        this.widgetClear();
                         this.#debugWidget.refresh();
                         break;
                     case 'kup-debug-dl-props':
@@ -271,73 +365,8 @@ export class KupDebug {
                         this.toggle();
                         break;
                     case 'kup-debug-print':
-                        for (let index = 0; index < children.length; index++) {
-                            children[index].remove();
-                        }
-                        for (let index = 0; index < this.logs.length; index++) {
-                            // Wrapper div
-                            const slot: HTMLDivElement = document.createElement(
-                                'div'
-                            );
-                            slot.classList.add('text');
-                            switch (this.logs[index].category) {
-                                case KupDebugCategory.ERROR:
-                                    slot.style.backgroundColor =
-                                        'rgba(var(--kup-danger-color-rgb), 0.15)';
-                                    slot.style.borderLeft =
-                                        '5px solid var(--kup-danger-color)';
-                                    break;
-                                case KupDebugCategory.WARNING:
-                                    slot.style.backgroundColor =
-                                        'rgba(var(--kup-warning-color-rgb), 0.15)';
-                                    slot.style.borderLeft =
-                                        '5px solid var(--kup-warning-color)';
-                                    break;
-                                case KupDebugCategory.INFO:
-                                default:
-                                    slot.style.borderLeft =
-                                        '5px solid var(--kup-info-color)';
-                                    break;
-                            }
-                            // If the log is tied to a KupComponent, on click its props will be downloaded.
-                            // Also, a different style will be applied to distinguish it between the others.
-                            if (typeof this.logs[index].element == 'object') {
-                                slot.title = 'Download component props';
-                                slot.style.fontWeight = 'bold';
-                                slot.style.cursor = 'pointer';
-                                slot.onclick = () => {
-                                    try {
-                                        (this.logs[index]
-                                            .element as KupComponent)
-                                            .getProps()
-                                            .then((res: GenericObject) => {
-                                                this.downloadProps(res);
-                                            });
-                                    } catch (err) {
-                                        this.logMessage(
-                                            'kup-debug',
-                                            err,
-                                            KupDebugCategory.WARNING
-                                        );
-                                    }
-                                };
-                            }
-                            // ID span
-                            const id: HTMLSpanElement = document.createElement(
-                                'span'
-                            );
-                            id.innerHTML = this.logs[index].id;
-                            id.style.opacity = '0.75';
-                            id.style.marginLeft = '5px';
-                            // Message span
-                            const message: HTMLSpanElement = document.createElement(
-                                'span'
-                            );
-                            message.innerHTML = this.logs[index].message;
-                            // Append elements
-                            slot.append(id, message);
-                            this.#debugWidget.append(slot);
-                        }
+                        this.widgetClear();
+                        this.widgetPrint();
                         this.#debugWidget.refresh();
                         break;
                 }
@@ -489,6 +518,11 @@ export class KupDebug {
                 this.dump();
             }
             this.logs.push(log);
+            if (this.autoPrint && this.#debugWidget) {
+                this.widgetClear();
+                this.widgetPrint();
+                this.#debugWidget.refresh();
+            }
         }
 
         switch (category) {
