@@ -82,12 +82,15 @@ Type: `Promise<void>`
 
 - [kup-radio](../kup-radio)
 - [kup-checkbox](../kup-checkbox)
+- [kup-badge](../kup-badge)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-list --> kup-badge
+  kup-badge --> kup-badge
   kup-autocomplete --> kup-list
   kup-combobox --> kup-list
   kup-data-table --> kup-list

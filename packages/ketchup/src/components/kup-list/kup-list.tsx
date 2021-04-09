@@ -9,7 +9,6 @@ import {
     h,
     Watch,
     Method,
-    getAssetPath,
 } from '@stencil/core';
 import { MDCList } from '@material/list';
 import { MDCRipple } from '@material/ripple';
@@ -23,6 +22,7 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { GenericObject } from '../../types/GenericTypes';
+import { FImage } from '../../f-components/f-image/f-image';
 
 @Component({
     tag: 'kup-list',
@@ -326,14 +326,7 @@ export class KupList {
             item.icon != null &&
             item.icon.trim() != ''
         ) {
-            let svg: string = `url('${getAssetPath(
-                `./assets/svg/${item.icon}.svg`
-            )}') no-repeat center`;
-            let iconStyle = {
-                mask: svg,
-                webkitMask: svg,
-            };
-            imageTag = <span style={iconStyle} class="icon-container"></span>;
+            imageTag = this.getIconTag(item.icon);
         }
         let primaryTextTag = [
             getValueOfItemByDisplayMode(item, this.displayMode, ' - '),
@@ -457,6 +450,23 @@ export class KupList {
                 {rippleEl}
                 {innerSpanTag}
             </li>
+        );
+    }
+
+    getIconTag(icon: string) {
+        const large: boolean = this.rootElement.classList.contains('kup-large');
+        const propsFImage = {
+            color: 'var(--kup-primary-color)',
+            sizeX: large ? '32px' : '24px',
+            sizeY: large ? '32px' : '24px',
+        };
+
+        return (
+            <FImage
+                {...propsFImage}
+                resource={icon}
+                wrapperClass={`mdc-icon-button__icon icon-container material-icons`}
+            />
         );
     }
 
