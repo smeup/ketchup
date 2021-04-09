@@ -50,6 +50,9 @@ export const config: Config = {
             src: 'gauge.html',
         },
         {
+            src: 'magic-box.html',
+        },
+        {
             src: 'nav-bar.html',
         },
         {
