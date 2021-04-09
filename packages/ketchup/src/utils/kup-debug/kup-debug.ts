@@ -272,6 +272,25 @@ export class KupDebug {
                                 'div'
                             );
                             slot.classList.add('text');
+                            switch (this.logs[index].category) {
+                                case KupDebugCategory.ERROR:
+                                    slot.style.backgroundColor =
+                                        'rgba(var(--kup-danger-color-rgb), 0.15)';
+                                    slot.style.borderLeft =
+                                        '5px solid var(--kup-danger-color)';
+                                    break;
+                                case KupDebugCategory.WARNING:
+                                    slot.style.backgroundColor =
+                                        'rgba(var(--kup-warning-color-rgb), 0.15)';
+                                    slot.style.borderLeft =
+                                        '5px solid var(--kup-warning-color)';
+                                    break;
+                                case KupDebugCategory.INFO:
+                                default:
+                                    slot.style.borderLeft =
+                                        '5px solid var(--kup-info-color)';
+                                    break;
+                            }
                             // If the log is tied to a KupComponent, on click its props will be downloaded.
                             // Also, a different style will be applied to distinguish it between the others.
                             if (typeof this.logs[index].element == 'object') {
@@ -301,6 +320,7 @@ export class KupDebug {
                             );
                             id.innerHTML = this.logs[index].id;
                             id.style.opacity = '0.75';
+                            id.style.marginLeft = '5px';
                             // Message span
                             const message: HTMLSpanElement = document.createElement(
                                 'span'

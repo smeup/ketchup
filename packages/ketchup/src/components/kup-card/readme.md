@@ -37,6 +37,17 @@ Type: `Promise<GenericObject>`
 
 
 
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+Useful when slots change.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `resizeCallback() => Promise<void>`
 
 This method is invoked by KupManager whenever the component changes size.
