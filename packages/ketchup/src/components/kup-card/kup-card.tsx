@@ -43,6 +43,11 @@ export class KupCard {
      * @default ""
      */
     @State() customStyleTheme: string = '';
+    /**
+     * Used to trigger a new render of the component.
+     * @default false
+     */
+    @State() _refresh: boolean = false;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -227,6 +232,14 @@ export class KupCard {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     * Useful when slots change.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        this._refresh = !this._refresh;
     }
 
     /*-------------------------------------------------*/

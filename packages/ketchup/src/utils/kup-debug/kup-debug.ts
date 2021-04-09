@@ -221,13 +221,18 @@ export class KupDebug {
     handleEvents(e: CustomEvent): void {
         const compEvent: CustomEvent = e.detail.event;
         const compID: string = compEvent.detail.id;
-        let cardData: CardData = { ...this.#debugWindow.data };
+        const children: HTMLCollection = Array.prototype.slice.call(
+            this.#debugWindow.children,
+            0
+        );
         switch (compEvent.type) {
             case 'kupButtonClick':
                 switch (compID) {
                     case 'kup-debug-clear':
-                        cardData['text'] = null;
-                        this.#debugWindow.data = cardData;
+                        for (let index = 0; index < children.length; index++) {
+                            children[index].remove();
+                        }
+                        this.#debugWindow.refresh();
                         break;
                     case 'kup-debug-dl-props':
                         this.getProps().then((res: GenericObject) => {
@@ -256,17 +261,19 @@ export class KupDebug {
                         this.toggle();
                         break;
                     case 'kup-debug-print':
-                        let logList: string[] = [];
-                        for (let index = 0; index < this.logs.length; index++) {
-                            if (this.logs[index].id.indexOf('#kup-debug') < 0) {
-                                logList.push(
-                                    this.logs[index].id +
-                                        this.logs[index].message
-                                );
-                            }
+                        for (let index = 0; index < children.length; index++) {
+                            children[index].remove();
                         }
-                        cardData['text'] = logList;
-                        this.#debugWindow.data = cardData;
+                        for (let index = 0; index < this.logs.length; index++) {
+                            const slot: HTMLElement = document.createElement(
+                                'div'
+                            );
+                            slot.classList.add('text');
+                            slot.innerHTML =
+                                this.logs[index].id + this.logs[index].message;
+                            this.#debugWindow.append(slot);
+                        }
+                        this.#debugWindow.refresh();
                         break;
                 }
                 break;
