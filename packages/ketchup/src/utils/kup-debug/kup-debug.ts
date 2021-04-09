@@ -32,6 +32,22 @@ export class KupDebug {
     logs: KupDebugLog[] = [];
     #debugWindow: HTMLKupCardElement = null;
     /**
+     * Allows the download of props by creating a temporary clickable anchor element.
+     */
+    private downloadProps(res: GenericObject) {
+        const dataStr: string =
+            'data:text/json;charset=utf-8,' +
+            encodeURIComponent(JSON.stringify(res, null, 2));
+        const downloadAnchorNode: HTMLAnchorElement = document.createElement(
+            'a'
+        );
+        downloadAnchorNode.setAttribute('href', dataStr);
+        downloadAnchorNode.setAttribute('download', 'kup_props.json');
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+    }
+    /**
      * Dumps the stored logs.
      */
     dump(): void {
@@ -236,22 +252,7 @@ export class KupDebug {
                         break;
                     case 'kup-debug-dl-props':
                         this.getProps().then((res: GenericObject) => {
-                            const dataStr: string =
-                                'data:text/json;charset=utf-8,' +
-                                encodeURIComponent(
-                                    JSON.stringify(res, null, 2)
-                                );
-                            const downloadAnchorNode: HTMLAnchorElement = document.createElement(
-                                'a'
-                            );
-                            downloadAnchorNode.setAttribute('href', dataStr);
-                            downloadAnchorNode.setAttribute(
-                                'download',
-                                'kup_props.json'
-                            );
-                            document.body.appendChild(downloadAnchorNode);
-                            downloadAnchorNode.click();
-                            downloadAnchorNode.remove();
+                            this.downloadProps(res);
                         });
                         break;
                     case 'kup-debug-delete':
@@ -265,12 +266,47 @@ export class KupDebug {
                             children[index].remove();
                         }
                         for (let index = 0; index < this.logs.length; index++) {
-                            const slot: HTMLElement = document.createElement(
+                            // Wrapper div
+                            const slot: HTMLDivElement = document.createElement(
                                 'div'
                             );
                             slot.classList.add('text');
-                            slot.innerHTML =
-                                this.logs[index].id + this.logs[index].message;
+                            // If the log is tied to a KupComponent, on click its props will be downloaded.
+                            // Also, a different style will be applied to distinguish it between the others.
+                            if (typeof this.logs[index].element == 'object') {
+                                slot.title = 'Download component props';
+                                slot.style.fontWeight = 'bold';
+                                slot.style.cursor = 'pointer';
+                                slot.onclick = () => {
+                                    try {
+                                        (this.logs[index]
+                                            .element as KupComponent)
+                                            .getProps()
+                                            .then((res: GenericObject) => {
+                                                this.downloadProps(res);
+                                            });
+                                    } catch (err) {
+                                        this.logMessage(
+                                            'kup-debug',
+                                            err,
+                                            'warning'
+                                        );
+                                    }
+                                };
+                            }
+                            // ID span
+                            const id: HTMLSpanElement = document.createElement(
+                                'span'
+                            );
+                            id.innerHTML = this.logs[index].id;
+                            id.style.opacity = '0.75';
+                            // Message span
+                            const message: HTMLSpanElement = document.createElement(
+                                'span'
+                            );
+                            message.innerHTML = this.logs[index].message;
+                            // Append elements
+                            slot.append(id, message);
                             this.#debugWindow.append(slot);
                         }
                         this.#debugWindow.refresh();
