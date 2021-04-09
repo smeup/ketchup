@@ -20,6 +20,7 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { GenericObject } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-field',
@@ -254,7 +255,7 @@ export class KupField {
             this.kupManager.debug.logMessage(
                 this,
                 'Type (state) is undefined!',
-                'warning'
+                KupDebugCategory.WARNING
             );
         } else {
             switch (this.type.toLowerCase()) {

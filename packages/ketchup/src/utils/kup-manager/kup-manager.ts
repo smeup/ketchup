@@ -20,8 +20,8 @@ const dom: KupDom = document.documentElement as KupDom;
 export class KupManager {
     debug: KupDebug = new KupDebug();
     dynamicPosition: DynamicPosition = new DynamicPosition();
+    magicBox: HTMLKupMagicBoxElement = null;
     moveOnDrag: MoveOnDrag = new MoveOnDrag();
-    scrollOnHover: ScrollOnHover = new ScrollOnHover();
     resize: ResizeObserver = new ResizeObserver(
         (entries: ResizeObserverEntry[]) => {
             entries.forEach((entry) => {
@@ -46,7 +46,43 @@ export class KupManager {
     overrides?: KupManagerInitialization = dom.ketchupInit
         ? dom.ketchupInit
         : null;
+    scrollOnHover: ScrollOnHover = new ScrollOnHover();
     theme: KupTheme = new KupTheme();
+
+    /**
+     * Creates kup-magic-box component.
+     */
+    showMagicBox(): void {
+        if (this.magicBox) {
+            return;
+        }
+        this.magicBox = document.createElement('kup-magic-box');
+        this.magicBox.id = 'kup-magic-box';
+        this.magicBox.style.position = 'fixed';
+        this.magicBox.style.left = 'calc(50% - 350px)';
+        this.magicBox.style.top = 'calc(50% - 150px)';
+        document.body.append(this.magicBox);
+    }
+    /**
+     * Removes kup-magic-box component.
+     */
+    hideMagicBox(): void {
+        if (!this.magicBox) {
+            return;
+        }
+        this.magicBox.remove();
+        this.magicBox = null;
+    }
+    /**
+     * Creates or removes kup-magic-box component depending on its existence.
+     */
+    toggleMagicBox(): void {
+        if (!this.magicBox) {
+            this.showMagicBox();
+        } else {
+            this.hideMagicBox();
+        }
+    }
 }
 /**
  * Called by the Ketch.UP components to retrieve the instance of KupManager (or creating a new one when missing).
@@ -61,7 +97,7 @@ export function kupManagerInstance(): KupManager {
             dom.ketchupInit.debug &&
             dom.ketchupInit.debug.active
         ) {
-            dom.ketchup.debug.showWindow();
+            dom.ketchup.debug.showWidget();
         }
         document.dispatchEvent(new CustomEvent('kupManagerReady'));
     }

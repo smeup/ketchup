@@ -9,6 +9,7 @@ import {
     Method,
 } from '@stencil/core';
 import type { GenericObject } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 import {
     KupManager,
     kupManagerInstance,
@@ -111,7 +112,11 @@ export class KupIframe {
     render() {
         if (this.src === undefined || this.src === null || this.src === '') {
             let message = 'Resource undefined, not rendering!';
-            this.kupManager.debug.logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
             return;
         }
 

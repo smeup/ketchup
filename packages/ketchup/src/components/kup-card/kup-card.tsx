@@ -22,6 +22,7 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { CardData, CardFamily, KupCardProps } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-card',
@@ -43,6 +44,11 @@ export class KupCard {
      * @default ""
      */
     @State() customStyleTheme: string = '';
+    /**
+     * Used to trigger a new render of the component.
+     * @default false
+     */
+    @State() _refresh: boolean = false;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -228,6 +234,14 @@ export class KupCard {
         }
         return props;
     }
+    /**
+     * This method is used to trigger a new render of the component.
+     * Useful when slots change.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        this._refresh = !this._refresh;
+    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
@@ -279,7 +293,11 @@ export class KupCard {
                 }
             }
         } catch (error) {
-            this.kupManager.debug.logMessage(this, error, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                error,
+                KupDebugCategory.WARNING
+            );
             let props = {
                 resource: 'warning',
                 title: 'Layout not yet implemented!',
@@ -454,7 +472,7 @@ export class KupCard {
             this.kupManager.debug.logMessage(
                 this,
                 'Data missing, not rendering!',
-                'warning'
+                KupDebugCategory.WARNING
             );
             return;
         }

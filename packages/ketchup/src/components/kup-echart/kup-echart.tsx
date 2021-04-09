@@ -17,6 +17,7 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import echarts, { EChartOption, ECharts } from 'echarts';
 import { GenericObject } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-echart',
@@ -176,7 +177,7 @@ export class KupEchart {
                             this.kupManager.debug.logMessage(
                                 this,
                                 "Couldn't fetch map JSON: " + err,
-                                'warning'
+                                KupDebugCategory.WARNING
                             );
                         });
                 } else {

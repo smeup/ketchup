@@ -21,6 +21,7 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { GenericObject } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-tab-bar',
@@ -146,7 +147,7 @@ export class KupTabBar {
                 this.kupManager.debug.logMessage(
                     this,
                     'Too many active tabs, forcing last one.',
-                    'warning'
+                    KupDebugCategory.WARNING
                 );
             } else if (activeTabs === 0) {
                 this.data[0].active = true;
@@ -187,7 +188,11 @@ export class KupTabBar {
 
     render() {
         if (!this.data || this.data.length === 0) {
-            this.kupManager.debug.logMessage(this, 'Empty data.', 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                'Empty data.',
+                KupDebugCategory.WARNING
+            );
         }
         let tabBar: Array<HTMLElement> = [];
         let tabEl: HTMLElement;

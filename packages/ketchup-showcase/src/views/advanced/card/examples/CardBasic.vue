@@ -59,8 +59,10 @@
       props.
       <br />
       <br />
-      <p>
-        The layouts can be selected through the combination of
+      <p
+        >Some layouts (i.e.: dialog #3) also support
+        <span class="code-word">slots</span>. The layouts can be selected
+        through the combination of
         <span class="code-word">layoutFamily</span> and
         <span class="code-word">layoutNumber</span>. <br />
         Currently, the following layouts families are available.

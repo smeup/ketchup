@@ -23,6 +23,7 @@ import { EchartTitle } from "./components/kup-echart/kup-echart-declarations";
 import { KupFldChangeEvent, KupFldSubmitEvent } from "./components/kup-field/kup-field-declarations";
 import { KupBadge } from "./components/kup-badge/kup-badge";
 import { FImageData } from "./f-components/f-image/f-image-declarations";
+import { MagicBoxData } from "./components/kup-magic-box/kup-magic-box-declarations";
 import { ComponentNavBarData, ComponentNavBarMode } from "./components/kup-nav-bar/kup-nav-bar-declarations";
 import { PaginatorMode } from "./components/kup-paginator/kup-paginator-declarations";
 import { KupQlikGrid, QlikServer } from "./components/kup-qlik/kup-qlik-declarations";
@@ -376,6 +377,10 @@ export namespace Components {
           * @default false
          */
         "menuVisible": boolean;
+        /**
+          * This method is used to trigger a new render of the component. Useful when slots change.
+         */
+        "refresh": () => Promise<void>;
         /**
           * This method is invoked by KupManager whenever the component changes size.
          */
@@ -1471,6 +1476,32 @@ export namespace Components {
          */
         "twoLine": boolean;
     }
+    interface KupMagicBox {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle": string;
+        /**
+          * Sets the data that will be used to display different components.
+          * @default null
+         */
+        "data": MagicBoxData;
+        /**
+          * Used to retrieve component's props values.
+          * @param descriptions - When provided and true, the result will be the list of props with their description.
+          * @returns List of props as object, each key will be a prop.
+         */
+        "getProps": (descriptions?: boolean) => Promise<GenericObject>;
+        /**
+          * This method is invoked by the theme manager. Whenever the current Ketch.UP theme changes, every component must be re-rendered with the new component-specific customStyle.
+          * @param customStyleTheme - Contains current theme's component-specific CSS.
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/theming
+         */
+        "themeChangeCallback": (customStyleTheme: string) => Promise<void>;
+    }
     interface KupModal {
         "header": string;
         "visible": boolean;
@@ -2276,6 +2307,12 @@ declare global {
         prototype: HTMLKupListElement;
         new (): HTMLKupListElement;
     };
+    interface HTMLKupMagicBoxElement extends Components.KupMagicBox, HTMLStencilElement {
+    }
+    var HTMLKupMagicBoxElement: {
+        prototype: HTMLKupMagicBoxElement;
+        new (): HTMLKupMagicBoxElement;
+    };
     interface HTMLKupModalElement extends Components.KupModal, HTMLStencilElement {
     }
     var HTMLKupModalElement: {
@@ -2404,6 +2441,7 @@ declare global {
         "kup-layout": HTMLKupLayoutElement;
         "kup-lazy": HTMLKupLazyElement;
         "kup-list": HTMLKupListElement;
+        "kup-magic-box": HTMLKupMagicBoxElement;
         "kup-modal": HTMLKupModalElement;
         "kup-nav-bar": HTMLKupNavBarElement;
         "kup-paginator": HTMLKupPaginatorElement;
@@ -4027,6 +4065,19 @@ declare namespace LocalJSX {
          */
         "twoLine"?: boolean;
     }
+    interface KupMagicBox {
+        /**
+          * Custom style of the component.
+          * @default ""
+          * @see https://ketchup.smeup.com/ketchup-showcase/#/customization
+         */
+        "customStyle"?: string;
+        /**
+          * Sets the data that will be used to display different components.
+          * @default null
+         */
+        "data"?: MagicBoxData;
+    }
     interface KupModal {
         "header"?: string;
         "onKupModalCancel"?: (event: CustomEvent<any>) => void;
@@ -4870,6 +4921,7 @@ declare namespace LocalJSX {
         "kup-layout": KupLayout;
         "kup-lazy": KupLazy;
         "kup-list": KupList;
+        "kup-magic-box": KupMagicBox;
         "kup-modal": KupModal;
         "kup-nav-bar": KupNavBar;
         "kup-paginator": KupPaginator;
@@ -4923,6 +4975,7 @@ declare module "@stencil/core" {
             "kup-layout": LocalJSX.KupLayout & JSXBase.HTMLAttributes<HTMLKupLayoutElement>;
             "kup-lazy": LocalJSX.KupLazy & JSXBase.HTMLAttributes<HTMLKupLazyElement>;
             "kup-list": LocalJSX.KupList & JSXBase.HTMLAttributes<HTMLKupListElement>;
+            "kup-magic-box": LocalJSX.KupMagicBox & JSXBase.HTMLAttributes<HTMLKupMagicBoxElement>;
             "kup-modal": LocalJSX.KupModal & JSXBase.HTMLAttributes<HTMLKupModalElement>;
             "kup-nav-bar": LocalJSX.KupNavBar & JSXBase.HTMLAttributes<HTMLKupNavBarElement>;
             "kup-paginator": LocalJSX.KupPaginator & JSXBase.HTMLAttributes<HTMLKupPaginatorElement>;

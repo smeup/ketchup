@@ -198,6 +198,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-magic-box](../kup-magic-box)
  - [kup-search](../kup-search)
 
 ### Depends on
@@ -215,6 +216,7 @@ Type: `Promise<void>`
 - [kup-rating](../kup-rating)
 - [kup-radio](../kup-radio)
 - [kup-paginator](../kup-paginator)
+- [kup-switch](../kup-switch)
 - [kup-combobox](../kup-combobox)
 - [kup-badge](../kup-badge)
 
@@ -234,6 +236,7 @@ graph TD;
   kup-data-table --> kup-rating
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
+  kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-card --> kup-chip
@@ -279,6 +282,7 @@ graph TD;
   kup-color-picker --> kup-text-field
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
+  kup-magic-box --> kup-data-table
   kup-search --> kup-data-table
   style kup-data-table fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -76,7 +76,9 @@
         <br />
         <span class="code-word">- combobox[0 to n]</span>: List of comboboxes.
         <br />
-        <span class="code-word">- text[0 to n]</span>: List of generic text.
+        <span class="code-word">- slots [0 to n]</span>: List of elements,
+        ideally text. If the slot's class list contains "text", a monospace
+        style will be applied.
         <br />
         <span class="code-word">- textfield[0 to n]</span>: Textfield list,
         displayed to the right of the button list.
@@ -93,7 +95,18 @@
             layout-number="3"
             layout-family="dialog"
             :data.prop="data"
-          ></kup-card>
+            ><div class="text" title="slot[0]" style="font-weight: bold"
+              >slot[0]</div
+            ><div class="text" title="slot[1]" style="font-weight: bold"
+              >slot[1]</div
+            ><div class="text" title="slot[2]" style="font-weight: bold"
+              >slot[2]</div
+            ><div class="text" title="slot[3]" style="font-weight: bold"
+              >slot[3]</div
+            ><div class="text" title="slot[4]" style="font-weight: bold"
+              >slot[4]</div
+            ></kup-card
+          >
         </div>
       </div>
     </div>

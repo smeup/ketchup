@@ -20,6 +20,7 @@ import { FButtonProps } from '../../f-components/f-button/f-button-declarations'
 import { KupBtnProps } from './kup-btn-declarations';
 import { TreeNode } from '../kup-tree/kup-tree-declarations';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-btn',
@@ -169,13 +170,21 @@ export class KupBtn {
     private renderButton(node: TreeNode, index: number) {
         if (node == null) {
             let message = 'Empty data button.';
-            this.kupManager.debug.logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
             return null;
         }
         let data: GenericObject = this.prepareDataFromTreeNode(node, index);
         if (!data.label && !data.icon) {
             let message = 'Empty button.';
-            this.kupManager.debug.logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
             return null;
         }
         let props: FButtonProps = {
@@ -200,13 +209,21 @@ export class KupBtn {
     private renderDropdownButton(node: TreeNode, index: number) {
         if (node == null) {
             let message = 'Empty data dropdown button.';
-            this.kupManager.debug.logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
             return null;
         }
         let data: GenericObject = this.prepareDataFromTreeNode(node, index);
         if (!data.label && !data.icon) {
             let message = 'Empty dropdown button.';
-            this.kupManager.debug.logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
             return null;
         }
         data.data = {
