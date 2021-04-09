@@ -499,7 +499,7 @@ export class KupDebug {
             obj = '';
         }
 
-        if (id.indexOf('#kup-debug') < 0) {
+        if (this.isDebug() && id.indexOf('#kup-debug') < 0) {
             const log: KupDebugLog = {
                 category: category,
                 date: date,
