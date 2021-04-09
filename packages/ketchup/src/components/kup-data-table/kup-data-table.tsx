@@ -38,6 +38,7 @@ import {
     TotalLabel,
     EventHandlerDetails,
     KupDataTableProps,
+    CellsHolder,
 } from './kup-data-table-declarations';
 
 import {
@@ -101,7 +102,6 @@ import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
-import { KupButton } from '../kup-button/kup-button';
 
 import {
     setDragEffectAllowed,
@@ -759,6 +759,12 @@ export class KupDataTable {
     private tooltip: KupTooltip;
 
     /**
+     * contains the previous data, used in transposed function
+     * @private
+     */
+    private previousData: TableData = undefined;
+
+    /**
      * Reference to the working area of the table. This is the below-wrapper reference.
      */
     private tableAreaRef: ScrollableElement;
@@ -1053,6 +1059,69 @@ export class KupDataTable {
 
     forceUpdate() {
         this.stateSwitcher = !this.stateSwitcher;
+    }
+
+    private transposeData(): TableData {
+        // TODO check with emply data or empty columns
+        // TODO check with previous data and transpose prop
+        // if (this.previousData) {
+        // const previousData = { ...this.previousData };
+        // this.data = this.data = { ...this.data };
+        let transposedData: TableData = {};
+
+        // calc columns
+        const columns: Array<Column> = [];
+        // first item
+        const firstHead = this.data.columns[0];
+        columns.push(firstHead);
+        // fill columns with the cells in the first original column
+        this.data.rows.forEach((row) => {
+            columns.push(
+                this.getColumnFromCell(row.cells[firstHead.name], row.id)
+            );
+        });
+        // set columns
+        transposedData.columns = columns;
+        // calc rows
+        const rows: Array<Row> = [];
+        for (let index = 1; index < this.data.columns.length; index++) {
+            const oldColumn = this.data.columns[index];
+            const cells: CellsHolder = {};
+            // set first cell from previous columns
+            // TODO set obj? like this --> obj: oldColumn.obj
+            cells[firstHead.name] = {
+                value: oldColumn.title,
+            };
+            for (
+                let index = 1;
+                index < transposedData.columns.length;
+                index++
+            ) {
+                const newColumn = transposedData.columns[index];
+                const oldRow = this.data.rows[index - 1];
+                cells[newColumn.name] = oldRow.cells[oldColumn.name];
+            }
+            // push row
+            rows.push({
+                id: String(index),
+                cells,
+            });
+        }
+        // set rows
+        transposedData.rows = rows;
+        console.log({ transposedData });
+        this.data = transposedData;
+        return transposedData;
+        // } // close if
+    }
+
+    private getColumnFromCell(cell: Cell, id: string): Column {
+        let title = cell.displayedValue ? cell.displayedValue : cell.value;
+        // TODO set obj? like this --> obj: cell.obj
+        return {
+            name: cell.value + '_' + id,
+            title,
+        };
     }
 
     private stickyHeaderPosition = () => {
@@ -4372,10 +4441,12 @@ export class KupDataTable {
         let density: HTMLElement = undefined;
         let fontsize: HTMLElement = undefined;
         let grid: HTMLElement = undefined;
+        let transpose: HTMLElement = undefined;
         if (this.openedCustomSettings) {
             density = this.renderDensityPanel();
             fontsize = this.renderFontSizePanel();
             grid = this.renderGridPanel();
+            transpose = this.renderTransposePanel();
         }
 
         return (
@@ -4388,6 +4459,7 @@ export class KupDataTable {
                 {density}
                 {grid}
                 {fontsize}
+                {transpose}
             </div>
         );
     }
@@ -4661,6 +4733,21 @@ export class KupDataTable {
 
     private getGridCodeFromDecode(decode: string): string {
         return this.transcodeItem(decode, this.GRID_DECODES, this.GRID_CODES);
+    }
+
+    private renderTransposePanel() {
+        // TODO link checked with the new prop
+        return (
+            <div class="customize-element grid-panel">
+                <kup-switch
+                    label="Transpose"
+                    onKupSwitchChange={(e: CustomEvent) => {
+                        e.stopPropagation();
+                        this.transposeData();
+                    }}
+                />
+            </div>
+        );
     }
 
     private renderGridPanel() {
