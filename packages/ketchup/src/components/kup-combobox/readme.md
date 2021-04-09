@@ -91,6 +91,7 @@ Type: `Promise<void>`
  - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
  - [kup-form](../kup-form)
+ - [kup-magic-box](../kup-magic-box)
  - [kup-paginator](../kup-paginator)
 
 ### Depends on
@@ -109,6 +110,7 @@ graph TD;
   kup-card --> kup-combobox
   kup-data-table --> kup-combobox
   kup-form --> kup-combobox
+  kup-magic-box --> kup-combobox
   kup-paginator --> kup-combobox
   style kup-combobox fill:#f9f,stroke:#333,stroke-width:4px
 ```

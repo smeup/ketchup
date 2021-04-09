@@ -17,11 +17,15 @@ export interface KupDom extends HTMLHtmlElement {
 export interface KupManager {
     debug: KupDebug;
     dynamicPosition: DynamicPosition;
+    magicBox: HTMLKupMagicBoxElement;
     moveOnDrag: MoveOnDrag;
     overrides?: KupManagerInitialization;
     resize: ResizeObserver;
     scrollOnHover: ScrollOnHover;
     theme: KupTheme;
+    showMagicBox: () => void;
+    hideMagicBox: () => void;
+    toggleMagicBox: () => void;
 }
 /**
  * Interface for the KupManager override settings.
