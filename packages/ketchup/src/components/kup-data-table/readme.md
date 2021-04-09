@@ -216,6 +216,7 @@ Type: `Promise<void>`
 - [kup-rating](../kup-rating)
 - [kup-radio](../kup-radio)
 - [kup-paginator](../kup-paginator)
+- [kup-switch](../kup-switch)
 - [kup-combobox](../kup-combobox)
 - [kup-badge](../kup-badge)
 
@@ -235,6 +236,7 @@ graph TD;
   kup-data-table --> kup-rating
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
+  kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-card --> kup-chip

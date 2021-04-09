@@ -34,6 +34,7 @@ import {
 import { identify } from '../../utils/utils';
 import { getColumnByName } from '../../utils/cell-utils';
 import { GenericObject } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 declare const google: any;
 declare const $: any;
@@ -496,7 +497,7 @@ export class KupChart {
             this.kupManager.debug.logMessage(
                 this,
                 "Incorrect or incomplete data, can't render chart in offline mode!",
-                'warning'
+                KupDebugCategory.WARNING
             );
             return;
         }
@@ -606,7 +607,7 @@ export class KupChart {
                 this.kupManager.debug.logMessage(
                     this,
                     'Chart colors setup failed!',
-                    'warning'
+                    KupDebugCategory.WARNING
                 );
             }
         }

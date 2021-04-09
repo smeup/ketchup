@@ -378,6 +378,10 @@ export namespace Components {
          */
         "menuVisible": boolean;
         /**
+          * This method is used to trigger a new render of the component. Useful when slots change.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * This method is invoked by KupManager whenever the component changes size.
          */
         "resizeCallback": () => Promise<void>;

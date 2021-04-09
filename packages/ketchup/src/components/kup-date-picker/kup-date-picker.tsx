@@ -32,6 +32,7 @@ import {
     SourceEvent,
 } from './kup-date-picker-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-date-picker',
@@ -243,7 +244,7 @@ export class KupDatePicker {
                 'property first-day-index=[' +
                     this.firstDayIndex +
                     '] not allowed: it must be >= 0 and <= 6',
-                'warning'
+                KupDebugCategory.WARNING
             );
             this.firstDayIndex = 1;
         }

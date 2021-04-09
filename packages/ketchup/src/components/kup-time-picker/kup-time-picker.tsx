@@ -31,6 +31,7 @@ import { FButtonStyling } from '../../f-components/f-button/f-button-declaration
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import { KupTimePickerProps } from './kup-time-picker-declarations';
 import { GenericObject } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-time-picker',
@@ -247,7 +248,7 @@ export class KupTimePicker {
                 'property time-minutes-step=[' +
                     this.timeMinutesStep +
                     '] not allowed: it must be > 0 and divisor of 60',
-                'warning'
+                KupDebugCategory.WARNING
             );
             this.timeMinutesStep = 10;
             return;
@@ -260,7 +261,7 @@ export class KupTimePicker {
                 'property time-minutes-step=[' +
                     this.timeMinutesStep +
                     '] not allowed: it must be > 0 and divisor of 60',
-                'warning'
+                KupDebugCategory.WARNING
             );
             this.timeMinutesStep = 10;
             return;

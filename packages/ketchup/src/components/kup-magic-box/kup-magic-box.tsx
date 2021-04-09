@@ -29,6 +29,7 @@ import {
     MagicBoxDisplay,
     MagicBoxData,
 } from './kup-magic-box-declarations';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-magic-box',
@@ -210,14 +211,14 @@ export class KupMagicBox {
                         this.kupManager.debug.logMessage(
                             this,
                             'Not enough numerical columns to display a chart!',
-                            'warning'
+                            KupDebugCategory.WARNING
                         );
                     }
                     if (!props['axis']) {
                         this.kupManager.debug.logMessage(
                             this,
                             'No axis for the chart!',
-                            'warning'
+                            KupDebugCategory.WARNING
                         );
                     }
                     if (this.display === MagicBoxDisplay.CHART) {
@@ -244,7 +245,7 @@ export class KupMagicBox {
                     this.kupManager.debug.logMessage(
                         this,
                         'Display mode not supported (' + this.display + ')!',
-                        'error'
+                        KupDebugCategory.ERROR
                     );
                     return;
             }
@@ -281,7 +282,7 @@ export class KupMagicBox {
                 this.kupManager.debug.logMessage(
                     this,
                     'Invalid column received.',
-                    'warning'
+                    KupDebugCategory.WARNING
                 );
             }
             if (row) {

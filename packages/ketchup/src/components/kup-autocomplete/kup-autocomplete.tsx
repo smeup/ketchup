@@ -23,6 +23,7 @@ import {
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import { KupAutocompleteProps } from './kup-autocomplete-declarations';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -336,9 +337,13 @@ export class KupAutocomplete {
                     this.kupManager.debug.logMessage(
                         this,
                         'Executing callback error',
-                        'error'
+                        KupDebugCategory.ERROR
                     );
-                    this.kupManager.debug.logMessage(this, err, 'error');
+                    this.kupManager.debug.logMessage(
+                        this,
+                        err,
+                        KupDebugCategory.ERROR
+                    );
                 });
         } else {
             this.listEl.resetFilter(newFilter);
