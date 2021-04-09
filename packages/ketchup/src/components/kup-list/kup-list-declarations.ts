@@ -1,3 +1,5 @@
+import { ValueDisplayedValue as vdv } from '../../utils/filters/filters-declarations';
+
 /**
  * Props of the kup-list component.
  * Used to export every prop in an object.
@@ -17,6 +19,7 @@ export enum KupListProps {
     showIcons = 'Displays the icons associated to each row when set to true.',
     twoLine = 'The list elements descriptions will be arranged in two lines.',
 }
+
 export interface ComponentListElement {
     text: string;
     secondaryText?: string;
@@ -25,6 +28,8 @@ export interface ComponentListElement {
     selected?: boolean;
     icon?: string;
 }
+
+export interface ValueDisplayedValue extends vdv {}
 
 export enum ItemsDisplayMode {
     CODE = 'code',
@@ -56,7 +61,7 @@ export function consistencyCheck(
     selectMode: ItemsDisplayMode,
     displayMode: ItemsDisplayMode,
     e?: CustomEvent
-): { value: string; displayedValue: string } {
+): ValueDisplayedValue {
     let value: string = '';
     let displayedValue: string = '';
 

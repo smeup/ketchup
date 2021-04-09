@@ -4,7 +4,10 @@ import type {
     Column,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
-import type { GenericFilter } from './filters-declarations';
+import type {
+    GenericFilter,
+    ValueDisplayedValue,
+} from './filters-declarations';
 import {
     treeMainColumnName,
     TreeNode,
@@ -150,7 +153,7 @@ export class FiltersTreeItems extends FiltersRows {
     extractColumnValues(
         rows: Array<TreeNode>,
         column: Column,
-        values: { value: string; displayedValue: string }[]
+        values: ValueDisplayedValue[]
     ) {
         if (rows == null || rows.length == 0) {
             return;

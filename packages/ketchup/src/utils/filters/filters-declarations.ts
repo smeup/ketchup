@@ -10,10 +10,17 @@ export interface GenericFilter {
     [index: string]: Filter;
 }
 
+export interface ValueDisplayedValue {
+    value: string;
+    displayedValue: string;
+}
+
 export interface Filter {
     textField: string;
-    checkBoxes: Array<string>;
+    textFieldTmp: string;
+    checkBoxes: ValueDisplayedValue[];
     interval: string[];
+    intervalTmp: string[];
 }
 
 /**

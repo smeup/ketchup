@@ -1,4 +1,7 @@
-import type { GenericFilter } from './filters-declarations';
+import type {
+    GenericFilter,
+    ValueDisplayedValue,
+} from './filters-declarations';
 import type { KupDataTable } from '../../components/kup-data-table/kup-data-table';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
 import {
@@ -191,13 +194,13 @@ export class FiltersRows extends Filters {
             let retValue = false;
             for (let i = 0; i < filterValues.length; i++) {
                 let fv = filterValues[i];
-                if (fv == null) {
+                if (fv == null || fv.value == null) {
                     continue;
                 }
                 if (cell.value != null) {
                     if (
                         cell.value.toLowerCase().trim() ==
-                        fv.toLowerCase().trim()
+                        fv.value.toLowerCase().trim()
                     ) {
                         retValue = true;
                         break;
@@ -206,7 +209,7 @@ export class FiltersRows extends Filters {
                 if (cell.obj != null) {
                     if (
                         cell.obj.k.toLowerCase().trim() ==
-                        fv.toLowerCase().trim()
+                        fv.value.toLowerCase().trim()
                     ) {
                         retValue = true;
                         break;
@@ -309,16 +312,24 @@ export class FiltersRows extends Filters {
         column: Column,
         globalFilterValue: string,
         columnFilters?: FiltersColumnMenu
-    ): { value: string; displayedValue: string }[] {
-        let values: { value: string; displayedValue: string }[] = new Array();
+    ): ValueDisplayedValue[] {
+        let values: ValueDisplayedValue[] = new Array();
         if (columnFilters == null) {
             columnFilters = new FiltersColumnMenu();
         }
-        let value = columnFilters.getTextFilterValue(comp.filters, column.name);
-        let interval = columnFilters.getIntervalTextFieldFilterValues(
+        let value = columnFilters.getTextFilterValueTmp(
+            comp.filters,
+            column.name
+        );
+        let interval = columnFilters.getIntervalTextFieldFilterValuesTmp(
             comp.filters,
             column
         );
+        let checkboxes = columnFilters.getCheckBoxFilterValues(
+            comp.filters,
+            column.name
+        );
+
         if (
             column.valuesForFilter != null &&
             column.valuesForFilter.length > 0
@@ -326,6 +337,7 @@ export class FiltersRows extends Filters {
             column.valuesForFilter.forEach((element) => {
                 let v = element;
                 if (
+                    Filters.valuesArrayContainsValue(checkboxes, v) ||
                     value == '' ||
                     columnFilters.isFilterCompliantForSimpleValue(
                         v,
@@ -353,12 +365,11 @@ export class FiltersRows extends Filters {
 
         tmpFilters[column.name] = {
             textField: value,
+            textFieldTmp: value,
             checkBoxes: [],
             interval: interval,
+            intervalTmp: interval,
         };
-
-        let visibleColumns = comp.getVisibleColumns();
-        let columnObject = getColumnByName(visibleColumns, column.name);
 
         let tmpRows = this.filterRows(
             comp.getRows(),
@@ -368,30 +379,27 @@ export class FiltersRows extends Filters {
             columnFilters
         );
 
-        if (Filters.isTree(comp)) {
-            tmpRows = JSON.parse(JSON.stringify(tmpRows));
-        }
-
-        if (columnObject != null) {
-            tmpRows = tmpRows.sort((n1: Row, n2: Row) => {
-                return compareValues(
-                    columnObject.obj,
-                    n1.cells[column.name].value,
-                    columnObject.obj,
-                    n2.cells[column.name].value,
-                    SortMode.A
-                );
-            });
+        for (let i = 0; i < checkboxes.length; i++) {
+            values.push(checkboxes[i]);
         }
 
         this.extractColumnValues(tmpRows, column, values);
+        values.sort((n1, n2) => {
+            return compareValues(
+                null,
+                n1.displayedValue,
+                null,
+                n2.displayedValue,
+                SortMode.A
+            );
+        });
         return values;
     }
 
     extractColumnValues(
         rows: Array<Row>,
         column: Column,
-        values: { value: string; displayedValue: string }[]
+        values: ValueDisplayedValue[]
     ) {
         /** il valore delle righe attualmente filtrate, formattato */
         rows.forEach((row) =>
@@ -401,33 +409,18 @@ export class FiltersRows extends Filters {
     }
 
     addColumnValueFromRow(
-        values: { value: string; displayedValue: string }[],
+        values: ValueDisplayedValue[],
         column: Column,
         cell: Cell
     ) {
         if (cell) {
-            let item: { value: string; displayedValue: string } = {
+            let item: ValueDisplayedValue = {
                 value: cell.value,
                 displayedValue: getCellValueForDisplay(column, cell),
             };
-            if (!this.columnValuesContainsValue(values, item)) {
+            if (!Filters.valuesArrayContainsValue(values, cell.value)) {
                 values.push(item);
             }
         }
-    }
-
-    private columnValuesContainsValue(
-        values: { value: string; displayedValue: string }[],
-        value: { value: string; displayedValue: string }
-    ): boolean {
-        if (values == null || values.length < 1) {
-            return false;
-        }
-        for (let i = 0; i < values.length; i++) {
-            if (values[i].value == value.value) {
-                return true;
-            }
-        }
-        return false;
     }
 }

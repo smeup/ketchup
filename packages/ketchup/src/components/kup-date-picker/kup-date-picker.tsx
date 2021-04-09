@@ -26,6 +26,7 @@ import {
     getDaysOfWeekAsStringByLocale,
     ISO_DEFAULT_DATE_FORMAT,
     fillString,
+    DateTimeFormatOptionsMonth,
 } from '../../utils/utils';
 import {
     KupDatePickerProps,
@@ -722,7 +723,9 @@ export class KupDatePicker {
     }
 
     private createMonthsCalendar() {
-        let months = getMonthsAsStringByLocale('short');
+        let months = getMonthsAsStringByLocale(
+            DateTimeFormatOptionsMonth.SHORT
+        );
 
         let date: Date = this.pickerEl.date;
         let selecteDate: Date;

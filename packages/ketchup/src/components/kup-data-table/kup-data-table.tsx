@@ -101,7 +101,6 @@ import { KupDataTableState } from './kup-data-table-state';
 import { KupStore } from '../kup-state/kup-store';
 import { KupTooltip } from '../kup-tooltip/kup-tooltip';
 import { setTooltip, unsetTooltip } from '../../utils/helpers';
-import { KupButton } from '../kup-button/kup-button';
 
 import {
     setDragEffectAllowed,
@@ -130,7 +129,10 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { FCheckbox } from '../../f-components/f-checkbox/f-checkbox';
 import { FCheckboxMDC } from '../../f-components/f-checkbox/f-checkbox-mdc';
 import { FCheckboxProps } from '../../f-components/f-checkbox/f-checkbox-declarations';
-import { GenericFilter } from '../../utils/filters/filters-declarations';
+import {
+    GenericFilter,
+    ValueDisplayedValue,
+} from '../../utils/filters/filters-declarations';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
 import { FiltersRows } from '../../utils/filters/filters-rows';
@@ -1769,9 +1771,7 @@ export class KupDataTable {
         return null;
     }
 
-    getColumnValues(
-        column: Column
-    ): { value: string; displayedValue: string }[] {
+    getColumnValues(column: Column): ValueDisplayedValue[] {
         return this.filtersRowsInstance.getColumnValues(
             this,
             column,

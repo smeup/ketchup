@@ -1,7 +1,12 @@
 import type { Column } from '../../components/kup-data-table/kup-data-table-declarations';
 import { getValueForDisplay } from '../cell-utils';
 import { Filters } from './filters';
-import { Filter, FilterInterval, GenericFilter } from './filters-declarations';
+import {
+    Filter,
+    FilterInterval,
+    GenericFilter,
+    ValueDisplayedValue,
+} from './filters-declarations';
 /**
  * Filtering algorithms related to column menus.
  * @module FiltersColumnMenu
@@ -15,6 +20,23 @@ export class FiltersColumnMenu extends Filters {
      * @returns {string} Value of the filter.
      */
     getTextFilterValue(filters: GenericFilter = {}, column: string): string {
+        return this._getTextFilterValue(filters, column, false);
+    }
+    /**
+     * Gets the value of the filter prop, set temporarly.
+     * @param {GenericFilter} filters - Filters of the component.
+     * @param {Column} column - Name of the column.
+     * @returns {string} Value of the filter.
+     */
+    getTextFilterValueTmp(filters: GenericFilter = {}, column: string): string {
+        return this._getTextFilterValue(filters, column, true);
+    }
+
+    private _getTextFilterValue(
+        filters: GenericFilter = {},
+        column: string,
+        tmp: boolean
+    ): string {
         let value: string = '';
 
         if (filters == null) {
@@ -24,9 +46,10 @@ export class FiltersColumnMenu extends Filters {
         if (filter == null) {
             return value;
         }
-        value = filter.textField;
+        value = tmp ? filter.textFieldTmp : filter.textField;
         return value;
     }
+
     /**
      * Returns whether a column has filters or not.
      * @param {GenericFilter} filters - Filters of the component.
@@ -34,14 +57,43 @@ export class FiltersColumnMenu extends Filters {
      * @returns {boolean} True when a given column has filters.
      */
     hasFiltersForColumn(filters: GenericFilter = {}, column: Column): boolean {
+        return this._hasFiltersForColumn(filters, column, false);
+    }
+    /**
+     * Returns whether a column has filters or not.
+     * @param {GenericFilter} filters - Filters of the component.
+     * @param {Column} column - Name of the column.
+     * @returns {boolean} True when a given column has filters.
+     */
+    hasFiltersForColumnTmp(
+        filters: GenericFilter = {},
+        column: Column
+    ): boolean {
+        return this._hasFiltersForColumn(filters, column, true);
+    }
+    /**
+     * Returns whether a column has filters or not.
+     * @param {GenericFilter} filters - Filters of the component.
+     * @param {Column} column - Name of the column.
+     * @returns {boolean} True when a given column has filters.
+     */
+    private _hasFiltersForColumn(
+        filters: GenericFilter = {},
+        column: Column,
+        tmp: boolean
+    ): boolean {
         if (!column) {
             return false;
         }
-        let textfield: string = this.getTextFilterValue(filters, column.name);
+        let textfield: string = this._getTextFilterValue(
+            filters,
+            column.name,
+            tmp
+        );
         if (textfield != null && textfield.trim() != '') {
             return true;
         }
-        if (this.hasIntervalTextFieldFilterValues(filters, column)) {
+        if (this._hasIntervalTextFieldFilterValues(filters, column, tmp)) {
             return true;
         }
         let checkboxes = this.getCheckBoxFilterValues(filters, column.name);
@@ -59,7 +111,7 @@ export class FiltersColumnMenu extends Filters {
     getCheckBoxFilterValues(
         filters: GenericFilter = {},
         column: string
-    ): Array<string> {
+    ): ValueDisplayedValue[] {
         let values = [];
         if (filters == null) {
             return values;
@@ -84,24 +136,41 @@ export class FiltersColumnMenu extends Filters {
         filters: GenericFilter = {},
         column: Column
     ): boolean {
+        return this._hasIntervalTextFieldFilterValues(filters, column, false);
+    }
+
+    hasIntervalTextFieldFilterValuesTmp(
+        filters: GenericFilter = {},
+        column: Column
+    ): boolean {
+        return this._hasIntervalTextFieldFilterValues(filters, column, true);
+    }
+
+    private _hasIntervalTextFieldFilterValues(
+        filters: GenericFilter = {},
+        column: Column,
+        tmp: boolean
+    ): boolean {
         if (column == null) {
             return false;
         }
         if (!this.isColumnFiltrableByInterval(column)) {
             return false;
         }
-        let intervalFrom = this.getIntervalTextFieldFilterValue(
+        let intervalFrom = this._getIntervalTextFieldFilterValue(
             filters,
             column.name,
-            FilterInterval.FROM
+            FilterInterval.FROM,
+            tmp
         );
         if (intervalFrom != null && intervalFrom.trim() != '') {
             return true;
         }
-        let intervalTo = this.getIntervalTextFieldFilterValue(
+        let intervalTo = this._getIntervalTextFieldFilterValue(
             filters,
             column.name,
-            FilterInterval.TO
+            FilterInterval.TO,
+            tmp
         );
         if (intervalTo != null && intervalTo.trim() != '') {
             return true;
@@ -112,29 +181,40 @@ export class FiltersColumnMenu extends Filters {
      * Triggers when a new filter checkbox becomes checked.
      * @param {GenericFilter} filters - Filters of the component.
      * @param {string} column - Name of the column.
-     * @param {string} newFilter - Added filter.
+     * @param {ValueDisplayedValue} newFilter - Added filter.
      */
     addCheckboxFilter(
         filters: GenericFilter = {},
         column: string,
-        newFilter: string
+        newFilterItem: ValueDisplayedValue
     ): void {
         if (filters == null) {
             return;
         }
         let filter: Filter = filters[column];
         if (filter == null) {
-            filter = { textField: '', checkBoxes: [], interval: null };
+            filter = {
+                textField: '',
+                textFieldTmp: '',
+                checkBoxes: [],
+                interval: null,
+                intervalTmp: null,
+            };
             filters[column] = filter;
         }
         if (filter.checkBoxes == null) {
             filter.checkBoxes = [];
         }
-        if (newFilter == null) {
+        if (newFilterItem == null || newFilterItem.value == null) {
             filter.checkBoxes = [];
         } else {
-            if (!filter.checkBoxes.includes(newFilter)) {
-                filter.checkBoxes[filter.checkBoxes.length] = newFilter.trim();
+            if (
+                !Filters.valuesArrayContainsValue(
+                    filter.checkBoxes,
+                    newFilterItem.value
+                )
+            ) {
+                filter.checkBoxes[filter.checkBoxes.length] = newFilterItem;
             }
         }
     }
@@ -149,7 +229,7 @@ export class FiltersColumnMenu extends Filters {
         column: string,
         remFilter: string
     ) {
-        if (filters == null) {
+        if (filters == null || remFilter == null) {
             return;
         }
         let filter: Filter = filters[column];
@@ -159,7 +239,10 @@ export class FiltersColumnMenu extends Filters {
         if (filter.checkBoxes == null) {
             filter.checkBoxes = [];
         }
-        let index = filter.checkBoxes.indexOf(remFilter.trim());
+        let index = Filters.indexOfValueInValuesArray(
+            filter.checkBoxes,
+            remFilter
+        );
         if (index >= 0) {
             let chs = [];
             for (let i = 0; i < filter.checkBoxes.length; i++) {
@@ -179,20 +262,36 @@ export class FiltersColumnMenu extends Filters {
         filters: GenericFilter = {},
         column: Column
     ): Array<string> {
-        if (!this.hasIntervalTextFieldFilterValues(filters, column)) {
+        return this._getIntervalTextFieldFilterValues(filters, column, false);
+    }
+    getIntervalTextFieldFilterValuesTmp(
+        filters: GenericFilter = {},
+        column: Column
+    ): Array<string> {
+        return this._getIntervalTextFieldFilterValues(filters, column, true);
+    }
+
+    private _getIntervalTextFieldFilterValues(
+        filters: GenericFilter = {},
+        column: Column,
+        tmp: boolean
+    ): Array<string> {
+        if (!this._hasIntervalTextFieldFilterValues(filters, column, tmp)) {
             return ['', ''];
         }
 
         let values = [
-            this.getIntervalTextFieldFilterValue(
+            this._getIntervalTextFieldFilterValue(
                 filters,
                 column.name,
-                FilterInterval.FROM
+                FilterInterval.FROM,
+                tmp
             ),
-            this.getIntervalTextFieldFilterValue(
+            this._getIntervalTextFieldFilterValue(
                 filters,
                 column.name,
-                FilterInterval.TO
+                FilterInterval.TO,
+                tmp
             ),
         ];
         return values;
@@ -203,6 +302,31 @@ export class FiltersColumnMenu extends Filters {
         column: string,
         index: FilterInterval
     ): string {
+        return this._getIntervalTextFieldFilterValue(
+            filters,
+            column,
+            index,
+            false
+        );
+    }
+    getIntervalTextFieldFilterValueTmp(
+        filters: GenericFilter = {},
+        column: string,
+        index: FilterInterval
+    ): string {
+        return this._getIntervalTextFieldFilterValue(
+            filters,
+            column,
+            index,
+            true
+        );
+    }
+    private _getIntervalTextFieldFilterValue(
+        filters: GenericFilter = {},
+        column: string,
+        index: FilterInterval,
+        tmp: boolean
+    ): string {
         let value = '';
 
         if (filters == null) {
@@ -212,10 +336,13 @@ export class FiltersColumnMenu extends Filters {
         if (filter == null) {
             return value;
         }
-        if (filter.interval == null) {
+        if (tmp && filter.intervalTmp == null) {
             return value;
         }
-        value = filter.interval[index];
+        if (!tmp && filter.interval == null) {
+            return value;
+        }
+        value = tmp ? filter.intervalTmp[index] : filter.interval[index];
         return value;
     }
 
@@ -224,15 +351,34 @@ export class FiltersColumnMenu extends Filters {
         column: string,
         newFilter: string
     ) {
+        this._setTextFieldFilterValue(filters, column, newFilter, true);
+    }
+    private _setTextFieldFilterValue(
+        filters: GenericFilter = {},
+        column: string,
+        newFilter: string,
+        tmp: boolean
+    ) {
         if (filters == null) {
             return;
         }
         let filter: Filter = filters[column];
         if (filter == null) {
-            filter = { textField: '', checkBoxes: [], interval: null };
+            filter = {
+                textField: '',
+                textFieldTmp: '',
+                checkBoxes: [],
+                interval: null,
+                intervalTmp: null,
+            };
             filters[column] = filter;
         }
-        filter.textField = newFilter != null ? newFilter.trim() : newFilter;
+        if (tmp) {
+            filter.textFieldTmp =
+                newFilter != null ? newFilter.trim() : newFilter;
+        } else {
+            filter.textField = newFilter != null ? newFilter.trim() : newFilter;
+        }
     }
 
     setIntervalTextFieldFilterValue(
@@ -241,20 +387,113 @@ export class FiltersColumnMenu extends Filters {
         newFilter: string,
         index: FilterInterval
     ) {
+        this._setIntervalTextFieldFilterValue(
+            filters,
+            column,
+            newFilter,
+            index,
+            true
+        );
+    }
+
+    private _setIntervalTextFieldFilterValue(
+        filters: GenericFilter = {},
+        column: string,
+        newFilter: string,
+        index: FilterInterval,
+        tmp: boolean
+    ) {
         if (filters == null) {
             return;
         }
         let filter: Filter = filters[column];
         if (filter == null) {
-            filter = { textField: '', checkBoxes: [], interval: null };
+            filter = {
+                textField: '',
+                textFieldTmp: '',
+                checkBoxes: [],
+                interval: null,
+                intervalTmp: null,
+            };
             filters[column] = filter;
         }
         if (filter.interval == null) {
             filter.interval = [];
             filter.interval.push('', '');
         }
-        filter.interval[index] =
-            newFilter != null ? newFilter.trim() : newFilter;
+        if (filter.intervalTmp == null) {
+            filter.intervalTmp = [];
+            filter.intervalTmp.push('', '');
+        }
+        if (tmp) {
+            filter.intervalTmp[index] =
+                newFilter != null ? newFilter.trim() : newFilter;
+        } else {
+            filter.interval[index] =
+                newFilter != null ? newFilter.trim() : newFilter;
+        }
+    }
+
+    saveTextualFilters(filters: GenericFilter = {}, column: string) {
+        this._setTextFieldFilterValue(
+            filters,
+            column,
+            this.getTextFilterValueTmp(filters, column),
+            false
+        );
+        this._setIntervalTextFieldFilterValue(
+            filters,
+            column,
+            this.getIntervalTextFieldFilterValueTmp(
+                filters,
+                column,
+                FilterInterval.FROM
+            ),
+            FilterInterval.FROM,
+            false
+        );
+        this._setIntervalTextFieldFilterValue(
+            filters,
+            column,
+            this.getIntervalTextFieldFilterValueTmp(
+                filters,
+                column,
+                FilterInterval.TO
+            ),
+            FilterInterval.TO,
+            false
+        );
+    }
+
+    resetTextualFilters(filters: GenericFilter = {}, column: string) {
+        this._setTextFieldFilterValue(
+            filters,
+            column,
+            this.getTextFilterValue(filters, column),
+            true
+        );
+        this._setIntervalTextFieldFilterValue(
+            filters,
+            column,
+            this.getIntervalTextFieldFilterValue(
+                filters,
+                column,
+                FilterInterval.FROM
+            ),
+            FilterInterval.FROM,
+            true
+        );
+        this._setIntervalTextFieldFilterValue(
+            filters,
+            column,
+            this.getIntervalTextFieldFilterValue(
+                filters,
+                column,
+                FilterInterval.TO
+            ),
+            FilterInterval.TO,
+            true
+        );
     }
 
     getFilterValueForTooltip(
@@ -303,8 +542,7 @@ export class FiltersColumnMenu extends Filters {
         separator = '';
         let ris = '';
         chkFilters.forEach((f) => {
-            ris +=
-                separator + getValueForDisplay(f, column.obj, column.decimals);
+            ris += separator + f.displayedValue;
             separator = ' OR ';
         });
 
@@ -326,8 +564,10 @@ export class FiltersColumnMenu extends Filters {
     removeFilter(filters: GenericFilter = {}, column: string) {
         filters[column] = {
             textField: '',
+            textFieldTmp: '',
             checkBoxes: [],
             interval: null,
+            intervalTmp: null,
         };
     }
 }
