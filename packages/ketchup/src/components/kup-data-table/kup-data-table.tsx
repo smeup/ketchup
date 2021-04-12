@@ -763,10 +763,10 @@ export class KupDataTable {
     private tooltip: KupTooltip;
 
     /**
-     * contains the previous data, used in transposed function
+     * contains the original data, used in transposed function
      * @private
      */
-    private previousData: TableData = undefined;
+    private originalData: TableData = undefined;
 
     /**
      * Reference to the working area of the table. This is the below-wrapper reference.
@@ -1065,14 +1065,20 @@ export class KupDataTable {
         this.stateSwitcher = !this.stateSwitcher;
     }
 
-    private transposeData(): TableData {
-        // TODO check with emply data or empty columns
-        // TODO check with previous data and transpose prop
-        // if (this.previousData) {
-        // const previousData = { ...this.previousData };
-        // this.data = this.data = { ...this.data };
+    private calcTransposeData(): TableData {
+        if (!this.data || this.data.columns.length === 0) return;
+        // TODO refactor this
+        if (!this.transpose) {
+            if (this.originalData) {
+                // restore
+                this.data = { ...this.originalData };
+                return;
+            } else {
+                return;
+            }
+        }
+        // calc transposed data
         let transposedData: TableData = {};
-
         // calc columns
         const columns: Array<Column> = [];
         // first item
@@ -1113,10 +1119,14 @@ export class KupDataTable {
         }
         // set rows
         transposedData.rows = rows;
-        console.log({ transposedData });
-        this.data = transposedData;
+
+        // manage data
+        //if (!this.originalData) {
+        // TODO check if is right to always update originalData
+        this.originalData = { ...this.data };
+        //}
+        this.data = { ...transposedData };
         return transposedData;
-        // } // close if
     }
 
     private getColumnFromCell(cell: Cell, id: string): Column {
@@ -4752,7 +4762,7 @@ export class KupDataTable {
                         } else {
                             this.transpose = false;
                         }
-                        this.transposeData();
+                        this.calcTransposeData();
                     }}
                 />
             </div>
