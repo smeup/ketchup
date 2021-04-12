@@ -570,9 +570,13 @@ export class KupDataTable {
      */
     @Prop() tooltipLoadTimeout: number;
     /**
-     * Defines the current totals options.
+     * Defines the current totals options
      */
     @Prop() totals: TotalsMap;
+    /**
+     * Transposes the data of the data table
+     */
+    @Prop() transpose: boolean = false;
     /**
      * Enable row dragging
      */
@@ -4736,13 +4740,18 @@ export class KupDataTable {
     }
 
     private renderTransposePanel() {
-        // TODO link checked with the new prop
         return (
             <div class="customize-element grid-panel">
                 <kup-switch
-                    label="Transpose"
+                    checked={this.transpose}
+                    label="Transposed data"
                     onKupSwitchChange={(e: CustomEvent) => {
                         e.stopPropagation();
+                        if (e.detail.value === 'on') {
+                            this.transpose = true;
+                        } else {
+                            this.transpose = false;
+                        }
                         this.transposeData();
                     }}
                 />

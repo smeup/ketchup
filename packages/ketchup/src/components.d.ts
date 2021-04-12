@@ -892,9 +892,13 @@ export namespace Components {
          */
         "tooltipLoadTimeout": number;
         /**
-          * Defines the current totals options.
+          * Defines the current totals options
          */
         "totals": TotalsMap;
+        /**
+          * Transposes the data of the data table
+         */
+        "transpose": boolean;
     }
     interface KupDatePicker {
         /**
@@ -3437,9 +3441,13 @@ declare namespace LocalJSX {
          */
         "tooltipLoadTimeout"?: number;
         /**
-          * Defines the current totals options.
+          * Defines the current totals options
          */
         "totals"?: TotalsMap;
+        /**
+          * Transposes the data of the data table
+         */
+        "transpose"?: boolean;
     }
     interface KupDatePicker {
         /**
