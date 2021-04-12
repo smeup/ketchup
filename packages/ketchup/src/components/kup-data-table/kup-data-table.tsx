@@ -378,6 +378,14 @@ export class KupDataTable {
      */
     @Prop() density: string = 'dense';
     /**
+     * Enable row dragging
+     */
+    @Prop() dragEnabled: boolean = false;
+    /**
+     * Enable record dropping
+     */
+    @Prop() dropEnabled: boolean = false;
+    /**
      * Defines the label to show when the table is empty.
      */
     @Prop() emptyDataLabel: string = 'Empty data';
@@ -577,14 +585,6 @@ export class KupDataTable {
      * Transposes the data of the data table
      */
     @Prop() transpose: boolean = false;
-    /**
-     * Enable row dragging
-     */
-    @Prop() dragEnabled: boolean = false;
-    /**
-     * Enable record dropping
-     */
-    @Prop() dropEnabled: boolean = false;
 
     //-------- State --------
 
