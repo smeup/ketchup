@@ -2210,6 +2210,7 @@ export class KupDataTable {
                 cell['data']['value'] = inputEl.value;
             }
         }
+        this.forceUpdate();
         this.kupDataTableCellUpdate.emit({
             cell: cell,
             event: e,
