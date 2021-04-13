@@ -1078,6 +1078,8 @@ export class KupDataTable {
                 return;
             }
         }
+        // TODO manage better the filters, this is just a fix in order to release the function
+        this.filters = {};
         // calc transposed data
         let transposedData: TableData = {};
         // calc columns
