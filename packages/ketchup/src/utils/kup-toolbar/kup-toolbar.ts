@@ -20,11 +20,20 @@ export class KupToolbar {
         const toolbar: KupToolbar = dom.ketchup.toolbar;
         if (toolbar.managedElements) {
             for (let index = 0; index < toolbar.modifiers.length; index++) {
-                if (!e[toolbar.modifiers[index]]) {
-                    if (toolbar.active) {
-                        toolbar.hide();
+                if (
+                    toolbar.modifiers[index] === KupToolbarModifierKeys.CTRL &&
+                    e.metaKey
+                ) {
+                    continue;
+                } else {
+                    if (!e[toolbar.modifiers[index]]) {
+                        {
+                            if (toolbar.active) {
+                                toolbar.hide();
+                            }
+                            return;
+                        }
                     }
-                    return;
                 }
             }
             toolbar.show();
