@@ -85,7 +85,8 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `tooltipDetailTimeout`      | `tooltip-detail-timeout`       | Defines the timeout for tooltip detail                                                                                                                                                                                         | `number`                                                                                         | `undefined`                          |
 | `tooltipEnabled`            | `tooltip-enabled`              | Enable show tooltip                                                                                                                                                                                                            | `boolean`                                                                                        | `true`                               |
 | `tooltipLoadTimeout`        | `tooltip-load-timeout`         | Defines the timeout for tooltip load                                                                                                                                                                                           | `number`                                                                                         | `undefined`                          |
-| `totals`                    | --                             | Defines the current totals options.                                                                                                                                                                                            | `TotalsMap`                                                                                      | `undefined`                          |
+| `totals`                    | --                             | Defines the current totals options                                                                                                                                                                                             | `TotalsMap`                                                                                      | `undefined`                          |
+| `transpose`                 | `transpose`                    | Transposes the data of the data table                                                                                                                                                                                          | `boolean`                                                                                        | `false`                              |
 
 
 ## Events
@@ -218,6 +219,7 @@ Type: `Promise<void>`
 - [kup-paginator](../kup-paginator)
 - [kup-switch](../kup-switch)
 - [kup-combobox](../kup-combobox)
+- [kup-switch](../kup-switch)
 - [kup-badge](../kup-badge)
 
 ### Graph
@@ -238,6 +240,7 @@ graph TD;
   kup-data-table --> kup-paginator
   kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-switch
   kup-data-table --> kup-badge
   kup-card --> kup-chip
   kup-card --> kup-badge

@@ -63,6 +63,7 @@ graph TD;
   kup-data-table --> kup-paginator
   kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
+  kup-data-table --> kup-switch
   kup-data-table --> kup-badge
   kup-card --> kup-chip
   kup-card --> kup-badge

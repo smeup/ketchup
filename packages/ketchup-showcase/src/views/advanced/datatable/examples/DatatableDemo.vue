@@ -371,6 +371,13 @@ export default {
           default: 'undefined',
           try: 'json',
         },
+        {
+          prop: 'transpose',
+          description: 'Transposes the data of the data table.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
       ],
       demoClasses: [
         {

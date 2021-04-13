@@ -51,6 +51,11 @@ function createChipList(
     let chipEl: HTMLElement;
 
     for (let i = 0; i < props.data.length; i++) {
+        // could happen due to functions that change the data (such as transposition, etc)
+        if (!props.data[i]) {
+            continue;
+        }
+
         let componentClass: string = 'mdc-chip';
         let iconEl = [];
         let iconClass = 'mdc-chip__icon mdc-chip__icon--leading';
