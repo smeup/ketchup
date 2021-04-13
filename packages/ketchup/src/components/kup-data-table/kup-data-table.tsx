@@ -1452,6 +1452,7 @@ export class KupDataTable {
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
         this.kupManager.theme.register(this);
+        this.kupManager.toolbar.register(this.rootElement);
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
         this.filtersRowsInstance = new FiltersRows();

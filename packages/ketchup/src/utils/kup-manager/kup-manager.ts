@@ -10,6 +10,7 @@ import { ResizeObserver } from 'resize-observer';
 import { DynamicPosition } from '../dynamic-position/dynamic-position';
 import { ScrollOnHover } from '../scroll-on-hover/scroll-on-hover';
 import { MoveOnDrag } from '../move-on-drag/move-on-drag';
+import { KupToolbar } from '../kup-toolbar/kup-toolbar';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -48,6 +49,7 @@ export class KupManager {
         : null;
     scrollOnHover: ScrollOnHover = new ScrollOnHover();
     theme: KupTheme = new KupTheme();
+    toolbar: KupToolbar = new KupToolbar();
 
     /**
      * Creates kup-magic-box component.

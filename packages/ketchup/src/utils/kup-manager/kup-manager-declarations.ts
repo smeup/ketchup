@@ -4,6 +4,7 @@ import type { ResizeObserver } from 'resize-observer';
 import type { DynamicPosition } from '../dynamic-position/dynamic-position';
 import type { ScrollOnHover } from '../scroll-on-hover/scroll-on-hover';
 import { MoveOnDrag } from '../move-on-drag/move-on-drag';
+import { KupToolbar } from '../kup-toolbar/kup-toolbar';
 /**
  * Interface used to define the HTML element with Ketch.UP specific properties.
  */
@@ -23,6 +24,7 @@ export interface KupManager {
     resize: ResizeObserver;
     scrollOnHover: ScrollOnHover;
     theme: KupTheme;
+    toolbar: KupToolbar;
     showMagicBox: () => void;
     hideMagicBox: () => void;
     toggleMagicBox: () => void;
