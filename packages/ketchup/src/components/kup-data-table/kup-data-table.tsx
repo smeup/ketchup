@@ -1482,6 +1482,8 @@ export class KupDataTable {
         this.isSafariBrowser =
             CSS.supports('position', '-webkit-sticky') ||
             !!(window && (window as Window & { safari?: object }).safari);
+
+        this.calcTransposeData();
     }
 
     componentWillRender() {
