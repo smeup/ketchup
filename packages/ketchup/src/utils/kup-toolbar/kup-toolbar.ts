@@ -8,31 +8,26 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupToolbar
  */
 export class KupToolbar {
-    key: string = 'k';
+    active: boolean = false;
     modifiers: KupToolbarModifierKeys[] = [
         KupToolbarModifierKeys.ALT,
         KupToolbarModifierKeys.CTRL,
     ];
     managedElements: Set<HTMLElement> = null;
-    #keyDown: (this: Document, ev: KeyboardEvent) => any = function (
+    #keyEvent: (this: Document, ev: KeyboardEvent) => any = function (
         e: KeyboardEvent
     ) {
         const toolbar: KupToolbar = dom.ketchup.toolbar;
-        for (let index = 0; index < toolbar.modifiers.length; index++) {
-            if (!e[toolbar.modifiers[index]]) {
-                return;
+        if (toolbar.managedElements) {
+            for (let index = 0; index < toolbar.modifiers.length; index++) {
+                if (!e[toolbar.modifiers[index]]) {
+                    if (toolbar.active) {
+                        toolbar.hide();
+                    }
+                    return;
+                }
             }
-        }
-        console.log('GOTCHA');
-        if (e.key === toolbar.key) {
-            console.log('K!');
-        }
-    };
-    #keyUp: (this: Document, ev: KeyboardEvent) => any = function (
-        e: KeyboardEvent
-    ) {
-        if (e.key === dom.ketchup.toolbar.key) {
-            console.log(e);
+            toolbar.show();
         }
     };
     #initialized: boolean = false;
@@ -40,10 +35,32 @@ export class KupToolbar {
      * Initializes the class' elements.
      */
     initialize(): void {
-        document.addEventListener('keydown', this.#keyDown);
-        document.addEventListener('keyup', this.#keyUp);
+        document.addEventListener('keydown', this.#keyEvent);
+        document.addEventListener('keyup', this.#keyEvent);
         this.#initialized = true;
         this.managedElements = new Set();
+    }
+    /**
+     * Shows components' toolbar.
+     */
+    show(): void {
+        this.managedElements.forEach(function (comp) {
+            if (comp.isConnected) {
+                comp.setAttribute('kup-toolbar', '');
+            }
+        });
+        this.active = true;
+    }
+    /**
+     * Hides components' toolbar.
+     */
+    hide(): void {
+        this.managedElements.forEach(function (comp) {
+            if (comp.isConnected) {
+                comp.removeAttribute('kup-toolbar');
+            }
+        });
+        this.active = false;
     }
     /**
      * Watches the element eligible to move when dragging.

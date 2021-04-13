@@ -27,6 +27,15 @@
   position: relative;
 }
 
+:host([kup-toolbar]) {
+  .settings-trigger {
+    height: 12px;
+  }
+  .customize-panel {
+    visibility: visible;
+  }
+}
+
 table {
   // [TFixed-1] - This is needed to avoid problems with fixed rows/columns
   border-spacing: 0; // [TFixed-1]
@@ -574,11 +583,13 @@ th.obj:hover span:not(.overlay-action) {
 
 .settings-trigger {
   cursor: pointer;
+  display: block;
   width: 32px;
-  height: 12px;
+  height: 0;
   border-top-left-radius: 25px 30px;
   border-top-right-radius: 25px 30px;
   background-color: var(--kup-border-color);
+  transition: height 0.25s;
   &.toggled {
     background-color: var(--kup-primary-color);
     .f-image__icon {
@@ -588,10 +599,12 @@ th.obj:hover span:not(.overlay-action) {
 }
 
 .customize-panel {
+  visibility: hidden;
   background: var(--kup-background-color);
   box-shadow: var(--kup-box-shadow);
   min-width: 200px;
   width: fit-content;
+  transition: height 0.25s;
   kup-switch {
     text-align: center;
   }
