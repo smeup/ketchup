@@ -18,6 +18,7 @@ import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc'
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import { KupTextFieldProps } from './kup-text-field-declarations';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-text-field',
@@ -408,7 +409,7 @@ export class KupTextField {
             this.kupManager.debug.logMessage(
                 this,
                 "Couldn't set value on input element: '" + value + "'",
-                'warning'
+                KupDebugCategory.WARNING
             );
         }
     }

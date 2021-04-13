@@ -7,7 +7,7 @@ import type { GenericObject } from '../../types/GenericTypes';
  * @returns {JSX.Element[]} List of components.
  */
 export function compList(
-    compArray: GenericObject[] | string[],
+    compArray: GenericObject[] | string[] | HTMLElement[],
     compType: string
 ): VNode[] {
     let list: VNode[] = [];
@@ -40,6 +40,9 @@ export function compList(
                         {...(compArray as GenericObject[])[index]}
                     />
                 );
+                break;
+            case 'slot':
+                list.push(<slot></slot>);
                 break;
             case 'text':
                 list.push(

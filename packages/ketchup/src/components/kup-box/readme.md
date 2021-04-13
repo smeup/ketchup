@@ -92,6 +92,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [kup-magic-box](../kup-magic-box)
+
 ### Depends on
 
 - [kup-card](../kup-card)
@@ -138,6 +142,7 @@ graph TD;
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-list --> kup-badge
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
   kup-time-picker --> kup-text-field
@@ -164,6 +169,7 @@ graph TD;
   kup-color-picker --> kup-text-field
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
+  kup-magic-box --> kup-box
   style kup-box fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

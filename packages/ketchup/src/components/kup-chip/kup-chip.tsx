@@ -22,6 +22,7 @@ import {
 } from '../../f-components/f-chip/f-chip-declarations';
 import { KupChipProps } from './kup-chip-declarations';
 import { GenericObject } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-chip',
@@ -300,7 +301,11 @@ export class KupChip {
                         j +
                         ") to be set on 'checked' when another one was found before! Overriding to false because the 'choice' type only allows 1 'checked'.";
 
-                    this.kupManager.debug.logMessage(this, message, 'warning');
+                    this.kupManager.debug.logMessage(
+                        this,
+                        message,
+                        KupDebugCategory.WARNING
+                    );
                 }
                 if (this.data[j].checked && !firstCheckedFound) {
                     firstCheckedFound = true;
@@ -326,7 +331,11 @@ export class KupChip {
 
         if (this.data.length === 0) {
             let message = 'Empty data.';
-            this.kupManager.debug.logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
             return;
         }
 

@@ -23,6 +23,7 @@ import {
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import { KupAutocompleteProps } from './kup-autocomplete-declarations';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-autocomplete',
@@ -48,7 +49,7 @@ export class KupAutocomplete {
      */
     @Prop() disabled: boolean = false;
     /**
-     * Sets how the show the selected item value. Suported values: "code", "description", "both".
+     * Sets how to show the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
@@ -60,7 +61,7 @@ export class KupAutocomplete {
      */
     @Prop() minimumChars: number = 1;
     /**
-     * Sets how the return the selected item value. Suported values: "code", "description", "both".
+     * Sets how to return the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
 
@@ -336,9 +337,13 @@ export class KupAutocomplete {
                     this.kupManager.debug.logMessage(
                         this,
                         'Executing callback error',
-                        'error'
+                        KupDebugCategory.ERROR
                     );
-                    this.kupManager.debug.logMessage(this, err, 'error');
+                    this.kupManager.debug.logMessage(
+                        this,
+                        err,
+                        KupDebugCategory.ERROR
+                    );
                 });
         } else {
             this.listEl.resetFilter(newFilter);

@@ -76,6 +76,7 @@ Type: `Promise<void>`
  - [kup-box](../kup-box)
  - [kup-card](../kup-card)
  - [kup-data-table](../kup-data-table)
+ - [kup-magic-box](../kup-magic-box)
  - [kup-tree](../kup-tree)
 
 ### Graph
@@ -84,6 +85,7 @@ graph TD;
   kup-box --> kup-chart
   kup-card --> kup-chart
   kup-data-table --> kup-chart
+  kup-magic-box --> kup-chart
   kup-tree --> kup-chart
   style kup-chart fill:#f9f,stroke:#333,stroke-width:4px
 ```

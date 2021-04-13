@@ -37,6 +37,17 @@ Type: `Promise<GenericObject>`
 
 
 
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+Useful when slots change.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `resizeCallback() => Promise<void>`
 
 This method is invoked by KupManager whenever the component changes size.
@@ -99,6 +110,7 @@ graph TD;
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-list --> kup-badge
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
   kup-time-picker --> kup-text-field

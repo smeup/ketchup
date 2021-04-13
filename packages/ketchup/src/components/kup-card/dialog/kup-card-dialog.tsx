@@ -77,10 +77,11 @@ export function create3(component: KupCard): VNode {
     const comboboxArray: GenericObject[] = component.data['combobox']
         ? component.data['combobox']
         : [];
-    //String list
-    const textArray: string[] = component.data['text']
-        ? component.data['text']
-        : [];
+    //Slot list
+    const slots: Array<HTMLElement> = Array.prototype.slice.call(
+        component.rootElement.children,
+        0
+    );
     //Textfield list
     const textfieldArray: GenericObject[] = component.data['textfield']
         ? component.data['textfield']
@@ -101,8 +102,8 @@ export function create3(component: KupCard): VNode {
                         {compList(comboboxArray, 'combobox')}
                     </div>
                 ) : null}
-                {textArray.length > 0 ? (
-                    <div class="section-2">{compList(textArray, 'text')}</div>
+                {slots.length > 0 ? (
+                    <div class="section-2">{compList(slots, 'slot')}</div>
                 ) : null}
             </div>
         </div>

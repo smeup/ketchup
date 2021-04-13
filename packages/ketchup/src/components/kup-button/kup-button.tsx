@@ -21,6 +21,7 @@ import {
     FButtonStyling,
 } from '../../f-components/f-button/f-button-declarations';
 import { KupButtonProps } from './kup-button-declarations';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-button',
@@ -292,7 +293,11 @@ export class KupButton {
 
         if (!this.label && !this.icon) {
             let message = 'Empty button.';
-            this.kupManager.debug.logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
             return;
         }
 

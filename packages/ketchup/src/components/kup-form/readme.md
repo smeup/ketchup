@@ -141,9 +141,10 @@ graph TD;
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-list --> kup-badge
+  kup-badge --> kup-badge
   kup-crud --> kup-form
   kup-button --> kup-badge
-  kup-badge --> kup-badge
   kup-autocomplete --> kup-list
   kup-search --> kup-text-field
   kup-search --> kup-button
@@ -162,6 +163,7 @@ graph TD;
   kup-data-table --> kup-rating
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
+  kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
   kup-data-table --> kup-switch
   kup-data-table --> kup-badge

@@ -592,6 +592,9 @@ th.obj:hover span:not(.overlay-action) {
   box-shadow: var(--kup-box-shadow);
   min-width: 200px;
   width: fit-content;
+  kup-switch {
+    text-align: center;
+  }
 }
 
 .customize-element {

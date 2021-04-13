@@ -2,6 +2,7 @@
  * Interface for the logs of KupDebug.
  */
 export interface KupDebugLog {
+    category: KupDebugCategory;
     date: Date;
     id: string;
     element: string | Object;
@@ -16,6 +17,14 @@ export interface KupDebugLogPrint {
         element: string | Object;
         message: string;
     }[];
+}
+/**
+ * Category of debug logs.
+ */
+export enum KupDebugCategory {
+    INFO = 'Informational',
+    WARNING = 'Warning',
+    ERROR = 'Error',
 }
 /**
  * Colors associated with every type of log to be printed.

@@ -37,7 +37,8 @@
     overflow: auto;
     max-height: 50vh;
   }
-  .text {
+
+  ::slotted(.text) {
     color: var(--kup-text-color);
     font-family: var(--kup-font-family-monospace);
     white-space: nowrap;

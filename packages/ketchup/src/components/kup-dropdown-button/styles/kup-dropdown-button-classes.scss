@@ -10,3 +10,10 @@
     border-radius: 18px;
   }
 }
+
+:host(.kup-full-width) {
+  width: 100%;
+  #kup-component {
+    width: 100%;
+  }
+}

@@ -92,7 +92,12 @@ export class KupTree {
                     state
                 );
                 this.density = state.density;
+                this.showFilters = state.showFilters;
+                this.showFooter = state.showFooter;
+                this.globalFilter = state.globalFilter;
                 this.globalFilterValue = state.globalFilterValue;
+                this.filters = { ...state.filters };
+                this.totals = { ...state.totals };
             }
         }
     }
@@ -100,8 +105,31 @@ export class KupTree {
     persistState(): void {
         if (this.store && this.stateId) {
             let somethingChanged = false;
+
+            if (!deepEqual(this.state.filters, this.filters)) {
+                this.state.filters = { ...this.filters };
+                somethingChanged = true;
+            }
             if (!deepEqual(this.state.density, this.density)) {
                 this.state.density = this.density;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showFilters, this.showFilters)) {
+                this.state.showFilters = this.showFilters;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showFooter, this.showFooter)) {
+                this.state.showFooter = this.showFooter;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.totals, this.totals)) {
+                this.state.totals = { ...this.totals };
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(this.state.globalFilter, this.globalFilter)
+            ) {
+                this.state.globalFilter = this.globalFilter;
                 somethingChanged = true;
             }
             if (
@@ -109,6 +137,10 @@ export class KupTree {
             ) {
                 this.state.globalFilterValue = this.globalFilterValue;
                 somethingChanged = true;
+            }
+            if (!this.state.load) {
+                this.state.load = true;
+                return;
             }
             if (somethingChanged) {
                 console.log(
