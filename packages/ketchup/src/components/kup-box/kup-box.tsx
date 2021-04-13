@@ -1609,6 +1609,9 @@ export class KupBox {
                         if (!props.sizeY) {
                             props['sizeY'] = 'auto';
                         }
+                        if (props.fit === undefined) {
+                            props.fit = true;
+                        }
                         if (props.badgeData) {
                             classObj['has-padding'] = true;
                         }

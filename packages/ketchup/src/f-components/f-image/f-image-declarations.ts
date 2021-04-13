@@ -7,6 +7,7 @@ export interface FImageProps extends FComponent {
     badgeData?: KupBadge[];
     color?: string;
     data?: FImageData[];
+    fit?: boolean;
     resource?: string;
     sizeX?: string;
     sizeY?: string;
