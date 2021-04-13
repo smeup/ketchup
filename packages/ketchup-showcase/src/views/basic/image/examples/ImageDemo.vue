@@ -25,10 +25,6 @@ export default {
           name: 'kupImageClick',
           type: 'click',
         },
-        {
-          name: 'kupImageLoad',
-          type: 'load',
-        },
       ],
       demoProps: [
         {
@@ -108,6 +104,11 @@ export default {
           class: 'kup-danger',
           description:
             'The component will be rendered using the danger color of the app.',
+        },
+        {
+          class: 'kup-fit',
+          description:
+            "The component won't exceed its size in pixels (needs a new render to be effective, works only when resource is an URL).",
         },
         {
           class: 'kup-info',

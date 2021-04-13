@@ -243,6 +243,7 @@ export class KupImage {
             badgeData: this.badgeData,
             color: this.color,
             data: this.data,
+            fit: this.rootElement.classList.contains('kup-fit') ? true : false,
             resource: this.resource,
             sizeX: this.sizeX,
             sizeY: this.sizeY,
