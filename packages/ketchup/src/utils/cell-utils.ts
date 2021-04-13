@@ -324,7 +324,7 @@ export function getCellType(cell: Cell) {
         return 'knob';
     } else if (isIcon(obj) || isVoCodver(obj)) {
         return 'icon';
-    } else if (isImageObj(obj)) {
+    } else if (isImage(cell, null)) {
         return 'image';
     } else if (isLink(obj)) {
         return 'link';
