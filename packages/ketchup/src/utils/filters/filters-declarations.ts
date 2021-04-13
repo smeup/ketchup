@@ -12,15 +12,15 @@ export interface GenericFilter {
 
 export interface ValueDisplayedValue {
     value: string;
-    displayedValue: string;
+    displayedValue?: string;
 }
 
 export interface Filter {
     textField: string;
-    textFieldTmp: string;
+    textFieldTmp?: string;
     checkBoxes: ValueDisplayedValue[];
     interval: string[];
-    intervalTmp: string[];
+    intervalTmp?: string[];
 }
 
 /**

@@ -16,6 +16,7 @@ import {
     getCellValueForDisplay,
     getColumnByName,
     getValueForDisplay,
+    getValueForDisplay2,
 } from '../cell-utils';
 import { isDate, isNumber, isTime, isTimestamp } from '../object-utils';
 import { Filters } from './filters';
@@ -387,9 +388,9 @@ export class FiltersRows extends Filters {
         values.sort((n1, n2) => {
             return compareValues(
                 null,
-                n1.displayedValue,
+                getValueForDisplay2(n1, column),
                 null,
-                n2.displayedValue,
+                getValueForDisplay2(n2, column),
                 SortMode.A
             );
         });

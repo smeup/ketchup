@@ -1,5 +1,5 @@
 import type { Column } from '../../components/kup-data-table/kup-data-table-declarations';
-import { getValueForDisplay } from '../cell-utils';
+import { getValueForDisplay, getValueForDisplay2 } from '../cell-utils';
 import { Filters } from './filters';
 import {
     Filter,
@@ -542,7 +542,7 @@ export class FiltersColumnMenu extends Filters {
         separator = '';
         let ris = '';
         chkFilters.forEach((f) => {
-            ris += separator + f.displayedValue;
+            ris += separator + getValueForDisplay2(f, column);
             separator = ' OR ';
         });
 

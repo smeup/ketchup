@@ -34,7 +34,7 @@ import {
     ISO_DEFAULT_DATE_FORMAT,
     ISO_DEFAULT_DATE_TIME_FORMAT,
 } from '../utils';
-import { getValueForDisplay } from '../cell-utils';
+import { getValueForDisplay, getValueForDisplay2 } from '../cell-utils';
 import { FiltersRows } from '../filters/filters-rows';
 import { Filters } from '../filters/filters';
 
@@ -212,10 +212,9 @@ export class ColumnMenu {
                 comp.filters,
                 column.name
             );
-            const columnValues: {
-                value: string;
-                displayedValue: string;
-            }[] = comp.getColumnValues(column);
+            const columnValues: ValueDisplayedValue[] = comp.getColumnValues(
+                column
+            );
 
             if (columnValues.length > 0) {
                 props.push({
@@ -229,7 +228,7 @@ export class ColumnMenu {
                 });
             }
             for (let index = 0; index < columnValues.length; index++) {
-                let label = columnValues[index].displayedValue;
+                let label = getValueForDisplay2(columnValues[index], column);
                 if (isCheckbox(column.obj)) {
                     if (columnValues[index].value == '1') {
                         label = 'Checked';
@@ -245,7 +244,10 @@ export class ColumnMenu {
                     'data-storage': {
                         column: column,
                         value: columnValues[index].value,
-                        displayedValue: columnValues[index].displayedValue,
+                        displayedValue: getValueForDisplay2(
+                            columnValues[index],
+                            column
+                        ),
                     },
                     label: label,
                 });
