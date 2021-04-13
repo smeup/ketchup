@@ -4462,7 +4462,7 @@ export class KupDataTable {
             density = this.renderDensityPanel();
             fontsize = this.renderFontSizePanel();
             grid = this.renderGridPanel();
-            transpose = this.renderTransposePanel();
+            transpose = this.renderTransposeSwitch();
         }
 
         return (
@@ -4764,12 +4764,13 @@ export class KupDataTable {
         return this.transcodeItem(decode, this.GRID_DECODES, this.GRID_CODES);
     }
 
-    private renderTransposePanel() {
+    private renderTransposeSwitch() {
         return (
             <div class="customize-element grid-panel">
                 <kup-switch
                     checked={this.transpose}
                     label="Transposed data"
+                    leadingLabel={true}
                     onKupSwitchChange={(e: CustomEvent) => {
                         e.stopPropagation();
                         if (e.detail.value === 'on') {
