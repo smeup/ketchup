@@ -4,6 +4,14 @@ import moment from 'moment';
 
 import { Identifiable } from '../types/GenericTypes';
 
+export enum DateTimeFormatOptionsMonth {
+    NUMERIC = 'numeric',
+    DIGIT2 = '2-digit',
+    LONG = 'long',
+    SHORT = 'short',
+    NARROW = 'narrow',
+}
+
 export function identify(array: Array<Identifiable>) {
     if (array) {
         for (let i = 0; i < array.length; i++) {
@@ -792,7 +800,7 @@ export function unformattedStringToFormattedStringTimestamp(
 
 export function getMonthAsStringByLocale(
     month: number,
-    format: string
+    format: DateTimeFormatOptionsMonth
 ): string {
     if (month == null) {
         return '';
@@ -807,9 +815,11 @@ export function getMonthAsStringByLocale(
     return dateTimeFormat.format(dateTmp);
 }
 
-export function getMonthsAsStringByLocale(format?: string): string[] {
+export function getMonthsAsStringByLocale(
+    format?: DateTimeFormatOptionsMonth
+): string[] {
     if (format == null || format.trim() == '') {
-        format = 'long';
+        format = DateTimeFormatOptionsMonth.LONG;
     }
     var months: string[] = [];
     for (var i = 0; i < 12; i++) {

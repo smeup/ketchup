@@ -42,6 +42,7 @@ import {
     unformattedStringToFormattedStringTime,
     unformattedStringToFormattedStringTimestamp,
 } from './utils';
+import { ValueDisplayedValue } from './filters/filters-declarations';
 
 // -------------
 // COMMONS
@@ -362,6 +363,23 @@ export function getCellValueForDisplay(column: Column, cell: Cell): string {
         cell.displayedValue = formattedValue;
     }
     return formattedValue;
+}
+
+export function getValueForDisplay2(
+    values: ValueDisplayedValue,
+    column?: Column
+): string {
+    if (values == null) {
+        return '';
+    }
+    if (values.displayedValue == null || values.displayedValue.trim() == '') {
+        values.displayedValue = _getCellValueForDisplay(
+            values.value,
+            column,
+            null
+        );
+    }
+    return values.displayedValue;
 }
 
 function _getCellValueForDisplay(value, column: Column, cell: Cell): string {

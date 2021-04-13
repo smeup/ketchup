@@ -61,7 +61,10 @@ import {
 } from '../../utils/utils';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
-import { GenericFilter } from '../../utils/filters/filters-declarations';
+import {
+    GenericFilter,
+    ValueDisplayedValue,
+} from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { GenericObject } from '../../types/GenericTypes';
@@ -126,9 +129,7 @@ export class KupTree {
                 this.state.totals = { ...this.totals };
                 somethingChanged = true;
             }
-            if (
-                !deepEqual(this.state.globalFilter, this.globalFilter)
-            ) {
+            if (!deepEqual(this.state.globalFilter, this.globalFilter)) {
                 this.state.globalFilter = this.globalFilter;
                 somethingChanged = true;
             }
@@ -1063,9 +1064,7 @@ export class KupTree {
         this.globalFilterValue = value;
     }
 
-    getColumnValues(
-        column: Column
-    ): { value: string; displayedValue: string }[] {
+    getColumnValues(column: Column): ValueDisplayedValue[] {
         return this.filtersTreeItemsInstance.getColumnValues(
             this,
             column,
