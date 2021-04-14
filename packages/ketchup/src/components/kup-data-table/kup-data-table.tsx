@@ -1600,7 +1600,7 @@ export class KupDataTable {
                     customStyle:
                         '#kup-component td[data-column="' +
                         iconColumn.toUpperCase() +
-                        '"]{background-color: rgba(var(--kup-text-color-rgb), 0.15)}',
+                        '"]{background-color: rgba(var(--kup-text-color-rgb), 0.15); width: 10px;}',
                     data: {
                         columns: [
                             {
