@@ -5,6 +5,7 @@ import {
     GroupObject,
     SortObject,
     GroupLabelDisplayMode,
+    TotalsMap,
 } from './kup-data-table-declarations';
 
 export class KupDataTableState implements KupState {
@@ -33,6 +34,8 @@ export class KupDataTableState implements KupState {
     selectRowsById: string;
     dragEnabled: boolean = false;
     dropEnabled: boolean = false;
+    totals: TotalsMap;
+    load: boolean = false;
 
     public toDebugString() {
         // TODO
