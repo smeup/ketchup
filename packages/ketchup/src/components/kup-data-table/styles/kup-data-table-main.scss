@@ -617,13 +617,3 @@ th.obj:hover span:not(.overlay-action) {
 .customize-element:nth-child(1) {
   padding-top: 1em;
 }
-
-table.row-detail {
-  td {
-    border: none !important;
-    padding: 0 !important;
-    .cell-content {
-      text-align: left !important;
-    }
-  }
-}

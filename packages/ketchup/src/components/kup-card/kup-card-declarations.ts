@@ -23,6 +23,7 @@ export interface CardData {
     chip?: GenericObject[];
     color?: string[];
     combobox?: GenericObject[];
+    datatable?: GenericObject[];
     datepicker?: GenericObject[];
     image?: GenericObject[];
     progressbar?: GenericObject[];

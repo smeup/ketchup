@@ -110,7 +110,7 @@ export function create3(component: KupCard): VNode {
     );
 }
 /**
- * 4th dialog card layout, used to display information with slots.
+ * 4th dialog card layout, used to display information with slot and data table.
  * @param {KupCard}  comp - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
@@ -119,31 +119,9 @@ export function create4(component: KupCard): VNode {
     const textArray: string[] = component.data['text']
         ? component.data['text']
         : [];
-    //Slot list
-    const slots: Array<HTMLElement> = Array.prototype.slice.call(
-        component.rootElement.children,
-        0
-    );
-    return (
-        <div class={`dialog-layout-${component.layoutNumber} dialog-element`}>
-            {dialogHeader(textArray[0])}
-            {slots.length > 0 ? (
-                <div class="section-1">
-                    <slot />
-                </div>
-            ) : null}
-        </div>
-    );
-}
-/**
- * 5th dialog card layout, used to display information with slots and features an highlighted row on top.
- * @param {KupCard}  comp - Card component.
- * @returns {VNode} 1st standard layout virtual node.
- */
-export function create5(component: KupCard): VNode {
-    //Dialog title
-    const textArray: string[] = component.data['text']
-        ? component.data['text']
+    //Datatable
+    const datatableArray: GenericObject[] = component.data['datatable']
+        ? component.data['datatable']
         : [];
     //Slot list
     const slots: Array<HTMLElement> = Array.prototype.slice.call(
@@ -158,9 +136,12 @@ export function create5(component: KupCard): VNode {
                     <slot name="key"></slot>
                 </div>
             ) : null}
-            {slots.length > 0 ? (
+            {datatableArray[0] ? (
                 <div class="section-2">
-                    <slot />
+                    <kup-data-table
+                        id="datatable1"
+                        {...datatableArray[0]}
+                    ></kup-data-table>
                 </div>
             ) : null}
         </div>
