@@ -1590,9 +1590,15 @@ export class KupDataTable {
      * @private
      * @memberof KupDataTable
      */
-    private rowDetail(row: Row, x: number, y: number): void {
+    private rowDetail(
+        tr: HTMLTableRowElement,
+        row: Row,
+        x: number,
+        y: number
+    ): void {
         const cardData: CardData = { text: ['Record details'] };
-        let columnKey: { label: string; value: string } = null;
+        const slots: Node[] = [];
+        let columnKey: HTMLDivElement = null;
         for (const key in row.cells) {
             if (Object.prototype.hasOwnProperty.call(row.cells, key)) {
                 const cell: Cell = row.cells[key];
@@ -1600,12 +1606,32 @@ export class KupDataTable {
                     (x) => x.name === key
                 );
                 if (column && cell) {
-                    let value: string = getCellValueForDisplay(column, cell);
+                    const label: HTMLElement = document.createElement('label');
+                    const table: HTMLTableElement = document.createElement(
+                        'table'
+                    );
+                    const r: HTMLTableRowElement = document.createElement('tr');
+                    const b: HTMLTableSectionElement = document.createElement(
+                        'tbody'
+                    );
+                    const c: HTMLTableCellElement = tr
+                        .querySelector('td[data-column="' + column.name + '"]')
+                        .cloneNode(true) as HTMLTableCellElement;
+                    table.classList.add('row-detail');
+                    table.append(b);
+                    b.append(r);
+                    r.append(c);
+                    label.innerText = column.title;
                     if (column.isKey) {
-                        columnKey = { label: column.title, value: value };
+                        table.style.margin = "auto";
+                        table.style.marginTop = "10px";
+                        table.style.width= "max-content";
+                        columnKey = document.createElement('div');
+                        columnKey.append(label, table);
+                        columnKey.style.margin = 'auto';
+                        columnKey.slot = 'key';
                     } else {
-                        cardData.text.push(column.title);
-                        cardData.text.push(value);
+                        slots.push(label, table);
                     }
                 } else {
                     this.kupManager.debug.logMessage(
@@ -1625,17 +1651,31 @@ export class KupDataTable {
             this.detailCard.layoutFamily = CardFamily.DIALOG;
         }
         if (columnKey) {
-            cardData.text.splice(1, 0, columnKey.label);
-            cardData.text.splice(2, 0, columnKey.value);
-            this.detailCard.layoutNumber = 2;
+            slots.splice(0, 0, columnKey);
+            this.detailCard.layoutNumber = 5;
         } else {
-            this.detailCard.layoutNumber = 1;
+            this.detailCard.layoutNumber = 4;
         }
         this.detailCard.data = cardData;
         this.detailCard.sizeX = '300px';
         this.detailCard.sizeY = '300px';
         this.detailCard.style.left = x + 'px';
         this.detailCard.style.top = y + 'px';
+        const children: HTMLCollection = Array.prototype.slice.call(
+            this.detailCard.children,
+            0
+        );
+        for (let index = 0; index < children.length; index++) {
+            children[index].remove();
+        }
+        this.detailCard.append(
+            this.rootElement.shadowRoot
+                .querySelector('[sty-id=sc-kup-data-table]')
+                .cloneNode(true)
+        );
+        for (let index = 0; index < slots.length; index++) {
+            this.detailCard.append(slots[index]);
+        }
         document.body.append(this.detailCard);
     }
 
@@ -1727,7 +1767,12 @@ export class KupDataTable {
                 }
                 details.tr.classList.add('focus');
                 if (e.ctrlKey || e.metaKey) {
-                    this.rowDetail(details.row, e.clientX, e.clientY);
+                    this.rowDetail(
+                        details.tr,
+                        details.row,
+                        e.clientX,
+                        e.clientY
+                    );
                     return;
                 }
             }

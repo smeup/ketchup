@@ -31,7 +31,7 @@ export function create1(component: KupCard): VNode {
     );
 }
 /**
- * 2d dialog card layout, used to display information in string format and features an highlighted row on top.
+ * 2nd dialog card layout, used to display information in string format and features an highlighted row on top.
  * @param {KupCard}  comp - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
@@ -106,6 +106,63 @@ export function create3(component: KupCard): VNode {
                     <div class="section-2">{compList(slots, 'slot')}</div>
                 ) : null}
             </div>
+        </div>
+    );
+}
+/**
+ * 4th dialog card layout, used to display information with slots.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} 1st standard layout virtual node.
+ */
+export function create4(component: KupCard): VNode {
+    //Dialog title
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
+    //Slot list
+    const slots: Array<HTMLElement> = Array.prototype.slice.call(
+        component.rootElement.children,
+        0
+    );
+    return (
+        <div class={`dialog-layout-${component.layoutNumber} dialog-element`}>
+            {dialogHeader(textArray[0])}
+            {slots.length > 0 ? (
+                <div class="section-1">
+                    <slot />
+                </div>
+            ) : null}
+        </div>
+    );
+}
+/**
+ * 5th dialog card layout, used to display information with slots and features an highlighted row on top.
+ * @param {KupCard}  comp - Card component.
+ * @returns {VNode} 1st standard layout virtual node.
+ */
+export function create5(component: KupCard): VNode {
+    //Dialog title
+    const textArray: string[] = component.data['text']
+        ? component.data['text']
+        : [];
+    //Slot list
+    const slots: Array<HTMLElement> = Array.prototype.slice.call(
+        component.rootElement.children,
+        0
+    );
+    return (
+        <div class={`dialog-layout-${component.layoutNumber} dialog-element`}>
+            {textArray[0] ? dialogHeader(textArray[0]) : dialogHeader('')}
+            {slots[0] ? (
+                <div class="section-1">
+                    <slot name="key"></slot>
+                </div>
+            ) : null}
+            {slots.length > 0 ? (
+                <div class="section-2">
+                    <slot />
+                </div>
+            ) : null}
         </div>
     );
 }
