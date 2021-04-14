@@ -110,7 +110,7 @@ export function create3(component: KupCard): VNode {
     );
 }
 /**
- * 4th dialog card layout, used to display information with slot and data table.
+ * 4th dialog card layout, used to display information with data table.
  * @param {KupCard}  comp - Card component.
  * @returns {VNode} 1st standard layout virtual node.
  */
@@ -123,19 +123,9 @@ export function create4(component: KupCard): VNode {
     const datatableArray: GenericObject[] = component.data['datatable']
         ? component.data['datatable']
         : [];
-    //Slot list
-    const slots: Array<HTMLElement> = Array.prototype.slice.call(
-        component.rootElement.children,
-        0
-    );
     return (
         <div class={`dialog-layout-${component.layoutNumber} dialog-element`}>
             {textArray[0] ? dialogHeader(textArray[0]) : dialogHeader('')}
-            {slots[0] ? (
-                <div class="section-1">
-                    <slot name="key"></slot>
-                </div>
-            ) : null}
             {datatableArray[0] ? (
                 <div class="section-2">
                     <kup-data-table

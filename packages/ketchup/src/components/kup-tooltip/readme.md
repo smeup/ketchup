@@ -106,6 +106,7 @@ graph TD;
   kup-card --> kup-date-picker
   kup-card --> kup-text-field
   kup-card --> kup-time-picker
+  kup-card --> kup-data-table
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
   kup-combobox --> kup-list
@@ -114,8 +115,10 @@ graph TD;
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
-  kup-box --> kup-tooltip
   kup-data-table --> kup-tooltip
+  kup-paginator --> kup-combobox
+  kup-paginator --> kup-badge
+  kup-box --> kup-tooltip
   style kup-tooltip fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
