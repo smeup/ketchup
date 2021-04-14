@@ -710,6 +710,11 @@ export class KupDataTable {
         }
     }
 
+    @Watch('transpose')
+    recalculateData() {
+        this.calculateData();
+    }
+
     private rows: Array<Row>;
     private rowsLength: number = 0;
 
@@ -1069,18 +1074,26 @@ export class KupDataTable {
         this.stateSwitcher = !this.stateSwitcher;
     }
 
-    private calcTransposeData(): TableData {
-        if (!this.data || this.data.columns.length === 0) return;
-        // TODO refactor this
+    private calculateData() {
         if (!this.transpose) {
+            // restore
             if (this.originalData) {
-                // restore
                 this.data = { ...this.originalData };
-                return;
-            } else {
-                return;
             }
+        } else {
+            // transpose
+            this.setTransposedData();
         }
+    }
+
+    private setTransposedData(): void {
+        // transpose
+        this.originalData = { ...this.data };
+        this.data = this.getTransposedData(this.data);
+    }
+
+    private getTransposedData(data: TableData): TableData {
+        if (data.columns.length === 0) return data;
         // TODO manage better the filters, this is just a fix in order to release the function
         this.filters = {};
         // calc transposed data
@@ -1091,7 +1104,7 @@ export class KupDataTable {
         const firstHead = this.data.columns[0];
         columns.push(firstHead);
         // fill columns with the cells in the first original column
-        this.data.rows.forEach((row) => {
+        data.rows.forEach((row) => {
             columns.push(
                 this.getColumnFromCell(row.cells[firstHead.name], row.id)
             );
@@ -1100,8 +1113,8 @@ export class KupDataTable {
         transposedData.columns = columns;
         // calc rows
         const rows: Array<Row> = [];
-        for (let index = 1; index < this.data.columns.length; index++) {
-            const oldColumn = this.data.columns[index];
+        for (let index = 1; index < data.columns.length; index++) {
+            const oldColumn = data.columns[index];
             const cells: CellsHolder = {};
             // set first cell from previous columns
             // TODO set obj? like this --> obj: oldColumn.obj
@@ -1114,7 +1127,7 @@ export class KupDataTable {
                 index++
             ) {
                 const newColumn = transposedData.columns[index];
-                const oldRow = this.data.rows[index - 1];
+                const oldRow = data.rows[index - 1];
                 cells[newColumn.name] = oldRow.cells[oldColumn.name];
             }
             // push row
@@ -1125,13 +1138,7 @@ export class KupDataTable {
         }
         // set rows
         transposedData.rows = rows;
-
-        // manage data
-        //if (!this.originalData) {
-        // TODO check if is right to always update originalData
-        this.originalData = { ...this.data };
-        //}
-        this.data = { ...transposedData };
+        // return
         return transposedData;
     }
 
@@ -1487,7 +1494,7 @@ export class KupDataTable {
             CSS.supports('position', '-webkit-sticky') ||
             !!(window && (window as Window & { safari?: object }).safari);
 
-        this.calcTransposeData();
+        this.calculateData();
     }
 
     componentWillRender() {
@@ -4784,7 +4791,6 @@ export class KupDataTable {
                         } else {
                             this.transpose = false;
                         }
-                        this.calcTransposeData();
                     }}
                 />
             </div>
