@@ -12,6 +12,10 @@ export enum DateTimeFormatOptionsMonth {
     NARROW = 'narrow',
 }
 
+export function formatExtendedDate(date: Date): string {
+    return moment(date).format("dddd D MMMM YYYY");
+}
+
 export function identify(array: Array<Identifiable>) {
     if (array) {
         for (let i = 0; i < array.length; i++) {

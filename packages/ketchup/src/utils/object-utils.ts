@@ -78,6 +78,12 @@ export function isNumber(smeupObj: Object): boolean {
     return 'NR' === smeupObj.t;
 }
 
+export function isPercentage(smeupObj: Object): boolean {
+    if (smeupObj == null) return false;
+    const obj = smeupObj.t+smeupObj.p;
+    return 'NRP' === obj;
+}
+
 export function isProgressBar(smeupObj: Object): boolean {
     if (smeupObj == null) return false;
     return 'J4' === smeupObj.t && 'PGB' === smeupObj.p;
@@ -146,7 +152,7 @@ export function canHaveAutomaticDerivedColumn(obj: any): boolean {
         return false;
     }
 
-    return !isNumber(obj) && !isTime(obj) && !isTimestamp(obj);
+    return !isNumber(obj) && !isTime(obj) && !isTimestamp(obj) && !isPercentage(obj);
 }
 
 export function hasTooltip(obj: any) {
@@ -160,6 +166,7 @@ export function hasTooltip(obj: any) {
         !isImage(obj) &&
         !isLink(obj) &&
         !isNumber(obj) &&
+        !isPercentage(obj) &&
         !isProgressBar(obj) &&
         !isRadio(obj) &&
         !isVoCodver(obj) &&

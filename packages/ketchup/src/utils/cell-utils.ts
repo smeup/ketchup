@@ -91,6 +91,18 @@ export function isProgressBar(cell: Cell, boxObject: BoxObject) {
     );
 }
 
+
+// -------------
+// CHIP
+// -------------
+
+export function isChip(cell: Cell, boxObject: BoxObject) {
+    let shape = getShape(cell, boxObject);
+    return (
+        'CHI' === shape ||
+        (!shape && cell && cell.obj && isObjectList(cell.obj))
+    );
+}
 /**
  * These are the camelCase javascript suffixes of the CSS vars of kup-progress-bar.
  * They always must be equal to those you can find inside the file kup-progress-bar.scss in the first section,
@@ -335,7 +347,7 @@ export function getCellType(cell: Cell) {
         return 'radio';
     } else if (isRating(cell, null)) {
         return 'rating';
-    } else if (isObjectList(obj)) {
+    } else if (isChip(cell, null)) {
         return 'chips';
     } else if (isNumber(obj)) {
         return 'number';
