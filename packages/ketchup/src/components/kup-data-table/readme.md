@@ -199,6 +199,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [kup-card](../kup-card)
  - [kup-magic-box](../kup-magic-box)
  - [kup-search](../kup-search)
 
@@ -219,7 +220,6 @@ Type: `Promise<void>`
 - [kup-paginator](../kup-paginator)
 - [kup-switch](../kup-switch)
 - [kup-combobox](../kup-combobox)
-- [kup-switch](../kup-switch)
 - [kup-badge](../kup-badge)
 
 ### Graph
@@ -240,18 +240,8 @@ graph TD;
   kup-data-table --> kup-paginator
   kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
-  kup-data-table --> kup-switch
   kup-data-table --> kup-badge
-  kup-card --> kup-chip
-  kup-card --> kup-badge
-  kup-card --> kup-button
-  kup-card --> kup-checkbox
-  kup-card --> kup-combobox
-  kup-card --> kup-date-picker
-  kup-card --> kup-text-field
-  kup-card --> kup-time-picker
-  kup-card --> kup-progress-bar
-  kup-card --> kup-chart
+  kup-card --> kup-data-table
   kup-chip --> kup-badge
   kup-badge --> kup-badge
   kup-button --> kup-badge

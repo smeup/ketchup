@@ -1597,19 +1597,24 @@ export class KupDataTable {
      * @private
      * @memberof KupDataTable
      */
-    private rowDetail(
-        tr: HTMLTableRowElement,
-        row: Row,
-        x: number,
-        y: number
-    ): void {
+    private rowDetail(row: Row, x: number, y: number): void {
+        const iconColumn: string = 'Icon';
         const fieldColumn: string = 'Field';
         const valueColumn: string = 'Value';
         const cardData: CardData = {
             datatable: [
                 {
+                    customStyle:
+                        '#kup-component td[data-column="' +
+                        iconColumn.toUpperCase() +
+                        '"]{background-color: rgba(var(--kup-text-color-rgb), 0.15); width: 10px;}',
                     data: {
                         columns: [
+                            {
+                                name: iconColumn.toUpperCase(),
+                                title: iconColumn,
+                                visible: false,
+                            },
                             {
                                 name: fieldColumn.toUpperCase(),
                                 title: fieldColumn,
@@ -1638,51 +1643,58 @@ export class KupDataTable {
                     (x) => x.name === key
                 );
                 if (column && cell) {
-                    // When a column isKey, a slot is created and appended to the card
+                    const cardRows: Row[] = cardData.datatable[0].data.rows;
+                    const cardColumns: Column[] =
+                        cardData.datatable[0].data.columns;
+                    if (column.icon && !row.cells[column.name].icon) {
+                        row.cells[column.name].icon = column.icon;
+                    }
+                    if (column.shape && !row.cells[column.name].shape) {
+                        row.cells[column.name].shape = column.shape;
+                    }
                     if (column.isKey) {
-                        const label: HTMLElement = document.createElement(
-                            'label'
-                        );
-                        const table: HTMLTableElement = document.createElement(
-                            'table'
-                        );
-                        const r: HTMLTableRowElement = document.createElement(
-                            'tr'
-                        );
-                        const b: HTMLTableSectionElement = document.createElement(
-                            'tbody'
-                        );
-                        const c: HTMLTableCellElement = tr
-                            .querySelector(
-                                'td[data-column="' + column.name + '"]'
-                            )
-                            .cloneNode(true) as HTMLTableCellElement;
-                        table.append(b);
-                        b.append(r);
-                        r.append(c);
-                        table.classList.add('row-detail');
-                        c.style.border = 'none';
-                        c.style.padding = '0';
-                        label.innerText = column.title;
-                        table.style.margin = 'auto';
-                        table.style.marginTop = '10px';
-                        table.style.width = 'max-content';
-                        columnKey = document.createElement('div');
-                        columnKey.append(label, table);
-                        columnKey.style.margin = 'auto';
-                        columnKey.slot = 'key';
+                        cardColumns.find(
+                            (x) => x.name === iconColumn.toUpperCase()
+                        ).visible = true;
+                        cardRows.unshift({
+                            cells: {
+                                [iconColumn.toUpperCase()]: {
+                                    obj: {
+                                        t: 'J4',
+                                        p: 'ICO',
+                                        k: 'OG_OG_KF',
+                                    },
+                                    data: {
+                                        color:
+                                            'rgba(var(--kup-text-color-rgb), 1)',
+                                        resource: 'key-variant',
+                                    },
+                                    value: 'key-variant',
+                                },
+                                [fieldColumn.toUpperCase()]: {
+                                    obj: {
+                                        t: 'COLUMN',
+                                        p: '',
+                                        k: '',
+                                    },
+                                    value: column.title,
+                                },
+                                [valueColumn.toUpperCase()]: row.cells[
+                                    column.name
+                                ],
+                            },
+                        });
                     } else {
-                        // Adding a new row when column !isKey
-                        const cardRows: Row[] = cardData.datatable[0].data.rows;
-                        // Adding column settings to cells
-                        if (column.icon && !row.cells[column.name].icon) {
-                            row.cells[column.name].icon = column.icon;
-                        }
-                        if (column.shape && !row.cells[column.name].shape) {
-                            row.cells[column.name].shape = column.shape;
-                        }
                         cardRows.push({
                             cells: {
+                                [iconColumn.toUpperCase()]: {
+                                    obj: {
+                                        t: '',
+                                        p: '',
+                                        k: '',
+                                    },
+                                    value: '',
+                                },
                                 [fieldColumn.toUpperCase()]: {
                                     obj: {
                                         t: 'COLUMN',
@@ -1827,12 +1839,7 @@ export class KupDataTable {
                 }
                 details.tr.classList.add('focus');
                 if (e.ctrlKey || e.metaKey) {
-                    this.rowDetail(
-                        details.tr,
-                        { ...details.row },
-                        e.clientX,
-                        e.clientY
-                    );
+                    this.rowDetail({ ...details.row }, e.clientX, e.clientY);
                     return;
                 }
             }

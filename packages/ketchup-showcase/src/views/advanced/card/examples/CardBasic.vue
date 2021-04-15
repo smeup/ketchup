@@ -72,7 +72,7 @@
         expanded after a user action (2 layouts).
         <br />
         <span class="code-word">dialog</span>: features closable and draggable
-        cards with an header bar (3 layouts).
+        cards with an header bar (4 layouts).
         <br />
         <span class="code-word">scalable</span>: features cards that can fit
         their container and resize their content accordingly (8 layouts).

@@ -165,7 +165,6 @@ graph TD;
   kup-data-table --> kup-paginator
   kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
-  kup-data-table --> kup-switch
   kup-data-table --> kup-badge
   kup-card --> kup-chip
   kup-card --> kup-badge
@@ -175,6 +174,7 @@ graph TD;
   kup-card --> kup-date-picker
   kup-card --> kup-text-field
   kup-card --> kup-time-picker
+  kup-card --> kup-data-table
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
   kup-chip --> kup-badge

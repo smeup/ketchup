@@ -79,6 +79,7 @@ graph TD;
   kup-card --> kup-date-picker
   kup-card --> kup-text-field
   kup-card --> kup-time-picker
+  kup-card --> kup-data-table
   kup-card --> kup-progress-bar
   kup-card --> kup-chart
   kup-chip --> kup-badge
@@ -93,6 +94,22 @@ graph TD;
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
+  kup-data-table --> kup-card
+  kup-data-table --> kup-checkbox
+  kup-data-table --> kup-tooltip
+  kup-data-table --> kup-list
+  kup-data-table --> kup-image
+  kup-data-table --> kup-button
+  kup-data-table --> kup-chart
+  kup-data-table --> kup-color-picker
+  kup-data-table --> kup-gauge
+  kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-rating
+  kup-data-table --> kup-radio
+  kup-data-table --> kup-paginator
+  kup-data-table --> kup-switch
+  kup-data-table --> kup-combobox
+  kup-data-table --> kup-badge
   kup-tooltip --> kup-button
   kup-tooltip --> kup-tree
   kup-tree --> kup-image
@@ -114,22 +131,6 @@ graph TD;
   kup-color-picker --> kup-text-field
   kup-paginator --> kup-combobox
   kup-paginator --> kup-badge
-  kup-data-table --> kup-card
-  kup-data-table --> kup-checkbox
-  kup-data-table --> kup-tooltip
-  kup-data-table --> kup-list
-  kup-data-table --> kup-image
-  kup-data-table --> kup-button
-  kup-data-table --> kup-chart
-  kup-data-table --> kup-color-picker
-  kup-data-table --> kup-gauge
-  kup-data-table --> kup-progress-bar
-  kup-data-table --> kup-rating
-  kup-data-table --> kup-radio
-  kup-data-table --> kup-paginator
-  kup-data-table --> kup-switch
-  kup-data-table --> kup-combobox
-  kup-data-table --> kup-badge
   style kup-magic-box fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
