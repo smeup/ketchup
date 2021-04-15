@@ -76,12 +76,14 @@ import {
     hasTooltip,
     isRadio as isRadioObj,
     canHaveAutomaticDerivedColumn,
+    isPercentage,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
 
 import {
     stringToNumber,
     numberToFormattedStringNumber,
+    formatExtendedDate,
     identify,
     deepEqual,
     unformattedStringToFormattedStringDate,
@@ -1667,6 +1669,33 @@ export class KupDataTable {
             return undefined;
         }
     }
+
+    /**
+     * Change a cell based on obj
+     * @param {Cell} cell - Cell for which we want to change.
+     * @private
+     * @memberof KupDataTable
+     */
+    private normalizeDetailCell(cell: Cell): void {
+        if (cell.obj) {
+            if (isPercentage(cell.obj)) {
+                cell.shape = 'Pgb';
+                cell.data = {
+                    value: cell.value
+                }
+            } else if (isNumber(cell.obj)) {
+                cell.shape = 'Chi'; //TODO: Cablate da rimuovere per test.
+                cell.data = {
+                    data: [{
+                            label: cell.value
+                        }]
+                }
+            } else if (isDate(cell.obj)) {
+                cell.displayedValue = formatExtendedDate(new Date(cell.value));    
+            }
+        }
+    } 
+
     /**
      * Opens a card containing the detail of the given row.
      * @param {Row} row - Row for which the detail was requested.
@@ -1730,6 +1759,8 @@ export class KupDataTable {
                     if (column.shape && !row.cells[column.name].shape) {
                         row.cells[column.name].shape = column.shape;
                     }
+                    const cardCell = {...row.cells[column.name]};
+                    this.normalizeDetailCell(cardCell);
                     if (column.isKey) {
                         cardColumns.find(
                             (x) => x.name === iconColumn.toUpperCase()
@@ -1757,9 +1788,7 @@ export class KupDataTable {
                                     },
                                     value: column.title,
                                 },
-                                [valueColumn.toUpperCase()]: row.cells[
-                                    column.name
-                                ],
+                                [valueColumn.toUpperCase()]: cardCell,
                             },
                         });
                     } else {
@@ -1781,9 +1810,7 @@ export class KupDataTable {
                                     },
                                     value: column.title,
                                 },
-                                [valueColumn.toUpperCase()]: row.cells[
-                                    column.name
-                                ],
+                                [valueColumn.toUpperCase()]: cardCell,
                             },
                         });
                     }
