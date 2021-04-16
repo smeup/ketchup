@@ -1107,6 +1107,8 @@ export class KupDataTable {
         // calc totals matrix data
         let totalsMatrixData: TableData = {};
         // calc columns id
+        // note that the sorting of the columns depends on the totals selection
+        // the first column is the one that is selected first in the totals, and so on...
         const ids: Array<string> = [];
         ids.push(rows[0].group.column);
         Object.keys(rows[0].group.totals).forEach((columnKey) => {
