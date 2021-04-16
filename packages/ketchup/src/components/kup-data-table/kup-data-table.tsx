@@ -1098,29 +1098,25 @@ export class KupDataTable {
         this.data = this.getTransposedData(this.data);
     }
 
-    private calcTotalsMatrixData(
-        data: TableData,
-        rows: Array<Row>,
-        totals: TotalsMap
-    ): void {
-        if (rows.length === 0 || !rows[0].group) return;
+    private switchToTotalsMatrix(): void {
+        if (this.rows.length === 0 || !this.rows[0].group) return;
         // calc totals matrix data
         let totalsMatrixData: TableData = {};
         // calc columns id
         // note that the sorting of the columns depends on the totals selection
         // the first column is the one that is selected first in the totals, and so on...
         const ids: Array<string> = [];
-        ids.push(rows[0].group.column);
-        Object.keys(rows[0].group.totals).forEach((columnKey) => {
-            if (rows[0].group.column !== columnKey) ids.push(columnKey);
+        ids.push(this.rows[0].group.column);
+        Object.keys(this.rows[0].group.totals).forEach((columnKey) => {
+            if (this.rows[0].group.column !== columnKey) ids.push(columnKey);
         });
         // calc columns
         const totalsMatrixColumns: Array<Column> = [];
         ids.forEach((id) => {
-            data.columns.forEach((column) => {
+            this.data.columns.forEach((column) => {
                 if (column.name === id) {
                     let currentColumn = { ...column };
-                    const totalMode = totals[currentColumn.name];
+                    const totalMode = this.totals[currentColumn.name];
                     if (totalMode) {
                         currentColumn.title =
                             totalMode + ' ' + currentColumn.title;
@@ -1141,7 +1137,7 @@ export class KupDataTable {
         // calc rows
         const totalsMatrixRows: Array<Row> = [];
         let index = 0;
-        rows.forEach((row) => {
+        this.rows.forEach((row) => {
             const cells: CellsHolder = {};
             ids.forEach((id) => {
                 let totalValue = row.group.totals[id];
@@ -1163,12 +1159,26 @@ export class KupDataTable {
         // reset groups
         this.groups = [];
         // update data
-        console.log({ totalsMatrixData });
         this.data = totalsMatrixData;
-
-        // TODO calc new totals
-        // distinct diventa conta
-        // conta diventa somma
+        // calc totals
+        // distinct becomes count
+        // count becomes sum
+        let updatedTotals: TotalsMap = {};
+        Object.keys(this.totals).forEach((key) => {
+            switch (this.totals[key]) {
+                case TotalMode.DISTINCT:
+                    updatedTotals[key] = TotalMode.COUNT;
+                    break;
+                case TotalMode.COUNT:
+                    updatedTotals[key] = TotalMode.SUM;
+                    break;
+                default:
+                    updatedTotals[key] = this.totals[key];
+                    break;
+            }
+        });
+        // update totals
+        this.totals = { ...updatedTotals };
     }
 
     private getTransposedData(data: TableData): TableData {
@@ -4989,13 +4999,7 @@ export class KupDataTable {
                     title="Matrice dei totali (experimental feature)"
                     label="Matrice dei totali"
                     icon="view_headline"
-                    onKupButtonClick={() =>
-                        this.calcTotalsMatrixData(
-                            this.data,
-                            this.rows,
-                            this.totals
-                        )
-                    }
+                    onKupButtonClick={() => this.switchToTotalsMatrix()}
                 />
             </div>
         );
