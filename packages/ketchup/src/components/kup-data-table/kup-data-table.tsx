@@ -1161,6 +1161,7 @@ export class KupDataTable {
         this.groups = [];
         // update data
         this.data = { ...totalsMatrixData };
+        // console.log(this.data);
         // calc totals
         // distinct becomes count
         // count becomes sum
@@ -1209,6 +1210,9 @@ export class KupDataTable {
             p: '',
             k: '',
         };
+        if (column.icon) {
+            delete column.icon;
+        }
     }
 
     private getTransposedData(data: TableData): TableData {
