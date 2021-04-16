@@ -14,6 +14,7 @@ export enum KupTreeProps {
     data = 'The json data used to populate the tree view: the basic, always visible tree nodes.',
     density = "The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.",
     dynamicExpansionCallback = 'Function that gets invoked when a new set of nodes must be loaded as children of a node. When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. If this prop is set to null, no callback to download data is available: the component will emit an event requiring the parent to load the children of the given node. If this prop is set to have a callback, then the component will automatically make requests to load children of a given node. After the load has been completed, a different event will be fired to alert the parent of the change.',
+    enableExtraColumns = 'Enables adding extra columns.',
     expanded = 'Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.',
     filters = 'List of filters set by the user.',
     globalFilter = 'When set to true it activates the global filter.',
