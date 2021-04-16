@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import {
     Component,
     Event,
@@ -1120,13 +1122,7 @@ export class KupDataTable {
                     if (totalMode) {
                         currentColumn.title =
                             totalMode + ' ' + currentColumn.title;
-                        // TODO do it better, this is just for the first step
-                        // TODO this doesn't work with dates and min or max mode
-                        currentColumn.obj = {
-                            t: 'NR',
-                            p: '',
-                            k: '',
-                        };
+                        this.setObjForTotalsMatrix(currentColumn, this.totals);
                     }
                     totalsMatrixColumns.push(currentColumn);
                 }
@@ -1144,6 +1140,11 @@ export class KupDataTable {
                 if (!totalValue) {
                     totalValue = row.group.id;
                 }
+                if (isValidStringDate(totalValue, ISO_DEFAULT_DATE_FORMAT)) {
+                    totalValue = moment(totalValue).format(
+                        ISO_DEFAULT_DATE_FORMAT
+                    );
+                }
                 cells[id] = {
                     value: String(totalValue),
                 };
@@ -1159,7 +1160,7 @@ export class KupDataTable {
         // reset groups
         this.groups = [];
         // update data
-        this.data = totalsMatrixData;
+        this.data = { ...totalsMatrixData };
         // calc totals
         // distinct becomes count
         // count becomes sum
@@ -1179,6 +1180,35 @@ export class KupDataTable {
         });
         // update totals
         this.totals = { ...updatedTotals };
+    }
+
+    // TODO
+    // this is momentary
+    private setObjForTotalsMatrix(column: Column, totals: TotalsMap): void {
+        const obj = column.obj;
+        const totalMode = totals[column.name];
+        if (isDate(obj)) {
+            // check if min or max totals mode
+            if (totalMode === TotalMode.MAX || totalMode === TotalMode.MIN) {
+                return;
+            }
+        } else if (isNumber(obj)) {
+            // check if percentage
+            if (obj.p && obj.p.toUpperCase() === 'P') {
+                if (
+                    totalMode !== TotalMode.COUNT &&
+                    totalMode !== TotalMode.DISTINCT
+                ) {
+                    return;
+                }
+            }
+        }
+        // force obj number
+        column.obj = {
+            t: 'NR',
+            p: '',
+            k: '',
+        };
     }
 
     private getTransposedData(data: TableData): TableData {
@@ -1847,7 +1877,7 @@ export class KupDataTable {
         this.kupDataTableContextMenu.emit({
             details: details,
         });
-        console.log({ details });
+        // console.log({ details });
         if (details.area === 'header') {
             if (details.th && details.column) {
                 this.columnMenuInstance.open(
