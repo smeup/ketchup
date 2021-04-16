@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import {
     Component,
     Event,
@@ -1100,37 +1102,46 @@ export class KupDataTable {
         this.data = this.getTransposedData(this.data);
     }
 
-    private calcTotalsMatrixData(
-        data: TableData,
-        rows: Array<Row>,
-        totals: TotalsMap
-    ): void {
-        if (rows.length === 0 || !rows[0].group) return;
+    private switchToTotalsMatrix(): void {
+        if (this.rows.length === 0 || !this.rows[0].group) return;
         // calc totals matrix data
         let totalsMatrixData: TableData = {};
         // calc columns id
+        // note that the sorting of the columns depends on the totals selection
+        // the first column is the one that is selected first in the totals, and so on...
         const ids: Array<string> = [];
-        ids.push(rows[0].group.column);
-        Object.keys(rows[0].group.totals).forEach((columnKey) => {
-            if (rows[0].group.column !== columnKey) ids.push(columnKey);
+        ids.push(this.rows[0].group.column);
+        Object.keys(this.rows[0].group.totals).forEach((columnKey) => {
+            if (this.rows[0].group.column !== columnKey) ids.push(columnKey);
         });
         // calc columns
         const totalsMatrixColumns: Array<Column> = [];
         ids.forEach((id) => {
-            data.columns.forEach((column) => {
+            this.data.columns.forEach((column) => {
                 if (column.name === id) {
                     let currentColumn = { ...column };
-                    const totalMode = totals[currentColumn.name];
+                    const totalMode = this.totals[currentColumn.name];
                     if (totalMode) {
-                        currentColumn.title =
-                            totalMode + ' ' + currentColumn.title;
-                        // TODO do it better, this is just for the first step
-                        // TODO this doesn't work with dates and min or max mode
-                        currentColumn.obj = {
-                            t: 'NR',
-                            p: '',
-                            k: '',
-                        };
+                        if (totalMode.startsWith(TotalMode.MATH)) {
+                            currentColumn.title =
+                                TotalLabel[TotalMode.MATH] +
+                                ' ' +
+                                currentColumn.title;
+                        } else {
+                            const totalModeKey = Object.keys(TotalMode).find(
+                                (key) => TotalMode[key] === totalMode
+                            );
+                            if (totalModeKey) {
+                                currentColumn.title =
+                                    TotalLabel[totalModeKey] +
+                                    ' ' +
+                                    currentColumn.title;
+                            } else {
+                                currentColumn.title =
+                                    totalMode + ' ' + currentColumn.title;
+                            }
+                        }
+                        this.setObjForTotalsMatrix(currentColumn, this.totals);
                     }
                     totalsMatrixColumns.push(currentColumn);
                 }
@@ -1141,12 +1152,17 @@ export class KupDataTable {
         // calc rows
         const totalsMatrixRows: Array<Row> = [];
         let index = 0;
-        rows.forEach((row) => {
+        this.rows.forEach((row) => {
             const cells: CellsHolder = {};
             ids.forEach((id) => {
                 let totalValue = row.group.totals[id];
                 if (!totalValue) {
                     totalValue = row.group.id;
+                }
+                if (isValidStringDate(totalValue, ISO_DEFAULT_DATE_FORMAT)) {
+                    totalValue = moment(totalValue).format(
+                        ISO_DEFAULT_DATE_FORMAT
+                    );
                 }
                 cells[id] = {
                     value: String(totalValue),
@@ -1163,12 +1179,59 @@ export class KupDataTable {
         // reset groups
         this.groups = [];
         // update data
-        console.log({ totalsMatrixData });
-        this.data = totalsMatrixData;
+        this.data = { ...totalsMatrixData };
+        // console.log(this.data);
+        // calc totals
+        // distinct becomes count
+        // count becomes sum
+        let updatedTotals: TotalsMap = {};
+        Object.keys(this.totals).forEach((key) => {
+            switch (this.totals[key]) {
+                case TotalMode.DISTINCT:
+                    updatedTotals[key] = TotalMode.COUNT;
+                    break;
+                case TotalMode.COUNT:
+                    updatedTotals[key] = TotalMode.SUM;
+                    break;
+                default:
+                    updatedTotals[key] = this.totals[key];
+                    break;
+            }
+        });
+        // update totals
+        this.totals = { ...updatedTotals };
+    }
 
-        // TODO calc new totals
-        // distinct diventa conta
-        // conta diventa somma
+    // TODO
+    // this is momentary
+    private setObjForTotalsMatrix(column: Column, totals: TotalsMap): void {
+        const obj = column.obj;
+        const totalMode = totals[column.name];
+        if (isDate(obj)) {
+            // check if min or max totals mode
+            if (totalMode === TotalMode.MAX || totalMode === TotalMode.MIN) {
+                return;
+            }
+        } else if (isNumber(obj)) {
+            // check if percentage
+            if (obj.p && obj.p.toUpperCase() === 'P') {
+                if (
+                    totalMode !== TotalMode.COUNT &&
+                    totalMode !== TotalMode.DISTINCT
+                ) {
+                    return;
+                }
+            }
+        }
+        // force obj number
+        column.obj = {
+            t: 'NR',
+            p: '',
+            k: '',
+        };
+        if (column.icon) {
+            delete column.icon;
+        }
     }
 
     private getTransposedData(data: TableData): TableData {
@@ -1586,7 +1649,8 @@ export class KupDataTable {
         }
         this.columnMenuInstance.reposition(this);
         this.totalMenuPosition();
-        this.groupMenuPosition();
+        // TODO
+        // this.groupMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
         this.hideShowColumnRemoveDropArea(false);
@@ -1966,7 +2030,7 @@ export class KupDataTable {
         this.kupDataTableContextMenu.emit({
             details: details,
         });
-        console.log({ details });
+        // console.log({ details });
         if (details.area === 'header') {
             if (details.th && details.column) {
                 this.columnMenuInstance.open(
@@ -1978,9 +2042,9 @@ export class KupDataTable {
                 return;
             }
         } else if (details.area === 'body') {
-            if (details.isGroupRow) {
-                // TODO
-                /*
+            /*
+            // TODO open group menu
+            //if (details.isGroupRow) {
                 e.preventDefault();
                 this.onGroupMenuOpen({
                     name: 'FLD3',
@@ -1992,10 +2056,10 @@ export class KupDataTable {
                         k: '',
                     },
                 });
-                */
                 // TODO
                 return;
             }
+            */
             if (this.showTooltipOnRightClick && details.td && details.cell) {
                 e.preventDefault();
                 setTooltip(e, details.row.id, details.cell, this.tooltip);
@@ -2600,6 +2664,7 @@ export class KupDataTable {
         this.openedTotalMenu = null;
     }
 
+    /* TODO 
     private openGroupMenu(column: Column) {
         this.openedGroupMenu = column.name;
     }
@@ -2607,6 +2672,7 @@ export class KupDataTable {
     private closeGroupMenu() {
         this.openedGroupMenu = null;
     }
+    */
 
     private closeMenuAndTooltip() {
         this.closeMenu();
@@ -3747,6 +3813,7 @@ export class KupDataTable {
         return footer;
     }
 
+    /*
     private onGroupMenuOpen(column: Column) {
         this.closeMenuAndTooltip();
         this.closeGroupMenu();
@@ -3775,6 +3842,7 @@ export class KupDataTable {
             }
         }
     }
+    */
 
     private renderRow(
         row: Row,
@@ -3871,6 +3939,8 @@ export class KupDataTable {
                             );
                         }
                     }
+                    /*
+                    TODO Group Menu
                     let groupMenu = undefined;
                     if (this.isOpenedGroupMenuForColumn(column.name)) {
                         let listData: ComponentListElement[] = [
@@ -3894,10 +3964,11 @@ export class KupDataTable {
                             ></kup-list>
                         );
                     }
+                    {groupMenu}
+                    */
                     cells.push(
                         <td class={totalClass} id="">
                             {value}
-                            {groupMenu}
                         </td>
                     );
                 }
@@ -5108,16 +5179,10 @@ export class KupDataTable {
         return (
             <div class="customize-element grid-panel">
                 <kup-button
-                    title="Matrice dei totali (experimental feature)"
-                    label="Matrice dei totali"
-                    icon="view_headline"
-                    onKupButtonClick={() =>
-                        this.calcTotalsMatrixData(
-                            this.data,
-                            this.rows,
-                            this.totals
-                        )
-                    }
+                    title="Totals Table (experimental feature)"
+                    label="Totals Table"
+                    icon="exposure"
+                    onKupButtonClick={() => this.switchToTotalsMatrix()}
                 />
             </div>
         );
