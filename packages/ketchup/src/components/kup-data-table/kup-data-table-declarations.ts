@@ -167,17 +167,16 @@ export enum TotalMode {
     MATH = 'MATH',
 }
 
-// TODO, if not used anymore please remove this and the implementations
 export enum TotalLabel {
-    COUNT = 'Conta',
-    SUM = 'Somma',
+    COUNT = 'Count',
+    SUM = 'Sum',
     MIN = 'Min',
     MAX = 'Max',
     DISTINCT = 'Distinct',
-    AVERAGE = 'Media',
+    AVERAGE = 'Average',
     MATH = 'Formula',
-    CANC = 'Cancella',
-    CALC = 'Calcola',
+    CANC = 'Cancel',
+    CALC = 'Calculate',
 }
 
 export enum PaginatorPos {

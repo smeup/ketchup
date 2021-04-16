@@ -1120,8 +1120,25 @@ export class KupDataTable {
                     let currentColumn = { ...column };
                     const totalMode = this.totals[currentColumn.name];
                     if (totalMode) {
-                        currentColumn.title =
-                            totalMode + ' ' + currentColumn.title;
+                        if (totalMode.startsWith(TotalMode.MATH)) {
+                            currentColumn.title =
+                                TotalLabel[TotalMode.MATH] +
+                                ' ' +
+                                currentColumn.title;
+                        } else {
+                            const totalModeKey = Object.keys(TotalMode).find(
+                                (key) => TotalMode[key] === totalMode
+                            );
+                            if (totalModeKey) {
+                                currentColumn.title =
+                                    TotalLabel[totalModeKey] +
+                                    ' ' +
+                                    currentColumn.title;
+                            } else {
+                                currentColumn.title =
+                                    totalMode + ' ' + currentColumn.title;
+                            }
+                        }
                         this.setObjForTotalsMatrix(currentColumn, this.totals);
                     }
                     totalsMatrixColumns.push(currentColumn);
@@ -5030,9 +5047,9 @@ export class KupDataTable {
         return (
             <div class="customize-element grid-panel">
                 <kup-button
-                    title="Matrice dei totali (experimental feature)"
-                    label="Matrice dei totali"
-                    icon="view_headline"
+                    title="Totals Table (experimental feature)"
+                    label="Totals Table"
+                    icon="exposure"
                     onKupButtonClick={() => this.switchToTotalsMatrix()}
                 />
             </div>
