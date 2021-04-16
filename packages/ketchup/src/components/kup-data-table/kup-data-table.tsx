@@ -175,6 +175,7 @@ export class KupDataTable {
                 this.expandGroups = state.expandGroups;
                 this.groupLabelDisplay = state.groupLabelDisplay;
                 this.density = state.density;
+                this.enableExtraColumns = state.enableExtraColumns;
                 this.enableSortableColumns = state.enableSortableColumns;
                 this.forceOneLine = state.forceOneLine;
                 this.globalFilter = state.globalFilter;
@@ -230,6 +231,15 @@ export class KupDataTable {
             }
             if (!deepEqual(this.state.density, this.density)) {
                 this.state.density = this.density;
+                somethingChanged = true;
+            }
+            if (
+                !deepEqual(
+                    this.state.enableExtraColumns,
+                    this.enableExtraColumns
+                )
+            ) {
+                this.state.enableExtraColumns = this.enableExtraColumns;
                 somethingChanged = true;
             }
             if (
@@ -397,6 +407,10 @@ export class KupDataTable {
      * Defines the label to show when the table is empty.
      */
     @Prop() emptyDataLabel: string = 'Empty data';
+    /**
+     * Enables the extracolumns add buttons.
+     */
+    @Prop() enableExtraColumns: boolean = true;
     /**
      * Enables the sorting of columns by dragging them into different columns.
      */

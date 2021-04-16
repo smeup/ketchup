@@ -14,6 +14,7 @@ export class KupDataTableState implements KupState {
     groupLabelDisplay = GroupLabelDisplayMode.BOTH;
     density: string = 'small';
     enableSortableColumns: boolean = false;
+    enableExtraColumns: boolean = true;
     forceOneLine: boolean = false;
     globalFilter = false;
     globalFilterValue = '';

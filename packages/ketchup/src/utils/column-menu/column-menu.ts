@@ -169,7 +169,7 @@ export class ColumnMenu {
                 title: 'Hide column',
             });
         }
-        if (canHaveExtraColumns(column.obj)) {
+        if (comp.enableExtraColumns && canHaveExtraColumns(column.obj)) {
             props.push({
                 className: 'printable',
                 'data-storage': {
