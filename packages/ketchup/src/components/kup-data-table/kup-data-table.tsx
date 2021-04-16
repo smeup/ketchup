@@ -1584,7 +1584,8 @@ export class KupDataTable {
         }
         this.columnMenuInstance.reposition(this);
         this.totalMenuPosition();
-        this.groupMenuPosition();
+        // TODO
+        // this.groupMenuPosition();
         this.checkScrollOnHover();
         this.didRenderObservers();
         this.hideShowColumnRemoveDropArea(false);
@@ -1846,9 +1847,9 @@ export class KupDataTable {
                 return;
             }
         } else if (details.area === 'body') {
-            if (details.isGroupRow) {
-                // TODO
-                /*
+            /*
+            // TODO open group menu
+            //if (details.isGroupRow) {
                 e.preventDefault();
                 this.onGroupMenuOpen({
                     name: 'FLD3',
@@ -1860,10 +1861,10 @@ export class KupDataTable {
                         k: '',
                     },
                 });
-                */
                 // TODO
                 return;
             }
+            */
             if (this.showTooltipOnRightClick && details.td && details.cell) {
                 e.preventDefault();
                 setTooltip(e, details.row.id, details.cell, this.tooltip);
@@ -2468,6 +2469,7 @@ export class KupDataTable {
         this.openedTotalMenu = null;
     }
 
+    /* TODO 
     private openGroupMenu(column: Column) {
         this.openedGroupMenu = column.name;
     }
@@ -2475,6 +2477,7 @@ export class KupDataTable {
     private closeGroupMenu() {
         this.openedGroupMenu = null;
     }
+    */
 
     private closeMenuAndTooltip() {
         this.closeMenu();
@@ -3615,6 +3618,7 @@ export class KupDataTable {
         return footer;
     }
 
+    /*
     private onGroupMenuOpen(column: Column) {
         this.closeMenuAndTooltip();
         this.closeGroupMenu();
@@ -3643,6 +3647,7 @@ export class KupDataTable {
             }
         }
     }
+    */
 
     private renderRow(
         row: Row,
@@ -3739,6 +3744,8 @@ export class KupDataTable {
                             );
                         }
                     }
+                    /*
+                    TODO Group Menu
                     let groupMenu = undefined;
                     if (this.isOpenedGroupMenuForColumn(column.name)) {
                         let listData: ComponentListElement[] = [
@@ -3762,10 +3769,11 @@ export class KupDataTable {
                             ></kup-list>
                         );
                     }
+                    {groupMenu}
+                    */
                     cells.push(
                         <td class={totalClass} id="">
                             {value}
-                            {groupMenu}
                         </td>
                     );
                 }
