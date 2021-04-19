@@ -394,7 +394,7 @@ export class KupDataTable {
     @Prop() enableSortableColumns: boolean = true;
     /**
      * Expands groups when set to true.
-     */
+     */ 
     @Prop() expandGroups: boolean = false;
     /**
      * List of filters set by the user.

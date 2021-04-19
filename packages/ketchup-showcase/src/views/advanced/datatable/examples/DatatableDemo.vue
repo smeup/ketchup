@@ -384,7 +384,7 @@ function createComp() {
   let comp = document.createElement('kup-data-table');
   comp.data = defaultDataTable;
   comp.density = 'dense';
-  comp.groupLabelDisplay = 'both';
+  comp.groupLabelDisplay = 'both'; 
   comp.headerIsPersistent = true;
   comp.id = 'demo-component';
   comp.enableExtraColumns = true;
