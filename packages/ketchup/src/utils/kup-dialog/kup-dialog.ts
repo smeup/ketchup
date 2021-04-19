@@ -40,7 +40,7 @@ export class KupDialog {
             kupDialog.activeElement.style.top = y + 'px';
             kupDialog.activeX = e.clientX;
             kupDialog.activeY = e.clientY;
-        } else if (kupDialog.action === 'resize') {
+        } else if (kupDialog.action === KupDialogActions.RESIZE) {
             const height: number = kupDialog.activeElement.offsetHeight;
             const width: number = kupDialog.activeElement.offsetWidth;
             let x: number = kupDialog.startingWidth;
@@ -111,30 +111,28 @@ export class KupDialog {
                     kupDialog.activeElement = el;
                 }
             });
-            kupDialog.setCoords(kupDialog.activeElement, e.clientX, e.clientY);
+            kupDialog.setCoords(e.clientX, e.clientY, paths);
         }
     };
     #mouseDown: Function = function (e: MouseEvent) {
         e.preventDefault();
         const kupDialog: KupDialog = dom.ketchup.dialog;
         if (kupDialog.activeElement) {
-            if (kupDialog.coordinates !== KupDialogCoordinates.UNSET) {
-                kupDialog.action = KupDialogActions.RESIZE;
-                kupDialog.startingHeight = kupDialog.activeElement.offsetHeight;
-                kupDialog.startingWidth = kupDialog.activeElement.offsetWidth;
-                kupDialog.startingX = kupDialog.activeElement.offsetLeft;
-                kupDialog.startingY = kupDialog.activeElement.offsetTop;
-            } else {
-                if (kupDialog.activeElement.kupDialog.dragHandle) {
-                    const paths: EventTarget[] = e.composedPath();
-                    if (
-                        paths.includes(
-                            kupDialog.activeElement.kupDialog.dragHandle
-                        )
-                    ) {
-                        kupDialog.action = KupDialogActions.MOVE;
-                    }
-                }
+            switch (kupDialog.coordinates) {
+                case KupDialogCoordinates.ALL:
+                    kupDialog.action = KupDialogActions.MOVE;
+                    break;
+                case KupDialogCoordinates.UNSET:
+                    return;
+                default:
+                    kupDialog.action = KupDialogActions.RESIZE;
+                    kupDialog.startingHeight =
+                        kupDialog.activeElement.offsetHeight;
+                    kupDialog.startingWidth =
+                        kupDialog.activeElement.offsetWidth;
+                    kupDialog.startingX = kupDialog.activeElement.offsetLeft;
+                    kupDialog.startingY = kupDialog.activeElement.offsetTop;
+                    break;
             }
             kupDialog.activeX = e.clientX;
             kupDialog.activeY = e.clientY;
@@ -157,54 +155,83 @@ export class KupDialog {
     }
     /**
      * Checks whether the mouse overs on the edges of the element or not.
-     * @param {DialogElement} el - Dialog element.
      * @param {number} x - X coordinate.
      * @param {number} y - Y coordinate.
+     * @param {EventTarget[]} paths - Paths returned from the event. Used to search for the drag handle and, if found, enables dragging.
      */
-    setCoords(el: DialogElement, x: number, y: number): void {
+    setCoords(x: number, y: number, paths: EventTarget[]): void {
         this.coordinates = KupDialogCoordinates.UNSET;
-        if (el && el.kupDialog.resizable) {
-            // Left border
-            if (
-                x === el.offsetLeft ||
-                (x > el.offsetLeft && x < el.offsetLeft + this.threshold)
-            ) {
-                this.coordinates = KupDialogCoordinates.WEST;
-            } else if (
-                x === el.offsetLeft + el.offsetWidth ||
-                (x < el.offsetLeft + el.offsetWidth &&
-                    x > el.offsetLeft + el.offsetWidth - this.threshold)
-            ) {
-                // Right border
-                this.coordinates = KupDialogCoordinates.EAST;
-            }
-            // Top border
-            if (
-                y === el.offsetTop ||
-                (y > el.offsetTop && y < el.offsetTop + this.threshold)
-            ) {
-                if (this.coordinates === KupDialogCoordinates.WEST) {
-                    this.coordinates = KupDialogCoordinates.NORTHWEST;
-                } else if (this.coordinates === KupDialogCoordinates.EAST) {
-                    this.coordinates = KupDialogCoordinates.NORTHEAST;
-                } else {
-                    this.coordinates = KupDialogCoordinates.NORTH;
+        if (this.activeElement) {
+            if (this.activeElement.kupDialog.resizable) {
+                // Left border
+                if (
+                    x === this.activeElement.offsetLeft ||
+                    (x > this.activeElement.offsetLeft &&
+                        x < this.activeElement.offsetLeft + this.threshold)
+                ) {
+                    this.coordinates = KupDialogCoordinates.WEST;
+                } else if (
+                    x ===
+                        this.activeElement.offsetLeft +
+                            this.activeElement.offsetWidth ||
+                    (x <
+                        this.activeElement.offsetLeft +
+                            this.activeElement.offsetWidth &&
+                        x >
+                            this.activeElement.offsetLeft +
+                                this.activeElement.offsetWidth -
+                                this.threshold)
+                ) {
+                    // Right border
+                    this.coordinates = KupDialogCoordinates.EAST;
                 }
-            } else if (
-                // Bottom border
-                y === el.offsetTop + el.offsetHeight ||
-                (y < el.offsetTop + el.offsetHeight &&
-                    y > el.offsetTop + el.offsetHeight - this.threshold)
-            ) {
-                if (this.coordinates === KupDialogCoordinates.WEST) {
-                    this.coordinates = KupDialogCoordinates.SOUTHWEST;
-                } else if (this.coordinates === KupDialogCoordinates.EAST) {
-                    this.coordinates = KupDialogCoordinates.SOUTHEAST;
-                } else {
-                    this.coordinates = KupDialogCoordinates.SOUTH;
+                // Top border
+                if (
+                    y === this.activeElement.offsetTop ||
+                    (y > this.activeElement.offsetTop &&
+                        y < this.activeElement.offsetTop + this.threshold)
+                ) {
+                    if (this.coordinates === KupDialogCoordinates.WEST) {
+                        this.coordinates = KupDialogCoordinates.NORTHWEST;
+                    } else if (this.coordinates === KupDialogCoordinates.EAST) {
+                        this.coordinates = KupDialogCoordinates.NORTHEAST;
+                    } else {
+                        this.coordinates = KupDialogCoordinates.NORTH;
+                    }
+                } else if (
+                    // Bottom border
+                    y ===
+                        this.activeElement.offsetTop +
+                            this.activeElement.offsetHeight ||
+                    (y <
+                        this.activeElement.offsetTop +
+                            this.activeElement.offsetHeight &&
+                        y >
+                            this.activeElement.offsetTop +
+                                this.activeElement.offsetHeight -
+                                this.threshold)
+                ) {
+                    if (this.coordinates === KupDialogCoordinates.WEST) {
+                        this.coordinates = KupDialogCoordinates.SOUTHWEST;
+                    } else if (this.coordinates === KupDialogCoordinates.EAST) {
+                        this.coordinates = KupDialogCoordinates.SOUTHEAST;
+                    } else {
+                        this.coordinates = KupDialogCoordinates.SOUTH;
+                    }
                 }
             }
-            el.style.cursor = this.coordinates;
+            if (this.coordinates === KupDialogCoordinates.UNSET) {
+                if (this.activeElement.kupDialog.dragHandle) {
+                    if (
+                        paths.includes(this.activeElement.kupDialog.dragHandle)
+                    ) {
+                        this.coordinates = KupDialogCoordinates.ALL;
+                    }
+                } else {
+                    this.coordinates = KupDialogCoordinates.ALL;
+                }
+            }
+            this.activeElement.style.cursor = this.coordinates;
         }
     }
     /**

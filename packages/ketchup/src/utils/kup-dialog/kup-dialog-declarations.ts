@@ -25,6 +25,7 @@ export enum KupDialogActions {
  * The value reflects the CSS "cursor" property.
  */
 export enum KupDialogCoordinates {
+    ALL = 'move',
     UNSET = 'auto',
     NORTHWEST = 'nw-resize',
     NORTH = 'n-resize',

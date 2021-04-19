@@ -4,8 +4,6 @@
 @import 'kup-card-dialog-4.scss';
 
 #drag-handle {
-  cursor: all-scroll;
-
   &.header-bar {
     background-color: var(--kup-title-background-color);
     color: var(--kup-title-color);
