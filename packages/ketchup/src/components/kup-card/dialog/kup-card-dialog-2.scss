@@ -4,11 +4,8 @@
     0 1px 3px 0 rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
-  min-width: min-content;
   height: 100%;
   width: 100%;
-  overflow: auto;
-  resize: both;
 
   .section-1 {
     text-align: center;
@@ -29,8 +26,7 @@
     grid-template-rows: repeat(auto-fill, 1.25em);
     height: 100%;
     padding: 0.5em;
-    overflow-y: auto;
-    overflow-x: auto;
+    overflow: auto;
     .text {
       min-width: max-content;
       &:not(.label) {

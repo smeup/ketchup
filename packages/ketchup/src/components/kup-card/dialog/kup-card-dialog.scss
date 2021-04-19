@@ -4,25 +4,27 @@
 @import 'kup-card-dialog-4.scss';
 
 #drag-handle {
-  cursor: all-scroll;
-
   &.header-bar {
     background-color: var(--kup-title-background-color);
     color: var(--kup-title-color);
     display: flex;
     flex-direction: row;
-    height: 50px;
-    position: sticky;
-    top: 0;
+    height: 2em;
+    position: relative;
+    width: 100%;
     .dialog-title {
       font-weight: bold;
-      line-height: 50px;
+      line-height: 2em;
       padding-left: 0.5em;
       white-space: nowrap;
     }
     #dialog-close {
-      --kup-primary-color: var(--kup-title-color);
+      cursor: pointer;
       margin-right: 0;
+      transition: opacity 0.25s;
+      &:hover {
+        opacity: 0.5;
+      }
     }
   }
 }

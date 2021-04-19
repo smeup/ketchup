@@ -1759,20 +1759,22 @@ export class KupDataTable {
             if (isPercentage(cell.obj)) {
                 cell.shape = 'Pgb';
                 cell.data = {
-                    value: cell.value
-                }
+                    value: cell.value,
+                };
             } else if (isNumber(cell.obj)) {
                 cell.shape = 'Chi'; //TODO: Cablate da rimuovere per test.
                 cell.data = {
-                    data: [{
-                            label: cell.value
-                        }]
-                }
+                    data: [
+                        {
+                            label: cell.value,
+                        },
+                    ],
+                };
             } else if (isDate(cell.obj)) {
-                cell.displayedValue = formatExtendedDate(new Date(cell.value));    
+                cell.displayedValue = formatExtendedDate(new Date(cell.value));
             }
         }
-    } 
+    }
 
     /**
      * Opens a card containing the detail of the given row.
@@ -1790,7 +1792,7 @@ export class KupDataTable {
             datatable: [
                 {
                     customStyle:
-                        '#kup-component td[data-column="' +
+                        '#kup-component .below-wrapper{overflow: visible} #kup-component td[data-column="' +
                         iconColumn.toUpperCase() +
                         '"]{background-color: rgba(var(--kup-text-color-rgb), 0.15); width: 10px;}',
                     data: {
@@ -1837,7 +1839,7 @@ export class KupDataTable {
                     if (column.shape && !row.cells[column.name].shape) {
                         row.cells[column.name].shape = column.shape;
                     }
-                    const cardCell = {...row.cells[column.name]};
+                    const cardCell = { ...row.cells[column.name] };
                     this.normalizeDetailCell(cardCell);
                     if (column.isKey) {
                         cardColumns.find(

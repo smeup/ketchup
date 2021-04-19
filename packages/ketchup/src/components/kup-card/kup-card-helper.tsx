@@ -1,4 +1,5 @@
 import { h, VNode } from '@stencil/core';
+import { FImage } from '../../f-components/f-image/f-image';
 import type { GenericObject } from '../../types/GenericTypes';
 /**
  * This function returns a list of components.
@@ -76,7 +77,12 @@ export function dialogHeader(title: string): VNode {
     return (
         <div id="drag-handle" class="header-bar">
             {title ? <div class="dialog-title">{title}</div> : null}
-            <kup-button icon="clear" id="dialog-close"></kup-button>
+            <FImage
+                sizeX="2em"
+                sizeY="2em"
+                resource="clear"
+                id="dialog-close"
+            />
         </div>
     );
 }

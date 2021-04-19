@@ -9,8 +9,8 @@ import { KupTheme } from '../kup-theme/kup-theme';
 import { ResizeObserver } from 'resize-observer';
 import { DynamicPosition } from '../dynamic-position/dynamic-position';
 import { ScrollOnHover } from '../scroll-on-hover/scroll-on-hover';
-import { MoveOnDrag } from '../move-on-drag/move-on-drag';
 import { KupToolbar } from '../kup-toolbar/kup-toolbar';
+import { KupDialog } from '../kup-dialog/kup-dialog';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -22,7 +22,10 @@ export class KupManager {
     debug: KupDebug = new KupDebug();
     dynamicPosition: DynamicPosition = new DynamicPosition();
     magicBox: HTMLKupMagicBoxElement = null;
-    moveOnDrag: MoveOnDrag = new MoveOnDrag();
+    dialog: KupDialog = new KupDialog();
+    overrides?: KupManagerInitialization = dom.ketchupInit
+        ? dom.ketchupInit
+        : null;
     resize: ResizeObserver = new ResizeObserver(
         (entries: ResizeObserverEntry[]) => {
             entries.forEach((entry) => {
@@ -44,9 +47,6 @@ export class KupManager {
             });
         }
     );
-    overrides?: KupManagerInitialization = dom.ketchupInit
-        ? dom.ketchupInit
-        : null;
     scrollOnHover: ScrollOnHover = new ScrollOnHover();
     theme: KupTheme = new KupTheme();
     toolbar: KupToolbar = new KupToolbar();

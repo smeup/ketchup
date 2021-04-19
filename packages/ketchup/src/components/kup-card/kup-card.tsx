@@ -23,6 +23,7 @@ import {
 import { CardData, CardFamily, KupCardProps } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 
 @Component({
     tag: 'kup-card',
@@ -166,11 +167,6 @@ export class KupCard {
     onKupEvent(e: CustomEvent): void {
         const root = this.rootElement.shadowRoot;
 
-        if (e.type === 'kupButtonClick' && e.detail.id === 'dialog-close') {
-            this.rootElement.remove();
-            return;
-        }
-
         if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
             let collapsibleCard = root.querySelector('.collapsible-card');
             if (!collapsibleCard.classList.contains('expanded')) {
@@ -248,6 +244,21 @@ export class KupCard {
     /*-------------------------------------------------*/
 
     /**
+     * Set the events of the component.
+     */
+    private setEvents(): void {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const dialogClose: HTMLElement = root.querySelector(
+                '#dialog-close'
+            );
+            if (dialogClose) {
+                dialogClose.onclick = () => this.rootElement.remove();
+            }
+        }
+    }
+
+    /**
      * This method is invoked by the layout manager when the layout family is collapsible.
      * When the card is not expanded and the collapsible content fits the wrapper, the bottom bar won't be displayed.
      */
@@ -314,12 +325,15 @@ export class KupCard {
         if (root) {
             const card: HTMLElement = this.rootElement as HTMLElement;
             const dragHandle: HTMLElement = root.querySelector('#drag-handle');
-            if (!this.kupManager.moveOnDrag.isRegistered(card)) {
-                if (dragHandle) {
-                    this.kupManager.moveOnDrag.register(card, dragHandle);
-                } else {
-                    this.kupManager.moveOnDrag.register(card);
-                }
+            const unresizable: boolean = !!root.querySelector(
+                '.dialog-unresizable'
+            );
+            if (!this.kupManager.dialog.isRegistered(card as DialogElement)) {
+                this.kupManager.dialog.register(
+                    card as DialogElement,
+                    dragHandle ? dragHandle : null,
+                    unresizable
+                );
             }
         }
     }
@@ -463,6 +477,7 @@ export class KupCard {
     }
 
     componentDidRender() {
+        this.setEvents();
         this.layoutManager();
         this.kupManager.debug.logRender(this, true);
     }
@@ -500,9 +515,7 @@ export class KupCard {
 
     componentDidUnload() {
         this.kupManager.theme.unregister(this);
-        this.kupManager.moveOnDrag.unregister([
-            this.rootElement as HTMLElement,
-        ]);
+        this.kupManager.dialog.unregister([this.rootElement as DialogElement]);
         this.kupManager.resize.unobserve(this.rootElement);
     }
 }

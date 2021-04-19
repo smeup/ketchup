@@ -1,8 +1,10 @@
 <template>
   <div>
     <p>
-      These cards can be dragged and closed by clicking on the header bar
-      button.
+      These cards can be moved around and closed by clicking on the header bar
+      button. They can also be resized when fixed positioned. In the examples
+      below, dialogs are absolute positioned in order to keep them on the bottom
+      of the page, so resizing is disabled.
       <br />
     </p>
     <div class="demo-wrapper">
