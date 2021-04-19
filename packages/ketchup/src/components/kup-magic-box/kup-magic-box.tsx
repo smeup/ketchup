@@ -312,7 +312,7 @@ export class KupMagicBox {
         this.dragHandler = this.rootElement.shadowRoot.querySelector(
             '#drag-handle'
         );
-        this.kupManager.moveOnDrag.register(this.rootElement, this.dragHandler);
+        this.kupManager.dialog.register(this.rootElement, this.dragHandler);
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -391,7 +391,7 @@ export class KupMagicBox {
     }
 
     componentDidUnload() {
-        this.kupManager.moveOnDrag.unregister([this.rootElement]);
+        this.kupManager.dialog.unregister([this.rootElement]);
         this.kupManager.theme.unregister(this);
     }
 }

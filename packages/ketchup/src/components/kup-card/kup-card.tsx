@@ -314,15 +314,12 @@ export class KupCard {
         if (root) {
             const card: HTMLElement = this.rootElement as HTMLElement;
             const dragHandle: HTMLElement = root.querySelector('#drag-handle');
-            if (!this.kupManager.moveOnDrag.isRegistered(card)) {
+            if (!this.kupManager.dialog.isRegistered(card)) {
                 if (dragHandle) {
-                    this.kupManager.moveOnDrag.register(card, dragHandle);
+                    this.kupManager.dialog.register(card, dragHandle);
                 } else {
-                    this.kupManager.moveOnDrag.register(card);
+                    this.kupManager.dialog.register(card);
                 }
-            }
-            if (!this.kupManager.resizeOnDrag.isRegistered(card)) {
-                this.kupManager.resizeOnDrag.register(card);
             }
         }
     }
@@ -503,9 +500,7 @@ export class KupCard {
 
     componentDidUnload() {
         this.kupManager.theme.unregister(this);
-        this.kupManager.moveOnDrag.unregister([
-            this.rootElement as HTMLElement,
-        ]);
+        this.kupManager.dialog.unregister([this.rootElement as HTMLElement]);
         this.kupManager.resize.unobserve(this.rootElement);
     }
 }

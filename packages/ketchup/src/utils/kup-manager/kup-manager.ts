@@ -9,9 +9,8 @@ import { KupTheme } from '../kup-theme/kup-theme';
 import { ResizeObserver } from 'resize-observer';
 import { DynamicPosition } from '../dynamic-position/dynamic-position';
 import { ScrollOnHover } from '../scroll-on-hover/scroll-on-hover';
-import { MoveOnDrag } from '../move-on-drag/move-on-drag';
 import { KupToolbar } from '../kup-toolbar/kup-toolbar';
-import { ResizeOnDrag } from '../resize-on-drag/resize-on-drag';
+import { KupDialog } from '../kup-dialog/kup-dialog';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -23,7 +22,7 @@ export class KupManager {
     debug: KupDebug = new KupDebug();
     dynamicPosition: DynamicPosition = new DynamicPosition();
     magicBox: HTMLKupMagicBoxElement = null;
-    moveOnDrag: MoveOnDrag = new MoveOnDrag();
+    dialog: KupDialog = new KupDialog();
     overrides?: KupManagerInitialization = dom.ketchupInit
         ? dom.ketchupInit
         : null;
@@ -48,7 +47,6 @@ export class KupManager {
             });
         }
     );
-    resizeOnDrag: ResizeOnDrag = new ResizeOnDrag();
     scrollOnHover: ScrollOnHover = new ScrollOnHover();
     theme: KupTheme = new KupTheme();
     toolbar: KupToolbar = new KupToolbar();

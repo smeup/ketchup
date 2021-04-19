@@ -32,9 +32,19 @@
     --kup-text-on-primary-color-rgb: 255, 255, 255;
 }
 /*-------------------------------------------------*/
-/*            M o v e   o n   d r a g              */
+/*                    D e b u g                    */
 /*-------------------------------------------------*/
-.kup-movable-element {
+#kup-debug-widget {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+}
+/*-------------------------------------------------*/
+/*                   D i a l o g                   */
+/*-------------------------------------------------*/
+[kup-dialog] {
+    border: 3px outset var(--kup-title-background-color);
     margin: 0;
     position: fixed;
     transition: none;
@@ -181,11 +191,4 @@
         opacity: 1;
         transform: translate(-10px, -10px);
     }
-}
-/* Debug */
-#kup-debug-widget {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 200;
 }
