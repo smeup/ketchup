@@ -10,6 +10,7 @@ export enum KupDataTableProps {
     dragEnabled = 'Enable row dragging',
     dropEnabled = 'Enable record dropping',
     emptyDataLabel = 'Defines the label to show when the table is empty.',
+    enableExtraColumns = 'Enables adding extra columns.',
     enableSortableColumns = 'Enables the sorting of columns by dragging them into different columns.',
     expandGroups = 'Expands groups when set to true.',
     filters = 'List of filters set by the user.',
