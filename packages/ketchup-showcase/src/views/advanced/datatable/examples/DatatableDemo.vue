@@ -59,6 +59,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'enableExtraColumns',
+          description:
+            'Enables adding extracollumns button.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'enableSortableColumns',
           description:
             'Enables the sorting of columns by dragging them into different columns.',
@@ -427,6 +435,7 @@ function createComp() {
   comp.rowsPerPage = '10';
   comp.showGrid = 'Row';
   comp.showHeader = true;
+  comp.enableExtraColumns = true;
   comp.sortableColumnsMutateData = true;
   comp.sortEnabled = true;
   comp.showTooltipOnRightClick = true;

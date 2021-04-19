@@ -689,6 +689,10 @@ export namespace Components {
          */
         "emptyDataLabel": string;
         /**
+          * Enables the extracolumns add buttons.
+         */
+        "enableExtraColumns": boolean;
+        /**
           * Enables the sorting of columns by dragging them into different columns.
          */
         "enableSortableColumns": boolean;
@@ -1959,6 +1963,10 @@ export namespace Components {
         treeNodeToExpand: TreeNode,
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined;
+        /**
+          * Enables the extracolumns add buttons.
+         */
+        "enableExtraColumns": boolean;
         "expandAll": () => Promise<void>;
         /**
           * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
@@ -3171,6 +3179,10 @@ declare namespace LocalJSX {
           * Defines the label to show when the table is empty.
          */
         "emptyDataLabel"?: string;
+        /**
+          * Enables the extracolumns add buttons.
+         */
+        "enableExtraColumns"?: boolean;
         /**
           * Enables the sorting of columns by dragging them into different columns.
          */
@@ -4611,6 +4623,10 @@ declare namespace LocalJSX {
         treeNodeToExpand: TreeNode,
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined;
+        /**
+          * Enables the extracolumns add buttons.
+         */
+        "enableExtraColumns"?: boolean;
         /**
           * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
          */

@@ -169,6 +169,10 @@ export class KupTree {
         treeNodePath: TreeNodePath
     ) => Promise<TreeNode[]> | undefined = undefined;
     /**
+     * Enables the extracolumns add buttons.
+     */
+    @Prop() enableExtraColumns: boolean = true;
+    /**
      * Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.
      */
     @Prop() expanded: boolean = false;
