@@ -127,7 +127,7 @@ export function create4(component: KupCard): VNode {
         <div class={`dialog-layout-${component.layoutNumber} dialog-element`}>
             {textArray[0] ? dialogHeader(textArray[0]) : dialogHeader('')}
             {datatableArray[0] ? (
-                <div class="section-2">
+                <div class="section-1">
                     <kup-data-table
                         id="datatable1"
                         {...datatableArray[0]}

@@ -321,6 +321,9 @@ export class KupCard {
                     this.kupManager.moveOnDrag.register(card);
                 }
             }
+            if (!this.kupManager.resizeOnDrag.isRegistered(card)) {
+                this.kupManager.resizeOnDrag.register(card);
+            }
         }
     }
     /**
