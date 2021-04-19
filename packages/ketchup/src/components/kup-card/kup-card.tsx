@@ -328,21 +328,12 @@ export class KupCard {
             const unresizable: boolean = !!root.querySelector(
                 '.dialog-unresizable'
             );
-            console.log('');
             if (!this.kupManager.dialog.isRegistered(card as DialogElement)) {
-                if (dragHandle) {
-                    this.kupManager.dialog.register(
-                        card as DialogElement,
-                        dragHandle,
-                        unresizable
-                    );
-                } else {
-                    this.kupManager.dialog.register(
-                        card as DialogElement,
-                        null,
-                        unresizable
-                    );
-                }
+                this.kupManager.dialog.register(
+                    card as DialogElement,
+                    dragHandle ? dragHandle : null,
+                    unresizable
+                );
             }
         }
     }
