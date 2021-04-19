@@ -172,6 +172,7 @@ export class KupDataTable {
                 this.expandGroups = state.expandGroups;
                 this.groupLabelDisplay = state.groupLabelDisplay;
                 this.density = state.density;
+                this.enableExtraColumns = state.enableExtraColumns;
                 this.enableSortableColumns = state.enableSortableColumns;
                 this.forceOneLine = state.forceOneLine;
                 this.globalFilter = state.globalFilter;
@@ -228,6 +229,15 @@ export class KupDataTable {
                 this.state.density = this.density;
                 somethingChanged = true;
             }
+            if (
+                !deepEqual(
+                    this.state.enableExtraColumns,
+                    this.enableExtraColumns
+                )
+            ) {
+                this.state.enableExtraColumns = this.enableExtraColumns;
+                somethingChanged = true;
+            }            
             if (
                 !deepEqual(
                     this.state.enableSortableColumns,
@@ -375,12 +385,16 @@ export class KupDataTable {
      */
     @Prop() emptyDataLabel: string = 'Empty data';
     /**
+     * Enables the extracolumns add buttons.
+     */
+     @Prop() enableExtraColumns: boolean = true;
+    /**
      * Enables the sorting of columns by dragging them into different columns.
      */
     @Prop() enableSortableColumns: boolean = true;
     /**
      * Expands groups when set to true.
-     */
+     */ 
     @Prop() expandGroups: boolean = false;
     /**
      * List of filters set by the user.
@@ -2985,15 +2999,9 @@ export class KupDataTable {
                             />
                         );
                     }
-                    columnMenuItems.push(
-                        <li role="menuitem" class="button-row">
-                            <kup-button
-                                icon="book"
-                                title={groupLabel}
-                                onKupButtonClick={() =>
-                                    this.switchColumnGroup(group, column.name)
-                                }
-                            />
+                    let extraCol = null;
+                    if (this.enableExtraColumns) {
+                        extraCol = (
                             <kup-button
                                 icon="table-column-plus-after"
                                 title="Add column"
@@ -3004,6 +3012,18 @@ export class KupDataTable {
                                     this.closeMenuAndTooltip();
                                 }}
                             />
+                        );   
+                    }
+                    columnMenuItems.push(
+                        <li role="menuitem" class="button-row">
+                            <kup-button
+                                icon="book"
+                                title={groupLabel}
+                                onKupButtonClick={() =>
+                                    this.switchColumnGroup(group, column.name)
+                                }
+                            />
+                            {extraCol}
                             {actionHideCol}
                             <kup-button
                                 icon="extension"

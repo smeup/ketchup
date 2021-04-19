@@ -548,6 +548,10 @@ export namespace Components {
          */
         "emptyDataLabel": string;
         /**
+          * Enables the extracolumns add buttons.
+         */
+        "enableExtraColumns": boolean;
+        /**
           * Enables the sorting of columns by dragging them into different columns.
          */
         "enableSortableColumns": boolean;
@@ -2686,6 +2690,10 @@ declare namespace LocalJSX {
           * Defines the label to show when the table is empty.
          */
         "emptyDataLabel"?: string;
+        /**
+          * Enables the extracolumns add buttons.
+         */
+        "enableExtraColumns"?: boolean;
         /**
           * Enables the sorting of columns by dragging them into different columns.
          */

@@ -13,6 +13,7 @@ export class KupDataTableState implements KupState {
     expandGroups = false;
     groupLabelDisplay = GroupLabelDisplayMode.BOTH;
     density: string = 'small';
+    enableExtraColumns: boolean = true;
     enableSortableColumns: boolean = false;
     forceOneLine: boolean = false;
     globalFilter = false;
@@ -23,7 +24,7 @@ export class KupDataTableState implements KupState {
     loadMoreLimit: number = 1000;
     multiSelection = false;
     rowsPerPage = 10;
-    showFilters = false;
+    showFilters = false; 
     showHeader = true;
     showLoadMore: boolean = false;
     sortEnabled = true;

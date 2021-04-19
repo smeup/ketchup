@@ -59,6 +59,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'enableExtraColumns',
+          description:
+            'Enables adding extracollumns button.',
+          type: 'boolean',
+          default: 'true',
+          try: 'switch',
+        },
+        {
           prop: 'enableSortableColumns',
           description:
             'Enables the sorting of columns by dragging them into different columns.',
@@ -376,9 +384,10 @@ function createComp() {
   let comp = document.createElement('kup-data-table');
   comp.data = defaultDataTable;
   comp.density = 'dense';
-  comp.groupLabelDisplay = 'both';
+  comp.groupLabelDisplay = 'both'; 
   comp.headerIsPersistent = true;
   comp.id = 'demo-component';
+  comp.enableExtraColumns = true;
   comp.enableSortableColumns = true;
   comp.loadMoreLimit = '1000';
   comp.loadMoreStep = '60';
