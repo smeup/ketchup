@@ -30,6 +30,7 @@ import {
     MagicBoxData,
 } from './kup-magic-box-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 
 @Component({
     tag: 'kup-magic-box',
@@ -312,7 +313,10 @@ export class KupMagicBox {
         this.dragHandler = this.rootElement.shadowRoot.querySelector(
             '#drag-handle'
         );
-        this.kupManager.dialog.register(this.rootElement, this.dragHandler);
+        this.kupManager.dialog.register(
+            this.rootElement as DialogElement,
+            this.dragHandler
+        );
         this.kupManager.debug.logLoad(this, true);
     }
 
@@ -357,14 +361,7 @@ export class KupMagicBox {
                             }
                         )}
                     >
-                        <div class="actions">
-                            <FImage
-                                color="var(--kup-title-color)"
-                                id="drag-handle"
-                                resource="drag_handle"
-                                sizeX="24px"
-                                sizeY="24px"
-                            />
+                        <div class="actions" id="drag-handle">
                             <kup-combobox {...this.comboboxProps()} />
                             <kup-button
                                 styling={FButtonStyling.FLAT}
@@ -391,7 +388,7 @@ export class KupMagicBox {
     }
 
     componentDidUnload() {
-        this.kupManager.dialog.unregister([this.rootElement]);
+        this.kupManager.dialog.unregister([this.rootElement as DialogElement]);
         this.kupManager.theme.unregister(this);
     }
 }

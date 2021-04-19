@@ -1,8 +1,16 @@
 /**
+ * HTML Attribute attached to dialogs.
+ * Referenced by kup-theme.css
+ */
+export const kupDialogAttribute = 'kup-dialog';
+/**
  * Element used as a dialog.
  */
 export interface DialogElement extends HTMLElement {
-    dragHandle?: HTMLElement;
+    kupDialog: {
+        dragHandle?: HTMLElement;
+        resizable: boolean;
+    };
 }
 /**
  * Actions performed by KupDialog.

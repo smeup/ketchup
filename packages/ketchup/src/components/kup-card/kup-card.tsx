@@ -23,6 +23,7 @@ import {
 import { CardData, CardFamily, KupCardProps } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 
 @Component({
     tag: 'kup-card',
@@ -324,11 +325,23 @@ export class KupCard {
         if (root) {
             const card: HTMLElement = this.rootElement as HTMLElement;
             const dragHandle: HTMLElement = root.querySelector('#drag-handle');
-            if (!this.kupManager.dialog.isRegistered(card)) {
+            const unresizable: boolean = !!root.querySelector(
+                '.dialog-unresizable'
+            );
+            console.log('');
+            if (!this.kupManager.dialog.isRegistered(card as DialogElement)) {
                 if (dragHandle) {
-                    this.kupManager.dialog.register(card, dragHandle);
+                    this.kupManager.dialog.register(
+                        card as DialogElement,
+                        dragHandle,
+                        unresizable
+                    );
                 } else {
-                    this.kupManager.dialog.register(card);
+                    this.kupManager.dialog.register(
+                        card as DialogElement,
+                        null,
+                        unresizable
+                    );
                 }
             }
         }
@@ -511,7 +524,7 @@ export class KupCard {
 
     componentDidUnload() {
         this.kupManager.theme.unregister(this);
-        this.kupManager.dialog.unregister([this.rootElement as HTMLElement]);
+        this.kupManager.dialog.unregister([this.rootElement as DialogElement]);
         this.kupManager.resize.unobserve(this.rootElement);
     }
 }

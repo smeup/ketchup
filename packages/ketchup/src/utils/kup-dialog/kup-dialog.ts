@@ -2,6 +2,7 @@ import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     DialogElement,
     KupDialogActions,
+    kupDialogAttribute,
     KupDialogCoordinates,
 } from './kup-dialog-declarations';
 
@@ -124,9 +125,13 @@ export class KupDialog {
                 kupDialog.startingX = kupDialog.activeElement.offsetLeft;
                 kupDialog.startingY = kupDialog.activeElement.offsetTop;
             } else {
-                if (kupDialog.activeElement.dragHandle) {
+                if (kupDialog.activeElement.kupDialog.dragHandle) {
                     const paths: EventTarget[] = e.composedPath();
-                    if (paths.includes(kupDialog.activeElement.dragHandle)) {
+                    if (
+                        paths.includes(
+                            kupDialog.activeElement.kupDialog.dragHandle
+                        )
+                    ) {
                         kupDialog.action = KupDialogActions.MOVE;
                     }
                 }
@@ -152,13 +157,13 @@ export class KupDialog {
     }
     /**
      * Checks whether the mouse overs on the edges of the element or not.
-     * @param {HTMLElement} el - Resizable element.
+     * @param {DialogElement} el - Dialog element.
      * @param {number} x - X coordinate.
      * @param {number} y - Y coordinate.
      */
-    setCoords(el: HTMLElement, x: number, y: number): void {
+    setCoords(el: DialogElement, x: number, y: number): void {
         this.coordinates = KupDialogCoordinates.UNSET;
-        if (el) {
+        if (el && el.kupDialog.resizable) {
             // Left border
             if (
                 x === el.offsetLeft ||
@@ -206,12 +211,17 @@ export class KupDialog {
      * Watches the element handled as dialog.
      * @param {DialogElement} el - Dialog element.
      * @param {HTMLElement} handleEl - Element that must be dragged in order to trigger movement. When not provided, dragging anywhere on "el" will move it.
+     * @param {boolean} unresizable - When true, the dialog can't be resized.
      */
-    register(el: DialogElement, handleEl?: HTMLElement): void {
+    register(
+        el: DialogElement,
+        handleEl?: HTMLElement,
+        unresizable?: boolean
+    ): void {
         if (!this.#initialized) {
             this.initialize();
         }
-        el.setAttribute('kup-dialog', '');
+        el.setAttribute(kupDialogAttribute, '');
         el.style.zIndex = (this.zIndex++).toString();
         if (!el.style.left) {
             el.style.left = '0';
@@ -220,16 +230,20 @@ export class KupDialog {
             el.style.top = '0';
         }
         el.addEventListener('mousedown', (e: MouseEvent) => this.#mouseDown(e));
+        el.kupDialog = { dragHandle: null, resizable: true };
         if (handleEl) {
-            el.dragHandle = handleEl;
+            el.kupDialog.dragHandle = handleEl;
+        }
+        if (unresizable) {
+            el.kupDialog.resizable = false;
         }
         this.managedElements.add(el);
     }
     /**
      * Removes the elements from the MoveOnDrag class watchlist.
-     * @param {HTMLElement[]} elements - Elements to remove.
+     * @param {DialogElement[]} elements - Elements to remove.
      */
-    unregister(elements: HTMLElement[]): void {
+    unregister(elements: DialogElement[]): void {
         if (this.managedElements) {
             for (let index = 0; index < elements.length; index++) {
                 this.managedElements.delete(elements[index]);
@@ -238,10 +252,10 @@ export class KupDialog {
     }
     /**
      * Returns whether an element was previously registered or not.
-     * @param {HTMLElement} el - Element to test.
+     * @param {DialogElement} el - Element to test.
      * @returns {boolean} True if the element was registered.
      */
-    isRegistered(el: HTMLElement): boolean {
+    isRegistered(el: DialogElement): boolean {
         return !this.managedElements ? false : this.managedElements.has(el);
     }
 }

@@ -87,7 +87,9 @@ export function create3(component: KupCard): VNode {
         ? component.data['textfield']
         : [];
     return (
-        <div class={`dialog-layout-${component.layoutNumber}`}>
+        <div
+            class={`dialog-layout-${component.layoutNumber} dialog-unresizable`}
+        >
             <div>
                 {buttonArray.length > 0 || textfieldArray.length > 0 ? (
                     <div class="section-1">
