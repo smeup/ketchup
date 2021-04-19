@@ -1,5 +1,9 @@
-import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
+import {
+    DialogElement,
+    KupDialogActions,
+    KupDialogCoordinates,
+} from './kup-dialog-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -8,12 +12,12 @@ const dom: KupDom = document.documentElement as KupDom;
  * @module KupDialog
  */
 export class KupDialog {
-    action: string = null;
-    activeElement: HTMLElement = null;
+    action: KupDialogActions = null;
+    activeElement: DialogElement = null;
     activeX: number = 0;
     activeY: number = 0;
-    coordinates: string = null;
-    managedElements: Set<HTMLElement> = null;
+    coordinates: KupDialogCoordinates = null;
+    managedElements: Set<DialogElement> = null;
     startingHeight: number = 0;
     startingWidth: number = 0;
     startingX: number = 0;
@@ -24,30 +28,7 @@ export class KupDialog {
     #elementDrag: (this: Document, e: Event) => any = function (e: MouseEvent) {
         const kupDialog: KupDialog = dom.ketchup.dialog;
         const paths: EventTarget[] = e.composedPath();
-        if (!kupDialog.activeElement) {
-            for (let index = 0; index < paths.length; index++) {
-                if ((paths[index] as HTMLElement).tagName === 'BODY') {
-                    return;
-                }
-                try {
-                    if (
-                        (paths[index] as HTMLElement).nodeName !==
-                            '#document-fragment' &&
-                        (paths[index] as HTMLElement).hasAttribute('kup-dialog')
-                    ) {
-                        kupDialog.activeElement = paths[index] as HTMLElement;
-                        break;
-                    }
-                } catch (error) {
-                    dom.ketchup.debug.logMessage(
-                        'kup-dialog',
-                        error,
-                        KupDebugCategory.WARNING
-                    );
-                }
-            }
-        }
-        if (kupDialog.action === 'move') {
+        if (kupDialog.action === KupDialogActions.MOVE) {
             const x: number =
                 kupDialog.activeElement.offsetLeft -
                 (kupDialog.activeX - e.clientX);
@@ -65,9 +46,9 @@ export class KupDialog {
             let y: number = kupDialog.startingHeight;
             //Y coordinates
             switch (kupDialog.coordinates) {
-                case 'n-resize':
-                case 'ne-resize':
-                case 'nw-resize': {
+                case KupDialogCoordinates.NORTH:
+                case KupDialogCoordinates.NORTHEAST:
+                case KupDialogCoordinates.NORTHWEST: {
                     y += kupDialog.activeY - e.clientY;
                     if (y < 100) {
                         y = 100;
@@ -82,9 +63,9 @@ export class KupDialog {
                     }
                     break;
                 }
-                case 's-resize':
-                case 'se-resize':
-                case 'sw-resize': {
+                case KupDialogCoordinates.SOUTH:
+                case KupDialogCoordinates.SOUTHEAST:
+                case KupDialogCoordinates.SOUTHWEST: {
                     y -= kupDialog.activeY - e.clientY;
                     if (y < 100) {
                         y = 100;
@@ -95,9 +76,9 @@ export class KupDialog {
             }
             //X coordinates
             switch (kupDialog.coordinates) {
-                case 'e-resize':
-                case 'ne-resize':
-                case 'se-resize': {
+                case KupDialogCoordinates.EAST:
+                case KupDialogCoordinates.NORTHEAST:
+                case KupDialogCoordinates.SOUTHEAST: {
                     x -= kupDialog.activeX - e.clientX;
                     if (x < 100) {
                         x = 100;
@@ -105,9 +86,9 @@ export class KupDialog {
                     kupDialog.activeElement.style.width = x + 'px';
                     break;
                 }
-                case 'w-resize':
-                case 'nw-resize':
-                case 'sw-resize': {
+                case KupDialogCoordinates.WEST:
+                case KupDialogCoordinates.NORTHWEST:
+                case KupDialogCoordinates.SOUTHWEST: {
                     x += kupDialog.activeX - e.clientX;
                     if (x < 100) {
                         x = 100;
@@ -124,25 +105,29 @@ export class KupDialog {
                 }
             }
         } else {
+            kupDialog.managedElements.forEach((el) => {
+                if (paths.includes(el)) {
+                    kupDialog.activeElement = el;
+                }
+            });
             kupDialog.setCoords(kupDialog.activeElement, e.clientX, e.clientY);
         }
     };
     #mouseDown: Function = function (e: MouseEvent) {
         e.preventDefault();
         const kupDialog: KupDialog = dom.ketchup.dialog;
-        console.log('o');
         if (kupDialog.activeElement) {
-            if (kupDialog.coordinates) {
-                kupDialog.action = 'resize';
+            if (kupDialog.coordinates !== KupDialogCoordinates.UNSET) {
+                kupDialog.action = KupDialogActions.RESIZE;
                 kupDialog.startingHeight = kupDialog.activeElement.offsetHeight;
                 kupDialog.startingWidth = kupDialog.activeElement.offsetWidth;
                 kupDialog.startingX = kupDialog.activeElement.offsetLeft;
                 kupDialog.startingY = kupDialog.activeElement.offsetTop;
             } else {
-                if (kupDialog.activeElement['drag-handle']) {
+                if (kupDialog.activeElement.dragHandle) {
                     const paths: EventTarget[] = e.composedPath();
-                    if (paths[0] === kupDialog.activeElement['drag-handle']) {
-                        kupDialog.action = 'move';
+                    if (paths.includes(kupDialog.activeElement.dragHandle)) {
+                        kupDialog.action = KupDialogActions.MOVE;
                     }
                 }
             }
@@ -172,33 +157,33 @@ export class KupDialog {
      * @param {number} y - Y coordinate.
      */
     setCoords(el: HTMLElement, x: number, y: number): void {
-        this.coordinates = '';
+        this.coordinates = KupDialogCoordinates.UNSET;
         if (el) {
             // Left border
             if (
                 x === el.offsetLeft ||
                 (x > el.offsetLeft && x < el.offsetLeft + this.threshold)
             ) {
-                this.coordinates = 'w-resize';
+                this.coordinates = KupDialogCoordinates.WEST;
             } else if (
                 x === el.offsetLeft + el.offsetWidth ||
                 (x < el.offsetLeft + el.offsetWidth &&
                     x > el.offsetLeft + el.offsetWidth - this.threshold)
             ) {
                 // Right border
-                this.coordinates = 'e-resize';
+                this.coordinates = KupDialogCoordinates.EAST;
             }
             // Top border
             if (
                 y === el.offsetTop ||
                 (y > el.offsetTop && y < el.offsetTop + this.threshold)
             ) {
-                if (this.coordinates === 'w-resize') {
-                    this.coordinates = 'nw-resize';
-                } else if (this.coordinates === 'e-resize') {
-                    this.coordinates = 'ne-resize';
+                if (this.coordinates === KupDialogCoordinates.WEST) {
+                    this.coordinates = KupDialogCoordinates.NORTHWEST;
+                } else if (this.coordinates === KupDialogCoordinates.EAST) {
+                    this.coordinates = KupDialogCoordinates.NORTHEAST;
                 } else {
-                    this.coordinates = 'n-resize';
+                    this.coordinates = KupDialogCoordinates.NORTH;
                 }
             } else if (
                 // Bottom border
@@ -206,23 +191,23 @@ export class KupDialog {
                 (y < el.offsetTop + el.offsetHeight &&
                     y > el.offsetTop + el.offsetHeight - this.threshold)
             ) {
-                if (this.coordinates === 'w-resize') {
-                    this.coordinates = 'sw-resize';
-                } else if (this.coordinates === 'e-resize') {
-                    this.coordinates = 'se-resize';
+                if (this.coordinates === KupDialogCoordinates.WEST) {
+                    this.coordinates = KupDialogCoordinates.SOUTHWEST;
+                } else if (this.coordinates === KupDialogCoordinates.EAST) {
+                    this.coordinates = KupDialogCoordinates.SOUTHEAST;
                 } else {
-                    this.coordinates = 's-resize';
+                    this.coordinates = KupDialogCoordinates.SOUTH;
                 }
             }
             el.style.cursor = this.coordinates;
         }
     }
     /**
-     * Watches the element eligible to move when dragging.
-     * @param {HTMLElement} el - Movable element.
-     * @param {HTMLElement} handleEl - Element that must be dragged in order to trigger the movement. When not provided, dragging anywhere on "el" will trigger the movement.
+     * Watches the element handled as dialog.
+     * @param {DialogElement} el - Dialog element.
+     * @param {HTMLElement} handleEl - Element that must be dragged in order to trigger movement. When not provided, dragging anywhere on "el" will move it.
      */
-    register(el: HTMLElement, handleEl?: HTMLElement): void {
+    register(el: DialogElement, handleEl?: HTMLElement): void {
         if (!this.#initialized) {
             this.initialize();
         }
@@ -236,7 +221,7 @@ export class KupDialog {
         }
         el.addEventListener('mousedown', (e: MouseEvent) => this.#mouseDown(e));
         if (handleEl) {
-            el['drag-handle'] = handleEl;
+            el.dragHandle = handleEl;
         }
         this.managedElements.add(el);
     }

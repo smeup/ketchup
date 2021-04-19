@@ -166,11 +166,6 @@ export class KupCard {
     onKupEvent(e: CustomEvent): void {
         const root = this.rootElement.shadowRoot;
 
-        if (e.type === 'kupButtonClick' && e.detail.id === 'dialog-close') {
-            this.rootElement.remove();
-            return;
-        }
-
         if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
             let collapsibleCard = root.querySelector('.collapsible-card');
             if (!collapsibleCard.classList.contains('expanded')) {
@@ -246,6 +241,21 @@ export class KupCard {
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
+
+    /**
+     * Set the events of the component.
+     */
+    private setEvents(): void {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const dialogClose: HTMLElement = root.querySelector(
+                '#dialog-close'
+            );
+            if (dialogClose) {
+                dialogClose.onclick = () => this.rootElement.remove();
+            }
+        }
+    }
 
     /**
      * This method is invoked by the layout manager when the layout family is collapsible.
@@ -463,6 +473,7 @@ export class KupCard {
     }
 
     componentDidRender() {
+        this.setEvents();
         this.layoutManager();
         this.kupManager.debug.logRender(this, true);
     }
