@@ -44,10 +44,13 @@
 /*                   D i a l o g                   */
 /*-------------------------------------------------*/
 [kup-dialog] {
-    border: 3px outset var(--kup-title-background-color);
+    background-color: var(--kup-background-color);
     margin: 0;
     position: fixed;
     transition: none;
+}
+[kup-dialog].kup-resizable {
+    border: 3px outset var(--kup-title-background-color);
 }
 /*-------------------------------------------------*/
 /*          S c r o l l   o n   h o v e r          */

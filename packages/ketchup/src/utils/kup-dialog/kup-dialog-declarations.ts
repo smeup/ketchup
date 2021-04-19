@@ -4,6 +4,11 @@
  */
 export const kupDialogAttribute = 'kup-dialog';
 /**
+ * CSS class attached to resizable dialogs.
+ * Referenced by kup-theme.css
+ */
+export const kupResizableDialogClass = 'kup-resizable';
+/**
  * Element used as a dialog.
  */
 export interface DialogElement extends HTMLElement {
