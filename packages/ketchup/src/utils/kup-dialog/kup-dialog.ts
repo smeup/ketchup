@@ -4,6 +4,7 @@ import {
     KupDialogActions,
     kupDialogAttribute,
     KupDialogCoordinates,
+    kupResizableDialogClass,
 } from './kup-dialog-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
@@ -263,6 +264,8 @@ export class KupDialog {
         }
         if (unresizable) {
             el.kupDialog.resizable = false;
+        } else {
+            el.classList.add(kupResizableDialogClass);
         }
         this.managedElements.add(el);
     }
