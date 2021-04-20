@@ -9,6 +9,7 @@ export enum KupDataTableProps {
     density = "The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.",
     dragEnabled = 'Enable row dragging',
     dropEnabled = 'Enable record dropping',
+    editableData = 'When set to true, editable cells will be rendered using input components.',
     emptyDataLabel = 'Defines the label to show when the table is empty.',
     enableSortableColumns = 'Enables the sorting of columns by dragging them into different columns.',
     enableExtraColumns = 'Enables adding extra columns.',
@@ -81,6 +82,7 @@ export interface Cell {
     cssClass?: string;
     icon?: string;
     title?: string;
+    isEditable?: boolean;
 }
 
 export interface CellsHolder {

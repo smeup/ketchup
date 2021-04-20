@@ -404,6 +404,11 @@ export class KupDataTable {
      */
     @Prop() dropEnabled: boolean = false;
     /**
+     * When set to true, editable cells will be rendered using input components.
+     * @default false
+     */
+    @Prop() editableData: boolean = false;
+    /**
      * Defines the label to show when the table is empty.
      */
     @Prop() emptyDataLabel: string = 'Empty data';
@@ -903,6 +908,8 @@ export class KupDataTable {
     })
     kupDataTableCellUpdate: EventEmitter<{
         cell: Cell;
+        column: Column;
+        row: Row;
         event: any;
     }>;
     /**
@@ -1503,9 +1510,21 @@ export class KupDataTable {
                 ].querySelector('input');
                 if (inputEl) {
                     inputEl.onblur = (e: FocusEvent) =>
-                        this.cellUpdate(e, textfields[index]['data-cell']);
+                        this.cellUpdate(
+                            e,
+                            (e.target as HTMLInputElement).value,
+                            textfields[index]['data-cell'],
+                            textfields[index]['data-column'],
+                            textfields[index]['data-row']
+                        );
                     inputEl.onchange = (e: Event) =>
-                        this.cellUpdate(e, textfields[index]['data-cell']);
+                        this.cellUpdate(
+                            e,
+                            (e.target as HTMLInputElement).value,
+                            textfields[index]['data-cell'],
+                            textfields[index]['data-column'],
+                            textfields[index]['data-row']
+                        );
                 }
                 FTextFieldMDC(textfields[index] as HTMLElement);
             }
@@ -1839,27 +1858,52 @@ export class KupDataTable {
                     if (column.shape && !row.cells[column.name].shape) {
                         row.cells[column.name].shape = column.shape;
                     }
-                    const cardCell = { ...row.cells[column.name] };
+                    const cardCell: Cell = { ...row.cells[column.name] };
                     this.normalizeDetailCell(cardCell);
+                    let iconCell: Cell = null;
                     if (column.isKey) {
+                        iconCell = {
+                            obj: {
+                                t: 'J4',
+                                p: 'ICO',
+                                k: 'OG_OG_KF',
+                            },
+                            data: {
+                                color: 'rgba(var(--kup-text-color-rgb), 1)',
+                                resource: 'key-variant',
+                            },
+                            value: 'key-variant',
+                        };
+                    } else if (cell.isEditable) {
+                        iconCell = {
+                            obj: {
+                                t: 'VO',
+                                p: 'COD_VER',
+                                k: '000051',
+                            },
+                            data: {
+                                color: 'rgba(var(--kup-text-color-rgb), 1)',
+                                resource: 'pencil',
+                            },
+                            value: 'pencil',
+                        };
+                    } else {
+                        iconCell = {
+                            obj: {
+                                t: '',
+                                p: '',
+                                k: '',
+                            },
+                            value: '',
+                        };
+                    }
+                    if (column.isKey || cell.isEditable) {
                         cardColumns.find(
                             (x) => x.name === iconColumn.toUpperCase()
                         ).visible = true;
                         cardRows.unshift({
                             cells: {
-                                [iconColumn.toUpperCase()]: {
-                                    obj: {
-                                        t: 'J4',
-                                        p: 'ICO',
-                                        k: 'OG_OG_KF',
-                                    },
-                                    data: {
-                                        color:
-                                            'rgba(var(--kup-text-color-rgb), 1)',
-                                        resource: 'key-variant',
-                                    },
-                                    value: 'key-variant',
-                                },
+                                [iconColumn.toUpperCase()]: iconCell,
                                 [fieldColumn.toUpperCase()]: {
                                     obj: {
                                         t: 'COLUMN',
@@ -1874,14 +1918,7 @@ export class KupDataTable {
                     } else {
                         cardRows.push({
                             cells: {
-                                [iconColumn.toUpperCase()]: {
-                                    obj: {
-                                        t: '',
-                                        p: '',
-                                        k: '',
-                                    },
-                                    value: '',
-                                },
+                                [iconColumn.toUpperCase()]: iconCell,
                                 [fieldColumn.toUpperCase()]: {
                                     obj: {
                                         t: 'COLUMN',
@@ -1910,6 +1947,9 @@ export class KupDataTable {
         if (!this.detailCard) {
             this.detailCard = document.createElement('kup-card');
             this.detailCard.layoutFamily = CardFamily.DIALOG;
+            this.detailCard.layoutNumber = 4;
+            this.detailCard.sizeX = '300px';
+            this.detailCard.sizeY = '300px';
         } else {
             const children: HTMLCollection = Array.prototype.slice.call(
                 this.detailCard.children,
@@ -1919,10 +1959,7 @@ export class KupDataTable {
                 children[index].remove();
             }
         }
-        this.detailCard.layoutNumber = 4;
         this.detailCard.data = cardData;
-        this.detailCard.sizeX = '300px';
-        this.detailCard.sizeY = '300px';
         this.detailCard.style.left = x + 'px';
         this.detailCard.style.top = y + 'px';
         if (columnKey) {
@@ -2604,20 +2641,25 @@ export class KupDataTable {
         });
     }
 
-    private cellUpdate(e: Event | FocusEvent, cell: Cell) {
-        if ((e.target as HTMLElement).tagName === 'INPUT') {
-            const inputEl = e.target as HTMLInputElement;
-            cell.obj.k = inputEl.value;
-            cell.value = inputEl.value;
-            if (cell.data) {
-                cell.data['value'] = inputEl.value;
-            } else {
-                cell['data']['value'] = inputEl.value;
-            }
-        }
+    private cellUpdate(
+        e: CustomEvent | Event | FocusEvent,
+        value: string,
+        cell: Cell,
+        column: Column,
+        row: Row
+    ) {
+        cell.obj.k = value;
+        cell.value = value;
+        cell.displayedValue = null;
+        cell.displayedValue = getCellValueForDisplay(column, cell);
+        if (cell.data && cell.data['initialValue']) {
+            cell.data['initialValue'] = value;
+        } 
         this.forceUpdate();
         this.kupDataTableCellUpdate.emit({
             cell: cell,
+            column: column,
+            row: row,
             event: e,
         });
     }
@@ -4278,6 +4320,7 @@ export class KupDataTable {
                         title={title}
                         data-cell={cell}
                         data-column={name}
+                        data-row={row}
                         style={cellStyle}
                         class={cellClass}
                         {...eventHandlers}
@@ -4425,6 +4468,7 @@ export class KupDataTable {
         column: Column,
         previousRowCellValue?: string
     ) {
+        const isEditable: boolean = cell.isEditable && this.editableData ? true : false;
         const classObj: Record<string, boolean> = {
             'cell-content': true,
             clickable: !!column.clickable,
@@ -4440,8 +4484,11 @@ export class KupDataTable {
         let cellType: string = this.getCellType(cell);
         let props: any = { ...cell.data };
         classObj[cellType + '-cell'] = true;
-
-        if (
+        if (isEditable && (cellType === 'date' || 
+            cellType === 'number' ||
+            cellType === 'string')) {
+            content = this.setEditableCell(cellType, cell, column, row);
+        } else if (
             cellType === 'checkbox' ||
             cellType === 'date' ||
             cellType === 'time' ||
@@ -4485,7 +4532,7 @@ export class KupDataTable {
 
         let icon = undefined;
 
-        if ((column.icon || cell.icon) && content) {
+        if (!isEditable && (column.icon || cell.icon) && content) {
             let svg: string = '';
             if (cell.icon) {
                 svg = cell.icon;
@@ -4648,6 +4695,32 @@ export class KupDataTable {
         }
     }
 
+    private setEditableCell(cellType: string, cell: Cell,column: Column, row: Row) {
+        switch (cellType) {
+            case 'date':
+                return (
+                    <kup-date-picker
+                        onKupDatePickerChange={(e) =>
+                            this.cellUpdate(e, e.detail.value, cell, column, row)
+                        }
+                        initialValue={cell.value}
+                    />
+                );
+            case 'number':
+            case 'string':
+                return (
+                    <FTextField
+                    dataSet={{
+                    'data-cell': cell,
+                    'data-column': column,
+                    'data-row': row,
+                }}
+                        initialValue={cell.value}
+                    />
+                );
+        }
+    }
+
     private setKupCell(
         cellType: string,
         classObj: Record<string, boolean>,
@@ -4680,12 +4753,6 @@ export class KupDataTable {
                     cell
                 );
                 return <kup-button {...props}></kup-button>;
-            case 'text-field':
-                props['disabled'] = row.readOnly;
-                props['dataSet'] = {
-                    'data-cell': cell,
-                };
-                return <FTextField {...props}></FTextField>;
             case 'chart':
                 classObj['is-centered'] = true;
                 return <kup-chart {...props} />;
@@ -4722,6 +4789,14 @@ export class KupDataTable {
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
                 return <kup-radio {...props}></kup-radio>;
+            case 'text-field':
+                props['disabled'] = row.readOnly;
+                props['dataSet'] = {
+                    'data-cell': cell,
+                    'data-column': column,
+                    'data-row': row,
+                };
+                return <FTextField {...props}></FTextField>;
         }
     }
 
@@ -4883,11 +4958,21 @@ export class KupDataTable {
                 {fontsize}
                 {transpose}
                 <kup-switch
+                    class="customize-element"
                     checked={this.dragEnabled}
                     label="Drag and drop"
                     leadingLabel={true}
                     onKupSwitchChange={() =>
                         (this.dragEnabled = !this.dragEnabled)
+                    }
+                ></kup-switch>
+                <kup-switch
+                    class="customize-element"
+                    checked={this.editableData}
+                    label="Editable"
+                    leadingLabel={true}
+                    onKupSwitchChange={() =>
+                        (this.editableData = !this.editableData)
                     }
                 ></kup-switch>
                 <kup-button

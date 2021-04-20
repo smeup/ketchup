@@ -720,6 +720,11 @@ export namespace Components {
          */
         "dropEnabled": boolean;
         /**
+          * When set to true, editable cells will be rendered using input components.
+          * @default false
+         */
+        "editableData": boolean;
+        /**
           * Defines the label to show when the table is empty.
          */
         "emptyDataLabel": string;
@@ -3279,6 +3284,11 @@ declare namespace LocalJSX {
          */
         "dropEnabled"?: boolean;
         /**
+          * When set to true, editable cells will be rendered using input components.
+          * @default false
+         */
+        "editableData"?: boolean;
+        /**
           * Defines the label to show when the table is empty.
          */
         "emptyDataLabel"?: string;
@@ -3383,6 +3393,8 @@ declare namespace LocalJSX {
          */
         "onKupDataTableCellUpdate"?: (event: CustomEvent<{
         cell: Cell;
+        column: Column;
+        row: Row;
         event: any;
     }>) => void;
         /**
