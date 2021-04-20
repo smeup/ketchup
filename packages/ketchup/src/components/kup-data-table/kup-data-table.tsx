@@ -1781,14 +1781,15 @@ export class KupDataTable {
                     value: cell.value,
                 };
             } else if (isNumber(cell.obj)) {
-                cell.shape = 'Chi'; //TODO: Cablate da rimuovere per test.
-                cell.data = {
-                    data: [
-                        {
-                            label: cell.value,
-                        },
-                    ],
-                };
+                //cell.shape = 'Chi'; //TODO: Cablate da rimuovere per test.
+                //cell.data = {
+                //    data: [
+                //        {
+                //            label: cell.value,
+                //        },
+                //    ],
+                //};
+                // Removed to test editable data.
             } else if (isDate(cell.obj)) {
                 cell.displayedValue = formatExtendedDate(new Date(cell.value));
             }
@@ -1872,6 +1873,7 @@ export class KupDataTable {
                                 color: 'rgba(var(--kup-text-color-rgb), 1)',
                                 resource: 'key-variant',
                             },
+                            title: "Record key.",
                             value: 'key-variant',
                         };
                     } else if (cell.isEditable) {
@@ -1885,6 +1887,7 @@ export class KupDataTable {
                                 color: 'rgba(var(--kup-text-color-rgb), 1)',
                                 resource: 'pencil',
                             },
+                            title: "This field can be edited.",
                             value: 'pencil',
                         };
                     } else {
@@ -4730,7 +4733,7 @@ export class KupDataTable {
                             'data-column': column,
                             'data-row': row,
                         }}
-                        initialValue={cell.value}
+                        value={cell.value}
                     />
                 );
         }
