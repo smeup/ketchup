@@ -2654,7 +2654,7 @@ export class KupDataTable {
         cell.displayedValue = getCellValueForDisplay(column, cell);
         if (cell.data && cell.data['initialValue']) {
             cell.data['initialValue'] = value;
-        } 
+        }
         this.forceUpdate();
         this.kupDataTableCellUpdate.emit({
             cell: cell,
@@ -4468,7 +4468,8 @@ export class KupDataTable {
         column: Column,
         previousRowCellValue?: string
     ) {
-        const isEditable: boolean = cell.isEditable && this.editableData ? true : false;
+        const isEditable: boolean =
+            cell.isEditable && this.editableData ? true : false;
         const classObj: Record<string, boolean> = {
             'cell-content': true,
             clickable: !!column.clickable,
@@ -4484,9 +4485,12 @@ export class KupDataTable {
         let cellType: string = this.getCellType(cell);
         let props: any = { ...cell.data };
         classObj[cellType + '-cell'] = true;
-        if (isEditable && (cellType === 'date' || 
-            cellType === 'number' ||
-            cellType === 'string')) {
+        if (
+            isEditable &&
+            (cellType === 'date' ||
+                cellType === 'number' ||
+                cellType === 'string')
+        ) {
             content = this.setEditableCell(cellType, cell, column, row);
         } else if (
             cellType === 'checkbox' ||
@@ -4695,13 +4699,24 @@ export class KupDataTable {
         }
     }
 
-    private setEditableCell(cellType: string, cell: Cell,column: Column, row: Row) {
+    private setEditableCell(
+        cellType: string,
+        cell: Cell,
+        column: Column,
+        row: Row
+    ) {
         switch (cellType) {
             case 'date':
                 return (
                     <kup-date-picker
                         onKupDatePickerChange={(e) =>
-                            this.cellUpdate(e, e.detail.value, cell, column, row)
+                            this.cellUpdate(
+                                e,
+                                e.detail.value,
+                                cell,
+                                column,
+                                row
+                            )
                         }
                         initialValue={cell.value}
                     />
@@ -4710,11 +4725,11 @@ export class KupDataTable {
             case 'string':
                 return (
                     <FTextField
-                    dataSet={{
-                    'data-cell': cell,
-                    'data-column': column,
-                    'data-row': row,
-                }}
+                        dataSet={{
+                            'data-cell': cell,
+                            'data-column': column,
+                            'data-row': row,
+                        }}
                         initialValue={cell.value}
                     />
                 );
