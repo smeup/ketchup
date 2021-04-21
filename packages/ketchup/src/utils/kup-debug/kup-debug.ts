@@ -327,20 +327,11 @@ export class KupDebug {
         } else {
             this.active = value;
         }
-        const boxes: NodeListOf<HTMLKupBoxElement> = document.querySelectorAll(
-            'kup-box'
-        );
         if (this.active) {
-            for (let index = 0; index < boxes.length; index++) {
-                boxes[index].classList.add('kup-dashed-sections');
-            }
             if (!this.#debugWidget) {
                 this.showWidget();
             }
         } else {
-            for (let index = 0; index < boxes.length; index++) {
-                boxes[index].classList.remove('kup-dashed-sections');
-            }
             if (this.#debugWidget) {
                 this.hideWidget();
             }
