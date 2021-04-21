@@ -68,13 +68,13 @@ export class FiltersTreeItems extends FiltersRows {
         columnFilters?: FiltersColumnMenu
     ): boolean {
         let retValue = false;
-        let cellsHolder: CellsHolder = node.cells;
-        cellsHolder[treeMainColumnName] = {
-            obj: node.obj,
-            value: node.value,
-        };
 
         if (node.cells != null) {
+            let cellsHolder: CellsHolder = node.cells;
+            cellsHolder[treeMainColumnName] = {
+                obj: node.obj,
+                value: node.value,
+            };
             retValue = this.areCellsCompliant(
                 cellsHolder,
                 filters,
