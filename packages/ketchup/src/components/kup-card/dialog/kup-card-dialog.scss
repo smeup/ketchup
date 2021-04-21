@@ -16,12 +16,18 @@
       font-weight: bold;
       line-height: 2em;
       padding-left: 0.5em;
+      padding-right: 2em;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     #dialog-close {
       cursor: pointer;
       margin-right: 0;
       transition: opacity 0.25s;
+      position: absolute;
+      right: 0;
+      background: var(--kup-title-background-color);
       &:hover {
         opacity: 0.5;
       }
