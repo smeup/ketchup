@@ -330,17 +330,20 @@ export class KupDebug {
         const boxes: NodeListOf<HTMLKupBoxElement> = document.querySelectorAll(
             'kup-box'
         );
-        for (let index = 0; index < boxes.length; index++) {
-            if (this.active) {
+        if (this.active) {
+            for (let index = 0; index < boxes.length; index++) {
                 boxes[index].classList.add('kup-dashed-sections');
-            } else {
+            }
+            if (!this.#debugWidget) {
+                this.showWidget();
+            }
+        } else {
+            for (let index = 0; index < boxes.length; index++) {
                 boxes[index].classList.remove('kup-dashed-sections');
             }
-        }
-        if (this.active && !this.#debugWidget) {
-            this.showWidget();
-        } else if (this.#debugWidget) {
-            this.hideWidget();
+            if (this.#debugWidget) {
+                this.hideWidget();
+            }
         }
     }
     /**
