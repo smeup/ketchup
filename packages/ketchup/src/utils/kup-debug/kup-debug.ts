@@ -327,6 +327,16 @@ export class KupDebug {
         } else {
             this.active = value;
         }
+        const boxes: NodeListOf<HTMLKupBoxElement> = document.querySelectorAll(
+            'kup-box'
+        );
+        for (let index = 0; index < boxes.length; index++) {
+            if (this.active) {
+                boxes[index].classList.add('kup-dashed-sections');
+            } else {
+                boxes[index].classList.remove('kup-dashed-sections');
+            }
+        }
         if (this.active && !this.#debugWidget) {
             this.showWidget();
         } else if (this.#debugWidget) {
