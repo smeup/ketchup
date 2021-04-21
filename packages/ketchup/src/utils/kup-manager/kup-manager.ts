@@ -99,7 +99,7 @@ export function kupManagerInstance(): KupManager {
             dom.ketchupInit.debug &&
             dom.ketchupInit.debug.active
         ) {
-            dom.ketchup.debug.showWidget();
+            dom.ketchup.debug.toggle(dom.ketchupInit.debug.active);
         }
         document.dispatchEvent(new CustomEvent('kupManagerReady'));
     }
