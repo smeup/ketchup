@@ -1871,10 +1871,14 @@ export class KupDataTable {
                             },
                             data: {
                                 color: 'rgba(var(--kup-text-color-rgb), 1)',
-                                resource: 'key-variant',
+                                resource: cell.isEditable
+                                    ? 'edit-key'
+                                    : 'key-variant',
                             },
-                            title: "Record key.",
-                            value: 'key-variant',
+                            title: cell.isEditable
+                                ? 'Editable record key.'
+                                : 'Record key.',
+                            value: cell.isEditable ? 'edit-key' : 'key-variant',
                         };
                     } else if (cell.isEditable) {
                         iconCell = {
@@ -1887,7 +1891,7 @@ export class KupDataTable {
                                 color: 'rgba(var(--kup-text-color-rgb), 1)',
                                 resource: 'pencil',
                             },
-                            title: "This field can be edited.",
+                            title: 'This field can be edited.',
                             value: 'pencil',
                         };
                     } else {
@@ -1904,6 +1908,8 @@ export class KupDataTable {
                         cardColumns.find(
                             (x) => x.name === iconColumn.toUpperCase()
                         ).visible = true;
+                    }
+                    if (column.isKey) {
                         cardRows.unshift({
                             cells: {
                                 [iconColumn.toUpperCase()]: iconCell,
@@ -4721,10 +4727,27 @@ export class KupDataTable {
                                 row
                             )
                         }
+                        data={{
+                            'kup-text-field': {
+                                fullWidth: true,
+                            },
+                        }}
                         initialValue={cell.value}
                     />
                 );
             case 'number':
+                return (
+                    <FTextField
+                        dataSet={{
+                            'data-cell': cell,
+                            'data-column': column,
+                            'data-row': row,
+                        }}
+                        fullWidth={true}
+                        inputType="number"
+                        value={stringToNumber(cell.value).toString()}
+                    />
+                );
             case 'string':
                 return (
                     <FTextField
@@ -4733,6 +4756,7 @@ export class KupDataTable {
                             'data-column': column,
                             'data-row': row,
                         }}
+                        fullWidth={true}
                         value={cell.value}
                     />
                 );
