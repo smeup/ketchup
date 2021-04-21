@@ -1905,7 +1905,7 @@ export class KupBox {
                             window.clearTimeout(this.globalFilterTimeout);
                             this.globalFilterTimeout = window.setTimeout(
                                 () => this.onGlobalFilterChange(event),
-                                300
+                                600
                             );
                         }}
                         onKupTextFieldClearIconClick={(event) =>
