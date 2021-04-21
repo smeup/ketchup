@@ -4743,6 +4743,13 @@ export class KupDataTable {
                             'data-column': column,
                             'data-row': row,
                         }}
+                        icon={
+                            cell.icon
+                                ? cell.icon
+                                : column.icon
+                                ? column.icon
+                                : null
+                        }
                         fullWidth={true}
                         inputType="number"
                         value={stringToNumber(cell.value).toString()}
@@ -4756,6 +4763,13 @@ export class KupDataTable {
                             'data-column': column,
                             'data-row': row,
                         }}
+                        icon={
+                            cell.icon
+                                ? cell.icon
+                                : column.icon
+                                ? column.icon
+                                : null
+                        }
                         fullWidth={true}
                         value={cell.value}
                     />
