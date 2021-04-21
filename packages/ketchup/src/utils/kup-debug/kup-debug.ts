@@ -55,6 +55,120 @@ export class KupDebug {
         downloadAnchorNode.remove();
     }
     /**
+     * Creates the debug widget.
+     */
+    private showWidget(): void {
+        const debugWidget: HTMLKupCardElement = document.createElement(
+            'kup-card'
+        );
+        const themes: string[] = dom.ketchup.theme.getThemes();
+        const listData: ComponentListElement[] = [];
+        for (let index = 0; index < themes.length; index++) {
+            listData.push({
+                text: themes[index],
+                value: themes[index],
+                selected: false,
+                isSeparator: false,
+            });
+        }
+        debugWidget.data = {
+            button: [
+                {
+                    icon: 'power_settings_new',
+                    id: 'kup-debug-off',
+                    customStyle:
+                        ':host {border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
+                    title: 'Turn off debug',
+                },
+                {
+                    icon: 'print',
+                    id: 'kup-debug-print',
+                    title: 'Print logs stored',
+                },
+                {
+                    customStyle:
+                        ':host {border-right: 1px solid var(--kup-border-color);}',
+                    checked: this.autoPrint,
+                    icon: 'speaker_notes',
+                    iconOff: 'speaker_notes_off',
+                    id: 'kup-debug-autoprint',
+                    title: 'Toggle automatic print',
+                    toggable: true,
+                },
+                { icon: 'broom', id: 'kup-debug-clear', title: 'Clear widget' },
+                {
+                    icon: 'delete',
+                    id: 'kup-debug-delete',
+                    title: 'Dump stored logs',
+                },
+                {
+                    className: 'kup-full-height',
+                    customStyle:
+                        ':host {border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
+                    icon: 'download',
+                    id: 'kup-debug-dl-props',
+                    label: 'Props',
+                    styling: 'flat',
+                    title: 'Download components props',
+                },
+                {
+                    icon: 'auto-fix',
+                    id: 'kup-debug-magic-box',
+                    title: 'Toggle kup-magic-box',
+                },
+            ],
+            combobox: [
+                {
+                    className: 'kup-full-height',
+                    data: {
+                        'kup-list': {
+                            data: listData,
+                            id: 'kup-debug-theme-changer-list',
+                        },
+                        'kup-text-field': {
+                            className: 'kup-full-height',
+                            emitSubmitEventOnEnter: false,
+                            inputType: 'text',
+                            label: 'Change theme',
+                        },
+                    },
+                    id: 'kup-debug-theme-changer',
+                    initialValue: dom.ketchup.theme.name,
+                    isSelect: true,
+                },
+            ],
+            textfield: [
+                {
+                    className: 'kup-full-height',
+                    id: 'kup-debug-log-limit',
+                    label: 'Set log limit',
+                    initialValue: this.logLimit,
+                    emitSubmitEventOnEnter: false,
+                    inputType: 'number',
+                },
+            ],
+        };
+        debugWidget.customStyle =
+            '#kup-debug-log-limit {width: 120px;} #kup-debug-theme-changer {width: 190px;}';
+        debugWidget.id = 'kup-debug-widget';
+        debugWidget.layoutFamily = CardFamily.DIALOG;
+        debugWidget.layoutNumber = 3;
+        debugWidget.sizeX = 'auto';
+        debugWidget.sizeY = 'auto';
+        debugWidget.addEventListener('kupCardEvent', (e: CustomEvent) =>
+            this.handleEvents(e)
+        );
+        document.body.append(debugWidget);
+        this.#debugWidget = debugWidget;
+    }
+    /**
+     * Closes the debug widget.
+     */
+    private hideWidget() {
+        this.#debugWidget.remove();
+        this.#debugWidget = null;
+    }
+    /**
      * Clears all the printed logs inside the debug widget.
      */
     private widgetClear(): void {
@@ -213,125 +327,24 @@ export class KupDebug {
         } else {
             this.active = value;
         }
+        const boxes: NodeListOf<HTMLKupBoxElement> = document.querySelectorAll(
+            'kup-box'
+        );
         if (this.active) {
-            this.showWidget();
+            for (let index = 0; index < boxes.length; index++) {
+                boxes[index].classList.add('kup-dashed-sections');
+            }
+            if (!this.#debugWidget) {
+                this.showWidget();
+            }
         } else {
-            this.hideWidget();
+            for (let index = 0; index < boxes.length; index++) {
+                boxes[index].classList.remove('kup-dashed-sections');
+            }
+            if (this.#debugWidget) {
+                this.hideWidget();
+            }
         }
-    }
-    /**
-     * Creates the debug widget.
-     */
-    showWidget(): void {
-        const debugWidget: HTMLKupCardElement = document.createElement(
-            'kup-card'
-        );
-        const themes: string[] = dom.ketchup.theme.getThemes();
-        const listData: ComponentListElement[] = [];
-        for (let index = 0; index < themes.length; index++) {
-            listData.push({
-                text: themes[index],
-                value: themes[index],
-                selected: false,
-                isSeparator: false,
-            });
-        }
-        debugWidget.data = {
-            button: [
-                {
-                    icon: 'power_settings_new',
-                    id: 'kup-debug-off',
-                    customStyle:
-                        ':host {border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
-                    title: 'Turn off debug',
-                },
-                {
-                    icon: 'print',
-                    id: 'kup-debug-print',
-                    title: 'Print logs stored',
-                },
-                {
-                    customStyle:
-                        ':host {border-right: 1px solid var(--kup-border-color);}',
-                    checked: this.autoPrint,
-                    icon: 'speaker_notes',
-                    iconOff: 'speaker_notes_off',
-                    id: 'kup-debug-autoprint',
-                    title: 'Toggle automatic print',
-                    toggable: true,
-                },
-                { icon: 'broom', id: 'kup-debug-clear', title: 'Clear widget' },
-                {
-                    icon: 'delete',
-                    id: 'kup-debug-delete',
-                    title: 'Dump stored logs',
-                },
-                {
-                    className: 'kup-full-height',
-                    customStyle:
-                        ':host {border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
-                    icon: 'download',
-                    id: 'kup-debug-dl-props',
-                    label: 'Props',
-                    styling: 'flat',
-                    title: 'Download components props',
-                },
-                {
-                    icon: 'auto-fix',
-                    id: 'kup-debug-magic-box',
-                    title: 'Toggle kup-magic-box',
-                },
-            ],
-            combobox: [
-                {
-                    className: 'kup-full-height',
-                    data: {
-                        'kup-list': {
-                            data: listData,
-                            id: 'kup-debug-theme-changer-list',
-                        },
-                        'kup-text-field': {
-                            className: 'kup-full-height',
-                            emitSubmitEventOnEnter: false,
-                            inputType: 'text',
-                            label: 'Change theme',
-                        },
-                    },
-                    id: 'kup-debug-theme-changer',
-                    initialValue: dom.ketchup.theme.name,
-                    isSelect: true,
-                },
-            ],
-            textfield: [
-                {
-                    className: 'kup-full-height',
-                    id: 'kup-debug-log-limit',
-                    label: 'Set log limit',
-                    initialValue: this.logLimit,
-                    emitSubmitEventOnEnter: false,
-                    inputType: 'number',
-                },
-            ],
-        };
-        debugWidget.customStyle =
-            '#kup-debug-log-limit {width: 120px;} #kup-debug-theme-changer {width: 190px;}';
-        debugWidget.id = 'kup-debug-widget';
-        debugWidget.layoutFamily = CardFamily.DIALOG;
-        debugWidget.layoutNumber = 3;
-        debugWidget.sizeX = 'auto';
-        debugWidget.sizeY = 'auto';
-        debugWidget.addEventListener('kupCardEvent', (e: CustomEvent) =>
-            this.handleEvents(e)
-        );
-        document.body.append(debugWidget);
-        this.#debugWidget = debugWidget;
-    }
-    /**
-     * Closes the debug widget.
-     */
-    hideWidget() {
-        this.#debugWidget.remove();
-        this.#debugWidget = null;
     }
     /**
      * Listens the card events and handles the related actions.
