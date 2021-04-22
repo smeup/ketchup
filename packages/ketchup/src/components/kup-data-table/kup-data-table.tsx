@@ -1597,7 +1597,7 @@ export class KupDataTable {
                     window.clearTimeout(this.globalFilterTimeout);
                     this.globalFilterTimeout = window.setTimeout(
                         () => this.onGlobalFilterChange(t),
-                        300,
+                        600,
                         t
                     );
                 };
