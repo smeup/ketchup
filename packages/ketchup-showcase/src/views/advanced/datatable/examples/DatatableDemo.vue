@@ -444,7 +444,6 @@ function createComp() {
   comp.showGrid = 'Row';
   comp.showCustomization = true;
   comp.showHeader = true;
-  comp.enableExtraColumns = true;
   comp.sortableColumnsMutateData = true;
   comp.sortEnabled = true;
   comp.showTooltipOnRightClick = true;

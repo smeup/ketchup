@@ -12,7 +12,6 @@ export enum KupDataTableProps {
     emptyDataLabel = 'Defines the label to show when the table is empty.',
     enableExtraColumns = 'Enables adding extra columns.',
     enableSortableColumns = 'Enables the sorting of columns by dragging them into different columns.',
-    enableExtraColumns = 'Enables adding extra columns.',
     expandGroups = 'Expands groups when set to true.',
     filters = 'List of filters set by the user.',
     fixedColumns = 'Fixes the given number of columns so that they stay visible when horizontally scrolling the data-table. If grouping is active or the value of the prop is <= 0, this prop will have no effect. Can be combined with fixedRows.',
