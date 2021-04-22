@@ -1501,6 +1501,26 @@ export class KupDataTable {
         const root: ShadowRoot = this.rootElement.shadowRoot;
 
         if (root) {
+            //Row checkboxes
+            const checkboxes: NodeListOf<Element> = root.querySelectorAll(
+                'td .f-checkbox--wrapper'
+            );
+            for (let index = 0; index < checkboxes.length; index++) {
+                const inputEl: HTMLButtonElement = checkboxes[
+                    index
+                ].querySelector('input');
+                if (inputEl) {
+                    inputEl.onchange = (e: Event) =>
+                        this.cellUpdate(
+                            e,
+                            (e.target as HTMLInputElement).value,
+                            checkboxes[index]['data-cell'],
+                            checkboxes[index]['data-column'],
+                            checkboxes[index]['data-row']
+                        );
+                }
+                FCheckboxMDC(checkboxes[index] as HTMLElement);
+            }
             //Row textfields
             const textfields: NodeListOf<Element> = root.querySelectorAll(
                 'td .f-text-field--wrapper'
@@ -2661,12 +2681,19 @@ export class KupDataTable {
         column: Column,
         row: Row
     ) {
-        cell.obj.k = value;
-        cell.value = value;
-        cell.displayedValue = null;
-        cell.displayedValue = getCellValueForDisplay(column, cell);
-        if (cell.data && cell.data['initialValue']) {
-            cell.data['initialValue'] = value;
+        console.log('here');
+        if (isCheckbox(cell.obj)) {
+            if (cell.data && cell.data['checked'] !== undefined) {
+                cell.data['checked'] = value === 'on' ? false : true;
+            }
+        } else {
+            cell.obj.k = value;
+            cell.value = value;
+            cell.displayedValue = null;
+            cell.displayedValue = getCellValueForDisplay(column, cell);
+            if (cell.data && cell.data['initialValue'] !== undefined) {
+                cell.data['initialValue'] = value;
+            }
         }
         this.forceUpdate();
         this.kupDataTableCellUpdate.emit({
@@ -4501,7 +4528,8 @@ export class KupDataTable {
         classObj[cellType + '-cell'] = true;
         if (
             isEditable &&
-            (cellType === 'date' ||
+            (cellType === 'checkbox' ||
+                cellType === 'date' ||
                 cellType === 'number' ||
                 cellType === 'string')
         ) {
@@ -4720,6 +4748,17 @@ export class KupDataTable {
         row: Row
     ) {
         switch (cellType) {
+            case 'checkbox':
+                return (
+                    <FCheckbox
+                        checked={cell.data['checked']}
+                        dataSet={{
+                            'data-cell': cell,
+                            'data-column': column,
+                            'data-row': row,
+                        }}
+                    />
+                );
             case 'date':
                 return (
                     <kup-date-picker

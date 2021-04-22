@@ -84,6 +84,9 @@
     </head>
 
     <body>
+        <script>
+            document.documentElement['ketchupInit'] = { debug: { active: true, logLimit: 10000 } };
+        </script>
         <div class="data-examples">
             <h1>Text field</h1>
             <kup-data-table show-customization lazy-load-rows="false" id="text-field" show-filters rows-per-page="2"></kup-data-table>
