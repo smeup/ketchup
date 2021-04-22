@@ -3394,6 +3394,7 @@ declare namespace LocalJSX {
         "onKupDataTableCellUpdate"?: (event: CustomEvent<{
         cell: Cell;
         column: Column;
+        id: string;
         row: Row;
         event: any;
     }>) => void;

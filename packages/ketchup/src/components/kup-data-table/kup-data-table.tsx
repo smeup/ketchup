@@ -909,6 +909,7 @@ export class KupDataTable {
     kupDataTableCellUpdate: EventEmitter<{
         cell: Cell;
         column: Column;
+        id: string;
         row: Row;
         event: any;
     }>;
@@ -1835,6 +1836,7 @@ export class KupDataTable {
                     },
                     density: 'medium',
                     headerIsPersistent: false,
+                    id: this.rootElement.id ? this.rootElement.id : '',
                     rowsPerPage: 1000,
                     showGrid: ShowGrid.NONE,
                     showHeader: false,
@@ -2670,6 +2672,7 @@ export class KupDataTable {
         this.kupDataTableCellUpdate.emit({
             cell: cell,
             column: column,
+            id: this.rootElement.id,
             row: row,
             event: e,
         });
