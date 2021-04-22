@@ -15,7 +15,6 @@ export class KupDataTableState implements KupState {
     density: string = 'small';
     enableExtraColumns: boolean = true;
     enableSortableColumns: boolean = false;
-    enableExtraColumns: boolean = true;
     forceOneLine: boolean = false;
     globalFilter = false;
     globalFilterValue = '';
