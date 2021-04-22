@@ -67,6 +67,7 @@ Ideally it can be achieved by using `tabindex` for navigation and a check on the
 | `data`                     | --                            | The json data used to populate the tree view: the basic, always visible tree nodes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | `TreeNode[]`                                                                      | `[]`        |
 | `density`                  | `density`                     | The density of the rows, defaults at 'medium' and can also be set to 'dense' or 'wide'.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | `string`                                                                          | `'medium'`  |
 | `dynamicExpansionCallback` | --                            | Function that gets invoked when a new set of nodes must be loaded as children of a node.  When useDynamicExpansion is set, the tree component will have two different behaviors depending on the value of this prop. 1 - If this prop is set to null, no callback to download data is available:     the component will emit an event requiring the parent to load the children of the given node. 2 - If this prop is set to have a callback, then the component will automatically make requests to load children of     a given node. After the load has been completed, a different event will be fired to alert the parent of the change. | `(treeNodeToExpand: TreeNode, treeNodePath: TreeNodePath) => Promise<TreeNode[]>` | `undefined` |
+| `enableExtraColumns`       | `enable-extra-columns`        | Enables the extracolumns add buttons.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | `boolean`                                                                         | `true`      |
 | `expanded`                 | `expanded`                    | Flag: the nodes of the whole tree must be already expanded upon loading. Disabled nodes do NOT get expanded.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | `boolean`                                                                         | `false`     |
 | `filters`                  | --                            | List of filters set by the user.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `GenericFilter`                                                                   | `{}`        |
 | `globalFilter`             | `global-filter`               | When set to true it activates the global filter.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | `boolean`                                                                         | `false`     |
@@ -198,22 +199,42 @@ graph TD;
   kup-tooltip --> kup-tree
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-list --> kup-badge
   kup-card --> kup-chip
-  kup-card --> kup-button
   kup-card --> kup-badge
-  kup-card --> kup-progress-bar
-  kup-card --> kup-chart
+  kup-card --> kup-button
   kup-card --> kup-checkbox
   kup-card --> kup-combobox
   kup-card --> kup-date-picker
   kup-card --> kup-text-field
   kup-card --> kup-time-picker
+  kup-card --> kup-data-table
+  kup-card --> kup-progress-bar
+  kup-card --> kup-chart
   kup-combobox --> kup-list
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
+  kup-data-table --> kup-card
+  kup-data-table --> kup-checkbox
+  kup-data-table --> kup-tooltip
+  kup-data-table --> kup-list
+  kup-data-table --> kup-image
+  kup-data-table --> kup-button
+  kup-data-table --> kup-chart
+  kup-data-table --> kup-color-picker
+  kup-data-table --> kup-gauge
+  kup-data-table --> kup-progress-bar
+  kup-data-table --> kup-rating
+  kup-data-table --> kup-radio
+  kup-data-table --> kup-paginator
+  kup-data-table --> kup-switch
+  kup-data-table --> kup-combobox
+  kup-data-table --> kup-badge
+  kup-paginator --> kup-combobox
+  kup-paginator --> kup-badge
   style kup-tree fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

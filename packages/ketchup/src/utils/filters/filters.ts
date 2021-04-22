@@ -27,7 +27,11 @@ import {
     changeDateTimeFormat,
     getCurrentDateFormatFromBrowserLocale,
 } from '../utils';
-import { FilterInterval, FILTER_ANALIZER } from './filters-declarations';
+import {
+    FilterInterval,
+    FILTER_ANALIZER,
+    ValueDisplayedValue,
+} from './filters-declarations';
 /**
  * Filtering algorithms.
  * @module Filters
@@ -319,5 +323,27 @@ export class Filters {
             return this.isFilterCompliantForValue(value, filterValue);
         }
         return true;
+    }
+
+    static valuesArrayContainsValue(
+        values: ValueDisplayedValue[],
+        value: string
+    ): boolean {
+        return Filters.indexOfValueInValuesArray(values, value) >= 0;
+    }
+
+    static indexOfValueInValuesArray(
+        values: ValueDisplayedValue[],
+        value: string
+    ): number {
+        if (values == null || values.length < 1) {
+            return -1;
+        }
+        for (let i = 0; i < values.length; i++) {
+            if (values[i].value == value) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

@@ -61,22 +61,25 @@ graph TD;
   kup-data-table --> kup-rating
   kup-data-table --> kup-radio
   kup-data-table --> kup-paginator
+  kup-data-table --> kup-switch
   kup-data-table --> kup-combobox
   kup-data-table --> kup-badge
   kup-card --> kup-chip
-  kup-card --> kup-button
   kup-card --> kup-badge
-  kup-card --> kup-progress-bar
-  kup-card --> kup-chart
+  kup-card --> kup-button
   kup-card --> kup-checkbox
   kup-card --> kup-combobox
   kup-card --> kup-date-picker
   kup-card --> kup-text-field
   kup-card --> kup-time-picker
+  kup-card --> kup-data-table
+  kup-card --> kup-progress-bar
+  kup-card --> kup-chart
   kup-chip --> kup-badge
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-list --> kup-badge
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
   kup-time-picker --> kup-text-field

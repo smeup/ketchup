@@ -5,6 +5,7 @@ import type { KupDataTable } from '../../components/kup-data-table/kup-data-tabl
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { KupTooltip } from '../../components/kup-tooltip/kup-tooltip';
 import type { KupTree } from '../../components/kup-tree/kup-tree';
+import { treeMainColumnName } from '../../components/kup-tree/kup-tree-declarations';
 import type {
     Column,
     GroupObject,
@@ -23,14 +24,19 @@ import {
     canHaveAutomaticDerivedColumn,
 } from '../object-utils';
 import { FiltersColumnMenu } from '../filters/filters-column-menu';
-import { FilterInterval, GenericFilter } from '../filters/filters-declarations';
+import {
+    FilterInterval,
+    GenericFilter,
+    ValueDisplayedValue,
+} from '../filters/filters-declarations';
 import {
     changeDateTimeFormat,
     ISO_DEFAULT_DATE_FORMAT,
     ISO_DEFAULT_DATE_TIME_FORMAT,
 } from '../utils';
-import { getValueForDisplay } from '../cell-utils';
+import { getValueForDisplay, getValueForDisplay2 } from '../cell-utils';
 import { FiltersRows } from '../filters/filters-rows';
+import { Filters } from '../filters/filters';
 
 const dom: KupDom = document.documentElement as KupDom;
 /**
@@ -57,6 +63,10 @@ export class ColumnMenu {
         if (tooltip) {
             unsetTooltip(tooltip);
         }
+        this.filtersColumnMenuInstance.resetTextualFilters(
+            comp.filters,
+            column
+        );
         comp.setColumnMenu(column);
     }
     /**
@@ -159,7 +169,7 @@ export class ColumnMenu {
                 title: 'Hide column',
             });
         }
-        if (comp.enableExtraColumns && canHaveExtraColumns(column.obj)){
+        if (comp.enableExtraColumns && canHaveExtraColumns(column.obj)) {
             props.push({
                 className: 'printable',
                 'data-storage': {
@@ -198,14 +208,13 @@ export class ColumnMenu {
             comp.showFilters &&
             (isStringObject(column.obj) || isCheckbox(column.obj))
         ) {
-            const checkBoxesFilter: string[] = this.filtersColumnMenuInstance.getCheckBoxFilterValues(
+            const checkBoxesFilter: ValueDisplayedValue[] = this.filtersColumnMenuInstance.getCheckBoxFilterValues(
                 comp.filters,
                 column.name
             );
-            const columnValues: {
-                value: string;
-                displayedValue: string;
-            }[] = comp.getColumnValues(column);
+            const columnValues: ValueDisplayedValue[] = comp.getColumnValues(
+                column
+            );
 
             if (columnValues.length > 0) {
                 props.push({
@@ -219,7 +228,7 @@ export class ColumnMenu {
                 });
             }
             for (let index = 0; index < columnValues.length; index++) {
-                let label = columnValues[index].displayedValue;
+                let label = getValueForDisplay2(columnValues[index], column);
                 if (isCheckbox(column.obj)) {
                     if (columnValues[index].value == '1') {
                         label = 'Checked';
@@ -228,12 +237,17 @@ export class ColumnMenu {
                     }
                 }
                 props.push({
-                    checked: checkBoxesFilter.includes(
+                    checked: Filters.valuesArrayContainsValue(
+                        checkBoxesFilter,
                         columnValues[index].value
                     ),
                     'data-storage': {
                         column: column,
                         value: columnValues[index].value,
+                        displayedValue: getValueForDisplay2(
+                            columnValues[index],
+                            column
+                        ),
                     },
                     label: label,
                 });
@@ -523,7 +537,10 @@ export class ColumnMenu {
                     comp,
                     compEvent.detail.checked,
                     dataStorage['column'],
-                    dataStorage['value']
+                    {
+                        value: dataStorage['value'],
+                        displayedValue: dataStorage['displayedValue'],
+                    }
                 );
                 break;
             case 'kupButtonClick':
@@ -551,6 +568,7 @@ export class ColumnMenu {
             case 'kupTextFieldSubmit':
             case 'kupDatePickerTextFieldSubmit':
             case 'kupTimePickerTextFieldSubmit':
+                this.saveTextualFilters(comp, dataStorage['column']);
                 this.close(compEvent, comp);
                 break;
             case 'kupTextFieldClearIconClick':
@@ -567,6 +585,7 @@ export class ColumnMenu {
                 } else {
                     this.textfieldChange(comp, null, dataStorage['column']);
                 }
+                this.saveTextualFilters(comp, dataStorage['columnName']);
                 break;
             case 'kupTextFieldInput':
             case 'kupDatePickerInput':
@@ -589,6 +608,12 @@ export class ColumnMenu {
                             comp,
                             compEvent.detail.value,
                             dataStorage['column']
+                        );
+                    }
+                    if (isClickEvent) {
+                        this.saveTextualFilters(
+                            comp,
+                            dataStorage['columnName']
                         );
                     }
                 }, 300);
@@ -659,6 +684,15 @@ export class ColumnMenu {
         );
         comp.filters = newFilters;
     }
+
+    saveTextualFilters(comp: KupDataTable | KupTree, column: Column) {
+        const newFilters: GenericFilter = { ...comp.filters };
+        this.filtersColumnMenuInstance.saveTextualFilters(
+            newFilters,
+            column.name
+        );
+        comp.filters = newFilters;
+    }
     /**
      * Triggered when the checkbox list changes.
      * @param {KupDataTable | KupTree} comp - Component using the column menu.
@@ -670,7 +704,7 @@ export class ColumnMenu {
         comp: KupDataTable | KupTree,
         checked: boolean,
         column: Column,
-        filterValue: string
+        filterValueItem: ValueDisplayedValue
     ): void {
         if (!FiltersColumnMenu.isTree(comp)) {
             comp.resetCurrentPage();
@@ -678,17 +712,21 @@ export class ColumnMenu {
 
         const newFilters = { ...comp.filters };
 
-        if (checked || filterValue == null) {
+        if (
+            checked ||
+            filterValueItem == null ||
+            filterValueItem.value == null
+        ) {
             this.filtersColumnMenuInstance.addCheckboxFilter(
                 newFilters,
                 column.name,
-                filterValue
+                filterValueItem
             );
         } else {
             this.filtersColumnMenuInstance.removeCheckboxFilter(
                 newFilters,
                 column.name,
-                filterValue
+                filterValueItem.value
             );
         }
 
@@ -727,7 +765,14 @@ export class ColumnMenu {
      * @param {Column} column - Column of the menu.
      */
     removeColumn(comp: KupDataTable | KupTree, column: Column): void {
-        column.visible = false;
+        if (
+            FiltersColumnMenu.isTree(comp) &&
+            column.name === treeMainColumnName
+        ) {
+            comp.setTreeColumnVisibility(false);
+        } else {
+            column.visible = false;
+        }
         this.close(null, comp);
     }
     /**

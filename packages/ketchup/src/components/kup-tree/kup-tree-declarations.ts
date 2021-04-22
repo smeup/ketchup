@@ -1,3 +1,4 @@
+import { GenericObject } from '../../types/GenericTypes';
 import {
     CellsHolder,
     RowAction,
@@ -35,6 +36,7 @@ export enum KupTreeProps {
     totals = 'Defines the current totals options.',
     useDynamicExpansion = 'When the component must use the dynamic expansion feature to open its nodes, it means that not all the nodes of the tree have been passed inside the data property. Therefore, when expanding a node, the tree must emit an event (or run a given callback) and wait for the child nodes to be downloaded from the server.',
 }
+
 /**
  * The name of the property used by the tree component to store whether a TreeNode is open or closed
  * @constant
@@ -42,6 +44,8 @@ export enum KupTreeProps {
 export const treeExpandedPropName = 'isExpanded';
 
 export interface TreeNode {
+    data?: GenericObject;
+
     actions?: Array<RowAction>;
 
     cells: CellsHolder;
@@ -80,3 +84,9 @@ export interface TreeNode {
 }
 
 export type TreeNodePath = number[];
+
+/**
+ * The name of the constant used by the tree component to identify the main tree in column menu
+ * @constant
+ */
+export const treeMainColumnName = 'TREE_COLUMN';

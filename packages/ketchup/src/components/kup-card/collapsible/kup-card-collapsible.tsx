@@ -1,7 +1,8 @@
-import type { KupCard } from '../kup-card';
 import { h, VNode } from '@stencil/core';
+import type { KupCard } from '../kup-card';
+import type { GenericObject } from '../../../types/GenericTypes';
 import { FImage } from '../../../f-components/f-image/f-image';
-import { GenericObject } from '../../../types/GenericTypes';
+import { collapsibleBar } from '../kup-card-helper';
 
 /**
  * 1st collapsible card layout, left bar and collapsible chips.
@@ -133,22 +134,6 @@ export function create2(component: KupCard): VNode {
                 </div>
             </div>
             {collapsibleBar()}
-        </div>
-    );
-}
-/**
- * Creates the bar used to expand/collapse the card.
- * @returns {VNode} Expansion bar virtual node.
- */
-function collapsibleBar(): VNode {
-    return (
-        <div class="collapsible-trigger">
-            <kup-button
-                id="expand-action"
-                toggable
-                iconOff="keyboard_arrow_down"
-                icon="keyboard_arrow_up"
-            ></kup-button>
         </div>
     );
 }

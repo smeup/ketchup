@@ -8,6 +8,7 @@ import type {
 import { getAssetPath } from '@stencil/core';
 import * as themesJson from './themes.json';
 import * as themeCSS from './kup-theme.css';
+import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -168,7 +169,7 @@ export class KupTheme {
             dom.ketchup.debug.logMessage(
                 'kup-theme',
                 'Theme not refreshed.',
-                'warning'
+                KupDebugCategory.WARNING
             );
         }
     }
@@ -287,7 +288,7 @@ export class KupTheme {
             dom.ketchup.debug.logMessage(
                 'kup-theme',
                 "Couldn't set a random theme: no themes available!",
-                'warning'
+                KupDebugCategory.WARNING
             );
         }
     }

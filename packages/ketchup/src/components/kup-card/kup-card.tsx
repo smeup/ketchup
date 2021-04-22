@@ -22,6 +22,8 @@ import {
 } from '../../utils/kup-manager/kup-manager';
 import { CardData, CardFamily, KupCardProps } from './kup-card-declarations';
 import { FImage } from '../../f-components/f-image/f-image';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { DialogElement } from '../../utils/kup-dialog/kup-dialog-declarations';
 
 @Component({
     tag: 'kup-card',
@@ -43,6 +45,11 @@ export class KupCard {
      * @default ""
      */
     @State() customStyleTheme: string = '';
+    /**
+     * Used to trigger a new render of the component.
+     * @default false
+     */
+    @State() _refresh: boolean = false;
 
     /*-------------------------------------------------*/
     /*                    P r o p s                    */
@@ -160,11 +167,6 @@ export class KupCard {
     onKupEvent(e: CustomEvent): void {
         const root = this.rootElement.shadowRoot;
 
-        if (e.type === 'kupButtonClick' && e.detail.id === 'dialog-close') {
-            this.rootElement.remove();
-            return;
-        }
-
         if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
             let collapsibleCard = root.querySelector('.collapsible-card');
             if (!collapsibleCard.classList.contains('expanded')) {
@@ -228,10 +230,33 @@ export class KupCard {
         }
         return props;
     }
+    /**
+     * This method is used to trigger a new render of the component.
+     * Useful when slots change.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        this._refresh = !this._refresh;
+    }
 
     /*-------------------------------------------------*/
     /*           P r i v a t e   M e t h o d s         */
     /*-------------------------------------------------*/
+
+    /**
+     * Set the events of the component.
+     */
+    private setEvents(): void {
+        const root: ShadowRoot = this.rootElement.shadowRoot;
+        if (root) {
+            const dialogClose: HTMLElement = root.querySelector(
+                '#dialog-close'
+            );
+            if (dialogClose) {
+                dialogClose.onclick = () => this.rootElement.remove();
+            }
+        }
+    }
 
     /**
      * This method is invoked by the layout manager when the layout family is collapsible.
@@ -279,7 +304,11 @@ export class KupCard {
                 }
             }
         } catch (error) {
-            this.kupManager.debug.logMessage(this, error, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                error,
+                KupDebugCategory.WARNING
+            );
             let props = {
                 resource: 'warning',
                 title: 'Layout not yet implemented!',
@@ -295,13 +324,16 @@ export class KupCard {
         const root: ShadowRoot = this.rootElement.shadowRoot;
         if (root) {
             const card: HTMLElement = this.rootElement as HTMLElement;
-            const headerBar: HTMLElement = root.querySelector('#header-bar');
-            if (!this.kupManager.moveOnDrag.isRegistered(card)) {
-                if (headerBar) {
-                    this.kupManager.moveOnDrag.register(card, headerBar);
-                } else {
-                    this.kupManager.moveOnDrag.register(card);
-                }
+            const dragHandle: HTMLElement = root.querySelector('#drag-handle');
+            const unresizable: boolean = !!root.querySelector(
+                '.dialog-unresizable'
+            );
+            if (!this.kupManager.dialog.isRegistered(card as DialogElement)) {
+                this.kupManager.dialog.register(
+                    card as DialogElement,
+                    dragHandle ? dragHandle : null,
+                    unresizable
+                );
             }
         }
     }
@@ -445,6 +477,7 @@ export class KupCard {
     }
 
     componentDidRender() {
+        this.setEvents();
         this.layoutManager();
         this.kupManager.debug.logRender(this, true);
     }
@@ -454,7 +487,7 @@ export class KupCard {
             this.kupManager.debug.logMessage(
                 this,
                 'Data missing, not rendering!',
-                'warning'
+                KupDebugCategory.WARNING
             );
             return;
         }
@@ -482,9 +515,7 @@ export class KupCard {
 
     componentDidUnload() {
         this.kupManager.theme.unregister(this);
-        this.kupManager.moveOnDrag.unregister([
-            this.rootElement as HTMLElement,
-        ]);
+        this.kupManager.dialog.unregister([this.rootElement as DialogElement]);
         this.kupManager.resize.unobserve(this.rootElement);
     }
 }

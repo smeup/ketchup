@@ -782,14 +782,15 @@ export const imgBadgeData = {
       cells: {
         FLD1: {
           obj: {
-            t: 'J4',
-            p: 'IMG',
-            k: 'CN;COL;SANCOS',
+            t: 'CN',
+            p: 'COL',
+            k: 'SANCOS',
           },
+          shape: 'IMG',
           data: {
             resource: 'https://via.placeholder.com/64?text=SC',
-            sizeX: '64px',
-            sizeY: '64px',
+            sizeX: '32px',
+            sizeY: '32px',
             badgeData: [
               {
                 text: '23',

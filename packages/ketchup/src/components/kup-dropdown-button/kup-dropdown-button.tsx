@@ -23,6 +23,7 @@ import {
 import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/dynamic-position-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import { KupDropdownButtonProps } from './kup-dropdown-button-declarations';
+import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
 
 @Component({
     tag: 'kup-dropdown-button',
@@ -47,7 +48,7 @@ export class KupDropdownButton {
      */
     @Prop() disabled: boolean = false;
     /**
-     * Sets how the show the selected item value. Suported values: "code", "description", "both".
+     * Sets how to show the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() displayMode: ItemsDisplayMode = ItemsDisplayMode.DESCRIPTION;
     /**
@@ -63,13 +64,14 @@ export class KupDropdownButton {
      */
     @Prop() label: string = null;
     /**
-     * Sets how the return the selected item value. Suported values: "code", "description", "both".
+     * Sets how to return the selected item value. Suported values: "code", "description", "both".
      */
     @Prop() selectMode: ItemsDisplayMode = ItemsDisplayMode.CODE;
     /**
-     * Defines the style of the button. Available styles are "flat" and "outlined", "raised" is the default.
+     * Defines the style of the button. Styles available: "flat", "outlined" and "raised" which is also the default.
+     * @default FButtonStyling.RAISED
      */
-    @Prop({ reflect: true }) styling: string = '';
+    @Prop() styling: FButtonStyling = FButtonStyling.RAISED;
     /**
      * Defaults at null. When set, the icon will be shown after the text.
      */
@@ -348,9 +350,9 @@ export class KupDropdownButton {
             componentClass += ' mdc-button--disabled';
         }
 
-        if (this.styling === 'outlined') {
+        if (this.styling === FButtonStyling.OUTLINED) {
             componentClass += ' mdc-button--outlined';
-        } else if (this.styling !== 'flat') {
+        } else if (this.styling !== FButtonStyling.FLAT) {
             componentClass += ' mdc-button--raised';
         }
 

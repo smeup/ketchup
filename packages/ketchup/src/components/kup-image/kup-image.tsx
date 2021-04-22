@@ -22,6 +22,7 @@ import {
     FImageData,
 } from '../../f-components/f-image/f-image-declarations';
 import { KupImageProps } from './kup-image-declarations';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-image',
@@ -242,6 +243,7 @@ export class KupImage {
             badgeData: this.badgeData,
             color: this.color,
             data: this.data,
+            fit: this.rootElement.classList.contains('kup-fit') ? true : false,
             resource: this.resource,
             sizeX: this.sizeX,
             sizeY: this.sizeY,
@@ -278,7 +280,11 @@ export class KupImage {
             el = <FImage {...props}></FImage>;
         } else {
             let message = 'Resource undefined, not rendering!';
-            this.kupManager.debug.logMessage(this, message, 'warning');
+            this.kupManager.debug.logMessage(
+                this,
+                message,
+                KupDebugCategory.WARNING
+            );
             return;
         }
 

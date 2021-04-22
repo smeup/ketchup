@@ -37,6 +37,17 @@ Type: `Promise<GenericObject>`
 
 
 
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+Useful when slots change.
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `resizeCallback() => Promise<void>`
 
 This method is invoked by KupManager whenever the component changes size.
@@ -70,43 +81,53 @@ Type: `Promise<void>`
 ### Depends on
 
 - [kup-chip](../kup-chip)
-- [kup-button](../kup-button)
 - [kup-badge](../kup-badge)
-- [kup-progress-bar](../kup-progress-bar)
-- [kup-chart](../kup-chart)
+- [kup-button](../kup-button)
 - [kup-checkbox](../kup-checkbox)
 - [kup-combobox](../kup-combobox)
 - [kup-date-picker](../kup-date-picker)
 - [kup-text-field](../kup-text-field)
 - [kup-time-picker](../kup-time-picker)
+- [kup-data-table](../kup-data-table)
+- [kup-progress-bar](../kup-progress-bar)
+- [kup-chart](../kup-chart)
 
 ### Graph
 ```mermaid
 graph TD;
   kup-card --> kup-chip
-  kup-card --> kup-button
   kup-card --> kup-badge
-  kup-card --> kup-progress-bar
-  kup-card --> kup-chart
+  kup-card --> kup-button
   kup-card --> kup-checkbox
   kup-card --> kup-combobox
   kup-card --> kup-date-picker
   kup-card --> kup-text-field
   kup-card --> kup-time-picker
+  kup-card --> kup-data-table
+  kup-card --> kup-progress-bar
+  kup-card --> kup-chart
   kup-chip --> kup-badge
   kup-badge --> kup-badge
   kup-button --> kup-badge
   kup-combobox --> kup-list
   kup-list --> kup-radio
   kup-list --> kup-checkbox
+  kup-list --> kup-badge
   kup-date-picker --> kup-text-field
   kup-date-picker --> kup-button
   kup-time-picker --> kup-text-field
   kup-time-picker --> kup-button
   kup-time-picker --> kup-list
-  kup-box --> kup-card
   kup-data-table --> kup-card
+  kup-tooltip --> kup-button
+  kup-tooltip --> kup-tree
   kup-tree --> kup-card
+  kup-image --> kup-spinner
+  kup-image --> kup-badge
+  kup-color-picker --> kup-text-field
+  kup-paginator --> kup-combobox
+  kup-paginator --> kup-badge
+  kup-box --> kup-card
   style kup-card fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

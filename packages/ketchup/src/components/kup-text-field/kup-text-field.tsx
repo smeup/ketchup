@@ -18,6 +18,7 @@ import { FTextFieldMDC } from '../../f-components/f-text-field/f-text-field-mdc'
 import { FTextFieldProps } from '../../f-components/f-text-field/f-text-field-declarations';
 import { GenericObject } from '../../types/GenericTypes';
 import { KupTextFieldProps } from './kup-text-field-declarations';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-text-field',
@@ -111,10 +112,22 @@ export class KupTextField {
      */
     @Prop() leadingLabel: boolean = false;
     /**
+     * The HTML max attribute specifies the maximum value for the input element.
+     * Works with the following input types: number, range, date, datetime-local, month, time and week.
+     * @default null
+     */
+    @Prop() max: number = null;
+    /**
      * When set, the helper will display a character counter.
      * @default null
      */
     @Prop() maxLength: number = null;
+    /**
+     * The HTML min attribute specifies the minimum value for the input element.
+     * Works with the following input types: number, range, date, datetime-local, month, time and week.
+     * @default null
+     */
+    @Prop() min: number = null;
     /**
      * When set to true, the component will be rendered as an outlined field.
      * @default false
@@ -396,7 +409,7 @@ export class KupTextField {
             this.kupManager.debug.logMessage(
                 this,
                 "Couldn't set value on input element: '" + value + "'",
-                'warning'
+                KupDebugCategory.WARNING
             );
         }
     }
@@ -490,7 +503,9 @@ export class KupTextField {
             isClearable: this.isClearable,
             label: this.label,
             leadingLabel: this.leadingLabel,
+            max: this.max,
             maxLength: this.maxLength,
+            min: this.min,
             outlined: this.outlined,
             readOnly: this.readOnly,
             shaped: this.rootElement.classList.contains('kup-shaped')

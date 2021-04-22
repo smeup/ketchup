@@ -28,6 +28,7 @@ import {
     treeExpandedPropName,
     TreeNode,
     TreeNodePath,
+    treeMainColumnName,
 } from './kup-tree-declarations';
 
 import { hasTooltip, isNumber } from '../../utils/object-utils';
@@ -60,7 +61,10 @@ import {
 } from '../../utils/utils';
 import { ColumnMenu } from '../../utils/column-menu/column-menu';
 import { FiltersColumnMenu } from '../../utils/filters/filters-column-menu';
-import { GenericFilter } from '../../utils/filters/filters-declarations';
+import {
+    GenericFilter,
+    ValueDisplayedValue,
+} from '../../utils/filters/filters-declarations';
 import { FiltersTreeItems } from '../../utils/filters/filters-tree-items';
 import { ComponentListElement } from '../kup-list/kup-list-declarations';
 import { GenericObject } from '../../types/GenericTypes';
@@ -91,7 +95,12 @@ export class KupTree {
                     state
                 );
                 this.density = state.density;
+                this.showFilters = state.showFilters;
+                this.showFooter = state.showFooter;
+                this.globalFilter = state.globalFilter;
                 this.globalFilterValue = state.globalFilterValue;
+                this.filters = { ...state.filters };
+                this.totals = { ...state.totals };
             }
         }
     }
@@ -99,8 +108,29 @@ export class KupTree {
     persistState(): void {
         if (this.store && this.stateId) {
             let somethingChanged = false;
+
+            if (!deepEqual(this.state.filters, this.filters)) {
+                this.state.filters = { ...this.filters };
+                somethingChanged = true;
+            }
             if (!deepEqual(this.state.density, this.density)) {
                 this.state.density = this.density;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showFilters, this.showFilters)) {
+                this.state.showFilters = this.showFilters;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.showFooter, this.showFooter)) {
+                this.state.showFooter = this.showFooter;
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.totals, this.totals)) {
+                this.state.totals = { ...this.totals };
+                somethingChanged = true;
+            }
+            if (!deepEqual(this.state.globalFilter, this.globalFilter)) {
+                this.state.globalFilter = this.globalFilter;
                 somethingChanged = true;
             }
             if (
@@ -108,6 +138,10 @@ export class KupTree {
             ) {
                 this.state.globalFilterValue = this.globalFilterValue;
                 somethingChanged = true;
+            }
+            if (!this.state.load) {
+                this.state.load = true;
+                return;
             }
             if (somethingChanged) {
                 console.log(
@@ -127,6 +161,7 @@ export class KupTree {
     @State() customStyleTheme: string = undefined;
     @State()
     private openedMenu: string = null;
+    @State() private treeColumnVisible = true;
     /**
      * name of the column with the opened total menu
      */
@@ -485,6 +520,14 @@ export class KupTree {
         return props;
     }
 
+    setTreeColumnVisibility(value: boolean) {
+        this.treeColumnVisible = value;
+    }
+
+    isTreeColumnVisible(): boolean {
+        return this.treeColumnVisible;
+    }
+
     setColumnMenu(column: string) {
         this.openedMenu = column;
     }
@@ -681,6 +724,15 @@ export class KupTree {
         return this.getColumns().filter((column) =>
             column.hasOwnProperty('visible') ? column.visible : true
         );
+    }
+
+    getHeadingColumns(): Array<Column> {
+        const firstColum: Column = {
+            name: treeMainColumnName,
+            title: '',
+        };
+        const visibleColumns = this.getVisibleColumns();
+        return [firstColum, ...visibleColumns];
     }
 
     /*
@@ -1016,9 +1068,7 @@ export class KupTree {
         this.globalFilterValue = value;
     }
 
-    getColumnValues(
-        column: Column
-    ): { value: string; displayedValue: string }[] {
+    getColumnValues(column: Column): ValueDisplayedValue[] {
         return this.filtersTreeItemsInstance.getColumnValues(
             this,
             column,
@@ -1556,7 +1606,13 @@ export class KupTree {
      * @returns An array of table header cells.
      */
     renderHeader(): JSX.Element[] {
-        return this.getVisibleColumns().map((column) => {
+        return this.getHeadingColumns().map((column) => {
+            if (
+                !this.isTreeColumnVisible() &&
+                column.name === treeMainColumnName
+            )
+                return;
+
             //---- Filter ----
             let filter = null;
 
@@ -1584,6 +1640,7 @@ export class KupTree {
                     ></span>
                 );
             }
+
             return (
                 <th
                     data-column={column.name}
@@ -1742,19 +1799,9 @@ export class KupTree {
             value: treeNodeData.value,
         };
 
-        return (
-            <tr
-                class={{
-                    'kup-tree__node': true,
-                    'with-dyn': !treeNodeData.disabled,
-                    'kup-tree__node--disabled': treeNodeData.disabled,
-                    'kup-tree__node--selected':
-                        !treeNodeData.disabled &&
-                        treeNodePath === this.selectedNodeString,
-                }}
-                data-tree-path={treeNodePath}
-                {...treeNodeOptions}
-            >
+        let treeNodeCell = null;
+        if (this.isTreeColumnVisible()) {
+            treeNodeCell = (
                 <td
                     class={{
                         'first-node': treeNodeDepth === 0 ? true : false,
@@ -1778,6 +1825,23 @@ export class KupTree {
                     {treeNodeIcon}
                     <span class="cell-content">{treeNodeData.value}</span>
                 </td>
+            );
+        }
+
+        return (
+            <tr
+                class={{
+                    'kup-tree__node': true,
+                    'with-dyn': !treeNodeData.disabled,
+                    'kup-tree__node--disabled': treeNodeData.disabled,
+                    'kup-tree__node--selected':
+                        !treeNodeData.disabled &&
+                        treeNodePath === this.selectedNodeString,
+                }}
+                data-tree-path={treeNodePath}
+                {...treeNodeOptions}
+            >
+                {treeNodeCell}
                 {treeNodeCells}
             </tr>
         );
@@ -2077,7 +2141,7 @@ export class KupTree {
                             window.clearTimeout(this.globalFilterTimeout);
                             this.globalFilterTimeout = window.setTimeout(
                                 () => this.onGlobalFilterChange(event),
-                                300
+                                600
                             );
                         }}
                         onKupTextFieldClearIconClick={(event) =>
@@ -2111,7 +2175,6 @@ export class KupTree {
                                 }}
                             >
                                 <tr>
-                                    <th />
                                     {visibleHeader ? this.renderHeader() : null}
                                 </tr>
                             </thead>
@@ -2128,7 +2191,7 @@ export class KupTree {
                             data={this.columnMenuInstance.prepData(
                                 this,
                                 getColumnByName(
-                                    this.getVisibleColumns(),
+                                    this.getHeadingColumns(),
                                     this.openedMenu
                                 ),
                                 false

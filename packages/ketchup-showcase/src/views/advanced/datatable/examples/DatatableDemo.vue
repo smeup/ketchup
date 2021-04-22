@@ -265,7 +265,7 @@ export default {
           description:
             'If set to true, displays the button to open the customization panel.',
           type: 'boolean',
-          default: 'false',
+          default: 'true',
           try: 'switch',
         },
         {
@@ -379,6 +379,13 @@ export default {
           default: 'undefined',
           try: 'json',
         },
+        {
+          prop: 'transpose',
+          description: 'Transposes the data of the data table.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
       ],
       demoClasses: [
         {
@@ -428,12 +435,14 @@ function createComp() {
   comp.groupLabelDisplay = 'both';
   comp.headerIsPersistent = true;
   comp.id = 'demo-component';
+  comp.enableExtraColumns = true;
   comp.enableSortableColumns = true;
   comp.loadMoreLimit = '1000';
   comp.loadMoreStep = '60';
   comp.paginatorPos = 'Top';
   comp.rowsPerPage = '10';
   comp.showGrid = 'Row';
+  comp.showCustomization = true;
   comp.showHeader = true;
   comp.enableExtraColumns = true;
   comp.sortableColumnsMutateData = true;

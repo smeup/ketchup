@@ -31,6 +31,7 @@ import {
     kupManagerInstance,
 } from '../../utils/kup-manager/kup-manager';
 import { formatToMomentDate } from '../../utils/cell-formatter';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 export function sortRows(
     rows: Array<Row> = [],
@@ -740,7 +741,7 @@ export function evaluateFormula(
         kupManager.debug.logMessage(
             'kup-data-table-helper',
             'Error during evaluate formula [' + formula1 + ']',
-            'error'
+            KupDebugCategory.ERROR
         );
         return NaN;
     }

@@ -86,6 +86,7 @@ import { FButton } from '../../f-components/f-button/f-button';
 import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipsProps } from '../../f-components/f-chip/f-chip-declarations';
 import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -1608,6 +1609,9 @@ export class KupBox {
                         if (!props.sizeY) {
                             props['sizeY'] = 'auto';
                         }
+                        if (props.fit === undefined) {
+                            props.fit = true;
+                        }
                         if (props.badgeData) {
                             classObj['has-padding'] = true;
                         }
@@ -1729,7 +1733,7 @@ export class KupBox {
             this.kupManager.debug.logMessage(
                 this,
                 'No columns to group by detected.',
-                'error'
+                KupDebugCategory.ERROR
             );
             return {
                 jsx: <p id="empty-data-message">Empty data</p>,
@@ -1755,7 +1759,11 @@ export class KupBox {
                         this.rows[index].cells[this.kanban.columns[j]].value
                     );
                 } catch (error) {
-                    this.kupManager.debug.logMessage(this, error, 'warning');
+                    this.kupManager.debug.logMessage(
+                        this,
+                        error,
+                        KupDebugCategory.WARNING
+                    );
                 }
             }
             const check: { found: boolean; index: number } = {
@@ -1897,7 +1905,7 @@ export class KupBox {
                             window.clearTimeout(this.globalFilterTimeout);
                             this.globalFilterTimeout = window.setTimeout(
                                 () => this.onGlobalFilterChange(event),
-                                300
+                                600
                             );
                         }}
                         onKupTextFieldClearIconClick={(event) =>

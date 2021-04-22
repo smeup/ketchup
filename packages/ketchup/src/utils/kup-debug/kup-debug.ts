@@ -1,9 +1,13 @@
 import type { KupCard } from '../../components/kup-card/kup-card';
-import { CardData } from '../../components/kup-card/kup-card-declarations';
+import {
+    CardData,
+    CardFamily,
+} from '../../components/kup-card/kup-card-declarations';
 import { ComponentListElement } from '../../components/kup-list/kup-list-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
+    KupDebugCategory,
     KupDebugLog,
     KupDebugLogColor,
     KupDebugLogPrint,
@@ -20,14 +24,227 @@ export class KupDebug {
         dom.ketchupInit && dom.ketchupInit.debug && dom.ketchupInit.debug.active
             ? dom.ketchupInit.debug.active
             : false;
+    autoPrint: boolean =
+        dom.ketchupInit &&
+        dom.ketchupInit.debug &&
+        dom.ketchupInit.debug.autoPrint
+            ? dom.ketchupInit.debug.autoPrint
+            : false;
     logLimit: number =
         dom.ketchupInit &&
         dom.ketchupInit.debug &&
         dom.ketchupInit.debug.logLimit
             ? dom.ketchupInit.debug.logLimit
-            : 100;
+            : 250;
     logs: KupDebugLog[] = [];
-    #debugWindow: HTMLKupCardElement = null;
+    #debugWidget: HTMLKupCardElement = null;
+    /**
+     * Allows the download of props by creating a temporary clickable anchor element.
+     */
+    private downloadProps(res: GenericObject) {
+        const dataStr: string =
+            'data:text/json;charset=utf-8,' +
+            encodeURIComponent(JSON.stringify(res, null, 2));
+        const downloadAnchorNode: HTMLAnchorElement = document.createElement(
+            'a'
+        );
+        downloadAnchorNode.setAttribute('href', dataStr);
+        downloadAnchorNode.setAttribute('download', 'kup_props.json');
+        document.body.appendChild(downloadAnchorNode);
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+    }
+    /**
+     * Creates the debug widget.
+     */
+    private showWidget(): void {
+        const debugWidget: HTMLKupCardElement = document.createElement(
+            'kup-card'
+        );
+        const themes: string[] = dom.ketchup.theme.getThemes();
+        const listData: ComponentListElement[] = [];
+        for (let index = 0; index < themes.length; index++) {
+            listData.push({
+                text: themes[index],
+                value: themes[index],
+                selected: false,
+                isSeparator: false,
+            });
+        }
+        debugWidget.data = {
+            button: [
+                {
+                    icon: 'power_settings_new',
+                    id: 'kup-debug-off',
+                    customStyle:
+                        ':host {border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
+                    title: 'Turn off debug',
+                },
+                {
+                    icon: 'print',
+                    id: 'kup-debug-print',
+                    title: 'Print logs stored',
+                },
+                {
+                    customStyle:
+                        ':host {border-right: 1px solid var(--kup-border-color);}',
+                    checked: this.autoPrint,
+                    icon: 'speaker_notes',
+                    iconOff: 'speaker_notes_off',
+                    id: 'kup-debug-autoprint',
+                    title: 'Toggle automatic print',
+                    toggable: true,
+                },
+                { icon: 'broom', id: 'kup-debug-clear', title: 'Clear widget' },
+                {
+                    icon: 'delete',
+                    id: 'kup-debug-delete',
+                    title: 'Dump stored logs',
+                },
+                {
+                    className: 'kup-full-height',
+                    customStyle:
+                        ':host {border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
+                    icon: 'download',
+                    id: 'kup-debug-dl-props',
+                    label: 'Props',
+                    styling: 'flat',
+                    title: 'Download components props',
+                },
+                {
+                    icon: 'auto-fix',
+                    id: 'kup-debug-magic-box',
+                    title: 'Toggle kup-magic-box',
+                },
+            ],
+            combobox: [
+                {
+                    className: 'kup-full-height',
+                    data: {
+                        'kup-list': {
+                            data: listData,
+                            id: 'kup-debug-theme-changer-list',
+                        },
+                        'kup-text-field': {
+                            className: 'kup-full-height',
+                            emitSubmitEventOnEnter: false,
+                            inputType: 'text',
+                            label: 'Change theme',
+                        },
+                    },
+                    id: 'kup-debug-theme-changer',
+                    initialValue: dom.ketchup.theme.name,
+                    isSelect: true,
+                },
+            ],
+            textfield: [
+                {
+                    className: 'kup-full-height',
+                    id: 'kup-debug-log-limit',
+                    label: 'Set log limit',
+                    initialValue: this.logLimit,
+                    emitSubmitEventOnEnter: false,
+                    inputType: 'number',
+                },
+            ],
+        };
+        debugWidget.customStyle =
+            '#kup-debug-log-limit {width: 120px;} #kup-debug-theme-changer {width: 190px;}';
+        debugWidget.id = 'kup-debug-widget';
+        debugWidget.layoutFamily = CardFamily.DIALOG;
+        debugWidget.layoutNumber = 3;
+        debugWidget.sizeX = 'auto';
+        debugWidget.sizeY = 'auto';
+        debugWidget.addEventListener('kupCardEvent', (e: CustomEvent) =>
+            this.handleEvents(e)
+        );
+        document.body.append(debugWidget);
+        this.#debugWidget = debugWidget;
+    }
+    /**
+     * Closes the debug widget.
+     */
+    private hideWidget() {
+        this.#debugWidget.remove();
+        this.#debugWidget = null;
+    }
+    /**
+     * Clears all the printed logs inside the debug widget.
+     */
+    private widgetClear(): void {
+        const children: HTMLCollection = Array.prototype.slice.call(
+            this.#debugWidget.children,
+            0
+        );
+        for (let index = 0; index < children.length; index++) {
+            children[index].remove();
+        }
+    }
+    /**
+     * Prints the stored logs inside the debug widget.
+     */
+    private widgetPrint(): void {
+        const slots: Array<HTMLDivElement> = [];
+        for (let index = 0; index < this.logs.length; index++) {
+            // Wrapper div
+            const slot: HTMLDivElement = document.createElement('div');
+            slot.classList.add('text');
+            switch (this.logs[index].category) {
+                case KupDebugCategory.ERROR:
+                    slot.style.backgroundColor =
+                        'rgba(var(--kup-danger-color-rgb), 0.15)';
+                    slot.style.borderLeft = '5px solid var(--kup-danger-color)';
+                    break;
+                case KupDebugCategory.WARNING:
+                    slot.style.backgroundColor =
+                        'rgba(var(--kup-warning-color-rgb), 0.15)';
+                    slot.style.borderLeft =
+                        '5px solid var(--kup-warning-color)';
+                    break;
+                case KupDebugCategory.INFO:
+                default:
+                    slot.style.borderLeft = '5px solid var(--kup-info-color)';
+                    break;
+            }
+            // If the log is tied to a KupComponent, on click its props will be downloaded.
+            // Also, a different style will be applied to distinguish it between the others.
+            if (typeof this.logs[index].element == 'object') {
+                slot.title = 'Download component props';
+                slot.style.fontWeight = 'bold';
+                slot.style.cursor = 'pointer';
+                slot.onclick = () => {
+                    try {
+                        (this.logs[index].element as KupComponent)
+                            .getProps()
+                            .then((res: GenericObject) => {
+                                this.downloadProps(res);
+                            });
+                    } catch (err) {
+                        this.logMessage(
+                            'kup-debug',
+                            err,
+                            KupDebugCategory.WARNING
+                        );
+                    }
+                };
+            }
+            // ID span
+            const id: HTMLSpanElement = document.createElement('span');
+            id.innerHTML = this.logs[index].id;
+            id.style.opacity = '0.75';
+            id.style.marginLeft = '5px';
+            // Message span
+            const message: HTMLSpanElement = document.createElement('span');
+            message.innerHTML = this.logs[index].message;
+            // Append elements
+            slot.append(id, message);
+            slots.push(slot);
+        }
+        slots.reverse();
+        for (let index = 0; index < slots.length; index++) {
+            this.#debugWidget.append(slots[index]);
+        }
+    }
     /**
      * Dumps the stored logs.
      */
@@ -111,104 +328,14 @@ export class KupDebug {
             this.active = value;
         }
         if (this.active) {
-            this.showWindow();
+            if (!this.#debugWidget) {
+                this.showWidget();
+            }
         } else {
-            this.hideWindow();
+            if (this.#debugWidget) {
+                this.hideWidget();
+            }
         }
-    }
-    /**
-     * Creates the debugger window.
-     */
-    showWindow(): void {
-        const debugWindow: HTMLKupCardElement = document.createElement(
-            'kup-card'
-        );
-        const themes: string[] = dom.ketchup.theme.getThemes();
-        const listData: ComponentListElement[] = [];
-        for (let index = 0; index < themes.length; index++) {
-            listData.push({
-                text: themes[index],
-                value: themes[index],
-                selected: false,
-                isSeparator: false,
-            });
-        }
-        debugWindow.data = {
-            button: [
-                {
-                    icon: 'power_settings_new',
-                    id: 'kup-debug-off',
-                    title: 'Turn off debug',
-                },
-                {
-                    icon: 'print',
-                    id: 'kup-debug-print',
-                    title: 'Print logs stored',
-                },
-                { icon: 'broom', id: 'kup-debug-clear', title: 'Clear window' },
-                {
-                    icon: 'delete',
-                    id: 'kup-debug-delete',
-                    title: 'Dump stored logs',
-                },
-                {
-                    className: 'kup-full-height',
-                    icon: 'download',
-                    id: 'kup-debug-dl-props',
-                    label: 'Props',
-                    styling: 'flat',
-                    title: 'Download components props',
-                },
-            ],
-            combobox: [
-                {
-                    className: 'kup-full-height',
-                    data: {
-                        'kup-list': {
-                            data: listData,
-                            id: 'kup-debug-theme-changer-list',
-                        },
-                        'kup-text-field': {
-                            className: 'kup-full-height',
-                            emitSubmitEventOnEnter: false,
-                            inputType: 'text',
-                            label: 'Change theme',
-                        },
-                    },
-                    id: 'kup-debug-theme-changer',
-                    initialValue: dom.ketchup.theme.name,
-                    isSelect: true,
-                },
-            ],
-            textfield: [
-                {
-                    className: 'kup-full-height',
-                    id: 'kup-debug-log-limit',
-                    label: 'Set log limit',
-                    initialValue: this.logLimit,
-                    emitSubmitEventOnEnter: false,
-                    inputType: 'number',
-                },
-            ],
-        };
-        debugWindow.customStyle =
-            '#kup-debug-log-limit {width: 120px;} #kup-debug-theme-changer {width: 190px;}';
-        debugWindow.id = 'kup-debug-window';
-        debugWindow.layoutNumber = 13;
-        debugWindow.sizeX = 'auto';
-        debugWindow.sizeY = 'auto';
-        debugWindow.addEventListener('kupCardEvent', (e: CustomEvent) =>
-            this.handleEvents(e)
-        );
-        document.body.append(debugWindow);
-        this.#debugWindow = debugWindow;
-    }
-    /**
-     * Closes the debug window.
-     */
-    hideWindow() {
-        this.#debugWindow.remove();
-        this.#debugWindow = null;
     }
     /**
      * Listens the card events and handles the related actions.
@@ -217,52 +344,34 @@ export class KupDebug {
     handleEvents(e: CustomEvent): void {
         const compEvent: CustomEvent = e.detail.event;
         const compID: string = compEvent.detail.id;
-        let cardData: CardData = { ...this.#debugWindow.data };
         switch (compEvent.type) {
             case 'kupButtonClick':
                 switch (compID) {
+                    case 'kup-debug-autoprint':
+                        this.autoPrint = !this.autoPrint;
+                        break;
                     case 'kup-debug-clear':
-                        cardData['text'] = null;
-                        this.#debugWindow.data = cardData;
+                        this.widgetClear();
+                        this.#debugWidget.refresh();
                         break;
                     case 'kup-debug-dl-props':
                         this.getProps().then((res: GenericObject) => {
-                            const dataStr: string =
-                                'data:text/json;charset=utf-8,' +
-                                encodeURIComponent(
-                                    JSON.stringify(res, null, 2)
-                                );
-                            const downloadAnchorNode: HTMLAnchorElement = document.createElement(
-                                'a'
-                            );
-                            downloadAnchorNode.setAttribute('href', dataStr);
-                            downloadAnchorNode.setAttribute(
-                                'download',
-                                'kup_props.json'
-                            );
-                            document.body.appendChild(downloadAnchorNode);
-                            downloadAnchorNode.click();
-                            downloadAnchorNode.remove();
+                            this.downloadProps(res);
                         });
                         break;
                     case 'kup-debug-delete':
                         this.dump();
                         break;
+                    case 'kup-debug-magic-box':
+                        dom.ketchup.toggleMagicBox();
+                        break;
                     case 'kup-debug-off':
                         this.toggle();
                         break;
                     case 'kup-debug-print':
-                        let logList: string[] = [];
-                        for (let index = 0; index < this.logs.length; index++) {
-                            if (this.logs[index].id.indexOf('#kup-debug') < 0) {
-                                logList.push(
-                                    this.logs[index].id +
-                                        this.logs[index].message
-                                );
-                            }
-                        }
-                        cardData['text'] = logList;
-                        this.#debugWindow.data = cardData;
+                        this.widgetClear();
+                        this.widgetPrint();
+                        this.#debugWidget.refresh();
                         break;
                 }
                 break;
@@ -344,14 +453,18 @@ export class KupDebug {
                         }
                     })
                     .catch((err) =>
-                        this.logMessage('kup-debug', err, 'warning')
+                        this.logMessage(
+                            'kup-debug',
+                            err,
+                            KupDebugCategory.WARNING
+                        )
                     );
             } catch (error) {
                 this.logMessage(
                     'kup-debug',
                     'Exception when accessing "getProps" public method for component: ' +
                         el.rootElement.tagName,
-                    'warning'
+                    KupDebugCategory.WARNING
                 );
             }
         });
@@ -364,11 +477,18 @@ export class KupDebug {
      * @param {string} message - The actual message that will be printed.
      * @param {string} type - The type of console message, defaults to "log" but "warning" and "error" can be used as well.
      */
-    logMessage(comp: any, message: string, type?: string): void {
-        if ((!type || type === 'log') && !this.isDebug()) {
+    logMessage(comp: any, message: string, category?: KupDebugCategory): void {
+        if (
+            (!category || category === KupDebugCategory.INFO) &&
+            !this.isDebug()
+        ) {
             return;
         }
-        let obj: object | string;
+        const date: Date = new Date();
+        if (!category) {
+            category = KupDebugCategory.INFO;
+        }
+        let obj: object | string = null;
         let id: string = '';
         if (comp.rootElement) {
             id =
@@ -382,42 +502,45 @@ export class KupDebug {
             id = ' ' + comp + ' => ';
             obj = '';
         }
-        var date = new Date();
 
-        switch (type) {
-            case 'error':
+        if (this.isDebug() && id.indexOf('#kup-debug') < 0) {
+            const log: KupDebugLog = {
+                category: category,
+                date: date,
+                element: obj,
+                id: id,
+                message: message,
+            };
+            if (this.logs.length > this.logLimit) {
+                console.warn(
+                    this.formatDate(date) +
+                        ' kup-debug => ' +
+                        'Too many logs (> ' +
+                        this.logLimit +
+                        ')! Dumping (increase debug.logLimit to store more logs)... .'
+                );
+                this.dump();
+            }
+            this.logs.push(log);
+            if (this.autoPrint && this.#debugWidget) {
+                this.widgetClear();
+                this.widgetPrint();
+                this.#debugWidget.refresh();
+            }
+        }
+
+        switch (category) {
+            case KupDebugCategory.ERROR:
                 console.error(this.formatDate(date) + id + message, obj);
                 window.dispatchEvent(
                     new CustomEvent('kupError', {
                         bubbles: true,
-                        detail: { comp, date, type, message },
+                        detail: { comp, date, message },
                     })
                 );
                 break;
-            case 'warning':
+            case KupDebugCategory.WARNING:
                 console.warn(this.formatDate(date) + id + message, obj);
-                break;
-            case 'log':
-            default:
-                const log: KupDebugLog = {
-                    message: message,
-                    id: id,
-                    date: date,
-                    element: obj,
-                };
-                if (id.indexOf('#kup-debug') < 0) {
-                    if (this.logs.length > this.logLimit) {
-                        console.warn(
-                            this.formatDate(date) +
-                                ' kup-debug => ' +
-                                'Too many logs (> ' +
-                                this.logLimit +
-                                ')! Dumping (increase debug.logLimit to store more logs)... .'
-                        );
-                        this.dump();
-                    }
-                    this.logs.push(log);
-                }
                 break;
         }
     }

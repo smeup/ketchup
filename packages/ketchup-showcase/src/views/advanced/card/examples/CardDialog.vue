@@ -1,8 +1,10 @@
 <template>
   <div>
     <p>
-      These cards can be dragged and closed by clicking on the header bar
-      button.
+      These cards can be moved around and closed by clicking on the header bar
+      button. They can also be resized when fixed positioned. In the examples
+      below, dialogs are absolute positioned in order to keep them on the bottom
+      of the page, so resizing is disabled.
       <br />
     </p>
     <div class="demo-wrapper">
@@ -62,6 +64,89 @@
             layout-family="dialog"
             :data.prop="data"
           ></kup-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 3</span> configuration:
+        <br />
+        <br />
+        <span class="code-word">- button[0 to n]</span>: Action list, displayed
+        above.
+        <br />
+        <span class="code-word">- combobox[0 to n]</span>: List of comboboxes.
+        <br />
+        <span class="code-word">- slots [0 to n]</span>: List of elements,
+        ideally text. If the slot's class list contains "text", a monospace
+        style will be applied.
+        <br />
+        <span class="code-word">- textfield[0 to n]</span>: Textfield list,
+        displayed to the right of the button list.
+        <br />
+        <br />
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            style="position: absolute !important; top: unset; left: unset"
+            size-x="600px"
+            size-y="300px"
+            layout-number="3"
+            layout-family="dialog"
+            :data.prop="data"
+            ><div class="text" title="slot[0]" style="font-weight: bold"
+              >slot[0]</div
+            ><div class="text" title="slot[1]" style="font-weight: bold"
+              >slot[1]</div
+            ><div class="text" title="slot[2]" style="font-weight: bold"
+              >slot[2]</div
+            ><div class="text" title="slot[3]" style="font-weight: bold"
+              >slot[3]</div
+            ><div class="text" title="slot[4]" style="font-weight: bold"
+              >slot[4]</div
+            ></kup-card
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-wrapper">
+      <p>
+        <span class="code-word">Layout 4</span> configuration:
+        <br />
+        <br />
+        <span class="code-word">- text[0]</span>: Sets the title inside the
+        header bar.
+        <br />
+        <span class="code-word">- datatable [0]</span>: Displays a data table.
+        <br />
+        <br />
+      </p>
+      <br />
+      <div class="demo-container">
+        <div class="kup-container">
+          <kup-card
+            style="position: absolute !important; top: unset; left: unset"
+            size-x="300px"
+            size-y="300px"
+            layout-number="4"
+            layout-family="dialog"
+            :data.prop="data"
+            ><div class="text" title="slot[0]" style="font-weight: bold"
+              >slot[0]</div
+            ><div class="text" title="slot[1]" style="font-weight: bold"
+              >slot[1]</div
+            ><div class="text" title="slot[2]" style="font-weight: bold"
+              >slot[2]</div
+            ><div class="text" title="slot[3]" style="font-weight: bold"
+              >slot[3]</div
+            ><div class="text" title="slot[4]" style="font-weight: bold"
+              >slot[4]</div
+            ></kup-card
+          >
         </div>
       </div>
     </div>
@@ -137,6 +222,166 @@ export default {
           },
         ],
         color: ['var(--kup-spinner-color)', 'var(--kup-border-color)'],
+        combobox: [
+          {
+            data: {
+              'kup-list': {},
+              'kup-text-field': {
+                label: 'combobox[0]',
+              },
+            },
+            title: 'combobox[0]',
+          },
+        ],
+        datatable: [
+          {
+            data: {
+              columns: [
+                {
+                  name: 'ICON',
+                  title: 'Icon',
+                  visible: false,
+                },
+                {
+                  name: 'FIELD',
+                  title: 'Field',
+                },
+                {
+                  name: 'VALUE',
+                  title: 'Value',
+                },
+              ],
+              rows: [
+                {
+                  cells: {
+                    ICON: {
+                      obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                      },
+                      value: '',
+                    },
+                    FIELD: {
+                      obj: {
+                        t: 'COLUMN',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'Column 1',
+                    },
+                    VALUE: {
+                      obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'datatable[0]',
+                      title: 'Simple tooltip for cell 1',
+                      options: true,
+                    },
+                  },
+                  id: '0',
+                },
+                {
+                  cells: {
+                    ICON: {
+                      obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                      },
+                      value: '',
+                    },
+                    FIELD: {
+                      obj: {
+                        t: 'COLUMN',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'Column 2',
+                    },
+                    VALUE: {
+                      obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'datatable[0]',
+                      title: 'Simple tooltip for cell 2',
+                    },
+                  },
+                  id: '1',
+                },
+                {
+                  cells: {
+                    ICON: {
+                      obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                      },
+                      value: '',
+                    },
+                    FIELD: {
+                      obj: {
+                        t: 'COLUMN',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'Column 3',
+                    },
+                    VALUE: {
+                      obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'datatable[0]',
+                      title: 'Simple tooltip for cell 3',
+                    },
+                  },
+                  id: '2',
+                },
+                {
+                  cells: {
+                    ICON: {
+                      obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                      },
+                      value: '',
+                    },
+                    FIELD: {
+                      obj: {
+                        t: 'COLUMN',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'Column 4',
+                    },
+                    VALUE: {
+                      obj: {
+                        t: ' ',
+                        p: '',
+                        k: '',
+                      },
+                      value: 'datatable[0]',
+                      icon: 'calendar',
+                    },
+                  },
+                  id: '3',
+                },
+              ],
+            },
+            density: 'medium',
+            headerIsPersistent: false,
+            rowsPerPage: 1000,
+            showHeader: false,
+            title: 'datatable[0]',
+          },
+        ],
         image: [
           {
             data: [
@@ -170,6 +415,15 @@ export default {
           'text[4]',
           'text[5]',
           'text[6]',
+        ],
+        textfield: [
+          {
+            fullWidth: true,
+            icon: 'widgets',
+            isClearable: true,
+            label: 'textfield[0]',
+            title: 'textfield[0]',
+          },
         ],
       },
     };

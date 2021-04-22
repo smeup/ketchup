@@ -2,7 +2,6 @@
   display: flex;
   flex-flow: wrap;
   min-width: max-content;
-  min-height: 2em;
 }
 
 .paginator-tabs {
@@ -10,22 +9,6 @@
 
   & kup-paginator {
     display: inline-flex;
-  }
-
-  .customize-panel {
-    background: var(--kup-background-color);
-    box-shadow: var(--kup-box-shadow);
-    min-width: 200px;
-    width: 200px;
-    width: fit-content;
-  }
-
-  .customize-element {
-    padding: 0 1em 1em 1em;
-  }
-
-  .customize-element:nth-child(1) {
-    padding-top: 1em;
   }
 
   kup-button {

@@ -86,7 +86,7 @@
     <body>
         <div class="data-examples">
             <h1>Text field</h1>
-            <kup-data-table lazy-load-rows="false" id="text-field" show-filters rows-per-page="2"></kup-data-table>
+            <kup-data-table show-customization lazy-load-rows="false" id="text-field" show-filters rows-per-page="2"></kup-data-table>
 
             <h1>Row actions</h1>
             <kup-data-table lazy-load-rows="false" id="row-actions" show-filters rows-per-page="20"></kup-data-table>
@@ -133,13 +133,13 @@
             <h1>Columns and rows with removable columns</h1>
             <div style="width: 800px;">
                 <kup-data-table
-                    multi-selection
                     id="basic-data-rem-cols"
                     enable-sortable-columns
                     lazy-load-rows="false"
                     removable-columns="true"
                     drop-enabled
                     show-footer
+                    show-groups
                 ></kup-data-table
             ></div>
 
@@ -231,6 +231,10 @@
             
         <h1>Gauge</h1>
         <kup-data-table lazy-load-rows="false" id="gauge-test"></kup-data-table>
+
+        <h1>Images</h1>
+        <kup-data-table lazy-load-rows="false" id="image-shape-test"></kup-data-table>      
+ 
         <script src="/assets/data-table.js"></script>
         <!-- <script src="/assets/index.js"></script>-->
         <style>

@@ -26,12 +26,14 @@ import {
     getDaysOfWeekAsStringByLocale,
     ISO_DEFAULT_DATE_FORMAT,
     fillString,
+    DateTimeFormatOptionsMonth,
 } from '../../utils/utils';
 import {
     KupDatePickerProps,
     SourceEvent,
 } from './kup-date-picker-declarations';
 import { FButtonStyling } from '../../f-components/f-button/f-button-declarations';
+import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
 
 @Component({
     tag: 'kup-date-picker',
@@ -243,7 +245,7 @@ export class KupDatePicker {
                 'property first-day-index=[' +
                     this.firstDayIndex +
                     '] not allowed: it must be >= 0 and <= 6',
-                'warning'
+                KupDebugCategory.WARNING
             );
             this.firstDayIndex = 1;
         }
@@ -722,7 +724,9 @@ export class KupDatePicker {
     }
 
     private createMonthsCalendar() {
-        let months = getMonthsAsStringByLocale('short');
+        let months = getMonthsAsStringByLocale(
+            DateTimeFormatOptionsMonth.SHORT
+        );
 
         let date: Date = this.pickerEl.date;
         let selecteDate: Date;

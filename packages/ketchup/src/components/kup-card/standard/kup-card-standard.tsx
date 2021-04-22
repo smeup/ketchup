@@ -1,8 +1,8 @@
+import { h, VNode } from '@stencil/core';
 import type { KupCard } from '../kup-card';
-import { h } from '@stencil/core';
-import { JSX, VNode } from '@stencil/core/internal';
+import type { GenericObject } from '../../../types/GenericTypes';
 import { FImage } from '../../../f-components/f-image/f-image';
-import { GenericObject } from '../../../types/GenericTypes';
+import { compList } from '../kup-card-helper';
 /**
  * 1st standard card layout, inspired by Material Design.
  * @param {KupCard}  comp - Card component.
@@ -906,68 +906,4 @@ export function create13(component: KupCard): VNode {
             </div>
         </div>
     );
-}
-/**
- * This function returns a list of components.
- * @param {GenericObject[]} compArray - Components' props.
- * @param {string} compType - Components' type.
- * @returns {JSX.Element[]} List of components.
- */
-function compList(
-    compArray: GenericObject[] | string[],
-    compType: string
-): JSX.Element[] {
-    let list: JSX.Element[] = [];
-    for (let index = 0; index < compArray.length; index++) {
-        if (
-            typeof compArray[0] !== 'string' &&
-            !(compArray as GenericObject[])[index].id
-        ) {
-            (compArray as GenericObject[])[index]['id'] = compType + index;
-        }
-        switch (compType) {
-            case 'button':
-                list.push(
-                    <kup-button {...(compArray as GenericObject[])[index]} />
-                );
-                break;
-            case 'checkbox':
-                list.push(
-                    <kup-checkbox {...(compArray as GenericObject[])[index]} />
-                );
-                break;
-            case 'combobox':
-                list.push(
-                    <kup-combobox {...(compArray as GenericObject[])[index]} />
-                );
-                break;
-            case 'datepicker':
-                list.push(
-                    <kup-date-picker
-                        {...(compArray as GenericObject[])[index]}
-                    />
-                );
-                break;
-            case 'text':
-                list.push(
-                    <div class="text"> {(compArray as string[])[index]}</div>
-                );
-                break;
-            case 'textfield':
-                list.push(
-                    <kup-text-field
-                        {...(compArray as GenericObject[])[index]}
-                    />
-                );
-                break;
-            case 'timepicker':
-                list.push(
-                    <kup-time-picker
-                        {...(compArray as GenericObject[])[index]}
-                    />
-                );
-                break;
-        }
-    }
-    return list;
 }

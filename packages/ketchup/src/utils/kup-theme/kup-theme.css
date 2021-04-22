@@ -32,12 +32,25 @@
     --kup-text-on-primary-color-rgb: 255, 255, 255;
 }
 /*-------------------------------------------------*/
-/*            M o v e   o n   d r a g              */
+/*                    D e b u g                    */
 /*-------------------------------------------------*/
-.kup-movable-element {
+#kup-debug-widget {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+}
+/*-------------------------------------------------*/
+/*                   D i a l o g                   */
+/*-------------------------------------------------*/
+[kup-dialog] {
+    background-color: var(--kup-background-color);
     margin: 0;
     position: fixed;
     transition: none;
+}
+[kup-dialog].kup-resizable {
+    border: 3px outset var(--kup-title-background-color);
 }
 /*-------------------------------------------------*/
 /*          S c r o l l   o n   h o v e r          */
@@ -181,11 +194,4 @@
         opacity: 1;
         transform: translate(-10px, -10px);
     }
-}
-/* Debug */
-#kup-debug-window {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 200;
 }

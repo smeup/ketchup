@@ -59,8 +59,10 @@
       props.
       <br />
       <br />
-      <p>
-        The layouts can be selected through the combination of
+      <p
+        >Some layouts (i.e.: dialog #3) also support
+        <span class="code-word">slots</span>. The layouts can be selected
+        through the combination of
         <span class="code-word">layoutFamily</span> and
         <span class="code-word">layoutNumber</span>. <br />
         Currently, the following layouts families are available.
@@ -70,7 +72,7 @@
         expanded after a user action (2 layouts).
         <br />
         <span class="code-word">dialog</span>: features closable and draggable
-        cards with an header bar (2 layouts).
+        cards with an header bar (4 layouts).
         <br />
         <span class="code-word">scalable</span>: features cards that can fit
         their container and resize their content accordingly (8 layouts).

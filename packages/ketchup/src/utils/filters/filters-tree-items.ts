@@ -1,9 +1,17 @@
 import type {
+    Cell,
+    CellsHolder,
     Column,
     Row,
 } from '../../components/kup-data-table/kup-data-table-declarations';
-import type { GenericFilter } from './filters-declarations';
-import type { TreeNode } from '../../components/kup-tree/kup-tree-declarations';
+import type {
+    GenericFilter,
+    ValueDisplayedValue,
+} from './filters-declarations';
+import {
+    treeMainColumnName,
+    TreeNode,
+} from '../../components/kup-tree/kup-tree-declarations';
 import { FiltersColumnMenu } from './filters-column-menu';
 import { FiltersRows } from './filters-rows';
 
@@ -60,9 +68,15 @@ export class FiltersTreeItems extends FiltersRows {
         columnFilters?: FiltersColumnMenu
     ): boolean {
         let retValue = false;
+
         if (node.cells != null) {
+            let cellsHolder: CellsHolder = node.cells;
+            cellsHolder[treeMainColumnName] = {
+                obj: node.obj,
+                value: node.value,
+            };
             retValue = this.areCellsCompliant(
-                node.cells,
+                cellsHolder,
                 filters,
                 globalFilter,
                 isUsingGlobalFilter,
@@ -139,20 +153,25 @@ export class FiltersTreeItems extends FiltersRows {
     extractColumnValues(
         rows: Array<TreeNode>,
         column: Column,
-        values: { value: string; displayedValue: string }[]
+        values: ValueDisplayedValue[]
     ) {
         if (rows == null || rows.length == 0) {
             return;
         }
         /** il valore delle righe attualmente filtrate, formattato */
-        rows.forEach((row) => {
-            if (row.visible) {
+        rows.forEach((node): void => {
+            let cellsHolder: CellsHolder = node.cells;
+            cellsHolder[treeMainColumnName] = {
+                obj: node.obj,
+                value: node.value,
+            };
+            if (node.visible) {
                 this.addColumnValueFromRow(
                     values,
                     column,
-                    row.cells[column.name]
+                    cellsHolder[column.name]
                 );
-                this.extractColumnValues(row.children, column, values);
+                this.extractColumnValues(node.children, column, values);
             }
         });
         return values;

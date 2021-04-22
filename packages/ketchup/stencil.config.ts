@@ -14,6 +14,9 @@ export const config: Config = {
             src: 'box-performance.html',
         },
         {
+            src: 'btn.html',
+        },
+        {
             src: 'card.html',
         },
         {
@@ -45,6 +48,9 @@ export const config: Config = {
         },
         {
             src: 'gauge.html',
+        },
+        {
+            src: 'magic-box.html',
         },
         {
             src: 'nav-bar.html',
