@@ -287,5 +287,6 @@ export interface EventHandlerDetails {
 /**
  * Constants for mocked/premade columns created by data mutations.
  */
-export const iconColumn: string = 'Icon';
 export const fieldColumn: string = 'Field';
+export const iconColumn: string = 'Icon';
+export const keyColumn: string = 'Key';

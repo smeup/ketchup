@@ -43,6 +43,7 @@ import {
     CellsHolder,
     fieldColumn,
     iconColumn,
+    keyColumn,
 } from './kup-data-table-declarations';
 
 import {
@@ -1891,11 +1892,17 @@ export class KupDataTable {
         };
         const columns: Column[] = cardData.datatable[0].data.columns;
         const rows: Row[] = cardData.datatable[0].data.rows;
-        // Placing the icon column before any other column
-        columns.unshift({
-            name: iconColumn.toUpperCase(),
-            title: iconColumn,
-        });
+        // Placing the key and icon columns before any other column
+        columns.unshift(
+            {
+                name: iconColumn.toUpperCase(),
+                title: iconColumn,
+            },
+            {
+                name: keyColumn.toUpperCase(),
+                title: keyColumn,
+            }
+        );
         // Setting all column to not visible
         for (let index = 0; index < columns.length; index++) {
             columns[index].visible = false;
@@ -1914,6 +1921,7 @@ export class KupDataTable {
             );
         }
         // Setting up icons
+        let hasKey: boolean = false;
         for (let index = 0; index < rows.length; index++) {
             const column: Column = this.data.columns.find(
                 (x) => x.name === rows[index].name
@@ -1943,6 +1951,7 @@ export class KupDataTable {
                 ).visible = true;
             }
             if (column.isKey) {
+                hasKey = true;
                 iconCell = {
                     obj: {
                         t: 'J4',
@@ -1979,6 +1988,12 @@ export class KupDataTable {
                     },
                     value: '',
                 };
+            }
+            if (hasKey) {
+                rows[index].cells[keyColumn.toUpperCase()] =
+                    rows[0].cells[index.toString()];
+            } else {
+                rows[index].cells[keyColumn.toUpperCase()] = { value: null };
             }
             rows[index].cells[iconColumn.toUpperCase()] = iconCell;
         }
