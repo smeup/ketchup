@@ -9,6 +9,7 @@ export enum KupDataTableProps {
     density = "The density of the rows, defaults at 'medium' and can be also set to 'large' or 'small'.",
     dragEnabled = 'Enable row dragging',
     dropEnabled = 'Enable record dropping',
+    editableData = 'When set to true, editable cells will be rendered using input components.',
     emptyDataLabel = 'Defines the label to show when the table is empty.',
     enableSortableColumns = 'Enables the sorting of columns by dragging them into different columns.',
     enableExtraColumns = 'Enables adding extra columns.',
@@ -39,9 +40,9 @@ export enum KupDataTableProps {
     selectRowsById = 'Semicolon separated rows id to select.',
     showCustomization = 'If set to true, displays the button to open the customization panel.',
     showFilters = 'When set to true enables the column filters.',
-    showGroups = 'When set to true enables the column grouping.',
     showFooter = 'When set to true shows the footer.',
     showGrid = 'Can be used to customize the grid view of the table.',
+    showGroups = 'When set to true enables the column grouping.',
     showHeader = 'Enables rendering of the table header.',
     showLoadMore = 'If set to true, displays the button to load more records.',
     showTooltipOnRightClick = 'If set to true, displays tooltip on right click; if set to false, displays tooltip on mouseOver.',
@@ -81,6 +82,7 @@ export interface Cell {
     cssClass?: string;
     icon?: string;
     title?: string;
+    isEditable?: boolean;
 }
 
 export interface CellsHolder {
@@ -117,6 +119,7 @@ export interface Row extends Identifiable {
     readOnly?: boolean;
 
     cssClass?: string;
+    name?: string;
 }
 
 export interface RowGroup {
@@ -281,3 +284,9 @@ export interface EventHandlerDetails {
     th: HTMLTableHeaderCellElement;
     tr: HTMLTableRowElement;
 }
+/**
+ * Constants for mocked/premade columns created by data mutations.
+ */
+export const fieldColumn: string = 'Field';
+export const iconColumn: string = 'Icon';
+export const keyColumn: string = 'Key';

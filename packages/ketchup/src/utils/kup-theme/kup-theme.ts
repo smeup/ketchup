@@ -1,7 +1,6 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type {
-    KupThemeCSSVariables,
     KupThemeIcons,
     KupThemeVariables,
 } from './kup-theme-declarations';

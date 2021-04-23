@@ -116,7 +116,6 @@ export class KupDialog {
         }
     };
     #mouseDown: Function = function (e: MouseEvent) {
-        e.preventDefault();
         const kupDialog: KupDialog = dom.ketchup.dialog;
         if (kupDialog.activeElement) {
             switch (kupDialog.coordinates) {
@@ -135,6 +134,7 @@ export class KupDialog {
                     kupDialog.startingY = kupDialog.activeElement.offsetTop;
                     break;
             }
+            e.preventDefault();
             kupDialog.activeX = e.clientX;
             kupDialog.activeY = e.clientY;
             kupDialog.activeElement.style.zIndex = (this.zIndex++).toString();

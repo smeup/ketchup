@@ -52,6 +52,14 @@ export default {
           try: 'field',
         },
         {
+          prop: 'editableData',
+          description:
+            'When set to true, editable cells will be rendered using input components.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'emptyDataLabel',
           description: 'Defines the label to show when the table is empty.',
           type: 'string',
@@ -60,8 +68,7 @@ export default {
         },
         {
           prop: 'enableExtraColumns',
-          description:
-            'Enables adding extracollumns button.',
+          description: 'Enables adding extra columns button.',
           type: 'boolean',
           default: 'true',
           try: 'switch',
@@ -289,6 +296,13 @@ export default {
           type: 'string',
           default: 'Row',
           try: 'field',
+        },
+        {
+          prop: 'showGroups',
+          description: 'When set to true enables the column grouping.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
         },
         {
           prop: 'showHeader',

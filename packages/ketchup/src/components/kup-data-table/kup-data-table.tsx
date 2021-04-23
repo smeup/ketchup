@@ -41,6 +41,9 @@ import {
     EventHandlerDetails,
     KupDataTableProps,
     CellsHolder,
+    fieldColumn,
+    iconColumn,
+    keyColumn,
 } from './kup-data-table-declarations';
 
 import {
@@ -78,14 +81,12 @@ import {
     hasTooltip,
     isRadio as isRadioObj,
     canHaveAutomaticDerivedColumn,
-    isPercentage,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
 
 import {
     stringToNumber,
     numberToFormattedStringNumber,
-    formatExtendedDate,
     identify,
     deepEqual,
     unformattedStringToFormattedStringDate,
@@ -382,6 +383,11 @@ export class KupDataTable {
 
     @Element() rootElement: HTMLElement;
     @State() customStyleTheme: string = undefined;
+    /**
+     * Used to trigger a new render of the component.
+     * @default false
+     */
+    @State() _refresh: boolean = false;
 
     /**
      * Custom style of the component. For more information: https://ketchup.smeup.com/ketchup-showcase/#/customization
@@ -403,6 +409,11 @@ export class KupDataTable {
      * Enable record dropping
      */
     @Prop() dropEnabled: boolean = false;
+    /**
+     * When set to true, editable cells will be rendered using input components.
+     * @default false
+     */
+    @Prop() editableData: boolean = false;
     /**
      * Defines the label to show when the table is empty.
      */
@@ -656,9 +667,6 @@ export class KupDataTable {
     @State()
     private fontsize: string = 'medium';
 
-    @State()
-    private stateSwitcher: boolean = false;
-
     /**
      * This is a flag to be used for the draggable columns to force rerender
      * by changing the internal state.
@@ -903,6 +911,9 @@ export class KupDataTable {
     })
     kupDataTableCellUpdate: EventEmitter<{
         cell: Cell;
+        column: Column;
+        id: string;
+        row: Row;
         event: any;
     }>;
     /**
@@ -1033,10 +1044,7 @@ export class KupDataTable {
     async resizeCallback(): Promise<void> {
         if (this.lazyLoadCells) {
             window.clearTimeout(this.resizeTimeout);
-            this.resizeTimeout = window.setTimeout(
-                () => this.forceUpdate(),
-                300
-            );
+            this.resizeTimeout = window.setTimeout(() => this.refresh(), 300);
         }
     }
     /**
@@ -1059,6 +1067,14 @@ export class KupDataTable {
             }
         }
         return props;
+    }
+    /**
+     * This method is used to trigger a new render of the component.
+     * Useful when slots change.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        this._refresh = !this._refresh;
     }
     /**
      * This method will set the selected rows of the component.
@@ -1094,10 +1110,6 @@ export class KupDataTable {
         this.expandGroups = false;
     }
 
-    forceUpdate() {
-        this.stateSwitcher = !this.stateSwitcher;
-    }
-
     private calculateData() {
         if (!this.transpose) {
             // restore
@@ -1113,7 +1125,9 @@ export class KupDataTable {
     private setTransposedData(): void {
         // transpose
         this.originalData = { ...this.data };
-        this.data = this.getTransposedData(this.data);
+        if (this.data.columns.length > 0) {
+            this.data = this.getTransposedData(this.data.columns[0]);
+        }
     }
 
     private switchToTotalsMatrix(): void {
@@ -1248,49 +1262,82 @@ export class KupDataTable {
         }
     }
 
-    private getTransposedData(data: TableData): TableData {
-        if (data.columns.length === 0) return data;
-        // TODO manage better the filters, this is just a fix in order to release the function
-        this.filters = {};
-        // calc transposed data
+    private getTransposedData(column?: Column): TableData {
         let transposedData: TableData = {};
+        // TODO manage better the filters, this is just a fix in order to release the function
+        if (column) {
+            this.filters = {};
+        }
         // calc columns
         const columns: Array<Column> = [];
         // first item
-        const firstHead = this.data.columns[0];
-        columns.push(firstHead);
+        let firstHead: Column = null;
+        if (column) {
+            firstHead = column;
+            columns.push(firstHead);
+            this.data.rows.forEach((row) => {
+                columns.push(
+                    this.getColumnFromCell(row.cells[firstHead.name], row.id)
+                );
+            });
+        } else {
+            firstHead = { name: fieldColumn.toUpperCase(), title: fieldColumn };
+            columns.push(firstHead);
+            for (let index = 0; index < this.data.rows.length; index++) {
+                columns.push({
+                    name: this.data.rows[index].id,
+                    title: '#' + index,
+                });
+            }
+        }
         // fill columns with the cells in the first original column
-        data.rows.forEach((row) => {
-            columns.push(
-                this.getColumnFromCell(row.cells[firstHead.name], row.id)
-            );
-        });
         // set columns
         transposedData.columns = columns;
         // calc rows
         const rows: Array<Row> = [];
-        for (let index = 1; index < data.columns.length; index++) {
-            const oldColumn = data.columns[index];
+        for (
+            let index = column ? 1 : 0;
+            index < this.data.columns.length;
+            index++
+        ) {
+            const oldColumn = this.data.columns[index];
             const cells: CellsHolder = {};
             // set first cell from previous columns
             // TODO set obj? like this --> obj: oldColumn.obj
             cells[firstHead.name] = {
                 value: oldColumn.title,
             };
+
             for (
                 let index = 1;
                 index < transposedData.columns.length;
                 index++
             ) {
                 const newColumn = transposedData.columns[index];
-                const oldRow = data.rows[index - 1];
-                cells[newColumn.name] = oldRow.cells[oldColumn.name];
+                const oldRow = this.data.rows[index - 1];
+                const cellName: string = column ? newColumn.name : oldRow.id;
+                cells[cellName] = oldRow.cells[oldColumn.name];
+                if (oldColumn.icon && !cells[cellName].icon) {
+                    cells[cellName].icon = oldColumn.icon;
+                }
+                if (oldColumn.shape && !cells[cellName].shape) {
+                    cells[cellName].shape = oldColumn.icon;
+                }
             }
-            // push row
-            rows.push({
-                id: String(index),
-                cells,
-            });
+            // If a record is key and no column argument is provided, it will be placed on top
+            if (!column && oldColumn.isKey) {
+                rows.unshift({
+                    id: String(index),
+                    cells,
+                    name: oldColumn.name,
+                });
+            } else {
+                rows.push({
+                    id: String(index),
+                    cells,
+                    name: oldColumn.name,
+                });
+            }
         }
         // set rows
         transposedData.rows = rows;
@@ -1493,6 +1540,26 @@ export class KupDataTable {
         const root: ShadowRoot = this.rootElement.shadowRoot;
 
         if (root) {
+            //Row checkboxes
+            const checkboxes: NodeListOf<Element> = root.querySelectorAll(
+                'td .f-checkbox--wrapper'
+            );
+            for (let index = 0; index < checkboxes.length; index++) {
+                const inputEl: HTMLButtonElement = checkboxes[
+                    index
+                ].querySelector('input');
+                if (inputEl) {
+                    inputEl.onchange = (e: Event) =>
+                        this.cellUpdate(
+                            e,
+                            (e.target as HTMLInputElement).value,
+                            checkboxes[index]['data-cell'],
+                            checkboxes[index]['data-column'],
+                            checkboxes[index]['data-row']
+                        );
+                }
+                FCheckboxMDC(checkboxes[index] as HTMLElement);
+            }
             //Row textfields
             const textfields: NodeListOf<Element> = root.querySelectorAll(
                 'td .f-text-field--wrapper'
@@ -1503,9 +1570,21 @@ export class KupDataTable {
                 ].querySelector('input');
                 if (inputEl) {
                     inputEl.onblur = (e: FocusEvent) =>
-                        this.cellUpdate(e, textfields[index]['data-cell']);
+                        this.cellUpdate(
+                            e,
+                            (e.target as HTMLInputElement).value,
+                            textfields[index]['data-cell'],
+                            textfields[index]['data-column'],
+                            textfields[index]['data-row']
+                        );
                     inputEl.onchange = (e: Event) =>
-                        this.cellUpdate(e, textfields[index]['data-cell']);
+                        this.cellUpdate(
+                            e,
+                            (e.target as HTMLInputElement).value,
+                            textfields[index]['data-cell'],
+                            textfields[index]['data-column'],
+                            textfields[index]['data-row']
+                        );
                 }
                 FTextFieldMDC(textfields[index] as HTMLElement);
             }
@@ -1747,35 +1826,6 @@ export class KupDataTable {
             return undefined;
         }
     }
-
-    /**
-     * Change a cell based on obj
-     * @param {Cell} cell - Cell for which we want to change.
-     * @private
-     * @memberof KupDataTable
-     */
-    private normalizeDetailCell(cell: Cell): void {
-        if (cell.obj) {
-            if (isPercentage(cell.obj)) {
-                cell.shape = 'Pgb';
-                cell.data = {
-                    value: cell.value,
-                };
-            } else if (isNumber(cell.obj)) {
-                cell.shape = 'Chi'; //TODO: Cablate da rimuovere per test.
-                cell.data = {
-                    data: [
-                        {
-                            label: cell.value,
-                        },
-                    ],
-                };
-            } else if (isDate(cell.obj)) {
-                cell.displayedValue = formatExtendedDate(new Date(cell.value));
-            }
-        }
-    }
-
     /**
      * Opens a card containing the detail of the given row.
      * @param {Row} row - Row for which the detail was requested.
@@ -1785,36 +1835,26 @@ export class KupDataTable {
      * @memberof KupDataTable
      */
     private rowDetail(row: Row, x: number, y: number): void {
-        const iconColumn: string = 'Icon';
-        const fieldColumn: string = 'Field';
-        const valueColumn: string = 'Value';
+        let transposedData: TableData = this.getTransposedData();
         const cardData: CardData = {
+            button: [
+                {
+                    icon: 'chevron_left',
+                },
+                {
+                    icon: 'chevron_right',
+                },
+            ],
             datatable: [
                 {
                     customStyle:
                         '#kup-component .below-wrapper{overflow: visible} #kup-component td[data-column="' +
                         iconColumn.toUpperCase() +
                         '"]{background-color: rgba(var(--kup-text-color-rgb), 0.15); width: 10px;}',
-                    data: {
-                        columns: [
-                            {
-                                name: iconColumn.toUpperCase(),
-                                title: iconColumn,
-                                visible: false,
-                            },
-                            {
-                                name: fieldColumn.toUpperCase(),
-                                title: fieldColumn,
-                            },
-                            {
-                                name: valueColumn.toUpperCase(),
-                                title: valueColumn,
-                            },
-                        ],
-                        rows: [],
-                    },
+                    data: transposedData,
                     density: 'medium',
                     headerIsPersistent: false,
+                    id: this.rootElement.id ? this.rootElement.id : '',
                     rowsPerPage: 1000,
                     showGrid: ShowGrid.NONE,
                     showHeader: false,
@@ -1822,94 +1862,118 @@ export class KupDataTable {
             ],
             text: ['Record details'],
         };
-        let columnKey: HTMLDivElement = null;
-        for (const key in row.cells) {
-            if (Object.prototype.hasOwnProperty.call(row.cells, key)) {
-                const cell: Cell = row.cells[key];
-                const column: Column = this.data.columns.find(
-                    (x) => x.name === key
-                );
-                if (column && cell) {
-                    const cardRows: Row[] = cardData.datatable[0].data.rows;
-                    const cardColumns: Column[] =
-                        cardData.datatable[0].data.columns;
-                    if (column.icon && !row.cells[column.name].icon) {
-                        row.cells[column.name].icon = column.icon;
-                    }
-                    if (column.shape && !row.cells[column.name].shape) {
-                        row.cells[column.name].shape = column.shape;
-                    }
-                    const cardCell = { ...row.cells[column.name] };
-                    this.normalizeDetailCell(cardCell);
-                    if (column.isKey) {
-                        cardColumns.find(
-                            (x) => x.name === iconColumn.toUpperCase()
-                        ).visible = true;
-                        cardRows.unshift({
-                            cells: {
-                                [iconColumn.toUpperCase()]: {
-                                    obj: {
-                                        t: 'J4',
-                                        p: 'ICO',
-                                        k: 'OG_OG_KF',
-                                    },
-                                    data: {
-                                        color:
-                                            'rgba(var(--kup-text-color-rgb), 1)',
-                                        resource: 'key-variant',
-                                    },
-                                    value: 'key-variant',
-                                },
-                                [fieldColumn.toUpperCase()]: {
-                                    obj: {
-                                        t: 'COLUMN',
-                                        p: '',
-                                        k: '',
-                                    },
-                                    value: column.title,
-                                },
-                                [valueColumn.toUpperCase()]: cardCell,
-                            },
-                        });
-                    } else {
-                        cardRows.push({
-                            cells: {
-                                [iconColumn.toUpperCase()]: {
-                                    obj: {
-                                        t: '',
-                                        p: '',
-                                        k: '',
-                                    },
-                                    value: '',
-                                },
-                                [fieldColumn.toUpperCase()]: {
-                                    obj: {
-                                        t: 'COLUMN',
-                                        p: '',
-                                        k: '',
-                                    },
-                                    value: column.title,
-                                },
-                                [valueColumn.toUpperCase()]: cardCell,
-                            },
-                        });
-                    }
-                } else {
-                    this.kupManager.debug.logMessage(
-                        this,
-                        'Row detail: missing column(' +
-                            key +
-                            ') or cell(' +
-                            cell +
-                            ').',
-                        KupDebugCategory.WARNING
-                    );
-                }
+        const columns: Column[] = cardData.datatable[0].data.columns;
+        const rows: Row[] = cardData.datatable[0].data.rows;
+        // Placing the key and icon columns before any other column
+        columns.unshift(
+            {
+                name: iconColumn.toUpperCase(),
+                title: iconColumn,
+            },
+            {
+                name: keyColumn.toUpperCase(),
+                title: keyColumn,
             }
+        );
+        // Setting all columns to not visible
+        for (let index = 0; index < columns.length; index++) {
+            columns[index].visible = false;
+        }
+        // Setting Field column and current record column to visible
+        columns.find(
+            (x) => x.name === fieldColumn.toUpperCase()
+        ).visible = true;
+        const currentColumn = columns.find((x) => x.name === row.id);
+        console.log('wth');
+        if (currentColumn) {
+            currentColumn.visible = true;
+        } else {
+            this.kupManager.debug.logMessage(
+                this,
+                'Invalid column name on row ID (' +
+                    row.id +
+                    "), couldn't set current record!",
+                KupDebugCategory.WARNING
+            );
+        }
+        // Setting up icons
+        let keyCell: Cell = null;
+        for (let index = 0; index < rows.length; index++) {
+            const column: Column = this.data.columns.find(
+                (x) => x.name === rows[index].name
+            );
+            if (!column) {
+                this.kupManager.debug.logMessage(
+                    this,
+                    'Column not found on row name (' + column + ')!',
+                    KupDebugCategory.WARNING
+                );
+                return;
+            }
+            const editable: boolean = rows[index].cells[row.id].isEditable
+                ? true
+                : false;
+            let iconCell: Cell = null;
+            if (column.isKey || editable) {
+                columns.find(
+                    (x) => x.name === iconColumn.toUpperCase()
+                ).visible = true;
+            }
+            if (column.isKey) {
+                // Key should always be the first row
+                keyCell = row.cells[column.name];
+                iconCell = {
+                    obj: {
+                        t: 'J4',
+                        p: 'ICO',
+                        k: 'OG_OG_KF',
+                    },
+                    data: {
+                        color: 'rgba(var(--kup-text-color-rgb), 1)',
+                        resource: editable ? 'edit-key' : 'key-variant',
+                    },
+                    title: editable ? 'Editable record key.' : 'Record key.',
+                    value: editable ? 'edit-key' : 'key-variant',
+                };
+            } else if (editable) {
+                iconCell = {
+                    obj: {
+                        t: 'VO',
+                        p: 'COD_VER',
+                        k: '000051',
+                    },
+                    data: {
+                        color: 'rgba(var(--kup-text-color-rgb), 1)',
+                        resource: 'pencil',
+                    },
+                    title: 'This field can be edited.',
+                    value: 'pencil',
+                };
+            } else {
+                iconCell = {
+                    obj: {
+                        t: '',
+                        p: '',
+                        k: '',
+                    },
+                    value: '',
+                };
+            }
+            if (keyCell) {
+                rows[index].cells[keyColumn.toUpperCase()] = keyCell;
+            } else {
+                rows[index].cells[keyColumn.toUpperCase()] = { value: null };
+            }
+            rows[index].cells[iconColumn.toUpperCase()] = iconCell;
         }
         if (!this.detailCard) {
             this.detailCard = document.createElement('kup-card');
             this.detailCard.layoutFamily = CardFamily.DIALOG;
+            this.detailCard.layoutNumber = 4;
+            this.detailCard.sizeX = 'auto';
+            this.detailCard.sizeY = 'auto';
+            this.detailCard.style.maxHeight = '100vh';
+            this.detailCard.style.maxWidth = '100vw';
         } else {
             const children: HTMLCollection = Array.prototype.slice.call(
                 this.detailCard.children,
@@ -1919,20 +1983,9 @@ export class KupDataTable {
                 children[index].remove();
             }
         }
-        this.detailCard.layoutNumber = 4;
         this.detailCard.data = cardData;
-        this.detailCard.sizeX = '300px';
-        this.detailCard.sizeY = '300px';
         this.detailCard.style.left = x + 'px';
         this.detailCard.style.top = y + 'px';
-        if (columnKey) {
-            this.detailCard.append(
-                this.rootElement.shadowRoot
-                    .querySelector('[sty-id=sc-kup-data-table]')
-                    .cloneNode(true)
-            );
-            this.detailCard.append(columnKey);
-        }
         document.body.append(this.detailCard);
     }
 
@@ -2604,20 +2657,32 @@ export class KupDataTable {
         });
     }
 
-    private cellUpdate(e: Event | FocusEvent, cell: Cell) {
-        if ((e.target as HTMLElement).tagName === 'INPUT') {
-            const inputEl = e.target as HTMLInputElement;
-            cell.obj.k = inputEl.value;
-            cell.value = inputEl.value;
-            if (cell.data) {
-                cell.data['value'] = inputEl.value;
-            } else {
-                cell['data']['value'] = inputEl.value;
+    private cellUpdate(
+        e: CustomEvent | Event | FocusEvent,
+        value: string,
+        cell: Cell,
+        column: Column,
+        row: Row
+    ) {
+        if (isCheckbox(cell.obj)) {
+            if (cell.data && cell.data['checked'] !== undefined) {
+                cell.data['checked'] = value === 'on' ? false : true;
+            }
+        } else {
+            cell.obj.k = value;
+            cell.value = value;
+            cell.displayedValue = null;
+            cell.displayedValue = getCellValueForDisplay(column, cell);
+            if (cell.data && cell.data['initialValue'] !== undefined) {
+                cell.data['initialValue'] = value;
             }
         }
-        this.forceUpdate();
+        this.refresh();
         this.kupDataTableCellUpdate.emit({
             cell: cell,
+            column: column,
+            id: this.rootElement.id,
+            row: row,
             event: e,
         });
     }
@@ -4278,6 +4343,7 @@ export class KupDataTable {
                         title={title}
                         data-cell={cell}
                         data-column={name}
+                        data-row={row}
                         style={cellStyle}
                         class={cellClass}
                         {...eventHandlers}
@@ -4425,6 +4491,8 @@ export class KupDataTable {
         column: Column,
         previousRowCellValue?: string
     ) {
+        const isEditable: boolean =
+            cell.isEditable && this.editableData ? true : false;
         const classObj: Record<string, boolean> = {
             'cell-content': true,
             clickable: !!column.clickable,
@@ -4440,8 +4508,15 @@ export class KupDataTable {
         let cellType: string = this.getCellType(cell);
         let props: any = { ...cell.data };
         classObj[cellType + '-cell'] = true;
-
         if (
+            isEditable &&
+            (cellType === 'checkbox' ||
+                cellType === 'date' ||
+                cellType === 'number' ||
+                cellType === 'string')
+        ) {
+            content = this.setEditableCell(cellType, cell, column, row);
+        } else if (
             cellType === 'checkbox' ||
             cellType === 'date' ||
             cellType === 'time' ||
@@ -4485,7 +4560,7 @@ export class KupDataTable {
 
         let icon = undefined;
 
-        if ((column.icon || cell.icon) && content) {
+        if (!isEditable && (column.icon || cell.icon) && content) {
             let svg: string = '';
             if (cell.icon) {
                 svg = cell.icon;
@@ -4648,6 +4723,86 @@ export class KupDataTable {
         }
     }
 
+    private setEditableCell(
+        cellType: string,
+        cell: Cell,
+        column: Column,
+        row: Row
+    ) {
+        switch (cellType) {
+            case 'checkbox':
+                return (
+                    <FCheckbox
+                        checked={cell.data['checked']}
+                        dataSet={{
+                            'data-cell': cell,
+                            'data-column': column,
+                            'data-row': row,
+                        }}
+                    />
+                );
+            case 'date':
+                return (
+                    <kup-date-picker
+                        onKupDatePickerChange={(e) =>
+                            this.cellUpdate(
+                                e,
+                                e.detail.value,
+                                cell,
+                                column,
+                                row
+                            )
+                        }
+                        data={{
+                            'kup-text-field': {
+                                fullWidth: true,
+                            },
+                        }}
+                        initialValue={cell.value}
+                    />
+                );
+            case 'number':
+                return (
+                    <FTextField
+                        dataSet={{
+                            'data-cell': cell,
+                            'data-column': column,
+                            'data-row': row,
+                        }}
+                        icon={
+                            cell.icon
+                                ? cell.icon
+                                : column.icon
+                                ? column.icon
+                                : null
+                        }
+                        fullWidth={true}
+                        inputType="number"
+                        value={stringToNumber(cell.value).toString()}
+                    />
+                );
+            case 'string':
+                return (
+                    <FTextField
+                        dataSet={{
+                            'data-cell': cell,
+                            'data-column': column,
+                            'data-row': row,
+                        }}
+                        icon={
+                            cell.icon
+                                ? cell.icon
+                                : column.icon
+                                ? column.icon
+                                : null
+                        }
+                        fullWidth={true}
+                        value={cell.value}
+                    />
+                );
+        }
+    }
+
     private setKupCell(
         cellType: string,
         classObj: Record<string, boolean>,
@@ -4680,12 +4835,6 @@ export class KupDataTable {
                     cell
                 );
                 return <kup-button {...props}></kup-button>;
-            case 'text-field':
-                props['disabled'] = row.readOnly;
-                props['dataSet'] = {
-                    'data-cell': cell,
-                };
-                return <FTextField {...props}></FTextField>;
             case 'chart':
                 classObj['is-centered'] = true;
                 return <kup-chart {...props} />;
@@ -4722,6 +4871,14 @@ export class KupDataTable {
                 classObj['is-centered'] = true;
                 props['disabled'] = row.readOnly;
                 return <kup-radio {...props}></kup-radio>;
+            case 'text-field':
+                props['disabled'] = row.readOnly;
+                props['dataSet'] = {
+                    'data-cell': cell,
+                    'data-column': column,
+                    'data-row': row,
+                };
+                return <FTextField {...props}></FTextField>;
         }
     }
 
@@ -4883,11 +5040,21 @@ export class KupDataTable {
                 {fontsize}
                 {transpose}
                 <kup-switch
+                    class="customize-element"
                     checked={this.dragEnabled}
                     label="Drag and drop"
                     leadingLabel={true}
                     onKupSwitchChange={() =>
                         (this.dragEnabled = !this.dragEnabled)
+                    }
+                ></kup-switch>
+                <kup-switch
+                    class="customize-element"
+                    checked={this.editableData}
+                    label="Editable"
+                    leadingLabel={true}
+                    onKupSwitchChange={() =>
+                        (this.editableData = !this.editableData)
                     }
                 ></kup-switch>
                 <kup-button
@@ -5497,8 +5664,7 @@ export class KupDataTable {
                                 getColumnByName(
                                     this.getVisibleColumns(),
                                     this.openedMenu
-                                ),
-                                this.showGroups
+                                )
                             )}
                             data-column={this.openedMenu}
                             id="column-menu"

@@ -647,6 +647,14 @@
             ></kup-image>
             <div class="icon-label">dropbox</div>
           </div>
+          <div class="icon-wrapper" title="edit-key">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="edit-key"
+            ></kup-image>
+            <div class="icon-label">edit-key</div>
+          </div>
           <div class="icon-wrapper" title="email-open">
             <kup-image
               size-x="48px"

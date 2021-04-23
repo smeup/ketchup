@@ -2193,8 +2193,7 @@ export class KupTree {
                                 getColumnByName(
                                     this.getHeadingColumns(),
                                     this.openedMenu
-                                ),
-                                false
+                                )
                             )}
                             data-column={this.openedMenu}
                             id="column-menu"
