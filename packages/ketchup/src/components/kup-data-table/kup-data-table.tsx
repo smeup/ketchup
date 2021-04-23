@@ -1903,7 +1903,7 @@ export class KupDataTable {
                 title: keyColumn,
             }
         );
-        // Setting all column to not visible
+        // Setting all columns to not visible
         for (let index = 0; index < columns.length; index++) {
             columns[index].visible = false;
         }
@@ -1937,9 +1937,11 @@ export class KupDataTable {
                 return;
             }
             let editable: boolean = false;
-            for (const key in row.cells) {
-                if (Object.prototype.hasOwnProperty.call(row.cells, key)) {
-                    const cell: Cell = row.cells[key];
+            for (const key in rows[index].cells) {
+                if (
+                    Object.prototype.hasOwnProperty.call(rows[index].cells, key)
+                ) {
+                    const cell: Cell = rows[index].cells[key];
                     if (cell && cell.isEditable) {
                         editable = true;
                         break;
@@ -1953,6 +1955,7 @@ export class KupDataTable {
                 ).visible = true;
             }
             if (column.isKey) {
+                // Key should always be the first row
                 hasKey = true;
                 iconCell = {
                     obj: {
