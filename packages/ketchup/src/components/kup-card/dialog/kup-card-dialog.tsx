@@ -166,7 +166,7 @@ export function create4(component: KupCard): VNode {
 /**
  * Invoked by 4th layout to switch to the previous record of the original data table.
  * Reminder: data table inside 4th layout should be transposed and valid columns should be named with numbers (strings, but numerical).
- * @param {KupCard}  comp - Card component.
+ * @param {KupCard}  component - Card component.
  */
 function prevButton(component: KupCard): void {
     const root: ShadowRoot = component.rootElement.shadowRoot;
@@ -179,13 +179,7 @@ function prevButton(component: KupCard): void {
         }
     }
     if (data) {
-        let visibleColumnIndex: number = null;
-        for (let index = 0; index < data.columns.length; index++) {
-            const column: Column = data.columns[index];
-            if (!isNaN(parseInt(column.name)) && column.visible) {
-                visibleColumnIndex = index;
-            }
-        }
+        let visibleColumnIndex: number = getVisibleColumn(data);
         if (visibleColumnIndex) {
             const currColumn: Column = data.columns[visibleColumnIndex];
             const prevColumn: Column = data.columns[visibleColumnIndex - 1];
@@ -194,14 +188,13 @@ function prevButton(component: KupCard): void {
                 prevColumn.visible = true;
             }
         }
-        //Triggering data table render
         table.refresh();
     }
 }
-
 /**
  * Invoked by 4th layout to switch to the next record of the original data table.
- * Reminder: data table inside 4th layout should be transposed.
+ * Reminder: data table inside 4th layout should be transposed and valid columns should be named with numbers (strings, but numerical).
+ * @param {KupCard}  component - Card component.
  */
 function nextButton(component: KupCard): void {
     const root: ShadowRoot = component.rootElement.shadowRoot;
@@ -214,13 +207,7 @@ function nextButton(component: KupCard): void {
         }
     }
     if (data) {
-        let visibleColumnIndex: number = null;
-        for (let index = 0; index < data.columns.length; index++) {
-            const column: Column = data.columns[index];
-            if (!isNaN(parseInt(column.name)) && column.visible) {
-                visibleColumnIndex = index;
-            }
-        }
+        let visibleColumnIndex: number = getVisibleColumn(data);
         if (visibleColumnIndex) {
             const currColumn: Column = data.columns[visibleColumnIndex];
             const nextColumn: Column = data.columns[visibleColumnIndex + 1];
@@ -229,7 +216,19 @@ function nextButton(component: KupCard): void {
                 nextColumn.visible = true;
             }
         }
-        //Triggering data table render
         table.refresh();
     }
+}
+/**
+ * Returns the index of the first visible numerical column.
+ * @param {TableData}  data - Table data.
+ */
+function getVisibleColumn(data: TableData): number {
+    for (let index = 0; index < data.columns.length; index++) {
+        const column: Column = data.columns[index];
+        if (!isNaN(parseInt(column.name)) && column.visible) {
+            return index;
+        }
+    }
+    return null;
 }

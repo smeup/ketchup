@@ -1,8 +1,4 @@
-import type { KupCard } from '../../components/kup-card/kup-card';
-import {
-    CardData,
-    CardFamily,
-} from '../../components/kup-card/kup-card-declarations';
+import { CardFamily } from '../../components/kup-card/kup-card-declarations';
 import { ComponentListElement } from '../../components/kup-list/kup-list-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
