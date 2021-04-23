@@ -1315,11 +1315,12 @@ export class KupDataTable {
             ) {
                 const newColumn = transposedData.columns[index];
                 const oldRow = this.data.rows[index - 1];
-                cells[newColumn.name] = oldRow.cells[oldColumn.name];
-                if (oldColumn.icon && !cells[newColumn.name].icon) {
+                const cellName: string = column ? newColumn.name : oldRow.id;
+                cells[cellName] = oldRow.cells[oldColumn.name];
+                if (oldColumn.icon && !cells[cellName].icon) {
                     cells[newColumn.name].icon = oldColumn.icon;
                 }
-                if (oldColumn.shape && !cells[newColumn.name].shape) {
+                if (oldColumn.shape && !cells[cellName].shape) {
                     cells[newColumn.name].shape = oldColumn.icon;
                 }
             }
