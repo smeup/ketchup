@@ -113,13 +113,9 @@ export class ColumnMenu {
      * @param {Column} column - Column of the menu.
      * @returns {GenericObject} 'data' prop of the column menu card.
      */
-    prepData(
-        comp: KupDataTable | KupTree,
-        column: Column,
-        showGroup: boolean
-    ): CardData {
+    prepData(comp: KupDataTable | KupTree, column: Column): CardData {
         return {
-            button: this.prepButton(comp, column, showGroup),
+            button: this.prepButton(comp, column),
             checkbox: this.prepCheckbox(comp, column),
             datepicker: this.prepIntervalDatePicker(comp, column),
             textfield: !this.filtersColumnMenuInstance.isColumnFiltrableByInterval(
@@ -136,27 +132,24 @@ export class ColumnMenu {
      * @param {Column} column - Column of the menu.
      * @returns {GenericObject[]} Buttons props.
      */
-    prepButton(
-        comp: KupDataTable | KupTree,
-        column: Column,
-        showGroup: boolean
-    ): GenericObject[] {
+    prepButton(comp: KupDataTable | KupTree, column: Column): GenericObject[] {
         let props: GenericObject[] = [];
-        if (showGroup) {
-            if (!FiltersColumnMenu.isTree(comp)) {
-                props.push({
-                    className: 'printable',
-                    'data-storage': {
-                        columnName: column.name,
-                    },
-                    icon: 'book',
-                    id: 'group',
-                    title:
-                        comp.getGroupByName(column.name) != null
-                            ? 'Disable grouping'
-                            : 'Enable grouping',
-                });
-            }
+        if (
+            !FiltersColumnMenu.isTree(comp) &&
+            (comp as KupDataTable).showGroups
+        ) {
+            props.push({
+                className: 'printable',
+                'data-storage': {
+                    columnName: column.name,
+                },
+                icon: 'book',
+                id: 'group',
+                title:
+                    comp.getGroupByName(column.name) != null
+                        ? 'Disable grouping'
+                        : 'Enable grouping',
+            });
         }
         if (comp.removableColumns) {
             props.push({

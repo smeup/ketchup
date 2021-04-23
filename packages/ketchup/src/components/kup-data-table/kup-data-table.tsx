@@ -1265,7 +1265,9 @@ export class KupDataTable {
     private getTransposedData(column?: Column): TableData {
         let transposedData: TableData = {};
         // TODO manage better the filters, this is just a fix in order to release the function
-        this.filters = {};
+        if (column) {
+            this.filters = {};
+        }
         // calc columns
         const columns: Array<Column> = [];
         // first item
@@ -1281,9 +1283,9 @@ export class KupDataTable {
         } else {
             firstHead = { name: fieldColumn.toUpperCase(), title: fieldColumn };
             columns.push(firstHead);
-            for (let index = 0; index < this.rows.length; index++) {
+            for (let index = 0; index < this.data.rows.length; index++) {
                 columns.push({
-                    name: this.rows[index].id,
+                    name: this.data.rows[index].id,
                     title: '#' + index,
                 });
             }
@@ -1316,10 +1318,10 @@ export class KupDataTable {
                 const cellName: string = column ? newColumn.name : oldRow.id;
                 cells[cellName] = oldRow.cells[oldColumn.name];
                 if (oldColumn.icon && !cells[cellName].icon) {
-                    cells[newColumn.name].icon = oldColumn.icon;
+                    cells[cellName].icon = oldColumn.icon;
                 }
                 if (oldColumn.shape && !cells[cellName].shape) {
-                    cells[newColumn.name].shape = oldColumn.icon;
+                    cells[cellName].shape = oldColumn.icon;
                 }
             }
             // If a record is key and no column argument is provided, it will be placed on top
@@ -1882,6 +1884,7 @@ export class KupDataTable {
             (x) => x.name === fieldColumn.toUpperCase()
         ).visible = true;
         const currentColumn = columns.find((x) => x.name === row.id);
+        console.log('wth');
         if (currentColumn) {
             currentColumn.visible = true;
         } else {
@@ -5661,8 +5664,7 @@ export class KupDataTable {
                                 getColumnByName(
                                     this.getVisibleColumns(),
                                     this.openedMenu
-                                ),
-                                this.showGroups
+                                )
                             )}
                             data-column={this.openedMenu}
                             id="column-menu"
