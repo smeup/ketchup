@@ -1923,7 +1923,7 @@ export class KupDataTable {
             );
         }
         // Setting up icons
-        let hasKey: boolean = false;
+        let keyCell: Cell = null;
         for (let index = 0; index < rows.length; index++) {
             const column: Column = this.data.columns.find(
                 (x) => x.name === rows[index].name
@@ -1956,7 +1956,7 @@ export class KupDataTable {
             }
             if (column.isKey) {
                 // Key should always be the first row
-                hasKey = true;
+                keyCell = row.cells[column.name];
                 iconCell = {
                     obj: {
                         t: 'J4',
@@ -1994,9 +1994,8 @@ export class KupDataTable {
                     value: '',
                 };
             }
-            if (hasKey) {
-                rows[index].cells[keyColumn.toUpperCase()] =
-                    rows[0].cells[index.toString()];
+            if (keyCell) {
+                rows[index].cells[keyColumn.toUpperCase()] = keyCell;
             } else {
                 rows[index].cells[keyColumn.toUpperCase()] = { value: null };
             }
