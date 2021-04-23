@@ -171,6 +171,14 @@
             ></kup-image>
             <div class="icon-label">arrow-left</div>
           </div>
+          <div class="icon-wrapper" title="arrow_left">
+            <kup-image
+              size-x="48px"
+              size-y="48px"
+              resource="arrow_left"
+            ></kup-image>
+            <div class="icon-label">arrow_left</div>
+          </div>
           <div class="icon-wrapper" title="arrow-right">
             <kup-image
               size-x="48px"
