@@ -8,6 +8,11 @@
   width: 100%;
 
   .section-1 {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .section-2 {
     height: 100%;
     overflow: auto;
   }

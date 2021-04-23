@@ -119,6 +119,7 @@ export interface Row extends Identifiable {
     readOnly?: boolean;
 
     cssClass?: string;
+    name?: string;
 }
 
 export interface RowGroup {
@@ -283,3 +284,8 @@ export interface EventHandlerDetails {
     th: HTMLTableHeaderCellElement;
     tr: HTMLTableRowElement;
 }
+/**
+ * Constants for mocked/premade columns created by data mutations.
+ */
+export const iconColumn: string = 'Icon';
+export const fieldColumn: string = 'Field';

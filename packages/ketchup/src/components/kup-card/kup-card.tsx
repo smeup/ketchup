@@ -167,6 +167,7 @@ export class KupCard {
     onKupEvent(e: CustomEvent): void {
         const root = this.rootElement.shadowRoot;
 
+        //Collapsible layouts
         if (e.type === 'kupButtonClick' && e.detail.id === 'expand-action') {
             let collapsibleCard = root.querySelector('.collapsible-card');
             if (!collapsibleCard.classList.contains('expanded')) {
@@ -178,6 +179,14 @@ export class KupCard {
                 this.sizeY = this.oldSizeY;
             }
             return;
+        }
+
+        //4th dialog layout
+        if (
+            e.type === 'kupButtonClick' &&
+            (e.detail.id === 'previous-row' || e.detail.id === 'next-row')
+        ) {
+            this.refresh();
         }
 
         this.kupEvent.emit({

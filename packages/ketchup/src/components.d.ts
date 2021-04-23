@@ -828,6 +828,10 @@ export namespace Components {
          */
         "paginatorPos": PaginatorPos;
         /**
+          * This method is used to trigger a new render of the component. Useful when slots change.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Sets the possibility to remove the selected column.
          */
         "removableColumns": boolean;
