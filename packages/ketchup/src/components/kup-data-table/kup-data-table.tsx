@@ -1283,7 +1283,7 @@ export class KupDataTable {
         } else {
             firstHead = { name: fieldColumn.toUpperCase(), title: fieldColumn };
             columns.push(firstHead);
-            for (let index = 1; index < this.rows.length; index++) {
+            for (let index = 0; index < this.rows.length; index++) {
                 columns.push({
                     name: this.rows[index].id,
                     title: '#' + index,
@@ -1916,7 +1916,9 @@ export class KupDataTable {
         } catch (error) {
             this.kupManager.debug.logMessage(
                 this,
-                error,
+                'Invalid column name on row ID (' +
+                    row.id +
+                    "), couldn't set current record!",
                 KupDebugCategory.WARNING
             );
         }

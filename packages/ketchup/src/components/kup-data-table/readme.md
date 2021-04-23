@@ -100,7 +100,7 @@ If the `sticky` element would be hidden by the scroll, after having specified a 
 | `kupAutoRowSelect`        | When a row is auto selected via selectRow prop | `CustomEvent<{ selectedRow: Row; }>`                                                                          |
 | `kupCellButtonClicked`    |                                                | `CustomEvent<KupDataTableCellButtonClick>`                                                                    |
 | `kupCellTextFieldInput`   |                                                | `CustomEvent<KupDataTableCellTextFieldInput>`                                                                 |
-| `kupDataTableCellUpdate`  | Emitted when a cell's data has been updated.   | `CustomEvent<{ cell: Cell; column: Column; row: Row; event: any; }>`                                          |
+| `kupDataTableCellUpdate`  | Emitted when a cell's data has been updated.   | `CustomEvent<{ cell: Cell; column: Column; id: string; row: Row; event: any; }>`                              |
 | `kupDataTableClick`       | Generic click event on data table.             | `CustomEvent<{ details: GenericObject; }>`                                                                    |
 | `kupDataTableContextMenu` | Generic right click event on data table.       | `CustomEvent<{ details: GenericObject; }>`                                                                    |
 | `kupDataTableDblClick`    | Generic double click event on data table.      | `CustomEvent<{ details: GenericObject; }>`                                                                    |
@@ -162,6 +162,17 @@ Used to retrieve component's props values.
 #### Returns
 
 Type: `Promise<GenericObject>`
+
+
+
+### `refresh() => Promise<void>`
+
+This method is used to trigger a new render of the component.
+Useful when slots change.
+
+#### Returns
+
+Type: `Promise<void>`
 
 
 
