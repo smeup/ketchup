@@ -81,14 +81,12 @@ import {
     hasTooltip,
     isRadio as isRadioObj,
     canHaveAutomaticDerivedColumn,
-    isPercentage,
 } from '../../utils/object-utils';
 import { GenericObject } from '../../types/GenericTypes';
 
 import {
     stringToNumber,
     numberToFormattedStringNumber,
-    formatExtendedDate,
     identify,
     deepEqual,
     unformattedStringToFormattedStringDate,
@@ -1826,35 +1824,6 @@ export class KupDataTable {
             return undefined;
         }
     }
-
-    /**
-     * Change a cell based on obj
-     * @param {Cell} cell - Cell for which we want to change.
-     * @private
-     * @memberof KupDataTable
-     */
-    private normalizeDetailCell(cell: Cell): void {
-        if (cell.obj) {
-            if (isPercentage(cell.obj)) {
-                cell.shape = 'Pgb';
-                cell.data = {
-                    value: cell.value,
-                };
-            } else if (isNumber(cell.obj)) {
-                //cell.shape = 'Chi'; //TODO: Cablate da rimuovere per test.
-                //cell.data = {
-                //    data: [
-                //        {
-                //            label: cell.value,
-                //        },
-                //    ],
-                //};
-                // Removed to test editable data.
-            } else if (isDate(cell.obj)) {
-                cell.displayedValue = formatExtendedDate(new Date(cell.value));
-            }
-        }
-    }
     /**
      * Opens a card containing the detail of the given row.
      * @param {Row} row - Row for which the detail was requested.
@@ -1909,12 +1878,11 @@ export class KupDataTable {
             columns[index].visible = false;
         }
         // Setting Field column and current record column to visible
-        columns.find(
-            (x) => x.name === fieldColumn.toUpperCase()
-        ).visible = true;
-        try {
-            columns.find((x) => x.name === row.id).visible = true;
-        } catch (error) {
+        columns.find((x) => x.name === fieldColumn.toUpperCase());
+        const currentColumn = columns.find((x) => x.name === row.id);
+        if (currentColumn) {
+            currentColumn.visible = true;
+        } else {
             this.kupManager.debug.logMessage(
                 this,
                 'Invalid column name on row ID (' +
@@ -1937,18 +1905,9 @@ export class KupDataTable {
                 );
                 return;
             }
-            let editable: boolean = false;
-            for (const key in rows[index].cells) {
-                if (
-                    Object.prototype.hasOwnProperty.call(rows[index].cells, key)
-                ) {
-                    const cell: Cell = rows[index].cells[key];
-                    if (cell && cell.isEditable) {
-                        editable = true;
-                        break;
-                    }
-                }
-            }
+            const editable: boolean = rows[index].cells[row.id].isEditable
+                ? true
+                : false;
             let iconCell: Cell = null;
             if (column.isKey || editable) {
                 columns.find(
