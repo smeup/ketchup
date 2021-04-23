@@ -668,9 +668,6 @@ export class KupDataTable {
     @State()
     private fontsize: string = 'medium';
 
-    @State()
-    private stateSwitcher: boolean = false;
-
     /**
      * This is a flag to be used for the draggable columns to force rerender
      * by changing the internal state.
@@ -1048,10 +1045,7 @@ export class KupDataTable {
     async resizeCallback(): Promise<void> {
         if (this.lazyLoadCells) {
             window.clearTimeout(this.resizeTimeout);
-            this.resizeTimeout = window.setTimeout(
-                () => this.forceUpdate(),
-                300
-            );
+            this.resizeTimeout = window.setTimeout(() => this.refresh(), 300);
         }
     }
     /**
@@ -1115,10 +1109,6 @@ export class KupDataTable {
     @Method()
     async collapseAll() {
         this.expandGroups = false;
-    }
-
-    forceUpdate() {
-        this.stateSwitcher = !this.stateSwitcher;
     }
 
     private calculateData() {
@@ -2703,7 +2693,7 @@ export class KupDataTable {
                 cell.data['initialValue'] = value;
             }
         }
-        this.forceUpdate();
+        this.refresh();
         this.kupDataTableCellUpdate.emit({
             cell: cell,
             column: column,
