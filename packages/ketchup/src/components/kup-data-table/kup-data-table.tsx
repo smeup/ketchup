@@ -1878,7 +1878,9 @@ export class KupDataTable {
             columns[index].visible = false;
         }
         // Setting Field column and current record column to visible
-        columns.find((x) => x.name === fieldColumn.toUpperCase());
+        columns.find(
+            (x) => x.name === fieldColumn.toUpperCase()
+        ).visible = true;
         const currentColumn = columns.find((x) => x.name === row.id);
         if (currentColumn) {
             currentColumn.visible = true;
