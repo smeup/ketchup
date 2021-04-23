@@ -298,6 +298,13 @@ export default {
           try: 'field',
         },
         {
+          prop: 'showGroups',
+          description: 'When set to true enables the column grouping.',
+          type: 'boolean',
+          default: 'false',
+          try: 'switch',
+        },
+        {
           prop: 'showHeader',
           description: 'Enables rendering of the table header.',
           type: 'boolean',
