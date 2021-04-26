@@ -87,6 +87,7 @@ import { FChip } from '../../f-components/f-chip/f-chip';
 import { FChipsProps } from '../../f-components/f-chip/f-chip-declarations';
 import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupLanguageCodes } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-box',
@@ -1479,9 +1480,13 @@ export class KupBox {
             if (section.title) {
                 headerTitle = section.title;
             } else if (sectionExpanded) {
-                headerTitle = 'Chiudi';
+                headerTitle = this.kupManager.language.translate(
+                    KupLanguageCodes.COLLAPSE
+                );
             } else {
-                headerTitle = 'Espandi';
+                headerTitle = this.kupManager.language.translate(
+                    KupLanguageCodes.EXPAND
+                );
             }
 
             sectionContainer = (
@@ -1736,7 +1741,13 @@ export class KupBox {
                 KupDebugCategory.ERROR
             );
             return {
-                jsx: <p id="empty-data-message">Empty data</p>,
+                jsx: (
+                    <p id="empty-data-message">
+                        {this.kupManager.language.translate(
+                            KupLanguageCodes.EMPTY_DATA
+                        )}
+                    </p>
+                ),
                 style: { 'grid-template-columns': `repeat(1, 1fr)` },
             };
         }
@@ -1868,7 +1879,9 @@ export class KupBox {
             });
             const items = [{ text: '', value: '' }, ...visibleColumnsItems];
             let textfieldData = {
-                label: 'Sort by',
+                label: this.kupManager.language.translate(
+                    KupLanguageCodes.SORT_BY
+                ),
                 trailingIcon: true,
             };
             let listData = {
@@ -1898,7 +1911,9 @@ export class KupBox {
                     <kup-text-field
                         fullWidth={true}
                         isClearable={true}
-                        label="Search..."
+                        label={this.kupManager.language.translate(
+                            KupLanguageCodes.SEARCH
+                        )}
                         icon="magnify"
                         initialValue={this.globalFilterValue}
                         onKupTextFieldInput={(event) => {
@@ -1938,7 +1953,13 @@ export class KupBox {
         let containerStyle = {};
 
         if (this.rows.length === 0) {
-            boxContent = <p id="empty-data-message">Empty data</p>;
+            boxContent = (
+                <p id="empty-data-message">
+                    {this.kupManager.language.translate(
+                        KupLanguageCodes.EMPTY_DATA
+                    )}
+                </p>
+            );
             containerStyle = { 'grid-template-columns': `repeat(1, 1fr)` };
         } else if (isKanban) {
             const kanban: {

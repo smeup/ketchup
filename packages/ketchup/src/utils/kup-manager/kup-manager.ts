@@ -11,6 +11,7 @@ import { DynamicPosition } from '../dynamic-position/dynamic-position';
 import { ScrollOnHover } from '../scroll-on-hover/scroll-on-hover';
 import { KupToolbar } from '../kup-toolbar/kup-toolbar';
 import { KupDialog } from '../kup-dialog/kup-dialog';
+import { KupLanguage } from '../kup-language/kup-language';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -21,6 +22,7 @@ const dom: KupDom = document.documentElement as KupDom;
 export class KupManager {
     debug: KupDebug = new KupDebug();
     dynamicPosition: DynamicPosition = new DynamicPosition();
+    language: KupLanguage = new KupLanguage();
     magicBox: HTMLKupMagicBoxElement = null;
     dialog: KupDialog = new KupDialog();
     overrides?: KupManagerInitialization = dom.ketchupInit
