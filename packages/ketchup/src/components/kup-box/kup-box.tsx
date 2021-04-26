@@ -101,6 +101,11 @@ export class KupBox {
 
     @Prop() stateId: string = '';
     @Prop() store: KupStore;
+    /**
+     * Used to trigger a new render of the component.
+     * @default false
+     */
+    @State() _refresh: boolean = false;
 
     state: KupBoxState = new KupBoxState();
 
@@ -522,6 +527,14 @@ export class KupBox {
         }
         return props;
     }
+    /**
+     * This method is used to trigger a new render of the component.
+     * Useful when slots change.
+     */
+    @Method()
+    async refresh(): Promise<void> {
+        this._refresh = !this._refresh;
+    }
 
     //---- Lifecycle hooks ----
 
@@ -533,6 +546,7 @@ export class KupBox {
         } else if (this.pageSize) {
             this.currentRowsPerPage = this.pageSize;
         }
+        this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
         this.onDataChanged();
         this.adjustPaginator();
@@ -2052,6 +2066,7 @@ export class KupBox {
     }
 
     componentDidUnload() {
+        this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         if (this.scrollOnHover) {
             this.kupManager.scrollOnHover.unregister(this.boxContainer);

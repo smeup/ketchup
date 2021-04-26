@@ -179,6 +179,10 @@ export namespace Components {
          */
         "pagination": boolean;
         /**
+          * This method is used to trigger a new render of the component. Useful when slots change.
+         */
+        "refresh": () => Promise<void>;
+        /**
           * Number of current rows per page
          */
         "rowsPerPage": number;

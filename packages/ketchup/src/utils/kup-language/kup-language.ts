@@ -1,7 +1,8 @@
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
-import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 import * as languagesJson from './languages.json';
 import { KupLanguageCodes } from './kup-language-declarations';
+import { KupComponent } from '../../types/GenericTypes';
+import { KupDebugCategory } from '../kup-debug/kup-debug-declarations';
 
 const dom: KupDom = document.documentElement as KupDom;
 
@@ -16,6 +17,7 @@ export class KupLanguage {
         dom.ketchupInit.language.list
             ? dom.ketchupInit.language.list
             : languagesJson['default'];
+    managedComponents: Set<KupComponent> = new Set();
     name: string =
         dom.ketchupInit &&
         dom.ketchupInit.language &&
@@ -36,6 +38,43 @@ export class KupLanguage {
             return translatedString;
         } catch (error) {
             return key;
+        }
+    }
+    /**
+     * Changes the current Ketch.UP language to the one provided.
+     * @param {string} language - The new language. If not present in this.list, this function will keep the previous language.
+     */
+    setLanguage(language: string): void {
+        if (this.list[language]) {
+            this.name = language;
+        } else {
+            dom.ketchup.debug.logMessage(
+                'kup-language',
+                'Language not found (' + language + ')!',
+                KupDebugCategory.WARNING
+            );
+        }
+        this.managedComponents.forEach(function (comp) {
+            if (comp.isConnected) {
+                comp.refresh();
+            }
+        });
+    }
+    /**
+     * Registers a KupComponent in KupLanguage, in order to be properly handled whenever the language changes.
+     * @param {any} component - The component calling this function.
+     */
+    register(component: any): void {
+        this.managedComponents.add(component.rootElement);
+    }
+    /**
+     * Unregisters a KupComponent, so it won't be handled when the theme changes.
+     *
+     * @param {any} component - The component calling this function.
+     */
+    unregister(component: any): void {
+        if (this.managedComponents) {
+            this.managedComponents.delete(component.rootElement);
         }
     }
 }
