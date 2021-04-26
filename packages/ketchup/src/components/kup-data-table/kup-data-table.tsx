@@ -5237,14 +5237,44 @@ export class KupDataTable {
 
     private createListData(
         codes: Array<string>,
-        decodes: Array<string>,
         icons: Array<string>,
         selectedCode: string
     ): ComponentListElement[] {
         let listItems: ComponentListElement[] = [];
         for (let i = 0; i < codes.length; i++) {
+            let text: KupLanguageCodes = null;
+            switch (codes[i]) {
+                //This whole customization panel thingy must be purged, for now -- it's ugly
+                case 'big':
+                    text = KupLanguageCodes.BIG;
+                    break;
+                case 'Col':
+                    text = KupLanguageCodes.COLUMN;
+                    break;
+                case 'Complete':
+                    text = KupLanguageCodes.COMPLETE;
+                    break;
+                case 'dense':
+                    text = KupLanguageCodes.DENSE;
+                    break;
+                case 'medium':
+                    text = KupLanguageCodes.MEDIUM;
+                    break;
+                case 'None':
+                    text = KupLanguageCodes.NONE;
+                    break;
+                case 'small':
+                    text = KupLanguageCodes.SMALL;
+                    break;
+                case 'Row':
+                    text = KupLanguageCodes.ROW;
+                    break;
+                case 'wide':
+                    text = KupLanguageCodes.WIDE;
+                    break;
+            }
             listItems[i] = {
-                text: decodes[i],
+                text: this.kupManager.language.translate(text),
                 value: codes[i],
                 selected: selectedCode == codes[i],
                 icon: icons[i],
@@ -5260,13 +5290,6 @@ export class KupDataTable {
         'format-color-text',
         'format-font-size-increase',
     ];
-    private getFontSizeDecodeFromCode(code: string): string {
-        return this.transcodeItem(
-            code,
-            this.FONTSIZE_CODES,
-            this.FONTSIZE_DECODES
-        );
-    }
 
     private getFontSizeCodeFromDecode(decode: string): string {
         return this.transcodeItem(
@@ -5279,7 +5302,6 @@ export class KupDataTable {
     private renderFontSizePanel() {
         let listItems: ComponentListElement[] = this.createListData(
             this.FONTSIZE_CODES,
-            this.FONTSIZE_DECODES,
             this.FONTSIZE_ICONS,
             this.fontsize
         );
@@ -5295,12 +5317,25 @@ export class KupDataTable {
             icon: 'arrow_drop_down',
         };
         let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
+        let text: KupLanguageCodes = null;
+        switch (this.fontsize) {
+            //This whole customization panel thingy must be purged, for now -- it's ugly
+            case 'big':
+                text = KupLanguageCodes.BIG;
+                break;
+            case 'medium':
+                text = KupLanguageCodes.MEDIUM;
+                break;
+            case 'small':
+                text = KupLanguageCodes.SMALL;
+                break;
+        }
         return (
             <div class="customize-element fontsize-panel">
                 <kup-combobox
                     isSelect={true}
                     data={data}
-                    initialValue={this.getFontSizeDecodeFromCode(this.fontsize)}
+                    initialValue={this.kupManager.language.translate(text)}
                     onKupComboboxItemClick={(e: CustomEvent) => {
                         e.stopPropagation();
                         this.fontsize = this.getFontSizeCodeFromDecode(
@@ -5338,7 +5373,6 @@ export class KupDataTable {
     private renderDensityPanel() {
         let listItems: ComponentListElement[] = this.createListData(
             this.DENSITY_CODES,
-            this.DENSITY_DECODES,
             this.DENSITY_ICONS,
             this.density
         );
@@ -5348,16 +5382,31 @@ export class KupDataTable {
         let textfieldData = {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
-            label: 'Row density',
+            label: this.kupManager.language.translate(
+                KupLanguageCodes.ROW_DENSITY
+            ),
             icon: 'arrow_drop_down',
         };
 
         let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
+        let text: KupLanguageCodes = null;
+        switch (this.density) {
+            //This whole customization panel thingy must be purged, for now -- it's ugly
+            case 'dense':
+                text = KupLanguageCodes.DENSE;
+                break;
+            case 'medium':
+                text = KupLanguageCodes.MEDIUM;
+                break;
+            case 'wide':
+                text = KupLanguageCodes.WIDE;
+                break;
+        }
         return (
             <div class="customize-element density-panel">
                 <kup-combobox
                     isSelect={true}
-                    initialValue={this.getDensityDecodeFromCode(this.density)}
+                    initialValue={this.kupManager.language.translate(text)}
                     selectMode={ItemsDisplayMode.DESCRIPTION}
                     data={data}
                     onKupComboboxItemClick={(e: CustomEvent) => {
@@ -5394,7 +5443,9 @@ export class KupDataTable {
             <div class="customize-element grid-panel">
                 <kup-switch
                     checked={this.transpose}
-                    label="Transposed data"
+                    label={this.kupManager.language.translate(
+                        KupLanguageCodes.TRANSPOSE_DATA
+                    )}
                     leadingLabel={true}
                     onKupSwitchChange={(e: CustomEvent) => {
                         e.stopPropagation();
@@ -5413,8 +5464,19 @@ export class KupDataTable {
         return (
             <div class="customize-element grid-panel">
                 <kup-button
-                    title="Totals Table (experimental feature)"
-                    label="Totals Table"
+                    title={
+                        this.kupManager.language.translate(
+                            KupLanguageCodes.TOTALS_TABLE
+                        ) +
+                        ' (' +
+                        this.kupManager.language.translate(
+                            KupLanguageCodes.EXPERIMENTAL_FEAT
+                        ) +
+                        ')'
+                    }
+                    label={this.kupManager.language.translate(
+                        KupLanguageCodes.TOTALS_TABLE
+                    )}
                     icon="exposure"
                     onKupButtonClick={() => this.switchToTotalsMatrix()}
                 />
@@ -5425,7 +5487,6 @@ export class KupDataTable {
     private renderGridPanel() {
         let listItems: ComponentListElement[] = this.createListData(
             this.GRID_CODES,
-            this.GRID_DECODES,
             this.GRID_ICONS,
             this.showGrid
         );
@@ -5435,15 +5496,33 @@ export class KupDataTable {
         let textfieldData = {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
-            label: 'Grid type',
+            label: this.kupManager.language.translate(
+                KupLanguageCodes.GRID_TYPE
+            ),
             icon: 'arrow_drop_down',
         };
         let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
+        let text: KupLanguageCodes = null;
+        switch (this.showGrid) {
+            //This whole customization panel thingy must be purged, for now -- it's ugly
+            case ShowGrid.COL:
+                text = KupLanguageCodes.COLUMN;
+                break;
+            case ShowGrid.COMPLETE:
+                text = KupLanguageCodes.COMPLETE;
+                break;
+            case ShowGrid.NONE:
+                text = KupLanguageCodes.NONE;
+                break;
+            case ShowGrid.ROW:
+                text = KupLanguageCodes.ROW;
+                break;
+        }
         return (
             <div class="customize-element grid-panel">
                 <kup-combobox
                     isSelect={true}
-                    initialValue={this.getFontSizeDecodeFromCode(this.showGrid)}
+                    initialValue={this.kupManager.language.translate(text)}
                     data={data}
                     onKupComboboxItemClick={(e: CustomEvent) => {
                         e.stopPropagation();
@@ -5640,7 +5719,11 @@ export class KupDataTable {
                                     fullWidth={true}
                                     icon="magnify"
                                     isClearable={true}
-                                    label="Search..."
+                                    label={
+                                        this.kupManager.language.translate(
+                                            KupLanguageCodes.SEARCH
+                                        ) + '...'
+                                    }
                                     value={this.globalFilterValue}
                                 />
                             </div>
