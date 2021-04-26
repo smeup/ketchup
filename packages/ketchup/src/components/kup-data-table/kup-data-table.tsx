@@ -146,6 +146,7 @@ import type { DynamicallyPositionedElement } from '../../utils/dynamic-position/
 import { ScrollableElement } from '../../utils/scroll-on-hover/scroll-on-hover-declarations';
 import { CardData, CardFamily } from '../kup-card/kup-card-declarations';
 import { KupDebugCategory } from '../../utils/kup-debug/kup-debug-declarations';
+import { KupLanguageCodes } from '../../utils/kup-language/kup-language-declarations';
 
 @Component({
     tag: 'kup-data-table',
@@ -417,7 +418,7 @@ export class KupDataTable {
     /**
      * Defines the label to show when the table is empty.
      */
-    @Prop() emptyDataLabel: string = 'Empty data';
+    @Prop() emptyDataLabel: string = null;
     /**
      * Enables the extracolumns add buttons.
      */
@@ -1693,8 +1694,14 @@ export class KupDataTable {
 
     componentWillLoad() {
         this.kupManager.debug.logLoad(this, false);
+        this.kupManager.language.register(this);
         this.kupManager.theme.register(this);
         this.kupManager.toolbar.register(this.rootElement);
+        if (!this.emptyDataLabel) {
+            this.emptyDataLabel = this.kupManager.language.translate(
+                KupLanguageCodes.EMPTY_DATA
+            );
+        }
         this.columnMenuInstance = new ColumnMenu();
         this.filtersColumnMenuInstance = new FiltersColumnMenu();
         this.filtersRowsInstance = new FiltersRows();
@@ -1931,7 +1938,13 @@ export class KupDataTable {
                         color: 'rgba(var(--kup-text-color-rgb), 1)',
                         resource: editable ? 'edit-key' : 'key-variant',
                     },
-                    title: editable ? 'Editable record key.' : 'Record key.',
+                    title: editable
+                        ? this.kupManager.language.translate(
+                              KupLanguageCodes.RECORD_KEY_EDITABLE
+                          )
+                        : this.kupManager.language.translate(
+                              KupLanguageCodes.RECORD_KEY
+                          ),
                     value: editable ? 'edit-key' : 'key-variant',
                 };
             } else if (editable) {
@@ -1945,7 +1958,9 @@ export class KupDataTable {
                         color: 'rgba(var(--kup-text-color-rgb), 1)',
                         resource: 'pencil',
                     },
-                    title: 'This field can be edited.',
+                    title: this.kupManager.language.translate(
+                        KupLanguageCodes.EDITABLE_FIELD
+                    ),
                     value: 'pencil',
                 };
             } else {
@@ -3171,7 +3186,16 @@ export class KupDataTable {
                 >
                     <kup-checkbox
                         onKupCheckboxChange={(e) => this.onSelectAll(e)}
-                        title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
+                        title={
+                            this.kupManager.language.translate(
+                                KupLanguageCodes.SELECTED_ROWS
+                            ) +
+                            `: ${this.selectedRows.length},` +
+                            this.kupManager.language.translate(
+                                KupLanguageCodes.RENDERED_ROWS
+                            ) +
+                            `: ${this.renderedRows.length}`
+                        }
                         checked={
                             this.selectedRows.length > 0 &&
                             this.selectedRows.length ===
@@ -3255,9 +3279,10 @@ export class KupDataTable {
                         column
                     )
                 ) {
-                    const svgLabel = `Remove filter(s): '${this.getFilterValueForTooltip(
-                        column
-                    )}'`;
+                    const svgLabel =
+                        this.kupManager.language.translate(
+                            KupLanguageCodes.REMOVE_FILTERS
+                        ) + `: '${this.getFilterValueForTooltip(column)}'`;
                     /**
                      * When column has a filter but filters must not be displayed, shows an icon to remove the filter.
                      * Upon click, the filter gets removed.
@@ -3490,7 +3515,16 @@ export class KupDataTable {
                 >
                     <kup-checkbox
                         onKupCheckboxChange={(e) => this.onSelectAll(e)}
-                        title={`selectedRow: ${this.selectedRows.length} - renderedRows: ${this.renderedRows.length}`}
+                        title={
+                            this.kupManager.language.translate(
+                                KupLanguageCodes.SELECTED_ROWS
+                            ) +
+                            `: ${this.selectedRows.length},` +
+                            this.kupManager.language.translate(
+                                KupLanguageCodes.RENDERED_ROWS
+                            ) +
+                            `: ${this.renderedRows.length}`
+                        }
                         checked={
                             this.selectedRows.length > 0 &&
                             this.selectedRows.length ===
@@ -4183,7 +4217,9 @@ export class KupDataTable {
                             'data-row': row,
                         },
                         icon: 'chevron-right',
-                        title: 'Expand items',
+                        title: this.kupManager.language.translate(
+                            KupLanguageCodes.EXPAND
+                        ),
                         wrapperClass: 'expander',
                     };
                     rowActionExpander = <FButton {...props} />;
@@ -4948,7 +4984,9 @@ export class KupDataTable {
             <kup-button
                 styling={FButtonStyling.FLAT}
                 class="load-more-button"
-                label="Show more data"
+                label={this.kupManager.language.translate(
+                    KupLanguageCodes.LOAD_MORE
+                )}
                 icon="plus"
                 slot={isSlotted ? 'more-results' : null}
                 onKupButtonClick={() => {
@@ -5050,14 +5088,26 @@ export class KupDataTable {
                 <kup-switch
                     class="customize-element"
                     checked={this.editableData}
-                    label="Editable"
+                    label={this.kupManager.language.translate(
+                        KupLanguageCodes.EDITABLE
+                    )}
                     leadingLabel={true}
                     onKupSwitchChange={() =>
                         (this.editableData = !this.editableData)
                     }
                 ></kup-switch>
                 <kup-button
-                    title="Toggle Magic Box (experimental feature)"
+                    title={
+                        this.kupManager.language.translate(
+                            KupLanguageCodes.TOGGLE
+                        ) +
+                        ' Magic Box ' +
+                        '(' +
+                        this.kupManager.language.translate(
+                            KupLanguageCodes.EXPERIMENTAL_FEAT
+                        ) +
+                        ')'
+                    }
                     icon="auto-fix"
                     onKupButtonClick={() => this.kupManager.toggleMagicBox()}
                 />
@@ -5239,7 +5289,9 @@ export class KupDataTable {
         let textfieldData = {
             customStyle: ':host{--kup-field-background-color:transparent}',
             trailingIcon: true,
-            label: 'Font size',
+            label: this.kupManager.language.translate(
+                KupLanguageCodes.FONT_SIZE
+            ),
             icon: 'arrow_drop_down',
         };
         let data = { 'kup-text-field': textfieldData, 'kup-list': listData };
@@ -5690,6 +5742,7 @@ export class KupDataTable {
     }
 
     componentDidUnload() {
+        this.kupManager.language.unregister(this);
         this.kupManager.theme.unregister(this);
         const dynamicPositionElements: NodeListOf<DynamicallyPositionedElement> = this.rootElement.shadowRoot.querySelectorAll(
             '.dynamic-position'

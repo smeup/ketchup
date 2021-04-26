@@ -1759,7 +1759,7 @@ export class KupBox {
                     <p id="empty-data-message">
                         {this.kupManager.language.translate(
                             KupLanguageCodes.EMPTY_DATA
-                        )}
+                        ) + '.'}
                     </p>
                 ),
                 style: { 'grid-template-columns': `repeat(1, 1fr)` },
@@ -1925,9 +1925,11 @@ export class KupBox {
                     <kup-text-field
                         fullWidth={true}
                         isClearable={true}
-                        label={this.kupManager.language.translate(
-                            KupLanguageCodes.SEARCH
-                        )}
+                        label={
+                            this.kupManager.language.translate(
+                                KupLanguageCodes.SEARCH
+                            ) + '...'
+                        }
                         icon="magnify"
                         initialValue={this.globalFilterValue}
                         onKupTextFieldInput={(event) => {
@@ -1971,7 +1973,7 @@ export class KupBox {
                 <p id="empty-data-message">
                     {this.kupManager.language.translate(
                         KupLanguageCodes.EMPTY_DATA
-                    )}
+                    ) + '.'}
                 </p>
             );
             containerStyle = { 'grid-template-columns': `repeat(1, 1fr)` };

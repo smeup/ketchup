@@ -595,6 +595,10 @@ export namespace Components {
           * Sets the initial value of the component. Can be css color name, hex code or rgb code (sample: "red" or rgb(255, 0, 0) or "#FF0000" ).
          */
         "initialValue": string;
+        /**
+          * This method is used to trigger a new render of the component. Useful when slots change.
+         */
+        "refresh": () => Promise<void>;
         "setFocus": () => Promise<void>;
         "setValue": (value: string) => Promise<void>;
         /**
