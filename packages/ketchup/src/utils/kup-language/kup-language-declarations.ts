@@ -5,6 +5,7 @@
 export type KupLanguageKey =
     | KupLanguageCheckbox
     | KupLanguageColumn
+    | KupLanguageDebug
     | KupLanguageDensity
     | KupLanguageFontsize
     | KupLanguageGeneric
@@ -43,6 +44,21 @@ export enum KupLanguageColumn {
     HIDE = 'columnHide',
 }
 /**
+ * Debug widget decodes.
+ */
+export enum KupLanguageDebug {
+    AUTOPRINT = 'debugAutoprint',
+    CLEAR = 'debugClear',
+    DUMP = 'debugDump',
+    DL_PROPS = 'debugDLProps',
+    LANGUAGE_CHANGER = 'debugLanguageChanger',
+    LOG_LIMIT = 'debugLogLimit',
+    MAGIC_BOX = 'debugMagicBox',
+    OFF = 'debugOff',
+    PRINT = 'debugPrint',
+    THEME_CHANGER = 'debugThemeChanger',
+}
+/**
  * Density decodes (data table customization settings).
  */
 export enum KupLanguageDensity {
@@ -64,7 +80,8 @@ export enum KupLanguageFontsize {
  * Generic user interface action/messages.
  */
 export enum KupLanguageGeneric {
-    COLLAPSE = 'geenericCollapse',
+    COLLAPSE = 'genericCollapse',
+    DRAG_AND_DROP = 'genericDragAndDrop',
     DROP_YOUR_DATA = 'genericDropYourData',
     EDITABLE = 'genericEditable',
     EDITABLE_FIELD = 'genericEditableField',

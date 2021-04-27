@@ -5116,7 +5116,9 @@ export class KupDataTable {
                 <kup-switch
                     class="customize-element"
                     checked={this.dragEnabled}
-                    label="Drag and drop"
+                    label={this.kupManager.language.translate(
+                        KupLanguageGeneric.DRAG_AND_DROP
+                    )}
                     leadingLabel={true}
                     onKupSwitchChange={() =>
                         (this.dragEnabled = !this.dragEnabled)

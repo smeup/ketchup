@@ -59,7 +59,7 @@ export class KupLanguage {
      * Changes the current Ketch.UP language to the one provided.
      * @param {string} language - The new language. If not present in this.list, this function will keep the previous language.
      */
-    setLanguage(language: string): void {
+    set(language: string): void {
         if (language && typeof language === 'string') {
             language = language.toLowerCase();
         } else {
@@ -87,6 +87,20 @@ export class KupLanguage {
                 comp.refresh();
             }
         });
+        document.dispatchEvent(new CustomEvent('kupLanguageChange'));
+    }
+    /**
+     * Gets the name of available languages.
+     * @returns {Array<string>} Array of languages' names.
+     */
+    getLanguages(): Array<string> {
+        const languages: Array<string> = [];
+        for (var key in this.list) {
+            if (this.list.hasOwnProperty(key)) {
+                languages.push(key);
+            }
+        }
+        return languages;
     }
     /**
      * Registers a KupComponent in KupLanguage, in order to be properly handled whenever the language changes.

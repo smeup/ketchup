@@ -1,6 +1,7 @@
 import { CardFamily } from '../../components/kup-card/kup-card-declarations';
 import { ComponentListElement } from '../../components/kup-list/kup-list-declarations';
 import type { GenericObject, KupComponent } from '../../types/GenericTypes';
+import { KupLanguageDebug } from '../kup-language/kup-language-declarations';
 import type { KupDom } from '../kup-manager/kup-manager-declarations';
 import {
     KupDebugCategory,
@@ -34,6 +35,7 @@ export class KupDebug {
             : 250;
     logs: KupDebugLog[] = [];
     #debugWidget: HTMLKupCardElement = null;
+    #initialized: boolean = false;
     /**
      * Allows the download of props by creating a temporary clickable anchor element.
      */
@@ -57,14 +59,26 @@ export class KupDebug {
         const debugWidget: HTMLKupCardElement = document.createElement(
             'kup-card'
         );
+        const languages: string[] = dom.ketchup.language.getLanguages();
+        const languagesListData: ComponentListElement[] = [];
+        for (let index = 0; index < languages.length; index++) {
+            languagesListData.push({
+                text: languages[index],
+                value: languages[index],
+                selected:
+                    languages[index] === dom.ketchup.language.name
+                        ? true
+                        : false,
+            });
+        }
         const themes: string[] = dom.ketchup.theme.getThemes();
-        const listData: ComponentListElement[] = [];
+        const themesListData: ComponentListElement[] = [];
         for (let index = 0; index < themes.length; index++) {
-            listData.push({
+            themesListData.push({
                 text: themes[index],
                 value: themes[index],
-                selected: false,
-                isSeparator: false,
+                selected:
+                    themes[index] === dom.ketchup.theme.name ? true : false,
             });
         }
         debugWidget.data = {
@@ -74,12 +88,14 @@ export class KupDebug {
                     id: 'kup-debug-off',
                     customStyle:
                         ':host {border-left: 1px solid var(--kup-border-color); border-right: 1px solid var(--kup-border-color);}',
-                    title: 'Turn off debug',
+                    title: dom.ketchup.language.translate(KupLanguageDebug.OFF),
                 },
                 {
                     icon: 'print',
                     id: 'kup-debug-print',
-                    title: 'Print logs stored',
+                    title: dom.ketchup.language.translate(
+                        KupLanguageDebug.PRINT
+                    ),
                 },
                 {
                     customStyle:
@@ -88,14 +104,24 @@ export class KupDebug {
                     icon: 'speaker_notes',
                     iconOff: 'speaker_notes_off',
                     id: 'kup-debug-autoprint',
-                    title: 'Toggle automatic print',
+                    title: dom.ketchup.language.translate(
+                        KupLanguageDebug.AUTOPRINT
+                    ),
                     toggable: true,
                 },
-                { icon: 'broom', id: 'kup-debug-clear', title: 'Clear widget' },
+                {
+                    icon: 'broom',
+                    id: 'kup-debug-clear',
+                    title: dom.ketchup.language.translate(
+                        KupLanguageDebug.CLEAR
+                    ),
+                },
                 {
                     icon: 'delete',
                     id: 'kup-debug-delete',
-                    title: 'Dump stored logs',
+                    title: dom.ketchup.language.translate(
+                        KupLanguageDebug.DUMP
+                    ),
                 },
                 {
                     className: 'kup-full-height',
@@ -105,12 +131,16 @@ export class KupDebug {
                     id: 'kup-debug-dl-props',
                     label: 'Props',
                     styling: 'flat',
-                    title: 'Download components props',
+                    title: dom.ketchup.language.translate(
+                        KupLanguageDebug.DL_PROPS
+                    ),
                 },
                 {
                     icon: 'auto-fix',
                     id: 'kup-debug-magic-box',
-                    title: 'Toggle kup-magic-box',
+                    title: dom.ketchup.language.translate(
+                        KupLanguageDebug.MAGIC_BOX
+                    ),
                 },
             ],
             combobox: [
@@ -118,18 +148,40 @@ export class KupDebug {
                     className: 'kup-full-height',
                     data: {
                         'kup-list': {
-                            data: listData,
+                            data: themesListData,
                             id: 'kup-debug-theme-changer-list',
                         },
                         'kup-text-field': {
                             className: 'kup-full-height',
                             emitSubmitEventOnEnter: false,
                             inputType: 'text',
-                            label: 'Change theme',
+                            label: dom.ketchup.language.translate(
+                                KupLanguageDebug.THEME_CHANGER
+                            ),
                         },
                     },
                     id: 'kup-debug-theme-changer',
                     initialValue: dom.ketchup.theme.name,
+                    isSelect: true,
+                },
+                {
+                    className: 'kup-full-height',
+                    data: {
+                        'kup-list': {
+                            data: languagesListData,
+                            id: 'kup-debug-language-changer-list',
+                        },
+                        'kup-text-field': {
+                            className: 'kup-full-height',
+                            emitSubmitEventOnEnter: false,
+                            inputType: 'text',
+                            label: dom.ketchup.language.translate(
+                                KupLanguageDebug.LANGUAGE_CHANGER
+                            ),
+                        },
+                    },
+                    id: 'kup-debug-language-changer',
+                    initialValue: dom.ketchup.language.name,
                     isSelect: true,
                 },
             ],
@@ -137,7 +189,9 @@ export class KupDebug {
                 {
                     className: 'kup-full-height',
                     id: 'kup-debug-log-limit',
-                    label: 'Set log limit',
+                    label: dom.ketchup.language.translate(
+                        KupLanguageDebug.LOG_LIMIT
+                    ),
                     initialValue: this.logLimit,
                     emitSubmitEventOnEnter: false,
                     inputType: 'number',
@@ -145,7 +199,7 @@ export class KupDebug {
             ],
         };
         debugWidget.customStyle =
-            '#kup-debug-log-limit {width: 120px;} #kup-debug-theme-changer {width: 190px;}';
+            '#kup-debug-log-limit {width: 120px;} #kup-debug-theme-changer {width: 190px;} #kup-debug-language-changer {width: 190px;}';
         debugWidget.id = 'kup-debug-widget';
         debugWidget.layoutFamily = CardFamily.DIALOG;
         debugWidget.layoutNumber = 3;
@@ -242,6 +296,18 @@ export class KupDebug {
         }
     }
     /**
+     * Initializes the class' elements.
+     */
+    initialize(): void {
+        document.addEventListener('kupLanguageChange', () => {
+            if (this.active && this.#debugWidget) {
+                this.hideWidget();
+                this.showWidget();
+            }
+        });
+        this.#initialized = true;
+    }
+    /**
      * Dumps the stored logs.
      */
     dump(): void {
@@ -318,6 +384,9 @@ export class KupDebug {
      * @param {boolean} value - If this argument is provided, the debug status will be forced to its value.
      */
     toggle(value?: boolean): void {
+        if (!this.#initialized) {
+            this.initialize();
+        }
         if (typeof value !== 'boolean') {
             this.active = !this.active;
         } else {
@@ -373,6 +442,9 @@ export class KupDebug {
                 break;
             case 'kupComboboxItemClick':
                 switch (compID) {
+                    case 'kup-debug-language-changer':
+                        dom.ketchup.language.set(compEvent.detail.value);
+                        break;
                     case 'kup-debug-theme-changer':
                         dom.ketchup.theme.set(compEvent.detail.value);
                         break;
