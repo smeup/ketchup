@@ -1762,7 +1762,7 @@ export class KupBox {
                     <p id="empty-data-message">
                         {this.kupManager.language.translate(
                             KupLanguageGeneric.EMPTY_DATA
-                        ) + '.'}
+                        )}
                     </p>
                 ),
                 style: { 'grid-template-columns': `repeat(1, 1fr)` },
@@ -1974,7 +1974,7 @@ export class KupBox {
                 <p id="empty-data-message">
                     {this.kupManager.language.translate(
                         KupLanguageGeneric.EMPTY_DATA
-                    ) + '.'}
+                    )}
                 </p>
             );
             containerStyle = { 'grid-template-columns': `repeat(1, 1fr)` };

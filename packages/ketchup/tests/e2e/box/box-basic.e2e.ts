@@ -26,7 +26,7 @@ describe('kup-box', () => {
 
         const message = await page.find('kup-box >>> #empty-data-message');
 
-        expect(message).toEqualText('Empty data');
+        expect(message).toEqualText('Empty data.');
 
         // no boxes
         const boxes = await page.findAll(boxSelector);
